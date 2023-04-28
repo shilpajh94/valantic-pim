@@ -21,3 +21,5 @@ parameters:
     columns: [articleNumber, HoseIDNominalIDFrac,  hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, grossWeight, weightKg, BendRadiusIN, VacuumIN, tubeGaugeIN]
   Hose Attribute Table 11:
     columns: [articleNumber, HoseIDNominalIDFrac,  hoseIdMM, hoseOdIn, hoseOdmm, coverColor, grossWeight, weightKg, BendRadiusIN, VacuumIN, tubeGaugeIN]
+  Hose Attribute Table 13:
+    columns: [articleNumber, HoseIDNominalIDFrac,  hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, grossWeight, weightKg]

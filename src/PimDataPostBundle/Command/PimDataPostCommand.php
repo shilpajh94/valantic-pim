@@ -29,14 +29,14 @@ class PimDataPostCommand extends AbstractCommand
       
         $this->removeEntriesFromPimDeletedAssets();
 
-        if(Util::isPIMFailureFlagSet()){
-            $notificationSender = new B2CFailureNotificationSender();
-            try{
-                $notificationSender->sendPIMFailureNotification();
-            }catch(\Throwable $throwable){
-                B2BLogger::getInstace()->error("Error sending PIM failure email notification:" . get_class($throwable) . " in PimDataPostCommand: " . $throwable->getMessage() .". StackTrace: " .$throwable->getTraceAsString());
-            }
-        }
+        // if(Util::isPIMFailureFlagSet()){
+        //     $notificationSender = new B2CFailureNotificationSender();
+        //     try{
+        //         $notificationSender->sendPIMFailureNotification();
+        //     }catch(\Throwable $throwable){
+        //         B2BLogger::getInstace()->error("Error sending PIM failure email notification:" . get_class($throwable) . " in PimDataPostCommand: " . $throwable->getMessage() .". StackTrace: " .$throwable->getTraceAsString());
+        //     }
+        // }
 
          echo "executed\n";
     }
@@ -62,13 +62,13 @@ class PimDataPostCommand extends AbstractCommand
         $scriptEndTime = time();
         p_r("total time: " .( $scriptEndTime - $scriptStartTime ) . "s");
 
-        $notificationSender = new B2BFailureNotificationSender();
-        try{
-            $notificationSender->sendFailureNotification();
-        }catch(\Throwable $throwable){
-                B2BLogger::getInstace()->error("Error sending email notification:" . get_class($throwable) . " in PimDataPostCommand: " . $throwable->getMessage() .". StackTrace: " .$throwable->getTraceAsString());
-                Util::setPIMFailureFlag();
-        }
+        // $notificationSender = new B2BFailureNotificationSender();
+        // try{
+        //     $notificationSender->sendFailureNotification();
+        // }catch(\Throwable $throwable){
+        //         B2BLogger::getInstace()->error("Error sending email notification:" . get_class($throwable) . " in PimDataPostCommand: " . $throwable->getMessage() .". StackTrace: " .$throwable->getTraceAsString());
+        //         Util::setPIMFailureFlag();
+        // }
     }
 
     private function postDataForB2CShop()
@@ -90,13 +90,13 @@ class PimDataPostCommand extends AbstractCommand
         p_r("total time: " .( $scriptEndTime - $b2cscriptStartTime ) . "s");
 
 
-        $notificationSender = new B2CFailureNotificationSender();
-        try{
-            $notificationSender->sendFailureNotification();
-        }catch(\Throwable $throwable){
-                B2BLogger::getInstace()->error("Error sending email notification:" . get_class($throwable) . " in PimDataPostCommand: " . $throwable->getMessage() .". StackTrace: " .$throwable->getTraceAsString());
-                Util::setPIMFailureFlag();
-        }
+        // $notificationSender = new B2CFailureNotificationSender();
+        // try{
+        //     $notificationSender->sendFailureNotification();
+        // }catch(\Throwable $throwable){
+        //         B2BLogger::getInstace()->error("Error sending email notification:" . get_class($throwable) . " in PimDataPostCommand: " . $throwable->getMessage() .". StackTrace: " .$throwable->getTraceAsString());
+        //         Util::setPIMFailureFlag();
+        // }
     }
 
 

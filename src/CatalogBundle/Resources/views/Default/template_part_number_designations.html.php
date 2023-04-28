@@ -13,7 +13,11 @@ if (!isset($this->parentContainer)) {
         "classes" => ["CatalogTables"],
     ]);
     ?>
-<?php endif; ?>
+<?php endif; 
+
+$hydraulic_hose_data = [];
+
+?>
 <div class="template">
 <div>
     <div id="pageHeader"></div>
@@ -125,7 +129,7 @@ if (!isset($this->parentContainer)) {
                         <tbody>
 
                             <?php
-                            $incr = 1;
+                            
                             foreach ($data as $key => $brandData) {
                                 ?>
 
@@ -137,6 +141,8 @@ if (!isset($this->parentContainer)) {
                                 <?php
                                 $rowcount = 0;
                                 foreach ($brandData as $bkey => $brand) {
+                                    $hydraulic_hose_data[$key][] = $bkey;
+                                    $md5key = md5($key.$bkey);
                                     ?>
                                     <?php if ((count($brandData) - 1) == $rowcount): ?>
                                         <tr class="row borderLess">
@@ -147,13 +153,13 @@ if (!isset($this->parentContainer)) {
                                         
                                         <?php 
                                             if($this->editmode): 
-                                                if($this->input("PND_FamilyName_{$incr}_{$rowcount}")->isEmpty()): 
-                                                    echo $this->input("PND_FamilyName_{$incr}_{$rowcount}")->setDataFromResource($bkey);
+                                                if($this->input("PND_FamilyName_{$md5key}")->isEmpty()): 
+                                                    echo $this->input("PND_FamilyName_{$md5key}")->setDataFromResource($bkey);
                                                 else: 
-                                                    echo $this->input("PND_FamilyName_{$incr}_{$rowcount}"); 
+                                                    echo $this->input("PND_FamilyName_{$md5key}"); 
                                                 endif; 
                                             else:
-                                                echo $this->input("PND_FamilyName_{$incr}_{$rowcount}");
+                                                echo $this->input("PND_FamilyName_{$md5key}");
                                             endif; 
                                         ?>
                                         
@@ -162,24 +168,23 @@ if (!isset($this->parentContainer)) {
 
                                         <?php 
                                             if($this->editmode): 
-                                                if($this->input("PND_IndustryStandard_{$incr}_{$rowcount}")->isEmpty()): 
-                                                    echo $this->input("PND_IndustryStandard_{$incr}_{$rowcount}")->setDataFromResource($brand[0]);
+                                                if($this->input("PND_IndustryStandard_{$md5key}")->isEmpty()): 
+                                                    echo $this->input("PND_IndustryStandard_{$md5key}")->setDataFromResource($brand[0]);
                                                 else: 
-                                                    echo $this->input("PND_IndustryStandard_{$incr}_{$rowcount}"); 
+                                                    echo $this->input("PND_IndustryStandard_{$md5key}"); 
                                                 endif; 
                                             else:
-                                                echo $this->input("PND_IndustryStandard_{$incr}_{$rowcount}");
+                                                echo $this->input("PND_IndustryStandard_{$md5key}");
                                             endif; 
                                         ?>
 
                                         </td>     
-                                        <td><?= $this->input("PND_PageNumber_{$incr}_{$rowcount}"); ?></td>     
+                                        <td><?= $this->input("PND_PageNumber_{$md5key}"); ?></td>     
                                     </tr>
 
                                     <?php
                                     $rowcount++;
                                 }
-                                $incr++;
                             }
                             ?>
 
@@ -190,5 +195,22 @@ if (!isset($this->parentContainer)) {
             <?php endif; ?>
         </article>
     </div>
+</div>
+<div class="hide">
+    <?php
+    $hydraulic_hose_data_list = [];
+    if($hydraulic_hose_data)
+    {
+        foreach ($hydraulic_hose_data as $key => $value) {
+            $hydraulic_hose_data_list[] = $key."$$".implode(',', $value);
+        }
+
+        if($hydraulic_hose_data_list)
+        {
+            $hydraulic_hose_details_text = implode(PHP_EOL, $hydraulic_hose_data_list);
+            echo $this->textarea('hydraulic_hose_details')->setDataFromResource($hydraulic_hose_details_text);
+        }
+    }
+    ?>
 </div>
 </div>

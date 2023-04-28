@@ -223,6 +223,7 @@ header.dark img {
 .borderBottom {
     border-bottom: 1px solid #939597;
     display:inline-block;
+    padding-bottom: 15px;
 }
 .borderBottom.block{ display: block;}
 
@@ -309,7 +310,7 @@ sup {
 }
 
 .marginBottom5 {
-    margin-bottom: 5px;
+    margin-bottom: 15px;
 }
 
 .marginBottom10 {
@@ -748,6 +749,12 @@ menu .specs  .full {
     word-break: break-word;
 }
 
+menu .specs  .right-full {
+    padding-bottom: 10px;
+    text-transform: none;
+    word-break: break-word;
+}
+
 menu .specs  .full ul{ list-style:disc; margin:0; padding:0; padding-left:12px;}
 menu .specs  .full ul li{ list-style:disc;}
 
@@ -762,6 +769,11 @@ menu .specs p  b,
 menu .specs .full  b {
     display: block;
 }
+
+menu .specs .right-full  b {
+    display: block;
+}
+
 
 menu > * > div {
     border-left: 1px solid #737373;
@@ -816,7 +828,6 @@ menu figure figcaption b {
     flex: 1;
 }
 
-
 /* ------------------- GRID ----------------------- */
 
 .grid {
@@ -869,6 +880,9 @@ menu figure figcaption b {
     word-wrap: break-all;
     text-wrap: normal;
     white-space: normal;
+    border-bottom: 1px solid #737373;
+    height: 30px;
+
 }
 
 .grid .sub-head {
@@ -905,6 +919,22 @@ h3 .pimcore_tag_input.empty {
     width: 200px;
 }
 
+.weldingSectionPageTable {
+    width: 90%;
+    margin-top: 0px;
+    border-bottom: 1px solid #000000;
+
+}
+.weldingSectionPageBlock {
+    width: 530px;
+    border-bottom: 1px solid #000000;
+
+}
+.weldingSectionPageHeader{
+    width: 530px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
 
 /* ------------------- PRODUCT ----------------------- */
 
@@ -1102,7 +1132,7 @@ h5 + .pageTitle {
     display: block;
     position: running(tableHeader);
 }
-.table-content h4{margin-top: 20px; color: #ffa500; font-size: 12px; letter-spacing: 1.5px;}
+.table-content h4{color: #ffa500; font-size: 12px; letter-spacing: 1.5px;}
 .table-content h5{ font-size: 10px; letter-spacing: 1px; font-family: 'ContinentalStagSansLCG-Book'; font-weight: normal !important; color: #000;}
 
 .table-content > article > *{ margin-right: 40px;}
@@ -1348,7 +1378,7 @@ footer .flex > * {
 
 .inh section.content{ display: block;}
 
-.inhsetting1{ /* display: flex; */ }
+.inhsetting1{ display: flex; }
 
 
 .inhsetting-sidebar{
@@ -1522,15 +1552,19 @@ footer .flex > * {
 .inhRight{ width:100%; }
 .inh .grid{  margin-bottom: 0px;}
 
-.inhRight h1{ font-size: 30px; padding-left: 15px !important;}
+.inhRight h1{ 
+    font-size: 30px; 
+    /* padding-left: 15px !important; */
+}
 .inhRight aside p{  padding-left: 15px !important;}
 
 .inhsettingRight, .inhsettingLeft{ display: flex; }
 .inhsettingRight{ /* flex-direction: row-reverse; */ }
 
 .sidebar {
-    width: 100%;
+    width: 90%;
     font-size: 10px;
+    text-align: right;
 
 }
 .inhsettingRight .inhsetting-sidebar{
@@ -1847,6 +1881,17 @@ nav > span {
 
 .upper{ text-transform: uppercase; font-size:11px;display: block; padding-bottom:5px; color: #737373;}
 
+.inh-upper{
+    font-size: 12px;
+    font-family: 'ContinentalStagSansLCG-Book';
+    display: block;
+    padding-bottom: 5px;
+}
+
+.inh-subcategory{
+    font-family: 'ContinentalStagSansLCG-Book';
+}
+
 @media print{
     .upper{  color: cmyk(0%, 0%, 0%, 65%);}
 }
@@ -1906,6 +1951,10 @@ div.content_double {
 .content_double .pimcore_block_entry{ padding: 10px; }
 
 .content_double > .flex{
+    justify-content: space-between !important;
+}
+
+#amortizationTable > .flex, #amortizationTable1 >.flex{
     justify-content: space-between !important;
 }
 
@@ -2168,6 +2217,8 @@ margin-right:20px;
     .template{ max-width:100%;}
     .template > *{ display: block;}
     .ptg .grid{padding-bottom: 10px; }
+
+    .inhsetting1{ display: inherit; }
 }
 
 
@@ -2186,9 +2237,15 @@ margin-right:20px;
 .relative{ position: relative;}
 .small.relative{ margin-bottom: 20px;}
 
+.small {
+    margin-top: 20px;
+}
 @media print{
     .small.relative{ margin-top: 20px;}
+    
 }
+
+
 
 .marginTop{ margin-top:20px;}
 
@@ -2219,4 +2276,44 @@ margin-right:20px;
 
 .page-break-inside-avoid{
     page-break-inside: avoid;
+}
+.brandingLaylineStyle
+{
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: bold;
+}
+.hide{
+    display: none;
+}
+.standard-hose-met{
+    padding-right: 15px;
+}
+
+.standard-hose-met-flame{
+    margin-top: 20px;
+    margin-right: 15px;
+}
+
+.custom-specs-text{
+    margin-top: 20px;
+}
+
+.custom-specs-text p{
+    padding-bottom: 0px !important;
+}
+
+.custom-brand-border-style{
+    display: inline-flex;
+}
+
+.custom-brand-border-style p{
+    display: contents;
+}
+
+.custom-brand-border-style span{
+    font-family: 'ContinentalStagSansLCG-Book' !important;
+    padding-right: 5px !important;
+    font-weight: 600 !important;
 }

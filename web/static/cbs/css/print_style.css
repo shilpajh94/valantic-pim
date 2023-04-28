@@ -182,8 +182,8 @@ pre {
 }
 
 .compounds-table th.rotate > div {
-    transform: translate(0px, 30px) rotate(-90deg);
-    width: 30px;
+    /* transform: translate(0px, 20px) rotate(-90deg); */
+    /* width: 20px; */
 }
 
 .pg-6{

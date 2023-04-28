@@ -541,14 +541,14 @@ parameters:
                 fieldLevel: objectBrick
                 fieldLabel: Part Number
                 fieldType: Input
-                columnWidth: 98
+                # columnWidth: 98
                 parent:
                     name: HydFittingsFert
             industryStandard:
                 fieldLevel: class
                 fieldType: Input
                 fieldLabel: Product Number
-                columnWidth: 75
+                # columnWidth: 75
                 parent: 
                     name: Product
             articleNumber:
@@ -560,7 +560,7 @@ parameters:
                 fieldLevel: objectBrick
                 fieldLabel: Hose ID 1 In Fract
                 groupName: HoseID1InFract
-                columnWidth: 50
+                # columnWidth: 50
                 unitName: fract
                 fieldType: Input
                 parent:
@@ -667,13 +667,25 @@ parameters:
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
+            NutType:
+                fieldLevel: objectBrick
+                fieldLabel: Nut Type
+                fieldType: Select
+                parent:
+                    name: HydFittingsFert
+            SingleHexYN:
+                fieldLevel: objectBrick
+                fieldLabel: Single Hex
+                fieldType: Boolean Select
+                parent:
+                    name: HydFittingsFert
             ThreadSize1InMMDecimal:
                 fieldLevel: objectBrick
                 fieldLabel: Thread Size 1 (in & mm) Decimal
                 groupName: ThreadSize1InMMDecimal
                 unitName: in
                 numberOfDecimalPoints: 2
-                columnWidth: 105
+                # columnWidth: 105
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -952,6 +964,32 @@ parameters:
                 fieldLevel: NoNeedProcessing
                 fieldLabel: Elbow Type
                 fieldType: Input
+            BoltHoleSizeInFract:
+                fieldLevel: objectBrick
+                fieldLabel: Bolt Hole Size In Fract
+                groupName: BoltHoleSize
+                unitName: fract
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert
+            BoltHoleSizeInDec:
+                fieldLevel: objectBrick
+                fieldLabel: Bolt Hole Size (in)
+                fieldType: Number
+                groupName: BoltHoleSize
+                unitName: in
+                numberOfDecimalPoints: 2
+                parent:
+                    name: AccessoriesFert
+            BoltHoleSizeMM:
+                fieldLevel: objectBrick
+                fieldLabel: Bolt Hole Size (mm)
+                groupName: BoltHoleSize
+                unitName: mm
+                numberOfDecimalPoints: 2
+                fieldType: Number
+                parent:
+                    name: AccessoriesFert
     Industrial Hose Section Page:
         INHPrintCatalog:
             id:

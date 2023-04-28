@@ -18,6 +18,10 @@ if (!isset($this->parentContainer)) {
 
 <?php
 if($groupData):
+
+$industrial_hose_data = [];
+
+$industrial_hose_data[$groupData['siop3Category'].": ".$groupData['siop4Category']][] = $groupData['brandName'];
 ?>
 <div class="template">
         <div class="segregate inh inhSettingFitting">
@@ -25,6 +29,10 @@ if($groupData):
                 <div id="pageHeader"></div>
                 <span class="pageName">
                         <?= $groupData['siop3Category']." - ".$groupData['siop4Category']; ?>
+
+                        <?php 
+
+                        ?>
                 </span>
 
                 <div class="footer">
@@ -328,6 +336,25 @@ if($groupData):
                         </div>
                 </article>
         </div>
+
+        <div class="hide">
+    <?php
+
+        $industrial_hose_data_list = [];
+        if($industrial_hose_data)
+        {
+            foreach ($industrial_hose_data as $key => $value) {
+                $industrial_hose_data_list[] = $key."$$".implode(',', $value);
+            }
+
+            if($industrial_hose_data_list)
+            {
+                $industrial_hose_details_text = implode(PHP_EOL, $industrial_hose_data_list);
+                echo $this->textarea('industrial_hose_fitting_details')->setDataFromResource($industrial_hose_details_text);
+            }
+        }
+        ?>
+    </div>
 </div>
 
 <?php if (!$containerRequest): ?>

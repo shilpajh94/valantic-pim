@@ -4,14 +4,11 @@ namespace CatalogBundle\Controller;
 
 use CatalogBundle\Helper\CatalogTemplatingHelper;
 use Pimcore\Db;
-// use Pimcore\Asset;
-use Pimcore\Model\Asset;
 use Pimcore\Model\DataObject;
-use Pimcore\Controller\FrontendController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use S3CustomizationBundle\Lib\Utils;
+use \Exception;
 
 class IndustrialHoseController extends AbstractController
 {
@@ -33,6 +30,400 @@ class IndustrialHoseController extends AbstractController
         $this->db = Db::get();
         $this->catalogTemplatingHelper = $catalogTemplatingHelper;
     }
+
+    public function templateIndustrialHoseIndexByApplicationDynamicAction(Request $request)
+    {
+        try
+        {
+            $folderId =$this->document->getParent()->getId(); 
+            $listing = new \Pimcore\Model\Document\Listing(); 
+            $listing->setCondition("parentId = $folderId");
+            $listing->load();
+            $listing->setOrderKey("index");     
+            $listing->setOrder("asc");
+            $templateArray = [
+                'CatalogBundle:INH:inhprintcatalogproductpage.html.php',
+                'CatalogBundle:INH:inhfitting.html.php',
+            ];
+
+            $industrial_hose_list = [];
+            $industrial_hose_fitting_list = [];
+            foreach($listing as $doc)
+            {
+                if($doc->getChildren())
+                {
+                    foreach ($doc->getChildren() as $key => $childDoc) {
+
+                        if($childDoc->getChildren())
+                        {
+                            foreach ($childDoc->getChildren() as $key => $child2Doc) {
+                                if (in_array($child2Doc->getTemplate(), $templateArray)) {
+                                    if($child2Doc->getTemplate() == 'CatalogBundle:INH:inhprintcatalogproductpage.html.php')
+                                    {
+                                        $obj = $child2Doc->getElement('industrial_hose_details');
+                                        if (!empty($obj) && !empty($obj->getData())) {
+                                            $dataParts = explode('$$', $obj->getData());
+                                            $datam = [];
+                                            if(isset($dataParts[0]))
+                                            {
+                                                $datam[] = $dataParts[0];
+                                            }
+                                            if(isset($dataParts[1]))
+                                            {
+                                                $datam[] = $dataParts[1];
+                                            }
+
+                                            $industrial_hose_list[] = $datam;
+                                        }
+                                    }
+                                    else if($child2Doc->getTemplate() == 'CatalogBundle:INH:inhfitting.html.php')
+                                    {
+                                        $obj = $child2Doc->getElement('industrial_hose_fitting_details');
+                                        if (!empty($obj) && !empty($obj->getData())) {
+                                            $dataParts = explode('$$', $obj->getData());
+                                            if(isset($dataParts[0]) && $dataParts[1])
+                                            {
+                                                $industrial_hose_fitting_list[$dataParts[0]][] = $dataParts[1];
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (in_array($childDoc->getTemplate(), $templateArray)) {
+                                if($childDoc->getTemplate() == 'CatalogBundle:INH:inhprintcatalogproductpage.html.php')
+                                {
+                                    $obj = $childDoc->getElement('industrial_hose_details');
+                                    if (!empty($obj) && !empty($obj->getData())) {
+                                        $dataParts = explode('$$', $obj->getData());
+                                        $datam = [];
+                                        if(isset($dataParts[0]))
+                                        {
+                                            $datam[] = $dataParts[0];
+                                        }
+                                        if(isset($dataParts[1]))
+                                        {
+                                            $datam[] = $dataParts[1];
+                                        }
+
+                                        $industrial_hose_list[] = $datam;
+                                    }
+                                }
+                                else if($childDoc->getTemplate() == 'CatalogBundle:INH:inhfitting.html.php')
+                                {
+                                    $obj = $childDoc->getElement('industrial_hose_fitting_details');
+                                    if (!empty($obj) && !empty($obj->getData())) {
+                                        $dataParts = explode('$$', $obj->getData());
+                                        if(isset($dataParts[0]) && $dataParts[1])
+                                        {
+                                            $industrial_hose_fitting_list[$dataParts[0]][] = $dataParts[1];
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (in_array($doc->getTemplate(), $templateArray)) {
+                        if($doc->getTemplate() == 'CatalogBundle:INH:inhprintcatalogproductpage.html.php')
+                        {
+                            $obj = $doc->getElement('industrial_hose_details');
+                            if (!empty($obj) && !empty($obj->getData())) {
+                                $dataParts = explode('$$', $obj->getData());
+                                $datam = [];
+                                if(isset($dataParts[0]))
+                                {
+                                    $datam[] = $dataParts[0];
+                                }
+                                if(isset($dataParts[1]))
+                                {
+                                    $datam[] = $dataParts[1];
+                                }
+
+                                $industrial_hose_list[] = $datam;
+                            }
+                        }
+                        else if($doc->getTemplate() == 'CatalogBundle:INH:inhfitting.html.php')
+                        {
+                            $obj = $doc->getElement('industrial_hose_fitting_details');
+                            if (!empty($obj) && !empty($obj->getData())) {
+                                $dataParts = explode('$$', $obj->getData());
+                                if(isset($dataParts[0]) && $dataParts[1])
+                                {
+                                    $industrial_hose_fitting_list[$dataParts[0]][] = $dataParts[1];
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if($industrial_hose_fitting_list)
+            {
+                foreach ($industrial_hose_fitting_list as $key => $value) {
+                    $data = [];
+                    $data[] = $key;
+                    $data[] = implode(",",$value);
+
+                    array_push($industrial_hose_list, $data);
+                }
+            }
+
+            $this->view['data'] = $industrial_hose_list;  
+        }
+        catch(Exception $e)
+        {  
+            return new Response($e->getMessage());
+        }
+    }
+
+    public function templateIndustrialHoseIndexByAlphabetDynamicAction(Request $request)
+    {
+        try
+        {
+            $folderId =$this->document->getParent()->getId(); 
+            $listing = new \Pimcore\Model\Document\Listing(); 
+            $listing->setCondition("parentId = $folderId");
+            $listing->load();
+            $listing->setOrderKey("index");     
+            $listing->setOrder("asc");
+            $templateArray = [
+                'CatalogBundle:INH:inhprintcatalogproductpage.html.php',
+                'CatalogBundle:INH:inhfitting.html.php',
+            ];
+
+            $industrial_hose_list = [];
+            $allHoses = [];
+            foreach($listing as $doc)
+            {
+                if($doc->getChildren())
+                {
+                    foreach ($doc->getChildren() as $key => $childDoc) {
+
+                        if($childDoc->getChildren())
+                        {
+                            foreach ($childDoc->getChildren() as $key => $child2Doc) {
+                                if (in_array($child2Doc->getTemplate(), $templateArray)) {
+                                    if($child2Doc->getTemplate() == 'CatalogBundle:INH:inhprintcatalogproductpage.html.php')
+                                    {
+                                        $obj = $child2Doc->getElement('industrial_hose_details');
+                                        if (!empty($obj) && !empty($obj->getData())) {
+                                            $dataParts = explode('$$', $obj->getData());
+                                            if(isset($dataParts[1]))
+                                            {
+                                                $hoseslist = explode(",",$dataParts[1]);
+                                                $allHoses = array_merge($allHoses, $hoseslist);
+                                            }
+                                        }
+                                    }
+                                    else if($child2Doc->getTemplate() == 'CatalogBundle:INH:inhfitting.html.php')
+                                    {
+                                        $obj = $child2Doc->getElement('industrial_hose_fitting_details');
+                                        if (!empty($obj) && !empty($obj->getData())) {
+                                            $dataParts = explode('$$', $obj->getData());
+                                            if(isset($dataParts[1]))
+                                            {
+                                                $hoseslist = explode(",",$dataParts[1]);
+                                                $allHoses = array_merge($allHoses, $hoseslist);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (in_array($childDoc->getTemplate(), $templateArray)) {
+                                if($childDoc->getTemplate() == 'CatalogBundle:INH:inhprintcatalogproductpage.html.php')
+                                {
+                                    $obj = $childDoc->getElement('industrial_hose_details');
+                                    if (!empty($obj) && !empty($obj->getData())) {
+                                        $dataParts = explode('$$', $obj->getData());
+                                        if(isset($dataParts[1]))
+                                        {
+                                            $hoseslist = explode(",",$dataParts[1]);
+                                            $allHoses = array_merge($allHoses, $hoseslist);
+                                        }
+                                    }
+                                }
+                                else if($childDoc->getTemplate() == 'CatalogBundle:INH:inhfitting.html.php')
+                                {
+                                    $obj = $childDoc->getElement('industrial_hose_fitting_details');
+                                    if (!empty($obj) && !empty($obj->getData())) {
+                                        $dataParts = explode('$$', $obj->getData());
+                                        if(isset($dataParts[1]))
+                                        {
+                                            $hoseslist = explode(",",$dataParts[1]);
+                                            $allHoses = array_merge($allHoses, $hoseslist);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (in_array($doc->getTemplate(), $templateArray)) {
+                        if($doc->getTemplate() == 'CatalogBundle:INH:inhprintcatalogproductpage.html.php')
+                        {
+                            $obj = $doc->getElement('industrial_hose_details');
+                            if (!empty($obj) && !empty($obj->getData())) {
+                                $dataParts = explode('$$', $obj->getData());
+                                if(isset($dataParts[1]))
+                                {
+                                    $allHoses[] = $dataParts[1];
+                                }
+                            }
+                        }
+                        else if($doc->getTemplate() == 'CatalogBundle:INH:inhfitting.html.php')
+                        {
+                            $obj = $doc->getElement('industrial_hose_fitting_details');
+                            if (!empty($obj) && !empty($obj->getData())) {
+                                $dataParts = explode('$$', $obj->getData());
+                                if(isset($dataParts[1]))
+                                {
+                                    $allHoses[] = $dataParts[1];
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            sort($allHoses);
+            
+            $industrial_hose_list_alphabet_sorted = [];
+            if($allHoses)
+            {
+                foreach ($allHoses as $key => $hose) {
+                    
+                    $alphabetChar = $hose[0];
+                    $industrial_hose_list[$alphabetChar][] = $hose;
+                }
+
+                if($industrial_hose_list)
+                {
+                    foreach ($industrial_hose_list as $key => $value) {
+
+                        $data = [];
+                        $data[] = $key;
+                        $data[] = implode(",", $value);
+                        $industrial_hose_list_alphabet_sorted[] = $data;
+                    }
+                }
+            }
+
+            $this->view['data'] = $industrial_hose_list_alphabet_sorted;  
+        }
+        catch(Exception $e)
+        {  
+            return new Response($e->getMessage());
+        }
+    }
+
+    public function templateIndustrialHoseTableOfContentsDynamicAction(Request $request)
+    {
+        try
+        {
+            $folderId =$this->document->getParent()->getId(); 
+            $listing = new \Pimcore\Model\Document\Listing(); 
+            $listing->setCondition("parentId = $folderId");
+            $listing->load();
+            $listing->setOrderKey("index");     
+            $listing->setOrder("asc");
+            $templateArray = [
+                'CatalogBundle:INH:inhprintcatalogproductpage.html.php'
+            ];
+
+            $industrial_hose_list = [];
+            foreach($listing as $doc)
+            {
+                if($doc->getChildren())
+                {
+                    foreach ($doc->getChildren() as $key => $childDoc) {
+
+                        if($childDoc->getChildren())
+                        {
+                            foreach ($childDoc->getChildren() as $key => $child2Doc) {
+                                if (in_array($child2Doc->getTemplate(), $templateArray)) {
+                                    $obj = $child2Doc->getElement('industrial_hose_details');
+                                    if (!empty($obj) && !empty($obj->getData())) {
+                                        $dataParts = explode('$$', $obj->getData());
+                                        if(isset($dataParts[0]))
+                                        {
+                                            $dataParts2 = explode(':', $dataParts[0]);
+                                            $industrial_hose_list[$dataParts2[0]][] = trim($dataParts2[1]);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (in_array($childDoc->getTemplate(), $templateArray)) {
+                                
+                                $obj = $childDoc->getElement('industrial_hose_details');
+                                if (!empty($obj) && !empty($obj->getData())) {
+                                    $dataParts = explode('$$', $obj->getData());
+                                    if(isset($dataParts[0]))
+                                    {
+                                        $dataParts2 = explode(':', $dataParts[0]);
+                                        $industrial_hose_list[$dataParts2[0]][] = trim($dataParts2[1]);
+                                    }
+                                }
+                                
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (in_array($doc->getTemplate(), $templateArray)) {
+
+                        $obj = $doc->getElement('industrial_hose_details');
+                        if (!empty($obj) && !empty($obj->getData())) {
+                            $dataParts = explode('$$', $obj->getData());
+                            if(isset($dataParts[0]))
+                            {
+                                $dataParts2 = explode(':', $dataParts[0]);
+                                $industrial_hose_list[$dataParts2[0]][] = trim($dataParts2[1]);
+                            }
+                        }
+                    }
+                }
+            }
+
+            $application_host_list = [];
+            $toc_data = [];
+            if($industrial_hose_list)
+            {
+                foreach ($industrial_hose_list as $key => $value) {
+                    $data = [];
+                    $data[] = $key;
+                    $data[] = implode(",",$value);
+                    $application_host_list[] = $data;
+                }
+
+                if($application_host_list)
+                {
+                    $contiTech_industrial_hose[] = 'ContiTech Industrial Hose';
+                    $contiTech_industrial_hose[] = $application_host_list;
+                    $toc_data[] = $contiTech_industrial_hose;
+                }
+            }
+            $this->view['data'] = $toc_data;  
+        }
+        catch(Exception $e)
+        {  
+            return new Response($e->getMessage());
+        }
+    }
+
 
     /**
      * @Route("/catalog/inh/sectionpage");
@@ -91,6 +482,7 @@ class IndustrialHoseController extends AbstractController
                 $query = "select oo_id, ConstructionType from object_localized_2_{$CatalogLanguage} where level IN (3,4) ";
                 $constructionTypeList = $this->db->fetchPairs($query);
 
+                $productMinMaxPressure = [];
                 if (is_array($template->getProductsData()) && !empty($template->getProductsData())) {
                     foreach ($template->getProductsData() as $k => $row) {
                         $row[]= '';
@@ -103,10 +495,15 @@ class IndustrialHoseController extends AbstractController
                             $newRow['ConstructionType'] = $constructionTypeList[$SIOPLevel4Id];
 
                         $productsData[] = $newRow;
+
+                        if(trim($newRow['brandName'][0]))
+                        {
+                            $productMinMaxPressure[$newRow['brandName'][0]][] = $newRow['workingPressurePSI'];
+                        }
                         
                     }
                     $i = 0;
-
+                    
                     foreach ($productsData as $k => $row) {
 
                         if (isset($row['brandName']) && !empty($row['brandName'])) {
@@ -123,7 +520,18 @@ class IndustrialHoseController extends AbstractController
                                         $data[$uniqueId]['data'][$brandName][$col] = "";
                                     }
                                     if(empty($data[$uniqueId]['data'][$brandName][$col])) {
-                                        $data[$uniqueId]['data'][$brandName][$col] = $row[$col];
+
+                                        if($col == 'workingPressurePSI')
+                                        {
+                                            $productMinPressure = min($productMinMaxPressure[$brandName]);
+                                            $productMaxPressure = max($productMinMaxPressure[$brandName]);
+                                            $wpString = ($productMinPressure == $productMaxPressure) ? $productMinPressure : $productMinPressure . " - ". $productMaxPressure;
+                                            $data[$uniqueId]['data'][$brandName][$col] = $wpString;
+                                        }
+                                        else{
+                                            $data[$uniqueId]['data'][$brandName][$col] = $row[$col];
+                                        }
+                                        
                                     }
 
                                 }
@@ -266,9 +674,12 @@ class IndustrialHoseController extends AbstractController
                 foreach ($brandsData as $key => $brand)
                 {
                     $reinforcementArr = array();
+                    $designFactorArr = array();
+                    $designFactorArray = array();
                     $tubeMaterialArr = array();
                     $coverMaterialArr = array();
 
+                    $designFactorStr = '';
                     $tubeMaterialStr = '';
                     $coverMaterialStr = '';
                     $BrandingLayline = '';
@@ -327,6 +738,10 @@ class IndustrialHoseController extends AbstractController
                                 $reinforcementArr = array_merge($reinforcementArr, $bvalue[$headerKeysIndex['reinforcement']]);
                             }
 
+                            if($bvalue[$headerKeysIndex['safetyFactor']]) {
+                                $designFactorArr = array_merge($designFactorArr, $bvalue[$headerKeysIndex['safetyFactor']]);
+                            }
+
                             if(!$BrandingLayline && $bvalue[$headerKeysIndex['BrandingLayline']]) {
                                 $BrandingLayline = $bvalue[$headerKeysIndex['BrandingLayline']];
                             }
@@ -355,7 +770,7 @@ class IndustrialHoseController extends AbstractController
                                 $mainImage = \Pimcore\Model\Asset::getByPath($bvalue[$headerKeysIndex['mainImage']]);
 
                             if(!$temperatureRangeFAndC && $bvalue[$headerKeysIndex['temperatureRangeFAndC']]) {
-                                $temperatureRangeFAndC = $bvalue[$headerKeysIndex['temperatureRangeFAndC']];
+                                $temperatureRangeFAndC = "<ul><li>".$bvalue[$headerKeysIndex['temperatureRangeFAndC']];
                             }
 
                             if(!$Coupling && $bvalue[$headerKeysIndex['Coupling']]) {
@@ -429,6 +844,13 @@ class IndustrialHoseController extends AbstractController
                     if(empty($reinforcementStr) && $reinforcementArr)
                         $reinforcementStr = implode(', ', array_unique($reinforcementArr));
 
+                    if($designFactorArr){
+                        $uniqueDesignFactor = array_unique($designFactorArr);
+                        foreach($uniqueDesignFactor as $eachDesignFactor)
+                            $designFactorArray[] = "<ul><li>".$eachDesignFactor;
+                        $designFactorStr = implode(', ',$designFactorArray);
+                    }
+
                     $tubeMaterialStr = strip_tags($VirtualCatalogTubeMaterial, "<ul><li><span><strong>");
                     if(empty($tubeMaterialStr) && $tubeMaterialArr)
                         $tubeMaterialStr = implode(', ', array_unique($tubeMaterialArr));
@@ -441,6 +863,8 @@ class IndustrialHoseController extends AbstractController
                     $newBrandArray[$key]['brandData']['SIOP4Description'] = $SIOP4Description;
                     $newBrandArray[$key]['brandData']['BrandingLayline'] = $BrandingLayline;
                     $newBrandArray[$key]['brandData']['reinforcement'] = $reinforcementStr;
+                    $newBrandArray[$key]['brandData']['designFactor'] = $designFactorStr;
+                    
                     $newBrandArray[$key]['brandData']['tubeMaterial'] = $tubeMaterialStr;
                     $newBrandArray[$key]['brandData']['coverMaterial'] = $coverMaterialStr;
                     $newBrandArray[$key]['brandData']['mainImage'] = $mainImage;
@@ -452,6 +876,7 @@ class IndustrialHoseController extends AbstractController
                     $safetyFeaturesList = $this->getFiveSortedFeaturesWithIconList($FeaturesBenefitsBulletPointArr);
 
                     unset($reinforcementArr);
+                    unset($designFactorArr);
                     unset($tubeMaterialArr);
                     unset($coverMaterialArr);
                     unset($FeaturesBenefitsBulletPointArr);

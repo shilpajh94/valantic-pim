@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-04-12T08:15:31+02:00
+* Generated at: 2023-04-27T14:48:19+05:30
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -19,7 +19,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSMaterial',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1649744131,
+   'modificationDate' => 1682587098,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -113,7 +113,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'title' => '',
              'width' => '',
              'height' => '',
-             'maxTabs' => NULL,
+             'maxTabs' => 20,
              'labelWidth' => NULL,
              'border' => false,
              'provideSplitView' => false,

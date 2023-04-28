@@ -14,6 +14,7 @@ pimcore.plugin.DistributionHubBundle = Class.create(pimcore.plugin.admin, {
         if (user.admin || user.isAllowed("plugin_distribution_hub")) {
             this.leftNavigation();
         }
+        new pimcore.plugin.DistributionHubBundle.PhpCodeOperator().phpCodeOperatorPath_Label_Modification();
     },
     leftNavigation: function () {
         let navigation = Ext.get("pimcore_navigation");

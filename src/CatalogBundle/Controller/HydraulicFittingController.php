@@ -63,7 +63,6 @@ class HydraulicFittingController extends AbstractController
             $headerKeysIndex = array_flip($headerKeys);
 
             $objColumnsData = $obj->getColumns();
-
             $this->iconRequired = 'YES';
             $this->columnsData = json_decode($objColumnsData, true);
 
@@ -156,7 +155,24 @@ class HydraulicFittingController extends AbstractController
                             $RightPrintCatalogImageObj = '';
                             foreach ($articlesGroups as $agkey => $articles) 
                             {
+                                if($articles[$headerKeysIndex['NutType']]){
+                                    $nutType = $articles[$headerKeysIndex['NutType']];
+                                }
+                                else{
+                                    $nutType = '';
+                                }
+                                if($articles[$headerKeysIndex['SingleHexYN']])
+                                {
+                                    $singleHex = $articles[$headerKeysIndex['SingleHexYN']];
+                                }
+                                else
+                                {
+                                    $singleHex = '';
+                                }
+
                                 $FittingTableKeys = $fittingTableColumn[$FittingTableName]['columns'];
+                                $fittingTableColWidths = $fittingTableColumn[$FittingTableName]['widthSetting'];
+                                
                                 if(is_array($FittingTableKeys))
                                 {
                                     if($articles[$headerKeysIndex['HydFittingFamily']][0]) {
@@ -177,9 +193,7 @@ class HydraulicFittingController extends AbstractController
 
                                     $articlesData = array();
                                     $this->subHeaderRequired = 'NO';
-
-                                    $columnsDataWithImages = $this->getColumnHeadersForCatalog(TRUE, $FittingTableKeys);
-                                    // p_r($columnsDataWithImages);
+                                    $columnsDataWithImages = $this->getColumnHeadersForCatalog(TRUE, $FittingTableKeys, $fittingTableColWidths);
                                     // Getting order of the keys
                                     $orderKeys = array();
 
@@ -219,6 +233,8 @@ class HydraulicFittingController extends AbstractController
                                     }
 
                                     $newBrandArray[$brandKey][$sortDescriptionTableslist][$FittingTableName][$skiveType]['articleData']['articles'][] = $articlesData;
+                                    $newBrandArray[$brandKey][$sortDescriptionTableslist][$FittingTableName][$skiveType]['articleData']['NutType'][] = $nutType;
+                                    $newBrandArray[$brandKey][$sortDescriptionTableslist][$FittingTableName][$skiveType]['articleData']['SingleHexYN'][] = $singleHex;
                                     $newBrandArray[$brandKey][$sortDescriptionTableslist][$FittingTableName][$skiveType]['articleData']['HoseID1InFractIndex'] = $originalHoseID1InFractIndex;
                                     $newBrandArray[$brandKey][$sortDescriptionTableslist][$FittingTableName][$skiveType]['articleData']['subHeaderRequired'] = $this->subHeaderRequired;
                                     $newBrandArray[$brandKey][$sortDescriptionTableslist][$FittingTableName][$skiveType]['articleData']['columnsDataWithImages'] = $columnsDataWithImages;
@@ -283,8 +299,7 @@ class HydraulicFittingController extends AbstractController
         return $brandslist;
     }
 
-    public function getColumnHeadersForCatalog($isTableNameColumnRequired = FALSE, $tableNameColumns = []){
-
+    public function getColumnHeadersForCatalog($isTableNameColumnRequired = FALSE, $tableNameColumns = [], $fittingTableColWidths){
         $columnsDataWithImages = array();
 
         if($isTableNameColumnRequired)
@@ -293,15 +308,18 @@ class HydraulicFittingController extends AbstractController
             {
                 if(in_array($dkey,$tableNameColumns))
                 {
+                    if(array_key_exists($dkey, $fittingTableColWidths)){
+                        $colWidth = $fittingTableColWidths[$dkey];
+                    }
                     $groupColumnName = $value['columnName'];
                     if(isset($value['groupName']) && $value['groupName'])
                     {
+
                         $groupColumnName = $value['groupName'];
                         $this->subHeaderRequired = 'YES';
                     }
-
                     $columnsDataWithImages[$groupColumnName][$dkey]['groupName'] = $value['groupName'];
-                    $columnsDataWithImages[$groupColumnName][$dkey]['columnWidth'] = $value['columnWidth'];
+                    $columnsDataWithImages[$groupColumnName][$dkey]['columnWidth'] = $colWidth;
                     $columnsDataWithImages[$groupColumnName][$dkey]['unitName'] = $this->replaceYellowCode($this->get('translator')->trans($value['unitName']));
                     $columnsDataWithImages[$groupColumnName][$dkey]['columnName'] = $value['columnName'];
                     $columnsDataWithImages[$groupColumnName][$dkey]['columnLabel'] = $this->replaceYellowCode($this->get('translator')->trans($groupColumnName));

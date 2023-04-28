@@ -9,6 +9,9 @@ if (!isset($this->parentContainer)) {
 
 <?php
 if (is_array($brandsData) && !empty($brandsData)) {
+    $partNumbers = [];
+    $brandNameList = [];	
+    $productNumbers = [];
 ?>
 
 <div class="template">
@@ -183,6 +186,7 @@ if (is_array($brandsData) && !empty($brandsData)) {
 
     <?php
       //  $incr = 1;
+    //   p_r($brandsData);
     // $dispColumns = array_keys($info['dataTableColumn']);
         foreach ($brandsData as $uniqueId => $shortDescrioptionTableData) {
             unset($shortDescrioptionTableData['SortOrder']);
@@ -267,19 +271,20 @@ if (is_array($brandsData) && !empty($brandsData)) {
 
                             <!-- Starting grid here -->
                             <?php
-
                             foreach ($skiveTypeSortKeys as $skiveTypekey => $skiveTypekValue) {
                                 $showTitle = (count($tableRowsSkiveType) > 1) ? true : false;
                                 $tableRows = $tableRowsSkiveType[$skiveTypekValue];
+
                                 $uniqueId2 = md5($uniqueId.$shortDescrioptionKey.$tableName.$skiveTypekey);
-                                
+
                                 if(isset($tableRows['articleData']) && is_array($tableRows['articleData'])):
                                     $skiveTypeTableTitle = '';
-                                    if($skiveTypekey == 'Non-Skive')
+                                    $columnList = array();
+                                    if($skiveTypekey == 'Non-Skive' || $skiveTypekey == 'NS' )
                                     {
                                         $skiveTypeTableTitle = 'Uni-Crimp™ Style';
                                     }
-                                    else if($skiveTypekey == 'Dual-Grip'){
+                                    else if($skiveTypekey == 'Dual-Grip' || $skiveTypekey == 'DG'){
                                         $skiveTypeTableTitle = 'Dual-Grip Style';
                                     }
 
@@ -311,6 +316,7 @@ if (is_array($brandsData) && !empty($brandsData)) {
                                                 </tr>
                                             <?php endif; ?>
                                             <tr class="head">
+
                                                 <?php foreach ($tableRows['articleData']['columnsDataWithImages'] as $key => $c2data): ?>
                                                     <?php
                                                     $columnWidth = '';
@@ -319,15 +325,16 @@ if (is_array($brandsData) && !empty($brandsData)) {
                                                     if($first2Array['columnWidth'])
                                                             $columnWidth = "width=".$first2Array['columnWidth']
                                                     ?>
-                                                    <td colspan="<?= $g2count; ?>" <?php //echo $columnWidth; ?>><?= $first2Array['columnLabel'] ?></td>
+                                                    <td colspan="<?= $g2count; ?>" <?php echo $columnWidth; ?>><?= $first2Array['columnLabel'] ?></td>
                                                 <?php endforeach; ?>
                                             </tr>
 
                                             <?php if ($tableRows['articleData']['subHeaderRequired'] == 'YES'): ?>
                                                 <tr class="head">
-                                                    <?php foreach ($tableRows['articleData']['columnsDataWithImages'] as $key => $c3data): ?>
-                                                        <?php foreach ($c3data as $c3key => $c3value): ?>
-                                                            <?php if ($c3value['unitName']): ?>
+                                                    <?php foreach ($tableRows['articleData']['columnsDataWithImages'] as $key => $c3data):  ?>
+                                                        <?php foreach ($c3data as $c3key => $c3value): 
+                                                            $columnList[] = $c3key;
+                                                            if ($c3value['unitName']): ?>
                                                                 <td><?= $c3value['unitName'] ?></td>
                                                             <?php else: ?>
                                                                 <td></td>
@@ -358,8 +365,64 @@ if (is_array($brandsData) && !empty($brandsData)) {
                                                     }
                                                 ?>
                                                 <tr class="<?= $activeClass; ?>" data-id="<?= "$oldValue = $shortedRows[$HoseID1InFractIndex]" ?>">
-                                                    <?php foreach ($shortedRows as $ekey => $value): ?>
-                                                        <td><?= $value ?></td>
+                                                    <?php 
+                                                        $nutTypeSuperText = '';
+                                                        $nutType = $tableRows['articleData']['NutType'];
+                                                        if(in_array('Thrust Nut', $nutType)){
+                                                            $nutTypeSuperText = 'T';
+                                                        }
+
+                                                        $singleHexSuperText = '';
+                                                        $singleHex = $tableRows['articleData']['SingleHexYN'];
+                                                        if(in_array('true', $singleHex)){
+                                                            $singleHexSuperText = '1';
+                                                        }
+
+                                                        if($nutTypeSuperText && $singleHexSuperText){
+                                                            $partNumberSuperText = 'T,1';
+                                                        }
+                                                        elseif($nutTypeSuperText && !$singleHexSuperText){
+                                                            $partNumberSuperText = 'T';
+                                                        }
+                                                        // else{
+                                                        //     $partNumberSuperText = '1';
+                                                        // }
+
+                                                        $indexDescriptiveNumber = array_search('DescriptivePartNumber', $columnList);	
+                                                        if(($indexDescriptiveNumber !== false) && ($shortedRows[$indexDescriptiveNumber]))	
+                                                        { 	
+
+                                                            $descriptiveNumberText = $shortedRows[$indexDescriptiveNumber];	
+                                                            $descriptiveNumberList = explode('-', $descriptiveNumberText);	
+                                                            if(count($descriptiveNumberList) > 1)	
+                                                            {	
+                                                                $descriptiveText = $descriptiveNumberList[0].'-'.$descriptiveNumberList[1];	
+                                                            }	
+                                                            if(!in_array($descriptiveText, $partNumbers))	
+                                                            {	
+                                                                $partNumbers[] = $descriptiveText;	
+                                                            }	
+                                                        }	
+
+                                                        $industryStandard = array_search('industryStandard', $columnList);	
+                                                        if(($industryStandard !== false) && ($shortedRows[$industryStandard]))	
+                                                        { 	
+                                                            $industryStandardText = $shortedRows[$industryStandard];	
+                                                            $industryStandardList = explode('-', $industryStandardText);	
+                                                            if(!in_array($industryStandardList[0], $productNumbers))	
+                                                            {	
+                                                                $productNumbers[] = $industryStandardList[0];	
+                                                            }	
+                                                        }	
+                                                    ?>
+                                                    <?php foreach ($shortedRows as $ekey => $value): 
+                                                        if($ekey == 0): ?>
+                                                            <td><?= $value . "<sup>".$partNumberSuperText."</sup>" ?></td>
+                                                        <?php else: ?>
+                                                            <td><?= $value ?></td>
+                                                        <?php
+                                                            endif;
+                                                        ?>   
                                                     <?php endforeach; ?>
                                                 </tr>
                                             <?php
@@ -393,6 +456,28 @@ if (is_array($brandsData) && !empty($brandsData)) {
     <!-- Footer -->
     <!-- End Footer-->
 </section>
+<div class="hide">
+<?php
+if(count($partNumbers) > 0)
+{
+    $partNumberString = implode(',', $partNumbers);
+    echo $this->textarea('product_page_part_number')->setDataFromResource($partNumberString);
+}
+
+if(count($productNumbers) > 0)
+{
+    $productNumbersString = implode(',', $productNumbers);
+    echo $this->textarea('product_page_product_number')->setDataFromResource($productNumbersString);
+}
+
+if(count($brandNameList) > 0)
+{
+    $brandNameList = array_unique($brandNameList);
+    $brandNamesText = implode('$$', $brandNameList);
+    echo $this->textarea('hydraulic_fitting_brand')->setDataFromResource($brandNamesText);
+}
+?>
+</div>
 </div>
 
 <?php if (!$containerRequest): ?>

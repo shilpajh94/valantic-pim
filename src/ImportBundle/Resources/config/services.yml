@@ -141,6 +141,10 @@ services:
         tags:
             - { name: 'console.command', command: 'conti:onetimeimport:product_external_id_import' }
 
+    ImportBundle\OneTimeImportCommand\UpdateUnitConversionAttributeForWeightKG:
+        tags:
+            - { name: 'console.command', command: 'conti:onetimeimport:update-unit-conversion-attributes-weightKg' }
+
     import.asset_import_service:
         class: ImportBundle\Services\Model\AssetImportModel
         public: true

@@ -164,6 +164,9 @@ class ExportService
                         $fields['thumbnail'] = $selectedGridColumn['attributes']['thumbnail'];
                         if ($selectedGridColumn['attributes']['childs']) {
                             $fields['attributeName'] =  $selectedGridColumn['attributes']['childs']['0']['attribute'];
+                            if($selectedGridColumn['attributes']['childs']['0']['childs']){
+                                $fields['className'] = $selectedGridColumn['attributes']['childs']['0']['childs']['0']['attribute'];
+                            }
                         } else {
                             //handle field collection operator
                             $fields['attributeName'] =  $selectedGridColumn['attributes']['fcAttribute'];

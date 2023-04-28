@@ -2,16 +2,13 @@
 
 namespace CatalogBundle\Controller;
 
-use Pimcore\Model\Asset;
-use AppBundle\Helper\Common;
 use CatalogBundle\Helper\CatalogTemplatingHelper;
 use Pimcore\Db;
 use Pimcore\Model\DataObject;
-use Pimcore\Controller\FrontendController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use S3CustomizationBundle\Lib\Utils;
+use \Exception;
 
 class DefaultController extends AbstractController {
 
@@ -1078,13 +1075,30 @@ if(isset($data[$baseId])) {
                         $safetyFeaturesList = $this->getFiveSortedFeaturesWithIconList($safetyFeatures);
                         
                         $standardMetHoseListData = array();
+                        $standardMetHoseMeetFlameResistence = array();
                         if($standardsMetHose)
                         {
                             foreach ($standardsMetHose as $fkey => $fvalue) {
                                 if(isset($standardMetHoseList[$fvalue]))
-                                    $standardMetHoseListData[$standardMetHoseList[$fvalue]['CustomerFacingVersion']][] = $standardMetHoseList[$fvalue]['name'];
+                                {
+                                    $hoseMetKey = $standardMetHoseList[$fvalue]['key'];
+                                    $lowercaseHoseMetKey = strtolower($hoseMetKey);
+
+                                    if ((strpos($lowercaseHoseMetKey, 'flame') !== false) || (strpos($lowercaseHoseMetKey, 'usmsha') !== false) || (strpos($lowercaseHoseMetKey, 'msha') !== false)) 
+                                    { 
+                                        $standardMetHoseMeetFlameResistence[$hoseMetKey]['name'] = $standardMetHoseList[$fvalue]['name'];
+                                        $standardMetHoseMeetFlameResistence[$hoseMetKey]['CustomerFacingVersion'] = 'Meets Flame Resistance';
+                                    }
+                                    else
+                                    {
+                                        $standardMetHoseListData[$hoseMetKey]['name'] = $standardMetHoseList[$fvalue]['name'];
+                                        $standardMetHoseListData[$hoseMetKey]['CustomerFacingVersion'] = $standardMetHoseList[$fvalue]['CustomerFacingVersion'];
+                                    }
+                                }
                             }
                         }
+
+
 
                         $tubeMaterialAtrributeArr = array_merge($tubeMaterial, $tubeAttribute);
                         $coverMaterialattributeArr = array_merge($coverAttribute, $coverMaterial);
@@ -1124,6 +1138,7 @@ if(isset($data[$baseId])) {
                         $data[$uniqueId]['tubeMaterialAtrributeString'] = $VirtualCatalogTubeMaterialStr;
                         $data[$uniqueId]['coverMaterialattributeString'] = $VirtualCatalogCoverMaterialStr;
                         $data[$uniqueId]['standardMetHoseListData'] = $standardMetHoseListData;
+                        $data[$uniqueId]['standardMetHoseMeetFlameResistence'] = $standardMetHoseMeetFlameResistence;
                         $data[$uniqueId]['safetyFeatures'] = $safetyFeaturesList;
                         $data[$uniqueId]['iconRequired'] = $this->iconRequired;
                         $data[$uniqueId]['subHeaderRequired'] = $this->subHeaderRequired;
@@ -1217,7 +1232,7 @@ if(isset($data[$baseId])) {
                 }
 
                 foreach ($brandsData as $brandKey => $brandArray) {
-                    
+                    $uniqueId = md5($brandKey);
                     $availableLengthString = '';
                     $materialString = '';
                     $colorString = '';
@@ -1284,7 +1299,6 @@ if(isset($data[$baseId])) {
 
                     $data[$uniqueId]['brandName'] = $brandName;
                     $data[$uniqueId]['imageObj'] = $imageObj;
-                    $data[$uniqueId]['mainImage'] = $mainImage;
                     $data[$uniqueId]['longDescription'] = $longDescription;
                     $data[$uniqueId]['temperatureRangeFAndC'] = $temperatureRangeFAndC;
                     $data[$uniqueId]['materialString'] = $materialString;
@@ -1476,10 +1490,9 @@ if(isset($data[$baseId])) {
 
             if($productsData){
                 foreach ($productsData as $key => $item) {
-
-                    if(!empty(trim($item[$headerKeysIndex['BrandShortText1']])))
+                    if(!empty(trim($item[$headerKeysIndex['brandName']][0])))
                     {
-                        $brandName = $item[$headerKeysIndex['BrandShortText1']];
+                        $brandName = $item[$headerKeysIndex['brandName']][0];
 
                         if($item[$headerKeysIndex['MaterialType']] && is_array($item[$headerKeysIndex['MaterialType']]))
                             $material = array_merge($material, $item[$headerKeysIndex['MaterialType']]);
@@ -1548,6 +1561,180 @@ if(isset($data[$baseId])) {
 
     public function templateTableOfContentsAction(Request $request)
     {
+    }
+
+    public function templateHydraulicTableOfContentsDynamicAction(Request $request)
+    {
+        try
+        {
+            $folderId =$this->document->getParent()->getId(); 
+            $listing = new \Pimcore\Model\Document\Listing(); 
+            $listing->setCondition("parentId = $folderId");
+            $listing->load();
+            $listing->setOrderKey("index");     
+            $listing->setOrder("asc");
+            $templateArray = [
+                'CatalogBundle:Default:template_part_number_designations.html.php',
+                'CatalogBundle:Fitting:hydraulic_fitting.html.php',
+            ];
+
+            $hydraulicHose[] = 'HYDRAULIC HOSE';
+            $hydraulicFitting[] = 'HYDRAULIC FITTINGS';
+            $allFittingData = [];
+            
+            foreach($listing as $doc)
+            {
+                if($doc->getChildren())
+                {
+                    
+                    foreach ($doc->getChildren() as $key => $childDoc) {
+
+                        if($childDoc->getChildren())
+                        {
+                            foreach ($childDoc->getChildren() as $key => $child2Doc) 
+                            {
+                                if (in_array($child2Doc->getTemplate(), $templateArray)) {
+
+                                    if($child2Doc->getTemplate() == 'CatalogBundle:Default:template_part_number_designations.html.php')
+                                    {
+                                        $obj = $child2Doc->getElement('hydraulic_hose_details');
+                                        if (!empty($obj) && !empty($obj->getData())) {
+        
+                                            $hydraulicHoseData = explode(PHP_EOL, $obj->getData());
+                                            $hydraulicHoseInnerData = [];
+                                            if($hydraulicHoseData)
+                                            {
+                                                foreach ($hydraulicHoseData as $key => $value) {
+                                                    $data = [];
+                                                    $hydraulicHostList = explode('$$',$value);
+                                                    $hydraulicHostKey = $hydraulicHostList[0];
+                                                    $hydraulicHostValue = explode(',',$hydraulicHostList[1]);
+                                                    $data[] = $hydraulicHostKey;
+                                                    $data[] = $hydraulicHostValue;
+                                                    $hydraulicHoseInnerData[] = $data;
+                                                }
+                                                $hydraulicHose[] = $hydraulicHoseInnerData;
+                                            }
+                                        }
+                                    }
+                                    else if($child2Doc->getTemplate() == 'CatalogBundle:Fitting:hydraulic_fitting.html.php')
+                                    {
+                                        $obj = $child2Doc->getElement('hydraulic_fitting_brand');
+                                        if (!empty($obj) && !empty($obj->getData())) {
+                                            $fittingBrandNames = explode('$$', $obj->getData());
+                                            $data = [];
+                                            $data[] = $child2Doc->getKey();
+                                            $data[] = $fittingBrandNames;
+                                            $allFittingData[] = $data;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (in_array($childDoc->getTemplate(), $templateArray)) {
+
+                                if($childDoc->getTemplate() == 'CatalogBundle:Default:template_part_number_designations.html.php')
+                                {
+                                    $obj = $childDoc->getElement('hydraulic_hose_details');
+                                    if (!empty($obj) && !empty($obj->getData())) {
+    
+                                        $hydraulicHoseData = explode(PHP_EOL, $obj->getData());
+                                        $hydraulicHoseInnerData = [];
+                                        if($hydraulicHoseData)
+                                        {
+                                            foreach ($hydraulicHoseData as $key => $value) {
+                                                $data = [];
+                                                $hydraulicHostList = explode('$$',$value);
+                                                $hydraulicHostKey = $hydraulicHostList[0];
+                                                $hydraulicHostValue = explode(',',$hydraulicHostList[1]);
+                                                $data[] = $hydraulicHostKey;
+                                                $data[] = $hydraulicHostValue;
+                                                $hydraulicHoseInnerData[] = $data;
+                                            }
+                                            $hydraulicHose[] = $hydraulicHoseInnerData;
+                                        }
+                                    }
+                                }
+                                else if($childDoc->getTemplate() == 'CatalogBundle:Fitting:hydraulic_fitting.html.php')
+                                {
+                                    $obj = $childDoc->getElement('hydraulic_fitting_brand');
+                                    if (!empty($obj) && !empty($obj->getData())) {
+                                        $fittingBrandNames = explode('$$', $obj->getData());
+                                        $data = [];
+                                        $data[] = $childDoc->getKey();
+                                        $data[] = $fittingBrandNames;
+                                        $allFittingData[] = $data;
+                                    }
+                                }
+                            }
+                        }
+                        
+                    }
+
+                    
+                }
+                else
+                {
+                    
+                    if (in_array($doc->getTemplate(), $templateArray)) {
+                        if($doc->getTemplate() == 'CatalogBundle:Default:template_part_number_designations.html.php')
+                        {
+                            $obj = $doc->getElement('hydraulic_hose_details');
+                            if (!empty($obj) && !empty($obj->getData())) {
+
+                                $hydraulicHoseData = explode(PHP_EOL, $obj->getData());
+                                $hydraulicHoseInnerData = [];
+                                if($hydraulicHoseData)
+                                {
+                                    foreach ($hydraulicHoseData as $key => $value) {
+                                        $data = [];
+                                        $hydraulicHostList = explode('$$',$value);
+                                        $hydraulicHostKey = $hydraulicHostList[0];
+                                        $hydraulicHostValue = explode(',',$hydraulicHostList[1]);
+                                        $data[] = $hydraulicHostKey;
+                                        $data[] = $hydraulicHostValue;
+                                        $hydraulicHoseInnerData[] = $data;
+                                    }
+                                    $hydraulicHose[] = $hydraulicHoseInnerData;
+                                }
+                            }
+                        }
+                        else if($doc->getTemplate() == 'CatalogBundle:Fitting:hydraulic_fitting.html.php')
+                        {
+                            $obj = $doc->getElement('hydraulic_fitting_brand');
+                            if (!empty($obj) && !empty($obj->getData())) {
+                                $fittingBrandNames = explode('$$', $obj->getData());
+                                $data = [];
+                                $data[] = $doc->getKey();
+                                $data[] = $fittingBrandNames;
+                                $allFittingData[] = $data;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if(count($allFittingData)>0)
+            {
+                $hydraulicFitting[] = $allFittingData;
+            }
+            
+            if($hydraulicHose)
+            {
+                $DynamicPageData[] = $hydraulicHose;
+            }
+            if($hydraulicFitting)
+            {
+                $DynamicPageData[] = $hydraulicFitting;
+            }
+            $this->view['data'] = $DynamicPageData;  
+        }
+        catch(Exception $e)
+        {  
+            return new Response($e->getMessage());
+        }
     }
 
     public function templatePartNumberDesignationsAction(Request $request)
@@ -1636,10 +1823,10 @@ if(isset($data[$baseId])) {
                     {
                         $uniqueId = md5($brandKey);
                         $VirtualCatalogTubeMaterialStr = '';
-                        $VirtualCatalogCoverMaterialStr = '';
+                        // $VirtualCatalogCoverMaterialStr = '';
                         $reinforcementStr = '';
                         $VirtualCatalogTubeMaterial = '';
-                        $VirtualCatalogCoverMaterial = '';
+                        // $VirtualCatalogCoverMaterial = '';
                         $VirtualCatalogReinforcement = '';
                         $CatalogGrouping = '';
                         $CatalogPackaging = '';
@@ -1663,8 +1850,8 @@ if(isset($data[$baseId])) {
                             if(empty($VirtualCatalogTubeMaterial) && $element[$headerKeysIndex['VirtualCatalogTubeMaterial']])
                                     $VirtualCatalogTubeMaterial = $element[$headerKeysIndex['VirtualCatalogTubeMaterial']];
 
-                            if(empty($VirtualCatalogCoverMaterial) && $element[$headerKeysIndex['VirtualCatalogCoverMaterial']])
-                                $VirtualCatalogCoverMaterial = $element[$headerKeysIndex['VirtualCatalogCoverMaterial']];
+                            // if(empty($VirtualCatalogCoverMaterial) && $element[$headerKeysIndex['VirtualCatalogCoverMaterial']])
+                            //     $VirtualCatalogCoverMaterial = $element[$headerKeysIndex['VirtualCatalogCoverMaterial']];
 
                             if(empty($VirtualCatalogReinforcement) && $element[$headerKeysIndex['VirtualCatalogReinforcement']])
                                 $VirtualCatalogReinforcement = $element[$headerKeysIndex['VirtualCatalogReinforcement']];
@@ -1690,7 +1877,7 @@ if(isset($data[$baseId])) {
                                         $tubeMaterial = array_merge($tubeMaterial, $value);
                                     if($bkey == $headerKeysIndex['reinforcement'])
                                         $reinforcement = array_merge($reinforcement, $value);
-                                    if($bkey == $headerKeysIndex['workingPressurePSI'])
+                                    if(isset($headerKeysIndex['workingPressurePSI']) && ($bkey == $headerKeysIndex['workingPressurePSI']))
                                     {
                                         if($value){
                                             $workingPressureValueArray = explode('.',$value);
@@ -1698,7 +1885,7 @@ if(isset($data[$baseId])) {
                                             // $workingPressurePSI[] = $value;
                                         }
                                     }
-                                    if(($bkey == $headerKeysIndex['HoseFittingFamily']) && $value)
+                                    if(isset($headerKeysIndex['HoseFittingFamily']) && ($bkey == $headerKeysIndex['HoseFittingFamily']) && $value)
                                         $fittingFamily = array_merge($fittingFamily, $value);
                                     if($bkey == $headerKeysIndex['standardMetHose'])
                                         $industryStandardKey = array_merge($industryStandardKey, $value);
@@ -1737,9 +1924,9 @@ if(isset($data[$baseId])) {
                         if(empty($VirtualCatalogTubeMaterialStr))
                             $VirtualCatalogTubeMaterialStr = $tubeMaterialAtrributeString;
 
-                        $VirtualCatalogCoverMaterialStr = strip_tags($VirtualCatalogCoverMaterial, "<ul><li><span><strong>");
-                            if(empty($VirtualCatalogCoverMaterialStr))
-                                $VirtualCatalogCoverMaterialStr = $coverMaterialattributeString;
+                        // $VirtualCatalogCoverMaterialStr = strip_tags($VirtualCatalogCoverMaterial, "<ul><li><span><strong>");
+                        //     if(empty($VirtualCatalogCoverMaterialStr))
+                        //         $VirtualCatalogCoverMaterialStr = $coverMaterialattributeString;
 
                         $reinforcementStr = strip_tags($VirtualCatalogReinforcement, "<ul><li><span><strong>");
                                 if(empty($reinforcementStr))
@@ -2343,6 +2530,152 @@ if(isset($data[$baseId])) {
     {
     }
 
+    public function templateHydraulicAlphanumericIndexByDescriptiveNumberDynamicAction(Request $request)
+    {
+        try
+        {
+            $folderId =$this->document->getParent()->getId(); 
+            $listing = new \Pimcore\Model\Document\Listing(); 
+            $listing->setCondition("parentId = $folderId");
+            $listing->load();
+            $listing->setOrderKey("index");     
+            $listing->setOrder("asc");
+            $templateArray = [
+                'CatalogBundle:Default:template_fitting_split_flanges.html.php',
+                'CatalogBundle:Default:template_hose_accessories_clamps.html.php',
+                'CatalogBundle:Default:template_hose_accessories_oring.html.php',
+                'CatalogBundle:Default:template_hose_accessories_sleeving.html.php',
+                'CatalogBundle:Default:template_hose_product_page.html.php',
+                'CatalogBundle:Fitting:hydraulic_fitting.html.php'
+            ];
+
+            $all_doc_arr = [];
+            foreach($listing as $doc)
+            {
+                if($doc->getChildren())
+                {
+                    foreach ($doc->getChildren() as $key => $childDoc) {
+
+                        if($childDoc->getChildren())
+                        {
+                            foreach ($childDoc->getChildren() as $key => $child2Doc) 
+                            {
+                                if (in_array($child2Doc->getTemplate(), $templateArray)) {
+                                    $obj = $child2Doc->getElement('product_page_part_number');
+                                    if (!empty($obj) && !empty($obj->getData())) {
+                                        $partNumberList = explode(',', $obj->getData());
+                                        $all_doc_arr = array_merge($all_doc_arr, $partNumberList);
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (in_array($childDoc->getTemplate(), $templateArray)) {
+                                $obj = $childDoc->getElement('product_page_part_number');
+                                if (!empty($obj) && !empty($obj->getData())) {
+                                    $partNumberList = explode(',', $obj->getData());
+                                    $all_doc_arr = array_merge($all_doc_arr, $partNumberList);
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (in_array($doc->getTemplate(), $templateArray)) {
+                        $obj = $doc->getElement('product_page_part_number');
+                        if (!empty($obj) && !empty($obj->getData())) {
+                            $partNumberList = explode(',', $obj->getData());
+                            $all_doc_arr = array_merge($all_doc_arr, $partNumberList);
+                        }
+                    }
+                }
+            }
+
+            $all_doc_arr = array_unique($all_doc_arr);
+            sort($all_doc_arr);
+
+            $this->view['data'] = $all_doc_arr;  
+        }
+        catch(Exception $e)
+        {  
+            return new Response($e->getMessage());
+        }
+    }
+
+    public function templateHydraulicAlphanumericIndexByProductNumberDynamicAction(Request $request)
+    {
+        try
+        {
+            $folderId =$this->document->getParent()->getId(); 
+            $listing = new \Pimcore\Model\Document\Listing(); 
+            $listing->setCondition("parentId = $folderId");
+            $listing->load();
+            $listing->setOrderKey("index");     
+            $listing->setOrder("asc");
+            $templateArray = [
+                'CatalogBundle:Default:template_fitting_split_flanges.html.php',
+                'CatalogBundle:Default:template_hose_accessories_clamps.html.php',
+                'CatalogBundle:Default:template_hose_accessories_oring.html.php',
+                'CatalogBundle:Default:template_hose_accessories_sleeving.html.php',
+                'CatalogBundle:Fitting:hydraulic_fitting.html.php'
+            ];
+
+            $all_doc_arr = [];
+            foreach($listing as $doc)
+            {
+                if($doc->getChildren())
+                {
+                    foreach ($doc->getChildren() as $key => $childDoc) {
+
+                        if($childDoc->getChildren())
+                        {
+                            foreach ($childDoc->getChildren() as $key => $child2Doc) {
+                                if (in_array($child2Doc->getTemplate(), $templateArray)) {
+                                    $obj = $child2Doc->getElement('product_page_product_number');
+                                    if (!empty($obj) && !empty($obj->getData())) {
+                                        $partNumberList = explode(',', $obj->getData());
+                                        $all_doc_arr = array_merge($all_doc_arr, $partNumberList);
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (in_array($childDoc->getTemplate(), $templateArray)) {
+                                $obj = $childDoc->getElement('product_page_product_number');
+                                if (!empty($obj) && !empty($obj->getData())) {
+                                    $partNumberList = explode(',', $obj->getData());
+                                    $all_doc_arr = array_merge($all_doc_arr, $partNumberList);
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (in_array($doc->getTemplate(), $templateArray)) {
+                        $obj = $doc->getElement('product_page_product_number');
+                        if (!empty($obj) && !empty($obj->getData())) {
+                            $partNumberList = explode(',', $obj->getData());
+                            $all_doc_arr = array_merge($all_doc_arr, $partNumberList);
+                        }
+                    }
+                }
+            }
+
+            $all_doc_arr = array_unique($all_doc_arr);
+            sort($all_doc_arr);
+
+            $this->view['data'] = $all_doc_arr;  
+        }
+        catch(Exception $e)
+        {  
+            return new Response($e->getMessage());
+        }
+    }
+
     public function templateIndexProductNumberAction(Request $request)
     {
     }
@@ -2352,6 +2685,26 @@ if(isset($data[$baseId])) {
         $string = str_replace('%*','<span style="color: #ffa500;">', $string);
         $string = str_replace('*%','</span>', $string);
         return $string;
+    }
+    /**
+     * Reset Table of content page's data
+     * @Route("/reset-table-of-content")
+     * @return json
+     */
+    public function resetTableOfContentPageData(Request $request)
+    {
+        try
+        {
+            $docId  = $request->get('docId');
+            $sql    = "DELETE FROM documents_elements where documentId = '$docId'";
+            $resp   = $this->db->query($sql);
+
+            return $this->json(array("success" => true,"msg" => 'Content Reset Successfully.'));
+        }
+        catch(Exception $e)
+        {  
+            return $this->json(array("success" => false,"msg" => $e->getMessage()));
+        }
     }
 }
 

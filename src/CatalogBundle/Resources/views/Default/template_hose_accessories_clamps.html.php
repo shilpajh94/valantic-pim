@@ -12,7 +12,11 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 "classes" => ["CatalogTables"],
         ]);
         ?>
-<?php endif; ?>
+<?php 
+endif;
+$partNumbers = []; 
+$productNumbers = [];
+?>
 <div class="template">
 <section class="segregate">
     <div id="pageHeader"></div>
@@ -235,6 +239,7 @@ foreach($data as $md5Key => $brand):
                 ?>
 
        </figure>
+
        <table class="grid inh" cellspacing="0" cellpadding="0">
                 <thead>
                         <?php if($brand['iconRequired'] == 'YES'): ?>
@@ -292,6 +297,27 @@ foreach($data as $md5Key => $brand):
                         <?php else: ?>
                         <tr class="active">
                         <?php endif; ?>
+                        <?php 
+                                if(isset($element['Descriptive']))
+                                { 
+                                        $descriptiveNumberText = $element['Descriptive'];
+                                        $descriptiveNumberList = explode('-', $descriptiveNumberText);
+                                        if(!in_array($descriptiveNumberList[0], $partNumbers))
+                                        {
+                                                $partNumbers[] = $descriptiveNumberList[0];
+                                        }
+                                }
+
+                                if(isset($element['industryStandard']))
+                                { 
+                                        $industryStandardText = $element['industryStandard'];
+                                        $industryStandardList = explode('-', $industryStandardText);
+                                        if(!in_array($industryStandardList[0], $productNumbers))
+                                        {
+                                                $productNumbers[] = $industryStandardList[0];
+                                        }
+                                }
+                        ?>
                                 <?php foreach($element as $ekey => $value): ?>
                                         <td><?= $value; ?></td>
                                 <?php endforeach; ?>
@@ -315,4 +341,21 @@ foreach($data as $md5Key => $brand):
 
 
 </section>
+
+<div class="hide">
+        <?php
+        if(count($partNumbers) > 0)
+        {
+                $partNumberString = implode(',', $partNumbers);
+                echo $this->textarea('product_page_part_number')->setDataFromResource($partNumberString);
+        }
+
+        if(count($productNumbers) > 0)
+        {
+                $productNumbersString = implode(',', $productNumbers);
+                echo $this->textarea('product_page_product_number')->setDataFromResource($productNumbersString);
+        }
+        ?>
+</div>
+
 </div>

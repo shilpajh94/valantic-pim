@@ -8,6 +8,8 @@ if (!isset($this->parentContainer)) {
 <?php } ?>
 <?php
 if (isset($info['brandsData'])) {
+
+    $industrial_hose_data = [];
     ?>
 
     <?php
@@ -15,6 +17,8 @@ if (isset($info['brandsData'])) {
         $pg = 0;
         foreach ($info['brandsData'] as $brandKey => $brand) {
             $uniqueId = md5($brandKey);
+
+            $categoryForCatalog = $brand['brandData']['SIOP3Description'].": ".$brand['brandData']['SIOP4Description']; 
             ?>
             <div class="template">
                 <div class="segregate inh  inhSettingProductPage">
@@ -194,9 +198,9 @@ if (isset($info['brandsData'])) {
                                     </aside>
                                 </header>
                                 <section class="content">
-                                    <?php if($brand['brandData']['safetyFeatures'] || !empty(trim($brand['brandData']['tubeMaterial'])) || !empty(trim($brand['brandData']['coverMaterial'])) || !empty(trim($brand['brandData']['reinforcement'])) || !empty(trim($brand['brandData']['temperatureRangeFAndC'])) || !empty(trim($brand['brandData']['Coupling'])) || !empty(trim($brand['brandData']['Packaging']))): ?>
+                                    <?php if($brand['brandData']['safetyFeatures'] || !empty(trim($brand['brandData']['designFactor'])) || !empty(trim($brand['brandData']['tubeMaterial'])) || !empty(trim($brand['brandData']['coverMaterial'])) || !empty(trim($brand['brandData']['reinforcement'])) || !empty(trim($brand['brandData']['temperatureRangeFAndC'])) || !empty(trim($brand['brandData']['Coupling'])) || !empty(trim($brand['brandData']['Packaging']))): ?>
                                         <menu class="flex">
-                                        <?php if(!empty(trim($brand['brandData']['tubeMaterial'])) || !empty(trim($brand['brandData']['coverMaterial'])) || !empty(trim($brand['brandData']['reinforcement'])) || !empty(trim($brand['brandData']['temperatureRangeFAndC'])) || !empty(trim($brand['brandData']['Coupling'])) || !empty(trim($brand['brandData']['Packaging']))): ?>
+                                        <?php if(!empty(trim($brand['brandData']['designFactor'])) || !empty(trim($brand['brandData']['tubeMaterial'])) || !empty(trim($brand['brandData']['coverMaterial'])) || !empty(trim($brand['brandData']['reinforcement'])) || !empty(trim($brand['brandData']['temperatureRangeFAndC'])) || !empty(trim($brand['brandData']['Coupling'])) || !empty(trim($brand['brandData']['Packaging']))): ?>
                                             <div class="specs">
                                                 <h6><?= $this->translate('specs') ?></h6>
                                                 <div class="spec-requirement flex">
@@ -228,19 +232,49 @@ if (isset($info['brandsData'])) {
                                                                 <?= $brand['brandData']['temperatureRangeFAndC'] ?>
                                                             </div>
                                                         <?php endif; ?>
+
+                                                        <?php if (!empty(trim($brand['brandData']['designFactor']))): ?>
+                                                            <div class="full">
+                                                                <b><?= $this->translate('Design Factor') ?></b>
+                                                                <?= $brand['brandData']['designFactor'] ?>
+                                                            </div>
+                                                        <?php endif; ?>
                                                         
                                                     </div>
                                                     <div class="col-6">
                                                         
                                                         <?php if (!empty(trim($brand['brandData']['Packaging']))): ?>
-                                                            <div class="full">
+                                                            <div class="right-full">
                                                                 <b><?= $this->translate('Packaging') ?></b>
-                                                                <?= $brand['brandData']['Packaging'] ?>
+                                                                <table>
+                                                                <?php 
+                                                                $rows = explode(PHP_EOL,$brand['brandData']['Packaging']);
+
+                                                                foreach ($rows as $key => $row) {
+                                                                    ?>
+                                                                    <tr>
+                                                                        <?php
+                                                                        
+                                                                        $rowColData = explode(' - ', $row);
+
+                                                                        if(count($rowColData) == 2){
+                                                                        ?>
+                                                                        <td><?= $rowColData[0]; ?></td>
+                                                                        <td> - <?= $rowColData[1]; ?></td>
+                                                                        <?php } else { ?>
+                                                                        <td colspan="2"><?= $row; ?></td>
+                                                                        <?php } ?>
+                                                                    </tr>
+                                                                    <?php
+                                                                }
+                                                                 
+                                                                ?>
+                                                                </table>
                                                             </div>
                                                         <?php endif; ?>
 
                                                         <?php if (!empty(trim($brand['brandData']['Coupling']))): ?>
-                                                            <div class="full">
+                                                            <div class="right-full">
                                                                 <b><?= $this->translate('Coupling') ?></b>
                                                                 <?= $brand['brandData']['Coupling'] ?>
                                                             </div>
@@ -273,9 +307,7 @@ if (isset($info['brandsData'])) {
                                     <?php endif; ?>
                                     <menu>
                                         <h6><?= $this->translate('branding') ?></h6>
-                                        <figure>
-                                            <img src="<?= $info['branding_image_src']; ?>" width='80'/>
-                                            <figcaption><b><?= $brandKey ?></b></figcaption>
+                                        <figure class="brandingLaylineStyle">
                                             <figcaption> <?= $brand['brandData']['BrandingLayline'] ?> </figcaption>
                                         </figure>
                                     </menu>
@@ -286,6 +318,8 @@ if (isset($info['brandsData'])) {
 
                                         foreach ($brand['articleData'] as $key => $GroupingFields):
                                             foreach ($GroupingFields as $gkey => $fittingTableName):
+
+                                            $industrial_hose_data[$categoryForCatalog][] = ($brandKey && $key) ? $brandKey. " ". $key : $brandKey;
                                             $tableKey = md5($key.$gkey);
                                         ?>
 <div class="inh-section-break">
@@ -413,6 +447,25 @@ if (isset($info['brandsData'])) {
         }
     }
     ?>
+
+    <div class="hide">
+    <?php
+
+        $industrial_hose_data_list = [];
+        if($industrial_hose_data)
+        {
+            foreach ($industrial_hose_data as $key => $value) {
+                $industrial_hose_data_list[] = $key."$$".implode(',', $value);
+            }
+
+            if($industrial_hose_data_list)
+            {
+                $industrial_hose_details_text = implode(PHP_EOL, $industrial_hose_data_list);
+                echo $this->textarea('industrial_hose_details')->setDataFromResource($industrial_hose_details_text);
+            }
+        }
+        ?>
+    </div>
     
     <style>
         .inhsetting-sidebar.inhsettingLeft {
