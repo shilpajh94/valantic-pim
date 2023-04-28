@@ -307,12 +307,35 @@ class ProductModelService
                 }
 
                 
-
-                $resultArrFert['eHoseProduct'] = ($resultArrFert['eHoseProduct'] == '1') ? 'Yes' : 'No';
-                $resultArrFert['virtualCatalogFlag'] = ($resultArrFert['virtualCatalogFlag'] == '1') ? 'Yes' : 'No';
-                $resultArrFert['newItemFlagForCatalog'] = ($resultArrFert['newItemFlagForCatalog'] == '1') ? 'Yes' : 'No';
-                $resultArrFert['proposition65WarningAttributesRequired'] = ($resultArrFert['proposition65WarningAttributesRequired'] == '1') ? 'Yes' : 'No';
-                $resultArrFert['publishedOnline'] = ($resultArrFert['publishedOnline'] == '1') ? 'Yes' : 'No';
+                
+                if(isset($resultArrFert['printedCatalogFlag']))
+                {
+                    $resultArrFert['printedCatalogFlag'] = ($resultArrFert['printedCatalogFlag'] == '1') ? 'Yes' : 'No';
+                }
+                if(isset($resultArrFert['B2CStoreFlag']))
+                {
+                    $resultArrFert['B2CStoreFlag'] = ($resultArrFert['B2CStoreFlag'] == '1') ? 'Yes' : 'No';
+                }
+                if(isset($resultArrFert['eHoseProduct']))
+                {
+                    $resultArrFert['eHoseProduct'] = ($resultArrFert['eHoseProduct'] == '1') ? 'Yes' : 'No';
+                }
+                if(isset($resultArrFert['virtualCatalogFlag']))
+                {
+                    $resultArrFert['virtualCatalogFlag'] = ($resultArrFert['virtualCatalogFlag'] == '1') ? 'Yes' : 'No';
+                }
+                if(isset($resultArrFert['newItemFlagForCatalog']))
+                {
+                    $resultArrFert['newItemFlagForCatalog'] = ($resultArrFert['newItemFlagForCatalog'] == '1') ? 'Yes' : 'No';
+                }
+                if(isset($resultArrFert['proposition65WarningAttributesRequired']))
+                {
+                    $resultArrFert['proposition65WarningAttributesRequired'] = ($resultArrFert['proposition65WarningAttributesRequired'] == '1') ? 'Yes' : 'No';
+                }
+                if(isset($resultArrFert['publishedOnline']))
+                {
+                    $resultArrFert['publishedOnline'] = ($resultArrFert['publishedOnline'] == '1') ? 'Yes' : 'No';
+                }
 
                 $resultMasterData = [];
                 if($value['californiaProposition65ChemicalName1'])

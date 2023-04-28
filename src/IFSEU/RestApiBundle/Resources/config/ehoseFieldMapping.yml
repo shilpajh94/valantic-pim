@@ -778,3 +778,7 @@ ehoseAPI:
             #             - Name
         Localizedfields:
             - sapDescription
+            - shippingConditions
+            - Conditions
+            - manufacturingLength
+            - minimumOrder
