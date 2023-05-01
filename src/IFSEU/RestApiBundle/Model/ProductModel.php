@@ -313,7 +313,7 @@ class ProductModel
      */
     public function getPropertyName(string $oo_id, string $classId) : ?string {
         $oo_id = trim($oo_id, ',');
-        $query = 'SELECT PropertyName FROM object_localized_'.$classId.'_en WHERE `oo_id` ='.$oo_id;
+        $query = 'SELECT PropertyName FROM object_localized_'.$classId.'_en WHERE `oo_id` IN ('.$oo_id.')';
         $propertyName = $this->db->fetchOne($query);
         return $propertyName;
     }

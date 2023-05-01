@@ -602,6 +602,20 @@ ehoseAPI:
                 - string
             OnStock:
                 - string
+            productLength:
+                - string
+            priceDate:
+                - string
+            minimumQuantityUnit:
+                - string
+            ProductLengthUnit:
+                - string
+            MinimumQuantityMeasurementUnit:
+                - string
+            EHoseID:
+                - string
+            productionLength:
+                - string
             listPrice:
                 - string
             Department:

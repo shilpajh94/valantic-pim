@@ -306,8 +306,10 @@ class ProductModelService
                     $resultArrFert = array_merge($resultArrFert1,$value);
                 }
 
-                
-                
+                if(isset($resultArrFert['OnStock']))
+                {
+                    $resultArrFert['OnStock'] = ($resultArrFert['OnStock'] == '1') ? 'Yes' : 'No';
+                }
                 if(isset($resultArrFert['printedCatalogFlag']))
                 {
                     $resultArrFert['printedCatalogFlag'] = ($resultArrFert['printedCatalogFlag'] == '1') ? 'Yes' : 'No';
@@ -424,6 +426,9 @@ class ProductModelService
                 unset($resultArrFert['video1']);
                 unset($resultArrFert['video2']);
                 unset($resultArrFert['video3']);
+                unset($resultArrFert['Conditions']);
+                unset($resultArrFert['manufacturingLength']);
+                unset($resultArrFert['minimumOrder']);
 
                 $finalProductArray[$sixDigit]['skeletonData'][$nineDigit]['finishedGoodsData'][]=$resultArrFert;
             }
