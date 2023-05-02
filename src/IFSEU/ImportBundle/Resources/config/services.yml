@@ -43,6 +43,9 @@ services:
     IFSEU\ImportBundle\OneTimeImportCommand\IFSEU_ProductImportCommand:
         tags:
             - { name: 'console.command', command: 'contitech:ifs:eu:ehose-product-import' }
+    IFSEU\ImportBundle\OneTimeImportCommand\IFSEU_EhoseProductLocalizationImportCommand:
+        tags:
+            - { name: 'console.command', command: 'contitech:ifs:eu:ehose-product-localization-import' }
 
     IFSEU\ImportBundle\OneTimeImportCommand\IFSEU_ProductCategoryImportCommand:
         tags:
@@ -154,6 +157,9 @@ services:
         public: true
     ifs_eu_import.product_import:
         class: IFSEU\ImportBundle\Services\ProductImportService
+        public: true
+    ifs_eu_import.product_import_localization:
+        class: IFSEU\ImportBundle\Services\EhoseProductLocalizationImportService
         public: true
         
     ifs_eu_import.category_import_service:
