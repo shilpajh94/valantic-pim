@@ -43,7 +43,7 @@ class ProductModel
     }
     
     public function checkIfArticleExists($materialNumber) {
-        $sql = " SELECT `oo_id`, `o_parentId`, `o_path`, `materialNumber`, `oldMaterialCode`  FROM `object_IFSEUProduct` WHERE `materialNumber` = ".$this->db->quote(trim($materialNumber)) ." AND `productType` = 'fert'";
+        $sql = " SELECT `oo_id`, `o_parentId`, `o_path`, `materialNumber`, `oldMaterialCode`,`siopFullCode`,`o_key`  FROM `object_IFSEUProduct` WHERE `materialNumber` = ".$this->db->quote(trim($materialNumber)) ." AND `productType` = 'fert'";
         return $this->db->fetchAll($sql);
     }
 
@@ -308,6 +308,42 @@ class ProductModel
         $query = "SELECT oo_id, o_key,CategoryCode FROM `object_IFSEUCategory` ";
         return $this->db->fetchAll($query);
     }
+
+    /**
+    * Function for update the fields based on lanaguage start code Here
+    */
+
+    public function getCatagoryLanguageData($lang) {
+        //dd($lang);
+        $tbl="object_localized_IFSEUCategory_".$lang;
+        $query = "SELECT oo_id, o_key,CategoryCode,CategoryName FROM ".$tbl;
+        return $this->db->fetchAll($query);
+    }
+
+    public function getPropertiesLanguageData($lang){
+        $tbl="object_localized_IFSEUProperties_".$lang;
+        $query = "SELECT oo_id,TypeName,o_key,PropertyName FROM ".$tbl;
+        return $this->db->fetchAll($query);
+    }
+    public function getfieldsOfApplicationLanguageData($lang){
+        $tbl="object_localized_IFSEUApplications_".$lang;
+        $query = "SELECT oo_id,o_key,ApplicationName FROM  ".$tbl;
+        return $this->db->fetchAll($query);
+    }
+    public function getflowMediumLanguageData($lang){
+        $tbl="object_localized_IFSEUFlowMedium_".$lang;
+        $query = "SELECT oo_id,o_key,FlowMedium FROM  ".$tbl;
+        return $this->db->fetchAll($query);
+    }
+    public function getstandardsLanguageData($lang){
+        $tbl="object_localized_IFSEUNorm_".$lang;
+        $query = "SELECT oo_id,o_key,Norm FROM  ".$tbl;
+        return $this->db->fetchAll($query);
+    }
+
+    /**
+    * Function for update the fields based on lanaguage End code Here
+    */
 
     public function getPropertiesData(){
         $query = "SELECT oo_id,TypeName,o_key FROM `object_IFSEUProperties` ";
