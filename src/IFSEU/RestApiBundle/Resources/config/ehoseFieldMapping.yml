@@ -28,8 +28,8 @@ ehoseAPI:
                 - string
             TPCode:
                 - string
-            Note2InformationBelowTable:
-                - string
+            # Note2InformationBelowTable:
+            #     - string
             siopFullCode:
                 - string
             SIOPLevel1:
@@ -267,6 +267,16 @@ ehoseAPI:
                         - string
                     flowMedium:
                         - string
+        Localizedfields:
+            - headlineWeb
+            - productBrandNamePerLanguage
+            - BrandShortText2
+            - Marking1
+            - Marking2
+            - searchKeywords
+            - Note2InformationBelowTable
+            - commercialDescription
+            - technicalDescription
     Skeleton:
         Fields:
             oo_id:
@@ -592,6 +602,20 @@ ehoseAPI:
                 - string
             OnStock:
                 - string
+            productLength:
+                - string
+            priceDate:
+                - string
+            minimumQuantityUnit:
+                - string
+            ProductLengthUnit:
+                - string
+            MinimumQuantityMeasurementUnit:
+                - string
+            EHoseID:
+                - string
+            productionLength:
+                - string
             listPrice:
                 - string
             Department:
@@ -648,8 +672,10 @@ ehoseAPI:
                 - string
             OutsidePurchaseFlag:
                 - string
-            sapDescription:
+            eHoseProduct:
                 - string
+            # sapDescription:
+            #     - string
             shippingConditions:
                 - string
             Conditions:
@@ -764,3 +790,9 @@ ehoseAPI:
             #     subCategory:
             #         Fields:
             #             - Name
+        Localizedfields:
+            - sapDescription
+            - shippingConditions
+            - Conditions
+            - manufacturingLength
+            - minimumOrder

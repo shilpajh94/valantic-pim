@@ -128,6 +128,12 @@ class ProductModelService
                     $resultArrBase = $sixDigitData;
                 }
 
+                $localizedData = $this->getProductLocalizedData($sixDigit, 'base');
+                if($localizedData)
+                {
+                    $resultArrBase['localizedfields'] = $localizedData;
+                }
+
                 
                 // We need these 2 ids to get the path of assets
                 // Then we are unseting it to hide the ids
@@ -289,8 +295,10 @@ class ProductModelService
 
             // Set fert data.
             if(isset($finalProductArray[$sixDigit]['skeletonData'][$nineDigit])){
+                // p_r($value['oo_id']); die;
                 // Get Fert Object Bricks Data.
                 // $fertObjectBrickData = $this->getProductObjectBrickData($value['oo_id'],'fert');
+               
                 $resultArrFert1['sap_id']    =   $value['materialNumber'];
                 if(!empty($fertObjectBrickData)){
                     $resultArrFert = array_merge($resultArrFert1,$fertObjectBrickData, $value);
@@ -298,10 +306,38 @@ class ProductModelService
                     $resultArrFert = array_merge($resultArrFert1,$value);
                 }
 
-                $resultArrFert['virtualCatalogFlag'] = ($resultArrFert['virtualCatalogFlag'] == '1') ? 'Yes' : 'No';
-                $resultArrFert['newItemFlagForCatalog'] = ($resultArrFert['newItemFlagForCatalog'] == '1') ? 'Yes' : 'No';
-                $resultArrFert['proposition65WarningAttributesRequired'] = ($resultArrFert['proposition65WarningAttributesRequired'] == '1') ? 'Yes' : 'No';
-                $resultArrFert['publishedOnline'] = ($resultArrFert['publishedOnline'] == '1') ? 'Yes' : 'No';
+                if(isset($resultArrFert['OnStock']))
+                {
+                    $resultArrFert['OnStock'] = ($resultArrFert['OnStock'] == '1') ? 'Yes' : 'No';
+                }
+                if(isset($resultArrFert['printedCatalogFlag']))
+                {
+                    $resultArrFert['printedCatalogFlag'] = ($resultArrFert['printedCatalogFlag'] == '1') ? 'Yes' : 'No';
+                }
+                if(isset($resultArrFert['B2CStoreFlag']))
+                {
+                    $resultArrFert['B2CStoreFlag'] = ($resultArrFert['B2CStoreFlag'] == '1') ? 'Yes' : 'No';
+                }
+                if(isset($resultArrFert['eHoseProduct']))
+                {
+                    $resultArrFert['eHoseProduct'] = ($resultArrFert['eHoseProduct'] == '1') ? 'Yes' : 'No';
+                }
+                if(isset($resultArrFert['virtualCatalogFlag']))
+                {
+                    $resultArrFert['virtualCatalogFlag'] = ($resultArrFert['virtualCatalogFlag'] == '1') ? 'Yes' : 'No';
+                }
+                if(isset($resultArrFert['newItemFlagForCatalog']))
+                {
+                    $resultArrFert['newItemFlagForCatalog'] = ($resultArrFert['newItemFlagForCatalog'] == '1') ? 'Yes' : 'No';
+                }
+                if(isset($resultArrFert['proposition65WarningAttributesRequired']))
+                {
+                    $resultArrFert['proposition65WarningAttributesRequired'] = ($resultArrFert['proposition65WarningAttributesRequired'] == '1') ? 'Yes' : 'No';
+                }
+                if(isset($resultArrFert['publishedOnline']))
+                {
+                    $resultArrFert['publishedOnline'] = ($resultArrFert['publishedOnline'] == '1') ? 'Yes' : 'No';
+                }
 
                 $resultMasterData = [];
                 if($value['californiaProposition65ChemicalName1'])
@@ -352,6 +388,13 @@ class ProductModelService
                     }
                 }
 
+                
+                $localizedData = $this->getProductLocalizedData($value['oo_id'], 'fert');
+                if($localizedData)
+                {
+                    $resultArrFert['localizedfields'] = $localizedData;
+                }
+                
                 unset($resultArrFert['SIOPLevel1']);
                 unset($resultArrFert['SIOPLevel2']);
                 unset($resultArrFert['SIOPLevel3']);
@@ -383,6 +426,9 @@ class ProductModelService
                 unset($resultArrFert['video1']);
                 unset($resultArrFert['video2']);
                 unset($resultArrFert['video3']);
+                unset($resultArrFert['Conditions']);
+                unset($resultArrFert['manufacturingLength']);
+                unset($resultArrFert['minimumOrder']);
 
                 $finalProductArray[$sixDigit]['skeletonData'][$nineDigit]['finishedGoodsData'][]=$resultArrFert;
             }
@@ -571,6 +617,27 @@ class ProductModelService
             }
         }
         return $imageDetail;
+    }
+
+    /**
+     * Method to get object localized field detail
+     *
+     * @param int $objId Object Id
+     * @param string $productType Product Type (Fert/Skeleton/Base)
+     * @return array $productObjectBricksData objectBrick Data.
+     * @throws
+     */
+    private function getProductLocalizedData($objId,$productType){
+        $productObjectBricksData = [];
+
+        // Get Product Object Brick Config Details.
+        $localizedFieldMapping = $this->ehose['ehoseAPI'][ucfirst($productType)]['Localizedfields'];
+
+        if(empty($localizedFieldMapping)){
+            return;
+        }
+        $productObjectBricksData =  $this->model->getProductLocalizedData($objId, $localizedFieldMapping);
+        return $productObjectBricksData;
     }
 
     /**
