@@ -200,13 +200,12 @@ class ProductImportService
             $this->csvHeader = array_flip($csvInfo['header']);
             try {
                 $this->initImportTable();
-                //dd("2222");
                 Logger::log(self::LOGGER_MODULE)->info("Product import started");
                 
                 $this->productModel->truncateTempTable();
                 $this->productModel->insertDataInTemp($csvInfo['data']);
                 Logger::log(self::LOGGER_MODULE)->info("Data Sheet imported in temp table");
-                // $this->productModel->processDeletedProducts();
+                $this->productModel->processDeletedProducts();
                 Logger::log(self::LOGGER_MODULE)->info("Removed records in data sheet, marked as unpublished.");
                 Logger::log(self::LOGGER_MODULE)->info("Product import started");
                 $this->initiateProductsProcess();
@@ -1074,14 +1073,20 @@ class ProductImportService
             $rowData        = array_combine($csvHeader, $record);
             foreach ($bricks as $brick) {
                 $bricksData     = $this->productHelper->processBricksData($rowData, $brick); 
+                
                 if (in_array($brick, $this->allBricksList)) {
                     foreach ($this->brickTablePrefixArray  as $brickPrefix) {
                         $tblName = $brickPrefix.ucfirst($brick)."_IFSEUProduct";
                         //$tableData  =['o_id' => $objId, 'fieldname' => ucfirst($type)];
                         if($brick=='IFSEUHoseBase'){
-                            $bricksData=$this->hoseBaseBricksAttribute($bricksData,$brick);
+                            
+                            $hoseBricksData=$this->hoseBaseBricksAttribute($bricksData,$brick);
+                            $tableData  = array_merge(['o_id' => $objId, 'fieldname' => ucfirst($type)], $hoseBricksData);
+
+                        }else{
+                            $tableData  = array_merge(['o_id' => $objId, 'fieldname' => ucfirst($type)], $bricksData);
+
                         }
-                        $tableData  = array_merge(['o_id' => $objId, 'fieldname' => ucfirst($type)], $bricksData);
                         $this->bricksDataArray[$tblName][] = $tableData;
                     }
                 }
@@ -1127,10 +1132,13 @@ class ProductImportService
                                     $values=trim($values);
                                     if(array_key_exists($values,$this->productProperties[$propertyType])){
                                         $propertyIdsArr[]=$this->productProperties[$propertyType][$values];
+                                    }else{
+                                        $propertyIdsArr[] = "";
                                     }
                                 }
                             }
                             if(!empty($propertyIdsArr)){
+                                $propertyIdsArr = array_filter($propertyIdsArr);
                                 $propertyIds=implode(',',$propertyIdsArr);
                                 $bricksData[$fieldName]=$propertyIds;
                             }
@@ -1144,10 +1152,13 @@ class ProductImportService
                                 $values=trim($values);
                                 if(array_key_exists($values,$this->fieldsOfApplication)){
                                     $fieldsApplicationIdsArr[]=$this->fieldsOfApplication[$values];
+                                }else{
+                                    $fieldsApplicationIdsArr[] = "";
                                 }
                             }
                         }
                         if(!empty($fieldsApplicationIdsArr)){
+                            $fieldsApplicationIdsArr = array_filter($fieldsApplicationIdsArr);
                             $fieldsApplicationIds=implode(',',$fieldsApplicationIdsArr);
                             $bricksData[$fieldName]=$fieldsApplicationIds;
                         }
@@ -1160,10 +1171,13 @@ class ProductImportService
                             if(!empty($values)){
                                 if(array_key_exists($values,$this->flowMedium)){
                                     $flowMediumIdsArr[]=$this->flowMedium[$values];
+                                }else{
+                                    $flowMediumIdsArr[] = ""; 
                                 }
                             }
                         }
                         if(!empty($flowMediumIdsArr)){
+                            $flowMediumIdsArr = array_filter($flowMediumIdsArr);
                             $flowMediumIds=implode(',',$flowMediumIdsArr);
                             $bricksData[$fieldName]=$flowMediumIds;
                         }
@@ -1177,10 +1191,13 @@ class ProductImportService
                             if(!empty($values)){
                                 if(array_key_exists($values,$this->standards)){
                                     $standardsIdsArr[]=$this->standards[$values];
+                                }else{
+                                    $standardsIdsArr[] = "";
                                 }
                             }
                         }
                         if(!empty($standardsIdsArr)){
+                            $standardsIdsArr = array_filter($standardsIdsArr);
                             $standardsIds=implode(',',$standardsIdsArr);
                             $bricksData[$fieldName]=$standardsIds;
                         }
