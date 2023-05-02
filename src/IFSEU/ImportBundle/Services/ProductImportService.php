@@ -200,7 +200,6 @@ class ProductImportService
             $this->csvHeader = array_flip($csvInfo['header']);
             try {
                 $this->initImportTable();
-                //dd("2222");
                 Logger::log(self::LOGGER_MODULE)->info("Product import started");
                 
                 $this->productModel->truncateTempTable();
@@ -776,6 +775,21 @@ class ProductImportService
                 }
             }
 
+            if(isset($queryTableData['maximumTemperatureC']) && isset($queryTableData['minimumTemperatureC'])){
+                $queryTableData['rangeTemperatureC']=$queryTableData['minimumTemperatureC'] . "°C" ." to " . $queryTableData['maximumTemperatureC'] . "°C";
+
+            }
+            if(isset($queryTableData['minimumTemperatureF']) && isset($queryTableData['maximumTemperatureF'])){
+                $queryTableData['rangeTemperatureF']=$queryTableData['minimumTemperatureF'] . "°F" ." to " . $queryTableData['maximumTemperatureF'] . "°F";
+
+            }
+
+            if(isset($queryTableData['minimumTemperatureC']) && isset($queryTableData['maximumTemperatureC'])){
+                $queryTableData['temperatureRangeFAndC']= $queryTableData['rangeTemperatureF']. " ( ".$queryTableData['rangeTemperatureC']." )";
+            }
+
+
+
             if(!empty(trim($record[$this->getRecordIndexByKey('FeaturesBenefitsBulletPoint')]))){
 
                 $propertyType='propertiesGeneral';
@@ -949,6 +963,18 @@ class ProductImportService
                     }
                 }
             }
+            if(isset($storeTableDataArray['maximumTemperatureC']) && isset($storeTableDataArray['minimumTemperatureC'])){
+                $storeTableDataArray['rangeTemperatureC']=$storeTableDataArray['minimumTemperatureC'] . "°C" ." to " . $storeTableDataArray['maximumTemperatureC'] . "°C";
+
+            }
+            if(isset($storeTableDataArray['minimumTemperatureF']) && isset($storeTableDataArray['maximumTemperatureF'])){
+                $storeTableDataArray['rangeTemperatureF']=$storeTableDataArray['minimumTemperatureF'] . "°F" ." to " . $storeTableDataArray['maximumTemperatureF'] . "°F";
+
+            }
+
+            if(isset($storeTableDataArray['minimumTemperatureC']) && isset($storeTableDataArray['maximumTemperatureC'])){
+                $storeTableDataArray['temperatureRangeFAndC']= $storeTableDataArray['rangeTemperatureF']. " ( ".$storeTableDataArray['rangeTemperatureC']." )";
+            }
 
             if(!empty(trim($record[$this->getRecordIndexByKey('FeaturesBenefitsBulletPoint')]))){
 
@@ -976,7 +1002,6 @@ class ProductImportService
 
         $this->storeTableDataArray[] = $storeTableDataArray;
     }
-
     public function getRelationTableData($objId, $record, $levelInfo, $level=5, $productType = 'fert') {
         for ($k=1; $k<=$level; $k++) {
             $index = 'SIOPLevel'.$k;

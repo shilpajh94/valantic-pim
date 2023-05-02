@@ -658,6 +658,17 @@ class EhoseProductLocalizationImportService
                     }
                 }
             }
+             if(isset($queryTableData['maximumTemperatureC']) && isset($queryTableData['minimumTemperatureC'])){
+                $queryTableData['rangeTemperatureC']=$queryTableData['minimumTemperatureC'] . "°C" ." to " . $queryTableData['maximumTemperatureC'] . "°C";
+
+            }
+            if(isset($queryTableData['minimumTemperatureF']) && isset($queryTableData['maximumTemperatureF'])){
+                $queryTableData['rangeTemperatureF']=$queryTableData['minimumTemperatureF'] . "°F" ." to " . $queryTableData['maximumTemperatureF'] . "°F";
+
+            }
+            if(isset($queryTableData['minimumTemperatureC']) && isset($queryTableData['maximumTemperatureC'])){
+                $queryTableData['temperatureRangeFAndC']= $queryTableData['rangeTemperatureF']. " ( ".$queryTableData['rangeTemperatureC']." )";
+            }
 
             if(!empty(trim($record[$this->getRecordIndexByKey('FeaturesBenefitsBulletPoint')]))){
 
@@ -781,6 +792,7 @@ class EhoseProductLocalizationImportService
                     }
                 }
             }
+            
 
             if(!empty($maximumTemperatureC)){
                 $attributeGroupName = $this->unitConversionService->getAttributeGroupName('maximumTemperatureC');
@@ -790,6 +802,18 @@ class EhoseProductLocalizationImportService
                         $storeTableDataArray[$key]=$convertValues;
                     }
                 }
+            }
+
+            if(isset($storeTableDataArray['maximumTemperatureC']) && isset($storeTableDataArray['minimumTemperatureC'])){
+                $storeTableDataArray['rangeTemperatureC']=$storeTableDataArray['minimumTemperatureC'] . "°C" ." to " . $storeTableDataArray['maximumTemperatureC'] . "°C";
+
+            }
+            if(isset($storeTableDataArray['minimumTemperatureF']) && isset($storeTableDataArray['maximumTemperatureF'])){
+                $storeTableDataArray['rangeTemperatureF']=$storeTableDataArray['minimumTemperatureF'] . "°F" ." to " . $storeTableDataArray['maximumTemperatureF'] . "°F";
+
+            }
+            if(isset($storeTableDataArray['minimumTemperatureC']) && isset($storeTableDataArray['maximumTemperatureC'])){
+                $storeTableDataArray['temperatureRangeFAndC']= $storeTableDataArray['rangeTemperatureF']. " ( ".$storeTableDataArray['rangeTemperatureC']." )";
             }
 
             if(!empty(trim($record[$this->getRecordIndexByKey('FeaturesBenefitsBulletPoint')]))){
