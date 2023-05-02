@@ -13,10 +13,12 @@ class ProductModel
     private $sqlArr = [];
     private $limit  = 50;
     private $maxLimit = 250;
+    private $languages;
 
     public function __construct()
     {
         $this->db = \Pimcore\Db::get();
+        $this->languages = \Pimcore\Tool::getValidLanguages(); 
     }
 
     /**
@@ -296,9 +298,10 @@ class ProductModel
      * @param string $classId object Id
      */
     public function getFeatures(string $oo_id, string $classId) : ?string {
+        $languages = "'" . implode ( "', '", $this->languages ) . "'";
         //Removing comma from begining and end
         $oo_id = trim($oo_id, ',');
-        $query = 'SELECT PropertyName FROM object_localized_'.$classId.'_en WHERE `oo_id` IN ('.$oo_id.')';
+        $query = 'SELECT PropertyName FROM object_localized_'.$classId.'_en WHERE `oo_id` IN ('.$oo_id.') AND language IN ('.$languages.')';
         $features = $this->db->fetchCol($query);
         $featureList = implode(", ",$features);
         return $featureList;
@@ -312,8 +315,9 @@ class ProductModel
      * @param string $classId object Id
      */
     public function getPropertyName(string $oo_id, string $classId) : ?string {
+        $languages = "'" . implode ( "', '", $this->languages ) . "'";
         $oo_id = trim($oo_id, ',');
-        $query = 'SELECT PropertyName FROM object_localized_'.$classId.'_en WHERE `oo_id` IN ('.$oo_id.')';
+        $query = 'SELECT PropertyName FROM object_localized_'.$classId.'_en WHERE `oo_id` IN ('.$oo_id.') AND language IN ('.$languages.')';
         $propertyName = $this->db->fetchOne($query);
         return $propertyName;
     }
@@ -351,10 +355,11 @@ class ProductModel
      */
     public function getProductLocalizedData(int $ooo_id, array $fieldList) : ?array
     {
+        $languages = "'" . implode ( "', '", $this->languages ) . "'";
         $fields[] = 'language';
         $fields = array_merge($fields, $fieldList);
         $fieldFormattedString = implode(",",$fields);
-        $query = "SELECT {$fieldFormattedString} FROM object_localized_data_IFSEUProduct WHERE `ooo_id` = {$ooo_id}";
+        $query = "SELECT {$fieldFormattedString} FROM object_localized_data_IFSEUProduct WHERE `ooo_id` = {$ooo_id} AND `language` IN ($languages)";
         $resultSet = $this->db->fetchAll($query);
 
         $resultSetFormatted = [];
@@ -374,4 +379,41 @@ class ProductModel
         return $resultSetFormatted;
     }
 
+    /**
+     * Method to get the localized field data from object_localized_data_IFSEUProduct table for all the languages based on ooo_id
+     *
+     * @param string $ooo_id object Id
+     */
+    public function getMastersLocalizedData(string $classId, string $fieldName, string $aliasName, array $idList) : ?array
+    {
+        $languages = "'" . implode ( "', '", $this->languages ) . "'";
+        $fields[] = 'ooo_id';
+        $fields[] = 'language';
+        $fields[] = $fieldName. " AS ". $aliasName;
+        $fieldFormattedString = implode(",",$fields);
+        $idListString = implode(",",$idList);
+        $query = "SELECT {$fieldFormattedString} FROM object_localized_data_{$classId} WHERE `ooo_id` IN ($idListString) AND `language` IN ($languages)";
+        $resultSet = $this->db->fetchAll($query);
+
+        $resultSetFormatted = [];
+        if($resultSet)
+        {
+            foreach ($resultSet as $key => $value) {
+                
+                $ooo_id = $value['ooo_id'];
+                unset($value['ooo_id']);
+                $language = $value['language'];
+                unset($value['language']);
+                $value = array_filter($value);
+
+                if($value)
+                {
+                    $resultSetFormatted[$language][] = $value[$aliasName];
+                }
+            }
+        }
+        return $resultSetFormatted;
+    }
+
+    
 }
