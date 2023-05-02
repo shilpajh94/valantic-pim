@@ -25,7 +25,7 @@ class ProductModel
      * @param string $lang language code
      * @param array $conditionArray parameter array
      * @param string $productType product type('Fert','Skeleton','Base')
-     * @param array $vCatalogMap Virtual Catalog mapping array.
+     * @param array $vCatalogMap eHose data mapping array.
      *
      * @return array $productDetail Product Details array
      */
@@ -56,15 +56,6 @@ class ProductModel
                         $product = $stmt->fetchAll();
                         if(empty($product)) {
                             return false;
-                        }else{
-                            if($productType === "base"){
-                                $objectId = $conditionArray["ids"];                                
-                                if(array_key_exists("VirtualCatalogReinforcement",$fieldString)){
-                                    $sql = "SELECT VirtualCatalogReinforcement FROM object_store_" . $this->classId;
-                                    $sql .= " WHERE  oo_id = ?";
-                                    $product[0]["VirtualCatalogReinforcement"] = $this->db->fetchOne($sql,[$objectId]);
-                                }
-                            }
                         }
                     }else{
                         return false;
@@ -96,8 +87,7 @@ class ProductModel
         }
 
         if($productType=='fert'){
-            $conditionString .= " virtualCatalogFlag=1  AND ";
-            // $conditionString .= " virtualCatalogFlag=1  AND oldMaterialCode <> '' AND ";
+            $conditionString .= " eHoseProduct=1  AND ";
         }
 
         switch($productType){
@@ -246,7 +236,7 @@ class ProductModel
             $fieldDataType = $fieldConfig[0];
             
             if( is_array($fieldDataType) && array_key_first($fieldDataType) === "numeric" ){
-                $decimalPoints = $fieldDataType["numeric"] ?? DEFAULT_DECIMAL_PLACES_IN_VIRTUAL_CATALOG_API;
+                $decimalPoints = $fieldDataType["numeric"] ?? DEFAULT_DECIMAL_PLACES_IN_EHOSE_API;
                 $selectStatementAttributes[] = "ROUND(". $fieldName .",". $decimalPoints .") AS " . $fieldName;
             }elseif($fieldDataType === "string"){
                 $selectStatementAttributes[] = $fieldName;
@@ -261,7 +251,7 @@ class ProductModel
      *
      * @param int $id object Id
      * @param string $productType product type('base','skeleton','fert')
-     * @param array $vCatalogMap virtual catalog fields mapping array
+     * @param array $vCatalogMap eHose fields mapping array
      * @return array $pTypeData product data array.
      */
     public function getProductTypeData($id,$productType,$vCatalogMap){
@@ -323,7 +313,7 @@ class ProductModel
      */
     public function getPropertyName(string $oo_id, string $classId) : ?string {
         $oo_id = trim($oo_id, ',');
-        $query = 'SELECT PropertyName FROM object_localized_'.$classId.'_en WHERE `oo_id` ='.$oo_id;
+        $query = 'SELECT PropertyName FROM object_localized_'.$classId.'_en WHERE `oo_id` IN ('.$oo_id.')';
         $propertyName = $this->db->fetchOne($query);
         return $propertyName;
     }
@@ -352,6 +342,36 @@ class ProductModel
         $query = 'SELECT o_key FROM object_IFSEUSubCategory WHERE `oo_id` = '.$oo_id;
         $subCategory = $this->db->fetchOne($query);
         return $subCategory;
+    }
+
+    /**
+     * Method to get the localized field data from object_localized_data_IFSEUProduct table for all the languages based on ooo_id
+     *
+     * @param string $ooo_id object Id
+     */
+    public function getProductLocalizedData(int $ooo_id, array $fieldList) : ?array
+    {
+        $fields[] = 'language';
+        $fields = array_merge($fields, $fieldList);
+        $fieldFormattedString = implode(",",$fields);
+        $query = "SELECT {$fieldFormattedString} FROM object_localized_data_IFSEUProduct WHERE `ooo_id` = {$ooo_id}";
+        $resultSet = $this->db->fetchAll($query);
+
+        $resultSetFormatted = [];
+        if($resultSet)
+        {
+            foreach ($resultSet as $key => $value) {
+                $language = $value['language'];
+                unset($value['language']);
+                $value = array_filter($value);
+
+                if($value)
+                {
+                    $resultSetFormatted[$language] = $value;
+                }
+            }
+        }
+        return $resultSetFormatted;
     }
 
 }
