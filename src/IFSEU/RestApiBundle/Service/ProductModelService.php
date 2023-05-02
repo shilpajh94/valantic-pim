@@ -134,6 +134,99 @@ class ProductModelService
                     $resultArrBase['localizedfields'] = $localizedData;
                 }
 
+                if(isset($resultArrBase['standards']) && $resultArrBase['standards'])
+                {
+                    $localizedData = $this->model->getMastersLocalizedData('IFSEUNorm', 'Norm', 'standards', $resultArrBase['standards']);
+                    if($localizedData)
+                    {
+                        foreach ($localizedData as $lang => $langData) {
+                            $resultArrBase['localizedfields'][$lang]['standards'] = $langData;
+                        }
+                    }
+                    unset($resultArrBase['standards']);
+                }
+
+                if(isset($resultArrBase['FieldsOfApplication']) && $resultArrBase['FieldsOfApplication'])
+                {
+                    $localizedData = $this->model->getMastersLocalizedData('IFSEUApplications', 'ApplicationName', 'FieldsOfApplication', $resultArrBase['FieldsOfApplication']);
+                    if($localizedData)
+                    {
+                        foreach ($localizedData as $lang => $langData) {
+                            $resultArrBase['localizedfields'][$lang]['FieldsOfApplication'] = $langData;
+                        }
+                    }
+                    unset($resultArrBase['FieldsOfApplication']);
+                }
+
+                if(isset($resultArrBase['flowMedium']) && $resultArrBase['flowMedium'])
+                {
+                    $localizedData = $this->model->getMastersLocalizedData('IFSEUFlowMedium', 'FlowMedium', 'flowMedium', $resultArrBase['flowMedium']);
+                    if($localizedData)
+                    {
+                        foreach ($localizedData as $lang => $langData) {
+                            $resultArrBase['localizedfields'][$lang]['flowMedium'] = $langData;
+                        }
+                    }
+                    unset($resultArrBase['flowMedium']);
+                }
+
+                $basePropertyClassFields = array(
+                    'PropertiesOuterLayer' => 'PropertiesOuterLayer',
+                    'propertiesInnerLayer' => 'propertiesInnerLayer',
+                    'tubeCharacteristic' => 'tubeCharacteristic',
+                    'InnerLining' => 'InnerLining',
+                    'colorInnerLining' => 'colorInnerLining',
+                    'Reinforcement' => 'Reinforcement',
+                    'Helix' => 'Helix',
+                    'CoverOuterLayer' => 'CoverOuterLayer',
+                    'ColorOuterLayer' => 'ColorOuterLayer',
+                    'Haptic' => 'Haptic'
+                );
+
+                foreach ($basePropertyClassFields as $propkey => $propName) {
+                    if(isset($resultArrBase[$propkey]) && $resultArrBase[$propkey])
+                    {
+                        unset($propertySelectType);
+                        if(is_array($resultArrBase[$propkey]))
+                        {
+                            $propertySelectType = $resultArrBase[$propkey];
+                        }
+                        else{
+                            $propertySelectType[] = $resultArrBase[$propkey];
+                        }
+                        
+                        unset($localizedData);
+                        $localizedData = $this->model->getMastersLocalizedData('IFSEUProperties', 'PropertyName', $propkey, $propertySelectType);
+                        if($localizedData)
+                        {
+                            foreach ($localizedData as $lang => $langData) {
+                                $resultArrBase['localizedfields'][$lang][$propkey] = $langData;
+                            }
+                        }
+
+                        unset($resultArrBase[$propkey]);
+                    }
+                }
+
+                if(isset($resultArrBase['staticWire']))
+                {
+                    $resultArrBase['staticWire'] = ($resultArrBase['staticWire'] == 1) ? 'Yes' : 'No';
+                }
+
+                if(isset($resultArrBase['justTemporarily']))
+                {
+                    $resultArrBase['justTemporarily'] = ($resultArrBase['justTemporarily'] == 1) ? 'Yes' : 'No';
+                }
+
+                if(isset($resultArrBase['onlyOpenSystem']))
+                {
+                    $resultArrBase['onlyOpenSystem'] = ($resultArrBase['onlyOpenSystem'] == 1) ? 'Yes' : 'No';
+                }
+
+                if(isset($resultArrBase['FlowMediumStability']))
+                {
+                    $resultArrBase['FlowMediumStability'] = ($resultArrBase['FlowMediumStability'] == 1) ? 'Yes' : 'No';
+                }
                 
                 // We need these 2 ids to get the path of assets
                 // Then we are unseting it to hide the ids
@@ -257,6 +350,25 @@ class ProductModelService
                     $resultArrSkeleton = array_merge($resultArrSkeleton1,$nineDigitData);
                 }
 
+                if(isset($resultArrSkeleton['withHelix']))
+                {
+                    $resultArrSkeleton['withHelix'] = ($resultArrSkeleton['withHelix'] == 1) ? 'Yes' : 'No';
+                }
+
+
+                if(isset($resultArrSkeleton['FittingFamily']) && $resultArrSkeleton['FittingFamily'])
+                {
+                    $localizedData = $this->model->getMastersLocalizedData('IFSEUProperties', 'PropertyName', 'FittingFamily', $resultArrSkeleton['FittingFamily']);
+                    if($localizedData)
+                    {
+                        foreach ($localizedData as $lang => $langData) {
+                            $resultArrSkeleton['localizedfields'][$lang]['FittingFamily'] = $langData;
+                        }
+                    }
+                    unset($resultArrSkeleton['FittingFamily']);
+                }
+                
+
                 unset($resultArrSkeleton['SIOPLevel1']);
                 unset($resultArrSkeleton['SIOPLevel2']);
                 unset($resultArrSkeleton['SIOPLevel3']);
@@ -288,7 +400,8 @@ class ProductModelService
                 unset($resultArrSkeleton['video1']);
                 unset($resultArrSkeleton['video2']);
                 unset($resultArrSkeleton['video3']);
-                
+                // p_r($resultArrSkeleton);
+                // die;
                 $finalProductArray[$sixDigit]['skeletonData'][$nineDigit]['id']= $nineDigit;
                 $finalProductArray[$sixDigit]['skeletonData'][$nineDigit]= $resultArrSkeleton;
             }
@@ -338,6 +451,7 @@ class ProductModelService
                 {
                     $resultArrFert['publishedOnline'] = ($resultArrFert['publishedOnline'] == '1') ? 'Yes' : 'No';
                 }
+
 
                 $resultMasterData = [];
                 if($value['californiaProposition65ChemicalName1'])
@@ -654,7 +768,7 @@ class ProductModelService
 
         // Get Product Object Brick Config Details.
         $objectBricksMap = $this->ehose['ehoseAPI'][ucfirst($productType)]['ObjectBricks'];
-
+        // p_r($objectBricksMap); 
         if(empty($objectBricksMap)){
             return;
         }
@@ -670,8 +784,10 @@ class ProductModelService
                     $product = DataObject\IFSEUProduct::getById($objId);
                     $bData  =   '';
                     // Get Field Definition.
-
+                    // if($fieldName == 'FittingFamily')
+                    // {
                     if($product->$productBrickField()->$brickText()){
+                    
                         $fieldDef = $product->$productBrickField()->$brickText()->getDefinition()->getFieldDefinition($fieldName);
                         if(!empty($fieldDef) && $fieldDef->getFieldtype()==="multiselect"){
                              $bDataTmp  =   $product->$productBrickField()->$brickText()->$fieldText();
@@ -686,29 +802,35 @@ class ProductModelService
                                     {
                                         $objectIndv = DataObject::getById($mvalue);
                                         if($objectIndv instanceof DataObject\IFSEUApplications) {
-                                            $bData[] = $objectIndv->getApplicationName();
+                                            $bData[] = $objectIndv->getId();
                                         }
                                         else if($objectIndv instanceof DataObject\IFSEUFlowMedium) {
-                                            $bData[] = $objectIndv->getFlowMedium();
+                                            $bData[] = $objectIndv->getId();
                                         }
-                                        else{
-                                            $bData[] = $objectIndv->getPropertyName();
+                                        else if($objectIndv instanceof DataObject\IFSEUNorm) {
+                                            $bData[] = $objectIndv->getId();
+                                        }
+                                        else if($objectIndv instanceof DataObject\IFSEUProperties) {
+                                            $bData[] = $objectIndv->getId();
+                                            // p_r($bData);
                                         }
                                     }
                                 }
                              }
-
+// echo "first";
                        }
                        else if(!empty($fieldDef) && $fieldDef->getFieldtype()==="select" && $fieldName !=="staticWireType")
                        {
+                        // echo "second";
                             $bData = $product->$productBrickField()->$brickText()->$fieldText();
                             $objectIndv = DataObject::getById($bData);
-                            if($objectIndv)
+                            if($objectIndv instanceof DataObject\IFSEUProperties)
                             {
-                                $bData = $objectIndv->getPropertyName();
+                                $bData = $objectIndv->getId();
                             }
                        }
                        else{
+                        // echo "third";
                             $bData  =   $product->$productBrickField()->$brickText()->$fieldText();
                        }
                     }
@@ -720,6 +842,7 @@ class ProductModelService
                         }
                         $productObjectBricksData[$fieldName] = $bData;
                     }
+                // }
                 }
             }
         }
