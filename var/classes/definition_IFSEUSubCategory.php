@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-03-20T08:13:33+01:00
+* Generated at: 2023-04-28T12:21:31+05:30
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -20,7 +20,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUSubCategory',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1679296413,
+   'modificationDate' => 1682664691,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -145,7 +145,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'title' => '',
              'width' => '',
              'height' => '',
-             'maxTabs' => NULL,
+             'maxTabs' => 20,
              'labelWidth' => 200,
              'border' => false,
              'provideSplitView' => false,
