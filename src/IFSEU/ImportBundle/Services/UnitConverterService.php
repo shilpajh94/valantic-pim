@@ -92,7 +92,7 @@ class UnitConverterService
             $converter = ConverterFactory::getConverterByUnit($value, $unitObjectOfGivenAttribute);
 
             foreach($groupConfig as $attributeName => $attributeUnit){
-                $returnValue[$attributeName] = $converter->getValue(new Unit($attributeUnit));
+                $returnValue[$attributeName] = number_format($converter->getValue(new Unit($attributeUnit)), 2, '.', '');
             }
         }
 

@@ -18,14 +18,10 @@ use IFSEU\ImportBundle\Services\AppService;
 use IFSEU\ImportBundle\Services\CategoryBrickMappingService;
 use IFSEU\ImportBundle\Services\ConfigProviderService;
 use IFSEU\ImportBundle\Services\UnitConverterService;
-use Pimcore\Bundle\AdminBundle\Helper\GridHelperService;
 use Pimcore\Event\Model\DataObjectEvent;
-use Pimcore\Model\DataObject\ProductLine;
 use Pimcore\Model\DataObject;
-use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Pimcore\Event\Model\DocumentEvent;
 
 
 class ObjectListener
@@ -39,28 +35,15 @@ class ObjectListener
 
     private $appService;
 
-    private $customGridHelperService;
 
-    public function __construct(RequestStack $requestStack,
-                                GridHelperService $customGridHelperService
-                                )
+    public function __construct(RequestStack $requestStack)
     {
         $this->requestStack = $requestStack;
         $this->categoryBrickMappingService = \Pimcore::getContainer()->get('ifs_eu_import.category_brick_mapping_service');
         $this->unitConversionService = \Pimcore::getContainer()->get('ifs_eu_import.unit_conversion_import_service');
         $this->appService = \Pimcore::getContainer()->get('ifs_eu_import.appServices');
-        $this->customGridHelperService = $customGridHelperService;
     }
 
-    /**
-     * handle brick addition or deletion on product based on associated category
-     *
-     * to get rid of the performance decrease on every product save, we are using the http request
-     * to identify whether any of the SIOP relation is changed in the product,if so, only then
-     * process the product for brick changes
-     *
-     * @param DataObjectEvent $event
-     */
     public function preUpdate(DataObjectEvent $event)
     {
         $object = $event->getObject();

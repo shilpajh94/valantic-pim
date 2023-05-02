@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-04-28T12:20:57+05:30
+* Generated at: 2023-05-01T14:59:32+05:30
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -32,7 +32,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProductCategory',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1682664656,
+   'modificationDate' => 1682933371,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -454,7 +454,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'title' => 'Description',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => '',
@@ -480,7 +480,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'title' => 'Printed Catalog Description',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => '',

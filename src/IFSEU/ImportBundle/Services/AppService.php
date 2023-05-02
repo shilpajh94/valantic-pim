@@ -2,15 +2,11 @@
 
 namespace IFSEU\ImportBundle\Services;
 
-use phpDocumentor\Reflection\Types\Self_;
-use Pimcore\Logger;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\ClassDefinition;
 use Pimcore\Model\DataObject\Folder;
 use Pimcore\Model\DataObject\IFSEUProduct;
 use Pimcore\Model\DataObject\Service;
-use Symfony\Component\HttpFoundation\Request;
-use Wvision\Bundle\DataDefinitionsBundle\Lib\DataImportLogger;
 
 
 class AppService
@@ -26,22 +22,6 @@ class AppService
     private $configProviderService;
 
     private $db;
-
-    /**
-     * @var int
-     */
-    private  $productClassId = 1;
-
-    /**
-     * @var int
-     */
-    private  $batchSize = 500;
-
-    /**
-     * @var int
-     */
-    private $startHour = 22;
-
 
     /**
      * AppService constructor.
@@ -274,10 +254,7 @@ class AppService
         }else{
             $product->setTemperatureRangeFAndC(null);
         }
-
     }
-
-    
 
     /**
      * @param string $pimcoreClassName
@@ -291,39 +268,4 @@ class AppService
         }
         return null;
     }
-
-    /**
-     * Function to get thumbnail path per resolution on S3 for an asset.
-     *
-     * @param string $filepath
-     * @param $resolution: example '__1200'
-     * @return string
-     */
-    public function getFilenameAsPerResolution(string $filepath,$resolution): string
-    {
-        $assetUrl = PIMCORE_TRANSFORMED_ASSET_URL;
-        $assetUrl = substr_replace($assetUrl, "", strpos($assetUrl, "/assets"));
-        $pos = strpos($filepath,$assetUrl) ;
-
-        if($pos !== false) {
-            $filepath =   substr_replace($filepath, '/conversions', strlen($assetUrl),7);
-        } else {
-            $filepath =  '/conversions'.$filepath;
-        }
-        $fileNameComponentAry = explode("/",$filepath);
-        $filenameWithExtension = $fileNameComponentAry[sizeof($fileNameComponentAry)-1];
-
-        //get filename without extension
-        $fileNameAry = explode(".",$filenameWithExtension);
-        $fileExtension = array_pop($fileNameAry);
-        $filename = implode(".", $fileNameAry);
-        //add filename without extension in file path before file name.
-        $componentAryLastIndex = sizeof($fileNameComponentAry)-1;
-        $fileNameComponentAry[] = $fileNameComponentAry[$componentAryLastIndex];
-        $fileNameComponentAry[sizeof($fileNameComponentAry)-2] = $filename; //second last index
-        $filepath = implode("/",$fileNameComponentAry);
-
-        return substr_replace($filepath, $resolution , strrpos($filepath,$fileExtension, -1)-1, 0);
-    }
-
 }
