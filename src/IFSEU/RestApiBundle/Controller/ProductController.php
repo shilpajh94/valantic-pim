@@ -89,15 +89,15 @@ class ProductController extends FrontendController
         // $returnValidationFlag =   true;
         
         if($returnValidationFlag){
-            // Get Virtual catalog fields mapping configuration.
+            // Get eHose fields mapping configuration.
             $vConfig = $this->service->getEHoseFieldMapping();
             // Get Parameter Array.
             $conditionArray =   $this->getParameterArray($request);
-            // Get Virtual catalog data based on parameter request.
+            // Get eHose data based on parameter request.
             $productDetail  =   $this->service->getProduct('en',$conditionArray);
             // Log Data.
             \Pimcore\Log\Simple::log($this->ehoseRestAPILogFileName, "Request:-".json_encode($conditionArray));
-            // If Virtual catalog data not exist return error.
+            // If eHose data not exist return error.
             if (empty($productDetail)) {
                 \Pimcore\Log\Simple::log($this->ehoseRestAPILogFileName, "Response:-".json_encode($this->responseCode('ObjectNotFound', 'ehose data not found!')));
                 return $this->jsonResponce($this->responseCode('ObjectNotFound', 'ehose data not found!'), 404);

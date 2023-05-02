@@ -62,12 +62,101 @@ class AppService
         {
             $updatedData['Skeleton'][0]['data']['Odmm'] = $idMM + ($updatedData['Skeleton'][0]['data']['wallThicknessMM'] * 2);
         }
-        
+
+        if($updatedData)
+        {
+            $skeletorArr = array(
+                'IFSEUHoseSkeleton~IdInch' => 'IdInch',
+                'IFSEUHoseSkeleton~IdMM' =>'IdMM',
+                'IFSEUHoseSkeleton~wallThicknessInch' => 'wallThicknessInch',
+                'IFSEUHoseSkeleton~wallThicknessMM' => 'wallThicknessMM',
+                'IFSEUHoseSkeleton~OdIn' => 'OdIn',
+                'IFSEUHoseSkeleton~Odmm' => 'Odmm',
+                'IFSEUHoseSkeleton~workingPressureBAR' => 'workingPressureBAR',
+                'IFSEUHoseSkeleton~workingPressurePSI' => 'workingPressurePSI',
+                'IFSEUHoseSkeleton~BurstPressurePSI' => 'BurstPressurePSI',
+                'IFSEUHoseSkeleton~BurstPressureBar' => 'BurstPressureBar',
+                'IFSEUHoseSkeleton~VacuumMM' => 'VacuumMM',
+                'IFSEUHoseSkeleton~VacuumIN' => 'VacuumIN',
+                'IFSEUHoseSkeleton~testPressureBar' => 'testPressureBar',
+                'IFSEUHoseSkeleton~testPressurePSI' => 'testPressurePSI',
+                'IFSEUHoseSkeleton~BendingRadiusMM' => 'BendingRadiusMM',
+                'IFSEUHoseSkeleton~BendingRadiusIN' => 'BendingRadiusIN'
+            );
+
+            $baseArr = array(
+                'IFSEUHoseBase~hoseIdMM' => 'hoseIdMM',
+                'IFSEUHoseBase~hoseIdDec' =>'hoseIdDec'
+            );
+
+            $skeletonArrData = array();
+            foreach ($updatedData as $key => $value) {
+                if(isset($skeletorArr[$key]))
+                {
+                    $skeletonArrData[$skeletorArr[$key]] = $value;
+                }
+            }
+
+            $baseArrData = array();
+            foreach ($updatedData as $key => $value) {
+                if(isset($baseArr[$key]))
+                {
+                    $baseArrData[$baseArr[$key]] = $value;
+                }
+            }
+
+            if($baseArrData)
+            {
+                foreach ($baseArrData as $key => $value) {
+
+                    $brickItem = $product->getBase()->getIFSEUHoseBase();
+
+                    if($value === null){
+                        $this->updateAttributeGroup($brickItem, $key, null);
+                    }else{
+                        
+                        $this->updateAttributeGroup($brickItem, $key, floatval($value));
+                    }
+                }
+            }
+
+            if($skeletonArrData)
+            {
+                if(isset($skeletonArrData['IdInch']))
+                {
+                    $skeletonArrData['OdIn'] = $skeletonArrData['IdInch'] + ($wallThicknessInch * 2);
+                }else if(isset($skeletonArrData['wallThicknessInch']))
+                {
+                    $skeletonArrData['OdIn'] = $idInch + ($skeletonArrData['wallThicknessInch'] * 2);
+                }
+
+                if(isset($skeletonArrData['IdMM']))
+                {
+                    $skeletonArrData['Odmm'] = $skeletonArrData['IdMM'] + ($wallThicknessMM * 2);
+                }else if(isset($skeletonArrData['Skeleton'][0]['data']['wallThicknessMM']))
+                {
+                    $skeletonArrData['Odmm'] = $idMM + ($skeletonArrData['wallThicknessMM'] * 2);
+                }
+                
+                foreach ($skeletonArrData as $key => $value) {
+
+                    $brickItem = $product->getSkeleton()->getIFSEUHoseSkeleton();
+
+                    if($value === null){
+                        $this->updateAttributeGroup($brickItem, $key, null);
+                    }else{
+                        
+                        $this->updateAttributeGroup($brickItem, $key, floatval($value));
+                    }
+                }
+            }
+        }
+
         // creating brick data in required format and removing it from the update data
         $brickData = array();
         foreach ($brickMappingConfig as $level => $brickFieldNameInProduct) {
             if (array_key_exists($brickFieldNameInProduct, $updatedData)) {
-                
+
                 $brickData[$brickFieldNameInProduct] = $updatedData[$brickFieldNameInProduct];
                 
                 // unset the brick data from updated data

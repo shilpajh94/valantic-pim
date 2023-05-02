@@ -54,6 +54,10 @@ parameters:
       Marking2: 'Marking 2'
       Marking1: 'Marking 1'
       Note2InformationBelowTable: 'Notes'
+      productBrandNamePerLanguage: 'Product Brand Name Per Language'
+      BrandShortText2: 'BrandShortText2'
+      commercialDescription: 'Commercial Description'
+      technicalDescription: 'Technical Description'
 
     #Fert Attribute 
       EANCode: 'EAN Code'
@@ -79,6 +83,8 @@ parameters:
       Conditions: 'Conditions'
       minimumOrder: 'Minimum order value'
       shippingConditions: 'Shipping conditions'
+      sapDescription: 'SAP Description'
+      manufacturingLength: 'Manufacturing Length'
     #Fert Relationship 
       countryOfOrigin: 'Country of origin'
 
