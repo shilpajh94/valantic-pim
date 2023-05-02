@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-04-27T11:45:38+05:30
+* Generated at: 2023-04-28T13:27:08+05:30
 * IP: 127.0.0.1
 */ 
 
@@ -11,7 +11,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'MarComIFSEMEA',
    'description' => '',
    'creationDate' => 1681288759,
-   'modificationDate' => 1682576138,
+   'modificationDate' => 1682668628,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => 'IFSEUProduct',
@@ -2503,7 +2503,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                     ),
                                      'width' => 300,
                                      'height' => '',
-                                     'maxItems' => 5,
+                                     'maxItems' => '',
                                      'renderType' => 'tags',
                                      'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
                                      'optionsProviderData' => 'propertiesGeneral',
@@ -20650,7 +20650,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                               0 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'fieldtype' => 'input',
-                                 'width' => 220,
+                                 'width' => 740,
                                  'defaultValue' => NULL,
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
@@ -20678,7 +20678,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                               1 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'fieldtype' => 'input',
-                                 'width' => 220,
+                                 'width' => 740,
                                  'defaultValue' => NULL,
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
@@ -20706,7 +20706,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                               2 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'fieldtype' => 'input',
-                                 'width' => 220,
+                                 'width' => 740,
                                  'defaultValue' => NULL,
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
@@ -20734,7 +20734,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                               3 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'fieldtype' => 'input',
-                                 'width' => 220,
+                                 'width' => 740,
                                  'defaultValue' => NULL,
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
@@ -20764,10 +20764,10 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                              'region' => NULL,
                              'layout' => NULL,
                              'title' => '',
-                             'width' => 900,
+                             'width' => 1100,
                              'height' => 300,
                              'maxTabs' => NULL,
-                             'labelWidth' => 100,
+                             'labelWidth' => 150,
                              'border' => false,
                              'provideSplitView' => false,
                              'tabPosition' => NULL,
