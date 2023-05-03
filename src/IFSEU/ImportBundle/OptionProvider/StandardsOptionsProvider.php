@@ -45,7 +45,7 @@ class StandardsOptionsProvider implements SelectOptionsProviderInterface {
      * @return mixed
      */
     public function getDefaultValue($context, $fieldDefinition) {
-        return true; //return $fieldDefinition->getDefaultValue();
+        return; //return $fieldDefinition->getDefaultValue();
     }
 
     /**
