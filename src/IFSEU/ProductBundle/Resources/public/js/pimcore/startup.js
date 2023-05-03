@@ -47,6 +47,12 @@ pimcore.plugin.IFSEUProductBundle = Class.create(pimcore.plugin.admin, {
                 }
     
             }.bind(this));
+            if(productLevel.level =='skeleton'){
+                tabPanell.setActiveTab(1);
+            }
+            if(productLevel.level =='fert'){
+                tabPanell.setActiveTab(2);
+            }
         }
         
     },
