@@ -706,10 +706,10 @@ ehoseAPI:
                 - string
             EANCode:
                 - string
-            # materialGroup:
-            #     - string
-            # countryOfOrigin:
-            #     - string
+            materialGroup__id:
+                - string
+            countryOfOrigin__id:
+                - string
             baseUOM:
                 - string
             grossWeight:

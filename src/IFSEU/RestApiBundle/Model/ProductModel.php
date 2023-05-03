@@ -323,6 +323,31 @@ class ProductModel
     }
     
 
+    
+    /**
+     * Method to get the CountryAbbr from object_IFSEUCountries table based on oo_id
+     *
+     * @param string $oo_id object Id
+     */
+    public function getCountryInfo(int $oo_id) : ?array
+    {
+        $query = 'SELECT CountryID, CountryName, CountryAbbr FROM object_IFSEUCountries WHERE `oo_id` = '.$oo_id;
+        $subCountry = $this->db->fetchAll($query);
+        return $subCountry;
+    }
+
+    /**
+     * Method to get the CountryAbbr from object_IFSEUCountries table based on oo_id
+     *
+     * @param string $oo_id object Id
+     */
+    public function getMaterialGroupInfo(int $oo_id) : ?array
+    {
+        $query = 'SELECT code, `description` FROM object_IFSEUMaterialGroup WHERE `oo_id` = '.$oo_id;
+        $materialGroup = $this->db->fetchAll($query);
+        return $materialGroup;
+    }
+
     /**
      * Method to get the Category from object_IFSEUCategory table based on oo_id
      *

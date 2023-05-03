@@ -479,11 +479,6 @@ class ProductModelService
                     $resultMasterData['rohs'] = $value['rohs'];
                 }
 
-                if($value['ConflictMinerals'])
-                {
-                    $resultMasterData['ConflictMinerals'] = $value['ConflictMinerals'];
-                }
-                
                 if(count($resultMasterData) > 0)
                 {
                     $fertMasterData = $this->getFertMasterData($resultMasterData);
@@ -502,11 +497,55 @@ class ProductModelService
                     }
                 }
 
+                if(isset($resultArrFert['countryOfOrigin__id']))
+                {
+                    $resultArrFert['countryOfOrigin'] = $this->model->getCountryInfo($resultArrFert['countryOfOrigin__id']);
+                    unset($resultArrFert['countryOfOrigin__id']);
+                }
+
+                if(isset($resultArrFert['materialGroup__id']))
+                {
+                    $resultArrFert['materialGroup'] = $this->model->getMaterialGroupInfo($resultArrFert['materialGroup__id']);
+                    unset($resultArrFert['materialGroup__id']);
+                }
+
                 
                 $localizedData = $this->getProductLocalizedData($value['oo_id'], 'fert');
                 if($localizedData)
                 {
                     $resultArrFert['localizedfields'] = $localizedData;
+                }
+
+                $fertPropertyClassFields = array(
+                    'ConflictMinerals' => 'ConflictMinerals',
+                );
+
+                foreach ($fertPropertyClassFields as $propkey => $propName) {
+                    if(isset($resultArrFert[$propkey]) && $resultArrFert[$propkey])
+                    {
+                        unset($propertySelectType);
+                        if(is_array($resultArrFert[$propkey]))
+                        {
+                            $propertySelectType = $resultArrFert[$propkey];
+                        }
+                        else{
+                            $propWithoutSpace = trim($resultArrFert[$propkey], ' ');
+                            $propWithoutStartEndComma = trim($propWithoutSpace, ',');
+                            $propWithoutStartEndComma = explode(',', $propWithoutStartEndComma);
+                            $propertySelectType = $propWithoutStartEndComma;
+                        }
+                        
+                        unset($localizedData);
+                        $localizedData = $this->model->getMastersLocalizedData('IFSEUProperties', 'PropertyName', $propkey, $propertySelectType);
+                        if($localizedData)
+                        {
+                            foreach ($localizedData as $lang => $langData) {
+                                $resultArrFert['localizedfields'][$lang][$propkey] = $langData;
+                            }
+                        }
+
+                        unset($resultArrFert[$propkey]);
+                    }
                 }
                 
                 unset($resultArrFert['SIOPLevel1']);
