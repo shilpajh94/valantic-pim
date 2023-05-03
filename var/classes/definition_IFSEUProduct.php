@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-05-02T12:22:09+05:30
+* Generated at: 2023-05-03T11:04:23+05:30
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -176,7 +176,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1683010303,
+   'modificationDate' => 1683092043,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -3304,7 +3304,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'title' => 'Completeness Percentage',
                                      'tooltip' => '',
                                      'mandatory' => false,
-                                     'noteditable' => false,
+                                     'noteditable' => true,
                                      'index' => false,
                                      'locked' => false,
                                      'style' => 'padding: 10px; background-color: #d9edf7; border-color: #bce8f1 !important; color: #31708f;',
@@ -3331,7 +3331,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'title' => 'Empty Fields',
                                      'tooltip' => '',
                                      'mandatory' => false,
-                                     'noteditable' => false,
+                                     'noteditable' => true,
                                      'index' => false,
                                      'locked' => false,
                                      'style' => 'padding: 10px; background-color: pink; border-color: #bce8f1 !important; color: #31708f;',
@@ -22521,7 +22521,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'title' => 'Completeness Percentage',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => 'padding: 10px; background-color: #d9edf7; border-color: #bce8f1 !important; color: #31708f;',
@@ -22548,7 +22548,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'title' => 'Empty Fields',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => 'padding: 10px; background-color: pink; border-color: #bce8f1 !important; color: #31708f;',

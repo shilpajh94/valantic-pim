@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-04-28T12:19:03+05:30
+* Generated at: 2023-05-03T13:45:13+05:30
 * IP: 127.0.0.1
 
 
@@ -956,7 +956,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       ),
                     ),
                      'width' => 300,
-                     'height' => '',
+                     'height' => 10,
                      'maxItems' => 10,
                      'renderType' => 'tags',
                      'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\StandardsOptionsProvider',
@@ -1703,7 +1703,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           ),
                         ),
                          'width' => 300,
-                         'height' => '',
+                         'height' => 10,
                          'maxItems' => '',
                          'renderType' => 'tags',
                          'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
@@ -2252,7 +2252,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           ),
                         ),
                          'width' => 300,
-                         'height' => '',
+                         'height' => 10,
                          'maxItems' => '',
                          'renderType' => 'tags',
                          'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
@@ -2758,7 +2758,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           ),
                         ),
                          'width' => 300,
-                         'height' => '',
+                         'height' => 10,
                          'maxItems' => 10,
                          'renderType' => 'tags',
                          'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\ApplicationsOptionsProvider',
@@ -3789,7 +3789,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           ),
                         ),
                          'width' => 300,
-                         'height' => '',
+                         'height' => 10,
                          'maxItems' => '',
                          'renderType' => 'tags',
                          'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\FlowMediumOptionsProvider',
