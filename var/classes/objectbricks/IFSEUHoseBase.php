@@ -1,24 +1,14 @@
 <?php 
 
 /** 
-* Generated at: 2023-05-03T13:45:13+05:30
+* Generated at: 2023-05-04T15:46:18+05:30
 * IP: 127.0.0.1
 
 
 Fields Summary: 
-- staticWire [booleanSelect]
-- staticWireType [select]
-- tubeCharacteristic [select]
-- hoseIdDec [numeric]
-- hoseIdMM [numeric]
-- FlowMediumStability [booleanSelect]
-- Coupling [input]
 - BaseBrickMapping [input]
-- numberOfHelixWires [numeric]
-- tubeGaugeFractional [input]
-- NonStockSizes [input]
 - standards [multiselect]
-- numberOfPlies [numeric]
+- numberOfHelixWires [numeric]
 - InnerLining [select]
 - colorInnerLining [select]
 - Reinforcement [select]
@@ -125,279 +115,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'childs' => 
                 array (
                   0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
-                     'fieldtype' => 'booleanSelect',
-                     'yesLabel' => 'Yes',
-                     'noLabel' => 'No',
-                     'emptyLabel' => 'Empty',
-                     'options' => 
-                    array (
-                      0 => 
-                      array (
-                        'key' => 'Empty',
-                        'value' => 0,
-                      ),
-                      1 => 
-                      array (
-                        'key' => 'Yes',
-                        'value' => 1,
-                      ),
-                      2 => 
-                      array (
-                        'key' => 'No',
-                        'value' => -1,
-                      ),
-                    ),
-                     'width' => 300,
-                     'queryColumnType' => 'tinyint(1) null',
-                     'columnType' => 'tinyint(1) null',
-                     'phpdocType' => 'boolean',
-                     'name' => 'staticWire',
-                     'title' => 'Static Wire',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                  )),
-                  1 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                     'fieldtype' => 'select',
-                     'options' => 
-                    array (
-                      0 => 
-                      array (
-                        'key' => 'Stainless Steel',
-                        'value' => 'Stainless Steel',
-                      ),
-                      1 => 
-                      array (
-                        'key' => 'Copper',
-                        'value' => 'Copper',
-                      ),
-                    ),
-                     'width' => 300,
-                     'defaultValue' => '',
-                     'optionsProviderClass' => '',
-                     'optionsProviderData' => '',
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'dynamicOptions' => false,
-                     'name' => 'staticWireType',
-                     'title' => 'Static Wire Type',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  2 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                     'fieldtype' => 'select',
-                     'options' => 
-                    array (
-                      0 => 
-                      array (
-                        'key' => 'Corrugated',
-                        'value' => 14705867,
-                      ),
-                      1 => 
-                      array (
-                        'key' => 'Rough Bore',
-                        'value' => 14705868,
-                      ),
-                      2 => 
-                      array (
-                        'key' => 'Smooth',
-                        'value' => 14705869,
-                      ),
-                      3 => 
-                      array (
-                        'key' => 'Standard',
-                        'value' => 14705870,
-                      ),
-                      4 => 
-                      array (
-                        'key' => 'Wrapped',
-                        'value' => 14705871,
-                      ),
-                    ),
-                     'width' => 300,
-                     'defaultValue' => '',
-                     'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
-                     'optionsProviderData' => 'tubecharacteristic',
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'dynamicOptions' => false,
-                     'name' => 'tubeCharacteristic',
-                     'title' => 'Tube Characteristic',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  3 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                     'fieldtype' => 'numeric',
-                     'width' => 300,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'double',
-                     'columnType' => 'double',
-                     'phpdocType' => 'float',
-                     'integer' => false,
-                     'unsigned' => false,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'unique' => false,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
-                     'name' => 'hoseIdDec',
-                     'title' => 'Hose ID (in) (Dec.) Nominal ID',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'float:left;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  4 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                     'fieldtype' => 'numeric',
-                     'width' => 300,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'double',
-                     'columnType' => 'double',
-                     'phpdocType' => 'float',
-                     'integer' => false,
-                     'unsigned' => false,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'unique' => false,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
-                     'name' => 'hoseIdMM',
-                     'title' => 'Hose ID (mm) Nominal ID',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'float:left; margin-right: 20px; clear:left;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  5 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
-                     'fieldtype' => 'booleanSelect',
-                     'yesLabel' => 'Yes',
-                     'noLabel' => 'No',
-                     'emptyLabel' => 'Empty',
-                     'options' => 
-                    array (
-                      0 => 
-                      array (
-                        'key' => 'Empty',
-                        'value' => 0,
-                      ),
-                      1 => 
-                      array (
-                        'key' => 'Yes',
-                        'value' => 1,
-                      ),
-                      2 => 
-                      array (
-                        'key' => 'No',
-                        'value' => -1,
-                      ),
-                    ),
-                     'width' => 300,
-                     'queryColumnType' => 'tinyint(1) null',
-                     'columnType' => 'tinyint(1) null',
-                     'phpdocType' => 'boolean',
-                     'name' => 'FlowMediumStability',
-                     'title' => 'Flow Medium - Stability',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                  )),
-                  6 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => 300,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
-                     'name' => 'Coupling',
-                     'title' => 'Coupling',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  7 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => NULL,
@@ -424,6 +141,475 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
+                  )),
+                  1 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                     'fieldtype' => 'panel',
+                     'labelWidth' => 190,
+                     'layout' => NULL,
+                     'border' => false,
+                     'name' => 'Layout',
+                     'type' => NULL,
+                     'region' => '',
+                     'title' => '',
+                     'width' => NULL,
+                     'height' => NULL,
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'permissions' => NULL,
+                     'childs' => 
+                    array (
+                      0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                         'fieldtype' => 'multiselect',
+                         'options' => 
+                        array (
+                          0 => 
+                          array (
+                            'key' => '10/11',
+                            'value' => 14701549,
+                          ),
+                          1 => 
+                          array (
+                            'key' => '100R12',
+                            'value' => 14701565,
+                          ),
+                          2 => 
+                          array (
+                            'key' => '100R13',
+                            'value' => 14701561,
+                          ),
+                          3 => 
+                          array (
+                            'key' => '100R15',
+                            'value' => 14701564,
+                          ),
+                          4 => 
+                          array (
+                            'key' => '100R16',
+                            'value' => 14701570,
+                          ),
+                          5 => 
+                          array (
+                            'key' => '100R17',
+                            'value' => 14701576,
+                          ),
+                          6 => 
+                          array (
+                            'key' => '100R19',
+                            'value' => 14701575,
+                          ),
+                          7 => 
+                          array (
+                            'key' => '100R1AT',
+                            'value' => 14701572,
+                          ),
+                          8 => 
+                          array (
+                            'key' => '100R2AT',
+                            'value' => 14701573,
+                          ),
+                          9 => 
+                          array (
+                            'key' => '11237 R19',
+                            'value' => 14701577,
+                          ),
+                          10 => 
+                          array (
+                            'key' => '11851 - 1.4301',
+                            'value' => 14701560,
+                          ),
+                          11 => 
+                          array (
+                            'key' => '12115:2011',
+                            'value' => 14701522,
+                          ),
+                          12 => 
+                          array (
+                            'key' => '14593/14594',
+                            'value' => 14701520,
+                          ),
+                          13 => 
+                          array (
+                            'key' => ' 1529/2014',
+                            'value' => 14701536,
+                          ),
+                          14 => 
+                          array (
+                            'key' => '15807 (UIC830-1V)',
+                            'value' => 14701588,
+                          ),
+                          15 => 
+                          array (
+                            'key' => '16421 (W270)',
+                            'value' => 14701587,
+                          ),
+                          16 => 
+                          array (
+                            'key' => '16436-1:2016  CLASS-2 (10 bar)',
+                            'value' => 14701521,
+                          ),
+                          17 => 
+                          array (
+                            'key' => '16436-1:2016 CLASS 3 (30 bar)',
+                            'value' => 14701568,
+                          ),
+                          18 => 
+                          array (
+                            'key' => '16436-1:2016 Class 3 (30 bar)',
+                            'value' => 14701567,
+                          ),
+                          19 => 
+                          array (
+                            'key' => '1761',
+                            'value' => 14701523,
+                          ),
+                          20 => 
+                          array (
+                            'key' => '1825',
+                            'value' => 14701539,
+                          ),
+                          21 => 
+                          array (
+                            'key' => '1935/2004',
+                            'value' => 14701547,
+                          ),
+                          22 => 
+                          array (
+                            'key' => '20018-1',
+                            'value' => 14701510,
+                          ),
+                          23 => 
+                          array (
+                            'key' => '20023 4SH',
+                            'value' => 14701578,
+                          ),
+                          24 => 
+                          array (
+                            'key' => '20023 4SP',
+                            'value' => 14701579,
+                          ),
+                          25 => 
+                          array (
+                            'key' => '2023/2006',
+                            'value' => 14701548,
+                          ),
+                          26 => 
+                          array (
+                            'key' => '2153',
+                            'value' => 14701535,
+                          ),
+                          27 => 
+                          array (
+                            'key' => '2398:2017 1A',
+                            'value' => 14701556,
+                          ),
+                          28 => 
+                          array (
+                            'key' => '2398:2017 2C/L-T',
+                            'value' => 14701529,
+                          ),
+                          29 => 
+                          array (
+                            'key' => '2398:2017 3C/L-T',
+                            'value' => 14701528,
+                          ),
+                          30 => 
+                          array (
+                            'key' => '250',
+                            'value' => 14701524,
+                          ),
+                          31 => 
+                          array (
+                            'key' => '333 N1',
+                            'value' => 14701531,
+                          ),
+                          32 => 
+                          array (
+                            'key' => '333 N1W',
+                            'value' => 14701530,
+                          ),
+                          33 => 
+                          array (
+                            'key' => '3821:2020',
+                            'value' => 14701566,
+                          ),
+                          34 => 
+                          array (
+                            'key' => '407:2007',
+                            'value' => 14701538,
+                          ),
+                          35 => 
+                          array (
+                            'key' => '45545-2 HL3 (R22+R23)',
+                            'value' => 14701519,
+                          ),
+                          36 => 
+                          array (
+                            'key' => '5510-2',
+                            'value' => 14701511,
+                          ),
+                          37 => 
+                          array (
+                            'key' => '590',
+                            'value' => 14701555,
+                          ),
+                          38 => 
+                          array (
+                            'key' => '6134-1A',
+                            'value' => 14701525,
+                          ),
+                          39 => 
+                          array (
+                            'key' => '6134-2A',
+                            'value' => 14701526,
+                          ),
+                          40 => 
+                          array (
+                            'key' => '6134-2B',
+                            'value' => 14701527,
+                          ),
+                          41 => 
+                          array (
+                            'key' => '6254.12',
+                            'value' => 14701553,
+                          ),
+                          42 => 
+                          array (
+                            'key' => '6254.16',
+                            'value' => 14701554,
+                          ),
+                          43 => 
+                          array (
+                            'key' => '6257.21',
+                            'value' => 14701514,
+                          ),
+                          44 => 
+                          array (
+                            'key' => '6257.70',
+                            'value' => 14701512,
+                          ),
+                          45 => 
+                          array (
+                            'key' => '6257.72',
+                            'value' => 14701513,
+                          ),
+                          46 => 
+                          array (
+                            'key' => '6615G',
+                            'value' => 14701537,
+                          ),
+                          47 => 
+                          array (
+                            'key' => '73379 Typ A1',
+                            'value' => 14701585,
+                          ),
+                          48 => 
+                          array (
+                            'key' => '73379 Typ B1',
+                            'value' => 14701583,
+                          ),
+                          49 => 
+                          array (
+                            'key' => '73411-B',
+                            'value' => 14701557,
+                          ),
+                          50 => 
+                          array (
+                            'key' => '74310',
+                            'value' => 14701509,
+                          ),
+                          51 => 
+                          array (
+                            'key' => '830-1/V',
+                            'value' => 14701532,
+                          ),
+                          52 => 
+                          array (
+                            'key' => '853',
+                            'value' => 14701515,
+                          ),
+                          53 => 
+                          array (
+                            'key' => '853 1SN',
+                            'value' => 14701563,
+                          ),
+                          54 => 
+                          array (
+                            'key' => '853 2SN',
+                            'value' => 14701574,
+                          ),
+                          55 => 
+                          array (
+                            'key' => '854',
+                            'value' => 14701516,
+                          ),
+                          56 => 
+                          array (
+                            'key' => '856',
+                            'value' => 14701517,
+                          ),
+                          57 => 
+                          array (
+                            'key' => '856 4SH',
+                            'value' => 14701562,
+                          ),
+                          58 => 
+                          array (
+                            'key' => '856 4SP',
+                            'value' => 14701569,
+                          ),
+                          59 => 
+                          array (
+                            'key' => '857',
+                            'value' => 14701518,
+                          ),
+                          60 => 
+                          array (
+                            'key' => '857 2SC',
+                            'value' => 14701571,
+                          ),
+                          61 => 
+                          array (
+                            'key' => 'BWGL',
+                            'value' => 14701586,
+                          ),
+                          62 => 
+                          array (
+                            'key' => 'CLASS VI',
+                            'value' => 14701550,
+                          ),
+                          63 => 
+                          array (
+                            'key' => 'Class A',
+                            'value' => 14701533,
+                          ),
+                          64 => 
+                          array (
+                            'key' => 'DB/SBB',
+                            'value' => 14701559,
+                          ),
+                          65 => 
+                          array (
+                            'key' => 'DVGW',
+                            'value' => 14701589,
+                          ),
+                          66 => 
+                          array (
+                            'key' => 'Dry Food',
+                            'value' => 14701581,
+                          ),
+                          67 => 
+                          array (
+                            'key' => 'EC Regulation no. 1907/2006',
+                            'value' => 14701540,
+                          ),
+                          68 => 
+                          array (
+                            'key' => 'GERMANISCHEN LLOYD ',
+                            'value' => 14701534,
+                          ),
+                          69 => 
+                          array (
+                            'key' => 'J20 R3/R4 D3 - HT - EC',
+                            'value' => 14701558,
+                          ),
+                          70 => 
+                          array (
+                            'key' => 'J30 R9',
+                            'value' => 14701584,
+                          ),
+                          71 => 
+                          array (
+                            'key' => 'Licensed in accordance with BS 6920-1:2000',
+                            'value' => 14701551,
+                          ),
+                          72 => 
+                          array (
+                            'key' => 'Licensed in accordance with Pipes guideline for plastics used for drinking water, DVGW W270 and VP 549',
+                            'value' => 14701552,
+                          ),
+                          73 => 
+                          array (
+                            'key' => 'MSHA',
+                            'value' => 14701580,
+                          ),
+                          74 => 
+                          array (
+                            'key' => 'Made in Germany',
+                            'value' => 14701508,
+                          ),
+                          75 => 
+                          array (
+                            'key' => 'New node',
+                            'value' => 14701582,
+                          ),
+                          76 => 
+                          array (
+                            'key' => 'Recommendation III',
+                            'value' => 14701544,
+                          ),
+                          77 => 
+                          array (
+                            'key' => 'Recommendation XXI, Cat. 2',
+                            'value' => 14701545,
+                          ),
+                          78 => 
+                          array (
+                            'key' => 'Recommendation XXI, Cat. 4',
+                            'value' => 14701546,
+                          ),
+                          79 => 
+                          array (
+                            'key' => 'Regulation 177.1520',
+                            'value' => 14701541,
+                          ),
+                          80 => 
+                          array (
+                            'key' => 'Regulation 177.1550',
+                            'value' => 14701543,
+                          ),
+                          81 => 
+                          array (
+                            'key' => 'Regulation 177.2600',
+                            'value' => 14701542,
+                          ),
+                          82 => 
+                          array (
+                            'key' => 'VP549',
+                            'value' => 14701590,
+                          ),
+                        ),
+                         'width' => 300,
+                         'height' => 80,
+                         'maxItems' => 10,
+                         'renderType' => 'tags',
+                         'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\StandardsOptionsProvider',
+                         'optionsProviderData' => '',
+                         'queryColumnType' => 'text',
+                         'columnType' => 'text',
+                         'phpdocType' => 'array',
+                         'dynamicOptions' => false,
+                         'name' => 'standards',
+                         'title' => 'Standards',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
+                    ),
+                     'locked' => false,
+                     'icon' => '',
                   )),
                 ),
                  'locked' => false,
@@ -464,539 +650,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalPrecision' => NULL,
                      'name' => 'numberOfHelixWires',
                      'title' => 'Number of Helix Wires',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'margin-left: 20px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  1 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => 300,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
-                     'name' => 'tubeGaugeFractional',
-                     'title' => 'Tube Gauge (Fractional)',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'margin-left: 20px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  2 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => 300,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
-                     'name' => 'NonStockSizes',
-                     'title' => 'Non-Stock/Sizes',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'margin-left: 20px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  3 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                     'fieldtype' => 'multiselect',
-                     'options' => 
-                    array (
-                      0 => 
-                      array (
-                        'key' => '10/11',
-                        'value' => 14701549,
-                      ),
-                      1 => 
-                      array (
-                        'key' => '100R12',
-                        'value' => 14701565,
-                      ),
-                      2 => 
-                      array (
-                        'key' => '100R13',
-                        'value' => 14701561,
-                      ),
-                      3 => 
-                      array (
-                        'key' => '100R15',
-                        'value' => 14701564,
-                      ),
-                      4 => 
-                      array (
-                        'key' => '100R16',
-                        'value' => 14701570,
-                      ),
-                      5 => 
-                      array (
-                        'key' => '100R17',
-                        'value' => 14701576,
-                      ),
-                      6 => 
-                      array (
-                        'key' => '100R19',
-                        'value' => 14701575,
-                      ),
-                      7 => 
-                      array (
-                        'key' => '100R1AT',
-                        'value' => 14701572,
-                      ),
-                      8 => 
-                      array (
-                        'key' => '100R2AT',
-                        'value' => 14701573,
-                      ),
-                      9 => 
-                      array (
-                        'key' => '11237 R19',
-                        'value' => 14701577,
-                      ),
-                      10 => 
-                      array (
-                        'key' => '11851 - 1.4301',
-                        'value' => 14701560,
-                      ),
-                      11 => 
-                      array (
-                        'key' => '12115:2011',
-                        'value' => 14701522,
-                      ),
-                      12 => 
-                      array (
-                        'key' => '14593/14594',
-                        'value' => 14701520,
-                      ),
-                      13 => 
-                      array (
-                        'key' => ' 1529/2014',
-                        'value' => 14701536,
-                      ),
-                      14 => 
-                      array (
-                        'key' => '15807 (UIC830-1V)',
-                        'value' => 14701588,
-                      ),
-                      15 => 
-                      array (
-                        'key' => '16421 (W270)',
-                        'value' => 14701587,
-                      ),
-                      16 => 
-                      array (
-                        'key' => '16436-1:2016  CLASS-2 (10 bar)',
-                        'value' => 14701521,
-                      ),
-                      17 => 
-                      array (
-                        'key' => '16436-1:2016 CLASS 3 (30 bar)',
-                        'value' => 14701568,
-                      ),
-                      18 => 
-                      array (
-                        'key' => '16436-1:2016 Class 3 (30 bar)',
-                        'value' => 14701567,
-                      ),
-                      19 => 
-                      array (
-                        'key' => '1761',
-                        'value' => 14701523,
-                      ),
-                      20 => 
-                      array (
-                        'key' => '1825',
-                        'value' => 14701539,
-                      ),
-                      21 => 
-                      array (
-                        'key' => '1935/2004',
-                        'value' => 14701547,
-                      ),
-                      22 => 
-                      array (
-                        'key' => '20018-1',
-                        'value' => 14701510,
-                      ),
-                      23 => 
-                      array (
-                        'key' => '20023 4SH',
-                        'value' => 14701578,
-                      ),
-                      24 => 
-                      array (
-                        'key' => '20023 4SP',
-                        'value' => 14701579,
-                      ),
-                      25 => 
-                      array (
-                        'key' => '2023/2006',
-                        'value' => 14701548,
-                      ),
-                      26 => 
-                      array (
-                        'key' => '2153',
-                        'value' => 14701535,
-                      ),
-                      27 => 
-                      array (
-                        'key' => '2398:2017 1A',
-                        'value' => 14701556,
-                      ),
-                      28 => 
-                      array (
-                        'key' => '2398:2017 2C/L-T',
-                        'value' => 14701529,
-                      ),
-                      29 => 
-                      array (
-                        'key' => '2398:2017 3C/L-T',
-                        'value' => 14701528,
-                      ),
-                      30 => 
-                      array (
-                        'key' => '250',
-                        'value' => 14701524,
-                      ),
-                      31 => 
-                      array (
-                        'key' => '333 N1',
-                        'value' => 14701531,
-                      ),
-                      32 => 
-                      array (
-                        'key' => '333 N1W',
-                        'value' => 14701530,
-                      ),
-                      33 => 
-                      array (
-                        'key' => '3821:2020',
-                        'value' => 14701566,
-                      ),
-                      34 => 
-                      array (
-                        'key' => '407:2007',
-                        'value' => 14701538,
-                      ),
-                      35 => 
-                      array (
-                        'key' => '45545-2 HL3 (R22+R23)',
-                        'value' => 14701519,
-                      ),
-                      36 => 
-                      array (
-                        'key' => '5510-2',
-                        'value' => 14701511,
-                      ),
-                      37 => 
-                      array (
-                        'key' => '590',
-                        'value' => 14701555,
-                      ),
-                      38 => 
-                      array (
-                        'key' => '6134-1A',
-                        'value' => 14701525,
-                      ),
-                      39 => 
-                      array (
-                        'key' => '6134-2A',
-                        'value' => 14701526,
-                      ),
-                      40 => 
-                      array (
-                        'key' => '6134-2B',
-                        'value' => 14701527,
-                      ),
-                      41 => 
-                      array (
-                        'key' => '6254.12',
-                        'value' => 14701553,
-                      ),
-                      42 => 
-                      array (
-                        'key' => '6254.16',
-                        'value' => 14701554,
-                      ),
-                      43 => 
-                      array (
-                        'key' => '6257.21',
-                        'value' => 14701514,
-                      ),
-                      44 => 
-                      array (
-                        'key' => '6257.70',
-                        'value' => 14701512,
-                      ),
-                      45 => 
-                      array (
-                        'key' => '6257.72',
-                        'value' => 14701513,
-                      ),
-                      46 => 
-                      array (
-                        'key' => '6615G',
-                        'value' => 14701537,
-                      ),
-                      47 => 
-                      array (
-                        'key' => '73379 Typ A1',
-                        'value' => 14701585,
-                      ),
-                      48 => 
-                      array (
-                        'key' => '73379 Typ B1',
-                        'value' => 14701583,
-                      ),
-                      49 => 
-                      array (
-                        'key' => '73411-B',
-                        'value' => 14701557,
-                      ),
-                      50 => 
-                      array (
-                        'key' => '74310',
-                        'value' => 14701509,
-                      ),
-                      51 => 
-                      array (
-                        'key' => '830-1/V',
-                        'value' => 14701532,
-                      ),
-                      52 => 
-                      array (
-                        'key' => '853',
-                        'value' => 14701515,
-                      ),
-                      53 => 
-                      array (
-                        'key' => '853 1SN',
-                        'value' => 14701563,
-                      ),
-                      54 => 
-                      array (
-                        'key' => '853 2SN',
-                        'value' => 14701574,
-                      ),
-                      55 => 
-                      array (
-                        'key' => '854',
-                        'value' => 14701516,
-                      ),
-                      56 => 
-                      array (
-                        'key' => '856',
-                        'value' => 14701517,
-                      ),
-                      57 => 
-                      array (
-                        'key' => '856 4SH',
-                        'value' => 14701562,
-                      ),
-                      58 => 
-                      array (
-                        'key' => '856 4SP',
-                        'value' => 14701569,
-                      ),
-                      59 => 
-                      array (
-                        'key' => '857',
-                        'value' => 14701518,
-                      ),
-                      60 => 
-                      array (
-                        'key' => '857 2SC',
-                        'value' => 14701571,
-                      ),
-                      61 => 
-                      array (
-                        'key' => 'BWGL',
-                        'value' => 14701586,
-                      ),
-                      62 => 
-                      array (
-                        'key' => 'CLASS VI',
-                        'value' => 14701550,
-                      ),
-                      63 => 
-                      array (
-                        'key' => 'Class A',
-                        'value' => 14701533,
-                      ),
-                      64 => 
-                      array (
-                        'key' => 'DB/SBB',
-                        'value' => 14701559,
-                      ),
-                      65 => 
-                      array (
-                        'key' => 'DVGW',
-                        'value' => 14701589,
-                      ),
-                      66 => 
-                      array (
-                        'key' => 'Dry Food',
-                        'value' => 14701581,
-                      ),
-                      67 => 
-                      array (
-                        'key' => 'EC Regulation no. 1907/2006',
-                        'value' => 14701540,
-                      ),
-                      68 => 
-                      array (
-                        'key' => 'GERMANISCHEN LLOYD ',
-                        'value' => 14701534,
-                      ),
-                      69 => 
-                      array (
-                        'key' => 'J20 R3/R4 D3 - HT - EC',
-                        'value' => 14701558,
-                      ),
-                      70 => 
-                      array (
-                        'key' => 'J30 R9',
-                        'value' => 14701584,
-                      ),
-                      71 => 
-                      array (
-                        'key' => 'Licensed in accordance with BS 6920-1:2000',
-                        'value' => 14701551,
-                      ),
-                      72 => 
-                      array (
-                        'key' => 'Licensed in accordance with Pipes guideline for plastics used for drinking water, DVGW W270 and VP 549',
-                        'value' => 14701552,
-                      ),
-                      73 => 
-                      array (
-                        'key' => 'MSHA',
-                        'value' => 14701580,
-                      ),
-                      74 => 
-                      array (
-                        'key' => 'Made in Germany',
-                        'value' => 14701508,
-                      ),
-                      75 => 
-                      array (
-                        'key' => 'New node',
-                        'value' => 14701582,
-                      ),
-                      76 => 
-                      array (
-                        'key' => 'Recommendation III',
-                        'value' => 14701544,
-                      ),
-                      77 => 
-                      array (
-                        'key' => 'Recommendation XXI, Cat. 2',
-                        'value' => 14701545,
-                      ),
-                      78 => 
-                      array (
-                        'key' => 'Recommendation XXI, Cat. 4',
-                        'value' => 14701546,
-                      ),
-                      79 => 
-                      array (
-                        'key' => 'Regulation 177.1520',
-                        'value' => 14701541,
-                      ),
-                      80 => 
-                      array (
-                        'key' => 'Regulation 177.1550',
-                        'value' => 14701543,
-                      ),
-                      81 => 
-                      array (
-                        'key' => 'Regulation 177.2600',
-                        'value' => 14701542,
-                      ),
-                      82 => 
-                      array (
-                        'key' => 'VP549',
-                        'value' => 14701590,
-                      ),
-                    ),
-                     'width' => 300,
-                     'height' => 10,
-                     'maxItems' => 10,
-                     'renderType' => 'tags',
-                     'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\StandardsOptionsProvider',
-                     'optionsProviderData' => '',
-                     'queryColumnType' => 'text',
-                     'columnType' => 'text',
-                     'phpdocType' => 'array',
-                     'dynamicOptions' => false,
-                     'name' => 'standards',
-                     'title' => 'Standards',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'margin-left: 20px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                  )),
-                  4 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                     'fieldtype' => 'numeric',
-                     'width' => 300,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'double',
-                     'columnType' => 'double',
-                     'phpdocType' => 'float',
-                     'integer' => false,
-                     'unsigned' => false,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'unique' => false,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
-                     'name' => 'numberOfPlies',
-                     'title' => 'Number of Plies',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
