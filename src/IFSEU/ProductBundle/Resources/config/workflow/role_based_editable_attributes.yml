@@ -5,8 +5,8 @@ All:
     - Category
     - Sub_Category
     - productPublishedOnline
-	- datasheetPublishedInTheDealerPortal
-	- pricelistPublishedInTheDealerPortal
+    - datasheetPublishedInTheDealerPortal
+    - pricelistPublishedInTheDealerPortal
     - FeaturesBenefitsBulletPoint
     - TPCode
     - HeadlineWeb
