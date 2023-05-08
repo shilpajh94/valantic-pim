@@ -406,7 +406,7 @@ class ImportDefinitionController extends ResourceController
         $buConfig       = $this->getBusinessUnitClassFromConfig();
         $importLevelData   = [];
         $importLevels      = $this->getImportLevels();
-        if ($className == 'Product' || $className == 'PTGEUProduct') {
+        if ($className == 'Product' || $className == 'PTGEUProduct' || $className == 'IFSEUProduct') {
             foreach ($importLevels as $importType) {
                 $importTypeArray = array();
                 $importTypeArray['name'] = $importType;
@@ -563,8 +563,10 @@ class ImportDefinitionController extends ResourceController
             $alreadyTakenName =  in_array(strtolower($name), $existname);
         }
 
-        if (strlen($name) <= 0 || $alreadyTakenName == true) {
+        if ($alreadyTakenName == true) {
             return $this->viewHandler->handle(['success' => false, 'msg' => $this->trans('data_definition_config_exists')]);
+        }elseif (strlen($name) == '') {
+            return $this->viewHandler->handle(['success' => false, 'msg' =>$this->trans('data_definition_name_required')]);
         } else {
             $resource = $this->factory->createNew();
 
@@ -626,6 +628,16 @@ class ImportDefinitionController extends ResourceController
         $fileName           = $definitionName . "-" . $currentDefinition['configuration']['csvFile'];
         $filePath           = $commonHelperObject->getDefaultAssetFolderForUploadedFiles() . "/" . $fileName;
         $asset              = Asset::getByPath($filePath);
+        if(!$asset){
+            return $this->viewHandler->handle(['success' => false, 'msg' => $this->trans('data_definitions_file_not_uploaded')]);
+        }
+        $id = $request->get('importDefinitionId');
+        $definition = $this->repository->find($id);
+        if ($definition instanceof ImportDefinitionInterface) {
+            if(!$definition->getMapping()){
+                return $this->viewHandler->handle(['success' => false, 'msg' =>'Please map "To Column" with "From Column"']);
+            }
+        }
         $fullPath           = $asset->getFileSystemPath();
         $importFilePimcoreAssetId   = $asset->getId();
 
@@ -633,7 +645,6 @@ class ImportDefinitionController extends ResourceController
         $tempFilePath       = PIMCORE_PROJECT_ROOT . '/var/tmp/'.$fileName;
         $fd                 = fopen($tempFilePath, "w");
         fputs($fd, $csvContent);
-        
         
         // insert the record into the data definition import
         $dataImport  = new DataDefinitionImport();

@@ -104,6 +104,7 @@ final class Importer implements ImporterInterface
     private $modelFactory;
 
     private $appService;
+    private $appServiceIFSEU;
 
     /**
      * @var bool
@@ -152,6 +153,7 @@ final class Importer implements ImporterInterface
         $this->logger = $logger;
         $this->modelFactory = $modelFactory;
         $this->appService = \Pimcore::getKernel()->getContainer()->get(\AppBundle\Services\AppService::class);
+        $this->appServiceIFSEU = \Pimcore::getKernel()->getContainer()->get('ifs_eu_import.appServices');
     }
 
     /**
@@ -419,6 +421,9 @@ final class Importer implements ImporterInterface
             elseif($definition->getClass() == 'PTGEUProduct'){
                 $primaryKey = $row['SAPMaterialCode'];
             }
+            elseif($definition->getClass() == 'IFSEUProduct'){
+                $primaryKey = $row['Material'];
+            }    
             elseif($definition->getClass() == 'CSProducts'){
                 $region = '';
                 if($row['Region']){
@@ -458,6 +463,11 @@ final class Importer implements ImporterInterface
                         $failedReason  = 'Path does not exist';
                         $status = 'Failure';
                     }
+                    elseif($definition->getClass() == 'IFSEUProduct'){
+                        $failedReason  = 'Material Number does not exist';
+                        $status = 'Failure';
+                    }
+
                 }
 
                 if (($count + 1) % $countToClean === 0) {
@@ -794,17 +804,22 @@ final class Importer implements ImporterInterface
                 if ($setter instanceof LoggerAwareInterface) {
                     $setter->setLogger($this->logger);
                 }
-                if(empty(trim($value)) && (!is_numeric($value))){
+                if(!is_array($value) && empty(trim($value)) && (!is_numeric($value)) && ($value != false)){
                     $value = NULL;
                 }
                 $setter->set($object, $value, $map, $data);
             }
         } else {
-            if(empty(trim($value)) && (!is_numeric($value))){
+            if(!is_array($value) && empty(trim($value)) && (!is_numeric($value)) && ($value != false)){
                 $value = NULL;
             }
-            $this->appService->updateAttributeGroup($object, $map->getToColumn(), $value);
-            $object->setValue($map->getToColumn(), $value);
+            if($definition->getClass()=='IFSEUProduct'){
+                    $this->appServiceIFSEU->updateAttributeGroup($object, $map->getToColumn(), $value);
+                    $object->setValue($map->getToColumn(), $value);   
+            }else{
+                $this->appService->updateAttributeGroup($object, $map->getToColumn(), $value);
+                $object->setValue($map->getToColumn(), $value);
+            }
         }
     }
 
@@ -836,7 +851,7 @@ final class Importer implements ImporterInterface
         }
 
         $obj = $loader->load($class, $data, $definition, $params);
-        if(($class == 'Product' || $class == 'PTGEUProduct')&& $definition->importLevel !== 'Fert' && $obj->getParent()->getType() != 'object'){
+        if(($class == 'Product' || $class == 'PTGEUProduct' || $class == 'IFSEUProduct')&& $definition->importLevel !== 'Fert' && $obj->getParent()->getType() != 'object'){
             throw new \InvalidArgumentException($definition->importLevel.' does not exist for the particular object');
         }else{
             if($definition->importLevel == 'Skeleton'){

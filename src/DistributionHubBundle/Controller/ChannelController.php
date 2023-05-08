@@ -432,7 +432,11 @@ class ChannelController extends AdminController
       */
     public function getBrickAttributes(Request $request)
     {
-        $classId = intval($request->get('id'));
+        if(is_numeric($request->get('id'))){
+            $classId = intval($request->get('id'));
+        }else{
+            $classId = $request->get('id');
+        }
         $brickName = $request->get('brickName');
         $class = DataObject\ClassDefinition::getById($classId);
         $list = new DataObject\Objectbrick\Definition\Listing();

@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-11-23T10:26:44+01:00
+* Generated at: 2023-04-27T15:22:02+05:30
 * IP: 127.0.0.1
 
 
@@ -401,7 +401,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'title' => '',
              'width' => '',
              'height' => '',
-             'maxTabs' => NULL,
+             'maxTabs' => 20,
              'labelWidth' => 150,
              'border' => false,
              'provideSplitView' => false,

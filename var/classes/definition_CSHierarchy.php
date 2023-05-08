@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-11-23T10:22:29+01:00
+* Generated at: 2023-04-27T14:46:43+05:30
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -22,7 +22,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSHierarchy',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1637659349,
+   'modificationDate' => 1682587003,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -116,7 +116,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'title' => '',
              'width' => '',
              'height' => '',
-             'maxTabs' => NULL,
+             'maxTabs' => 20,
              'labelWidth' => NULL,
              'border' => false,
              'provideSplitView' => false,

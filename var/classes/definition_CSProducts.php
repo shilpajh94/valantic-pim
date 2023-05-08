@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-03-02T12:24:42+01:00
+* Generated at: 2023-04-27T14:49:22+05:30
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -74,7 +74,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSProducts',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1646220282,
+   'modificationDate' => 1682587161,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -404,7 +404,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'title' => '',
                  'width' => '',
                  'height' => '',
-                 'maxTabs' => NULL,
+                 'maxTabs' => 20,
                  'labelWidth' => 200,
                  'border' => true,
                  'provideSplitView' => false,
@@ -549,7 +549,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'title' => '',
                      'width' => '',
                      'height' => '',
-                     'maxTabs' => NULL,
+                     'maxTabs' => 20,
                      'labelWidth' => NULL,
                      'border' => false,
                      'provideSplitView' => false,
@@ -1094,7 +1094,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'title' => 'Digital Assets',
                      'width' => '',
                      'height' => '',
-                     'maxTabs' => NULL,
+                     'maxTabs' => 20,
                      'labelWidth' => NULL,
                      'border' => false,
                      'provideSplitView' => false,
@@ -1184,7 +1184,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'title' => '',
                      'width' => '',
                      'height' => '',
-                     'maxTabs' => NULL,
+                     'maxTabs' => 20,
                      'labelWidth' => 200,
                      'border' => false,
                      'provideSplitView' => false,
@@ -1267,8 +1267,88 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         array (
                           0 => 
                           array (
+                            'value' => 195,
+                            'key' => '4RolesUser',
+                          ),
+                          1 => 
+                          array (
+                            'value' => 217,
+                            'key' => '4RolesUser_PTGEU',
+                          ),
+                          2 => 
+                          array (
                             'value' => 2,
                             'key' => 'admin',
+                          ),
+                          3 => 
+                          array (
+                            'value' => 194,
+                            'key' => 'ApplicationAdmin_CS',
+                          ),
+                          4 => 
+                          array (
+                            'value' => 206,
+                            'key' => 'ApplicationAdmin_IFSEU',
+                          ),
+                          5 => 
+                          array (
+                            'value' => 219,
+                            'key' => 'ApplicationAdmin_IFSUS',
+                          ),
+                          6 => 
+                          array (
+                            'value' => 212,
+                            'key' => 'ApplicationAdmin_PTGEU',
+                          ),
+                          7 => 
+                          array (
+                            'value' => 197,
+                            'key' => 'Editor_CS',
+                          ),
+                          8 => 
+                          array (
+                            'value' => 208,
+                            'key' => 'Editor_IFSEU',
+                          ),
+                          9 => 
+                          array (
+                            'value' => 216,
+                            'key' => 'Editor_PTGEU',
+                          ),
+                          10 => 
+                          array (
+                            'value' => 196,
+                            'key' => 'Marcom_CS',
+                          ),
+                          11 => 
+                          array (
+                            'value' => 207,
+                            'key' => 'MarCom_IFSEU',
+                          ),
+                          12 => 
+                          array (
+                            'value' => 213,
+                            'key' => 'MarCom_PTGEU',
+                          ),
+                          13 => 
+                          array (
+                            'value' => 210,
+                            'key' => 'ProductManager_IFSEU',
+                          ),
+                          14 => 
+                          array (
+                            'value' => 215,
+                            'key' => 'ProductManager_PTGEU',
+                          ),
+                          15 => 
+                          array (
+                            'value' => 209,
+                            'key' => 'ProductManagerCS',
+                          ),
+                          16 => 
+                          array (
+                            'value' => 225,
+                            'key' => 'ReadOnlyIFSEU',
                           ),
                         ),
                          'width' => '',
@@ -1304,8 +1384,88 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         array (
                           0 => 
                           array (
+                            'value' => 195,
+                            'key' => '4RolesUser',
+                          ),
+                          1 => 
+                          array (
+                            'value' => 217,
+                            'key' => '4RolesUser_PTGEU',
+                          ),
+                          2 => 
+                          array (
                             'value' => 2,
                             'key' => 'admin',
+                          ),
+                          3 => 
+                          array (
+                            'value' => 194,
+                            'key' => 'ApplicationAdmin_CS',
+                          ),
+                          4 => 
+                          array (
+                            'value' => 206,
+                            'key' => 'ApplicationAdmin_IFSEU',
+                          ),
+                          5 => 
+                          array (
+                            'value' => 219,
+                            'key' => 'ApplicationAdmin_IFSUS',
+                          ),
+                          6 => 
+                          array (
+                            'value' => 212,
+                            'key' => 'ApplicationAdmin_PTGEU',
+                          ),
+                          7 => 
+                          array (
+                            'value' => 197,
+                            'key' => 'Editor_CS',
+                          ),
+                          8 => 
+                          array (
+                            'value' => 208,
+                            'key' => 'Editor_IFSEU',
+                          ),
+                          9 => 
+                          array (
+                            'value' => 216,
+                            'key' => 'Editor_PTGEU',
+                          ),
+                          10 => 
+                          array (
+                            'value' => 196,
+                            'key' => 'Marcom_CS',
+                          ),
+                          11 => 
+                          array (
+                            'value' => 207,
+                            'key' => 'MarCom_IFSEU',
+                          ),
+                          12 => 
+                          array (
+                            'value' => 213,
+                            'key' => 'MarCom_PTGEU',
+                          ),
+                          13 => 
+                          array (
+                            'value' => 210,
+                            'key' => 'ProductManager_IFSEU',
+                          ),
+                          14 => 
+                          array (
+                            'value' => 215,
+                            'key' => 'ProductManager_PTGEU',
+                          ),
+                          15 => 
+                          array (
+                            'value' => 209,
+                            'key' => 'ProductManagerCS',
+                          ),
+                          16 => 
+                          array (
+                            'value' => 225,
+                            'key' => 'ReadOnlyIFSEU',
                           ),
                         ),
                          'width' => '',
@@ -1341,8 +1501,88 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         array (
                           0 => 
                           array (
+                            'value' => 195,
+                            'key' => '4RolesUser',
+                          ),
+                          1 => 
+                          array (
+                            'value' => 217,
+                            'key' => '4RolesUser_PTGEU',
+                          ),
+                          2 => 
+                          array (
                             'value' => 2,
                             'key' => 'admin',
+                          ),
+                          3 => 
+                          array (
+                            'value' => 194,
+                            'key' => 'ApplicationAdmin_CS',
+                          ),
+                          4 => 
+                          array (
+                            'value' => 206,
+                            'key' => 'ApplicationAdmin_IFSEU',
+                          ),
+                          5 => 
+                          array (
+                            'value' => 219,
+                            'key' => 'ApplicationAdmin_IFSUS',
+                          ),
+                          6 => 
+                          array (
+                            'value' => 212,
+                            'key' => 'ApplicationAdmin_PTGEU',
+                          ),
+                          7 => 
+                          array (
+                            'value' => 197,
+                            'key' => 'Editor_CS',
+                          ),
+                          8 => 
+                          array (
+                            'value' => 208,
+                            'key' => 'Editor_IFSEU',
+                          ),
+                          9 => 
+                          array (
+                            'value' => 216,
+                            'key' => 'Editor_PTGEU',
+                          ),
+                          10 => 
+                          array (
+                            'value' => 196,
+                            'key' => 'Marcom_CS',
+                          ),
+                          11 => 
+                          array (
+                            'value' => 207,
+                            'key' => 'MarCom_IFSEU',
+                          ),
+                          12 => 
+                          array (
+                            'value' => 213,
+                            'key' => 'MarCom_PTGEU',
+                          ),
+                          13 => 
+                          array (
+                            'value' => 210,
+                            'key' => 'ProductManager_IFSEU',
+                          ),
+                          14 => 
+                          array (
+                            'value' => 215,
+                            'key' => 'ProductManager_PTGEU',
+                          ),
+                          15 => 
+                          array (
+                            'value' => 209,
+                            'key' => 'ProductManagerCS',
+                          ),
+                          16 => 
+                          array (
+                            'value' => 225,
+                            'key' => 'ReadOnlyIFSEU',
                           ),
                         ),
                          'width' => '',
@@ -1378,22 +1618,22 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           0 => 
                           array (
                             'key' => 'AMERICAS',
-                            'value' => 10977069,
+                            'value' => 10937119,
                           ),
                           1 => 
                           array (
                             'key' => 'APAC',
-                            'value' => 10977068,
+                            'value' => 10937118,
                           ),
                           2 => 
                           array (
                             'key' => 'EMEA',
-                            'value' => 10977067,
+                            'value' => 10937117,
                           ),
                           3 => 
                           array (
                             'key' => 'SERVICE',
-                            'value' => 10977070,
+                            'value' => 10937120,
                           ),
                         ),
                          'width' => 300,
@@ -1429,62 +1669,27 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           0 => 
                           array (
                             'key' => 'APAC',
-                            'value' => 10978914,
+                            'value' => 12918167,
                           ),
                           1 => 
                           array (
-                            'key' => 'Australia / South Pacific',
-                            'value' => 10937114,
+                            'key' => 'EMEA',
+                            'value' => 12532683,
                           ),
                           2 => 
-                          array (
-                            'key' => 'China & Mongolia',
-                            'value' => 10937112,
-                          ),
-                          3 => 
-                          array (
-                            'key' => 'Eastern Europe/Russia',
-                            'value' => 10937109,
-                          ),
-                          4 => 
-                          array (
-                            'key' => 'EMEA',
-                            'value' => 10978913,
-                          ),
-                          5 => 
-                          array (
-                            'key' => 'India',
-                            'value' => 10937113,
-                          ),
-                          6 => 
-                          array (
-                            'key' => 'Middle East/North Africa',
-                            'value' => 10937110,
-                          ),
-                          7 => 
                           array (
                             'key' => 'North America',
                             'value' => 10937106,
                           ),
-                          8 => 
+                          3 => 
                           array (
                             'key' => 'South America',
                             'value' => 10937107,
                           ),
-                          9 => 
+                          4 => 
                           array (
-                            'key' => 'South East Asia',
-                            'value' => 10937115,
-                          ),
-                          10 => 
-                          array (
-                            'key' => 'Subsahara/South Africa',
-                            'value' => 10937111,
-                          ),
-                          11 => 
-                          array (
-                            'key' => 'Western Europe',
-                            'value' => 10937108,
+                            'key' => 'test',
+                            'value' => 14696492,
                           ),
                         ),
                          'width' => 300,
@@ -1572,63 +1777,68 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         array (
                           0 => 
                           array (
-                            'key' => 'Abrasion Compounds',
-                            'value' => 10976442,
+                            'key' => NULL,
+                            'value' => 14696491,
                           ),
                           1 => 
                           array (
-                            'key' => 'ContiFlex Compounds',
-                            'value' => 10976444,
+                            'key' => 'Abrasion Compounds',
+                            'value' => 10971226,
                           ),
                           2 => 
                           array (
-                            'key' => 'Cut & Gouge Compounds',
-                            'value' => 10976443,
+                            'key' => 'ContiFlex Compounds',
+                            'value' => 10971228,
                           ),
                           3 => 
                           array (
-                            'key' => 'Flame And Heat Compounds',
-                            'value' => 10976450,
+                            'key' => 'Cut & Gouge Compounds',
+                            'value' => 10971227,
                           ),
                           4 => 
                           array (
-                            'key' => 'Flame And Oil Resistant Compounds',
-                            'value' => 10976448,
+                            'key' => 'Flame And Heat Compounds',
+                            'value' => 10971234,
                           ),
                           5 => 
                           array (
-                            'key' => 'Flame And Vegetable Oil Compounds',
-                            'value' => 10976447,
+                            'key' => 'Flame And Oil Resistant Compounds',
+                            'value' => 10971232,
                           ),
                           6 => 
                           array (
-                            'key' => 'Flame Compounds',
-                            'value' => 10976445,
+                            'key' => 'Flame And Vegetable Oil Compounds',
+                            'value' => 10971231,
                           ),
                           7 => 
                           array (
-                            'key' => 'Flame Underground Compounds',
-                            'value' => 10976446,
+                            'key' => 'Flame Compounds',
+                            'value' => 10971229,
                           ),
                           8 => 
                           array (
-                            'key' => 'Gold Oil Compounds',
-                            'value' => 10976449,
+                            'key' => 'Flame Underground Compounds',
+                            'value' => 10971230,
                           ),
                           9 => 
                           array (
-                            'key' => 'Solar-Shield Heat Compounds',
-                            'value' => 10976451,
+                            'key' => 'Gold Oil Compounds',
+                            'value' => 10971233,
                           ),
                           10 => 
                           array (
-                            'key' => 'Special Service Compounds',
-                            'value' => 10976452,
+                            'key' => 'Solar-Shield Heat Compounds',
+                            'value' => 10971235,
                           ),
                           11 => 
                           array (
+                            'key' => 'Special Service Compounds',
+                            'value' => 10971236,
+                          ),
+                          12 => 
+                          array (
                             'key' => 'White Compounds',
-                            'value' => 10976453,
+                            'value' => 10971237,
                           ),
                         ),
                          'width' => 300,
@@ -2273,7 +2483,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'title' => '',
                  'width' => '',
                  'height' => '',
-                 'maxTabs' => NULL,
+                 'maxTabs' => 20,
                  'labelWidth' => NULL,
                  'border' => false,
                  'provideSplitView' => false,
@@ -2959,7 +3169,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'title' => 'Digital Assets',
                              'width' => '',
                              'height' => '',
-                             'maxTabs' => NULL,
+                             'maxTabs' => 20,
                              'labelWidth' => NULL,
                              'border' => false,
                              'provideSplitView' => false,
@@ -3242,7 +3452,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'title' => '',
                  'width' => '',
                  'height' => '',
-                 'maxTabs' => NULL,
+                 'maxTabs' => 20,
                  'labelWidth' => 200,
                  'border' => false,
                  'provideSplitView' => false,

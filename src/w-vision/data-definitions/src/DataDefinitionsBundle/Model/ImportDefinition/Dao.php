@@ -148,7 +148,8 @@ class Dao extends Model\Dao\PhpArrayTable
                 'loader',
                 'fetcher',
             ];
-
+            
+            $ValidateString = '';
             foreach ($dataRaw as $key => $value) {
                 if (\in_array($key, $allowedProperties, true)) {
                     if ($key === 'providerConfiguration') {
@@ -168,9 +169,30 @@ class Dao extends Model\Dao\PhpArrayTable
                     } else {
                         $data[$key] = $value;
                     }
+                    if($dataRaw['class'] == 'CSProducts'){
+                        if($key=='class' && empty($value)){
+                            $ValidateString.='Class Level Field is required'."<br>";
+                        }
+                        if($key=='primaryKey' && empty($value)){
+                            $ValidateString.='Primary Key Field is required'."<br>";
+                        }
+                    }else{
+                        if($key=='class' && empty($value)){
+                            $ValidateString.='Class Level Field is required'."<br>";
+                        }
+                        if($key=='importLevel' && empty($value)){
+                            $ValidateString.='Import Level Fields is required'."<br>";
+                        }
+                        if($key=='primaryKey' && empty($value)){
+                            $ValidateString.='Primary Key Field is required'."<br>";
+                        }
+    
+                    }
                 }
             }
-
+            if(!empty($ValidateString) && !empty($this->model->getId())){
+                throw new \Exception($ValidateString);
+            }
             $this->db->insertOrUpdate($data, $this->model->getId());
         } catch (\Exception $e) {
             throw $e;

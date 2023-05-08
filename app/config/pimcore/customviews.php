@@ -438,5 +438,131 @@ return [
                 ]
             ]
         ],
+
+
+
+        /** custom view for ifseu project **/
+        
+        [
+            'treetype' => 'asset',
+            'name' => 'Product Assets',
+            'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/edit_image.svg',
+            'id' => 'contitech_ifseu_asset_products',
+            'rootfolder' => '/Contitech_IFS_EMEA/Product Assets',
+            'showroot' => true,
+            'position' => 'left',
+            'sort' => '5',
+            'expanded' => false,
+            'treeContextMenu' => [
+                'asset' => [
+                    'items' => [
+                        'add' => [
+//                            "hidden" => 1,                                    // hide "Add asset" menu (including subentries)
+                            'items' => [
+//                                'upload' => 0,                                  // hide "Upload"
+//                                "uploadCompatibility" => 0,                     // hide "Upload Compatibility Mode"
+//                                "uploadZip" => 0,                               // hide "Upload ZIP Archive"
+//                                "importFromServer" => 0,                        // don't show "Import from Server"
+//                                'uploadFromUrl' => 0                            // hide "Upload From URL"
+                            ]
+                        ],
+                        'addFolder' => 1,                                       // show (!) "Add Folder" (shown by default anyway)
+                        'rename' => 0,                                          // hide "Rename"
+//                        "copy" => 0,                                            // hide "Copy"
+//                        "cut" => 0,                                             // hide "Cut"
+                        'paste' => 0,                                           // hide "Paste"
+                        'pasteCut' => 0,                                        // hide "Paste cut element"
+                        'delete' => 0,                                          // hide "Delete"
+                        'searchAndMove' => 0,                                   // hide "Search And Move"
+                        'lock' => 0,                                            // hide "Lock"
+                        'unlock' => 0,                                          // hide "Unlock"
+                        'lockAndPropagate' => 0,                                // hide "Lock and propagate"
+                        'unlockAndPropagate' => 0,                              // hide "Unlock and propagate"
+                        'reload' => [                                           // show reload (shown by default anyway)
+                            'hidden' => false
+                        ]
+                    ]
+                ]
+            ]
+        ],
+        [
+            'treetype' => 'object',
+            'name' => 'Master Data',
+            'condition' => null,
+            'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/negative_dynamic.svg',
+            'id' => 'contitech_ifseu_master_data',
+            'rootfolder' => '/Contitech_IFS_EMEA/Master Data',
+            'showroot' => true,
+            'classes' => '',
+            'position' => 'left',
+            'sort' => '10',
+            'expanded' => false,
+            'where' => '',
+            'treeContextMenu' => [                          // hide the "Add document" tree context menu
+                'object' => [
+                    'items' => [
+                        'importCsv' => 0
+                    ]
+                ]
+            ]
+        ],
+
+        [
+            'treetype' => 'object',
+            'name' => 'Products',
+            'condition' => null,
+            'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/neutral_trading.svg',
+            'id' => 'contitech_ifseu_product_objects',
+            'rootfolder' => '/Contitech_IFS_EMEA/Products',
+            'showroot' => true,
+            'classes' => '',
+            'position' => 'left',
+            'sort' => '10',
+            'expanded' => false,
+            'where' => '',
+            'treeContextMenu' => [                          // hide the "Add document" tree context menu
+                'object' => [
+                    'items' => [
+                        'publish' => 0,                                         // hide "Publish"
+                        'unpublish' => 0,                                       // hide "Unpublish"
+                        'delete' => 0,  
+                        'searchAndMove' => 0, 
+                        'unlock' => 0,            
+                        'unlockAndPropagete' => 0,
+                        'importCsv' => 0
+
+                    ]
+                ]
+            ]
+        ],
+
+        [
+            'treetype' => 'object',
+            'name' => 'Material Master',
+            'condition' => null,
+            'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/neutral_trading.svg',
+            'id' => 'contitech_ifseu_material_master_list',
+            'rootfolder' => '/Contitech_IFS_EMEA/MaterialMaster',
+            'showroot' => true,
+            'classes' => '',
+            'position' => 'left',
+            'sort' => '10',
+            'expanded' => false,
+            'where' => '',
+            'treeContextMenu' => [                          // hide the "Add document" tree context menu
+                'object' => [
+                    'items' => [
+                        'publish' => 0,                                         // hide "Publish"
+                        'unpublish' => 0,                                       // hide "Unpublish"
+                        'delete' => 0,  
+                        'searchAndMove' => 0, 
+                        'unlock' => 0,            
+                        'unlockAndPropagete' => 0,
+                        'importCsv' => 0
+
+                    ]
+                ]
+            ]
+        ],
     ]
 ];

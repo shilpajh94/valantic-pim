@@ -594,5 +594,196 @@ return [
         ]
     ],
 
+    'IFSEU_ApplicationAdmin' => [
+        'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/biohazard.svg',
+        'elementTree' => [
+            
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 0,
+                'id' => 'contitech_ifseu_master_data',
+            ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 1,
+                'id' => 'contitech_ifseu_product_objects',
+            ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 2,
+                'id' => 'contitech_ifseu_material_master_list',
+            ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 3,
+                'id' => 'contitech_ifseu_asset_products',
+            ],
+        ]
+    ],
+    
+    'IFSEU_ProductManager' => [
+        'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/biohazard.svg',
+        'elementTree' => [
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 0,
+                'id' => 'contitech_ifseu_master_data',
+            ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 1,
+                'id' => 'contitech_ifseu_product_objects',
+            ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 2,
+                'id' => 'contitech_ifseu_material_master_list',
+            ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 3,
+                'id' => 'contitech_ifseu_asset_products',
+            ],
+        ]
+    ],
+    
+    'IFSEU_MarCom' => [
+        'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/biohazard.svg',
+        'elementTree' => [
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 0,
+                'id' => 'contitech_ifseu_master_data',
+            ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 1,
+                'id' => 'contitech_ifseu_product_objects',
+            ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 2,
+                'id' => 'contitech_ifseu_material_master_list',
+            ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 3,
+                'id' => 'contitech_ifseu_asset_products',
+            ],
+        ]
+    ],
+    
+    'IFSEU_Editor' => [
+        'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/biohazard.svg',
+        'elementTree' => [
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 0,
+                'id' => 'contitech_ifseu_master_data',
+            ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 1,
+                'id' => 'contitech_ifseu_product_objects',
+            ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 2,
+                'id' => 'contitech_ifseu_material_master_list',
+            ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 3,
+                'id' => 'contitech_ifseu_asset_products',
+            ],
+        ]
+    ],
+    
+    'IFSEU_ReadOnlyView' => [
+        'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/biohazard.svg',
+        'elementTree' => [
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 0,
+                'id' => 'contitech_ifseu_master_data',
+            ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 1,
+                'id' => 'contitech_ifseu_product_objects',
+            ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 2,
+                'id' => 'contitech_ifseu_material_master_list',
+            ],
+            [
+                'type' => 'customview',
+                'position' => 'left',
+                'expanded' => false,
+                'hidden' => false,
+                'sort' => 3,
+                'id' => 'contitech_ifseu_asset_products',
+            ],
+        ]
+    ],
+    
 
 ];

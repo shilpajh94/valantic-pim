@@ -1,11 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2021-11-29T02:13:01-05:00
+* Generated at: 2023-04-27T14:45:37+05:30
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
-* IP: ::1
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -19,7 +19,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSCoverCompounds',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1638169981,
+   'modificationDate' => 1682586937,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -113,7 +113,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'title' => 'Cover Compounds',
              'width' => '',
              'height' => '',
-             'maxTabs' => NULL,
+             'maxTabs' => 20,
              'labelWidth' => 200,
              'border' => false,
              'provideSplitView' => false,
@@ -122,12 +122,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'referencedFields' => 
             array (
             ),
-             'tooltip' => NULL,
-             'mandatory' => NULL,
-             'noteditable' => NULL,
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
              'index' => NULL,
-             'locked' => NULL,
-             'style' => NULL,
+             'locked' => false,
+             'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
              'relationType' => false,

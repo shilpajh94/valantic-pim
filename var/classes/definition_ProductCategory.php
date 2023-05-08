@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-08T18:40:19+05:30
+* Generated at: 2023-04-27T14:34:15+05:30
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -21,6 +21,8 @@ Fields Summary:
 - code [input]
 - fullCode [input]
 - CatalogFlag [checkbox]
+- externalID [input]
+- SalesForce_ID [input]
 - localizedfields [localizedfields]
 -- description [textarea]
 -- PrintedCatalogDescription [textarea]
@@ -35,7 +37,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'ProductCategory',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1654693819,
+   'modificationDate' => 1682586254,
    'userOwner' => 0,
    'userModification' => 2,
    'parentClass' => '\\Pimcore\\Bundle\\EcommerceFrameworkBundle\\Model\\AbstractCategory',
@@ -349,7 +351,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => true,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -472,20 +474,35 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           ),
                           5 => 
                           array (
+                            'key' => 'IFSEU_Bricks',
+                            'value' => 'IFSEU_Bricks',
+                          ),
+                          6 => 
+                          array (
                             'key' => 'INH_FITTINGS',
                             'value' => 'INH_FITTINGS',
                           ),
-                          6 => 
+                          7 => 
                           array (
                             'key' => 'Metal',
                             'value' => 'Metal',
                           ),
-                          7 => 
+                          8 => 
                           array (
                             'key' => 'PTG',
                             'value' => 'PTG',
                           ),
-                          8 => 
+                          9 => 
+                          array (
+                            'key' => 'PTGEU',
+                            'value' => 'PTGEU',
+                          ),
+                          10 => 
+                          array (
+                            'key' => 'PTGEU',
+                            'value' => 'PTGEU',
+                          ),
+                          9 => 
                           array (
                             'key' => 'Synchronous',
                             'value' => 'Synchronous',
@@ -582,6 +599,62 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'name' => 'CatalogFlag',
                          'title' => 'Catalog Flag',
                          'tooltip' => 'Check to show this category in industrial hose catalog menu.',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left: 20px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
+                      )),
+                      6 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'fieldtype' => 'input',
+                         'width' => NULL,
+                         'defaultValue' => NULL,
+                         'queryColumnType' => 'varchar',
+                         'columnType' => 'varchar',
+                         'columnLength' => 190,
+                         'phpdocType' => 'string',
+                         'regex' => '',
+                         'unique' => false,
+                         'showCharCount' => false,
+                         'name' => 'externalID',
+                         'title' => 'External ID',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left: 20px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
+                      )),
+                      7 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'fieldtype' => 'input',
+                         'width' => NULL,
+                         'defaultValue' => NULL,
+                         'queryColumnType' => 'varchar',
+                         'columnType' => 'varchar',
+                         'columnLength' => 190,
+                         'phpdocType' => 'string',
+                         'regex' => '',
+                         'unique' => false,
+                         'showCharCount' => false,
+                         'name' => 'SalesForce_ID',
+                         'title' => 'Salesforce ID',
+                         'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
@@ -719,7 +792,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'title' => '',
                  'width' => '',
                  'height' => '',
-                 'maxTabs' => NULL,
+                 'maxTabs' => 20,
                  'labelWidth' => 200,
                  'border' => false,
                  'provideSplitView' => false,

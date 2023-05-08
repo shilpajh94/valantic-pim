@@ -227,7 +227,7 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                             this.configForm.getForm().findField('primaryKey').setStore(this.getPrimaryKey(data.value, 'primaryKeyData'));
                             this.configForm.getForm().findField('primaryKey').setReadOnly(false);
 
-                            if (data.value == 'Product' || data.value == 'PTGEUProduct') {
+                            if (data.value == 'Product' || data.value == 'PTGEUProduct' || data.value == 'IFSEUProduct') {
                                 this.configForm.getForm().findField('importLevel').setStore(this.getPrimaryKey(data.value, 'importLevelData'));
                                 this.configForm.getForm().findField('importLevel').setReadOnly(false);
                                 this.configForm.getForm().findField('importLevel').allowBlank = false;
@@ -521,9 +521,9 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
             if (pimcore.plugin.datadefinitions.provider[provider] !== undefined) {
                 if (this.data.provider === null) {
                     this.data.provider = provider;
-                    this.save(function () {
+                    // this.save(function () {
                         this.updateProviderMapViews();
-                    }.bind(this));
+                    // }.bind(this));
                 } else {
                     this.data.provider = provider;
                     this.updateProviderMapViews();

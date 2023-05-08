@@ -32,6 +32,10 @@ define("CS_APIBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/ContitechCS
 define("PTG_EU_PRODUCTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/PTGEU/ProductBundle/Resources/config");
 
 
+define("IFS_EU_PRODUCTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/IFSEU/ProductBundle/Resources/config");
+define("B2BTRANSLATIONBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/B2BTranslationBundle/Resources/config");
+
+
 /**
  * to include the constants of the required attributes module
  * this is being used for calculating completeness,calculating some validations for export etc.
@@ -127,6 +131,7 @@ define('CATALOG_IMAGE_THUBNAILS', array(
 define("PDF_GENERATION_REQUEST_SOURCE_DOC_SESSION_KEY", "pdf_generation_request_source_document_id");
 
 define("DEFAULT_DECIMAL_PLACES_IN_VIRTUAL_CATALOG_API", 2);
+define("DEFAULT_DECIMAL_PLACES_IN_EHOSE_API", 2);
 
 define("MAINTAIN_OPTION_PROVIDER_DATA_IN_MEMORY", true);
 
@@ -139,9 +144,28 @@ define('FAILURE_RECORDS_FOLDER','/IFS PTG Private Folder/Import Failure Logs');
 define("PTG_EU_WORKFLOW_CONFIG",PTG_EU_PRODUCTBUNDLE_CONFIG_DIRECTORY."/workflow/workflow.yml");
 define("PTGEU_ROLE_BASED_MANDATORY_ATTRIBUTES_FILE_PATH",PTG_EU_PRODUCTBUNDLE_CONFIG_DIRECTORY."/workflow/mandatory_attributes.yml");
 
+// IFS_EU Constants
+define("IFS_EU_IMPORTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/IFSEU/ImportBundle/Resources/config");
+define('IFS_EU_PLANT_MATERIAL_CONFIG_FILE_PATH', IFS_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/plant_material.yml");
+define('IFS_EU_SALES_MATERIAL_CONFIG_FILE_PATH', IFS_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/sales_material.yml");
+
+define("IFS_EU_WORKFLOW_CONFIG",IFS_EU_PRODUCTBUNDLE_CONFIG_DIRECTORY."/workflow/workflow.yml");
+define("IFSEU_MANDATORY_ATTRIBUTES_FILE_PATH",IFS_EU_PRODUCTBUNDLE_CONFIG_DIRECTORY."/workflow/mandatory_attributes.yml");
+define("IFS_EU_PRODUCT_ROLE_BASED_EDITABLE_ATTRIBUTES_FILE_PATH", IFS_EU_PRODUCTBUNDLE_CONFIG_DIRECTORY . "/workflow/role_based_editable_attributes.yml");
+define('IFS_EU_CATEGORY_CONFIG_FILE_PATH', IFS_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/category.yml");
+define('IFS_EU_PRODUCT_CONFIG_FILE_PATH', IFS_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/product.yml");
+define('IFS_EU_PRODUCT_LEVEL_CONFIG_FILE_PATH', PIMCORE_PROJECT_ROOT . "/src/IFSEU/ProductBundle/Resources/config/ifseu_level_attributes.yml");
+
+define('IFS_EU_PRODUCT_IMPORT_CONFIG_FILE_PATH', IFS_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/product_import.yml");
+define('IFS_EU_BRICK_MAPPING_CONFIG_FILE_PATH', IFS_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/brick_mapping_config.yml");
+define('IFS_EU_BRICK_ATTRIBUTES_CONFIG_FILE_PATH', IFS_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/brick_attributes.yml");
+define("IFS_EU_UNIT_CONVERSION_ATTRIBUTE_GROUP_FILE_PATH", IFS_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/unit_conversion/attribute_groups.yml");
+
+define('IFS_EU_ASSET_CONFIG_FILE_PATH', IFS_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/assets.yml");
+
+
+
 define('FAILURE_RECORDS_EMAIL_TEMPLATE','/FailureRecordEmail/ProductFailedRecordEmailTemplates');
-
-
 
 // define constants used in PTGEU
 define("PTG_EU_IMPORTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/PTGEU/ImportBundle/Resources/config");
@@ -172,3 +196,12 @@ define('PTG_EU_CATALOGBUNDLE_ATTRIBUTE_IMAGE_CONFIG_FILE_PATH', PTG_EU_CATALOGBU
 define('PTG_EU_CATALOGBUNDLE_PRICE_LIST_TABLE_CONFIG_FILE_PATH', PTG_EU_CATALOGBUNDLE_CONFIG_DIRECTORY . "/price_list_table_config.yml");
 
 define("PIMDATAPOSTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/PimDataPostBundle/Resources/config");
+
+
+# IFS EU Constants 
+
+
+#define("IFS_EU_IMPORTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/src/IFSEU/ImportBundle/Resources/config");
+#define('IFS_EU_PLANT_MATERIAL_CONFIG_FILE_PATH', IFS_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/plant_material.yml");
+#define('IFS_EU_SALES_MATERIAL_CONFIG_FILE_PATH', IFS_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/sales_material.yml");
+#define('IFS_EU_CATEGORY_CONFIG_FILE_PATH', IFS_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/category.yml");

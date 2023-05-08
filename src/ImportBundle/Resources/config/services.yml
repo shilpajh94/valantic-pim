@@ -148,3 +148,13 @@ services:
     import.asset_import_service:
         class: ImportBundle\Services\Model\AssetImportModel
         public: true
+
+    IFSEU\ProductBundle\EventListeners\ObjectsListener:
+        tags:
+            - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: preUpdate }
+
+    IFSEU\ProductBundle\Services\CompletenessPercentageService:
+        class: IFSEU\ProductBundle\Services\CompletenessPercentageService
+        public: true
+        autowire: true
+

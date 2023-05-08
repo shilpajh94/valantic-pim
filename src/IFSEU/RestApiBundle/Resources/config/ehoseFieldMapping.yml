@@ -1,0 +1,798 @@
+## YAML Template.
+
+# Example Fields config:
+#     Fields:
+#         fieldName:
+#             - fieldType  ( string || numeric:decimalPlaces )
+
+ehoseAPI: 
+    Base:
+        Fields:
+            oo_id:
+                - string
+            o_key:
+                - string
+            o_parentId:
+                - string
+            productBrandName:
+                - string
+            brandConstruction:
+                - string
+            catalogLayline:
+                - string
+            Category:
+                - string
+            Sub_Category:
+                - string
+            FeaturesBenefitsBulletPoint:
+                - string
+            TPCode:
+                - string
+            # Note2InformationBelowTable:
+            #     - string
+            siopFullCode:
+                - string
+            SIOPLevel1:
+                - string
+            SIOPLevel2:
+                - string
+            SIOPLevel3:
+                - string
+            SIOPLevel4:
+                - string
+            SIOPLevel5:
+                - string
+            SIOPLevel6:
+                - string
+            SIOPLevel7:
+                - string
+            minimumTemperatureF:
+                - numeric: 2
+            maximumTemperatureF:
+                - numeric: 2
+            minimumTemperatureC:
+                - numeric: 2
+            maximumTemperatureC:
+                - numeric: 2
+            rangeTemperatureF:
+                - string
+            rangeTemperatureC:
+                - string
+            temperatureRangeApplication:
+                - string
+            temperatureRangeApplication1:
+                - string
+            temperatureRangeApplication2:
+                - string
+            temporaryUntilC:
+                - numeric: 2
+            DampableUntil1C:
+                - numeric: 2
+            DampableUntil2C:
+                - numeric: 2
+            justTemporarily:
+                - string
+            PressureUntil:
+                - numeric: 2
+            onlyOpenSystem:
+                - string
+            temperatureRangeFAndC:
+                - string
+            temperatureNote:
+                - string
+            temperatureRangeApplicationFAndC1:
+                - string
+            temperatureRangeApplicationFAndC2:
+                - string
+            temperatureRangeApplicationFAndC3:
+                - string
+            temperatureRangeApplicationFAndC4:
+                - string
+            temperatureRangeApplicationFAndC5:
+                - string
+            temporaryUntilT: 
+                - numeric: 2
+            DampableUntil1T:
+                - numeric: 2
+            DampableUntil2T:
+                - numeric: 2
+            o_published:
+                - string
+            # FeaturesBenefitsBulletPoint:
+            #     - string
+            # certificationImage:
+            #     - string
+            mainImage:
+                - string
+            frontView:
+                - string
+            sideView:
+                - string
+            cutView:
+                - string
+            epixImage:
+                - string
+            TeaserImage:
+                - string
+            altImage1:
+                - string    
+            altImage2:
+                - string
+            altImage3:
+                - string
+            altImage4:
+                - string
+            altImage5:
+                - string
+            altImage6:
+                - string
+            altImage7:
+                - string
+            altImage8:
+                - string
+            certificationImage:
+                - string
+            LeftPrintCatalogImage:
+                - string
+            RightPrintCatalogImage:
+                - string
+            DrawingPictureForCatalog:
+                - string
+            BrandingLaylineAssets:
+                - string
+            Document:
+                - string
+            Certificate1:
+                - string
+            Certificate2:
+                - string
+            video1:
+                - string
+            video2:
+                - string
+            video3:
+                - string
+        Images:
+            - mainImage
+            - frontView
+            - sideView
+            - cutView
+            - epixImage
+            - TeaserImage
+            - altImage1
+            - altImage2
+            - altImage3
+            - altImage4
+            - altImage5
+            - altImage6
+            - altImage7
+            - altImage8
+            - certificationImage
+            - LeftPrintCatalogImage
+            - RightPrintCatalogImage
+            - DrawingPictureForCatalog
+        Object:
+            IFSEUProductCategory:
+                SIOPLevel1:
+                    Fields:
+                        - Level
+                        - Code
+                        - Description
+                SIOPLevel2:
+                    Fields:
+                        - Level
+                        - Code
+                        - Description
+                SIOPLevel3:
+                    Fields:
+                        - Level
+                        - Code
+                        - Description
+                SIOPLevel4:
+                    Fields:
+                        - Level
+                        - Code
+                        - Description
+                SIOPLevel5:
+                    Fields:
+                        - Level
+                        - Code
+                        - Description
+                SIOPLevel6:
+                    Fields:
+                        - Level
+                        - Code
+                        - Description
+                SIOPLevel7:
+                    Fields:
+                        - Level
+                        - Code
+                        - Description
+            Category:
+                category:
+                    Fields:
+                        - Name
+            Sub_Category:
+                subCategory:
+                    Fields:
+                        - Name
+        ObjectBricks:
+            IFSEUHose:
+                Fields:
+                    staticWire: 
+                        - string
+                    staticWireType:
+                        - string
+                    tubeCharacteristic:
+                        - string
+                    hoseIdDec:
+                        - string
+                    hoseIdMM: 
+                        - string
+                    FlowMediumStability:
+                        - string
+                    BaseBrickMapping:
+                        - string
+                    numberOfHelixWires:
+                        - string
+                    tubeGaugeFractional:
+                        - string
+                    NonStockSizes:
+                        - string
+                    standards: 
+                        - string
+                    numberOfPlies:
+                        - string
+                    Coupling:
+                        - string
+                    InnerLining:
+                        - string
+                    colorInnerLining:
+                        - string
+                    Reinforcement:
+                        - string
+                    Helix:
+                        - string
+                    propertiesInnerLayer:
+                        - string
+                    CoverOuterLayer:
+                        - string
+                    ColorOuterLayer:
+                        - string
+                    Haptic:
+                        - string
+                    PropertiesOuterLayer:
+                        - string
+                    FieldsOfApplication:
+                        - string
+                    flowMedium:
+                        - string
+        Localizedfields:
+            - headlineWeb
+            - productBrandNamePerLanguage
+            - BrandShortText2
+            - Marking1
+            - Marking2
+            - searchKeywords
+            - Note2InformationBelowTable
+            - commercialDescription
+            - technicalDescription
+    Skeleton:
+        Fields:
+            oo_id:
+                - string
+            o_key:
+                - string
+            o_parentId:
+                - string
+            # productBrandName:
+            #     - string
+            # brandConstruction:
+            #     - string
+            # catalogLayline:
+            #     - string
+            # Category:
+                - string
+            # Sub_Category:
+            #     - string
+            # FeaturesBenefitsBulletPoint:
+            #     - string
+            # TPCode:
+            #     - string
+            siopFullCode:
+                - string
+            # SIOPLevel1:
+            #     - string
+            # SIOPLevel2:
+            #     - string
+            # SIOPLevel3:
+            #     - string
+            # SIOPLevel4:
+            #     - string
+            # SIOPLevel5:
+            #     - string
+            # SIOPLevel6:
+            #     - string
+            # SIOPLevel7:
+            #     - string
+            minimumTemperatureF:
+                - numeric: 2
+            maximumTemperatureF:
+                - numeric: 2
+            minimumTemperatureC:
+                - numeric: 2
+            maximumTemperatureC:
+                - numeric: 2
+            rangeTemperatureF:
+                - string
+            rangeTemperatureC:
+                - string
+            temperatureRangeApplication:
+                - string
+            temperatureRangeApplication1:
+                - string
+            temperatureRangeApplication2:
+                - string
+            temporaryUntilC:
+                - numeric: 2
+            DampableUntil1C:
+                - numeric: 2
+            DampableUntil2C:
+                - numeric: 2
+            justTemporarily:
+                - string
+            PressureUntil:
+                - numeric: 2
+            onlyOpenSystem:
+                - string
+            temperatureRangeFAndC:
+                - string
+            temperatureNote:
+                - string
+            temperatureRangeApplicationFAndC1:
+                - string
+            temperatureRangeApplicationFAndC2:
+                - string
+            temperatureRangeApplicationFAndC3:
+                - string
+            temperatureRangeApplicationFAndC4:
+                - string
+            temperatureRangeApplicationFAndC5:
+                - string
+            temporaryUntilT: 
+                - numeric: 2
+            DampableUntil1T:
+                - numeric: 2
+            DampableUntil2T:
+                - numeric: 2
+            o_published:
+                - string
+            # FeaturesBenefitsBulletPoint:
+            #     - string
+            certificationImage:
+                - string
+            document:
+                - string
+        Images:
+            - mainImage
+            - frontView
+            - sideView
+            - cutView
+        Object:
+            # IFSEUProductCategory:
+            #     SIOPLevel1:
+            #         Fields:
+            #             - Level
+            #             - Code
+            #             - Description
+            #     SIOPLevel2:
+            #         Fields:
+            #             - Level
+            #             - Code
+            #             - Description
+            #     SIOPLevel3:
+            #         Fields:
+            #             - Level
+            #             - Code
+            #             - Description
+            #     SIOPLevel4:
+            #         Fields:
+            #             - Level
+            #             - Code
+            #             - Description
+            #     SIOPLevel5:
+            #         Fields:
+            #             - Level
+            #             - Code
+            #             - Description
+            #     SIOPLevel6:
+            #         Fields:
+            #             - Level
+            #             - Code
+            #             - Description
+            #     SIOPLevel7:
+            #         Fields:
+            #             - Level
+            #             - Code
+            #             - Description
+            # Category:
+            #     category:
+            #         Fields:
+            #             - Name
+            # Sub_Category:
+            #     subCategory:
+            #         Fields:
+            #             - Name
+        ObjectBricks:
+            IFSEUHose:
+                Fields:
+                    IdInch:
+                        - numeric: 2
+                    IdMM:
+                        - numeric: 2
+                    wallThicknessInch:
+                        - numeric: 2
+                    wallThicknessMM:
+                        - numeric: 2
+                    OdIn:
+                        - numeric: 2
+                    Odmm:
+                        - numeric: 2
+                    workingPressureBAR:
+                        - numeric: 2
+                    workingPressurePSI:
+                        - numeric: 2
+                    workingPressureMPA:
+                        - numeric: 2
+                    hoseIdNominalActualId:
+                        - numeric: 2
+                    hoseIdMMActualId:
+                        - numeric: 2
+                    FittingFamily:
+                        - string
+                    SkeletonBrickMapping:
+                        - string
+                    VacuumBar:
+                        - numeric: 2
+                    VacuumMM:
+                        - numeric: 2
+                    VacuumIN:
+                        - numeric: 2
+                    testPressureBar: 
+                        - numeric: 2
+                    testPressurePSI:
+                        - numeric: 2
+                    BurstPressureBar:
+                        - numeric: 2
+                    BurstPressurePSI:
+                        - numeric: 2
+                    BurstPressurempa: 
+                        - numeric: 2
+                    BendingRadiusIN: 
+                        - numeric: 2
+                    BendingRadiusMM:
+                        - numeric: 2
+                    descriptive:
+                        - string
+                    negativeToleranceIdMM:
+                        - numeric: 2
+                    PositiveToleranceIdMM:
+                        - numeric: 2
+                    negativeToleranceWtMM:
+                        - numeric: 2
+                    PositiveToleranceWtMM:
+                        - numeric: 2
+                    negativeToleranceOdMM:
+                        - numeric: 2
+                    PositiveToleranceOdMM:
+                        - numeric: 2
+                    withHelix:
+                        - string
+    Fert:
+        Fields:
+            oo_id:
+                - string
+            o_key:
+                - string
+            o_parentId:
+                - string
+            # productBrandName:
+            #     - string
+            # brandConstruction:
+            #     - string
+            # catalogLayline:
+            #     - string
+            # Category:
+            #     - string
+            # Sub_Category:
+            #     - string
+            # FeaturesBenefitsBulletPoint:
+            #     - string
+            # TPCode:
+            #     - string
+            siopFullCode:
+                - string
+            # SIOPLevel1:
+            #     - string
+            # SIOPLevel2:
+            #     - string
+            # SIOPLevel3:
+            #     - string
+            # SIOPLevel4:
+            #     - string
+            # SIOPLevel5:
+            #     - string
+            # SIOPLevel6:
+            #     - string
+            # SIOPLevel7:
+            #     - string
+            minimumTemperatureF:
+                - numeric: 2
+            maximumTemperatureF:
+                - numeric: 2
+            minimumTemperatureC:
+                - numeric: 2
+            maximumTemperatureC:
+                - numeric: 2
+            rangeTemperatureF:
+                - string
+            rangeTemperatureC:
+                - string
+            temperatureRangeApplication:
+                - string
+            temperatureRangeApplication1:
+                - string
+            temperatureRangeApplication2:
+                - string
+            temporaryUntilC:
+                - numeric: 2
+            DampableUntil1C:
+                - numeric: 2
+            DampableUntil2C:
+                - numeric: 2
+            justTemporarily:
+                - string
+            PressureUntil:
+                - numeric: 2
+            onlyOpenSystem:
+                - string
+            temperatureRangeFAndC:
+                - string
+            temperatureNote:
+                - string
+            temperatureRangeApplicationFAndC1:
+                - string
+            temperatureRangeApplicationFAndC2:
+                - string
+            temperatureRangeApplicationFAndC3:
+                - string
+            temperatureRangeApplicationFAndC4:
+                - string
+            temperatureRangeApplicationFAndC5:
+                - string
+            temporaryUntilT: 
+                - numeric: 2
+            DampableUntil1T:
+                - numeric: 2
+            DampableUntil2T:
+                - numeric: 2
+            o_published:
+                - string
+            # FeaturesBenefitsBulletPoint:
+            #     - string
+            certificationImage:
+                - string
+            document:
+                - string
+            webDescription:
+                - string
+            publishedOnline:
+                - string
+            Currency:
+                - string
+            Note: 
+                - string
+            ConnectionType:
+                - string
+            # productionLengths:
+            #     - string   
+            additionalDiscount:
+                - string   
+            Amount:
+                - string
+            OnStock:
+                - string
+            productLength:
+                - string
+            priceDate:
+                - string
+            minimumQuantityUnit:
+                - string
+            ProductLengthUnit:
+                - string
+            MinimumQuantityMeasurementUnit:
+                - string
+            EHoseID:
+                - string
+            productionLength:
+                - string
+            listPrice:
+                - string
+            Department:
+                - string
+            GrossPrice:
+                - string
+            Discount:
+                - string
+            merchantDiscount:
+                - string
+            nitrosamines:
+                - string
+            californiaProposition65ChemicalName1:
+                - string
+            californiaProposition65ChemicalName2:
+                - string
+            californiaProposition65ChemicalName3:
+                - string
+            warningIcon:
+                - string
+            prop65Message:
+                - string
+            proposition65WarningAttributesRequired:
+                - string
+            reach:
+                - string
+            rohs:
+                - string
+            ConflictMinerals:
+                - string
+            additionalInformation:
+                - string
+            substitutePartNumber:
+                - string
+            numberOfItems:
+                - string
+            UnitsInPackage:
+                - string
+            shelfLife:
+                - string
+            ProductType:
+                - string
+            WeightLbsPerFTUOM:
+                - string
+            weightg:
+                - string
+            weightKg:
+                - string
+            sapDescriptionLanguage:
+                - string
+            b2BexternalID:
+                - string
+            CustomsTariffNumber:
+                - string
+            OutsidePurchaseFlag:
+                - string
+            eHoseProduct:
+                - string
+            # sapDescription:
+            #     - string
+            shippingConditions:
+                - string
+            Conditions:
+                - string
+            manufacturingLength:
+                - string
+            minimumOrder:
+                - string
+            CompletenessPercentage:
+                - string
+            B2CCategory:
+                - string
+            printedCatalogFlag:
+                - string
+            B2CStoreFlag:
+                - string
+            virtualCatalogFlag:
+                - string
+            newItemFlagForCatalog:
+                - string
+            # webDescription:
+            #     - string
+            WebsiteLink:
+                - string
+            amazonTitle:
+                - string
+            materialNumber:
+                - string
+            EANCode:
+                - string
+            materialGroup__id:
+                - string
+            countryOfOrigin__id:
+                - string
+            baseUOM:
+                - string
+            grossWeight:
+                - string
+            netWeight:
+                - string
+            weightUnit:
+                - string
+            industryStandard:
+                - string
+            succesorFlag:
+                - string
+            deletedFlagAtClientLevel:
+                - string
+            rebateFlag:
+                - string
+            BusinessUnit:
+                - string
+            Spezi:
+                - string
+            oldMaterialCode:
+                - string
+            manufacturer:
+                - string
+            stccCode:
+                - string
+            manufacturerPartNumber:
+                - string
+            returnFlag:
+                - string
+        Images:
+            - mainImage
+            - frontView
+            - sideView
+            - cutView
+        Object:
+            # IFSEUProductCategory:
+            #     SIOPLevel1:
+            #         Fields:
+            #             - Level
+            #             - Code
+            #             - Description
+            #     SIOPLevel2:
+            #         Fields:
+            #             - Level
+            #             - Code
+            #             - Description
+            #     SIOPLevel3:
+            #         Fields:
+            #             - Level
+            #             - Code
+            #             - Description
+            #     SIOPLevel4:
+            #         Fields:
+            #             - Level
+            #             - Code
+            #             - Description
+            #     SIOPLevel5:
+            #         Fields:
+            #             - Level
+            #             - Code
+            #             - Description
+            #     SIOPLevel6:
+            #         Fields:
+            #             - Level
+            #             - Code
+            #             - Description
+            #     SIOPLevel7:
+            #         Fields:
+            #             - Level
+            #             - Code
+            #             - Description
+            # Category:
+            #     category:
+            #         Fields:
+            #             - Name
+            # Sub_Category:
+            #     subCategory:
+            #         Fields:
+            #             - Name
+        Localizedfields:
+            - sapDescription
+            - shippingConditions
+            - Conditions
+            - manufacturingLength
+            - minimumOrder

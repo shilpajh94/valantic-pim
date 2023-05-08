@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2022-04-25T12:40:59+02:00
-* IP: ::1
+* Generated at: 2023-04-27T15:23:52+05:30
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -266,6 +266,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       array (
                         'key' => 'Tailing',
                         'value' => 10970576,
+                      ),
+                      10 => 
+                      array (
+                        'key' => NULL,
+                        'value' => 14696490,
                       ),
                     ),
                      'width' => 200,
@@ -848,7 +853,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'title' => '',
              'width' => '',
              'height' => '',
-             'maxTabs' => NULL,
+             'maxTabs' => 20,
              'labelWidth' => 150,
              'border' => false,
              'provideSplitView' => false,

@@ -13,3 +13,23 @@ config:
               "PTGEUPlantMaterialMaster",
               "PTGEUSalesMaterialMaster"
           ]
+    IFSEMEA:
+        Class:
+          [
+              "IFSEUProduct",
+              "IFSEUSalesMaterialMaster",
+              "IFSEUPlantMaterialMaster",
+              "IFSEUApplications",
+              "IFSEUBrand",
+              "IFSEUCategory",
+              "IFSEUCountries",
+              "IFSEUDistributionChannel",
+              "IFSEUFlowMedium",
+              "IFSEUMaterialGroup",
+              "IFSEUMedium",
+              "IFSEUNorm",
+              "IFSEUProductCategory",
+              "IFSEUProperties",
+              "IFSEUSubCategory"
+          ]
+
