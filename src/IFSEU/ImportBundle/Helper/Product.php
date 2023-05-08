@@ -50,42 +50,6 @@ class Product
         return isset($this->productType[$index]) ? $this->productType[$index] : false;
     }
 
-    /**
-     * Set 13digit, 16digit and final product object SIOP Code
-     */
-    public function setSiop($siops, \Pimcore\Model\DataObject\IFSEUProduct $targetObject)
-    {
-        if (!empty($targetObject) && !empty($siops)) {
-            foreach ($siops as $l => $siop) {
-                $sioLvlName = "setHierarchyLevel" . $l;
-                if (!empty($siop) && $siop->getId()) {
-                    $targetObject->$sioLvlName([\Pimcore::getContainer()->get('pim.category_service')::getById($siop->getId())]);
-                }
-            }
-            /**
-             * Level 1 will be common and the above array will not have info about level 1, So setting it here.
-             */
-            $level1Id = $this->catHelper->getLevel1ParentId();
-            if (!empty($level1Id)) {
-                $catObj = DataObject::getById($level1Id);
-                $targetObject->setHierarchyLevel1([$catObj]);
-            }
-        }
-    }
-
-    public function updateSiop(\Pimcore\Model\DataObject\IFSEUProduct $targetObject)
-    {
-        $fullCode = $targetObject->getSiopFullCode();
-        $levels = $this->getLevels($fullCode)['levels'];
-        unset($levels[1]);
-        $this->siop = array();
-        foreach ($levels as $info) {
-            $l = $info['level'];
-            $this->siop[$l] = $this->catHelper->getObjectByCode($info['levelFullCode']);
-            unset($l);
-        }
-    }
-
     public function getLevels($code, $reader = array())
     {
         $buCode = '30';
@@ -155,37 +119,6 @@ class Product
         return $path;
     }
     
-    public function extractCategoryPath($path, $bu)
-    {
-        if (!empty($path) && !empty($bu)) {
-            return substr($path, stripos($path, $bu), strlen($path));
-        }
-        return false;
-    }
-
-    public function isCategoryExist($fullCode)
-    {
-        $buCode = $this->catHelper->isValidCategoryFormat($fullCode);
-        $bu = $this->businessUnit[$buCode];
-        return $this->catHelper->getObjectByFullCode($fullCode, $bu);
-    }
-
-    public function getBaseCode($oldMaterialCode)
-    {
-        $length = $this->level = $this->common->getParameterItem($this->prdConfigData, 'base', 'length');
-        return !empty($oldMaterialCode) ? substr($oldMaterialCode, 0, $length) : false;
-    }
-
-    public function getSkeletonCode($oldMaterialCode)
-    {
-        $length = $this->level = $this->common->getParameterItem($this->prdConfigData, 'skeleton', 'length');
-        return !empty($oldMaterialCode) ? substr($oldMaterialCode, 0, $length) : false;
-    }
-
-    public function getConfigurationDataByKey($key)
-    {
-        return $this->common->getParameter($this->prdConfigData, $key);
-    }
 
     public function isValidCategoryCode($siopCode) {
         if (strlen($siopCode) == 16) {
@@ -236,13 +169,13 @@ class Product
             {
                 
                 $fieldValue =  array_key_exists($attributeLabel, $rowData) ? $rowData[$attributeLabel] : '';
-                $attributeGroupName = $this->unitConversionService->getAttributeGroupName($fieldName);
-                if(!($attributeLabel== 'OD mm' || $attributeLabel== 'OD inch') && !empty($attributeGroupName) && !empty($fieldValue)){
-                    $conversionAttributeArr= $this->unitConversionService->getGroupWithValues($fieldName, floatval($fieldValue));
-                    foreach($conversionAttributeArr as $key=>$convertValues){
-                        $convertFieldsValue[$key]=$convertValues;
-                    }
-                }
+                // $attributeGroupName = $this->unitConversionService->getAttributeGroupName($fieldName);
+                // if(!($attributeLabel== 'OD mm' || $attributeLabel== 'OD inch') && !empty($attributeGroupName) && !empty($fieldValue)){
+                //     $conversionAttributeArr= $this->unitConversionService->getGroupWithValues($fieldName, floatval($fieldValue));
+                //     foreach($conversionAttributeArr as $key=>$convertValues){
+                //         $convertFieldsValue[$key]=$convertValues;
+                //     }
+                // }
                 if($fieldType=='Boolean Select')
                 {
                     $fieldValue = $this->getBooleanValue($fieldValue);
@@ -251,16 +184,16 @@ class Product
                 $bricksData[$fieldName] = $fieldValue;
             }
         }
-        if(!empty($convertFieldsValue)){
-            $checkfields=['IdInch','IdMM','wallThicknessInch','wallThicknessMM'];
-            foreach($convertFieldsValue as $key=>$convertedValues){
-                $bricksData[$key] = $convertedValues;
-                if(in_array($key,$checkfields)){
-                    $bricksData['OdIn']=$convertFieldsValue['IdInch']+($convertFieldsValue['wallThicknessInch']*2);
-                    $bricksData['Odmm']=$convertFieldsValue['IdMM']+($convertFieldsValue['wallThicknessMM']*2);
-                }
-            }
-        }
+        // if(!empty($convertFieldsValue)){
+        //     $checkfields=['IdInch','IdMM','wallThicknessInch','wallThicknessMM'];
+        //     foreach($convertFieldsValue as $key=>$convertedValues){
+        //         $bricksData[$key] = $convertedValues;
+        //         if(in_array($key,$checkfields)){
+        //             $bricksData['OdIn']=$convertFieldsValue['IdInch']+($convertFieldsValue['wallThicknessInch']*2);
+        //             $bricksData['Odmm']=$convertFieldsValue['IdMM']+($convertFieldsValue['wallThicknessMM']*2);
+        //         }
+        //     }
+        // }
         return $bricksData;
     }
 
@@ -283,18 +216,4 @@ class Product
                 return;
         }
     } 
-    public function processBricksUnitData()
-    {
-        $bricksUnits     = [];
-        $unitValueConfig = $this->configProviderService->getUnitValueConfig();
-        foreach ($unitValueConfig as $unitValue) {
-                $bricksUnits[$unitValue['objectType']][$unitValue['fieldName']] = $unitValue['fieldValue'];
-        }
-        return $bricksUnits;
-    }
-
-    public function checkBrickUnitData($bricksUnitData, $brick)
-    {
-        return array_key_exists($brick, $bricksUnitData) ? $bricksUnitData[$brick] : [];
-    }
 }
