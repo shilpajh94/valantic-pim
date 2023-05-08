@@ -13,6 +13,7 @@ pimcore.plugin.IFSEUProductBundle = Class.create(pimcore.plugin.admin, {
         // alert("IFSEUProductBundle ready!");
     },
     postOpenObject: function (object, type) {
+
         // object.data.layout.childs[0].childs // all tab panel name
         //object.edit.dataFields // showing rendred edit fields of current tab
         // object.data.data // showing  all editable fields
@@ -22,7 +23,8 @@ pimcore.plugin.IFSEUProductBundle = Class.create(pimcore.plugin.admin, {
         // object.dependencies.element.data //all field
          //Ext.getCmp('productBrandName');//Ext.select('.highcharts-container');
 
-         addMaskForClasses=['.objectlayout_element_hoseBaseData','.objectlayout_element_Temperatures'];
+        addMaskForClasses=['.objectlayout_element_hoseBaseData','.objectlayout_element_Temperatures'];
+        var tabPanell = object.edit.layout.items.items[0];
         if(object.data.general.o_className=="IFSEUProduct"){
             productLevel =this.productAjax('/IFSEU/product/get/level/info','POST',{ idPath: object.data.idPath });
             if(productLevel.level =='skeleton'){
@@ -33,26 +35,34 @@ pimcore.plugin.IFSEUProductBundle = Class.create(pimcore.plugin.admin, {
             if(productLevel.level =='fert'){
                 baseAttributes = this.productAjax('/IFSEU/product/get/level/attributes','POST',{ levelName: 'base' })
                 skeletonAttributes = this.productAjax('/IFSEU/product/get/level/attributes','POST',{ levelName: 'base' })
+                baseAttributes.attributes.push('Skeleton');
                 this.disableAttributes(object,baseAttributes,addMaskForClasses);
-                this.disableAttributes(object,skeletonAttributes);
+                this.disableAttributes(object,skeletonAttributes,addMaskForClasses);
             }
-            var tabPanell = object.edit.layout.items.items[0];
             tabPanell.on("tabchange", function (tabObject) {
+                productLevel =this.productAjax('/IFSEU/product/get/level/info','POST',{ idPath: object.data.idPath });
+                //console.log(productLevel.level)
                 let tabName =tabObject.activeTab.config.name.toLowerCase();
                 if(productLevel.level =='fert'){
                     baseAttributes = this.productAjax('/IFSEU/product/get/level/attributes','POST',{ levelName: 'base' })
                     baseAttributes.attributes.push('Skeleton');
-                    this.disableAttributes(object,baseAttributes,addMaskForClasses);
+                     this.disableAttributes(object,baseAttributes,addMaskForClasses);
                     
+                }
+                if(productLevel.level =='skeleton'){
+                    baseAttributes = this.productAjax('/IFSEU/product/get/level/attributes','POST',{ levelName: 'base' })
+                    this.disableAttributes(object,baseAttributes,addMaskForClasses);
                 }
     
             }.bind(this));
-            if(productLevel.level =='skeleton'){
-                tabPanell.setActiveTab(1);
-            }
-            if(productLevel.level =='fert'){
-                tabPanell.setActiveTab(2);
-            }
+            setTimeout(function(){
+                if(productLevel.level =='skeleton'){
+                    tabPanell.setActiveTab(1);
+                }
+                if(productLevel.level =='fert'){
+                    tabPanell.setActiveTab(2);
+                }
+            },1000);
         }
         
     },
@@ -89,23 +99,11 @@ pimcore.plugin.IFSEUProductBundle = Class.create(pimcore.plugin.admin, {
         return resp;
     },
     disableAttributes:function(object,attributes,hideTabClassNames=null){
-
+        //console.log(hideTabClassNames);
         // class attributes take some time  to load so we use timeout function
         setTimeout(function(){
-
-            if(hideTabClassNames !== null){
-                if(attributes.level=='base'){
-                    hideTabClassNames.forEach((hideTabClassName)=>{
-                        Ext.select(hideTabClassName).removeCls('x-mask');
-                    })
-                }else{
-                    hideTabClassNames.forEach((hideTabClassName)=>{
-                        //Ext.select(hideTabClassName).addCls('x-mask');
-                    })
-                }
-               
-            }
             for(attribute  of attributes.attributes ){
+                //console.log(attribute);
                 object.edit.dataFields[attribute].component.setDisabled(true);
                 if(attribute == 'localizedfields'){
                     let panelId=object.edit.dataFields[attribute].tabPanel.body.component.id;
@@ -115,10 +113,19 @@ pimcore.plugin.IFSEUProductBundle = Class.create(pimcore.plugin.admin, {
                     //object.edit.dataFields[attribute].tabPanel.body.component.setDisabled(true);
                 }
                 if(attribute=='Base'){
-                    object.edit.dataFields[attribute].component.setDisabled(true)
+                    let panelBaseId=object.edit.dataFields[attribute].component.id;
+                    Ext.get(panelBaseId).setStyle('pointer-events', 'none');
+                    //console.log(object.edit.dataFields[attribute].component.id);
+                    object.edit.dataFields[attribute].component.setDisabled(false);
+                }
+                if(attribute=='Skeleton'){
+                    let panelBaseId=object.edit.dataFields[attribute].component.id;
+                    Ext.get(panelBaseId).setStyle('pointer-events', 'none');
+                    //console.log(object.edit.dataFields[attribute].component.id);
+                    object.edit.dataFields[attribute].component.setDisabled(false);
                 }
             }
-        },10);
+        },200);
     }
 });
 
