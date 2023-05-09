@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-05-03T11:52:45+02:00
+* Generated at: 2023-05-08T08:53:23+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -67,6 +67,7 @@ Fields Summary:
 - virtualCatalogFlag [booleanSelect]
 - newItemFlagForCatalog [booleanSelect]
 - webDiscription [input]
+- productShortDescription [input]
 - amazonTitle [input]
 - Fert [objectbricks]
 - articleNumber [input]
@@ -164,7 +165,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1683107551,
+   'modificationDate' => 1683528789,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -19725,7 +19726,35 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'unique' => false,
                                      'showCharCount' => false,
                                      'name' => 'webDiscription',
-                                     'title' => 'Web Description',
+                                     'title' => 'Product Long Description',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
+                                     'locked' => false,
+                                     'style' => '',
+                                     'permissions' => NULL,
+                                     'datatype' => 'data',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
+                                  )),
+                                  1 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                     'fieldtype' => 'input',
+                                     'width' => 220,
+                                     'defaultValue' => NULL,
+                                     'queryColumnType' => 'varchar',
+                                     'columnType' => 'varchar',
+                                     'columnLength' => 190,
+                                     'phpdocType' => 'string',
+                                     'regex' => '',
+                                     'unique' => false,
+                                     'showCharCount' => false,
+                                     'name' => 'productShortDescription',
+                                     'title' => 'Product Short Description',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => false,
