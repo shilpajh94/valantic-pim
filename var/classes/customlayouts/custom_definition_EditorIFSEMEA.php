@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-05-05T17:02:22+05:30
+* Generated at: 2023-05-09T10:09:27+05:30
 * IP: 127.0.0.1
 */ 
 
@@ -11,7 +11,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'EditorIFSEMEA',
    'description' => '',
    'creationDate' => 1681288759,
-   'modificationDate' => 1683286342,
+   'modificationDate' => 1683607167,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => 'IFSEUProduct',
@@ -2967,7 +2967,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                          'phpdocType' => 'array',
                                          'dynamicOptions' => false,
                                          'name' => 'NoteInformationBelowTable',
-                                         'title' => 'Note ( Information Below Table)',
+                                         'title' => 'Note (Information Below Table)',
                                          'tooltip' => '',
                                          'mandatory' => false,
                                          'noteditable' => true,
@@ -20275,16 +20275,21 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'visibleSearch' => false,
                                   )),
                                   9 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                                     'fieldtype' => 'textarea',
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                                     'fieldtype' => 'multiselect',
+                                     'options' => 
+                                    array (
+                                    ),
                                      'width' => 220,
                                      'height' => 60,
-                                     'maxLength' => NULL,
-                                     'showCharCount' => false,
-                                     'excludeFromSearchIndex' => false,
-                                     'queryColumnType' => 'longtext',
-                                     'columnType' => 'longtext',
-                                     'phpdocType' => 'string',
+                                     'maxItems' => '',
+                                     'renderType' => 'tags',
+                                     'optionsProviderClass' => '',
+                                     'optionsProviderData' => '',
+                                     'queryColumnType' => 'text',
+                                     'columnType' => 'text',
+                                     'phpdocType' => 'array',
+                                     'dynamicOptions' => false,
                                      'name' => 'productionLength',
                                      'title' => 'Production Length',
                                      'tooltip' => '',
@@ -20664,37 +20669,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'visibleSearch' => false,
                               )),
                               2 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                                 'fieldtype' => 'multiselect',
-                                 'options' => 
-                                array (
-                                ),
-                                 'width' => 300,
-                                 'height' => '',
-                                 'maxItems' => '',
-                                 'renderType' => 'tags',
-                                 'optionsProviderClass' => '',
-                                 'optionsProviderData' => '',
-                                 'queryColumnType' => 'text',
-                                 'columnType' => 'text',
-                                 'phpdocType' => 'array',
-                                 'dynamicOptions' => false,
-                                 'name' => 'manufacturingLength',
-                                 'title' => 'Manufacturing Length',
-                                 'tooltip' => '',
-                                 'mandatory' => false,
-                                 'noteditable' => false,
-                                 'index' => false,
-                                 'locked' => false,
-                                 'style' => '',
-                                 'permissions' => NULL,
-                                 'datatype' => 'data',
-                                 'relationType' => false,
-                                 'invisible' => false,
-                                 'visibleGridView' => false,
-                                 'visibleSearch' => false,
-                              )),
-                              3 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                                  'fieldtype' => 'multiselect',
                                  'options' => 

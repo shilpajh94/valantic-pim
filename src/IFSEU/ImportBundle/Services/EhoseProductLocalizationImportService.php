@@ -443,7 +443,7 @@ class EhoseProductLocalizationImportService
     
     public function getLocalizedQueryData($objId, $record, $productType = 'fert') {
         foreach ($this->langArr as $lang) {
-            $value = $ConditionsValue=$minimumOrder=$shippingConditions=$headlineWeb=$marking1=$marking2=$noteInformationBelowTable=$productBrandNamePerLanguage=$BrandShortText2=$commercialDescription=$technicalDescription=$sapDescription=$manufacturingLength=null;
+            $value = $ConditionsValue=$minimumOrder=$shippingConditions=$headlineWeb=$marking1=$marking2=$noteInformationBelowTable=$productBrandNamePerLanguage=$BrandShortText2=$commercialDescription=$technicalDescription=$sapDescription=null;
             if ($lang == $this->localizedLanguage && strtolower($productType) == 'fert') {
                 $ConditionsValue = $record[$this->getRecordIndexByKey('Conditions')];
                 $minimumOrder = $record[$this->getRecordIndexByKey('minimumOrder')];
