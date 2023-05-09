@@ -28,8 +28,18 @@ ehoseAPI:
                 - string
             TPCode:
                 - string
-            # NoteInformationBelowTable:
-            #     - string
+            productPublishedOnline:
+                - string
+            datasheetPublishedInTheDealerPortal:
+                - string
+            pricelistPublishedInTheDealerPortal:
+                - string
+            WebsiteLink:
+                - string
+            NoteInformationBelowTable:
+                - string
+            searchKeywords:
+                - string
             siopFullCode:
                 - string
             SIOPLevel1:
@@ -84,10 +94,6 @@ ehoseAPI:
                 - numeric: 2
             o_published:
                 - string
-            # FeaturesBenefitsBulletPoint:
-            #     - string
-            # certificationImage:
-            #     - string
             mainImage:
                 - string
             frontView:
@@ -116,8 +122,6 @@ ehoseAPI:
                 - string
             altImage8:
                 - string
-            certificationImage:
-                - string
             LeftPrintCatalogImage:
                 - string
             RightPrintCatalogImage:
@@ -125,6 +129,8 @@ ehoseAPI:
             DrawingPictureForCatalog:
                 - string
             BrandingLaylineAssets:
+                - string
+            certificationImage:
                 - string
             Document:
                 - string
@@ -251,130 +257,9 @@ ehoseAPI:
                 - string
             o_parentId:
                 - string
-            # productBrandName:
-            #     - string
-            # brandConstruction:
-            #     - string
-            # catalogLayline:
-            #     - string
-            # Category:
-                - string
-            # Sub_Category:
-            #     - string
-            # FeaturesBenefitsBulletPoint:
-            #     - string
-            # TPCode:
-            #     - string
             siopFullCode:
                 - string
-            # SIOPLevel1:
-            #     - string
-            # SIOPLevel2:
-            #     - string
-            # SIOPLevel3:
-            #     - string
-            # SIOPLevel4:
-            #     - string
-            # SIOPLevel5:
-            #     - string
-            # SIOPLevel6:
-            #     - string
-            # SIOPLevel7:
-            #     - string
-            minimumTemperatureF:
-                - numeric: 2
-            maximumTemperatureF:
-                - numeric: 2
-            minimumTemperatureC:
-                - numeric: 2
-            maximumTemperatureC:
-                - numeric: 2
-            rangeTemperatureF:
-                - string
-            rangeTemperatureC:
-                - string
-            temperatureRangeApplication:
-                - string
-            temporaryUntilC:
-                - numeric: 2
-            DampableUntil1C:
-                - numeric: 2
-            DampableUntil2C:
-                - numeric: 2
-            justTemporarily:
-                - string
-            PressureUntil:
-                - numeric: 2
-            onlyOpenSystem:
-                - string
-            temperatureRangeFAndC:
-                - string
-            temperatureNote:
-                - string
-            temporaryUntilT: 
-                - numeric: 2
-            DampableUntil1T:
-                - numeric: 2
-            DampableUntil2T:
-                - numeric: 2
-            o_published:
-                - string
-            # FeaturesBenefitsBulletPoint:
-            #     - string
-            certificationImage:
-                - string
-            document:
-                - string
-        Images:
-            - mainImage
-            - frontView
-            - sideView
-            - cutView
         Object:
-            # IFSEUProductCategory:
-            #     SIOPLevel1:
-            #         Fields:
-            #             - Level
-            #             - Code
-            #             - Description
-            #     SIOPLevel2:
-            #         Fields:
-            #             - Level
-            #             - Code
-            #             - Description
-            #     SIOPLevel3:
-            #         Fields:
-            #             - Level
-            #             - Code
-            #             - Description
-            #     SIOPLevel4:
-            #         Fields:
-            #             - Level
-            #             - Code
-            #             - Description
-            #     SIOPLevel5:
-            #         Fields:
-            #             - Level
-            #             - Code
-            #             - Description
-            #     SIOPLevel6:
-            #         Fields:
-            #             - Level
-            #             - Code
-            #             - Description
-            #     SIOPLevel7:
-            #         Fields:
-            #             - Level
-            #             - Code
-            #             - Description
-            # Category:
-            #     category:
-            #         Fields:
-            #             - Name
-            # Sub_Category:
-            #     subCategory:
-            #         Fields:
-            #             - Name
         ObjectBricks:
             IFSEUHose:
                 Fields:
@@ -448,76 +333,10 @@ ehoseAPI:
                 - string
             o_parentId:
                 - string
-            # productBrandName:
-            #     - string
-            # brandConstruction:
-            #     - string
-            # catalogLayline:
-            #     - string
-            # Category:
-            #     - string
-            # Sub_Category:
-            #     - string
-            # FeaturesBenefitsBulletPoint:
-            #     - string
-            # TPCode:
-            #     - string
             siopFullCode:
                 - string
-            # SIOPLevel1:
-            #     - string
-            # SIOPLevel2:
-            #     - string
-            # SIOPLevel3:
-            #     - string
-            # SIOPLevel4:
-            #     - string
-            # SIOPLevel5:
-            #     - string
-            # SIOPLevel6:
-            #     - string
-            # SIOPLevel7:
-            #     - string
-            minimumTemperatureF:
-                - numeric: 2
-            maximumTemperatureF:
-                - numeric: 2
-            minimumTemperatureC:
-                - numeric: 2
-            maximumTemperatureC:
-                - numeric: 2
-            rangeTemperatureF:
-                - string
-            rangeTemperatureC:
-                - string
-            temperatureRangeApplication:
-                - string
-            temporaryUntilC:
-                - numeric: 2
-            DampableUntil1C:
-                - numeric: 2
-            DampableUntil2C:
-                - numeric: 2
-            justTemporarily:
-                - string
-            PressureUntil:
-                - numeric: 2
-            onlyOpenSystem:
-                - string
-            temperatureRangeFAndC:
-                - string
-            temperatureNote:
-                - string
-            temporaryUntilT: 
-                - numeric: 2
-            DampableUntil1T:
-                - numeric: 2
-            DampableUntil2T:
-                - numeric: 2
             o_published:
                 - string
-            # FeaturesBenefitsBulletPoint:
-            #     - string
             certificationImage:
                 - string
             document:
@@ -532,8 +351,6 @@ ehoseAPI:
                 - string
             ConnectionType:
                 - string
-            # productionLengths:
-            #     - string   
             additionalDiscount:
                 - string   
             Amount:
@@ -612,13 +429,11 @@ ehoseAPI:
                 - string
             eHoseProduct:
                 - string
-            # sapDescription:
-            #     - string
+            sapDescription:
+                - string
             shippingConditions:
                 - string
             Conditions:
-                - string
-            manufacturingLength:
                 - string
             minimumOrder:
                 - string
@@ -636,8 +451,6 @@ ehoseAPI:
                 - string
             # webDescription:
             #     - string
-            WebsiteLink:
-                - string
             amazonTitle:
                 - string
             materialNumber:
@@ -684,53 +497,8 @@ ehoseAPI:
             - sideView
             - cutView
         Object:
-            # IFSEUProductCategory:
-            #     SIOPLevel1:
-            #         Fields:
-            #             - Level
-            #             - Code
-            #             - Description
-            #     SIOPLevel2:
-            #         Fields:
-            #             - Level
-            #             - Code
-            #             - Description
-            #     SIOPLevel3:
-            #         Fields:
-            #             - Level
-            #             - Code
-            #             - Description
-            #     SIOPLevel4:
-            #         Fields:
-            #             - Level
-            #             - Code
-            #             - Description
-            #     SIOPLevel5:
-            #         Fields:
-            #             - Level
-            #             - Code
-            #             - Description
-            #     SIOPLevel6:
-            #         Fields:
-            #             - Level
-            #             - Code
-            #             - Description
-            #     SIOPLevel7:
-            #         Fields:
-            #             - Level
-            #             - Code
-            #             - Description
-            # Category:
-            #     category:
-            #         Fields:
-            #             - Name
-            # Sub_Category:
-            #     subCategory:
-            #         Fields:
-            #             - Name
         Localizedfields:
             - sapDescription
             - shippingConditions
             - Conditions
-            - manufacturingLength
             - minimumOrder

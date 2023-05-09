@@ -216,6 +216,18 @@ class ProductModelService
                 {
                     $resultArrBase['onlyOpenSystem'] = ($resultArrBase['onlyOpenSystem'] == 1) ? 'Yes' : 'No';
                 }
+                if(isset($resultArrBase['productPublishedOnline']))
+                {
+                    $resultArrBase['productPublishedOnline'] = ($resultArrBase['productPublishedOnline'] == 1) ? 'Yes' : 'No';
+                }
+                if(isset($resultArrBase['datasheetPublishedInTheDealerPortal']))
+                {
+                    $resultArrBase['datasheetPublishedInTheDealerPortal'] = ($resultArrBase['datasheetPublishedInTheDealerPortal'] == 1) ? 'Yes' : 'No';
+                }
+                if(isset($resultArrBase['pricelistPublishedInTheDealerPortal']))
+                {
+                    $resultArrBase['pricelistPublishedInTheDealerPortal'] = ($resultArrBase['pricelistPublishedInTheDealerPortal'] == 1) ? 'Yes' : 'No';
+                }
                 
                 // We need these 2 ids to get the path of assets
                 // Then we are unseting it to hide the ids
