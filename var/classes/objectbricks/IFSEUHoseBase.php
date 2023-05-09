@@ -1,18 +1,18 @@
 <?php 
 
 /** 
-* Generated at: 2023-05-04T15:46:18+05:30
+* Generated at: 2023-05-05T12:16:12+05:30
 * IP: 127.0.0.1
 
 
 Fields Summary: 
 - BaseBrickMapping [input]
 - standards [multiselect]
-- numberOfHelixWires [numeric]
 - InnerLining [select]
 - colorInnerLining [select]
 - Reinforcement [select]
 - Helix [select]
+- numberOfHelixWires [numeric]
 - propertiesInnerLayer [multiselect]
 - CoverOuterLayer [select]
 - ColorOuterLayer [select]
@@ -582,8 +582,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                             'value' => 14701590,
                           ),
                         ),
-                         'width' => 300,
-                         'height' => 80,
+                         'width' => 850,
+                         'height' => 60,
                          'maxItems' => 10,
                          'renderType' => 'tags',
                          'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\StandardsOptionsProvider',
@@ -610,59 +610,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'locked' => false,
                      'icon' => '',
-                  )),
-                ),
-                 'locked' => false,
-              )),
-              1 => 
-              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                 'fieldtype' => 'fieldcontainer',
-                 'labelWidth' => 200,
-                 'layout' => 'vbox',
-                 'fieldLabel' => '',
-                 'name' => 'Field Container',
-                 'type' => NULL,
-                 'region' => NULL,
-                 'title' => '',
-                 'width' => NULL,
-                 'height' => NULL,
-                 'collapsible' => false,
-                 'collapsed' => false,
-                 'bodyStyle' => '',
-                 'datatype' => 'layout',
-                 'permissions' => NULL,
-                 'childs' => 
-                array (
-                  0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                     'fieldtype' => 'numeric',
-                     'width' => 300,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'double',
-                     'columnType' => 'double',
-                     'phpdocType' => 'float',
-                     'integer' => false,
-                     'unsigned' => false,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'unique' => false,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
-                     'name' => 'numberOfHelixWires',
-                     'title' => 'Number of Helix Wires',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'margin-left: 20px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
                   )),
                 ),
                  'locked' => false,
@@ -1210,6 +1157,37 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'defaultValueGenerator' => '',
                       )),
                       4 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'fieldtype' => 'numeric',
+                         'width' => 300,
+                         'defaultValue' => NULL,
+                         'queryColumnType' => 'double',
+                         'columnType' => 'double',
+                         'phpdocType' => 'float',
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                         'name' => 'numberOfHelixWires',
+                         'title' => 'Number of Helix Wires',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
+                      )),
+                      5 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                          'fieldtype' => 'multiselect',
                          'options' => 

@@ -4,8 +4,12 @@ Base:
   catalogLayline: "Catalog Layline"
   Category: "Category"
   Sub_Category: "Sub-Category"
+  productPublishedOnline: "Product published online? (Continental Web)"
+  datasheetPublishedInTheDealerPortal: "Datasheet published in the dealer portal?"
+  pricelistPublishedInTheDealerPortal: "Pricelist published in the dealer portal?"
   FeaturesBenefitsBulletPoint: "Features & Benefits Bullet Points"
   TPCode: "TP Code"
+  WebsiteLink: "Website Link"
   localizedfields:
     headlineWeb: "Headline (Web)"
     productBrandNamePerLanguage: "Product Brand Name Per Language"
@@ -15,32 +19,22 @@ Base:
     searchKeywords: "Search Keywords"
     commercialDescription : "Commercial Description"
     technicalDescription: "Technical Description"
-    Note2InformationBelowTable: ''
+    NoteInformationBelowTable: ''
   # 25 brics attr
   Base:
     ColorOuterLayer: 'Color'
-    Coupling: ""
     CoverOuterLayer: ""
     FieldsOfApplication: ''
-    FlowMediumStability: ''
     Haptic: ""
     Helix: ''
     InnerLining: ''
-    NonStockSizes: ''
     PropertiesOuterLayer: ''
     Reinforcement: ''
     colorInnerLining: ''
     flowMedium: ''
-    hoseIdDec: 'Hose ID (in):'
-    hoseIdMM: ''
     numberOfHelixWires: ''
-    numberOfPlies: ''
     propertiesInnerLayer: ' '
     standards: ''
-    staticWire: 'Static Wire'
-    staticWireType: 'Static Wire Type'
-    tubeCharacteristic: 'Tube Characteristic'
-    tubeGaugeFractional: ''
   # end base brics(technical data)
   # tempratue
   minimumTemperatureC: ''
@@ -48,8 +42,6 @@ Base:
   rangeTemperatureF: ''
   rangeTemperatureC: ''
   temperatureRangeApplication: ''
-  temperatureRangeApplication1: ''
-  temperatureRangeApplication2: ''
   temporaryUntilC: ''
   DampableUntil1C: ''
   DampableUntil2C: ''
@@ -60,11 +52,6 @@ Base:
   maximumTemperatureF: ''
   temperatureRangeFAndC: ''
   temperatureNote: ''
-  temperatureRangeApplicationFAndC1: ''
-  temperatureRangeApplicationFAndC2: ''
-  temperatureRangeApplicationFAndC3: ''
-  temperatureRangeApplicationFAndC4: ''
-  temperatureRangeApplicationFAndC5: ''
   temporaryUntilT: ''
   DampableUntil1T: ''
   DampableUntil2T: ''
@@ -124,7 +111,6 @@ Fert:
     virtualCatalogFlag: ''
     newItemFlagForCatalog: ''
     webDescription: ''
-    WebsiteLink: ''
     amazonTitle: ''
     materialNumber: ''
     EANCode: ''
@@ -185,6 +171,5 @@ Fert:
     publishedOnline: ''
     shippingConditions: ''
     Conditions: ''
-    manufacturingLength: ''
     minimumOrder: ''
     additionalDiscount: ''

@@ -1,10 +1,8 @@
 <?php
 namespace IFSEU\ImportBundle\Services;
 
-use Exception;
 use AppBundle\Logger\AppLogger as Logger;
 use Pimcore\Model\DataObject;
-use AppBundle\Lib\UnitConversion;
 use IFSEU\ImportBundle\Model\ProductModel;
 use IFSEU\ProductBundle\Services\CompletenessPercentageService;
 
@@ -12,12 +10,7 @@ use IFSEU\ProductBundle\Services\CompletenessPercentageService;
 class EhoseProductLocalizationImportService
 {
     
-    public $name; // Command Name
     public $filePath;
-    public $inboxFilePath;
-    public $archiveDir;
-    public $failedDir;
-    public $configuredData; // We will pull the data from configured class for this variable
     private $logFileName;
     private $productModel;
     private $materialConfigData;
@@ -31,15 +24,11 @@ class EhoseProductLocalizationImportService
     private $categories;
     private $products;
     private $materialGroup;
-    private $baseSiopMismatchLog;
-    private $baseSiopMismatchEmailTemplate;
     private $updatedArticlesArray;
-    private $weightConversionService;
     private $configProviderService;
     private $productHelper;
     private $catConfigData;
     private $businessUnit;
-    private $emailService;
     private $logArray;
     private $objectsTableData;
     private $queryTableDataArray;
@@ -61,21 +50,16 @@ class EhoseProductLocalizationImportService
     private $BaseLevelCategory;
     private $BrandName;
     private $SubCategory;
-    private $Localizedlanguage;
+    private $localizedLanguage;
     private $fertLevelSiopCode;
     
     const LOGGER_MODULE = 'SAP IMPORT SHEET';
-    const GROSS_WEIGHT_UNITS = [
-        "LB" => UnitConversion\WeightPerLengthConverter::UNIT_LBS_PER_FT,
-        "KG" => UnitConversion\WeightPerLengthConverter::UNIT_KG_PER_M,
-        "G" => UnitConversion\WeightPerLengthConverter::UNIT_G_PER_FT
-    ];
     
     public function __construct(
         CompletenessPercentageService $percentageCompletionService
     ) {
         $this->percentageCompletionService = $percentageCompletionService;        /* Initilize monitoring item and set the number of steps will take to complete the task */
-        $this->logFileName          = 'ifseu-products-log-' . date('Ymdhis');
+        $this->logFileName          = 'Ifseu-eHose-Localization-Products-log-' . date('Ymdhis');
         $this->common               = \Pimcore::getContainer()->get('ifs_eu_import.common_helper');
         $this->productModel         = new ProductModel;
         $this->configProviderService= \Pimcore::getContainer()->get('ifs_eu_import.config_provider_service');
@@ -85,9 +69,7 @@ class EhoseProductLocalizationImportService
         $this->businessUnit         = $this->common->getParameter($this->catConfigData, 'businessUnit');
         $this->brickMappingService  = \Pimcore::getContainer()->get('ifs_eu_import.category_brick_mapping_service');
         $this->columnName           = $this->common->getParameterItem($this->materialConfigData, 'sheet', 'columnName');
-        $this->weightConversionService = new UnitConversion\WeightPerLengthConverter();
 
-        $this->baseSiopMismatchLog  = [];
         $this->unitConversionService= \Pimcore::getContainer()->get('ifs_eu_import.unit_conversion_import_service');
     }
     
@@ -101,7 +83,6 @@ class EhoseProductLocalizationImportService
         $tables['fileColumns'] = $this->csvHeader;
         $tables['mappingCsvColumn'] = $this->columnName;
         $tables['keyColumns'] = $this->common->getParameterItem($this->materialConfigData, 'sheet', 'keyColumns');
-        $this->baseSiopMismatchEmailTemplate = $this->common->getParameterItem($this->materialConfigData, 'sheet', 'baseSIOPMismatchEmailTemplate');
         
         $this->productModel->init($tables);
         $allBricksList = new \Pimcore\Model\DataObject\Objectbrick\Definition\Listing();
@@ -137,7 +118,6 @@ class EhoseProductLocalizationImportService
 
         $materialGrpList = $this->productModel->getMaterialGroupData();
         $countryOriginList = $this->productModel->getCountryOriginData();
-        //$baseLevelCategoryList = $this->productModel->getCatagoryData();
         $baseLevelCategoryList= $this->productModel->getCatagoryLanguageData($this->localizedLanguage);
         $propertiesList = $this->productModel->getPropertiesLanguageData($this->localizedLanguage);
         $fieldsOfApplicationList = $this->productModel->getfieldsOfApplicationLanguageData($this->localizedLanguage);
@@ -206,23 +186,14 @@ class EhoseProductLocalizationImportService
                 $this->initImportTable();
                 $this->initiateProductsProcess($csvInfo['data']);
                 Logger::log(self::LOGGER_MODULE)->info("Product import completed");
-                $this->productModel->updateMaster();
-                Logger::log(self::LOGGER_MODULE)->info("Data copied from temp table to master table");
-
                 if (!empty($this->updatedArticlesArray) && count($this->updatedArticlesArray)>0) {
                     echo "Object Saving started for completeness.".PHP_EOL;         
                     $this->saveProducts($this->updatedArticlesArray);
                     echo "Object Saving completed for completeness.".PHP_EOL;
                 }
-    
-                if (!empty($this->baseSiopMismatchLog) && count($this->baseSiopMismatchLog)>0) {
-                    $this->productModel->removeArticlesFromMaster($this->baseSiopMismatchLog);
-                    Logger::log(self::LOGGER_MODULE)->info("failed records removed from master table.");
-                    $this->sendSkippedArticlesEmailNotification($this->baseSiopMismatchLog, $this->baseSiopMismatchEmailTemplate);
-                }
             } catch (\Throwable $th) {
-                Logger::error($this->logFileName, $th);
-                die;
+            Logger::error($this->logFileName, $th);
+            die;
             }
     
         }else{
@@ -230,40 +201,6 @@ class EhoseProductLocalizationImportService
         }
             
     }
-
-    public function sendSkippedArticlesEmailNotification($skippedArticles, $emailTemplate) {
-        try {
-            if (!empty($skippedArticles) && count($skippedArticles)>0) {
-                $fileName = "IFSEU_SAP_import_skipped_articles_" . '-' . date('YmdHis') . '.csv';
-                $logFilePath = PIMCORE_TEMPORARY_DIRECTORY."/".$fileName;
-                $fp = fopen($logFilePath, 'wb');
-                fputcsv($fp, ['materialNumber', 'siop', '6digit', 'mismatchedSiopCode', 'mismatchedMatrialNumber']);
-                foreach ($skippedArticles as $article) {
-                    fputcsv($fp, $article);
-                }
-                fclose($fp);
-                if (!empty($emailTemplate)) {                
-                    $doc = \Pimcore\Model\Document::getByPath($emailTemplate);
-                    if (!empty($doc)) {
-                        // Sending the mail
-                        $emailParams = [
-                            'templateName' => $emailTemplate,
-                            'attachment' => $logFilePath
-                        ];
-                        $this->emailService = \Pimcore::getContainer()->get('email.email_notification_service');
-                        $this->emailService->sendNotificationsEmail($emailParams);
-                    }else {
-                        throw new Exception("Base SIOP mismatch email template not found.");
-                    }
-                } else {
-                    throw new Exception("Base SIOP mismatch email template not configured.");
-                }
-            }
-        } catch (\Throwable $th) {
-            \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($th);
-//            Logger::error("sap_import_log", $th);
-        }
-    }    
     
     public function initiateProductsProcess($partialData) {
         $this->setVariablesToEmpty();
@@ -298,7 +235,15 @@ class EhoseProductLocalizationImportService
             $this->processSingleRecord($row);
         }
         $this->insertDataInDB();
-        $this->productModel->insertDataToLogTable($this->logArray);
+        $fileName = "IFSEU_eHose_Localized_Data_Log_".$this->localizedLanguage . '-' . date('YmdHis') . '.csv';
+        $localizationImportlogFilePath = PIMCORE_TEMPORARY_DIRECTORY."/".$fileName;
+        $fp = fopen($localizationImportlogFilePath, 'wb');
+        fputcsv($fp, ['materialNumber', 'statusCode', 'failedReason']);
+        foreach ($this->logArray as $article) {
+            fputcsv($fp, $article);
+        }
+        fclose($fp);
+
         unset($data, $row);
         $this->setVariablesToEmpty();
     }    
@@ -402,7 +347,6 @@ class EhoseProductLocalizationImportService
         $this->getRelationTableData($objId, $record, $levelInfo, $objectIndex, $type);
         $this->getLocalizedQueryData($objId, $record, $type);
         $this->getDependencyTableData($objId, $record, $levelInfo, $objectIndex, $type);
-        $this->getBricksDataForMapping($objId);
 
         $groupNames = $this->categories[$fertLevelCode]['data']['RelatedObjectBrick'];
         $groupNames = trim($groupNames, ',');
@@ -429,7 +373,6 @@ class EhoseProductLocalizationImportService
             $siopCode=$ObjectDetails[0]['siopFullCode'];
             $o_key=$ObjectDetails[0]['o_key'];
             
-            if ($this->productHelper->isValidCategoryCode($siopCode)) {
                 echo $recData['0'].PHP_EOL;
                 $record = array(
                     'code'  =>  $siopCode,
@@ -441,16 +384,12 @@ class EhoseProductLocalizationImportService
                 $status = $result['status'];
                 $msg    = $result['msg'];
                 
-            } else {
-                $msg = 'Siop Category code and its length does not match.';
-            }
         } else {
             $msg = 'Material Number not exists.';
         }
         
         $logRow = [
-            'id' => $recData[$this->getRecordIndexByKey('material')],
-            'record' => json_encode($row),
+            'materialNumber' => $recData[$this->getRecordIndexByKey('material')],
             'statusCode' => $status,
             'failedReason' => $msg
         ];
@@ -504,7 +443,7 @@ class EhoseProductLocalizationImportService
     
     public function getLocalizedQueryData($objId, $record, $productType = 'fert') {
         foreach ($this->langArr as $lang) {
-            $value = $ConditionsValue=$minimumOrder=$shippingConditions=$headlineWeb=$marking1=$marking2=$note2InformationBelowTable=$productBrandNamePerLanguage=$BrandShortText2=$commercialDescription=$technicalDescription=$sapDescription=$manufacturingLength=null;
+            $value = $ConditionsValue=$minimumOrder=$shippingConditions=$headlineWeb=$marking1=$marking2=$noteInformationBelowTable=$productBrandNamePerLanguage=$BrandShortText2=$commercialDescription=$technicalDescription=$sapDescription=null;
             if ($lang == $this->localizedLanguage && strtolower($productType) == 'fert') {
                 $ConditionsValue = $record[$this->getRecordIndexByKey('Conditions')];
                 $minimumOrder = $record[$this->getRecordIndexByKey('minimumOrder')];
@@ -515,7 +454,7 @@ class EhoseProductLocalizationImportService
                 $headlineWeb = $record[$this->getRecordIndexByKey('headlineWeb')];
                 $marking1 = $record[$this->getRecordIndexByKey('Marking1')];
                 $marking2 = $record[$this->getRecordIndexByKey('Marking2')];
-                $note2InformationBelowTable = $record[$this->getRecordIndexByKey('Note2InformationBelowTable')];
+                $noteInformationBelowTable = $record[$this->getRecordIndexByKey('NoteInformationBelowTable')];
             }
 
             if($lang == $this->localizedLanguage){
@@ -528,7 +467,7 @@ class EhoseProductLocalizationImportService
                     'headlineWeb'=>$headlineWeb,
                     'Marking2'=>$marking2,
                     'Marking1'=>$marking1,
-                    'Note2InformationBelowTable'=>$note2InformationBelowTable
+                    'NoteInformationBelowTable'=>$noteInformationBelowTable
                 ];
                 $this->localisedQueryTableDataArray[$lang][] = [
                     'ooo_id' => $objId,
@@ -539,7 +478,7 @@ class EhoseProductLocalizationImportService
                     'headlineWeb'=>$headlineWeb,
                     'Marking2'=>$marking2,
                     'Marking1'=>$marking1,
-                    'Note2InformationBelowTable'=>$note2InformationBelowTable
+                    'NoteInformationBelowTable'=>$noteInformationBelowTable
                 ];
             }
         }
@@ -572,7 +511,6 @@ class EhoseProductLocalizationImportService
             'ConnectionType' => null,
             'countryOfOrigin__id' => null,
             'countryOfOrigin__type' => null,
-            'WebsiteLink' => null,
             'additionalDiscount' => null
         ];
         
@@ -589,7 +527,6 @@ class EhoseProductLocalizationImportService
             $queryTableData['Spezi'] = trim($record[$this->getRecordIndexByKey('Spezi')]);
             $queryTableData['GrossPrice'] = trim($record[$this->getRecordIndexByKey('GrossPrice')]);
             $queryTableData['Discount'] = trim($record[$this->getRecordIndexByKey('Discount')]);
-            $queryTableData['WebsiteLink'] = trim($record[$this->getRecordIndexByKey('WebsiteLink')]);
             if(!empty(trim($record[$this->getRecordIndexByKey('OnStock')]))){
                 $OnStockValue =  trim($record[$this->getRecordIndexByKey('OnStock')]);
                 $queryTableData['OnStock'] = $this->getBooleanValue($OnStockValue);
@@ -617,6 +554,7 @@ class EhoseProductLocalizationImportService
             $queryTableData['minimumTemperatureC'] = null;
             $queryTableData['maximumTemperatureC'] = null;
             $queryTableData['FeaturesBenefitsBulletPoint'] = null;
+            $queryTableData['WebsiteLink'] = null;
 
             $queryTableData['temporaryUntilC'] = trim($record[$this->getRecordIndexByKey('temporaryUntilC')]);
             $queryTableData['temporaryUntilT'] = trim($record[$this->getRecordIndexByKey('temporaryUntilT')]);
@@ -624,6 +562,7 @@ class EhoseProductLocalizationImportService
             $queryTableData['DampableUntil1T'] = trim($record[$this->getRecordIndexByKey('DampableUntil1T')]);
             $queryTableData['DampableUntil2C'] = trim($record[$this->getRecordIndexByKey('DampableUntil2C')]);
             $queryTableData['DampableUntil2T'] = trim($record[$this->getRecordIndexByKey('DampableUntil2T')]);
+            $queryTableData['WebsiteLink']     = trim($record[$this->getRecordIndexByKey('WebsiteLink')]);
 
             if(trim($record[$this->getRecordIndexByKey('onlyOpenSystem')]) == '1' || trim($record[$this->getRecordIndexByKey('onlyOpenSystem')]) == '0'){
                 $onlyOpenSystem =  trim($record[$this->getRecordIndexByKey('onlyOpenSystem')]);
@@ -639,25 +578,30 @@ class EhoseProductLocalizationImportService
             }
             $minimumTemperatureC = trim($record[$this->getRecordIndexByKey('minimumTemperatureC')]);
             $maximumTemperatureC = trim($record[$this->getRecordIndexByKey('maximumTemperatureC')]);
+            $queryTableData['minimumTemperatureC'] = $minimumTemperatureC;
+            $queryTableData['maximumTemperatureC'] = $maximumTemperatureC;
+            $queryTableData['minimumTemperatureF'] =  trim($record[$this->getRecordIndexByKey('minimumTemperatureF')]);
+            $queryTableData['maximumTemperatureF'] =  trim($record[$this->getRecordIndexByKey('maximumTemperatureF')]);
 
-            if(!empty($minimumTemperatureC)){
-                $attributeGroupName = $this->unitConversionService->getAttributeGroupName('minimumTemperatureC');
-                if($attributeGroupName && !empty($minimumTemperatureC)){
-                    $conversionAttributeArr= $this->unitConversionService->getGroupWithValues('minimumTemperatureC', floatval($minimumTemperatureC));
-                    foreach($conversionAttributeArr as $key=>$convertValues){
-                        $queryTableData[$key]=$convertValues;
-                    }
-                }
-            }
-            if(!empty($maximumTemperatureC)){
-                $attributeGroupName = $this->unitConversionService->getAttributeGroupName('maximumTemperatureC');
-                if($attributeGroupName && !empty($maximumTemperatureC)){
-                    $conversionAttributeArr= $this->unitConversionService->getGroupWithValues('maximumTemperatureC', floatval($maximumTemperatureC));
-                    foreach($conversionAttributeArr as $key=>$convertValues){
-                        $queryTableData[$key]=$convertValues;
-                    }
-                }
-            }
+
+            // if(!empty($minimumTemperatureC)){
+            //     $attributeGroupName = $this->unitConversionService->getAttributeGroupName('minimumTemperatureC');
+            //     if($attributeGroupName && !empty($minimumTemperatureC)){
+            //         $conversionAttributeArr= $this->unitConversionService->getGroupWithValues('minimumTemperatureC', floatval($minimumTemperatureC));
+            //         foreach($conversionAttributeArr as $key=>$convertValues){
+            //             $queryTableData[$key]=$convertValues;
+            //         }
+            //     }
+            // }
+            // if(!empty($maximumTemperatureC)){
+            //     $attributeGroupName = $this->unitConversionService->getAttributeGroupName('maximumTemperatureC');
+            //     if($attributeGroupName && !empty($maximumTemperatureC)){
+            //         $conversionAttributeArr= $this->unitConversionService->getGroupWithValues('maximumTemperatureC', floatval($maximumTemperatureC));
+            //         foreach($conversionAttributeArr as $key=>$convertValues){
+            //             $queryTableData[$key]=$convertValues;
+            //         }
+            //     }
+            // }
              if(isset($queryTableData['maximumTemperatureC']) && isset($queryTableData['minimumTemperatureC'])){
                 $queryTableData['rangeTemperatureC']=$queryTableData['minimumTemperatureC'] . "°C" ." to " . $queryTableData['maximumTemperatureC'] . "°C";
 
@@ -721,7 +665,6 @@ class EhoseProductLocalizationImportService
             'Note' => null,
             'Department' => null,
             'ConnectionType' => null,
-            'WebsiteLink' => null,
             'additionalDiscount' => null
         ];
         if (strtolower($productType) == 'fert') {
@@ -737,7 +680,6 @@ class EhoseProductLocalizationImportService
             $storeTableDataArray['Spezi'] = trim($record[$this->getRecordIndexByKey('Spezi')]);
             $storeTableDataArray['GrossPrice'] = trim($record[$this->getRecordIndexByKey('GrossPrice')]);
             $storeTableDataArray['Discount'] = trim($record[$this->getRecordIndexByKey('Discount')]);
-            $storeTableDataArray['WebsiteLink'] = trim($record[$this->getRecordIndexByKey('WebsiteLink')]);
             $storeTableDataArray['CustomsTariffNumber'] = trim($record[$this->getRecordIndexByKey('CustomsTariffNumber')]);
             $storeTableDataArray['Note'] = trim($record[$this->getRecordIndexByKey('Note')]);
             $storeTableDataArray['Department'] = trim($record[$this->getRecordIndexByKey('Department')]);
@@ -764,15 +706,21 @@ class EhoseProductLocalizationImportService
             $storeTableDataArray['minimumTemperatureC'] = null;
             $storeTableDataArray['maximumTemperatureC'] = null;
             $storeTableDataArray['FeaturesBenefitsBulletPoint'] = null;
+            $storeTableDataArray['WebsiteLink'] = null;
 
             $minimumTemperatureC = trim($record[$this->getRecordIndexByKey('minimumTemperatureC')]);
             $maximumTemperatureC = trim($record[$this->getRecordIndexByKey('maximumTemperatureC')]);
+            $storeTableDataArray['minimumTemperatureC'] = $minimumTemperatureC;
+            $storeTableDataArray['maximumTemperatureC'] = $maximumTemperatureC;
+            $storeTableDataArray['minimumTemperatureF'] =  trim($record[$this->getRecordIndexByKey('minimumTemperatureF')]);
+            $storeTableDataArray['maximumTemperatureF'] =  trim($record[$this->getRecordIndexByKey('maximumTemperatureF')]);
             $storeTableDataArray['temporaryUntilC'] = trim($record[$this->getRecordIndexByKey('temporaryUntilC')]);
             $storeTableDataArray['temporaryUntilT'] = trim($record[$this->getRecordIndexByKey('temporaryUntilT')]);
             $storeTableDataArray['DampableUntil1C'] = trim($record[$this->getRecordIndexByKey('DampableUntil1C')]);
             $storeTableDataArray['DampableUntil1T'] = trim($record[$this->getRecordIndexByKey('DampableUntil1T')]);
             $storeTableDataArray['DampableUntil2C'] = trim($record[$this->getRecordIndexByKey('DampableUntil2C')]);
             $storeTableDataArray['DampableUntil2T'] = trim($record[$this->getRecordIndexByKey('DampableUntil2T')]);
+            $storeTableDataArray['WebsiteLink']     = trim($record[$this->getRecordIndexByKey('WebsiteLink')]);
 
             if(trim($record[$this->getRecordIndexByKey('onlyOpenSystem')]) == '1' || trim($record[$this->getRecordIndexByKey('onlyOpenSystem')]) == '0'){
                 $onlyOpenSystem =  trim($record[$this->getRecordIndexByKey('onlyOpenSystem')]);
@@ -783,26 +731,26 @@ class EhoseProductLocalizationImportService
                 $storeTableDataArray['Category'] = $getCatagoryID;
             }
 
-            if(!empty($minimumTemperatureC)){
-                $attributeGroupName = $this->unitConversionService->getAttributeGroupName('minimumTemperatureC');
-                if($attributeGroupName && !empty($minimumTemperatureC)){
-                    $conversionAttributeArr= $this->unitConversionService->getGroupWithValues('minimumTemperatureC', floatval($minimumTemperatureC));
-                    foreach($conversionAttributeArr as $key=>$convertValues){
-                        $storeTableDataArray[$key]=$convertValues;
-                    }
-                }
-            }
+            // if(!empty($minimumTemperatureC)){
+            //     $attributeGroupName = $this->unitConversionService->getAttributeGroupName('minimumTemperatureC');
+            //     if($attributeGroupName && !empty($minimumTemperatureC)){
+            //         $conversionAttributeArr= $this->unitConversionService->getGroupWithValues('minimumTemperatureC', floatval($minimumTemperatureC));
+            //         foreach($conversionAttributeArr as $key=>$convertValues){
+            //             $storeTableDataArray[$key]=$convertValues;
+            //         }
+            //     }
+            // }
             
 
-            if(!empty($maximumTemperatureC)){
-                $attributeGroupName = $this->unitConversionService->getAttributeGroupName('maximumTemperatureC');
-                if($attributeGroupName && !empty($maximumTemperatureC)){
-                    $conversionAttributeArr= $this->unitConversionService->getGroupWithValues('maximumTemperatureC', floatval($maximumTemperatureC));
-                    foreach($conversionAttributeArr as $key=>$convertValues){
-                        $storeTableDataArray[$key]=$convertValues;
-                    }
-                }
-            }
+            // if(!empty($maximumTemperatureC)){
+            //     $attributeGroupName = $this->unitConversionService->getAttributeGroupName('maximumTemperatureC');
+            //     if($attributeGroupName && !empty($maximumTemperatureC)){
+            //         $conversionAttributeArr= $this->unitConversionService->getGroupWithValues('maximumTemperatureC', floatval($maximumTemperatureC));
+            //         foreach($conversionAttributeArr as $key=>$convertValues){
+            //             $storeTableDataArray[$key]=$convertValues;
+            //         }
+            //     }
+            // }
 
             if(isset($storeTableDataArray['maximumTemperatureC']) && isset($storeTableDataArray['minimumTemperatureC'])){
                 $storeTableDataArray['rangeTemperatureC']=$storeTableDataArray['minimumTemperatureC'] . "°C" ." to " . $storeTableDataArray['maximumTemperatureC'] . "°C";
@@ -874,13 +822,6 @@ class EhoseProductLocalizationImportService
             }
         }
     }
-    public function getBricksDataForMapping($objId){
-        $this->mapBricksArray['object_brick_query_IFSEUHoseBase_IFSEUProduct'] = array(array('o_id'=>$objId,'fieldname'=>'Base','BaseBrickMapping'=>'test'));
-        $this->mapBricksArray['object_brick_store_IFSEUHoseBase_IFSEUProduct'] = array(array('o_id'=>$objId,'fieldname'=>'Base','BaseBrickMapping'=>'test'));
-
-        $this->mapBricksArray['object_brick_query_IFSEUHoseSkeleton_IFSEUProduct'][] = array('o_id'=>$objId,'fieldname'=>'Skeleton','SkeletonBrickMapping'=>'test');
-        $this->mapBricksArray['object_brick_store_IFSEUHoseSkeleton_IFSEUProduct'][] = array('o_id'=>$objId,'fieldname'=>'Skeleton','SkeletonBrickMapping'=>'test');
-    }
     public function setBricksData($objId, $bricks, $type,$record) {
         try{
             $csvHeader      = array_flip($this->csvHeader); 
@@ -890,7 +831,6 @@ class EhoseProductLocalizationImportService
                 if (in_array($brick, $this->allBricksList)) {
                     foreach ($this->brickTablePrefixArray  as $brickPrefix) {
                         $tblName = $brickPrefix.ucfirst($brick)."_IFSEUProduct";
-                        //$tableData  =['o_id' => $objId, 'fieldname' => ucfirst($type)];
                         if($brick=='IFSEUHoseBase'){
                             $bricksData=$this->hoseBaseBricksAttribute($bricksData,$brick);
                         }
@@ -940,10 +880,13 @@ class EhoseProductLocalizationImportService
                                     $values=trim($values);
                                     if(array_key_exists($values,$this->productProperties[$propertyType])){
                                         $propertyIdsArr[]=$this->productProperties[$propertyType][$values];
+                                    }else{
+                                        $propertyIdsArr[] = "";
                                     }
                                 }
                             }
                             if(!empty($propertyIdsArr)){
+                                $propertyIdsArr = array_filter($propertyIdsArr);
                                 $propertyIds=implode(',',$propertyIdsArr);
                                 $bricksData[$fieldName]=$propertyIds;
                             }
@@ -957,10 +900,13 @@ class EhoseProductLocalizationImportService
                                 $values=trim($values);
                                 if(array_key_exists($values,$this->fieldsOfApplication)){
                                     $fieldsApplicationIdsArr[]=$this->fieldsOfApplication[$values];
+                                }else{
+                                    $fieldsApplicationIdsArr[] = "";
                                 }
                             }
                         }
                         if(!empty($fieldsApplicationIdsArr)){
+                            $fieldsApplicationIdsArr = array_filter($fieldsApplicationIdsArr);
                             $fieldsApplicationIds=implode(',',$fieldsApplicationIdsArr);
                             $bricksData[$fieldName]=$fieldsApplicationIds;
                         }
@@ -973,10 +919,13 @@ class EhoseProductLocalizationImportService
                             if(!empty($values)){
                                 if(array_key_exists($values,$this->flowMedium)){
                                     $flowMediumIdsArr[]=$this->flowMedium[$values];
+                                }else{
+                                    $flowMediumIdsArr[] = "";
                                 }
                             }
                         }
                         if(!empty($flowMediumIdsArr)){
+                            $flowMediumIdsArr = array_filter($flowMediumIdsArr);
                             $flowMediumIds=implode(',',$flowMediumIdsArr);
                             $bricksData[$fieldName]=$flowMediumIds;
                         }
@@ -990,10 +939,13 @@ class EhoseProductLocalizationImportService
                             if(!empty($values)){
                                 if(array_key_exists($values,$this->standards)){
                                     $standardsIdsArr[]=$this->standards[$values];
+                                }else{
+                                    $standardsIdsArr[] = "";
                                 }
                             }
                         }
                         if(!empty($standardsIdsArr)){
+                            $standardsIdsArr = array_filter($standardsIdsArr);
                             $standardsIds=implode(',',$standardsIdsArr);
                             $bricksData[$fieldName]=$standardsIds;
                         }

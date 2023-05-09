@@ -28,7 +28,7 @@ ehoseAPI:
                 - string
             TPCode:
                 - string
-            # Note2InformationBelowTable:
+            # NoteInformationBelowTable:
             #     - string
             siopFullCode:
                 - string
@@ -205,31 +205,11 @@ ehoseAPI:
         ObjectBricks:
             IFSEUHose:
                 Fields:
-                    staticWire: 
-                        - string
-                    staticWireType:
-                        - string
-                    tubeCharacteristic:
-                        - string
-                    hoseIdDec:
-                        - string
-                    hoseIdMM: 
-                        - string
-                    FlowMediumStability:
-                        - string
                     BaseBrickMapping:
                         - string
                     numberOfHelixWires:
                         - string
-                    tubeGaugeFractional:
-                        - string
-                    NonStockSizes:
-                        - string
                     standards: 
-                        - string
-                    numberOfPlies:
-                        - string
-                    Coupling:
                         - string
                     InnerLining:
                         - string
@@ -260,7 +240,7 @@ ehoseAPI:
             - Marking1
             - Marking2
             - searchKeywords
-            - Note2InformationBelowTable
+            - NoteInformationBelowTable
             - commercialDescription
             - technicalDescription
     Skeleton:

@@ -34,10 +34,4 @@ minimumTemperature__group:
 maximumTemperatureF__group:
     maximumTemperatureC: 'C'
     maximumTemperatureF: 'F'
-#IFSEUHoseBase
-hoseId__group:
-    hoseIdMM: 'MM'
-    hoseIdDec: 'IN'
-
-
 

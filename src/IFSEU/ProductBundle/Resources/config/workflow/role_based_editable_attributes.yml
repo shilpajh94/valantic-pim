@@ -4,6 +4,9 @@ All:
     - CatalogLayline
     - Category
     - Sub_Category
+    - productPublishedOnline
+    - datasheetPublishedInTheDealerPortal
+    - pricelistPublishedInTheDealerPortal
     - FeaturesBenefitsBulletPoint
     - TPCode
     - HeadlineWeb
@@ -17,7 +20,6 @@ All:
     - SapDescription 
     - ShippingConditions 
     - Conditions 
-    - ManufacturingLength 
     - MinimumOrder 
     - CompletenessPercentage 
     - EmptyFields 
@@ -26,8 +28,6 @@ All:
     - RangeTemperatureF 
     - RangeTemperatureC 
     - TemperatureRangeApplication 
-    - TemperatureRangeApplication1 
-    - TemperatureRangeApplication2 
     - TemporaryUntilC
     - DampableUntil1C 
     - DampableUntil2C 
@@ -36,11 +36,6 @@ All:
     - MaximumTemperatureF 
     - TemperatureRangeFAndC 
     - TemperatureNote 
-    - TemperatureRangeApplicationFAndC1 
-    - TemperatureRangeApplicationFAndC2 
-    - TemperatureRangeApplicationFAndC3 
-    - TemperatureRangeApplicationFAndC4 
-    - TemperatureRangeApplicationFAndC5 
     - TemporaryUntilT 
     - DampableUntil1T 
     - DampableUntil2T 
@@ -151,20 +146,10 @@ All:
     - Certificate1        
     - Certificate2          
     - PriceData  
-    - staticWire       
-    - staticWireType           
-    - tubeCharacteristic           
-    - hoseIdDec            
-    - hoseIdMM            
-    - Note2InformationBelowTable             
-    - FlowMediumStability          
+    - NoteInformationBelowTable             
     - numberOfHelixWires            
-    - tubeGaugeFractional             
-    - NonStockSizes             
     - standards              
-    - numberOfPlies            
     - withHelix         
-    - Coupling             
     - InnerLining           
     - colorInnerLining           
     - Reinforcement           
@@ -207,18 +192,8 @@ All:
     - PositiveToleranceOdMM                        
 ProductManagementIFSEMEA:
     - flowMedium 
-    - FlowMediumStability
     - standards
-    - staticWire       
-    - staticWireType           
-    - tubeCharacteristic           
-    - hoseIdDec            
-    - hoseIdMM  
     - numberOfHelixWires            
-    - tubeGaugeFractional             
-    - NonStockSizes                          
-    - numberOfPlies   
-    - Coupling 
     - FieldsOfApplication   
     - hoseIdNominalActualId                
     - hoseIdMMActualId                  
@@ -228,16 +203,7 @@ ProductManagementIFSEMEA:
     - VacuumIN                 
     - BurstPressurempa 
 MarComIFSEMEA:
-    - staticWire       
-    - staticWireType           
-    - tubeCharacteristic           
-    - hoseIdDec            
-    - hoseIdMM  
     - numberOfHelixWires            
-    - tubeGaugeFractional             
-    - NonStockSizes                           
-    - numberOfPlies   
-    - Coupling  
     - FieldsOfApplication
     - hoseIdNominalActualId                
     - hoseIdMMActualId                  
@@ -247,16 +213,7 @@ MarComIFSEMEA:
     - VacuumIN                 
     - BurstPressurempa 
 EditorIFSEMEA:
-    - staticWire       
-    - staticWireType           
-    - tubeCharacteristic           
-    - hoseIdDec            
-    - hoseIdMM  
     - numberOfHelixWires            
-    - tubeGaugeFractional             
-    - NonStockSizes             
-    - numberOfPlies   
-    - Coupling          
     - withHelix                      
     - InnerLining           
     - colorInnerLining           

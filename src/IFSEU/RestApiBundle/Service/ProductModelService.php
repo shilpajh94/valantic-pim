@@ -173,7 +173,6 @@ class ProductModelService
                 $basePropertyClassFields = array(
                     'PropertiesOuterLayer' => 'PropertiesOuterLayer',
                     'propertiesInnerLayer' => 'propertiesInnerLayer',
-                    'tubeCharacteristic' => 'tubeCharacteristic',
                     'InnerLining' => 'InnerLining',
                     'colorInnerLining' => 'colorInnerLining',
                     'Reinforcement' => 'Reinforcement',
@@ -208,11 +207,6 @@ class ProductModelService
                     }
                 }
 
-                if(isset($resultArrBase['staticWire']))
-                {
-                    $resultArrBase['staticWire'] = ($resultArrBase['staticWire'] == 1) ? 'Yes' : 'No';
-                }
-
                 if(isset($resultArrBase['justTemporarily']))
                 {
                     $resultArrBase['justTemporarily'] = ($resultArrBase['justTemporarily'] == 1) ? 'Yes' : 'No';
@@ -221,11 +215,6 @@ class ProductModelService
                 if(isset($resultArrBase['onlyOpenSystem']))
                 {
                     $resultArrBase['onlyOpenSystem'] = ($resultArrBase['onlyOpenSystem'] == 1) ? 'Yes' : 'No';
-                }
-
-                if(isset($resultArrBase['FlowMediumStability']))
-                {
-                    $resultArrBase['FlowMediumStability'] = ($resultArrBase['FlowMediumStability'] == 1) ? 'Yes' : 'No';
                 }
                 
                 // We need these 2 ids to get the path of assets
@@ -580,7 +569,6 @@ class ProductModelService
                 unset($resultArrFert['video2']);
                 unset($resultArrFert['video3']);
                 unset($resultArrFert['Conditions']);
-                unset($resultArrFert['manufacturingLength']);
                 unset($resultArrFert['minimumOrder']);
 
                 $finalProductArray[$sixDigit]['skeletonData'][$nineDigit]['finishedGoodsData'][]=$resultArrFert;
@@ -858,7 +846,7 @@ class ProductModelService
                              }
 // echo "first";
                        }
-                       else if(!empty($fieldDef) && $fieldDef->getFieldtype()==="select" && $fieldName !=="staticWireType")
+                       else if(!empty($fieldDef) && $fieldDef->getFieldtype()==="select")
                        {
                         // echo "second";
                             $bData = $product->$productBrickField()->$brickText()->$fieldText();
