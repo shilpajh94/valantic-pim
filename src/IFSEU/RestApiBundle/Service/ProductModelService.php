@@ -569,7 +569,6 @@ class ProductModelService
                 unset($resultArrFert['video2']);
                 unset($resultArrFert['video3']);
                 unset($resultArrFert['Conditions']);
-                unset($resultArrFert['manufacturingLength']);
                 unset($resultArrFert['minimumOrder']);
 
                 $finalProductArray[$sixDigit]['skeletonData'][$nineDigit]['finishedGoodsData'][]=$resultArrFert;

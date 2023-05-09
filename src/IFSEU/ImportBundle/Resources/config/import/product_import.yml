@@ -84,7 +84,6 @@ parameters:
       minimumOrder: 'Minimum order value'
       shippingConditions: 'Shipping conditions'
       sapDescription: 'SAP Description'
-      manufacturingLength: 'Manufacturing Length'
     #Fert Relationship 
       countryOfOrigin: 'Country of origin'
 
