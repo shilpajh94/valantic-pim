@@ -22,7 +22,6 @@ class SkippedFieldList
                 "OnlyOpenSystem",
                 "TemperatureNote",
                 "Marking2",
-                "FlowMediumStability",
                 "Note2InformationBelowTable",  
                 "negativeToleranceIdMM",
                 "PositiveToleranceIdMM",

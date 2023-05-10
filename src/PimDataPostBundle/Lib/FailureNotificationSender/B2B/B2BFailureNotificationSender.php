@@ -60,9 +60,23 @@ class B2BFailureNotificationSender extends AbstractB2BFailureNotificationSender
         
         $mail = new \Pimcore\Mail();
 
-        foreach ($userEmailIds as $email) {
+        $B2B_B2C_Users_Email = array(
+            'Mark.Dario@continental.com',
+            'don.2.salandanan@continental.com',
+            'amit.rajput@ptg.contitech.in',
+            'malte.schickedanz@contitech.de',
+            'sachin.baluja@ptg.contitech.in',
+            'kenichi.ban@contitech.de',
+            'anthony.miller@contitech.de'
+        );
+        
+        foreach ($B2B_B2C_Users_Email as $email) {
             $mail->addTo($email);
         }
+
+        // foreach ($userEmailIds as $email) {
+        //     $mail->addTo($email);
+        // }
 
         $mail->setSubject(Constants::B2B_FAILURE_TEMPLATE_SUBJECT_NAME);
         $mail->setDocument(Constants::B2B_FAILURE_TEMPLATE_NAME);
