@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-05-01T15:00:56+05:30
+* Generated at: 2023-05-09T13:13:40+05:30
 * IP: 127.0.0.1
 */ 
 
@@ -11,7 +11,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'ProductCategoryApplicationAdminIFSEMEA',
    'description' => '',
    'creationDate' => 1682933433,
-   'modificationDate' => 1682933456,
+   'modificationDate' => 1683618220,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => 'IFSEUProductCategory',
@@ -524,7 +524,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                  'border' => false,
                  'provideSplitView' => false,
                  'tabPosition' => NULL,
-                 'hideLabelsWhenTabsReached' => -1,
+                 'hideLabelsWhenTabsReached' => NULL,
                  'referencedFields' => 
                 array (
                 ),

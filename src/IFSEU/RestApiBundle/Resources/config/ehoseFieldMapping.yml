@@ -60,10 +60,6 @@ ehoseAPI:
                 - string
             temperatureRangeApplication:
                 - string
-            temperatureRangeApplication1:
-                - string
-            temperatureRangeApplication2:
-                - string
             temporaryUntilC:
                 - numeric: 2
             DampableUntil1C:
@@ -79,16 +75,6 @@ ehoseAPI:
             temperatureRangeFAndC:
                 - string
             temperatureNote:
-                - string
-            temperatureRangeApplicationFAndC1:
-                - string
-            temperatureRangeApplicationFAndC2:
-                - string
-            temperatureRangeApplicationFAndC3:
-                - string
-            temperatureRangeApplicationFAndC4:
-                - string
-            temperatureRangeApplicationFAndC5:
                 - string
             temporaryUntilT: 
                 - numeric: 2
@@ -219,31 +205,11 @@ ehoseAPI:
         ObjectBricks:
             IFSEUHose:
                 Fields:
-                    staticWire: 
-                        - string
-                    staticWireType:
-                        - string
-                    tubeCharacteristic:
-                        - string
-                    hoseIdDec:
-                        - string
-                    hoseIdMM: 
-                        - string
-                    FlowMediumStability:
-                        - string
                     BaseBrickMapping:
                         - string
                     numberOfHelixWires:
                         - string
-                    tubeGaugeFractional:
-                        - string
-                    NonStockSizes:
-                        - string
                     standards: 
-                        - string
-                    numberOfPlies:
-                        - string
-                    Coupling:
                         - string
                     InnerLining:
                         - string
@@ -329,10 +295,6 @@ ehoseAPI:
                 - string
             temperatureRangeApplication:
                 - string
-            temperatureRangeApplication1:
-                - string
-            temperatureRangeApplication2:
-                - string
             temporaryUntilC:
                 - numeric: 2
             DampableUntil1C:
@@ -348,16 +310,6 @@ ehoseAPI:
             temperatureRangeFAndC:
                 - string
             temperatureNote:
-                - string
-            temperatureRangeApplicationFAndC1:
-                - string
-            temperatureRangeApplicationFAndC2:
-                - string
-            temperatureRangeApplicationFAndC3:
-                - string
-            temperatureRangeApplicationFAndC4:
-                - string
-            temperatureRangeApplicationFAndC5:
                 - string
             temporaryUntilT: 
                 - numeric: 2
@@ -540,10 +492,6 @@ ehoseAPI:
                 - string
             temperatureRangeApplication:
                 - string
-            temperatureRangeApplication1:
-                - string
-            temperatureRangeApplication2:
-                - string
             temporaryUntilC:
                 - numeric: 2
             DampableUntil1C:
@@ -559,16 +507,6 @@ ehoseAPI:
             temperatureRangeFAndC:
                 - string
             temperatureNote:
-                - string
-            temperatureRangeApplicationFAndC1:
-                - string
-            temperatureRangeApplicationFAndC2:
-                - string
-            temperatureRangeApplicationFAndC3:
-                - string
-            temperatureRangeApplicationFAndC4:
-                - string
-            temperatureRangeApplicationFAndC5:
                 - string
             temporaryUntilT: 
                 - numeric: 2

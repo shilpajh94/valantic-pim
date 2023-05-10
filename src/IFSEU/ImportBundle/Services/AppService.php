@@ -84,10 +84,10 @@ class AppService
                 'IFSEUHoseSkeleton~BendingRadiusIN' => 'BendingRadiusIN'
             );
 
-            $baseArr = array(
-                'IFSEUHoseBase~hoseIdMM' => 'hoseIdMM',
-                'IFSEUHoseBase~hoseIdDec' =>'hoseIdDec'
-            );
+            // $baseArr = array(
+            //     'IFSEUHoseBase~hoseIdMM' => 'hoseIdMM',
+            //     'IFSEUHoseBase~hoseIdDec' =>'hoseIdDec'
+            // );
 
             $skeletonArrData = array();
             foreach ($updatedData as $key => $value) {
