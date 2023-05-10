@@ -442,7 +442,10 @@ class ProductImportService
         $groupNames = trim($groupNames, ',');
         if (!empty($groupNames)) {
             $groupNamesArray = explode(',', $groupNames);
-            $bricksList = $this->brickMappingService->getMappedBrickKeys($groupNamesArray, $type);
+            if($type != 'fert'){
+                $bricksList = $this->brickMappingService->getMappedBrickKeys($groupNamesArray, $type);
+            }
+            
             $this->setBricksData($objId, $bricksList, $type, $record);
             unset($groupNames, $groupNamesArray, $bricksList);
         }
@@ -1102,31 +1105,33 @@ class ProductImportService
         $this->mapBricksArray['object_brick_store_IFSEUHoseSkeleton_IFSEUProduct'][] = array('o_id'=>$objId,'fieldname'=>'Skeleton','SkeletonBrickMapping'=>'test');
     }
     public function setBricksData($objId, $bricks, $type,$record) {
-        try{
-            $csvHeader      = array_flip($this->csvHeader); 
-            $rowData        = array_combine($csvHeader, $record);
-            foreach ($bricks as $brick) {
-                $bricksData     = $this->productHelper->processBricksData($rowData, $brick); 
-                
-                if (in_array($brick, $this->allBricksList)) {
-                    foreach ($this->brickTablePrefixArray  as $brickPrefix) {
-                        $tblName = $brickPrefix.ucfirst($brick)."_IFSEUProduct";
-                        //$tableData  =['o_id' => $objId, 'fieldname' => ucfirst($type)];
-                        if($brick=='IFSEUHoseBase'){
-                            
-                            $hoseBricksData=$this->hoseBaseBricksAttribute($bricksData,$brick);
-                            $tableData  = array_merge(['o_id' => $objId, 'fieldname' => ucfirst($type)], $hoseBricksData);
-
-                        }else{
-                            $tableData  = array_merge(['o_id' => $objId, 'fieldname' => ucfirst($type)], $bricksData);
-
+        if($bricks){
+            try{
+                $csvHeader      = array_flip($this->csvHeader); 
+                $rowData        = array_combine($csvHeader, $record);
+                foreach ($bricks as $brick) {
+                    $bricksData     = $this->productHelper->processBricksData($rowData, $brick); 
+                    
+                    if (in_array($brick, $this->allBricksList)) {
+                        foreach ($this->brickTablePrefixArray  as $brickPrefix) {
+                            $tblName = $brickPrefix.ucfirst($brick)."_IFSEUProduct";
+                            //$tableData  =['o_id' => $objId, 'fieldname' => ucfirst($type)];
+                            if($brick=='IFSEUHoseBase'){
+                                
+                                $hoseBricksData=$this->hoseBaseBricksAttribute($bricksData,$brick);
+                                $tableData  = array_merge(['o_id' => $objId, 'fieldname' => ucfirst($type)], $hoseBricksData);
+    
+                            }else{
+                                $tableData  = array_merge(['o_id' => $objId, 'fieldname' => ucfirst($type)], $bricksData);
+    
+                            }
+                            $this->bricksDataArray[$tblName][] = $tableData;
                         }
-                        $this->bricksDataArray[$tblName][] = $tableData;
                     }
                 }
-            }
-        }catch(\Throwable $th){
-            print_r($th);
+            }catch(\Throwable $th){
+                print_r($th);
+            }    
         }
     }
     

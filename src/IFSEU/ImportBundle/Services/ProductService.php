@@ -375,7 +375,9 @@ class ProductService
             $groupNames = trim($groupNames, ',');
             if (!empty($groupNames)) {
                 $groupNamesArray = explode(',', $groupNames);
-                $bricksList = $this->brickMappingService->getMappedBrickKeys($groupNamesArray, $type);
+                if($type != 'fert'){
+                    $bricksList = $this->brickMappingService->getMappedBrickKeys($groupNamesArray, $type);
+                }
 
                 $this->setBricksData($objId, $bricksList, $type, $record);
 
@@ -727,16 +729,18 @@ class ProductService
         $this->mapBricksArray['object_brick_store_IFSEUHoseSkeleton_IFSEUProduct'][] = array('o_id'=>$objId,'fieldname'=>'Skeleton','SkeletonBrickMapping'=>'test');
     }
     public function setBricksData($objId, $bricks, $type) {
-        foreach ($bricks as $brick) {
-            if (in_array($brick, $this->allBricksList)) {
-                foreach ($this->brickTablePrefixArray  as $brickPrefix) {
-                    $tblName = $brickPrefix.ucfirst($brick)."_IFSEUProduct";
-                    $this->bricksDataArray[$tblName][] = [
-                        'o_id' => $objId,
-                        'fieldname' => ucfirst($type)
-                    ];
+        if($bricks){
+            foreach ($bricks as $brick) {
+                if (in_array($brick, $this->allBricksList)) {
+                    foreach ($this->brickTablePrefixArray  as $brickPrefix) {
+                        $tblName = $brickPrefix.ucfirst($brick)."_IFSEUProduct";
+                        $this->bricksDataArray[$tblName][] = [
+                            'o_id' => $objId,
+                            'fieldname' => ucfirst($type)
+                        ];
+                    }
                 }
-            }
+            }    
         }
     }
     
