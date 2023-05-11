@@ -1567,7 +1567,7 @@ parameters:
             temp_master_table_column_type: VARCHAR(12) NULL
             addOnJoin:
             sf_attribute_name: B2B_BendRadiusin__c
-            pim_attribute_type: true
+            pim_attribute_type: numeric
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
