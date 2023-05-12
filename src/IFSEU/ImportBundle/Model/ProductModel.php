@@ -319,6 +319,36 @@ class ProductModel
         $query = "SELECT oo_id, o_key,CategoryCode,CategoryName FROM ".$tbl;
         return $this->db->fetchAll($query);
     }
+    public function getMinimumOrderLanguageData() {
+        $tbl="object_localized_IFSEUMinimumOrder_".'en';
+        $query = "SELECT oo_id, o_key,MinimumOrder FROM ".$tbl;
+        return $this->db->fetchAll($query);
+    }
+    public function getConditionsData() {
+        $tbl="object_localized_IFSEUConditions_".'en';
+        $query = "SELECT oo_id, o_key,Conditions FROM ".$tbl;
+        return $this->db->fetchAll($query);
+    }
+    public function getShippingConditionsData() {
+        $tbl="object_localized_IFSEUShippingConditions_".'en';
+        $query = "SELECT oo_id, o_key,ShippingConditions FROM ".$tbl;
+        return $this->db->fetchAll($query);
+    }
+    public function getProductionLengthData() {
+        $tbl="object_localized_IFSEUProductionLength_".'en';
+        $query = "SELECT oo_id, o_key,ProductionLength FROM ".$tbl;
+        return $this->db->fetchAll($query);
+    }
+    public function getNoteInfoBelowTableData() {
+        $tbl="object_localized_IFSEUNoteInformationBelowTable_".'en';
+        $query = "SELECT oo_id, o_key,NoteInformationBelowtable FROM ".$tbl;
+        return $this->db->fetchAll($query);
+    }
+    public function getNoteInformationBelowTableData() {
+        $tbl="object_localized_IFSEUNoteInformationBelowTable_".'en';
+        $query = "SELECT oo_id, o_key,NoteInformationBelowTable FROM ".$tbl;
+        return $this->db->fetchAll($query);
+    }
 
     public function getPropertiesLanguageData($lang){
         $tbl="object_localized_IFSEUProperties_".$lang;

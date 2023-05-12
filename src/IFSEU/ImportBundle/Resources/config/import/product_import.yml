@@ -79,10 +79,10 @@ parameters:
       productionLength: 'Production length'
       minimumQuantityUnit: 'Minimum quantity unit'
       additionalDiscount: 'Additional discount'
-    #fert Localized Attribute
       Conditions: 'Conditions'
       minimumOrder: 'Minimum order value'
       shippingConditions: 'Shipping conditions'
+    #fert Localized Attribute
       sapDescription: 'SAP Description'
     #Fert Relationship 
       countryOfOrigin: 'Country of origin'
