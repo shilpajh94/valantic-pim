@@ -7707,9 +7707,9 @@ return [
         "sql" => "",
         "dataSourceConfig" => [
             [
-                "sql" => "SELECT \nobject_localized_IFSEUProduct_en.oo_id As ' Id',\n\n     object_localized_IFSEUProduct_en.headlineWeb As 'HeadLine Web',\n     object_localized_IFSEUProduct_en.legalText As 'Legal Text',\n     object_localized_IFSEUProduct_en.BrandShortText1 As 'Brand Short Text 1',\n     object_localized_IFSEUProduct_en.BrandShortText2 As 'Brand Short Text 2',  \n     object_localized_IFSEUProduct_en.Marking2 As 'Marking2',\n     object_localized_IFSEUProduct_en.searchKeywords As 'Search Keywords',\n     object_localized_IFSEUProduct_en.commercialDescription As 'Commercial Description',\n     object_localized_IFSEUProduct_en.technicalDescription As 'Technical Description',\n     object_localized_IFSEUProduct_en.sapDescription As 'SAP Description',\n     object_localized_IFSEUProduct_en.shippingConditions As 'Shipping Conditions',\n     object_localized_IFSEUProduct_en.Conditions As 'Conditions',\n     object_localized_IFSEUProduct_en.manufacturingLength As 'Manufacturing Length', \n     object_localized_IFSEUProduct_en.minimumOrder As 'Minimum Order', \n     \n     object_localized_IFSEUProduct_de.headlineWeb As 'HeadLine Web (de)',\n     object_localized_IFSEUProduct_de.legalText As 'Legal Text (de)',\n     object_localized_IFSEUProduct_de.BrandShortText1 As 'Brand Short Text 1 (de)',\n     object_localized_IFSEUProduct_de.BrandShortText2 As 'Brand Short Text 2 (de)',  \n     object_localized_IFSEUProduct_de.Marking2 As 'Marking2 (de)',\n     object_localized_IFSEUProduct_de.searchKeywords As 'Search Keywords (de)',\n     object_localized_IFSEUProduct_de.commercialDescription As 'Commercial Description (de)',\n     object_localized_IFSEUProduct_de.technicalDescription As 'Technical Description (de)',\n     object_localized_IFSEUProduct_de.sapDescription As 'SAP Description (de)',\n     object_localized_IFSEUProduct_de.shippingConditions As 'Shipping Conditions (de)',\n     object_localized_IFSEUProduct_de.Conditions As 'Conditions (de)',\n     object_localized_IFSEUProduct_de.manufacturingLength As 'Manufacturing Length (de)', \n     object_localized_IFSEUProduct_de.minimumOrder As 'Minimum Order (de)', \n     \n     object_localized_IFSEUProduct_da.headlineWeb As 'HeadLine Web (da)',\n     object_localized_IFSEUProduct_da.legalText As 'Legal Text (da)',\n     object_localized_IFSEUProduct_da.BrandShortText1 As 'Brand Short Text 1 (da)',\n     object_localized_IFSEUProduct_da.BrandShortText2 As 'Brand Short Text 2 (da)',  \n     object_localized_IFSEUProduct_da.Marking2 As 'Marking2 (da)',\n     object_localized_IFSEUProduct_da.searchKeywords As 'Search Keywords (da)',\n     object_localized_IFSEUProduct_da.commercialDescription As 'Commercial Description (da)',\n     object_localized_IFSEUProduct_da.technicalDescription As 'Technical Description (da)',\n     object_localized_IFSEUProduct_da.sapDescription As 'SAP Description (da)',\n     object_localized_IFSEUProduct_da.shippingConditions As 'Shipping Conditions (da)',\n     object_localized_IFSEUProduct_da.Conditions As 'Conditions (da)',\n     object_localized_IFSEUProduct_da.manufacturingLength As 'Manufacturing Length (da)', \n     object_localized_IFSEUProduct_da.minimumOrder As 'Minimum Order (da)', \n   \n     object_localized_IFSEUProduct_es.headlineWeb As 'HeadLine Web (es)',\n     object_localized_IFSEUProduct_es.legalText As 'Legal Text (es)',\n     object_localized_IFSEUProduct_es.BrandShortText1 As 'Brand Short Text 1 (es)',\n     object_localized_IFSEUProduct_es.BrandShortText2 As 'Brand Short Text 2 (es)',  \n     object_localized_IFSEUProduct_es.Marking2 As 'Marking2 (es)',\n     object_localized_IFSEUProduct_es.searchKeywords As 'Search Keywords (es)',\n     object_localized_IFSEUProduct_es.commercialDescription As 'Commercial Description (es)',\n     object_localized_IFSEUProduct_es.technicalDescription As 'Technical Description (es)',\n     object_localized_IFSEUProduct_es.sapDescription As 'SAP Description (es)',\n     object_localized_IFSEUProduct_es.shippingConditions As 'Shipping Conditions (es)',\n     object_localized_IFSEUProduct_es.Conditions As 'Conditions (es)',\n     object_localized_IFSEUProduct_es.manufacturingLength As 'Manufacturing Length (es)', \n     object_localized_IFSEUProduct_es.minimumOrder As 'Minimum Order (es)', \n    \n     object_localized_IFSEUProduct_fr.headlineWeb As 'HeadLine Web (fr)',\n     object_localized_IFSEUProduct_fr.legalText As 'Legal Text (fr)',\n     object_localized_IFSEUProduct_fr.BrandShortText1 As 'Brand Short Text 1 (fr)',\n     object_localized_IFSEUProduct_fr.BrandShortText2 As 'Brand Short Text 2 (fr)',  \n     object_localized_IFSEUProduct_fr.Marking2 As 'Marking2 (fr)',\n     object_localized_IFSEUProduct_fr.searchKeywords As 'Search Keywords (fr)',\n     object_localized_IFSEUProduct_fr.commercialDescription As 'Commercial Description (fr)',\n     object_localized_IFSEUProduct_fr.technicalDescription As 'Technical Description (fr)',\n     object_localized_IFSEUProduct_fr.sapDescription As 'SAP Description (fr)',\n     object_localized_IFSEUProduct_fr.shippingConditions As 'Shipping Conditions (fr)',\n     object_localized_IFSEUProduct_fr.Conditions As 'Conditions (fr)',\n     object_localized_IFSEUProduct_fr.manufacturingLength As 'Manufacturing Length (fr)', \n     object_localized_IFSEUProduct_fr.minimumOrder As 'Minimum Order (fr)', \n     \n     object_localized_IFSEUProduct_it_IT.headlineWeb As 'HeadLine Web (it)',\n     object_localized_IFSEUProduct_it_IT.legalText As 'Legal Text (it)',\n     object_localized_IFSEUProduct_it_IT.BrandShortText1 As 'Brand Short Text 1 (it)',\n     object_localized_IFSEUProduct_it_IT.BrandShortText2 As 'Brand Short Text 2 (it)',  \n     object_localized_IFSEUProduct_it_IT.Marking2 As 'Marking2 (it)',\n     object_localized_IFSEUProduct_it_IT.searchKeywords As 'Search Keywords (it)',\n     object_localized_IFSEUProduct_it_IT.commercialDescription As 'Commercial Description (it)',\n     object_localized_IFSEUProduct_it_IT.technicalDescription As 'Technical Description (it)',\n     object_localized_IFSEUProduct_it_IT.sapDescription As 'SAP Description (it)',\n     object_localized_IFSEUProduct_it_IT.shippingConditions As 'Shipping Conditions (it)',\n     object_localized_IFSEUProduct_it_IT.Conditions As 'Conditions (it)',\n     object_localized_IFSEUProduct_it_IT.manufacturingLength As 'Manufacturing Length (it)', \n     object_localized_IFSEUProduct_it_IT.minimumOrder As 'Minimum Order (it)', \n     \n     object_localized_IFSEUProduct_pt.headlineWeb As 'HeadLine Web (pt)',\n     object_localized_IFSEUProduct_pt.legalText As 'Legal Text (pt)',\n     object_localized_IFSEUProduct_pt.BrandShortText1 As 'Brand Short Text 1 (pt)',\n     object_localized_IFSEUProduct_pt.BrandShortText2 As 'Brand Short Text 2 (pt)',  \n     object_localized_IFSEUProduct_pt.Marking2 As 'Marking2 (pt)',\n     object_localized_IFSEUProduct_pt.searchKeywords As 'Search Keywords (pt)',\n     object_localized_IFSEUProduct_pt.commercialDescription As 'Commercial Description (pt)',\n     object_localized_IFSEUProduct_pt.technicalDescription As 'Technical Description (pt)',\n     object_localized_IFSEUProduct_pt.sapDescription As 'SAP Description (pt)',\n     object_localized_IFSEUProduct_pt.shippingConditions As 'Shipping Conditions (pt)',\n     object_localized_IFSEUProduct_pt.Conditions As 'Conditions (pt)',\n     object_localized_IFSEUProduct_pt.manufacturingLength As 'Manufacturing Length (pt)', \n     object_localized_IFSEUProduct_pt.minimumOrder As 'Minimum Order (pt)', \n     \n     object_localized_IFSEUProduct_ru_RU.headlineWeb As 'HeadLine Web (ru_RU)',\n     object_localized_IFSEUProduct_ru_RU.legalText As 'Legal Text (ru_RU)',\n     object_localized_IFSEUProduct_ru_RU.BrandShortText1 As 'Brand Short Text 1 (ru_RU)',\n     object_localized_IFSEUProduct_ru_RU.BrandShortText2 As 'Brand Short Text 2 (ru_RU)',  \n     object_localized_IFSEUProduct_ru_RU.Marking2 As 'Marking2 (ru_RU)',\n     object_localized_IFSEUProduct_ru_RU.searchKeywords As 'Search Keywords (ru_RU)',\n     object_localized_IFSEUProduct_ru_RU.commercialDescription As 'Commercial Description (ru_RU)',\n     object_localized_IFSEUProduct_ru_RU.technicalDescription As 'Technical Description (ru_RU)',\n     object_localized_IFSEUProduct_ru_RU.sapDescription As 'SAP Description (ru_RU)',\n     object_localized_IFSEUProduct_ru_RU.shippingConditions As 'Shipping Conditions (ru_RU)',\n     object_localized_IFSEUProduct_ru_RU.Conditions As 'Conditions (ru_RU)',\n     object_localized_IFSEUProduct_ru_RU.manufacturingLength As 'Manufacturing Length (ru_RU)', \n     object_localized_IFSEUProduct_ru_RU.minimumOrder As 'Minimum Order (ru_RU)', \n     \n     object_localized_IFSEUProduct_zh.headlineWeb As 'HeadLine Web (zh)',\n     object_localized_IFSEUProduct_zh.legalText As 'Legal Text (zh)',\n     object_localized_IFSEUProduct_zh.BrandShortText1 As 'Brand Short Text 1 (zh)',\n     object_localized_IFSEUProduct_zh.BrandShortText2 As 'Brand Short Text 2 (zh)',  \n     object_localized_IFSEUProduct_zh.Marking2 As 'Marking2 (zh)',\n     object_localized_IFSEUProduct_zh.searchKeywords As 'Search Keywords (zh)',\n     object_localized_IFSEUProduct_zh.commercialDescription As 'Commercial Description (zh)',\n     object_localized_IFSEUProduct_zh.technicalDescription As 'Technical Description (zh)',\n     object_localized_IFSEUProduct_zh.sapDescription As 'SAP Description (zh)',\n     object_localized_IFSEUProduct_zh.shippingConditions As 'Shipping Conditions (zh)',\n     object_localized_IFSEUProduct_zh.Conditions As 'Conditions (zh)',\n     object_localized_IFSEUProduct_zh.manufacturingLength As 'Manufacturing Length (zh)', \n     object_localized_IFSEUProduct_zh.minimumOrder As 'Minimum Order (zh)', \n     \n     object_localized_IFSEUProduct_fi_FI.headlineWeb As 'HeadLine Web (fi_FI)',\n     object_localized_IFSEUProduct_fi_FI.legalText As 'Legal Text (fi_FI)',\n     object_localized_IFSEUProduct_fi_FI.BrandShortText1 As 'Brand Short Text 1 (fi_FI)',\n     object_localized_IFSEUProduct_fi_FI.BrandShortText2 As 'Brand Short Text 2 (fi_FI)',  \n     object_localized_IFSEUProduct_fi_FI.Marking2 As 'Marking2 (fi_FI)',\n     object_localized_IFSEUProduct_fi_FI.searchKeywords As 'Search Keywords (fi_FI)',\n     object_localized_IFSEUProduct_fi_FI.commercialDescription As 'Commercial Description (fi_FI)',\n     object_localized_IFSEUProduct_fi_FI.technicalDescription As 'Technical Description (fi_FI)',\n     object_localized_IFSEUProduct_fi_FI.sapDescription As 'SAP Description (fi_FI)',\n     object_localized_IFSEUProduct_fi_FI.shippingConditions As 'Shipping Conditions (fi_FI)',\n     object_localized_IFSEUProduct_fi_FI.Conditions As 'Conditions (fi_FI)',\n     object_localized_IFSEUProduct_fi_FI.manufacturingLength As 'Manufacturing Length (fi_FI)', \n     object_localized_IFSEUProduct_fi_FI.minimumOrder As 'Minimum Order (fi_FI)', \n     \n     object_localized_IFSEUProduct_nl_NL.headlineWeb As 'HeadLine Web (nl_NL)',\n     object_localized_IFSEUProduct_nl_NL.legalText As 'Legal Text (nl_NL)',\n     object_localized_IFSEUProduct_nl_NL.BrandShortText1 As 'Brand Short Text 1 (nl_NL)',\n     object_localized_IFSEUProduct_nl_NL.BrandShortText2 As 'Brand Short Text 2 (nl_NL)',  \n     object_localized_IFSEUProduct_nl_NL.Marking2 As 'Marking2 (nl_NL)',\n     object_localized_IFSEUProduct_nl_NL.searchKeywords As 'Search Keywords (nl_NL)',\n     object_localized_IFSEUProduct_nl_NL.commercialDescription As 'Commercial Description (nl_NL)',\n     object_localized_IFSEUProduct_nl_NL.technicalDescription As 'Technical Description (nl_NL)',\n     object_localized_IFSEUProduct_nl_NL.sapDescription As 'SAP Description (nl_NL)',\n     object_localized_IFSEUProduct_nl_NL.shippingConditions As 'Shipping Conditions (nl_NL)',\n     object_localized_IFSEUProduct_nl_NL.Conditions As 'Conditions (nl_NL)',\n     object_localized_IFSEUProduct_nl_NL.manufacturingLength As 'Manufacturing Length (nl_NL)', \n     object_localized_IFSEUProduct_nl_NL.minimumOrder As 'Minimum Order (nl_NL)', \n     \n     object_localized_IFSEUProduct_nn_NO.headlineWeb As 'HeadLine Web (nn_NO)',\n     object_localized_IFSEUProduct_nn_NO.legalText As 'Legal Text (nn_NO)',\n     object_localized_IFSEUProduct_nn_NO.BrandShortText1 As 'Brand Short Text 1 (nn_NO)',\n     object_localized_IFSEUProduct_nn_NO.BrandShortText2 As 'Brand Short Text 2 (nn_NO)',  \n     object_localized_IFSEUProduct_nn_NO.Marking2 As 'Marking2 (nn_NO)',\n     object_localized_IFSEUProduct_nn_NO.searchKeywords As 'Search Keywords (nn_NO)',\n     object_localized_IFSEUProduct_nn_NO.commercialDescription As 'Commercial Description (nn_NO)',\n     object_localized_IFSEUProduct_nn_NO.technicalDescription As 'Technical Description (nn_NO)',\n     object_localized_IFSEUProduct_nn_NO.sapDescription As 'SAP Description (nn_NO)',\n     object_localized_IFSEUProduct_nn_NO.shippingConditions As 'Shipping Conditions (nn_NO)',\n     object_localized_IFSEUProduct_nn_NO.Conditions As 'Conditions (nn_NO)',\n     object_localized_IFSEUProduct_nn_NO.manufacturingLength As 'Manufacturing Length (nn_NO)', \n     object_localized_IFSEUProduct_nn_NO.minimumOrder As 'Minimum Order (nn_NO)', \n     \n     object_localized_IFSEUProduct_pl_PL.headlineWeb As 'HeadLine Web (pl_PL)',\n     object_localized_IFSEUProduct_pl_PL.legalText As 'Legal Text (pl_PL)',\n     object_localized_IFSEUProduct_pl_PL.BrandShortText1 As 'Brand Short Text 1 (pl_PL)',\n     object_localized_IFSEUProduct_pl_PL.BrandShortText2 As 'Brand Short Text 2 (pl_PL)',  \n     object_localized_IFSEUProduct_pl_PL.Marking2 As 'Marking2 (pl_PL)',\n     object_localized_IFSEUProduct_pl_PL.searchKeywords As 'Search Keywords (pl_PL)',\n     object_localized_IFSEUProduct_pl_PL.commercialDescription As 'Commercial Description (pl_PL)',\n     object_localized_IFSEUProduct_pl_PL.technicalDescription As 'Technical Description (pl_PL)',\n     object_localized_IFSEUProduct_pl_PL.sapDescription As 'SAP Description (pl_PL)',\n     object_localized_IFSEUProduct_pl_PL.shippingConditions As 'Shipping Conditions (pl_PL)',\n     object_localized_IFSEUProduct_pl_PL.Conditions As 'Conditions (pl_PL)',\n     object_localized_IFSEUProduct_pl_PL.manufacturingLength As 'Manufacturing Length (pl_PL)', \n     object_localized_IFSEUProduct_pl_PL.minimumOrder As 'Minimum Order (pl_PL)', \n     \n     object_localized_IFSEUProduct_sv_SE.headlineWeb As 'HeadLine Web  (sv_SE)',\n     object_localized_IFSEUProduct_sv_SE.legalText As 'Legal Text  (sv_SE)',\n     object_localized_IFSEUProduct_sv_SE.BrandShortText1 As 'Brand Short Text 1  (sv_SE)',\n     object_localized_IFSEUProduct_sv_SE.BrandShortText2 As 'Brand Short Text 2  (sv_SE)',  \n     object_localized_IFSEUProduct_sv_SE.Marking2 As 'Marking2  (sv_SE)',\n     object_localized_IFSEUProduct_sv_SE.searchKeywords As 'Search Keywords  (sv_SE)',\n     object_localized_IFSEUProduct_sv_SE.commercialDescription As 'Commercial Description  (sv_SE)',\n     object_localized_IFSEUProduct_sv_SE.technicalDescription As 'Technical Description  (sv_SE)',\n     object_localized_IFSEUProduct_sv_SE.sapDescription As 'SAP Description  (sv_SE)',\n     object_localized_IFSEUProduct_sv_SE.shippingConditions As 'Shipping Conditions  (sv_SE)',\n     object_localized_IFSEUProduct_sv_SE.Conditions As 'Conditions  (sv_SE)',\n     object_localized_IFSEUProduct_sv_SE.manufacturingLength As 'Manufacturing Length  (sv_SE)', \n     object_localized_IFSEUProduct_sv_SE.minimumOrder As 'Minimum Order  (sv_SE)', \n     \n     object_localized_IFSEUProduct_en_GB.headlineWeb As 'HeadLine Web  (en_GB)',\n     object_localized_IFSEUProduct_en_GB.legalText As 'Legal Text  (en_GB)',\n     object_localized_IFSEUProduct_en_GB.BrandShortText1 As 'Brand Short Text 1  (en_GB)',\n     object_localized_IFSEUProduct_en_GB.BrandShortText2 As 'Brand Short Text 2  (en_GB)',  \n     object_localized_IFSEUProduct_en_GB.Marking2 As 'Marking2  (en_GB)',\n     object_localized_IFSEUProduct_en_GB.searchKeywords As 'Search Keywords  (en_GB)',\n     object_localized_IFSEUProduct_en_GB.commercialDescription As 'Commercial Description  (en_GB)',\n     object_localized_IFSEUProduct_en_GB.technicalDescription As 'Technical Description  (en_GB)',\n     object_localized_IFSEUProduct_en_GB.sapDescription As 'SAP Description  (en_GB)',\n     object_localized_IFSEUProduct_en_GB.shippingConditions As 'Shipping Conditions  (en_GB)',\n     object_localized_IFSEUProduct_en_GB.Conditions As 'Conditions  (en_GB)',\n     object_localized_IFSEUProduct_en_GB.manufacturingLength As 'Manufacturing Length  (en_GB)', \n     object_localized_IFSEUProduct_en_GB.minimumOrder As 'Minimum Order  (en_GB)'",
+                "sql" => "SELECT \nobject_localized_IFSEUProduct_en.oo_id As ' Id',\n\n     object_localized_IFSEUProduct_en.headlineWeb As 'HeadLine Web',\n     object_localized_IFSEUProduct_en.productBrandNamePerLanguage As 'Product Brand Name Per Language',\n     object_localized_IFSEUProduct_en.Marking1 As 'Marking 1',\n     object_localized_IFSEUProduct_en.BrandShortText2 As 'Brand Short Text 2',  \n     object_localized_IFSEUProduct_en.Marking2 As 'Marking2',\n     object_localized_IFSEUProduct_en.searchKeywords As 'Search Keywords',\n     object_localized_IFSEUProduct_en.Note2InformationBelowTable As 'Note 2 ( Information Below Table)',\n     object_localized_IFSEUProduct_en.commercialDescription As 'Commercial Description',\n     object_localized_IFSEUProduct_en.technicalDescription As 'Technical Description',\n     object_localized_IFSEUProduct_en.sapDescription As 'SAP Description',\n     object_localized_IFSEUProduct_en.shippingConditions As 'Shipping Conditions',\n     object_localized_IFSEUProduct_en.Conditions As 'Conditions',\n     object_localized_IFSEUProduct_en.manufacturingLength As 'Manufacturing Length', \n     object_localized_IFSEUProduct_en.minimumOrder As 'Minimum Order', \n     \n     object_localized_IFSEUProduct_de.headlineWeb As 'HeadLine Web (de)',\n     object_localized_IFSEUProduct_de.productBrandNamePerLanguage As 'Product Brand Name Per Language (de)',\n     object_localized_IFSEUProduct_de.Marking1 As 'Marking 1 (de)',\n     object_localized_IFSEUProduct_de.BrandShortText2 As 'Brand Short Text 2 (de)',  \n     object_localized_IFSEUProduct_de.Marking2 As 'Marking2 (de)',\n     object_localized_IFSEUProduct_de.searchKeywords As 'Search Keywords (de)',\n     object_localized_IFSEUProduct_de.Note2InformationBelowTable As 'Note 2 ( Information Below Table) (de)',\n     object_localized_IFSEUProduct_de.commercialDescription As 'Commercial Description (de)',\n     object_localized_IFSEUProduct_de.technicalDescription As 'Technical Description (de)',\n     object_localized_IFSEUProduct_de.sapDescription As 'SAP Description (de)',\n     object_localized_IFSEUProduct_de.shippingConditions As 'Shipping Conditions (de)',\n     object_localized_IFSEUProduct_de.Conditions As 'Conditions (de)',\n     object_localized_IFSEUProduct_de.manufacturingLength As 'Manufacturing Length (de)', \n     object_localized_IFSEUProduct_de.minimumOrder As 'Minimum Order (de)', \n     \n     object_localized_IFSEUProduct_da.headlineWeb As 'HeadLine Web (da)',\n     object_localized_IFSEUProduct_da.productBrandNamePerLanguage As 'Product Brand Name Per Language (da)',\n     object_localized_IFSEUProduct_da.Marking1 As 'Marking 1 (da)',\n     object_localized_IFSEUProduct_da.BrandShortText2 As 'Brand Short Text 2 (da)',  \n     object_localized_IFSEUProduct_da.Marking2 As 'Marking2 (da)',\n     object_localized_IFSEUProduct_da.searchKeywords As 'Search Keywords (da)',\n     object_localized_IFSEUProduct_da.Note2InformationBelowTable As 'Note 2 ( Information Below Table) (da)',\n     object_localized_IFSEUProduct_da.commercialDescription As 'Commercial Description (da)',\n     object_localized_IFSEUProduct_da.technicalDescription As 'Technical Description (da)',\n     object_localized_IFSEUProduct_da.sapDescription As 'SAP Description (da)',\n     object_localized_IFSEUProduct_da.shippingConditions As 'Shipping Conditions (da)',\n     object_localized_IFSEUProduct_da.Conditions As 'Conditions (da)',\n     object_localized_IFSEUProduct_da.manufacturingLength As 'Manufacturing Length (da)', \n     object_localized_IFSEUProduct_da.minimumOrder As 'Minimum Order (da)', \n   \n     object_localized_IFSEUProduct_es.headlineWeb As 'HeadLine Web (es)',\n     object_localized_IFSEUProduct_es.productBrandNamePerLanguage As 'Product Brand Name Per Language (es)',\n     object_localized_IFSEUProduct_es.Marking1 As 'Marking 1 (es)',\n     object_localized_IFSEUProduct_es.BrandShortText2 As 'Brand Short Text 2 (es)',  \n     object_localized_IFSEUProduct_es.Marking2 As 'Marking2 (es)',\n     object_localized_IFSEUProduct_es.searchKeywords As 'Search Keywords (es)',\n     object_localized_IFSEUProduct_es.Note2InformationBelowTable As 'Note 2 ( Information Below Table) (es)',\n     object_localized_IFSEUProduct_es.commercialDescription As 'Commercial Description (es)',\n     object_localized_IFSEUProduct_es.technicalDescription As 'Technical Description (es)',\n     object_localized_IFSEUProduct_es.sapDescription As 'SAP Description (es)',\n     object_localized_IFSEUProduct_es.shippingConditions As 'Shipping Conditions (es)',\n     object_localized_IFSEUProduct_es.Conditions As 'Conditions (es)',\n     object_localized_IFSEUProduct_es.manufacturingLength As 'Manufacturing Length (es)', \n     object_localized_IFSEUProduct_es.minimumOrder As 'Minimum Order (es)', \n    \n     object_localized_IFSEUProduct_fr.headlineWeb As 'HeadLine Web (fr)',\n     object_localized_IFSEUProduct_fr.productBrandNamePerLanguage As 'Product Brand Name Per Language (fr)',\n     object_localized_IFSEUProduct_fr.Marking1 As 'Marking 1 (fr)',\n     object_localized_IFSEUProduct_fr.BrandShortText2 As 'Brand Short Text 2 (fr)',  \n     object_localized_IFSEUProduct_fr.Marking2 As 'Marking2 (fr)',\n     object_localized_IFSEUProduct_fr.searchKeywords As 'Search Keywords (fr)',\n     object_localized_IFSEUProduct_fr.Note2InformationBelowTable As 'Note 2 ( Information Below Table) (fr)',\n     object_localized_IFSEUProduct_fr.commercialDescription As 'Commercial Description (fr)',\n     object_localized_IFSEUProduct_fr.technicalDescription As 'Technical Description (fr)',\n     object_localized_IFSEUProduct_fr.sapDescription As 'SAP Description (fr)',\n     object_localized_IFSEUProduct_fr.shippingConditions As 'Shipping Conditions (fr)',\n     object_localized_IFSEUProduct_fr.Conditions As 'Conditions (fr)',\n     object_localized_IFSEUProduct_fr.manufacturingLength As 'Manufacturing Length (fr)', \n     object_localized_IFSEUProduct_fr.minimumOrder As 'Minimum Order (fr)', \n     \n     object_localized_IFSEUProduct_it_IT.headlineWeb As 'HeadLine Web (it)',\n     object_localized_IFSEUProduct_it_IT.productBrandNamePerLanguage As 'Product Brand Name Per Language (it)',\n     object_localized_IFSEUProduct_it_IT.Marking1 As 'Marking 1 (it)',\n     object_localized_IFSEUProduct_it_IT.BrandShortText2 As 'Brand Short Text 2 (it)',  \n     object_localized_IFSEUProduct_it_IT.Marking2 As 'Marking2 (it)',\n     object_localized_IFSEUProduct_it_IT.searchKeywords As 'Search Keywords (it)',\n     object_localized_IFSEUProduct_it_IT.Note2InformationBelowTable As 'Note 2 ( Information Below Table) (it)',\n     object_localized_IFSEUProduct_it_IT.commercialDescription As 'Commercial Description (it)',\n     object_localized_IFSEUProduct_it_IT.technicalDescription As 'Technical Description (it)',\n     object_localized_IFSEUProduct_it_IT.sapDescription As 'SAP Description (it)',\n     object_localized_IFSEUProduct_it_IT.shippingConditions As 'Shipping Conditions (it)',\n     object_localized_IFSEUProduct_it_IT.Conditions As 'Conditions (it)',\n     object_localized_IFSEUProduct_it_IT.manufacturingLength As 'Manufacturing Length (it)', \n     object_localized_IFSEUProduct_it_IT.minimumOrder As 'Minimum Order (it)', \n     \n     object_localized_IFSEUProduct_pt.headlineWeb As 'HeadLine Web (pt)',\n     object_localized_IFSEUProduct_pt.productBrandNamePerLanguage As 'Product Brand Name Per Language (pt)',\n     object_localized_IFSEUProduct_pt.Marking1 As 'Marking 1 (pt)',\n     object_localized_IFSEUProduct_pt.BrandShortText2 As 'Brand Short Text 2 (pt)',  \n     object_localized_IFSEUProduct_pt.Marking2 As 'Marking2 (pt)',\n     object_localized_IFSEUProduct_pt.searchKeywords As 'Search Keywords (pt)',\n     object_localized_IFSEUProduct_pt.Note2InformationBelowTable As 'Note 2 ( Information Below Table) (pt)',\n     object_localized_IFSEUProduct_pt.commercialDescription As 'Commercial Description (pt)',\n     object_localized_IFSEUProduct_pt.technicalDescription As 'Technical Description (pt)',\n     object_localized_IFSEUProduct_pt.sapDescription As 'SAP Description (pt)',\n     object_localized_IFSEUProduct_pt.shippingConditions As 'Shipping Conditions (pt)',\n     object_localized_IFSEUProduct_pt.Conditions As 'Conditions (pt)',\n     object_localized_IFSEUProduct_pt.manufacturingLength As 'Manufacturing Length (pt)', \n     object_localized_IFSEUProduct_pt.minimumOrder As 'Minimum Order (pt)', \n     \n     object_localized_IFSEUProduct_ru_RU.headlineWeb As 'HeadLine Web (ru_RU)',\n     object_localized_IFSEUProduct_ru_RU.productBrandNamePerLanguage As 'Product Brand Name Per Language (ru_RU)',\n     object_localized_IFSEUProduct_ru_RU.Marking1 As 'Marking 1 (ru_RU)',\n     object_localized_IFSEUProduct_ru_RU.BrandShortText2 As 'Brand Short Text 2 (ru_RU)',  \n     object_localized_IFSEUProduct_ru_RU.Marking2 As 'Marking2 (ru_RU)',\n     object_localized_IFSEUProduct_ru_RU.searchKeywords As 'Search Keywords (ru_RU)',\n     object_localized_IFSEUProduct_ru_RU.Note2InformationBelowTable As 'Note 2 ( Information Below Table) (ru_RU)',\n     object_localized_IFSEUProduct_ru_RU.commercialDescription As 'Commercial Description (ru_RU)',\n     object_localized_IFSEUProduct_ru_RU.technicalDescription As 'Technical Description (ru_RU)',\n     object_localized_IFSEUProduct_ru_RU.sapDescription As 'SAP Description (ru_RU)',\n     object_localized_IFSEUProduct_ru_RU.shippingConditions As 'Shipping Conditions (ru_RU)',\n     object_localized_IFSEUProduct_ru_RU.Conditions As 'Conditions (ru_RU)',\n     object_localized_IFSEUProduct_ru_RU.manufacturingLength As 'Manufacturing Length (ru_RU)', \n     object_localized_IFSEUProduct_ru_RU.minimumOrder As 'Minimum Order (ru_RU)', \n     \n     object_localized_IFSEUProduct_zh.headlineWeb As 'HeadLine Web (zh)',\n     object_localized_IFSEUProduct_zh.productBrandNamePerLanguage As 'Product Brand Name Per Language (zh)',\n     object_localized_IFSEUProduct_zh.Marking1 As 'Marking 1 (zh)',\n     object_localized_IFSEUProduct_zh.BrandShortText2 As 'Brand Short Text 2 (zh)',  \n     object_localized_IFSEUProduct_zh.Marking2 As 'Marking2 (zh)',\n     object_localized_IFSEUProduct_zh.searchKeywords As 'Search Keywords (zh)',\n     object_localized_IFSEUProduct_zh.Note2InformationBelowTable As 'Note 2 ( Information Below Table) (zh)',\n     object_localized_IFSEUProduct_zh.commercialDescription As 'Commercial Description (zh)',\n     object_localized_IFSEUProduct_zh.technicalDescription As 'Technical Description (zh)',\n     object_localized_IFSEUProduct_zh.sapDescription As 'SAP Description (zh)',\n     object_localized_IFSEUProduct_zh.shippingConditions As 'Shipping Conditions (zh)',\n     object_localized_IFSEUProduct_zh.Conditions As 'Conditions (zh)',\n     object_localized_IFSEUProduct_zh.manufacturingLength As 'Manufacturing Length (zh)', \n     object_localized_IFSEUProduct_zh.minimumOrder As 'Minimum Order (zh)', \n     \n     object_localized_IFSEUProduct_fi_FI.headlineWeb As 'HeadLine Web (fi_FI)',\n     object_localized_IFSEUProduct_fi_FI.productBrandNamePerLanguage As 'Product Brand Name Per Language (fi_FI)',\n     object_localized_IFSEUProduct_fi_FI.Marking1 As 'Marking 1 (fi_FI)',\n     object_localized_IFSEUProduct_fi_FI.BrandShortText2 As 'Brand Short Text 2 (fi_FI)',  \n     object_localized_IFSEUProduct_fi_FI.Marking2 As 'Marking2 (fi_FI)',\n     object_localized_IFSEUProduct_fi_FI.searchKeywords As 'Search Keywords (fi_FI)',\n     object_localized_IFSEUProduct_fi_FI.Note2InformationBelowTable As 'Note 2 ( Information Below Table) (fi_FI)',\n     object_localized_IFSEUProduct_fi_FI.commercialDescription As 'Commercial Description (fi_FI)',\n     object_localized_IFSEUProduct_fi_FI.technicalDescription As 'Technical Description (fi_FI)',\n     object_localized_IFSEUProduct_fi_FI.sapDescription As 'SAP Description (fi_FI)',\n     object_localized_IFSEUProduct_fi_FI.shippingConditions As 'Shipping Conditions (fi_FI)',\n     object_localized_IFSEUProduct_fi_FI.Conditions As 'Conditions (fi_FI)',\n     object_localized_IFSEUProduct_fi_FI.manufacturingLength As 'Manufacturing Length (fi_FI)', \n     object_localized_IFSEUProduct_fi_FI.minimumOrder As 'Minimum Order (fi_FI)', \n     \n     object_localized_IFSEUProduct_nl_NL.headlineWeb As 'HeadLine Web (nl_NL)',\n     object_localized_IFSEUProduct_nl_NL.productBrandNamePerLanguage As 'Product Brand Name Per Language (nl_NL)',\n     object_localized_IFSEUProduct_nl_NL.Marking1 As 'Marking 1 (nl_NL)',\n     object_localized_IFSEUProduct_nl_NL.BrandShortText2 As 'Brand Short Text 2 (nl_NL)',  \n     object_localized_IFSEUProduct_nl_NL.Marking2 As 'Marking2 (nl_NL)',\n     object_localized_IFSEUProduct_nl_NL.searchKeywords As 'Search Keywords (nl_NL)',\n     object_localized_IFSEUProduct_nl_NL.Note2InformationBelowTable As 'Note 2 ( Information Below Table) (nl_NL)',\n     object_localized_IFSEUProduct_nl_NL.commercialDescription As 'Commercial Description (nl_NL)',\n     object_localized_IFSEUProduct_nl_NL.technicalDescription As 'Technical Description (nl_NL)',\n     object_localized_IFSEUProduct_nl_NL.sapDescription As 'SAP Description (nl_NL)',\n     object_localized_IFSEUProduct_nl_NL.shippingConditions As 'Shipping Conditions (nl_NL)',\n     object_localized_IFSEUProduct_nl_NL.Conditions As 'Conditions (nl_NL)',\n     object_localized_IFSEUProduct_nl_NL.manufacturingLength As 'Manufacturing Length (nl_NL)', \n     object_localized_IFSEUProduct_nl_NL.minimumOrder As 'Minimum Order (nl_NL)', \n     \n     object_localized_IFSEUProduct_nn_NO.headlineWeb As 'HeadLine Web (nn_NO)',\n     object_localized_IFSEUProduct_nn_NO.productBrandNamePerLanguage As 'Product Brand Name Per Language (nn_NO)',\n     object_localized_IFSEUProduct_nn_NO.Marking1 As 'Marking 1 (nn_NO)',\n     object_localized_IFSEUProduct_nn_NO.BrandShortText2 As 'Brand Short Text 2 (nn_NO)',  \n     object_localized_IFSEUProduct_nn_NO.Marking2 As 'Marking2 (nn_NO)',\n     object_localized_IFSEUProduct_nn_NO.searchKeywords As 'Search Keywords (nn_NO)',\n     object_localized_IFSEUProduct_nn_NO.Note2InformationBelowTable As 'Note 2 ( Information Below Table) (nn_NO)',\n     object_localized_IFSEUProduct_nn_NO.commercialDescription As 'Commercial Description (nn_NO)',\n     object_localized_IFSEUProduct_nn_NO.technicalDescription As 'Technical Description (nn_NO)',\n     object_localized_IFSEUProduct_nn_NO.sapDescription As 'SAP Description (nn_NO)',\n     object_localized_IFSEUProduct_nn_NO.shippingConditions As 'Shipping Conditions (nn_NO)',\n     object_localized_IFSEUProduct_nn_NO.Conditions As 'Conditions (nn_NO)',\n     object_localized_IFSEUProduct_nn_NO.manufacturingLength As 'Manufacturing Length (nn_NO)', \n     object_localized_IFSEUProduct_nn_NO.minimumOrder As 'Minimum Order (nn_NO)', \n     \n     object_localized_IFSEUProduct_pl_PL.headlineWeb As 'HeadLine Web (pl_PL)',\n     object_localized_IFSEUProduct_pl_PL.productBrandNamePerLanguage As 'Product Brand Name Per Language (pl_PL)',\n     object_localized_IFSEUProduct_pl_PL.Marking1 As 'Marking 1 (pl_PL)',\n     object_localized_IFSEUProduct_pl_PL.BrandShortText2 As 'Brand Short Text 2 (pl_PL)',  \n     object_localized_IFSEUProduct_pl_PL.Marking2 As 'Marking2 (pl_PL)',\n     object_localized_IFSEUProduct_pl_PL.searchKeywords As 'Search Keywords (pl_PL)',\n     object_localized_IFSEUProduct_pl_PL.Note2InformationBelowTable As 'Note 2 ( Information Below Table) (pl_PL)',\n     object_localized_IFSEUProduct_pl_PL.commercialDescription As 'Commercial Description (pl_PL)',\n     object_localized_IFSEUProduct_pl_PL.technicalDescription As 'Technical Description (pl_PL)',\n     object_localized_IFSEUProduct_pl_PL.sapDescription As 'SAP Description (pl_PL)',\n     object_localized_IFSEUProduct_pl_PL.shippingConditions As 'Shipping Conditions (pl_PL)',\n     object_localized_IFSEUProduct_pl_PL.Conditions As 'Conditions (pl_PL)',\n     object_localized_IFSEUProduct_pl_PL.manufacturingLength As 'Manufacturing Length (pl_PL)', \n     object_localized_IFSEUProduct_pl_PL.minimumOrder As 'Minimum Order (pl_PL)', \n     \n     object_localized_IFSEUProduct_sv_SE.headlineWeb As 'HeadLine Web  (sv_SE)',\n     object_localized_IFSEUProduct_sv_SE.productBrandNamePerLanguage As 'Product Brand Name Per Language  (sv_SE)',\n     object_localized_IFSEUProduct_sv_SE.Marking1 As 'Marking 1  (sv_SE)',\n     object_localized_IFSEUProduct_sv_SE.BrandShortText2 As 'Brand Short Text 2  (sv_SE)',  \n     object_localized_IFSEUProduct_sv_SE.Marking2 As 'Marking2  (sv_SE)',\n     object_localized_IFSEUProduct_sv_SE.searchKeywords As 'Search Keywords  (sv_SE)',\n     object_localized_IFSEUProduct_sv_SE.Note2InformationBelowTable As 'Note 2 ( Information Below Table)  (sv_SE)',\n     object_localized_IFSEUProduct_sv_SE.commercialDescription As 'Commercial Description  (sv_SE)',\n     object_localized_IFSEUProduct_sv_SE.technicalDescription As 'Technical Description  (sv_SE)',\n     object_localized_IFSEUProduct_sv_SE.sapDescription As 'SAP Description  (sv_SE)',\n     object_localized_IFSEUProduct_sv_SE.shippingConditions As 'Shipping Conditions  (sv_SE)',\n     object_localized_IFSEUProduct_sv_SE.Conditions As 'Conditions  (sv_SE)',\n     object_localized_IFSEUProduct_sv_SE.manufacturingLength As 'Manufacturing Length  (sv_SE)', \n     object_localized_IFSEUProduct_sv_SE.minimumOrder As 'Minimum Order  (sv_SE)', \n     \n     object_localized_IFSEUProduct_en_GB.headlineWeb As 'HeadLine Web  (en_GB)',\n     object_localized_IFSEUProduct_en_GB.productBrandNamePerLanguage As 'Product Brand Name Per Language  (en_GB)',\n     object_localized_IFSEUProduct_en_GB.Marking1 As 'Marking 1  (en_GB)',\n     object_localized_IFSEUProduct_en_GB.BrandShortText2 As 'Brand Short Text 2  (en_GB)',  \n     object_localized_IFSEUProduct_en_GB.Marking2 As 'Marking2  (en_GB)',\n     object_localized_IFSEUProduct_en_GB.searchKeywords As 'Search Keywords  (en_GB)',\n     object_localized_IFSEUProduct_en_GB.Note2InformationBelowTable As 'Note 2 ( Information Below Table)  (en_GB)',\n     object_localized_IFSEUProduct_en_GB.commercialDescription As 'Commercial Description  (en_GB)',\n     object_localized_IFSEUProduct_en_GB.technicalDescription As 'Technical Description  (en_GB)',\n     object_localized_IFSEUProduct_en_GB.sapDescription As 'SAP Description  (en_GB)',\n     object_localized_IFSEUProduct_en_GB.shippingConditions As 'Shipping Conditions  (en_GB)',\n     object_localized_IFSEUProduct_en_GB.Conditions As 'Conditions  (en_GB)',\n     object_localized_IFSEUProduct_en_GB.manufacturingLength As 'Manufacturing Length  (en_GB)', \n     object_localized_IFSEUProduct_en_GB.minimumOrder As 'Minimum Order  (en_GB)'",
                 "from" => "FROM  object_localized_IFSEUProduct_en\n    INNER JOIN  object_localized_IFSEUProduct_de ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_de.oo_id\n    INNER JOIN  object_localized_IFSEUProduct_da ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_da.oo_id\n    INNER JOIN  object_localized_IFSEUProduct_es ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_es.oo_id\n    INNER JOIN  object_localized_IFSEUProduct_fr ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_fr.oo_id  \n    INNER JOIN  object_localized_IFSEUProduct_it_IT ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_it_IT.oo_id\n    INNER JOIN  object_localized_IFSEUProduct_pt ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_pt.oo_id\n    INNER JOIN  object_localized_IFSEUProduct_ru_RU ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_ru_RU.oo_id\n    INNER JOIN  object_localized_IFSEUProduct_zh ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_zh.oo_id\n    INNER JOIN  object_localized_IFSEUProduct_fi_FI ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_fi_FI.oo_id\n    INNER JOIN  object_localized_IFSEUProduct_nl_NL ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_nl_NL.oo_id\n    INNER JOIN  object_localized_IFSEUProduct_nn_NO ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_nn_NO.oo_id\n    INNER JOIN  object_localized_IFSEUProduct_pl_PL ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_pl_PL.oo_id\n    INNER JOIN  object_localized_IFSEUProduct_sv_SE ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_sv_SE.oo_id\n    INNER JOIN  object_localized_IFSEUProduct_en_GB ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_en_GB.oo_id",
-                "where" => "WHERE\n    (\n\t \n    object_localized_IFSEUProduct_en.headlineWeb is null OR\n\t   object_localized_IFSEUProduct_en.legalText is null OR\n     object_localized_IFSEUProduct_en.BrandShortText1 is null OR\n     object_localized_IFSEUProduct_en.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_en.Marking2 is null OR \n     object_localized_IFSEUProduct_en.searchKeywords is null OR \n     object_localized_IFSEUProduct_en.commercialDescription is null OR \n     object_localized_IFSEUProduct_en.technicalDescription is null OR \n     object_localized_IFSEUProduct_en.sapDescription is null OR \n     object_localized_IFSEUProduct_en.shippingConditions is null OR \n     object_localized_IFSEUProduct_en.Conditions is null OR \n     object_localized_IFSEUProduct_en.manufacturingLength is null OR \n     object_localized_IFSEUProduct_en.minimumOrder is null OR \n     \n     object_localized_IFSEUProduct_de.headlineWeb is null OR\n\t   object_localized_IFSEUProduct_de.legalText is null OR\n     object_localized_IFSEUProduct_de.BrandShortText1 is null OR\n     object_localized_IFSEUProduct_de.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_de.Marking2 is null OR \n     object_localized_IFSEUProduct_de.searchKeywords is null OR \n     object_localized_IFSEUProduct_de.commercialDescription is null OR \n     object_localized_IFSEUProduct_de.technicalDescription is null OR \n     object_localized_IFSEUProduct_de.sapDescription is null OR \n     object_localized_IFSEUProduct_de.shippingConditions is null OR \n     object_localized_IFSEUProduct_de.Conditions is null OR \n     object_localized_IFSEUProduct_de.manufacturingLength is null OR \n     object_localized_IFSEUProduct_de.minimumOrder is null OR \n    \n     object_localized_IFSEUProduct_da.headlineWeb is null OR\n\t   object_localized_IFSEUProduct_da.legalText is null OR\n     object_localized_IFSEUProduct_da.BrandShortText1 is null OR\n     object_localized_IFSEUProduct_da.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_da.Marking2 is null OR \n     object_localized_IFSEUProduct_da.searchKeywords is null OR \n     object_localized_IFSEUProduct_da.commercialDescription is null OR \n     object_localized_IFSEUProduct_da.technicalDescription is null OR \n     object_localized_IFSEUProduct_da.sapDescription is null OR \n     object_localized_IFSEUProduct_da.shippingConditions is null OR \n     object_localized_IFSEUProduct_da.Conditions is null OR \n     object_localized_IFSEUProduct_da.manufacturingLength is null OR \n     object_localized_IFSEUProduct_da.minimumOrder is null OR \n    \n     object_localized_IFSEUProduct_es.headlineWeb is null OR\n\t   object_localized_IFSEUProduct_es.legalText is null OR\n     object_localized_IFSEUProduct_es.BrandShortText1 is null OR\n     object_localized_IFSEUProduct_es.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_es.Marking2 is null OR \n     object_localized_IFSEUProduct_es.searchKeywords is null OR \n     object_localized_IFSEUProduct_es.commercialDescription is null OR \n     object_localized_IFSEUProduct_es.technicalDescription is null OR \n     object_localized_IFSEUProduct_es.sapDescription is null OR \n     object_localized_IFSEUProduct_es.shippingConditions is null OR \n     object_localized_IFSEUProduct_es.Conditions is null OR \n     object_localized_IFSEUProduct_es.manufacturingLength is null OR \n     object_localized_IFSEUProduct_es.minimumOrder is null OR \n     \n     object_localized_IFSEUProduct_fr.headlineWeb is null OR\n\t   object_localized_IFSEUProduct_fr.legalText is null OR\n     object_localized_IFSEUProduct_fr.BrandShortText1 is null OR\n     object_localized_IFSEUProduct_fr.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_fr.Marking2 is null OR \n     object_localized_IFSEUProduct_fr.searchKeywords is null OR \n     object_localized_IFSEUProduct_fr.commercialDescription is null OR \n     object_localized_IFSEUProduct_fr.technicalDescription is null OR \n     object_localized_IFSEUProduct_fr.sapDescription is null OR \n     object_localized_IFSEUProduct_fr.shippingConditions is null OR \n     object_localized_IFSEUProduct_fr.Conditions is null OR \n     object_localized_IFSEUProduct_fr.manufacturingLength is null OR \n     object_localized_IFSEUProduct_fr.minimumOrder is null OR \n     \n     object_localized_IFSEUProduct_it_IT.headlineWeb is null OR\n\t   object_localized_IFSEUProduct_it_IT.legalText is null OR\n     object_localized_IFSEUProduct_it_IT.BrandShortText1 is null OR\n     object_localized_IFSEUProduct_it_IT.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_it_IT.Marking2 is null OR \n     object_localized_IFSEUProduct_it_IT.searchKeywords is null OR \n     object_localized_IFSEUProduct_it_IT.commercialDescription is null OR \n     object_localized_IFSEUProduct_it_IT.technicalDescription is null OR \n     object_localized_IFSEUProduct_it_IT.sapDescription is null OR \n     object_localized_IFSEUProduct_it_IT.shippingConditions is null OR \n     object_localized_IFSEUProduct_it_IT.Conditions is null OR \n     object_localized_IFSEUProduct_it_IT.manufacturingLength is null OR \n     object_localized_IFSEUProduct_it_IT.minimumOrder is null OR \n    \n     object_localized_IFSEUProduct_pt.headlineWeb is null OR\n\t   object_localized_IFSEUProduct_pt.legalText is null OR\n     object_localized_IFSEUProduct_pt.BrandShortText1 is null OR\n     object_localized_IFSEUProduct_pt.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_pt.Marking2 is null OR \n     object_localized_IFSEUProduct_pt.searchKeywords is null OR \n     object_localized_IFSEUProduct_pt.commercialDescription is null OR \n     object_localized_IFSEUProduct_pt.technicalDescription is null OR \n     object_localized_IFSEUProduct_pt.sapDescription is null OR \n     object_localized_IFSEUProduct_pt.shippingConditions is null OR \n     object_localized_IFSEUProduct_pt.Conditions is null OR \n     object_localized_IFSEUProduct_pt.manufacturingLength is null OR \n     object_localized_IFSEUProduct_pt.minimumOrder is null OR \n     \n     object_localized_IFSEUProduct_ru_RU.headlineWeb is null OR\n\t   object_localized_IFSEUProduct_ru_RU.legalText is null OR\n     object_localized_IFSEUProduct_ru_RU.BrandShortText1 is null OR\n     object_localized_IFSEUProduct_ru_RU.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_ru_RU.Marking2 is null OR \n     object_localized_IFSEUProduct_ru_RU.searchKeywords is null OR \n     object_localized_IFSEUProduct_ru_RU.commercialDescription is null OR \n     object_localized_IFSEUProduct_ru_RU.technicalDescription is null OR \n     object_localized_IFSEUProduct_ru_RU.sapDescription is null OR \n     object_localized_IFSEUProduct_ru_RU.shippingConditions is null OR \n     object_localized_IFSEUProduct_ru_RU.Conditions is null OR \n     object_localized_IFSEUProduct_ru_RU.manufacturingLength is null OR \n     object_localized_IFSEUProduct_ru_RU.minimumOrder is null OR \n    \n     object_localized_IFSEUProduct_zh.headlineWeb is null OR\n\t   object_localized_IFSEUProduct_zh.legalText is null OR\n     object_localized_IFSEUProduct_zh.BrandShortText1 is null OR\n     object_localized_IFSEUProduct_zh.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_zh.Marking2 is null OR \n     object_localized_IFSEUProduct_zh.searchKeywords is null OR \n     object_localized_IFSEUProduct_zh.commercialDescription is null OR \n     object_localized_IFSEUProduct_zh.technicalDescription is null OR \n     object_localized_IFSEUProduct_zh.sapDescription is null OR \n     object_localized_IFSEUProduct_zh.shippingConditions is null OR \n     object_localized_IFSEUProduct_zh.Conditions is null OR \n     object_localized_IFSEUProduct_zh.manufacturingLength is null OR \n     object_localized_IFSEUProduct_zh.minimumOrder is null OR \n\n     object_localized_IFSEUProduct_fi_FI.headlineWeb is null OR\n\t   object_localized_IFSEUProduct_fi_FI.legalText is null OR\n     object_localized_IFSEUProduct_fi_FI.BrandShortText1 is null OR\n     object_localized_IFSEUProduct_fi_FI.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_fi_FI.Marking2 is null OR \n     object_localized_IFSEUProduct_fi_FI.searchKeywords is null OR \n     object_localized_IFSEUProduct_fi_FI.commercialDescription is null OR \n     object_localized_IFSEUProduct_fi_FI.technicalDescription is null OR \n     object_localized_IFSEUProduct_fi_FI.sapDescription is null OR \n     object_localized_IFSEUProduct_fi_FI.shippingConditions is null OR \n     object_localized_IFSEUProduct_fi_FI.Conditions is null OR \n     object_localized_IFSEUProduct_fi_FI.manufacturingLength is null OR \n     object_localized_IFSEUProduct_fi_FI.minimumOrder is null OR \n     \n     object_localized_IFSEUProduct_nl_NL.headlineWeb is null OR\n\t   object_localized_IFSEUProduct_nl_NL.legalText is null OR\n     object_localized_IFSEUProduct_nl_NL.BrandShortText1 is null OR\n     object_localized_IFSEUProduct_nl_NL.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_nl_NL.Marking2 is null OR \n     object_localized_IFSEUProduct_nl_NL.searchKeywords is null OR \n     object_localized_IFSEUProduct_nl_NL.commercialDescription is null OR \n     object_localized_IFSEUProduct_nl_NL.technicalDescription is null OR \n     object_localized_IFSEUProduct_nl_NL.sapDescription is null OR \n     object_localized_IFSEUProduct_nl_NL.shippingConditions is null OR \n     object_localized_IFSEUProduct_nl_NL.Conditions is null OR \n     object_localized_IFSEUProduct_nl_NL.manufacturingLength is null OR \n     object_localized_IFSEUProduct_nl_NL.minimumOrder is null OR \n    \n     object_localized_IFSEUProduct_nn_NO.headlineWeb is null OR\n\t   object_localized_IFSEUProduct_nn_NO.legalText is null OR\n     object_localized_IFSEUProduct_nn_NO.BrandShortText1 is null OR\n     object_localized_IFSEUProduct_nn_NO.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_nn_NO.Marking2 is null OR \n     object_localized_IFSEUProduct_nn_NO.searchKeywords is null OR \n     object_localized_IFSEUProduct_nn_NO.commercialDescription is null OR \n     object_localized_IFSEUProduct_nn_NO.technicalDescription is null OR \n     object_localized_IFSEUProduct_nn_NO.sapDescription is null OR \n     object_localized_IFSEUProduct_nn_NO.shippingConditions is null OR \n     object_localized_IFSEUProduct_nn_NO.Conditions is null OR \n     object_localized_IFSEUProduct_nn_NO.manufacturingLength is null OR \n     object_localized_IFSEUProduct_nn_NO.minimumOrder is null OR \n    \n     object_localized_IFSEUProduct_pl_PL.headlineWeb is null OR\n\t   object_localized_IFSEUProduct_pl_PL.legalText is null OR\n     object_localized_IFSEUProduct_pl_PL.BrandShortText1 is null OR\n     object_localized_IFSEUProduct_pl_PL.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_pl_PL.Marking2 is null OR \n     object_localized_IFSEUProduct_pl_PL.searchKeywords is null OR \n     object_localized_IFSEUProduct_pl_PL.commercialDescription is null OR \n     object_localized_IFSEUProduct_pl_PL.technicalDescription is null OR \n     object_localized_IFSEUProduct_pl_PL.sapDescription is null OR \n     object_localized_IFSEUProduct_pl_PL.shippingConditions is null OR \n     object_localized_IFSEUProduct_pl_PL.Conditions is null OR \n     object_localized_IFSEUProduct_pl_PL.manufacturingLength is null OR \n     object_localized_IFSEUProduct_pl_PL.minimumOrder is null OR \n     \n     object_localized_IFSEUProduct_sv_SE.headlineWeb is null OR\n\t   object_localized_IFSEUProduct_sv_SE.legalText is null OR\n     object_localized_IFSEUProduct_sv_SE.BrandShortText1 is null OR\n     object_localized_IFSEUProduct_sv_SE.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_sv_SE.Marking2 is null OR \n     object_localized_IFSEUProduct_sv_SE.searchKeywords is null OR \n     object_localized_IFSEUProduct_sv_SE.commercialDescription is null OR \n     object_localized_IFSEUProduct_sv_SE.technicalDescription is null OR \n     object_localized_IFSEUProduct_sv_SE.sapDescription is null OR \n     object_localized_IFSEUProduct_sv_SE.shippingConditions is null OR \n     object_localized_IFSEUProduct_sv_SE.Conditions is null OR \n     object_localized_IFSEUProduct_sv_SE.manufacturingLength is null OR \n     object_localized_IFSEUProduct_sv_SE.minimumOrder is null OR \n    \n     object_localized_IFSEUProduct_en_GB.headlineWeb is null OR\n\t   object_localized_IFSEUProduct_en_GB.legalText is null OR\n     object_localized_IFSEUProduct_en_GB.BrandShortText1 is null OR\n     object_localized_IFSEUProduct_en_GB.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_en_GB.Marking2 is null OR \n     object_localized_IFSEUProduct_en_GB.searchKeywords is null OR \n     object_localized_IFSEUProduct_en_GB.commercialDescription is null OR \n     object_localized_IFSEUProduct_en_GB.technicalDescription is null OR \n     object_localized_IFSEUProduct_en_GB.sapDescription is null OR \n     object_localized_IFSEUProduct_en_GB.shippingConditions is null OR \n     object_localized_IFSEUProduct_en_GB.Conditions is null OR \n     object_localized_IFSEUProduct_en_GB.manufacturingLength is null OR \n     object_localized_IFSEUProduct_en_GB.minimumOrder is null\n    )",
+                "where" => "WHERE\n    (\n\t \n     object_localized_IFSEUProduct_en.headlineWeb is null OR\n     object_localized_IFSEUProduct_en.productBrandNamePerLanguage is null OR\n     object_localized_IFSEUProduct_en.Marking1 is null OR\n     object_localized_IFSEUProduct_en.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_en.Marking2 is null OR \n     object_localized_IFSEUProduct_en.searchKeywords is null OR \n     object_localized_IFSEUProduct_en.Note2InformationBelowTable is null OR\n     object_localized_IFSEUProduct_en.commercialDescription is null OR \n     object_localized_IFSEUProduct_en.technicalDescription is null OR \n     object_localized_IFSEUProduct_en.sapDescription is null OR \n     object_localized_IFSEUProduct_en.shippingConditions is null OR \n     object_localized_IFSEUProduct_en.Conditions is null OR \n     object_localized_IFSEUProduct_en.manufacturingLength is null OR \n     object_localized_IFSEUProduct_en.minimumOrder is null OR \n     \n     object_localized_IFSEUProduct_de.headlineWeb is null OR\n     object_localized_IFSEUProduct_de.productBrandNamePerLanguage is null OR\n     object_localized_IFSEUProduct_de.Marking1 is null OR\n     object_localized_IFSEUProduct_de.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_de.Marking2 is null OR \n     object_localized_IFSEUProduct_de.searchKeywords is null OR \n     object_localized_IFSEUProduct_de.Note2InformationBelowTable is null OR\n     object_localized_IFSEUProduct_de.commercialDescription is null OR \n     object_localized_IFSEUProduct_de.technicalDescription is null OR \n     object_localized_IFSEUProduct_de.sapDescription is null OR \n     object_localized_IFSEUProduct_de.shippingConditions is null OR \n     object_localized_IFSEUProduct_de.Conditions is null OR \n     object_localized_IFSEUProduct_de.manufacturingLength is null OR \n     object_localized_IFSEUProduct_de.minimumOrder is null OR \n    \n     object_localized_IFSEUProduct_da.headlineWeb is null OR\n     object_localized_IFSEUProduct_da.productBrandNamePerLanguage is null OR\n     object_localized_IFSEUProduct_da.Marking1 is null OR\n     object_localized_IFSEUProduct_da.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_da.Marking2 is null OR \n     object_localized_IFSEUProduct_da.searchKeywords is null OR \n     object_localized_IFSEUProduct_da.Note2InformationBelowTable is null OR\n     object_localized_IFSEUProduct_da.commercialDescription is null OR \n     object_localized_IFSEUProduct_da.technicalDescription is null OR \n     object_localized_IFSEUProduct_da.sapDescription is null OR \n     object_localized_IFSEUProduct_da.shippingConditions is null OR \n     object_localized_IFSEUProduct_da.Conditions is null OR \n     object_localized_IFSEUProduct_da.manufacturingLength is null OR \n     object_localized_IFSEUProduct_da.minimumOrder is null OR \n    \n     object_localized_IFSEUProduct_es.headlineWeb is null OR\n     object_localized_IFSEUProduct_es.productBrandNamePerLanguage is null OR\n     object_localized_IFSEUProduct_es.Marking1 is null OR\n     object_localized_IFSEUProduct_es.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_es.Marking2 is null OR \n     object_localized_IFSEUProduct_es.searchKeywords is null OR \n     object_localized_IFSEUProduct_es.Note2InformationBelowTable is null OR\n     object_localized_IFSEUProduct_es.commercialDescription is null OR \n     object_localized_IFSEUProduct_es.technicalDescription is null OR \n     object_localized_IFSEUProduct_es.sapDescription is null OR \n     object_localized_IFSEUProduct_es.shippingConditions is null OR \n     object_localized_IFSEUProduct_es.Conditions is null OR \n     object_localized_IFSEUProduct_es.manufacturingLength is null OR \n     object_localized_IFSEUProduct_es.minimumOrder is null OR \n     \n     object_localized_IFSEUProduct_fr.headlineWeb is null OR\n     object_localized_IFSEUProduct_fr.productBrandNamePerLanguage is null OR\n     object_localized_IFSEUProduct_fr.Marking1 is null OR\n     object_localized_IFSEUProduct_fr.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_fr.Marking2 is null OR \n     object_localized_IFSEUProduct_fr.searchKeywords is null OR \n     object_localized_IFSEUProduct_fr.Note2InformationBelowTable is null OR\n     object_localized_IFSEUProduct_fr.commercialDescription is null OR \n     object_localized_IFSEUProduct_fr.technicalDescription is null OR \n     object_localized_IFSEUProduct_fr.sapDescription is null OR \n     object_localized_IFSEUProduct_fr.shippingConditions is null OR \n     object_localized_IFSEUProduct_fr.Conditions is null OR \n     object_localized_IFSEUProduct_fr.manufacturingLength is null OR \n     object_localized_IFSEUProduct_fr.minimumOrder is null OR \n     \n     object_localized_IFSEUProduct_it_IT.headlineWeb is null OR\n     object_localized_IFSEUProduct_it_IT.productBrandNamePerLanguage is null OR\n     object_localized_IFSEUProduct_it_IT.Marking1 is null OR\n     object_localized_IFSEUProduct_it_IT.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_it_IT.Marking2 is null OR \n     object_localized_IFSEUProduct_it_IT.searchKeywords is null OR \n     object_localized_IFSEUProduct_it_IT.Note2InformationBelowTable is null OR\n     object_localized_IFSEUProduct_it_IT.commercialDescription is null OR \n     object_localized_IFSEUProduct_it_IT.technicalDescription is null OR \n     object_localized_IFSEUProduct_it_IT.sapDescription is null OR \n     object_localized_IFSEUProduct_it_IT.shippingConditions is null OR \n     object_localized_IFSEUProduct_it_IT.Conditions is null OR \n     object_localized_IFSEUProduct_it_IT.manufacturingLength is null OR \n     object_localized_IFSEUProduct_it_IT.minimumOrder is null OR \n    \n     object_localized_IFSEUProduct_pt.headlineWeb is null OR\n\t   object_localized_IFSEUProduct_pt.productBrandNamePerLanguage is null OR\n     object_localized_IFSEUProduct_pt.Marking1 is null OR\n     object_localized_IFSEUProduct_pt.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_pt.Marking2 is null OR \n     object_localized_IFSEUProduct_pt.searchKeywords is null OR \n     object_localized_IFSEUProduct_pt.Note2InformationBelowTable is null OR\n     object_localized_IFSEUProduct_pt.commercialDescription is null OR \n     object_localized_IFSEUProduct_pt.technicalDescription is null OR \n     object_localized_IFSEUProduct_pt.sapDescription is null OR \n     object_localized_IFSEUProduct_pt.shippingConditions is null OR \n     object_localized_IFSEUProduct_pt.Conditions is null OR \n     object_localized_IFSEUProduct_pt.manufacturingLength is null OR \n     object_localized_IFSEUProduct_pt.minimumOrder is null OR \n     \n     object_localized_IFSEUProduct_ru_RU.headlineWeb is null OR\n\t   object_localized_IFSEUProduct_ru_RU.productBrandNamePerLanguage is null OR\n     object_localized_IFSEUProduct_ru_RU.Marking1 is null OR\n     object_localized_IFSEUProduct_ru_RU.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_ru_RU.Marking2 is null OR \n     object_localized_IFSEUProduct_ru_RU.searchKeywords is null OR \n     object_localized_IFSEUProduct_ru_RU.Note2InformationBelowTable is null OR\n     object_localized_IFSEUProduct_ru_RU.commercialDescription is null OR \n     object_localized_IFSEUProduct_ru_RU.technicalDescription is null OR \n     object_localized_IFSEUProduct_ru_RU.sapDescription is null OR \n     object_localized_IFSEUProduct_ru_RU.shippingConditions is null OR \n     object_localized_IFSEUProduct_ru_RU.Conditions is null OR \n     object_localized_IFSEUProduct_ru_RU.manufacturingLength is null OR \n     object_localized_IFSEUProduct_ru_RU.minimumOrder is null OR \n    \n     object_localized_IFSEUProduct_zh.headlineWeb is null OR\n\t   object_localized_IFSEUProduct_zh.productBrandNamePerLanguage is null OR\n     object_localized_IFSEUProduct_zh.Marking1 is null OR\n     object_localized_IFSEUProduct_zh.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_zh.Marking2 is null OR \n     object_localized_IFSEUProduct_zh.searchKeywords is null OR \n     object_localized_IFSEUProduct_zh.Note2InformationBelowTable is null OR\n     object_localized_IFSEUProduct_zh.commercialDescription is null OR \n     object_localized_IFSEUProduct_zh.technicalDescription is null OR \n     object_localized_IFSEUProduct_zh.sapDescription is null OR \n     object_localized_IFSEUProduct_zh.shippingConditions is null OR \n     object_localized_IFSEUProduct_zh.Conditions is null OR \n     object_localized_IFSEUProduct_zh.manufacturingLength is null OR \n     object_localized_IFSEUProduct_zh.minimumOrder is null OR \n\n     object_localized_IFSEUProduct_fi_FI.headlineWeb is null OR\n\t   object_localized_IFSEUProduct_fi_FI.productBrandNamePerLanguage is null OR\n     object_localized_IFSEUProduct_fi_FI.Marking1 is null OR\n     object_localized_IFSEUProduct_fi_FI.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_fi_FI.Marking2 is null OR \n     object_localized_IFSEUProduct_fi_FI.searchKeywords is null OR\n     object_localized_IFSEUProduct_fi_FI.Note2InformationBelowTable is null OR \n     object_localized_IFSEUProduct_fi_FI.commercialDescription is null OR \n     object_localized_IFSEUProduct_fi_FI.technicalDescription is null OR \n     object_localized_IFSEUProduct_fi_FI.sapDescription is null OR \n     object_localized_IFSEUProduct_fi_FI.shippingConditions is null OR \n     object_localized_IFSEUProduct_fi_FI.Conditions is null OR \n     object_localized_IFSEUProduct_fi_FI.manufacturingLength is null OR \n     object_localized_IFSEUProduct_fi_FI.minimumOrder is null OR \n     \n     object_localized_IFSEUProduct_nl_NL.headlineWeb is null OR\n\t   object_localized_IFSEUProduct_nl_NL.productBrandNamePerLanguage is null OR\n     object_localized_IFSEUProduct_nl_NL.Marking1 is null OR\n     object_localized_IFSEUProduct_nl_NL.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_nl_NL.Marking2 is null OR \n     object_localized_IFSEUProduct_nl_NL.searchKeywords is null OR \n     object_localized_IFSEUProduct_nl_NL.Note2InformationBelowTable is null OR\n     object_localized_IFSEUProduct_nl_NL.commercialDescription is null OR \n     object_localized_IFSEUProduct_nl_NL.technicalDescription is null OR \n     object_localized_IFSEUProduct_nl_NL.sapDescription is null OR \n     object_localized_IFSEUProduct_nl_NL.shippingConditions is null OR \n     object_localized_IFSEUProduct_nl_NL.Conditions is null OR \n     object_localized_IFSEUProduct_nl_NL.manufacturingLength is null OR \n     object_localized_IFSEUProduct_nl_NL.minimumOrder is null OR \n    \n     object_localized_IFSEUProduct_nn_NO.headlineWeb is null OR\n\t   object_localized_IFSEUProduct_nn_NO.productBrandNamePerLanguage is null OR\n     object_localized_IFSEUProduct_nn_NO.Marking1 is null OR\n     object_localized_IFSEUProduct_nn_NO.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_nn_NO.Marking2 is null OR \n     object_localized_IFSEUProduct_nn_NO.searchKeywords is null OR \n     object_localized_IFSEUProduct_nn_NO.Note2InformationBelowTable is null OR\n     object_localized_IFSEUProduct_nn_NO.commercialDescription is null OR \n     object_localized_IFSEUProduct_nn_NO.technicalDescription is null OR \n     object_localized_IFSEUProduct_nn_NO.sapDescription is null OR \n     object_localized_IFSEUProduct_nn_NO.shippingConditions is null OR \n     object_localized_IFSEUProduct_nn_NO.Conditions is null OR \n     object_localized_IFSEUProduct_nn_NO.manufacturingLength is null OR \n     object_localized_IFSEUProduct_nn_NO.minimumOrder is null OR \n    \n     object_localized_IFSEUProduct_pl_PL.headlineWeb is null OR\n\t   object_localized_IFSEUProduct_pl_PL.productBrandNamePerLanguage is null OR\n     object_localized_IFSEUProduct_pl_PL.Marking1 is null OR\n     object_localized_IFSEUProduct_pl_PL.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_pl_PL.Marking2 is null OR \n     object_localized_IFSEUProduct_pl_PL.searchKeywords is null OR \n     object_localized_IFSEUProduct_pl_PL.Note2InformationBelowTable is null OR\n     object_localized_IFSEUProduct_pl_PL.commercialDescription is null OR \n     object_localized_IFSEUProduct_pl_PL.technicalDescription is null OR \n     object_localized_IFSEUProduct_pl_PL.sapDescription is null OR \n     object_localized_IFSEUProduct_pl_PL.shippingConditions is null OR \n     object_localized_IFSEUProduct_pl_PL.Conditions is null OR \n     object_localized_IFSEUProduct_pl_PL.manufacturingLength is null OR \n     object_localized_IFSEUProduct_pl_PL.minimumOrder is null OR \n     \n     object_localized_IFSEUProduct_sv_SE.headlineWeb is null OR\n\t   object_localized_IFSEUProduct_sv_SE.productBrandNamePerLanguage is null OR\n     object_localized_IFSEUProduct_sv_SE.Marking1 is null OR\n     object_localized_IFSEUProduct_sv_SE.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_sv_SE.Marking2 is null OR \n     object_localized_IFSEUProduct_sv_SE.searchKeywords is null OR \n     object_localized_IFSEUProduct_sv_SE.Note2InformationBelowTable is null OR\n     object_localized_IFSEUProduct_sv_SE.commercialDescription is null OR \n     object_localized_IFSEUProduct_sv_SE.technicalDescription is null OR \n     object_localized_IFSEUProduct_sv_SE.sapDescription is null OR \n     object_localized_IFSEUProduct_sv_SE.shippingConditions is null OR \n     object_localized_IFSEUProduct_sv_SE.Conditions is null OR \n     object_localized_IFSEUProduct_sv_SE.manufacturingLength is null OR \n     object_localized_IFSEUProduct_sv_SE.minimumOrder is null OR \n    \n     object_localized_IFSEUProduct_en_GB.headlineWeb is null OR\n\t   object_localized_IFSEUProduct_en_GB.productBrandNamePerLanguage is null OR\n     object_localized_IFSEUProduct_en_GB.Marking1 is null OR\n     object_localized_IFSEUProduct_en_GB.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_en_GB.Marking2 is null OR \n     object_localized_IFSEUProduct_en_GB.searchKeywords is null OR \n     object_localized_IFSEUProduct_en_GB.Note2InformationBelowTable is null OR\n     object_localized_IFSEUProduct_en_GB.commercialDescription is null OR \n     object_localized_IFSEUProduct_en_GB.technicalDescription is null OR \n     object_localized_IFSEUProduct_en_GB.sapDescription is null OR \n     object_localized_IFSEUProduct_en_GB.shippingConditions is null OR \n     object_localized_IFSEUProduct_en_GB.Conditions is null OR \n     object_localized_IFSEUProduct_en_GB.manufacturingLength is null OR \n     object_localized_IFSEUProduct_en_GB.minimumOrder is null\n    )",
                 "groupby" => "",
                 "type" => "sql"
             ]
@@ -7723,25 +7723,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "columnAction" => "openObject",
-                "id" => "extModel3459-1"
-            ],
-            [
-                "name" => "Legal Text",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3459-2"
-            ],
-            [
-                "name" => "Brand Short Text 1",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3459-3"
+                "id" => "extModel1960-1"
             ],
             [
                 "name" => "Brand Short Text 2",
@@ -7750,7 +7732,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-4"
+                "id" => "extModel1960-2"
             ],
             [
                 "name" => "SAP Description",
@@ -7759,25 +7741,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-5"
-            ],
-            [
-                "name" => "Legal Text (de)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3459-6"
-            ],
-            [
-                "name" => "Brand Short Text 1 (de)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3459-7"
+                "id" => "extModel1960-3"
             ],
             [
                 "name" => "Brand Short Text 2 (de)",
@@ -7786,7 +7750,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-8"
+                "id" => "extModel1960-4"
             ],
             [
                 "name" => "SAP Description (de)",
@@ -7795,25 +7759,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-9"
-            ],
-            [
-                "name" => "Legal Text (it)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3459-10"
-            ],
-            [
-                "name" => "Brand Short Text 1 (it)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3459-11"
+                "id" => "extModel1960-5"
             ],
             [
                 "name" => "Brand Short Text 2 (it)",
@@ -7822,7 +7768,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-12"
+                "id" => "extModel1960-6"
             ],
             [
                 "name" => "SAP Description (it)",
@@ -7831,25 +7777,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-13"
-            ],
-            [
-                "name" => "Legal Text (fr)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3459-14"
-            ],
-            [
-                "name" => "Brand Short Text 1 (fr)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3459-15"
+                "id" => "extModel1960-7"
             ],
             [
                 "name" => "Brand Short Text 2 (fr)",
@@ -7858,7 +7786,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-16"
+                "id" => "extModel1960-8"
             ],
             [
                 "name" => "SAP Description (fr)",
@@ -7867,25 +7795,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-17"
-            ],
-            [
-                "name" => "Legal Text (es)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3459-18"
-            ],
-            [
-                "name" => "Brand Short Text 1 (es)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3459-19"
+                "id" => "extModel1960-9"
             ],
             [
                 "name" => "Brand Short Text 2 (es)",
@@ -7894,7 +7804,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-20"
+                "id" => "extModel1960-10"
             ],
             [
                 "name" => "SAP Description (es)",
@@ -7903,25 +7813,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-21"
-            ],
-            [
-                "name" => "Legal Text (zh)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3459-22"
-            ],
-            [
-                "name" => "Brand Short Text 1 (zh)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3459-23"
+                "id" => "extModel1960-11"
             ],
             [
                 "name" => "Brand Short Text 2 (zh)",
@@ -7930,7 +7822,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-24"
+                "id" => "extModel1960-12"
             ],
             [
                 "name" => "SAP Description (zh)",
@@ -7939,16 +7831,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-25"
-            ],
-            [
-                "name" => "Brand Short Text 1 (pt)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3459-26"
+                "id" => "extModel1960-13"
             ],
             [
                 "name" => "Brand Short Text 2 (pt)",
@@ -7957,7 +7840,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-27"
+                "id" => "extModel1960-14"
             ],
             [
                 "name" => "SAP Description (pt)",
@@ -7966,7 +7849,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-28"
+                "id" => "extModel1960-15"
             ],
             [
                 "name" => "HeadLine Web",
@@ -7975,7 +7858,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-29"
+                "id" => "extModel1960-16"
             ],
             [
                 "name" => "Marking2",
@@ -7984,7 +7867,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-30"
+                "id" => "extModel1960-17"
             ],
             [
                 "name" => "Search Keywords",
@@ -7993,7 +7876,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-31"
+                "id" => "extModel1960-18"
             ],
             [
                 "name" => "Commercial Description",
@@ -8002,7 +7885,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-32"
+                "id" => "extModel1960-19"
             ],
             [
                 "name" => "Technical Description",
@@ -8011,7 +7894,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-33"
+                "id" => "extModel1960-20"
             ],
             [
                 "name" => "Shipping Conditions",
@@ -8020,7 +7903,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-34"
+                "id" => "extModel1960-21"
             ],
             [
                 "name" => "Conditions",
@@ -8029,7 +7912,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-35"
+                "id" => "extModel1960-22"
             ],
             [
                 "name" => "Manufacturing Length",
@@ -8038,7 +7921,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-36"
+                "id" => "extModel1960-23"
             ],
             [
                 "name" => "Minimum Order",
@@ -8047,7 +7930,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-37"
+                "id" => "extModel1960-24"
             ],
             [
                 "name" => "HeadLine Web (de)",
@@ -8056,7 +7939,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-38"
+                "id" => "extModel1960-25"
             ],
             [
                 "name" => "Marking2 (de)",
@@ -8065,7 +7948,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-39"
+                "id" => "extModel1960-26"
             ],
             [
                 "name" => "Search Keywords (de)",
@@ -8074,7 +7957,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-40"
+                "id" => "extModel1960-27"
             ],
             [
                 "name" => "Commercial Description (de)",
@@ -8083,7 +7966,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-41"
+                "id" => "extModel1960-28"
             ],
             [
                 "name" => "Technical Description (de)",
@@ -8092,7 +7975,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-42"
+                "id" => "extModel1960-29"
             ],
             [
                 "name" => "Shipping Conditions (de)",
@@ -8101,7 +7984,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-43"
+                "id" => "extModel1960-30"
             ],
             [
                 "name" => "Conditions (de)",
@@ -8110,7 +7993,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-44"
+                "id" => "extModel1960-31"
             ],
             [
                 "name" => "Manufacturing Length (de)",
@@ -8119,7 +8002,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-45"
+                "id" => "extModel1960-32"
             ],
             [
                 "name" => "Minimum Order (de)",
@@ -8128,7 +8011,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-46"
+                "id" => "extModel1960-33"
             ],
             [
                 "name" => "HeadLine Web (da)",
@@ -8137,25 +8020,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-47"
-            ],
-            [
-                "name" => "Legal Text (da)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3459-48"
-            ],
-            [
-                "name" => "Brand Short Text 1 (da)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3459-49"
+                "id" => "extModel1960-34"
             ],
             [
                 "name" => "Brand Short Text 2 (da)",
@@ -8164,7 +8029,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-50"
+                "id" => "extModel1960-35"
             ],
             [
                 "name" => "Marking2 (da)",
@@ -8173,7 +8038,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-51"
+                "id" => "extModel1960-36"
             ],
             [
                 "name" => "Search Keywords (da)",
@@ -8182,7 +8047,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-52"
+                "id" => "extModel1960-37"
             ],
             [
                 "name" => "Commercial Description (da)",
@@ -8191,7 +8056,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-53"
+                "id" => "extModel1960-38"
             ],
             [
                 "name" => "Technical Description (da)",
@@ -8200,7 +8065,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-54"
+                "id" => "extModel1960-39"
             ],
             [
                 "name" => "SAP Description (da)",
@@ -8209,7 +8074,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-55"
+                "id" => "extModel1960-40"
             ],
             [
                 "name" => "Shipping Conditions (da)",
@@ -8218,7 +8083,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-56"
+                "id" => "extModel1960-41"
             ],
             [
                 "name" => "Conditions (da)",
@@ -8227,7 +8092,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-57"
+                "id" => "extModel1960-42"
             ],
             [
                 "name" => "Manufacturing Length (da)",
@@ -8236,7 +8101,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-58"
+                "id" => "extModel1960-43"
             ],
             [
                 "name" => "Minimum Order (da)",
@@ -8245,7 +8110,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-59"
+                "id" => "extModel1960-44"
             ],
             [
                 "name" => "HeadLine Web (es)",
@@ -8254,7 +8119,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-60"
+                "id" => "extModel1960-45"
             ],
             [
                 "name" => "Marking2 (es)",
@@ -8263,7 +8128,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-61"
+                "id" => "extModel1960-46"
             ],
             [
                 "name" => "Search Keywords (es)",
@@ -8272,7 +8137,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-62"
+                "id" => "extModel1960-47"
             ],
             [
                 "name" => "Commercial Description (es)",
@@ -8281,7 +8146,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-63"
+                "id" => "extModel1960-48"
             ],
             [
                 "name" => "Technical Description (es)",
@@ -8290,7 +8155,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-64"
+                "id" => "extModel1960-49"
             ],
             [
                 "name" => "Shipping Conditions (es)",
@@ -8299,7 +8164,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-65"
+                "id" => "extModel1960-50"
             ],
             [
                 "name" => "Conditions (es)",
@@ -8308,7 +8173,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-66"
+                "id" => "extModel1960-51"
             ],
             [
                 "name" => "Manufacturing Length (es)",
@@ -8317,7 +8182,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-67"
+                "id" => "extModel1960-52"
             ],
             [
                 "name" => "Minimum Order (es)",
@@ -8326,7 +8191,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-68"
+                "id" => "extModel1960-53"
             ],
             [
                 "name" => "HeadLine Web (fr)",
@@ -8335,7 +8200,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-69"
+                "id" => "extModel1960-54"
             ],
             [
                 "name" => "Marking2 (fr)",
@@ -8344,7 +8209,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-70"
+                "id" => "extModel1960-55"
             ],
             [
                 "name" => "Search Keywords (fr)",
@@ -8353,7 +8218,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-71"
+                "id" => "extModel1960-56"
             ],
             [
                 "name" => "Commercial Description (fr)",
@@ -8362,7 +8227,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-72"
+                "id" => "extModel1960-57"
             ],
             [
                 "name" => "Technical Description (fr)",
@@ -8371,7 +8236,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-73"
+                "id" => "extModel1960-58"
             ],
             [
                 "name" => "Shipping Conditions (fr)",
@@ -8380,7 +8245,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-74"
+                "id" => "extModel1960-59"
             ],
             [
                 "name" => "Conditions (fr)",
@@ -8389,7 +8254,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-75"
+                "id" => "extModel1960-60"
             ],
             [
                 "name" => "Manufacturing Length (fr)",
@@ -8398,7 +8263,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-76"
+                "id" => "extModel1960-61"
             ],
             [
                 "name" => "Minimum Order (fr)",
@@ -8407,7 +8272,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-77"
+                "id" => "extModel1960-62"
             ],
             [
                 "name" => "HeadLine Web (it)",
@@ -8416,7 +8281,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-78"
+                "id" => "extModel1960-63"
             ],
             [
                 "name" => "Marking2 (it)",
@@ -8425,7 +8290,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-79"
+                "id" => "extModel1960-64"
             ],
             [
                 "name" => "Search Keywords (it)",
@@ -8434,7 +8299,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-80"
+                "id" => "extModel1960-65"
             ],
             [
                 "name" => "Commercial Description (it)",
@@ -8443,7 +8308,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-81"
+                "id" => "extModel1960-66"
             ],
             [
                 "name" => "Technical Description (it)",
@@ -8452,7 +8317,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-82"
+                "id" => "extModel1960-67"
             ],
             [
                 "name" => "Shipping Conditions (it)",
@@ -8461,7 +8326,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-83"
+                "id" => "extModel1960-68"
             ],
             [
                 "name" => "Conditions (it)",
@@ -8470,7 +8335,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-84"
+                "id" => "extModel1960-69"
             ],
             [
                 "name" => "Manufacturing Length (it)",
@@ -8479,7 +8344,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-85"
+                "id" => "extModel1960-70"
             ],
             [
                 "name" => "Minimum Order (it)",
@@ -8488,7 +8353,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-86"
+                "id" => "extModel1960-71"
             ],
             [
                 "name" => "HeadLine Web (pt)",
@@ -8497,16 +8362,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-87"
-            ],
-            [
-                "name" => "Legal Text (pt)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3459-88"
+                "id" => "extModel1960-72"
             ],
             [
                 "name" => "Marking2 (pt)",
@@ -8515,7 +8371,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-89"
+                "id" => "extModel1960-73"
             ],
             [
                 "name" => "Search Keywords (pt)",
@@ -8524,7 +8380,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-90"
+                "id" => "extModel1960-74"
             ],
             [
                 "name" => "Commercial Description (pt)",
@@ -8533,7 +8389,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-91"
+                "id" => "extModel1960-75"
             ],
             [
                 "name" => "Technical Description (pt)",
@@ -8542,7 +8398,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-92"
+                "id" => "extModel1960-76"
             ],
             [
                 "name" => "Shipping Conditions (pt)",
@@ -8551,7 +8407,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-93"
+                "id" => "extModel1960-77"
             ],
             [
                 "name" => "Conditions (pt)",
@@ -8560,7 +8416,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-94"
+                "id" => "extModel1960-78"
             ],
             [
                 "name" => "Manufacturing Length (pt)",
@@ -8569,7 +8425,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-95"
+                "id" => "extModel1960-79"
             ],
             [
                 "name" => "Minimum Order (pt)",
@@ -8578,7 +8434,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-96"
+                "id" => "extModel1960-80"
             ],
             [
                 "name" => "HeadLine Web (ru_RU)",
@@ -8587,25 +8443,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-97"
-            ],
-            [
-                "name" => "Legal Text (ru_RU)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3459-98"
-            ],
-            [
-                "name" => "Brand Short Text 1 (ru_RU)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3459-99"
+                "id" => "extModel1960-81"
             ],
             [
                 "name" => "Brand Short Text 2 (ru_RU)",
@@ -8614,7 +8452,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-100"
+                "id" => "extModel1960-82"
             ],
             [
                 "name" => "Marking2 (ru_RU)",
@@ -8623,7 +8461,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-101"
+                "id" => "extModel1960-83"
             ],
             [
                 "name" => "Search Keywords (ru_RU)",
@@ -8632,7 +8470,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-102"
+                "id" => "extModel1960-84"
             ],
             [
                 "name" => "Commercial Description (ru_RU)",
@@ -8641,7 +8479,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-103"
+                "id" => "extModel1960-85"
             ],
             [
                 "name" => "Technical Description (ru_RU)",
@@ -8650,7 +8488,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-104"
+                "id" => "extModel1960-86"
             ],
             [
                 "name" => "SAP Description (ru_RU)",
@@ -8659,7 +8497,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-105"
+                "id" => "extModel1960-87"
             ],
             [
                 "name" => "Shipping Conditions (ru_RU)",
@@ -8668,7 +8506,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-106"
+                "id" => "extModel1960-88"
             ],
             [
                 "name" => "Conditions (ru_RU)",
@@ -8677,7 +8515,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-107"
+                "id" => "extModel1960-89"
             ],
             [
                 "name" => "Manufacturing Length (ru_RU)",
@@ -8686,7 +8524,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-108"
+                "id" => "extModel1960-90"
             ],
             [
                 "name" => "Minimum Order (ru_RU)",
@@ -8695,7 +8533,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-109"
+                "id" => "extModel1960-91"
             ],
             [
                 "name" => "HeadLine Web (zh)",
@@ -8704,7 +8542,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-110"
+                "id" => "extModel1960-92"
             ],
             [
                 "name" => "Marking2 (zh)",
@@ -8713,7 +8551,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-111"
+                "id" => "extModel1960-93"
             ],
             [
                 "name" => "Search Keywords (zh)",
@@ -8722,7 +8560,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-112"
+                "id" => "extModel1960-94"
             ],
             [
                 "name" => "Commercial Description (zh)",
@@ -8731,7 +8569,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-113"
+                "id" => "extModel1960-95"
             ],
             [
                 "name" => "Technical Description (zh)",
@@ -8740,7 +8578,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-114"
+                "id" => "extModel1960-96"
             ],
             [
                 "name" => "Shipping Conditions (zh)",
@@ -8749,7 +8587,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-115"
+                "id" => "extModel1960-97"
             ],
             [
                 "name" => "Conditions (zh)",
@@ -8758,7 +8596,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-116"
+                "id" => "extModel1960-98"
             ],
             [
                 "name" => "Manufacturing Length (zh)",
@@ -8767,7 +8605,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-117"
+                "id" => "extModel1960-99"
             ],
             [
                 "name" => "Minimum Order (zh)",
@@ -8776,7 +8614,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-118"
+                "id" => "extModel1960-100"
             ],
             [
                 "name" => "HeadLine Web (fi_FI)",
@@ -8785,25 +8623,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-119"
-            ],
-            [
-                "name" => "Legal Text (fi_FI)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3459-120"
-            ],
-            [
-                "name" => "Brand Short Text 1 (fi_FI)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3459-121"
+                "id" => "extModel1960-101"
             ],
             [
                 "name" => "Brand Short Text 2 (fi_FI)",
@@ -8812,7 +8632,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-122"
+                "id" => "extModel1960-102"
             ],
             [
                 "name" => "Marking2 (fi_FI)",
@@ -8821,7 +8641,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-123"
+                "id" => "extModel1960-103"
             ],
             [
                 "name" => "Search Keywords (fi_FI)",
@@ -8830,7 +8650,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-124"
+                "id" => "extModel1960-104"
             ],
             [
                 "name" => "Commercial Description (fi_FI)",
@@ -8839,7 +8659,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-125"
+                "id" => "extModel1960-105"
             ],
             [
                 "name" => "Technical Description (fi_FI)",
@@ -8848,7 +8668,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-126"
+                "id" => "extModel1960-106"
             ],
             [
                 "name" => "SAP Description (fi_FI)",
@@ -8857,7 +8677,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-127"
+                "id" => "extModel1960-107"
             ],
             [
                 "name" => "Shipping Conditions (fi_FI)",
@@ -8866,7 +8686,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-128"
+                "id" => "extModel1960-108"
             ],
             [
                 "name" => "Conditions (fi_FI)",
@@ -8875,7 +8695,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-129"
+                "id" => "extModel1960-109"
             ],
             [
                 "name" => "Manufacturing Length (fi_FI)",
@@ -8884,7 +8704,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-130"
+                "id" => "extModel1960-110"
             ],
             [
                 "name" => "Minimum Order (fi_FI)",
@@ -8893,7 +8713,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-131"
+                "id" => "extModel1960-111"
             ],
             [
                 "name" => "HeadLine Web (nl_NL)",
@@ -8902,25 +8722,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-132"
-            ],
-            [
-                "name" => "Legal Text (nl_NL)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3459-133"
-            ],
-            [
-                "name" => "Brand Short Text 1 (nl_NL)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3459-134"
+                "id" => "extModel1960-112"
             ],
             [
                 "name" => "Brand Short Text 2 (nl_NL)",
@@ -8929,7 +8731,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-135"
+                "id" => "extModel1960-113"
             ],
             [
                 "name" => "Marking2 (nl_NL)",
@@ -8938,7 +8740,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-136"
+                "id" => "extModel1960-114"
             ],
             [
                 "name" => "Search Keywords (nl_NL)",
@@ -8947,7 +8749,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-137"
+                "id" => "extModel1960-115"
             ],
             [
                 "name" => "Commercial Description (nl_NL)",
@@ -8956,7 +8758,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-138"
+                "id" => "extModel1960-116"
             ],
             [
                 "name" => "Technical Description (nl_NL)",
@@ -8965,7 +8767,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-139"
+                "id" => "extModel1960-117"
             ],
             [
                 "name" => "SAP Description (nl_NL)",
@@ -8974,7 +8776,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-140"
+                "id" => "extModel1960-118"
             ],
             [
                 "name" => "Shipping Conditions (nl_NL)",
@@ -8983,7 +8785,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-141"
+                "id" => "extModel1960-119"
             ],
             [
                 "name" => "Conditions (nl_NL)",
@@ -8992,7 +8794,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-142"
+                "id" => "extModel1960-120"
             ],
             [
                 "name" => "Manufacturing Length (nl_NL)",
@@ -9001,7 +8803,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-143"
+                "id" => "extModel1960-121"
             ],
             [
                 "name" => "Minimum Order (nl_NL)",
@@ -9010,7 +8812,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-144"
+                "id" => "extModel1960-122"
             ],
             [
                 "name" => "HeadLine Web (nn_NO)",
@@ -9019,25 +8821,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-145"
-            ],
-            [
-                "name" => "Legal Text (nn_NO)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3459-146"
-            ],
-            [
-                "name" => "Brand Short Text 1 (nn_NO)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3459-147"
+                "id" => "extModel1960-123"
             ],
             [
                 "name" => "Brand Short Text 2 (nn_NO)",
@@ -9046,7 +8830,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-148"
+                "id" => "extModel1960-124"
             ],
             [
                 "name" => "Marking2 (nn_NO)",
@@ -9055,7 +8839,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-149"
+                "id" => "extModel1960-125"
             ],
             [
                 "name" => "Search Keywords (nn_NO)",
@@ -9064,7 +8848,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-150"
+                "id" => "extModel1960-126"
             ],
             [
                 "name" => "Commercial Description (nn_NO)",
@@ -9073,7 +8857,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-151"
+                "id" => "extModel1960-127"
             ],
             [
                 "name" => "Technical Description (nn_NO)",
@@ -9082,7 +8866,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-152"
+                "id" => "extModel1960-128"
             ],
             [
                 "name" => "SAP Description (nn_NO)",
@@ -9091,7 +8875,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-153"
+                "id" => "extModel1960-129"
             ],
             [
                 "name" => "Shipping Conditions (nn_NO)",
@@ -9100,7 +8884,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-154"
+                "id" => "extModel1960-130"
             ],
             [
                 "name" => "Conditions (nn_NO)",
@@ -9109,7 +8893,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-155"
+                "id" => "extModel1960-131"
             ],
             [
                 "name" => "Manufacturing Length (nn_NO)",
@@ -9118,7 +8902,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-156"
+                "id" => "extModel1960-132"
             ],
             [
                 "name" => "Minimum Order (nn_NO)",
@@ -9127,7 +8911,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-157"
+                "id" => "extModel1960-133"
             ],
             [
                 "name" => "HeadLine Web (pl_PL)",
@@ -9136,25 +8920,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-158"
-            ],
-            [
-                "name" => "Legal Text (pl_PL)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3459-159"
-            ],
-            [
-                "name" => "Brand Short Text 1 (pl_PL)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3459-160"
+                "id" => "extModel1960-134"
             ],
             [
                 "name" => "Brand Short Text 2 (pl_PL)",
@@ -9163,7 +8929,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-161"
+                "id" => "extModel1960-135"
             ],
             [
                 "name" => "Marking2 (pl_PL)",
@@ -9172,7 +8938,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-162"
+                "id" => "extModel1960-136"
             ],
             [
                 "name" => "Search Keywords (pl_PL)",
@@ -9181,7 +8947,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-163"
+                "id" => "extModel1960-137"
             ],
             [
                 "name" => "Commercial Description (pl_PL)",
@@ -9190,7 +8956,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-164"
+                "id" => "extModel1960-138"
             ],
             [
                 "name" => "Technical Description (pl_PL)",
@@ -9199,7 +8965,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-165"
+                "id" => "extModel1960-139"
             ],
             [
                 "name" => "SAP Description (pl_PL)",
@@ -9208,7 +8974,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-166"
+                "id" => "extModel1960-140"
             ],
             [
                 "name" => "Shipping Conditions (pl_PL)",
@@ -9217,7 +8983,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-167"
+                "id" => "extModel1960-141"
             ],
             [
                 "name" => "Conditions (pl_PL)",
@@ -9226,7 +8992,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-168"
+                "id" => "extModel1960-142"
             ],
             [
                 "name" => "Manufacturing Length (pl_PL)",
@@ -9235,7 +9001,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-169"
+                "id" => "extModel1960-143"
             ],
             [
                 "name" => "Minimum Order (pl_PL)",
@@ -9244,7 +9010,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-170"
+                "id" => "extModel1960-144"
             ],
             [
                 "name" => "HeadLine Web  (sv_SE)",
@@ -9253,25 +9019,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-171"
-            ],
-            [
-                "name" => "Legal Text  (sv_SE)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3459-172"
-            ],
-            [
-                "name" => "Brand Short Text 1  (sv_SE)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3459-173"
+                "id" => "extModel1960-145"
             ],
             [
                 "name" => "Brand Short Text 2  (sv_SE)",
@@ -9280,7 +9028,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-174"
+                "id" => "extModel1960-146"
             ],
             [
                 "name" => "Marking2  (sv_SE)",
@@ -9289,7 +9037,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-175"
+                "id" => "extModel1960-147"
             ],
             [
                 "name" => "Search Keywords  (sv_SE)",
@@ -9298,7 +9046,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-176"
+                "id" => "extModel1960-148"
             ],
             [
                 "name" => "Commercial Description  (sv_SE)",
@@ -9307,7 +9055,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-177"
+                "id" => "extModel1960-149"
             ],
             [
                 "name" => "Technical Description  (sv_SE)",
@@ -9316,7 +9064,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-178"
+                "id" => "extModel1960-150"
             ],
             [
                 "name" => "SAP Description  (sv_SE)",
@@ -9325,7 +9073,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-179"
+                "id" => "extModel1960-151"
             ],
             [
                 "name" => "Shipping Conditions  (sv_SE)",
@@ -9334,7 +9082,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-180"
+                "id" => "extModel1960-152"
             ],
             [
                 "name" => "Conditions  (sv_SE)",
@@ -9343,7 +9091,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-181"
+                "id" => "extModel1960-153"
             ],
             [
                 "name" => "Manufacturing Length  (sv_SE)",
@@ -9352,7 +9100,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-182"
+                "id" => "extModel1960-154"
             ],
             [
                 "name" => "Minimum Order  (sv_SE)",
@@ -9361,7 +9109,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-183"
+                "id" => "extModel1960-155"
             ],
             [
                 "name" => "HeadLine Web  (en_GB)",
@@ -9370,25 +9118,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-184"
-            ],
-            [
-                "name" => "Legal Text  (en_GB)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3459-185"
-            ],
-            [
-                "name" => "Brand Short Text 1  (en_GB)",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "id" => "extModel3459-186"
+                "id" => "extModel1960-156"
             ],
             [
                 "name" => "Brand Short Text 2  (en_GB)",
@@ -9397,7 +9127,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-187"
+                "id" => "extModel1960-157"
             ],
             [
                 "name" => "Marking2  (en_GB)",
@@ -9406,7 +9136,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-188"
+                "id" => "extModel1960-158"
             ],
             [
                 "name" => "Search Keywords  (en_GB)",
@@ -9415,7 +9145,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-189"
+                "id" => "extModel1960-159"
             ],
             [
                 "name" => "Commercial Description  (en_GB)",
@@ -9424,7 +9154,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-190"
+                "id" => "extModel1960-160"
             ],
             [
                 "name" => "Technical Description  (en_GB)",
@@ -9433,7 +9163,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-191"
+                "id" => "extModel1960-161"
             ],
             [
                 "name" => "SAP Description  (en_GB)",
@@ -9442,7 +9172,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-192"
+                "id" => "extModel1960-162"
             ],
             [
                 "name" => "Shipping Conditions  (en_GB)",
@@ -9451,7 +9181,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-193"
+                "id" => "extModel1960-163"
             ],
             [
                 "name" => "Conditions  (en_GB)",
@@ -9460,7 +9190,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-194"
+                "id" => "extModel1960-164"
             ],
             [
                 "name" => "Manufacturing Length  (en_GB)",
@@ -9469,7 +9199,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-195"
+                "id" => "extModel1960-165"
             ],
             [
                 "name" => "Minimum Order  (en_GB)",
@@ -9478,7 +9208,412 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel3459-196"
+                "id" => "extModel1960-166"
+            ],
+            [
+                "name" => "Product Brand Name Per Language",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-167"
+            ],
+            [
+                "name" => "Marking 1",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-168"
+            ],
+            [
+                "name" => "Note 2 ( Information Below Table)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-169"
+            ],
+            [
+                "name" => "Product Brand Name Per Language (de)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-170"
+            ],
+            [
+                "name" => "Marking 1 (de)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-171"
+            ],
+            [
+                "name" => "Note 2 ( Information Below Table) (de)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-172"
+            ],
+            [
+                "name" => "Product Brand Name Per Language (da)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-173"
+            ],
+            [
+                "name" => "Marking 1 (da)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-174"
+            ],
+            [
+                "name" => "Note 2 ( Information Below Table) (da)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-175"
+            ],
+            [
+                "name" => "Product Brand Name Per Language (es)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-176"
+            ],
+            [
+                "name" => "Marking 1 (es)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-177"
+            ],
+            [
+                "name" => "Note 2 ( Information Below Table) (es)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-178"
+            ],
+            [
+                "name" => "Product Brand Name Per Language (fr)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-179"
+            ],
+            [
+                "name" => "Marking 1 (fr)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-180"
+            ],
+            [
+                "name" => "Note 2 ( Information Below Table) (fr)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-181"
+            ],
+            [
+                "name" => "Product Brand Name Per Language (it)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-182"
+            ],
+            [
+                "name" => "Marking 1 (it)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-183"
+            ],
+            [
+                "name" => "Note 2 ( Information Below Table) (it)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-184"
+            ],
+            [
+                "name" => "Product Brand Name Per Language (pt)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-185"
+            ],
+            [
+                "name" => "Marking 1 (pt)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-186"
+            ],
+            [
+                "name" => "Note 2 ( Information Below Table) (pt)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-187"
+            ],
+            [
+                "name" => "Product Brand Name Per Language (ru_RU)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-188"
+            ],
+            [
+                "name" => "Marking 1 (ru_RU)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-189"
+            ],
+            [
+                "name" => "Note 2 ( Information Below Table) (ru_RU)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-190"
+            ],
+            [
+                "name" => "Product Brand Name Per Language (zh)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-191"
+            ],
+            [
+                "name" => "Marking 1 (zh)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-192"
+            ],
+            [
+                "name" => "Note 2 ( Information Below Table) (zh)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-193"
+            ],
+            [
+                "name" => "Product Brand Name Per Language (fi_FI)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-194"
+            ],
+            [
+                "name" => "Marking 1 (fi_FI)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-195"
+            ],
+            [
+                "name" => "Note 2 ( Information Below Table) (fi_FI)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-196"
+            ],
+            [
+                "name" => "Product Brand Name Per Language (nl_NL)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-197"
+            ],
+            [
+                "name" => "Marking 1 (nl_NL)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-198"
+            ],
+            [
+                "name" => "Note 2 ( Information Below Table) (nl_NL)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-199"
+            ],
+            [
+                "name" => "Product Brand Name Per Language (nn_NO)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-200"
+            ],
+            [
+                "name" => "Marking 1 (nn_NO)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-201"
+            ],
+            [
+                "name" => "Note 2 ( Information Below Table) (nn_NO)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-202"
+            ],
+            [
+                "name" => "Product Brand Name Per Language (pl_PL)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-203"
+            ],
+            [
+                "name" => "Marking 1 (pl_PL)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-204"
+            ],
+            [
+                "name" => "Note 2 ( Information Below Table) (pl_PL)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-205"
+            ],
+            [
+                "name" => "Product Brand Name Per Language  (sv_SE)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-206"
+            ],
+            [
+                "name" => "Marking 1  (sv_SE)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-207"
+            ],
+            [
+                "name" => "Note 2 ( Information Below Table)  (sv_SE)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-208"
+            ],
+            [
+                "name" => "Product Brand Name Per Language  (en_GB)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-209"
+            ],
+            [
+                "name" => "Marking 1  (en_GB)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-210"
+            ],
+            [
+                "name" => "Note 2 ( Information Below Table)  (en_GB)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1960-211"
             ]
         ],
         "niceName" => "IFSEU - Translation Missing Report",
@@ -9494,7 +9629,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1681290093,
+        "modificationDate" => 1683813263,
         "creationDate" => 1675954821,
         "shareGlobally" => TRUE,
         "sharedUserNames" => [
