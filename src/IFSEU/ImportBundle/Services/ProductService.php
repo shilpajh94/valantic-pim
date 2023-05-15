@@ -758,8 +758,8 @@ class ProductService
             if (!empty($objectId)) {
                 $object = DataObject\IFSEUProduct::getById($objectId, true);
                 if (!empty($object) && $object instanceof \Pimcore\Model\DataObject\IFSEUProduct) {
-                    // $object->save();
-                    $this->percentageCompletionService->completenessPercentage($object, 'import');
+                    $object->save();
+                    // $this->percentageCompletionService->completenessPercentage($object, 'import');
                 }
             }
         }
