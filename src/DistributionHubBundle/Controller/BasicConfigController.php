@@ -38,10 +38,10 @@ class BasicConfigController extends AdminController
         $user = Admin::getCurrentUser();
         $list = new \Pimcore\Model\DataObject\ClassDefinition\Listing();
 
-        if (!$user->isAdmin()) {
-            $buClassList    = $this->getUserBUClasses();
-            $list->setCondition("name IN ('". implode("', '", $buClassList)."')");
-        }
+        // if (!$user->isAdmin()) {
+        //     $buClassList    = $this->getUserBUClasses();
+        //     $list->setCondition("name IN ('". implode("', '", $buClassList)."')");
+        // }
 
         $list->load();
         $availableClasses = $list->getClasses();
