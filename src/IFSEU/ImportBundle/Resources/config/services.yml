@@ -101,7 +101,9 @@ services:
     IFSEU\ImportBundle\OneTimeImportCommand\IFSEUWorkflowPublishCommand: 
         tags:
             - { name: 'console.command', command: 'ifseu-workflow-publish' }    
-
+    IFSEU\ImportBundle\OneTimeImportCommand\TemperatureConversionToFCommand: 
+        tags:
+            - { name: 'console.command', command: 'ifs-eu-temperature-conversion-to-farenheit-command' }
     # Event Listener 
     IFSEU\ImportBundle\EventListener\ObjectListener:
         tags:

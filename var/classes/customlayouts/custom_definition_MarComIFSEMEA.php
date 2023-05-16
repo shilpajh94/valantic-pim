@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-05-05T10:20:08+05:30
+* Generated at: 2023-05-16T16:16:21+05:30
 * IP: 127.0.0.1
 */ 
 
@@ -11,7 +11,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'MarComIFSEMEA',
    'description' => '',
    'creationDate' => 1681288759,
-   'modificationDate' => 1683262208,
+   'modificationDate' => 1684233981,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => 'IFSEUProduct',
@@ -2884,7 +2884,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                              'title' => '',
                              'width' => '',
                              'height' => '',
-                             'maxTabs' => NULL,
+                             'maxTabs' => 20,
                              'labelWidth' => 200,
                              'border' => false,
                              'provideSplitView' => false,
@@ -5447,7 +5447,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'title' => '',
                                      'width' => '',
                                      'height' => '',
-                                     'maxTabs' => NULL,
+                                     'maxTabs' => 20,
                                      'labelWidth' => 210,
                                      'border' => false,
                                      'provideSplitView' => false,
@@ -20566,7 +20566,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                              'title' => '',
                              'width' => 1100,
                              'height' => 300,
-                             'maxTabs' => NULL,
+                             'maxTabs' => 20,
                              'labelWidth' => 150,
                              'border' => false,
                              'provideSplitView' => false,
@@ -21832,7 +21832,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                  'title' => '',
                  'width' => '',
                  'height' => '',
-                 'maxTabs' => NULL,
+                 'maxTabs' => 20,
                  'labelWidth' => 100,
                  'border' => false,
                  'provideSplitView' => false,
