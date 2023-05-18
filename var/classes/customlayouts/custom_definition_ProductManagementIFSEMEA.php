@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-05-12T17:55:27+05:30
+* Generated at: 2023-05-18T13:18:26+05:30
 * Changed by: system (0)
 * IP: 127.0.0.1
 */ 
@@ -12,7 +12,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'ProductManagementIFSEMEA',
    'description' => '',
    'creationDate' => 1681885149,
-   'modificationDate' => 1683894327,
+   'modificationDate' => 1684396106,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => 'IFSEUProduct',
@@ -3049,967 +3049,945 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'childs' => 
                                 array (
                                   0 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                                     'fieldtype' => 'fieldcontainer',
-                                     'labelWidth' => 200,
-                                     'layout' => 'vbox',
-                                     'fieldLabel' => '',
-                                     'name' => 'Field Container',
-                                     'type' => NULL,
-                                     'region' => NULL,
-                                     'title' => '',
-                                     'width' => NULL,
-                                     'height' => NULL,
-                                     'collapsible' => false,
-                                     'collapsed' => false,
-                                     'bodyStyle' => '',
-                                     'datatype' => 'layout',
-                                     'permissions' => NULL,
-                                     'childs' => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                                     'fieldtype' => 'multiselect',
+                                     'options' => 
                                     array (
                                       0 => 
-                                      Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                                         'fieldtype' => 'multiselect',
-                                         'options' => 
-                                        array (
-                                          0 => 
-                                          array (
-                                            'key' => 'Abrasive bulk material',
-                                            'value' => 15253847,
-                                          ),
-                                          1 => 
-                                          array (
-                                            'key' => 'Abrasive foods',
-                                            'value' => 15254001,
-                                          ),
-                                          2 => 
-                                          array (
-                                            'key' => 'Acetates',
-                                            'value' => 15253953,
-                                          ),
-                                          3 => 
-                                          array (
-                                            'key' => 'Acetylene gas',
-                                            'value' => 15253927,
-                                          ),
-                                          4 => 
-                                          array (
-                                            'key' => 'Acidic foods ',
-                                            'value' => 15253999,
-                                          ),
-                                          5 => 
-                                          array (
-                                            'key' => 'Acids',
-                                            'value' => 15253893,
-                                          ),
-                                          6 => 
-                                          array (
-                                            'key' => 'Activated carbon',
-                                            'value' => 15254005,
-                                          ),
-                                          7 => 
-                                          array (
-                                            'key' => 'Air',
-                                            'value' => 15253884,
-                                          ),
-                                          8 => 
-                                          array (
-                                            'key' => 'Alcohol',
-                                            'value' => 15253843,
-                                          ),
-                                          9 => 
-                                          array (
-                                            'key' => 'Alcohol <20%',
-                                            'value' => 15253997,
-                                          ),
-                                          10 => 
-                                          array (
-                                            'key' => 'Aldehydes',
-                                            'value' => 15253954,
-                                          ),
-                                          11 => 
-                                          array (
-                                            'key' => 'Aluminium Oxide',
-                                            'value' => 15253908,
-                                          ),
-                                          12 => 
-                                          array (
-                                            'key' => 'Aluminium oxide',
-                                            'value' => 15253970,
-                                          ),
-                                          13 => 
-                                          array (
-                                            'key' => ' Antifreeze and corrosion inhibitors',
-                                            'value' => 15253857,
-                                          ),
-                                          14 => 
-                                          array (
-                                            'key' => 'Antifreezing compounds',
-                                            'value' => 15253932,
-                                          ),
-                                          15 => 
-                                          array (
-                                            'key' => 'Argon',
-                                            'value' => 15253923,
-                                          ),
-                                          16 => 
-                                          array (
-                                            'key' => 'Ash',
-                                            'value' => 15253900,
-                                          ),
-                                          17 => 
-                                          array (
-                                            'key' => 'Beer',
-                                            'value' => 15253874,
-                                          ),
-                                          18 => 
-                                          array (
-                                            'key' => 'Benzine',
-                                            'value' => 15253926,
-                                          ),
-                                          19 => 
-                                          array (
-                                            'key' => 'Biodiesel resistant',
-                                            'value' => 15254008,
-                                          ),
-                                          20 => 
-                                          array (
-                                            'key' => 'Bitumen',
-                                            'value' => 15253882,
-                                          ),
-                                          21 => 
-                                          array (
-                                            'key' => 'Breathing air',
-                                            'value' => 15253925,
-                                          ),
-                                          22 => 
-                                          array (
-                                            'key' => 'Bulk material',
-                                            'value' => 15254010,
-                                          ),
-                                          23 => 
-                                          array (
-                                            'key' => 'Butane',
-                                            'value' => 15253928,
-                                          ),
-                                          24 => 
-                                          array (
-                                            'key' => 'Buttermilk',
-                                            'value' => 15253974,
-                                          ),
-                                          25 => 
-                                          array (
-                                            'key' => ' CO<sub>2</sub>',
-                                            'value' => 15253924,
-                                          ),
-                                          26 => 
-                                          array (
-                                            'key' => 'Carbon black',
-                                            'value' => 15253903,
-                                          ),
-                                          27 => 
-                                          array (
-                                            'key' => 'Caustics',
-                                            'value' => 15253894,
-                                          ),
-                                          28 => 
-                                          array (
-                                            'key' => 'Cement',
-                                            'value' => 15253906,
-                                          ),
-                                          29 => 
-                                          array (
-                                            'key' => 'Chalk',
-                                            'value' => 15253899,
-                                          ),
-                                          30 => 
-                                          array (
-                                            'key' => 'Cheese',
-                                            'value' => 15253981,
-                                          ),
-                                          31 => 
-                                          array (
-                                            'key' => 'Chemicals',
-                                            'value' => 15253848,
-                                          ),
-                                          32 => 
-                                          array (
-                                            'key' => 'Chlorine rubber lacquer',
-                                            'value' => 15253914,
-                                          ),
-                                          33 => 
-                                          array (
-                                            'key' => 'Chocolate',
-                                            'value' => 15253982,
-                                          ),
-                                          34 => 
-                                          array (
-                                            'key' => 'Citric acid ',
-                                            'value' => 15253986,
-                                          ),
-                                          35 => 
-                                          array (
-                                            'key' => 'Clean chemicals',
-                                            'value' => 15254012,
-                                          ),
-                                          36 => 
-                                          array (
-                                            'key' => 'Cleaning agents',
-                                            'value' => 15253947,
-                                          ),
-                                          37 => 
-                                          array (
-                                            'key' => 'Cleaning and disinfection agents ',
-                                            'value' => 15253892,
-                                          ),
-                                          38 => 
-                                          array (
-                                            'key' => 'Coal',
-                                            'value' => 15253901,
-                                          ),
-                                          39 => 
-                                          array (
-                                            'key' => 'Coal dust',
-                                            'value' => 15253966,
-                                          ),
-                                          40 => 
-                                          array (
-                                            'key' => 'Cold water',
-                                            'value' => 15253919,
-                                          ),
-                                          41 => 
-                                          array (
-                                            'key' => 'Commercially available cooling water additives in usual concentrations',
-                                            'value' => 15254022,
-                                          ),
-                                          42 => 
-                                          array (
-                                            'key' => 'Compressed air',
-                                            'value' => 15253855,
-                                          ),
-                                          43 => 
-                                          array (
-                                            'key' => 'Concrete',
-                                            'value' => 15253905,
-                                          ),
-                                          44 => 
-                                          array (
-                                            'key' => 'Condensate',
-                                            'value' => 15254014,
-                                          ),
-                                          45 => 
-                                          array (
-                                            'key' => 'Condensation',
-                                            'value' => 15253872,
-                                          ),
-                                          46 => 
-                                          array (
-                                            'key' => 'Cooling water',
-                                            'value' => 15253866,
-                                          ),
-                                          47 => 
-                                          array (
-                                            'key' => 'Corrosion preventives',
-                                            'value' => 15253939,
-                                          ),
-                                          48 => 
-                                          array (
-                                            'key' => 'Corundum',
-                                            'value' => 15253907,
-                                          ),
-                                          49 => 
-                                          array (
-                                            'key' => 'Cottage cheese',
-                                            'value' => 15253983,
-                                          ),
-                                          50 => 
-                                          array (
-                                            'key' => 'Dairy ice cream',
-                                            'value' => 15254003,
-                                          ),
-                                          51 => 
-                                          array (
-                                            'key' => 'Dairy products',
-                                            'value' => 15253878,
-                                          ),
-                                          52 => 
-                                          array (
-                                            'key' => 'Demineralised water',
-                                            'value' => 15253861,
-                                          ),
-                                          53 => 
-                                          array (
-                                            'key' => 'Diesel fuel',
-                                            'value' => 15253865,
-                                          ),
-                                          54 => 
-                                          array (
-                                            'key' => 'Disinfectants',
-                                            'value' => 15253929,
-                                          ),
-                                          55 => 
-                                          array (
-                                            'key' => 'Dough ',
-                                            'value' => 15253995,
-                                          ),
-                                          56 => 
-                                          array (
-                                            'key' => 'Dredging sludge',
-                                            'value' => 15253898,
-                                          ),
-                                          57 => 
-                                          array (
-                                            'key' => 'Dry Ice',
-                                            'value' => 15254004,
-                                          ),
-                                          58 => 
-                                          array (
-                                            'key' => 'Dry and oily compressed air',
-                                            'value' => 15254023,
-                                          ),
-                                          59 => 
-                                          array (
-                                            'key' => 'Dusty Media',
-                                            'value' => 15254006,
-                                          ),
-                                          60 => 
-                                          array (
-                                            'key' => 'Egg yolk',
-                                            'value' => 15253976,
-                                          ),
-                                          61 => 
-                                          array (
-                                            'key' => 'Emulsion paints',
-                                            'value' => 15253917,
-                                          ),
-                                          62 => 
-                                          array (
-                                            'key' => 'Engine oil',
-                                            'value' => 15253963,
-                                          ),
-                                          63 => 
-                                          array (
-                                            'key' => 'Epoxy laquer',
-                                            'value' => 15253916,
-                                          ),
-                                          64 => 
-                                          array (
-                                            'key' => 'Ester',
-                                            'value' => 15253955,
-                                          ),
-                                          65 => 
-                                          array (
-                                            'key' => 'Excrements',
-                                            'value' => 15253850,
-                                          ),
-                                          66 => 
-                                          array (
-                                            'key' => 'Explosive gas',
-                                            'value' => 15253931,
-                                          ),
-                                          67 => 
-                                          array (
-                                            'key' => 'Explosive gases and their mixtures',
-                                            'value' => 15253883,
-                                          ),
-                                          68 => 
-                                          array (
-                                            'key' => 'Extinguishing media',
-                                            'value' => 15254009,
-                                          ),
-                                          69 => 
-                                          array (
-                                            'key' => 'Fats',
-                                            'value' => 15253896,
-                                          ),
-                                          70 => 
-                                          array (
-                                            'key' => 'Fatty and oily products',
-                                            'value' => 15253864,
-                                          ),
-                                          71 => 
-                                          array (
-                                            'key' => 'Fatty foods',
-                                            'value' => 15254000,
-                                          ),
-                                          72 => 
-                                          array (
-                                            'key' => 'Fishmeal',
-                                            'value' => 15253994,
-                                          ),
-                                          73 => 
-                                          array (
-                                            'key' => 'Flour',
-                                            'value' => 15253911,
-                                          ),
-                                          74 => 
-                                          array (
-                                            'key' => 'Fly ash',
-                                            'value' => 15253968,
-                                          ),
-                                          75 => 
-                                          array (
-                                            'key' => 'Foodstuffs',
-                                            'value' => 15253998,
-                                          ),
-                                          76 => 
-                                          array (
-                                            'key' => 'Fruit ice cream',
-                                            'value' => 15254002,
-                                          ),
-                                          77 => 
-                                          array (
-                                            'key' => 'Fruits',
-                                            'value' => 15253977,
-                                          ),
-                                          78 => 
-                                          array (
-                                            'key' => 'Fuel',
-                                            'value' => 15253858,
-                                          ),
-                                          79 => 
-                                          array (
-                                            'key' => 'Fuel gases mixed with fluxes and oxygen',
-                                            'value' => 15253867,
-                                          ),
-                                          80 => 
-                                          array (
-                                            'key' => 'Fuel oil',
-                                            'value' => 15253961,
-                                          ),
-                                          81 => 
-                                          array (
-                                            'key' => 'Fuel-containing air',
-                                            'value' => 15254007,
-                                          ),
-                                          82 => 
-                                          array (
-                                            'key' => 'Fuels',
-                                            'value' => 15253863,
-                                          ),
-                                          83 => 
-                                          array (
-                                            'key' => 'Gas',
-                                            'value' => 15253921,
-                                          ),
-                                          84 => 
-                                          array (
-                                            'key' => 'Gasoil',
-                                            'value' => 15253934,
-                                          ),
-                                          85 => 
-                                          array (
-                                            'key' => 'Gear lubricant oil',
-                                            'value' => 15253964,
-                                          ),
-                                          86 => 
-                                          array (
-                                            'key' => 'Gelatine',
-                                            'value' => 15253975,
-                                          ),
-                                          87 => 
-                                          array (
-                                            'key' => 'Glues',
-                                            'value' => 15253887,
-                                          ),
-                                          88 => 
-                                          array (
-                                            'key' => 'Glycol solutions',
-                                            'value' => 15253935,
-                                          ),
-                                          89 => 
-                                          array (
-                                            'key' => 'Granulate (Salt, Sugar)',
-                                            'value' => 15253993,
-                                          ),
-                                          90 => 
-                                          array (
-                                            'key' => 'Granulate and powder media',
-                                            'value' => 15253845,
-                                          ),
-                                          91 => 
-                                          array (
-                                            'key' => 'Granules',
-                                            'value' => 15253936,
-                                          ),
-                                          92 => 
-                                          array (
-                                            'key' => 'Gravel',
-                                            'value' => 15253897,
-                                          ),
-                                          93 => 
-                                          array (
-                                            'key' => 'Hot air (not oily)',
-                                            'value' => 15253958,
-                                          ),
-                                          94 => 
-                                          array (
-                                            'key' => 'Hot cooling water',
-                                            'value' => 15253957,
-                                          ),
-                                          95 => 
-                                          array (
-                                            'key' => 'Hot water',
-                                            'value' => 15253920,
-                                          ),
-                                          96 => 
-                                          array (
-                                            'key' => 'Hydraulic fluids',
-                                            'value' => 15253937,
-                                          ),
-                                          97 => 
-                                          array (
-                                            'key' => 'Hydraulik oils',
-                                            'value' => 15253885,
-                                          ),
-                                          98 => 
-                                          array (
-                                            'key' => 'Hygenic/sanitary products',
-                                            'value' => 15254013,
-                                          ),
-                                          99 => 
-                                          array (
-                                            'key' => 'Ice',
-                                            'value' => 15253978,
-                                          ),
-                                          100 => 
-                                          array (
-                                            'key' => 'Industrial waste',
-                                            'value' => 15253972,
-                                          ),
-                                          101 => 
-                                          array (
-                                            'key' => 'Juice',
-                                            'value' => 15253988,
-                                          ),
-                                          102 => 
-                                          array (
-                                            'key' => 'Kerosene',
-                                            'value' => 15253938,
-                                          ),
-                                          103 => 
-                                          array (
-                                            'key' => 'Ketchup',
-                                            'value' => 15253989,
-                                          ),
-                                          104 => 
-                                          array (
-                                            'key' => 'Ketones',
-                                            'value' => 15253956,
-                                          ),
-                                          105 => 
-                                          array (
-                                            'key' => 'LPG',
-                                            'value' => 15253940,
-                                          ),
-                                          106 => 
-                                          array (
-                                            'key' => 'Lacquers',
-                                            'value' => 15253886,
-                                          ),
-                                          107 => 
-                                          array (
-                                            'key' => 'Lactic acid ',
-                                            'value' => 15253991,
-                                          ),
-                                          108 => 
-                                          array (
-                                            'key' => 'Lard',
-                                            'value' => 15254021,
-                                          ),
-                                          109 => 
-                                          array (
-                                            'key' => 'Limestone filler',
-                                            'value' => 15253969,
-                                          ),
-                                          110 => 
-                                          array (
-                                            'key' => 'Liquid gas',
-                                            'value' => 15253933,
-                                          ),
-                                          111 => 
-                                          array (
-                                            'key' => 'Liquid mud containing crude oil and grit ',
-                                            'value' => 15254011,
-                                          ),
-                                          112 => 
-                                          array (
-                                            'key' => 'Liquid oily and fatty foods',
-                                            'value' => 15253846,
-                                          ),
-                                          113 => 
-                                          array (
-                                            'key' => 'Lubricants',
-                                            'value' => 15253889,
-                                          ),
-                                          114 => 
-                                          array (
-                                            'key' => 'Lubricating oil',
-                                            'value' => 15253862,
-                                          ),
-                                          115 => 
-                                          array (
-                                            'key' => 'Micro silica',
-                                            'value' => 15253967,
-                                          ),
-                                          116 => 
-                                          array (
-                                            'key' => 'Microsilica',
-                                            'value' => 15254018,
-                                          ),
-                                          117 => 
-                                          array (
-                                            'key' => 'Milk',
-                                            'value' => 15253877,
-                                          ),
-                                          118 => 
-                                          array (
-                                            'key' => 'Milk powder',
-                                            'value' => 15253990,
-                                          ),
-                                          119 => 
-                                          array (
-                                            'key' => 'Mineral oil',
-                                            'value' => 15253941,
-                                          ),
-                                          120 => 
-                                          array (
-                                            'key' => 'Mineral oil and glycol-based hydraulic fluids',
-                                            'value' => 15253852,
-                                          ),
-                                          121 => 
-                                          array (
-                                            'key' => 'Mud',
-                                            'value' => 15253960,
-                                          ),
-                                          122 => 
-                                          array (
-                                            'key' => 'Mustard',
-                                            'value' => 15253985,
-                                          ),
-                                          123 => 
-                                          array (
-                                            'key' => 'Naphtha',
-                                            'value' => 15253942,
-                                          ),
-                                          124 => 
-                                          array (
-                                            'key' => 'Natural gas',
-                                            'value' => 15253930,
-                                          ),
-                                          125 => 
-                                          array (
-                                            'key' => 'Nitro cellulose lacquer',
-                                            'value' => 15253913,
-                                          ),
-                                          126 => 
-                                          array (
-                                            'key' => 'Nitrogen',
-                                            'value' => 15253922,
-                                          ),
-                                          127 => 
-                                          array (
-                                            'key' => 'Non-flammable gas',
-                                            'value' => 15253943,
-                                          ),
-                                          128 => 
-                                          array (
-                                            'key' => 'Oil',
-                                            'value' => 15253895,
-                                          ),
-                                          129 => 
-                                          array (
-                                            'key' => 'Oils',
-                                            'value' => 15253888,
-                                          ),
-                                          130 => 
-                                          array (
-                                            'key' => 'Oily air',
-                                            'value' => 15253880,
-                                          ),
-                                          131 => 
-                                          array (
-                                            'key' => 'Ore',
-                                            'value' => 15253902,
-                                          ),
-                                          132 => 
-                                          array (
-                                            'key' => 'Oxygen',
-                                            'value' => 15253870,
-                                          ),
-                                          133 => 
-                                          array (
-                                            'key' => 'PVC',
-                                            'value' => 15254019,
-                                          ),
-                                          134 => 
-                                          array (
-                                            'key' => 'Paints',
-                                            'value' => 15253869,
-                                          ),
-                                          135 => 
-                                          array (
-                                            'key' => 'Pesticides',
-                                            'value' => 15253950,
-                                          ),
-                                          136 => 
-                                          array (
-                                            'key' => 'Petroleum based products up to 50% aromatic component',
-                                            'value' => 15253965,
-                                          ),
-                                          137 => 
-                                          array (
-                                            'key' => 'Plastic granulates',
-                                            'value' => 15253971,
-                                          ),
-                                          138 => 
-                                          array (
-                                            'key' => 'Polar and aromatic solvents ',
-                                            'value' => 15253856,
-                                          ),
-                                          139 => 
-                                          array (
-                                            'key' => 'Polar solvents',
-                                            'value' => 15253952,
-                                          ),
-                                          140 => 
-                                          array (
-                                            'key' => 'Polyester lacquer',
-                                            'value' => 15253918,
-                                          ),
-                                          141 => 
-                                          array (
-                                            'key' => 'Polyurethane laqcuer',
-                                            'value' => 15253915,
-                                          ),
-                                          142 => 
-                                          array (
-                                            'key' => 'Potable water',
-                                            'value' => 15253879,
-                                          ),
-                                          143 => 
-                                          array (
-                                            'key' => 'Powder',
-                                            'value' => 15253996,
-                                          ),
-                                          144 => 
-                                          array (
-                                            'key' => 'Powder media',
-                                            'value' => 15253946,
-                                          ),
-                                          145 => 
-                                          array (
-                                            'key' => 'Powdery and fine-grained bulk materials (grain size "equal to/smaller than" 3mm)',
-                                            'value' => 15254020,
-                                          ),
-                                          146 => 
-                                          array (
-                                            'key' => 'Power steering oil',
-                                            'value' => 15253962,
-                                          ),
-                                          147 => 
-                                          array (
-                                            'key' => 'Pressurized air',
-                                            'value' => 15253944,
-                                          ),
-                                          148 => 
-                                          array (
-                                            'key' => 'Process water',
-                                            'value' => 15253891,
-                                          ),
-                                          149 => 
-                                          array (
-                                            'key' => 'Propane',
-                                            'value' => 15253945,
-                                          ),
-                                          150 => 
-                                          array (
-                                            'key' => 'Quarz powder',
-                                            'value' => 15253909,
-                                          ),
-                                          151 => 
-                                          array (
-                                            'key' => 'Raw milk',
-                                            'value' => 15253948,
-                                          ),
-                                          152 => 
-                                          array (
-                                            'key' => 'Raw oil',
-                                            'value' => 15253854,
-                                          ),
-                                          153 => 
-                                          array (
-                                            'key' => 'Refrigerant',
-                                            'value' => 15253860,
-                                          ),
-                                          154 => 
-                                          array (
-                                            'key' => 'Rice pudding ',
-                                            'value' => 15253984,
-                                          ),
-                                          155 => 
-                                          array (
-                                            'key' => 'Salt',
-                                            'value' => 15253904,
-                                          ),
-                                          156 => 
-                                          array (
-                                            'key' => 'Salt solutions',
-                                            'value' => 15253949,
-                                          ),
-                                          157 => 
-                                          array (
-                                            'key' => 'Sand',
-                                            'value' => 15253851,
-                                          ),
-                                          158 => 
-                                          array (
-                                            'key' => 'Sand Steelgrit',
-                                            'value' => 15253849,
-                                          ),
-                                          159 => 
-                                          array (
-                                            'key' => 'Sea water',
-                                            'value' => 15253890,
-                                          ),
-                                          160 => 
-                                          array (
-                                            'key' => 'Sewage',
-                                            'value' => 15253873,
-                                          ),
-                                          161 => 
-                                          array (
-                                            'key' => 'Solvents',
-                                            'value' => 15253859,
-                                          ),
-                                          162 => 
-                                          array (
-                                            'key' => 'Sparkling wine ',
-                                            'value' => 15253979,
-                                          ),
-                                          163 => 
-                                          array (
-                                            'key' => 'Spirit lacquer',
-                                            'value' => 15253912,
-                                          ),
-                                          164 => 
-                                          array (
-                                            'key' => 'Spirits',
-                                            'value' => 15253992,
-                                          ),
-                                          165 => 
-                                          array (
-                                            'key' => 'Starch',
-                                            'value' => 15254016,
-                                          ),
-                                          166 => 
-                                          array (
-                                            'key' => 'Steam',
-                                            'value' => 15253844,
-                                          ),
-                                          167 => 
-                                          array (
-                                            'key' => 'Sugar',
-                                            'value' => 15253910,
-                                          ),
-                                          168 => 
-                                          array (
-                                            'key' => 'Sugar syrup',
-                                            'value' => 15253987,
-                                          ),
-                                          169 => 
-                                          array (
-                                            'key' => 'Tallow',
-                                            'value' => 15253973,
-                                          ),
-                                          170 => 
-                                          array (
-                                            'key' => 'Tar',
-                                            'value' => 15253881,
-                                          ),
-                                          171 => 
-                                          array (
-                                            'key' => 'Treated and non-treated cooling water',
-                                            'value' => 15253868,
-                                          ),
-                                          172 => 
-                                          array (
-                                            'key' => 'Ultrapure water',
-                                            'value' => 15253871,
-                                          ),
-                                          173 => 
-                                          array (
-                                            'key' => 'Vegetable and mineral lubricants',
-                                            'value' => 15253853,
-                                          ),
-                                          174 => 
-                                          array (
-                                            'key' => 'Vinegar ',
-                                            'value' => 15253980,
-                                          ),
-                                          175 => 
-                                          array (
-                                            'key' => 'Washing powder',
-                                            'value' => 15254017,
-                                          ),
-                                          176 => 
-                                          array (
-                                            'key' => 'Water',
-                                            'value' => 15253842,
-                                          ),
-                                          177 => 
-                                          array (
-                                            'key' => 'Water emulsions',
-                                            'value' => 15253951,
-                                          ),
-                                          178 => 
-                                          array (
-                                            'key' => 'Water-based saturated steam',
-                                            'value' => 15254015,
-                                          ),
-                                          179 => 
-                                          array (
-                                            'key' => 'Wine',
-                                            'value' => 15253875,
-                                          ),
-                                          180 => 
-                                          array (
-                                            'key' => 'Yoghurt',
-                                            'value' => 15253876,
-                                          ),
-                                          181 => 
-                                          array (
-                                            'key' => 'liquid and pasty chemical and petroleum based products',
-                                            'value' => 15253959,
-                                          ),
-                                        ),
-                                         'width' => 300,
-                                         'height' => '',
-                                         'maxItems' => '',
-                                         'renderType' => 'tags',
-                                         'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\NoteInformationBelowTableOptionsProvider',
-                                         'optionsProviderData' => '',
-                                         'queryColumnType' => 'text',
-                                         'columnType' => 'text',
-                                         'phpdocType' => 'array',
-                                         'dynamicOptions' => false,
-                                         'name' => 'NoteInformationBelowTable',
-                                         'title' => 'Note (Information Below Table)',
-                                         'tooltip' => '',
-                                         'mandatory' => false,
-                                         'noteditable' => false,
-                                         'index' => false,
-                                         'locked' => false,
-                                         'style' => '',
-                                         'permissions' => NULL,
-                                         'datatype' => 'data',
-                                         'relationType' => false,
-                                         'invisible' => false,
-                                         'visibleGridView' => false,
-                                         'visibleSearch' => false,
-                                      )),
+                                      array (
+                                        'key' => 'Abrasive bulk material',
+                                        'value' => 15255658,
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => 'Abrasive foods',
+                                        'value' => 15255812,
+                                      ),
+                                      2 => 
+                                      array (
+                                        'key' => 'Acetates',
+                                        'value' => 15255764,
+                                      ),
+                                      3 => 
+                                      array (
+                                        'key' => 'Acetylene gas',
+                                        'value' => 15255738,
+                                      ),
+                                      4 => 
+                                      array (
+                                        'key' => 'Acidic foods ',
+                                        'value' => 15255810,
+                                      ),
+                                      5 => 
+                                      array (
+                                        'key' => 'Acids',
+                                        'value' => 15255704,
+                                      ),
+                                      6 => 
+                                      array (
+                                        'key' => 'Activated carbon',
+                                        'value' => 15255816,
+                                      ),
+                                      7 => 
+                                      array (
+                                        'key' => 'Air',
+                                        'value' => 15255695,
+                                      ),
+                                      8 => 
+                                      array (
+                                        'key' => 'Alcohol',
+                                        'value' => 15255654,
+                                      ),
+                                      9 => 
+                                      array (
+                                        'key' => 'Alcohol <20%',
+                                        'value' => 15255808,
+                                      ),
+                                      10 => 
+                                      array (
+                                        'key' => 'Aldehydes',
+                                        'value' => 15255765,
+                                      ),
+                                      11 => 
+                                      array (
+                                        'key' => 'Aluminium Oxide',
+                                        'value' => 15255719,
+                                      ),
+                                      12 => 
+                                      array (
+                                        'key' => 'Aluminium oxide',
+                                        'value' => 15255781,
+                                      ),
+                                      13 => 
+                                      array (
+                                        'key' => ' Antifreeze and corrosion inhibitors',
+                                        'value' => 15255668,
+                                      ),
+                                      14 => 
+                                      array (
+                                        'key' => 'Antifreezing compounds',
+                                        'value' => 15255743,
+                                      ),
+                                      15 => 
+                                      array (
+                                        'key' => 'Argon',
+                                        'value' => 15255734,
+                                      ),
+                                      16 => 
+                                      array (
+                                        'key' => 'Ash',
+                                        'value' => 15255711,
+                                      ),
+                                      17 => 
+                                      array (
+                                        'key' => 'Beer',
+                                        'value' => 15255685,
+                                      ),
+                                      18 => 
+                                      array (
+                                        'key' => 'Benzine',
+                                        'value' => 15255737,
+                                      ),
+                                      19 => 
+                                      array (
+                                        'key' => 'Biodiesel resistant',
+                                        'value' => 15255819,
+                                      ),
+                                      20 => 
+                                      array (
+                                        'key' => 'Bitumen',
+                                        'value' => 15255693,
+                                      ),
+                                      21 => 
+                                      array (
+                                        'key' => 'Breathing air',
+                                        'value' => 15255736,
+                                      ),
+                                      22 => 
+                                      array (
+                                        'key' => 'Bulk material',
+                                        'value' => 15255821,
+                                      ),
+                                      23 => 
+                                      array (
+                                        'key' => 'Butane',
+                                        'value' => 15255739,
+                                      ),
+                                      24 => 
+                                      array (
+                                        'key' => 'Buttermilk',
+                                        'value' => 15255785,
+                                      ),
+                                      25 => 
+                                      array (
+                                        'key' => ' CO<sub>2</sub>',
+                                        'value' => 15255735,
+                                      ),
+                                      26 => 
+                                      array (
+                                        'key' => 'Carbon black',
+                                        'value' => 15255714,
+                                      ),
+                                      27 => 
+                                      array (
+                                        'key' => 'Caustics',
+                                        'value' => 15255705,
+                                      ),
+                                      28 => 
+                                      array (
+                                        'key' => 'Cement',
+                                        'value' => 15255717,
+                                      ),
+                                      29 => 
+                                      array (
+                                        'key' => 'Chalk',
+                                        'value' => 15255710,
+                                      ),
+                                      30 => 
+                                      array (
+                                        'key' => 'Cheese',
+                                        'value' => 15255792,
+                                      ),
+                                      31 => 
+                                      array (
+                                        'key' => 'Chemicals',
+                                        'value' => 15255659,
+                                      ),
+                                      32 => 
+                                      array (
+                                        'key' => 'Chlorine rubber lacquer',
+                                        'value' => 15255725,
+                                      ),
+                                      33 => 
+                                      array (
+                                        'key' => 'Chocolate',
+                                        'value' => 15255793,
+                                      ),
+                                      34 => 
+                                      array (
+                                        'key' => 'Citric acid ',
+                                        'value' => 15255797,
+                                      ),
+                                      35 => 
+                                      array (
+                                        'key' => 'Clean chemicals',
+                                        'value' => 15255823,
+                                      ),
+                                      36 => 
+                                      array (
+                                        'key' => 'Cleaning agents',
+                                        'value' => 15255758,
+                                      ),
+                                      37 => 
+                                      array (
+                                        'key' => 'Cleaning and disinfection agents ',
+                                        'value' => 15255703,
+                                      ),
+                                      38 => 
+                                      array (
+                                        'key' => 'Coal',
+                                        'value' => 15255712,
+                                      ),
+                                      39 => 
+                                      array (
+                                        'key' => 'Coal dust',
+                                        'value' => 15255777,
+                                      ),
+                                      40 => 
+                                      array (
+                                        'key' => 'Cold water',
+                                        'value' => 15255730,
+                                      ),
+                                      41 => 
+                                      array (
+                                        'key' => 'Commercially available cooling water additives in usual concentrations',
+                                        'value' => 15255833,
+                                      ),
+                                      42 => 
+                                      array (
+                                        'key' => 'Compressed air',
+                                        'value' => 15255666,
+                                      ),
+                                      43 => 
+                                      array (
+                                        'key' => 'Concrete',
+                                        'value' => 15255716,
+                                      ),
+                                      44 => 
+                                      array (
+                                        'key' => 'Condensate',
+                                        'value' => 15255825,
+                                      ),
+                                      45 => 
+                                      array (
+                                        'key' => 'Condensation',
+                                        'value' => 15255683,
+                                      ),
+                                      46 => 
+                                      array (
+                                        'key' => 'Cooling water',
+                                        'value' => 15255677,
+                                      ),
+                                      47 => 
+                                      array (
+                                        'key' => 'Corrosion preventives',
+                                        'value' => 15255750,
+                                      ),
+                                      48 => 
+                                      array (
+                                        'key' => 'Corundum',
+                                        'value' => 15255718,
+                                      ),
+                                      49 => 
+                                      array (
+                                        'key' => 'Cottage cheese',
+                                        'value' => 15255794,
+                                      ),
+                                      50 => 
+                                      array (
+                                        'key' => 'Dairy ice cream',
+                                        'value' => 15255814,
+                                      ),
+                                      51 => 
+                                      array (
+                                        'key' => 'Dairy products',
+                                        'value' => 15255689,
+                                      ),
+                                      52 => 
+                                      array (
+                                        'key' => 'Demineralised water',
+                                        'value' => 15255672,
+                                      ),
+                                      53 => 
+                                      array (
+                                        'key' => 'Diesel fuel',
+                                        'value' => 15255676,
+                                      ),
+                                      54 => 
+                                      array (
+                                        'key' => 'Disinfectants',
+                                        'value' => 15255740,
+                                      ),
+                                      55 => 
+                                      array (
+                                        'key' => 'Dough ',
+                                        'value' => 15255806,
+                                      ),
+                                      56 => 
+                                      array (
+                                        'key' => 'Dredging sludge',
+                                        'value' => 15255709,
+                                      ),
+                                      57 => 
+                                      array (
+                                        'key' => 'Dry Ice',
+                                        'value' => 15255815,
+                                      ),
+                                      58 => 
+                                      array (
+                                        'key' => 'Dry and oily compressed air',
+                                        'value' => 15255834,
+                                      ),
+                                      59 => 
+                                      array (
+                                        'key' => 'Dusty Media',
+                                        'value' => 15255817,
+                                      ),
+                                      60 => 
+                                      array (
+                                        'key' => 'Egg yolk',
+                                        'value' => 15255787,
+                                      ),
+                                      61 => 
+                                      array (
+                                        'key' => 'Emulsion paints',
+                                        'value' => 15255728,
+                                      ),
+                                      62 => 
+                                      array (
+                                        'key' => 'Engine oil',
+                                        'value' => 15255774,
+                                      ),
+                                      63 => 
+                                      array (
+                                        'key' => 'Epoxy laquer',
+                                        'value' => 15255727,
+                                      ),
+                                      64 => 
+                                      array (
+                                        'key' => 'Ester',
+                                        'value' => 15255766,
+                                      ),
+                                      65 => 
+                                      array (
+                                        'key' => 'Excrements',
+                                        'value' => 15255661,
+                                      ),
+                                      66 => 
+                                      array (
+                                        'key' => 'Explosive gas',
+                                        'value' => 15255742,
+                                      ),
+                                      67 => 
+                                      array (
+                                        'key' => 'Explosive gases and their mixtures',
+                                        'value' => 15255694,
+                                      ),
+                                      68 => 
+                                      array (
+                                        'key' => 'Extinguishing media',
+                                        'value' => 15255820,
+                                      ),
+                                      69 => 
+                                      array (
+                                        'key' => 'Fats',
+                                        'value' => 15255707,
+                                      ),
+                                      70 => 
+                                      array (
+                                        'key' => 'Fatty and oily products',
+                                        'value' => 15255675,
+                                      ),
+                                      71 => 
+                                      array (
+                                        'key' => 'Fatty foods',
+                                        'value' => 15255811,
+                                      ),
+                                      72 => 
+                                      array (
+                                        'key' => 'Fishmeal',
+                                        'value' => 15255805,
+                                      ),
+                                      73 => 
+                                      array (
+                                        'key' => 'Flour',
+                                        'value' => 15255722,
+                                      ),
+                                      74 => 
+                                      array (
+                                        'key' => 'Fly ash',
+                                        'value' => 15255779,
+                                      ),
+                                      75 => 
+                                      array (
+                                        'key' => 'Foodstuffs',
+                                        'value' => 15255809,
+                                      ),
+                                      76 => 
+                                      array (
+                                        'key' => 'Fruit ice cream',
+                                        'value' => 15255813,
+                                      ),
+                                      77 => 
+                                      array (
+                                        'key' => 'Fruits',
+                                        'value' => 15255788,
+                                      ),
+                                      78 => 
+                                      array (
+                                        'key' => 'Fuel',
+                                        'value' => 15255669,
+                                      ),
+                                      79 => 
+                                      array (
+                                        'key' => 'Fuel gases mixed with fluxes and oxygen',
+                                        'value' => 15255678,
+                                      ),
+                                      80 => 
+                                      array (
+                                        'key' => 'Fuel oil',
+                                        'value' => 15255772,
+                                      ),
+                                      81 => 
+                                      array (
+                                        'key' => 'Fuel-containing air',
+                                        'value' => 15255818,
+                                      ),
+                                      82 => 
+                                      array (
+                                        'key' => 'Fuels',
+                                        'value' => 15255674,
+                                      ),
+                                      83 => 
+                                      array (
+                                        'key' => 'Gas',
+                                        'value' => 15255732,
+                                      ),
+                                      84 => 
+                                      array (
+                                        'key' => 'Gasoil',
+                                        'value' => 15255745,
+                                      ),
+                                      85 => 
+                                      array (
+                                        'key' => 'Gear lubricant oil',
+                                        'value' => 15255775,
+                                      ),
+                                      86 => 
+                                      array (
+                                        'key' => 'Gelatine',
+                                        'value' => 15255786,
+                                      ),
+                                      87 => 
+                                      array (
+                                        'key' => 'Glues',
+                                        'value' => 15255698,
+                                      ),
+                                      88 => 
+                                      array (
+                                        'key' => 'Glycol solutions',
+                                        'value' => 15255746,
+                                      ),
+                                      89 => 
+                                      array (
+                                        'key' => 'Granulate (Salt, Sugar)',
+                                        'value' => 15255804,
+                                      ),
+                                      90 => 
+                                      array (
+                                        'key' => 'Granulate and powder media',
+                                        'value' => 15255656,
+                                      ),
+                                      91 => 
+                                      array (
+                                        'key' => 'Granules',
+                                        'value' => 15255747,
+                                      ),
+                                      92 => 
+                                      array (
+                                        'key' => 'Gravel',
+                                        'value' => 15255708,
+                                      ),
+                                      93 => 
+                                      array (
+                                        'key' => 'Hot air (not oily)',
+                                        'value' => 15255769,
+                                      ),
+                                      94 => 
+                                      array (
+                                        'key' => 'Hot cooling water',
+                                        'value' => 15255768,
+                                      ),
+                                      95 => 
+                                      array (
+                                        'key' => 'Hot water',
+                                        'value' => 15255731,
+                                      ),
+                                      96 => 
+                                      array (
+                                        'key' => 'Hydraulic fluids',
+                                        'value' => 15255748,
+                                      ),
+                                      97 => 
+                                      array (
+                                        'key' => 'Hydraulik oils',
+                                        'value' => 15255696,
+                                      ),
+                                      98 => 
+                                      array (
+                                        'key' => 'Hygenic/sanitary products',
+                                        'value' => 15255824,
+                                      ),
+                                      99 => 
+                                      array (
+                                        'key' => 'Ice',
+                                        'value' => 15255789,
+                                      ),
+                                      100 => 
+                                      array (
+                                        'key' => 'Industrial waste',
+                                        'value' => 15255783,
+                                      ),
+                                      101 => 
+                                      array (
+                                        'key' => 'Juice',
+                                        'value' => 15255799,
+                                      ),
+                                      102 => 
+                                      array (
+                                        'key' => 'Kerosene',
+                                        'value' => 15255749,
+                                      ),
+                                      103 => 
+                                      array (
+                                        'key' => 'Ketchup',
+                                        'value' => 15255800,
+                                      ),
+                                      104 => 
+                                      array (
+                                        'key' => 'Ketones',
+                                        'value' => 15255767,
+                                      ),
+                                      105 => 
+                                      array (
+                                        'key' => 'LPG',
+                                        'value' => 15255751,
+                                      ),
+                                      106 => 
+                                      array (
+                                        'key' => 'Lacquers',
+                                        'value' => 15255697,
+                                      ),
+                                      107 => 
+                                      array (
+                                        'key' => 'Lactic acid ',
+                                        'value' => 15255802,
+                                      ),
+                                      108 => 
+                                      array (
+                                        'key' => 'Lard',
+                                        'value' => 15255832,
+                                      ),
+                                      109 => 
+                                      array (
+                                        'key' => 'Limestone filler',
+                                        'value' => 15255780,
+                                      ),
+                                      110 => 
+                                      array (
+                                        'key' => 'Liquid gas',
+                                        'value' => 15255744,
+                                      ),
+                                      111 => 
+                                      array (
+                                        'key' => 'Liquid mud containing crude oil and grit ',
+                                        'value' => 15255822,
+                                      ),
+                                      112 => 
+                                      array (
+                                        'key' => 'Liquid oily and fatty foods',
+                                        'value' => 15255657,
+                                      ),
+                                      113 => 
+                                      array (
+                                        'key' => 'Lubricants',
+                                        'value' => 15255700,
+                                      ),
+                                      114 => 
+                                      array (
+                                        'key' => 'Lubricating oil',
+                                        'value' => 15255673,
+                                      ),
+                                      115 => 
+                                      array (
+                                        'key' => 'Micro silica',
+                                        'value' => 15255778,
+                                      ),
+                                      116 => 
+                                      array (
+                                        'key' => 'Microsilica',
+                                        'value' => 15255829,
+                                      ),
+                                      117 => 
+                                      array (
+                                        'key' => 'Milk',
+                                        'value' => 15255688,
+                                      ),
+                                      118 => 
+                                      array (
+                                        'key' => 'Milk powder',
+                                        'value' => 15255801,
+                                      ),
+                                      119 => 
+                                      array (
+                                        'key' => 'Mineral oil',
+                                        'value' => 15255752,
+                                      ),
+                                      120 => 
+                                      array (
+                                        'key' => 'Mineral oil and glycol-based hydraulic fluids',
+                                        'value' => 15255663,
+                                      ),
+                                      121 => 
+                                      array (
+                                        'key' => 'Mud',
+                                        'value' => 15255771,
+                                      ),
+                                      122 => 
+                                      array (
+                                        'key' => 'Mustard',
+                                        'value' => 15255796,
+                                      ),
+                                      123 => 
+                                      array (
+                                        'key' => 'Naphtha',
+                                        'value' => 15255753,
+                                      ),
+                                      124 => 
+                                      array (
+                                        'key' => 'Natural gas',
+                                        'value' => 15255741,
+                                      ),
+                                      125 => 
+                                      array (
+                                        'key' => 'Nitro cellulose lacquer',
+                                        'value' => 15255724,
+                                      ),
+                                      126 => 
+                                      array (
+                                        'key' => 'Nitrogen',
+                                        'value' => 15255733,
+                                      ),
+                                      127 => 
+                                      array (
+                                        'key' => 'Non-flammable gas',
+                                        'value' => 15255754,
+                                      ),
+                                      128 => 
+                                      array (
+                                        'key' => 'Oil',
+                                        'value' => 15255706,
+                                      ),
+                                      129 => 
+                                      array (
+                                        'key' => 'Oils',
+                                        'value' => 15255699,
+                                      ),
+                                      130 => 
+                                      array (
+                                        'key' => 'Oily air',
+                                        'value' => 15255691,
+                                      ),
+                                      131 => 
+                                      array (
+                                        'key' => 'Ore',
+                                        'value' => 15255713,
+                                      ),
+                                      132 => 
+                                      array (
+                                        'key' => 'Oxygen',
+                                        'value' => 15255681,
+                                      ),
+                                      133 => 
+                                      array (
+                                        'key' => 'PVC',
+                                        'value' => 15255830,
+                                      ),
+                                      134 => 
+                                      array (
+                                        'key' => 'Paints',
+                                        'value' => 15255680,
+                                      ),
+                                      135 => 
+                                      array (
+                                        'key' => 'Pesticides',
+                                        'value' => 15255761,
+                                      ),
+                                      136 => 
+                                      array (
+                                        'key' => 'Petroleum based products up to 50% aromatic component',
+                                        'value' => 15255776,
+                                      ),
+                                      137 => 
+                                      array (
+                                        'key' => 'Plastic granulates',
+                                        'value' => 15255782,
+                                      ),
+                                      138 => 
+                                      array (
+                                        'key' => 'Polar and aromatic solvents ',
+                                        'value' => 15255667,
+                                      ),
+                                      139 => 
+                                      array (
+                                        'key' => 'Polar solvents',
+                                        'value' => 15255763,
+                                      ),
+                                      140 => 
+                                      array (
+                                        'key' => 'Polyester lacquer',
+                                        'value' => 15255729,
+                                      ),
+                                      141 => 
+                                      array (
+                                        'key' => 'Polyurethane laqcuer',
+                                        'value' => 15255726,
+                                      ),
+                                      142 => 
+                                      array (
+                                        'key' => 'Potable water',
+                                        'value' => 15255690,
+                                      ),
+                                      143 => 
+                                      array (
+                                        'key' => 'Powder',
+                                        'value' => 15255807,
+                                      ),
+                                      144 => 
+                                      array (
+                                        'key' => 'Powder media',
+                                        'value' => 15255757,
+                                      ),
+                                      145 => 
+                                      array (
+                                        'key' => 'Powdery and fine-grained bulk materials (grain size "equal to/smaller than" 3mm)',
+                                        'value' => 15255831,
+                                      ),
+                                      146 => 
+                                      array (
+                                        'key' => 'Power steering oil',
+                                        'value' => 15255773,
+                                      ),
+                                      147 => 
+                                      array (
+                                        'key' => 'Pressurized air',
+                                        'value' => 15255755,
+                                      ),
+                                      148 => 
+                                      array (
+                                        'key' => 'Process water',
+                                        'value' => 15255702,
+                                      ),
+                                      149 => 
+                                      array (
+                                        'key' => 'Propane',
+                                        'value' => 15255756,
+                                      ),
+                                      150 => 
+                                      array (
+                                        'key' => 'Quarz powder',
+                                        'value' => 15255720,
+                                      ),
+                                      151 => 
+                                      array (
+                                        'key' => 'Raw milk',
+                                        'value' => 15255759,
+                                      ),
+                                      152 => 
+                                      array (
+                                        'key' => 'Raw oil',
+                                        'value' => 15255665,
+                                      ),
+                                      153 => 
+                                      array (
+                                        'key' => 'Refrigerant',
+                                        'value' => 15255671,
+                                      ),
+                                      154 => 
+                                      array (
+                                        'key' => 'Rice pudding ',
+                                        'value' => 15255795,
+                                      ),
+                                      155 => 
+                                      array (
+                                        'key' => 'Salt',
+                                        'value' => 15255715,
+                                      ),
+                                      156 => 
+                                      array (
+                                        'key' => 'Salt solutions',
+                                        'value' => 15255760,
+                                      ),
+                                      157 => 
+                                      array (
+                                        'key' => 'Sand',
+                                        'value' => 15255662,
+                                      ),
+                                      158 => 
+                                      array (
+                                        'key' => 'Sand Steelgrit',
+                                        'value' => 15255660,
+                                      ),
+                                      159 => 
+                                      array (
+                                        'key' => 'Sea water',
+                                        'value' => 15255701,
+                                      ),
+                                      160 => 
+                                      array (
+                                        'key' => 'Sewage',
+                                        'value' => 15255684,
+                                      ),
+                                      161 => 
+                                      array (
+                                        'key' => 'Solvents',
+                                        'value' => 15255670,
+                                      ),
+                                      162 => 
+                                      array (
+                                        'key' => 'Sparkling wine ',
+                                        'value' => 15255790,
+                                      ),
+                                      163 => 
+                                      array (
+                                        'key' => 'Spirit lacquer',
+                                        'value' => 15255723,
+                                      ),
+                                      164 => 
+                                      array (
+                                        'key' => 'Spirits',
+                                        'value' => 15255803,
+                                      ),
+                                      165 => 
+                                      array (
+                                        'key' => 'Starch',
+                                        'value' => 15255827,
+                                      ),
+                                      166 => 
+                                      array (
+                                        'key' => 'Steam',
+                                        'value' => 15255655,
+                                      ),
+                                      167 => 
+                                      array (
+                                        'key' => 'Sugar',
+                                        'value' => 15255721,
+                                      ),
+                                      168 => 
+                                      array (
+                                        'key' => 'Sugar syrup',
+                                        'value' => 15255798,
+                                      ),
+                                      169 => 
+                                      array (
+                                        'key' => 'Tallow',
+                                        'value' => 15255784,
+                                      ),
+                                      170 => 
+                                      array (
+                                        'key' => 'Tar',
+                                        'value' => 15255692,
+                                      ),
+                                      171 => 
+                                      array (
+                                        'key' => 'Treated and non-treated cooling water',
+                                        'value' => 15255679,
+                                      ),
+                                      172 => 
+                                      array (
+                                        'key' => 'Ultrapure water',
+                                        'value' => 15255682,
+                                      ),
+                                      173 => 
+                                      array (
+                                        'key' => 'Vegetable and mineral lubricants',
+                                        'value' => 15255664,
+                                      ),
+                                      174 => 
+                                      array (
+                                        'key' => 'Vinegar ',
+                                        'value' => 15255791,
+                                      ),
+                                      175 => 
+                                      array (
+                                        'key' => 'Washing powder',
+                                        'value' => 15255828,
+                                      ),
+                                      176 => 
+                                      array (
+                                        'key' => 'Water',
+                                        'value' => 15255653,
+                                      ),
+                                      177 => 
+                                      array (
+                                        'key' => 'Water emulsions',
+                                        'value' => 15255762,
+                                      ),
+                                      178 => 
+                                      array (
+                                        'key' => 'Water-based saturated steam',
+                                        'value' => 15255826,
+                                      ),
+                                      179 => 
+                                      array (
+                                        'key' => 'Wine',
+                                        'value' => 15255686,
+                                      ),
+                                      180 => 
+                                      array (
+                                        'key' => 'Yoghurt',
+                                        'value' => 15255687,
+                                      ),
+                                      181 => 
+                                      array (
+                                        'key' => 'liquid and pasty chemical and petroleum based products',
+                                        'value' => 15255770,
+                                      ),
                                     ),
+                                     'width' => 830,
+                                     'height' => 80,
+                                     'maxItems' => '',
+                                     'renderType' => 'tags',
+                                     'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\NoteInformationBelowTableOptionsProvider',
+                                     'optionsProviderData' => '',
+                                     'queryColumnType' => 'text',
+                                     'columnType' => 'text',
+                                     'phpdocType' => 'array',
+                                     'dynamicOptions' => false,
+                                     'name' => 'NoteInformationBelowTable',
+                                     'title' => 'Note (Information Below Table)',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
                                      'locked' => false,
+                                     'style' => '',
+                                     'permissions' => NULL,
+                                     'datatype' => 'data',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
                                   )),
                                 ),
                                  'locked' => false,
@@ -4021,7 +3999,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                              'title' => '',
                              'width' => '',
                              'height' => '',
-                             'maxTabs' => NULL,
+                             'maxTabs' => 20,
                              'labelWidth' => 200,
                              'border' => false,
                              'provideSplitView' => false,
@@ -20909,7 +20887,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                              'region' => NULL,
                              'title' => '',
                              'width' => 1100,
-                             'height' => 500,
+                             'height' => 700,
                              'collapsible' => false,
                              'collapsed' => false,
                              'bodyStyle' => 'overflow-x: hidden;overflow-y: hidden;',
@@ -20955,7 +20933,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'noteditable' => false,
                                      'index' => false,
                                      'locked' => false,
-                                     'style' => 'margin-top:10px;',
+                                     'style' => 'margin-top:12px;',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
                                      'relationType' => false,
@@ -21214,929 +21192,929 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                       0 => 
                                       array (
                                         'key' => 'Abrasive bulk material',
-                                        'value' => 15254579,
+                                        'value' => 15255475,
                                       ),
                                       1 => 
                                       array (
                                         'key' => 'Abrasive foods',
-                                        'value' => 15254733,
+                                        'value' => 15255629,
                                       ),
                                       2 => 
                                       array (
                                         'key' => 'Acetates',
-                                        'value' => 15254685,
+                                        'value' => 15255581,
                                       ),
                                       3 => 
                                       array (
                                         'key' => 'Acetylene gas',
-                                        'value' => 15254659,
+                                        'value' => 15255555,
                                       ),
                                       4 => 
                                       array (
                                         'key' => 'Acidic foods ',
-                                        'value' => 15254731,
+                                        'value' => 15255627,
                                       ),
                                       5 => 
                                       array (
                                         'key' => 'Acids',
-                                        'value' => 15254625,
+                                        'value' => 15255521,
                                       ),
                                       6 => 
                                       array (
                                         'key' => 'Activated carbon',
-                                        'value' => 15254737,
+                                        'value' => 15255633,
                                       ),
                                       7 => 
                                       array (
                                         'key' => 'Air',
-                                        'value' => 15254616,
+                                        'value' => 15255512,
                                       ),
                                       8 => 
                                       array (
                                         'key' => 'Alcohol',
-                                        'value' => 15254575,
+                                        'value' => 15255471,
                                       ),
                                       9 => 
                                       array (
                                         'key' => 'Alcohol <20%',
-                                        'value' => 15254729,
+                                        'value' => 15255625,
                                       ),
                                       10 => 
                                       array (
                                         'key' => 'Aldehydes',
-                                        'value' => 15254686,
+                                        'value' => 15255582,
                                       ),
                                       11 => 
                                       array (
                                         'key' => 'Aluminium Oxide',
-                                        'value' => 15254640,
+                                        'value' => 15255536,
                                       ),
                                       12 => 
                                       array (
                                         'key' => 'Aluminium oxide',
-                                        'value' => 15254702,
+                                        'value' => 15255598,
                                       ),
                                       13 => 
                                       array (
                                         'key' => ' Antifreeze and corrosion inhibitors',
-                                        'value' => 15254589,
+                                        'value' => 15255485,
                                       ),
                                       14 => 
                                       array (
                                         'key' => 'Antifreezing compounds',
-                                        'value' => 15254664,
+                                        'value' => 15255560,
                                       ),
                                       15 => 
                                       array (
                                         'key' => 'Argon',
-                                        'value' => 15254655,
+                                        'value' => 15255551,
                                       ),
                                       16 => 
                                       array (
                                         'key' => 'Ash',
-                                        'value' => 15254632,
+                                        'value' => 15255528,
                                       ),
                                       17 => 
                                       array (
                                         'key' => 'Beer',
-                                        'value' => 15254606,
+                                        'value' => 15255502,
                                       ),
                                       18 => 
                                       array (
                                         'key' => 'Benzine',
-                                        'value' => 15254658,
+                                        'value' => 15255554,
                                       ),
                                       19 => 
                                       array (
                                         'key' => 'Biodiesel resistant',
-                                        'value' => 15254740,
+                                        'value' => 15255636,
                                       ),
                                       20 => 
                                       array (
                                         'key' => 'Bitumen',
-                                        'value' => 15254614,
+                                        'value' => 15255510,
                                       ),
                                       21 => 
                                       array (
                                         'key' => 'Breathing air',
-                                        'value' => 15254657,
+                                        'value' => 15255553,
                                       ),
                                       22 => 
                                       array (
                                         'key' => 'Bulk material',
-                                        'value' => 15254742,
+                                        'value' => 15255638,
                                       ),
                                       23 => 
                                       array (
                                         'key' => 'Butane',
-                                        'value' => 15254660,
+                                        'value' => 15255556,
                                       ),
                                       24 => 
                                       array (
                                         'key' => 'Buttermilk',
-                                        'value' => 15254706,
+                                        'value' => 15255602,
                                       ),
                                       25 => 
                                       array (
                                         'key' => ' CO<sub>2</sub>',
-                                        'value' => 15254656,
+                                        'value' => 15255552,
                                       ),
                                       26 => 
                                       array (
                                         'key' => 'Carbon black',
-                                        'value' => 15254635,
+                                        'value' => 15255531,
                                       ),
                                       27 => 
                                       array (
                                         'key' => 'Caustics',
-                                        'value' => 15254626,
+                                        'value' => 15255522,
                                       ),
                                       28 => 
                                       array (
                                         'key' => 'Cement',
-                                        'value' => 15254638,
+                                        'value' => 15255534,
                                       ),
                                       29 => 
                                       array (
                                         'key' => 'Chalk',
-                                        'value' => 15254631,
+                                        'value' => 15255527,
                                       ),
                                       30 => 
                                       array (
                                         'key' => 'Cheese',
-                                        'value' => 15254713,
+                                        'value' => 15255609,
                                       ),
                                       31 => 
                                       array (
                                         'key' => 'Chemicals',
-                                        'value' => 15254580,
+                                        'value' => 15255476,
                                       ),
                                       32 => 
                                       array (
                                         'key' => 'Chlorine rubber lacquer',
-                                        'value' => 15254646,
+                                        'value' => 15255542,
                                       ),
                                       33 => 
                                       array (
                                         'key' => 'Chocolate',
-                                        'value' => 15254714,
+                                        'value' => 15255610,
                                       ),
                                       34 => 
                                       array (
                                         'key' => 'Citric acid ',
-                                        'value' => 15254718,
+                                        'value' => 15255614,
                                       ),
                                       35 => 
                                       array (
                                         'key' => 'Clean chemicals',
-                                        'value' => 15254744,
+                                        'value' => 15255640,
                                       ),
                                       36 => 
                                       array (
                                         'key' => 'Cleaning agents',
-                                        'value' => 15254679,
+                                        'value' => 15255575,
                                       ),
                                       37 => 
                                       array (
                                         'key' => 'Cleaning and disinfection agents ',
-                                        'value' => 15254624,
+                                        'value' => 15255520,
                                       ),
                                       38 => 
                                       array (
                                         'key' => 'Coal',
-                                        'value' => 15254633,
+                                        'value' => 15255529,
                                       ),
                                       39 => 
                                       array (
                                         'key' => 'Coal dust',
-                                        'value' => 15254698,
+                                        'value' => 15255594,
                                       ),
                                       40 => 
                                       array (
                                         'key' => 'Cold water',
-                                        'value' => 15254651,
+                                        'value' => 15255547,
                                       ),
                                       41 => 
                                       array (
                                         'key' => 'Commercially available cooling water additives in usual concentrations',
-                                        'value' => 15254754,
+                                        'value' => 15255650,
                                       ),
                                       42 => 
                                       array (
                                         'key' => 'Compressed air',
-                                        'value' => 15254587,
+                                        'value' => 15255483,
                                       ),
                                       43 => 
                                       array (
                                         'key' => 'Concrete',
-                                        'value' => 15254637,
+                                        'value' => 15255533,
                                       ),
                                       44 => 
                                       array (
                                         'key' => 'Condensate',
-                                        'value' => 15254746,
+                                        'value' => 15255642,
                                       ),
                                       45 => 
                                       array (
                                         'key' => 'Condensation',
-                                        'value' => 15254604,
+                                        'value' => 15255500,
                                       ),
                                       46 => 
                                       array (
                                         'key' => 'Cooling water',
-                                        'value' => 15254598,
+                                        'value' => 15255494,
                                       ),
                                       47 => 
                                       array (
                                         'key' => 'Corrosion preventives',
-                                        'value' => 15254671,
+                                        'value' => 15255567,
                                       ),
                                       48 => 
                                       array (
                                         'key' => 'Corundum',
-                                        'value' => 15254639,
+                                        'value' => 15255535,
                                       ),
                                       49 => 
                                       array (
                                         'key' => 'Cottage cheese',
-                                        'value' => 15254715,
+                                        'value' => 15255611,
                                       ),
                                       50 => 
                                       array (
                                         'key' => 'Dairy ice cream',
-                                        'value' => 15254735,
+                                        'value' => 15255631,
                                       ),
                                       51 => 
                                       array (
                                         'key' => 'Dairy products',
-                                        'value' => 15254610,
+                                        'value' => 15255506,
                                       ),
                                       52 => 
                                       array (
                                         'key' => 'Demineralised water',
-                                        'value' => 15254593,
+                                        'value' => 15255489,
                                       ),
                                       53 => 
                                       array (
                                         'key' => 'Diesel fuel',
-                                        'value' => 15254597,
+                                        'value' => 15255493,
                                       ),
                                       54 => 
                                       array (
                                         'key' => 'Disinfectants',
-                                        'value' => 15254661,
+                                        'value' => 15255557,
                                       ),
                                       55 => 
                                       array (
                                         'key' => 'Dough ',
-                                        'value' => 15254727,
+                                        'value' => 15255623,
                                       ),
                                       56 => 
                                       array (
                                         'key' => 'Dredging sludge',
-                                        'value' => 15254630,
+                                        'value' => 15255526,
                                       ),
                                       57 => 
                                       array (
                                         'key' => 'Dry Ice',
-                                        'value' => 15254736,
+                                        'value' => 15255632,
                                       ),
                                       58 => 
                                       array (
                                         'key' => 'Dry and oily compressed air',
-                                        'value' => 15254755,
+                                        'value' => 15255651,
                                       ),
                                       59 => 
                                       array (
                                         'key' => 'Dusty Media',
-                                        'value' => 15254738,
+                                        'value' => 15255634,
                                       ),
                                       60 => 
                                       array (
                                         'key' => 'Egg yolk',
-                                        'value' => 15254708,
+                                        'value' => 15255604,
                                       ),
                                       61 => 
                                       array (
                                         'key' => 'Emulsion paints',
-                                        'value' => 15254649,
+                                        'value' => 15255545,
                                       ),
                                       62 => 
                                       array (
                                         'key' => 'Engine oil',
-                                        'value' => 15254695,
+                                        'value' => 15255591,
                                       ),
                                       63 => 
                                       array (
                                         'key' => 'Epoxy laquer',
-                                        'value' => 15254648,
+                                        'value' => 15255544,
                                       ),
                                       64 => 
                                       array (
                                         'key' => 'Ester',
-                                        'value' => 15254687,
+                                        'value' => 15255583,
                                       ),
                                       65 => 
                                       array (
                                         'key' => 'Excrements',
-                                        'value' => 15254582,
+                                        'value' => 15255478,
                                       ),
                                       66 => 
                                       array (
                                         'key' => 'Explosive gas',
-                                        'value' => 15254663,
+                                        'value' => 15255559,
                                       ),
                                       67 => 
                                       array (
                                         'key' => 'Explosive gases and their mixtures',
-                                        'value' => 15254615,
+                                        'value' => 15255511,
                                       ),
                                       68 => 
                                       array (
                                         'key' => 'Extinguishing media',
-                                        'value' => 15254741,
+                                        'value' => 15255637,
                                       ),
                                       69 => 
                                       array (
                                         'key' => 'Fats',
-                                        'value' => 15254628,
+                                        'value' => 15255524,
                                       ),
                                       70 => 
                                       array (
                                         'key' => 'Fatty and oily products',
-                                        'value' => 15254596,
+                                        'value' => 15255492,
                                       ),
                                       71 => 
                                       array (
                                         'key' => 'Fatty foods',
-                                        'value' => 15254732,
+                                        'value' => 15255628,
                                       ),
                                       72 => 
                                       array (
                                         'key' => 'Fishmeal',
-                                        'value' => 15254726,
+                                        'value' => 15255622,
                                       ),
                                       73 => 
                                       array (
                                         'key' => 'Flour',
-                                        'value' => 15254643,
+                                        'value' => 15255539,
                                       ),
                                       74 => 
                                       array (
                                         'key' => 'Fly ash',
-                                        'value' => 15254700,
+                                        'value' => 15255596,
                                       ),
                                       75 => 
                                       array (
                                         'key' => 'Foodstuffs',
-                                        'value' => 15254730,
+                                        'value' => 15255626,
                                       ),
                                       76 => 
                                       array (
                                         'key' => 'Fruit ice cream',
-                                        'value' => 15254734,
+                                        'value' => 15255630,
                                       ),
                                       77 => 
                                       array (
                                         'key' => 'Fruits',
-                                        'value' => 15254709,
+                                        'value' => 15255605,
                                       ),
                                       78 => 
                                       array (
                                         'key' => 'Fuel',
-                                        'value' => 15254590,
+                                        'value' => 15255486,
                                       ),
                                       79 => 
                                       array (
                                         'key' => 'Fuel gases mixed with fluxes and oxygen',
-                                        'value' => 15254599,
+                                        'value' => 15255495,
                                       ),
                                       80 => 
                                       array (
                                         'key' => 'Fuel oil',
-                                        'value' => 15254693,
+                                        'value' => 15255589,
                                       ),
                                       81 => 
                                       array (
                                         'key' => 'Fuel-containing air',
-                                        'value' => 15254739,
+                                        'value' => 15255635,
                                       ),
                                       82 => 
                                       array (
                                         'key' => 'Fuels',
-                                        'value' => 15254595,
+                                        'value' => 15255491,
                                       ),
                                       83 => 
                                       array (
                                         'key' => 'Gas',
-                                        'value' => 15254653,
+                                        'value' => 15255549,
                                       ),
                                       84 => 
                                       array (
                                         'key' => 'Gasoil',
-                                        'value' => 15254666,
+                                        'value' => 15255562,
                                       ),
                                       85 => 
                                       array (
                                         'key' => 'Gear lubricant oil',
-                                        'value' => 15254696,
+                                        'value' => 15255592,
                                       ),
                                       86 => 
                                       array (
                                         'key' => 'Gelatine',
-                                        'value' => 15254707,
+                                        'value' => 15255603,
                                       ),
                                       87 => 
                                       array (
                                         'key' => 'Glues',
-                                        'value' => 15254619,
+                                        'value' => 15255515,
                                       ),
                                       88 => 
                                       array (
                                         'key' => 'Glycol solutions',
-                                        'value' => 15254667,
+                                        'value' => 15255563,
                                       ),
                                       89 => 
                                       array (
                                         'key' => 'Granulate (Salt, Sugar)',
-                                        'value' => 15254725,
+                                        'value' => 15255621,
                                       ),
                                       90 => 
                                       array (
                                         'key' => 'Granulate and powder media',
-                                        'value' => 15254577,
+                                        'value' => 15255473,
                                       ),
                                       91 => 
                                       array (
                                         'key' => 'Granules',
-                                        'value' => 15254668,
+                                        'value' => 15255564,
                                       ),
                                       92 => 
                                       array (
                                         'key' => 'Gravel',
-                                        'value' => 15254629,
+                                        'value' => 15255525,
                                       ),
                                       93 => 
                                       array (
                                         'key' => 'Hot air (not oily)',
-                                        'value' => 15254690,
+                                        'value' => 15255586,
                                       ),
                                       94 => 
                                       array (
                                         'key' => 'Hot cooling water',
-                                        'value' => 15254689,
+                                        'value' => 15255585,
                                       ),
                                       95 => 
                                       array (
                                         'key' => 'Hot water',
-                                        'value' => 15254652,
+                                        'value' => 15255548,
                                       ),
                                       96 => 
                                       array (
                                         'key' => 'Hydraulic fluids',
-                                        'value' => 15254669,
+                                        'value' => 15255565,
                                       ),
                                       97 => 
                                       array (
                                         'key' => 'Hydraulik oils',
-                                        'value' => 15254617,
+                                        'value' => 15255513,
                                       ),
                                       98 => 
                                       array (
                                         'key' => 'Hygenic/sanitary products',
-                                        'value' => 15254745,
+                                        'value' => 15255641,
                                       ),
                                       99 => 
                                       array (
                                         'key' => 'Ice',
-                                        'value' => 15254710,
+                                        'value' => 15255606,
                                       ),
                                       100 => 
                                       array (
                                         'key' => 'Industrial waste',
-                                        'value' => 15254704,
+                                        'value' => 15255600,
                                       ),
                                       101 => 
                                       array (
                                         'key' => 'Juice',
-                                        'value' => 15254720,
+                                        'value' => 15255616,
                                       ),
                                       102 => 
                                       array (
                                         'key' => 'Kerosene',
-                                        'value' => 15254670,
+                                        'value' => 15255566,
                                       ),
                                       103 => 
                                       array (
                                         'key' => 'Ketchup',
-                                        'value' => 15254721,
+                                        'value' => 15255617,
                                       ),
                                       104 => 
                                       array (
                                         'key' => 'Ketones',
-                                        'value' => 15254688,
+                                        'value' => 15255584,
                                       ),
                                       105 => 
                                       array (
                                         'key' => 'LPG',
-                                        'value' => 15254672,
+                                        'value' => 15255568,
                                       ),
                                       106 => 
                                       array (
                                         'key' => 'Lacquers',
-                                        'value' => 15254618,
+                                        'value' => 15255514,
                                       ),
                                       107 => 
                                       array (
                                         'key' => 'Lactic acid ',
-                                        'value' => 15254723,
+                                        'value' => 15255619,
                                       ),
                                       108 => 
                                       array (
                                         'key' => 'Lard',
-                                        'value' => 15254753,
+                                        'value' => 15255649,
                                       ),
                                       109 => 
                                       array (
                                         'key' => 'Limestone filler',
-                                        'value' => 15254701,
+                                        'value' => 15255597,
                                       ),
                                       110 => 
                                       array (
                                         'key' => 'Liquid gas',
-                                        'value' => 15254665,
+                                        'value' => 15255561,
                                       ),
                                       111 => 
                                       array (
                                         'key' => 'Liquid mud containing crude oil and grit ',
-                                        'value' => 15254743,
+                                        'value' => 15255639,
                                       ),
                                       112 => 
                                       array (
                                         'key' => 'Liquid oily and fatty foods',
-                                        'value' => 15254578,
+                                        'value' => 15255474,
                                       ),
                                       113 => 
                                       array (
                                         'key' => 'Lubricants',
-                                        'value' => 15254621,
+                                        'value' => 15255517,
                                       ),
                                       114 => 
                                       array (
                                         'key' => 'Lubricating oil',
-                                        'value' => 15254594,
+                                        'value' => 15255490,
                                       ),
                                       115 => 
                                       array (
                                         'key' => 'Micro silica',
-                                        'value' => 15254699,
+                                        'value' => 15255595,
                                       ),
                                       116 => 
                                       array (
                                         'key' => 'Microsilica',
-                                        'value' => 15254750,
+                                        'value' => 15255646,
                                       ),
                                       117 => 
                                       array (
                                         'key' => 'Milk',
-                                        'value' => 15254609,
+                                        'value' => 15255505,
                                       ),
                                       118 => 
                                       array (
                                         'key' => 'Milk powder',
-                                        'value' => 15254722,
+                                        'value' => 15255618,
                                       ),
                                       119 => 
                                       array (
                                         'key' => 'Mineral oil',
-                                        'value' => 15254673,
+                                        'value' => 15255569,
                                       ),
                                       120 => 
                                       array (
                                         'key' => 'Mineral oil and glycol-based hydraulic fluids',
-                                        'value' => 15254584,
+                                        'value' => 15255480,
                                       ),
                                       121 => 
                                       array (
                                         'key' => 'Mud',
-                                        'value' => 15254692,
+                                        'value' => 15255588,
                                       ),
                                       122 => 
                                       array (
                                         'key' => 'Mustard',
-                                        'value' => 15254717,
+                                        'value' => 15255613,
                                       ),
                                       123 => 
                                       array (
                                         'key' => 'Naphtha',
-                                        'value' => 15254674,
+                                        'value' => 15255570,
                                       ),
                                       124 => 
                                       array (
                                         'key' => 'Natural gas',
-                                        'value' => 15254662,
+                                        'value' => 15255558,
                                       ),
                                       125 => 
                                       array (
                                         'key' => 'Nitro cellulose lacquer',
-                                        'value' => 15254645,
+                                        'value' => 15255541,
                                       ),
                                       126 => 
                                       array (
                                         'key' => 'Nitrogen',
-                                        'value' => 15254654,
+                                        'value' => 15255550,
                                       ),
                                       127 => 
                                       array (
                                         'key' => 'Non-flammable gas',
-                                        'value' => 15254675,
+                                        'value' => 15255571,
                                       ),
                                       128 => 
                                       array (
                                         'key' => 'Oil',
-                                        'value' => 15254627,
+                                        'value' => 15255523,
                                       ),
                                       129 => 
                                       array (
                                         'key' => 'Oils',
-                                        'value' => 15254620,
+                                        'value' => 15255516,
                                       ),
                                       130 => 
                                       array (
                                         'key' => 'Oily air',
-                                        'value' => 15254612,
+                                        'value' => 15255508,
                                       ),
                                       131 => 
                                       array (
                                         'key' => 'Ore',
-                                        'value' => 15254634,
+                                        'value' => 15255530,
                                       ),
                                       132 => 
                                       array (
                                         'key' => 'Oxygen',
-                                        'value' => 15254602,
+                                        'value' => 15255498,
                                       ),
                                       133 => 
                                       array (
                                         'key' => 'PVC',
-                                        'value' => 15254751,
+                                        'value' => 15255647,
                                       ),
                                       134 => 
                                       array (
                                         'key' => 'Paints',
-                                        'value' => 15254601,
+                                        'value' => 15255497,
                                       ),
                                       135 => 
                                       array (
                                         'key' => 'Pesticides',
-                                        'value' => 15254682,
+                                        'value' => 15255578,
                                       ),
                                       136 => 
                                       array (
                                         'key' => 'Petroleum based products up to 50% aromatic component',
-                                        'value' => 15254697,
+                                        'value' => 15255593,
                                       ),
                                       137 => 
                                       array (
                                         'key' => 'Plastic granulates',
-                                        'value' => 15254703,
+                                        'value' => 15255599,
                                       ),
                                       138 => 
                                       array (
                                         'key' => 'Polar and aromatic solvents ',
-                                        'value' => 15254588,
+                                        'value' => 15255484,
                                       ),
                                       139 => 
                                       array (
                                         'key' => 'Polar solvents',
-                                        'value' => 15254684,
+                                        'value' => 15255580,
                                       ),
                                       140 => 
                                       array (
                                         'key' => 'Polyester lacquer',
-                                        'value' => 15254650,
+                                        'value' => 15255546,
                                       ),
                                       141 => 
                                       array (
                                         'key' => 'Polyurethane laqcuer',
-                                        'value' => 15254647,
+                                        'value' => 15255543,
                                       ),
                                       142 => 
                                       array (
                                         'key' => 'Potable water',
-                                        'value' => 15254611,
+                                        'value' => 15255507,
                                       ),
                                       143 => 
                                       array (
                                         'key' => 'Powder',
-                                        'value' => 15254728,
+                                        'value' => 15255624,
                                       ),
                                       144 => 
                                       array (
                                         'key' => 'Powder media',
-                                        'value' => 15254678,
+                                        'value' => 15255574,
                                       ),
                                       145 => 
                                       array (
                                         'key' => 'Powdery and fine-grained bulk materials (grain size "equal to/smaller than" 3mm)',
-                                        'value' => 15254752,
+                                        'value' => 15255648,
                                       ),
                                       146 => 
                                       array (
                                         'key' => 'Power steering oil',
-                                        'value' => 15254694,
+                                        'value' => 15255590,
                                       ),
                                       147 => 
                                       array (
                                         'key' => 'Pressurized air',
-                                        'value' => 15254676,
+                                        'value' => 15255572,
                                       ),
                                       148 => 
                                       array (
                                         'key' => 'Process water',
-                                        'value' => 15254623,
+                                        'value' => 15255519,
                                       ),
                                       149 => 
                                       array (
                                         'key' => 'Propane',
-                                        'value' => 15254677,
+                                        'value' => 15255573,
                                       ),
                                       150 => 
                                       array (
                                         'key' => 'Quarz powder',
-                                        'value' => 15254641,
+                                        'value' => 15255537,
                                       ),
                                       151 => 
                                       array (
                                         'key' => 'Raw milk',
-                                        'value' => 15254680,
+                                        'value' => 15255576,
                                       ),
                                       152 => 
                                       array (
                                         'key' => 'Raw oil',
-                                        'value' => 15254586,
+                                        'value' => 15255482,
                                       ),
                                       153 => 
                                       array (
                                         'key' => 'Refrigerant',
-                                        'value' => 15254592,
+                                        'value' => 15255488,
                                       ),
                                       154 => 
                                       array (
                                         'key' => 'Rice pudding ',
-                                        'value' => 15254716,
+                                        'value' => 15255612,
                                       ),
                                       155 => 
                                       array (
                                         'key' => 'Salt',
-                                        'value' => 15254636,
+                                        'value' => 15255532,
                                       ),
                                       156 => 
                                       array (
                                         'key' => 'Salt solutions',
-                                        'value' => 15254681,
+                                        'value' => 15255577,
                                       ),
                                       157 => 
                                       array (
                                         'key' => 'Sand',
-                                        'value' => 15254583,
+                                        'value' => 15255479,
                                       ),
                                       158 => 
                                       array (
                                         'key' => 'Sand Steelgrit',
-                                        'value' => 15254581,
+                                        'value' => 15255477,
                                       ),
                                       159 => 
                                       array (
                                         'key' => 'Sea water',
-                                        'value' => 15254622,
+                                        'value' => 15255518,
                                       ),
                                       160 => 
                                       array (
                                         'key' => 'Sewage',
-                                        'value' => 15254605,
+                                        'value' => 15255501,
                                       ),
                                       161 => 
                                       array (
                                         'key' => 'Solvents',
-                                        'value' => 15254591,
+                                        'value' => 15255487,
                                       ),
                                       162 => 
                                       array (
                                         'key' => 'Sparkling wine ',
-                                        'value' => 15254711,
+                                        'value' => 15255607,
                                       ),
                                       163 => 
                                       array (
                                         'key' => 'Spirit lacquer',
-                                        'value' => 15254644,
+                                        'value' => 15255540,
                                       ),
                                       164 => 
                                       array (
                                         'key' => 'Spirits',
-                                        'value' => 15254724,
+                                        'value' => 15255620,
                                       ),
                                       165 => 
                                       array (
                                         'key' => 'Starch',
-                                        'value' => 15254748,
+                                        'value' => 15255644,
                                       ),
                                       166 => 
                                       array (
                                         'key' => 'Steam',
-                                        'value' => 15254576,
+                                        'value' => 15255472,
                                       ),
                                       167 => 
                                       array (
                                         'key' => 'Sugar',
-                                        'value' => 15254642,
+                                        'value' => 15255538,
                                       ),
                                       168 => 
                                       array (
                                         'key' => 'Sugar syrup',
-                                        'value' => 15254719,
+                                        'value' => 15255615,
                                       ),
                                       169 => 
                                       array (
                                         'key' => 'Tallow',
-                                        'value' => 15254705,
+                                        'value' => 15255601,
                                       ),
                                       170 => 
                                       array (
                                         'key' => 'Tar',
-                                        'value' => 15254613,
+                                        'value' => 15255509,
                                       ),
                                       171 => 
                                       array (
                                         'key' => 'Treated and non-treated cooling water',
-                                        'value' => 15254600,
+                                        'value' => 15255496,
                                       ),
                                       172 => 
                                       array (
                                         'key' => 'Ultrapure water',
-                                        'value' => 15254603,
+                                        'value' => 15255499,
                                       ),
                                       173 => 
                                       array (
                                         'key' => 'Vegetable and mineral lubricants',
-                                        'value' => 15254585,
+                                        'value' => 15255481,
                                       ),
                                       174 => 
                                       array (
                                         'key' => 'Vinegar ',
-                                        'value' => 15254712,
+                                        'value' => 15255608,
                                       ),
                                       175 => 
                                       array (
                                         'key' => 'Washing powder',
-                                        'value' => 15254749,
+                                        'value' => 15255645,
                                       ),
                                       176 => 
                                       array (
                                         'key' => 'Water',
-                                        'value' => 15254574,
+                                        'value' => 15255470,
                                       ),
                                       177 => 
                                       array (
                                         'key' => 'Water emulsions',
-                                        'value' => 15254683,
+                                        'value' => 15255579,
                                       ),
                                       178 => 
                                       array (
                                         'key' => 'Water-based saturated steam',
-                                        'value' => 15254747,
+                                        'value' => 15255643,
                                       ),
                                       179 => 
                                       array (
                                         'key' => 'Wine',
-                                        'value' => 15254607,
+                                        'value' => 15255503,
                                       ),
                                       180 => 
                                       array (
                                         'key' => 'Yoghurt',
-                                        'value' => 15254608,
+                                        'value' => 15255504,
                                       ),
                                       181 => 
                                       array (
                                         'key' => 'liquid and pasty chemical and petroleum based products',
-                                        'value' => 15254691,
+                                        'value' => 15255587,
                                       ),
                                     ),
                                      'width' => 220,
                                      'height' => '',
                                      'maxItems' => '',
                                      'renderType' => 'tags',
-                                     'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\ProductionLengthOptionsProvider',
+                                     'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\MinimumOrderOptionsProvider',
                                      'optionsProviderData' => '',
                                      'queryColumnType' => 'text',
                                      'columnType' => 'text',
                                      'phpdocType' => 'array',
                                      'dynamicOptions' => false,
-                                     'name' => 'productionLength',
-                                     'title' => 'Production Length',
+                                     'name' => 'minimumOrder',
+                                     'title' => 'Minimum Order',
                                      'tooltip' => '',
                                      'mandatory' => false,
-                                     'noteditable' => true,
+                                     'noteditable' => false,
                                      'index' => false,
                                      'locked' => false,
                                      'style' => '',
@@ -22155,926 +22133,926 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                       0 => 
                                       array (
                                         'key' => 'Abrasive bulk material',
-                                        'value' => 15254396,
+                                        'value' => 15255292,
                                       ),
                                       1 => 
                                       array (
                                         'key' => 'Abrasive foods',
-                                        'value' => 15254550,
+                                        'value' => 15255446,
                                       ),
                                       2 => 
                                       array (
                                         'key' => 'Acetates',
-                                        'value' => 15254502,
+                                        'value' => 15255398,
                                       ),
                                       3 => 
                                       array (
                                         'key' => 'Acetylene gas',
-                                        'value' => 15254476,
+                                        'value' => 15255372,
                                       ),
                                       4 => 
                                       array (
                                         'key' => 'Acidic foods ',
-                                        'value' => 15254548,
+                                        'value' => 15255444,
                                       ),
                                       5 => 
                                       array (
                                         'key' => 'Acids',
-                                        'value' => 15254442,
+                                        'value' => 15255338,
                                       ),
                                       6 => 
                                       array (
                                         'key' => 'Activated carbon',
-                                        'value' => 15254554,
+                                        'value' => 15255450,
                                       ),
                                       7 => 
                                       array (
                                         'key' => 'Air',
-                                        'value' => 15254433,
+                                        'value' => 15255329,
                                       ),
                                       8 => 
                                       array (
                                         'key' => 'Alcohol',
-                                        'value' => 15254392,
+                                        'value' => 15255288,
                                       ),
                                       9 => 
                                       array (
                                         'key' => 'Alcohol <20%',
-                                        'value' => 15254546,
+                                        'value' => 15255442,
                                       ),
                                       10 => 
                                       array (
                                         'key' => 'Aldehydes',
-                                        'value' => 15254503,
+                                        'value' => 15255399,
                                       ),
                                       11 => 
                                       array (
                                         'key' => 'Aluminium Oxide',
-                                        'value' => 15254457,
+                                        'value' => 15255353,
                                       ),
                                       12 => 
                                       array (
                                         'key' => 'Aluminium oxide',
-                                        'value' => 15254519,
+                                        'value' => 15255415,
                                       ),
                                       13 => 
                                       array (
                                         'key' => ' Antifreeze and corrosion inhibitors',
-                                        'value' => 15254406,
+                                        'value' => 15255302,
                                       ),
                                       14 => 
                                       array (
                                         'key' => 'Antifreezing compounds',
-                                        'value' => 15254481,
+                                        'value' => 15255377,
                                       ),
                                       15 => 
                                       array (
                                         'key' => 'Argon',
-                                        'value' => 15254472,
+                                        'value' => 15255368,
                                       ),
                                       16 => 
                                       array (
                                         'key' => 'Ash',
-                                        'value' => 15254449,
+                                        'value' => 15255345,
                                       ),
                                       17 => 
                                       array (
                                         'key' => 'Beer',
-                                        'value' => 15254423,
+                                        'value' => 15255319,
                                       ),
                                       18 => 
                                       array (
                                         'key' => 'Benzine',
-                                        'value' => 15254475,
+                                        'value' => 15255371,
                                       ),
                                       19 => 
                                       array (
                                         'key' => 'Biodiesel resistant',
-                                        'value' => 15254557,
+                                        'value' => 15255453,
                                       ),
                                       20 => 
                                       array (
                                         'key' => 'Bitumen',
-                                        'value' => 15254431,
+                                        'value' => 15255327,
                                       ),
                                       21 => 
                                       array (
                                         'key' => 'Breathing air',
-                                        'value' => 15254474,
+                                        'value' => 15255370,
                                       ),
                                       22 => 
                                       array (
                                         'key' => 'Bulk material',
-                                        'value' => 15254559,
+                                        'value' => 15255455,
                                       ),
                                       23 => 
                                       array (
                                         'key' => 'Butane',
-                                        'value' => 15254477,
+                                        'value' => 15255373,
                                       ),
                                       24 => 
                                       array (
                                         'key' => 'Buttermilk',
-                                        'value' => 15254523,
+                                        'value' => 15255419,
                                       ),
                                       25 => 
                                       array (
                                         'key' => ' CO<sub>2</sub>',
-                                        'value' => 15254473,
+                                        'value' => 15255369,
                                       ),
                                       26 => 
                                       array (
                                         'key' => 'Carbon black',
-                                        'value' => 15254452,
+                                        'value' => 15255348,
                                       ),
                                       27 => 
                                       array (
                                         'key' => 'Caustics',
-                                        'value' => 15254443,
+                                        'value' => 15255339,
                                       ),
                                       28 => 
                                       array (
                                         'key' => 'Cement',
-                                        'value' => 15254455,
+                                        'value' => 15255351,
                                       ),
                                       29 => 
                                       array (
                                         'key' => 'Chalk',
-                                        'value' => 15254448,
+                                        'value' => 15255344,
                                       ),
                                       30 => 
                                       array (
                                         'key' => 'Cheese',
-                                        'value' => 15254530,
+                                        'value' => 15255426,
                                       ),
                                       31 => 
                                       array (
                                         'key' => 'Chemicals',
-                                        'value' => 15254397,
+                                        'value' => 15255293,
                                       ),
                                       32 => 
                                       array (
                                         'key' => 'Chlorine rubber lacquer',
-                                        'value' => 15254463,
+                                        'value' => 15255359,
                                       ),
                                       33 => 
                                       array (
                                         'key' => 'Chocolate',
-                                        'value' => 15254531,
+                                        'value' => 15255427,
                                       ),
                                       34 => 
                                       array (
                                         'key' => 'Citric acid ',
-                                        'value' => 15254535,
+                                        'value' => 15255431,
                                       ),
                                       35 => 
                                       array (
                                         'key' => 'Clean chemicals',
-                                        'value' => 15254561,
+                                        'value' => 15255457,
                                       ),
                                       36 => 
                                       array (
                                         'key' => 'Cleaning agents',
-                                        'value' => 15254496,
+                                        'value' => 15255392,
                                       ),
                                       37 => 
                                       array (
                                         'key' => 'Cleaning and disinfection agents ',
-                                        'value' => 15254441,
+                                        'value' => 15255337,
                                       ),
                                       38 => 
                                       array (
                                         'key' => 'Coal',
-                                        'value' => 15254450,
+                                        'value' => 15255346,
                                       ),
                                       39 => 
                                       array (
                                         'key' => 'Coal dust',
-                                        'value' => 15254515,
+                                        'value' => 15255411,
                                       ),
                                       40 => 
                                       array (
                                         'key' => 'Cold water',
-                                        'value' => 15254468,
+                                        'value' => 15255364,
                                       ),
                                       41 => 
                                       array (
                                         'key' => 'Commercially available cooling water additives in usual concentrations',
-                                        'value' => 15254571,
+                                        'value' => 15255467,
                                       ),
                                       42 => 
                                       array (
                                         'key' => 'Compressed air',
-                                        'value' => 15254404,
+                                        'value' => 15255300,
                                       ),
                                       43 => 
                                       array (
                                         'key' => 'Concrete',
-                                        'value' => 15254454,
+                                        'value' => 15255350,
                                       ),
                                       44 => 
                                       array (
                                         'key' => 'Condensate',
-                                        'value' => 15254563,
+                                        'value' => 15255459,
                                       ),
                                       45 => 
                                       array (
                                         'key' => 'Condensation',
-                                        'value' => 15254421,
+                                        'value' => 15255317,
                                       ),
                                       46 => 
                                       array (
                                         'key' => 'Cooling water',
-                                        'value' => 15254415,
+                                        'value' => 15255311,
                                       ),
                                       47 => 
                                       array (
                                         'key' => 'Corrosion preventives',
-                                        'value' => 15254488,
+                                        'value' => 15255384,
                                       ),
                                       48 => 
                                       array (
                                         'key' => 'Corundum',
-                                        'value' => 15254456,
+                                        'value' => 15255352,
                                       ),
                                       49 => 
                                       array (
                                         'key' => 'Cottage cheese',
-                                        'value' => 15254532,
+                                        'value' => 15255428,
                                       ),
                                       50 => 
                                       array (
                                         'key' => 'Dairy ice cream',
-                                        'value' => 15254552,
+                                        'value' => 15255448,
                                       ),
                                       51 => 
                                       array (
                                         'key' => 'Dairy products',
-                                        'value' => 15254427,
+                                        'value' => 15255323,
                                       ),
                                       52 => 
                                       array (
                                         'key' => 'Demineralised water',
-                                        'value' => 15254410,
+                                        'value' => 15255306,
                                       ),
                                       53 => 
                                       array (
                                         'key' => 'Diesel fuel',
-                                        'value' => 15254414,
+                                        'value' => 15255310,
                                       ),
                                       54 => 
                                       array (
                                         'key' => 'Disinfectants',
-                                        'value' => 15254478,
+                                        'value' => 15255374,
                                       ),
                                       55 => 
                                       array (
                                         'key' => 'Dough ',
-                                        'value' => 15254544,
+                                        'value' => 15255440,
                                       ),
                                       56 => 
                                       array (
                                         'key' => 'Dredging sludge',
-                                        'value' => 15254447,
+                                        'value' => 15255343,
                                       ),
                                       57 => 
                                       array (
                                         'key' => 'Dry Ice',
-                                        'value' => 15254553,
+                                        'value' => 15255449,
                                       ),
                                       58 => 
                                       array (
                                         'key' => 'Dry and oily compressed air',
-                                        'value' => 15254572,
+                                        'value' => 15255468,
                                       ),
                                       59 => 
                                       array (
                                         'key' => 'Dusty Media',
-                                        'value' => 15254555,
+                                        'value' => 15255451,
                                       ),
                                       60 => 
                                       array (
                                         'key' => 'Egg yolk',
-                                        'value' => 15254525,
+                                        'value' => 15255421,
                                       ),
                                       61 => 
                                       array (
                                         'key' => 'Emulsion paints',
-                                        'value' => 15254466,
+                                        'value' => 15255362,
                                       ),
                                       62 => 
                                       array (
                                         'key' => 'Engine oil',
-                                        'value' => 15254512,
+                                        'value' => 15255408,
                                       ),
                                       63 => 
                                       array (
                                         'key' => 'Epoxy laquer',
-                                        'value' => 15254465,
+                                        'value' => 15255361,
                                       ),
                                       64 => 
                                       array (
                                         'key' => 'Ester',
-                                        'value' => 15254504,
+                                        'value' => 15255400,
                                       ),
                                       65 => 
                                       array (
                                         'key' => 'Excrements',
-                                        'value' => 15254399,
+                                        'value' => 15255295,
                                       ),
                                       66 => 
                                       array (
                                         'key' => 'Explosive gas',
-                                        'value' => 15254480,
+                                        'value' => 15255376,
                                       ),
                                       67 => 
                                       array (
                                         'key' => 'Explosive gases and their mixtures',
-                                        'value' => 15254432,
+                                        'value' => 15255328,
                                       ),
                                       68 => 
                                       array (
                                         'key' => 'Extinguishing media',
-                                        'value' => 15254558,
+                                        'value' => 15255454,
                                       ),
                                       69 => 
                                       array (
                                         'key' => 'Fats',
-                                        'value' => 15254445,
+                                        'value' => 15255341,
                                       ),
                                       70 => 
                                       array (
                                         'key' => 'Fatty and oily products',
-                                        'value' => 15254413,
+                                        'value' => 15255309,
                                       ),
                                       71 => 
                                       array (
                                         'key' => 'Fatty foods',
-                                        'value' => 15254549,
+                                        'value' => 15255445,
                                       ),
                                       72 => 
                                       array (
                                         'key' => 'Fishmeal',
-                                        'value' => 15254543,
+                                        'value' => 15255439,
                                       ),
                                       73 => 
                                       array (
                                         'key' => 'Flour',
-                                        'value' => 15254460,
+                                        'value' => 15255356,
                                       ),
                                       74 => 
                                       array (
                                         'key' => 'Fly ash',
-                                        'value' => 15254517,
+                                        'value' => 15255413,
                                       ),
                                       75 => 
                                       array (
                                         'key' => 'Foodstuffs',
-                                        'value' => 15254547,
+                                        'value' => 15255443,
                                       ),
                                       76 => 
                                       array (
                                         'key' => 'Fruit ice cream',
-                                        'value' => 15254551,
+                                        'value' => 15255447,
                                       ),
                                       77 => 
                                       array (
                                         'key' => 'Fruits',
-                                        'value' => 15254526,
+                                        'value' => 15255422,
                                       ),
                                       78 => 
                                       array (
                                         'key' => 'Fuel',
-                                        'value' => 15254407,
+                                        'value' => 15255303,
                                       ),
                                       79 => 
                                       array (
                                         'key' => 'Fuel gases mixed with fluxes and oxygen',
-                                        'value' => 15254416,
+                                        'value' => 15255312,
                                       ),
                                       80 => 
                                       array (
                                         'key' => 'Fuel oil',
-                                        'value' => 15254510,
+                                        'value' => 15255406,
                                       ),
                                       81 => 
                                       array (
                                         'key' => 'Fuel-containing air',
-                                        'value' => 15254556,
+                                        'value' => 15255452,
                                       ),
                                       82 => 
                                       array (
                                         'key' => 'Fuels',
-                                        'value' => 15254412,
+                                        'value' => 15255308,
                                       ),
                                       83 => 
                                       array (
                                         'key' => 'Gas',
-                                        'value' => 15254470,
+                                        'value' => 15255366,
                                       ),
                                       84 => 
                                       array (
                                         'key' => 'Gasoil',
-                                        'value' => 15254483,
+                                        'value' => 15255379,
                                       ),
                                       85 => 
                                       array (
                                         'key' => 'Gear lubricant oil',
-                                        'value' => 15254513,
+                                        'value' => 15255409,
                                       ),
                                       86 => 
                                       array (
                                         'key' => 'Gelatine',
-                                        'value' => 15254524,
+                                        'value' => 15255420,
                                       ),
                                       87 => 
                                       array (
                                         'key' => 'Glues',
-                                        'value' => 15254436,
+                                        'value' => 15255332,
                                       ),
                                       88 => 
                                       array (
                                         'key' => 'Glycol solutions',
-                                        'value' => 15254484,
+                                        'value' => 15255380,
                                       ),
                                       89 => 
                                       array (
                                         'key' => 'Granulate (Salt, Sugar)',
-                                        'value' => 15254542,
+                                        'value' => 15255438,
                                       ),
                                       90 => 
                                       array (
                                         'key' => 'Granulate and powder media',
-                                        'value' => 15254394,
+                                        'value' => 15255290,
                                       ),
                                       91 => 
                                       array (
                                         'key' => 'Granules',
-                                        'value' => 15254485,
+                                        'value' => 15255381,
                                       ),
                                       92 => 
                                       array (
                                         'key' => 'Gravel',
-                                        'value' => 15254446,
+                                        'value' => 15255342,
                                       ),
                                       93 => 
                                       array (
                                         'key' => 'Hot air (not oily)',
-                                        'value' => 15254507,
+                                        'value' => 15255403,
                                       ),
                                       94 => 
                                       array (
                                         'key' => 'Hot cooling water',
-                                        'value' => 15254506,
+                                        'value' => 15255402,
                                       ),
                                       95 => 
                                       array (
                                         'key' => 'Hot water',
-                                        'value' => 15254469,
+                                        'value' => 15255365,
                                       ),
                                       96 => 
                                       array (
                                         'key' => 'Hydraulic fluids',
-                                        'value' => 15254486,
+                                        'value' => 15255382,
                                       ),
                                       97 => 
                                       array (
                                         'key' => 'Hydraulik oils',
-                                        'value' => 15254434,
+                                        'value' => 15255330,
                                       ),
                                       98 => 
                                       array (
                                         'key' => 'Hygenic/sanitary products',
-                                        'value' => 15254562,
+                                        'value' => 15255458,
                                       ),
                                       99 => 
                                       array (
                                         'key' => 'Ice',
-                                        'value' => 15254527,
+                                        'value' => 15255423,
                                       ),
                                       100 => 
                                       array (
                                         'key' => 'Industrial waste',
-                                        'value' => 15254521,
+                                        'value' => 15255417,
                                       ),
                                       101 => 
                                       array (
                                         'key' => 'Juice',
-                                        'value' => 15254537,
+                                        'value' => 15255433,
                                       ),
                                       102 => 
                                       array (
                                         'key' => 'Kerosene',
-                                        'value' => 15254487,
+                                        'value' => 15255383,
                                       ),
                                       103 => 
                                       array (
                                         'key' => 'Ketchup',
-                                        'value' => 15254538,
+                                        'value' => 15255434,
                                       ),
                                       104 => 
                                       array (
                                         'key' => 'Ketones',
-                                        'value' => 15254505,
+                                        'value' => 15255401,
                                       ),
                                       105 => 
                                       array (
                                         'key' => 'LPG',
-                                        'value' => 15254489,
+                                        'value' => 15255385,
                                       ),
                                       106 => 
                                       array (
                                         'key' => 'Lacquers',
-                                        'value' => 15254435,
+                                        'value' => 15255331,
                                       ),
                                       107 => 
                                       array (
                                         'key' => 'Lactic acid ',
-                                        'value' => 15254540,
+                                        'value' => 15255436,
                                       ),
                                       108 => 
                                       array (
                                         'key' => 'Lard',
-                                        'value' => 15254570,
+                                        'value' => 15255466,
                                       ),
                                       109 => 
                                       array (
                                         'key' => 'Limestone filler',
-                                        'value' => 15254518,
+                                        'value' => 15255414,
                                       ),
                                       110 => 
                                       array (
                                         'key' => 'Liquid gas',
-                                        'value' => 15254482,
+                                        'value' => 15255378,
                                       ),
                                       111 => 
                                       array (
                                         'key' => 'Liquid mud containing crude oil and grit ',
-                                        'value' => 15254560,
+                                        'value' => 15255456,
                                       ),
                                       112 => 
                                       array (
                                         'key' => 'Liquid oily and fatty foods',
-                                        'value' => 15254395,
+                                        'value' => 15255291,
                                       ),
                                       113 => 
                                       array (
                                         'key' => 'Lubricants',
-                                        'value' => 15254438,
+                                        'value' => 15255334,
                                       ),
                                       114 => 
                                       array (
                                         'key' => 'Lubricating oil',
-                                        'value' => 15254411,
+                                        'value' => 15255307,
                                       ),
                                       115 => 
                                       array (
                                         'key' => 'Micro silica',
-                                        'value' => 15254516,
+                                        'value' => 15255412,
                                       ),
                                       116 => 
                                       array (
                                         'key' => 'Microsilica',
-                                        'value' => 15254567,
+                                        'value' => 15255463,
                                       ),
                                       117 => 
                                       array (
                                         'key' => 'Milk',
-                                        'value' => 15254426,
+                                        'value' => 15255322,
                                       ),
                                       118 => 
                                       array (
                                         'key' => 'Milk powder',
-                                        'value' => 15254539,
+                                        'value' => 15255435,
                                       ),
                                       119 => 
                                       array (
                                         'key' => 'Mineral oil',
-                                        'value' => 15254490,
+                                        'value' => 15255386,
                                       ),
                                       120 => 
                                       array (
                                         'key' => 'Mineral oil and glycol-based hydraulic fluids',
-                                        'value' => 15254401,
+                                        'value' => 15255297,
                                       ),
                                       121 => 
                                       array (
                                         'key' => 'Mud',
-                                        'value' => 15254509,
+                                        'value' => 15255405,
                                       ),
                                       122 => 
                                       array (
                                         'key' => 'Mustard',
-                                        'value' => 15254534,
+                                        'value' => 15255430,
                                       ),
                                       123 => 
                                       array (
                                         'key' => 'Naphtha',
-                                        'value' => 15254491,
+                                        'value' => 15255387,
                                       ),
                                       124 => 
                                       array (
                                         'key' => 'Natural gas',
-                                        'value' => 15254479,
+                                        'value' => 15255375,
                                       ),
                                       125 => 
                                       array (
                                         'key' => 'Nitro cellulose lacquer',
-                                        'value' => 15254462,
+                                        'value' => 15255358,
                                       ),
                                       126 => 
                                       array (
                                         'key' => 'Nitrogen',
-                                        'value' => 15254471,
+                                        'value' => 15255367,
                                       ),
                                       127 => 
                                       array (
                                         'key' => 'Non-flammable gas',
-                                        'value' => 15254492,
+                                        'value' => 15255388,
                                       ),
                                       128 => 
                                       array (
                                         'key' => 'Oil',
-                                        'value' => 15254444,
+                                        'value' => 15255340,
                                       ),
                                       129 => 
                                       array (
                                         'key' => 'Oils',
-                                        'value' => 15254437,
+                                        'value' => 15255333,
                                       ),
                                       130 => 
                                       array (
                                         'key' => 'Oily air',
-                                        'value' => 15254429,
+                                        'value' => 15255325,
                                       ),
                                       131 => 
                                       array (
                                         'key' => 'Ore',
-                                        'value' => 15254451,
+                                        'value' => 15255347,
                                       ),
                                       132 => 
                                       array (
                                         'key' => 'Oxygen',
-                                        'value' => 15254419,
+                                        'value' => 15255315,
                                       ),
                                       133 => 
                                       array (
                                         'key' => 'PVC',
-                                        'value' => 15254568,
+                                        'value' => 15255464,
                                       ),
                                       134 => 
                                       array (
                                         'key' => 'Paints',
-                                        'value' => 15254418,
+                                        'value' => 15255314,
                                       ),
                                       135 => 
                                       array (
                                         'key' => 'Pesticides',
-                                        'value' => 15254499,
+                                        'value' => 15255395,
                                       ),
                                       136 => 
                                       array (
                                         'key' => 'Petroleum based products up to 50% aromatic component',
-                                        'value' => 15254514,
+                                        'value' => 15255410,
                                       ),
                                       137 => 
                                       array (
                                         'key' => 'Plastic granulates',
-                                        'value' => 15254520,
+                                        'value' => 15255416,
                                       ),
                                       138 => 
                                       array (
                                         'key' => 'Polar and aromatic solvents ',
-                                        'value' => 15254405,
+                                        'value' => 15255301,
                                       ),
                                       139 => 
                                       array (
                                         'key' => 'Polar solvents',
-                                        'value' => 15254501,
+                                        'value' => 15255397,
                                       ),
                                       140 => 
                                       array (
                                         'key' => 'Polyester lacquer',
-                                        'value' => 15254467,
+                                        'value' => 15255363,
                                       ),
                                       141 => 
                                       array (
                                         'key' => 'Polyurethane laqcuer',
-                                        'value' => 15254464,
+                                        'value' => 15255360,
                                       ),
                                       142 => 
                                       array (
                                         'key' => 'Potable water',
-                                        'value' => 15254428,
+                                        'value' => 15255324,
                                       ),
                                       143 => 
                                       array (
                                         'key' => 'Powder',
-                                        'value' => 15254545,
+                                        'value' => 15255441,
                                       ),
                                       144 => 
                                       array (
                                         'key' => 'Powder media',
-                                        'value' => 15254495,
+                                        'value' => 15255391,
                                       ),
                                       145 => 
                                       array (
                                         'key' => 'Powdery and fine-grained bulk materials (grain size "equal to/smaller than" 3mm)',
-                                        'value' => 15254569,
+                                        'value' => 15255465,
                                       ),
                                       146 => 
                                       array (
                                         'key' => 'Power steering oil',
-                                        'value' => 15254511,
+                                        'value' => 15255407,
                                       ),
                                       147 => 
                                       array (
                                         'key' => 'Pressurized air',
-                                        'value' => 15254493,
+                                        'value' => 15255389,
                                       ),
                                       148 => 
                                       array (
                                         'key' => 'Process water',
-                                        'value' => 15254440,
+                                        'value' => 15255336,
                                       ),
                                       149 => 
                                       array (
                                         'key' => 'Propane',
-                                        'value' => 15254494,
+                                        'value' => 15255390,
                                       ),
                                       150 => 
                                       array (
                                         'key' => 'Quarz powder',
-                                        'value' => 15254458,
+                                        'value' => 15255354,
                                       ),
                                       151 => 
                                       array (
                                         'key' => 'Raw milk',
-                                        'value' => 15254497,
+                                        'value' => 15255393,
                                       ),
                                       152 => 
                                       array (
                                         'key' => 'Raw oil',
-                                        'value' => 15254403,
+                                        'value' => 15255299,
                                       ),
                                       153 => 
                                       array (
                                         'key' => 'Refrigerant',
-                                        'value' => 15254409,
+                                        'value' => 15255305,
                                       ),
                                       154 => 
                                       array (
                                         'key' => 'Rice pudding ',
-                                        'value' => 15254533,
+                                        'value' => 15255429,
                                       ),
                                       155 => 
                                       array (
                                         'key' => 'Salt',
-                                        'value' => 15254453,
+                                        'value' => 15255349,
                                       ),
                                       156 => 
                                       array (
                                         'key' => 'Salt solutions',
-                                        'value' => 15254498,
+                                        'value' => 15255394,
                                       ),
                                       157 => 
                                       array (
                                         'key' => 'Sand',
-                                        'value' => 15254400,
+                                        'value' => 15255296,
                                       ),
                                       158 => 
                                       array (
                                         'key' => 'Sand Steelgrit',
-                                        'value' => 15254398,
+                                        'value' => 15255294,
                                       ),
                                       159 => 
                                       array (
                                         'key' => 'Sea water',
-                                        'value' => 15254439,
+                                        'value' => 15255335,
                                       ),
                                       160 => 
                                       array (
                                         'key' => 'Sewage',
-                                        'value' => 15254422,
+                                        'value' => 15255318,
                                       ),
                                       161 => 
                                       array (
                                         'key' => 'Solvents',
-                                        'value' => 15254408,
+                                        'value' => 15255304,
                                       ),
                                       162 => 
                                       array (
                                         'key' => 'Sparkling wine ',
-                                        'value' => 15254528,
+                                        'value' => 15255424,
                                       ),
                                       163 => 
                                       array (
                                         'key' => 'Spirit lacquer',
-                                        'value' => 15254461,
+                                        'value' => 15255357,
                                       ),
                                       164 => 
                                       array (
                                         'key' => 'Spirits',
-                                        'value' => 15254541,
+                                        'value' => 15255437,
                                       ),
                                       165 => 
                                       array (
                                         'key' => 'Starch',
-                                        'value' => 15254565,
+                                        'value' => 15255461,
                                       ),
                                       166 => 
                                       array (
                                         'key' => 'Steam',
-                                        'value' => 15254393,
+                                        'value' => 15255289,
                                       ),
                                       167 => 
                                       array (
                                         'key' => 'Sugar',
-                                        'value' => 15254459,
+                                        'value' => 15255355,
                                       ),
                                       168 => 
                                       array (
                                         'key' => 'Sugar syrup',
-                                        'value' => 15254536,
+                                        'value' => 15255432,
                                       ),
                                       169 => 
                                       array (
                                         'key' => 'Tallow',
-                                        'value' => 15254522,
+                                        'value' => 15255418,
                                       ),
                                       170 => 
                                       array (
                                         'key' => 'Tar',
-                                        'value' => 15254430,
+                                        'value' => 15255326,
                                       ),
                                       171 => 
                                       array (
                                         'key' => 'Treated and non-treated cooling water',
-                                        'value' => 15254417,
+                                        'value' => 15255313,
                                       ),
                                       172 => 
                                       array (
                                         'key' => 'Ultrapure water',
-                                        'value' => 15254420,
+                                        'value' => 15255316,
                                       ),
                                       173 => 
                                       array (
                                         'key' => 'Vegetable and mineral lubricants',
-                                        'value' => 15254402,
+                                        'value' => 15255298,
                                       ),
                                       174 => 
                                       array (
                                         'key' => 'Vinegar ',
-                                        'value' => 15254529,
+                                        'value' => 15255425,
                                       ),
                                       175 => 
                                       array (
                                         'key' => 'Washing powder',
-                                        'value' => 15254566,
+                                        'value' => 15255462,
                                       ),
                                       176 => 
                                       array (
                                         'key' => 'Water',
-                                        'value' => 15254391,
+                                        'value' => 15255287,
                                       ),
                                       177 => 
                                       array (
                                         'key' => 'Water emulsions',
-                                        'value' => 15254500,
+                                        'value' => 15255396,
                                       ),
                                       178 => 
                                       array (
                                         'key' => 'Water-based saturated steam',
-                                        'value' => 15254564,
+                                        'value' => 15255460,
                                       ),
                                       179 => 
                                       array (
                                         'key' => 'Wine',
-                                        'value' => 15254424,
+                                        'value' => 15255320,
                                       ),
                                       180 => 
                                       array (
                                         'key' => 'Yoghurt',
-                                        'value' => 15254425,
+                                        'value' => 15255321,
                                       ),
                                       181 => 
                                       array (
                                         'key' => 'liquid and pasty chemical and petroleum based products',
-                                        'value' => 15254508,
+                                        'value' => 15255404,
                                       ),
                                     ),
                                      'width' => 220,
                                      'height' => '',
                                      'maxItems' => '',
                                      'renderType' => 'tags',
-                                     'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\MinimumOrderOptionsProvider',
+                                     'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\ConditionsOptionsProvider',
                                      'optionsProviderData' => '',
                                      'queryColumnType' => 'text',
                                      'columnType' => 'text',
                                      'phpdocType' => 'array',
                                      'dynamicOptions' => false,
-                                     'name' => 'minimumOrder',
-                                     'title' => 'Minimum Order',
+                                     'name' => 'Conditions',
+                                     'title' => 'Conditions',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => false,
@@ -23382,22 +23360,932 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'fieldtype' => 'multiselect',
                                      'options' => 
                                     array (
+                                      0 => 
+                                      array (
+                                        'key' => 'Abrasive bulk material',
+                                        'value' => 15255841,
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => 'Abrasive foods',
+                                        'value' => 15255995,
+                                      ),
+                                      2 => 
+                                      array (
+                                        'key' => 'Acetates',
+                                        'value' => 15255947,
+                                      ),
+                                      3 => 
+                                      array (
+                                        'key' => 'Acetylene gas',
+                                        'value' => 15255921,
+                                      ),
+                                      4 => 
+                                      array (
+                                        'key' => 'Acidic foods ',
+                                        'value' => 15255993,
+                                      ),
+                                      5 => 
+                                      array (
+                                        'key' => 'Acids',
+                                        'value' => 15255887,
+                                      ),
+                                      6 => 
+                                      array (
+                                        'key' => 'Activated carbon',
+                                        'value' => 15255999,
+                                      ),
+                                      7 => 
+                                      array (
+                                        'key' => 'Air',
+                                        'value' => 15255878,
+                                      ),
+                                      8 => 
+                                      array (
+                                        'key' => 'Alcohol',
+                                        'value' => 15255837,
+                                      ),
+                                      9 => 
+                                      array (
+                                        'key' => 'Alcohol <20%',
+                                        'value' => 15255991,
+                                      ),
+                                      10 => 
+                                      array (
+                                        'key' => 'Aldehydes',
+                                        'value' => 15255948,
+                                      ),
+                                      11 => 
+                                      array (
+                                        'key' => 'Aluminium Oxide',
+                                        'value' => 15255902,
+                                      ),
+                                      12 => 
+                                      array (
+                                        'key' => 'Aluminium oxide',
+                                        'value' => 15255964,
+                                      ),
+                                      13 => 
+                                      array (
+                                        'key' => ' Antifreeze and corrosion inhibitors',
+                                        'value' => 15255851,
+                                      ),
+                                      14 => 
+                                      array (
+                                        'key' => 'Antifreezing compounds',
+                                        'value' => 15255926,
+                                      ),
+                                      15 => 
+                                      array (
+                                        'key' => 'Argon',
+                                        'value' => 15255917,
+                                      ),
+                                      16 => 
+                                      array (
+                                        'key' => 'Ash',
+                                        'value' => 15255894,
+                                      ),
+                                      17 => 
+                                      array (
+                                        'key' => 'Beer',
+                                        'value' => 15255868,
+                                      ),
+                                      18 => 
+                                      array (
+                                        'key' => 'Benzine',
+                                        'value' => 15255920,
+                                      ),
+                                      19 => 
+                                      array (
+                                        'key' => 'Biodiesel resistant',
+                                        'value' => 15256002,
+                                      ),
+                                      20 => 
+                                      array (
+                                        'key' => 'Bitumen',
+                                        'value' => 15255876,
+                                      ),
+                                      21 => 
+                                      array (
+                                        'key' => 'Breathing air',
+                                        'value' => 15255919,
+                                      ),
+                                      22 => 
+                                      array (
+                                        'key' => 'Bulk material',
+                                        'value' => 15256004,
+                                      ),
+                                      23 => 
+                                      array (
+                                        'key' => 'Butane',
+                                        'value' => 15255922,
+                                      ),
+                                      24 => 
+                                      array (
+                                        'key' => 'Buttermilk',
+                                        'value' => 15255968,
+                                      ),
+                                      25 => 
+                                      array (
+                                        'key' => ' CO<sub>2</sub>',
+                                        'value' => 15255918,
+                                      ),
+                                      26 => 
+                                      array (
+                                        'key' => 'Carbon black',
+                                        'value' => 15255897,
+                                      ),
+                                      27 => 
+                                      array (
+                                        'key' => 'Caustics',
+                                        'value' => 15255888,
+                                      ),
+                                      28 => 
+                                      array (
+                                        'key' => 'Cement',
+                                        'value' => 15255900,
+                                      ),
+                                      29 => 
+                                      array (
+                                        'key' => 'Chalk',
+                                        'value' => 15255893,
+                                      ),
+                                      30 => 
+                                      array (
+                                        'key' => 'Cheese',
+                                        'value' => 15255975,
+                                      ),
+                                      31 => 
+                                      array (
+                                        'key' => 'Chemicals',
+                                        'value' => 15255842,
+                                      ),
+                                      32 => 
+                                      array (
+                                        'key' => 'Chlorine rubber lacquer',
+                                        'value' => 15255908,
+                                      ),
+                                      33 => 
+                                      array (
+                                        'key' => 'Chocolate',
+                                        'value' => 15255976,
+                                      ),
+                                      34 => 
+                                      array (
+                                        'key' => 'Citric acid ',
+                                        'value' => 15255980,
+                                      ),
+                                      35 => 
+                                      array (
+                                        'key' => 'Clean chemicals',
+                                        'value' => 15256006,
+                                      ),
+                                      36 => 
+                                      array (
+                                        'key' => 'Cleaning agents',
+                                        'value' => 15255941,
+                                      ),
+                                      37 => 
+                                      array (
+                                        'key' => 'Cleaning and disinfection agents ',
+                                        'value' => 15255886,
+                                      ),
+                                      38 => 
+                                      array (
+                                        'key' => 'Coal',
+                                        'value' => 15255895,
+                                      ),
+                                      39 => 
+                                      array (
+                                        'key' => 'Coal dust',
+                                        'value' => 15255960,
+                                      ),
+                                      40 => 
+                                      array (
+                                        'key' => 'Cold water',
+                                        'value' => 15255913,
+                                      ),
+                                      41 => 
+                                      array (
+                                        'key' => 'Commercially available cooling water additives in usual concentrations',
+                                        'value' => 15256016,
+                                      ),
+                                      42 => 
+                                      array (
+                                        'key' => 'Compressed air',
+                                        'value' => 15255849,
+                                      ),
+                                      43 => 
+                                      array (
+                                        'key' => 'Concrete',
+                                        'value' => 15255899,
+                                      ),
+                                      44 => 
+                                      array (
+                                        'key' => 'Condensate',
+                                        'value' => 15256008,
+                                      ),
+                                      45 => 
+                                      array (
+                                        'key' => 'Condensation',
+                                        'value' => 15255866,
+                                      ),
+                                      46 => 
+                                      array (
+                                        'key' => 'Cooling water',
+                                        'value' => 15255860,
+                                      ),
+                                      47 => 
+                                      array (
+                                        'key' => 'Corrosion preventives',
+                                        'value' => 15255933,
+                                      ),
+                                      48 => 
+                                      array (
+                                        'key' => 'Corundum',
+                                        'value' => 15255901,
+                                      ),
+                                      49 => 
+                                      array (
+                                        'key' => 'Cottage cheese',
+                                        'value' => 15255977,
+                                      ),
+                                      50 => 
+                                      array (
+                                        'key' => 'Dairy ice cream',
+                                        'value' => 15255997,
+                                      ),
+                                      51 => 
+                                      array (
+                                        'key' => 'Dairy products',
+                                        'value' => 15255872,
+                                      ),
+                                      52 => 
+                                      array (
+                                        'key' => 'Demineralised water',
+                                        'value' => 15255855,
+                                      ),
+                                      53 => 
+                                      array (
+                                        'key' => 'Diesel fuel',
+                                        'value' => 15255859,
+                                      ),
+                                      54 => 
+                                      array (
+                                        'key' => 'Disinfectants',
+                                        'value' => 15255923,
+                                      ),
+                                      55 => 
+                                      array (
+                                        'key' => 'Dough ',
+                                        'value' => 15255989,
+                                      ),
+                                      56 => 
+                                      array (
+                                        'key' => 'Dredging sludge',
+                                        'value' => 15255892,
+                                      ),
+                                      57 => 
+                                      array (
+                                        'key' => 'Dry Ice',
+                                        'value' => 15255998,
+                                      ),
+                                      58 => 
+                                      array (
+                                        'key' => 'Dry and oily compressed air',
+                                        'value' => 15256017,
+                                      ),
+                                      59 => 
+                                      array (
+                                        'key' => 'Dusty Media',
+                                        'value' => 15256000,
+                                      ),
+                                      60 => 
+                                      array (
+                                        'key' => 'Egg yolk',
+                                        'value' => 15255970,
+                                      ),
+                                      61 => 
+                                      array (
+                                        'key' => 'Emulsion paints',
+                                        'value' => 15255911,
+                                      ),
+                                      62 => 
+                                      array (
+                                        'key' => 'Engine oil',
+                                        'value' => 15255957,
+                                      ),
+                                      63 => 
+                                      array (
+                                        'key' => 'Epoxy laquer',
+                                        'value' => 15255910,
+                                      ),
+                                      64 => 
+                                      array (
+                                        'key' => 'Ester',
+                                        'value' => 15255949,
+                                      ),
+                                      65 => 
+                                      array (
+                                        'key' => 'Excrements',
+                                        'value' => 15255844,
+                                      ),
+                                      66 => 
+                                      array (
+                                        'key' => 'Explosive gas',
+                                        'value' => 15255925,
+                                      ),
+                                      67 => 
+                                      array (
+                                        'key' => 'Explosive gases and their mixtures',
+                                        'value' => 15255877,
+                                      ),
+                                      68 => 
+                                      array (
+                                        'key' => 'Extinguishing media',
+                                        'value' => 15256003,
+                                      ),
+                                      69 => 
+                                      array (
+                                        'key' => 'Fats',
+                                        'value' => 15255890,
+                                      ),
+                                      70 => 
+                                      array (
+                                        'key' => 'Fatty and oily products',
+                                        'value' => 15255858,
+                                      ),
+                                      71 => 
+                                      array (
+                                        'key' => 'Fatty foods',
+                                        'value' => 15255994,
+                                      ),
+                                      72 => 
+                                      array (
+                                        'key' => 'Fishmeal',
+                                        'value' => 15255988,
+                                      ),
+                                      73 => 
+                                      array (
+                                        'key' => 'Flour',
+                                        'value' => 15255905,
+                                      ),
+                                      74 => 
+                                      array (
+                                        'key' => 'Fly ash',
+                                        'value' => 15255962,
+                                      ),
+                                      75 => 
+                                      array (
+                                        'key' => 'Foodstuffs',
+                                        'value' => 15255992,
+                                      ),
+                                      76 => 
+                                      array (
+                                        'key' => 'Fruit ice cream',
+                                        'value' => 15255996,
+                                      ),
+                                      77 => 
+                                      array (
+                                        'key' => 'Fruits',
+                                        'value' => 15255971,
+                                      ),
+                                      78 => 
+                                      array (
+                                        'key' => 'Fuel',
+                                        'value' => 15255852,
+                                      ),
+                                      79 => 
+                                      array (
+                                        'key' => 'Fuel gases mixed with fluxes and oxygen',
+                                        'value' => 15255861,
+                                      ),
+                                      80 => 
+                                      array (
+                                        'key' => 'Fuel oil',
+                                        'value' => 15255955,
+                                      ),
+                                      81 => 
+                                      array (
+                                        'key' => 'Fuel-containing air',
+                                        'value' => 15256001,
+                                      ),
+                                      82 => 
+                                      array (
+                                        'key' => 'Fuels',
+                                        'value' => 15255857,
+                                      ),
+                                      83 => 
+                                      array (
+                                        'key' => 'Gas',
+                                        'value' => 15255915,
+                                      ),
+                                      84 => 
+                                      array (
+                                        'key' => 'Gasoil',
+                                        'value' => 15255928,
+                                      ),
+                                      85 => 
+                                      array (
+                                        'key' => 'Gear lubricant oil',
+                                        'value' => 15255958,
+                                      ),
+                                      86 => 
+                                      array (
+                                        'key' => 'Gelatine',
+                                        'value' => 15255969,
+                                      ),
+                                      87 => 
+                                      array (
+                                        'key' => 'Glues',
+                                        'value' => 15255881,
+                                      ),
+                                      88 => 
+                                      array (
+                                        'key' => 'Glycol solutions',
+                                        'value' => 15255929,
+                                      ),
+                                      89 => 
+                                      array (
+                                        'key' => 'Granulate (Salt, Sugar)',
+                                        'value' => 15255987,
+                                      ),
+                                      90 => 
+                                      array (
+                                        'key' => 'Granulate and powder media',
+                                        'value' => 15255839,
+                                      ),
+                                      91 => 
+                                      array (
+                                        'key' => 'Granules',
+                                        'value' => 15255930,
+                                      ),
+                                      92 => 
+                                      array (
+                                        'key' => 'Gravel',
+                                        'value' => 15255891,
+                                      ),
+                                      93 => 
+                                      array (
+                                        'key' => 'Hot air (not oily)',
+                                        'value' => 15255952,
+                                      ),
+                                      94 => 
+                                      array (
+                                        'key' => 'Hot cooling water',
+                                        'value' => 15255951,
+                                      ),
+                                      95 => 
+                                      array (
+                                        'key' => 'Hot water',
+                                        'value' => 15255914,
+                                      ),
+                                      96 => 
+                                      array (
+                                        'key' => 'Hydraulic fluids',
+                                        'value' => 15255931,
+                                      ),
+                                      97 => 
+                                      array (
+                                        'key' => 'Hydraulik oils',
+                                        'value' => 15255879,
+                                      ),
+                                      98 => 
+                                      array (
+                                        'key' => 'Hygenic/sanitary products',
+                                        'value' => 15256007,
+                                      ),
+                                      99 => 
+                                      array (
+                                        'key' => 'Ice',
+                                        'value' => 15255972,
+                                      ),
+                                      100 => 
+                                      array (
+                                        'key' => 'Industrial waste',
+                                        'value' => 15255966,
+                                      ),
+                                      101 => 
+                                      array (
+                                        'key' => 'Juice',
+                                        'value' => 15255982,
+                                      ),
+                                      102 => 
+                                      array (
+                                        'key' => 'Kerosene',
+                                        'value' => 15255932,
+                                      ),
+                                      103 => 
+                                      array (
+                                        'key' => 'Ketchup',
+                                        'value' => 15255983,
+                                      ),
+                                      104 => 
+                                      array (
+                                        'key' => 'Ketones',
+                                        'value' => 15255950,
+                                      ),
+                                      105 => 
+                                      array (
+                                        'key' => 'LPG',
+                                        'value' => 15255934,
+                                      ),
+                                      106 => 
+                                      array (
+                                        'key' => 'Lacquers',
+                                        'value' => 15255880,
+                                      ),
+                                      107 => 
+                                      array (
+                                        'key' => 'Lactic acid ',
+                                        'value' => 15255985,
+                                      ),
+                                      108 => 
+                                      array (
+                                        'key' => 'Lard',
+                                        'value' => 15256015,
+                                      ),
+                                      109 => 
+                                      array (
+                                        'key' => 'Limestone filler',
+                                        'value' => 15255963,
+                                      ),
+                                      110 => 
+                                      array (
+                                        'key' => 'Liquid gas',
+                                        'value' => 15255927,
+                                      ),
+                                      111 => 
+                                      array (
+                                        'key' => 'Liquid mud containing crude oil and grit ',
+                                        'value' => 15256005,
+                                      ),
+                                      112 => 
+                                      array (
+                                        'key' => 'Liquid oily and fatty foods',
+                                        'value' => 15255840,
+                                      ),
+                                      113 => 
+                                      array (
+                                        'key' => 'Lubricants',
+                                        'value' => 15255883,
+                                      ),
+                                      114 => 
+                                      array (
+                                        'key' => 'Lubricating oil',
+                                        'value' => 15255856,
+                                      ),
+                                      115 => 
+                                      array (
+                                        'key' => 'Micro silica',
+                                        'value' => 15255961,
+                                      ),
+                                      116 => 
+                                      array (
+                                        'key' => 'Microsilica',
+                                        'value' => 15256012,
+                                      ),
+                                      117 => 
+                                      array (
+                                        'key' => 'Milk',
+                                        'value' => 15255871,
+                                      ),
+                                      118 => 
+                                      array (
+                                        'key' => 'Milk powder',
+                                        'value' => 15255984,
+                                      ),
+                                      119 => 
+                                      array (
+                                        'key' => 'Mineral oil',
+                                        'value' => 15255935,
+                                      ),
+                                      120 => 
+                                      array (
+                                        'key' => 'Mineral oil and glycol-based hydraulic fluids',
+                                        'value' => 15255846,
+                                      ),
+                                      121 => 
+                                      array (
+                                        'key' => 'Mud',
+                                        'value' => 15255954,
+                                      ),
+                                      122 => 
+                                      array (
+                                        'key' => 'Mustard',
+                                        'value' => 15255979,
+                                      ),
+                                      123 => 
+                                      array (
+                                        'key' => 'Naphtha',
+                                        'value' => 15255936,
+                                      ),
+                                      124 => 
+                                      array (
+                                        'key' => 'Natural gas',
+                                        'value' => 15255924,
+                                      ),
+                                      125 => 
+                                      array (
+                                        'key' => 'Nitro cellulose lacquer',
+                                        'value' => 15255907,
+                                      ),
+                                      126 => 
+                                      array (
+                                        'key' => 'Nitrogen',
+                                        'value' => 15255916,
+                                      ),
+                                      127 => 
+                                      array (
+                                        'key' => 'Non-flammable gas',
+                                        'value' => 15255937,
+                                      ),
+                                      128 => 
+                                      array (
+                                        'key' => 'Oil',
+                                        'value' => 15255889,
+                                      ),
+                                      129 => 
+                                      array (
+                                        'key' => 'Oils',
+                                        'value' => 15255882,
+                                      ),
+                                      130 => 
+                                      array (
+                                        'key' => 'Oily air',
+                                        'value' => 15255874,
+                                      ),
+                                      131 => 
+                                      array (
+                                        'key' => 'Ore',
+                                        'value' => 15255896,
+                                      ),
+                                      132 => 
+                                      array (
+                                        'key' => 'Oxygen',
+                                        'value' => 15255864,
+                                      ),
+                                      133 => 
+                                      array (
+                                        'key' => 'PVC',
+                                        'value' => 15256013,
+                                      ),
+                                      134 => 
+                                      array (
+                                        'key' => 'Paints',
+                                        'value' => 15255863,
+                                      ),
+                                      135 => 
+                                      array (
+                                        'key' => 'Pesticides',
+                                        'value' => 15255944,
+                                      ),
+                                      136 => 
+                                      array (
+                                        'key' => 'Petroleum based products up to 50% aromatic component',
+                                        'value' => 15255959,
+                                      ),
+                                      137 => 
+                                      array (
+                                        'key' => 'Plastic granulates',
+                                        'value' => 15255965,
+                                      ),
+                                      138 => 
+                                      array (
+                                        'key' => 'Polar and aromatic solvents ',
+                                        'value' => 15255850,
+                                      ),
+                                      139 => 
+                                      array (
+                                        'key' => 'Polar solvents',
+                                        'value' => 15255946,
+                                      ),
+                                      140 => 
+                                      array (
+                                        'key' => 'Polyester lacquer',
+                                        'value' => 15255912,
+                                      ),
+                                      141 => 
+                                      array (
+                                        'key' => 'Polyurethane laqcuer',
+                                        'value' => 15255909,
+                                      ),
+                                      142 => 
+                                      array (
+                                        'key' => 'Potable water',
+                                        'value' => 15255873,
+                                      ),
+                                      143 => 
+                                      array (
+                                        'key' => 'Powder',
+                                        'value' => 15255990,
+                                      ),
+                                      144 => 
+                                      array (
+                                        'key' => 'Powder media',
+                                        'value' => 15255940,
+                                      ),
+                                      145 => 
+                                      array (
+                                        'key' => 'Powdery and fine-grained bulk materials (grain size "equal to/smaller than" 3mm)',
+                                        'value' => 15256014,
+                                      ),
+                                      146 => 
+                                      array (
+                                        'key' => 'Power steering oil',
+                                        'value' => 15255956,
+                                      ),
+                                      147 => 
+                                      array (
+                                        'key' => 'Pressurized air',
+                                        'value' => 15255938,
+                                      ),
+                                      148 => 
+                                      array (
+                                        'key' => 'Process water',
+                                        'value' => 15255885,
+                                      ),
+                                      149 => 
+                                      array (
+                                        'key' => 'Propane',
+                                        'value' => 15255939,
+                                      ),
+                                      150 => 
+                                      array (
+                                        'key' => 'Quarz powder',
+                                        'value' => 15255903,
+                                      ),
+                                      151 => 
+                                      array (
+                                        'key' => 'Raw milk',
+                                        'value' => 15255942,
+                                      ),
+                                      152 => 
+                                      array (
+                                        'key' => 'Raw oil',
+                                        'value' => 15255848,
+                                      ),
+                                      153 => 
+                                      array (
+                                        'key' => 'Refrigerant',
+                                        'value' => 15255854,
+                                      ),
+                                      154 => 
+                                      array (
+                                        'key' => 'Rice pudding ',
+                                        'value' => 15255978,
+                                      ),
+                                      155 => 
+                                      array (
+                                        'key' => 'Salt',
+                                        'value' => 15255898,
+                                      ),
+                                      156 => 
+                                      array (
+                                        'key' => 'Salt solutions',
+                                        'value' => 15255943,
+                                      ),
+                                      157 => 
+                                      array (
+                                        'key' => 'Sand',
+                                        'value' => 15255845,
+                                      ),
+                                      158 => 
+                                      array (
+                                        'key' => 'Sand Steelgrit',
+                                        'value' => 15255843,
+                                      ),
+                                      159 => 
+                                      array (
+                                        'key' => 'Sea water',
+                                        'value' => 15255884,
+                                      ),
+                                      160 => 
+                                      array (
+                                        'key' => 'Sewage',
+                                        'value' => 15255867,
+                                      ),
+                                      161 => 
+                                      array (
+                                        'key' => 'Solvents',
+                                        'value' => 15255853,
+                                      ),
+                                      162 => 
+                                      array (
+                                        'key' => 'Sparkling wine ',
+                                        'value' => 15255973,
+                                      ),
+                                      163 => 
+                                      array (
+                                        'key' => 'Spirit lacquer',
+                                        'value' => 15255906,
+                                      ),
+                                      164 => 
+                                      array (
+                                        'key' => 'Spirits',
+                                        'value' => 15255986,
+                                      ),
+                                      165 => 
+                                      array (
+                                        'key' => 'Starch',
+                                        'value' => 15256010,
+                                      ),
+                                      166 => 
+                                      array (
+                                        'key' => 'Steam',
+                                        'value' => 15255838,
+                                      ),
+                                      167 => 
+                                      array (
+                                        'key' => 'Sugar',
+                                        'value' => 15255904,
+                                      ),
+                                      168 => 
+                                      array (
+                                        'key' => 'Sugar syrup',
+                                        'value' => 15255981,
+                                      ),
+                                      169 => 
+                                      array (
+                                        'key' => 'Tallow',
+                                        'value' => 15255967,
+                                      ),
+                                      170 => 
+                                      array (
+                                        'key' => 'Tar',
+                                        'value' => 15255875,
+                                      ),
+                                      171 => 
+                                      array (
+                                        'key' => 'Treated and non-treated cooling water',
+                                        'value' => 15255862,
+                                      ),
+                                      172 => 
+                                      array (
+                                        'key' => 'Ultrapure water',
+                                        'value' => 15255865,
+                                      ),
+                                      173 => 
+                                      array (
+                                        'key' => 'Vegetable and mineral lubricants',
+                                        'value' => 15255847,
+                                      ),
+                                      174 => 
+                                      array (
+                                        'key' => 'Vinegar ',
+                                        'value' => 15255974,
+                                      ),
+                                      175 => 
+                                      array (
+                                        'key' => 'Washing powder',
+                                        'value' => 15256011,
+                                      ),
+                                      176 => 
+                                      array (
+                                        'key' => 'Water',
+                                        'value' => 15255836,
+                                      ),
+                                      177 => 
+                                      array (
+                                        'key' => 'Water emulsions',
+                                        'value' => 15255945,
+                                      ),
+                                      178 => 
+                                      array (
+                                        'key' => 'Water-based saturated steam',
+                                        'value' => 15256009,
+                                      ),
+                                      179 => 
+                                      array (
+                                        'key' => 'Wine',
+                                        'value' => 15255869,
+                                      ),
+                                      180 => 
+                                      array (
+                                        'key' => 'Yoghurt',
+                                        'value' => 15255870,
+                                      ),
+                                      181 => 
+                                      array (
+                                        'key' => 'liquid and pasty chemical and petroleum based products',
+                                        'value' => 15255953,
+                                      ),
                                     ),
                                      'width' => 220,
                                      'height' => '',
                                      'maxItems' => '',
                                      'renderType' => 'tags',
-                                     'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\ConditionsOptionsProvider',
+                                     'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\ProductionLengthOptionsProvider',
                                      'optionsProviderData' => '',
                                      'queryColumnType' => 'text',
                                      'columnType' => 'text',
                                      'phpdocType' => 'array',
                                      'dynamicOptions' => false,
-                                     'name' => 'Conditions',
-                                     'title' => 'Conditions',
+                                     'name' => 'productionLength',
+                                     'title' => 'Production Length',
                                      'tooltip' => '',
                                      'mandatory' => false,
-                                     'noteditable' => false,
+                                     'noteditable' => true,
                                      'index' => false,
                                      'locked' => false,
                                      'style' => 'margin-left: 45px;',
@@ -23416,912 +24304,912 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                       0 => 
                                       array (
                                         'key' => 'Abrasive bulk material',
-                                        'value' => 15254213,
+                                        'value' => 15256024,
                                       ),
                                       1 => 
                                       array (
                                         'key' => 'Abrasive foods',
-                                        'value' => 15254367,
+                                        'value' => 15256178,
                                       ),
                                       2 => 
                                       array (
                                         'key' => 'Acetates',
-                                        'value' => 15254319,
+                                        'value' => 15256130,
                                       ),
                                       3 => 
                                       array (
                                         'key' => 'Acetylene gas',
-                                        'value' => 15254293,
+                                        'value' => 15256104,
                                       ),
                                       4 => 
                                       array (
                                         'key' => 'Acidic foods ',
-                                        'value' => 15254365,
+                                        'value' => 15256176,
                                       ),
                                       5 => 
                                       array (
                                         'key' => 'Acids',
-                                        'value' => 15254259,
+                                        'value' => 15256070,
                                       ),
                                       6 => 
                                       array (
                                         'key' => 'Activated carbon',
-                                        'value' => 15254371,
+                                        'value' => 15256182,
                                       ),
                                       7 => 
                                       array (
                                         'key' => 'Air',
-                                        'value' => 15254250,
+                                        'value' => 15256061,
                                       ),
                                       8 => 
                                       array (
                                         'key' => 'Alcohol',
-                                        'value' => 15254209,
+                                        'value' => 15256020,
                                       ),
                                       9 => 
                                       array (
                                         'key' => 'Alcohol <20%',
-                                        'value' => 15254363,
+                                        'value' => 15256174,
                                       ),
                                       10 => 
                                       array (
                                         'key' => 'Aldehydes',
-                                        'value' => 15254320,
+                                        'value' => 15256131,
                                       ),
                                       11 => 
                                       array (
                                         'key' => 'Aluminium Oxide',
-                                        'value' => 15254274,
+                                        'value' => 15256085,
                                       ),
                                       12 => 
                                       array (
                                         'key' => 'Aluminium oxide',
-                                        'value' => 15254336,
+                                        'value' => 15256147,
                                       ),
                                       13 => 
                                       array (
                                         'key' => ' Antifreeze and corrosion inhibitors',
-                                        'value' => 15254223,
+                                        'value' => 15256034,
                                       ),
                                       14 => 
                                       array (
                                         'key' => 'Antifreezing compounds',
-                                        'value' => 15254298,
+                                        'value' => 15256109,
                                       ),
                                       15 => 
                                       array (
                                         'key' => 'Argon',
-                                        'value' => 15254289,
+                                        'value' => 15256100,
                                       ),
                                       16 => 
                                       array (
                                         'key' => 'Ash',
-                                        'value' => 15254266,
+                                        'value' => 15256077,
                                       ),
                                       17 => 
                                       array (
                                         'key' => 'Beer',
-                                        'value' => 15254240,
+                                        'value' => 15256051,
                                       ),
                                       18 => 
                                       array (
                                         'key' => 'Benzine',
-                                        'value' => 15254292,
+                                        'value' => 15256103,
                                       ),
                                       19 => 
                                       array (
                                         'key' => 'Biodiesel resistant',
-                                        'value' => 15254374,
+                                        'value' => 15256185,
                                       ),
                                       20 => 
                                       array (
                                         'key' => 'Bitumen',
-                                        'value' => 15254248,
+                                        'value' => 15256059,
                                       ),
                                       21 => 
                                       array (
                                         'key' => 'Breathing air',
-                                        'value' => 15254291,
+                                        'value' => 15256102,
                                       ),
                                       22 => 
                                       array (
                                         'key' => 'Bulk material',
-                                        'value' => 15254376,
+                                        'value' => 15256187,
                                       ),
                                       23 => 
                                       array (
                                         'key' => 'Butane',
-                                        'value' => 15254294,
+                                        'value' => 15256105,
                                       ),
                                       24 => 
                                       array (
                                         'key' => 'Buttermilk',
-                                        'value' => 15254340,
+                                        'value' => 15256151,
                                       ),
                                       25 => 
                                       array (
                                         'key' => ' CO<sub>2</sub>',
-                                        'value' => 15254290,
+                                        'value' => 15256101,
                                       ),
                                       26 => 
                                       array (
                                         'key' => 'Carbon black',
-                                        'value' => 15254269,
+                                        'value' => 15256080,
                                       ),
                                       27 => 
                                       array (
                                         'key' => 'Caustics',
-                                        'value' => 15254260,
+                                        'value' => 15256071,
                                       ),
                                       28 => 
                                       array (
                                         'key' => 'Cement',
-                                        'value' => 15254272,
+                                        'value' => 15256083,
                                       ),
                                       29 => 
                                       array (
                                         'key' => 'Chalk',
-                                        'value' => 15254265,
+                                        'value' => 15256076,
                                       ),
                                       30 => 
                                       array (
                                         'key' => 'Cheese',
-                                        'value' => 15254347,
+                                        'value' => 15256158,
                                       ),
                                       31 => 
                                       array (
                                         'key' => 'Chemicals',
-                                        'value' => 15254214,
+                                        'value' => 15256025,
                                       ),
                                       32 => 
                                       array (
                                         'key' => 'Chlorine rubber lacquer',
-                                        'value' => 15254280,
+                                        'value' => 15256091,
                                       ),
                                       33 => 
                                       array (
                                         'key' => 'Chocolate',
-                                        'value' => 15254348,
+                                        'value' => 15256159,
                                       ),
                                       34 => 
                                       array (
                                         'key' => 'Citric acid ',
-                                        'value' => 15254352,
+                                        'value' => 15256163,
                                       ),
                                       35 => 
                                       array (
                                         'key' => 'Clean chemicals',
-                                        'value' => 15254378,
+                                        'value' => 15256189,
                                       ),
                                       36 => 
                                       array (
                                         'key' => 'Cleaning agents',
-                                        'value' => 15254313,
+                                        'value' => 15256124,
                                       ),
                                       37 => 
                                       array (
                                         'key' => 'Cleaning and disinfection agents ',
-                                        'value' => 15254258,
+                                        'value' => 15256069,
                                       ),
                                       38 => 
                                       array (
                                         'key' => 'Coal',
-                                        'value' => 15254267,
+                                        'value' => 15256078,
                                       ),
                                       39 => 
                                       array (
                                         'key' => 'Coal dust',
-                                        'value' => 15254332,
+                                        'value' => 15256143,
                                       ),
                                       40 => 
                                       array (
                                         'key' => 'Cold water',
-                                        'value' => 15254285,
+                                        'value' => 15256096,
                                       ),
                                       41 => 
                                       array (
                                         'key' => 'Commercially available cooling water additives in usual concentrations',
-                                        'value' => 15254388,
+                                        'value' => 15256199,
                                       ),
                                       42 => 
                                       array (
                                         'key' => 'Compressed air',
-                                        'value' => 15254221,
+                                        'value' => 15256032,
                                       ),
                                       43 => 
                                       array (
                                         'key' => 'Concrete',
-                                        'value' => 15254271,
+                                        'value' => 15256082,
                                       ),
                                       44 => 
                                       array (
                                         'key' => 'Condensate',
-                                        'value' => 15254380,
+                                        'value' => 15256191,
                                       ),
                                       45 => 
                                       array (
                                         'key' => 'Condensation',
-                                        'value' => 15254238,
+                                        'value' => 15256049,
                                       ),
                                       46 => 
                                       array (
                                         'key' => 'Cooling water',
-                                        'value' => 15254232,
+                                        'value' => 15256043,
                                       ),
                                       47 => 
                                       array (
                                         'key' => 'Corrosion preventives',
-                                        'value' => 15254305,
+                                        'value' => 15256116,
                                       ),
                                       48 => 
                                       array (
                                         'key' => 'Corundum',
-                                        'value' => 15254273,
+                                        'value' => 15256084,
                                       ),
                                       49 => 
                                       array (
                                         'key' => 'Cottage cheese',
-                                        'value' => 15254349,
+                                        'value' => 15256160,
                                       ),
                                       50 => 
                                       array (
                                         'key' => 'Dairy ice cream',
-                                        'value' => 15254369,
+                                        'value' => 15256180,
                                       ),
                                       51 => 
                                       array (
                                         'key' => 'Dairy products',
-                                        'value' => 15254244,
+                                        'value' => 15256055,
                                       ),
                                       52 => 
                                       array (
                                         'key' => 'Demineralised water',
-                                        'value' => 15254227,
+                                        'value' => 15256038,
                                       ),
                                       53 => 
                                       array (
                                         'key' => 'Diesel fuel',
-                                        'value' => 15254231,
+                                        'value' => 15256042,
                                       ),
                                       54 => 
                                       array (
                                         'key' => 'Disinfectants',
-                                        'value' => 15254295,
+                                        'value' => 15256106,
                                       ),
                                       55 => 
                                       array (
                                         'key' => 'Dough ',
-                                        'value' => 15254361,
+                                        'value' => 15256172,
                                       ),
                                       56 => 
                                       array (
                                         'key' => 'Dredging sludge',
-                                        'value' => 15254264,
+                                        'value' => 15256075,
                                       ),
                                       57 => 
                                       array (
                                         'key' => 'Dry Ice',
-                                        'value' => 15254370,
+                                        'value' => 15256181,
                                       ),
                                       58 => 
                                       array (
                                         'key' => 'Dry and oily compressed air',
-                                        'value' => 15254389,
+                                        'value' => 15256200,
                                       ),
                                       59 => 
                                       array (
                                         'key' => 'Dusty Media',
-                                        'value' => 15254372,
+                                        'value' => 15256183,
                                       ),
                                       60 => 
                                       array (
                                         'key' => 'Egg yolk',
-                                        'value' => 15254342,
+                                        'value' => 15256153,
                                       ),
                                       61 => 
                                       array (
                                         'key' => 'Emulsion paints',
-                                        'value' => 15254283,
+                                        'value' => 15256094,
                                       ),
                                       62 => 
                                       array (
                                         'key' => 'Engine oil',
-                                        'value' => 15254329,
+                                        'value' => 15256140,
                                       ),
                                       63 => 
                                       array (
                                         'key' => 'Epoxy laquer',
-                                        'value' => 15254282,
+                                        'value' => 15256093,
                                       ),
                                       64 => 
                                       array (
                                         'key' => 'Ester',
-                                        'value' => 15254321,
+                                        'value' => 15256132,
                                       ),
                                       65 => 
                                       array (
                                         'key' => 'Excrements',
-                                        'value' => 15254216,
+                                        'value' => 15256027,
                                       ),
                                       66 => 
                                       array (
                                         'key' => 'Explosive gas',
-                                        'value' => 15254297,
+                                        'value' => 15256108,
                                       ),
                                       67 => 
                                       array (
                                         'key' => 'Explosive gases and their mixtures',
-                                        'value' => 15254249,
+                                        'value' => 15256060,
                                       ),
                                       68 => 
                                       array (
                                         'key' => 'Extinguishing media',
-                                        'value' => 15254375,
+                                        'value' => 15256186,
                                       ),
                                       69 => 
                                       array (
                                         'key' => 'Fats',
-                                        'value' => 15254262,
+                                        'value' => 15256073,
                                       ),
                                       70 => 
                                       array (
                                         'key' => 'Fatty and oily products',
-                                        'value' => 15254230,
+                                        'value' => 15256041,
                                       ),
                                       71 => 
                                       array (
                                         'key' => 'Fatty foods',
-                                        'value' => 15254366,
+                                        'value' => 15256177,
                                       ),
                                       72 => 
                                       array (
                                         'key' => 'Fishmeal',
-                                        'value' => 15254360,
+                                        'value' => 15256171,
                                       ),
                                       73 => 
                                       array (
                                         'key' => 'Flour',
-                                        'value' => 15254277,
+                                        'value' => 15256088,
                                       ),
                                       74 => 
                                       array (
                                         'key' => 'Fly ash',
-                                        'value' => 15254334,
+                                        'value' => 15256145,
                                       ),
                                       75 => 
                                       array (
                                         'key' => 'Foodstuffs',
-                                        'value' => 15254364,
+                                        'value' => 15256175,
                                       ),
                                       76 => 
                                       array (
                                         'key' => 'Fruit ice cream',
-                                        'value' => 15254368,
+                                        'value' => 15256179,
                                       ),
                                       77 => 
                                       array (
                                         'key' => 'Fruits',
-                                        'value' => 15254343,
+                                        'value' => 15256154,
                                       ),
                                       78 => 
                                       array (
                                         'key' => 'Fuel',
-                                        'value' => 15254224,
+                                        'value' => 15256035,
                                       ),
                                       79 => 
                                       array (
                                         'key' => 'Fuel gases mixed with fluxes and oxygen',
-                                        'value' => 15254233,
+                                        'value' => 15256044,
                                       ),
                                       80 => 
                                       array (
                                         'key' => 'Fuel oil',
-                                        'value' => 15254327,
+                                        'value' => 15256138,
                                       ),
                                       81 => 
                                       array (
                                         'key' => 'Fuel-containing air',
-                                        'value' => 15254373,
+                                        'value' => 15256184,
                                       ),
                                       82 => 
                                       array (
                                         'key' => 'Fuels',
-                                        'value' => 15254229,
+                                        'value' => 15256040,
                                       ),
                                       83 => 
                                       array (
                                         'key' => 'Gas',
-                                        'value' => 15254287,
+                                        'value' => 15256098,
                                       ),
                                       84 => 
                                       array (
                                         'key' => 'Gasoil',
-                                        'value' => 15254300,
+                                        'value' => 15256111,
                                       ),
                                       85 => 
                                       array (
                                         'key' => 'Gear lubricant oil',
-                                        'value' => 15254330,
+                                        'value' => 15256141,
                                       ),
                                       86 => 
                                       array (
                                         'key' => 'Gelatine',
-                                        'value' => 15254341,
+                                        'value' => 15256152,
                                       ),
                                       87 => 
                                       array (
                                         'key' => 'Glues',
-                                        'value' => 15254253,
+                                        'value' => 15256064,
                                       ),
                                       88 => 
                                       array (
                                         'key' => 'Glycol solutions',
-                                        'value' => 15254301,
+                                        'value' => 15256112,
                                       ),
                                       89 => 
                                       array (
                                         'key' => 'Granulate (Salt, Sugar)',
-                                        'value' => 15254359,
+                                        'value' => 15256170,
                                       ),
                                       90 => 
                                       array (
                                         'key' => 'Granulate and powder media',
-                                        'value' => 15254211,
+                                        'value' => 15256022,
                                       ),
                                       91 => 
                                       array (
                                         'key' => 'Granules',
-                                        'value' => 15254302,
+                                        'value' => 15256113,
                                       ),
                                       92 => 
                                       array (
                                         'key' => 'Gravel',
-                                        'value' => 15254263,
+                                        'value' => 15256074,
                                       ),
                                       93 => 
                                       array (
                                         'key' => 'Hot air (not oily)',
-                                        'value' => 15254324,
+                                        'value' => 15256135,
                                       ),
                                       94 => 
                                       array (
                                         'key' => 'Hot cooling water',
-                                        'value' => 15254323,
+                                        'value' => 15256134,
                                       ),
                                       95 => 
                                       array (
                                         'key' => 'Hot water',
-                                        'value' => 15254286,
+                                        'value' => 15256097,
                                       ),
                                       96 => 
                                       array (
                                         'key' => 'Hydraulic fluids',
-                                        'value' => 15254303,
+                                        'value' => 15256114,
                                       ),
                                       97 => 
                                       array (
                                         'key' => 'Hydraulik oils',
-                                        'value' => 15254251,
+                                        'value' => 15256062,
                                       ),
                                       98 => 
                                       array (
                                         'key' => 'Hygenic/sanitary products',
-                                        'value' => 15254379,
+                                        'value' => 15256190,
                                       ),
                                       99 => 
                                       array (
                                         'key' => 'Ice',
-                                        'value' => 15254344,
+                                        'value' => 15256155,
                                       ),
                                       100 => 
                                       array (
                                         'key' => 'Industrial waste',
-                                        'value' => 15254338,
+                                        'value' => 15256149,
                                       ),
                                       101 => 
                                       array (
                                         'key' => 'Juice',
-                                        'value' => 15254354,
+                                        'value' => 15256165,
                                       ),
                                       102 => 
                                       array (
                                         'key' => 'Kerosene',
-                                        'value' => 15254304,
+                                        'value' => 15256115,
                                       ),
                                       103 => 
                                       array (
                                         'key' => 'Ketchup',
-                                        'value' => 15254355,
+                                        'value' => 15256166,
                                       ),
                                       104 => 
                                       array (
                                         'key' => 'Ketones',
-                                        'value' => 15254322,
+                                        'value' => 15256133,
                                       ),
                                       105 => 
                                       array (
                                         'key' => 'LPG',
-                                        'value' => 15254306,
+                                        'value' => 15256117,
                                       ),
                                       106 => 
                                       array (
                                         'key' => 'Lacquers',
-                                        'value' => 15254252,
+                                        'value' => 15256063,
                                       ),
                                       107 => 
                                       array (
                                         'key' => 'Lactic acid ',
-                                        'value' => 15254357,
+                                        'value' => 15256168,
                                       ),
                                       108 => 
                                       array (
                                         'key' => 'Lard',
-                                        'value' => 15254387,
+                                        'value' => 15256198,
                                       ),
                                       109 => 
                                       array (
                                         'key' => 'Limestone filler',
-                                        'value' => 15254335,
+                                        'value' => 15256146,
                                       ),
                                       110 => 
                                       array (
                                         'key' => 'Liquid gas',
-                                        'value' => 15254299,
+                                        'value' => 15256110,
                                       ),
                                       111 => 
                                       array (
                                         'key' => 'Liquid mud containing crude oil and grit ',
-                                        'value' => 15254377,
+                                        'value' => 15256188,
                                       ),
                                       112 => 
                                       array (
                                         'key' => 'Liquid oily and fatty foods',
-                                        'value' => 15254212,
+                                        'value' => 15256023,
                                       ),
                                       113 => 
                                       array (
                                         'key' => 'Lubricants',
-                                        'value' => 15254255,
+                                        'value' => 15256066,
                                       ),
                                       114 => 
                                       array (
                                         'key' => 'Lubricating oil',
-                                        'value' => 15254228,
+                                        'value' => 15256039,
                                       ),
                                       115 => 
                                       array (
                                         'key' => 'Micro silica',
-                                        'value' => 15254333,
+                                        'value' => 15256144,
                                       ),
                                       116 => 
                                       array (
                                         'key' => 'Microsilica',
-                                        'value' => 15254384,
+                                        'value' => 15256195,
                                       ),
                                       117 => 
                                       array (
                                         'key' => 'Milk',
-                                        'value' => 15254243,
+                                        'value' => 15256054,
                                       ),
                                       118 => 
                                       array (
                                         'key' => 'Milk powder',
-                                        'value' => 15254356,
+                                        'value' => 15256167,
                                       ),
                                       119 => 
                                       array (
                                         'key' => 'Mineral oil',
-                                        'value' => 15254307,
+                                        'value' => 15256118,
                                       ),
                                       120 => 
                                       array (
                                         'key' => 'Mineral oil and glycol-based hydraulic fluids',
-                                        'value' => 15254218,
+                                        'value' => 15256029,
                                       ),
                                       121 => 
                                       array (
                                         'key' => 'Mud',
-                                        'value' => 15254326,
+                                        'value' => 15256137,
                                       ),
                                       122 => 
                                       array (
                                         'key' => 'Mustard',
-                                        'value' => 15254351,
+                                        'value' => 15256162,
                                       ),
                                       123 => 
                                       array (
                                         'key' => 'Naphtha',
-                                        'value' => 15254308,
+                                        'value' => 15256119,
                                       ),
                                       124 => 
                                       array (
                                         'key' => 'Natural gas',
-                                        'value' => 15254296,
+                                        'value' => 15256107,
                                       ),
                                       125 => 
                                       array (
                                         'key' => 'Nitro cellulose lacquer',
-                                        'value' => 15254279,
+                                        'value' => 15256090,
                                       ),
                                       126 => 
                                       array (
                                         'key' => 'Nitrogen',
-                                        'value' => 15254288,
+                                        'value' => 15256099,
                                       ),
                                       127 => 
                                       array (
                                         'key' => 'Non-flammable gas',
-                                        'value' => 15254309,
+                                        'value' => 15256120,
                                       ),
                                       128 => 
                                       array (
                                         'key' => 'Oil',
-                                        'value' => 15254261,
+                                        'value' => 15256072,
                                       ),
                                       129 => 
                                       array (
                                         'key' => 'Oils',
-                                        'value' => 15254254,
+                                        'value' => 15256065,
                                       ),
                                       130 => 
                                       array (
                                         'key' => 'Oily air',
-                                        'value' => 15254246,
+                                        'value' => 15256057,
                                       ),
                                       131 => 
                                       array (
                                         'key' => 'Ore',
-                                        'value' => 15254268,
+                                        'value' => 15256079,
                                       ),
                                       132 => 
                                       array (
                                         'key' => 'Oxygen',
-                                        'value' => 15254236,
+                                        'value' => 15256047,
                                       ),
                                       133 => 
                                       array (
                                         'key' => 'PVC',
-                                        'value' => 15254385,
+                                        'value' => 15256196,
                                       ),
                                       134 => 
                                       array (
                                         'key' => 'Paints',
-                                        'value' => 15254235,
+                                        'value' => 15256046,
                                       ),
                                       135 => 
                                       array (
                                         'key' => 'Pesticides',
-                                        'value' => 15254316,
+                                        'value' => 15256127,
                                       ),
                                       136 => 
                                       array (
                                         'key' => 'Petroleum based products up to 50% aromatic component',
-                                        'value' => 15254331,
+                                        'value' => 15256142,
                                       ),
                                       137 => 
                                       array (
                                         'key' => 'Plastic granulates',
-                                        'value' => 15254337,
+                                        'value' => 15256148,
                                       ),
                                       138 => 
                                       array (
                                         'key' => 'Polar and aromatic solvents ',
-                                        'value' => 15254222,
+                                        'value' => 15256033,
                                       ),
                                       139 => 
                                       array (
                                         'key' => 'Polar solvents',
-                                        'value' => 15254318,
+                                        'value' => 15256129,
                                       ),
                                       140 => 
                                       array (
                                         'key' => 'Polyester lacquer',
-                                        'value' => 15254284,
+                                        'value' => 15256095,
                                       ),
                                       141 => 
                                       array (
                                         'key' => 'Polyurethane laqcuer',
-                                        'value' => 15254281,
+                                        'value' => 15256092,
                                       ),
                                       142 => 
                                       array (
                                         'key' => 'Potable water',
-                                        'value' => 15254245,
+                                        'value' => 15256056,
                                       ),
                                       143 => 
                                       array (
                                         'key' => 'Powder',
-                                        'value' => 15254362,
+                                        'value' => 15256173,
                                       ),
                                       144 => 
                                       array (
                                         'key' => 'Powder media',
-                                        'value' => 15254312,
+                                        'value' => 15256123,
                                       ),
                                       145 => 
                                       array (
                                         'key' => 'Powdery and fine-grained bulk materials (grain size "equal to/smaller than" 3mm)',
-                                        'value' => 15254386,
+                                        'value' => 15256197,
                                       ),
                                       146 => 
                                       array (
                                         'key' => 'Power steering oil',
-                                        'value' => 15254328,
+                                        'value' => 15256139,
                                       ),
                                       147 => 
                                       array (
                                         'key' => 'Pressurized air',
-                                        'value' => 15254310,
+                                        'value' => 15256121,
                                       ),
                                       148 => 
                                       array (
                                         'key' => 'Process water',
-                                        'value' => 15254257,
+                                        'value' => 15256068,
                                       ),
                                       149 => 
                                       array (
                                         'key' => 'Propane',
-                                        'value' => 15254311,
+                                        'value' => 15256122,
                                       ),
                                       150 => 
                                       array (
                                         'key' => 'Quarz powder',
-                                        'value' => 15254275,
+                                        'value' => 15256086,
                                       ),
                                       151 => 
                                       array (
                                         'key' => 'Raw milk',
-                                        'value' => 15254314,
+                                        'value' => 15256125,
                                       ),
                                       152 => 
                                       array (
                                         'key' => 'Raw oil',
-                                        'value' => 15254220,
+                                        'value' => 15256031,
                                       ),
                                       153 => 
                                       array (
                                         'key' => 'Refrigerant',
-                                        'value' => 15254226,
+                                        'value' => 15256037,
                                       ),
                                       154 => 
                                       array (
                                         'key' => 'Rice pudding ',
-                                        'value' => 15254350,
+                                        'value' => 15256161,
                                       ),
                                       155 => 
                                       array (
                                         'key' => 'Salt',
-                                        'value' => 15254270,
+                                        'value' => 15256081,
                                       ),
                                       156 => 
                                       array (
                                         'key' => 'Salt solutions',
-                                        'value' => 15254315,
+                                        'value' => 15256126,
                                       ),
                                       157 => 
                                       array (
                                         'key' => 'Sand',
-                                        'value' => 15254217,
+                                        'value' => 15256028,
                                       ),
                                       158 => 
                                       array (
                                         'key' => 'Sand Steelgrit',
-                                        'value' => 15254215,
+                                        'value' => 15256026,
                                       ),
                                       159 => 
                                       array (
                                         'key' => 'Sea water',
-                                        'value' => 15254256,
+                                        'value' => 15256067,
                                       ),
                                       160 => 
                                       array (
                                         'key' => 'Sewage',
-                                        'value' => 15254239,
+                                        'value' => 15256050,
                                       ),
                                       161 => 
                                       array (
                                         'key' => 'Solvents',
-                                        'value' => 15254225,
+                                        'value' => 15256036,
                                       ),
                                       162 => 
                                       array (
                                         'key' => 'Sparkling wine ',
-                                        'value' => 15254345,
+                                        'value' => 15256156,
                                       ),
                                       163 => 
                                       array (
                                         'key' => 'Spirit lacquer',
-                                        'value' => 15254278,
+                                        'value' => 15256089,
                                       ),
                                       164 => 
                                       array (
                                         'key' => 'Spirits',
-                                        'value' => 15254358,
+                                        'value' => 15256169,
                                       ),
                                       165 => 
                                       array (
                                         'key' => 'Starch',
-                                        'value' => 15254382,
+                                        'value' => 15256193,
                                       ),
                                       166 => 
                                       array (
                                         'key' => 'Steam',
-                                        'value' => 15254210,
+                                        'value' => 15256021,
                                       ),
                                       167 => 
                                       array (
                                         'key' => 'Sugar',
-                                        'value' => 15254276,
+                                        'value' => 15256087,
                                       ),
                                       168 => 
                                       array (
                                         'key' => 'Sugar syrup',
-                                        'value' => 15254353,
+                                        'value' => 15256164,
                                       ),
                                       169 => 
                                       array (
                                         'key' => 'Tallow',
-                                        'value' => 15254339,
+                                        'value' => 15256150,
                                       ),
                                       170 => 
                                       array (
                                         'key' => 'Tar',
-                                        'value' => 15254247,
+                                        'value' => 15256058,
                                       ),
                                       171 => 
                                       array (
                                         'key' => 'Treated and non-treated cooling water',
-                                        'value' => 15254234,
+                                        'value' => 15256045,
                                       ),
                                       172 => 
                                       array (
                                         'key' => 'Ultrapure water',
-                                        'value' => 15254237,
+                                        'value' => 15256048,
                                       ),
                                       173 => 
                                       array (
                                         'key' => 'Vegetable and mineral lubricants',
-                                        'value' => 15254219,
+                                        'value' => 15256030,
                                       ),
                                       174 => 
                                       array (
                                         'key' => 'Vinegar ',
-                                        'value' => 15254346,
+                                        'value' => 15256157,
                                       ),
                                       175 => 
                                       array (
                                         'key' => 'Washing powder',
-                                        'value' => 15254383,
+                                        'value' => 15256194,
                                       ),
                                       176 => 
                                       array (
                                         'key' => 'Water',
-                                        'value' => 15254208,
+                                        'value' => 15256019,
                                       ),
                                       177 => 
                                       array (
                                         'key' => 'Water emulsions',
-                                        'value' => 15254317,
+                                        'value' => 15256128,
                                       ),
                                       178 => 
                                       array (
                                         'key' => 'Water-based saturated steam',
-                                        'value' => 15254381,
+                                        'value' => 15256192,
                                       ),
                                       179 => 
                                       array (
                                         'key' => 'Wine',
-                                        'value' => 15254241,
+                                        'value' => 15256052,
                                       ),
                                       180 => 
                                       array (
                                         'key' => 'Yoghurt',
-                                        'value' => 15254242,
+                                        'value' => 15256053,
                                       ),
                                       181 => 
                                       array (
                                         'key' => 'liquid and pasty chemical and petroleum based products',
-                                        'value' => 15254325,
+                                        'value' => 15256136,
                                       ),
                                     ),
                                      'width' => 220,
