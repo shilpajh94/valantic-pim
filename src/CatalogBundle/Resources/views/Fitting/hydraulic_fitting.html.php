@@ -196,6 +196,7 @@ if (is_array($brandsData) && !empty($brandsData)) {
                     // $tableColumns = $info['fittingTableColumn'][$tableName];
                     // $uniqueId = md5($uniqueId.$tableName);
                     // if ($tableName !== 'SortOrder') {
+                        $uniqueIdTemp = $uniqueId;
                         $uniqueId = md5($uniqueId.$shortDescrioptionKey.$tableName);
                     //     $result = array_intersect($tableColumns['columns'], $dispColumns);
 
@@ -203,38 +204,157 @@ if (is_array($brandsData) && !empty($brandsData)) {
                         ?>
                         <article class="container page-break-inside-avoid">
                             <figure class="headingSection">
-                                <span>
+                                
                                     <?php
-                                    if ($this->editmode) {
-                                        if(!$this->image('catLeftImage' . $uniqueId)->isEmpty())
-                                            echo $this->image('catLeftImage' . $uniqueId, ["class" => "leftImg", "width" => 226, "height" => 150]);
-                                        else
-                                            echo $this->image('catLeftImage' . $uniqueId, ["class" => "leftImg", "width" => 226, "height" => 150])->setImage($tableRowsSkiveType[$firstKey]['brandData']['LeftPrintCatalogImageObj']);
-                                    } else {
-                                        $imgSrcObj1 =  $this->image('catLeftImage' . $uniqueId);
-                                        if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth))
-                                        {
+                                    if(isset($tableRowsSkiveType['NS']) && isset($tableRowsSkiveType['DG']))
+                                    {
                                         ?>
-                                        <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth); ?>" class="lImg" width="226" height="150"/>
+                                        <span>
+                                            <?php
+                                            $uniqueIdDG = md5($uniqueIdTemp.$shortDescrioptionKey.$tableName.'DG');
+                                            if ($this->editmode) {
+                                                if(!$this->image('catLeftImage' . $uniqueIdDG)->isEmpty())
+                                                    echo $this->image('catLeftImage' . $uniqueIdDG, ["class" => "leftImg", "width" => 226, "height" => 150]);
+                                                else
+                                                    echo $this->image('catLeftImage' . $uniqueIdDG, ["class" => "leftImg", "width" => 226, "height" => 150])->setImage($tableRowsSkiveType['DG']['brandData']['LeftPrintCatalogImageObj']);
+                                            } else {
+                                                $imgSrcObj1 =  $this->image('catLeftImage' . $uniqueIdDG);
+                                                if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth))
+                                                {
+                                                ?>
+                                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth); ?>" class="lImg" width="226" height="150"/>
+                                                <?php
+                                                }
+                                            }
+                                            if ($this->editmode) {
+                                                if(!$this->image('catRightImage' . $uniqueIdDG)->isEmpty())
+                                                    echo $this->image('catRightImage' . $uniqueIdDG, ["class" => "rightImg", "width" => 226, "height" => 150]);
+                                                else
+                                                    echo $this->image('catRightImage' . $uniqueIdDG, ["class" => "rightImg", "width" => 226, "height" => 150])->setImage($tableRowsSkiveType['DG']['brandData']['RightPrintCatalogImageObj']);
+                                            } else {
+                                                $imgSrcObj2 = $this->image('catRightImage' . $uniqueIdDG);
+                                                if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth))
+                                                {
+                                                ?>
+                                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth); ?>" class="rImg" width="226" height="150"/>
+                                                <?php
+                                                }
+                                            }
+                                            
+                                            $imgSrcObj1 =  $this->image('catLeftImage' . $uniqueIdDG);
+                                            $imgSrcObj2 = $this->image('catRightImage' . $uniqueIdDG);
+
+                                            if($this->editmode): 
+                                                if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth) && $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth)):
+                                                    if($this->input('dualgrip' . $uniqueIdDG)->isEmpty()): 
+                                                        echo $this->input('dualgrip' . $uniqueIdDG)->setDataFromResource('Dual-Grip Style');
+                                                    else: 
+                                                    echo $this->input('dualgrip' . $uniqueIdDG); 
+                                                    endif; 
+                                                endif;
+                                            else:
+                                                if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth) && $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth)):
+                                                    echo $this->input('dualgrip' . $uniqueIdDG);
+                                                endif; 
+                                            endif; 
+                                            ?>
+                                             
+                                        </span>
+                                        
+                                        <span>
+                                            <?php
+                                            $uniqueIdNS = md5($uniqueIdTemp.$shortDescrioptionKey.$tableName.'NS');
+                                            if ($this->editmode) {
+                                                if(!$this->image('catLeftImage' . $uniqueIdNS)->isEmpty())
+                                                    echo $this->image('catLeftImage' . $uniqueIdNS, ["class" => "leftImg", "width" => 226, "height" => 150]);
+                                                else
+                                                    echo $this->image('catLeftImage' . $uniqueIdNS, ["class" => "leftImg", "width" => 226, "height" => 150])->setImage($tableRowsSkiveType['NS']['brandData']['LeftPrintCatalogImageObj']);
+                                            } else {
+                                                $imgSrcObj1 =  $this->image('catLeftImage' . $uniqueIdNS);
+                                                if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth))
+                                                {
+                                                ?>
+                                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth); ?>" class="lImg" width="226" height="150"/>
+                                                <?php
+                                                }
+                                            }
+                                            if ($this->editmode) {
+                                                if(!$this->image('catRightImage' . $uniqueIdNS)->isEmpty())
+                                                    echo $this->image('catRightImage' . $uniqueIdNS, ["class" => "rightImg", "width" => 226, "height" => 150]);
+                                                else
+                                                    echo $this->image('catRightImage' . $uniqueIdNS, ["class" => "rightImg", "width" => 226, "height" => 150])->setImage($tableRowsSkiveType['NS']['brandData']['RightPrintCatalogImageObj']);
+                                            } else {
+                                                $imgSrcObj2 = $this->image('catRightImage' . $uniqueIdNS);
+                                                if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth))
+                                                {
+                                                ?>
+                                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth); ?>" class="rImg" width="226" height="150"/>
+                                                <?php
+                                                }
+                                            }
+
+                                            $imgSrcObj1 =  $this->image('catLeftImage' . $uniqueIdNS);
+                                            $imgSrcObj2 = $this->image('catRightImage' . $uniqueIdNS);
+
+                                            if($this->editmode): 
+                                                if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth) && $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth)):
+                                                    if($this->input('unicrimp' . $uniqueIdNS)->isEmpty()): 
+                                                        echo $this->input('unicrimp' . $uniqueIdNS)->setDataFromResource('Uni-Crimp™ Style');
+                                                    else: 
+                                                    echo $this->input('unicrimp' . $uniqueIdNS); 
+                                                    endif; 
+                                                endif;
+                                            else:
+                                                if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth) && $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth)):
+                                                    echo $this->input('unicrimp' . $uniqueIdNS);
+                                                endif; 
+                                            endif; 
+
+                                            ?>
+                                            
+                                        </span>
+                                        
                                         <?php
-                                        }
                                     }
-                                    if ($this->editmode) {
-                                        if(!$this->image('catRightImage' . $uniqueId)->isEmpty())
-                                            echo $this->image('catRightImage' . $uniqueId, ["class" => "rightImg", "width" => 226, "height" => 150]);
-                                        else
-                                            echo $this->image('catRightImage' . $uniqueId, ["class" => "rightImg", "width" => 226, "height" => 150])->setImage($tableRowsSkiveType[$firstKey]['brandData']['RightPrintCatalogImageObj']);
-                                    } else {
-                                        $imgSrcObj2 = $this->image('catRightImage' . $uniqueId);
-                                        if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth))
-                                        {
+                                    else
+                                    {
                                         ?>
-                                        <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth); ?>" class="rImg" width="226" height="150"/>
+                                        <span>
+                                            <?php
+                                            if ($this->editmode) {
+                                                if(!$this->image('catLeftImage' . $uniqueId)->isEmpty())
+                                                    echo $this->image('catLeftImage' . $uniqueId, ["class" => "leftImg", "width" => 226, "height" => 150]);
+                                                else
+                                                    echo $this->image('catLeftImage' . $uniqueId, ["class" => "leftImg", "width" => 226, "height" => 150])->setImage($tableRowsSkiveType[$firstKey]['brandData']['LeftPrintCatalogImageObj']);
+                                            } else {
+                                                $imgSrcObj1 =  $this->image('catLeftImage' . $uniqueId);
+                                                if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth))
+                                                {
+                                                ?>
+                                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth); ?>" class="lImg" width="226" height="150"/>
+                                                <?php
+                                                }
+                                            }
+                                            if ($this->editmode) {
+                                                if(!$this->image('catRightImage' . $uniqueId)->isEmpty())
+                                                    echo $this->image('catRightImage' . $uniqueId, ["class" => "rightImg", "width" => 226, "height" => 150]);
+                                                else
+                                                    echo $this->image('catRightImage' . $uniqueId, ["class" => "rightImg", "width" => 226, "height" => 150])->setImage($tableRowsSkiveType[$firstKey]['brandData']['RightPrintCatalogImageObj']);
+                                            } else {
+                                                $imgSrcObj2 = $this->image('catRightImage' . $uniqueId);
+                                                if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth))
+                                                {
+                                                ?>
+                                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth); ?>" class="rImg" width="226" height="150"/>
+                                                <?php
+                                                }
+                                            }
+                                            ?>
+                                        </span>
                                         <?php
-                                        }
                                     }
                                     ?>
-                                </span>
+                                
                                 <figcaption class="highlight">
                                     <h3>
                                         <?php

@@ -221,6 +221,29 @@ class HydraulicFittingController extends AbstractController
                                     if(in_array('SkiveType',$FittingTableKeys))
                                     {
                                         $skiveType = $articles[$headerKeysIndex['SkiveType']];
+                                        if($skiveType == 'Non-Skive' || $skiveType == 'NS' )
+                                        {
+                                            $skiveType = 'NS';
+
+                                            if($articles[$headerKeysIndex['LeftPrintCatalogImage']]) {
+                                                $LeftPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($articles[$headerKeysIndex['LeftPrintCatalogImage']]);
+                                            }
+        
+                                            if($articles[$headerKeysIndex['RightPrintCatalogImage']]) {
+                                                $RightPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($articles[$headerKeysIndex['RightPrintCatalogImage']]);
+                                            }
+                                        }
+                                        else if($skiveType == 'Dual-Grip' || $skiveType == 'DG'){
+                                            $skiveType = 'DG';
+
+                                            if($articles[$headerKeysIndex['LeftPrintCatalogImage']]) {
+                                                $LeftPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($articles[$headerKeysIndex['LeftPrintCatalogImage']]);
+                                            }
+        
+                                            if($articles[$headerKeysIndex['RightPrintCatalogImage']]) {
+                                                $RightPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($articles[$headerKeysIndex['RightPrintCatalogImage']]);
+                                            }
+                                        }
                                     }
 
                                     if($orderKeys['HoseID1InFract'])
