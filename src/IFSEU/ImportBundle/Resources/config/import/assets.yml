@@ -4,7 +4,7 @@ parameters:
             db_column_name: mainImage
         Front View:
             db_column_name: frontView
-        Side View:
+        Side view:
             db_column_name: sideView
         Cut View:
             db_column_name: cutView
