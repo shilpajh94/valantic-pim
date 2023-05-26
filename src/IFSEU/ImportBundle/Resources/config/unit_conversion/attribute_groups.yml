@@ -13,9 +13,11 @@ Od_group:
 WorkingPressure_group:
     workingPressureBAR: 'BAR'
     workingPressurePSI: 'PSI'
+    workingPressureMPA: 'MPA'
 BurstPressure_group:
     BurstPressurePSI: 'PSI'
     BurstPressureBar: 'BAR'
+    BurstPressurempa: 'MPA'
 Vacuum_group:
     VacuumMM: 'MM'
     VacuumIN: 'IN'
