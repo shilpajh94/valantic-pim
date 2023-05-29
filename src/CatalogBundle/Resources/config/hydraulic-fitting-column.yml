@@ -215,9 +215,9 @@ parameters:
             columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseID1InFract', 'ThreadSize1InMMDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM', 'Hex1WrenchSizeFraction' ,'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
         Fitting-Elbow 2:
             widthSetting:
-                DescriptivePartNumber: 100
-                industryStandard: 90
-                articleNumber: 90
+                DescriptivePartNumber: 90
+                industryStandard: 80
+                articleNumber: 70
                 HoseID1InFract: ''
                 ThreadSize1InMMDecimal: ''
                 Hex1WrenchSizeIN: ''
