@@ -1,19 +1,19 @@
 <?php 
 
 /** 
-* Generated at: 2023-04-26T12:29:35+05:30
+* Generated at: 2023-05-29T07:39:18+00:00
 * IP: 127.0.0.1
 
 
 Fields Summary: 
-- IdInch [numeric]
 - IdMM [numeric]
-- wallThicknessInch [numeric]
+- IdInch [numeric]
 - wallThicknessMM [numeric]
-- OdIn [numeric]
+- wallThicknessInch [numeric]
 - Odmm [numeric]
-- hoseIdNominalActualId [numeric]
+- OdIn [numeric]
 - hoseIdMMActualId [numeric]
+- hoseIdNominalActualId [numeric]
 - FittingFamily [multiselect]
 - withHelix [booleanSelect]
 - SkeletonBrickMapping [input]
@@ -28,8 +28,8 @@ Fields Summary:
 - BurstPressureBar [numeric]
 - BurstPressurePSI [numeric]
 - BurstPressurempa [numeric]
-- BendingRadiusIN [numeric]
 - BendingRadiusMM [numeric]
+- BendingRadiusIN [numeric]
 - descriptive [input]
 - negativeToleranceIdMM [numeric]
 - PositiveToleranceIdMM [numeric]
@@ -125,8 +125,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'unique' => false,
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
-                 'name' => 'IdInch',
-                 'title' => 'ID (Inch)',
+                 'name' => 'IdMM',
+                 'title' => 'ID (mm)',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
@@ -156,8 +156,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'unique' => false,
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
-                 'name' => 'IdMM',
-                 'title' => 'ID (mm)',
+                 'name' => 'IdInch',
+                 'title' => 'ID (Inch)',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
@@ -187,14 +187,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'unique' => false,
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
-                 'name' => 'wallThicknessInch',
-                 'title' => 'Wall thickness (in)',
+                 'name' => 'wallThicknessMM',
+                 'title' => 'Wall thickness (mm)',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,
-                 'style' => 'float:left; margin-right: 20px; clear:left;',
+                 'style' => 'float:left;  margin-right: 20px; clear:left;',
                  'permissions' => NULL,
                  'datatype' => 'data',
                  'relationType' => false,
@@ -218,14 +218,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'unique' => false,
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
-                 'name' => 'wallThicknessMM',
-                 'title' => 'Wall thickness (mm)',
+                 'name' => 'wallThicknessInch',
+                 'title' => 'Wall thickness (in)',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,
-                 'style' => 'float:left; ',
+                 'style' => 'float:left;',
                  'permissions' => NULL,
                  'datatype' => 'data',
                  'relationType' => false,
@@ -249,8 +249,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'unique' => false,
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
-                 'name' => 'OdIn',
-                 'title' => 'OD (in)',
+                 'name' => 'Odmm',
+                 'title' => 'OD (mm)',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
@@ -280,8 +280,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'unique' => false,
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
-                 'name' => 'Odmm',
-                 'title' => 'OD (mm)',
+                 'name' => 'OdIn',
+                 'title' => 'OD (in)',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
@@ -311,8 +311,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'unique' => false,
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
-                 'name' => 'hoseIdNominalActualId',
-                 'title' => 'Hose ID (in Nominal) Actual Id',
+                 'name' => 'hoseIdMMActualId',
+                 'title' => 'Hose ID (mm) Actual Id',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
@@ -342,8 +342,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'unique' => false,
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
-                 'name' => 'hoseIdMMActualId',
-                 'title' => 'Hose ID (mm) Actual Id',
+                 'name' => 'hoseIdNominalActualId',
+                 'title' => 'Hose ID (in Nominal) Actual Id',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
@@ -645,7 +645,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
                  'name' => 'VacuumMM',
-                 'title' => 'Vacuum (mm)',
+                 'title' => 'Vacuum (mmHg)',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
@@ -861,14 +861,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'unique' => false,
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
-                 'name' => 'BendingRadiusIN',
-                 'title' => 'BendingRadius (in)',
+                 'name' => 'BendingRadiusMM',
+                 'title' => 'Bending Radius (mm)',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,
-                 'style' => 'float:left;  margin-right: 20px; clear:left;',
+                 'style' => 'float:left;margin-right: 20px; clear:left;',
                  'permissions' => NULL,
                  'datatype' => 'data',
                  'relationType' => false,
@@ -892,14 +892,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'unique' => false,
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
-                 'name' => 'BendingRadiusMM',
-                 'title' => 'Bending Radius (mm)',
+                 'name' => 'BendingRadiusIN',
+                 'title' => 'BendingRadius (in)',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,
-                 'style' => 'float:left;',
+                 'style' => 'float:left; ',
                  'permissions' => NULL,
                  'datatype' => 'data',
                  'relationType' => false,
