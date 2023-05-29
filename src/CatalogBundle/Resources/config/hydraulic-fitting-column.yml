@@ -53,12 +53,12 @@ parameters:
                 OringThicknessMM: ''
             columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'ORingIdInDec', 'ORingIdMM', 'OringThicknessInDec', 'OringThicknessMM']
         Fitting Accessories-AC Sleeve:
-        widthSetting:
-            DescriptivePartNumber: ''
-            industryStandard: ''
-            articleNumber: ''
-            TubeODInFract: ''
-        columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'TubeODInFract']
+            widthSetting:
+                DescriptivePartNumber: ''
+                industryStandard: ''
+                articleNumber: ''
+                TubeODInFract: ''
+            columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'TubeODInFract']
         Fitting Accessories-AC Tools:
             widthSetting:
                 DescriptivePartNumber:
