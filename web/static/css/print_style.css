@@ -558,6 +558,7 @@ article figure p b {
 
 .fittingLeftHeadingSection img.lImg{
     display:block;
+    margin-right: 20px !important; 
 }
 .fittingLeftHeadingSection img.rImg{
     display:none;
@@ -573,6 +574,7 @@ article figure p b {
 
 .fittingRightHeadingSection img.rImg{
     display:block;
+    margin-left: 20px !important; 
 }
 .fittingRightHeadingSection img.lImg{
     display:none;
