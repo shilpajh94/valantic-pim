@@ -113,6 +113,64 @@ class DefaultController extends AbstractController
         die;
     }
 
+    /**
+     * @Route("/ptgeu_catalog/get-available-sorters")
+     */
+    public function getAvailableSorters(Request $request) {
+        $commonHelper = \Pimcore::getContainer()->get(self::COMMON_HELPER);
+        $catalogConfig = \Pimcore::getContainer()->get(self::CATALOG_CONFIG_PROVIDER_SERVICE)->getCatalogConfig();
+        $ptgProductPageConfig = $commonHelper->getParameter($catalogConfig, 'PTG Product Page');
+        $ptgSortingAttributes = $commonHelper->getParameter($catalogConfig, 'PTG Sorting Attributes');
+
+        // p_r($ptgSortingAttributes['fieldName']);
+        
+        $columns = array();
+
+        // $columns[] = array('Profile','Profile');
+        // $columns[] = array('Pitch','Pitch');
+        // $columns[] = array('Length','Length');
+        // $columns[] = array('Rib','Rib');
+        // $columns[] = array('Width','Width');
+
+        $columns[] = array(0,'Profile');
+        $columns[] = array(1,'Pitch');
+        $columns[] = array(2,'Length');
+        $columns[] = array(3,'Rib');
+        $columns[] = array(4,'Width');
+
+        // p_r($columns);
+        $arr = [];
+        $defaultColumns = [];
+
+        // $defaultColumns[] = 'key1';
+        // $defaultColumns[] = 'key2';
+        
+        $tableColumns = ['Profile','Pitch','Length','Rib','Width'];
+        // $columns[] = $tableColumns;
+        // $tableColumns[] = 'key2';
+        // $tableColumns = $ptgProductPageConfig['Dynamic Table Attribute'];
+        // if ($tableColumns !== null) {
+        //     if (!empty($tableColumns) && count($tableColumns) > 0) {
+        //         foreach ($tableColumns as $key => $column) {
+        //             $columnLabel = $column['columnLabel'];
+        //             $columns[] = array($key, $columnLabel." (".$key.")");
+        //             if($column['defaultColumn'])
+        //             {
+        //                 $defaultColumns[] = $key;
+        //             }
+        //         }
+        //     }
+            $arr = array('storeData' => $columns, 'completeData' => $tableColumns, 'defaultColumns'=> $defaultColumns,'success' => true);
+            // $arr = array('storeData' => $ptgSortingAttributes, 'completeData' => $tableColumns, 'defaultColumns'=> $defaultColumns,'success' => true);
+
+        // } else {
+        //     $arr = array('storeData' => [], 'completeData' => [], 'success' => true);
+        // }
+
+        echo json_encode($arr);
+        die;
+    }
+
     public function containerAction(Request $request)
     {
         $allChildren = $this->document->getAllChildren();
@@ -709,48 +767,58 @@ class DefaultController extends AbstractController
                                     
                                     $data['listPrice'] = trim($listPrice) ? floatval($listPrice) : $listPrice;
                                 }
-                                $articleData[$article['profile']][] = $data;
+                                // $articleData[$article['profile']][] = $data;
+                                $articleData[] = $data;
                             }
                         }
                     }
                 }
-                
-                if($tableSortingFields)
-                {
-                    foreach ($articleData as $profile => $articlesList) {
-                        $siop6siop7Category = $profile;
-                        if(count($tableSortingFields) == 1)
-                        {
-                            $firstSortingColumn = array_column($articleData[$profile], $tableSortingFields[0]);
-                            array_multisort($firstSortingColumn, SORT_ASC, $articleData[$profile]);
-                            if($needRemoveSortedField)
-                            {
-                                $articleData[$profile] = $this->removeSortingColumn($tableSortingFieldsStatus, $articleData[$profile]);
-                            }
-                        }
-                        else if(count($tableSortingFields) == 2)
-                        {
-                            $firstSortingColumn = array_column($articleData[$profile], $tableSortingFields[0]);
-                            $secondSortingColumn = array_column($articleData[$profile], $tableSortingFields[1]);
 
-                            array_multisort($firstSortingColumn, SORT_ASC, $secondSortingColumn, SORT_ASC,$articleData[$profile]);
+
+
+                // p_r($articleData);
+                $firstSortingColumn = array_column($articleData, 'articleNumber');
+                $secondSortingColumn = array_column($articleData, 'netWeight');
+                array_multisort($firstSortingColumn, SORT_ASC, SORT_NATURAL, $secondSortingColumn, SORT_ASC,$articleData);
+                $asasa['asas'] = $articleData;
+                // p_r($articleData);
+                // die;
+                // if($tableSortingFields)
+                // {
+                //     foreach ($articleData as $profile => $articlesList) {
+                //         $siop6siop7Category = $profile;
+                //         if(count($tableSortingFields) == 1)
+                //         {
+                //             $firstSortingColumn = array_column($articleData[$profile], $tableSortingFields[0]);
+                //             array_multisort($firstSortingColumn, SORT_ASC, $articleData[$profile]);
+                //             if($needRemoveSortedField)
+                //             {
+                //                 $articleData[$profile] = $this->removeSortingColumn($tableSortingFieldsStatus, $articleData[$profile]);
+                //             }
+                //         }
+                //         else if(count($tableSortingFields) == 2)
+                //         {
+                //             $firstSortingColumn = array_column($articleData[$profile], $tableSortingFields[0]);
+                //             $secondSortingColumn = array_column($articleData[$profile], $tableSortingFields[1]);
+
+                //             array_multisort($firstSortingColumn, SORT_ASC, $secondSortingColumn, SORT_ASC,$articleData[$profile]);
                             
-                            if($needRemoveSortedField)
-                            {
-                                $articleData[$profile] = $this->removeSortingColumn($tableSortingFieldsStatus, $articleData[$profile]);
-                            }
-                        }
-                    }
-                }
+                //             if($needRemoveSortedField)
+                //             {
+                //                 $articleData[$profile] = $this->removeSortingColumn($tableSortingFieldsStatus, $articleData[$profile]);
+                //             }
+                //         }
+                //     }
+                // }
 
-                if($notApplicableFields)
-                {
-                    foreach ($notApplicableFields as $fieldKey => $fieldName) {
-                        unset($columnsDataWithImages[$fieldKey]);
-                    }
-                }
+                // if($notApplicableFields)
+                // {
+                //     foreach ($notApplicableFields as $fieldKey => $fieldName) {
+                //         unset($columnsDataWithImages[$fieldKey]);
+                //     }
+                // }
 
-                $groupData['data'] = $articleData;
+                $groupData['data'] = $asasa;
                 $groupData['columnsDataWithImages'] = $columnsDataWithImages;
                 $groupData['siop6siop7Category'] = $siop6siop7Category;
                 $groupData['siop5Category'] = $siop5Category;

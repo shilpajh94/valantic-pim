@@ -325,3 +325,14 @@ parameters:
                 objectLevel: skeleton
                 fieldType: Input
                 groupName: beltAngle
+    PTG Sorting Attributes:
+        Profile:
+            fieldName: Profile
+        Pitch:
+            fieldName: Pitch
+        Length: 
+            fieldName: Length
+        Rib: 
+            fieldName: Rib
+        Width: 
+            fieldName: Width
