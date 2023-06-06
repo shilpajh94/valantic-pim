@@ -878,7 +878,7 @@ menu figure figcaption b {
     padding: 5px 2px;
     word-break: break-word;
     font-size: 10px;
-    text-align: center;
+    text-align: left;
     word-wrap: break-all;
     text-wrap: normal;
     white-space: normal;
