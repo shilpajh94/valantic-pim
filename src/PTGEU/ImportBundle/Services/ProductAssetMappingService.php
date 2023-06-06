@@ -8,6 +8,7 @@ use \Pimcore\Model\Asset;
 use Pimcore\Model\DataObject\PTGEUProduct;
 use PTGEU\ImportBundle\Model\ProductModel;
 use Pimcore\Db;
+use Pimcore\Model\DataObject;
 
 class ProductAssetMappingService
 {   
@@ -34,14 +35,14 @@ class ProductAssetMappingService
             if ($downloadOrMapping == 'D') {
                 foreach($csvInfo['data'] as $rowData)
                 {
-                    if($rowData[0]!='' && is_dir($rowData[0]) && $rowData[4]!= '')
+                    if($rowData[0]!='' && is_dir($rowData[0]) && $rowData[2]!= '')
                     {
-                        $this->createAsset($rowData, $rowData[4]);
+                        $this->createAsset($rowData, $rowData[2]);
                         $innerFolder = $this->getChildFolderInAssetDirectory($rowData[0]);
                         foreach($innerFolder as $folder)
                         {
                             $rowData[0] = $rowData[0]."/".$folder;
-                            $assetHierarchyPath = $this->resetPathSlash($rowData[4]).$folder;
+                            $assetHierarchyPath = $this->resetPathSlash($rowData[2]).$folder;
                             $this->createAsset($rowData, $assetHierarchyPath);
                         }   
                     } else {
@@ -53,9 +54,9 @@ class ProductAssetMappingService
             if ($downloadOrMapping == 'M') {
                 foreach($csvInfo['data'] as $rowData)
                 {
-                    if($rowData[4]!= '')
+                    if($rowData[2]!= '')
                     {
-                        $getImagesDataByPath = $this->getImagesDataByPath($rowData[4]);
+                        $getImagesDataByPath = $this->getImagesDataByPath($rowData[2]);
                         if(count($getImagesDataByPath) == 0)
                         {
                             $this->insertLog($rowData, 'Mapping', 'Failed', 'Hierarchy path doesn`t exist or haven`t assets in pimcore !!', '');
@@ -65,10 +66,10 @@ class ProductAssetMappingService
                             $assetColumnName = $this->getColumnNameByFileName($assetObject->getFilename());
                             $this->savePTGEUProductColumn($rowData, $assetObject, $assetColumnName);
                         }
-                        $getFolderDataByPath = $this->getFolderDataByPath($rowData[4]);
+                        $getFolderDataByPath = $this->getFolderDataByPath($rowData[2]);
                         foreach($getFolderDataByPath as $assetFolderObject)
                         {
-                            $getImagesDataByPath = $this->getImagesDataByPath($rowData[4].$assetFolderObject->getFilename()."/");
+                            $getImagesDataByPath = $this->getImagesDataByPath($rowData[2].$assetFolderObject->getFilename()."/");
                             foreach($getImagesDataByPath as $assetObject)
                             {
                                 $assetColumnName = $this->getColumnNameByFileName($assetObject->getFilename());
@@ -99,7 +100,7 @@ class ProductAssetMappingService
         {
             echo $assetObject->getFilename()." is mapping with ".$productName."\n";
             $allProductObject = new PTGEUProduct\Listing();
-            $allProductObject->setCondition("ProductName = ?", [$productName]);
+            $allProductObject->setCondition(" ProductName   = :productName AND productType = :productType ", ["productName" => $productName, "productType" => "base"]);
             $allProductObject->load();
             foreach($allProductObject as $productObject)
             { 
@@ -243,10 +244,10 @@ class ProductAssetMappingService
 
     private function createAssetLog(array $rowData, string $type): void
     {
-        if($rowData[0]!='' && !is_dir($rowData[0]) && $rowData[4] != '')
+        if($rowData[0]!='' && !is_dir($rowData[0]) && $rowData[2] != '')
         {
             $this->insertLog($rowData, $type, 'Failed', 'Asset folder path doesn`t exist !!', '');
-        }  else if($rowData[0]!='' && is_dir($rowData[0]) && $rowData[4] == '')
+        }  else if($rowData[0]!='' && is_dir($rowData[0]) && $rowData[2] == '')
         {
             $this->insertLog($rowData, $type, 'Failed', 'Hierarchy path doesn`t defined !!', '');
         } 
@@ -256,7 +257,7 @@ class ProductAssetMappingService
     {
         $sql = "INSERT INTO `ptgeu_asset_import_log` ";
         $sql .= "(`productName`, `statusCode`, `statusMessage`, `type`, `folderPath`, `hierarchyPath`, `imageName`)";
-        $sql .= " VALUES ('".$rowData[1]."', '".$statusCode."', '".$statusMessage."', '".$type."', '".$rowData[0]."', '".$rowData[4]."', '".$imageName."' )";
+        $sql .= " VALUES ('".$rowData[1]."', '".$statusCode."', '".$statusMessage."', '".$type."', '".$rowData[0]."', '".$rowData[2]."', '".$imageName."' )";
         $this->db->query($sql);
     }
 
