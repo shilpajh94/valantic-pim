@@ -75,6 +75,9 @@ pimcore.plugin.PTGEUCatalogBundle = Class.create(pimcore.plugin.admin, {
         if (objectClassName == 'PTGEUCatalogCategory') {
             var colComp = Ext.getCmp(object.edit.dataFields.Columns.component.id);
             colComp.hide();
+
+            var colSortingColumns = Ext.getCmp(object.edit.dataFields.SortingColumns.component.id);
+            colSortingColumns.hide();
             
             let fifthLevelCategory = object.edit.dataFields.fifthLevelCategory.component.getValue();
             this.listProductTable(object, fifthLevelCategory);
