@@ -325,14 +325,45 @@ parameters:
                 objectLevel: skeleton
                 fieldType: Input
                 groupName: beltAngle
-    PTG Sorting Attributes:
-        Profile:
-            fieldName: Profile
-        Pitch:
-            fieldName: Pitch
-        Length: 
-            fieldName: Length
-        Rib: 
-            fieldName: Rib
-        Width: 
-            fieldName: Width
+        PTG Sorting Attributes:
+            profile:
+                columnName: profile
+                columnLabel: Profile
+                fieldLevel: class
+                objectLevel: skeleton
+                fieldType: Input
+            pitchLengthLpLwMM:
+                columnName: pitchLengthLpLwMM
+                columnLabel: Pitch Length (Lp/Lw)
+                fieldLevel: objectBrick
+                objectLevel: fert
+                fieldType: Number
+                objectBrickType: fert
+                objectBrickName: PTGEUCommonFert
+                defaultColumn: true
+            refLengthLrMM:
+                columnName: refLengthLrMM
+                columnLabel: Ref. Length (Lr)
+                fieldLevel: objectBrick
+                objectLevel: fert
+                fieldType: Number
+                objectBrickType: fert
+                objectBrickName: PTGEUCommonFert
+                defaultColumn: true
+            ribs:
+                columnName: ribs
+                columnLabel: Ribs
+                fieldLevel: objectBrick
+                objectLevel: fert
+                fieldType: Number
+                objectBrickType: fert
+                objectBrickName: PTGEUCommonFert
+            widthMM:
+                columnName: widthMM
+                columnLabel: Width MM
+                fieldLevel: objectBrick
+                objectLevel: fert
+                fieldType: Number
+                objectBrickType: fert
+                objectBrickName: PTGEUCommonFert
+                defaultColumn: true

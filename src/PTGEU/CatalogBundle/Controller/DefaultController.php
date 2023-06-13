@@ -16,6 +16,8 @@ class DefaultController extends AbstractController
     private $attrbuteImgS3Arr = [];
     
     private $columnsData = [];
+    private $sortColumnsData = [];
+    private $initialSortingAttributesName = [];
     private $attributeImages = [];
     private $iconRequired = 'NO';
     private $subHeaderRequired = 'NO';
@@ -120,52 +122,26 @@ class DefaultController extends AbstractController
         $commonHelper = \Pimcore::getContainer()->get(self::COMMON_HELPER);
         $catalogConfig = \Pimcore::getContainer()->get(self::CATALOG_CONFIG_PROVIDER_SERVICE)->getCatalogConfig();
         $ptgProductPageConfig = $commonHelper->getParameter($catalogConfig, 'PTG Product Page');
-        $ptgSortingAttributes = $commonHelper->getParameter($catalogConfig, 'PTG Sorting Attributes');
 
-        // p_r($ptgSortingAttributes['fieldName']);
-        
         $columns = array();
-
-        // $columns[] = array('Profile','Profile');
-        // $columns[] = array('Pitch','Pitch');
-        // $columns[] = array('Length','Length');
-        // $columns[] = array('Rib','Rib');
-        // $columns[] = array('Width','Width');
-
-        $columns[] = array(0,'Profile');
-        $columns[] = array(1,'Pitch');
-        $columns[] = array(2,'Length');
-        $columns[] = array(3,'Rib');
-        $columns[] = array(4,'Width');
-
-        // p_r($columns);
         $arr = [];
         $defaultColumns = [];
-
-        // $defaultColumns[] = 'key1';
-        // $defaultColumns[] = 'key2';
         
-        $tableColumns = ['Profile','Pitch','Length','Rib','Width'];
-        // $columns[] = $tableColumns;
-        // $tableColumns[] = 'key2';
-        // $tableColumns = $ptgProductPageConfig['Dynamic Table Attribute'];
-        // if ($tableColumns !== null) {
-        //     if (!empty($tableColumns) && count($tableColumns) > 0) {
-        //         foreach ($tableColumns as $key => $column) {
-        //             $columnLabel = $column['columnLabel'];
-        //             $columns[] = array($key, $columnLabel." (".$key.")");
-        //             if($column['defaultColumn'])
-        //             {
-        //                 $defaultColumns[] = $key;
-        //             }
-        //         }
-        //     }
-            $arr = array('storeData' => $columns, 'completeData' => $tableColumns, 'defaultColumns'=> $defaultColumns,'success' => true);
-            // $arr = array('storeData' => $ptgSortingAttributes, 'completeData' => $tableColumns, 'defaultColumns'=> $defaultColumns,'success' => true);
-
-        // } else {
-        //     $arr = array('storeData' => [], 'completeData' => [], 'success' => true);
-        // }
+        $tableColumns = $ptgProductPageConfig['PTG Sorting Attributes'];
+        if ($tableColumns !== null) {
+            if (!empty($tableColumns) && count($tableColumns) > 0) {
+                foreach ($tableColumns as $key => $column) {
+                    $columnLabel = $column['columnLabel'];
+                    $columns[] = array($key, $columnLabel . " (" . $key . ")");
+                    if ($column['defaultColumn']) {
+                        $defaultColumns[] = $key;
+                    }
+                }
+            }
+            $arr = array('storeData' => $columns, 'completeData' => $tableColumns,'defaultColumns'=> null, 'success' => true);
+        } else {
+            $arr = array('storeData' => [], 'completeData' => [], 'success' => true);
+        }
 
         echo json_encode($arr);
         die;
@@ -343,6 +319,8 @@ class DefaultController extends AbstractController
     }
     public function templatePtgEuProductPageAction(Request $request)
     {
+        $this->initialSortingAttributesName = array("profile", "pitchLengthLpLwMM", "refLengthLrMM", "ribs", "widthMM");
+
         $language = $this->document->getProperty('language');
         $language = $language ? $language : 'en';
 
@@ -372,6 +350,8 @@ class DefaultController extends AbstractController
             $Currency = $catalogObj->getCurrency();
             $ValidFromDate = $catalogObj->getValidFromDate();
             $objColumnsData = $catalogCategoryTableObject->getColumns();
+            $sortingColumnsData = $catalogCategoryTableObject->getSortingColumns();
+
             $fifthLevelCategoryObj = $catalogCategoryTableObject->getFifthLevelCategory();
             $sixSevenLevelCategoryObj = $catalogCategoryTableObject->getSixSevenLevelCategory();
 
@@ -433,6 +413,20 @@ class DefaultController extends AbstractController
                 }
 
                 $this->columnsData = json_decode($objColumnsData, true);
+                $this->sortColumnsData = json_decode($sortingColumnsData, true);
+
+                $columnDataArr = [];
+
+                foreach ($this->columnsData as $key => $value) {
+                    $columnDataArr[] = $key;
+                }
+                $result = array_diff($this->sortColumnsData, $columnDataArr);
+
+                foreach ($result as $key => $value) {
+                    if ((array_search($key, $this->sortColumnsData)) !== false) {
+                        unset($this->sortColumnsData[$key]);
+                    }
+                }
 
                 if(!isset($this->columnsData['articleNumber']))
                 {
@@ -470,20 +464,20 @@ class DefaultController extends AbstractController
                         $orderFieldNameList[$fieldName] = $this->columnsData[$fieldName];
                     }
 
-                    if($orderFieldNameList)
-                    {
-                        foreach ($tableSortingFields as $fieldName) {
+                    // if($orderFieldNameList)
+                    // {
+                    //     foreach ($tableSortingFields as $fieldName) {
 
-                            if(isset($orderFieldNameList[$fieldName]))
-                            {
-                                $tableSortingFieldsStatus[$fieldName] = true;
-                            }
-                            else{
-                                $tableSortingFieldsStatus[$fieldName] = false;
-                                $needRemoveSortedField = true;
-                            }
-                        }
-                    }
+                    //         if(isset($orderFieldNameList[$fieldName]))
+                    //         {
+                    //             $tableSortingFieldsStatus[$fieldName] = true;
+                    //         }
+                    //         else{
+                    //             $tableSortingFieldsStatus[$fieldName] = false;
+                    //             $needRemoveSortedField = true;
+                    //         }
+                    //     }
+                    // }
                 }
 
                 $this->subHeaderRequired = 'YES';
@@ -658,6 +652,7 @@ class DefaultController extends AbstractController
                                             }
                                             else
                                             {
+                                                $data[$fieldName]= '';
                                                 $notApplicableFields[$fields['groupName']]= $fieldName;
                                             }
                                         }
@@ -665,80 +660,81 @@ class DefaultController extends AbstractController
                                     }
                                 }
 
-                                if($tableSortingFieldsStatus)
-                                {
-                                    foreach ($tableSortingFieldsStatus as $fieldName => $tableShowStatus) {
-                                        if(!$tableShowStatus)
-                                        {
-                                            $fieldConfig = $DynamicTableAttribute[$fieldName];
+                                // if($tableSortingFieldsStatus)
+                               // {
+                                    // foreach ($tableSortingFieldsStatus as $fieldName => $tableShowStatus) {
+                                    //     if(!$tableShowStatus)
+                                    //     {
+                                    //         $fieldConfig = $DynamicTableAttribute[$fieldName];
 
-                                            if( ($fieldConfig['objectLevel'] == 'fert') && ($fieldConfig['fieldLevel'] == 'class'))
-                                            {
-                                                if(ucfirst($fieldConfig['fieldType']) == 'Input')
-                                                {
-                                                    $data[$fieldName] = $article[$fieldName];
-                                                }
-                                                else if(trim($article[$fieldName]) && ucfirst($fieldConfig['fieldType']) == 'Number')
-                                                {
-                                                    $data[$fieldName] = floatval($article[$fieldName]);
-                                                }
-                                            }
-                                            else if( ($fieldConfig['objectLevel'] == 'base') && ($fieldConfig['fieldLevel'] == 'class'))
-                                            {
-                                                if(ucfirst($fieldConfig['fieldType']) == 'Input')
-                                                {
-                                                    $data[$fieldName] = $objectLevel5thDetails[$fieldName];
-                                                }
-                                                else if(trim($objectLevel5thDetails[$fieldName]) && ucfirst($fieldConfig['fieldType']) == 'Number')
-                                                {
-                                                    $data[$fieldName] = floatval($objectLevel5thDetails[$fieldName]);
-                                                }
-                                            }
-                                            else if( ($fieldConfig['objectLevel'] == 'skeleton') && ($fieldConfig['fieldLevel'] == 'class'))
-                                            {
-                                                if(ucfirst($fieldConfig['fieldType']) == 'Input')
-                                                {
-                                                    $data[$fieldName] = $objectLevel6[$fieldName];
-                                                }
-                                                else if(trim($objectLevel6[$fieldName]) && ucfirst($fieldConfig['fieldType']) == 'Number')
-                                                {
-                                                    $data[$fieldName] = floatval($objectLevel6[$fieldName]);
-                                                }
-                                            }
-                                            else if( ($fieldConfig['objectLevel'] == 'fert' || $fieldConfig['objectLevel'] == 'skeleton') && ($fieldConfig['fieldLevel'] == 'objectBrick'))
-                                            {
-                                                $inputOrNumber = false;
-                                                $isNumericField = false;
-                                                if(ucfirst($fieldConfig['fieldType']) == 'Input')
-                                                {
-                                                    $inputOrNumber = true;
-                                                }
-                                                else if(ucfirst($fieldConfig['fieldType']) == 'Number')
-                                                {
-                                                    $inputOrNumber = true;
-                                                    $isNumericField = true;
-                                                }
+                                    //         if( ($fieldConfig['objectLevel'] == 'fert') && ($fieldConfig['fieldLevel'] == 'class'))
+                                    //         {
+                                    //             if(ucfirst($fieldConfig['fieldType']) == 'Input')
+                                    //             {
+                                    //                 $data[$fieldName] = $article[$fieldName];
+                                    //             }
+                                    //             else if(trim($article[$fieldName]) && ucfirst($fieldConfig['fieldType']) == 'Number')
+                                    //             {
+                                    //                 $data[$fieldName] = floatval($article[$fieldName]);
+                                    //             }
+                                    //         }
+                                    //         else if( ($fieldConfig['objectLevel'] == 'base') && ($fieldConfig['fieldLevel'] == 'class'))
+                                    //         {
+                                    //             if(ucfirst($fieldConfig['fieldType']) == 'Input')
+                                    //             {
+                                    //                 $data[$fieldName] = $objectLevel5thDetails[$fieldName];
+                                    //             }
+                                    //             else if(trim($objectLevel5thDetails[$fieldName]) && ucfirst($fieldConfig['fieldType']) == 'Number')
+                                    //             {
+                                    //                 $data[$fieldName] = floatval($objectLevel5thDetails[$fieldName]);
+                                    //             }
+                                    //         }
+                                    //         else if( ($fieldConfig['objectLevel'] == 'skeleton') && ($fieldConfig['fieldLevel'] == 'class'))
+                                    //         {
+                                    //             if(ucfirst($fieldConfig['fieldType']) == 'Input')
+                                    //             {
+                                    //                 $data[$fieldName] = $objectLevel6[$fieldName];
+                                    //             }
+                                    //             else if(trim($objectLevel6[$fieldName]) && ucfirst($fieldConfig['fieldType']) == 'Number')
+                                    //             {
+                                    //                 $data[$fieldName] = floatval($objectLevel6[$fieldName]);
+                                    //             }
+                                    //         }
+                                    //         else if( ($fieldConfig['objectLevel'] == 'fert' || $fieldConfig['objectLevel'] == 'skeleton') && ($fieldConfig['fieldLevel'] == 'objectBrick'))
+                                    //         {
+                                    //             $inputOrNumber = false;
+                                    //             $isNumericField = false;
+                                    //             if(ucfirst($fieldConfig['fieldType']) == 'Input')
+                                    //             {
+                                    //                 $inputOrNumber = true;
+                                    //             }
+                                    //             else if(ucfirst($fieldConfig['fieldType']) == 'Number')
+                                    //             {
+                                    //                 $inputOrNumber = true;
+                                    //                 $isNumericField = true;
+                                    //             }
                                                 
-                                                if($inputOrNumber)
-                                                {
-                                                    $o_id = $article['o_id'];
-                                                    $objectBrickName = $fieldConfig['objectBrickName'];
-                                                    $sql = "SELECT * FROM `object_brick_query_{$objectBrickName}_38` WHERE `o_id` = '$o_id' ";
-                                                    $rowData =  $this->db->fetchRow($sql);
+                                    //             if($inputOrNumber)
+                                    //             {
+                                    //                 $o_id = $article['o_id'];
+                                    //                 $objectBrickName = $fieldConfig['objectBrickName'];
+                                    //                 $sql = "SELECT * FROM `object_brick_query_{$objectBrickName}_38` WHERE `o_id` = '$o_id' ";
+                                    //                 $rowData =  $this->db->fetchRow($sql);
 
-                                                    if($rowData)
-                                                    {
-                                                        $data[$fieldName] = (trim($rowData[$fieldName]) && $isNumericField) ? floatval($rowData[$fieldName]) : $rowData[$fieldName];
-                                                    }
-                                                    else
-                                                    {
-                                                        $notApplicableFields[$fieldConfig['groupName']]= $fieldName;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
+                                    //                 if($rowData)
+                                    //                 {
+                                    //                     $data[$fieldName] = (trim($rowData[$fieldName]) && $isNumericField) ? floatval($rowData[$fieldName]) : $rowData[$fieldName];
+                                    //                 }
+                                    //                 else
+                                    //                 {
+                                    //                     $data[$fieldName]= '';
+                                    //                     $notApplicableFields[$fieldConfig['groupName']]= $fieldName;
+                                    //                 }
+                                    //             }
+                                    //         }
+                                    //     }
+                                    // }
+                               // }
 
                                 if($IsPriceCatalog)
                                 {
@@ -773,15 +769,175 @@ class DefaultController extends AbstractController
                         }
                     }
                 }
+                $sortedColumnsArr = [];
 
+                foreach ($this->sortColumnsData as $sortColumn) {
+                    $sortedColumnsArr[] = $sortColumn;
+                }
 
+                $firstSortingColumn = array_column($articleData, $sortedColumnsArr[0]);
+                $secondSortingColumn = array_column($articleData, $sortedColumnsArr[1]);
+                $thirdSortingColumn = array_column($articleData, $sortedColumnsArr[2]);
+                $fourthSortingColumn = array_column($articleData, $sortedColumnsArr[3]);
+                $fifthSortingColumn = array_column($articleData, $sortedColumnsArr[4]);
 
-                // p_r($articleData);
-                $firstSortingColumn = array_column($articleData, 'articleNumber');
-                $secondSortingColumn = array_column($articleData, 'netWeight');
-                array_multisort($firstSortingColumn, SORT_ASC, SORT_NATURAL, $secondSortingColumn, SORT_ASC,$articleData);
+                if (count($sortedColumnsArr) == 5) {
+                    array_multisort(
+                        $firstSortingColumn,
+                        SORT_ASC,
+                        SORT_NATURAL,
+                        $secondSortingColumn,
+                        SORT_ASC,
+                        $thirdSortingColumn,
+                        SORT_ASC,
+                        $fourthSortingColumn,
+                        SORT_ASC,
+                        $fifthSortingColumn,
+                        SORT_ASC,
+                        $articleData
+                    );
+                } elseif (count($sortedColumnsArr) == 4) {
+                    array_multisort(
+                        $firstSortingColumn,
+                        SORT_ASC,
+                        SORT_NATURAL,
+                        $secondSortingColumn,
+                        SORT_ASC,
+                        $thirdSortingColumn,
+                        SORT_ASC,
+                        $fourthSortingColumn,
+                        SORT_ASC,
+                        $articleData
+                    );
+                } elseif (count($sortedColumnsArr) == 3) {
+                    array_multisort(
+                        $firstSortingColumn,
+                        SORT_ASC,
+                        SORT_NATURAL,
+                        $secondSortingColumn,
+                        SORT_ASC,
+                        $thirdSortingColumn,
+                        SORT_ASC,
+                        $articleData
+                    );
+                } elseif (count($sortedColumnsArr) == 2) {
+                    array_multisort(
+                        $firstSortingColumn,
+                        SORT_ASC,
+                        SORT_NATURAL,
+                        $secondSortingColumn,
+                        SORT_ASC,
+                        $articleData
+                    );
+                } elseif (count($sortedColumnsArr) == 1) {
+                    array_multisort(
+                        $firstSortingColumn,
+                        SORT_ASC,
+                        SORT_NATURAL,
+                        $articleData
+                    );
+                } else {
+                    $result = array_diff($this->initialSortingAttributesName, $columnDataArr);
+
+                    $firstSortingColumn = array_column($articleData, $this->initialSortingAttributesName[0]);
+                    $secondSortingColumn = array_column($articleData, $this->initialSortingAttributesName[1]);
+                    $thirdSortingColumn = array_column($articleData, $this->initialSortingAttributesName[2]);
+                    $fourthSortingColumn = array_column($articleData, $this->initialSortingAttributesName[3]);
+                    $fifthSortingColumn = array_column($articleData, $this->initialSortingAttributesName[4]);
+
+                    if (count($result) == 0) {
+                        array_multisort(
+                            $firstSortingColumn,
+                            SORT_ASC,
+                            SORT_NATURAL,
+                            $secondSortingColumn,
+                            SORT_ASC,
+                            $thirdSortingColumn,
+                            SORT_ASC,
+                            $fourthSortingColumn,
+                            SORT_ASC,
+                            $fifthSortingColumn,
+                            SORT_ASC,
+                            $articleData
+                        );
+                    } elseif (count($result) != 0) {
+
+                        foreach ($result as $key => $value) {
+                            unset($this->initialSortingAttributesName[$key]);
+                        }
+
+                        $remainingAttributeSortArr = [];
+                        foreach ($this->initialSortingAttributesName as $key => $value) {
+                            $remainingAttributeSortArr[] = $value;
+                        }
+
+                        $firstSortingColumn = array_column($articleData, $remainingAttributeSortArr[0]);
+                        $secondSortingColumn = array_column($articleData, $remainingAttributeSortArr[1]);
+                        $thirdSortingColumn = array_column($articleData, $remainingAttributeSortArr[2]);
+                        $fourthSortingColumn = array_column($articleData, $remainingAttributeSortArr[3]);
+                        $fifthSortingColumn = array_column($articleData, $remainingAttributeSortArr[4]);
+
+                        if (count($remainingAttributeSortArr) == 1) {
+                            array_multisort(
+                                $firstSortingColumn,
+                                SORT_ASC,
+                                SORT_NATURAL,
+                                $articleData
+                            );
+                        } elseif (count($remainingAttributeSortArr) == 2) {
+                            array_multisort(
+                                $firstSortingColumn,
+                                SORT_ASC,
+                                SORT_NATURAL,
+                                $secondSortingColumn,
+                                SORT_ASC,
+                                $articleData
+                            );
+                        } elseif (count($remainingAttributeSortArr) == 3) {
+                            array_multisort(
+                                $firstSortingColumn,
+                                SORT_ASC,
+                                SORT_NATURAL,
+                                $secondSortingColumn,
+                                SORT_ASC,
+                                $thirdSortingColumn,
+                                SORT_ASC,
+                                $articleData
+                            );
+                        } elseif (count($remainingAttributeSortArr) == 4) {
+                            array_multisort(
+                                $firstSortingColumn,
+                                SORT_ASC,
+                                SORT_NATURAL,
+                                $secondSortingColumn,
+                                SORT_ASC,
+                                $thirdSortingColumn,
+                                SORT_ASC,
+                                $fourthSortingColumn,
+                                SORT_ASC,
+                                $articleData
+                            );
+                        } elseif (count($remainingAttributeSortArr) == 5) {
+                            array_multisort(
+                                $firstSortingColumn,
+                                SORT_ASC,
+                                SORT_NATURAL,
+                                $secondSortingColumn,
+                                SORT_ASC,
+                                $thirdSortingColumn,
+                                SORT_ASC,
+                                $fourthSortingColumn,
+                                SORT_ASC,
+                                $fifthSortingColumn,
+                                SORT_ASC,
+                                $articleData
+                            );
+                        }
+                    }
+                }
                 $asasa['asas'] = $articleData;
-                // p_r($articleData);
+
+                // p_r($asasa['asas']);
                 // die;
                 // if($tableSortingFields)
                 // {
@@ -835,24 +991,24 @@ class DefaultController extends AbstractController
         }
     }
 
-    public function removeSortingColumn($tableSortingFieldsStatus, $articlesList){
+    // public function removeSortingColumn($tableSortingFieldsStatus, $articlesList){
 
-        $removeFieldList = [];
-        foreach ($tableSortingFieldsStatus as $fieldName => $status) {
-            if(!$status)
-            {
-                $removeFieldList[] = $fieldName;
-            }
-        }
+    //     $removeFieldList = [];
+    //     foreach ($tableSortingFieldsStatus as $fieldName => $status) {
+    //         if(!$status)
+    //         {
+    //             $removeFieldList[] = $fieldName;
+    //         }
+    //     }
 
-        foreach ($articlesList as $key => $articleData) {
+    //     foreach ($articlesList as $key => $articleData) {
 
-            foreach ($removeFieldList as $fieldName) {
-                unset($articlesList[$key][$fieldName]);
-            }
-        }
-        return $articlesList;
-    }
+    //         foreach ($removeFieldList as $fieldName) {
+    //             unset($articlesList[$key][$fieldName]);
+    //         }
+    //     }
+    //     return $articlesList;
+    // }
     public function getFiveSortedFeaturesWithIconList($safetyFeatures){
         
         $safetyFeatures = array_unique($safetyFeatures);
