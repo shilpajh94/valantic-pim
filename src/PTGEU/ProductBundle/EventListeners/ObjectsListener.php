@@ -30,6 +30,16 @@ class ObjectsListener
             {
                 $this->percentageCompletionService->completenessPercentage($object);
             }
+
+            if ($className == 'PTGEUCatalogCategory')
+            {
+                $selectedColumns = json_decode($object->getColumns(), true);
+
+                 if (!array_key_exists("articleNumber", $selectedColumns))
+                {
+                    throw new \Exception('Match Code is required in selected section for print columns.');
+                }
+            }
         }
     } 
 }
