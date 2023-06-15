@@ -112,6 +112,20 @@ class B2CProductDataPoster implements IDataPoster
 
             $currTime = time();
             $requestBody = $requestBodyGenerator->generateRequestBody($tempTableData);
+
+            $pimId = $tempTableData["o_id"];
+            if($pimId && !empty(trim($tempTableData['B2CCategory'])))
+            {
+                $B2CCategory = trim($tempTableData['B2CCategory'],",");
+                if($B2CCategory)
+                {
+                    $requestBody['classification_category'] = array(
+                        'catalog_id' => 'hosestore_navigation_catalog',
+                        'category_id' => $B2CCategory
+                    );
+                }
+            }
+
             $apiRequestEntity = new B2CAPIRequestEntity();
             $apiRequestEntity->setBody(json_encode($requestBody));
             $apiRequestEntity->setOperationType($operationType);

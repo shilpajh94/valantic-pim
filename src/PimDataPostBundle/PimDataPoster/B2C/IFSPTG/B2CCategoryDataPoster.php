@@ -184,6 +184,11 @@ class B2CCategoryDataPoster implements IDataPoster
             $currTime = time();
             $requestBody = $requestBodyGenerator->generateRequestBody($tempTableData);
 
+            if($requestBody)
+            {
+                $requestBody['c_showInMenu'] = $requestBody['online'];
+            }
+            
             $apiRequestEntity = new B2CAPIRequestEntity();
             $apiRequestEntity->setBody(json_encode($requestBody,JSON_UNESCAPED_SLASHES));
             $apiRequestEntity->setOperationType($operationType);
