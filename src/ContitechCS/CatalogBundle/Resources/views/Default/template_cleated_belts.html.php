@@ -383,7 +383,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             </thead>
                             <tbody>
                                 <tr class="grip-col">
-                                    <td width="50%" class="pr-5">
+                                    <td width="60%" class="pr-5">
                                     <?php if($this->editmode):?>
                                         <div class="attr-font">Child Attribute Name = Short Text</div>
                                     <?php endif;?>
