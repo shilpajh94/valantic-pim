@@ -37,7 +37,7 @@ class ObjectsListener
 
                  if (!array_key_exists("articleNumber", $selectedColumns))
                 {
-                    throw new \Exception('Match Code is required in selected section for print columns.');
+                    throw new \Exception('Match Code is required in Selected Section for Print Columns.');
                 }
             }
         }
