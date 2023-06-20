@@ -115,41 +115,49 @@ Ext.define('pimcore.tree.CustomView', {
 
 
             var tree = node.getOwnerTree();
-            var view = tree.getView();
-            var nodeEl = Ext.fly(view.getNodeByRecord(node));
-            if (!nodeEl) {
-                //console.log("Could not resolve node " + node.id);
-                return;
+            
+                if( tree !=undefined && tree.view != undefined)
+                {
+                    var view = tree.getView();
+                    var nodeEl = Ext.fly(view.getNodeByRecord(node));
+                    if (!nodeEl) {
+                        //console.log("Could not resolve node " + node.id);
+                        return;
+                    }
+                    nodeEl = nodeEl.getFirstChild();
+                    nodeEl = nodeEl.query(".x-tree-node-text");
+                    nodeEl = nodeEl[0];
+                    var el = nodeEl;
+
+                    //el.addCls('x-grid-header-inner');
+                    el = Ext.DomHelper.insertAfter(el, {
+                        tag: 'span',
+                        "class": "pimcore_pagingtoolbar_container"
+                    }, true);
+                    el.addListener("click", function(e) {
+                        e.stopPropagation();
+                    });
+
+
+                    el.addListener("mousedown", function(e) {
+                        e.stopPropagation();
+                    });
+
+                    ptb.render(el);
+                    tree.updateLayout();
+
+                    if (node.filter) {
+                        node.ptb.filterFieldCustom.focus([node.filter.length, node.filter.length]);
+                    } else if (node.fromPaging) {
+                        node.ptb.numberItem.focus();
+                    }
+                }
+
             }
-            nodeEl = nodeEl.getFirstChild();
-            nodeEl = nodeEl.query(".x-tree-node-text");
-            nodeEl = nodeEl[0];
-            var el = nodeEl;
-
-            //el.addCls('x-grid-header-inner');
-            el = Ext.DomHelper.insertAfter(el, {
-                tag: 'span',
-                "class": "pimcore_pagingtoolbar_container"
-            }, true);
-
-            el.addListener("click", function(e) {
-                e.stopPropagation();
-            });
-
-
-            el.addListener("mousedown", function(e) {
-                e.stopPropagation();
-            });
-
-            ptb.render(el);
-            tree.updateLayout();
-
-             if (node.filter) {
-                node.ptb.filterFieldCustom.focus([node.filter.length, node.filter.length]);
-            } else if (node.fromPaging) {
-                node.ptb.numberItem.focus();
-            }
-        }
+           
+            
+            
+            
 
     },
 
