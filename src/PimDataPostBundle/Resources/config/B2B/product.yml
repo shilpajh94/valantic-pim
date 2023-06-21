@@ -39,7 +39,8 @@ parameters:
             isLocalisedMaster:
             value_formatter_for_push:
         ProductName:
-            pim_attribute_name: sapDescription
+            #pim_attribute_name: sapDescription --- Malte asked to change --- https://quality4u.atlassian.net/browse/CONTISFCC-3294
+            pim_attribute_name: productShortDescription
             pim_table_name: object_localized_1_en
             sendToSF: true
             temp_master_table_attr: true
@@ -116,14 +117,14 @@ parameters:
             value_formatter_for_push:
         webDiscription:
             pim_attribute_name: webDiscription
-            pim_table_name: object_1
+            pim_table_name: object_localized_1_en
             sendToSF: true
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(190) NULL
-            joinOn:
+            joinOn: LEFT JOIN object_localized_1_en ON object_localized_1_en.o_id = object_1.o_id
             addOnJoin:
             sf_attribute_name: Description
-            pim_attribute_type: input
+            pim_attribute_type: wysiwyg
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
