@@ -355,7 +355,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     <div class="table construction-tab">
                         <?php 
                             foreach ($data['normalProductsDetails']['childData'] as $key => $child) {
-                                if (($child['Name'] != "Ultra Shift II") && ($child['Name'] != "Bucket Grip") && ($child['Name'] != "Bucket Grip II") && ($child['Name'] != "Wave Grip")){
+                                if (($child['Name'] != "Ultra Shift II") && ($child['Name'] != "Bucket Grip") && ($child['Name'] != "Bucket Grip II") && ($child['Name'] != "Wave Grip") && ($child['Name'] != "Wave Grip Plus")){
                                 $md5Key = md5($child['Name']);
                         ?>
                             
@@ -453,7 +453,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                                     <!--This section is used to display Short Text And Table-->
                                                     <table class="parentTable">
                                                         <tr class="grip-col">
-                                                            <td class ="pr-5">
+                                                            <td class ="pr-4">
                                                                 <?php if($this->editmode):?>
                                                                     <div class="attr-font">Child Attribute Name = Short Text</div>
                                                                 <?php endif;?>
@@ -567,7 +567,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         <tbody>
                             <!--This section is used to display Short Text And both images-->
                             <tr class="grip-col" style="page-break-inside:avoid;">
-                                <td width="60%" class="pr-4">
+                                <td width="50%" class="pr-4">
                                 <?php if($this->editmode):?>
                                     <div class="attr-font">Child Attribute Name = Short Text</div>
                                 <?php endif;?>
@@ -582,7 +582,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                     <?php endif; ?>
                                 </td>
 
-                                <td width="20%">
+                                <td width="25%">
                                 <?php if($this->editmode):?>
                                     <div class="attr-font">Child Attribute Name = Product Image</div>
                                 <?php endif;?>
@@ -611,7 +611,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                 ?>
                                 </td>
 
-                                <td width="20%">
+                                <td width="25%">
                                 <?php if($this->editmode):?>
                                     <div class="attr-font">Child Attribute Name = Application Image</div>
                                 <?php endif;?>
