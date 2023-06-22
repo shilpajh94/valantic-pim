@@ -1,7 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2023-06-21T05:50:59+02:00
+* Generated at: 2023-06-22T14:55:29+05:30
+* Changed by: system (0)
 * IP: 127.0.0.1
 */ 
 
@@ -10,8 +11,8 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'id' => 'MarComIFSEMEA',
    'name' => 'MarComIFSEMEA',
    'description' => '',
-   'creationDate' => 1681897320,
-   'modificationDate' => 1687319459,
+   'creationDate' => 1681886290,
+   'modificationDate' => 1687425929,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => 'IFSEUProduct',
@@ -1784,8 +1785,8 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                       0 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                                          'fieldtype' => 'wysiwyg',
-                                         'width' => 500,
-                                         'height' => 125,
+                                         'width' => 350,
+                                         'height' => 120,
                                          'queryColumnType' => 'longtext',
                                          'columnType' => 'longtext',
                                          'phpdocType' => 'string',
@@ -1809,8 +1810,8 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                       1 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                                          'fieldtype' => 'wysiwyg',
-                                         'width' => 500,
-                                         'height' => 125,
+                                         'width' => 350,
+                                         'height' => 120,
                                          'queryColumnType' => 'longtext',
                                          'columnType' => 'longtext',
                                          'phpdocType' => 'string',
@@ -1821,6 +1822,56 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                          'tooltip' => '',
                                          'mandatory' => false,
                                          'noteditable' => true,
+                                         'index' => false,
+                                         'locked' => false,
+                                         'style' => 'margin-left:20px;',
+                                         'permissions' => NULL,
+                                         'datatype' => 'data',
+                                         'relationType' => false,
+                                         'invisible' => false,
+                                         'visibleGridView' => false,
+                                         'visibleSearch' => false,
+                                      )),
+                                      2 => 
+                                      Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+                                         'fieldtype' => 'wysiwyg',
+                                         'width' => 350,
+                                         'height' => 120,
+                                         'queryColumnType' => 'longtext',
+                                         'columnType' => 'longtext',
+                                         'phpdocType' => 'string',
+                                         'toolbarConfig' => '',
+                                         'excludeFromSearchIndex' => false,
+                                         'name' => 'shortDescription',
+                                         'title' => 'Product Brand Description Short',
+                                         'tooltip' => '',
+                                         'mandatory' => false,
+                                         'noteditable' => false,
+                                         'index' => false,
+                                         'locked' => false,
+                                         'style' => 'margin-left:20px;',
+                                         'permissions' => NULL,
+                                         'datatype' => 'data',
+                                         'relationType' => false,
+                                         'invisible' => false,
+                                         'visibleGridView' => false,
+                                         'visibleSearch' => false,
+                                      )),
+                                      3 => 
+                                      Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+                                         'fieldtype' => 'wysiwyg',
+                                         'width' => 350,
+                                         'height' => 120,
+                                         'queryColumnType' => 'longtext',
+                                         'columnType' => 'longtext',
+                                         'phpdocType' => 'string',
+                                         'toolbarConfig' => '',
+                                         'excludeFromSearchIndex' => false,
+                                         'name' => 'longDescription',
+                                         'title' => 'Product Brand Description Long',
+                                         'tooltip' => '',
+                                         'mandatory' => false,
+                                         'noteditable' => false,
                                          'index' => false,
                                          'locked' => false,
                                          'style' => 'margin-left:20px;',
@@ -1844,7 +1895,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                              'title' => '',
                              'width' => '',
                              'height' => '',
-                             'maxTabs' => NULL,
+                             'maxTabs' => 20,
                              'labelWidth' => 200,
                              'border' => false,
                              'provideSplitView' => false,
