@@ -321,9 +321,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <?php endif;?>
             
             <?php if($data['normalProductsDetails']['childData']): ?>
-                <div class="page-break"></div>
-
-                <div class="cleated-belts">
+                <div class="cleated-belts" style="page-break-inside: avoid;">
                     <?php if($this->editmode):?>
                         <div class="attr-font">Attribute Name = Name</div>
                     <?php endif;?>
@@ -356,181 +354,364 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
                     <div class="table construction-tab">
                         <?php 
-                            foreach ($data['normalProductsDetails']['childData'] as $key => $child) { 
-
+                            foreach ($data['normalProductsDetails']['childData'] as $key => $child) {
+                                if (($child['Name'] != "Ultra Shift II") && ($child['Name'] != "Bucket Grip") && ($child['Name'] != "Bucket Grip II") && ($child['Name'] != "Wave Grip")){
                                 $md5Key = md5($child['Name']);
-                            
                         ?>
                             
-                        <table width="100%" class="mt-4 mb-5 parentTable">
-                            <thead>
-                                <th colspan="3" class="text-left">
+                    <table width="100%" class="mt-2 mb-4 parentTable"  style=" page-break-inside:avoid;">
+                        <thead>
+                            <th colspan="3" class="text-left">
+                            <?php if($this->editmode):?>
+                                <div class="attr-font">Child Attribute Name = Name</div>
+                            <?php endif;?>
+                                <h2 class="mb-0">
+                                <?php if($this->editmode): ?>
+                                        <?php if($this->input("CB_Profile_{$md5Key}")->isEmpty()): ?>
+                                                <?php echo $this->input("CB_Profile_{$md5Key}")    ?>
+                                                <?= $this->input("CB_Profile_{$md5Key}", ['placeholder'=>'Profile Name'])->setDataFromResource($child['Name']) ?>
+                                        <?php else: ?>
+                                                <?= $this->input("CB_Profile_{$md5Key}"); ?>
+                                        <?php endif; ?>
+                                <?php else: ?>
+                                        <?= $this->input("CB_Profile_{$md5Key}") ?>
+                                <?php endif; ?>
+                                </h2>
+                            </th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <table class="parentTable">
+                                        <tr>
+                                            <td>
+                                                <div  style="width:100vw">
+                                                    <div abs="middle" style="float:right; width:40%; text-align:right;">
+                                                    <!--This section is used to display the both images-->
+                                                        <table>
+                                                            <tr>
+                                                                <td> </td>
+                                                                <td width = "50%" style="vertical-align: top;">
+                                                                <?php if($this->editmode):?>
+                                                                            <div class="attr-font" >Child Attribute Name = Product Image</div>
+                                                                        <?php endif;?>
+                                                                        <?php
+                                                                            if($this->editmode)
+                                                                            {
+                                                                                if($this->image("CB_ProfileOptionImage1_{$md5Key}")->isEmpty())
+                                                                                {
+                                                                                    echo $this->image("CB_ProfileOptionImage1_{$md5Key}")->setImage($child['ProductImage']);
+                                                                                }
+                                                                                else{
+                                                                                    echo $this->image("CB_ProfileOptionImage1_{$md5Key}");
+                                                                                }
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                $CB_ProfileOptionImage1Obj =  $this->image("CB_ProfileOptionImage1_{$md5Key}");
+
+                                                                                if(!empty($CB_ProfileOptionImage1Obj->getId()))
+                                                                                {
+                                                                                ?>
+                                                                                    <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CB_ProfileOptionImage1Obj, $this->imageWidth); ?>" alt="" class=""/>
+                                                                                <?php
+                                                                                }
+                                                                            }
+                                                                        ?>
+                                                                </td>
+                                                                <td width = "50%" style="vertical-align: top;">
+                                                                <?php if($this->editmode):?>
+                                                                            <div class="attr-font" vertical-align = "text-top">Child Attribute Name = Application Image</div>
+                                                                        <?php endif;?>
+                                                                        <?php
+                                                                            if($this->editmode)
+                                                                            {
+                                                                                if($this->image("CB_ProfileOptionImage2_{$md5Key}")->isEmpty())
+                                                                                {
+                                                                                    echo $this->image("CB_ProfileOptionImage2_{$md5Key}")->setImage($child['ApplicationImage']);
+                                                                                }
+                                                                                else{
+                                                                                    echo $this->image("CB_ProfileOptionImage2_{$md5Key}");
+                                                                                }
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                $CB_ProfileOptionImage2Obj =  $this->image("CB_ProfileOptionImage2_{$md5Key}");
+                                                                                if(!empty($CB_ProfileOptionImage2Obj->getId()))
+                                                                                {
+                                                                                ?>
+                                                                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CB_ProfileOptionImage2Obj, $this->imageWidth); ?>" alt="" class=""/>
+                                                                                <?php
+                                                                                }
+                                                                            }
+                                                                        ?>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    <!-- END -->
+                                                    </div>
+                                                    <!--This section is used to display Short Text And Table-->
+                                                    <table class="parentTable">
+                                                        <tr class="grip-col">
+                                                            <td class ="pr-5">
+                                                                <?php if($this->editmode):?>
+                                                                    <div class="attr-font">Child Attribute Name = Short Text</div>
+                                                                <?php endif;?>
+                                                                    <?php if($this->editmode): ?>
+                                                                            <?php if($this->textarea("CB_ProfileDesc_{$md5Key}")->isEmpty()): ?>
+                                                                                    <?= $this->textarea("CB_ProfileDesc_{$md5Key}", ['placeholder'=>'Profile Description'])->setDataFromResource($child['ShortText']) ?>
+                                                                            <?php else: ?>
+                                                                                    <?= $this->textarea("CB_ProfileDesc_{$md5Key}"); ?>
+                                                                            <?php endif; ?>
+                                                                    <?php else: ?>
+                                                                            <?= $this->textarea("CB_ProfileDesc_{$md5Key}") ?>
+                                                                    <?php endif; ?>
+                                                            </td>
+                                                        </tr>
+                                                        <tr style="page-break-inside: avoid;">
+                                                            <td>
+                                                                <table class="normal-cleated-product" style="margin:0; page-break-inside: avoid;">
+                                                                    <tbody>
+                                                                        <?php if(isset($child['CS_CleatHeightInch'])){ ?>
+                                                                        <tr>
+                                                                            <th class="orange text-right">
+                                                                                <?= $this->translate($child['CS_CleatHeightInch']); ?>
+                                                                            </th>
+                                                                            <td colspan="<?= $child['maxColumnLenth'] ?>">
+                                                                                <?= $child['CS_CleatHeightInchVal'] . " ". $this->translate('CS_Unit_in'); ?>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <?php } ?>
+
+                                                                        <?php if(isset($child['CS_AvailableBeltWidthInch'])){ ?>
+                                                                        <tr>
+                                                                            <th class="orange text-right">
+                                                                                <?= $this->translate($child['CS_AvailableBeltWidthInch']); ?>
+                                                                            </th>
+                                                                            <?php foreach ($child['CS_AvailableBeltWidthInchList'] as $key => $value) { ?>
+                                                                                <td>
+                                                                                    <?= $value . " ". $this->translate('CS_Unit_in'); ?>
+                                                                                </td>
+                                                                            <?php } ?>
+                                                                        </tr>
+                                                                        <?php } ?>
+
+                                                                        <?php if($child['CS_AvailableProfilePatternWidthsInch']){ ?>
+                                                                            <?php foreach ($child['CS_AvailableProfilePatternWidthsInch'] as $key => $rows) { ?>
+                                                                                <tr>
+                                                                                    <th class="orange text-right">
+                                                                                        <?= $this->translate('CS_AvailableProfilePatternWidthsInch'); ?>
+                                                                                    </th>
+                                                                                    <?php
+
+                                                                                    $firstIndexData = array_unique($child['CS_AvailableProfilePatternWidthsInch'][0]);
+
+                                                                                    if($child['maxRowLength'] == 1 && count($firstIndexData) == 1  && !is_numeric($firstIndexData[0])){ ?>
+                                                                                        <td colspan="<?= $child['maxColumnLenth'] ?>"><?= $rows[0] ?></td>
+                                                                                    <?php }else{ ?>
+                                                                                    <?php foreach ($rows as $key => $value) { ?>
+                                                                                        <td>
+                                                                                            <?php
+                                                                                                if($value)
+                                                                                                {
+                                                                                                    echo $value . " ". $this->translate('CS_Unit_in');
+                                                                                                }
+                                                                                                else{
+                                                                                                    echo '&#8209';
+                                                                                                }
+                                                                                                ?>
+                                                                                        </td>
+                                                                                    <?php } ?>
+                                                                                    <?php } ?>
+                                                                                </tr>
+                                                                            <?php } ?>
+                                                                        <?php } ?>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <!-- END -->
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                      <?php }
+                      else {
+                        $md5Key = md5($child['Name']);
+                      ?>
+                    <table width="100%" class="mt-2 mb-3 parentTable"  style="page-break-inside:avoid;">
+                        <thead>
+                            <th colspan="3" class="text-left">
+                            <?php if($this->editmode):?>
+                                <div class="attr-font">Child Attribute Name = Name</div>
+                            <?php endif;?>
+                                <h2 class="mb-0">
+                                <?php if($this->editmode): ?>
+                                        <?php if($this->input("CB_Profile_{$md5Key}")->isEmpty()): ?>
+                                                <?php echo $this->input("CB_Profile_{$md5Key}")    ?>
+                                                <?= $this->input("CB_Profile_{$md5Key}", ['placeholder'=>'Profile Name'])->setDataFromResource($child['Name']) ?>
+                                        <?php else: ?>
+                                                <?= $this->input("CB_Profile_{$md5Key}"); ?>
+                                        <?php endif; ?>
+                                <?php else: ?>
+                                        <?= $this->input("CB_Profile_{$md5Key}") ?>
+                                <?php endif; ?>
+                                </h2>
+                            </th>
+                        </thead>
+                        <tbody>
+                            <!--This section is used to display Short Text And both images-->
+                            <tr class="grip-col" style="page-break-inside:avoid;">
+                                <td width="60%" class="pr-4">
                                 <?php if($this->editmode):?>
-                                    <div class="attr-font">Child Attribute Name = Name</div>
-                                <?php endif;?> 
-                                    <h2 class="mb-0">
+                                    <div class="attr-font">Child Attribute Name = Short Text</div>
+                                <?php endif;?>
                                     <?php if($this->editmode): ?>
-                                            <?php if($this->input("CB_Profile_{$md5Key}")->isEmpty()): ?>
-                                                    <?= $this->input("CB_Profile_{$md5Key}", ['placeholder'=>'Profile Name'])->setDataFromResource($child['Name']) ?>
+                                            <?php if($this->textarea("CB_ProfileDesc_{$md5Key}")->isEmpty()): ?>
+                                                    <?= $this->textarea("CB_ProfileDesc_{$md5Key}", ['placeholder'=>'Profile Description'])->setDataFromResource($child['ShortText']) ?>
                                             <?php else: ?>
-                                                    <?= $this->input("CB_Profile_{$md5Key}"); ?>
+                                                    <?= $this->textarea("CB_ProfileDesc_{$md5Key}"); ?>
                                             <?php endif; ?>
                                     <?php else: ?>
-                                            <?= $this->input("CB_Profile_{$md5Key}") ?>
+                                            <?= $this->textarea("CB_ProfileDesc_{$md5Key}") ?>
                                     <?php endif; ?>
-                                    </h2>
-                                </th>
-                            </thead>
-                            <tbody>
-                                <tr class="grip-col">
-                                    <td width="60%" class="pr-5">
-                                    <?php if($this->editmode):?>
-                                        <div class="attr-font">Child Attribute Name = Short Text</div>
-                                    <?php endif;?>
-                                        <?php if($this->editmode): ?>
-                                                <?php if($this->textarea("CB_ProfileDesc_{$md5Key}")->isEmpty()): ?>
-                                                        <?= $this->textarea("CB_ProfileDesc_{$md5Key}", ['placeholder'=>'Profile Description'])->setDataFromResource($child['ShortText']) ?>
-                                                <?php else: ?>
-                                                        <?= $this->textarea("CB_ProfileDesc_{$md5Key}"); ?>
-                                                <?php endif; ?>
-                                        <?php else: ?>
-                                                <?= $this->textarea("CB_ProfileDesc_{$md5Key}") ?>
-                                        <?php endif; ?>
-                                    </td>
-                                    <td>
-                                    
-                                    <?php if($this->editmode):?>
-                                        <div class="attr-font">Child Attribute Name = Product Image</div>
-                                    <?php endif;?>
-                                    <?php
-                                        if($this->editmode)
-                                        {
-                                            if($this->image("CB_ProfileOptionImage1_{$md5Key}")->isEmpty())
-                                            {
-                                                echo $this->image("CB_ProfileOptionImage1_{$md5Key}")->setImage($child['ProductImage']);
-                                            }
-                                            else{
-                                                echo $this->image("CB_ProfileOptionImage1_{$md5Key}");
-                                            }
-                                        }
-                                        else
-                                        {
-                                            $CB_ProfileOptionImage1Obj =  $this->image("CB_ProfileOptionImage1_{$md5Key}");
+                                </td>
 
-                                            if(!empty($CB_ProfileOptionImage1Obj->getId()))
-                                            {
-                                            ?>
-                                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CB_ProfileOptionImage1Obj, $this->imageWidth); ?>" alt="" class=""/>
-                                            <?php
-                                            }
-                                        }
-                                    ?>
-                                    </td>
-                                    
-                                    <td>
-                                    
-                                    <?php if($this->editmode):?>
-                                        <div class="attr-font">Child Attribute Name = Application Image</div>
-                                    <?php endif;?>
-                                    <?php
-                                        if($this->editmode)
+                                <td width="20%">
+                                <?php if($this->editmode):?>
+                                    <div class="attr-font">Child Attribute Name = Product Image</div>
+                                <?php endif;?>
+                                <?php
+                                    if($this->editmode)
+                                    {
+                                        if($this->image("CB_ProfileOptionImage1_{$md5Key}")->isEmpty())
                                         {
-                                            if($this->image("CB_ProfileOptionImage2_{$md5Key}")->isEmpty())
-                                            {
-                                                echo $this->image("CB_ProfileOptionImage2_{$md5Key}")->setImage($child['ApplicationImage']);
-                                            }
-                                            else{
-                                                echo $this->image("CB_ProfileOptionImage2_{$md5Key}");
-                                            }
+                                            echo $this->image("CB_ProfileOptionImage1_{$md5Key}")->setImage($child['ProductImage']);
                                         }
-                                        else
-                                        {
-                                            $CB_ProfileOptionImage2Obj =  $this->image("CB_ProfileOptionImage2_{$md5Key}");
-                                            if(!empty($CB_ProfileOptionImage2Obj->getId()))
-                                            {
-                                            ?>
-                                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CB_ProfileOptionImage2Obj, $this->imageWidth); ?>" alt="" class=""/>
-                                            <?php
-                                            }
+                                        else{
+                                            echo $this->image("CB_ProfileOptionImage1_{$md5Key}");
                                         }
-                                    ?>
-                                    </td>
+                                    }
+                                    else
+                                    {
+                                        $CB_ProfileOptionImage1Obj =  $this->image("CB_ProfileOptionImage1_{$md5Key}");
 
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
-                                    <table class="normal-cleated-product">
-                                                <tbody>
-                                                    <?php if(isset($child['CS_CleatHeightInch'])){ ?>
-                                                    <tr>
-                                                        <th class="orange text-right">
-                                                            <?= $this->translate($child['CS_CleatHeightInch']); ?>
-                                                        </th>
-                                                    
-                                                        <td colspan="<?= $child['maxColumnLenth'] ?>">
-                                                            <?= $child['CS_CleatHeightInchVal'] . " ". $this->translate('CS_Unit_in'); ?>
+                                        if(!empty($CB_ProfileOptionImage1Obj->getId()))
+                                        {
+                                        ?>
+                                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CB_ProfileOptionImage1Obj, $this->imageWidth); ?>" alt="" class=""/>
+                                        <?php
+                                        }
+                                    }
+                                ?>
+                                </td>
+
+                                <td width="20%">
+                                <?php if($this->editmode):?>
+                                    <div class="attr-font">Child Attribute Name = Application Image</div>
+                                <?php endif;?>
+                                <?php
+                                    if($this->editmode)
+                                    {
+                                        if($this->image("CB_ProfileOptionImage2_{$md5Key}")->isEmpty())
+                                        {
+                                            echo $this->image("CB_ProfileOptionImage2_{$md5Key}")->setImage($child['ApplicationImage']);
+                                        }
+                                        else{
+                                            echo $this->image("CB_ProfileOptionImage2_{$md5Key}");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        $CB_ProfileOptionImage2Obj =  $this->image("CB_ProfileOptionImage2_{$md5Key}");
+                                        if(!empty($CB_ProfileOptionImage2Obj->getId()))
+                                        {
+                                        ?>
+                                        <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CB_ProfileOptionImage2Obj, $this->imageWidth); ?>" alt="" class=""/>
+                                        <?php
+                                        }
+                                    }
+                                ?>
+                                </td>
+                            </tr>
+                            <!-- END -->
+                            <!--This section is used to display Only Table with colspan-2-->
+                            <tr>
+                                <td colspan="2" >
+                                <table class="normal-cleated-product" style = "margin:0; page-break-inside:avoid;"  >
+                                            <tbody>
+                                                <?php if(isset($child['CS_CleatHeightInch'])){ ?>
+                                                <tr>
+                                                    <th class="orange text-right">
+                                                        <?= $this->translate($child['CS_CleatHeightInch']); ?>
+                                                    </th>
+
+                                                    <td colspan="<?= $child['maxColumnLenth'] ?>">
+                                                        <?= $child['CS_CleatHeightInchVal'] . " ". $this->translate('CS_Unit_in'); ?>
+                                                    </td>
+                                                </tr>
+                                                <?php } ?>
+
+                                                <?php if(isset($child['CS_AvailableBeltWidthInch'])){ ?>
+                                                <tr>
+                                                    <th class="orange text-right">
+                                                        <?= $this->translate($child['CS_AvailableBeltWidthInch']); ?>
+                                                    </th>
+
+                                                    <?php foreach ($child['CS_AvailableBeltWidthInchList'] as $key => $value) { ?>
+                                                        <td>
+                                                            <?= $value . " ". $this->translate('CS_Unit_in'); ?>
                                                         </td>
-                                                    </tr>
                                                     <?php } ?>
-
-                                                    <?php if(isset($child['CS_AvailableBeltWidthInch'])){ ?>
-                                                    <tr>
-                                                        <th class="orange text-right">
-                                                            <?= $this->translate($child['CS_AvailableBeltWidthInch']); ?>
-                                                        </th>
                                                     
-                                                        <?php foreach ($child['CS_AvailableBeltWidthInchList'] as $key => $value) { ?>
-                                                            <td>
-                                                                <?= $value . " ". $this->translate('CS_Unit_in'); ?>
-                                                            </td>
-                                                        <?php } ?>
-                                                        
-                                                    </tr>
+                                                </tr>
+                                                <?php } ?>
+
+                                                <?php if($child['CS_AvailableProfilePatternWidthsInch']){ ?>
+                                                    <?php foreach ($child['CS_AvailableProfilePatternWidthsInch'] as $key => $rows) { ?>
+                                                        <tr>
+                                                            <th class="orange text-right">
+                                                                <?= $this->translate('CS_AvailableProfilePatternWidthsInch'); ?>
+                                                            </th>
+                                                            <?php
+
+                                                            $firstIndexData = array_unique($child['CS_AvailableProfilePatternWidthsInch'][0]);
+
+                                                            if($child['maxRowLength'] == 1 && count($firstIndexData) == 1  && !is_numeric($firstIndexData[0])){ ?>
+                                                                <td colspan="<?= $child['maxColumnLenth'] ?>"><?= $rows[0] ?></td>
+                                                            <?php }else{ ?>
+                                                            <?php foreach ($rows as $key => $value) { ?>
+                                                                <td>
+                                                                    <?php
+                                                                        if($value)
+                                                                        {
+                                                                            echo $value . " ". $this->translate('CS_Unit_in');
+                                                                        }
+                                                                        else{
+                                                                            echo '&#8209';
+                                                                        }
+                                                                    ?>
+                                                                </td>
+                                                            <?php } ?>
+                                                            <?php } ?>
+                                                        </tr>
                                                     <?php } ?>
-
-                                                    <?php if($child['CS_AvailableProfilePatternWidthsInch']){ ?>
-                                                        <?php foreach ($child['CS_AvailableProfilePatternWidthsInch'] as $key => $rows) { ?>
-                                                            <tr>
-                                                                <th class="orange text-right">
-                                                                    <?= $this->translate('CS_AvailableProfilePatternWidthsInch'); ?>
-                                                                </th>
-                                                                <?php 
-                                                                
-                                                                $firstIndexData = array_unique($child['CS_AvailableProfilePatternWidthsInch'][0]);
-                                                                
-                                                                if($child['maxRowLength'] == 1 && count($firstIndexData) == 1  && !is_numeric($firstIndexData[0])){ ?>
-                                                                    <td colspan="<?= $child['maxColumnLenth'] ?>"><?= $rows[0] ?></td>
-                                                                <?php }else{ ?>
-                                                                <?php foreach ($rows as $key => $value) { ?>
-                                                                    <td>
-                                                                        <?php
-                                                                            if($value)
-                                                                            {
-                                                                                echo $value . " ". $this->translate('CS_Unit_in'); 
-                                                                            }
-                                                                            else{
-                                                                                echo '&#8209';
-                                                                            }
-                                                                         
-                                                                         ?>
-                                                                    </td>
-                                                                <?php } ?>
-                                                                <?php } ?>
-                                                                
-                                                            </tr>
-                                                        <?php } ?>
-                                                    <?php } ?>
-
-                                                    
-                                                    
-                                                </tbody>
-                                            </table>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <?php } ?>
+                                                <?php } ?>
+                                            </tbody>
+                                        </table>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <!-- END -->
+                        </tbody>
+                    </table>
+                      <?php } ?>
+                    <?php } ?>
                     </div>
                 </div>
             <?php endif; ?>
