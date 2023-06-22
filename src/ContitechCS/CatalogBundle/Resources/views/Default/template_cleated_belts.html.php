@@ -355,7 +355,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     <div class="table construction-tab">
                         <?php 
                             foreach ($data['normalProductsDetails']['childData'] as $key => $child) {
-                                if (($child['Name'] == "Ultra Shift II") || ($child['Name'] == "Bucket Grip") || ($child['Name'] == "Wave Grip") || ($child['Name'] == "Wave Grip Plus")){
+                                if (($child['Name'] == "Ultra Shift II") || ($child['Name'] == "Bucket Grip")){
                                 $md5Key = md5($child['Name']);
                         ?>
                         <table width="100%" class="mt-2 mb-3 parentTable"  style="page-break-inside:avoid;">
@@ -526,7 +526,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         </table>
 
                         <?php }
-                        elseif(($child['Name'] == "Bucket Grip II")){
+                        elseif(($child['Name'] == "Bucket Grip II") || ($child['Name'] == "Wave Grip") || ($child['Name'] == "Wave Grip Plus")){
                         $md5Key = md5($child['Name']);
                         ?>
                         <table width="100%" class="mt-2 mb-3 parentTable"  style="page-break-inside:avoid;">
@@ -626,8 +626,8 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                 </tr>
                                 <!-- END -->
                                 <!--This section is used to display Only Table with colspan-2-->
-                                <tr>
-                                    <td colspan="2" >
+                                <tr width= "100%">
+                                    <td colspan="2"  >
                                     <table class="normal-cleated-product" style = "margin:0; page-break-inside:avoid;"  >
                                                 <tbody>
                                                     <?php if(isset($child['CS_CleatHeightInch'])){ ?>
@@ -691,6 +691,8 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                             </table>
                                     </td>
                                     <td></td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
                                 <!-- END -->
                             </tbody>
@@ -698,6 +700,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                      
                         <?php }
                         else {
+                        $md5Key = md5($child['Name']); 
                         ?>
                         <table width="100%" class="mt-2 mb-4 parentTable"  style=" page-break-inside:avoid;">
                             <thead>
