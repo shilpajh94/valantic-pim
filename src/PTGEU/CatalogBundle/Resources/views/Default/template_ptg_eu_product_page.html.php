@@ -62,7 +62,7 @@ if($groupData){
                                                 
                                                 if(!$this->input("PTG_Footer_HoseType2")->isEmpty())
                                                 {
-                                                        echo $this->input("PTG_Footer_HoseType2");
+                                                        echo $this->input("PTG_Footer_HoseType2")->setDataFromResource($groupData['siop6siop7Category']);
                                                 }
                                                 else
                                                 {
@@ -190,7 +190,7 @@ if($groupData){
                                                         
                                                         if(!$this->input("PTG_Footer_HoseType3")->isEmpty())
                                                         {
-                                                                echo $this->input("PTG_Footer_HoseType3");
+                                                                echo $this->input("PTG_Footer_HoseType3")->setDataFromResource($groupData['siop6siop7Category']);
                                                         }
                                                         else
                                                         {
