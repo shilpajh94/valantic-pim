@@ -123,7 +123,7 @@ class B2BCategoryRequestBodyGenerator extends AbstractB2BRequestBodyGenerator {
 
         $parentType = $this->b2bProductRequestBodyGeneratorDao->getObjectType($parentPimId);
         
-        while($parentType != 'object')
+        while($parentType != 'object' && $parentPimId != 0)
         {
             $parentPimId = $this->b2bProductRequestBodyGeneratorDao->getParentId($parentPimId);
             $parentType = $this->b2bProductRequestBodyGeneratorDao->getObjectType($parentPimId);
