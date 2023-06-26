@@ -1238,6 +1238,11 @@ class DefaultController extends AbstractController
                             if(method_exists($child->getProductAttributes(),'getProdDimensions'))
                             {
                                 $prodDimensions = $child->getProductAttributes()->getProdDimensions();
+                                $WidthLength = $child->getProductAttributes()->getWidthLength();
+
+                                $profileWidthMM = $WidthLength->getProfileWidthMM();
+                                $contiData['CS_profileWidthMm']= $profileWidthMM;
+
                                 if($prodDimensions)
                                 {
                                     if($prodDimensions->getAvailableBeltPatternWidthBlock())
@@ -1254,12 +1259,16 @@ class DefaultController extends AbstractController
                                         {
                                             $contiData['CS_profileWidth'] = 'CS_profileWidth';
                                             $contiData['CS_profileWidthInch'] = implode(' & ', $blocklistInch);
-                                            $contiData['CS_profileWidthMm'] = implode('/', $blocklistMm);
+                                           // $contiData['CS_profileWidthMm'] = implode('/', $blocklistMm);
                                         }
                                     }
 
-                                    $beltWidthRangeInch = $prodDimensions->getAvailableBeltWidthRangeInch();
-                                    $beltWidthRangeMm = $prodDimensions->getAvailableBeltWidthRangeMm();
+                                    // $beltWidthRangeInch = $prodDimensions->getAvailableBeltWidthRangeInch();
+                                    // $beltWidthRangeMm = $prodDimensions->getAvailableBeltWidthRangeMm();
+
+                                    $beltWidthRangeInch = $prodDimensions->getBeltWidthRangeInch();
+                                    $beltWidthRangeMm = $prodDimensions->getBeltWidthRangeMM();
+
                                     
                                     if($beltWidthRangeInch || $beltWidthRangeMm)
                                     {
