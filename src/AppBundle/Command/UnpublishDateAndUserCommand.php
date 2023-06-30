@@ -61,10 +61,15 @@ class UnpublishDateAndUserCommand extends AbstractCommand
                     $articleNumber = $previousObject->getArticleNumber();
                     $date = gmdate('Y-m-d H:i:s',$previousObject->getModificationDate());
                     $user = $previousObject->getUserModification();
+                    $Userlist = new \Pimcore\Model\User\Listing();
+                    $Userlist->setCondition("id IN ($user)"); 
+                    $Userlist->load();
+                    foreach($Userlist as $eachUser)
+                        $userName = $eachUser->getName();
                     $logRow = [
                         'SapNumber' => $articleNumber,
                         'Date' => $date,
-                        'User' => $user
+                        'User' => $userName
                     ];
                     $this->logArray[] = $logRow; 
                 }
