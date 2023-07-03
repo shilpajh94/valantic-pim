@@ -21,5 +21,6 @@ return [
         "IFSEU\\RestApiBundle\\IFSEURestApiBundle" => TRUE,
         "RestApiBundle\\RestApiBundle" => TRUE,
         "IFSEU\\ProductBundle\\IFSEUProductBundle" => TRUE,
+        "PTGEU\\CatalogBundle\\PTGEUCatalogBundle" => TRUE
     ]
 ];
