@@ -341,8 +341,26 @@ parameters:
                 objectBrickType: fert
                 objectBrickName: PTGEUCommonFert
                 defaultColumn: true
+            pitchLengthLpLwIN:
+                columnName: pitchLengthLpLwIN
+                columnLabel: Pitch Length (Lp/Lw)
+                fieldLevel: objectBrick
+                objectLevel: fert
+                fieldType: Number
+                objectBrickType: fert
+                objectBrickName: PTGEUCommonFert
+                defaultColumn: true
             refLengthLrMM:
                 columnName: refLengthLrMM
+                columnLabel: Ref. Length (Lr)
+                fieldLevel: objectBrick
+                objectLevel: fert
+                fieldType: Number
+                objectBrickType: fert
+                objectBrickName: PTGEUCommonFert
+                defaultColumn: true
+            refLengthLrIN:
+                columnName: refLengthLrIN
                 columnLabel: Ref. Length (Lr)
                 fieldLevel: objectBrick
                 objectLevel: fert
@@ -366,4 +384,58 @@ parameters:
                 fieldType: Number
                 objectBrickType: fert
                 objectBrickName: PTGEUCommonFert
+                defaultColumn: true
+            insideLengthMM:
+                columnName: insideLengthMM
+                columnLabel: Inside Length
+                fieldLevel: objectBrick
+                objectLevel: fert
+                fieldType: Number
+                objectBrickType: fert
+                objectBrickName: PTGEUVBeltsFert
+                defaultColumn: true
+            insideLengthIN:
+                columnName: insideLengthIN
+                columnLabel: Inside Length
+                fieldLevel: objectBrick
+                objectLevel: fert
+                fieldType: Number
+                objectBrickType: fert
+                objectBrickName: PTGEUVBeltsFert
+                defaultColumn: true
+            datumLengthMM:
+                columnName: datumLengthMM
+                columnLabel: Datum Length
+                fieldLevel: objectBrick
+                objectLevel: fert
+                fieldType: Number
+                objectBrickType: fert
+                objectBrickName: PTGEUVBeltsFert
+                defaultColumn: true
+            datumLengthIN:
+                columnName: datumLengthIN
+                columnLabel: Datum Length
+                fieldLevel: objectBrick
+                objectLevel: fert
+                fieldType: Number
+                objectBrickType: fert
+                objectBrickName: PTGEUVBeltsFert
+                defaultColumn: true
+            effectiveLengthMM:
+                columnName: effectiveLengthMM
+                columnLabel: Effective Length
+                fieldLevel: objectBrick
+                objectLevel: fert
+                fieldType: Number
+                objectBrickType: fert
+                objectBrickName: PTGEUVBeltsFert
+                defaultColumn: true
+            effectiveLengthIN:
+                columnName: effectiveLengthIN
+                columnLabel: Effective Length
+                fieldLevel: objectBrick
+                objectLevel: fert
+                fieldType: Number
+                objectBrickType: fert
+                objectBrickName: PTGEUVBeltsFert
                 defaultColumn: true
