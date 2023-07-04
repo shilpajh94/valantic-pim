@@ -472,7 +472,7 @@ return [
 //                        "cut" => 0,                                             // hide "Cut"
                         'paste' => 0,                                           // hide "Paste"
                         'pasteCut' => 0,                                        // hide "Paste cut element"
-                        'delete' => 0,                                          // hide "Delete"
+                        'delete' => 1,                                          // hide "Delete"
                         'searchAndMove' => 0,                                   // hide "Search And Move"
                         'lock' => 0,                                            // hide "Lock"
                         'unlock' => 0,                                          // hide "Unlock"
