@@ -4,8 +4,12 @@ Base:
   catalogLayline: "Catalog Layline"
   Category: "Category"
   Sub_Category: "Sub-Category"
+  productPublishedOnline: "Product published online? (Continental Web)"
+  datasheetPublishedInTheDealerPortal: "Datasheet published in the dealer portal?"
+  pricelistPublishedInTheDealerPortal: "Pricelist published in the dealer portal?"
   FeaturesBenefitsBulletPoint: "Features & Benefits Bullet Points"
   TPCode: "TP Code"
+  WebsiteLink: "Website Link"
   localizedfields:
     headlineWeb: "Headline (Web)"
     productBrandNamePerLanguage: "Product Brand Name Per Language"
@@ -15,7 +19,7 @@ Base:
     searchKeywords: "Search Keywords"
     commercialDescription : "Commercial Description"
     technicalDescription: "Technical Description"
-    Note2InformationBelowTable: ''
+    NoteInformationBelowTable: ''
   # 25 brics attr
   Base:
     ColorOuterLayer: 'Color'
@@ -107,7 +111,6 @@ Fert:
     virtualCatalogFlag: ''
     newItemFlagForCatalog: ''
     webDescription: ''
-    WebsiteLink: ''
     amazonTitle: ''
     materialNumber: ''
     EANCode: ''
@@ -168,6 +171,5 @@ Fert:
     publishedOnline: ''
     shippingConditions: ''
     Conditions: ''
-    manufacturingLength: ''
     minimumOrder: ''
     additionalDiscount: ''

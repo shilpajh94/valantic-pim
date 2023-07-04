@@ -37,6 +37,7 @@ parameters:
       productBrandName: 'Product Brand Name'
       Sub_Category: 'Sub-Category'
       Category:  'Category'
+      WebsiteLink: 'Website'
       minimumTemperatureC: 'minTemperature (C)'
       minimumTemperatureF: 'minimumTemperatureF'
       maximumTemperatureC: 'maxTemperature (C)'
@@ -53,7 +54,7 @@ parameters:
       headlineWeb: 'Headline Web'
       Marking2: 'Marking 2'
       Marking1: 'Marking 1'
-      Note2InformationBelowTable: 'Notes'
+      NoteInformationBelowTable: 'Notes'
       productBrandNamePerLanguage: 'Product Brand Name Per Language'
       BrandShortText2: 'BrandShortText2'
       commercialDescription: 'Commercial Description'
@@ -77,14 +78,12 @@ parameters:
       priceDate: 'Price date'
       productionLength: 'Production length'
       minimumQuantityUnit: 'Minimum quantity unit'
-      WebsiteLink: 'Website'
       additionalDiscount: 'Additional discount'
     #fert Localized Attribute
       Conditions: 'Conditions'
       minimumOrder: 'Minimum order value'
       shippingConditions: 'Shipping conditions'
       sapDescription: 'SAP Description'
-      manufacturingLength: 'Manufacturing Length'
     #Fert Relationship 
       countryOfOrigin: 'Country of origin'
 

@@ -4,6 +4,9 @@ All:
     - CatalogLayline
     - Category
     - Sub_Category
+    - productPublishedOnline
+    - datasheetPublishedInTheDealerPortal
+    - pricelistPublishedInTheDealerPortal
     - FeaturesBenefitsBulletPoint
     - TPCode
     - HeadlineWeb
@@ -17,7 +20,6 @@ All:
     - SapDescription 
     - ShippingConditions 
     - Conditions 
-    - ManufacturingLength 
     - MinimumOrder 
     - CompletenessPercentage 
     - EmptyFields 
@@ -144,7 +146,7 @@ All:
     - Certificate1        
     - Certificate2          
     - PriceData  
-    - Note2InformationBelowTable             
+    - NoteInformationBelowTable             
     - numberOfHelixWires            
     - standards              
     - withHelix         

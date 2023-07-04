@@ -22,7 +22,7 @@ class SkippedFieldList
                 "OnlyOpenSystem",
                 "TemperatureNote",
                 "Marking2",
-                "Note2InformationBelowTable",  
+                "NoteInformationBelowTable",  
                 "negativeToleranceIdMM",
                 "PositiveToleranceIdMM",
                 "negativeToleranceWtMM",
