@@ -52,6 +52,11 @@ class EhoseProductLocalizationImportService
     private $SubCategory;
     private $localizedLanguage;
     private $fertLevelSiopCode;
+    private $minimumOrderIdArray;
+    private $shippingConditionsIdArray;
+    private $ConditionsIdArray;
+    private $productionLengthIdArray;
+    private $noteInfoIdArray;
     
     const LOGGER_MODULE = 'SAP IMPORT SHEET';
     
@@ -115,6 +120,11 @@ class EhoseProductLocalizationImportService
         $this->BaseLevelCategory = [];
         $this->BrandName = [];
         $this->SubCategory = [];
+        $this->minimumOrderIdArray = [];
+        $this->shippingConditionsIdArray = [];
+        $this->ConditionsIdArray = [];
+        $this->productionLengthIdArray = [];
+        $this->noteInfoIdArray = [];
 
         $materialGrpList = $this->productModel->getMaterialGroupData();
         $countryOriginList = $this->productModel->getCountryOriginData();
@@ -125,7 +135,37 @@ class EhoseProductLocalizationImportService
         $standardsList = $this->productModel->getstandardsLanguageData($this->localizedLanguage);
         $BrandNameList = $this->productModel->getBrandsData();
         $subCategoryList = $this->productModel->getSubCategoryData();
+        $minimumOrderList = $this->productModel->getMinimumOrderLanguageData();
+        $shippingConditionsList = $this->productModel->getShippingConditionsData();
+        $ConditionsList = $this->productModel->getConditionsData();
+        $productionLengthList = $this->productModel->getProductionLengthData();
+        $NoteInfoList = $this->productModel->getNoteInfoBelowTableData();
 
+        foreach($minimumOrderList as $minimumOrderData) {
+            $id = $minimumOrderData['MinimumOrder'];
+            $this->minimumOrderIdArray[$id] = $minimumOrderData['oo_id'];
+            unset($id);
+        }
+        foreach($ConditionsList as $ConditionsData) {
+            $id = $ConditionsData['Conditions'];
+            $this->ConditionsIdArray[$id] = $ConditionsData['oo_id'];
+            unset($id);
+        }
+        foreach($shippingConditionsList as $shippingConditionsData) {
+            $id = $shippingConditionsData['ShippingConditions'];
+            $this->shippingConditionsIdArray[$id] = $shippingConditionsData['oo_id'];
+            unset($id);
+        }
+        foreach($productionLengthList as $productionLengthData) {
+            $id = $productionLengthData['ProductionLength'];
+            $this->productionLengthIdArray[$id] = $productionLengthData['oo_id'];
+            unset($id);
+        }
+        foreach($NoteInfoList as $NoteInfoData) {
+            $id = $NoteInfoData['NoteInformationBelowTable'];
+            $this->noteInfoIdArray[$id] = $NoteInfoData['oo_id'];
+            unset($id);
+        }
         foreach($materialGrpList as $materialGrp) {
             $code = $materialGrp['code'];
             $this->materialGroup[$code] = $materialGrp['oo_id'];
@@ -286,7 +326,43 @@ class EhoseProductLocalizationImportService
                 }
             }
         }
-    }    
+    }
+
+    public function getMinimumOrderID($eachMinimumOrderValue){
+        foreach ($this->minimumOrderIdArray as $minimumOrderName => $minId) {
+            if ($minimumOrderName == $eachMinimumOrderValue) {
+                return $minId;
+            }
+        }
+    }
+    public function getConditionsID($eachConditionsValue){
+        foreach ($this->ConditionsIdArray as $ConditionsName => $ConditionId) {
+            if ($ConditionsName == $eachConditionsValue) {
+                return $ConditionId;
+            }
+        }
+    }
+    public function getShippingConditionsID($eachshippingConditionsValue){
+        foreach ($this->shippingConditionsIdArray as $shippingConditionsName => $ShippingId) {
+            if ($shippingConditionsName == $eachshippingConditionsValue) {
+                return $ShippingId;
+            }
+        }
+    }
+    public function getproductionLengthID($eachproductionLengthValue){
+        foreach ($this->productionLengthIdArray as $productionLengthName => $productionLengthId) {
+            if ($productionLengthName == $eachproductionLengthValue) {
+                return $productionLengthId;
+            }
+        }
+    }
+    public function getNoteInfoBelowTableID($eachnoteInfoValue){
+        foreach ($this->noteInfoIdArray as $noteInfoName => $noteInfoId) {
+            if ($noteInfoName == $eachnoteInfoValue) {
+                return $noteInfoId;
+            }
+        }
+    }
     private function getRecordIndexByKey($key) {
         return $this->csvHeader[$this->columnName[$key]];
     }
@@ -443,42 +519,48 @@ class EhoseProductLocalizationImportService
     
     public function getLocalizedQueryData($objId, $record, $productType = 'fert') {
         foreach ($this->langArr as $lang) {
-            $value = $ConditionsValue=$minimumOrder=$shippingConditions=$headlineWeb=$marking1=$marking2=$noteInformationBelowTable=$productBrandNamePerLanguage=$BrandShortText2=$commercialDescription=$technicalDescription=$sapDescription=null;
+            $value = $headlineWeb=$marking1=$marking2=$noteInformationBelowTable=$productBrandNamePerLanguage=$BrandShortText2=$commercialDescription=$technicalDescription=$sapDescription=null;
             if ($lang == $this->localizedLanguage && strtolower($productType) == 'fert') {
-                $ConditionsValue = $record[$this->getRecordIndexByKey('Conditions')];
-                $minimumOrder = $record[$this->getRecordIndexByKey('minimumOrder')];
-                $shippingConditions = $record[$this->getRecordIndexByKey('shippingConditions')];
+
             }
 
             if($lang == $this->localizedLanguage && strtolower($productType) == 'base') {
                 $headlineWeb = $record[$this->getRecordIndexByKey('headlineWeb')];
                 $marking1 = $record[$this->getRecordIndexByKey('Marking1')];
                 $marking2 = $record[$this->getRecordIndexByKey('Marking2')];
-                $noteInformationBelowTable = $record[$this->getRecordIndexByKey('NoteInformationBelowTable')];
+
+                if(!empty(trim($record[$this->getRecordIndexByKey('NoteInformationBelowTable')]))){
+
+                    $noteInfoValue=trim($record[$this->getRecordIndexByKey('NoteInformationBelowTable')]);
+                    $noteInfoValueArr=explode(',',$noteInfoValue);
+                    foreach($noteInfoValueArr as $eachnoteInfoValueArr){
+                        if(!empty($eachnoteInfoValueArr)){
+                            $eachnoteInfoValue=trim($eachnoteInfoValueArr);
+                            $noteInfoIdsArr[] = $this->getNoteInfoBelowTableID($eachnoteInfoValue);
+                        }
+                    }
+                    if(!empty($noteInfoIdsArr)){
+                        $noteInfoIds=implode(',',$noteInfoIdsArr);
+                    }
+                }
             }
 
             if($lang == $this->localizedLanguage){
                 $this->localisedDataTableDataArray[] = [
                     'ooo_id' => $objId,
                     'language' => $lang,
-                    'Conditions'=>$ConditionsValue,
-                    'minimumOrder'=>$minimumOrder,
-                    'shippingConditions'=>$shippingConditions,
                     'headlineWeb'=>$headlineWeb,
                     'Marking2'=>$marking2,
                     'Marking1'=>$marking1,
-                    'NoteInformationBelowTable'=>$noteInformationBelowTable
+                    'NoteInformationBelowTable'=>$noteInfoIds
                 ];
                 $this->localisedQueryTableDataArray[$lang][] = [
                     'ooo_id' => $objId,
                     'language' => $lang,
-                    'Conditions'=>$ConditionsValue,
-                    'minimumOrder'=>$minimumOrder,
-                    'shippingConditions'=>$shippingConditions,
                     'headlineWeb'=>$headlineWeb,
                     'Marking2'=>$marking2,
                     'Marking1'=>$marking1,
-                    'NoteInformationBelowTable'=>$noteInformationBelowTable
+                    'NoteInformationBelowTable'=>$noteInfoIds
                 ];
             }
         }
@@ -499,6 +581,9 @@ class EhoseProductLocalizationImportService
             'ProductLengthUnit' => null,
             'MinimumQuantityMeasurementUnit' => null,
             'productionLength' => null,
+            'minimumOrder' => null,
+            'Conditions' => null,
+            'shippingConditions' => null,
             'priceDate' => null,
             'minimumQuantityUnit' => null,
             'Spezi' => null,
@@ -517,7 +602,6 @@ class EhoseProductLocalizationImportService
         if (strtolower($productType) == 'fert') {
             
             $queryTableData['productLength'] = trim($record[$this->getRecordIndexByKey('productLength')]);
-            $queryTableData['productionLength'] = trim($record[$this->getRecordIndexByKey('productionLength')]);
             $queryTableData['additionalDiscount'] = trim($record[$this->getRecordIndexByKey('additionalDiscount')]);
             $queryTableData['EhoseID'] = trim($record[$this->getRecordIndexByKey('EhoseID')]);
             $queryTableData['ProductLengthUnit'] = trim($record[$this->getRecordIndexByKey('ProductLengthUnit')]);
@@ -536,6 +620,70 @@ class EhoseProductLocalizationImportService
             $queryTableData['Department'] = trim($record[$this->getRecordIndexByKey('Department')]);
             $queryTableData['ConnectionType'] = trim($record[$this->getRecordIndexByKey('ConnectionType')]);
             $queryTableData['weightg'] = trim($record[$this->getRecordIndexByKey('weightg')]);
+
+            if(!empty(trim($record[$this->getRecordIndexByKey('minimumOrder')]))){
+
+                $minimumOrderValue=trim($record[$this->getRecordIndexByKey('minimumOrder')]);
+                $minimumOrderValueArr=explode(',',$minimumOrderValue);
+                foreach($minimumOrderValueArr as $eachMinimumOrderValueArr){
+                    if(!empty($eachMinimumOrderValueArr)){
+                        $eachMinimumOrderValue=trim($eachMinimumOrderValueArr);
+                        $minimumOrderIdsArr[] = $this->getMinimumOrderID($eachMinimumOrderValue);
+                    }
+                }
+                if(!empty($minimumOrderIdsArr)){
+                    $minOrderIds=implode(',',$minimumOrderIdsArr);
+                    $queryTableData['minimumOrder']=$minOrderIds;
+                }
+            }
+
+            if(!empty(trim($record[$this->getRecordIndexByKey('Conditions')]))){
+
+                $ConditionsValue=trim($record[$this->getRecordIndexByKey('Conditions')]);
+                $ConditionsValueArr=explode(',',$ConditionsValue);
+                foreach($ConditionsValueArr as $eachConditionsValueArr){
+                    if(!empty($eachConditionsValueArr)){
+                        $eachConditionsValue=trim($eachConditionsValueArr);
+                        $ConditionsIdsArr[] = $this->getConditionsID($eachConditionsValue);
+                    }
+                }
+                if(!empty($ConditionsIdsArr)){
+                    $ConditionsIds=implode(',',$ConditionsIdsArr);
+                    $queryTableData['Conditions']=$ConditionsIds;
+                }
+            }
+
+            if(!empty(trim($record[$this->getRecordIndexByKey('shippingConditions')]))){
+
+                $shippingConditionsValue=trim($record[$this->getRecordIndexByKey('shippingConditions')]);
+                $shippingConditionsValueArr=explode(',',$shippingConditionsValue);
+                foreach($shippingConditionsValueArr as $eachshippingConditionsValueArr){
+                    if(!empty($eachshippingConditionsValueArr)){
+                        $eachshippingConditionsValue=trim($eachshippingConditionsValueArr);
+                        $shippingConditionsIdsArr[] = $this->getShippingConditionsID($eachshippingConditionsValue);
+                    }
+                }
+                if(!empty($shippingConditionsIdsArr)){
+                    $shippingConditionsIds=implode(',',$shippingConditionsIdsArr);
+                    $queryTableData['shippingConditions']=$shippingConditionsIds;
+                }
+            }
+
+            if(!empty(trim($record[$this->getRecordIndexByKey('productionLength')]))){
+
+                $productionLengthValue=trim($record[$this->getRecordIndexByKey('productionLength')]);
+                $productionLengthValueArr=explode(',',$productionLengthValue);
+                foreach($productionLengthValueArr as $eachproductionLengthValueArr){
+                    if(!empty($eachproductionLengthValueArr)){
+                        $eachproductionLengthValue=trim($eachproductionLengthValueArr);
+                        $productionLengthIdsArr[] = $this->getproductionLengthID($eachproductionLengthValue);
+                    }
+                }
+                if(!empty($productionLengthIdsArr)){
+                    $productionLengthIds=implode(',',$productionLengthIdsArr);
+                    $queryTableData['productionLength']=$productionLengthIds;
+                }
+            }
 
             if (!empty(trim($record[$this->getRecordIndexByKey('EANCode')]))) {
                 $queryTableData['EANCode'] = trim($record[$this->getRecordIndexByKey('EANCode')]);
@@ -655,6 +803,9 @@ class EhoseProductLocalizationImportService
             'ProductLengthUnit' => null,
             'MinimumQuantityMeasurementUnit' => null,
             'productionLength' => null,
+            'minimumOrder' => null,
+            'Conditions' => null,
+            'shippingConditions' => null,
             'priceDate' => null,
             'minimumQuantityUnit' => null,
             'Spezi' => null,
@@ -670,7 +821,6 @@ class EhoseProductLocalizationImportService
         if (strtolower($productType) == 'fert') {
     
             $storeTableDataArray['productLength'] = trim($record[$this->getRecordIndexByKey('productLength')]);
-            $storeTableDataArray['productionLength'] = trim($record[$this->getRecordIndexByKey('productionLength')]);
             $storeTableDataArray['additionalDiscount'] = trim($record[$this->getRecordIndexByKey('additionalDiscount')]);
             $storeTableDataArray['EhoseID'] = trim($record[$this->getRecordIndexByKey('EhoseID')]);
             $storeTableDataArray['ProductLengthUnit'] = trim($record[$this->getRecordIndexByKey('ProductLengthUnit')]);
@@ -685,6 +835,70 @@ class EhoseProductLocalizationImportService
             $storeTableDataArray['Department'] = trim($record[$this->getRecordIndexByKey('Department')]);
             $storeTableDataArray['ConnectionType'] = trim($record[$this->getRecordIndexByKey('ConnectionType')]);
             $storeTableDataArray['weightg'] = trim($record[$this->getRecordIndexByKey('weightg')]);
+
+            if(!empty(trim($record[$this->getRecordIndexByKey('minimumOrder')]))){
+
+                $minimumOrderValue=trim($record[$this->getRecordIndexByKey('minimumOrder')]);
+                $minimumOrderValueArr=explode(',',$minimumOrderValue);
+                foreach($minimumOrderValueArr as $eachMinimumOrderValueArr){
+                    if(!empty($eachMinimumOrderValueArr)){
+                        $eachMinimumOrderValue=trim($eachMinimumOrderValueArr);
+                        $minimumOrderIdsArr[] = $this->getMinimumOrderID($eachMinimumOrderValue);
+                    }
+                }
+                if(!empty($minimumOrderIdsArr)){
+                    $minOrderIds=implode(',',$minimumOrderIdsArr);
+                    $storeTableDataArray['minimumOrder']=$minOrderIds;
+                }
+            }
+
+            if(!empty(trim($record[$this->getRecordIndexByKey('Conditions')]))){
+
+                $ConditionsValue=trim($record[$this->getRecordIndexByKey('Conditions')]);
+                $ConditionsValueArr=explode(',',$ConditionsValue);
+                foreach($ConditionsValueArr as $eachConditionsValueArr){
+                    if(!empty($eachConditionsValueArr)){
+                        $eachConditionsValue=trim($eachConditionsValueArr);
+                        $ConditionsIdsArr[] = $this->getConditionsID($eachConditionsValue);
+                    }
+                }
+                if(!empty($ConditionsIdsArr)){
+                    $ConditionsIds=implode(',',$ConditionsIdsArr);
+                    $storeTableDataArray['Conditions']=$ConditionsIds;
+                }
+            }
+
+            if(!empty(trim($record[$this->getRecordIndexByKey('shippingConditions')]))){
+
+                $shippingConditionsValue=trim($record[$this->getRecordIndexByKey('shippingConditions')]);
+                $shippingConditionsValueArr=explode(',',$shippingConditionsValue);
+                foreach($shippingConditionsValueArr as $eachshippingConditionsValueArr){
+                    if(!empty($eachshippingConditionsValueArr)){
+                        $eachshippingConditionsValue=trim($eachshippingConditionsValueArr);
+                        $shippingConditionsIdsArr[] = $this->getShippingConditionsID($eachshippingConditionsValue);
+                    }
+                }
+                if(!empty($shippingConditionsIdsArr)){
+                    $shippingConditionsIds=implode(',',$shippingConditionsIdsArr);
+                    $storeTableDataArray['shippingConditions']=$shippingConditionsIds;
+                }
+            }
+
+            if(!empty(trim($record[$this->getRecordIndexByKey('productionLength')]))){
+
+                $productionLengthValue=trim($record[$this->getRecordIndexByKey('productionLength')]);
+                $productionLengthValueArr=explode(',',$productionLengthValue);
+                foreach($productionLengthValueArr as $eachproductionLengthValueArr){
+                    if(!empty($eachproductionLengthValueArr)){
+                        $eachproductionLengthValue=trim($eachproductionLengthValueArr);
+                        $productionLengthIdsArr[] = $this->getproductionLengthID($eachproductionLengthValue);
+                    }
+                }
+                if(!empty($productionLengthIdsArr)){
+                    $productionLengthIds=implode(',',$productionLengthIdsArr);
+                    $storeTableDataArray['productionLength']=$productionLengthIds;
+                }
+            }
 
             if(!empty(trim($record[$this->getRecordIndexByKey('OnStock')]))){
                 $OnStockValue =  trim($record[$this->getRecordIndexByKey('OnStock')]);

@@ -55,10 +55,30 @@ services:
         tags:
             - { name: 'console.command', command: 'ifs-eu-category-master-data-import-command' }
 
+    IFSEU\ImportBundle\OneTimeImportCommand\NoteInformationBelowTableMasterDataImportCommand:
+        tags:
+           - { name: 'console.command', command: 'ifs-eu-note-information-below-table-master-data-import-command' }
+
+    IFSEU\ImportBundle\OneTimeImportCommand\ConditionsMasterDataImportCommand:
+        tags:
+            - { name: 'console.command', command: 'ifs-eu-conditions-master-data-import-command' }
+
+    IFSEU\ImportBundle\OneTimeImportCommand\ShippingConditionsMasterDataImportCommand:
+        tags:
+            - { name: 'console.command', command: 'ifs-eu-shipping-conditions-master-data-import-command' }
+
+    IFSEU\ImportBundle\OneTimeImportCommand\MinimumOrderMasterDataImportCommand:
+        tags:
+            - { name: 'console.command', command: 'ifs-eu-minimum-order-master-data-import-command' }
+
+    IFSEU\ImportBundle\OneTimeImportCommand\ProductionLengthMasterDataImportCommand:
+        tags:
+            - { name: 'console.command', command: 'ifs-eu-production-length-master-data-import-command' }
+
     IFSEU\ImportBundle\OneTimeImportCommand\SubCategoryMasterDataImportCommand: 
         tags:
             - { name: 'console.command', command: 'ifs-eu-sub-category-master-data-import-command' }
-    
+
     IFSEU\ImportBundle\OneTimeImportCommand\CountryMasterDataImportCommand: 
         tags:
             - { name: 'console.command', command: 'ifs-eu-country-master-data-import-command' }
