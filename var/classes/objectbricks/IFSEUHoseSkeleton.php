@@ -1,7 +1,11 @@
 <?php 
 
 /** 
+<<<<<<< HEAD
 * Generated at: 2023-05-29T07:39:18+00:00
+=======
+* Generated at: 2023-05-24T11:19:32+00:00
+>>>>>>> IFSEU_production_CTTFSE01-216-SkeletonLevel_AttributeRemoval
 * IP: 127.0.0.1
 
 
@@ -11,10 +15,13 @@ Fields Summary:
 - wallThicknessMM [numeric]
 - wallThicknessInch [numeric]
 - Odmm [numeric]
+<<<<<<< HEAD
 - OdIn [numeric]
 - hoseIdMMActualId [numeric]
 - hoseIdNominalActualId [numeric]
 - FittingFamily [multiselect]
+=======
+>>>>>>> IFSEU_production_CTTFSE01-216-SkeletonLevel_AttributeRemoval
 - withHelix [booleanSelect]
 - SkeletonBrickMapping [input]
 - workingPressureBAR [numeric]
@@ -297,124 +304,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'defaultValueGenerator' => '',
               )),
               6 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
-                 'width' => 200,
-                 'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
-                 'integer' => false,
-                 'unsigned' => false,
-                 'minValue' => NULL,
-                 'maxValue' => NULL,
-                 'unique' => false,
-                 'decimalSize' => NULL,
-                 'decimalPrecision' => NULL,
-                 'name' => 'hoseIdMMActualId',
-                 'title' => 'Hose ID (mm) Actual Id',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => 'float:left; margin-right: 20px; clear:left;',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              7 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
-                 'width' => 200,
-                 'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
-                 'integer' => false,
-                 'unsigned' => false,
-                 'minValue' => NULL,
-                 'maxValue' => NULL,
-                 'unique' => false,
-                 'decimalSize' => NULL,
-                 'decimalPrecision' => NULL,
-                 'name' => 'hoseIdNominalActualId',
-                 'title' => 'Hose ID (in Nominal) Actual Id',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => 'float:left;',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              8 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                 'fieldtype' => 'multiselect',
-                 'options' => 
-                array (
-                  0 => 
-                  array (
-                    'key' => 'Aluminum',
-                    'value' => 14704134,
-                  ),
-                  1 => 
-                  array (
-                    'key' => 'Brass',
-                    'value' => 14704136,
-                  ),
-                  2 => 
-                  array (
-                    'key' => 'Carbon Steel',
-                    'value' => 14704137,
-                  ),
-                  3 => 
-                  array (
-                    'key' => 'Stainless Steel',
-                    'value' => 14704135,
-                  ),
-                  4 => 
-                  array (
-                    'key' => 'Steel',
-                    'value' => 14704138,
-                  ),
-                ),
-                 'width' => 200,
-                 'height' => '',
-                 'maxItems' => '',
-                 'renderType' => 'tags',
-                 'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
-                 'optionsProviderData' => 'fittingFamily',
-                 'queryColumnType' => 'text',
-                 'columnType' => 'text',
-                 'phpdocType' => 'array',
-                 'dynamicOptions' => false,
-                 'name' => 'FittingFamily',
-                 'title' => 'Fitting Family',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => 'float:left; margin-right: 20px; clear:left;',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-              )),
-              9 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                  'fieldtype' => 'booleanSelect',
                  'yesLabel' => 'Yes',
@@ -449,7 +338,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,
-                 'style' => 'float:left;',
+                 'style' => 'float:left; margin-right: 20px; clear:left;',
                  'permissions' => NULL,
                  'datatype' => 'data',
                  'relationType' => false,
@@ -457,7 +346,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleGridView' => false,
                  'visibleSearch' => false,
               )),
-              10 => 
+              7 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'fieldtype' => 'input',
                  'width' => NULL,

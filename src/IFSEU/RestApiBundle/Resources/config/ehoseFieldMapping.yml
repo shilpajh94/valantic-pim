@@ -396,12 +396,6 @@ ehoseAPI:
                         - numeric: 2
                     workingPressureMPA:
                         - numeric: 2
-                    hoseIdNominalActualId:
-                        - numeric: 2
-                    hoseIdMMActualId:
-                        - numeric: 2
-                    FittingFamily:
-                        - string
                     SkeletonBrickMapping:
                         - string
                     VacuumBar:

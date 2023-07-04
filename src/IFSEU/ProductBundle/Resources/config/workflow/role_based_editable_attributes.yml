@@ -167,9 +167,6 @@ All:
     - wallThicknessMM                
     - OdIn                 
     - Odmm                 
-    - hoseIdNominalActualId                
-    - hoseIdMMActualId                  
-    - FittingFamily
     - workingPressureBAR 
     - workingPressurePSI
     - workingPressureMPA                
@@ -195,9 +192,6 @@ ProductManagementIFSEMEA:
     - standards
     - numberOfHelixWires            
     - FieldsOfApplication   
-    - hoseIdNominalActualId                
-    - hoseIdMMActualId                  
-    - FittingFamily
     - workingPressureMPA 
     - descriptive               
     - VacuumIN                 
@@ -205,9 +199,6 @@ ProductManagementIFSEMEA:
 MarComIFSEMEA:
     - numberOfHelixWires            
     - FieldsOfApplication
-    - hoseIdNominalActualId                
-    - hoseIdMMActualId                  
-    - FittingFamily
     - workingPressureMPA 
     - descriptive               
     - VacuumIN                 
@@ -225,9 +216,6 @@ EditorIFSEMEA:
     - Haptic           
     - PropertiesOuterLayer
     - FieldsOfApplication
-    - hoseIdNominalActualId                
-    - hoseIdMMActualId                  
-    - FittingFamily
     - workingPressureMPA 
     - descriptive                
     - VacuumIN                 
