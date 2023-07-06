@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-07-04T08:55:50+00:00
+* Generated at: 2023-07-06T13:24:14+00:00
 * IP: 127.0.0.1
 */ 
 
@@ -11,7 +11,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'ProductManagementIFSEMEA',
    'description' => '',
    'creationDate' => 1681288759,
-   'modificationDate' => 1688460950,
+   'modificationDate' => 1688649854,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => 'IFSEUProduct',
@@ -20278,6 +20278,16 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'fieldtype' => 'multiselect',
                                      'options' => 
                                     array (
+                                      0 => 
+                                      array (
+                                        'key' => 'MinOrder1',
+                                        'value' => 14758492,
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => 'MinOrder2',
+                                        'value' => 14758493,
+                                      ),
                                     ),
                                      'width' => 220,
                                      'height' => '',
@@ -20309,6 +20319,16 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'fieldtype' => 'multiselect',
                                      'options' => 
                                     array (
+                                      0 => 
+                                      array (
+                                        'key' => 'Condition1',
+                                        'value' => 14758489,
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => 'Condition2',
+                                        'value' => 14758490,
+                                      ),
                                     ),
                                      'width' => 220,
                                      'height' => '',
@@ -20660,6 +20680,16 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'fieldtype' => 'multiselect',
                                      'options' => 
                                     array (
+                                      0 => 
+                                      array (
+                                        'key' => 'Ship1',
+                                        'value' => 14758486,
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => 'Ship2',
+                                        'value' => 14758487,
+                                      ),
                                     ),
                                      'width' => 220,
                                      'height' => '',

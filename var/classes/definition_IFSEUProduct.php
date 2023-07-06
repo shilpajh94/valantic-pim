@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-07-04T08:56:13+00:00
+* Generated at: 2023-07-06T13:23:59+00:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -30,6 +30,8 @@ Fields Summary:
 -- commercialDescription [wysiwyg]
 -- technicalDescription [wysiwyg]
 -- NoteInformationBelowTable [multiselect]
+-- webDescription [input]
+-- amazonTitle [input]
 -- sapDescription [textarea]
 -- CompletenessPercentage [input]
 -- EmptyFields [textarea]
@@ -66,8 +68,6 @@ Fields Summary:
 - B2CStoreFlag [booleanSelect]
 - virtualCatalogFlag [booleanSelect]
 - newItemFlagForCatalog [booleanSelect]
-- webDescription [input]
-- amazonTitle [input]
 - materialNumber [input]
 - EANCode [input]
 - materialGroup [manyToOneRelation]
@@ -171,7 +171,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1688460956,
+   'modificationDate' => 1688649822,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -3274,6 +3274,164 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'childs' => 
                                 array (
                                   0 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                                     'fieldtype' => 'fieldcontainer',
+                                     'labelWidth' => 200,
+                                     'layout' => 'hbox',
+                                     'fieldLabel' => '',
+                                     'name' => 'Field Container',
+                                     'type' => NULL,
+                                     'region' => NULL,
+                                     'title' => '',
+                                     'width' => NULL,
+                                     'height' => NULL,
+                                     'collapsible' => false,
+                                     'collapsed' => false,
+                                     'bodyStyle' => '',
+                                     'datatype' => 'layout',
+                                     'permissions' => NULL,
+                                     'childs' => 
+                                    array (
+                                      0 => 
+                                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                                         'fieldtype' => 'fieldcontainer',
+                                         'labelWidth' => 200,
+                                         'layout' => 'vbox',
+                                         'fieldLabel' => '',
+                                         'name' => 'Field Container',
+                                         'type' => NULL,
+                                         'region' => NULL,
+                                         'title' => '',
+                                         'width' => NULL,
+                                         'height' => NULL,
+                                         'collapsible' => false,
+                                         'collapsed' => false,
+                                         'bodyStyle' => '',
+                                         'datatype' => 'layout',
+                                         'permissions' => NULL,
+                                         'childs' => 
+                                        array (
+                                          0 => 
+                                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                             'fieldtype' => 'input',
+                                             'width' => 200,
+                                             'defaultValue' => NULL,
+                                             'queryColumnType' => 'varchar',
+                                             'columnType' => 'varchar',
+                                             'columnLength' => 190,
+                                             'phpdocType' => 'string',
+                                             'regex' => '',
+                                             'unique' => false,
+                                             'showCharCount' => false,
+                                             'name' => 'webDescription',
+                                             'title' => 'Web Description',
+                                             'tooltip' => '',
+                                             'mandatory' => false,
+                                             'noteditable' => false,
+                                             'index' => false,
+                                             'locked' => false,
+                                             'style' => '',
+                                             'permissions' => NULL,
+                                             'datatype' => 'data',
+                                             'relationType' => false,
+                                             'invisible' => false,
+                                             'visibleGridView' => false,
+                                             'visibleSearch' => false,
+                                             'defaultValueGenerator' => '',
+                                          )),
+                                        ),
+                                         'locked' => false,
+                                      )),
+                                      1 => 
+                                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                                         'fieldtype' => 'fieldcontainer',
+                                         'labelWidth' => 200,
+                                         'layout' => 'vbox',
+                                         'fieldLabel' => '',
+                                         'name' => 'Field Container',
+                                         'type' => NULL,
+                                         'region' => NULL,
+                                         'title' => '',
+                                         'width' => NULL,
+                                         'height' => NULL,
+                                         'collapsible' => false,
+                                         'collapsed' => false,
+                                         'bodyStyle' => 'margin-left: 20px;',
+                                         'datatype' => 'layout',
+                                         'permissions' => NULL,
+                                         'childs' => 
+                                        array (
+                                          0 => 
+                                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                             'fieldtype' => 'input',
+                                             'width' => 200,
+                                             'defaultValue' => NULL,
+                                             'queryColumnType' => 'varchar',
+                                             'columnType' => 'varchar',
+                                             'columnLength' => 190,
+                                             'phpdocType' => 'string',
+                                             'regex' => '',
+                                             'unique' => false,
+                                             'showCharCount' => false,
+                                             'name' => 'amazonTitle',
+                                             'title' => 'Amazon Title',
+                                             'tooltip' => '',
+                                             'mandatory' => false,
+                                             'noteditable' => false,
+                                             'index' => false,
+                                             'locked' => false,
+                                             'style' => 'margin-left: 60px;',
+                                             'permissions' => NULL,
+                                             'datatype' => 'data',
+                                             'relationType' => false,
+                                             'invisible' => false,
+                                             'visibleGridView' => false,
+                                             'visibleSearch' => false,
+                                             'defaultValueGenerator' => '',
+                                          )),
+                                        ),
+                                         'locked' => false,
+                                      )),
+                                    ),
+                                     'locked' => false,
+                                  )),
+                                ),
+                                 'name' => 'localizedfields',
+                                 'region' => NULL,
+                                 'layout' => NULL,
+                                 'title' => '',
+                                 'width' => '',
+                                 'height' => '',
+                                 'maxTabs' => 20,
+                                 'labelWidth' => 210,
+                                 'border' => false,
+                                 'provideSplitView' => false,
+                                 'tabPosition' => NULL,
+                                 'hideLabelsWhenTabsReached' => NULL,
+                                 'referencedFields' => 
+                                array (
+                                ),
+                                 'fieldDefinitionsCache' => NULL,
+                                 'tooltip' => NULL,
+                                 'mandatory' => NULL,
+                                 'noteditable' => NULL,
+                                 'index' => NULL,
+                                 'locked' => NULL,
+                                 'style' => NULL,
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => true,
+                                 'visibleSearch' => true,
+                              )),
+                              1 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+                                 'fieldtype' => 'localizedfields',
+                                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Localizedfield',
+                                 'childs' => 
+                                array (
+                                  0 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                                      'fieldtype' => 'textarea',
                                      'width' => 250,
@@ -3329,7 +3487,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'visibleGridView' => true,
                                  'visibleSearch' => true,
                               )),
-                              1 => 
+                              2 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                                  'fieldtype' => 'localizedfields',
                                  'phpdocType' => '\\Pimcore\\Model\\DataObject\\Localizedfield',
@@ -4858,20 +5016,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'locked' => false,
                       )),
                       2 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
-                         'fieldtype' => 'fieldset',
-                         'labelWidth' => 100,
-                         'name' => 'Layout',
-                         'type' => NULL,
-                         'region' => NULL,
-                         'title' => 'Web',
-                         'width' => NULL,
-                         'height' => NULL,
-                         'collapsible' => true,
-                         'collapsed' => false,
-                         'bodyStyle' => 'overflow-x: hidden;overflow-y: hidden;',
-                         'datatype' => 'layout',
-                         'permissions' => NULL,
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+                         'fieldtype' => 'localizedfields',
+                         'phpdocType' => '\\Pimcore\\Model\\DataObject\\Localizedfield',
                          'childs' => 
                         array (
                           0 => 
@@ -4997,7 +5144,34 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'locked' => false,
                           )),
                         ),
-                         'locked' => false,
+                         'name' => 'localizedfields',
+                         'region' => NULL,
+                         'layout' => NULL,
+                         'title' => '',
+                         'width' => '',
+                         'height' => '',
+                         'maxTabs' => 20,
+                         'labelWidth' => 210,
+                         'border' => false,
+                         'provideSplitView' => false,
+                         'tabPosition' => NULL,
+                         'hideLabelsWhenTabsReached' => NULL,
+                         'referencedFields' => 
+                        array (
+                        ),
+                         'fieldDefinitionsCache' => NULL,
+                         'tooltip' => NULL,
+                         'mandatory' => NULL,
+                         'noteditable' => NULL,
+                         'index' => NULL,
+                         'locked' => NULL,
+                         'style' => NULL,
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => true,
+                         'visibleSearch' => true,
                       )),
                     ),
                      'locked' => false,
@@ -20682,6 +20856,16 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'fieldtype' => 'multiselect',
                                      'options' => 
                                     array (
+                                      0 => 
+                                      array (
+                                        'key' => 'MinOrder1',
+                                        'value' => 14758492,
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => 'MinOrder2',
+                                        'value' => 14758493,
+                                      ),
                                     ),
                                      'width' => 220,
                                      'height' => '',
@@ -20713,6 +20897,16 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'fieldtype' => 'multiselect',
                                      'options' => 
                                     array (
+                                      0 => 
+                                      array (
+                                        'key' => 'Condition1',
+                                        'value' => 14758489,
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => 'Condition2',
+                                        'value' => 14758490,
+                                      ),
                                     ),
                                      'width' => 220,
                                      'height' => '',
@@ -21064,6 +21258,16 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'fieldtype' => 'multiselect',
                                      'options' => 
                                     array (
+                                      0 => 
+                                      array (
+                                        'key' => 'Ship1',
+                                        'value' => 14758486,
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => 'Ship2',
+                                        'value' => 14758487,
+                                      ),
                                     ),
                                      'width' => 220,
                                      'height' => '',
