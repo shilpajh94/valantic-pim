@@ -55,7 +55,11 @@ Base:
   temporaryUntilT: ''
   DampableUntil1T: ''
   DampableUntil2T: ''
-
+#pricing and stock details data
+  shippingConditions: ''
+  Conditions: ''
+  minimumOrder: ''
+  additionalDiscount: ''
 
   # SIOP Data
   # siopFullCode: ''
@@ -166,7 +170,3 @@ Fert:
     Note: ''
     Currency: ''
     publishedOnline: ''
-    shippingConditions: ''
-    Conditions: ''
-    minimumOrder: ''
-    additionalDiscount: ''

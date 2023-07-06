@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-07-04T08:56:13+00:00
+* Generated at: 2023-07-06T10:23:20+00:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -60,6 +60,9 @@ Fields Summary:
 - SIOPLevel5 [manyToManyObjectRelation]
 - SIOPLevel6 [manyToManyObjectRelation]
 - SIOPLevel7 [manyToManyObjectRelation]
+- shippingConditions [multiselect]
+- Conditions [multiselect]
+- minimumOrder [multiselect]
 - Skeleton [objectbricks]
 - B2CCategory [manyToManyObjectRelation]
 - printedCatalogFlag [booleanSelect]
@@ -67,7 +70,9 @@ Fields Summary:
 - virtualCatalogFlag [booleanSelect]
 - newItemFlagForCatalog [booleanSelect]
 - webDescription [input]
+- productLength [numeric]
 - amazonTitle [input]
+- ProductLengthUnit [input]
 - materialNumber [input]
 - EANCode [input]
 - materialGroup [manyToOneRelation]
@@ -119,23 +124,18 @@ Fields Summary:
 - GrossPrice [input]
 - Department [input]
 - listPrice [input]
-- productLength [numeric]
-- ProductLengthUnit [input]
 - additionalDiscount [input]
 - OnStock [booleanSelect]
-- minimumOrder [multiselect]
-- Conditions [multiselect]
+- publishedOnline [booleanSelect]
+- priceDate [date]
 - Amount [input]
 - ConnectionType [input]
 - Note [input]
 - Currency [input]
-- priceDate [input]
 - minimumQuantityUnit [input]
 - MinimumQuantityMeasurementUnit [input]
 - EHoseID [input]
-- publishedOnline [booleanSelect]
 - productionLength [multiselect]
-- shippingConditions [multiselect]
 - mainImage [image]
 - frontView [image]
 - sideView [image]
@@ -171,7 +171,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1688460956,
+   'modificationDate' => 1688638983,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -4451,6 +4451,194 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'locked' => false,
                      'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/genealogy.svg',
                   )),
+                  2 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                     'fieldtype' => 'panel',
+                     'labelWidth' => 100,
+                     'layout' => NULL,
+                     'border' => false,
+                     'name' => 'Pricing & Stocking Details',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => 'Pricing & Stocking Details',
+                     'width' => NULL,
+                     'height' => NULL,
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'permissions' => NULL,
+                     'childs' => 
+                    array (
+                      0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
+                         'fieldtype' => 'fieldset',
+                         'labelWidth' => 100,
+                         'name' => 'Layout',
+                         'type' => NULL,
+                         'region' => NULL,
+                         'title' => 'Layout',
+                         'width' => NULL,
+                         'height' => NULL,
+                         'collapsible' => false,
+                         'collapsed' => false,
+                         'bodyStyle' => '',
+                         'datatype' => 'layout',
+                         'permissions' => NULL,
+                         'childs' => 
+                        array (
+                          0 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                             'fieldtype' => 'fieldcontainer',
+                             'labelWidth' => 200,
+                             'layout' => 'vbox',
+                             'fieldLabel' => '',
+                             'name' => 'Field Container',
+                             'type' => NULL,
+                             'region' => NULL,
+                             'title' => '',
+                             'width' => 1100,
+                             'height' => NULL,
+                             'collapsible' => false,
+                             'collapsed' => false,
+                             'bodyStyle' => 'overflow-x: hidden;overflow-y: hidden;',
+                             'datatype' => 'layout',
+                             'permissions' => NULL,
+                             'childs' => 
+                            array (
+                              0 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                                 'fieldtype' => 'multiselect',
+                                 'options' => 
+                                array (
+                                  0 => 
+                                  array (
+                                    'key' => 'Ship1',
+                                    'value' => 14758486,
+                                  ),
+                                  1 => 
+                                  array (
+                                    'key' => 'Ship2',
+                                    'value' => 14758487,
+                                  ),
+                                ),
+                                 'width' => 830,
+                                 'height' => 80,
+                                 'maxItems' => '',
+                                 'renderType' => 'tags',
+                                 'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\ShippingConditionsOptionsProvider',
+                                 'optionsProviderData' => '',
+                                 'queryColumnType' => 'text',
+                                 'columnType' => 'text',
+                                 'phpdocType' => 'array',
+                                 'dynamicOptions' => false,
+                                 'name' => 'shippingConditions',
+                                 'title' => 'Shipping Conditions',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                              1 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                                 'fieldtype' => 'multiselect',
+                                 'options' => 
+                                array (
+                                  0 => 
+                                  array (
+                                    'key' => 'Condition1',
+                                    'value' => 14758489,
+                                  ),
+                                  1 => 
+                                  array (
+                                    'key' => 'Condition2',
+                                    'value' => 14758490,
+                                  ),
+                                ),
+                                 'width' => 830,
+                                 'height' => 80,
+                                 'maxItems' => '',
+                                 'renderType' => 'tags',
+                                 'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\ConditionsOptionsProvider',
+                                 'optionsProviderData' => '',
+                                 'queryColumnType' => 'text',
+                                 'columnType' => 'text',
+                                 'phpdocType' => 'array',
+                                 'dynamicOptions' => false,
+                                 'name' => 'Conditions',
+                                 'title' => 'Conditions',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                              2 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                                 'fieldtype' => 'multiselect',
+                                 'options' => 
+                                array (
+                                  0 => 
+                                  array (
+                                    'key' => 'MinOrder1',
+                                    'value' => 14758492,
+                                  ),
+                                  1 => 
+                                  array (
+                                    'key' => 'MinOrder2',
+                                    'value' => 14758493,
+                                  ),
+                                ),
+                                 'width' => 830,
+                                 'height' => 80,
+                                 'maxItems' => '',
+                                 'renderType' => 'tags',
+                                 'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\MinimumOrderOptionsProvider',
+                                 'optionsProviderData' => '',
+                                 'queryColumnType' => 'text',
+                                 'columnType' => 'text',
+                                 'phpdocType' => 'array',
+                                 'dynamicOptions' => false,
+                                 'name' => 'minimumOrder',
+                                 'title' => 'Minimum Order',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                            ),
+                             'locked' => false,
+                          )),
+                        ),
+                         'locked' => false,
+                      )),
+                    ),
+                     'locked' => false,
+                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/input.svg',
+                  )),
                 ),
                  'locked' => false,
               )),
@@ -4940,6 +5128,37 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleSearch' => false,
                                      'defaultValueGenerator' => '',
                                   )),
+                                  1 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                                     'fieldtype' => 'numeric',
+                                     'width' => 200,
+                                     'defaultValue' => NULL,
+                                     'queryColumnType' => 'double',
+                                     'columnType' => 'double',
+                                     'phpdocType' => 'float',
+                                     'integer' => false,
+                                     'unsigned' => false,
+                                     'minValue' => NULL,
+                                     'maxValue' => NULL,
+                                     'unique' => false,
+                                     'decimalSize' => NULL,
+                                     'decimalPrecision' => NULL,
+                                     'name' => 'productLength',
+                                     'title' => 'Product Length',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
+                                     'locked' => false,
+                                     'style' => '',
+                                     'permissions' => NULL,
+                                     'datatype' => 'data',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
+                                  )),
                                 ),
                                  'locked' => false,
                               )),
@@ -4976,6 +5195,34 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'showCharCount' => false,
                                      'name' => 'amazonTitle',
                                      'title' => 'Amazon Title',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
+                                     'locked' => false,
+                                     'style' => 'margin-left: 60px;',
+                                     'permissions' => NULL,
+                                     'datatype' => 'data',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
+                                  )),
+                                  1 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                     'fieldtype' => 'input',
+                                     'width' => 200,
+                                     'defaultValue' => NULL,
+                                     'queryColumnType' => 'varchar',
+                                     'columnType' => 'varchar',
+                                     'columnLength' => 190,
+                                     'phpdocType' => 'string',
+                                     'regex' => '',
+                                     'unique' => false,
+                                     'showCharCount' => false,
+                                     'name' => 'ProductLengthUnit',
+                                     'title' => 'Product Length Unit',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => false,
@@ -20548,65 +20795,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'defaultValueGenerator' => '',
                                   )),
                                   5 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                                     'fieldtype' => 'numeric',
-                                     'width' => 220,
-                                     'defaultValue' => NULL,
-                                     'queryColumnType' => 'double',
-                                     'columnType' => 'double',
-                                     'phpdocType' => 'float',
-                                     'integer' => false,
-                                     'unsigned' => false,
-                                     'minValue' => NULL,
-                                     'maxValue' => NULL,
-                                     'unique' => false,
-                                     'decimalSize' => NULL,
-                                     'decimalPrecision' => NULL,
-                                     'name' => 'productLength',
-                                     'title' => 'Product Length',
-                                     'tooltip' => '',
-                                     'mandatory' => false,
-                                     'noteditable' => false,
-                                     'index' => false,
-                                     'locked' => false,
-                                     'style' => '',
-                                     'permissions' => NULL,
-                                     'datatype' => 'data',
-                                     'relationType' => false,
-                                     'invisible' => false,
-                                     'visibleGridView' => false,
-                                     'visibleSearch' => false,
-                                     'defaultValueGenerator' => '',
-                                  )),
-                                  6 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                     'fieldtype' => 'input',
-                                     'width' => 220,
-                                     'defaultValue' => NULL,
-                                     'queryColumnType' => 'varchar',
-                                     'columnType' => 'varchar',
-                                     'columnLength' => 190,
-                                     'phpdocType' => 'string',
-                                     'regex' => '',
-                                     'unique' => false,
-                                     'showCharCount' => false,
-                                     'name' => 'ProductLengthUnit',
-                                     'title' => 'Product Length Unit',
-                                     'tooltip' => '',
-                                     'mandatory' => false,
-                                     'noteditable' => false,
-                                     'index' => false,
-                                     'locked' => false,
-                                     'style' => '',
-                                     'permissions' => NULL,
-                                     'datatype' => 'data',
-                                     'relationType' => false,
-                                     'invisible' => false,
-                                     'visibleGridView' => false,
-                                     'visibleSearch' => false,
-                                     'defaultValueGenerator' => '',
-                                  )),
-                                  7 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => 220,
@@ -20634,7 +20822,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleSearch' => false,
                                      'defaultValueGenerator' => '',
                                   )),
-                                  8 => 
+                                  6 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                                      'fieldtype' => 'booleanSelect',
                                      'yesLabel' => 'Yes',
@@ -20677,24 +20865,36 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
                                   )),
-                                  9 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                                     'fieldtype' => 'multiselect',
+                                  7 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                                     'fieldtype' => 'booleanSelect',
+                                     'yesLabel' => 'Yes',
+                                     'noLabel' => 'No',
+                                     'emptyLabel' => 'Empty',
                                      'options' => 
                                     array (
+                                      0 => 
+                                      array (
+                                        'key' => 'Empty',
+                                        'value' => 0,
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => 'Yes',
+                                        'value' => 1,
+                                      ),
+                                      2 => 
+                                      array (
+                                        'key' => 'No',
+                                        'value' => -1,
+                                      ),
                                     ),
                                      'width' => 220,
-                                     'height' => '',
-                                     'maxItems' => '',
-                                     'renderType' => 'tags',
-                                     'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\MinimumOrderOptionsProvider',
-                                     'optionsProviderData' => '',
-                                     'queryColumnType' => 'text',
-                                     'columnType' => 'text',
-                                     'phpdocType' => 'array',
-                                     'dynamicOptions' => false,
-                                     'name' => 'minimumOrder',
-                                     'title' => 'Minimum Order',
+                                     'queryColumnType' => 'tinyint(1) null',
+                                     'columnType' => 'tinyint(1) null',
+                                     'phpdocType' => 'boolean',
+                                     'name' => 'publishedOnline',
+                                     'title' => 'Published Online',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => false,
@@ -20708,24 +20908,16 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
                                   )),
-                                  10 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                                     'fieldtype' => 'multiselect',
-                                     'options' => 
-                                    array (
-                                    ),
-                                     'width' => 220,
-                                     'height' => '',
-                                     'maxItems' => '',
-                                     'renderType' => 'tags',
-                                     'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\ConditionsOptionsProvider',
-                                     'optionsProviderData' => '',
-                                     'queryColumnType' => 'text',
-                                     'columnType' => 'text',
-                                     'phpdocType' => 'array',
-                                     'dynamicOptions' => false,
-                                     'name' => 'Conditions',
-                                     'title' => 'Conditions',
+                                  8 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
+                                     'fieldtype' => 'date',
+                                     'queryColumnType' => 'bigint(20)',
+                                     'columnType' => 'bigint(20)',
+                                     'phpdocType' => '\\Carbon\\Carbon',
+                                     'defaultValue' => NULL,
+                                     'useCurrentDate' => false,
+                                     'name' => 'priceDate',
+                                     'title' => 'Price Date',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => false,
@@ -20738,6 +20930,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                 ),
                                  'locked' => false,
@@ -20885,34 +21078,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'regex' => '',
                                      'unique' => false,
                                      'showCharCount' => false,
-                                     'name' => 'priceDate',
-                                     'title' => 'Price Date',
-                                     'tooltip' => '',
-                                     'mandatory' => false,
-                                     'noteditable' => false,
-                                     'index' => false,
-                                     'locked' => false,
-                                     'style' => 'margin-left: 45px;',
-                                     'permissions' => NULL,
-                                     'datatype' => 'data',
-                                     'relationType' => false,
-                                     'invisible' => false,
-                                     'visibleGridView' => false,
-                                     'visibleSearch' => false,
-                                     'defaultValueGenerator' => '',
-                                  )),
-                                  5 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                     'fieldtype' => 'input',
-                                     'width' => 220,
-                                     'defaultValue' => NULL,
-                                     'queryColumnType' => 'varchar',
-                                     'columnType' => 'varchar',
-                                     'columnLength' => 190,
-                                     'phpdocType' => 'string',
-                                     'regex' => '',
-                                     'unique' => false,
-                                     'showCharCount' => false,
                                      'name' => 'minimumQuantityUnit',
                                      'title' => 'Minimum Quantity Unit',
                                      'tooltip' => '',
@@ -20929,7 +21094,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleSearch' => false,
                                      'defaultValueGenerator' => '',
                                   )),
-                                  6 => 
+                                  5 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => 220,
@@ -20957,7 +21122,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleSearch' => false,
                                      'defaultValueGenerator' => '',
                                   )),
-                                  7 => 
+                                  6 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => 220,
@@ -20985,50 +21150,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleSearch' => false,
                                      'defaultValueGenerator' => '',
                                   )),
-                                  8 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
-                                     'fieldtype' => 'booleanSelect',
-                                     'yesLabel' => 'Yes',
-                                     'noLabel' => 'No',
-                                     'emptyLabel' => 'Empty',
-                                     'options' => 
-                                    array (
-                                      0 => 
-                                      array (
-                                        'key' => 'Empty',
-                                        'value' => 0,
-                                      ),
-                                      1 => 
-                                      array (
-                                        'key' => 'Yes',
-                                        'value' => 1,
-                                      ),
-                                      2 => 
-                                      array (
-                                        'key' => 'No',
-                                        'value' => -1,
-                                      ),
-                                    ),
-                                     'width' => 220,
-                                     'queryColumnType' => 'tinyint(1) null',
-                                     'columnType' => 'tinyint(1) null',
-                                     'phpdocType' => 'boolean',
-                                     'name' => 'publishedOnline',
-                                     'title' => 'Published Online',
-                                     'tooltip' => '',
-                                     'mandatory' => false,
-                                     'noteditable' => false,
-                                     'index' => false,
-                                     'locked' => false,
-                                     'style' => 'margin-left: 45px;',
-                                     'permissions' => NULL,
-                                     'datatype' => 'data',
-                                     'relationType' => false,
-                                     'invisible' => false,
-                                     'visibleGridView' => false,
-                                     'visibleSearch' => false,
-                                  )),
-                                  9 => 
+                                  7 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                                      'fieldtype' => 'multiselect',
                                      'options' => 
@@ -21046,37 +21168,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'dynamicOptions' => false,
                                      'name' => 'productionLength',
                                      'title' => 'Production Length',
-                                     'tooltip' => '',
-                                     'mandatory' => false,
-                                     'noteditable' => false,
-                                     'index' => false,
-                                     'locked' => false,
-                                     'style' => 'margin-left: 45px;',
-                                     'permissions' => NULL,
-                                     'datatype' => 'data',
-                                     'relationType' => false,
-                                     'invisible' => false,
-                                     'visibleGridView' => false,
-                                     'visibleSearch' => false,
-                                  )),
-                                  10 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                                     'fieldtype' => 'multiselect',
-                                     'options' => 
-                                    array (
-                                    ),
-                                     'width' => 220,
-                                     'height' => '',
-                                     'maxItems' => '',
-                                     'renderType' => 'tags',
-                                     'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\ShippingConditionsOptionsProvider',
-                                     'optionsProviderData' => '',
-                                     'queryColumnType' => 'text',
-                                     'columnType' => 'text',
-                                     'phpdocType' => 'array',
-                                     'dynamicOptions' => false,
-                                     'name' => 'shippingConditions',
-                                     'title' => 'Shipping Conditions',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => false,

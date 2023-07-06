@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-07-04T08:55:22+00:00
+* Generated at: 2023-07-06T10:43:37+00:00
 * IP: 127.0.0.1
 */ 
 
@@ -11,7 +11,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'MarComIFSEMEA',
    'description' => '',
    'creationDate' => 1681288759,
-   'modificationDate' => 1688460922,
+   'modificationDate' => 1688640217,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => 'IFSEUProduct',
@@ -20301,6 +20301,16 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'fieldtype' => 'multiselect',
                                      'options' => 
                                     array (
+                                      0 => 
+                                      array (
+                                        'key' => 'MinOrder1',
+                                        'value' => 14758492,
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => 'MinOrder2',
+                                        'value' => 14758493,
+                                      ),
                                     ),
                                      'width' => 220,
                                      'height' => '',
@@ -20332,6 +20342,16 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'fieldtype' => 'multiselect',
                                      'options' => 
                                     array (
+                                      0 => 
+                                      array (
+                                        'key' => 'Condition1',
+                                        'value' => 14758489,
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => 'Condition2',
+                                        'value' => 14758490,
+                                      ),
                                     ),
                                      'width' => 220,
                                      'height' => '',
@@ -20494,16 +20514,11 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                   )),
                                   4 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                     'fieldtype' => 'input',
-                                     'width' => 220,
+                                     'fieldtype' => 'date',
                                      'defaultValue' => NULL,
-                                     'queryColumnType' => 'varchar',
-                                     'columnType' => 'varchar',
-                                     'columnLength' => 190,
-                                     'phpdocType' => 'string',
-                                     'regex' => '',
-                                     'unique' => false,
-                                     'showCharCount' => false,
+                                     'queryColumnType' => 'bigint(20)',
+                                     'columnType' => 'bigint(20)',
+                                     'phpdocType' => '\\Carbon\\Carbon',
                                      'name' => 'priceDate',
                                      'title' => 'Price Date',
                                      'tooltip' => '',
@@ -20511,7 +20526,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'noteditable' => false,
                                      'index' => false,
                                      'locked' => false,
-                                     'style' => 'margin-left: 45px;',
+                                     'style' => '',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
                                      'relationType' => false,
@@ -20519,6 +20534,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
                                      'defaultValueGenerator' => '',
+                                     'useCurrentDate' => false,
                                   )),
                                   5 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
@@ -20683,6 +20699,16 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'fieldtype' => 'multiselect',
                                      'options' => 
                                     array (
+                                      0 => 
+                                      array (
+                                        'key' => 'Ship1',
+                                        'value' => 14758486,
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => 'Ship2',
+                                        'value' => 14758487,
+                                      ),
                                     ),
                                      'width' => 220,
                                      'height' => '',
