@@ -385,6 +385,15 @@ parameters:
                 objectBrickType: fert
                 objectBrickName: PTGEUCommonFert
                 defaultColumn: true
+            widthIN:
+                columnName: widthIN
+                columnLabel: Width IN
+                fieldLevel: objectBrick
+                objectLevel: fert
+                fieldType: Number
+                objectBrickType: fert
+                objectBrickName: PTGEUCommonFert
+                defaultColumn: true
             insideLengthMM:
                 columnName: insideLengthMM
                 columnLabel: Inside Length
@@ -438,4 +447,22 @@ parameters:
                 fieldType: Number
                 objectBrickType: fert
                 objectBrickName: PTGEUVBeltsFert
+                defaultColumn: true
+            toothPitchPtMM:
+                columnName: toothPitchPtMM
+                columnLabel: Tooth Pitch (P/t)
+                fieldLevel: objectBrick
+                objectLevel: skeleton
+                fieldType: Number
+                objectBrickType: skeleton
+                objectBrickName: PTGEUVFlatBeltsSkeleton
+                defaultColumn: true
+            toothPitchPtIN:
+                columnName: toothPitchPtIN
+                columnLabel: Tooth Pitch (P/t)
+                fieldLevel: objectBrick
+                objectLevel: skeleton
+                fieldType: Number
+                objectBrickType: skeleton
+                objectBrickName: PTGEUVFlatBeltsSkeleton
                 defaultColumn: true
