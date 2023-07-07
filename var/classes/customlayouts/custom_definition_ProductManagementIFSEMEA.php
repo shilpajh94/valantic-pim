@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-07-06T13:24:14+00:00
+* Generated at: 2023-07-07T05:41:50+00:00
 * IP: 127.0.0.1
 */ 
 
@@ -11,7 +11,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'ProductManagementIFSEMEA',
    'description' => '',
    'creationDate' => 1681288759,
-   'modificationDate' => 1688649854,
+   'modificationDate' => 1688708510,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => 'IFSEUProduct',
@@ -4536,20 +4536,9 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                          'locked' => false,
                       )),
                       2 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
-                         'fieldtype' => 'fieldset',
-                         'labelWidth' => 100,
-                         'name' => 'Layout',
-                         'type' => NULL,
-                         'region' => NULL,
-                         'title' => 'Web',
-                         'width' => NULL,
-                         'height' => NULL,
-                         'collapsible' => true,
-                         'collapsed' => false,
-                         'bodyStyle' => 'overflow-x: hidden;overflow-y: hidden;',
-                         'datatype' => 'layout',
-                         'permissions' => NULL,
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+                         'fieldtype' => 'localizedfields',
+                         'phpdocType' => '\\Pimcore\\Model\\DataObject\\Localizedfield',
                          'childs' => 
                         array (
                           0 => 
@@ -4675,7 +4664,34 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                              'locked' => false,
                           )),
                         ),
+                         'name' => 'localizedfields',
+                         'region' => NULL,
+                         'layout' => NULL,
+                         'title' => '',
+                         'width' => '',
+                         'height' => '',
+                         'maxTabs' => 20,
+                         'labelWidth' => 210,
+                         'border' => false,
+                         'provideSplitView' => false,
+                         'tabPosition' => NULL,
+                         'hideLabelsWhenTabsReached' => NULL,
+                         'referencedFields' => 
+                        array (
+                        ),
+                         'fieldDefinitionsCache' => NULL,
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => NULL,
                          'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => true,
+                         'visibleSearch' => true,
                       )),
                     ),
                      'locked' => false,

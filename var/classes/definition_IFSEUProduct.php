@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-07-06T13:23:59+00:00
+* Generated at: 2023-07-07T05:42:24+00:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -171,7 +171,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1688649822,
+   'modificationDate' => 1688708524,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -3412,12 +3412,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                 array (
                                 ),
                                  'fieldDefinitionsCache' => NULL,
-                                 'tooltip' => NULL,
-                                 'mandatory' => NULL,
-                                 'noteditable' => NULL,
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
                                  'index' => NULL,
-                                 'locked' => NULL,
-                                 'style' => NULL,
+                                 'locked' => false,
+                                 'style' => '',
                                  'permissions' => NULL,
                                  'datatype' => 'data',
                                  'relationType' => false,
@@ -5160,12 +5160,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         array (
                         ),
                          'fieldDefinitionsCache' => NULL,
-                         'tooltip' => NULL,
-                         'mandatory' => NULL,
-                         'noteditable' => NULL,
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
                          'index' => NULL,
-                         'locked' => NULL,
-                         'style' => NULL,
+                         'locked' => false,
+                         'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
                          'relationType' => false,
