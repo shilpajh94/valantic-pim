@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-07-06T10:43:37+00:00
+* Generated at: 2023-07-07T04:56:39+00:00
 * IP: 127.0.0.1
 */ 
 
@@ -11,7 +11,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'MarComIFSEMEA',
    'description' => '',
    'creationDate' => 1681288759,
-   'modificationDate' => 1688640217,
+   'modificationDate' => 1688705799,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => 'IFSEUProduct',
