@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-07-11T06:50:09+00:00
+* Generated at: 2023-07-11T08:21:43+00:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -172,7 +172,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1689058190,
+   'modificationDate' => 1689063685,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -3329,7 +3329,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                              'mandatory' => false,
                                              'noteditable' => false,
                                              'index' => false,
-                                             'locked' => NULL,
+                                             'locked' => false,
                                              'style' => '',
                                              'permissions' => NULL,
                                              'datatype' => 'data',
@@ -3430,7 +3430,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'maxTabs' => 20,
                                  'labelWidth' => 210,
                                  'border' => false,
-                                 'provideSplitView' => false,
+                                 'provideSplitView' => true,
                                  'tabPosition' => NULL,
                                  'hideLabelsWhenTabsReached' => NULL,
                                  'referencedFields' => 
@@ -5101,7 +5101,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'mandatory' => false,
                                      'noteditable' => false,
                                      'index' => false,
-                                     'locked' => NULL,
+                                     'locked' => false,
                                      'style' => '',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
@@ -5202,7 +5202,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'maxTabs' => 20,
                          'labelWidth' => 210,
                          'border' => false,
-                         'provideSplitView' => false,
+                         'provideSplitView' => true,
                          'tabPosition' => NULL,
                          'hideLabelsWhenTabsReached' => NULL,
                          'referencedFields' => 

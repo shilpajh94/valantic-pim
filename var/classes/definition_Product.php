@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-07-07T05:51:08+00:00
+* Generated at: 2023-07-11T08:18:31+00:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -26,7 +26,7 @@ Fields Summary:
 -- BrandShortText5 [input]
 -- shortDescription [wysiwyg]
 -- longDescription [wysiwyg]
--- webDiscription [input]
+-- webDiscription [textarea]
 -- amazonTitle [input]
 -- sapDescription [textarea]
 -- CompletenessPercentage [input]
@@ -164,7 +164,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1688709052,
+   'modificationDate' => 1689063495,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -18840,24 +18840,23 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'childs' => 
                                         array (
                                           0 => 
-                                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                             'fieldtype' => 'input',
-                                             'width' => 220,
-                                             'defaultValue' => NULL,
-                                             'queryColumnType' => 'varchar',
-                                             'columnType' => 'varchar',
-                                             'columnLength' => 190,
-                                             'phpdocType' => 'string',
-                                             'regex' => '',
-                                             'unique' => false,
+                                          Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                                             'fieldtype' => 'textarea',
+                                             'width' => 200,
+                                             'height' => 100,
+                                             'maxLength' => NULL,
                                              'showCharCount' => false,
+                                             'excludeFromSearchIndex' => false,
+                                             'queryColumnType' => 'longtext',
+                                             'columnType' => 'longtext',
+                                             'phpdocType' => 'string',
                                              'name' => 'webDiscription',
-                                             'title' => 'Web Description',
+                                             'title' => 'Product Long Description',
                                              'tooltip' => '',
                                              'mandatory' => false,
                                              'noteditable' => false,
                                              'index' => false,
-                                             'locked' => false,
+                                             'locked' => NULL,
                                              'style' => '',
                                              'permissions' => NULL,
                                              'datatype' => 'data',
@@ -18865,7 +18864,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                              'invisible' => false,
                                              'visibleGridView' => false,
                                              'visibleSearch' => false,
-                                             'defaultValueGenerator' => '',
                                           )),
                                         ),
                                          'locked' => false,
@@ -18940,12 +18938,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                 array (
                                 ),
                                  'fieldDefinitionsCache' => NULL,
-                                 'tooltip' => NULL,
-                                 'mandatory' => NULL,
-                                 'noteditable' => NULL,
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
                                  'index' => NULL,
-                                 'locked' => NULL,
-                                 'style' => NULL,
+                                 'locked' => false,
+                                 'style' => '',
                                  'permissions' => NULL,
                                  'datatype' => 'data',
                                  'relationType' => false,
@@ -20732,24 +20730,23 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'childs' => 
                                     array (
                                       0 => 
-                                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                         'fieldtype' => 'input',
-                                         'width' => 220,
-                                         'defaultValue' => NULL,
-                                         'queryColumnType' => 'varchar',
-                                         'columnType' => 'varchar',
-                                         'columnLength' => 190,
-                                         'phpdocType' => 'string',
-                                         'regex' => '',
-                                         'unique' => false,
+                                      Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                                         'fieldtype' => 'textarea',
+                                         'width' => 200,
+                                         'height' => 100,
+                                         'maxLength' => NULL,
                                          'showCharCount' => false,
+                                         'excludeFromSearchIndex' => false,
+                                         'queryColumnType' => 'longtext',
+                                         'columnType' => 'longtext',
+                                         'phpdocType' => 'string',
                                          'name' => 'webDiscription',
-                                         'title' => 'Web Description',
+                                         'title' => 'Product Long Description',
                                          'tooltip' => '',
                                          'mandatory' => false,
                                          'noteditable' => false,
                                          'index' => false,
-                                         'locked' => false,
+                                         'locked' => NULL,
                                          'style' => '',
                                          'permissions' => NULL,
                                          'datatype' => 'data',
@@ -20757,7 +20754,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'invisible' => false,
                                          'visibleGridView' => false,
                                          'visibleSearch' => false,
-                                         'defaultValueGenerator' => '',
                                       )),
                                     ),
                                      'locked' => false,
@@ -20832,12 +20828,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                             array (
                             ),
                              'fieldDefinitionsCache' => NULL,
-                             'tooltip' => NULL,
-                             'mandatory' => NULL,
-                             'noteditable' => NULL,
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
                              'index' => NULL,
-                             'locked' => NULL,
-                             'style' => NULL,
+                             'locked' => false,
+                             'style' => '',
                              'permissions' => NULL,
                              'datatype' => 'data',
                              'relationType' => false,
