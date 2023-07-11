@@ -3288,7 +3288,8 @@ parameters:
             update_product_if_master_updated:
             isLocalisedMaster:
             sf_media_type_attribute: true
-            sf_media_sequence: 3  
+            #sf_media_sequence: 3 --- Need to send 2 for Al Image 1  
+            sf_media_sequence: 2  
             value_formatter_for_push:          
         altImage2:
             pim_attribute_name: altImage2
@@ -3309,7 +3310,8 @@ parameters:
             update_product_if_master_updated:
             isLocalisedMaster:
             sf_media_type_attribute: true
-            sf_media_sequence: 5 
+            #sf_media_sequence: 5 --- Need to send 3 for Alt Image 2 
+            sf_media_sequence: 3 
             value_formatter_for_push:           
         Document:
             pim_attribute_name: Document
