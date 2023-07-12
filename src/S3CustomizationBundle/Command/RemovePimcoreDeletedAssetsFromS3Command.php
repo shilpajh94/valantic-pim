@@ -64,6 +64,8 @@ class RemovePimcoreDeletedAssetsFromS3Command extends Command
                     $msg .= "Exception: " . $exception->getMessage();
                     Utils::log(Constants::S3_OBJECTS_REMOVAL_LOG_FILE, $msg, LogLevel::ERROR());
                 }    
+            }else{
+                $this->pimcoreDeletedAssetsService->deleteEntryFromTable($pimcoreId);
             }
         }
     }
