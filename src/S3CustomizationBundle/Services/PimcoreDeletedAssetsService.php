@@ -92,4 +92,9 @@ class PimcoreDeletedAssetsService
         return $this->pimcoreDeletedAssetsDao->doesS3PathExist($s3Path);
     }
 
+    public function checkIfAssetExistsIn_pimcore_s3_path_mapping_table($pimcoreAssetPath){
+        
+        return $this->pimcoreDeletedAssetsDao->doesAssetPathExistInTable($pimcoreAssetPath);
+    }
+
 }

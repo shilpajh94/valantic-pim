@@ -18,6 +18,7 @@ class PimcoreDeletedAssetsDao
     private $db;
 
     const TABLE_NAME = "pimcore_deleted_assets";
+    const S3_TABLE_NAME = "pimcore_s3_path_mapping";
 
     public function __construct()
     {
@@ -49,6 +50,17 @@ class PimcoreDeletedAssetsDao
     public function doesS3PathExist($s3Path){
         $sql = "SELECT pimcore_path FROM ".self::TABLE_NAME;
         $sql .= " WHERE s3_path = ".$this->db->quote($s3Path);
+
+        $result = $this->db->fetchOne($sql);
+        if($result){
+            return true;
+        }
+        return false;
+    }
+
+    public function doesAssetPathExistInTable($pimcoreAssetPath){
+        $sql = "SELECT pimcore_path FROM ".self::S3_TABLE_NAME;
+        $sql .= " where pimcore_path = ".$this->db->quote($pimcoreAssetPath);
 
         $result = $this->db->fetchOne($sql);
         if($result){
