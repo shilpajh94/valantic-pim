@@ -47,16 +47,17 @@ class RemovePimcoreDeletedAssetsFromS3Command extends Command
             $s3Path = $entry["s3_path"];
             $type = $entry["type"];
 
-            if(!($this->pimcoreDeletedAssetsService->checkIfAssetExistsIn_pimcore_s3_path_mapping_table($pimcorePath))){
                 try{
-                    $this->pimcoreDeletedAssetsService->deleteS3ObjectForPath($s3Path, $type);
-    
-                    $msg = "DELETED S3 object. S3 Path ->[". $s3Path ."]";
-                    $msg .= " Pimcore Path [". $pimcorePath ."]";
-                    $msg .= " Pimcore id [".$pimcoreId."]";
-                    $msg .= " Type [".$type."]";
-                    Utils::log(Constants::S3_OBJECTS_REMOVAL_LOG_FILE, $msg, LogLevel::INFO());
-    
+                    if(!($this->pimcoreDeletedAssetsService->checkIfAssetExistsIn_pimcore_s3_path_mapping_table($pimcorePath))){
+
+                        $this->pimcoreDeletedAssetsService->deleteS3ObjectForPath($s3Path, $type);
+        
+                        $msg = "DELETED S3 object. S3 Path ->[". $s3Path ."]";
+                        $msg .= " Pimcore Path [". $pimcorePath ."]";
+                        $msg .= " Pimcore id [".$pimcoreId."]";
+                        $msg .= " Type [".$type."]";
+                        Utils::log(Constants::S3_OBJECTS_REMOVAL_LOG_FILE, $msg, LogLevel::INFO());
+                    }
                     $this->pimcoreDeletedAssetsService->deleteEntryFromTable($pimcoreId);
                 }catch (\Exception $exception){
                     $msg = "||".__CLASS__."||";
@@ -64,10 +65,6 @@ class RemovePimcoreDeletedAssetsFromS3Command extends Command
                     $msg .= "Exception: " . $exception->getMessage();
                     Utils::log(Constants::S3_OBJECTS_REMOVAL_LOG_FILE, $msg, LogLevel::ERROR());
                 }    
-            }else{
-                $this->pimcoreDeletedAssetsService->deleteEntryFromTable($pimcoreId);
-            }
         }
     }
-
 }
