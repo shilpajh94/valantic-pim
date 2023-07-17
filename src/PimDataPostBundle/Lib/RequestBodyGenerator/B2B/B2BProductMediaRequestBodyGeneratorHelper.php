@@ -75,19 +75,19 @@ class B2BProductMediaRequestBodyGeneratorHelper
                 $request['externalId'] = $this->productMediaHelper->getExternalIdForMedia($b2bProductRelationChange->productId,
                                                                                             $b2bProductRelationChange->getAttributeName(),
                                                                                             1);
-                $returnArr[]=$request;  // push small image request
+                $returnArr[]=$request;  // push medium image request
     
                 $body['B2B_Display_Type__c'] = Constants::B2B_PRODUCT_MEDIUM_IMAGE_DISPLAY_TYPE;
                 // $body['B2B_Media_URL__c'] = Util::getAssetPublicPath($imageAsset, ImageTransformationSize::MEDIUM()); // Mahesh Lakher, 15 May 2023 - Code commented, client said send large image in place of medium
                 $body['B2B_Media_URL__c'] = Util::getAssetPublicPath($imageAsset, ImageTransformationSize::LARGE()); // Mahesh Lakher, 15 May 2023 - Code added, client said send large image in place of medium
-                $body['B2B_Sequence__c'] = $sequence+1;
+                $body['B2B_Sequence__c'] = $sequence;
                 
                 $request['body'] = $body;
                 $request['operationType'] = APIOperationType::UPDATE();
                 $request['externalId'] = $this->productMediaHelper->getExternalIdForMedia($b2bProductRelationChange->productId,
                                                                                             $b2bProductRelationChange->getAttributeName(),
                                                                                             2);
-                $returnArr[]=$request;  // push medium image request
+                $returnArr[]=$request;  // push Large image request
             }
         }
        

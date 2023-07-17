@@ -85,6 +85,20 @@ class B2BProductCategoryRelationDataPoster implements IDataPoster
             $requestBody = $requestBodyGenerator->generateRequestBody($relationChangeObject);
             $currTime = time();
 
+            /* =================================== */
+            $apiRequestEntity = new B2BAPIRequestEntity();
+            $apiRequestEntity->setBody(json_encode($requestBody,JSON_UNESCAPED_SLASHES));
+            $apiRequestEntity->setOperationType(APIOperationType::DELETE());
+            $apiRequestEntity->setSFObjectType(B2BSalesForceObjectType::PRODUCT_CATEGORY_PRODUCT());
+    
+            $externalId = B2BProductCategoryRelationHelper::getExternalId($relationChangeObject);
+            $apiRequestEntity->setexternalID($externalId);
+            $apiRequestEntity->setPimId($relationChangeObject->getProductId() . "_" . trim($relationChangeObject->getNewValue(),","));
+            $apiRequestEntity->setReferenceId($externalId . "_" . $currTime);
+            $apiRequestEntity->setCreationDate($currTime);
+            $apiRequestEntity->save();
+            /* =================================== */
+            
             $apiRequestEntity = new B2BAPIRequestEntity();
             $apiRequestEntity->setBody(json_encode($requestBody,JSON_UNESCAPED_SLASHES));
             $apiRequestEntity->setOperationType(APIOperationType::UPDATE());
