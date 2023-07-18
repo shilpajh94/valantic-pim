@@ -134,6 +134,7 @@ parameters:
                 objectLevel: fert
                 fieldType: Number
                 groupName: effectiveLength
+                unitName: in
                 objectBrickType: fert
                 objectBrickName: PTGEUVBeltsFert
             effectiveLengthMM:
@@ -143,6 +144,7 @@ parameters:
                 objectLevel: fert
                 fieldType: Input
                 groupName: effectiveLength
+                unitName: mm
                 objectBrickType: fert
                 objectBrickName: PTGEUVBeltsFert
                 defaultColumn: true
