@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-07-07T04:55:10+00:00
+* Generated at: 2023-07-18T05:43:03+00:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -171,7 +171,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1688705694,
+   'modificationDate' => 1689658963,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -4471,166 +4471,146 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'childs' => 
                     array (
                       0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
-                         'fieldtype' => 'fieldset',
-                         'labelWidth' => 100,
-                         'name' => 'Layout',
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                         'fieldtype' => 'fieldcontainer',
+                         'labelWidth' => 200,
+                         'layout' => 'vbox',
+                         'fieldLabel' => '',
+                         'name' => 'Field Container',
                          'type' => NULL,
                          'region' => NULL,
-                         'title' => 'Layout',
-                         'width' => NULL,
+                         'title' => '',
+                         'width' => 1100,
                          'height' => NULL,
                          'collapsible' => false,
                          'collapsed' => false,
-                         'bodyStyle' => '',
+                         'bodyStyle' => 'overflow-x: hidden;overflow-y: hidden;',
                          'datatype' => 'layout',
                          'permissions' => NULL,
                          'childs' => 
                         array (
                           0 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                             'fieldtype' => 'fieldcontainer',
-                             'labelWidth' => 200,
-                             'layout' => 'vbox',
-                             'fieldLabel' => '',
-                             'name' => 'Field Container',
-                             'type' => NULL,
-                             'region' => NULL,
-                             'title' => '',
-                             'width' => 1100,
-                             'height' => NULL,
-                             'collapsible' => false,
-                             'collapsed' => false,
-                             'bodyStyle' => 'overflow-x: hidden;overflow-y: hidden;',
-                             'datatype' => 'layout',
-                             'permissions' => NULL,
-                             'childs' => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                             'fieldtype' => 'multiselect',
+                             'options' => 
                             array (
                               0 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                                 'fieldtype' => 'multiselect',
-                                 'options' => 
-                                array (
-                                  0 => 
-                                  array (
-                                    'key' => 'Ship1',
-                                    'value' => 14758486,
-                                  ),
-                                  1 => 
-                                  array (
-                                    'key' => 'Ship2',
-                                    'value' => 14758487,
-                                  ),
-                                ),
-                                 'width' => 830,
-                                 'height' => 80,
-                                 'maxItems' => '',
-                                 'renderType' => 'tags',
-                                 'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\ShippingConditionsOptionsProvider',
-                                 'optionsProviderData' => '',
-                                 'queryColumnType' => 'text',
-                                 'columnType' => 'text',
-                                 'phpdocType' => 'array',
-                                 'dynamicOptions' => false,
-                                 'name' => 'shippingConditions',
-                                 'title' => 'Shipping Conditions',
-                                 'tooltip' => '',
-                                 'mandatory' => false,
-                                 'noteditable' => false,
-                                 'index' => false,
-                                 'locked' => false,
-                                 'style' => '',
-                                 'permissions' => NULL,
-                                 'datatype' => 'data',
-                                 'relationType' => false,
-                                 'invisible' => false,
-                                 'visibleGridView' => false,
-                                 'visibleSearch' => false,
-                              )),
+                              array (
+                                'key' => 'Ship1',
+                                'value' => 14758486,
+                              ),
                               1 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                                 'fieldtype' => 'multiselect',
-                                 'options' => 
-                                array (
-                                  0 => 
-                                  array (
-                                    'key' => 'Condition1',
-                                    'value' => 14758489,
-                                  ),
-                                  1 => 
-                                  array (
-                                    'key' => 'Condition2',
-                                    'value' => 14758490,
-                                  ),
-                                ),
-                                 'width' => 830,
-                                 'height' => 80,
-                                 'maxItems' => '',
-                                 'renderType' => 'tags',
-                                 'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\ConditionsOptionsProvider',
-                                 'optionsProviderData' => '',
-                                 'queryColumnType' => 'text',
-                                 'columnType' => 'text',
-                                 'phpdocType' => 'array',
-                                 'dynamicOptions' => false,
-                                 'name' => 'Conditions',
-                                 'title' => 'Conditions',
-                                 'tooltip' => '',
-                                 'mandatory' => false,
-                                 'noteditable' => false,
-                                 'index' => false,
-                                 'locked' => false,
-                                 'style' => '',
-                                 'permissions' => NULL,
-                                 'datatype' => 'data',
-                                 'relationType' => false,
-                                 'invisible' => false,
-                                 'visibleGridView' => false,
-                                 'visibleSearch' => false,
-                              )),
-                              2 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                                 'fieldtype' => 'multiselect',
-                                 'options' => 
-                                array (
-                                  0 => 
-                                  array (
-                                    'key' => 'MinOrder1',
-                                    'value' => 14758492,
-                                  ),
-                                  1 => 
-                                  array (
-                                    'key' => 'MinOrder2',
-                                    'value' => 14758493,
-                                  ),
-                                ),
-                                 'width' => 830,
-                                 'height' => 80,
-                                 'maxItems' => '',
-                                 'renderType' => 'tags',
-                                 'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\MinimumOrderOptionsProvider',
-                                 'optionsProviderData' => '',
-                                 'queryColumnType' => 'text',
-                                 'columnType' => 'text',
-                                 'phpdocType' => 'array',
-                                 'dynamicOptions' => false,
-                                 'name' => 'minimumOrder',
-                                 'title' => 'Minimum Order',
-                                 'tooltip' => '',
-                                 'mandatory' => false,
-                                 'noteditable' => false,
-                                 'index' => false,
-                                 'locked' => false,
-                                 'style' => '',
-                                 'permissions' => NULL,
-                                 'datatype' => 'data',
-                                 'relationType' => false,
-                                 'invisible' => false,
-                                 'visibleGridView' => false,
-                                 'visibleSearch' => false,
-                              )),
+                              array (
+                                'key' => 'Ship2',
+                                'value' => 14758487,
+                              ),
                             ),
+                             'width' => 830,
+                             'height' => 80,
+                             'maxItems' => '',
+                             'renderType' => 'tags',
+                             'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\ShippingConditionsOptionsProvider',
+                             'optionsProviderData' => '',
+                             'queryColumnType' => 'text',
+                             'columnType' => 'text',
+                             'phpdocType' => 'array',
+                             'dynamicOptions' => false,
+                             'name' => 'shippingConditions',
+                             'title' => 'Shipping Conditions',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
                              'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                          )),
+                          1 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                             'fieldtype' => 'multiselect',
+                             'options' => 
+                            array (
+                              0 => 
+                              array (
+                                'key' => 'Condition1',
+                                'value' => 14758489,
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'Condition2',
+                                'value' => 14758490,
+                              ),
+                            ),
+                             'width' => 830,
+                             'height' => 80,
+                             'maxItems' => '',
+                             'renderType' => 'tags',
+                             'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\ConditionsOptionsProvider',
+                             'optionsProviderData' => '',
+                             'queryColumnType' => 'text',
+                             'columnType' => 'text',
+                             'phpdocType' => 'array',
+                             'dynamicOptions' => false,
+                             'name' => 'Conditions',
+                             'title' => 'Conditions',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                          )),
+                          2 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                             'fieldtype' => 'multiselect',
+                             'options' => 
+                            array (
+                              0 => 
+                              array (
+                                'key' => 'MinOrder1',
+                                'value' => 14758492,
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'MinOrder2',
+                                'value' => 14758493,
+                              ),
+                            ),
+                             'width' => 830,
+                             'height' => 80,
+                             'maxItems' => '',
+                             'renderType' => 'tags',
+                             'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\MinimumOrderOptionsProvider',
+                             'optionsProviderData' => '',
+                             'queryColumnType' => 'text',
+                             'columnType' => 'text',
+                             'phpdocType' => 'array',
+                             'dynamicOptions' => false,
+                             'name' => 'minimumOrder',
+                             'title' => 'Minimum Order',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
                           )),
                         ),
                          'locked' => false,
