@@ -168,6 +168,14 @@ h3 {
   flex-direction: column;
   margin-left: 20px;
 }
+.environment-quality-sec .diagonal-image-sec {
+  width: 500px;
+  max-width: 50%;
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+
+}
 .environment-quality-sec img:nth-child(2) {
   margin-top: 30px;
 }
