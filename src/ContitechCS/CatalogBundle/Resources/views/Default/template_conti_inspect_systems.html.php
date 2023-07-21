@@ -191,7 +191,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         {
                             $CIS_ApplicationImageObj =  $this->image("CIS_ApplicationImage");
                             if (!empty($CIS_ApplicationImageObj->getId())) { ?>
-                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CIS_ApplicationImageObj, $this->imageWidth); ?>" alt="" style="max-height: 280px; width:auto;">
+                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($CIS_ApplicationImageObj, $this->imageWidth); ?>" alt="" style="max-height: 265px; width:auto;">
                             <?php
                             }
                         }

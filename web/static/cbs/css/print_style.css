@@ -251,6 +251,11 @@ section {
     opacity:0;
 }
 
+.p-medium p{
+
+    margin-bottom: 0px;
+
+  }
 
 /* for extra after merge remove this */ 
 
