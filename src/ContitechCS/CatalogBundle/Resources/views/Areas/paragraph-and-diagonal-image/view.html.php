@@ -11,7 +11,7 @@
                 <div>
                     <?= $this->wysiwyg("quality_description_above",["placeholder" =>"Enter text for Preform™ Panel"]); ?>
                 </div>
-                <div style="margin-top: 70px;">
+                <div style="margin-top: 100px;">
                     <?= $this->wysiwyg("quality_description_above_2",["placeholder" =>"Enter text for Preform™ Splice Method & Improved Performance"]); ?>
                 </div>
             </div>
