@@ -126,7 +126,7 @@
                     } else {
                         $TBSAppImgSrcObj =  $this->image("TBS_ApplicationImage");
                         if (!empty($TBSAppImgSrcObj->getId())) { ?>
-                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($TBSAppImgSrcObj, $this->imageWidth); ?>"  class="w-100 mb-4" alt="" style="height: 250px; width: auto;"/>
+                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($TBSAppImgSrcObj, $this->imageWidth); ?>"  class="w-100 mb-4" alt="" style="max-height: 210px; width: auto;"/>
                         <?php
                         }
                     }
