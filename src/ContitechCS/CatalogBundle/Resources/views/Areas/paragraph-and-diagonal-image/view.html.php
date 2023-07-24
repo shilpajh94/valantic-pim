@@ -8,7 +8,12 @@
         <!-- <div class="media-body"> -->
 
             <div class="p-medium" style = "position: absolute;">
-                <?= $this->wysiwyg("quality_description_above",["placeholder" =>"Enter Your  Description"]); ?>
+                <div>
+                    <?= $this->wysiwyg("quality_description_above",["placeholder" =>"Enter text for Preform™ Panel"]); ?>
+                </div>
+                <div style="margin-top: 70px;">
+                    <?= $this->wysiwyg("quality_description_above_2",["placeholder" =>"Enter text for Preform™ Splice Method & Improved Performance"]); ?>
+                </div>
             </div>
         </div>
         <?php
@@ -21,7 +26,7 @@
                     if(!$this->editmode && ($this->image("Image")->getThumbnail('catalog_thumb') || $this->image("Environment_Image")->getThumbnail('catalog_thumb')))
                     {
                         ?>
-                            <div class="diagonal-image-sec" style = "margin-left: 350px">
+                            <div class="diagonal-image-sec">
                         <?php
                     }
 
@@ -43,7 +48,7 @@
                         if(!empty($imgSrcObj1->getId()))
                         {
                             ?>
-                                <img src="<?= $this->helper->getImageThumbnail($imgSrcObj1, $this->imageWidth); ?>" alt="" class="features-images" style="max-height:350px;" />
+                                <img src="<?= $this->helper->getImageThumbnail($imgSrcObj1, $this->imageWidth); ?>" alt="" class="features-images" style="max-height:400px; width: 430px; margin-top: -69px;" />
                             <?php
                         }
                     }
@@ -55,12 +60,12 @@
         if($this->editmode){
     ?> 
     <div style = "margin-left: 500px; margin-top: 20px;">
-         <?= $this->wysiwyg("quality_description_below",["placeholder" =>"Enter Your  Description"]); ?>
+         <?= $this->wysiwyg("quality_description_below",["placeholder" =>"Enter text for Savings & Less Downtime"]); ?>
     </div>
     <?php
         }else{
     ?>
-            <?= $this->wysiwyg("quality_description_below",["placeholder" =>"Enter Your  Description"]); ?>
+            <?= $this->wysiwyg("quality_description_below",["placeholder" =>"Enter text for Savings & Less Downtime"]); ?>
     <?php
         }
     ?>

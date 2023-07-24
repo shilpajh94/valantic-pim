@@ -169,10 +169,10 @@ pre {
     border-right: 5px solid cmyk(0%, 0%, 0%, 0%);
 } */
 
-.p-medium p{
-
-    margin-bottom: 0px;
-
+  .environment-quality-sec .diagonal-image-sec {
+    width: 800px;
+    margin-left: 270px; 
+    margin-top: -75px;
   }
 
 .wrapper,
