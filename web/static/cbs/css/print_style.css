@@ -545,7 +545,7 @@ section {
 
 
 @page title12{
-    padding-top: 155px;
+    padding-top: 150px;
 
     @top-center{
         content: element(headingInfo);
