@@ -861,10 +861,7 @@ class DefaultController extends AbstractController
                         $productData['HierarchyNameLevel2'] = null;
                     }
                     $productData['ProductName'] = $productNameTitle;
-                    $productData['ProductClaimSlogan'] = $productObj->getProductClaimSlogan();
                     $productData['ShortText'] = $productObj->getShortText();
-                    $productData['LongText'] = $productObj->getLongText();
-                    $productData['LogoImage'] = $productObj->getLogoImage();
     
                     if(method_exists($productObj,'getCSProductApplications') &&  $productObj->getCSProductApplications())
                     {
@@ -901,8 +898,7 @@ class DefaultController extends AbstractController
                     $productData['Markets'] = $marketsHtml;
     
                     $FeaturesAndBenefits = [];
-                    $FeaturesAndBenefitsWithoutImages = [];
-                    $ImageFoundInFeatures = false;
+
                     if(method_exists($productObj,'getCSProductFeaturesAndBenefits') && $productObj->getCSProductFeaturesAndBenefits())
                     {
                         foreach ($productObj->getCSProductFeaturesAndBenefits() as $key => $value)
@@ -912,26 +908,14 @@ class DefaultController extends AbstractController
                                 $feature['FeatureName'] = $value->getFeatureName();
                                 $feature['FeatureDescription'] = $value->getFeatureDescription();
                                 $feature['FeatureImage'] = $value->getFeatureImage();
-                                
-                                if($value->getFeatureImage())
-                                {
-                                    $ImageFoundInFeatures = true;
-                                }
 
                                 $FeaturesAndBenefits[] = $feature;
 
-                                $FeaturesAndBenefitsWithoutImages[] = $value->getFeatureName();
                             }
                         }
                     }
     
-                    if($ImageFoundInFeatures)
-                    {
-                        $productData['FeaturesAndBenefits'] = $FeaturesAndBenefits;
-                    }
-                    else{
-                        $productData['FeaturesAndBenefitsWithoutImages'] = $FeaturesAndBenefitsWithoutImages;
-                    }
+                    $productData['FeaturesAndBenefits'] = $FeaturesAndBenefits;
     
                     $MoreThanOneProduct = 0;
                     $childrenData = [];

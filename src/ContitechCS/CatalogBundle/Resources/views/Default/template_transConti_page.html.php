@@ -116,34 +116,6 @@ if (!isset($this->parentContainer)) {
                         </div>
                     <?php } ?>
 
-                    <div class="feature-benefit-list">
-                        <span class="orange">
-                            <strong>
-                                <?= $this->input("PPContiAlert_Heading1", ["placeholder" => "Cost savings"]); ?>
-                            </strong>
-                        </span>
-
-                        <ul>
-                            <li><?= $this->input("PPContiAlert_SubHeading1", ['placeholder' => 'Identifying belt wear allows you to get the most out of your current belt']) ?></li>
-                            <li><?= $this->input("PPContiAlert_SubHeading2", ['placeholder' => 'Knowing when to change your belt helps prevent downtime and increase uptime']); ?></li>
-                        </ul>
-
-                        <span class="orange">
-                            <strong>
-                                <?= $this->input("PPContiAlert_Heading2", ["placeholder" => "Predictability"]); ?>
-                            </strong>
-                        </span>
-
-                        <ul>
-                            <li><?= $this->input("PPContiAlert_SubHeading3", ['placeholder' => 'In conjunction with our Conti®Alert Calculator, customers can enter their current belt life data and
-                                            determine how much time is remaining before the carcass is exposed.*']) ?></li>
-                        </ul>
-
-                        <p class="fs-8 ml-10">
-                            <?= $this->textarea("PPContiAlert_Comment", ['placeholder' => 'Enter text']) ?>
-                        </p>
-                    </div>
-
                     <?php if ($data['Applications'] || $data['Markets'] || $data['CoverCompounds']) { ?>
                         <div class="table">
                             <table width="100%">
@@ -192,98 +164,6 @@ if (!isset($this->parentContainer)) {
                         </div>
                     <?php } ?>
 
-                    <div class="components-sec">
-                        <h3 class="orange">
-                            <?= $this->input("PP_PowerOfFortressTechnology", ['placeholder' => 'Fortified with the Power of Fortress™ Technology']) ?>
-                            <br />
-                            <?= $this->input("PP_ConveyorBeltsComponents", ['placeholder' => 'Conveyor Belt Components']) ?>
-                        </h3>
-
-                        <div class="media">
-                            <?php if ($this->editmode) { ?>
-                                <div class="media-img">
-                                    <?php
-                                    echo $this->image("PP_ConveyorBeltsComponents_Image", ["height" => 300]);
-                                    ?>
-                                </div>
-                                <?php } else {
-                                $componentImage =  $this->image("PP_ConveyorBeltsComponents_Image");
-                                if (!empty($componentImage->getId())) { ?>
-                                    <div class="media-img">
-                                        <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($componentImage, $this->imageWidth); ?>" alt="" style="max-height:300px; width:auto" />
-                                    </div>
-                            <?php }
-                            } ?>
-
-                            <div class="media-body">
-                                <ul class="components">
-                                    <?php while ($this->block("PP_ConveyorBeltsComponents_Points")->loop()) { ?>
-                                        <li><?= $this->input("pp_points", ['placeholder' => 'Enter comment']) ?></p1>
-                                        <?php } ?>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <h2>
-                        <span class="orange">
-                            <?php if ($this->input("ContiA_MoreInfoHeading")->isEmpty()) : ?>
-                                <?= $this->input("ContiA_MoreInfoHeading")->setDataFromResource($data['Name']) ?>
-                            <?php else : ?>
-                                <?= $this->input("ContiA_MoreInfoHeading")->setDataFromResource($data['Name']); ?>
-                            <?php endif; ?>
-                        </span>
-                        <span class="light-black">
-                            <?= $this->input("ContiA_MoreInfo", ['placeholder' => 'Belt Information']) ?>
-                        </span>
-                    </h2>
-
-                    <div class="media-body">
-                        <strong>
-                            <?= $this->input("ContiA_BeltSpecsLabel", ['placeholder' => 'Belt Specs']) ?>
-                        </strong>
-
-                        <br />
-                        <?= $this->input("ContiA_BeltSpecsDescription", ['placeholder' => 'Belt Specs Description']) ?>
-                    </div>
-
-                    <div class="media" style="margin: 5px 0px;">
-                        <?= $this->image("ContiA_feature1", ["width" => 41, "height" => 41]); ?>
-
-                        <div class="media-body">
-                            <strong>
-                                <?= $this->input("ContiA_Feature1Label", ['placeholder' => 'Abrasion-resistant compound specs']) ?>
-                            </strong>
-
-                            <br />
-                            <?= $this->input("ContiA_Feature1Desc", ['placeholder' => 'Feature 1 Desc']) ?>
-                        </div>
-                    </div>
-
-                    <div class="media" style="margin: 5px 0px;">
-
-                        <?= $this->image("ContiA_feature2", ["width" => 41, "height" => 41]); ?>
-
-                        <div class="media-body">
-                            <strong>
-                                <?= $this->input("ContiA_Feature2Label", ['placeholder' => 'Flame-retardant compound specs']) ?>
-                            </strong>
-
-                            <br />
-                            <?= $this->input("ContiA_Feature2Desc", ['placeholder' => 'Feature 2 Desc']) ?>
-                        </div>
-                    </div>
-
-                    <div class="media-body">
-                        <strong>
-                            <?= $this->input("ContiA_AvailabilityLabel", ['placeholder' => 'CONTI®Alert Availability']) ?>
-                        </strong>
-
-                        <br />
-
-                        <?= $this->input("ContiA_AvailabilityDesc", ['placeholder' => 'CONTI®Alert Availability Description']) ?>
-                    </div>
-
                     <div class="labels">
                         <table width="100%">
                             <tr>
@@ -295,64 +175,6 @@ if (!isset($this->parentContainer)) {
                                 </th>
                             </tr>
                         </table>
-                    </div>
-
-                    <?php if ($this->editmode) { ?>
-                        <div class="full-image-sec">
-                            <?php
-                            echo $this->image("PP_BannerImage", ["height" => 390]);
-                            ?>
-                        </div>
-                        <?php } else {
-                        $bannerImage =  $this->image("PP_BannerImage");
-                        if (!empty($bannerImage->getId())) { ?>
-                            <div class="full-image-sec">
-                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($bannerImage, $this->imageWidth); ?>" alt="" style="max-height:390px; width:auto;" />
-                            </div>
-                    <?php }
-                    } ?>
-
-                    <div class="featuring-sec">
-                        <?php if ($this->editmode) : ?>
-                            <div class="attr-font">Attribute Name = Name</div>
-                        <?php endif; ?>
-                        <h2><span class="orange">
-                                <?php if ($this->input("PPSS_ProductName")->isEmpty()) : ?>
-                                    <?= $this->input("PPSS_ProductName", ['placeholder' => 'Enter Product Name'])->setDataFromResource($data['ProductName']) ?>
-                                <?php else : ?>
-                                    <?= $this->input("PPSS_ProductName", ['placeholder' => 'Enter Product Name']); ?>
-                                <?php endif; ?>
-                            </span>
-                            <span class="light-black">
-                                <?= $this->input("PPSS_Title", ['placeholder' => 'Featuring Solar-Shield']) ?>
-                            </span>
-                        </h2>
-
-                        <div class="media">
-                            <?php
-                            echo $this->image("PPSS_Image", ["height" => 235]);
-                            ?>
-
-                            <div class="media-body">
-
-                                <p>
-                                    <?= $this->textarea("PPSS_Description1", ['placeholder' => "Enter Description"]) ?>
-                                </p>
-
-                                <strong>
-                                    <?= $this->input("PPSS_SubTitle", ['placeholder' => "Enter Description"]) ?>
-                                </strong>
-
-                                <p>
-                                    <?= $this->textarea("PPSS_Description2", ['placeholder' => 'Enter Text']) ?>
-                                </p>
-
-                                <p class="note">
-                                    <?= $this->textarea("PPSS_Note", ["placeholder" => 'Enter Text']) ?>
-                                </p>
-
-                            </div>
-                        </div>
                     </div>
 
                 </section>
@@ -426,36 +248,6 @@ if (!isset($this->parentContainer)) {
                         <?php endif; ?>
                     <?php endif; ?>
 
-                    <?php if (!$this->input("PPContiAlert_Heading1")->isEmpty() || !$this->input("PPContiAlert_Heading2")->isEmpty()) : ?>
-                        <div class="feature-benefit-list">
-                            <span class="orange">
-                                <strong>
-                                    <?= $this->input("PPContiAlert_Heading1", ["placeholder" => "Cost savings"]); ?>
-                                </strong>
-                            </span>
-
-                            <ul>
-                                <li><?= $this->input("PPContiAlert_SubHeading1", ['placeholder' => 'Identifying belt wear allows you to get the most out of your current belt']) ?></li>
-                                <li><?= $this->input("PPContiAlert_SubHeading2", ['placeholder' => 'Knowing when to change your belt helps prevent downtime and increase uptime']); ?></li>
-                            </ul>
-
-                            <span class="orange">
-                                <strong>
-                                    <?= $this->input("PPContiAlert_Heading2", ["placeholder" => "Predictability"]); ?>
-                                </strong>
-                            </span>
-
-                            <ul>
-                                <li><?= $this->input("PPContiAlert_SubHeading3", ['placeholder' => 'In conjunction with our Conti®Alert Calculator, customers can enter their current belt life data and
-                                            determine how much time is remaining before the carcass is exposed.*']) ?></li>
-                            </ul>
-
-                            <p class="fs-8 ml-10">
-                                <?= $this->textarea("PPContiAlert_Comment", ['placeholder' => 'Enter text']) ?>
-                            </p>
-                        </div>
-                    <?php endif; ?>
-
                     <?php if ($data['Applications'] || $data['Markets'] || $data['CoverCompounds']) { ?>
 
                         <div class="table">
@@ -523,121 +315,9 @@ if (!isset($this->parentContainer)) {
                                     <?php endif; ?>
                                 </h3>
                             <?php endif; ?>
-
-                            <?php
-
-                            if (!empty($cbcImgSrcObj) || $this->block("PP_ConveyorBeltsComponents_Points")->getCount()) { ?>
-                                <div class="media">
-                                    <?php
-
-                                    if (!empty($cbcImgSrcObj->getId())) {
-                                    ?>
-                                        <div class="media-img">
-                                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($cbcImgSrcObj, $this->imageWidth); ?>" alt="" style="max-height:300px; width:auto" />
-                                        </div>
-                                    <?php
-                                    }
-                                    ?>
-                                    <?php if ($this->block("PP_ConveyorBeltsComponents_Points")) : ?>
-                                        <div class="media-body">
-                                            <ul class="components">
-                                                <?php while ($this->block("PP_ConveyorBeltsComponents_Points")->loop()) { ?>
-                                                    <li><?= $this->input("pp_points", ['placeholder' => 'Enter comment']) ?></p1>
-                                                    <?php } ?>
-                                            </ul>
-                                        </div>
-                                    <?php endif; ?>
-                                </div>
-                            <?php } ?>
+                            
                         </div>
                     <?php } ?>
-
-                    <?php if (!$this->input("ContiA_MoreInfoHeading")->isEmpty() || !$this->input("ContiA_MoreInfo")->isEmpty()) : ?>
-                        <h2>
-                            <span class="orange">
-                                <?= $this->input("ContiA_MoreInfoHeading") ?>
-                            </span>
-                            <span class="light-black">
-                                <?= $this->input("ContiA_MoreInfo") ?>
-                            </span>
-                        </h2>
-                    <?php endif; ?>
-
-                    <?php if (!$this->input("ContiA_BeltSpecsLabel")->isEmpty() || !$this->input("ContiA_BeltSpecsDescription")->isEmpty()) : ?>
-                        <p>
-                            <b>
-                                <?= $this->input("ContiA_BeltSpecsLabel") ?>
-                            </b>
-
-                            <br />
-
-                            <?= $this->input("ContiA_BeltSpecsDescription") ?>
-                        </p>
-                    <?php endif; ?>
-
-                    <?php if (!$this->input("ContiA_Feature1Label")->isEmpty() || !$this->input("ContiA_Feature1Desc")->isEmpty()) : ?>
-
-                        <div class="media" style="margin: 5px 0px;">
-                            <?php
-
-                            $ContiA_feature1Obj =  $this->image("ContiA_feature1");
-                            if (!empty($ContiA_feature1Obj->getId())) { ?>
-                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($ContiA_feature1Obj, $this->imageWidth); ?>" alt="" style="max-height:auto; width:41px" class="features-images">
-                            <?php
-                            }
-                            ?>
-
-                            <div class="media-body">
-                                <p>
-                                    <b>
-                                        <?= $this->input("ContiA_Feature1Label") ?>
-                                    </b>
-
-                                    <br />
-
-                                    <?= $this->input("ContiA_Feature1Desc") ?>
-                                </p>
-                            </div>
-                        </div>
-                    <?php endif; ?>
-
-                    <?php if (!$this->input("ContiA_Feature2Label")->isEmpty() || !$this->input("ContiA_Feature2Desc")->isEmpty()) : ?>
-
-                        <div class="media" style="margin: 5px 0px;">
-
-                            <?php
-                            $ContiA_feature2Obj =  $this->image("ContiA_feature2");
-                            if (!empty($ContiA_feature2Obj->getId())) { ?>
-                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($ContiA_feature2Obj, $this->imageWidth); ?>" alt="" style="max-height:auto; width:41px" class="features-images">
-                            <?php
-                            }
-                            ?>
-
-                            <div class="media-body">
-                                <p>
-                                    <b>
-                                        <?= $this->input("ContiA_Feature2Label") ?>
-                                    </b>
-
-                                    <br />
-
-                                    <?= $this->input("ContiA_Feature2Desc") ?>
-                                </p>
-                            </div>
-                        </div>
-                    <?php endif; ?>
-
-                    <?php if (!$this->input("ContiA_AvailabilityLabel")->isEmpty() || !$this->input("ContiA_AvailabilityDesc")->isEmpty()) : ?>
-                        <p>
-                            <b>
-                                <?= $this->input("ContiA_AvailabilityLabel") ?>
-                            </b>
-
-                            <br />
-
-                            <?= $this->input("ContiA_AvailabilityDesc") ?>
-                        </p>
-                    <?php endif; ?>
 
                     <?php if (!($this->input("PP_CostPerTon")->isEmpty() || $this->input("PP_TensionRange")->isEmpty())) : ?>
                         <div class="labels">
@@ -657,85 +337,6 @@ if (!isset($this->parentContainer)) {
                             </table>
                         </div>
                     <?php endif; ?>
-                    <?php
-                    $ppBannerImgSrcObj =  $this->image("PP_BannerImage");
-                    if (!empty($ppBannerImgSrcObj->getId())) {
-                    ?>
-                        <div class="full-image-sec">
-                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($ppBannerImgSrcObj, $this->imageWidth); ?>" alt="" />
-                        </div>
-                    <?php
-                    }
-                    ?>
-                    <?php
-                    $ppssImgSrcObj =  $this->image("PPSS_Image");
-                    if ($ppssImgSrcObj->getThumbnail('catalog_thumb') || !($this->input("PPSS_ProductName")->isEmpty() || $this->input("PPSS_Title")->isEmpty() || $this->textarea("PPSS_Description1")->isEmpty() || $this->input("PPSS_SubTitle")->isEmpty() || $this->textarea("PPSS_Description2")->isEmpty())) {
-                    ?>
-                        <div class="featuring-sec">
-                            <?php if (!($this->input("PPSS_ProductName")->isEmpty() || $this->input("PPSS_Title")->isEmpty())) : ?>
-                                <h2>
-                                    <?php if (!$this->input("PPSS_ProductName")->isEmpty()) : ?>
-                                        <span class="orange">
-                                            <?= $this->input("PPSS_ProductName", ['placeholder' => 'Enter Product Name']); ?>
-                                        </span>
-                                    <?php endif; ?>
-
-
-                                    <?php if (!$this->input("PPSS_Title")->isEmpty()) : ?>
-                                        <span class="light-black">
-                                            <?= $this->input("PPSS_Title", ['placeholder' => 'Enter Title']); ?>
-                                        </span>
-                                    <?php endif; ?>
-
-                                </h2>
-                            <?php endif; ?>
-
-                            <?php
-
-
-                            if ($ppssImgSrcObj->getThumbnail('catalog_thumb') || !($this->textarea("PPSS_Description1")->isEmpty() || $this->input("PPSS_SubTitle")->isEmpty() || $this->textarea("PPSS_Description2")->isEmpty())) {
-                            ?>
-                                <div class="media">
-                                    <?php
-                                    if ($ppssImgSrcObj->getThumbnail('catalog_thumb')) {
-                                    ?>
-                                        <img src="<?= $ppssImgSrcObj->getThumbnail('catalog_thumb'); ?>" class="features-images" alt="" style="max-height:235px; width:auto" />
-                                    <?php
-                                    }
-                                    ?>
-
-                                    <?php if (!($this->textarea("PPSS_Description1")->isEmpty() || $this->input("PPSS_SubTitle")->isEmpty() || $this->textarea("PPSS_Description2")->isEmpty())) : ?>
-                                        <div class="media-body">
-
-                                            <?php if (!$this->textarea("PPSS_Description1")->isEmpty()) : ?>
-                                                <p>
-                                                    <?= $this->textarea("PPSS_Description1", ['placeholder' => 'Enter Description']); ?>
-                                                </p>
-                                            <?php endif; ?>
-
-                                            <?php if (!$this->input("PPSS_SubTitle")->isEmpty()) : ?>
-                                                <strong>
-                                                    <?= $this->input("PPSS_SubTitle", ['placeholder' => 'Enter Sub Title']); ?>
-                                                </strong>
-                                            <?php endif; ?>
-
-                                            <?php if (!$this->textarea("PPSS_Description2")->isEmpty()) : ?>
-                                                <p>
-                                                    <?= $this->textarea("PPSS_Description2", ['placeholder' => 'Enter Description']); ?>
-                                                </p>
-                                            <?php endif; ?>
-
-                                            <?php if (!$this->textarea("PPSS_Note")->isEmpty()) : ?>
-                                                <p class="note">
-                                                    <?= $this->textarea("PPSS_Note", ['placeholder' => 'Enter Note']); ?>
-                                                </p>
-                                            <?php endif; ?>
-                                        </div>
-                                    <?php endif; ?>
-                                </div>
-                            <?php } ?>
-                        </div>
-                    <?php } ?>
 
                 </section>
             <?php endif; ?>
@@ -1547,19 +1148,3 @@ if (!isset($this->parentContainer)) {
         </main>
     </div>
 <?php endif; ?>
-
-<style>
-    /* .media p {
-        font-size: 14px;
-        line-height: 1.4;
-    } 
-    .media {
-        margin: 20px 0px;
-    }
-    .feature-benefit-list ul {
-        font-size: 14px;
-        margin-bottom: 10px;
-        padding-left: 0.9em;
-    } */
-
-</style>
