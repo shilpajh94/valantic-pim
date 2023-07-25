@@ -273,6 +273,17 @@ h3 {
 .full-image-sec {
   margin: 25px 0px;
 }
+.media-transconti{
+  margin-bottom: 0px !important;
+  margin-top: 25px !important;
+}
+.media-transconti p{
+  font-size: 12px;
+  line-height: 1.4;
+}
+.feature-benefit-list-transconti{
+   margin: 0px 0px !important;
+}
 .full-image-sec {
   margin-top: 25px;
 }
