@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-04-27T14:56:39+05:30
+* Generated at: 2023-06-21T06:03:12+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -22,6 +22,7 @@ Fields Summary:
 -- legalText [textarea]
 -- sapDescription [textarea]
 -- webDiscription [input]
+-- productShortDescription [input]
 -- CompletenessPercentage [input]
 -- EmptyFields [textarea]
 - performance [select]
@@ -122,7 +123,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1682587586,
+   'modificationDate' => 1687320182,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -450,74 +451,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                   0 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                                      'fieldtype' => 'multiselect',
-                                     'options' => 
-                                    array (
-                                      0 => 
-                                      array (
-                                        'key' => 'Suitable for tropical climates',
-                                        'value' => 13334184,
-                                      ),
-                                      1 => 
-                                      array (
-                                        'key' => 'Dust-proof',
-                                        'value' => 13334185,
-                                      ),
-                                      2 => 
-                                      array (
-                                        'key' => 'Ozone-resistant',
-                                        'value' => 13334186,
-                                      ),
-                                      3 => 
-                                      array (
-                                        'key' => 'UV & Ozone resistant',
-                                        'value' => 13334187,
-                                      ),
-                                      4 => 
-                                      array (
-                                        'key' => 'Suitable for reverse flexing-revrese tensioning idlers.',
-                                        'value' => 13334188,
-                                      ),
-                                      5 => 
-                                      array (
-                                        'key' => 'Very low-noise',
-                                        'value' => 13334189,
-                                      ),
-                                      6 => 
-                                      array (
-                                        'key' => 'Aging-resistant',
-                                        'value' => 13334190,
-                                      ),
-                                      7 => 
-                                      array (
-                                        'key' => 'Can be welded with thermoplastics',
-                                        'value' => 13334191,
-                                      ),
-                                      8 => 
-                                      array (
-                                        'key' => 'Compatible with CTD; therefore, it is suited for new drive designs and at the same time also compatible for use in existing systems',
-                                        'value' => 13334192,
-                                      ),
-                                      9 => 
-                                      array (
-                                        'key' => 'Maintenance-free',
-                                        'value' => 13334193,
-                                      ),
-                                      10 => 
-                                      array (
-                                        'key' => 'Raw materials and production are silicone-free',
-                                        'value' => 13334194,
-                                      ),
-                                      11 => 
-                                      array (
-                                        'key' => 'Resistant to fuel and benzene',
-                                        'value' => 13334195,
-                                      ),
-                                      12 => 
-                                      array (
-                                        'key' => 'Wear resistant',
-                                        'value' => 13334196,
-                                      ),
-                                    ),
+                                     'options' => NULL,
                                      'width' => 250,
                                      'height' => '',
                                      'maxItems' => 10,
@@ -708,7 +642,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'toolbarConfig' => '',
                                          'excludeFromSearchIndex' => false,
                                          'name' => 'shortDescription',
-                                         'title' => 'Marketing / Short Description',
+                                         'title' => 'Product Brand Description Short',
                                          'tooltip' => '',
                                          'mandatory' => false,
                                          'noteditable' => false,
@@ -755,7 +689,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'toolbarConfig' => '',
                                          'excludeFromSearchIndex' => false,
                                          'name' => 'longDescription',
-                                         'title' => 'Marketing / Long Description',
+                                         'title' => 'Product Brand Description Long',
                                          'tooltip' => '',
                                          'mandatory' => false,
                                          'noteditable' => false,
@@ -890,7 +824,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                               0 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'fieldtype' => 'input',
-                                 'width' => 280,
+                                 'width' => 350,
                                  'defaultValue' => NULL,
                                  'queryColumnType' => 'varchar',
                                  'columnType' => 'varchar',
@@ -900,7 +834,35 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'unique' => false,
                                  'showCharCount' => false,
                                  'name' => 'webDiscription',
-                                 'title' => 'Web Description',
+                                 'title' => 'Product Long Description',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-left:20px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'defaultValueGenerator' => '',
+                              )),
+                              1 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                 'fieldtype' => 'input',
+                                 'width' => 350,
+                                 'defaultValue' => NULL,
+                                 'queryColumnType' => 'varchar',
+                                 'columnType' => 'varchar',
+                                 'columnLength' => 190,
+                                 'phpdocType' => 'string',
+                                 'regex' => '',
+                                 'unique' => false,
+                                 'showCharCount' => false,
+                                 'name' => 'productShortDescription',
+                                 'title' => 'Product Short Description',
                                  'tooltip' => '',
                                  'mandatory' => false,
                                  'noteditable' => false,
@@ -923,7 +885,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'width' => '',
                              'height' => '',
                              'maxTabs' => 20,
-                             'labelWidth' => NULL,
+                             'labelWidth' => 200,
                              'border' => true,
                              'provideSplitView' => false,
                              'tabPosition' => NULL,
@@ -1691,111 +1653,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'fieldtype' => 'select',
                                  'options' => 
                                 array (
-                                  0 => 
-                                  array (
-                                    'key' => 'Banded Belt - Classical',
-                                    'value' => 13333646,
-                                  ),
-                                  1 => 
-                                  array (
-                                    'key' => 'Banded Belt - Narrow',
-                                    'value' => 13333648,
-                                  ),
-                                  2 => 
-                                  array (
-                                    'key' => 'Dual',
-                                    'value' => 13333664,
-                                  ),
-                                  3 => 
-                                  array (
-                                    'key' => 'Dual Poly V Belts',
-                                    'value' => 13333659,
-                                  ),
-                                  4 => 
-                                  array (
-                                    'key' => 'Dual Timing Belts',
-                                    'value' => 13333658,
-                                  ),
-                                  5 => 
-                                  array (
-                                    'key' => 'Dual V Belts',
-                                    'value' => 13333660,
-                                  ),
-                                  6 => 
-                                  array (
-                                    'key' => 'Flat Belts',
-                                    'value' => 13333656,
-                                  ),
-                                  7 => 
-                                  array (
-                                    'key' => 'Flat Belts - PU',
-                                    'value' => 13333655,
-                                  ),
-                                  8 => 
-                                  array (
-                                    'key' => 'Metal Parts',
-                                    'value' => 13333657,
-                                  ),
-                                  9 => 
-                                  array (
-                                    'key' => 'Open ended Belts - PU',
-                                    'value' => 13333663,
-                                  ),
-                                  10 => 
-                                  array (
-                                    'key' => 'Open ended Belts - Rubber',
-                                    'value' => 13333662,
-                                  ),
-                                  11 => 
-                                  array (
-                                    'key' => 'Poly V Belt',
-                                    'value' => 13333645,
-                                  ),
-                                  12 => 
-                                  array (
-                                    'key' => 'Poly V Belt - PU',
-                                    'value' => 13333666,
-                                  ),
-                                  13 => 
-                                  array (
-                                    'key' => 'Single',
-                                    'value' => 13333665,
-                                  ),
-                                  14 => 
-                                  array (
-                                    'key' => 'Single Classical - Raw Edge',
-                                    'value' => 13333652,
-                                  ),
-                                  15 => 
-                                  array (
-                                    'key' => 'Single Classical - Wrapped',
-                                    'value' => 13333651,
-                                  ),
-                                  16 => 
-                                  array (
-                                    'key' => 'Single Narrow - Raw Edge',
-                                    'value' => 13333653,
-                                  ),
-                                  17 => 
-                                  array (
-                                    'key' => 'Single Narrow - Wrapped',
-                                    'value' => 13333654,
-                                  ),
-                                  18 => 
-                                  array (
-                                    'key' => 'Timing Belts - PU',
-                                    'value' => 13333650,
-                                  ),
-                                  19 => 
-                                  array (
-                                    'key' => 'Timing Belts - Rubber',
-                                    'value' => 13333649,
-                                  ),
-                                  20 => 
-                                  array (
-                                    'key' => 'VSB',
-                                    'value' => 13333661,
-                                  ),
                                 ),
                                  'width' => 250,
                                  'defaultValue' => '',
@@ -4189,70 +4046,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'visibleSearch' => false,
                                  'defaultValueGenerator' => '',
                               )),
-                              5 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
-                                 'fieldtype' => 'localizedfields',
-                                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Localizedfield',
-                                 'childs' => 
-                                array (
-                                  0 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                     'fieldtype' => 'input',
-                                     'width' => 280,
-                                     'defaultValue' => NULL,
-                                     'queryColumnType' => 'varchar',
-                                     'columnType' => 'varchar',
-                                     'columnLength' => 190,
-                                     'phpdocType' => 'string',
-                                     'regex' => '',
-                                     'unique' => false,
-                                     'showCharCount' => false,
-                                     'name' => 'webDiscription',
-                                     'title' => 'Web Description',
-                                     'tooltip' => '',
-                                     'mandatory' => false,
-                                     'noteditable' => false,
-                                     'index' => false,
-                                     'locked' => false,
-                                     'style' => 'margin-left:20px;',
-                                     'permissions' => NULL,
-                                     'datatype' => 'data',
-                                     'relationType' => false,
-                                     'invisible' => false,
-                                     'visibleGridView' => false,
-                                     'visibleSearch' => false,
-                                     'defaultValueGenerator' => '',
-                                  )),
-                                ),
-                                 'name' => 'localizedfields',
-                                 'region' => NULL,
-                                 'layout' => NULL,
-                                 'title' => '',
-                                 'width' => '',
-                                 'height' => '',
-                                 'maxTabs' => 20,
-                                 'labelWidth' => NULL,
-                                 'border' => true,
-                                 'provideSplitView' => false,
-                                 'tabPosition' => NULL,
-                                 'hideLabelsWhenTabsReached' => NULL,
-                                 'referencedFields' => 
-                                array (
-                                ),
-                                 'fieldDefinitionsCache' => NULL,
-                                 'tooltip' => '',
-                                 'mandatory' => false,
-                                 'noteditable' => false,
-                                 'index' => NULL,
-                                 'locked' => false,
-                                 'style' => '',
-                                 'permissions' => NULL,
-                                 'datatype' => 'data',
-                                 'relationType' => false,
-                                 'invisible' => false,
-                                 'visibleGridView' => true,
-                                 'visibleSearch' => true,
-                              )),
                             ),
                              'locked' => false,
                           )),
@@ -4402,6 +4195,120 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                               )),
                             ),
                              'locked' => false,
+                          )),
+                        ),
+                         'locked' => false,
+                      )),
+                      5 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                         'fieldtype' => 'fieldcontainer',
+                         'labelWidth' => 100,
+                         'layout' => 'hbox',
+                         'fieldLabel' => '',
+                         'name' => 'Field Container',
+                         'type' => NULL,
+                         'region' => NULL,
+                         'title' => '',
+                         'width' => NULL,
+                         'height' => NULL,
+                         'collapsible' => false,
+                         'collapsed' => false,
+                         'bodyStyle' => '',
+                         'datatype' => 'layout',
+                         'permissions' => NULL,
+                         'childs' => 
+                        array (
+                          0 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+                             'fieldtype' => 'localizedfields',
+                             'phpdocType' => '\\Pimcore\\Model\\DataObject\\Localizedfield',
+                             'childs' => 
+                            array (
+                              0 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                 'fieldtype' => 'input',
+                                 'width' => 350,
+                                 'defaultValue' => NULL,
+                                 'queryColumnType' => 'varchar',
+                                 'columnType' => 'varchar',
+                                 'columnLength' => 190,
+                                 'phpdocType' => 'string',
+                                 'regex' => '',
+                                 'unique' => false,
+                                 'showCharCount' => false,
+                                 'name' => 'webDiscription',
+                                 'title' => 'Product Long Description',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-left:20px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'defaultValueGenerator' => '',
+                              )),
+                              1 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                 'fieldtype' => 'input',
+                                 'width' => 350,
+                                 'defaultValue' => NULL,
+                                 'queryColumnType' => 'varchar',
+                                 'columnType' => 'varchar',
+                                 'columnLength' => 190,
+                                 'phpdocType' => 'string',
+                                 'regex' => '',
+                                 'unique' => false,
+                                 'showCharCount' => false,
+                                 'name' => 'productShortDescription',
+                                 'title' => 'Product Short Description',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-left:20px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'defaultValueGenerator' => '',
+                              )),
+                            ),
+                             'name' => 'localizedfields',
+                             'region' => NULL,
+                             'layout' => NULL,
+                             'title' => '',
+                             'width' => '',
+                             'height' => '',
+                             'maxTabs' => 20,
+                             'labelWidth' => 200,
+                             'border' => true,
+                             'provideSplitView' => false,
+                             'tabPosition' => NULL,
+                             'hideLabelsWhenTabsReached' => NULL,
+                             'referencedFields' => 
+                            array (
+                            ),
+                             'fieldDefinitionsCache' => NULL,
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => NULL,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => true,
+                             'visibleSearch' => true,
                           )),
                         ),
                          'locked' => false,
