@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-04-27T14:53:02+05:30
+* Generated at: 2023-07-25T11:42:31+00:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -33,7 +33,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUProductHierarchy',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1682587382,
+   'modificationDate' => 1690285350,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -651,7 +651,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'border' => false,
                  'provideSplitView' => false,
                  'tabPosition' => NULL,
-                 'hideLabelsWhenTabsReached' => -1,
+                 'hideLabelsWhenTabsReached' => NULL,
                  'referencedFields' => 
                 array (
                 ),

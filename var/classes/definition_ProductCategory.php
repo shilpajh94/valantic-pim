@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-04-27T14:34:15+05:30
+* Generated at: 2023-07-25T11:35:35+00:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -37,7 +37,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'ProductCategory',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1682586254,
+   'modificationDate' => 1690284935,
    'userOwner' => 0,
    'userModification' => 2,
    'parentClass' => '\\Pimcore\\Bundle\\EcommerceFrameworkBundle\\Model\\AbstractCategory',
@@ -499,11 +499,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           ),
                           10 => 
                           array (
-                            'key' => 'PTGEU',
-                            'value' => 'PTGEU',
-                          ),
-                          9 => 
-                          array (
                             'key' => 'Synchronous',
                             'value' => 'Synchronous',
                           ),
@@ -797,7 +792,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'border' => false,
                  'provideSplitView' => false,
                  'tabPosition' => NULL,
-                 'hideLabelsWhenTabsReached' => -1,
+                 'hideLabelsWhenTabsReached' => NULL,
                  'referencedFields' => 
                 array (
                 ),
