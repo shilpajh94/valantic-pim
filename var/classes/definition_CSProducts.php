@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-04-27T14:49:22+05:30
+* Generated at: 2023-07-25T11:37:31+00:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -74,7 +74,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSProducts',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1682587161,
+   'modificationDate' => 1690285049,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -1189,7 +1189,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'border' => false,
                      'provideSplitView' => false,
                      'tabPosition' => NULL,
-                     'hideLabelsWhenTabsReached' => -1,
+                     'hideLabelsWhenTabsReached' => NULL,
                      'referencedFields' => 
                     array (
                     ),
@@ -1302,50 +1302,55 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           ),
                           7 => 
                           array (
+                            'value' => 226,
+                            'key' => 'dHub_Role',
+                          ),
+                          8 => 
+                          array (
                             'value' => 197,
                             'key' => 'Editor_CS',
                           ),
-                          8 => 
+                          9 => 
                           array (
                             'value' => 208,
                             'key' => 'Editor_IFSEU',
                           ),
-                          9 => 
+                          10 => 
                           array (
                             'value' => 216,
                             'key' => 'Editor_PTGEU',
                           ),
-                          10 => 
+                          11 => 
                           array (
                             'value' => 196,
                             'key' => 'Marcom_CS',
                           ),
-                          11 => 
+                          12 => 
                           array (
                             'value' => 207,
                             'key' => 'MarCom_IFSEU',
                           ),
-                          12 => 
+                          13 => 
                           array (
                             'value' => 213,
                             'key' => 'MarCom_PTGEU',
                           ),
-                          13 => 
+                          14 => 
                           array (
                             'value' => 210,
                             'key' => 'ProductManager_IFSEU',
                           ),
-                          14 => 
+                          15 => 
                           array (
                             'value' => 215,
                             'key' => 'ProductManager_PTGEU',
                           ),
-                          15 => 
+                          16 => 
                           array (
                             'value' => 209,
                             'key' => 'ProductManagerCS',
                           ),
-                          16 => 
+                          17 => 
                           array (
                             'value' => 225,
                             'key' => 'ReadOnlyIFSEU',
@@ -1419,50 +1424,55 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           ),
                           7 => 
                           array (
+                            'value' => 226,
+                            'key' => 'dHub_Role',
+                          ),
+                          8 => 
+                          array (
                             'value' => 197,
                             'key' => 'Editor_CS',
                           ),
-                          8 => 
+                          9 => 
                           array (
                             'value' => 208,
                             'key' => 'Editor_IFSEU',
                           ),
-                          9 => 
+                          10 => 
                           array (
                             'value' => 216,
                             'key' => 'Editor_PTGEU',
                           ),
-                          10 => 
+                          11 => 
                           array (
                             'value' => 196,
                             'key' => 'Marcom_CS',
                           ),
-                          11 => 
+                          12 => 
                           array (
                             'value' => 207,
                             'key' => 'MarCom_IFSEU',
                           ),
-                          12 => 
+                          13 => 
                           array (
                             'value' => 213,
                             'key' => 'MarCom_PTGEU',
                           ),
-                          13 => 
+                          14 => 
                           array (
                             'value' => 210,
                             'key' => 'ProductManager_IFSEU',
                           ),
-                          14 => 
+                          15 => 
                           array (
                             'value' => 215,
                             'key' => 'ProductManager_PTGEU',
                           ),
-                          15 => 
+                          16 => 
                           array (
                             'value' => 209,
                             'key' => 'ProductManagerCS',
                           ),
-                          16 => 
+                          17 => 
                           array (
                             'value' => 225,
                             'key' => 'ReadOnlyIFSEU',
@@ -1536,50 +1546,55 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           ),
                           7 => 
                           array (
+                            'value' => 226,
+                            'key' => 'dHub_Role',
+                          ),
+                          8 => 
+                          array (
                             'value' => 197,
                             'key' => 'Editor_CS',
                           ),
-                          8 => 
+                          9 => 
                           array (
                             'value' => 208,
                             'key' => 'Editor_IFSEU',
                           ),
-                          9 => 
+                          10 => 
                           array (
                             'value' => 216,
                             'key' => 'Editor_PTGEU',
                           ),
-                          10 => 
+                          11 => 
                           array (
                             'value' => 196,
                             'key' => 'Marcom_CS',
                           ),
-                          11 => 
+                          12 => 
                           array (
                             'value' => 207,
                             'key' => 'MarCom_IFSEU',
                           ),
-                          12 => 
+                          13 => 
                           array (
                             'value' => 213,
                             'key' => 'MarCom_PTGEU',
                           ),
-                          13 => 
+                          14 => 
                           array (
                             'value' => 210,
                             'key' => 'ProductManager_IFSEU',
                           ),
-                          14 => 
+                          15 => 
                           array (
                             'value' => 215,
                             'key' => 'ProductManager_PTGEU',
                           ),
-                          15 => 
+                          16 => 
                           array (
                             'value' => 209,
                             'key' => 'ProductManagerCS',
                           ),
-                          16 => 
+                          17 => 
                           array (
                             'value' => 225,
                             'key' => 'ReadOnlyIFSEU',
@@ -3457,7 +3472,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'border' => false,
                  'provideSplitView' => false,
                  'tabPosition' => NULL,
-                 'hideLabelsWhenTabsReached' => -1,
+                 'hideLabelsWhenTabsReached' => NULL,
                  'referencedFields' => 
                 array (
                 ),
