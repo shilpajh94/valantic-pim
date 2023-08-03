@@ -47,15 +47,14 @@ class B2BProductCategoryRelationDataPoster implements IDataPoster
                                                             $relationChangeObjectsToResent);
             // @todo for CR: iterate all these relation objects and replace the old value and new value of categories
             // with the disgnated category value in the group
-            //$this->createAPIRequestEntityForRelationChangeObjects($uniqueRelationChangeObjects, $requestBodyGenerator);
-
-            $helper->sendAllRequestsToSFAndHandleResponses($httpRequestGenerator, $responseHandler, APIOperationType::DELETE());
-            $helper->sendAllRequestsToSFAndHandleResponses($httpRequestGenerator, $responseHandler, APIOperationType::UPDATE());
+            $this->createAPIRequestEntityForRelationChangeObjects($uniqueRelationChangeObjects, $requestBodyGenerator);
 
             $relationObjectsForFailureEntry = array_merge($relationObjectsForFailureEntry, $relationChangeObjectsToResent);
             $pimFailedRecordHandler->deleteFixedPimFailedRecord($pimFailedRecordsToResend);
 
-            $helper->sendAllRequestsToSFAndHandleResponses($httpRequestGenerator, $responseHandler);
+            //$helper->sendAllRequestsToSFAndHandleResponses($httpRequestGenerator, $responseHandler);
+            $helper->sendAllRequestsToSFAndHandleResponses($httpRequestGenerator, $responseHandler, APIOperationType::DELETE());
+            $helper->sendAllRequestsToSFAndHandleResponses($httpRequestGenerator, $responseHandler, APIOperationType::UPDATE());
         }catch(\Throwable $throwable){
             B2BLogger::getInstace()->error( get_class($throwable) . " in B2BProductCategoryRelationDataPoster: " . $throwable->getMessage() .". StackTrace: " .$throwable->getTraceAsString());
             $failureRecordids = $this->getPimIdsForRelationObjects($relationObjectsForFailureEntry);
