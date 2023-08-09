@@ -22,12 +22,12 @@ parameters:
 #                    - ProductOwner
 #                    - UserOwner
 #                roles:
-        send_to_edit_for_enrichment:
-            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/Send for Enrichment to RND'
-            notificationTo: 
-                users:
-                    - RnDUser
-                roles:
+        # send_to_edit_for_enrichment:
+        #     templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/Send for Enrichment to RND'
+        #     notificationTo: 
+        #         users:
+        #             - RnDUser
+        #         roles:
 #            notificationCC: 
 #                users: 
 #                    - ProductOwner
@@ -40,12 +40,12 @@ parameters:
                     - MarComUser
                 roles:
                     
-        send_to_marcom:
-            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/Send for Enrichment To Marcom'
-            notificationTo: 
-                users:
-                    - MarComUser
-                roles:
+        # send_to_marcom:
+        #     templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/Send for Enrichment To Marcom'
+        #     notificationTo: 
+        #         users:
+        #             - MarComUser
+        #         roles:
 #            notificationCC: 
 #                users: 
 #                    - ProductOwner
@@ -78,14 +78,14 @@ parameters:
 #                    - ProductOwner
 #                    - UserOwner
 #                roles:
-        send_to_po_for_review_from_rd_edit:
-            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/Product Publish Notification'
-            notificationTo: 
-                users:
-                    - ProductOwner
-#                    - UserOwner   
-                    # user owner is product creator means Product Manager
-                roles:
+#         send_to_po_for_review_from_rd_edit:
+#             templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/Product Publish Notification'
+#             notificationTo: 
+#                 users:
+#                     - ProductOwner
+# #                    - UserOwner   
+#                     # user owner is product creator means Product Manager
+#                 roles:
 #            notificationCC: 
 #                users: 
 #                    - ProductOwner
