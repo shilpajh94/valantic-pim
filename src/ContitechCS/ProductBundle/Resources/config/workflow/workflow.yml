@@ -40,17 +40,17 @@ parameters:
                     - MarComUser
                 roles:
                     
-        # send_to_marcom:
-        #     templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/Send for Enrichment To Marcom'
-        #     notificationTo: 
-        #         users:
-        #             - MarComUser
-        #         roles:
-#            notificationCC: 
-#                users: 
-#                    - ProductOwner
-#                    - UserOwner
-#                roles:
+        send_to_marcom:
+            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/Send for Enrichment To Marcom'
+            notificationTo: 
+                users:
+                    - MarComUser
+                roles:
+        #    notificationCC: 
+        #        users: 
+        #            - ProductOwner
+        #            - UserOwner
+        #        roles:
     
         send_to_publish:
             templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/Product Publish Notification'
