@@ -535,17 +535,36 @@ class DefaultController extends AbstractController
                 $longDescription =  $this->db->fetchColumn($sql);
                 $groupData['longDescription'] = $longDescription;
 
-                if($objectLevel5thDetails['rangeTemperatureF'] && $objectLevel5thDetails['rangeTemperatureC'])
+                if($objectLevel5thDetails['minimumTemperatureF'] && $objectLevel5thDetails['maximumTemperatureF'] && $objectLevel5thDetails['minimumTemperatureC'] && $objectLevel5thDetails['maximumTemperatureC'])
                 {
-                    $groupData['temperatureRange'] = $objectLevel5thDetails['rangeTemperatureF']."(".$objectLevel5thDetails['rangeTemperatureC'].")";
+                    $minTempF = round($objectLevel5thDetails['minimumTemperatureF']);
+                    $minTempC = round($objectLevel5thDetails['minimumTemperatureC']);
+
+                    if($objectLevel5thDetails['minimumTemperatureF'] > 0 || $objectLevel5thDetails['minimumTemperatureF'] < 0){
+                        $minTempF = '-'.round($objectLevel5thDetails['minimumTemperatureF']);
+                    }
+                    if($objectLevel5thDetails['minimumTemperatureC'] > 0 || $objectLevel5thDetails['minimumTemperatureC'] < 0){
+                        $minTempC = '-'.round($objectLevel5thDetails['minimumTemperatureC']);
+                    }
+                    $groupData['temperatureRange'] = $minTempF.'°F'.' to '.round($objectLevel5thDetails['maximumTemperatureF']).'°F '."(".$minTempC.'°C'.' to '.round($objectLevel5thDetails['maximumTemperatureC']).'°C'.")";
                 }
-                else if($objectLevel5thDetails['rangeTemperatureF'])
+                else if($objectLevel5thDetails['minimumTemperatureF'] && $objectLevel5thDetails['maximumTemperatureF'])
                 {
-                    $groupData['temperatureRange'] = $objectLevel5thDetails['rangeTemperatureF'];
+                    $minTempF = round($objectLevel5thDetails['minimumTemperatureF']);
+
+                    if($objectLevel5thDetails['minimumTemperatureF'] > 0 || $objectLevel5thDetails['minimumTemperatureF'] < 0){
+                        $minTempF = '-'.round($objectLevel5thDetails['minimumTemperatureF']);
+                    }
+                    $groupData['temperatureRange'] = $minTempF.'°F'.' to '.round($objectLevel5thDetails['maximumTemperatureF']).'°F';
                 }
-                else if($objectLevel5thDetails['rangeTemperatureC'])
+                else if($objectLevel5thDetails['minimumTemperatureC'] && $objectLevel5thDetails['maximumTemperatureC'])
                 {
-                    $groupData['temperatureRange'] = $objectLevel5thDetails['rangeTemperatureC'];
+                    $minTempC = round($objectLevel5thDetails['minimumTemperatureC']);
+
+                    if($objectLevel5thDetails['minimumTemperatureC'] > 0 || $objectLevel5thDetails['minimumTemperatureC'] < 0){
+                        $minTempC = '-'.round($objectLevel5thDetails['minimumTemperatureC']);
+                    }
+                    $groupData['temperatureRange'] = $minTempC.'°C'.' to '.round($objectLevel5thDetails['maximumTemperatureC']).'°C';
                 }
                 
                 $groupData['brandName'] = $objectLevel5thDetails['ProductName'];
@@ -599,9 +618,18 @@ class DefaultController extends AbstractController
                                         }
                                         else if(trim($article[$fieldName]) && ucfirst($fields['fieldType']) == 'Number')
                                         {
-                                            $data[$fieldName] = floatval($article[$fieldName]);
-                                        }
-                                        
+                                            if($fieldName == 'netWeight' || $fieldName == 'grossWeight'){
+                                                $data[$fieldName] = number_format($article[$fieldName],3,".","");
+                                            }
+                                            else{
+                                                $digitsAfterDecimal = strlen(substr(strrchr($article[$fieldName], "."), 1));
+                                                if($digitsAfterDecimal > 2){
+                                                    $data[$fieldName] = number_format($article[$fieldName],2,".","");
+                                                }else{
+                                                    $data[$fieldName] = floatval($article[$fieldName]);
+                                                }
+                                            }
+                                        }    
                                     }
                                     else if( ($fields['objectLevel'] == 'base') && ($fields['fieldLevel'] == 'class'))
                                     {
@@ -611,7 +639,12 @@ class DefaultController extends AbstractController
                                         }
                                         else if(trim($objectLevel5thDetails[$fieldName]) && ucfirst($fields['fieldType']) == 'Number')
                                         {
-                                            $data[$fieldName] = floatval($objectLevel5thDetails[$fieldName]);
+                                            $digitsAfterDecimal = strlen(substr(strrchr($objectLevel5thDetails[$fieldName], "."), 1));
+                                            if($digitsAfterDecimal > 2){
+                                                $data[$fieldName] = number_format($objectLevel5thDetails[$fieldName],2,".","");
+                                            }else{
+                                                $data[$fieldName] = floatval($objectLevel5thDetails[$fieldName]);
+                                            }
                                         }
                                     }
                                     else if( ($fields['objectLevel'] == 'skeleton') && ($fields['fieldLevel'] == 'class'))
@@ -622,7 +655,12 @@ class DefaultController extends AbstractController
                                         }
                                         else if(trim($objectLevel6[$fieldName]) && ucfirst($fields['fieldType']) == 'Number')
                                         {
-                                            $data[$fieldName] = floatval($objectLevel6[$fieldName]);
+                                            $digitsAfterDecimal = strlen(substr(strrchr($$objectLevel6[$fieldName], "."), 1));
+                                            if($digitsAfterDecimal > 2){
+                                                $data[$fieldName] = number_format($objectLevel6[$fieldName],2,".","");
+                                            }else{
+                                                $data[$fieldName] = floatval($objectLevel6[$fieldName]);
+                                            }
                                         }
                                     }
                                     else if( ($fields['objectLevel'] == 'fert'  || $fields['objectLevel'] == 'skeleton') && ($fields['fieldLevel'] == 'objectBrick'))
@@ -645,10 +683,22 @@ class DefaultController extends AbstractController
                                             $objectBrickName = $fields['objectBrickName'];
                                             $sql = "SELECT * FROM `object_brick_query_{$objectBrickName}_38` WHERE `o_id` = '$o_id'";
                                             $rowData =  $this->db->fetchRow($sql);
-                                            
                                             if($rowData)
                                             {
-                                                $data[$fieldName] = (trim($rowData[$fieldName]) && $isNumericField) ? floatval($rowData[$fieldName]) : $rowData[$fieldName];
+                                                if($fieldName == 'datumLengthIN' || $fieldName == 'effectiveLengthIN' || $fieldName == 'pitchLengthLpLwIN' || $fieldName == 'insideLengthIN' || $fieldName == 'refLengthLrIN'){
+                                                    $data[$fieldName] = number_format($rowData[$fieldName],2,".","");
+                                                }elseif($fieldName == 'datumLengthMM' || $fieldName == 'effectiveLengthMM' || $fieldName == 'pitchLengthLpLwMM' || $fieldName == 'insideLengthMM' || $fieldName == 'refLengthLrMM'){
+                                                    $data[$fieldName] = round($rowData[$fieldName]);
+                                                }elseif(trim($rowData[$fieldName]) && $isNumericField){
+                                                    $digitsAfterDecimal = strlen(substr(strrchr($rowData[$fieldName], "."), 1));
+                                                    if($digitsAfterDecimal > 2){
+                                                        $data[$fieldName] = number_format($rowData[$fieldName],2,".","");
+                                                    }else{
+                                                        $data[$fieldName] = floatval($rowData[$fieldName]);
+                                                    }
+                                                }else{
+                                                    $data[$fieldName] = $rowData[$fieldName];
+                                                }
                                             }
                                             else
                                             {
@@ -1664,7 +1714,6 @@ class DefaultController extends AbstractController
                 //         unset($columnsDataWithImages[$fieldKey]);
                 //     }
                 // }
-
                 $groupData['data'] = $asasa;
                 $groupData['columnsDataWithImages'] = $columnsDataWithImages;
                 $groupData['siop6siop7Category'] = $siop6siop7Category;
