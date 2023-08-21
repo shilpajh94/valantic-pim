@@ -60,6 +60,7 @@ Base:
   Conditions: ''
   minimumOrder: ''
   additionalDiscount: ''
+  ManufacturingLength: ''
 
   # SIOP Data
   # siopFullCode: ''

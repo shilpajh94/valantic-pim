@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-07-18T05:43:03+00:00
+* Generated at: 2023-08-18T12:30:56+00:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -63,6 +63,7 @@ Fields Summary:
 - shippingConditions [multiselect]
 - Conditions [multiselect]
 - minimumOrder [multiselect]
+- manufacturingLength [multiselect]
 - Skeleton [objectbricks]
 - B2CCategory [manyToManyObjectRelation]
 - printedCatalogFlag [booleanSelect]
@@ -171,7 +172,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1689658963,
+   'modificationDate' => 1692361794,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -4599,6 +4600,62 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'dynamicOptions' => false,
                              'name' => 'minimumOrder',
                              'title' => 'Minimum Order',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                          )),
+                          3 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                             'fieldtype' => 'multiselect',
+                             'options' => 
+                            array (
+                              0 => 
+                              array (
+                                'key' => 'Manufacturing Length 1',
+                                'value' => 14758594,
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'Manufacturing Length 2',
+                                'value' => 14758595,
+                              ),
+                              2 => 
+                              array (
+                                'key' => 'Manufacturing Length 3',
+                                'value' => 14758596,
+                              ),
+                              3 => 
+                              array (
+                                'key' => 'Manufacturing Length 4',
+                                'value' => 14758597,
+                              ),
+                              4 => 
+                              array (
+                                'key' => 'Manufacturing Length 5',
+                                'value' => 14758598,
+                              ),
+                            ),
+                             'width' => 830,
+                             'height' => 80,
+                             'maxItems' => '',
+                             'renderType' => 'tags',
+                             'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\ManufacturingLengthOptionsProvider',
+                             'optionsProviderData' => '',
+                             'queryColumnType' => 'text',
+                             'columnType' => 'text',
+                             'phpdocType' => 'array',
+                             'dynamicOptions' => false,
+                             'name' => 'manufacturingLength',
+                             'title' => 'Manufacturing Length',
                              'tooltip' => '',
                              'mandatory' => false,
                              'noteditable' => false,

@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-07-18T11:05:16+00:00
+* Generated at: 2023-08-18T12:32:36+00:00
 * IP: 127.0.0.1
 */ 
 
@@ -11,7 +11,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'MarComIFSEMEA',
    'description' => '',
    'creationDate' => 1681288759,
-   'modificationDate' => 1689678316,
+   'modificationDate' => 1692361956,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => 'IFSEUProduct',
@@ -4277,6 +4277,62 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                              'dynamicOptions' => false,
                              'name' => 'minimumOrder',
                              'title' => 'Minimum Order',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                          )),
+                          3 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                             'fieldtype' => 'multiselect',
+                             'options' => 
+                            array (
+                              0 => 
+                              array (
+                                'key' => 'Manufacturing Length 1',
+                                'value' => 14758594,
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'Manufacturing Length 2',
+                                'value' => 14758595,
+                              ),
+                              2 => 
+                              array (
+                                'key' => 'Manufacturing Length 3',
+                                'value' => 14758596,
+                              ),
+                              3 => 
+                              array (
+                                'key' => 'Manufacturing Length 4',
+                                'value' => 14758597,
+                              ),
+                              4 => 
+                              array (
+                                'key' => 'Manufacturing Length 5',
+                                'value' => 14758598,
+                              ),
+                            ),
+                             'width' => 830,
+                             'height' => 80,
+                             'maxItems' => '',
+                             'renderType' => 'tags',
+                             'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\ManufacturingLengthOptionsProvider',
+                             'optionsProviderData' => '',
+                             'queryColumnType' => 'text',
+                             'columnType' => 'text',
+                             'phpdocType' => 'array',
+                             'dynamicOptions' => false,
+                             'name' => 'manufacturingLength',
+                             'title' => 'Manufacturing Length',
                              'tooltip' => '',
                              'mandatory' => false,
                              'noteditable' => false,

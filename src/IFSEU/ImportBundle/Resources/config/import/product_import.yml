@@ -53,6 +53,7 @@ parameters:
       Conditions: 'Conditions'
       minimumOrder: 'Minimum order value'
       shippingConditions: 'Shipping conditions'
+      ManufacturingLength: 'Manufacturing Length'
 
       #base Localization Attribute
       headlineWeb: 'Headline Web'

@@ -124,6 +124,10 @@ services:
     IFSEU\ImportBundle\OneTimeImportCommand\TemperatureConversionToFCommand: 
         tags:
             - { name: 'console.command', command: 'ifs-eu-temperature-conversion-to-farenheit-command' }
+    IFSEU\ImportBundle\OneTimeImportCommand\ManufacturingLengthMasterDataImportCommand: 
+        tags:
+            - { name: 'console.command', command: 'ifs-eu-manufacturing-length-master-data-import-command' }
+
     # Event Listener 
     IFSEU\ImportBundle\EventListener\ObjectListener:
         tags:

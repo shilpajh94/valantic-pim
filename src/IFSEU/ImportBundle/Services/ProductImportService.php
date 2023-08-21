@@ -64,6 +64,7 @@ class ProductImportService
     private $SubCategory;
     private $minimumOrderIdArray;
     private $shippingConditionsIdArray;
+    private $manufacturingLengthIdArray;
     private $ConditionsIdArray;
     private $productionLengthIdArray;
     private $noteInfoIdArray;
@@ -140,6 +141,7 @@ class ProductImportService
         $this->SubCategory = [];
         $this->minimumOrderIdArray = [];
         $this->shippingConditionsIdArray = [];
+        $this->manufacturingLengthIdArray = [];
         $this->ConditionsIdArray = [];
         $this->productionLengthIdArray = [];
         $this->noteInfoIdArray = [];
@@ -155,6 +157,7 @@ class ProductImportService
         $subCategoryList = $this->productModel->getSubCategoryData();
         $minimumOrderList = $this->productModel->getMinimumOrderLanguageData();
         $shippingConditionsList = $this->productModel->getShippingConditionsData();
+        $manufacturingLengthList = $this->productModel->getManufacturingLengthData();
         $ConditionsList = $this->productModel->getConditionsData();
         $productionLengthList = $this->productModel->getProductionLengthData();
         $NoteInfoList = $this->productModel->getNoteInfoBelowTableData();
@@ -171,9 +174,9 @@ class ProductImportService
             unset($id);
         }
 
-        foreach($shippingConditionsList as $shippingConditionsData) {
-            $id = $shippingConditionsData['ShippingConditions'];
-            $this->shippingConditionsIdArray[$id] = $shippingConditionsData['oo_id'];
+        foreach($manufacturingLengthList as $manufacturingLengthData) {
+            $id = $manufacturingLengthData['ManufacturingLength'];
+            $this->manufacturingLengthIdArray[$id] = $manufacturingLengthData['oo_id'];
             unset($id);
         }
 
@@ -416,6 +419,14 @@ class ProductImportService
                 if (!empty($data)) {
                     $this->productModel->insertIntoProductTable($data, $tbl);
                 }
+            }
+        }
+    }
+
+    public function getmanufacturingLengthID($eachmanufacturingLengthValue){
+        foreach ($this->manufacturingLengthIdArray as $manufacturingLengthName => $manufacturingLengthId) {
+            if ($manufacturingLengthName == $eachmanufacturingLengthValue) {
+                return $manufacturingLengthId;
             }
         }
     }
@@ -832,6 +843,7 @@ class ProductImportService
             $queryTableData['minimumOrder'] = null;
             $queryTableData['Conditions'] = null;
             $queryTableData['shippingConditions'] = null;
+            $queryTableData['ManufacturingLength'] = null;
 
             $queryTableData['temporaryUntilC'] = trim($record[$this->getRecordIndexByKey('temporaryUntilC')]);
             $queryTableData['temporaryUntilT'] = trim($record[$this->getRecordIndexByKey('temporaryUntilT')]);
@@ -842,6 +854,22 @@ class ProductImportService
             $queryTableData['WebsiteLink']     = trim($record[$this->getRecordIndexByKey('WebsiteLink')]);
 
             $queryTableData['eHoseProduct'] = true;
+
+            if(!empty(trim($record[$this->getRecordIndexByKey('ManufacturingLength')]))){
+
+                $manufacturingLengthValue=trim($record[$this->getRecordIndexByKey('ManufacturingLength')]);
+                $manufacturingLengthValueArr=explode(',',$manufacturingLengthValue);
+                foreach($manufacturingLengthValueArr as $eachManufacturingLengthValueArr){
+                    if(!empty($eachManufacturingLengthValueArr)){
+                        $eachManufacturingLengthValue=trim($eachManufacturingLengthValueArr);
+                        $manufacturingLengthIdsArr[] = $this->getManufacturingLengthID($eachManufacturingLengthValue); 
+                    }
+                }
+                if(!empty($manufacturingLengthIdsArr)){
+                    $manufacturingLengthIds=implode(',',$manufacturingLengthIdsArr);
+                    $queryTableData['ManufacturingLength']=$manufacturingLengthIds;
+                }
+            }
 
             if(!empty(trim($record[$this->getRecordIndexByKey('minimumOrder')]))){
 
@@ -1015,9 +1043,6 @@ class ProductImportService
             'ProductLengthUnit' => null,
             'MinimumQuantityMeasurementUnit' => null,
             'productionLength' => null,
-            // 'minimumOrder' => null,
-            // 'Conditions' => null,
-            // 'shippingConditions' => null,
             'priceDate' => null,
             'minimumQuantityUnit' => null,
             'Spezi' => null,
@@ -1107,6 +1132,7 @@ class ProductImportService
             $storeTableDataArray['minimumOrder'] = null;
             $storeTableDataArray['Conditions'] = null;
             $storeTableDataArray['shippingConditions'] = null;
+            $storeTableDataArray['ManufacturingLength'] = null;
             
 
             $minimumTemperatureC = trim($record[$this->getRecordIndexByKey('minimumTemperatureC')]);
@@ -1123,6 +1149,23 @@ class ProductImportService
             $storeTableDataArray['DampableUntil2T'] = trim($record[$this->getRecordIndexByKey('DampableUntil2T')]);
             $storeTableDataArray['WebsiteLink']     = trim($record[$this->getRecordIndexByKey('WebsiteLink')]);
             $storeTableDataArray['eHoseProduct']    = true; 
+
+            if(!empty(trim($record[$this->getRecordIndexByKey('ManufacturingLength')]))){
+
+                $manufacturingLengthValue=trim($record[$this->getRecordIndexByKey('ManufacturingLength')]);
+                $manufacturingLengthValueArr=explode(',',$manufacturingLengthValue);
+                foreach($manufacturingLengthValueArr as $eachManufacturingLengthValueArr){
+                    if(!empty($eachManufacturingLengthValueArr)){
+                        $eachManufacturingLengthValue=trim($eachManufacturingLengthValueArr);
+                        $manufacturingLengthIdsArr[] = $this->getManufacturingLengthID($eachManufacturingLengthValue);
+                    }
+                }
+                if(!empty($manufacturingLengthIdsArr)){
+                    $manufacturingLengthIds=implode(',',$manufacturingLengthIdsArr);
+                    $storeTableDataArray['ManufacturingLength']=$manufacturingLengthIds;
+                }
+            }
+
 
             if(!empty(trim($record[$this->getRecordIndexByKey('minimumOrder')]))){
 
@@ -1171,8 +1214,6 @@ class ProductImportService
                     $storeTableDataArray['shippingConditions']=$shippingConditionsIds;
                 }
             }
-
-
 
             if(trim($record[$this->getRecordIndexByKey('onlyOpenSystem')]) == '1' || trim($record[$this->getRecordIndexByKey('onlyOpenSystem')]) == '0'){
                 $onlyOpenSystem =  trim($record[$this->getRecordIndexByKey('onlyOpenSystem')]);
