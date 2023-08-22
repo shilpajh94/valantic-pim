@@ -90,6 +90,10 @@ services:
         tags:
             - { name: 'console.command', command: 'conti:product-failure-mail' }
 
+    ImportBundle\Command\CopySapDescriptionIntoProductShortDescriptionCommand:
+        tags:
+            - { name: 'console.command', command: 'IFSPTG-US:Copy-SapDescription-Into-ProductShortDescription' }
+
     ImportBundle\OneTimeImportCommand\AssociateNomenclatureToProductCommand:
         tags:
             - { name: 'console.command', command: 'onetime-import:assoc-nomenclature-product' }
