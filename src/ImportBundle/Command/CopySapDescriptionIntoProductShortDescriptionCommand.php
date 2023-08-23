@@ -4,7 +4,6 @@ namespace ImportBundle\Command;
 
 use Exception;
 use Pimcore\Console\AbstractCommand;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Pimcore\Db;
@@ -29,17 +28,14 @@ class CopySapDescriptionIntoProductShortDescriptionCommand extends AbstractComma
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        $currentTime = time();
-        $twentyFourHoursPriorTime = time() - (24*60*60); 
 
         $select = "SELECT Distinct oo_id FROM object_1";
         $join = " INNER JOIN object_localized_data_1 on object_1.oo_id = object_localized_data_1.ooo_id";
-        $modificationTimeCondtion = "o_modificationDate <= ". $currentTime . " And  o_modificationDate >= ". $twentyFourHoursPriorTime;
         $productTypeCondition = "ProductType = 'fert'";
         $languageCondition = "object_localized_data_1.language = 'en' ";
         $productShortDescription = "object_localized_data_1.productShortDescription is NULL";
 
-        $sql = $select.$join." Where ".$modificationTimeCondtion." And ".$productTypeCondition." And ".$languageCondition." And ".$productShortDescription;
+        $sql = $select.$join." Where ". $productTypeCondition." And ".$languageCondition." And ".$productShortDescription;
         try{
             $modifiedEmptyProductShortDescriptionProductIds = $this->db->fetchCol($sql);
         }catch (\Exception $exception){
