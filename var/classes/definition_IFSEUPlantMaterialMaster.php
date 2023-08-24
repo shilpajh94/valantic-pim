@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-04-08T19:39:13+05:30
+* Generated at: 2023-08-23T10:22:06+00:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -30,6 +30,7 @@ Fields Summary:
 - StockIndicator [select]
 - StockIndicatorDescription [input]
 - deletedFlagAtPlantLevel [booleanSelect]
+- ABCIndicator [input]
 */ 
 
 
@@ -38,7 +39,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUPlantMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1680962952,
+   'modificationDate' => 1692786125,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -899,6 +900,34 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                  )),
+                  9 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 350,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'ABCIndicator',
+                     'title' => 'ABC Indicator',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => true,
+                     'index' => false,
+                     'locked' => NULL,
+                     'style' => 'float:left; margin-left: 20px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
                   )),
                 ),
                  'locked' => false,

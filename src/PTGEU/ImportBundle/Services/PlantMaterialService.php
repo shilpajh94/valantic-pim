@@ -341,6 +341,7 @@ class PlantMaterialService
         $columnOutsidePurchaseIdentifier = $this->mappingCsvColumn['outsidePurchaseIdentifierOrProcurementType'];
         $columnTariffCodes =  $this->mappingCsvColumn['tariffCodes'];
         $columnTotalReplenismentLeadTime =  $this->mappingCsvColumn['totalReplenismentLeadTime'];
+        $columnABCIndicator =  $this->mappingCsvColumn['ABCIndicator'];
 
         $deliveryUnitUOM = $rowvalue[$columnDeliveryUnitUOM];
         $baseUOM = $rowvalue[$columnBaseUOM];
@@ -355,6 +356,7 @@ class PlantMaterialService
         $stockIndicatorDescription = $rowvalue[$columnStockIndicatorDescription]; 
         $outsidePurchaseIdentifierOrProcurementType = $rowvalue[$columnOutsidePurchaseIdentifier];
         $totalReplenismentLeadTime = $rowvalue[$columnTotalReplenismentLeadTime];
+        $ABCIndicator = $rowvalue[$columnABCIndicator];
 
         $plantName = $rowvalue[$columnPlant];
         $salesOrg = $rowvalue[$columnSalesOrg];
@@ -380,7 +382,8 @@ class PlantMaterialService
             'stockIndicator' => $stockIndicator,
             'stockIndicatorDescription' => $stockIndicatorDescription,
             'OrderingQuantityIncrements' => $orderQtyInc,
-            'totalReplenismentLeadTime' => $totalReplenismentLeadTime
+            'totalReplenismentLeadTime' => $totalReplenismentLeadTime,
+            'ABCIndicator' => $ABCIndicator
         ];
         $data['storeTableData'] = $storeTableData;
         $queryTableData = [
