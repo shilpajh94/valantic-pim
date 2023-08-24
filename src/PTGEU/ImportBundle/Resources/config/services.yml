@@ -108,6 +108,10 @@ services:
         tags:
             - { name: 'console.command', command: 'contitech:ptg:eu:save' }
 
+    # this command will copy sap description data to blank product short description attributes
+    PTGEU\ImportBundle\Command\PTGEUCopySapDescriptionIntoProductShortDescriptionCommand:
+        tags:
+            - { name: 'console.command', command: 'contitech:ptg:eu:copy-sapDescription-into-productShortDescription' }
 
     # Services
     import.sap_file_feeder_service:
