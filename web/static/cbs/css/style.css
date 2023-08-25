@@ -62,7 +62,11 @@
 li span {
   padding-right: 2px;
 }
-.fortressxp-belts h1,
+.fortressxp-belts h1{
+  font-size: 30px;
+  margin-bottom: 0px;
+}
+/* .fortressxp-belts h1, */
 .table-content-sec h1 {
   font-size: 30px;
   margin-bottom: 1rem;
@@ -139,6 +143,7 @@ h3 {
   max-height: 108px;
   width: 150px;
   min-height: 108px;
+  border: 1px solid black;
   /* height: auto;     */
 }
 .environment-quality-sec .features-images {
@@ -236,7 +241,7 @@ h3 {
 }
 
 .steel-belt-const .h-padding {
-  padding: 10px 0px;
+  padding: 0px 0px;
 }
 
 
@@ -267,6 +272,17 @@ h3 {
 .fortressxp-belts .features-benefit-sec,
 .full-image-sec {
   margin: 25px 0px;
+}
+.media-transconti{
+  margin-bottom: 0px !important;
+  margin-top: 25px !important;
+}
+.media-transconti p{
+  font-size: 12px;
+  line-height: 1.4;
+}
+.feature-benefit-list-transconti{
+   margin: 0px 0px !important;
 }
 .full-image-sec {
   margin-top: 25px;
@@ -419,7 +435,7 @@ h3 {
   margin-top: 0px;
 }
 .belts-information h3 {
-  margin-top: 20px;
+  margin-top: 16px;
 }
 .table-data {
   margin-bottom: 5px;
@@ -1118,7 +1134,7 @@ height:100%;
 }
 #contiInspectSystemReportImage
 {
-  padding-top: 10px;
+  padding-top: 0px;
   margin-left: 70px;
 }
 #contiInspectSystemApplicationImage img{
@@ -1150,6 +1166,7 @@ height:100%;
 .pg-6 {
   margin: 0 -30px;
   min-width: 100%;
+  max-height: 80px;
 }
 .pg-6 img,
 .page95 img {
