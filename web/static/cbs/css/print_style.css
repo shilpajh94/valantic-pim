@@ -169,7 +169,11 @@ pre {
     border-right: 5px solid cmyk(0%, 0%, 0%, 0%);
 } */
 
-
+  .environment-quality-sec .diagonal-image-sec {
+    width: 800px;
+    margin-left: 270px; 
+    margin-top: -75px;
+  }
 
 .wrapper,
 .wrapper header,
@@ -541,7 +545,7 @@ section {
 
 
 @page title12{
-    padding-top: 155px;
+    padding-top: 150px;
 
     @top-center{
         content: element(headingInfo);
