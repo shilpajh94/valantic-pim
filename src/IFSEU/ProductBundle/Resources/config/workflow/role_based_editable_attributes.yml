@@ -21,6 +21,7 @@ All:
     - ShippingConditions 
     - Conditions 
     - MinimumOrder 
+    - ManufacturingLength
     - CompletenessPercentage 
     - EmptyFields 
     - MinimumTemperatureC 

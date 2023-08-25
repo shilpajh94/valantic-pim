@@ -50,6 +50,11 @@ parameters:
       DampableUntil2T: 'Dampable until 2 (t)'
       onlyOpenSystem: 'Open system'
       FeaturesBenefitsBulletPoint: 'Features & Benefits Bullet points'
+      Conditions: 'Conditions'
+      minimumOrder: 'Minimum order value'
+      shippingConditions: 'Shipping conditions'
+      ManufacturingLength: 'Manufacturing Length'
+
       #base Localization Attribute
       headlineWeb: 'Headline Web'
       Marking2: 'Marking 2'
@@ -79,9 +84,6 @@ parameters:
       productionLength: 'Production length'
       minimumQuantityUnit: 'Minimum quantity unit'
       additionalDiscount: 'Additional discount'
-      Conditions: 'Conditions'
-      minimumOrder: 'Minimum order value'
-      shippingConditions: 'Shipping conditions'
     #fert Localized Attribute
       sapDescription: 'SAP Description'
     #Fert Relationship 

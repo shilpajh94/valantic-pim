@@ -334,6 +334,11 @@ class ProductModel
         $query = "SELECT oo_id, o_key,ShippingConditions FROM ".$tbl;
         return $this->db->fetchAll($query);
     }
+    public function getManufacturingLengthData() {
+        $tbl="object_localized_IFSEUManufacturingLength_".'en';
+        $query = "SELECT oo_id, o_key,ManufacturingLength FROM ".$tbl;
+        return $this->db->fetchAll($query);
+    }
     public function getProductionLengthData() {
         $tbl="object_localized_IFSEUProductionLength_".'en';
         $query = "SELECT oo_id, o_key,ProductionLength FROM ".$tbl;
