@@ -804,13 +804,13 @@ final class Importer implements ImporterInterface
                 if ($setter instanceof LoggerAwareInterface) {
                     $setter->setLogger($this->logger);
                 }
-                if(!is_array($value) && empty(trim($value)) && (!is_numeric($value)) && ($value != false)){
+                if(!is_array($value) && empty(trim($value)) && (!is_numeric($value)) && (gettype($value) != 'boolean')){
                     $value = NULL;
                 }
                 $setter->set($object, $value, $map, $data);
             }
         } else {
-            if(!is_array($value) && empty(trim($value)) && (!is_numeric($value)) && ($value != false)){
+            if(!is_array($value) && empty(trim($value)) && (!is_numeric($value)) && (gettype($value) != 'boolean')){
                 $value = NULL;
             }
             if($definition->getClass()=='IFSEUProduct'){
