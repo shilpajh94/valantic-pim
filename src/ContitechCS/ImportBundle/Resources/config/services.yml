@@ -125,3 +125,9 @@ services:
                   name: "console.command",
                   command: "cs:one-time-import:map-coverCompound-data",
               }
+    ContitechCS\ImportBundle\OneTimeImportCommand\CSWorkflowPublishCommand:
+        tags:
+            - {
+                  name: "console.command",
+                  command: "cs-workflow-publish",
+              }
