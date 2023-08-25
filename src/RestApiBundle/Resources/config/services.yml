@@ -26,3 +26,9 @@ services:
     restapi_product_model_service:
         class: RestApiBundle\Service\ProductModelService
         public: true
+    RestApiBundle\Command\VirtualCatalogSaveSortedProduct:
+        tags:
+            - {
+                  name: "console.command",
+                  command: "restApi:virtual-catalog-save-sorted-product",
+              }

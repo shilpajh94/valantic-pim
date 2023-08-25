@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2022-06-21T10:55:33+02:00
+* Generated at: 2022-08-08T13:42:45+05:30
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -15,7 +15,11 @@ Fields Summary:
 - brandApplication [input]
 - SortOrder [numeric]
 - GroupingFieldNameForInhHoseProductTemplate [select]
+- virtualCatalogAPIMapper [manyToOneRelation]
+- virtualCatalogAPISorter [manyToOneRelation]
 - description [wysiwyg]
+- VirtualCatalogApiSorter [manyToOneRelation]
+- VirtualCatalogApiMapper [manyToOneRelation]
 - image [image]
 */ 
 
@@ -25,7 +29,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Brand',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1655801733,
+   'modificationDate' => 1659946365,
    'userOwner' => 0,
    'userModification' => 2,
    'parentClass' => '',
@@ -352,6 +356,92 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'relationType' => false,
                  'invisible' => false,
                  'visibleGridView' => true,
+                 'visibleSearch' => false,
+              )),
+              7 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                 'fieldtype' => 'manyToOneRelation',
+                 'width' => '',
+                 'assetUploadPath' => '',
+                 'relationType' => true,
+                 'queryColumnType' => 
+                array (
+                  'id' => 'int(11)',
+                  'type' => 'enum(\'document\',\'asset\',\'object\')',
+                ),
+                 'phpdocType' => '\\Pimcore\\Model\\Document\\Page | \\Pimcore\\Model\\Document\\Snippet | \\Pimcore\\Model\\Document | \\Pimcore\\Model\\Asset | \\Pimcore\\Model\\DataObject\\AbstractObject',
+                 'objectsAllowed' => true,
+                 'assetsAllowed' => false,
+                 'assetTypes' => 
+                array (
+                ),
+                 'documentsAllowed' => false,
+                 'documentTypes' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                  0 => 
+                  array (
+                    'classes' => 'VirtualCatalogApiSorter',
+                  ),
+                ),
+                 'pathFormatterClass' => '',
+                 'name' => 'VirtualCatalogApiSorter',
+                 'title' => 'Virtual Catalog Api Sorter',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => NULL,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+              )),
+              8 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                 'fieldtype' => 'manyToOneRelation',
+                 'width' => '',
+                 'assetUploadPath' => '',
+                 'relationType' => true,
+                 'queryColumnType' => 
+                array (
+                  'id' => 'int(11)',
+                  'type' => 'enum(\'document\',\'asset\',\'object\')',
+                ),
+                 'phpdocType' => '\\Pimcore\\Model\\Document\\Page | \\Pimcore\\Model\\Document\\Snippet | \\Pimcore\\Model\\Document | \\Pimcore\\Model\\Asset | \\Pimcore\\Model\\DataObject\\AbstractObject',
+                 'objectsAllowed' => true,
+                 'assetsAllowed' => false,
+                 'assetTypes' => 
+                array (
+                ),
+                 'documentsAllowed' => false,
+                 'documentTypes' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                  0 => 
+                  array (
+                    'classes' => 'VirtualCatalogApiMapper',
+                  ),
+                ),
+                 'pathFormatterClass' => '',
+                 'name' => 'VirtualCatalogApiMapper',
+                 'title' => 'Virtual Catalog Api Mapper',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => NULL,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'invisible' => false,
+                 'visibleGridView' => false,
                  'visibleSearch' => false,
               )),
             ),

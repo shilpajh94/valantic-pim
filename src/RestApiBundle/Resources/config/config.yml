@@ -1,0 +1,38 @@
+parameters:
+    grouping_fields:
+        staticWireType:
+            field_type: Select
+            container_name: HoseBase
+            field_name: staticWireType
+        coverCharacteristic:
+            field_type: Select
+            container_name: HoseBase
+            field_name: coverCharacteristic
+        coverMaterial:
+            field_type: Select
+            container_name: HoseBase
+            field_name: coverMaterial
+        numberOfPlies:
+            field_type: Numeric
+            container_name: HoseBase
+            field_name: numberOfPlies
+        reinforcement:
+            field_type: Select
+            container_name: Product
+            field_name: reinforcement
+        staticWire:
+            field_type: Bool
+            container_name: HoseBase
+            field_name: staticWire
+        tubeGaugeIN:
+            field_type: Numeric
+            container_name: HoseSkeleton
+            field_name: tubeGaugeIN
+        tubeMaterial:
+            field_type: Select
+            container_name: HoseBase
+            field_name: tubeMaterial
+        workingPressurePSI:
+            field_type: Numeric
+            container_name: HoseSkeleton
+            field_name: workingPressurePSI

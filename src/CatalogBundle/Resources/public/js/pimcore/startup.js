@@ -501,7 +501,8 @@ Ext.define('Conti.pimcore.object.tags.table', {
                 bodyCls: "pimcore_editable_grid",
                 autoHeight: true,
                 selModel: Ext.create('Ext.selection.CellModel'),
-                hideHeaders: true,
+                hideHeaders: false,
+                enableColumnHide: false,
                 plugins: [
                     this.cellEditing
                 ],

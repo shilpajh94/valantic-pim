@@ -20989,50 +20989,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
                                   )),
-<<<<<<< HEAD
-                                  10 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                                     'fieldtype' => 'multiselect',
-                                     'options' => 
-                                    array (
-                                      0 => 
-                                      array (
-                                        'key' => 'Ship1',
-                                        'value' => 14758486,
-                                      ),
-                                      1 => 
-                                      array (
-                                        'key' => 'Ship2',
-                                        'value' => 14758487,
-                                      ),
-                                    ),
-                                     'width' => 220,
-                                     'height' => '',
-                                     'maxItems' => '',
-                                     'renderType' => 'tags',
-                                     'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\ShippingConditionsOptionsProvider',
-                                     'optionsProviderData' => '',
-                                     'queryColumnType' => 'text',
-                                     'columnType' => 'text',
-                                     'phpdocType' => 'array',
-                                     'dynamicOptions' => false,
-                                     'name' => 'shippingConditions',
-                                     'title' => 'Shipping Conditions',
-                                     'tooltip' => '',
-                                     'mandatory' => false,
-                                     'noteditable' => false,
-                                     'index' => false,
-                                     'locked' => false,
-                                     'style' => 'margin-left: 45px;',
-                                     'permissions' => NULL,
-                                     'datatype' => 'data',
-                                     'relationType' => false,
-                                     'invisible' => false,
-                                     'visibleGridView' => false,
-                                     'visibleSearch' => false,
-                                  )),
-=======
->>>>>>> origin/IFSEU_CTTFSE01-220-221_DataModelling_ScriptLevel_Changes
                                 ),
                                  'locked' => false,
                               )),

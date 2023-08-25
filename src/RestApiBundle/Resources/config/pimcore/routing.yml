@@ -2,5 +2,14 @@ rest_api_homepage:
     path:     /rest_api
     defaults: { _controller: RestApiBundle:Default:index }
 rest_api_virtual_cat:
-    path:     /VirtualCatalog/products/
+    path:     /VirtualCatalog/products-old/
     defaults: { _controller: RestApiBundle:Product:getProductdata }
+rest_api_virtual_cat2:
+    path:     /VirtualCatalog/products/
+    defaults: { _controller: RestApiBundle:Product:getProductDataNewAPI }
+get_data:
+    path:     /virtual_catalog/get_available_headers/
+    defaults: { _controller: RestApiBundle:Default:getAvailableHeaders }
+get_mapper_data:
+    path:     /virtual_catalog/get_mapper_data/
+    defaults: { _controller: RestApiBundle:Default:getAvailableMappers }

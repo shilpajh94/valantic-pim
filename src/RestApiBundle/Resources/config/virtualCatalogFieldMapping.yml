@@ -5,9 +5,8 @@
 #         fieldName:
 #             - fieldType  ( string || numeric:decimalPlaces )
 
-VirtualCatalog: 
-    Base:
-        Fields:
+VirtualCatalog:
+    Fields:
             oo_id:
                 - string
             o_parentId:
@@ -58,45 +57,66 @@ VirtualCatalog:
                 - string
             document:
                 - string
-        Images:
-            - mainImage
-            - frontView
-            - sideView
-            - cutView
-        Object:
-            ProductCategory:
-                SIOPLevel2:
-                    Fields:
-                        - Level
-                        - Code
-                        - Description
-                SIOPLevel3:
-                    Fields:
-                        - Level
-                        - Code
-                        - PrintedCatalogDescription
-                SIOPLevel4:
-                    Fields:
-                        - Level
-                        - Code
-                        - PrintedCatalogDescription
-            Category:
-                category:
-                    Fields:
-                        - Name
-            SubCategory:
-                subCategory:
-                    Fields:
-                        - Name
-            FittingCategory:
-                fittingCategory:
-                    Fields:
-                        - Name
-            FittingSubCategory:
-                fittingSubCategory:
-                    Fields:
-                        - Name
-        ObjectBricks:
+            articleNumber:
+                - string
+            virtualCatalogReadyToGo:
+                - string
+            oldMaterialCode:
+                - string
+            weightKg:
+                - numeric: 2
+            WeightLbsPerFTUOM:
+                - string
+            prop65Message:
+                - string
+            BrandingLayline:
+                - string
+            longDescription:
+                - string
+            grossWeight:
+                - numeric: 2
+            reinforcement:
+                - string
+    Images:
+        - mainImage
+        - frontView
+        - sideView
+        - cutView
+    Object:
+        ProductCategory:
+            SIOPLevel2:
+                Fields:
+                    - Level
+                    - Code
+                    - Description
+            SIOPLevel3:
+                Fields:
+                    - Level
+                    - Code
+                    - PrintedCatalogDescription
+            SIOPLevel4:
+                Fields:
+                    - Level
+                    - Code
+                    - PrintedCatalogDescription
+        Category:
+            category:
+                Fields:
+                    - Name
+        SubCategory:
+            subCategory:
+                Fields:
+                    - Name
+        FittingCategory:
+            fittingCategory:
+                Fields:
+                    - Name
+        FittingSubCategory:
+            fittingSubCategory:
+                Fields:
+                    - Name
+    ObjectBricks:
+        Base :
             Hose:
                 Fields:
                     VirtualCatalogTubeMaterial:
@@ -104,6 +124,14 @@ VirtualCatalog:
                     tubeColor:
                         - string
                     VirtualCatalogCoverMaterial:
+                        - string
+                    coverMaterial:
+                        - string
+                    tubeMaterial:
+                        - string
+                    coverCharacteristic:
+                        - string
+                    staticWireType:
                         - string
                     coverColor:
                         - string
@@ -127,38 +155,9 @@ VirtualCatalog:
                         - string
                     sixDigitVirtualCatalogDescription:
                         - string
-            PTG:
-    Skeleton:
-        Fields:
-            oo_id:
-                - string
-            o_parentId:
-                - string
-            mainImage:
-                - string
-            frontView:
-                - string
-            sideView:
-                - string
-            cutView:
-                - string
-            prop65Message:
-                - string
-            BrandingLayline:
-                - string
-            longDescription:
-                - string
-            grossWeight:
-                - numeric: 2
-            o_published:
-                - string
-        Images:
-            - mainImage
-            - frontView
-            - sideView
-            - cutView    
-        Object:
-        ObjectBricks:
+                    numberOfPlies:
+                        - string
+        Skeleton :
             Hose:
                 Fields:
                     tubeGaugeIN:
@@ -191,43 +190,7 @@ VirtualCatalog:
                         - numeric: 2
                     HoseFittingFamily:
                         - string
-            PTG:
-                Fields:
-    Fert:
-        Fields:
-            oo_id:
-                - string
-            o_parentId:
-                - string
-            mainImage:
-                - string
-            frontView:
-                - string
-            sideView:
-                - string
-            cutView:
-                - string
-            articleNumber:
-                - string
-            oldMaterialCode:
-                - string
-            weightKg:
-                - numeric: 2
-            WeightLbsPerFTUOM:
-                - string
-            o_published:
-                - string
-        Images:
-            - mainImage
-            - frontView
-            - sideView
-            - cutView
-        Object:
-        ObjectBricks:
-            Accessories:
-                Fields:
-            Belts:
-                Fields:
+        Fert :
             Hose:
                 Fields:
                     hoseLengthFT:
@@ -242,13 +205,3 @@ VirtualCatalog:
                         - numeric: 2
                     InnerHoseWeightKg:
                         - numeric: 2
-            HydFittings:
-                Fields:
-            INHFittings:
-                Fields:
-            Metal:
-                Fields:
-            PTG:
-                Fields:
-            Synchronous:
-                Fields:
