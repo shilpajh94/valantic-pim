@@ -349,6 +349,27 @@ if($groupData){
                                                                         <?= $groupData['temperatureRange']; ?>
                                                                 </p>
                                                         <?php endif; ?>
+
+                                                        <?php if(!empty(trim($groupData['heatAndOilResistant']))): ?>
+                                                                <p>
+                                                                        <strong><?= $this->translate('PTGEU_HeatAndOilResistant') ?></strong>
+                                                                        <?= $groupData['heatAndOilResistant']; ?>
+                                                                </p>
+                                                        <?php endif; ?>
+
+                                                        <?php if(!empty(trim($groupData['staticConductive']))): ?>
+                                                                <p>
+                                                                        <strong><?= $this->translate('PTGEU_StaticConductivity') ?></strong>
+                                                                        <?= $groupData['staticConductive']; ?>
+                                                                </p>
+                                                        <?php endif; ?>
+
+                                                        <?php if(!empty(trim($groupData['performance']))): ?>
+                                                                <p>
+                                                                        <strong><?= $this->translate('PTGEU_Performance') ?></strong>
+                                                                        <?= $groupData['performance']; ?>
+                                                                </p>
+                                                        <?php endif; ?>
                                                 </div>
                                         </div> 
                                 <?php endif; ?>
