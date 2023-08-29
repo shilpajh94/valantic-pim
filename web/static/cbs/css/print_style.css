@@ -148,6 +148,10 @@ pre {
     color: cmyk(0%, 0%, 0%, 0%);
 }
 
+.tableNewFont *{
+    font-family: 'Nunito Sans' !important
+}
+
 .table-data tbody tr:nth-child(even), .wpa-table tbody tr, .table-data.contipipe-table tbody tr:nth-child(odd){
     background: cmyk(0%, 7%, 20%, 0%);
     -webkit-print-color-adjust: exact;

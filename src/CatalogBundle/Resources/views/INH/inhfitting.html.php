@@ -314,9 +314,9 @@ $industrial_hose_data[$groupData['siop3Category'].": ".$groupData['siop4Category
                                                         ?>
                                                         <?php foreach($groupData['data'] as $key => $element): ?>
                                                                 <?php if($incrRow%2==0): ?>
-                                                                <tr>
+                                                                <tr class = 'tableNewFont'>
                                                                 <?php else: ?>
-                                                                <tr class="active">
+                                                                <tr class="active tableNewFont">
                                                                 <?php endif; ?>
                                                                         <?php foreach($element as $ekey => $value): ?>
                                                                                         <td><?= $value ?></td>

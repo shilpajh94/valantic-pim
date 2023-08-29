@@ -423,9 +423,9 @@ if($groupData){
                                         <?php $incrRow = 1; ?>
                                         <?php foreach($articleGroupData as $key => $element): ?>
                                                 <?php if($incrRow%2==0): ?>
-                                                <tr>
+                                                <tr class = "tableNewFont">
                                                 <?php else: ?>
-                                                <tr class="active">
+                                                <tr class="active tableNewFont">
                                                 <?php endif; ?>
                                                         <?php foreach($element as $ekey => $value): ?>
                                                                         <td><?= $value ?></td>

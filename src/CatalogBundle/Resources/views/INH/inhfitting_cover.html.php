@@ -156,9 +156,9 @@ if (!isset($this->parentContainer)) {
                                         <?php $incrRow = 1; ?>
                                         <?php foreach($templateBrandDtata as $key => $element): ?>
                                                 <?php if($incrRow%2==0): ?>
-                                                <tr>
+                                                <tr class = 'tableNewFont'>
                                                 <?php else: ?>
-                                                <tr class="active">
+                                                <tr class="active tableNewFont">
                                                 <?php endif; ?>
                                                         <td><?= $key; ?></td>
                                                         <td><?= $this->input("page_{$incrRow}"); ?></td>

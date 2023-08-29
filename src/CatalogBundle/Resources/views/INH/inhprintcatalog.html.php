@@ -175,9 +175,9 @@ if (!isset($this->parentContainer)) {
                                 $i = 1;
                                 if (isset($data['data']) && !empty($data['data'])) {
                                     foreach ($data['data'] as $brandName => $row) {
-                                        $active = "";
+                                        $active = "tableNewFont";
                                         if ($i % 2 !== 0) {
-                                            $active = "active";
+                                            $active = "active tableNewFont";
                                         }
                                         $i++;
                                         echo "<tr class='$active'>";

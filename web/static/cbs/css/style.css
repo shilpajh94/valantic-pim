@@ -28,6 +28,7 @@
 .features-benefit-sec h2 {
   margin-bottom: 0px;
 }
+
 .table-of-contents h3 {
   padding: 2px 5px;
 }
@@ -445,6 +446,7 @@ h3 {
 .belts-information h3 {
   margin-top: 16px;
 }
+
 .table-data {
   margin-bottom: 5px;
 }
@@ -484,6 +486,14 @@ h3 {
 .cover-compounds-table th {
   font-family: "ContinentalStagSansLCG-Medium";
   font-weight: normal !important;
+}
+
+.tableNewFont *{
+  font-family: 'Nunito Sans' !important
+}
+
+.cbs td{
+  font-family: 'Nunito Sans';
 }
 
 .table-data td:first-child,
