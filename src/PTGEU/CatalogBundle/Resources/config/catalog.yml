@@ -325,7 +325,7 @@ parameters:
                 columnLabel: Belt Angle
                 fieldLevel: class
                 objectLevel: skeleton
-                fieldType: Input
+                fieldType: Number
                 groupName: beltAngle
         PTG Sorting Attributes:
             profile:

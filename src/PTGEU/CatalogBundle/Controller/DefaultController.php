@@ -571,7 +571,6 @@ class DefaultController extends AbstractController
                 
                 $sql = "SELECT * FROM `object_38` WHERE `o_parentId` = '$objectLevel5thId' ORDER BY o_id ASC";
                 $row6ThLevelDetails =  $this->db->fetchAll($sql);
-
                 $notApplicableFields = [];
                 $articleData = [];
                 
@@ -618,9 +617,18 @@ class DefaultController extends AbstractController
                                         }
                                         else if(trim($article[$fieldName]) && ucfirst($fields['fieldType']) == 'Number')
                                         {
-                                            $data[$fieldName] = floatval($article[$fieldName]);
-                                        }
-                                        
+                                            if($fieldName == 'netWeight' || $fieldName == 'grossWeight'){
+                                                $data[$fieldName] = number_format($article[$fieldName],3,".","");
+                                            }
+                                            else{
+                                                $digitsAfterDecimal = strlen(substr(strrchr($article[$fieldName], "."), 1));
+                                                if($digitsAfterDecimal > 2){
+                                                    $data[$fieldName] = number_format($article[$fieldName],2,".","");
+                                                }else{
+                                                    $data[$fieldName] = floatval($article[$fieldName]);
+                                                }
+                                            }
+                                        }    
                                     }
                                     else if( ($fields['objectLevel'] == 'base') && ($fields['fieldLevel'] == 'class'))
                                     {
@@ -630,7 +638,12 @@ class DefaultController extends AbstractController
                                         }
                                         else if(trim($objectLevel5thDetails[$fieldName]) && ucfirst($fields['fieldType']) == 'Number')
                                         {
-                                            $data[$fieldName] = floatval($objectLevel5thDetails[$fieldName]);
+                                            $digitsAfterDecimal = strlen(substr(strrchr($objectLevel5thDetails[$fieldName], "."), 1));
+                                            if($digitsAfterDecimal > 2){
+                                                $data[$fieldName] = number_format($objectLevel5thDetails[$fieldName],2,".","");
+                                            }else{
+                                                $data[$fieldName] = floatval($objectLevel5thDetails[$fieldName]);
+                                            }
                                         }
                                     }
                                     else if( ($fields['objectLevel'] == 'skeleton') && ($fields['fieldLevel'] == 'class'))
@@ -641,10 +654,57 @@ class DefaultController extends AbstractController
                                         }
                                         else if(trim($objectLevel6[$fieldName]) && ucfirst($fields['fieldType']) == 'Number')
                                         {
-                                            $data[$fieldName] = floatval($objectLevel6[$fieldName]);
+                                            $digitsAfterDecimal = strlen(substr(strrchr($objectLevel6[$fieldName], "."), 1));
+                                            if($digitsAfterDecimal > 2){
+                                                $data[$fieldName] = number_format($objectLevel6[$fieldName],2,".","");
+                                            }else{
+                                                $data[$fieldName] = floatval($objectLevel6[$fieldName]);
+                                            }
                                         }
                                     }
-                                    else if( ($fields['objectLevel'] == 'fert'  || $fields['objectLevel'] == 'skeleton') && ($fields['fieldLevel'] == 'objectBrick'))
+                                    else if( ($fields['objectLevel'] == 'skeleton') && ($fields['fieldLevel'] == 'objectBrick'))
+                                    {
+                                        $inputOrNumber = false;
+                                        $isNumericField = false;
+                                        if(ucfirst($fields['fieldType']) == 'Input')
+                                        {
+                                            $inputOrNumber = true;
+                                        }
+                                        else if(ucfirst($fields['fieldType']) == 'Number')
+                                        {
+                                            $inputOrNumber = true;
+                                            $isNumericField = true;
+                                        }
+
+                                        if($inputOrNumber)
+                                        {
+                                            $o_id = $objectLevel6['oo_id'];
+                                            $objectBrickName = $fields['objectBrickName'];
+                                            $sql = "SELECT * FROM `object_brick_query_{$objectBrickName}_38` WHERE `o_id` = '$o_id'";
+                                            $rowData =  $this->db->fetchRow($sql);
+                                            if($rowData)
+                                            {
+                                                if(trim($rowData[$fieldName]) && $isNumericField){
+                                                    $digitsAfterDecimal = strlen(substr(strrchr($rowData[$fieldName], "."), 1));
+                                                    if($digitsAfterDecimal > 2){
+                                                        $data[$fieldName] = number_format($rowData[$fieldName],2,".","");
+                                                    }else{
+                                                        $data[$fieldName] = floatval($rowData[$fieldName]);
+                                                    }
+                                                }else{
+                                                    $data[$fieldName] = $rowData[$fieldName];
+                                                }
+                                            }
+                                            else
+                                            {
+                                                $data[$fieldName]= '';
+                                                $notApplicableFields[$fields['groupName']]= $fieldName;
+                                            }
+                                        }
+                                        
+                                    }
+
+                                    else if($fields['objectLevel'] == 'fert' && ($fields['fieldLevel'] == 'objectBrick'))
                                     {
                                         $inputOrNumber = false;
                                         $isNumericField = false;
@@ -664,10 +724,22 @@ class DefaultController extends AbstractController
                                             $objectBrickName = $fields['objectBrickName'];
                                             $sql = "SELECT * FROM `object_brick_query_{$objectBrickName}_38` WHERE `o_id` = '$o_id'";
                                             $rowData =  $this->db->fetchRow($sql);
-                                            
                                             if($rowData)
                                             {
-                                                $data[$fieldName] = (trim($rowData[$fieldName]) && $isNumericField) ? floatval($rowData[$fieldName]) : $rowData[$fieldName];
+                                                if($fieldName == 'datumLengthIN' || $fieldName == 'effectiveLengthIN' || $fieldName == 'pitchLengthLpLwIN' || $fieldName == 'insideLengthIN' || $fieldName == 'refLengthLrIN'){
+                                                    $data[$fieldName] = number_format($rowData[$fieldName],2,".","");
+                                                }elseif($fieldName == 'datumLengthMM' || $fieldName == 'effectiveLengthMM' || $fieldName == 'pitchLengthLpLwMM' || $fieldName == 'insideLengthMM' || $fieldName == 'refLengthLrMM'){
+                                                    $data[$fieldName] = round($rowData[$fieldName]);
+                                                }elseif(trim($rowData[$fieldName]) && $isNumericField){
+                                                    $digitsAfterDecimal = strlen(substr(strrchr($rowData[$fieldName], "."), 1));
+                                                    if($digitsAfterDecimal > 2){
+                                                        $data[$fieldName] = number_format($rowData[$fieldName],2,".","");
+                                                    }else{
+                                                        $data[$fieldName] = floatval($rowData[$fieldName]);
+                                                    }
+                                                }else{
+                                                    $data[$fieldName] = $rowData[$fieldName];
+                                                }
                                             }
                                             else
                                             {
@@ -678,82 +750,6 @@ class DefaultController extends AbstractController
                                         
                                     }
                                 }
-
-                                // if($tableSortingFieldsStatus)
-                               // {
-                                    // foreach ($tableSortingFieldsStatus as $fieldName => $tableShowStatus) {
-                                    //     if(!$tableShowStatus)
-                                    //     {
-                                    //         $fieldConfig = $DynamicTableAttribute[$fieldName];
-
-                                    //         if( ($fieldConfig['objectLevel'] == 'fert') && ($fieldConfig['fieldLevel'] == 'class'))
-                                    //         {
-                                    //             if(ucfirst($fieldConfig['fieldType']) == 'Input')
-                                    //             {
-                                    //                 $data[$fieldName] = $article[$fieldName];
-                                    //             }
-                                    //             else if(trim($article[$fieldName]) && ucfirst($fieldConfig['fieldType']) == 'Number')
-                                    //             {
-                                    //                 $data[$fieldName] = floatval($article[$fieldName]);
-                                    //             }
-                                    //         }
-                                    //         else if( ($fieldConfig['objectLevel'] == 'base') && ($fieldConfig['fieldLevel'] == 'class'))
-                                    //         {
-                                    //             if(ucfirst($fieldConfig['fieldType']) == 'Input')
-                                    //             {
-                                    //                 $data[$fieldName] = $objectLevel5thDetails[$fieldName];
-                                    //             }
-                                    //             else if(trim($objectLevel5thDetails[$fieldName]) && ucfirst($fieldConfig['fieldType']) == 'Number')
-                                    //             {
-                                    //                 $data[$fieldName] = floatval($objectLevel5thDetails[$fieldName]);
-                                    //             }
-                                    //         }
-                                    //         else if( ($fieldConfig['objectLevel'] == 'skeleton') && ($fieldConfig['fieldLevel'] == 'class'))
-                                    //         {
-                                    //             if(ucfirst($fieldConfig['fieldType']) == 'Input')
-                                    //             {
-                                    //                 $data[$fieldName] = $objectLevel6[$fieldName];
-                                    //             }
-                                    //             else if(trim($objectLevel6[$fieldName]) && ucfirst($fieldConfig['fieldType']) == 'Number')
-                                    //             {
-                                    //                 $data[$fieldName] = floatval($objectLevel6[$fieldName]);
-                                    //             }
-                                    //         }
-                                    //         else if( ($fieldConfig['objectLevel'] == 'fert' || $fieldConfig['objectLevel'] == 'skeleton') && ($fieldConfig['fieldLevel'] == 'objectBrick'))
-                                    //         {
-                                    //             $inputOrNumber = false;
-                                    //             $isNumericField = false;
-                                    //             if(ucfirst($fieldConfig['fieldType']) == 'Input')
-                                    //             {
-                                    //                 $inputOrNumber = true;
-                                    //             }
-                                    //             else if(ucfirst($fieldConfig['fieldType']) == 'Number')
-                                    //             {
-                                    //                 $inputOrNumber = true;
-                                    //                 $isNumericField = true;
-                                    //             }
-                                                
-                                    //             if($inputOrNumber)
-                                    //             {
-                                    //                 $o_id = $article['o_id'];
-                                    //                 $objectBrickName = $fieldConfig['objectBrickName'];
-                                    //                 $sql = "SELECT * FROM `object_brick_query_{$objectBrickName}_38` WHERE `o_id` = '$o_id' ";
-                                    //                 $rowData =  $this->db->fetchRow($sql);
-
-                                    //                 if($rowData)
-                                    //                 {
-                                    //                     $data[$fieldName] = (trim($rowData[$fieldName]) && $isNumericField) ? floatval($rowData[$fieldName]) : $rowData[$fieldName];
-                                    //                 }
-                                    //                 else
-                                    //                 {
-                                    //                     $data[$fieldName]= '';
-                                    //                     $notApplicableFields[$fieldConfig['groupName']]= $fieldName;
-                                    //                 }
-                                    //             }
-                                    //         }
-                                    //     }
-                                    // }
-                               // }
 
                                 if($IsPriceCatalog)
                                 {
@@ -1683,7 +1679,6 @@ class DefaultController extends AbstractController
                 //         unset($columnsDataWithImages[$fieldKey]);
                 //     }
                 // }
-
                 $groupData['data'] = $asasa;
                 $groupData['columnsDataWithImages'] = $columnsDataWithImages;
                 $groupData['siop6siop7Category'] = $siop6siop7Category;
