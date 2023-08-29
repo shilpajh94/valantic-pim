@@ -535,17 +535,36 @@ class DefaultController extends AbstractController
                 $longDescription =  $this->db->fetchColumn($sql);
                 $groupData['longDescription'] = $longDescription;
 
-                if($objectLevel5thDetails['rangeTemperatureF'] && $objectLevel5thDetails['rangeTemperatureC'])
+                if($objectLevel5thDetails['minimumTemperatureF'] && $objectLevel5thDetails['maximumTemperatureF'] && $objectLevel5thDetails['minimumTemperatureC'] && $objectLevel5thDetails['maximumTemperatureC'])
                 {
-                    $groupData['temperatureRange'] = $objectLevel5thDetails['rangeTemperatureF']."(".$objectLevel5thDetails['rangeTemperatureC'].")";
+                    $minTempF = round($objectLevel5thDetails['minimumTemperatureF']);
+                    $minTempC = round($objectLevel5thDetails['minimumTemperatureC']);
+
+                    if($objectLevel5thDetails['minimumTemperatureF'] > 0 || $objectLevel5thDetails['minimumTemperatureF'] < 0){
+                        $minTempF = '-'.round($objectLevel5thDetails['minimumTemperatureF']);
+                    }
+                    if($objectLevel5thDetails['minimumTemperatureC'] > 0 || $objectLevel5thDetails['minimumTemperatureC'] < 0){
+                        $minTempC = '-'.round($objectLevel5thDetails['minimumTemperatureC']);
+                    }
+                    $groupData['temperatureRange'] = $minTempF.'°F'.' to '.round($objectLevel5thDetails['maximumTemperatureF']).'°F '."(".$minTempC.'°C'.' to '.round($objectLevel5thDetails['maximumTemperatureC']).'°C'.")";
                 }
-                else if($objectLevel5thDetails['rangeTemperatureF'])
+                else if($objectLevel5thDetails['minimumTemperatureF'] && $objectLevel5thDetails['maximumTemperatureF'])
                 {
-                    $groupData['temperatureRange'] = $objectLevel5thDetails['rangeTemperatureF'];
+                    $minTempF = round($objectLevel5thDetails['minimumTemperatureF']);
+
+                    if($objectLevel5thDetails['minimumTemperatureF'] > 0 || $objectLevel5thDetails['minimumTemperatureF'] < 0){
+                        $minTempF = '-'.round($objectLevel5thDetails['minimumTemperatureF']);
+                    }
+                    $groupData['temperatureRange'] = $minTempF.'°F'.' to '.round($objectLevel5thDetails['maximumTemperatureF']).'°F';
                 }
-                else if($objectLevel5thDetails['rangeTemperatureC'])
+                else if($objectLevel5thDetails['minimumTemperatureC'] && $objectLevel5thDetails['maximumTemperatureC'])
                 {
-                    $groupData['temperatureRange'] = $objectLevel5thDetails['rangeTemperatureC'];
+                    $minTempC = round($objectLevel5thDetails['minimumTemperatureC']);
+
+                    if($objectLevel5thDetails['minimumTemperatureC'] > 0 || $objectLevel5thDetails['minimumTemperatureC'] < 0){
+                        $minTempC = '-'.round($objectLevel5thDetails['minimumTemperatureC']);
+                    }
+                    $groupData['temperatureRange'] = $minTempC.'°C'.' to '.round($objectLevel5thDetails['maximumTemperatureC']).'°C';
                 }
                 
                 $groupData['brandName'] = $objectLevel5thDetails['ProductName'];
