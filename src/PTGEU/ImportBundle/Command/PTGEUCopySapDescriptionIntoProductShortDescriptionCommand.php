@@ -33,9 +33,11 @@ class PTGEUCopySapDescriptionIntoProductShortDescriptionCommand extends Abstract
         $join = " INNER JOIN object_localized_data_38 on object_38.oo_id = object_localized_data_38.ooo_id";
         $productTypeCondition = "ProductType = 'fert'";
         $languageCondition = "object_localized_data_38.language = 'en' ";
-        $productShortDescription = "object_localized_data_38.productShortDescription is NULL";
+        $productShortDescriptionCondition = "(object_localized_data_38.productShortDescription is NULL OR 
+                                                object_localized_data_38.productShortDescription = '' OR 
+                                                object_localized_data_38.productShortDescription = 'NULL')";
 
-        $sql = $select.$join." Where ". $productTypeCondition." And ".$languageCondition." And ".$productShortDescription;
+        $sql = $select.$join." Where ". $productTypeCondition." And ".$languageCondition." And ".$productShortDescriptionCondition;
         try{
             $modifiedEmptyProductShortDescriptionProductIds = $this->db->fetchCol($sql);
         }catch (\Exception $exception){

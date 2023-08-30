@@ -33,9 +33,11 @@ class IFSEU_CopySapDescriptionIntoProductShortDescriptionCommand extends Abstrac
         $join = " INNER JOIN object_localized_data_IFSEUProduct on object_IFSEUProduct.oo_id = object_localized_data_IFSEUProduct.ooo_id";
         $productTypeCondition = "ProductType = 'fert'";
         $languageCondition = "object_localized_data_IFSEUProduct.language = 'en' ";
-        $productShortDescription = "object_localized_data_IFSEUProduct.productShortDescription is NULL";
+        $productShortDescriptionCondition = "(object_localized_data_IFSEUProduct.productShortDescription is NULL OR 
+                                                object_localized_data_IFSEUProduct.productShortDescription = '' OR 
+                                                object_localized_data_IFSEUProduct.productShortDescription = 'NULL')";
 
-        $sql = $select.$join." Where ". $productTypeCondition." And ".$languageCondition." And ".$productShortDescription;
+        $sql = $select.$join." Where ". $productTypeCondition." And ".$languageCondition." And ".$productShortDescriptionCondition;
         try{
             $modifiedEmptyProductShortDescriptionProductIds = $this->db->fetchCol($sql);
         }catch (\Exception $exception){

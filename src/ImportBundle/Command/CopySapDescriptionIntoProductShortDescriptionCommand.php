@@ -33,9 +33,11 @@ class CopySapDescriptionIntoProductShortDescriptionCommand extends AbstractComma
         $join = " INNER JOIN object_localized_data_1 on object_1.oo_id = object_localized_data_1.ooo_id";
         $productTypeCondition = "ProductType = 'fert'";
         $languageCondition = "object_localized_data_1.language = 'en' ";
-        $productShortDescription = "object_localized_data_1.productShortDescription is NULL";
+        $productShortDescriptionCondition = "(object_localized_data_1.productShortDescription is NULL OR 
+                                                object_localized_data_1.productShortDescription = '' OR 
+                                                object_localized_data_1.productShortDescription = 'NULL')";
 
-        $sql = $select.$join." Where ". $productTypeCondition." And ".$languageCondition." And ".$productShortDescription;
+        $sql = $select.$join." Where ". $productTypeCondition." And ".$languageCondition." And ".$productShortDescriptionCondition;
         try{
             $modifiedEmptyProductShortDescriptionProductIds = $this->db->fetchCol($sql);
         }catch (\Exception $exception){
