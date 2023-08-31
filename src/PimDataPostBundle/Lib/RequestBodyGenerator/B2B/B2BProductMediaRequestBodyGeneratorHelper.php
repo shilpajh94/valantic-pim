@@ -66,6 +66,7 @@ class B2BProductMediaRequestBodyGeneratorHelper
                     "Product2__c" =>  $this->productrelationdao->getProductSalesforceIdByPimId($b2bProductRelationChange->productId),
                     "B2B_Media_Type__c" => "Image",
                     "B2B_Description__c" => $imageAsset->getFileName(),
+                    "B2B_Alt_Text__c" => ($imageAsset->getMetadata("title")),
                     "B2B_Display_Type__c" => Constants::B2B_PRODUCT_SMALL_IMAGE_DISPLAY_TYPE,
                     // "B2B_Media_URL__c" => Util::getAssetPublicPath($imageAsset, ImageTransformationSize::SMALL()), // Mahesh Lakher, 15 May 2023 - Code commented, client said send medium image in place of small
                     "B2B_Media_URL__c" => Util::getAssetPublicPath($imageAsset, ImageTransformationSize::MEDIUM()), // Mahesh Lakher, 15 May 2023 - Code added, client said send medium image in place of small
@@ -107,6 +108,7 @@ class B2BProductMediaRequestBodyGeneratorHelper
             $body =array(
                 "Product2__c" =>  $this->productrelationdao->getProductSalesforceIdByPimId($b2bProductRelationChange->productId),
                 "B2B_Media_Type__c" => "Video",
+                "B2B_Alt_Text__c" => ($videoAsset->getMetadata("title")),
                 "B2B_Description__c" => $videoAsset->getFileName(),
                 "B2B_Media_URL__c" => Util::getAssetPublicPath($videoAsset),
                 "B2B_Sequence__c" => $sequence
@@ -158,6 +160,7 @@ class B2BProductMediaRequestBodyGeneratorHelper
                 $body =array(
                     "Product2__c" =>  $this->productrelationdao->getProductSalesforceIdByPimId($b2bProductRelationChange->productId),
                     "B2B_Media_Type__c" => $mediaType,
+                    "B2B_Alt_Text__c" => ($documentAsset->getMetadata("title")),
                     "B2B_Description__c" => $documentAsset->getFileName(),
                     "B2B_Media_URL__c" => Util::getAssetPublicPath($documentAsset),
                     "B2B_Sequence__c" => $sequence
