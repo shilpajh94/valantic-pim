@@ -672,12 +672,7 @@ class DefaultController extends AbstractController
                                             {
                                                 if(trim($rowData[$fieldName]) && $isNumericField){
                                                     if(in_array($fieldName, $this->decimalPlaceAttribute)){
-                                                        $digitsAfterDecimal = strlen(substr(strrchr($rowData[$fieldName], "."), 1));
-                                                    if($digitsAfterDecimal > 2){
                                                         $data[$fieldName] = number_format($rowData[$fieldName],2,".","");
-                                                    }else{
-                                                        $data[$fieldName] = floatval($rowData[$fieldName]);
-                                                    }
                                                     }else{
                                                         $data[$fieldName] = floatval($rowData[$fieldName]);
                                                     }
@@ -721,12 +716,7 @@ class DefaultController extends AbstractController
                                                 }
                                                 elseif($isNumericField){
                                                     if(in_array($fieldName, $this->decimalPlaceAttribute)){
-                                                        $digitsAfterDecimal = strlen(substr(strrchr($rowData[$fieldName], "."), 1));
-                                                        if($digitsAfterDecimal > 2){
-                                                            $data[$fieldName] = number_format($rowData[$fieldName],2,".","");
-                                                        }else{
-                                                            $data[$fieldName] = floatval($rowData[$fieldName]);
-                                                        }
+                                                        $data[$fieldName] = number_format($rowData[$fieldName],2,".","");
                                                     }else{
                                                         $data[$fieldName] = floatval($rowData[$fieldName]);
                                                     }
