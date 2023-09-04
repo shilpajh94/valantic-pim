@@ -36,7 +36,8 @@ class B2BProductTempTablePopulator extends AbstractB2BTempTablePopulator
 
         if($salesMaterialProductIDs || $materialProductIDs)
         {
-            $resultSet = \array_values(array_unique(array_merge($salesMaterialProductIDs, $materialProductIDs)));
+            //$resultSet = \array_values(array_unique(array_merge($salesMaterialProductIDs, $materialProductIDs)));
+            $resultSet = \array_filter(array_values(array_unique(array_merge($salesMaterialProductIDs, $materialProductIDs))));
         }
 
         return $resultSet;

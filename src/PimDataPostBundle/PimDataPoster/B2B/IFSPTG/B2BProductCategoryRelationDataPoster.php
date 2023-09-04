@@ -52,7 +52,9 @@ class B2BProductCategoryRelationDataPoster implements IDataPoster
             $relationObjectsForFailureEntry = array_merge($relationObjectsForFailureEntry, $relationChangeObjectsToResent);
             $pimFailedRecordHandler->deleteFixedPimFailedRecord($pimFailedRecordsToResend);
 
-            $helper->sendAllRequestsToSFAndHandleResponses($httpRequestGenerator, $responseHandler);
+            //$helper->sendAllRequestsToSFAndHandleResponses($httpRequestGenerator, $responseHandler);
+            $helper->sendAllRequestsToSFAndHandleResponses($httpRequestGenerator, $responseHandler, APIOperationType::DELETE());
+            $helper->sendAllRequestsToSFAndHandleResponses($httpRequestGenerator, $responseHandler, APIOperationType::UPDATE());
         }catch(\Throwable $throwable){
             B2BLogger::getInstace()->error( get_class($throwable) . " in B2BProductCategoryRelationDataPoster: " . $throwable->getMessage() .". StackTrace: " .$throwable->getTraceAsString());
             $failureRecordids = $this->getPimIdsForRelationObjects($relationObjectsForFailureEntry);
@@ -72,6 +74,7 @@ class B2BProductCategoryRelationDataPoster implements IDataPoster
             $object = new B2BProductRelationChange();
             $object->setProductId($idsArray[0]);
             $object->setNewValue($idsArray[1]);
+            $object->setOldValue($idsArray[2]);
 
             $relationObjects[] = $object;
         }
@@ -85,26 +88,30 @@ class B2BProductCategoryRelationDataPoster implements IDataPoster
             $requestBody = $requestBodyGenerator->generateRequestBody($relationChangeObject);
             $currTime = time();
 
-            /* =================================== */
-            $apiRequestEntity = new B2BAPIRequestEntity();
-            $apiRequestEntity->setBody(json_encode($requestBody,JSON_UNESCAPED_SLASHES));
-            $apiRequestEntity->setOperationType(APIOperationType::DELETE());
-            $apiRequestEntity->setSFObjectType(B2BSalesForceObjectType::PRODUCT_CATEGORY_PRODUCT());
-    
             $externalId = B2BProductCategoryRelationHelper::getExternalId($relationChangeObject);
-            $apiRequestEntity->setexternalID($externalId);
-            $apiRequestEntity->setPimId($relationChangeObject->getProductId() . "_" . trim($relationChangeObject->getNewValue(),","));
-            $apiRequestEntity->setReferenceId($externalId . "_" . $currTime);
-            $apiRequestEntity->setCreationDate($currTime);
-            $apiRequestEntity->save();
+
+            /* =================================== */
+            $newValue = trim($relationChangeObject->getNewValue(),",");
+            $oldValue = trim($relationChangeObject->getOldValue(),",");
+            //echo "New Value == ".$newValue."_____ Old Value === ".$oldValue."\n\n";
+            if($newValue != $oldValue) {
+                $apiRequestEntityDelete = new B2BAPIRequestEntity();
+                $apiRequestEntityDelete->setBody(json_encode($requestBody,JSON_UNESCAPED_SLASHES));
+                $apiRequestEntityDelete->setOperationType(APIOperationType::DELETE());
+                $apiRequestEntityDelete->setSFObjectType(B2BSalesForceObjectType::PRODUCT_CATEGORY_PRODUCT());
+                $apiRequestEntityDelete->setexternalID($externalId);
+                $apiRequestEntityDelete->setPimId($relationChangeObject->getProductId() . "_" . trim($relationChangeObject->getNewValue(),","));
+                //$apiRequestEntityDelete->setPimId($relationChangeObject->getProductId() . "_" . trim($relationChangeObject->getNewValue(),","). "_" .trim($relationChangeObject->getOldValue(),","));
+                $apiRequestEntityDelete->setReferenceId($externalId . "_" . $currTime ."_DELETE");
+                $apiRequestEntityDelete->setCreationDate($currTime);
+                $apiRequestEntityDelete->save();
+            }
             /* =================================== */
             
             $apiRequestEntity = new B2BAPIRequestEntity();
             $apiRequestEntity->setBody(json_encode($requestBody,JSON_UNESCAPED_SLASHES));
             $apiRequestEntity->setOperationType(APIOperationType::UPDATE());
             $apiRequestEntity->setSFObjectType(B2BSalesForceObjectType::PRODUCT_CATEGORY_PRODUCT());
-    
-            $externalId = B2BProductCategoryRelationHelper::getExternalId($relationChangeObject);
             $apiRequestEntity->setexternalID($externalId);
             $apiRequestEntity->setPimId($relationChangeObject->getProductId() . "_" . trim($relationChangeObject->getNewValue(),","));
             $apiRequestEntity->setReferenceId($externalId . "_" . $currTime);

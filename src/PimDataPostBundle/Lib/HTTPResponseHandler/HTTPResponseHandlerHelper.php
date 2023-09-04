@@ -64,11 +64,22 @@ class HTTPResponseHandlerHelper
              * again in the next execution of the job.
              * This case should not be considered as a failure
              */
-            if(!($rowObject->getSFObjectType() == strval(B2BSalesForceObjectType::PRODUCT_MEDIA()) && 
-                    $rowObject->getOperationType() == strval(APIOperationType::DELETE()) &&
-                     $responceStatus == 404
+            // if(!($rowObject->getSFObjectType() == strval(B2BSalesForceObjectType::PRODUCT_MEDIA()) && 
+            //         $rowObject->getOperationType() == strval(APIOperationType::DELETE()) &&
+            //          $responceStatus == 404
+            //     ) 
+            // ){
+            //     Util::addB2BFailureId($rowObject->getPimId());
+            //     $this->addEntityToEnforce($rowObject);
+            // }
+
+
+            if($rowObject->getSFObjectType() != strval(B2BSalesForceObjectType::PRODUCT_MEDIA()) 
+                && $rowObject->getSFObjectType() != strval(B2BSalesForceObjectType::PRODUCT_CATEGORY_PRODUCT()) && 
+                    $rowObject->getOperationType() != strval(APIOperationType::DELETE()) &&
+                    $responceStatus != 404 && $responceStatus != 204
                 ) 
-            ){
+            {
                 Util::addB2BFailureId($rowObject->getPimId());
                 $this->addEntityToEnforce($rowObject);
             }
