@@ -18,6 +18,7 @@ class DefaultController extends AbstractController
     private $columnsData = [];
     private $sortColumnsData = [];
     private $initialSortingAttributesName = [];
+    private $decimalPlaceAttribute = [];
     private $attributeImages = [];
     private $iconRequired = 'NO';
     private $subHeaderRequired = 'NO';
@@ -320,7 +321,7 @@ class DefaultController extends AbstractController
     public function templatePtgEuProductPageAction(Request $request)
     {
         $this->initialSortingAttributesName = array("profile", "pitchLengthLpLwMM","pitchLengthLpLwIN", "refLengthLrMM","refLengthLrIN", "ribs", "widthMM","insideLengthMM","insideLengthIN","datumLengthMM","datumLengthIN","effectiveLengthMM","effectiveLengthIN");
-
+        $this->decimalPlaceAttribute = array ("effectiveLengthIN","pitchLengthLpLwIN","datumLengthIN","outsideLengthIN","insideLengthIN","heightIN","heightMM","widthMM","widthIN","toothPitchPtIN","refLineDiffHBIN","ProfileHeightHIN","beltThicknessHsIN","toothHeightHtIN","ribPitchIN","pitchWidthBDMM","pitchWidthBDIN","pitchHeightHduMM","pitchHeightHduIN","lowerBeltWidthBiIN","maxPulleyGroove");
         $language = $this->document->getProperty('language');
         $language = $language ? $language : 'en';
 
@@ -621,12 +622,7 @@ class DefaultController extends AbstractController
                                                 $data[$fieldName] = number_format($article[$fieldName],3,".","");
                                             }
                                             else{
-                                                $digitsAfterDecimal = strlen(substr(strrchr($article[$fieldName], "."), 1));
-                                                if($digitsAfterDecimal > 2){
-                                                    $data[$fieldName] = number_format($article[$fieldName],2,".","");
-                                                }else{
                                                     $data[$fieldName] = floatval($article[$fieldName]);
-                                                }
                                             }
                                         }    
                                     }
@@ -638,12 +634,7 @@ class DefaultController extends AbstractController
                                         }
                                         else if(trim($objectLevel5thDetails[$fieldName]) && ucfirst($fields['fieldType']) == 'Number')
                                         {
-                                            $digitsAfterDecimal = strlen(substr(strrchr($objectLevel5thDetails[$fieldName], "."), 1));
-                                            if($digitsAfterDecimal > 2){
-                                                $data[$fieldName] = number_format($objectLevel5thDetails[$fieldName],2,".","");
-                                            }else{
                                                 $data[$fieldName] = floatval($objectLevel5thDetails[$fieldName]);
-                                            }
                                         }
                                     }
                                     else if( ($fields['objectLevel'] == 'skeleton') && ($fields['fieldLevel'] == 'class'))
@@ -654,12 +645,7 @@ class DefaultController extends AbstractController
                                         }
                                         else if(trim($objectLevel6[$fieldName]) && ucfirst($fields['fieldType']) == 'Number')
                                         {
-                                            $digitsAfterDecimal = strlen(substr(strrchr($objectLevel6[$fieldName], "."), 1));
-                                            if($digitsAfterDecimal > 2){
-                                                $data[$fieldName] = number_format($objectLevel6[$fieldName],2,".","");
-                                            }else{
                                                 $data[$fieldName] = floatval($objectLevel6[$fieldName]);
-                                            }
                                         }
                                     }
                                     else if( ($fields['objectLevel'] == 'skeleton') && ($fields['fieldLevel'] == 'objectBrick'))
@@ -685,8 +671,7 @@ class DefaultController extends AbstractController
                                             if($rowData)
                                             {
                                                 if(trim($rowData[$fieldName]) && $isNumericField){
-                                                    $digitsAfterDecimal = strlen(substr(strrchr($rowData[$fieldName], "."), 1));
-                                                    if($digitsAfterDecimal > 2){
+                                                    if(in_array($fieldName, $this->decimalPlaceAttribute)){
                                                         $data[$fieldName] = number_format($rowData[$fieldName],2,".","");
                                                     }else{
                                                         $data[$fieldName] = floatval($rowData[$fieldName]);
@@ -726,13 +711,11 @@ class DefaultController extends AbstractController
                                             $rowData =  $this->db->fetchRow($sql);
                                             if($rowData)
                                             {
-                                                if($fieldName == 'datumLengthIN' || $fieldName == 'effectiveLengthIN' || $fieldName == 'pitchLengthLpLwIN' || $fieldName == 'insideLengthIN' || $fieldName == 'refLengthLrIN'){
-                                                    $data[$fieldName] = number_format($rowData[$fieldName],2,".","");
-                                                }elseif($fieldName == 'datumLengthMM' || $fieldName == 'effectiveLengthMM' || $fieldName == 'pitchLengthLpLwMM' || $fieldName == 'insideLengthMM' || $fieldName == 'refLengthLrMM'){
+                                                if($fieldName == 'datumLengthMM' || $fieldName == 'effectiveLengthMM' || $fieldName == 'pitchLengthLpLwMM' || $fieldName == 'insideLengthMM' || $fieldName == 'refLengthLrMM'){
                                                     $data[$fieldName] = round($rowData[$fieldName]);
-                                                }elseif(trim($rowData[$fieldName]) && $isNumericField){
-                                                    $digitsAfterDecimal = strlen(substr(strrchr($rowData[$fieldName], "."), 1));
-                                                    if($digitsAfterDecimal > 2){
+                                                }
+                                                elseif($isNumericField){
+                                                    if(in_array($fieldName, $this->decimalPlaceAttribute)){
                                                         $data[$fieldName] = number_format($rowData[$fieldName],2,".","");
                                                     }else{
                                                         $data[$fieldName] = floatval($rowData[$fieldName]);
