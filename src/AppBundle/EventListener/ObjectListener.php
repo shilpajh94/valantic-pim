@@ -244,8 +244,23 @@ class ObjectListener
 
         if ($currRequest instanceof Request) {
             $updatedData = $currRequest->get('data');
+            
             if ($updatedData) {
+                $arr=['Skeleton','Base','Fert'];
                 $updatedData = json_decode($updatedData, true);
+                foreach($arr as $valuesBrick){
+                    foreach($updatedData as $key =>$value){
+                        if (strpos($key, $valuesBrick) !== false) {
+
+                            if (strpos($key, '~') !== false) { 
+                                $str_arr=explode('~',$key);
+                                $tempArr = ["type"=>$str_arr[0],"data"=>[$str_arr[1]=>$value]];
+                                $updatedData[$valuesBrick][]=$tempArr;
+                                unset($updatedData[$key]);
+                            }
+                        }
+                    }
+                }
             }
         }
 
