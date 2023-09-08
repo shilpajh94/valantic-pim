@@ -464,7 +464,7 @@ if (is_array($brandsData) && !empty($brandsData)) {
                                                 </tr>
                                             <?php endif; ?>
                                         </thead>
-                                        <tbody>
+                                        <tbody class = "tableNewFont">
                                             <?php
                                             if(isset($tableRows['articleData']['articles']) && is_array($tableRows['articleData']['articles'])):
                                             $HoseID1InFractIndex = $tableRows['articleData']['HoseID1InFractIndex'];

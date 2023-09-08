@@ -943,7 +943,7 @@ if (!isset($this->parentContainer)) {
                                 <div class="table-data">
                                     <?= $this->input("PP_Conveyor_Belt_Data_Head_Note_{$chunkKey}", ["placeholder" => "Table based on ISO 703 testing procedure."]); ?>
                                     <?php foreach ($conveyorBeltData as $key => $value) { ?>
-                                        <table width="100%">
+                                        <table class = 'cbs'  width="100%">
                                             <thead>
                                                 <tr class="orange-bg">
                                                     <th align="left" colspan="<?= $value['theadfirstRowColspan'] ?>"><?= $this->translate($key) ?></th>
@@ -1048,7 +1048,7 @@ if (!isset($this->parentContainer)) {
 
                                     ?>
 
-                                        <table width="100%">
+                                        <table class = 'cbs' width="100%">
                                             <thead>
                                                 <tr class="orange-bg">
                                                     <th colspan="<?= $value['theadfirstRowColspan'] ?>" align="left"><?= $this->translate($key) ?></th>
@@ -1175,7 +1175,7 @@ if (!isset($this->parentContainer)) {
                                     foreach ($TroughabilityMinimumBeltWidth as $key => $value) {
 
                                     ?>
-                                        <table width="100%">
+                                        <table class = 'cbs'  width="100%">
                                             <thead>
                                                 <tr class="orange-bg">
                                                     <th colspan="<?= $value['theadfirstRowColspan'] ?>" align="left"><?= $this->translate($key) ?></th>
@@ -1305,7 +1305,7 @@ if (!isset($this->parentContainer)) {
 
                                     ?>
 
-                                        <table width="100%">
+                                        <table class = 'cbs'  width="100%">
                                             <thead>
                                                 <tr align="left" class="orange-bg">
                                                     <th align="left" colspan="<?= $value['theadfirstRowColspan'] ?>">
@@ -1412,7 +1412,7 @@ if (!isset($this->parentContainer)) {
 
                                     ?>
 
-                                        <table width="100%">
+                                        <table class = 'cbs'  width="100%">
                                             <thead>
                                                 <tr align="left" class="orange-bg">
                                                     <th align="left" colspan="<?= $value['theadfirstRowColspan'] ?>"><?= $this->translate($key) ?></th>
@@ -1517,7 +1517,7 @@ if (!isset($this->parentContainer)) {
 
                                     ?>
 
-                                        <table width="100%">
+                                        <table class = 'cbs'  width="100%">
                                             <thead>
                                                 <tr align="left" class="orange-bg">
                                                     <th align="left" colspan="<?= $value['theadfirstRowColspan'] ?>"><?= $this->translate($key) ?></th>
@@ -1623,7 +1623,7 @@ if (!isset($this->parentContainer)) {
 
                                     ?>
 
-                                        <table width="100%">
+                                        <table class = 'cbs'  width="100%">
                                             <thead>
                                                 <tr align="left" class="orange-bg">
                                                     <th align="left" colspan="<?= $value['theadfirstRowColspan'] ?>"><?= $this->translate($key) ?></th>

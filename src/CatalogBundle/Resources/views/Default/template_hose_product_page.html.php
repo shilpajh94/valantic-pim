@@ -497,9 +497,9 @@ if ($data):
                                 <?php $incrRow = 1; ?>
                                 <?php foreach ($brandData['articlesData'] as $key => $element): ?>
                                     <?php if ($incrRow % 2 == 0): ?>
-                                        <tr>
+                                        <tr class = 'tableNewFont'>
                                         <?php else: ?>
-                                        <tr class="active">
+                                        <tr class="active tableNewFont">
                                         <?php endif; ?>
                                         <?php 
                                             $indexDescriptiveNumber = array_search('descriptive', $columnList);

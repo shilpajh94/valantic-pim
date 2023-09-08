@@ -181,9 +181,9 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                         ?>
 
                         <?php if($incr%2==0): ?>
-                        <tr>
+                        <tr class = 'tableNewFont'>
                         <?php else: ?>
-                        <tr class="active">
+                        <tr class="active tableNewFont">
                         <?php endif; ?>
                                 <td><b><?= $brandData['brandName']; ?></b></td>
                                 <td><?= $this->input("HHSC_Page_{$md5brandKey}") ?></td>
