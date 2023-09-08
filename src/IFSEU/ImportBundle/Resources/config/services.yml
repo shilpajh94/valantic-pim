@@ -51,6 +51,10 @@ services:
         tags:
             - { name: 'console.command', command: 'contitech:ifs:eu:one-time-import:product-category-import' }
 
+    IFSEU\ImportBundle\Command\IFSEU_CopySapDescriptionIntoProductShortDescriptionCommand: 
+        tags:
+            - { name: 'console.command', command: 'contitech:ifs:eu:copy-sapDescription-into-productShortDescription' }
+
     IFSEU\ImportBundle\OneTimeImportCommand\CategoryMasterDataImportCommand: 
         tags:
             - { name: 'console.command', command: 'ifs-eu-category-master-data-import-command' }
