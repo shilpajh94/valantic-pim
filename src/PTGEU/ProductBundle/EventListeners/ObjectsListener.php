@@ -28,7 +28,7 @@ class ObjectsListener
             
             if ($className == 'PTGEUProduct') 
             {
-                $this->percentageCompletionService->completenessPercentage($object);
+                $this->percentageCompletionService->completenessPercentage($object, 'save');
             }
 
             if ($className == 'PTGEUCatalogCategory')

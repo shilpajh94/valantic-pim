@@ -4,20 +4,31 @@ namespace PTGEU\ProductBundle\Services;
 
 use Pimcore\Model\DataObject\ClassDefinition;
 use PTGEU\ProductBundle\Services\SkippedFieldUnitList;
-
+use Pimcore\Model\DataObject\AbstractObject;
+use PTGEU\ImportBundle\Model\ProductModel;
 
 class CompletenessPercentageService
 {
     Const NEW_LINE_AND_NEW_TAB = "\n\t ";
 
-    public function completenessPercentage($object)
-    {
+    private $productModel;
+    private $localisedDataTableDataArray;
+
+    public function completenessPercentage($object, $task)
+    {        
+        $originalGetInheritedValues = AbstractObject::doGetInheritedValues();
+        AbstractObject::setGetInheritedValues(true);
+
+        $this->productModel = new ProductModel;
+
         $count = 0;
         $emptyFieldCounter = 0;
         $emptyFieldLocalizedCounter = 0;
         $emptyAttributes='';
         $emptyAttributesLocalized = '';
         $completedPercentage = 0;
+        $this->localisedDataTableDataArray = [];
+
         if ($object->getType() == 'folder') {
             return null;
         }
@@ -68,8 +79,21 @@ class CompletenessPercentageService
                 }
             }
             $completedPercentage = round((($count/$totalFields)*100),2);
-            $object->setCompletenessPercentage($completedPercentage,$lang);
-            $object->setEmptyFields($emptyAttributes.$emptyObjectBrickAttributes.$emptyAttributesLocalized ,$lang);
+
+            if($task == 'save'){
+                $object->setCompletenessPercentage($completedPercentage, $lang);
+                $object->setEmptyFields($emptyAttributes . $emptyObjectBrickAttributes . $emptyAttributesLocalized, $lang);
+            }else{
+                $this->localisedDataTableDataArray[] = [
+                    'ooo_id' => $object->getId(),
+                    'language' => $lang,
+                    'CompletenessPercentage' => $completedPercentage,
+                    'EmptyFields'=>$emptyAttributes.$emptyObjectBrickAttributes.$emptyAttributesLocalized,];
+                   if (!empty($this->localisedDataTableDataArray)) {
+                  $this->productModel->insertIntoProductTable($this->localisedDataTableDataArray, 'object_localized_data_38');
+                }    
+            }
+
             $emptyFieldCounter = 0;
             $emptyFieldLocalizedCounter = 0;
             $count = 0;
@@ -79,10 +103,14 @@ class CompletenessPercentageService
             $emptyObjectBrickAttributesCounter = 0;
             $emptyAttributesLocalized  = '';
         }
+        AbstractObject::setGetInheritedValues($originalGetInheritedValues);
     }
 
     private function localizedFields($fieldName, $object, $lang, $classDefinition, &$count, &$totalFields, &$emptyAttributesLocalized , &$emptyFieldLocalizedCounter)
     {
+        $originalGetInheritedValues = AbstractObject::doGetInheritedValues();
+        AbstractObject::setGetInheritedValues(true);
+
         $localizedHeading = "\n\n [ LOCALIZED ATTRIBUTES ]";
         $emptyFieldLabels = '';
         foreach ($classDefinition->getFieldDefinition($fieldName)->getFieldDefinitions() as $localizedField) {
@@ -104,10 +132,15 @@ class CompletenessPercentageService
                 $emptyAttributesLocalized .= $emptyFieldLabels;
             }
         }
+        AbstractObject::setGetInheritedValues($originalGetInheritedValues);
     }
 
     private function objectbricks($bricks,$lang, $attributes, &$count, &$totalFields, &$emptyObjectBrickAttributes, &$emptyObjectBrickAttributesCounter, &$emptyAttributesLocalized, &$emptyFieldLocalizedCounter)
     {
+
+        $originalGetInheritedValues = AbstractObject::doGetInheritedValues();
+        AbstractObject::setGetInheritedValues(true);
+
         $localizedHeading = "\n\n [ LOCALIZED ATTRIBUTES ]";
         $heading = "\n\n [ CATEGORY SPECIFIC ATTRIBUTES ]";
         $emptyLocalizedFieldLabels = '';
@@ -168,6 +201,6 @@ class CompletenessPercentageService
                 }
             }
         }
-
+        AbstractObject::setGetInheritedValues($originalGetInheritedValues);
     }
 }
