@@ -11,12 +11,28 @@ if (!isset($this->parentContainer)) {
 <section class="segregate">
 
  <div id="pageHeader"></div>
+ 
  <span  class="pageName">Chemical Charts</span>
  <div class="footer">
     <footer class="flex-center <?php echo $footer_class; ?>">
+    <span class="logo">
+                <b>
+                <?php if($this->editmode): ?>
+                        <?php if($this->input("HHFP_Logo_Text1")->isEmpty()): ?>
+                                <?= $this->input("HHFP_Logo_Text1")->setDataFromResource('Hose') ?>
+                        <?php else: ?>
+                                <?= $this->input("HHFP_Logo_Text1"); ?>
+                        <?php endif; ?>
+                <?php else: ?>
+                        <?= $this->input("HHFP_Logo_Text1") ?>
+                <?php endif; ?>
+                </b>
+                <img src="<?= $footer_logo_src; ?>">
+            </span>
         <div class="flex aligned ">
             <h5>
                     <span>
+                        
                     </span>
                 </h5>
                 <div class="compatible">
@@ -42,265 +58,148 @@ if (!isset($this->parentContainer)) {
 
 
 <div class="wrapper padding">
-
-    
             <article class="container page-break-inside-avoid">
-                <figure class="headingSection">
-                    
-                        <?php
-                        if(isset($tableRowsSkiveType['NS']) && isset($tableRowsSkiveType['DG']))
-                        {
-                            ?>
-                            <span>
-                                <?php
-                                $uniqueIdDG = md5($uniqueIdTemp.$shortDescrioptionKey.$tableName.'DG');
-                                if ($this->editmode) {
-                                    if(!$this->image('catLeftImage' . $uniqueIdDG)->isEmpty())
-                                        echo $this->image('catLeftImage' . $uniqueIdDG, ["class" => "leftImg", "width" => 226, "height" => 150]);
-                                    else
-                                        echo $this->image('catLeftImage' . $uniqueIdDG, ["class" => "leftImg", "width" => 226, "height" => 150])->setImage($tableRowsSkiveType['DG']['brandData']['LeftPrintCatalogImageObj']);
-                                } else {
-                                    $imgSrcObj1 =  $this->image('catLeftImage' . $uniqueIdDG);
-                                    if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth))
-                                    {
-                                    ?>
-                                    <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth); ?>" class="lImg" width="226" height="150"/>
-                                    <?php
-                                    }
-                                }
-                                if ($this->editmode) {
-                                    if(!$this->image('catRightImage' . $uniqueIdDG)->isEmpty())
-                                        echo $this->image('catRightImage' . $uniqueIdDG, ["class" => "rightImg", "width" => 226, "height" => 150]);
-                                    else
-                                        echo $this->image('catRightImage' . $uniqueIdDG, ["class" => "rightImg", "width" => 226, "height" => 150])->setImage($tableRowsSkiveType['DG']['brandData']['RightPrintCatalogImageObj']);
-                                } else {
-                                    $imgSrcObj2 = $this->image('catRightImage' . $uniqueIdDG);
-                                    if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth))
-                                    {
-                                    ?>
-                                    <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth); ?>" class="rImg" width="226" height="150"/>
-                                    <?php
-                                    }
-                                }
-                                
-                                $imgSrcObj1 =  $this->image('catLeftImage' . $uniqueIdDG);
-                                $imgSrcObj2 = $this->image('catRightImage' . $uniqueIdDG);
-
-                                if($this->editmode): 
-                                    if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth) && $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth)):
-                                        if($this->input('dualgrip' . $uniqueIdDG)->isEmpty()): 
-                                            echo $this->input('dualgrip' . $uniqueIdDG)->setDataFromResource('Dual-Grip Style');
-                                        else: 
-                                        echo $this->input('dualgrip' . $uniqueIdDG); 
-                                        endif; 
-                                    endif;
-                                else:
-                                    if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth) && $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth)):
-                                        echo $this->input('dualgrip' . $uniqueIdDG);
-                                    endif; 
-                                endif; 
-                                ?>
-                                    
-                            </span>
-                            
-                            <span>
-                                <?php
-                                $uniqueIdNS = md5($uniqueIdTemp.$shortDescrioptionKey.$tableName.'NS');
-                                if ($this->editmode) {
-                                    if(!$this->image('catLeftImage' . $uniqueIdNS)->isEmpty())
-                                        echo $this->image('catLeftImage' . $uniqueIdNS, ["class" => "leftImg", "width" => 226, "height" => 150]);
-                                    else
-                                        echo $this->image('catLeftImage' . $uniqueIdNS, ["class" => "leftImg", "width" => 226, "height" => 150])->setImage($tableRowsSkiveType['NS']['brandData']['LeftPrintCatalogImageObj']);
-                                } else {
-                                    $imgSrcObj1 =  $this->image('catLeftImage' . $uniqueIdNS);
-                                    if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth))
-                                    {
-                                    ?>
-                                    <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth); ?>" class="lImg" width="226" height="150"/>
-                                    <?php
-                                    }
-                                }
-                                if ($this->editmode) {
-                                    if(!$this->image('catRightImage' . $uniqueIdNS)->isEmpty())
-                                        echo $this->image('catRightImage' . $uniqueIdNS, ["class" => "rightImg", "width" => 226, "height" => 150]);
-                                    else
-                                        echo $this->image('catRightImage' . $uniqueIdNS, ["class" => "rightImg", "width" => 226, "height" => 150])->setImage($tableRowsSkiveType['NS']['brandData']['RightPrintCatalogImageObj']);
-                                } else {
-                                    $imgSrcObj2 = $this->image('catRightImage' . $uniqueIdNS);
-                                    if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth))
-                                    {
-                                    ?>
-                                    <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth); ?>" class="rImg" width="226" height="150"/>
-                                    <?php
-                                    }
-                                }
-
-                                $imgSrcObj1 =  $this->image('catLeftImage' . $uniqueIdNS);
-                                $imgSrcObj2 = $this->image('catRightImage' . $uniqueIdNS);
-
-                                if($this->editmode): 
-                                    if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth) && $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth)):
-                                        if($this->input('unicrimp' . $uniqueIdNS)->isEmpty()): 
-                                            echo $this->input('unicrimp' . $uniqueIdNS)->setDataFromResource('Uni-Crimp™ Style');
-                                        else: 
-                                        echo $this->input('unicrimp' . $uniqueIdNS); 
-                                        endif; 
-                                    endif;
-                                else:
-                                    if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth) && $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth)):
-                                        echo $this->input('unicrimp' . $uniqueIdNS);
-                                    endif; 
-                                endif; 
-
-                                ?>
-                                
-                            </span>
-                            
-                            <?php
-                        }
-                        else
-                        {
-                            ?>
-                            <span>
-                                <?php
-                                if ($this->editmode) {
-                                    if(!$this->image('catLeftImage' . $uniqueId)->isEmpty())
-                                        echo $this->image('catLeftImage' . $uniqueId, ["class" => "leftImg", "width" => 226, "height" => 150]);
-                                    else
-                                        echo $this->image('catLeftImage' . $uniqueId, ["class" => "leftImg", "width" => 226, "height" => 150])->setImage($tableRowsSkiveType[$firstKey]['brandData']['LeftPrintCatalogImageObj']);
-                                } else {
-                                    $imgSrcObj1 =  $this->image('catLeftImage' . $uniqueId);
-                                    if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth))
-                                    {
-                                    ?>
-                                    <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth); ?>" class="lImg" width="226" height="150"/>
-                                    <?php
-                                    }
-                                }
-                                if ($this->editmode) {
-                                    if(!$this->image('catRightImage' . $uniqueId)->isEmpty())
-                                        echo $this->image('catRightImage' . $uniqueId, ["class" => "rightImg", "width" => 226, "height" => 150]);
-                                    else
-                                        echo $this->image('catRightImage' . $uniqueId, ["class" => "rightImg", "width" => 226, "height" => 150])->setImage($tableRowsSkiveType[$firstKey]['brandData']['RightPrintCatalogImageObj']);
-                                } else {
-                                    $imgSrcObj2 = $this->image('catRightImage' . $uniqueId);
-                                    if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth))
-                                    {
-                                    ?>
-                                    <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth); ?>" class="rImg" width="226" height="150"/>
-                                    <?php
-                                    }
-                                }
-                                ?>
-                            </span>
-                            <?php
-                        }
-                        ?>
-                    
-                    <figcaption class="highlight">
-                        <h3>
-                            <?php
-
-                            if($this->editmode): 
-                                if($this->input('brandName' . $uniqueId)->isEmpty()): 
-                                echo $this->input('brandName' . $uniqueId)->setDataFromResource($tableRowsSkiveType[$firstKey]['brandData']['brandName']);
-                                else: 
-                                echo $this->input('brandName' . $uniqueId); 
-                                endif; 
-                            else:
-                                echo $this->input('brandName' . $uniqueId);
-                            endif; 
-
-                            ?>
-                        </h3>
-                        <p>
-                            <?php
-
-                            if($this->editmode): 
-                                if($this->input('shortDescription' . $uniqueId)->isEmpty()): 
-                                echo $this->input('shortDescription' . $uniqueId)->setDataFromResource(strip_tags($tableRowsSkiveType[$firstKey]['brandData']['shortDescription']));
-                                else: 
-                                echo $this->input('shortDescription' . $uniqueId); 
-                                endif; 
-                            else:
-                                echo $this->input('shortDescription' . $uniqueId);
-                            endif; 
-
-                            ?>
-                        </p>
-                    </figcaption>
-                </figure>
+               
 
                 <!-- Starting grid here -->
-                <?php
-                foreach ($skiveTypeSortKeys as $skiveTypekey => $skiveTypekValue) {
-                    $showTitle = (count($tableRowsSkiveType) > 1) ? true : false;
-                    $tableRows = $tableRowsSkiveType[$skiveTypekValue];
-
-                    $uniqueId2 = md5($uniqueId.$shortDescrioptionKey.$tableName.$skiveTypekey);
-
-                    if(isset($tableRows['articleData']) && is_array($tableRows['articleData'])):
-                        $skiveTypeTableTitle = '';
-                        $columnList = array();
-                        if($skiveTypekey == 'Non-Skive' || $skiveTypekey == 'NS' )
-                        {
-                            $skiveTypeTableTitle = 'Uni-Crimp™ Style';
-                        }
-                        else if($skiveTypekey == 'Dual-Grip' || $skiveTypekey == 'DG'){
-                            $skiveTypeTableTitle = 'Dual-Grip Style';
-                        }
-
-                        ?>
-                        <?php if($showTitle): ?>
-                        <h1 class="skiveTypeTableTitle">
-                        <?php echo $skiveTypeTableTitle;?>
+                <div class="inhRight">
+                        <h1 class="borderBottom block marginBottom5 contitech-black">Chemical Chart
                         </h1>
-                        <?php endif; ?>
 
-                        <table class="grid inh fitting marginBottom5 continueLable" cellspacing="0" cellpadding="0">
+                        <div class="flex flex-end">
+                            <div class="col-8">
+                                <h6>Rating Scale</h6>
+                                <div class="flex">
+                                    <div class="col-6">
+                                        <p><b>A</b> = May be used for Continuous Service</p>
+                                        <p><b>I</b> = Insufficient data, contact customer service</p>
+
+                                    </div>
+                                    <div class="col-6">
+                                        <p><b>B</b> = May be used for Intermittent Service</p>
+                                        <p><b>X</b> = Do not use</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+
+                            <h6>Gasket</h6>
+                                <div class="flex">
+                                    <div class="col-6">
+                                        <p><b>T </b> = Teflon® </p>
+                                        <p><b>N</b> = Polychloroprene</p>
+                                        <p><b>B </b> = Nitrile </p>
+                                    </div>
+                                    <div class="col-6">
+                                        <p><b>V</b> = Viton®</p>
+                                        <p><b>S</b> = Silicone</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <table class="grid special marginBottom5 chart" cellspacing="0" cellpadding="0">
                             <thead>
-                                <?php if ($iconRequired == 'YES'): ?>
-                                    <tr class="sub-head">
-                                        <?php foreach ($tableRows['articleData']['columnsDataWithImages'] as $key => $c1data): ?>
-                                            <?php
-                                            $columnWidth = '';
-                                            $g1count = count($c1data);
-                                            $firstArray = array_shift($c1data);
-                                            if($firstArray['columnWidth'])
-                                                $columnWidth = "width=".$firstArray['columnWidth']
-                                            ?>
-                                            <td colspan="<?= $g1count; ?>" <?php echo $columnWidth; ?>>
-                                                <?php if ($firstArray['columnIcon']): ?>
-                                                    <img src="<?= $firstArray['columnIcon'] ?>" width="45" height="45" />
-                                                <?php endif; ?>
-                                            </td>
-                                        <?php endforeach; ?>
-                                    </tr>
-                                <?php endif; ?>
-                                <tr class="head">
-                                        <td colspan="<?= $g2count; ?>" <?php echo $columnWidth; ?>><?= $first2Array['columnLabel'] ?></td>
-                                    
+                                <tr class="main-head">
+                                    <td width="" colspan="2"></td>
+                                    <td colspan="11">Continental Chemical Hose / Hose Tube Polymer</td>
+                                    <td colspan="4" class="apex">Insta-Lock Fitting/Metal</td>
                                 </tr>
 
-                                    <tr class="head">
-                                                    <td></td>
-                                                    <td></td>
-                                    </tr>
-                            </thead>
-                            <tbody class = "tableNewFont">
                                 
-                                    <tr class="" data-id="">
-                                                <td></td>
-                                                <td></td>
-                                    </tr>
+
+ 
+
+                                <tr class="sub-head ">
+                                    <td width=""></td>
+                                    <td width="">Temp</td>
+                                    <td width="">Fabchem</td>
+                                    <td width="">Gray Flexwing</td>
+                                    <td width="">Yellow Flexwing</td>
+                                    <td width="">Tan Flexwing</td>
+                                    <td width="">Orange Flexwing</td>
+                                    <td width="">Flexwing Petroleum</td>
+                                    <td>Flexwing & ExtremeFlex Brown</td>
+                                    <td>Purple Flexwing & ExtremeFlex Purple</td>
+                                    <td>Blue Flexwing & Green</td>
+                                    <td> Chem One® & Viper</td>
+                                    <td> Hi-Per, Conti Chem Superior FEP & Teflon</td>
+                                    <td width="" class="apex"></td>
+                                    <td width="" class="apex"></td>
+                                    <td width="" class="apex"></td>
+                                    <td width="" class="apex"></td>
+                                </tr>
+                                <tr class="head ">
+                                    <td width=""></td>
+                                    <td width="">(F°)*</td>
+                                    <td width="">UHMWPE</td>
+                                    <td width="">Butyl</td>
+                                    <td width="">Hypalon</td>
+                                    <td width="">NR</td>
+                                    <td width="">Viton</td>
+                                    <td width="">Nitrile</td>
+                                    <td width="">CPE</td>
+                                    <td width="">EPDM</td>
+                                    <td width="">XLPE</td>
+                                    <td width="">Alphasyn</td>
+                                    <td width="">Teflon</td>
+                                    <td width="" class="apex">316&nbsp;SS</td>
+                                    <td width="" class="apex">Aluminum</td>
+                                    <td width="" class="apex">Brass</td>
+                                    <td width="" class="apex">Gasket</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="17"><h4>A</h4></td>
+                                </tr>
+                                <tr class=" tableNewFont">
+                                    <td>Acetaldehyde</td>
+                                    <td></td>
+                                    <td>100</td>
+                                    <td>B</td>
+                                    <td>B</td>
+                                    <td>X</td>
+                                    <td>X</td>
+                                    <td>X</td>
+                                    <td>X</td>
+                                    <td>X</td>
+                                    <td>X</td>
+                                    <td>I</td>
+                                    <td>A</td>
+                                    <td class="apex">A</td>
+                                    <td class="apex">B</td>
+                                    <td class="apex">X</td>
+                                    <td class="apex">TS</td>
+                                </tr>
+                                <tr class=" tableNewFont">
+                                    <td>Aminoethylethanolamine</td>
+                                    <td></td>
+                                    <td>100</td>
+                                    <td>B</td>
+                                    <td>B</td>
+                                    <td>X</td>
+                                    <td>X</td>
+                                    <td>X</td>
+                                    <td>X</td>
+                                    <td>X</td>
+                                    <td>X</td>
+                                    <td>I</td>
+                                    <td>A</td>
+                                    <td class="apex">I</td>
+                                    <td class="apex">I</td>
+                                    <td class="apex">I</td>
+                                    <td class="apex">TS</td>
+                                </tr>
+
                             </tbody>
-
-
-                            <!-- Closing grid div here -->
                         </table>
                         <span class="tableFooter">
-                        
+                        *Fahrenheit to Celsius conversion key: 100°F (38°C), 125°F (52°C), 150°F (66°C), 275°F (135°C) and 500°F (260°C).
+<br/>This chemical chart is offered as a guide only. There are many variables to be considered with each application. Ratings are for tube polymer only! For an explanation
+of ratings, see the initial page of these Chemical Charts in Appendix B. Contact customer service for chemicals or polymers not listed at 800-235-4632.
                         </span>
+                </div>
             </article>
 </div>
 
@@ -308,31 +207,70 @@ if (!isset($this->parentContainer)) {
     <!-- End Footer-->
 </section>
 <div class="hide">
-<?php
-if(count($partNumbers) > 0)
-{
-    $partNumberString = implode(',', $partNumbers);
-    echo $this->textarea('product_page_part_number')->setDataFromResource($partNumberString);
-}
-
-if(count($productNumbers) > 0)
-{
-    $productNumbersString = implode(',', $productNumbers);
-    echo $this->textarea('product_page_product_number')->setDataFromResource($productNumbersString);
-}
-
-if(count($brandNameList) > 0)
-{
-    $brandNameList = array_unique($brandNameList);
-    $brandNamesText = implode('$$', $brandNameList);
-    echo $this->textarea('hydraulic_fitting_brand')->setDataFromResource($brandNamesText);
-}
-?>
 </div>
 </div>
+<script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
 
-<?php if (!$containerRequest): ?>
-        <script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
-<?php endif; ?>
+<style>
+    .inhRight h1{
+        margin:0;
+        padding:0 !important;
+        font-size: 40px !important;
+    }
+    .chart.grid .sub-head td{
+    border-bottom: 0 !important;
+    padding:5px 2px 0 2px !important;
 
-<?php } ?>
+    vertical-align: bottom;
+}
+.chart.grid {
+    margin-top:0;
+    table-layout: unset;
+}
+.chart.grid td{
+    height: auto;
+    word-break:normal;
+}
+
+.apex{
+    background: #f0f0f0;
+}
+
+.chart h4{
+    padding:0;
+}
+
+.main-head td{
+    border-top: 1px solid #737373;
+    font-family: 'ContinentalStagSansLCG-Medium';
+    vertical-align: bottom;
+}
+.flex-end{
+    justify-content: flex-end;
+}
+
+.flex-end .col-6{
+    /* width:48%; */
+    /* flex:1; */
+    /* border:1px solid red; */
+    width:auto;
+}
+
+.flex-end .col-8{
+    width:60%;
+}
+.flex-end .col-4{
+    width:23%;
+}
+
+.flex-end p{
+    padding: 2px 6px 2px 0px;
+}
+
+.chart td:first-child{
+    min-width:100px;
+    width:100px;
+    word-break: normal;
+    /* white-space: pre; */
+}
+</style>
