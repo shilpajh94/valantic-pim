@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-08-18T12:33:09+00:00
+* Generated at: 2023-09-13T05:59:43+00:00
 * IP: 127.0.0.1
 */ 
 
@@ -11,7 +11,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'ProductManagementIFSEMEA',
    'description' => '',
    'creationDate' => 1681288759,
-   'modificationDate' => 1692361989,
+   'modificationDate' => 1694584783,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => 'IFSEUProduct',
@@ -4345,31 +4345,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                              'fieldtype' => 'multiselect',
                              'options' => 
                             array (
-                              0 => 
-                              array (
-                                'key' => 'Manufacturing Length 1',
-                                'value' => 14758594,
-                              ),
-                              1 => 
-                              array (
-                                'key' => 'Manufacturing Length 2',
-                                'value' => 14758595,
-                              ),
-                              2 => 
-                              array (
-                                'key' => 'Manufacturing Length 3',
-                                'value' => 14758596,
-                              ),
-                              3 => 
-                              array (
-                                'key' => 'Manufacturing Length 4',
-                                'value' => 14758597,
-                              ),
-                              4 => 
-                              array (
-                                'key' => 'Manufacturing Length 5',
-                                'value' => 14758598,
-                              ),
                             ),
                              'width' => 830,
                              'height' => 80,
@@ -4956,9 +4931,9 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                       )),
                       3 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
-                        'fieldtype' => 'localizedfields',
-                        'phpdocType' => '\\Pimcore\\Model\\DataObject\\Localizedfield',
-                        'childs' => 
+                         'fieldtype' => 'localizedfields',
+                         'phpdocType' => '\\Pimcore\\Model\\DataObject\\Localizedfield',
+                         'childs' => 
                         array (
                           0 => 
                           Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(

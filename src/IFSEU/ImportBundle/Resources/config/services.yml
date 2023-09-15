@@ -131,6 +131,9 @@ services:
     IFSEU\ImportBundle\OneTimeImportCommand\ManufacturingLengthMasterDataImportCommand: 
         tags:
             - { name: 'console.command', command: 'ifs-eu-manufacturing-length-master-data-import-command' }
+    IFSEU\ImportBundle\OneTimeImportCommand\ProductLengthDataImportCommand: 
+        tags:
+            - { name: 'console.command', command: 'ifs-eu-productLength-data-import-command' }
 
     # Event Listener 
     IFSEU\ImportBundle\EventListener\ObjectListener:

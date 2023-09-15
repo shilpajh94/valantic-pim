@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-08-18T12:30:56+00:00
+* Generated at: 2023-09-13T05:59:24+00:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -175,7 +175,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'IFSEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1692361794,
+   'modificationDate' => 1694584745,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -4853,31 +4853,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'fieldtype' => 'multiselect',
                              'options' => 
                             array (
-                              0 => 
-                              array (
-                                'key' => 'Manufacturing Length 1',
-                                'value' => 14758594,
-                              ),
-                              1 => 
-                              array (
-                                'key' => 'Manufacturing Length 2',
-                                'value' => 14758595,
-                              ),
-                              2 => 
-                              array (
-                                'key' => 'Manufacturing Length 3',
-                                'value' => 14758596,
-                              ),
-                              3 => 
-                              array (
-                                'key' => 'Manufacturing Length 4',
-                                'value' => 14758597,
-                              ),
-                              4 => 
-                              array (
-                                'key' => 'Manufacturing Length 5',
-                                'value' => 14758598,
-                              ),
                             ),
                              'width' => 830,
                              'height' => 80,
@@ -5393,7 +5368,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'mandatory' => false,
                                      'noteditable' => false,
                                      'index' => false,
-                                     'locked' => false,
+                                     'locked' => NULL,
                                      'style' => '',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
@@ -5420,7 +5395,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'height' => NULL,
                                  'collapsible' => false,
                                  'collapsed' => false,
-                                 'bodyStyle' => 'margin-left: 20px;',
+                                 'bodyStyle' => '',
                                  'datatype' => 'layout',
                                  'permissions' => NULL,
                                  'childs' => 
@@ -5443,7 +5418,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'mandatory' => false,
                                      'noteditable' => false,
                                      'index' => false,
-                                     'locked' => false,
+                                     'locked' => NULL,
                                      'style' => 'margin-left: 60px;',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
@@ -5462,7 +5437,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         ),
                          'locked' => false,
                       )),
-                      2 => 
+                      3 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                          'fieldtype' => 'localizedfields',
                          'phpdocType' => '\\Pimcore\\Model\\DataObject\\Localizedfield',
