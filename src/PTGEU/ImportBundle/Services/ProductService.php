@@ -10,6 +10,7 @@ use PTGEU\ImportBundle\Services\ImportService;
 use PTGEU\ImportBundle\Services\ImportConstants;
 use AppBundle\Lib\UnitConversion;
 use PTGEU\ImportBundle\Model\ProductModel;
+use PTGEU\ProductBundle\Services\CompletenessPercentageService;
 
 class ProductService
 {    
@@ -35,10 +36,11 @@ class ProductService
     private $baseSiopMismatchLog;
     private $baseSiopMismatchEmailTemplate;
     private $updatedArticlesArray;
+    private $percentageCompletionService;
     
     const LOGGER_MODULE = 'SAP IMPORT SHEET';
     
-    public function __construct()
+    public function __construct(CompletenessPercentageService $percentageCompletionService)
     {
         /* Initilize monitoring item and set the number of steps will take to complete the task */
         $this->logFileName          = 'ptgeu-products-log-' . date('Ymdhis');
@@ -52,6 +54,7 @@ class ProductService
         $this->brickMappingService  = \Pimcore::getContainer()->get('import.category_brick_mapping_service');
         $this->columnName           = $this->common->getParameterItem($this->materialConfigData, 'sheet', 'columnName');
         $this->baseSiopMismatchLog  = [];
+        $this->percentageCompletionService = $percentageCompletionService;  
     }
 
     /**
@@ -341,7 +344,6 @@ class ProductService
             }
         } else {
 
-            echo "GGGGGG\n\n";
             $objId = $this->products[$currentLevelPath];
         }
         unset($objectIndex, $currentLevelCode, $fertLevelCode, $categoryPath, $type, $currentLevelArray, $objectKey, $objectArr, $parentPath);
@@ -951,7 +953,8 @@ class ProductService
                 if (!empty($objectId)) {
                     $object = DataObject\PTGEUProduct::getById($objectId, true);
                     if (!empty($object) && $object instanceof \Pimcore\Model\DataObject\PTGEUProduct) {
-                        $object->save();
+                        // $object->save();
+                        $this->percentageCompletionService->completenessPercentage($object, 'import');
                         echo "Object saved == ".$counter." ==== ".$objectId.PHP_EOL;
                     }
                 }
