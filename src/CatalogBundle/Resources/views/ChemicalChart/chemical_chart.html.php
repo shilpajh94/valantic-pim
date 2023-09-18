@@ -220,16 +220,26 @@ of ratings, see the initial page of these Chemical Charts in Appendix B. Contact
     .chart.grid .sub-head td{
     border-bottom: 0 !important;
     padding:5px 2px 0 2px !important;
-
+    word-break:break-all !important;
     vertical-align: bottom;
+    /* border:1px solid red; */
+    height:auto !important;
+    word-wrap: break-word !important;
+}
+.chart.grid .head td{
+    word-break:break-all !important;
+    vertical-align: bottom;
+    /* border:1px solid green; */
+    height:auto !important;
+    word-wrap: break-word !important;
 }
 .chart.grid {
     margin-top:0;
-    table-layout: unset;
+    /* table-layout: unset; */
 }
 .chart.grid td{
     height: auto;
-    word-break:normal;
+    /* word-break:break-all !important; */
 }
 
 .apex{
@@ -251,16 +261,18 @@ of ratings, see the initial page of these Chemical Charts in Appendix B. Contact
 
 .flex-end .col-6{
     /* width:48%; */
-    /* flex:1; */
+    flex:1;
     /* border:1px solid red; */
-    width:auto;
+    width:50%;
 }
 
 .flex-end .col-8{
-    width:60%;
+    max-width:60%;
+    flex:1;
 }
 .flex-end .col-4{
-    width:23%;
+    max-width:35%;
+    flex:1;
 }
 
 .flex-end p{
@@ -270,7 +282,8 @@ of ratings, see the initial page of these Chemical Charts in Appendix B. Contact
 .chart td:first-child{
     min-width:100px;
     width:100px;
-    word-break: normal;
+    word-wrap: break-word !important;
+    /* word-break: normal; */
     /* white-space: pre; */
 }
 </style>
