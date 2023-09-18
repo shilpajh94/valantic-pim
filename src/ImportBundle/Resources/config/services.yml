@@ -93,6 +93,13 @@ services:
     ImportBundle\Command\CopySapDescriptionIntoProductShortDescriptionCommand:
         tags:
             - { name: 'console.command', command: 'IFSPTG-US:Copy-SapDescription-Into-ProductShortDescription' }
+    ImportBundle\OneTimeImportCommand\FittingMaterialImportCommand:
+        tags:
+            - { name: 'console.command', command: 'fitting-material-master-data-import-command' }
+
+    ImportBundle\OneTimeImportCommand\GasketImportCommand:
+        tags:
+            - { name: 'console.command', command: 'gasket-master-data-import-command' }
 
     ImportBundle\OneTimeImportCommand\AssociateNomenclatureToProductCommand:
         tags:
