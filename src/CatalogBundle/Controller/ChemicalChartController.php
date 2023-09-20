@@ -33,55 +33,94 @@ class ChemicalChartController extends AbstractController
 
     public function chemicalAction(Request $request)
     {
+        try{
+            if ($this->getDocumentTag('relation', 'chemical-chart')->getElement() instanceof  \Pimcore\Model\DataObject) {
+                $id = $this->getDocumentTag('relation', 'chemical-chart')->getId();
+                $obj = \Pimcore\Model\DataObject::getById($id);
+    
+                $class = 'Pimcore\Model\DataObject\\' . $obj->getName() . '\\Listing';
+                $classObj = new $class();
+                $classObj->setLimit(15);
+                $classObj->load();
+    
+                $productData = [];
 
-        if ($this->getDocumentTag('relation', 'chemical-chart')->getElement() instanceof  \Pimcore\Model\DataObject) {
-            $id = $this->getDocumentTag('relation', 'chemical-chart')->getId();
-            $obj = \Pimcore\Model\DataObject::getById($id);
+                foreach ($classObj as $obj) {
+                    $tubeMaterialBlockData = null;
+                    $fittingMaterialBlockData = null;
+    
+                    $chemicalName = $obj->getName();
+                    $gasketList = $obj->getGasket();
+                    $tubeMaterialList = $obj->getTubeMaterial();
+                    $fittingMaterialList = $obj->getFittingMaterial();
+                    $temperatureRating = $obj->getTemperatureRating();
+    
+                    # fetch Tube Material Block data
+                    foreach ($tubeMaterialList as $obj) {
+                        $tubeMaterial[] = $obj['tubeMaterial']->getData();
+                        $tubeMaterialRating[] = $obj['rating']->getData();
+                    }
+    
+                    foreach ($tubeMaterial as  $value) {
+                        $parentObj = \Pimcore\Model\DataObject::getById($value);
+                        $tubeMaterialNameArray[] = $parentObj->getName();
+                    }
 
-            $class = 'Pimcore\Model\DataObject\\' . $obj->getName() . '\\Listing';
-            $classObj = new $class();
-            $classObj->load();
+                    if(count($tubeMaterialNameArray) == count($tubeMaterialRating)){
+                        $tubeMaterialBlockData = array_combine($tubeMaterialNameArray, $tubeMaterialRating);
+                    }
+    
+                    # Fetch Fitting Material Block data
+                    foreach ($fittingMaterialList as $obj) {
+                        $fittingMaterial[] = $obj['fittingMaterial']->getData();
+                        $fittingMaterialRating[] = $obj['rating']->getData();
+                    }
+    
+                    foreach ($fittingMaterial as  $value) {
+                        $parentObj = \Pimcore\Model\DataObject::getById($value);
+                        $fittingMaterialNameArray[] = $parentObj->getFittingMaterialName();
+                    }
 
-            $data = [];
-            foreach ($classObj as $obj) {
-
-                $chemicalName = $obj->getName();
-
-                $gasketId = $obj->getGasket();
-                $gasket = DataObject\Gasket::getById($gasketId);
-                $gasketName = $gasket->getGasketName();
-
-                $temperatureRating = $obj->getTemperatureRating();
-
-                foreach ($obj->getTubeMaterial() as $obj) {
-                    $tubeMaterial[] = $obj['tubeMaterial']->getData();
-                    $tubeMaterialRating[] = $obj['rating']->getData();
+                    if(count($fittingMaterialNameArray) == count($fittingMaterialRating)){
+                        $fittingMaterialBlockData = array_combine($fittingMaterialNameArray, $fittingMaterialRating);
+                    } 
+    
+                    # Fetch Gasket data
+                    $gasketNameArr = [];
+                    if($gasketList)
+                    {
+                        foreach ($gasketList as $key => $singleProduct)
+                        {
+                            $productObject      = DataObject\Gasket::getById($singleProduct);
+                            if($productObject)
+                            {
+                                $gasketNameArr[]   = trim($productObject->getGasketName());
+                            }
+                        }
+                    }
+                    $productData['chemicalName'][] = $chemicalName;
+                    $productData['temperatureRating'][] = $temperatureRating;
+                    $productData['tubeMaterial'][] = $tubeMaterialBlockData;
+                    $productData['fittingMaterial'][] = $fittingMaterialBlockData;
+                    $productData['gasket'][] = implode(" ", $gasketNameArr);
                 }
 
-                foreach ($tubeMaterial as  $value) {
-                    $parentObj = \Pimcore\Model\DataObject::getById($value);
-                    $tubeMaterialNameArray[] = $parentObj->getName();
+                $productArr = [];
+
+                foreach( $productData as $key => $value){
+                    $i = 0;
+                    foreach($value as $key2 => $value2){
+                        $productArr[$i][$key] = $value[$i];
+                        $i++;
+                    }
                 }
-                $tubeMaterialBlockData = array_combine($tubeMaterialNameArray, $tubeMaterialRating);
-
-                // foreach ($obj->getfittingMaterial() as $obj) {
-                //     $fittingMaterial[] = $obj['fittingMaterial']->getData();
-                //     $fittingMaterialRating[] = $obj['rating']->getData();
-                // }
-
-                // foreach ($fittingMaterial as  $value) {
-                //     $parentObj = \Pimcore\Model\DataObject::getById($value);
-                //     $fittingMaterialNameArray[] = $parentObj->getName();
-                // }
-                // $fittingMaterialBlockData = array_combine($fittingMaterialNameArray, $fittingMaterialRating);
-
-                $data['chemicalName'] = $chemicalName;
-                $data['tubeMaterial'] = $tubeMaterialBlockData;
-                // $data['fittingMaterial'] = $fittingMaterialBlockData;
-                $data['gasket'] = $gasketName;
-                $data['temperatureRating'] = $temperatureRating;
-                dd($data);
+                $this->view['data'] = $productArr;
+                // dd($productArr);
             }
+        }
+        catch(Exception $e)
+        {   
+            echo "<h3>".$e->getMessage()."</h3>";
         }
     }
 }

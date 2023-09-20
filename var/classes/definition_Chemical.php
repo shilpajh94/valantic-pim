@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-08-17T16:56:46+05:30
+* Generated at: 2023-09-19T15:55:36+05:30
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -18,7 +18,7 @@ Fields Summary:
 -- fittingMaterial [select]
 -- rating [select]
 - RatingScale [select]
-- gasket [select]
+- gasket [multiselect]
 - TemperatureRating [numeric]
 */ 
 
@@ -28,7 +28,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Chemical',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1692271606,
+   'modificationDate' => 1695119136,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -8123,7 +8123,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'permissions' => NULL,
              'datatype' => 'data',
              'relationType' => false,
-             'invisible' => true,
+             'invisible' => false,
              'visibleGridView' => false,
              'visibleSearch' => false,
              'defaultValueGenerator' => '',
@@ -8594,17 +8594,17 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   0 => 
                   array (
                     'key' => '316 SS',
-                    'value' => 15257290,
+                    'value' => 15257319,
                   ),
                   1 => 
                   array (
                     'key' => 'Aluminum',
-                    'value' => 15257291,
+                    'value' => 15257320,
                   ),
                   2 => 
                   array (
                     'key' => 'Brass',
-                    'value' => 15257292,
+                    'value' => 15257321,
                   ),
                 ),
                  'width' => '',
@@ -8759,44 +8759,45 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'defaultValueGenerator' => '',
           )),
           5 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-             'fieldtype' => 'select',
+          Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+             'fieldtype' => 'multiselect',
              'options' => 
             array (
               0 => 
               array (
                 'key' => 'N',
-                'value' => 15257299,
+                'value' => 15257323,
               ),
               1 => 
               array (
                 'key' => 'P',
-                'value' => 15257300,
+                'value' => 15257324,
               ),
               2 => 
               array (
                 'key' => 'S',
-                'value' => 15257301,
+                'value' => 15257325,
               ),
               3 => 
               array (
                 'key' => 'T',
-                'value' => 15257302,
+                'value' => 15257326,
               ),
               4 => 
               array (
                 'key' => 'V',
-                'value' => 15257303,
+                'value' => 15257327,
               ),
             ),
              'width' => 350,
-             'defaultValue' => '',
+             'height' => '',
+             'maxItems' => '',
+             'renderType' => 'list',
              'optionsProviderClass' => 'ImportBundle\\OptionProvider\\GasketOptionsProvider',
              'optionsProviderData' => '',
-             'queryColumnType' => 'varchar',
-             'columnType' => 'varchar',
-             'columnLength' => 190,
-             'phpdocType' => 'string',
+             'queryColumnType' => 'text',
+             'columnType' => 'text',
+             'phpdocType' => 'array',
              'dynamicOptions' => false,
              'name' => 'gasket',
              'title' => 'Gasket',
@@ -8812,7 +8813,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'invisible' => false,
              'visibleGridView' => false,
              'visibleSearch' => false,
-             'defaultValueGenerator' => '',
           )),
           6 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
