@@ -12,7 +12,6 @@ if ($data) : ?>
 
             <div id="pageHeader"></div>
 
-            <span class="pageName">Chemical Charts</span>
             <div class="footer">
                 <footer class="flex-center <?php echo $footer_class; ?>">
                     <span class="logo">
@@ -61,17 +60,18 @@ if ($data) : ?>
 
                     <!-- Starting grid here -->
                     <div class="inhRight">
-                        <h1 class="borderBottom block marginBottom5 contitech-black">Chemical Chart
+                        <h1 class="borderBottom block marginBottom5 contitech-black">Chemical Charts
                         </h1>
 
                         <div class="flex flex-end">
-                            <div class="col-8">
+                            <div style =" width:10%">
+                            </div>
+                            <div class="col-6">
                                 <h6>Rating Scale</h6>
-                                <div class="flex">
+                                <div class="flex"> 
                                     <div class="col-6">
                                         <p><b>A</b> = May be used for Continuous Service</p>
                                         <p><b>I</b> = Insufficient data, contact customer service</p>
-
                                     </div>
                                     <div class="col-6">
                                         <p><b>B</b> = May be used for Intermittent Service</p>
@@ -80,17 +80,21 @@ if ($data) : ?>
                                 </div>
                             </div>
                             <div class="col-4">
-
                                 <h6>Gasket</h6>
                                 <div class="flex">
-                                    <div class="col-6">
+                                    <div class="col-5">
                                         <p><b>T </b> = Teflon® </p>
-                                        <p><b>N</b> = Polychloroprene</p>
-                                        <p><b>B </b> = Nitrile </p>
-                                    </div>
-                                    <div class="col-6">
                                         <p><b>V</b> = Viton®</p>
+                                    </div>
+                                    <div class="col-5">
+                                        <p><b>N</b> = Polychloroprene</p>
                                         <p><b>S</b> = Silicone</p>
+                                        
+                                    </div>
+                                    <div class="col-2">
+                                        <p><b> </b> </p>
+                                        <p><b> </b> </p>
+                                        <p><b>B </b> = Nitrile </p>
                                     </div>
                                 </div>
                             </div>
@@ -105,7 +109,7 @@ if ($data) : ?>
                                     <td colspan="4" class="apex">Insta-Lock Fitting/Metal</td>
                                 </tr>
 
-                                <tr class="sub-head ">
+                                <tr class="sub-head">
                                     <td width=""></td>
                                     <td width="">Temp</td>
                                     <td width="">Fabchem</td>
@@ -117,14 +121,14 @@ if ($data) : ?>
                                     <td>Flexwing & ExtremeFlex Brown</td>
                                     <td>Purple Flexwing & ExtremeFlex Purple</td>
                                     <td>Blue Flexwing & Green</td>
-                                    <td> Chem One® & Viper</td>
-                                    <td> Hi-Per, Conti Chem Superior FEP & Teflon</td>
+                                    <td>Chem One® & Viper</td>
+                                    <td>Hi-Per, Conti Chem Superior FEP & Teflon</td>
                                     <td width="" class="apex"></td>
                                     <td width="" class="apex"></td>
                                     <td width="" class="apex"></td>
                                     <td width="" class="apex"></td>
                                 </tr>
-                                <tr class="head ">
+                                <tr class="head">
                                     <td width=""></td>
                                     <td width="">(°F)*</td>
                                     <td width="">UHMWPE</td>
@@ -160,7 +164,7 @@ if ($data) : ?>
                                                 <?php foreach($productData as $key1 => $value){ ?>
                                                     <td><?php echo $value; ?></td>
                                                 <?php } ?>
-                                                <td><?php echo "No Hose Recommended For This Application";?></td>  
+                                                <td><?php echo "";?></td>  
                                             </tr>
                                         <?php } else { ?>
                                             <tr class=" tableNewFont">
@@ -168,7 +172,7 @@ if ($data) : ?>
                                                     if ($key1 == 'tubeMaterial' || $key1 == 'fittingMaterial') {
                                                         //dd($value);
                                                         if($value == null) { ?>
-                                                        <td><?php echo "No Hose Recommended For This Application";?></td>
+                                                        <td><?php echo "";?></td>
                                                         <?php } else {
                                                             foreach($value as $key3 => $value3){ ?>
                                                             <td><?php echo $value3; ?></td>
@@ -209,27 +213,41 @@ if ($data) : ?>
     .inhRight h1 {
         margin: 0;
         padding: 0 !important;
-        font-size: 40px !important;
+        font-size: 30px !important;
+    }
+
+    h6 {
+        font-size: 10px; 
+        margin-bottom: 0px;
+        padding-bottom: 0px;
+        /* border: 1px solid green; */
     }
 
     .chart.grid .sub-head td {
         border-bottom: 0 !important;
-        padding: 5px 2px 0 2px !important;
+        padding: 5px 2px 0px 2px;
         word-break: break-all !important;
         vertical-align: bottom;
         /* border:1px solid red; */
         height: auto !important;
         word-wrap: break-word !important;
+        font-size: 8px;
     }
 
     .chart.grid .head td {
         word-break: break-all !important;
         vertical-align: bottom;
+        padding: 5px 0px 0px 1px;
         /* border:1px solid green; */
         height: auto !important;
         word-wrap: break-word !important;
+        font-size: 8px;
+        padding-top: 0px;
     }
 
+    .tableNewFont tr {
+        font-size: 8px;
+    }
     .chart.grid {
         margin-top: 0;
         /* table-layout: unset; */
@@ -238,6 +256,7 @@ if ($data) : ?>
     .chart.grid td {
         height: auto;
         /* word-break:break-all !important; */
+        font-size: 10px;
     }
 
     .apex {
@@ -245,13 +264,17 @@ if ($data) : ?>
     }
 
     .chart h4 {
-        padding: 0;
+        padding: 0px;
+        font-size: 10px;
     }
 
     .main-head td {
         border-top: 1px solid #737373;
-        font-family: 'ContinentalStagSansLCG-Medium';
+        /* font-family: 'ContinentalStagSansLCG-Medium'; */
+        font-size: 2px;
+        font-weight: bold;
         vertical-align: bottom;
+        word-spacing: -1px;
     }
 
     .flex-end {
@@ -262,12 +285,14 @@ if ($data) : ?>
         /* width:48%; */
         flex: 1;
         /* border:1px solid red; */
-        width: 50%;
+        width: 30%;
+        /* margin-top: 0px; */
     }
 
     .flex-end .col-8 {
         max-width: 60%;
         flex: 1;
+        padding-right: 0px;
     }
 
     .flex-end .col-4 {
@@ -277,6 +302,8 @@ if ($data) : ?>
 
     .flex-end p {
         padding: 2px 6px 2px 0px;
+        font-size: 10px;
+        word-spacing: -1px;
     }
 
     .chart td:first-child {
