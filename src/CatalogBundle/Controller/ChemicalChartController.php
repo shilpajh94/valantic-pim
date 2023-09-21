@@ -34,11 +34,7 @@ class ChemicalChartController extends AbstractController
     public function chemicalAction(Request $request)
     {
         try{
-            if ($this->getDocumentTag('relation', 'chemical-chart')->getElement() instanceof  \Pimcore\Model\DataObject) {
-                $id = $this->getDocumentTag('relation', 'chemical-chart')->getId();
-                $obj = \Pimcore\Model\DataObject::getById($id);
-    
-                $class = 'Pimcore\Model\DataObject\\' . $obj->getName() . '\\Listing';
+                $class = 'Pimcore\Model\DataObject\\Chemical\\Listing';
                 $classObj = new $class();
                 $classObj->setLimit(15);
                 $classObj->load();
@@ -50,7 +46,7 @@ class ChemicalChartController extends AbstractController
                     $fittingMaterialBlockData = null;
     
                     $chemicalName = $obj->getName();
-                    $gasketList = $obj->getGasket();
+                    $gasketList = $obj->getGasketTubeMaterial();
                     $tubeMaterialList = $obj->getTubeMaterial();
                     $fittingMaterialList = $obj->getFittingMaterial();
                     $temperatureRating = $obj->getTemperatureRating();
@@ -116,7 +112,6 @@ class ChemicalChartController extends AbstractController
                 }
                 $this->view['data'] = $productArr;
                 // dd($productArr);
-            }
         }
         catch(Exception $e)
         {   
