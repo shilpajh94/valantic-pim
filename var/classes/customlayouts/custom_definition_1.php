@@ -1,9 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2021-12-21T01:00:22-05:00
-* Changed by: system (0)
-* IP: 10.141.74.5
+* Generated at: 2023-09-20T12:37:34+00:00
+* IP: 127.0.0.1
 */ 
 
 
@@ -11,8 +10,8 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'id' => '1',
    'name' => 'ProductManagerCS',
    'description' => '',
-   'creationDate' => 1634894969,
-   'modificationDate' => 1640066422,
+   'creationDate' => 1639401027,
+   'modificationDate' => 1695213454,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => 'CSProducts',
@@ -331,7 +330,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                  'title' => '',
                  'width' => '',
                  'height' => '',
-                 'maxTabs' => NULL,
+                 'maxTabs' => 20,
                  'labelWidth' => 200,
                  'border' => false,
                  'provideSplitView' => false,
@@ -400,578 +399,93 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                         array (
                           0 => 
                           array (
-                            'value' => 47,
-                            'key' => 'a070825 (Alan Hickenbottom)',
+                            'value' => 195,
+                            'key' => '4RolesUser',
                           ),
                           1 => 
                           array (
-                            'value' => 59,
-                            'key' => 'A074241 (Craig Boche)',
+                            'value' => 217,
+                            'key' => '4RolesUser_PTGEU',
                           ),
                           2 => 
-                          array (
-                            'value' => 63,
-                            'key' => 'a207963 (Mark Merklein)',
-                          ),
-                          3 => 
-                          array (
-                            'value' => 57,
-                            'key' => 'a339063 (Marie-Josee Brisson)',
-                          ),
-                          4 => 
-                          array (
-                            'value' => 36,
-                            'key' => 'a352850 (Reji Joseph)',
-                          ),
-                          5 => 
-                          array (
-                            'value' => 55,
-                            'key' => 'a389752 (Randy Kish)',
-                          ),
-                          6 => 
-                          array (
-                            'value' => 101,
-                            'key' => 'Abdelhakim',
-                          ),
-                          7 => 
                           array (
                             'value' => 2,
                             'key' => 'admin',
                           ),
+                          3 => 
+                          array (
+                            'value' => 194,
+                            'key' => 'ApplicationAdmin_CS',
+                          ),
+                          4 => 
+                          array (
+                            'value' => 206,
+                            'key' => 'ApplicationAdmin_IFSEU',
+                          ),
+                          5 => 
+                          array (
+                            'value' => 219,
+                            'key' => 'ApplicationAdmin_IFSUS',
+                          ),
+                          6 => 
+                          array (
+                            'value' => 212,
+                            'key' => 'ApplicationAdmin_PTGEU',
+                          ),
+                          7 => 
+                          array (
+                            'value' => 226,
+                            'key' => 'dHub_Role',
+                          ),
                           8 => 
                           array (
-                            'value' => 23,
-                            'key' => 'Andy (Andy Speidel)',
+                            'value' => 197,
+                            'key' => 'Editor_CS',
                           ),
                           9 => 
                           array (
-                            'value' => 16,
-                            'key' => 'Ben (Ben Tracey)',
+                            'value' => 208,
+                            'key' => 'Editor_IFSEU',
                           ),
                           10 => 
                           array (
-                            'value' => 71,
-                            'key' => 'boulakhrifa (Abdelhakim Boulakhrif)',
+                            'value' => 216,
+                            'key' => 'Editor_PTGEU',
                           ),
                           11 => 
                           array (
-                            'value' => 61,
-                            'key' => 'C012194 (Mackenzie Brown)',
+                            'value' => 196,
+                            'key' => 'Marcom_CS',
                           ),
                           12 => 
                           array (
-                            'value' => 110,
-                            'key' => 'Caliskan',
+                            'value' => 207,
+                            'key' => 'MarCom_IFSEU',
                           ),
                           13 => 
                           array (
-                            'value' => 119,
-                            'key' => 'Cochran',
+                            'value' => 213,
+                            'key' => 'MarCom_PTGEU',
                           ),
                           14 => 
                           array (
-                            'value' => 11,
-                            'key' => 'cory (Cory Walter)',
+                            'value' => 210,
+                            'key' => 'ProductManager_IFSEU',
                           ),
                           15 => 
                           array (
-                            'value' => 115,
-                            'key' => 'Dario',
+                            'value' => 215,
+                            'key' => 'ProductManager_PTGEU',
                           ),
                           16 => 
                           array (
-                            'value' => 21,
-                            'key' => 'Dave (Dave Smith)',
+                            'value' => 209,
+                            'key' => 'ProductManagerCS',
                           ),
                           17 => 
                           array (
-                            'value' => 42,
-                            'key' => 'dobol (Laszlo Dobo)',
-                          ),
-                          18 => 
-                          array (
-                            'value' => 112,
-                            'key' => 'Drayling',
-                          ),
-                          19 => 
-                          array (
-                            'value' => 128,
-                            'key' => 'draylingr1 (Roman Drayling)',
-                          ),
-                          20 => 
-                          array (
-                            'value' => 33,
-                            'key' => 'editor',
-                          ),
-                          21 => 
-                          array (
-                            'value' => 22,
-                            'key' => 'Eric (Eric Dupont)',
-                          ),
-                          22 => 
-                          array (
-                            'value' => 28,
-                            'key' => 'Jarek (Jarek Zakrzewski)',
-                          ),
-                          23 => 
-                          array (
-                            'value' => 20,
-                            'key' => 'Jeff (Jeff Epperson)',
-                          ),
-                          24 => 
-                          array (
-                            'value' => 25,
-                            'key' => 'Jeremy (Jeremy Lidgett)',
-                          ),
-                          25 => 
-                          array (
-                            'value' => 14,
-                            'key' => 'Joe (joe glandorf)',
-                          ),
-                          26 => 
-                          array (
-                            'value' => 125,
-                            'key' => 'Joshua',
-                          ),
-                          27 => 
-                          array (
-                            'value' => 91,
-                            'key' => 'juenemannj (Jens Juenemann)',
-                          ),
-                          28 => 
-                          array (
-                            'value' => 26,
-                            'key' => 'Karina (Karina Robinson)',
-                          ),
-                          29 => 
-                          array (
-                            'value' => 107,
-                            'key' => 'Kelling',
-                          ),
-                          30 => 
-                          array (
-                            'value' => 120,
-                            'key' => 'Kiekenap',
-                          ),
-                          31 => 
-                          array (
-                            'value' => 133,
-                            'key' => 'kiekenapb (Barbara Kiekenap)',
-                          ),
-                          32 => 
-                          array (
-                            'value' => 124,
-                            'key' => 'Koch',
-                          ),
-                          33 => 
-                          array (
-                            'value' => 93,
-                            'key' => 'Krausss (Stefan Krauss)',
-                          ),
-                          34 => 
-                          array (
-                            'value' => 17,
-                            'key' => 'Laszlo (Laszlo Dobo)',
-                          ),
-                          35 => 
-                          array (
-                            'value' => 89,
-                            'key' => 'liedtkem (Melanie Liedtke-Sieben)',
-                          ),
-                          36 => 
-                          array (
-                            'value' => 77,
-                            'key' => 'lohrbergj (Joerg Lohrberg)',
-                          ),
-                          37 => 
-                          array (
-                            'value' => 92,
-                            'key' => 'LuekeJ (Jan-Philipp Lueke)',
-                          ),
-                          38 => 
-                          array (
-                            'value' => 12,
-                            'key' => 'macenzie',
-                          ),
-                          39 => 
-                          array (
-                            'value' => 118,
-                            'key' => 'Malte',
-                          ),
-                          40 => 
-                          array (
-                            'value' => 121,
-                            'key' => 'Marchant',
-                          ),
-                          41 => 
-                          array (
-                            'value' => 103,
-                            'key' => 'marcom',
-                          ),
-                          42 => 
-                          array (
-                            'value' => 8,
-                            'key' => 'Mark (Rohan Kumar)',
-                          ),
-                          43 => 
-                          array (
-                            'value' => 24,
-                            'key' => 'MarkR (Mark Rosetta)',
-                          ),
-                          44 => 
-                          array (
-                            'value' => 109,
-                            'key' => 'mayank',
-                          ),
-                          45 => 
-                          array (
-                            'value' => 81,
-                            'key' => 'menzelm (Marisa Menzel)',
-                          ),
-                          46 => 
-                          array (
-                            'value' => 51,
-                            'key' => 'ncem057 (Steve Davison)',
-                          ),
-                          47 => 
-                          array (
-                            'value' => 114,
-                            'key' => 'Nelec',
-                          ),
-                          48 => 
-                          array (
-                            'value' => 131,
-                            'key' => 'NelecP (Primoz Nelec)',
-                          ),
-                          49 => 
-                          array (
-                            'value' => 122,
-                            'key' => 'Neuenroth',
-                          ),
-                          50 => 
-                          array (
-                            'value' => 75,
-                            'key' => 'neuenrothc (Christian Neuenroth)',
-                          ),
-                          51 => 
-                          array (
-                            'value' => 15,
-                            'key' => 'Nicole (Nicole Kostelnick)',
-                          ),
-                          52 => 
-                          array (
-                            'value' => 48,
-                            'key' => 'nlndv68 (Jeff Epperson)',
-                          ),
-                          53 => 
-                          array (
-                            'value' => 27,
-                            'key' => 'Paul (Paul Whiffin)',
-                          ),
-                          54 => 
-                          array (
-                            'value' => 79,
-                            'key' => 'posseltc (Christof Posselt)',
-                          ),
-                          55 => 
-                          array (
-                            'value' => 35,
-                            'key' => 'Pradeep',
-                          ),
-                          56 => 
-                          array (
-                            'value' => 102,
-                            'key' => 'ProdM',
-                          ),
-                          57 => 
-                          array (
-                            'value' => 105,
-                            'key' => 'ProdOwner',
-                          ),
-                          58 => 
-                          array (
-                            'value' => 34,
-                            'key' => 'productmanager',
-                          ),
-                          59 => 
-                          array (
-                            'value' => 116,
-                            'key' => 'Raffler',
-                          ),
-                          60 => 
-                          array (
-                            'value' => 62,
-                            'key' => 'rajputa (Amit Rajput)',
-                          ),
-                          61 => 
-                          array (
-                            'value' => 29,
-                            'key' => 'Randy (Rohan Kumar)',
-                          ),
-                          62 => 
-                          array (
-                            'value' => 9,
-                            'key' => 'Reji',
-                          ),
-                          63 => 
-                          array (
-                            'value' => 104,
-                            'key' => 'RND',
-                          ),
-                          64 => 
-                          array (
-                            'value' => 13,
-                            'key' => 'Rohit',
-                          ),
-                          65 => 
-                          array (
-                            'value' => 82,
-                            'key' => 'rowshm (Mehdi Rowshannahad)',
-                          ),
-                          66 => 
-                          array (
-                            'value' => 67,
-                            'key' => 'schickedanzm (Malte Schickedanz)',
-                          ),
-                          67 => 
-                          array (
-                            'value' => 108,
-                            'key' => 'Schultz (Rob Schultz)',
-                          ),
-                          68 => 
-                          array (
-                            'value' => 70,
-                            'key' => 'steinerd (Daniel Steiner)',
-                          ),
-                          69 => 
-                          array (
-                            'value' => 18,
-                            'key' => 'Steve (Steve Davison)',
-                          ),
-                          70 => 
-                          array (
-                            'value' => 132,
-                            'key' => 'uia02380 (Leonie Zingel)',
-                          ),
-                          71 => 
-                          array (
-                            'value' => 85,
-                            'key' => 'uia54546 (Tatjana Kempf)',
-                          ),
-                          72 => 
-                          array (
-                            'value' => 86,
-                            'key' => 'uia54883 (Janina Gruebel)',
-                          ),
-                          73 => 
-                          array (
-                            'value' => 88,
-                            'key' => 'uia56532 (Simone Wieland)',
-                          ),
-                          74 => 
-                          array (
-                            'value' => 66,
-                            'key' => 'uia60821 (Vandana Singal)',
-                          ),
-                          75 => 
-                          array (
-                            'value' => 74,
-                            'key' => 'uia60823 (Rony Felix)',
-                          ),
-                          76 => 
-                          array (
-                            'value' => 68,
-                            'key' => 'uia89654 (Kinsey Hastings)',
-                          ),
-                          77 => 
-                          array (
-                            'value' => 87,
-                            'key' => 'uia94201 (Annika Duerr)',
-                          ),
-                          78 => 
-                          array (
-                            'value' => 78,
-                            'key' => 'uib09594 (Lars Tiedje)',
-                          ),
-                          79 => 
-                          array (
-                            'value' => 126,
-                            'key' => 'uib68208 (Krishan Kumar)',
-                          ),
-                          80 => 
-                          array (
-                            'value' => 65,
-                            'key' => 'uib68209 (Siddharth Chaudhery)',
-                          ),
-                          81 => 
-                          array (
-                            'value' => 58,
-                            'key' => 'uib98517 (Tokunbo Ajepe)',
-                          ),
-                          82 => 
-                          array (
-                            'value' => 130,
-                            'key' => 'uic17005 (Pinar Caliskan)',
-                          ),
-                          83 => 
-                          array (
-                            'value' => 72,
-                            'key' => 'uic39540 (Cedric Schulz)',
-                          ),
-                          84 => 
-                          array (
-                            'value' => 69,
-                            'key' => 'uic52020 (Oktay Oezcan)',
-                          ),
-                          85 => 
-                          array (
-                            'value' => 41,
-                            'key' => 'uic58260 (Evan Wasen)',
-                          ),
-                          86 => 
-                          array (
-                            'value' => 30,
-                            'key' => 'uic60917 (Krishnan Kumar)',
-                          ),
-                          87 => 
-                          array (
-                            'value' => 135,
-                            'key' => 'uic91640 (Zengping Wang)',
-                          ),
-                          88 => 
-                          array (
-                            'value' => 52,
-                            'key' => 'uie20462 (Steven De Alwis)',
-                          ),
-                          89 => 
-                          array (
-                            'value' => 90,
-                            'key' => 'uie32847 (Andrea Traeger)',
-                          ),
-                          90 => 
-                          array (
-                            'value' => 80,
-                            'key' => 'uie42653 (DANIELA ALBUQUERQUE)',
-                          ),
-                          91 => 
-                          array (
-                            'value' => 76,
-                            'key' => 'UIE43370 (Noah Hartman)',
-                          ),
-                          92 => 
-                          array (
-                            'value' => 40,
-                            'key' => 'V000320 (Jarek Zakrzewski)',
-                          ),
-                          93 => 
-                          array (
-                            'value' => 37,
-                            'key' => 'v000696 (Mark Dario)',
-                          ),
-                          94 => 
-                          array (
-                            'value' => 60,
-                            'key' => 'v000886 (Flint Wilson)',
-                          ),
-                          95 => 
-                          array (
-                            'value' => 43,
-                            'key' => 'v001713 (Nicole Kostelnick)',
-                          ),
-                          96 => 
-                          array (
-                            'value' => 39,
-                            'key' => 'v002041 (Cory Walter)',
-                          ),
-                          97 => 
-                          array (
-                            'value' => 45,
-                            'key' => 'v002044 (Zach Christenson)',
-                          ),
-                          98 => 
-                          array (
-                            'value' => 46,
-                            'key' => 'v002065 (Mark Rosetta)',
-                          ),
-                          99 => 
-                          array (
-                            'value' => 44,
-                            'key' => 'V104718 (Ben Tracey)',
-                          ),
-                          100 => 
-                          array (
-                            'value' => 134,
-                            'key' => 'v104943 (Rob Schultz)',
-                          ),
-                          101 => 
-                          array (
-                            'value' => 84,
-                            'key' => 'v105777 (Wesley Coursen)',
-                          ),
-                          102 => 
-                          array (
-                            'value' => 53,
-                            'key' => 'v106287 (Joe Glandorf)',
-                          ),
-                          103 => 
-                          array (
-                            'value' => 56,
-                            'key' => 'v106566 (Don Salandanan)',
-                          ),
-                          104 => 
-                          array (
-                            'value' => 49,
-                            'key' => 'V111211 (James Dusek)',
-                          ),
-                          105 => 
-                          array (
-                            'value' => 50,
-                            'key' => 'v111296 (Scott Retzlaff)',
-                          ),
-                          106 => 
-                          array (
-                            'value' => 54,
-                            'key' => 'V112497 (Morgan Lackey)',
-                          ),
-                          107 => 
-                          array (
-                            'value' => 123,
-                            'key' => 'Wennekamp',
-                          ),
-                          108 => 
-                          array (
-                            'value' => 83,
-                            'key' => 'wiemannm (Mareike-Elena Wiemann)',
-                          ),
-                          109 => 
-                          array (
-                            'value' => 117,
-                            'key' => 'Wright',
-                          ),
-                          110 => 
-                          array (
-                            'value' => 106,
-                            'key' => 'yogesh',
-                          ),
-                          111 => 
-                          array (
-                            'value' => 73,
-                            'key' => 'za02860 (Chad Peters)',
-                          ),
-                          112 => 
-                          array (
-                            'value' => 19,
-                            'key' => 'Zach (Zach Christenson)',
-                          ),
-                          113 => 
-                          array (
-                            'value' => 129,
-                            'key' => 'Zieglerd (Dennis Ziegler)',
-                          ),
-                          114 => 
-                          array (
-                            'value' => 113,
-                            'key' => 'Zingel',
+                            'value' => 225,
+                            'key' => 'ReadOnlyIFSEU',
                           ),
                         ),
                          'width' => '',
@@ -1007,578 +521,93 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                         array (
                           0 => 
                           array (
-                            'value' => 47,
-                            'key' => 'a070825 (Alan Hickenbottom)',
+                            'value' => 195,
+                            'key' => '4RolesUser',
                           ),
                           1 => 
                           array (
-                            'value' => 59,
-                            'key' => 'A074241 (Craig Boche)',
+                            'value' => 217,
+                            'key' => '4RolesUser_PTGEU',
                           ),
                           2 => 
-                          array (
-                            'value' => 63,
-                            'key' => 'a207963 (Mark Merklein)',
-                          ),
-                          3 => 
-                          array (
-                            'value' => 57,
-                            'key' => 'a339063 (Marie-Josee Brisson)',
-                          ),
-                          4 => 
-                          array (
-                            'value' => 36,
-                            'key' => 'a352850 (Reji Joseph)',
-                          ),
-                          5 => 
-                          array (
-                            'value' => 55,
-                            'key' => 'a389752 (Randy Kish)',
-                          ),
-                          6 => 
-                          array (
-                            'value' => 101,
-                            'key' => 'Abdelhakim',
-                          ),
-                          7 => 
                           array (
                             'value' => 2,
                             'key' => 'admin',
                           ),
+                          3 => 
+                          array (
+                            'value' => 194,
+                            'key' => 'ApplicationAdmin_CS',
+                          ),
+                          4 => 
+                          array (
+                            'value' => 206,
+                            'key' => 'ApplicationAdmin_IFSEU',
+                          ),
+                          5 => 
+                          array (
+                            'value' => 219,
+                            'key' => 'ApplicationAdmin_IFSUS',
+                          ),
+                          6 => 
+                          array (
+                            'value' => 212,
+                            'key' => 'ApplicationAdmin_PTGEU',
+                          ),
+                          7 => 
+                          array (
+                            'value' => 226,
+                            'key' => 'dHub_Role',
+                          ),
                           8 => 
                           array (
-                            'value' => 23,
-                            'key' => 'Andy (Andy Speidel)',
+                            'value' => 197,
+                            'key' => 'Editor_CS',
                           ),
                           9 => 
                           array (
-                            'value' => 16,
-                            'key' => 'Ben (Ben Tracey)',
+                            'value' => 208,
+                            'key' => 'Editor_IFSEU',
                           ),
                           10 => 
                           array (
-                            'value' => 71,
-                            'key' => 'boulakhrifa (Abdelhakim Boulakhrif)',
+                            'value' => 216,
+                            'key' => 'Editor_PTGEU',
                           ),
                           11 => 
                           array (
-                            'value' => 61,
-                            'key' => 'C012194 (Mackenzie Brown)',
+                            'value' => 196,
+                            'key' => 'Marcom_CS',
                           ),
                           12 => 
                           array (
-                            'value' => 110,
-                            'key' => 'Caliskan',
+                            'value' => 207,
+                            'key' => 'MarCom_IFSEU',
                           ),
                           13 => 
                           array (
-                            'value' => 119,
-                            'key' => 'Cochran',
+                            'value' => 213,
+                            'key' => 'MarCom_PTGEU',
                           ),
                           14 => 
                           array (
-                            'value' => 11,
-                            'key' => 'cory (Cory Walter)',
+                            'value' => 210,
+                            'key' => 'ProductManager_IFSEU',
                           ),
                           15 => 
                           array (
-                            'value' => 115,
-                            'key' => 'Dario',
+                            'value' => 215,
+                            'key' => 'ProductManager_PTGEU',
                           ),
                           16 => 
                           array (
-                            'value' => 21,
-                            'key' => 'Dave (Dave Smith)',
+                            'value' => 209,
+                            'key' => 'ProductManagerCS',
                           ),
                           17 => 
                           array (
-                            'value' => 42,
-                            'key' => 'dobol (Laszlo Dobo)',
-                          ),
-                          18 => 
-                          array (
-                            'value' => 112,
-                            'key' => 'Drayling',
-                          ),
-                          19 => 
-                          array (
-                            'value' => 128,
-                            'key' => 'draylingr1 (Roman Drayling)',
-                          ),
-                          20 => 
-                          array (
-                            'value' => 33,
-                            'key' => 'editor',
-                          ),
-                          21 => 
-                          array (
-                            'value' => 22,
-                            'key' => 'Eric (Eric Dupont)',
-                          ),
-                          22 => 
-                          array (
-                            'value' => 28,
-                            'key' => 'Jarek (Jarek Zakrzewski)',
-                          ),
-                          23 => 
-                          array (
-                            'value' => 20,
-                            'key' => 'Jeff (Jeff Epperson)',
-                          ),
-                          24 => 
-                          array (
-                            'value' => 25,
-                            'key' => 'Jeremy (Jeremy Lidgett)',
-                          ),
-                          25 => 
-                          array (
-                            'value' => 14,
-                            'key' => 'Joe (joe glandorf)',
-                          ),
-                          26 => 
-                          array (
-                            'value' => 125,
-                            'key' => 'Joshua',
-                          ),
-                          27 => 
-                          array (
-                            'value' => 91,
-                            'key' => 'juenemannj (Jens Juenemann)',
-                          ),
-                          28 => 
-                          array (
-                            'value' => 26,
-                            'key' => 'Karina (Karina Robinson)',
-                          ),
-                          29 => 
-                          array (
-                            'value' => 107,
-                            'key' => 'Kelling',
-                          ),
-                          30 => 
-                          array (
-                            'value' => 120,
-                            'key' => 'Kiekenap',
-                          ),
-                          31 => 
-                          array (
-                            'value' => 133,
-                            'key' => 'kiekenapb (Barbara Kiekenap)',
-                          ),
-                          32 => 
-                          array (
-                            'value' => 124,
-                            'key' => 'Koch',
-                          ),
-                          33 => 
-                          array (
-                            'value' => 93,
-                            'key' => 'Krausss (Stefan Krauss)',
-                          ),
-                          34 => 
-                          array (
-                            'value' => 17,
-                            'key' => 'Laszlo (Laszlo Dobo)',
-                          ),
-                          35 => 
-                          array (
-                            'value' => 89,
-                            'key' => 'liedtkem (Melanie Liedtke-Sieben)',
-                          ),
-                          36 => 
-                          array (
-                            'value' => 77,
-                            'key' => 'lohrbergj (Joerg Lohrberg)',
-                          ),
-                          37 => 
-                          array (
-                            'value' => 92,
-                            'key' => 'LuekeJ (Jan-Philipp Lueke)',
-                          ),
-                          38 => 
-                          array (
-                            'value' => 12,
-                            'key' => 'macenzie',
-                          ),
-                          39 => 
-                          array (
-                            'value' => 118,
-                            'key' => 'Malte',
-                          ),
-                          40 => 
-                          array (
-                            'value' => 121,
-                            'key' => 'Marchant',
-                          ),
-                          41 => 
-                          array (
-                            'value' => 103,
-                            'key' => 'marcom',
-                          ),
-                          42 => 
-                          array (
-                            'value' => 8,
-                            'key' => 'Mark (Rohan Kumar)',
-                          ),
-                          43 => 
-                          array (
-                            'value' => 24,
-                            'key' => 'MarkR (Mark Rosetta)',
-                          ),
-                          44 => 
-                          array (
-                            'value' => 109,
-                            'key' => 'mayank',
-                          ),
-                          45 => 
-                          array (
-                            'value' => 81,
-                            'key' => 'menzelm (Marisa Menzel)',
-                          ),
-                          46 => 
-                          array (
-                            'value' => 51,
-                            'key' => 'ncem057 (Steve Davison)',
-                          ),
-                          47 => 
-                          array (
-                            'value' => 114,
-                            'key' => 'Nelec',
-                          ),
-                          48 => 
-                          array (
-                            'value' => 131,
-                            'key' => 'NelecP (Primoz Nelec)',
-                          ),
-                          49 => 
-                          array (
-                            'value' => 122,
-                            'key' => 'Neuenroth',
-                          ),
-                          50 => 
-                          array (
-                            'value' => 75,
-                            'key' => 'neuenrothc (Christian Neuenroth)',
-                          ),
-                          51 => 
-                          array (
-                            'value' => 15,
-                            'key' => 'Nicole (Nicole Kostelnick)',
-                          ),
-                          52 => 
-                          array (
-                            'value' => 48,
-                            'key' => 'nlndv68 (Jeff Epperson)',
-                          ),
-                          53 => 
-                          array (
-                            'value' => 27,
-                            'key' => 'Paul (Paul Whiffin)',
-                          ),
-                          54 => 
-                          array (
-                            'value' => 79,
-                            'key' => 'posseltc (Christof Posselt)',
-                          ),
-                          55 => 
-                          array (
-                            'value' => 35,
-                            'key' => 'Pradeep',
-                          ),
-                          56 => 
-                          array (
-                            'value' => 102,
-                            'key' => 'ProdM',
-                          ),
-                          57 => 
-                          array (
-                            'value' => 105,
-                            'key' => 'ProdOwner',
-                          ),
-                          58 => 
-                          array (
-                            'value' => 34,
-                            'key' => 'productmanager',
-                          ),
-                          59 => 
-                          array (
-                            'value' => 116,
-                            'key' => 'Raffler',
-                          ),
-                          60 => 
-                          array (
-                            'value' => 62,
-                            'key' => 'rajputa (Amit Rajput)',
-                          ),
-                          61 => 
-                          array (
-                            'value' => 29,
-                            'key' => 'Randy (Rohan Kumar)',
-                          ),
-                          62 => 
-                          array (
-                            'value' => 9,
-                            'key' => 'Reji',
-                          ),
-                          63 => 
-                          array (
-                            'value' => 104,
-                            'key' => 'RND',
-                          ),
-                          64 => 
-                          array (
-                            'value' => 13,
-                            'key' => 'Rohit',
-                          ),
-                          65 => 
-                          array (
-                            'value' => 82,
-                            'key' => 'rowshm (Mehdi Rowshannahad)',
-                          ),
-                          66 => 
-                          array (
-                            'value' => 67,
-                            'key' => 'schickedanzm (Malte Schickedanz)',
-                          ),
-                          67 => 
-                          array (
-                            'value' => 108,
-                            'key' => 'Schultz (Rob Schultz)',
-                          ),
-                          68 => 
-                          array (
-                            'value' => 70,
-                            'key' => 'steinerd (Daniel Steiner)',
-                          ),
-                          69 => 
-                          array (
-                            'value' => 18,
-                            'key' => 'Steve (Steve Davison)',
-                          ),
-                          70 => 
-                          array (
-                            'value' => 132,
-                            'key' => 'uia02380 (Leonie Zingel)',
-                          ),
-                          71 => 
-                          array (
-                            'value' => 85,
-                            'key' => 'uia54546 (Tatjana Kempf)',
-                          ),
-                          72 => 
-                          array (
-                            'value' => 86,
-                            'key' => 'uia54883 (Janina Gruebel)',
-                          ),
-                          73 => 
-                          array (
-                            'value' => 88,
-                            'key' => 'uia56532 (Simone Wieland)',
-                          ),
-                          74 => 
-                          array (
-                            'value' => 66,
-                            'key' => 'uia60821 (Vandana Singal)',
-                          ),
-                          75 => 
-                          array (
-                            'value' => 74,
-                            'key' => 'uia60823 (Rony Felix)',
-                          ),
-                          76 => 
-                          array (
-                            'value' => 68,
-                            'key' => 'uia89654 (Kinsey Hastings)',
-                          ),
-                          77 => 
-                          array (
-                            'value' => 87,
-                            'key' => 'uia94201 (Annika Duerr)',
-                          ),
-                          78 => 
-                          array (
-                            'value' => 78,
-                            'key' => 'uib09594 (Lars Tiedje)',
-                          ),
-                          79 => 
-                          array (
-                            'value' => 126,
-                            'key' => 'uib68208 (Krishan Kumar)',
-                          ),
-                          80 => 
-                          array (
-                            'value' => 65,
-                            'key' => 'uib68209 (Siddharth Chaudhery)',
-                          ),
-                          81 => 
-                          array (
-                            'value' => 58,
-                            'key' => 'uib98517 (Tokunbo Ajepe)',
-                          ),
-                          82 => 
-                          array (
-                            'value' => 130,
-                            'key' => 'uic17005 (Pinar Caliskan)',
-                          ),
-                          83 => 
-                          array (
-                            'value' => 72,
-                            'key' => 'uic39540 (Cedric Schulz)',
-                          ),
-                          84 => 
-                          array (
-                            'value' => 69,
-                            'key' => 'uic52020 (Oktay Oezcan)',
-                          ),
-                          85 => 
-                          array (
-                            'value' => 41,
-                            'key' => 'uic58260 (Evan Wasen)',
-                          ),
-                          86 => 
-                          array (
-                            'value' => 30,
-                            'key' => 'uic60917 (Krishnan Kumar)',
-                          ),
-                          87 => 
-                          array (
-                            'value' => 135,
-                            'key' => 'uic91640 (Zengping Wang)',
-                          ),
-                          88 => 
-                          array (
-                            'value' => 52,
-                            'key' => 'uie20462 (Steven De Alwis)',
-                          ),
-                          89 => 
-                          array (
-                            'value' => 90,
-                            'key' => 'uie32847 (Andrea Traeger)',
-                          ),
-                          90 => 
-                          array (
-                            'value' => 80,
-                            'key' => 'uie42653 (DANIELA ALBUQUERQUE)',
-                          ),
-                          91 => 
-                          array (
-                            'value' => 76,
-                            'key' => 'UIE43370 (Noah Hartman)',
-                          ),
-                          92 => 
-                          array (
-                            'value' => 40,
-                            'key' => 'V000320 (Jarek Zakrzewski)',
-                          ),
-                          93 => 
-                          array (
-                            'value' => 37,
-                            'key' => 'v000696 (Mark Dario)',
-                          ),
-                          94 => 
-                          array (
-                            'value' => 60,
-                            'key' => 'v000886 (Flint Wilson)',
-                          ),
-                          95 => 
-                          array (
-                            'value' => 43,
-                            'key' => 'v001713 (Nicole Kostelnick)',
-                          ),
-                          96 => 
-                          array (
-                            'value' => 39,
-                            'key' => 'v002041 (Cory Walter)',
-                          ),
-                          97 => 
-                          array (
-                            'value' => 45,
-                            'key' => 'v002044 (Zach Christenson)',
-                          ),
-                          98 => 
-                          array (
-                            'value' => 46,
-                            'key' => 'v002065 (Mark Rosetta)',
-                          ),
-                          99 => 
-                          array (
-                            'value' => 44,
-                            'key' => 'V104718 (Ben Tracey)',
-                          ),
-                          100 => 
-                          array (
-                            'value' => 134,
-                            'key' => 'v104943 (Rob Schultz)',
-                          ),
-                          101 => 
-                          array (
-                            'value' => 84,
-                            'key' => 'v105777 (Wesley Coursen)',
-                          ),
-                          102 => 
-                          array (
-                            'value' => 53,
-                            'key' => 'v106287 (Joe Glandorf)',
-                          ),
-                          103 => 
-                          array (
-                            'value' => 56,
-                            'key' => 'v106566 (Don Salandanan)',
-                          ),
-                          104 => 
-                          array (
-                            'value' => 49,
-                            'key' => 'V111211 (James Dusek)',
-                          ),
-                          105 => 
-                          array (
-                            'value' => 50,
-                            'key' => 'v111296 (Scott Retzlaff)',
-                          ),
-                          106 => 
-                          array (
-                            'value' => 54,
-                            'key' => 'V112497 (Morgan Lackey)',
-                          ),
-                          107 => 
-                          array (
-                            'value' => 123,
-                            'key' => 'Wennekamp',
-                          ),
-                          108 => 
-                          array (
-                            'value' => 83,
-                            'key' => 'wiemannm (Mareike-Elena Wiemann)',
-                          ),
-                          109 => 
-                          array (
-                            'value' => 117,
-                            'key' => 'Wright',
-                          ),
-                          110 => 
-                          array (
-                            'value' => 106,
-                            'key' => 'yogesh',
-                          ),
-                          111 => 
-                          array (
-                            'value' => 73,
-                            'key' => 'za02860 (Chad Peters)',
-                          ),
-                          112 => 
-                          array (
-                            'value' => 19,
-                            'key' => 'Zach (Zach Christenson)',
-                          ),
-                          113 => 
-                          array (
-                            'value' => 129,
-                            'key' => 'Zieglerd (Dennis Ziegler)',
-                          ),
-                          114 => 
-                          array (
-                            'value' => 113,
-                            'key' => 'Zingel',
+                            'value' => 225,
+                            'key' => 'ReadOnlyIFSEU',
                           ),
                         ),
                          'width' => '',
@@ -1614,578 +643,93 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                         array (
                           0 => 
                           array (
-                            'value' => 47,
-                            'key' => 'a070825 (Alan Hickenbottom)',
+                            'value' => 195,
+                            'key' => '4RolesUser',
                           ),
                           1 => 
                           array (
-                            'value' => 59,
-                            'key' => 'A074241 (Craig Boche)',
+                            'value' => 217,
+                            'key' => '4RolesUser_PTGEU',
                           ),
                           2 => 
-                          array (
-                            'value' => 63,
-                            'key' => 'a207963 (Mark Merklein)',
-                          ),
-                          3 => 
-                          array (
-                            'value' => 57,
-                            'key' => 'a339063 (Marie-Josee Brisson)',
-                          ),
-                          4 => 
-                          array (
-                            'value' => 36,
-                            'key' => 'a352850 (Reji Joseph)',
-                          ),
-                          5 => 
-                          array (
-                            'value' => 55,
-                            'key' => 'a389752 (Randy Kish)',
-                          ),
-                          6 => 
-                          array (
-                            'value' => 101,
-                            'key' => 'Abdelhakim',
-                          ),
-                          7 => 
                           array (
                             'value' => 2,
                             'key' => 'admin',
                           ),
+                          3 => 
+                          array (
+                            'value' => 194,
+                            'key' => 'ApplicationAdmin_CS',
+                          ),
+                          4 => 
+                          array (
+                            'value' => 206,
+                            'key' => 'ApplicationAdmin_IFSEU',
+                          ),
+                          5 => 
+                          array (
+                            'value' => 219,
+                            'key' => 'ApplicationAdmin_IFSUS',
+                          ),
+                          6 => 
+                          array (
+                            'value' => 212,
+                            'key' => 'ApplicationAdmin_PTGEU',
+                          ),
+                          7 => 
+                          array (
+                            'value' => 226,
+                            'key' => 'dHub_Role',
+                          ),
                           8 => 
                           array (
-                            'value' => 23,
-                            'key' => 'Andy (Andy Speidel)',
+                            'value' => 197,
+                            'key' => 'Editor_CS',
                           ),
                           9 => 
                           array (
-                            'value' => 16,
-                            'key' => 'Ben (Ben Tracey)',
+                            'value' => 208,
+                            'key' => 'Editor_IFSEU',
                           ),
                           10 => 
                           array (
-                            'value' => 71,
-                            'key' => 'boulakhrifa (Abdelhakim Boulakhrif)',
+                            'value' => 216,
+                            'key' => 'Editor_PTGEU',
                           ),
                           11 => 
                           array (
-                            'value' => 61,
-                            'key' => 'C012194 (Mackenzie Brown)',
+                            'value' => 196,
+                            'key' => 'Marcom_CS',
                           ),
                           12 => 
                           array (
-                            'value' => 110,
-                            'key' => 'Caliskan',
+                            'value' => 207,
+                            'key' => 'MarCom_IFSEU',
                           ),
                           13 => 
                           array (
-                            'value' => 119,
-                            'key' => 'Cochran',
+                            'value' => 213,
+                            'key' => 'MarCom_PTGEU',
                           ),
                           14 => 
                           array (
-                            'value' => 11,
-                            'key' => 'cory (Cory Walter)',
+                            'value' => 210,
+                            'key' => 'ProductManager_IFSEU',
                           ),
                           15 => 
                           array (
-                            'value' => 115,
-                            'key' => 'Dario',
+                            'value' => 215,
+                            'key' => 'ProductManager_PTGEU',
                           ),
                           16 => 
                           array (
-                            'value' => 21,
-                            'key' => 'Dave (Dave Smith)',
+                            'value' => 209,
+                            'key' => 'ProductManagerCS',
                           ),
                           17 => 
                           array (
-                            'value' => 42,
-                            'key' => 'dobol (Laszlo Dobo)',
-                          ),
-                          18 => 
-                          array (
-                            'value' => 112,
-                            'key' => 'Drayling',
-                          ),
-                          19 => 
-                          array (
-                            'value' => 128,
-                            'key' => 'draylingr1 (Roman Drayling)',
-                          ),
-                          20 => 
-                          array (
-                            'value' => 33,
-                            'key' => 'editor',
-                          ),
-                          21 => 
-                          array (
-                            'value' => 22,
-                            'key' => 'Eric (Eric Dupont)',
-                          ),
-                          22 => 
-                          array (
-                            'value' => 28,
-                            'key' => 'Jarek (Jarek Zakrzewski)',
-                          ),
-                          23 => 
-                          array (
-                            'value' => 20,
-                            'key' => 'Jeff (Jeff Epperson)',
-                          ),
-                          24 => 
-                          array (
-                            'value' => 25,
-                            'key' => 'Jeremy (Jeremy Lidgett)',
-                          ),
-                          25 => 
-                          array (
-                            'value' => 14,
-                            'key' => 'Joe (joe glandorf)',
-                          ),
-                          26 => 
-                          array (
-                            'value' => 125,
-                            'key' => 'Joshua',
-                          ),
-                          27 => 
-                          array (
-                            'value' => 91,
-                            'key' => 'juenemannj (Jens Juenemann)',
-                          ),
-                          28 => 
-                          array (
-                            'value' => 26,
-                            'key' => 'Karina (Karina Robinson)',
-                          ),
-                          29 => 
-                          array (
-                            'value' => 107,
-                            'key' => 'Kelling',
-                          ),
-                          30 => 
-                          array (
-                            'value' => 120,
-                            'key' => 'Kiekenap',
-                          ),
-                          31 => 
-                          array (
-                            'value' => 133,
-                            'key' => 'kiekenapb (Barbara Kiekenap)',
-                          ),
-                          32 => 
-                          array (
-                            'value' => 124,
-                            'key' => 'Koch',
-                          ),
-                          33 => 
-                          array (
-                            'value' => 93,
-                            'key' => 'Krausss (Stefan Krauss)',
-                          ),
-                          34 => 
-                          array (
-                            'value' => 17,
-                            'key' => 'Laszlo (Laszlo Dobo)',
-                          ),
-                          35 => 
-                          array (
-                            'value' => 89,
-                            'key' => 'liedtkem (Melanie Liedtke-Sieben)',
-                          ),
-                          36 => 
-                          array (
-                            'value' => 77,
-                            'key' => 'lohrbergj (Joerg Lohrberg)',
-                          ),
-                          37 => 
-                          array (
-                            'value' => 92,
-                            'key' => 'LuekeJ (Jan-Philipp Lueke)',
-                          ),
-                          38 => 
-                          array (
-                            'value' => 12,
-                            'key' => 'macenzie',
-                          ),
-                          39 => 
-                          array (
-                            'value' => 118,
-                            'key' => 'Malte',
-                          ),
-                          40 => 
-                          array (
-                            'value' => 121,
-                            'key' => 'Marchant',
-                          ),
-                          41 => 
-                          array (
-                            'value' => 103,
-                            'key' => 'marcom',
-                          ),
-                          42 => 
-                          array (
-                            'value' => 8,
-                            'key' => 'Mark (Rohan Kumar)',
-                          ),
-                          43 => 
-                          array (
-                            'value' => 24,
-                            'key' => 'MarkR (Mark Rosetta)',
-                          ),
-                          44 => 
-                          array (
-                            'value' => 109,
-                            'key' => 'mayank',
-                          ),
-                          45 => 
-                          array (
-                            'value' => 81,
-                            'key' => 'menzelm (Marisa Menzel)',
-                          ),
-                          46 => 
-                          array (
-                            'value' => 51,
-                            'key' => 'ncem057 (Steve Davison)',
-                          ),
-                          47 => 
-                          array (
-                            'value' => 114,
-                            'key' => 'Nelec',
-                          ),
-                          48 => 
-                          array (
-                            'value' => 131,
-                            'key' => 'NelecP (Primoz Nelec)',
-                          ),
-                          49 => 
-                          array (
-                            'value' => 122,
-                            'key' => 'Neuenroth',
-                          ),
-                          50 => 
-                          array (
-                            'value' => 75,
-                            'key' => 'neuenrothc (Christian Neuenroth)',
-                          ),
-                          51 => 
-                          array (
-                            'value' => 15,
-                            'key' => 'Nicole (Nicole Kostelnick)',
-                          ),
-                          52 => 
-                          array (
-                            'value' => 48,
-                            'key' => 'nlndv68 (Jeff Epperson)',
-                          ),
-                          53 => 
-                          array (
-                            'value' => 27,
-                            'key' => 'Paul (Paul Whiffin)',
-                          ),
-                          54 => 
-                          array (
-                            'value' => 79,
-                            'key' => 'posseltc (Christof Posselt)',
-                          ),
-                          55 => 
-                          array (
-                            'value' => 35,
-                            'key' => 'Pradeep',
-                          ),
-                          56 => 
-                          array (
-                            'value' => 102,
-                            'key' => 'ProdM',
-                          ),
-                          57 => 
-                          array (
-                            'value' => 105,
-                            'key' => 'ProdOwner',
-                          ),
-                          58 => 
-                          array (
-                            'value' => 34,
-                            'key' => 'productmanager',
-                          ),
-                          59 => 
-                          array (
-                            'value' => 116,
-                            'key' => 'Raffler',
-                          ),
-                          60 => 
-                          array (
-                            'value' => 62,
-                            'key' => 'rajputa (Amit Rajput)',
-                          ),
-                          61 => 
-                          array (
-                            'value' => 29,
-                            'key' => 'Randy (Rohan Kumar)',
-                          ),
-                          62 => 
-                          array (
-                            'value' => 9,
-                            'key' => 'Reji',
-                          ),
-                          63 => 
-                          array (
-                            'value' => 104,
-                            'key' => 'RND',
-                          ),
-                          64 => 
-                          array (
-                            'value' => 13,
-                            'key' => 'Rohit',
-                          ),
-                          65 => 
-                          array (
-                            'value' => 82,
-                            'key' => 'rowshm (Mehdi Rowshannahad)',
-                          ),
-                          66 => 
-                          array (
-                            'value' => 67,
-                            'key' => 'schickedanzm (Malte Schickedanz)',
-                          ),
-                          67 => 
-                          array (
-                            'value' => 108,
-                            'key' => 'Schultz (Rob Schultz)',
-                          ),
-                          68 => 
-                          array (
-                            'value' => 70,
-                            'key' => 'steinerd (Daniel Steiner)',
-                          ),
-                          69 => 
-                          array (
-                            'value' => 18,
-                            'key' => 'Steve (Steve Davison)',
-                          ),
-                          70 => 
-                          array (
-                            'value' => 132,
-                            'key' => 'uia02380 (Leonie Zingel)',
-                          ),
-                          71 => 
-                          array (
-                            'value' => 85,
-                            'key' => 'uia54546 (Tatjana Kempf)',
-                          ),
-                          72 => 
-                          array (
-                            'value' => 86,
-                            'key' => 'uia54883 (Janina Gruebel)',
-                          ),
-                          73 => 
-                          array (
-                            'value' => 88,
-                            'key' => 'uia56532 (Simone Wieland)',
-                          ),
-                          74 => 
-                          array (
-                            'value' => 66,
-                            'key' => 'uia60821 (Vandana Singal)',
-                          ),
-                          75 => 
-                          array (
-                            'value' => 74,
-                            'key' => 'uia60823 (Rony Felix)',
-                          ),
-                          76 => 
-                          array (
-                            'value' => 68,
-                            'key' => 'uia89654 (Kinsey Hastings)',
-                          ),
-                          77 => 
-                          array (
-                            'value' => 87,
-                            'key' => 'uia94201 (Annika Duerr)',
-                          ),
-                          78 => 
-                          array (
-                            'value' => 78,
-                            'key' => 'uib09594 (Lars Tiedje)',
-                          ),
-                          79 => 
-                          array (
-                            'value' => 126,
-                            'key' => 'uib68208 (Krishan Kumar)',
-                          ),
-                          80 => 
-                          array (
-                            'value' => 65,
-                            'key' => 'uib68209 (Siddharth Chaudhery)',
-                          ),
-                          81 => 
-                          array (
-                            'value' => 58,
-                            'key' => 'uib98517 (Tokunbo Ajepe)',
-                          ),
-                          82 => 
-                          array (
-                            'value' => 130,
-                            'key' => 'uic17005 (Pinar Caliskan)',
-                          ),
-                          83 => 
-                          array (
-                            'value' => 72,
-                            'key' => 'uic39540 (Cedric Schulz)',
-                          ),
-                          84 => 
-                          array (
-                            'value' => 69,
-                            'key' => 'uic52020 (Oktay Oezcan)',
-                          ),
-                          85 => 
-                          array (
-                            'value' => 41,
-                            'key' => 'uic58260 (Evan Wasen)',
-                          ),
-                          86 => 
-                          array (
-                            'value' => 30,
-                            'key' => 'uic60917 (Krishnan Kumar)',
-                          ),
-                          87 => 
-                          array (
-                            'value' => 135,
-                            'key' => 'uic91640 (Zengping Wang)',
-                          ),
-                          88 => 
-                          array (
-                            'value' => 52,
-                            'key' => 'uie20462 (Steven De Alwis)',
-                          ),
-                          89 => 
-                          array (
-                            'value' => 90,
-                            'key' => 'uie32847 (Andrea Traeger)',
-                          ),
-                          90 => 
-                          array (
-                            'value' => 80,
-                            'key' => 'uie42653 (DANIELA ALBUQUERQUE)',
-                          ),
-                          91 => 
-                          array (
-                            'value' => 76,
-                            'key' => 'UIE43370 (Noah Hartman)',
-                          ),
-                          92 => 
-                          array (
-                            'value' => 40,
-                            'key' => 'V000320 (Jarek Zakrzewski)',
-                          ),
-                          93 => 
-                          array (
-                            'value' => 37,
-                            'key' => 'v000696 (Mark Dario)',
-                          ),
-                          94 => 
-                          array (
-                            'value' => 60,
-                            'key' => 'v000886 (Flint Wilson)',
-                          ),
-                          95 => 
-                          array (
-                            'value' => 43,
-                            'key' => 'v001713 (Nicole Kostelnick)',
-                          ),
-                          96 => 
-                          array (
-                            'value' => 39,
-                            'key' => 'v002041 (Cory Walter)',
-                          ),
-                          97 => 
-                          array (
-                            'value' => 45,
-                            'key' => 'v002044 (Zach Christenson)',
-                          ),
-                          98 => 
-                          array (
-                            'value' => 46,
-                            'key' => 'v002065 (Mark Rosetta)',
-                          ),
-                          99 => 
-                          array (
-                            'value' => 44,
-                            'key' => 'V104718 (Ben Tracey)',
-                          ),
-                          100 => 
-                          array (
-                            'value' => 134,
-                            'key' => 'v104943 (Rob Schultz)',
-                          ),
-                          101 => 
-                          array (
-                            'value' => 84,
-                            'key' => 'v105777 (Wesley Coursen)',
-                          ),
-                          102 => 
-                          array (
-                            'value' => 53,
-                            'key' => 'v106287 (Joe Glandorf)',
-                          ),
-                          103 => 
-                          array (
-                            'value' => 56,
-                            'key' => 'v106566 (Don Salandanan)',
-                          ),
-                          104 => 
-                          array (
-                            'value' => 49,
-                            'key' => 'V111211 (James Dusek)',
-                          ),
-                          105 => 
-                          array (
-                            'value' => 50,
-                            'key' => 'v111296 (Scott Retzlaff)',
-                          ),
-                          106 => 
-                          array (
-                            'value' => 54,
-                            'key' => 'V112497 (Morgan Lackey)',
-                          ),
-                          107 => 
-                          array (
-                            'value' => 123,
-                            'key' => 'Wennekamp',
-                          ),
-                          108 => 
-                          array (
-                            'value' => 83,
-                            'key' => 'wiemannm (Mareike-Elena Wiemann)',
-                          ),
-                          109 => 
-                          array (
-                            'value' => 117,
-                            'key' => 'Wright',
-                          ),
-                          110 => 
-                          array (
-                            'value' => 106,
-                            'key' => 'yogesh',
-                          ),
-                          111 => 
-                          array (
-                            'value' => 73,
-                            'key' => 'za02860 (Chad Peters)',
-                          ),
-                          112 => 
-                          array (
-                            'value' => 19,
-                            'key' => 'Zach (Zach Christenson)',
-                          ),
-                          113 => 
-                          array (
-                            'value' => 129,
-                            'key' => 'Zieglerd (Dennis Ziegler)',
-                          ),
-                          114 => 
-                          array (
-                            'value' => 113,
-                            'key' => 'Zingel',
+                            'value' => 225,
+                            'key' => 'ReadOnlyIFSEU',
                           ),
                         ),
                          'width' => '',
@@ -3108,7 +1652,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                  'title' => '',
                  'width' => '',
                  'height' => '',
-                 'maxTabs' => NULL,
+                 'maxTabs' => 20,
                  'labelWidth' => NULL,
                  'border' => false,
                  'provideSplitView' => false,
@@ -3175,41 +1719,14 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                   12 => 'WidthLength',
                   13 => 'ProdDimensions',
                   14 => 'TypeOfIdler',
-                  15 => 'ProdAttrSetAA',
-                  16 => 'ProdAttrSetAB',
-                  17 => 'ProdAttrSetAC',
-                  18 => 'ProdAttrSetAD',
-                  19 => 'ProdAttrSetAE',
-                  20 => 'ProdAttrSetAF',
-                  21 => 'ProdAttrSetAG',
-                  22 => 'ProdAttrSetAH',
-                  23 => 'ProdAttrSetAI',
-                  24 => 'ProdAttrSetA',
-                  25 => 'ProdAttrSetB',
-                  26 => 'ProdAttrSetC',
-                  27 => 'ProdAttrSetD',
-                  28 => 'ProdAttrSetE',
-                  29 => 'ProdAttrSetF',
-                  30 => 'ProdAttrSetG',
-                  31 => 'ProdAttrSetH',
-                  32 => 'ProdAttrSetI',
-                  33 => 'ProdAttrSetJ',
-                  34 => 'ProdAttrSetK',
-                  35 => 'ProdAttrSetL',
-                  36 => 'ProdAttrSetM',
-                  37 => 'ProdAttrSetN',
-                  38 => 'ProdAttrSetO',
-                  39 => 'ProdAttrSetP',
-                  40 => 'ProdAttrSetQ',
-                  41 => 'ProdAttrSetR',
-                  42 => 'ProdAttrSetS',
-                  43 => 'ProdAttrSetT',
-                  44 => 'ProdAttrSetU',
-                  45 => 'ProdAttrSetV',
-                  46 => 'ProdAttrSetW',
-                  47 => 'ProdAttrSetX',
-                  48 => 'ProdAttrSetY',
-                  49 => 'ProdAttrSetZ',
+                  15 => 'ProdAttrSetS',
+                  16 => 'ProdAttrSetT',
+                  17 => 'ProdAttrSetU',
+                  18 => 'ProdAttrSetV',
+                  19 => 'ProdAttrSetW',
+                  20 => 'ProdAttrSetX',
+                  21 => 'ProdAttrSetY',
+                  22 => 'ProdAttrSetZ',
                 ),
                  'maxItems' => '',
                  'border' => false,
@@ -3829,7 +2346,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                              'title' => 'Digital Assets',
                              'width' => '',
                              'height' => '',
-                             'maxTabs' => NULL,
+                             'maxTabs' => 20,
                              'labelWidth' => NULL,
                              'border' => false,
                              'provideSplitView' => false,
@@ -4112,12 +2629,12 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                  'title' => '',
                  'width' => '',
                  'height' => '',
-                 'maxTabs' => NULL,
+                 'maxTabs' => 20,
                  'labelWidth' => 200,
                  'border' => false,
                  'provideSplitView' => false,
                  'tabPosition' => NULL,
-                 'hideLabelsWhenTabsReached' => -1,
+                 'hideLabelsWhenTabsReached' => NULL,
                  'referencedFields' => 
                 array (
                 ),
