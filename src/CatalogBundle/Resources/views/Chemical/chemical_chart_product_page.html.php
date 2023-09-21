@@ -162,7 +162,7 @@ if ($data) : ?>
                                             ?>
                                             <tr class=" tableNewFont">
                                                 <?php foreach($productData as $key1 => $value){ ?>
-                                                    <td><?php echo $value; ?></td>
+                                                    <td class ="tabletd"><?php echo $value; ?></td>
                                                 <?php } ?>
                                                 <td><?php echo "";?></td>  
                                             </tr>
@@ -175,10 +175,10 @@ if ($data) : ?>
                                                         <td><?php echo "";?></td>
                                                         <?php } else {
                                                             foreach($value as $key3 => $value3){ ?>
-                                                            <td><?php echo $value3; ?></td>
+                                                            <td class ="tabletd"><?php echo $value3; ?></td>
                                                         <?php } }?>
                                                     <?php } else { ?>
-                                                        <td><?php echo $value; ?></td>
+                                                        <td class ="tabletd"><?php echo $value; ?></td>
                                                     <?php  }
                                                 } ?>
                                             </tr>
@@ -231,7 +231,7 @@ if ($data) : ?>
         /* border:1px solid red; */
         height: auto !important;
         word-wrap: break-word !important;
-        font-size: 8px;
+        font-size: 6px;
     }
 
     .chart.grid .head td {
@@ -241,13 +241,16 @@ if ($data) : ?>
         /* border:1px solid green; */
         height: auto !important;
         word-wrap: break-word !important;
-        font-size: 8px;
+        font-size: 6px;
         padding-top: 0px;
     }
-
-    .tableNewFont tr {
-        font-size: 8px;
+    .tabletd {
+        font-size: 6px !important;
+        /* border: 1px solid red; */
     }
+    /* .tableNewFont td{
+        font-size: 6px;
+    } */
     .chart.grid {
         margin-top: 0;
         /* table-layout: unset; */
@@ -271,10 +274,11 @@ if ($data) : ?>
     .main-head td {
         border-top: 1px solid #737373;
         /* font-family: 'ContinentalStagSansLCG-Medium'; */
-        font-size: 2px;
+        font-size: 6px !important;
         font-weight: bold;
         vertical-align: bottom;
         word-spacing: -1px;
+        letter-spacing: 1px;
     }
 
     .flex-end {
@@ -302,7 +306,7 @@ if ($data) : ?>
 
     .flex-end p {
         padding: 2px 6px 2px 0px;
-        font-size: 10px;
+        font-size: 7px;
         word-spacing: -1px;
     }
 
