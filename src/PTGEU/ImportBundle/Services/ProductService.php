@@ -953,8 +953,8 @@ class ProductService
                 if (!empty($objectId)) {
                     $object = DataObject\PTGEUProduct::getById($objectId, true);
                     if (!empty($object) && $object instanceof \Pimcore\Model\DataObject\PTGEUProduct) {
-                        // $object->save();
-                        $this->percentageCompletionService->completenessPercentage($object, 'import');
+                        $object->save();
+                        // $this->percentageCompletionService->completenessPercentage($object, 'import');
                         echo "Object saved == ".$counter." ==== ".$objectId.PHP_EOL;
                     }
                 }
