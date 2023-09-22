@@ -8388,7 +8388,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   ),
                   7 => 
                   array (
-                    'key' => 'PVC Compound',
+                    'key' => 'PVC',
                     'value' => 2667,
                   ),
                   8 => 
@@ -8646,11 +8646,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                     'key' => 'White Nitrile (NBR) FDA Compliant',
                     'value' => 12392827,
                   ),
-                  59 => 
-                  array (
-                    'key' => 'Premium PVC Compound',
-                    'value' => 15136284,
-                  ),
                 ),
                  'width' => '',
                  'defaultValue' => '',
@@ -8767,21 +8762,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'fieldtype' => 'select',
                  'options' => 
                 array (
-                  0 => 
-                  array (
-                    'key' => '316 SS',
-                    'value' => 15257319,
-                  ),
-                  1 => 
-                  array (
-                    'key' => 'Aluminum',
-                    'value' => 15257320,
-                  ),
-                  2 => 
-                  array (
-                    'key' => 'Brass',
-                    'value' => 15257321,
-                  ),
                 ),
                  'width' => '',
                  'defaultValue' => '',
