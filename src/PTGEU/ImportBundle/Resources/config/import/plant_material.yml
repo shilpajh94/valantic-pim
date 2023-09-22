@@ -24,4 +24,5 @@ parameters:
     'tariffCodes': 'TariffCodes'
     'epixFlag': 'EPIXFlag'
     'totalReplenismentLeadTime': 'Leadtime'
+    'ABCIndicator': 'ABC Indicator'
   keyColumns: ['material','plant','salesOrg','distributionChannel']

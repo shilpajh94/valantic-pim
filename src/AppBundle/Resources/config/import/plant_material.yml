@@ -27,4 +27,5 @@ parameters:
     'procurementType': 'Procurement Type'
     'outsidePurchaseIdentifier': ''
     'AvailabilityCheckCode': 'Availability Check'
+    'ABCIndicator': 'ABC Indicator'
   keyColumns: ['material','plant','salesOrg','distributionChannel']

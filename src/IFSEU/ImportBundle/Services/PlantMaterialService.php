@@ -344,6 +344,7 @@ class PlantMaterialService
         $columnSafetyStock = $this->mappingCsvColumn['SafetyStock'];
         $columnStockIndicator = $this->mappingCsvColumn['StockIndicator'];
         $columnUnitOfMeasure = $this->mappingCsvColumn['UnitOfMeasure'];
+        $columnABCIndicator = $this->mappingCsvColumn['ABCIndicator'];
         
         $plantName = $rowvalue[$columnPlant];
         $countryName =  $rowvalue[$columnCountryOfOrigin];
@@ -363,6 +364,7 @@ class PlantMaterialService
         $safetyStock =  $rowvalue[$columnSafetyStock];
         $stockIndicator =  $rowvalue[$columnStockIndicator];
         $unitOfMeasure =  $rowvalue[$columnUnitOfMeasure];
+        $ABCIndicator =  $rowvalue[$columnABCIndicator];
 
         $plantObjId = $this->getPlantObjectId($plantName);
         $salesOrgObjId = $this->getSalesOrgObjectId($salesOrg);
@@ -385,6 +387,7 @@ class PlantMaterialService
             'SafetyStock' => $safetyStock,
             'StockIndicator' => $stockIndicator,
             'UnitOfMeasure' => $unitOfMeasure,
+            'ABCIndicator' => $ABCIndicator,
         ];
         $data['storeTableData'] = $storeTableData;
         $queryTableData = [
