@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2023-09-21T17:06:18+05:30
+* Generated at: 2023-09-22T10:36:46+05:30
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -12,7 +12,8 @@ Fields Summary:
 - Brand [select]
 - Name [input]
 - TemperatureRating [numeric]
-- gasketTubeMaterial [multiselect]
+- gasketMaterial [multiselect]
+- printedCatalog [checkbox]
 - tubeMaterial [block]
 -- tubeMaterial [select]
 -- rating [select]
@@ -28,7 +29,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Chemical',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1695296178,
+   'modificationDate' => 1695359205,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -8266,8 +8267,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'columnType' => 'text',
                      'phpdocType' => 'array',
                      'dynamicOptions' => false,
-                     'name' => 'gasketTubeMaterial',
-                     'title' => 'Gasket Tube Material',
+                     'name' => 'gasketMaterial',
+                     'title' => 'Gasket Material',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -8280,6 +8281,29 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                  )),
+                  4 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                     'fieldtype' => 'checkbox',
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'tinyint(1)',
+                     'columnType' => 'tinyint(1)',
+                     'phpdocType' => 'boolean',
+                     'name' => 'printedCatalog',
+                     'title' => 'Printed Catalog',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => NULL,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
                   )),
                 ),
                  'locked' => false,
@@ -8306,7 +8330,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   0 => 
                   Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                      'fieldtype' => 'text',
-                     'html' => '<div><div><b>Gasket Tube Material Description</b></div><div><b><br></b></div><div><b>&nbsp; &nbsp; &nbsp; &nbsp; T&nbsp;</b>= Teflon®&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<b>N</b>&nbsp;= Polychloroprene&nbsp;<div><b>&nbsp; &nbsp; &nbsp; &nbsp; V</b>&nbsp;= Viton®&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<b>S</b>&nbsp;= Silicone&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<b>&nbsp;B&nbsp;</b>= Nitrile</div></div></div><div><br></div><div><b>&nbsp;Rating Scale Description</b></div><div><b><br></b></div><b>&nbsp; &nbsp; &nbsp; &nbsp; A&nbsp;</b>= May be used for Continuous Service&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<b>B</b>&nbsp;= May be used for Intermittent Service&nbsp;<br><b>&nbsp; &nbsp; &nbsp; &nbsp; I</b>&nbsp; = Insufficient data, contact customer service&nbsp; &nbsp; &nbsp;<b>X</b>&nbsp;= Do not use<b>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</b><div><b><br></b></div><div><br></div>',
+                     'html' => '<div><div><b>Gasket Material Description</b></div><div><b><br></b></div><div><b>&nbsp; &nbsp; &nbsp; &nbsp; T&nbsp;</b>= Teflon®&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<b>N</b>&nbsp;= Polychloroprene&nbsp;<div><b>&nbsp; &nbsp; &nbsp; &nbsp; V</b>&nbsp;= Viton®&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<b>S</b>&nbsp;= Silicone&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<b>&nbsp;B&nbsp;</b>= Nitrile</div></div></div><div><br></div><div><b>&nbsp;Rating Scale Description</b></div><div><b><br></b></div><b>&nbsp; &nbsp; &nbsp; &nbsp; A&nbsp;</b>= May be used for Continuous Service&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<b>B</b>&nbsp;= May be used for Intermittent Service&nbsp;<br><b>&nbsp; &nbsp; &nbsp; &nbsp; I</b>&nbsp; = Insufficient data, contact customer service&nbsp; &nbsp; &nbsp;<b>X</b>&nbsp;= Do not use<b>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</b><div><b><br></b></div><div><br></div>',
                      'renderingClass' => '',
                      'renderingData' => '',
                      'border' => false,

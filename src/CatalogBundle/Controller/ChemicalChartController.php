@@ -15,6 +15,7 @@ class ChemicalChartController extends AbstractController
 {
 
     private $db;
+    private $attributeImages = array();
     private $catalogTemplatingHelper;
 
     public function __construct(CatalogTemplatingHelper $catalogTemplatingHelper)
@@ -33,89 +34,138 @@ class ChemicalChartController extends AbstractController
 
     public function chemicalAction(Request $request)
     {
-        try{
-                $class = 'Pimcore\Model\DataObject\\Chemical\\Listing';
-                $classObj = new $class();
-                $classObj->setLimit(15);
-                $classObj->load();
-    
-                $productData = [];
+        try {
 
-                foreach ($classObj as $obj) {
-                    $tubeMaterialBlockData = null;
-                    $fittingMaterialBlockData = null;
-    
+            $common = \Pimcore::getContainer()->get('app.common_helper');
+            $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
+            $this->attributeImages = $common->getParameter($attributeImagesConfig, 'attributeImages');
+            $CatalogImagesHYDFooter = $common->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
+
+            $class = 'Pimcore\Model\DataObject\\Chemical\\Listing';
+            $classObj = new $class();
+            $classObj->load();
+
+            $productData = [];
+            $tubeMaterialArr = [];
+            $fittingMaterialArr = [];
+            $productArr = [];
+
+            foreach ($classObj as $obj) {
+                $printedCatalog = $obj->getPrintedCatalog();
+
+                $tubeMaterial = $tubeMaterialRating = $tubeMaterialNameArray = $tubeMaterialBlockData =  null;
+                $fittingMaterial = $fittingMaterialRating = $fittingMaterialNameArray = $fittingMaterialBlockData = null;
+                $gasketMaterialList = $gasketName = null;
+
+                if ($printedCatalog == true) {
                     $chemicalName = $obj->getName();
-                    $gasketList = $obj->getGasketTubeMaterial();
+                    $gasketMaterialList[] = $obj->getGasketMaterial();
                     $tubeMaterialList = $obj->getTubeMaterial();
                     $fittingMaterialList = $obj->getFittingMaterial();
                     $temperatureRating = $obj->getTemperatureRating();
-    
+
                     # fetch Tube Material Block data
-                    foreach ($tubeMaterialList as $obj) {
-                        $tubeMaterial[] = $obj['tubeMaterial']->getData();
-                        $tubeMaterialRating[] = $obj['rating']->getData();
-                    }
-    
-                    foreach ($tubeMaterial as  $value) {
-                        $parentObj = \Pimcore\Model\DataObject::getById($value);
-                        $tubeMaterialNameArray[] = $parentObj->getName();
-                    }
+                    if (!empty($tubeMaterialList)) {
+                        foreach ($tubeMaterialList as $obj) {
+                            $tubeMaterial[] = $obj['tubeMaterial']->getData();
+                            $tubeMaterialRating[] = $obj['rating']->getData();
+                        }
 
-                    if(count($tubeMaterialNameArray) == count($tubeMaterialRating)){
-                        $tubeMaterialBlockData = array_combine($tubeMaterialNameArray, $tubeMaterialRating);
-                    }
-    
-                    # Fetch Fitting Material Block data
-                    foreach ($fittingMaterialList as $obj) {
-                        $fittingMaterial[] = $obj['fittingMaterial']->getData();
-                        $fittingMaterialRating[] = $obj['rating']->getData();
-                    }
-    
-                    foreach ($fittingMaterial as  $value) {
-                        $parentObj = \Pimcore\Model\DataObject::getById($value);
-                        $fittingMaterialNameArray[] = $parentObj->getFittingMaterialName();
-                    }
+                        foreach ($tubeMaterial as  $value) {
+                            $parentObj = \Pimcore\Model\DataObject::getById($value);
+                            $tubeMaterialNameArray[] = $parentObj->getName();
+                        }
 
-                    if(count($fittingMaterialNameArray) == count($fittingMaterialRating)){
-                        $fittingMaterialBlockData = array_combine($fittingMaterialNameArray, $fittingMaterialRating);
-                    } 
-    
-                    # Fetch Gasket data
-                    $gasketNameArr = [];
-                    if($gasketList)
-                    {
-                        foreach ($gasketList as $key => $singleProduct)
-                        {
-                            $productObject      = DataObject\Gasket::getById($singleProduct);
-                            if($productObject)
-                            {
-                                $gasketNameArr[]   = trim($productObject->getGasketName());
-                            }
+                        if (count($tubeMaterialNameArray) == count($tubeMaterialRating)) {
+                            $tubeMaterialBlockData = array_combine($tubeMaterialNameArray, $tubeMaterialRating);
                         }
                     }
+
+                    # Fetch Fitting Material Block data
+                    if (!empty($fittingMaterialList)) {
+                        foreach ($fittingMaterialList as $obj) {
+                            $fittingMaterial[] = $obj['fittingMaterial']->getData();
+                            $fittingMaterialRating[] = $obj['rating']->getData();
+                        }
+
+                        foreach ($fittingMaterial as  $value) {
+                            $parentObj = \Pimcore\Model\DataObject::getById($value);
+                            $fittingMaterialNameArray[] = $parentObj->getFittingMaterialName();
+                        }
+
+                        if (count($fittingMaterialNameArray) == count($fittingMaterialRating)) {
+                            $fittingMaterialBlockData = array_combine($fittingMaterialNameArray, $fittingMaterialRating);
+                        }
+                    }
+
+                    # Fetch Gasket data
+                    if ($gasketMaterialList[0] != null) {
+                        $gasketName = implode(" ", $gasketMaterialList[0]);
+                    }
+
                     $productData['chemicalName'][] = $chemicalName;
                     $productData['temperatureRating'][] = $temperatureRating;
                     $productData['tubeMaterial'][] = $tubeMaterialBlockData;
                     $productData['fittingMaterial'][] = $fittingMaterialBlockData;
-                    $productData['gasket'][] = implode(" ", $gasketNameArr);
+                    $productData['gasket'][] = $gasketName;
                 }
+            }
 
-                $productArr = [];
+            foreach ($productData['tubeMaterial'] as $key => $value) {
+                if ($value != null) {
+                    foreach ($value as $key1 => $value1) {
+                        if (!in_array($key1, $tubeMaterialArr) && count($tubeMaterialArr) < 11) {
+                            $tubeMaterialArr[] = $key1;
+                        }
+                    }
+                }
+            }
 
-                foreach( $productData as $key => $value){
-                    $i = 0;
-                    foreach($value as $key2 => $value2){
+            foreach ($productData['fittingMaterial'] as $key => $value) {
+                if ($value != null) {
+                    foreach ($value as $key1 => $value1) {
+                        if (!in_array($key1, $fittingMaterialArr) && count($fittingMaterialArr) < 3) {
+                            $fittingMaterialArr[] = $key1;
+                        }
+                    }
+                }
+            }
+
+            foreach ($productData as $key => $value) {
+                $i = 0;
+                foreach ($value as $key2 => $value2) {
+                    if ($value2 != null) {
                         $productArr[$i][$key] = $value[$i];
+                        $i++;
+                    } 
+                    else {
+                        $productArr[$i][$key] = null;
                         $i++;
                     }
                 }
-                $this->view['data'] = $productArr;
-                // dd($productArr);
+            }
+
+            $footer_logo_src = $CatalogImagesHYDFooter['Black'];
+            $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
+
+            $this->view['data'] = $productArr;
+            $this->view['tubeMaterialheaders'] = array_unique($tubeMaterialArr);
+            $this->view['fittingMaterialheaders'] = array_unique($fittingMaterialArr);
+            $this->view['footer_logo_src']  = $footer_logo_src;
+            //p_r($productArr);
+        } catch (Exception $e) {
+            echo "<h3>" . $e->getMessage() . "</h3>";
         }
-        catch(Exception $e)
-        {   
-            echo "<h3>".$e->getMessage()."</h3>";
+    }
+
+    public function getS3ImageSrc($src)
+    {
+        $s3src = '';
+        $imgObj = \Pimcore\Model\Asset::getByPath($src);
+
+        if($imgObj){
+            $s3src = $this->catalogTemplatingHelper->getImageThumbnail($imgObj,$this->view->imageWidth);
         }
+        return $s3src;
     }
 }

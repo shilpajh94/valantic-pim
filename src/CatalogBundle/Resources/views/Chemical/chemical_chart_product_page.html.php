@@ -12,48 +12,11 @@ if ($data) : ?>
 
             <div id="pageHeader"></div>
 
-            <div class="footer">
-                <footer class="flex-center <?php echo $footer_class; ?>">
-                    <span class="logo">
-                        <b>
-                            <?php if ($this->editmode) : ?>
-                                <?php if ($this->input("HHFP_Logo_Text1")->isEmpty()) : ?>
-                                    <?= $this->input("HHFP_Logo_Text1")->setDataFromResource('Hose') ?>
-                                <?php else : ?>
-                                    <?= $this->input("HHFP_Logo_Text1"); ?>
-                                <?php endif; ?>
-                            <?php else : ?>
-                                <?= $this->input("HHFP_Logo_Text1") ?>
-                            <?php endif; ?>
-                        </b>
-                        <img src="<?= $footer_logo_src; ?>">
-                    </span>
-                    <div class="flex aligned ">
-                        <h5>
-                            <span>
-
-                            </span>
-                        </h5>
-                        <div class="compatible">
-                            <b>
-
-                            </b>
-                        </div>
-                    </div>
-                </footer>
-            </div>
-
-            <div class="footer1">
-                <footer class="flex-center <?php echo $footer_class; ?>">
-                    <div class="flex aligned ">
-                        <h5>
-                            <span>
-
-                            </span>
-                        </h5>
-                    </div>
-                </footer>
-            </div>
+            <footer id="footer" class="footer" style="background-color: white;">
+                <div class="footer-logo chemchart">
+                    <img src="<?= $footer_logo_src; ?>" alt="" width="150">
+                </div>
+            </footer>
 
             <div class="wrapper padding">
                 <article class="container page-break-inside-avoid">
@@ -64,11 +27,11 @@ if ($data) : ?>
                         </h1>
 
                         <div class="flex flex-end">
-                            <div style =" width:10%">
+                            <div style=" width:10%">
                             </div>
                             <div class="col-6">
                                 <h6>Rating Scale</h6>
-                                <div class="flex"> 
+                                <div class="flex">
                                     <div class="col-6">
                                         <p><b>A</b> = May be used for Continuous Service</p>
                                         <p><b>I</b> = Insufficient data, contact customer service</p>
@@ -89,7 +52,7 @@ if ($data) : ?>
                                     <div class="col-5">
                                         <p><b>N</b> = Polychloroprene</p>
                                         <p><b>S</b> = Silicone</p>
-                                        
+
                                     </div>
                                     <div class="col-2">
                                         <p><b> </b> </p>
@@ -111,38 +74,36 @@ if ($data) : ?>
 
                                 <tr class="sub-head">
                                     <td width=""></td>
-                                    <td width="">Temp</td>
-                                    <td width="">Fabchem</td>
-                                    <td width="">Gray Flexwing</td>
-                                    <td width="">Yellow Flexwing</td>
-                                    <td width="">Tan Flexwing</td>
-                                    <td width="">Orange Flexwing</td>
-                                    <td width="">Flexwing Petroleum</td>
-                                    <td>Flexwing & ExtremeFlex Brown</td>
-                                    <td>Purple Flexwing & ExtremeFlex Purple</td>
-                                    <td>Blue Flexwing & Green</td>
-                                    <td>Chem One® & Viper</td>
-                                    <td>Hi-Per, Conti Chem Superior FEP & Teflon</td>
+                                    <td width=""><?= $this->input("Temp", ["placeholder" => "Temperature"]); ?></td>
+                                    <td width=""><?= $this->input("Brand_1", ["placeholder" => "Brand"]); ?></td>
+                                    <td width=""><?= $this->input("Brand_2", ["placeholder" => "Brand"]); ?></td>
+                                    <td width=""><?= $this->input("Brand_3", ["placeholder" => "Brand"]); ?></td>
+                                    <td width=""><?= $this->input("Brand_4", ["placeholder" => "Brand"]); ?></td>
+                                    <td width=""><?= $this->input("Brand_5", ["placeholder" => "Brand"]); ?></td>
+                                    <td width=""><?= $this->input("Brand_6", ["placeholder" => "Brand"]); ?></td>
+                                    <td><?= $this->input("Brand_7", ["placeholder" => "Brand"]); ?></td>
+                                    <td><?= $this->input("Brand_8", ["placeholder" => "Brand"]); ?></td>
+                                    <td><?= $this->input("Brand_9", ["placeholder" => "Brand"]); ?></td>
+                                    <td><?= $this->input("Brand_10", ["placeholder" => "Brand"]); ?></td>
+                                    <td><?= $this->input("Brand_11", ["placeholder" => "Brand"]); ?></td>
                                     <td width="" class="apex"></td>
                                     <td width="" class="apex"></td>
                                     <td width="" class="apex"></td>
                                     <td width="" class="apex"></td>
                                 </tr>
+
                                 <tr class="head">
                                     <td width=""></td>
-                                    <td width="">(°F)*</td>
-                                    <td width="">UHMWPE</td>
-                                    <td width="">Butyl</td>
-                                    <td width="">Hypalon</td>
-                                    <td width="">NR</td>
-                                    <td width="">Viton</td>
-                                    <td width="">Nitrile</td>
-                                    <td width="">CPE</td>
-                                    <td width="">EPDM</td>
-                                    <td width="">XLPE</td>
-                                    <td width="">Alphasyn</td>
-                                    <td width="">Teflon</td>
-                                    <td width="" class="apex">316&nbsp;SS</td>
+                                    <td width=""><?= $this->input("TempUnit", ["placeholder" => "TempUnit"]); ?></td>
+
+                                    <?php
+                                    if ($tubeMaterialheaders) {
+                                        foreach ($tubeMaterialheaders as $key => $values) { ?>
+                                            <td width=""><?= $values; ?></td>
+                                    <?php }
+                                    } ?>
+
+                                    <td width="" class="apex">316 SS</td>
                                     <td width="" class="apex">Aluminum</td>
                                     <td width="" class="apex">Brass</td>
                                     <td width="" class="apex">Gasket</td>
@@ -155,46 +116,73 @@ if ($data) : ?>
                                     </td>
                                 </tr>
                                 <?php
-                                $i = 0;
                                 if ($data) {
-                                    foreach ($data as $key => $productData) { 
-                                        if($productData['tubeMaterial'] == null || $productData['fittingMaterial'] == null || $productData['gasket'] == " ") {
-                                            ?>
-                                            <tr class=" tableNewFont">
-                                                <?php foreach($productData as $key1 => $value){ ?>
-                                                    <td class ="tabletd"><?php echo $value; ?></td>
-                                                <?php } ?>
-                                                <td><?php echo "";?></td>  
-                                            </tr>
-                                        <?php } else { ?>
-                                            <tr class=" tableNewFont">
-                                                <?php foreach ($productData as $key1 => $value) {
-                                                    if ($key1 == 'tubeMaterial' || $key1 == 'fittingMaterial') {
-                                                        //dd($value);
-                                                        if($value == null) { ?>
-                                                        <td><?php echo "";?></td>
-                                                        <?php } else {
-                                                            foreach($value as $key3 => $value3){ ?>
-                                                            <td class ="tabletd"><?php echo $value3; ?></td>
-                                                        <?php } }?>
-                                                    <?php } else { ?>
-                                                        <td class ="tabletd"><?php echo $value; ?></td>
-                                                    <?php  }
+                                    foreach ($data as $key => $productData) { ?>
+                                        <tr class=" tableNewFont">
+                                            <?php
+                                            $j = 0;
+                                            foreach ($productData as $key1 => $value) {
+                                                if ($key1 == 'tubeMaterial' && $value != null) {
+                                                    foreach ($tubeMaterialheaders as $key2 => $value2) {
+                                                        if (array_key_exists($value2, $value)) {
+                                                            foreach ($value as $key3 => $value3) {
+                                                                if ($value2 == $key3) { ?>
+                                                                    <td><?php echo $value3; ?></td>
+                                                            <?php  }
+                                                            }
+                                                        } else {
+                                                            ?>
+                                                            <td><?php echo "X"; ?></td>
+                                                            <?php
+                                                        }
+                                                    }
+                                                    $j++;
+                                                } elseif ($key1 == 'fittingMaterial' && $value != null) {
+                                                    foreach ($fittingMaterialheaders as $key2 => $value2) {
+                                                        if (array_key_exists($value2, $value)) {
+                                                            foreach ($value as $key3 => $value3) {
+                                                                if ($value2 == $key3) {
+                                                            ?>
+                                                                    <td><?php echo $value3; ?></td>
+                                                            <?php  }
+                                                            }
+                                                        } else {
+                                                            ?>
+                                                            <td><?php echo "X"; ?></td>
+                                                    <?php
+                                                        }
+                                                    }
+                                                    $j++;
+                                                } elseif ($key1 == 'chemicalName' || $key1 == 'temperatureRating' || $key1 == 'gasket') {
+                                                    $j++;
+                                                    ?>
+                                                    <td class="tabletd"><?php echo $value; ?></td>
+                                                    <?php
+                                                } else {
+                                                    if ($j == 0) {
+                                                    ?>
+                                                        <td colspan="11"><?php echo "No Hose Recommended For This Application"; ?></td>
+                                                    <?php //$j = 1; 
+                                                    } else {
+                                                    ?>
+                                                        <td colspan="3"><?php echo ""; ?></td>
+                                                <?php
+                                                        $j = 0;
+                                                    }
                                                 } ?>
-                                            </tr>
-                                        <?php }
-                                        $i++;
-                                    } 
-                                } ?>
+                                            <?php
+                                            } ?>
+                                            <?php  ?>
+                                        </tr>
+                                <?php }
+                                }  ?>
 
                             </tbody>
                         </table>
-
-                        <span class="tableFooter">
-                            *Fahrenheit to Celsius conversion key: 100°F (38°C), 125°F (52°C), 150°F (66°C), 275°F (135°C) and 500°F (260°C).
-                            <br />This chemical chart is offered as a guide only. There are many variables to be considered with each application. Ratings are for tube polymer only! For an explanation
-                            of ratings, see the initial page of these Chemical Charts in Appendix B. Contact customer service for chemicals or polymers not listed at 800-235-4632.
-                        </span>
+                        
+                        <p class="tableFooter" style="margin-bottom: 0px;">
+                            <?= $this->textarea("Chemical_Chart_Data_Comment", ['placeholder' => 'Enter Chemical Chart Data Comment']); ?>
+                        </p>
                     </div>
                 </article>
             </div>
@@ -210,6 +198,11 @@ if ($data) : ?>
 <script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
 
 <style>
+    .chemchart {
+        background-color: white;
+        text-align: right; 
+        margin-right: 40px;  
+    }
     .inhRight h1 {
         margin: 0;
         padding: 0 !important;
@@ -217,7 +210,7 @@ if ($data) : ?>
     }
 
     h6 {
-        font-size: 10px; 
+        font-size: 10px;
         margin-bottom: 0px;
         padding-bottom: 0px;
         /* border: 1px solid green; */
@@ -237,17 +230,19 @@ if ($data) : ?>
     .chart.grid .head td {
         word-break: break-all !important;
         vertical-align: bottom;
-        padding: 5px 0px 0px 1px;
+        padding: 5px 2px 0px 2px;
         /* border:1px solid green; */
         height: auto !important;
         word-wrap: break-word !important;
         font-size: 6px;
         padding-top: 0px;
     }
+
     .tabletd {
         font-size: 6px !important;
         /* border: 1px solid red; */
     }
+
     /* .tableNewFont td{
         font-size: 6px;
     } */
