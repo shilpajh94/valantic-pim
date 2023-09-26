@@ -10,8 +10,6 @@ if ($data) : ?>
     <div class="template">
         <section class="segregate">
 
-            <div id="pageHeader"></div>
-
             <footer id="footer" class="footer" style="background-color: white;">
                 <div class="footer-logo chemchart">
                     <img src="<?= $footer_logo_src; ?>" alt="" width="150">
@@ -142,11 +140,20 @@ if ($data) : ?>
                                                         if (array_key_exists($value2, $value)) {
                                                             foreach ($value as $key3 => $value3) {
                                                                 if ($value2 == $key3) {
+                                                                    if($value3 == null || $value3 == ""){
+                                                                        ?>
+                                                                        <td><?php echo "X"; ?></td>
+                                                                    <?php }else{
+                                                                        ?>
+                                                                        <td><?php echo $value3; ?></td>
+                                                                    <?php    
+                                                                    }
+                                                                }
                                                             ?>
-                                                                    <td><?php echo $value3; ?></td>
+                                                                    
                                                             <?php  }
-                                                            }
-                                                        } else {
+                                                        }
+                                                        else {
                                                             ?>
                                                             <td><?php echo "X"; ?></td>
                                                     <?php
