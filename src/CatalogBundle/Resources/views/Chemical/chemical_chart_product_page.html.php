@@ -6,7 +6,10 @@ if (!isset($this->parentContainer)) {
 
 <?php
 
-if ($data) : ?>
+if ($data) : 
+
+$fittingGasketHeaders = array('316 SS', 'Aluminum', 'Brass');
+?>
     <div class="template">
         <section class="segregate">
 
@@ -98,11 +101,11 @@ if ($data) : ?>
                                         foreach ($tubeMaterialheaders as $key => $values) { ?>
                                             <td width=""><?= $values; ?></td>
                                     <?php }
-                                    } ?>
-
-                                    <td width="" class="apex">316 SS</td>
-                                    <td width="" class="apex">Aluminum</td>
-                                    <td width="" class="apex">Brass</td>
+                                    } 
+                                    foreach($fittingGasketHeaders as $k => $fittingGasketHeader) {
+                                    ?>
+                                    <td width="" class="apex"><?php echo $fittingGasketHeader; ?></td>
+                                    <?php } ?>
                                     <td width="" class="apex">Gasket</td>
                                 </tr>
                             </thead>
@@ -150,7 +153,10 @@ if ($data) : ?>
                                                     }
                                                     $j++;
                                                 } elseif ($key1 == 'fittingMaterial' && $value != null) {
-                                                    foreach ($fittingMaterialheaders as $key2 => $value2) {
+                                                    //p_r($value);
+                                                    foreach ($fittingGasketHeaders as $key2 => $value2) {
+                                                        //p_r($value2);
+                                                        
                                                         if (array_key_exists($value2, $value)) {
                                                             foreach ($value as $key3 => $value3) {
                                                                 if ($value2 == $key3) {
