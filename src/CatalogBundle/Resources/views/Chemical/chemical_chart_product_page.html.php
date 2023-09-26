@@ -64,32 +64,32 @@ if ($data) : ?>
 
                         <table class="grid special marginBottom5 chart" cellspacing="0" cellpadding="0">
                             <thead>
+                                <?php $tdCount = count($tubeMaterialheaders); ?>
+                                <!-- Main header -->
                                 <tr class="main-head">
                                     <td width="" colspan="2"></td>
-                                    <td colspan="11">Continental Chemical Hose / Hose Tube Polymer</td>
+                                    <td colspan="<?php echo $tdCount; ?>">Continental Chemical Hose / Hose Tube Polymer</td>
                                     <td colspan="4" class="apex">Insta-Lock Fitting/Metal</td>
                                 </tr>
 
                                 <tr class="sub-head">
+                                    
                                     <td width=""></td>
                                     <td width=""><?= $this->input("Temp", ["placeholder" => "Temperature"]); ?></td>
-                                    <td width=""><?= $this->input("Brand_1", ["placeholder" => "Brand"]); ?></td>
-                                    <td width=""><?= $this->input("Brand_2", ["placeholder" => "Brand"]); ?></td>
-                                    <td width=""><?= $this->input("Brand_3", ["placeholder" => "Brand"]); ?></td>
-                                    <td width=""><?= $this->input("Brand_4", ["placeholder" => "Brand"]); ?></td>
-                                    <td width=""><?= $this->input("Brand_5", ["placeholder" => "Brand"]); ?></td>
-                                    <td width=""><?= $this->input("Brand_6", ["placeholder" => "Brand"]); ?></td>
-                                    <td><?= $this->input("Brand_7", ["placeholder" => "Brand"]); ?></td>
-                                    <td><?= $this->input("Brand_8", ["placeholder" => "Brand"]); ?></td>
-                                    <td><?= $this->input("Brand_9", ["placeholder" => "Brand"]); ?></td>
-                                    <td><?= $this->input("Brand_10", ["placeholder" => "Brand"]); ?></td>
-                                    <td><?= $this->input("Brand_11", ["placeholder" => "Brand"]); ?></td>
+                                    <?php 
+                                    
+                                    for($i=1;$i<=$tdCount;$i++) {
+                                    ?>
+                                    <td width=""><?= $this->input("Brand_".$i, ["placeholder" => "Brand"]); ?></td>
+                                    <?php
+                                    }
+                                    ?>
                                     <td width="" class="apex"></td>
                                     <td width="" class="apex"></td>
                                     <td width="" class="apex"></td>
                                     <td width="" class="apex"></td>
                                 </tr>
-
+                                
                                 <tr class="head">
                                     <td width=""></td>
                                     <td width=""><?= $this->input("TempUnit", ["placeholder" => "TempUnit"]); ?></td>
@@ -106,17 +106,21 @@ if ($data) : ?>
                                     <td width="" class="apex">Brass</td>
                                     <td width="" class="apex">Gasket</td>
                                 </tr>
+                                
+                                
+
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td colspan="17">
+                                    <!-- Adding Chemical TD and space TD + Fitting material and Gasket TD-->
+                                    <td colspan="<?php echo $tdCount + 2 + 4; ?>">
                                         <h4>A</h4>
                                     </td>
                                 </tr>
                                 <?php
                                 if ($data) {
                                     foreach ($data as $key => $productData) { ?>
-                                        <tr class=" tableNewFont">
+                                        <tr class="">
                                             <?php
                                             $j = 0;
                                             foreach ($productData as $key1 => $value) {
@@ -163,7 +167,7 @@ if ($data) : ?>
                                                 } elseif ($key1 == 'chemicalName' || $key1 == 'temperatureRating' || $key1 == 'gasket') {
                                                     $j++;
                                                     ?>
-                                                    <td class="tabletd"><?php echo $value; ?></td>
+                                                    <td class=""><?php echo $value; ?></td>
                                                     <?php
                                                 } else {
                                                     if ($j == 0) {
