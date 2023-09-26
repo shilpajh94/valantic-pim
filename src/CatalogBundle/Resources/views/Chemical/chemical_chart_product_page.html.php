@@ -79,7 +79,6 @@ if ($data) : ?>
                                     <td width=""></td>
                                     <td width=""><?= $this->input("Temp", ["placeholder" => "Temperature"]); ?></td>
                                     <?php 
-                                    
                                     for($i=1;$i<=$tdCount;$i++) {
                                     ?>
                                     <td width=""><?= $this->input("Brand_".$i, ["placeholder" => "Brand"]); ?></td>
@@ -91,7 +90,7 @@ if ($data) : ?>
                                     <td width="" class="apex"></td>
                                     <td width="" class="apex"></td>
                                 </tr>
-                                
+
                                 <tr class="head">
                                     <td width=""></td>
                                     <td width=""><?= $this->input("TempUnit", ["placeholder" => "TempUnit"]); ?></td>
@@ -108,9 +107,6 @@ if ($data) : ?>
                                     <td width="" class="apex">Brass</td>
                                     <td width="" class="apex">Gasket</td>
                                 </tr>
-                                
-                                
-
                             </thead>
                             <tbody>
                                 <tr>
@@ -160,17 +156,17 @@ if ($data) : ?>
                                                 } elseif ($key1 == 'chemicalName' || $key1 == 'temperatureRating' || $key1 == 'gasket') {
                                                     $j++;
                                                     ?>
-                                                    <td class=""><?php echo $value; ?></td>
+                                                    <td><?php echo $value; ?></td>
                                                     <?php
                                                 } else {
                                                     if ($j == 0) {
                                                     ?>
-                                                        <td colspan="11"><?php echo "No Hose Recommended For This Application"; ?></td>
+                                                        <td colspan="<?php echo $tdCount + 2; ?>"><?php echo "No Hose Recommended For This Application"; ?></td>
                                                     <?php //$j = 1; 
                                                     } else {
                                                     ?>
-                                                        <td colspan="3"><?php echo ""; ?></td>
-                                                <?php
+                                                        <td colspan="4"><?php echo ""; ?></td>
+                                                    <?php
                                                         $j = 0;
                                                     }
                                                 } ?>
@@ -310,8 +306,8 @@ if ($data) : ?>
     }
 
     .chart td:first-child {
-        min-width: 100px;
-        width: 100px;
+        min-width: 200px;
+        width: 200px;
         word-wrap: break-word !important;
         /* word-break: normal; */
         /* white-space: pre; */
