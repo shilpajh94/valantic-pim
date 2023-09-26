@@ -43,6 +43,7 @@ class ChemicalChartController extends AbstractController
 
             $class = 'Pimcore\Model\DataObject\\Chemical\\Listing';
             $classObj = new $class();
+            $classObj->setOrder('ASC');
             $classObj->load();
 
             $productData = [];
