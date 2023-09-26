@@ -128,9 +128,13 @@ if ($data) : ?>
                                                     foreach ($tubeMaterialheaders as $key2 => $value2) {
                                                         if (array_key_exists($value2, $value)) {
                                                             foreach ($value as $key3 => $value3) {
-                                                                if ($value2 == $key3) { ?>
-                                                                    <td><?php echo $value3; ?></td>
-                                                            <?php  }
+                                                                if ($value2 == $key3) {
+                                                                    if($value3 == null || $value3 == ""){?>
+                                                                        <td><?php echo "X"; ?></td>
+                                                                    <?php }else{?>
+                                                                        <td><?php echo $value3; ?></td>
+                                                                    <?php  }
+                                                                }
                                                             }
                                                         } else {
                                                             ?>
