@@ -107,15 +107,25 @@ if ($data) : ?>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <!-- Adding Chemical TD and space TD + Fitting material and Gasket TD-->
-                                    <td colspan="<?php echo $tdCount + 2 + 4; ?>">
-                                        <h4>A</h4>
-                                    </td>
-                                </tr>
+
                                 <?php
                                 if ($data) {
-                                    foreach ($data as $key => $productData) { ?>
+                                    foreach ($data as $key => $productData) { ?>                                          
+                                        <?php 
+                                        $first_character = substr($productData['chemicalName'] , 0, 1);
+                                        if($first_character != $firstCharacterCheck){ ?>
+                                            <tr>
+                                                <td colspan="<?php echo $tdCount + 2 + 4; ?>">
+                                                    <h4>
+                                                        <?php echo $first_character; ?>
+                                                    </h4>
+                                                </td>
+                                            </tr>
+                                        <?php }
+                                        $firstCharacterCheck = $first_character;
+                                            
+                                        ?>
+                                            
                                         <tr class="">
                                             <?php
                                             $j = 0;
@@ -164,26 +174,42 @@ if ($data) : ?>
                                                         }
                                                     }
                                                     $j++;
-                                                } elseif ($key1 == 'chemicalName' || $key1 == 'temperatureRating' || $key1 == 'gasket') {
-                                                    $j++;
+                                                } elseif($key1 == 'gasket'){
+                                                    if($value){
+                                                        $j++;
+                                                        ?>
+                                                        <td><?php echo $value; ?></td>
+                                                        <?php
+                                                    }else{
+                                                        ?>
+                                                        <td><?php echo ""; ?></td>
+                                                        <?php
+                                                    }
+                                                    
+                                                } elseif ($key1 == 'chemicalName' || $key1 == 'temperatureRating') {
                                                     ?>
                                                     <td><?php echo $value; ?></td>
                                                     <?php
-                                                } else {
-                                                    if ($j == 0) {
-                                                    ?>
-                                                        <td colspan="<?php echo $tdCount + 2; ?>"><?php echo "No Hose Recommended For This Application"; ?></td>
-                                                    <?php //$j = 1; 
-                                                    } else {
-                                                    ?>
-                                                        <td colspan="4"><?php echo ""; ?></td>
-                                                    <?php
-                                                        $j = 0;
-                                                    }
                                                 } ?>
                                             <?php
+                                            }
+                                            if ($j == 0) {
+                                                ?>
+                                                    <td colspan="<?php echo $tdCount + 3; ?>"><?php echo "<b>No Hose Recommended For This Application <b>"; ?></td>
+                                                <?php
                                             } ?>
-                                            <?php  ?>
+                                            <?php
+                                                if($j != 0 && $productData['tubeMaterial'] == null){
+                                                    for($i = 0; $i < $tdCount; $i++){ ?>
+                                                        <td><?php echo "X"; ?></td>
+                                                    <?php }
+                                                }
+                                                if($j != 0 && $productData['fittingMaterial'] == null){
+                                                    for($i = 0; $i < 3; $i++){ ?>
+                                                        <td><?php echo "X"; ?></td>
+                                                    <?php }
+                                                }
+                                            ?>
                                         </tr>
                                 <?php }
                                 }  ?>
