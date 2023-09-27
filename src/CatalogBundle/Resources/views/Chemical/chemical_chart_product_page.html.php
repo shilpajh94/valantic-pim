@@ -5,8 +5,9 @@ if (!isset($this->parentContainer)) {
 ?>
 
 <?php
-
-if ($data) : ?>
+if ($data) : 
+    $fittingGasketHeaders = array('316 SS', 'Aluminum', 'Brass');
+?>
     <div class="template">
         <section class="segregate">
 
@@ -66,7 +67,7 @@ if ($data) : ?>
                             <thead>
                                 <?php $tdCount = count($tubeMaterialheaders); ?>
                                 <!-- Main header -->
-                                <tr class="main-head">
+                                <tr class="head">
                                     <td width="" colspan="2"></td>
                                     <td colspan="<?php echo $tdCount; ?>">Continental Chemical Hose / Hose Tube Polymer</td>
                                     <td colspan="4" class="apex">Insta-Lock Fitting/Metal</td>
@@ -98,11 +99,11 @@ if ($data) : ?>
                                         foreach ($tubeMaterialheaders as $key => $values) { ?>
                                             <td width=""><?= $values; ?></td>
                                     <?php }
-                                    } ?>
-
-                                    <td width="" class="apex">316 SS</td>
-                                    <td width="" class="apex">Aluminum</td>
-                                    <td width="" class="apex">Brass</td>
+                                    } 
+                                    foreach($fittingGasketHeaders as $k => $fittingGasketHeader) {
+                                    ?>
+                                    <td width="" class="apex"><?php echo $fittingGasketHeader; ?></td>
+                                    <?php } ?>
                                     <td width="" class="apex">Gasket</td>
                                 </tr>
                             </thead>
@@ -150,16 +151,17 @@ if ($data) : ?>
                                                     }
                                                     $j++;
                                                 } elseif ($key1 == 'fittingMaterial' && $value != null) {
-                                                    foreach ($fittingMaterialheaders as $key2 => $value2) {
+                                                    //foreach ($fittingMaterialheaders as $key2 => $value2) {
+                                                    foreach ($fittingGasketHeaders as $key2 => $value2) {
                                                         if (array_key_exists($value2, $value)) {
                                                             foreach ($value as $key3 => $value3) {
                                                                 if ($value2 == $key3) {
                                                                     if($value3 == null || $value3 == ""){
                                                                         ?>
-                                                                        <td><?php echo "X"; ?></td>
+                                                                        <td class="apex"><?php echo "X"; ?></td>
                                                                     <?php }else{
                                                                         ?>
-                                                                        <td><?php echo $value3; ?></td>
+                                                                        <td class="apex"><?php echo $value3; ?></td>
                                                                     <?php    
                                                                     }
                                                                 }
@@ -169,7 +171,7 @@ if ($data) : ?>
                                                         }
                                                         else {
                                                             ?>
-                                                            <td><?php echo "X"; ?></td>
+                                                            <td class="apex"><?php echo "X"; ?></td>
                                                     <?php
                                                         }
                                                     }
@@ -178,11 +180,11 @@ if ($data) : ?>
                                                     if($value){
                                                         $j++;
                                                         ?>
-                                                        <td><?php echo $value; ?></td>
+                                                        <td class="apex"><?php echo $value; ?></td>
                                                         <?php
                                                     }else{
                                                         ?>
-                                                        <td><?php echo ""; ?></td>
+                                                        <td class="apex"><?php echo ""; ?></td>
                                                         <?php
                                                     }
                                                     
@@ -307,10 +309,10 @@ if ($data) : ?>
         border-top: 1px solid #737373;
         /* font-family: 'ContinentalStagSansLCG-Medium'; */
         font-size: 6px !important;
-        font-weight: bold;
+        /* font-weight: bold; */
         vertical-align: bottom;
-        word-spacing: -1px;
-        letter-spacing: 1px;
+        /* word-spacing: -0.5px; */
+        /* letter-spacing: 0px; */
     }
 
     .flex-end {
