@@ -126,14 +126,8 @@ if ($data) :
                                             $j = 0;
                                             //p_r($productData);
                                             foreach ($productData as $key1 => $value) {
-                                                if ($key1 == 'tubeMaterial') {
-                                                    if(empty($value)){
-                                                        for ($t=0;$t<$tdCount;$t++){
-                                                            ?>
-                                                            <td><?php echo "X"; ?></td>
-                                                            <?php
-                                                        }
-                                                    } else {
+                                                if($productData['tubeMaterial'] && $key1 != 'chemicalName' && $key1 != 'temperatureRating'){
+                                                    if ($key1 == 'tubeMaterial') {
                                                         foreach ($tubeMaterialheaders as $key2 => $value2) {
                                                         
                                                             if (array_key_exists($value2, $value)) {
@@ -152,54 +146,147 @@ if ($data) :
                                                                 <?php
                                                             }
                                                         }
-                                                    }
-                                                    
-                                                    $j++;
-                                                } elseif ($key1 == 'fittingMaterial') {
-                                                    if(empty($value)){
-                                                        for ($f=0;$f<count($fittingGasketHeaders);$f++){
-                                                            ?>
-                                                            <td class="apex"><?php echo "X"; ?></td>
-                                                            <?php
-                                                        }
-                                                    } else {
-                                                        //foreach ($fittingMaterialheaders as $key2 => $value2) {
-                                                        foreach ($fittingGasketHeaders as $key2 => $value2) {
-                                                            if (array_key_exists($value2, $value)) {
-                                                                foreach ($value as $key3 => $value3) {
-                                                                    if ($value2 == $key3) {
-                                                                        if($value3 == null || $value3 == ""){
-                                                                            ?>
-                                                                            <td class="apex"><?php echo "X"; ?></td>
-                                                                        <?php }else{
-                                                                            ?>
-                                                                            <td class="apex"><?php echo $value3; ?></td>
-                                                                        <?php    
+                                                        $j++;
+                                                    } elseif ($key1 == 'fittingMaterial') {
+                                                        if(empty($value)){
+                                                            for ($f=0;$f<count($fittingGasketHeaders);$f++){
+                                                                ?>
+                                                                <td class="apex"><?php echo "X"; ?></td>
+                                                                <?php
+                                                            }
+                                                        } else {
+                                                            //foreach ($fittingMaterialheaders as $key2 => $value2) {
+                                                            foreach ($fittingGasketHeaders as $key2 => $value2) {
+                                                                if (array_key_exists($value2, $value)) {
+                                                                    foreach ($value as $key3 => $value3) {
+                                                                        if ($value2 == $key3) {
+                                                                            if($value3 == null || $value3 == ""){
+                                                                                ?>
+                                                                                <td class="apex"><?php echo "X"; ?></td>
+                                                                            <?php }else{
+                                                                                ?>
+                                                                                <td class="apex"><?php echo $value3; ?></td>
+                                                                            <?php    
+                                                                            }
                                                                         }
                                                                     }
                                                                 }
+                                                                else {
+                                                                    ?>
+                                                                    <td class="apex"><?php echo "X"; ?></td>
+                                                            <?php
+                                                                }
                                                             }
-                                                            else {
+                                                        }
+                                                        $j++;
+                                                    } elseif($key1 == 'gasket'){
+                                                        if($value){
+                                                            $j++;
+                                                            ?>
+                                                            <td class="apex"><?php echo $value; ?></td>
+                                                            <?php
+                                                        }else{
+                                                            ?>
+                                                            <td class="apex"><?php echo ""; ?></td>
+                                                            <?php
+                                                        }
+                                                        
+                                                    }
+                                                }
+                                                elseif(!$productData['tubeMaterial'] && $productData['fittingMaterial'] && $productData['gasket'] && $key1 != 'chemicalName' && $key1 != 'temperatureRating'){
+                                                    if ($key1 == 'tubeMaterial') {
+                                                        if(empty($value)){
+                                                            for ($t=0;$t<$tdCount;$t++){
+                                                                ?>
+                                                                <td><?php echo "X"; ?></td>
+                                                                <?php
+                                                            }
+                                                        }
+                                                        
+                                                    }
+                                                    elseif ($key1 == 'fittingMaterial') {
+                                                        if(empty($value)){
+                                                            for ($f=0;$f<count($fittingGasketHeaders);$f++){
                                                                 ?>
                                                                 <td class="apex"><?php echo "X"; ?></td>
-                                                        <?php
+                                                                <?php
+                                                            }
+                                                        } else {
+                                                            //foreach ($fittingMaterialheaders as $key2 => $value2) {
+                                                            foreach ($fittingGasketHeaders as $key2 => $value2) {
+                                                                if (array_key_exists($value2, $value)) {
+                                                                    foreach ($value as $key3 => $value3) {
+                                                                        if ($value2 == $key3) {
+                                                                            if($value3 == null || $value3 == ""){
+                                                                                ?>
+                                                                                <td class="apex"><?php echo "X"; ?></td>
+                                                                            <?php }else{
+                                                                                ?>
+                                                                                <td class="apex"><?php echo $value3; ?></td>
+                                                                            <?php    
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                                else {
+                                                                    ?>
+                                                                    <td class="apex"><?php echo "X"; ?></td>
+                                                            <?php
+                                                                }
+                                                            }
+                                                        }
+                                                        $j++;
+                                                    } elseif($key1 == 'gasket'){
+                                                        if($value){
+                                                            $j++;
+                                                            ?>
+                                                            <td class="apex"><?php echo $value; ?></td>
+                                                            <?php
+                                                        }else{
+                                                            ?>
+                                                            <td class="apex"><?php echo ""; ?></td>
+                                                            <?php
+                                                        }
+                                                        
+                                                    } 
+                                                    $j++;
+                                                }
+                                                elseif(!$productData['tubeMaterial'] && !$productData['fittingMaterial'] && $productData['gasket'] && $key1 != 'chemicalName' && $key1 != 'temperatureRating'){
+                                                    if ($key1 == 'tubeMaterial') {
+                                                        if(empty($value)){
+                                                            for ($t=0;$t<$tdCount;$t++){
+                                                                ?>
+                                                                <td><?php echo "X"; ?></td>
+                                                                <?php
+                                                            }
+                                                        }
+                                                        
+                                                    }
+                                                    elseif($key1 == 'fittingMaterial'){
+                                                        if(empty($value)){
+                                                            for ($t=0;$t<3;$t++){
+                                                                ?>
+                                                                <td class="apex"><?php echo "X"; ?></td>
+                                                                <?php
                                                             }
                                                         }
                                                     }
+                                                    elseif($key1 == 'gasket'){
+                                                        if($value){
+                                                            $j++;
+                                                            ?>
+                                                            <td class="apex"><?php echo $value; ?></td>
+                                                            <?php
+                                                        }else{
+                                                            ?>
+                                                            <td class="apex"><?php echo ""; ?></td>
+                                                            <?php
+                                                        }
+                                                        
+                                                    } 
                                                     $j++;
-                                                } elseif($key1 == 'gasket'){
-                                                    if($value){
-                                                        $j++;
-                                                        ?>
-                                                        <td class="apex"><?php echo $value; ?></td>
-                                                        <?php
-                                                    }else{
-                                                        ?>
-                                                        <td class="apex"><?php echo ""; ?></td>
-                                                        <?php
-                                                    }
-                                                    
-                                                } elseif ($key1 == 'chemicalName' || $key1 == 'temperatureRating') {
+                                                }
+                                                elseif ($key1 == 'chemicalName' || $key1 == 'temperatureRating') {
                                                     ?>
                                                     <td class=""><?php echo $value; ?></td>
                                                     <?php
@@ -208,7 +295,7 @@ if ($data) :
                                             }
                                             if ($j == 0) {
                                                 ?>
-                                                    <td colspan="<?php echo $tdCount + 3; ?>" class=""><?php echo "<b>No Hose Recommended For This Application <b>"; ?></td>
+                                                    <td colspan="<?php echo $tdCount + 4; ?>" class=""><?php echo "<b>No Hose Recommended For This Application <b>"; ?></td>
                                                 <?php
                                             } 
                                             ?>
@@ -229,7 +316,6 @@ if ($data) :
 
 
         <!-- Footer -->
-
 
         <div class="footer">
             <footer class="footerNew">
