@@ -131,7 +131,7 @@ if ($data) :
                                                                 if ($value2 == $key3) {
                                                                     if($value3 == null || $value3 == ""){?>
                                                                         <td><?php echo "X"; ?></td>
-                                                                    <?php }else{?>
+                                                                    <?php } else { ?>
                                                                         <td><?php echo $value3; ?></td>
                                                                     <?php  }
                                                                 }
@@ -177,20 +177,20 @@ if ($data) :
                                                         <?php
                                                     }else{
                                                         ?>
-                                                        <td class="apex"><?php echo ""; ?></td>
+                                                        <td class=""><?php echo ""; ?></td>
                                                         <?php
                                                     }
                                                     
                                                 } elseif ($key1 == 'chemicalName' || $key1 == 'temperatureRating') {
                                                     ?>
-                                                    <td><?php echo $value; ?></td>
+                                                    <td class=""><?php echo $value; ?></td>
                                                     <?php
                                                 } ?>
                                             <?php
                                             }
                                             if ($j == 0) {
                                                 ?>
-                                                    <td colspan="<?php echo $tdCount + 3; ?>"><?php echo "<b>No Hose Recommended For This Application <b>"; ?></td>
+                                                    <td colspan="<?php echo $tdCount + 3; ?>" class=""><?php echo "<b>No Hose Recommended For This Application <b>"; ?></td>
                                                 <?php
                                             } ?>
                                             <?php
@@ -219,21 +219,57 @@ if ($data) :
                 </article>
             </div>         
         </section>
+
+
         <!-- Footer -->
-        <footer id="chemfooter" class="chemChartfooter">
-            <div class="footer-logo chemchart">
-                <img src="<?= $footer_logo_src; ?>" alt="" width="150">
-            </div>
-        </footer>
-        <!-- End Footer-->
-        <div class="hide">
+
+
+        <div class="footer">
+            <footer class="footerNew">
+                <img src="<?= $footer_logo_src ?>" class="logoImage">  
+            </footer>
         </div>
+
+        <div class="footer1">
+            <footer class="footerNew">
+                <img src="<?= $footer_logo_src ?>" class="logoImage">  
+            </footer>
+        </div>
+
+        <!-- End Footer-->
+       
     </div>
 <?php endif; ?>
 
 <script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
 
 <style>
+
+/* .chart.grid tbody tr{
+    border-bottom:0 !important;
+    border-top:0 !important;
+
+}
+
+.chart.grid tbody td{
+    border-left: 5px solid white;
+    border-right: 5px solid white;
+    border-bottom:1px solid black !important;
+} */
+
+
+
+    .footerNew{
+    
+    background: #fff;
+    flex-wrap: nowrap !important;
+    display: flex;
+    justify-content: flex-end;
+
+    }
+    .logoImage{
+        max-width: 150px;
+    }
     .chemchart {
         background-color: white;
         text-align: right; 
