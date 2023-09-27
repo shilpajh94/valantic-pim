@@ -9,13 +9,6 @@ if (!isset($this->parentContainer)) {
 if ($data) : ?>
     <div class="template">
         <section class="segregate">
-
-            <footer id="footer" class="footer" style="background-color: white;">
-                <div class="footer-logo chemchart">
-                    <img src="<?= $footer_logo_src; ?>" alt="" width="150">
-                </div>
-            </footer>
-
             <div class="wrapper padding">
                 <article class="container page-break-inside-avoid">
 
@@ -217,16 +210,20 @@ if ($data) : ?>
                             </tbody>
                         </table>
                         
-                        <p class="tableFooter" style="margin-bottom: 0px;">
+                        <p class="tableFooter" style="margin-bottom: 15px; margin-top: 25px;">
                             <?= $this->textarea("Chemical_Chart_Data_Comment", ['placeholder' => 'Enter Chemical Chart Data Comment']); ?>
                         </p>
                     </div>
                 </article>
-            </div>
-
-            <!-- Footer -->
-            <!-- End Footer-->
+            </div>         
         </section>
+        <!-- Footer -->
+        <footer id="chemfooter" class="chemChartfooter">
+            <div class="footer-logo chemchart">
+                <img src="<?= $footer_logo_src; ?>" alt="" width="150">
+            </div>
+        </footer>
+        <!-- End Footer-->
         <div class="hide">
         </div>
     </div>
@@ -239,6 +236,9 @@ if ($data) : ?>
         background-color: white;
         text-align: right; 
         margin-right: 40px;  
+    }
+    #chemfooter{
+        background: #ffffff;
     }
     .inhRight h1 {
         margin: 0;
