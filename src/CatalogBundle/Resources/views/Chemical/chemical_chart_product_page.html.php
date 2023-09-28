@@ -78,7 +78,7 @@ if ($data) :
                             </div>
                         </div>
 
-                        <table class="grid chart" style=" border-top: 1px solid black;" cellspacing="0" cellpadding="0">
+                        <table class="grid chart" cellspacing="0" cellpadding="0">
                             <thead>
                                 <?php $tdCount = count($tubeMaterialheaders); ?>
                                 <!-- Main header -->
@@ -423,6 +423,8 @@ if ($data) :
         vertical-align: middle;
         font-weight: bold !important;
         font-size: 7px !important;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
         /* word-spacing: -1px;
         letter-spacing: 0px; */
     }
@@ -443,7 +445,8 @@ if ($data) :
 
     .chart h4 {
         padding: 0px;
-        font-size: 10px;
+        font-size: 9px;
+        font-weight: 900;
     }
 
     .flex-end {
