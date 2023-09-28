@@ -10,12 +10,34 @@ if ($data) :
 ?>
     <div class="template">
         <section class="segregate">
+            <!-- Footer -->
+
+            <div class="footer">
+                <footer class="footerNew">
+                    <p class="tableFooter" >
+                        <?= $this->textarea("Chemical_Chart_Data_Comment", ['placeholder' => 'Enter Chemical Chart Data Comment']); ?>
+                    </p>
+                    <div class="page-logo"> <img src="<?= $footer_logo_src ?>" class="logoImage">  </div>
+                </footer>
+            </div>
+
+            <div class="footer1">
+                <p class="tableFooter">
+                    <?= $this->textarea("Chemical_Chart_Data_Comment1", ['placeholder' => 'Enter Chemical Chart Data Comment']); ?>
+                </p>
+                <footer class="footerNew">
+                    <div class="page-logo"> <img src="<?= $footer_logo_src ?>" class="logoImage"> </div>
+                </footer>
+            </div>
+
+            <!-- End Footer-->
+
             <div class="wrapper padding">
                 <article class="container page-break-inside-avoid">
 
                     <!-- Starting grid here -->
                     <div class="inhRight">
-                        <h1 class="borderBottom block marginBottom5 contitech-black">Chemical Charts
+                        <h1 class="borderBottom block contitech-black">Chemical Charts
                         </h1>
 
                         <div class="flex flex-end">
@@ -49,18 +71,18 @@ if ($data) :
                                     <div class="col-2">
                                         <p><b> </b> </p>
                                         <p><b> </b> </p>
-                                        <p><b>B </b> = Nitrile </p>
+                                        <p><b> </b> </p>
+                                        <p style="margin-top: 2px;"><b>B </b> = Nitrile </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-
-                        <table class="grid special marginBottom5 chart" cellspacing="0" cellpadding="0">
+                        <table class="grid chart" style=" border-top: 1px solid black;" cellspacing="0" cellpadding="0">
                             <thead>
                                 <?php $tdCount = count($tubeMaterialheaders); ?>
                                 <!-- Main header -->
-                                <tr class="head">
+                                <tr class="heading">
                                     <td width="" colspan="2"></td>
                                     <td colspan="<?php echo $tdCount; ?>">Continental Chemical Hose / Hose Tube Polymer</td>
                                     <td colspan="4" class="apex">Insta-Lock Fitting/Metal</td>
@@ -68,19 +90,19 @@ if ($data) :
 
                                 <tr class="sub-head">
                                     
-                                    <td width=""></td>
-                                    <td width=""><?= $this->input("Temp", ["placeholder" => "Temperature"]); ?></td>
+                                    <td width="" class="widthxl1"></td>
+                                    <td width="" class="widthxl2"><?= $this->input("Temp", ["placeholder" => "Temperature"]); ?></td>
                                     <?php 
                                     for($i=1;$i<=$tdCount;$i++) {
                                     ?>
-                                    <td width=""><?= $this->input("Brand_".$i, ["placeholder" => "Brand"]); ?></td>
+                                    <td width="" class="widthxl"><?= $this->input("Brand_".$i, ["placeholder" => "Brand"]); ?></td>
                                     <?php
                                     }
                                     ?>
-                                    <td width="" class="apex"></td>
-                                    <td width="" class="apex"></td>
-                                    <td width="" class="apex"></td>
-                                    <td width="" class="apex"></td>
+                                    <td width="" class="apex widthxl"></td>
+                                    <td width="" class="apex widthxl"></td>
+                                    <td width="" class="apex widthxl"></td>
+                                    <td width="" class="apex widthxl"></td>
                                 </tr>
 
                                 <tr class="head">
@@ -100,7 +122,7 @@ if ($data) :
                                     <td width="" class="apex">Gasket</td>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="tableNewFont">
 
                                 <?php
                                // p_r($data);
@@ -288,7 +310,7 @@ if ($data) :
                                                 }
                                                 elseif ($key1 == 'chemicalName' || $key1 == 'temperatureRating') {
                                                     ?>
-                                                    <td class=""><?php echo $value; ?></td>
+                                                    <td class="tabletd"><?php echo $value; ?></td>
                                                     <?php
                                                 } ?>
                                             <?php
@@ -304,33 +326,11 @@ if ($data) :
                                 }  ?>
 
                             </tbody>
-                        </table>
-                        
-                        <p class="tableFooter" style="margin-bottom: 15px; margin-top: 25px;">
-                            <?= $this->textarea("Chemical_Chart_Data_Comment", ['placeholder' => 'Enter Chemical Chart Data Comment']); ?>
-                        </p>
+                        </table>  
                     </div>
                 </article>
             </div>         
-        </section>
-
-
-        <!-- Footer -->
-
-        <div class="footer">
-            <footer class="footerNew">
-                <img src="<?= $footer_logo_src ?>" class="logoImage">  
-            </footer>
-        </div>
-
-        <div class="footer1">
-            <footer class="footerNew">
-                <img src="<?= $footer_logo_src ?>" class="logoImage">  
-            </footer>
-        </div>
-
-        <!-- End Footer-->
-       
+        </section>    
     </div>
 <?php endif; ?>
 
@@ -338,50 +338,57 @@ if ($data) :
 
 <style>
 
-/* .chart.grid tbody tr{
-    border-bottom:0 !important;
-    border-top:0 !important;
+    /* .chart.grid tbody tr{
+        border-bottom:0 !important;
+        border-top:0 !important;
 
-}
+    }
 
-.chart.grid tbody td{
-    border-left: 5px solid white;
-    border-right: 5px solid white;
-    border-bottom:1px solid black !important;
-} */
+    .chart.grid tbody td{
+        border-left: 5px solid white;
+        border-right: 5px solid white;
+        border-bottom:1px solid black !important;
+    } */
 
-
-
+    .tableFooter{
+        padding: 0 40px;
+        margin: 25px 0;
+    }
+    .page-logo {
+        margin-right: 45px;
+    }
     .footerNew{
-    
-    background: #fff;
-    flex-wrap: nowrap !important;
-    display: flex;
-    justify-content: flex-end;
-
+        background: #fff;
+        flex-wrap: nowrap !important;
+        display: flex;
+        align-items: flex-end;
+        flex-direction: column;
     }
     .logoImage{
         max-width: 150px;
     }
-    .chemchart {
-        background-color: white;
-        text-align: right; 
-        margin-right: 40px;  
-    }
-    #chemfooter{
-        background: #ffffff;
-    }
+
     .inhRight h1 {
         margin: 0;
         padding: 0 !important;
         font-size: 30px !important;
     }
 
+    .widthxl1{
+        width:90px !important;
+        word-wrap: break-word !important;
+    }
+    .widthxl2 {
+        width:40px !important;
+    }
+    .widthxl{
+        width:50px !important;   
+    }
+
     h6 {
         font-size: 10px;
         margin-bottom: 0px;
         padding-bottom: 0px;
-        /* border: 1px solid green; */
     }
 
     .chart.grid .sub-head td {
@@ -392,7 +399,8 @@ if ($data) :
         /* border:1px solid red; */
         height: auto !important;
         word-wrap: break-word !important;
-        font-size: 6px;
+        font-size: 7px;
+        font-weight: 950;
     }
 
     .chart.grid .head td {
@@ -402,46 +410,40 @@ if ($data) :
         /* border:1px solid green; */
         height: auto !important;
         word-wrap: break-word !important;
-        font-size: 6px;
+        font-size: 7px;
+        font-weight: 950;
         padding-top: 0px;
     }
 
-    .tabletd {
-        font-size: 6px !important;
-        /* border: 1px solid red; */
+    .tableNewFont td{
+        font-size: 7px;
     }
 
-    /* .tableNewFont td{
-        font-size: 6px;
-    } */
+    .heading td {
+        vertical-align: middle;
+        font-weight: bold !important;
+        font-size: 7px !important;
+        /* word-spacing: -1px;
+        letter-spacing: 0px; */
+    }
+
     .chart.grid {
         margin-top: 0;
-        /* table-layout: unset; */
+        table-layout: unset;
     }
 
     .chart.grid td {
         height: auto;
         /* word-break:break-all !important; */
-        font-size: 10px;
     }
 
     .apex {
-        background: #f0f0f0;
+        background: #f0f0f0;  
     }
 
     .chart h4 {
         padding: 0px;
         font-size: 10px;
-    }
-
-    .main-head td {
-        border-top: 1px solid #737373;
-        /* font-family: 'ContinentalStagSansLCG-Medium'; */
-        font-size: 6px !important;
-        /* font-weight: bold; */
-        vertical-align: bottom;
-        /* word-spacing: -0.5px; */
-        /* letter-spacing: 0px; */
     }
 
     .flex-end {
@@ -469,15 +471,13 @@ if ($data) :
 
     .flex-end p {
         padding: 2px 6px 2px 0px;
-        font-size: 7px;
+        font-size: 9px;
         word-spacing: -1px;
     }
 
-    .chart td:first-child {
-        min-width: 200px;
-        width: 200px;
-        word-wrap: break-word !important;
-        /* word-break: normal; */
-        /* white-space: pre; */
+    @media print {
+        .chart.grid{
+            margin-top:-20px;
+        }
     }
 </style>
