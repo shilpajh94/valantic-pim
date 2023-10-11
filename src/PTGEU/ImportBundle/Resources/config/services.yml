@@ -83,6 +83,10 @@ services:
         tags:
             - { name: 'console.command', command: 'contitech:ptg:eu:delete' }
     
+    PTGEU\ImportBundle\OneTimeImportCommand\PTGEUPulleysToDataImportCommand:
+        tags:
+            - { name: 'console.command', command: 'ptgeu-pulleysTo-data-import-command' }
+    
     # this command will execute to save and publish ptgeu products
     PTGEU\ImportBundle\OneTimeImportCommand\PTGEUProductSaveAndPublishCommand:
         tags:
