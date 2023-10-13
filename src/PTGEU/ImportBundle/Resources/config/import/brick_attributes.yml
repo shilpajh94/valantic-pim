@@ -93,9 +93,9 @@ Max Pulley Groove:
     fieldName: maxPulleyGroove
     fieldType: Number
     objectType: PTGEUVBeltsFert
-Pulleys To:
+Pulleys to:
     fieldName: pulleysTo
-    fieldType: Number
+    fieldType: Input
     objectType: PTGEUVBeltsFert
 Effective Length (Le) (in):
     fieldName: effectiveLengthIN
