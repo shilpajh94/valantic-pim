@@ -41,7 +41,7 @@ if ($data) :
                         </h1>
 
                         <div class="flex flex-end">
-                            <div style=" width:10%">
+                            <div style=" width:14%">
                             </div>
                             <div class="col-6">
                                 <h6>Rating Scale</h6>
@@ -83,9 +83,9 @@ if ($data) :
                                 <?php $tdCount = count($tubeMaterialheaders); ?>
                                 <!-- Main header -->
                                 <tr class="heading">
-                                    <td width="" colspan="2"></td>
-                                    <td colspan="<?php echo $tdCount; ?>">Continental Chemical Hose / Hose Tube Polymer</td>
-                                    <td colspan="4" class="apex">Insta-Lock Fitting/Metal</td>
+                                    <td width="" colspan="2" class="headingtd"></td>
+                                    <td colspan="<?php echo $tdCount; ?>" class="headingtd"><b>Continental Chemical Hose / Hose Tube Polymer</b></td>
+                                    <td colspan="6" class="apex"><b>Insta-Lock Fitting/Metal</b></td>
                                 </tr>
 
                                 <tr class="sub-head">
@@ -317,7 +317,7 @@ if ($data) :
                                             }
                                             if ($j == 0) {
                                                 ?>
-                                                    <td colspan="<?php echo $tdCount + 4; ?>" class=""><?php echo "<b>No Hose Recommended For This Application <b>"; ?></td>
+                                                    <td colspan="<?php echo $tdCount + 4; ?>" class="NoHose"><?php echo "No Hose Recommended For This Application"; ?></td>
                                                 <?php
                                             } 
                                             ?>
@@ -349,7 +349,13 @@ if ($data) :
         border-right: 5px solid white;
         border-bottom:1px solid black !important;
     } */
-
+    .headingtd {
+        padding: 5px 0px;
+    }
+    .NoHose {
+        font-weight: bold !important;
+        font-size: 8px !important;
+    }
     .tableFooter{
         padding: 0 40px;
         margin: 25px 0;
@@ -421,7 +427,6 @@ if ($data) :
 
     .heading td {
         vertical-align: middle;
-        font-weight: bold !important;
         font-size: 7px !important;
         border-top: 1px solid black;
         border-bottom: 1px solid black;
@@ -454,21 +459,11 @@ if ($data) :
     }
 
     .flex-end .col-6 {
-        /* width:48%; */
         flex: 1;
-        /* border:1px solid red; */
-        width: 30%;
-        /* margin-top: 0px; */
+        width: 67%;
     }
-
-    .flex-end .col-8 {
-        max-width: 60%;
-        flex: 1;
-        padding-right: 0px;
-    }
-
     .flex-end .col-4 {
-        max-width: 35%;
+        max-width: 29%;
         flex: 1;
     }
 
