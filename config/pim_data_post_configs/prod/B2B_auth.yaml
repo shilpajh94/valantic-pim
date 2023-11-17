@@ -1,0 +1,13 @@
+parameters:
+    b2b_auth:
+        url: https://login.salesforce.com/services/oauth2/token
+        method: POST
+        params:
+            client_id: 3MVG98_Psg5cppybV.xlPTjD0N1YBvNIMDgn95oFiTAtFCjiPEqHt7i.HrcjjpsqVg_UGm28ZdDJUZq1yDfW0
+            client_secret: C4866562B739FB9B2080B3C7D33178F107A56B20E24868EBCD15D80059F544DC
+            username: pim_integration@contitech.com
+            password: OnTi#nLg&PcHaA1li0rsY0BPgo1llAjZGmRF1ln7
+            grant_type: password
+        token_lifetime: 1740
+        guzzle_request_timeout: 10
+        content_type: application/x-www-form-urlencoded

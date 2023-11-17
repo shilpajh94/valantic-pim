@@ -1,0 +1,16 @@
+parameters:
+    b2c_api_version: v21_10
+
+    b2c_api_host: https://bgxw-010.sandbox.us01.dx.commercecloud.salesforce.com
+
+    b2c_product_catalog: hosestore_master_catalog
+    b2c_category_catalog: hosestore_navigation_catalog
+
+    b2c_Product:
+        url: /s/-/dw/data/%b2c_api_version%/products/<PRODUCT_ID_PLACEHOLDER>
+
+    b2c_Category:
+        url: /s/-/dw/data/%b2c_api_version%/catalogs/%b2c_category_catalog%/categories/<CATEGORY_ID_PLACEHOLDER> 
+
+    b2c_ProductCategoryProduct:
+        url: /s/-/dw/data/%b2c_api_version%/catalogs/%b2c_category_catalog%/categories/<CATEGORY_ID_PLACEHOLDER>/products/<PRODUCT_ID_PLACEHOLDER>

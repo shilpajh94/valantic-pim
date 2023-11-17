@@ -1,0 +1,31 @@
+parameters:
+    ldap_logger:
+        # should the logger rotate itself
+        rotate_file: true
+        # number of files for rotation
+        max_files: 10
+        # enabled log level
+        log_level: ERROR
+        #logger name
+        log_name: ldap.log
+
+    ldap_config:
+        ldap_host:
+            [ldap-EU.contiwan.com] 
+            # qh2c202a.tiretech2.contiwan.com,qh2c301a.tiretech.contiwan.com]
+        ldap_user: 
+            s-pimcore_PO@contiwan.com
+        ldap_pass:
+            P1mC0r3.2022$
+        ldap_dn:
+            DC=contiwan,DC=com
+        ldap_user_filter:
+            sAMAccountName
+        ldap_filter_group:
+            #DC=contiwan,DC=com
+        ldap_port:
+            3269
+        ldap_ssl:
+            1
+        ldap_ignore_cert:
+            1

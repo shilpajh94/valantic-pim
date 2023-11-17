@@ -1,0 +1,64 @@
+parameters:
+  host: 'https://pim.conti.de'
+  roles:
+    editor:
+      id: 3
+      name: 'Editor'
+    productManager:
+      id: 4
+      name: 'ProductManager'
+  transitions:
+    start_processing:
+      defaultTemplatePath: '/Workflow/Email Template/productSentForReview'
+      priority:
+        normal:
+          value: 'normal'
+          templatePath: '/Workflow/Email Template/productSentForReview'
+        high:
+          value: 'high'
+          templatePath: '/Workflow/Email Template/productSentForReviewHighPriority'
+    enrich_again:
+      defaultTemplatePath: '/Workflow/Email Template/reviewRejected'
+      priority:
+        normal:
+          value: 'normal'
+          templatePath: '/Workflow/Email Template/reviewRejected'
+        high:
+          value: 'high'
+          templatePath: '/Workflow/Email Template/reviewRejectedHighPriority'
+    publish:
+      defaultTemplatePath: '/Workflow/Email Template/productPublish'
+    unpublish:
+      defaultTemplatePath: '/Workflow/Email Template/productUnpublish'
+    reopen:
+      defaultTemplatePath: '/Workflow/Email Template/productReopen'
+      priority:
+        normal:
+          value: 'normal'
+          templatePath: '/Workflow/Email Template/productReopen'
+        high:
+          value: 'high'
+          templatePath: '/Workflow/Email Template/productReopenHighPriority'
+  # Workflow reminder configuration
+  # Places: Places is name of the Place which defined in workflow configuration in app/config.yaml
+  reminder:
+    places:
+      enrich:
+        subject: 'Product Enrich'
+        # If further action could not performed by recipent, then a reminder email will be send.
+        reminderIntervalDay:
+          'First Reminder': 2
+          'Second Reminder': 4
+          'Final Reminder': 5
+        # If User will take action till last reminder, then send reminder to BU Admin after specified days.
+        reminderToBUAdminIntervalDay: [5]
+        templatePath: '/Workflow/Email Template/productEnrichReminder'
+      review_content:
+        subject: 'Product Review'
+        reminderIntervalDay:
+          'First Reminder': 2
+          'Second Reminder': 4
+          'Final Reminder': 5
+        reminderToBUAdminIntervalDay: [5]
+        templatePath: '/Workflow/Email Template/productReviewReminder'
+      buAdminTemplatePath: '/Workflow/Email Template/productReminderBUAdmin'

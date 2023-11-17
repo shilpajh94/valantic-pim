@@ -1,0 +1,83 @@
+non_localized:
+    brandName:
+        type: 'select'
+        label: 'Brand Name'
+    brandConstruction:
+        type: 'select'
+        label: 'Brand Construction'
+    reinforcement:
+        type: 'multiselect'
+        label: 'Reinforcement'
+    VirtualCatalogReinforcement:
+        type: 'wysiwyg'
+        label: 'Virtual Catalog Reinforcement'
+    BrandingLayline:
+        type: 'input'
+        label: 'Catalog Layline'
+    minimumTemperatureF:
+        type: 'numeric'
+        label: 'Min Temp °F'
+    maximumTemperatureF:
+        type: 'numeric'
+        label: 'Max temp °F'
+    minimumTemperatureC:
+        type: 'numeric'
+        label: 'Min Temp °C'
+    maximumTemperatureC:
+        type: 'numeric'
+        label: 'Max temp °C'
+    mainImage:
+        type: 'image'
+        label: 'Main Image'
+
+localized:
+    FeaturesBenefitsBulletPoint:
+        type: 'multiselect'
+        label: 'Features & Benefits Bullet Points'
+    longDescription:        # base
+        type: 'wysiwyg'
+        label: 'Marketing / Long Description'
+
+object_bricks:
+    Base:
+        label: 'Base Data'
+        brick_items:
+            HoseBase:
+                label: 'Hose (6 Digit)'
+                non_localized:
+                    tubeMaterial:
+                        type: 'multiselect'
+                        label: 'Tube Material'
+                    VirtualCatalogTubeMaterial:
+                        type: 'wysiwyg'
+                        label: 'Virtual Catalog Tube Material'
+                    tubeCharacteristic:
+                        type: 'multiselect'
+                        label: 'Tube Characteristic'
+                    tubeColor:
+                        type: 'multiselect'
+                        label: 'Tube Color'
+                    StandardMetTube:
+                        type: 'multiselect'
+                        label: 'Standard Met- Tube'
+                    StandardMetCover:
+                        type: 'multiselect'
+                        label: 'Standard Met- Cover'
+                    coverMaterial:
+                        type: 'multiselect'
+                        label: 'Cover Material'
+                    VirtualCatalogCoverMaterial:
+                        type: 'wysiwyg'
+                        label: 'Virtual Catalog Cover Material'
+                    coverCharacteristic:
+                        type: 'multiselect'
+                        label: 'Cover Characteristic'
+                    coverColor:
+                        type: 'multiselect'
+                        label: 'Cover Color'
+                    safetyFactor:
+                        type: 'multiselect'
+                        label: 'Design Factor'
+                    Packaging:
+                        type: 'input'
+                        label: 'Catalog Packaging'

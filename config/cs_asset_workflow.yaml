@@ -1,0 +1,46 @@
+pimcore:
+    workflows:
+        cs_asset_workflow:
+            label: "Asset Archiving Workflow"
+            type: "state_machine"
+            initial_markings:     ["default"]
+#            supports:
+#                - 'Pimcore\Model\Asset'
+            support_strategy:
+               #service: ContitechCS\ProductBundle\Workflow\AssetSupportStrategy
+    
+
+                # Define a custom service to handle the logic. Take a look at the Symfony docs for more details.
+#                service:
+            places:
+                default:
+                    label: Default
+                    color: #377ea9
+#                    visibleInHeader: false
+                archived:
+                    label: Archived
+                    color: #377ea9
+#                    visibleInHeader: false
+            transitions:
+                archive_asset:
+                    from:
+                        - default
+                    to: archived
+                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_MARCOMCS"))
+                    options:
+                        label: 'Archive Asset'
+                        notes:
+                            commentEnabled: true
+                            commentRequired: true
+                        changePublishedState: no_change                                               
+                unarchive_asset:
+                    from:
+                        - archived
+                    to: default
+                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_MARCOMCS"))
+                    options:
+                        label: 'UnArchive Asset'
+                        notes:
+                            commentEnabled: true
+                            commentRequired: true
+                        changePublishedState: no_change

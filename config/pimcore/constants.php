@@ -1,0 +1,207 @@
+<?php
+require_once('env_name.php');
+
+require_once('env_constants.php');
+
+/**
+ * set DISABLE_S3_CDN to true to disable the S3/CDN
+ * this will only disable S3/CDN in pimcore asset section (upload,download,delete etc) .
+ */
+define("DISABLE_S3_CDN", false);
+
+// if (!DISABLE_S3_CDN) {
+//     require_once('s3_config_constants.php');
+// }
+
+/**
+ * to include the constants used to name the log file
+ */
+require_once('log_file_name_constants.php');
+//require_once('sftp_constants.php');
+define("INTERNAL_ASSET_FOLDER_PATHS", [
+    "/Contitech_ConveyorSolution/Internal Assets","/IFS PTG Private Folder/Import Failure Logs"
+]);
+
+define("APPBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/AppBundle/Resources/config");
+define("CATALOGBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/CatalogBundle/Resources/config");
+define("CS_PRODUCTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/ContitechCS/ProductBundle/Resources/config");
+
+define("CS_APIBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/ContitechCS/CatalogUIApiBundle/Resources/config");
+
+
+define("PTG_EU_PRODUCTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/PTGEU/ProductBundle/Resources/config");
+
+
+define("IFS_EU_PRODUCTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/IFSEU/ProductBundle/Resources/config");
+define("B2BTRANSLATIONBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/B2BTranslationBundle/Resources/config");
+
+
+/**
+ * to include the constants of the required attributes module
+ * this is being used for calculating completeness,calculating some validations for export etc.
+ */
+require_once('required_attribute_constants.php');
+
+
+//contitech configuration file paths
+define("LEVEL_ATTRIBUTE_MAPPING_FILE_PATH", APPBUNDLE_CONFIG_DIRECTORY . "/import/level_attribute_mapping.yaml");
+//Command file path
+define('COMMAND_CONFIG_FILE_PATH', APPBUNDLE_CONFIG_DIRECTORY . "/commands.yaml");
+// Global Category Configuraction File Path
+define('CATEGORY_CONFIG_FILE_PATH', APPBUNDLE_CONFIG_DIRECTORY . "/category.yaml");
+// Global Product Configuration File Path
+define('PRODUCT_CONFIG_FILE_PATH', APPBUNDLE_CONFIG_DIRECTORY . "/import/product.yaml");
+
+// Global Category Configuraction File Path
+define('PLANT_MATERIAL_CONFIG_FILE_PATH', APPBUNDLE_CONFIG_DIRECTORY . "/import/plant_material.yaml");
+
+// Global Category Configuraction File Path
+define('SALES_MATERIAL_CONFIG_FILE_PATH', APPBUNDLE_CONFIG_DIRECTORY . "/import/sales_material.yaml");
+
+// cs api conflig bundle
+define('CS_API_CONFIG_FILE_PATH', CS_APIBUNDLE_CONFIG_DIRECTORY
+    . "/api_config.yaml");
+
+/* Errors Message */
+define('INVALID_COMMAND', 'Invalid command: %s command not found');
+define('FILE_FORMAT_DOESNOT_SUPPORT', 'This command does not support the given file format.');
+define('IMPORT_FILE_NOT_FOUND', 'Please check the directory %s, File %s not found');
+define('ALLOWED_FILE_TYPES', 'Only %s files are allowed to uplod');
+
+define("BRICK_MAPPING_CONFIG_FILE_PATH", APPBUNDLE_CONFIG_DIRECTORY . "/brick_mapping_config.yaml");
+
+define("MULTISELECT_MASTER_IMPORT_CONFIG", APPBUNDLE_CONFIG_DIRECTORY . "/import/multiselect_master_import_config.yaml");
+
+define("PRODUCT_CLASS_NAME", "Product");
+
+define("PRODUCT_CLASS_ID", "1");
+
+define("UNIT_CONVERSION_ATTRIBUTE_GROUP_FILE_PATH", APPBUNDLE_CONFIG_DIRECTORY . "/unit_conversion/attribute_groups.yaml");
+
+define('MEMBER', 'Users');
+define('WORKFLOW_CONFIG_FILE_PATH', APPBUNDLE_CONFIG_DIRECTORY . "/workflow/workflow.yaml");
+define('CATALOG_TABLE_COLUMN_CONFIG_FILE_PATH', APPBUNDLE_CONFIG_DIRECTORY . "/catalog/table_column.yaml");
+define('ATTRIBUTE_IMAGES_FILE_PATH', APPBUNDLE_CONFIG_DIRECTORY . "/catalog/attribute_images.yaml");
+define('CATALOG_TABLE_DYNAMIC_COLUMN_CONFIG_FILE_PATH', CATALOGBUNDLE_CONFIG_DIRECTORY . "/grid-column-mapping.yaml");
+define('CATALOG_TABLE_CONFIG_FILE_PATH', CATALOGBUNDLE_CONFIG_DIRECTORY . "/catalog-table-mapping.yaml");
+define('FITTING_TABLE_IMPORT_FILE_PATH', CATALOGBUNDLE_CONFIG_DIRECTORY . "/hydraulic-fitting-column.yaml");
+define('INH_SECTION_PAGE_FILE_PATH', CATALOGBUNDLE_CONFIG_DIRECTORY . "/industrialhose-sectionpage-column.yaml");
+define('INH_PRODUCT_PAGE_FILE_PATH', CATALOGBUNDLE_CONFIG_DIRECTORY . "/industrialhose-productpage-column.yaml");
+define('PRICE_LIST_TABLE_CONFIG_FILE_PATH', APPBUNDLE_CONFIG_DIRECTORY . "/price_list_table_config.yaml");
+define('INH_FITTING_COVER_PAGE_FILE_PATH', CATALOGBUNDLE_CONFIG_DIRECTORY . "/INH_fitting_cover_config.yaml");
+define('OPTION_PROVIDER_CACHE_CONFIG_FILE_PATH', APPBUNDLE_CONFIG_DIRECTORY . "/option_provider_cache_config.yaml");
+define('FOLDER_KEY_LENGTH_FOR_FITTING_FAMILY_DESC_THREAD_DESC', 50);
+define('GRID_SQL_EDITOR_ALLOWED_ROLES', ['ApplicationAdmin']);
+
+// CS Constants
+define("CS_BRICK_MAPPING_CONFIG_FILE_PATH", CS_PRODUCTBUNDLE_CONFIG_DIRECTORY . "/brick_mapping_config.yaml");
+define("CS_PRODUCT_DATA_IMPORT_CONFIG_FILE_PATH", CS_PRODUCTBUNDLE_CONFIG_DIRECTORY . "/product_data_import_config.yaml");
+define("CS_UNIT_FIELD_IMPORT_CONFIG_FILE_PATH", CS_PRODUCTBUNDLE_CONFIG_DIRECTORY . "/unit_values_config.yaml");
+define("CS_UNIT_CONVERSION_ATTRIBUTE_GROUP_FILE_PATH", CS_PRODUCTBUNDLE_CONFIG_DIRECTORY . "/unit_conversion/attribute_groups.yaml");
+define("CS_CATALOG_PRODUCT_TABLE_CONFIG_FILE_PATH", CS_PRODUCTBUNDLE_CONFIG_DIRECTORY . "/product_table_mapping.yaml");
+define("CS_CATALOG_IMAGE_MAPPING_CONFIG_FILE_PATH", CS_PRODUCTBUNDLE_CONFIG_DIRECTORY . "/catalog_images_mapping.yaml");
+define("CS_PRODUCT_ATTRIBUTE_VALIDATION_FILE_PATH", CS_PRODUCTBUNDLE_CONFIG_DIRECTORY . "/product_attribute_validation.yaml");
+define("CS_PRODUCT_ROLE_BASED_EDITABLE_ATTRIBUTES_FILE_PATH", CS_PRODUCTBUNDLE_CONFIG_DIRECTORY . "/workflow/role_based_editable_attributes.yaml");
+define("CS_WORKFLOW_CONFIG", CS_PRODUCTBUNDLE_CONFIG_DIRECTORY . "/workflow/workflow.yaml");
+define("CS_LANGUAGE_CONFIG", CS_PRODUCTBUNDLE_CONFIG_DIRECTORY . "/language.yaml");
+define("CS_SEGMENT_COUNTRIES_CONFIG", CS_PRODUCTBUNDLE_CONFIG_DIRECTORY . "/segment_based_country_list.yaml");
+define("CS_MATERIAL_HANDLIG_HIERARCHY_PATH", '/Contitech_ConveyorSolution/Master Data/Product Hierarchy/Material Handling/');
+define("CS_MATERIAL_HANDLIG_PRODUCTS_PATH", '/Contitech_ConveyorSolution/Products/Material Handling/');
+define("CS_PPRODUCT_HIERARCHY_PATH", '/Contitech_ConveyorSolution/Master Data/Product Hierarchy/');
+define("CS_PPRODUCT_PATH", '/Contitech_ConveyorSolution/Products/');
+
+// Files older than these many days will be moved to S3 from archive folder
+define('BW_SAP_ARCHIVE_VALIDATE_FILE_OLDER_THAN_DAYS', '7');
+
+//  Retrieving new product import data for particular interval of $time
+define('SIOP_NEW_PRODUCT_IMPORT_NUMBER_OF_DAYS', '7');
+
+//Email Template for sending report for new Products
+define('NEW_PRODUCT_EMAIL_DOCUMENT', '/Email/NewProductReportEmail');
+
+define('CATALOG_IMAGE_THUBNAILS', array(
+    'Original' => 'catalog_thumb',
+    '2500' => 'catalog_thumb_w2500',
+    '2000' => 'catalog_thumb_w2000',
+    '1500' => 'catalog_thumb_w1500',
+    '1000' => 'catalog_thumb_w1000',
+    '500' => 'catalog_thumb_w500',
+));
+
+define("PDF_GENERATION_REQUEST_SOURCE_DOC_SESSION_KEY", "pdf_generation_request_source_document_id");
+
+define("DEFAULT_DECIMAL_PLACES_IN_VIRTUAL_CATALOG_API", 2);
+define("DEFAULT_DECIMAL_PLACES_IN_EHOSE_API", 2);
+
+define("MAINTAIN_OPTION_PROVIDER_DATA_IN_MEMORY", true);
+
+//SAP Files older than these many days will be deleted from SFTP server
+define('BW_SAP_DELETED_FILE_OLDER_THAN_DAYS', 30);
+
+define('FAILURE_RECORDS_FOLDER','/IFS PTG Private Folder/Import Failure Logs');
+
+// PTG_EU Constants
+define("PTG_EU_WORKFLOW_CONFIG",PTG_EU_PRODUCTBUNDLE_CONFIG_DIRECTORY."/workflow/workflow.yaml");
+define("PTGEU_ROLE_BASED_MANDATORY_ATTRIBUTES_FILE_PATH",PTG_EU_PRODUCTBUNDLE_CONFIG_DIRECTORY."/workflow/mandatory_attributes.yaml");
+
+// IFS_EU Constants
+define("IFS_EU_IMPORTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/IFSEU/ImportBundle/Resources/config");
+define('IFS_EU_PLANT_MATERIAL_CONFIG_FILE_PATH', IFS_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/plant_material.yaml");
+define('IFS_EU_SALES_MATERIAL_CONFIG_FILE_PATH', IFS_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/sales_material.yaml");
+
+define("IFS_EU_WORKFLOW_CONFIG",IFS_EU_PRODUCTBUNDLE_CONFIG_DIRECTORY."/workflow/workflow.yaml");
+define("IFSEU_MANDATORY_ATTRIBUTES_FILE_PATH",IFS_EU_PRODUCTBUNDLE_CONFIG_DIRECTORY."/workflow/mandatory_attributes.yaml");
+define("IFS_EU_PRODUCT_ROLE_BASED_EDITABLE_ATTRIBUTES_FILE_PATH", IFS_EU_PRODUCTBUNDLE_CONFIG_DIRECTORY . "/workflow/role_based_editable_attributes.yaml");
+define('IFS_EU_CATEGORY_CONFIG_FILE_PATH', IFS_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/category.yaml");
+define('IFS_EU_PRODUCT_CONFIG_FILE_PATH', IFS_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/product.yaml");
+define('IFS_EU_PRODUCT_LEVEL_CONFIG_FILE_PATH', PIMCORE_PROJECT_ROOT . "/bundles/IFSEU/ProductBundle/Resources/config/ifseu_level_attributes.yaml");
+
+define('IFS_EU_PRODUCT_IMPORT_CONFIG_FILE_PATH', IFS_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/product_import.yaml");
+define('IFS_EU_BRICK_MAPPING_CONFIG_FILE_PATH', IFS_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/brick_mapping_config.yaml");
+define('IFS_EU_BRICK_ATTRIBUTES_CONFIG_FILE_PATH', IFS_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/brick_attributes.yaml");
+define("IFS_EU_UNIT_CONVERSION_ATTRIBUTE_GROUP_FILE_PATH", IFS_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/unit_conversion/attribute_groups.yaml");
+
+define('IFS_EU_ASSET_CONFIG_FILE_PATH', IFS_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/assets.yaml");
+
+
+
+define('FAILURE_RECORDS_EMAIL_TEMPLATE','/FailureRecordEmail/ProductFailedRecordEmailTemplates');
+
+// define constants used in PTGEU
+define("PTG_EU_IMPORTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/PTGEU/ImportBundle/Resources/config");
+// global product configuration file path
+define('PTG_EU_PRODUCT_CONFIG_FILE_PATH', PTG_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/product.yaml");
+// Global Category Configuraction File Path
+define('PTG_EU_CATEGORY_CONFIG_FILE_PATH', PTG_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/category.yaml");
+define("PTG_EU_BRICK_MAPPING_CONFIG_FILE_PATH", PTG_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/brick_mapping_config.yaml");
+// Global Category Configuraction File Path
+define('PTG_EU_PLANT_MATERIAL_CONFIG_FILE_PATH', PTG_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/plant_material.yaml");
+define("PTG_EU_EDITABLE_PRODUCT_ATTRIBUTE_IMPORT_CONFIG_FILE_PATH", PTG_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/editable_product_attribute.yaml");
+define('PTG_EU_ASSET_CONFIG_FILE_PATH', PTG_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/assets.yaml");
+
+define("PTG_EU_UNIT_FIELD_IMPORT_CONFIG_FILE_PATH", PTG_EU_PRODUCTBUNDLE_CONFIG_DIRECTORY . "/unit_values_config.yaml");
+
+// Global Category Configuraction File Path
+define('PTG_EU_SALES_MATERIAL_CONFIG_FILE_PATH', PTG_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/sales_material.yaml");
+
+// PTG-EU Product Object Table
+define('PTGEU_OBJECT_TABLE_NAME', 'object_38');
+// global brick configuration file path
+define('PTG_EU_BRICK_ATTRIBUTES_CONFIG_FILE_PATH', PTG_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/brick_attributes.yaml");
+
+// define constants used in PTGEU - CatalogBundle config
+define("PTG_EU_CATALOGBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/PTGEU/CatalogBundle/Resources/config");
+define('PTG_EU_CATALOGBUNDLE_CONFIG_FILE_PATH', PTG_EU_CATALOGBUNDLE_CONFIG_DIRECTORY . "/catalog.yaml");
+define('PTG_EU_CATALOGBUNDLE_ATTRIBUTE_IMAGE_CONFIG_FILE_PATH', PTG_EU_CATALOGBUNDLE_CONFIG_DIRECTORY . "/attribute_images.yaml");
+define('PTG_EU_CATALOGBUNDLE_PRICE_LIST_TABLE_CONFIG_FILE_PATH', PTG_EU_CATALOGBUNDLE_CONFIG_DIRECTORY . "/price_list_table_config.yaml");
+
+define("PIMDATAPOSTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/PimDataPostBundle/Resources/config");
+
+
+# IFS EU Constants 
+
+
+#define("IFS_EU_IMPORTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/IFSEU/ImportBundle/Resources/config");
+#define('IFS_EU_PLANT_MATERIAL_CONFIG_FILE_PATH', IFS_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/plant_material.yaml");
+#define('IFS_EU_SALES_MATERIAL_CONFIG_FILE_PATH', IFS_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/sales_material.yaml");
+#define('IFS_EU_CATEGORY_CONFIG_FILE_PATH', IFS_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/category.yaml");

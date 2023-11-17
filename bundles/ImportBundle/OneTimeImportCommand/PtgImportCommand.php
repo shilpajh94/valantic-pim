@@ -1,0 +1,1034 @@
+<?php
+
+/**
+ * File Path: /home/praganosis/Working/CSV/ptg_import.csv (Your File path on system)
+ * Command: bin/console conti:onetimeimport:ptg /home/praganosis/Working/CSV/ptg_import.csv
+ * Des: This command will import and enrich PTG data at class, base, skeleton, fert level including bricks too.
+ * Just run the above command, it will create all required temp table if it does not exist into system
+ * After creation of temp table, it will process the sheet to import and enrich data
+ */
+
+namespace ImportBundle\OneTimeImportCommand;
+
+use Pimcore\Console\AbstractCommand;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Pimcore\Db;
+
+class PtgImportCommand extends AbstractCommand
+{
+
+    const PTG_BASE_OBJECT_BRICK_QUERY = 'object_brick_query_PTGBase_1';
+    const PTG_BASE_OBJECT_BRICK_STORE = 'object_brick_store_PTGBase_1';
+    const PTG_BASE_OBJECT_BRICK_LOCALIZED = 'object_brick_localized_PTGBase_1';
+    const PTG_BASE_OBJECT_BRICK_LOCALIZED_QUERY_EN = 'object_brick_localized_query_PTGBase_1_en';
+
+    const PTG_SKELETON_OBJECT_BRICK_QUERY = 'object_brick_query_PTGSkeleton_1';
+    const PTG_SKELETON_OBJECT_BRICK_STORE = 'object_brick_store_PTGSkeleton_1';
+
+    const PTG_FERT_OBJECT_BRICK_QUERY = 'object_brick_query_PTGFert_1';
+    const PTG_FERT_OBJECT_BRICK_STORE = 'object_brick_store_PTGFert_1';
+
+    const BELTS_FERT_OBJECT_BRICK_QUERY = 'object_brick_query_BeltsFert_1';
+    const BELTS_FERT_OBJECT_BRICK_STORE = 'object_brick_store_BeltsFert_1';
+
+    const SYNC_FERT_OBJECT_BRICK_QUERY = 'object_brick_query_SynchronousFert_1';
+    const SYNC_FERT_OBJECT_BRICK_STORE = 'object_brick_store_SynchronousFert_1';
+
+    const METAL_FERT_OBJECT_BRICK_QUERY = 'object_brick_query_MetalFert_1';
+    const METAL_FERT_OBJECT_BRICK_STORE = 'object_brick_store_MetalFert_1';
+
+    const PRODUCT_LOCALIZED_DATA = 'object_localized_data_1';
+    const PRODUCT_LOCALIZED_QUERY_L = 'object_localized_query_1_en';
+
+    const PRODUCT_QUERY = 'object_query_1';
+    const PRODUCT_STORE = 'object_store_1';
+
+    const BATCH_SIZE = 1000;
+    private $langArr;
+    private $db;
+    private $t;
+    private $featureList;
+    private $masterTypes;
+    private $masters;
+    private $brands;
+    protected function configure()
+    {
+        $this->setName('conti:onetimeimport:ptg')
+            ->setDescription('PTG Import')
+            ->addArgument('filePath', InputArgument::REQUIRED, 'Enter File Path: ');
+    }
+
+    public function execute(InputInterface $input, OutputInterface $output)
+    {
+        $this->masterTypes = [
+            'reinforcement' => 'ProductClass~reinforcement',
+            'material'  =>  'PTG~material'
+        ];
+
+        $filePath = $input->getArgument('filePath');
+        $this->db = Db::get();
+        $this->t = time();
+        $this->langArr = \Pimcore\Tool::getValidLanguages();
+        if (is_file($filePath)) {
+            p_r('Script started at: ' . date('h:i:s', $this->t));
+            p_r('------------------------------------------------');
+            $this->createTempTable();
+            $this->loadMaster();
+            $this->import($filePath);
+            $this->loadFeatures();
+            $this->updateBase();
+            $this->updateSkeleton();
+            $this->updateFert();
+            p_r('--------------Total Execution Time---------------');
+            p_r('Script completed after: ' . (abs(time() - $this->t) / 60) . ' mnt');
+        }
+    }
+
+    private function import($filePath)
+    {
+        p_r('Importing data into temp table');
+        $results = $this->getCSVData($filePath);
+        $this->truncateTemp();
+        $this->updateTable($results, 'ptg_import');
+        $this->filterSiopLvl5Data();
+        $this->filterSiopLvl6Data();
+    }
+
+
+    /**
+     * Updating siopLvl5 temp table with siop level 5 data
+     */
+    private function filterSiopLvl5Data()
+    {
+        p_r('Filtering Siop Level 5(Base Level) Data');
+        $sql = "INSERT INTO siopLvl5_objects SELECT o1_2.o_id as siopLvl5_object_id, o1_2.siopFullCode, pi.* FROM ptg_import pi JOIN object_1 o1_1 ON(o1_1.articleNumber=pi.SAPMaterialCode)
+        JOIN object_1 o1_2 ON(o1_2.siopFullCode=SUBSTR(o1_1.siopFullCode, 1, 16)) ON DUPLICATE KEY UPDATE siopLvl5_objects.Width_in=siopLvl5_objects.Width_in;";
+        $this->db->query($sql);
+    }
+
+    /**
+     * Updating siopLvl6 temp table with siop level 5 data
+     */
+    private function filterSiopLvl6Data()
+    {
+        p_r('Filtering Siop Level 6(Skeleton Level) Data');
+        $sql = "INSERT INTO siopLvl6_objects SELECT o1_2.o_id as siopLvl6_object_id, o1_2.siopFullCode, pi.* FROM ptg_import pi JOIN object_1 o1_1 ON(o1_1.articleNumber=pi.SAPMaterialCode)
+        JOIN object_1 o1_2 ON(o1_2.siopFullCode=o1_1.siopFullCode) JOIN object_2 ctgry ON(ctgry.fullCode=o1_2.siopFullCode)
+        WHERE o1_2.o_key=ctgry.o_key ON DUPLICATE KEY UPDATE siopLvl6_objects.Width_in=siopLvl6_objects.Width_in;";
+        $this->db->query($sql);
+    }
+
+    /**
+     * Updating siop level 5 data (PTG base level)
+     * Getting list of base leve data through query
+     * 
+     */
+    private function updateBase()
+    {
+        $sql = "SELECT siopLvl5_object_id o_id, 'Base' as fieldname, Material material, Min_Temperature_F minimumTemperatureF, Min_Temperature_C minimumTemperatureC, Reinforcement reinforcement, Max_Temperature_F maximumTemperatureF, Max_Temperature_C maximumTemperatureC, LongDescriptionHTML, CharacteristicDescription, Bullet_Point_1, Bullet_Point_2, Bullet_Point_3, Bullet_Point_4, Bullet_Point_5, Brand FROM siopLvl5_objects ";
+        $results = $this->db->fetchAll($sql);
+        
+        // Update Query Table
+
+        $records = $this->getMainClassData($results);
+        p_r('Processing ' . count($results) . ' records of main class data');
+        p_r('Updating Main Level');
+        $this->updateTable($records, self::PRODUCT_QUERY);
+        // Update Store Table
+        $this->updateTable($records, self::PRODUCT_STORE);
+        unset($records);
+        // Update Bullet Points
+        $records = $this->getBaseLocalizedData($results);
+        p_r('Updating Product Localized Data');
+        $this->updateTable($records, self::PRODUCT_LOCALIZED_DATA);
+        $this->updateTable($records, self::PRODUCT_LOCALIZED_QUERY_L);
+        unset($records);
+
+        $records = $this->getBaseBrickData($results);
+        p_r('Processing ' . count($results) . ' records at base level');
+        p_r('Updating Base Level');
+        $this->updateTable($records, self::PTG_BASE_OBJECT_BRICK_QUERY);
+        // Update Store Table
+        $this->updateTable($records, self::PTG_BASE_OBJECT_BRICK_STORE);
+        p_r('Base Level Updation - Done');
+        // Update localized base brick
+        /* Commenting below code due to deletion of fields from PTGBase bricks
+        $records = $this->getBaseBrickLocalizedData($results);
+        $this->updateTable($records['localizeData'], self::PTG_BASE_OBJECT_BRICK_LOCALIZED);
+        $this->updateTable($records['localizedQueryDataEN'], self::PTG_BASE_OBJECT_BRICK_LOCALIZED_QUERY_EN);
+         */
+    }
+
+    /**
+     * Updating siop level 5 data (PTG base level)
+     * Getting list of skeleton leve data through query
+     * 
+     */
+    private function updateSkeleton()
+    {
+        /* Field missing in the sheet */
+        /**
+         * beltAngle, height
+         */
+        $sql = "SELECT siopLvl6_object_id o_id, 'Skeleton' as fieldname, `Profile`, Static_Conductive staticConductive, 
+        Heat_and_Oil_Resistant heatOilResistant FROM siopLvl6_objects";
+        $results = $this->db->fetchAll($sql);
+        $records = $this->getSkeletonBricks($results);
+        p_r('Processing ' . count($results) . ' records at skeleton level');
+        p_r('Updating skeleton');
+        $this->updateTable($records, self::PTG_SKELETON_OBJECT_BRICK_QUERY);
+        $this->updateTable($records, self::PTG_SKELETON_OBJECT_BRICK_STORE);
+        p_r('Skeleton Updation - Done');
+    }
+
+    /**
+     * Updating all associated bricks at PTG Fert level
+     * Getting all available records for updating through query
+     * Received result will have all filtered data by matching sap code in object_1 table with articleNumber
+     * Getting mapped bricks object id by looking it into brick tables
+     * If brick id will not null then it will update the record 
+     */
+
+    private function updateFert()
+    {
+        // $sql = "SELECT o.o_id, pi.*, 'Digit14' as fieldname FROM ptg_import pi JOIN object_1 o ON(o.articleNumber=pi.SAPMaterialCode)";
+        $sql = "SELECT o.o_id, ptgf.o_id ptg_fert_oid, ptgblts.o_id ptg_belt_oid, ptgsync.o_id ptg_sync_oid, 
+        ptgmtl.o_id ptg_metal_oid, pi.*, 'Fert' as fieldname FROM ptg_import pi 
+        JOIN object_1 o ON(o.articleNumber=pi.SAPMaterialCode) 
+        LEFT JOIN object_brick_query_PTGFert_1 ptgf ON(ptgf.o_id=o.o_id) 
+        LEFT JOIN object_brick_query_BeltsFert_1 ptgblts ON(ptgblts.o_id=o.o_id) 
+        LEFT JOIN object_brick_query_SynchronousFert_1 ptgsync ON(ptgsync.o_id=o.o_id) 
+        LEFT JOIN object_brick_query_MetalFert_1 ptgmtl ON(ptgmtl.o_id=o.o_id)";
+        $results = $this->db->fetchAll($sql);
+
+
+        // p_r('Main Class Updation - Done');
+
+        p_r('Processing ' . count($results) . ' records at fert level');
+        $records = $this->getFertData($results);
+        
+
+
+
+        if (isset($records['ptgFertQuery']) && !empty($records['ptgFertQuery'])) {
+            p_r('Updating PTG Fert');
+            $this->updateTable($records['ptgFertQuery'], self::PTG_FERT_OBJECT_BRICK_QUERY);
+            $this->updateTable($records['ptgFertQuery'], self::PTG_FERT_OBJECT_BRICK_STORE);
+            p_r('PTG Fert Updation Done');
+        }
+        if (isset($records['beltsFertQuery']) && !empty($records['beltsFertQuery'])) {
+            p_r('Updating Belts Fert');
+            $this->updateTable($records['beltsFertQuery'], self::BELTS_FERT_OBJECT_BRICK_QUERY);
+            $this->updateTable($records['beltsFertQuery'], self::BELTS_FERT_OBJECT_BRICK_STORE);
+            p_r('Belts Fert Updation Done');
+        }
+        if (isset($records['syncFertQuery']) && !empty($records['syncFertQuery'])) {
+            p_r('Sync Fert Updating');
+            $this->updateTable($records['syncFertQuery'], self::SYNC_FERT_OBJECT_BRICK_QUERY);
+            $this->updateTable($records['syncFertStore'], self::SYNC_FERT_OBJECT_BRICK_STORE);
+            p_r('Sync Fert Updation Done');
+        }
+        if (isset($records['metalFertQuery']) && !empty($records['metalFertQuery'])) {
+            p_r('Metal Fert Updating');
+            $this->updateTable($records['metalFertQuery'], self::METAL_FERT_OBJECT_BRICK_QUERY);
+            $this->updateTable($records['metalFertQuery'], self::METAL_FERT_OBJECT_BRICK_STORE);
+            p_r('Metal Fert Updation Done');
+        }
+        $this->insertDataToLogTable($results);
+    }
+
+    private function getBaseLocalizedData($results)
+    {
+        $productLocalizedData = array();
+        foreach ($results as $r) {
+            // p_r($r);
+            $bullet = array();
+            $path = '/Master List/Features';
+            if (!$this->isSheetValueEmpty($r['Bullet_Point_1'])) {
+                array_push($bullet, $r['Bullet_Point_1']);
+            }
+            if (!$this->isSheetValueEmpty($r['Bullet_Point_2'])) {
+                array_push($bullet, $r['Bullet_Point_2']);
+            }
+            if (!$this->isSheetValueEmpty($r['Bullet_Point_3'])) {
+                array_push($bullet, $r['Bullet_Point_3']);
+            }
+            if (!$this->isSheetValueEmpty($r['Bullet_Point_4'])) {
+                array_push($bullet, $r['Bullet_Point_4']);
+            }
+            if (!$this->isSheetValueEmpty($r['Bullet_Point_5'])) {
+                array_push($bullet, $r['Bullet_Point_5']);
+            }
+            // p_r($bullet);
+            $ar = array(
+                'ooo_id' => $r['o_id'],
+                'language' => 'en',
+                'sapDescription' => !$this->isSheetValueEmpty($r['CharacteristicDescription']) ? $r['CharacteristicDescription'] : NULL,
+                'longDescription' => !$this->isSheetValueEmpty($r['LongDescriptionHTML']) ? $r['LongDescriptionHTML'] : NULL
+            );
+            $ar['FeaturesBenefitsBulletPoint'] = NULL;
+            if (!empty($bullet)) {
+                $featureIds = $this->getFeatureIds($bullet);
+                if (!empty($featureIds)) {
+                    $ar['FeaturesBenefitsBulletPoint'] = implode(",", $featureIds);
+                }
+            }
+            $ar['sapDescription'] = !$this->isSheetValueEmpty($r['CharacteristicDescription']) ? $r['CharacteristicDescription'] : NULL;
+            $ar['longDescription']  =  !$this->isSheetValueEmpty($r['LongDescriptionHTML']) ? $r['LongDescriptionHTML'] : NULL;
+            array_push($productLocalizedData, $ar);
+        }
+        return $productLocalizedData;
+    }
+    /**
+     * Get all bricks and product class localized mapped data
+     */
+    private function getFertData($results)
+    {
+        $unitConverter = \Pimcore::getContainer()->get('AppBundle\Services\UnitConverterService');
+        // Testing
+        // $arr = $unitConverter->getGroupWithValues('insideLengthIN', 25.5);
+        $d = array();
+        /**
+         * Commented fields are missing, means not found in imported sheet
+         */
+        $productLocalizedData = array();
+        $productLocalizedQueryL = array();
+        $ptgFertQuery = array();
+        $ptgFertStore = array();
+        $beltsFertQuery = array();
+        $beltsFertStore = array();
+        $syncFertQuery = array();
+        $syncFertStore = array();
+        $metalFertQuery = array();
+        $metalFertStore = array();
+        foreach ($results as $k => $r) {
+            // Product Level Data
+            
+
+
+            // PTG Fert
+            if (!empty($r['ptg_fert_oid'])) {
+                $ar = array(
+                    'o_id'      =>  $r['o_id'],
+                    'fieldname'     =>  $r['fieldname'],
+                    'color'   =>  !$this->isSheetValueEmpty($r['Color']) ? ucfirst(strtolower($r['Color'])) : NULL,
+                    'widthmm'   =>  !$this->isSheetValueEmpty($r['Width_in']) ? $unitConverter->getGroupWithValues('widthIn', floatval($r['Width_in']))['widthmm'] : NULL,
+                    'widthIn'   =>  !$this->isSheetValueEmpty($r['Width_in']) ? $r['Width_in'] : NULL,
+                );
+                array_push($ptgFertQuery, $ar);
+                // array_push($ptgFertStore, $ar);
+                unset($ar);
+            }
+
+            // Belt Fert
+            if (!empty($r['ptg_belt_oid'])) {
+                $ar = array(
+                    'o_id' =>  $r['o_id'],
+                    'fieldname' =>  $r['fieldname'],
+                    'numberOfBands' =>  !$this->isSheetValueEmpty($r['Number_of_Ribs']) ? $r['Number_of_Ribs'] : NULL,
+                    'insideLengthIN' => !$this->isSheetValueEmpty($r['Product_inside_Length_in']) ? $r['Product_inside_Length_in'] : NULL,
+                    'insideLengthMM' => !$this->isSheetValueEmpty($r['Product_inside_Length_in']) ? $unitConverter->getGroupWithValues('insideLengthIN', floatval($r['Product_inside_Length_in']))['insideLengthMM'] : NULL,
+                    'datumLengthIn' => !$this->isSheetValueEmpty($r['Datum_Length_in']) ? $r['Datum_Length_in'] : NULL,
+                    'datumLengtMM' => !$this->isSheetValueEmpty($r['Datum_Length_in']) ? $unitConverter->getGroupWithValues('datumLengthIn', floatval($r['Datum_Length_in']))['datumLengtMM'] : NULL,
+                    'outsideLengthIN' => !$this->isSheetValueEmpty($r['Outside_Length_in']) ? $r['Outside_Length_in'] : NULL,
+                    'outsideLengtMM' => !$this->isSheetValueEmpty($r['Outside_Length_in']) ? $unitConverter->getGroupWithValues('outsideLengthIN', floatval($r['Outside_Length_in']))['outsideLengtMM'] : NULL,
+                );
+                array_push($beltsFertQuery, $ar);
+                // array_push($beltsFertStore, $ar);
+                unset($ar);
+            }
+
+
+            // Synchronouse Fert
+            if (!empty($r['ptg_sync_oid'])) {
+                $ar = array(
+                    'o_id' =>  $r['o_id'],
+                    'fieldname' =>  $r['fieldname'],
+                    'pitchIN' =>  !$this->isSheetValueEmpty($r['Pitch_in']) ? $r['Pitch_in'] : NULL,
+                    'pitchMM' => !$this->isSheetValueEmpty($r['Pitch_in']) ? $unitConverter->getGroupWithValues('pitchIN', floatval($r['Pitch_in']))['pitchMM'] : NULL,
+                    'numberOfTeeth' =>  !$this->isSheetValueEmpty($r['Number_of_teeth']) ? $r['Number_of_teeth'] : NULL,
+                );
+
+                array_push($syncFertQuery, $ar);
+                array_push($syncFertStore, $ar);
+                unset($ar);
+            }
+
+
+
+            if (!empty($r['ptg_metal_oid'])) {
+                $bushing = "";
+                $bushing = $r['Bushing_Number'];
+                if ($this->isSheetValueEmpty($bushing) && !$this->isSheetValueEmpty($r['Bushing_Style'])) {
+                    $bushing = $r['Bushing_Style'];
+                }
+                if (!$this->isSheetValueEmpty($bushing) && !$this->isSheetValueEmpty($r['Bushing_Style'])) {
+                    $bushing .= " " . $r['Bushing_Style'];
+                }
+
+                $ar = array(
+                    'o_id'  =>  $r['o_id'],
+                    'fieldname'  =>  $r['fieldname'],
+                    'Bushing' => $bushing,
+                    'MaxRPM' => !$this->isSheetValueEmpty($r['Max_RPM']) ? $r['Max_RPM'] : NULL,
+                    'GroovesPerTooth' => !$this->isSheetValueEmpty($r['Number_of_Grooves']) ? $r['Number_of_Grooves'] : NULL,
+                    'maxBoreSizeIN'  =>  !$this->isSheetValueEmpty($r['Max_Bore_Size_in']) ? $r['Max_Bore_Size_in'] : NULL,
+                    'maxBoreSizeMM'  =>  !$this->isSheetValueEmpty($r['Max_Bore_Size_in']) ? $unitConverter->getGroupWithValues('maxBoreSizeIN', floatval($r['Max_Bore_Size_in']))['maxBoreSizeMM'] : NULL,
+                    'flangeDiameterIn'  =>  !$this->isSheetValueEmpty($r['Flange_Outer_Diameter_in']) ? $r['Flange_Outer_Diameter_in'] : NULL,
+                    'flangeDiameterMm'  =>  !$this->isSheetValueEmpty($r['Flange_Outer_Diameter_in']) ? $unitConverter->getGroupWithValues('flangeDiameterIn', floatval($r['Flange_Outer_Diameter_in']))['flangeDiameterMm'] : NULL
+                );
+
+                $ar['DatumDiameterIN'] = NULL;
+                $ar['DatumDiameterMM'] = NULL;
+                $ar['outsideDiameterIn'] = NULL;
+                $ar['outsideDiameterMm'] = NULL;
+                $ar['pitchDiameterIn'] = NULL;
+                $ar['pitchDiameterMm'] = NULL;
+                $ar['faceWidthIn'] = NULL;
+                $ar['faceWidthMm'] = NULL;
+                $ar['minBoreIn'] = NULL;
+                $ar['minBoreMm'] = NULL;
+                $ar['flange'] = NULL;
+                $ar['overAllLengthIn'] = NULL;
+                $ar['overAllLengthMm'] = NULL;
+                $ar['BoreIN'] = NULL;
+                $ar['BoreMM'] = NULL;
+                $ar['faceWidthIn'] = NULL;
+                $ar['faceWidthMm'] = NULL;
+                if (!$this->isSheetValueEmpty($r['Top_Belt_Width_per_Strand_in'])) {
+                    $ar['faceWidthIn'] = $r['Top_Belt_Width_per_Strand_in'];
+                    $ar['faceWidthMm'] = $unitConverter->getGroupWithValues('faceWidthIn', floatval($r['Top_Belt_Width_per_Strand_in']))['faceWidthMm'];
+                }
+                if (!$this->isSheetValueEmpty($r['Stock_Bore_in'])) {
+                    $ar['BoreIN'] = $r['Stock_Bore_in'];
+                    $ar['BoreMM'] = $unitConverter->getGroupWithValues('BoreIN', floatval($r['Stock_Bore_in']))['BoreMM'];
+                }
+                if (!$this->isSheetValueEmpty($r['Length_Trough_Bore_in'])) {
+                    $ar['overAllLengthIn'] = $r['Length_Trough_Bore_in'];
+                    $ar['overAllLengthMm'] = $unitConverter->getGroupWithValues('overAllLengthIn', floatval($r['Length_Trough_Bore_in']))['overAllLengthMm'];
+                }
+                if (!$this->isSheetValueEmpty($r['DatumDiameterIN'])) {
+                    $ar['DatumDiameterIN'] = $r['Datum_Diameter_in'];
+                    $ar['DatumDiameterMM'] = $unitConverter->getGroupWithValues('DatumDiameterIN', floatval($r['Datum_Diameter_in']))['DatumDiameterMM'];
+                }
+                if (!$this->isSheetValueEmpty($r['Outside_Diameter_in'])) {
+                    $ar['outsideDiameterIn'] = $r['Outside_Diameter_in'];
+                    $ar['outsideDiameterMm'] = $unitConverter->getGroupWithValues('outsideDiameterIn', floatval($r['Outside_Diameter_in']))['outsideDiameterMm'];
+                }
+                if (!$this->isSheetValueEmpty($r['Pitch_Diameter_in'])) {
+                    $ar['pitchDiameterIn'] = $r['Pitch_Diameter_in'];
+                    $ar['pitchDiameterMm'] = $unitConverter->getGroupWithValues('pitchDiameterIn', floatval($r['Pitch_Diameter_in']))['pitchDiameterMm'];
+                }
+                if (!$this->isSheetValueEmpty($r['Face_Width_in'])) {
+                    $ar['faceWidthIn'] = $r['Face_Width_in'];
+                    $ar['faceWidthMm'] = $unitConverter->getGroupWithValues('faceWidthIn', floatval($r['Face_Width_in']))['faceWidthMm'];
+                }
+                if (!$this->isSheetValueEmpty($r['Min_Bore_Size_in_Bushings'])) {
+                    $ar['minBoreIn'] = $r['Min_Bore_Size_in_Bushings'];
+                    $ar['minBoreMm'] = $unitConverter->getGroupWithValues('minBoreIn', floatval($r['Min_Bore_Size_in_Bushings']))['minBoreMm'];
+                }
+                if (!$this->isSheetValueEmpty($r['Flanges_Yes_No']) && (strtolower($r['Flanges_Yes_No']) == 'y' || strtolower($r['Flanges_Yes_No']) == 'yes')) {
+                    $ar['flange'] = 1;
+                } else if (!$this->isSheetValueEmpty($r['Flanges_Yes_No']) && (strtolower($r['Flanges_Yes_No']) == 'n' || strtolower($r['Flanges_Yes_No']) == 'no')) {
+                    $ar['flange'] = 0;
+                }
+                array_push($metalFertQuery, $ar);
+                // array_push($metalFertStore, $ar);
+                unset($ar);
+            }
+        }
+        return array(
+            'ptgFertQuery'      =>  $ptgFertQuery,
+            'ptgFertStore'      =>  $ptgFertStore,
+            'beltsFertQuery'    =>  $beltsFertQuery,
+            'beltsFertStore'    =>  $beltsFertStore,
+            'syncFertQuery'     =>  $syncFertQuery,
+            'syncFertStore'     =>  $syncFertStore,
+            'metalFertQuery'    =>  $metalFertQuery,
+            'metalFertStore'    =>  $metalFertStore,
+            'productLocalizedData'  =>  $productLocalizedData,
+            'productLocalizedQueryL' =>  $productLocalizedQueryL
+        );
+    }
+
+    private function isSheetValueEmpty($str)
+    {
+        if (empty(trim($str)) || trim($str) == '-')
+            return true;
+        return false;
+    }
+
+    private function getMainClassData($results)
+    {
+        $unitConverter = \Pimcore::getContainer()->get('AppBundle\Services\UnitConverterService');
+        $d = array();
+        foreach ($results as $k => $r) {
+            $reinforcement = array();
+            $brnds = array();
+
+            if (!empty($r['Brand'])) {
+                $clrArr = array();
+                $clrArr = explode("/", strtolower($r['Brand']));
+                $clrInfo = $this->getBrands($clrArr);
+                if (!empty($clrInfo['itemNotFound'])) {
+                    $error[] = "Brands(s) '" . $clrInfo['itemNotFound'] . "' not found in master";
+                } else {
+                    $brnds = $clrInfo['items'];
+                }
+                unset($clrInfo);
+            }
+
+            if (!empty($r['reinforcement'])) {
+                $clrArr = array();
+                $clrArr = explode("/", strtolower($r['reinforcement']));
+                $clrInfo = $this->getMultiselectInfo('reinforcement', $clrArr);
+                if (!empty($clrInfo['itemNotFound'])) {
+                    $error[] = "Reinforcement(s) '" . $clrInfo['itemNotFound'] . "' not found in master";
+                } else {
+                    $reinforcement = $clrInfo['items'];
+                }
+                unset($clrInfo);
+            }
+            $d[$k] = array(
+                'oo_id'  =>  $r['o_id'],
+//                'minimumTemperatureF'  =>  isset($r['minimumTemperatureF']) ? $r['minimumTemperatureF'] : NULL,
+//                'minimumTemperatureC'  =>  $unitConverter->getGroupWithValues('widthIn', floatval($r['Width_in']))['widthmm'] ,
+//                'maximumTemperatureF'  =>  isset($r['maximumTemperatureF']) ? $r['maximumTemperatureF'] : NULL,
+//                'maximumTemperatureC'  =>  isset($r['maximumTemperatureC']) ? $r['maximumTemperatureC'] : NULL,
+                'brandName'    =>  !empty($brnds) ? implode(',', $brnds) : NULL
+            );
+            if (isset($r['minimumTemperatureF']) && $r['minimumTemperatureF'] != '' && $r['minimumTemperatureF'] != null && $r['minimumTemperatureF'] != '-') {
+                $unit = $unitConverter->getGroupWithValues('minimumTemperatureF', floatval($r['minimumTemperatureF']));
+                $d[$k]['minimumTemperatureF'] = $unit['minimumTemperatureF'];
+                $d[$k]['minimumTemperatureC'] = $unit['minimumTemperatureC'];
+                unset($unit);
+            } else {
+                $d[$k]['minimumTemperatureF'] = null;
+                $d[$k]['minimumTemperatureC'] = null;
+            }
+            if (isset($r['maximumTemperatureF']) && $r['maximumTemperatureF'] != '' && $r['maximumTemperatureF'] != null && $r['maximumTemperatureF'] != '-') {
+                $unit = $unitConverter->getGroupWithValues('maximumTemperatureF', floatval($r['maximumTemperatureF']));
+                $d[$k]['maximumTemperatureF'] = $unit['maximumTemperatureF'];
+                $d[$k]['maximumTemperatureC'] = $unit['maximumTemperatureC'];
+                unset($unit);
+            } else {
+                $d[$k]['maximumTemperatureF'] = null;
+                $d[$k]['maximumTemperatureC'] = null;
+            }
+            
+            $d[$k]['reinforcement'] = !empty($reinforcement) ? implode(",", $reinforcement) : NULL;
+        }
+        return $d;
+    }
+
+    private function getBaseBrickData($results)
+    {
+        $d = array();
+        foreach ($results as $r) {
+            $matrls = array();
+            if (!$this->isSheetValueEmpty($r['material'])) {
+                $clrArr = array();
+                $clrArr = explode("/", strtolower($r['material']));
+                $clrInfo = $this->getMultiselectInfo('material', $clrArr);
+                if (!empty($clrInfo['itemNotFound'])) {
+                    $error[] = "Materials(s) '" . $clrInfo['itemNotFound'] . "' not found in master";
+                } else {
+                    $matrls = $clrInfo['items'];
+                }
+                unset($clrInfo);
+            }
+
+            $d[] = array(
+                'o_id'  =>  $r['o_id'],
+                'fieldname'  =>  $r['fieldname'],
+                'material'  =>  !empty($matrls) ? implode(",",$matrls) : NULL
+            );
+        }
+        return $d;
+    }
+
+    private function getSkeletonBricks($results)
+    {
+        $d = array();
+        foreach ($results as $r) {
+            $d[] = array(
+                'o_id'  =>  $r['o_id'],
+                'fieldname'  =>  $r['fieldname'],
+                'profile'  =>  !$this->isSheetValueEmpty($r['Profile']) ? $r['Profile'] : NULL,
+                'staticConductive'  =>  !$this->isSheetValueEmpty($r['staticConductive']) ? $r['staticConductive'] : NULL,
+                'heatOilResistant'  =>  !$this->isSheetValueEmpty($r['heatOilResistant']) ? $r['heatOilResistant'] : NULL
+            );
+        }
+        return $d;
+    }
+
+    private function updateTable($results, $table)
+    {
+        try {
+            $rowCount = 1;
+            $values = '';
+            if (!empty($results)) {
+                $sql = "INSERT INTO {$table}";
+                $firstRow = $results[0];
+                $keys = array_keys($firstRow);
+                $valColumns = [];
+                foreach ($keys as $key) {
+                    $sqlColumns[] = "`" . $key . "`";
+                    if ($key != 'o_id') {
+                        $updateColumns[] = "`" . $key . "`= VALUES(`" . $key . "`)";
+                    }
+                    $valColumns[] = $key;
+                }
+                $sql = $sql . " (" . implode(",", $sqlColumns) . ") VALUES ";
+                $update = " ON DUPLICATE KEY UPDATE " . implode(",", $updateColumns);
+                foreach ($results as $r) {
+                    $valueArray = [];
+                    foreach ($valColumns as $key) {
+                        if (!is_null($r[$key])) {
+                            $valueArray[] = $this->db->quote($r[$key]);
+                        } else {
+                            $valueArray[] = "NULL";
+                        }
+                    }
+                    $values .= '(' . implode(",", $valueArray) . '),';
+
+                    if ($rowCount % self::BATCH_SIZE == 0) {
+                        $query = $sql . rtrim($values, ',') . $update;
+                        $this->db->query($query);
+                        $values = '';
+                    }
+                    $rowCount++;
+                }
+                if (!empty($values)) {
+                    $query = $sql . rtrim($values, ',') . $update;
+                    $this->db->query($query);
+                }
+                // p_r($query);
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
+            p_r($th->getMessage());
+        }
+        unset($results, $table);
+    }
+
+
+    private function truncateTemp()
+    {
+        $sql = "TRUNCATE siopLvl5_objects; TRUNCATE siopLvl6_objects; TRUNCATE ptg_import;";
+        $this->db->query($sql);
+    }
+
+    public function insertDataToLogTable($data, $flag = true)
+    {
+        try {
+            if ($flag) {
+                p_r("Updating Log..");
+            }
+            $rowCount = 1;
+            $sql = "INSERT INTO ptg_import_log (id, record, statusCode, failedReason, createdAt) VALUES";
+            foreach ($data as $dataKey => $dataValue) {
+                if ($flag) {
+                    $values .= '("' . $dataValue['SAPMaterialCode'] . '", "' . addslashes(json_encode($dataValue)) . '", "Success","",now()),';
+                } else {
+                    $values .= '("' . $dataValue['SAPMaterialCode'] . '", "' . addslashes(json_encode($dataValue)) . '", "Failed","Sap Code not found in material mara sheet",now()),';
+                }
+                // inserting records in batch
+                if ($rowCount % self::BATCH_SIZE == 0) {
+                    $query = $sql . rtrim($values, ',');
+                    $this->db->query($query);
+                    $values = '';
+                }
+                $rowCount++;
+            }
+            if ($values) {
+                $query = $sql . rtrim($values, ',');
+                $this->db->query($query);
+            }
+            $data = null;
+            if ($flag) {
+                p_r('Updating rest log');
+                $flag = false;
+                $sql = "SELECT pi.* FROM ptg_import pi LEFT JOIN object_1 o ON(o.articleNumber=pi.SAPMaterialCode) WHERE o.o_id is null";
+                $data = $this->db->fetchAll($sql);
+                $this->insertDataToLogTable($data, false);
+            }
+        } catch (\Exception $ex) {
+            echo $ex->getMessage();
+        }
+    }
+
+    private function loadFeatures()
+    {
+        $sql = "SELECT f.o_id, fl.Name feature FROM object_29 f JOIN object_localized_data_29 fl ON(f.o_id=fl.ooo_id) WHERE f.FeatureType='PTG'";
+        $this->featureList = $this->db->fetchAll($sql);
+    }
+
+    private function getFeatureIds($features)
+    {
+        $featureIds = array();
+        if (is_array($this->featureList) && !empty($features)) {
+            foreach ($this->featureList as $result) {
+                if (in_array($result['feature'], $features)) {
+                    array_push($featureIds, $result['o_id']);
+                }
+            }
+        }
+        return $featureIds;
+    }
+    public function getCSVData($fileName)
+    {
+        try {
+            $columns = ['SAPMaterialCode', 'Product_Hrc_Lvl2_Name', 'Product_Hrc_Lvl3_Name', 'Product_Hrc_Lvl4_Name', 'LongDescriptionHTML', 'Bullet_Point_1', 'Bullet_Point_2', 'Bullet_Point_3', 'Bullet_Point_4', 'Bullet_Point_5', 'CharacteristicDescription', 'Belt_Profile_Grv_Cross_Section', 'Brand', 'Bushing_Number', 'Bushing_Style', 'Color', 'Datum_Diameter_in', 'Datum_Diameter_mm', 'Datum_Length_in', 'Datum_Length_mm', 'Face_Width_in', 'Face_Width_mm', 'Flange_Outer_Diameter_in', 'Flange_Outer_Diameter_mm', 'Flanges_Yes_No', 'Heat_and_Oil_Resistant', 'Length_Trough_Bore_in', 'Length_Trough_Bore_mm', 'Material', 'Max_Bore_Size_in', 'Max_Bore_Size_mm', 'Max_RPM', 'Max_Temperature_C', 'Max_Temperature_F', 'Min_Bore_Size_in_Bushings', 'Min_Bore_Size_mm', 'Min_Temperature_C', 'Min_Temperature_F', 'Number_of_Grooves', 'Number_of_Ribs', 'Number_of_teeth', 'Outside_Diameter_in', 'Outside_Diameter_mm', 'Outside_Length_in', 'Outside_Length_mm', 'Pitch_in', 'Pitch_mm', 'Pitch_Diameter_in', 'Pitch_Diameter_mm', 'Product_inside_Length_in', 'Product_inside_Length_mm', 'Profile', 'Reinforcement', 'Static_Conductive', 'Stock_Bore_in', 'Stock_Bore_mm', 'Top_Belt_Width_per_Strand_in', 'Top_Belt_Width_per_Strand_mm', 'Width_in', 'Width_mm'];
+            $csvFilePath = $fileName;
+            $firstRowData = array();
+            if (empty($csvFilePath)) {
+                return $firstRowData;
+            }
+
+            // $csvFilePath = PIMCORE_ASSET_DIRECTORY . $filePath;
+
+            $csvFilePath = str_replace("%20", " ", $csvFilePath);
+
+            $dialect = \Pimcore\Tool\Admin::determineCsvDialect($csvFilePath);
+            $data = [];
+            $count = 0;
+
+            if (($handle = fopen($csvFilePath, 'r')) !== false) {
+                while (($rowData = fgetcsv($handle, 0, $dialect->delimiter, $dialect->quotechar, $dialect->escapechar)) !== false) {
+                    if ($count == 0) {
+                        foreach ($columns as $key => $value) {
+                            unset($rowData[$key]);
+                            $rowData[utf8_decode(trim($key))] = utf8_decode(trim($value));
+                        }
+                        $firstRowData = $rowData;
+                    } else {
+                        $tmpData = [];
+                        foreach ($firstRowData as $key => $value) {
+                            $tmpData[$value] = utf8_encode($rowData[$key]);
+                            $tmpData[$value] = $rowData[$key];
+                        }
+                        $data[] = $tmpData;
+                        $cols = count($rowData);
+                    }
+                    $count++;
+                }
+                fclose($handle);
+            }
+            return $data;
+        } catch (\Exception $e) {
+            return array(
+                'error' => $e->getMessage()
+            );
+        }
+    }
+
+    /**
+     * Loading Masters
+     * Class: Multiselector
+     * ClassId = 22
+     * View: object_22
+     */
+    private function loadMaster()
+    {
+        $where = "";
+        $sql = "SELECT o.oo_id o_id, o.masterType, oe.name FROM object_query_22 o JOIN object_localized_22_en oe ON(oe.`ooo_id`=o.oo_id)";
+        foreach ($this->masterTypes as $type) {
+            if (empty($where)) {
+                $where = " WHERE o.masterType LIKE '%$type%'";
+            } else {
+                $where .= " OR o.masterType LIKE '%$type%'";
+            }
+        }
+        $results = $this->db->query($sql . $where);
+
+        foreach ($results as $result) {
+            $type = array_search($result['masterType'], $this->masterTypes);
+            $this->masters[$type][$result['o_id']] = strtolower($result['name']);
+            unset($type);
+        }
+
+        unset($results);
+        /* Loading Brands */
+        $sql = "SELECT o_id, `name` FROM object_3";
+        $results = $this->db->query($sql);
+        foreach ($results as $result) {
+            $type = array_search($result['masterType'], $this->masterTypes);
+            $this->brands[$result['o_id']] = strtolower($result['name']);
+            unset($type);
+        }
+    }
+
+    /**
+     * @param $masterKey: key name of the master array
+     * $items: array which value have to be checked in master array
+     * return type array
+     * array elements
+     * * items: list of matched value
+     * * itemNotFound: list of searched item which not found in master
+     * 
+     */
+    private function getMultiselectInfo($masterKey, $items)
+    {
+        $res = array();
+        $itemNotFound = array();
+        $hayStackArr = isset($this->masters[$masterKey]) && is_array($this->masters[$masterKey]) ? $this->masters[$masterKey] : array();
+
+        foreach ($items as $val) {
+            $item = array_search(trim($val), $hayStackArr) ?: false;
+            if ($item === false) {
+                $itemNotFound[] = ucfirst($val);
+            } else {
+                array_push($res, $item);
+            }
+        }
+        unset($hayStackArr, $items);
+        return array(
+            'items' =>  $res,
+            'itemNotFound' => !empty($itemNotFound) ? implode(",", $itemNotFound) : false
+        );
+    }
+
+    /**
+     * It will return brand ids
+     * @param Brand information
+     * return array (brand_ids)
+     */
+    private function getBrands($items)
+    {
+        $res = array();
+        $itemNotFound = array();
+        $hayStackArr = is_array($this->brands) ? $this->brands : array();
+        foreach ($items as $val) {
+            $item = array_search(trim($val), $hayStackArr) ?: false;
+            if ($item === false) {
+                $itemNotFound[] = ucfirst($val);
+            } else {
+                array_push($res, $item);
+            }
+        }
+        unset($hayStackArr, $items);
+        return array(
+            'items' =>  $res,
+            'itemNotFound' => !empty($itemNotFound) ? implode(",", $itemNotFound) : false
+        );
+    }
+
+    /**
+     * Will create all required temp table
+     */
+    private function createTempTable()
+    {
+        $sql1 = " CREATE TABLE IF NOT EXISTS `ptg_import` (
+            `SAPMaterialCode` varchar(20) NOT NULL,
+            `Product_Hrc_Lvl2_Name` varchar(100) NOT NULL,
+            `Product_Hrc_Lvl3_Name` varchar(100) NOT NULL,
+            `Product_Hrc_Lvl4_Name` varchar(100) NOT NULL,
+            `LongDescriptionHTML` text NOT NULL,
+            `Bullet_Point_1` varchar(100) NOT NULL,
+            `Bullet_Point_2` varchar(100) NOT NULL,
+            `Bullet_Point_3` varchar(100) NOT NULL,
+            `Bullet_Point_4` varchar(100) NOT NULL,
+            `Bullet_Point_5` varchar(100) NOT NULL,
+            `CharacteristicDescription` varchar(255) NOT NULL,
+            `Belt_Profile_Grv_Cross_Section` varchar(255) NOT NULL,
+            `Brand` varchar(100) NOT NULL,
+            `Bushing_Number` varchar(20) NOT NULL,
+            `Bushing_Style` varchar(100) NOT NULL,
+            `Color` varchar(20) NOT NULL,
+            `Datum_Diameter_in` varchar(50) NOT NULL,
+            `Datum_Diameter_mm` varchar(50) NOT NULL,
+            `Datum_Length_in` varchar(50) NOT NULL,
+            `Datum_Length_mm` varchar(20) NOT NULL,
+            `Face_Width_in` varchar(255) NOT NULL,
+            `Face_Width_mm` varchar(255) NOT NULL,
+            `Flange_Outer_Diameter_in` varchar(255) NOT NULL,
+            `Flange_Outer_Diameter_mm` varchar(255) NOT NULL,
+            `Flanges_Yes_No` varchar(255) NOT NULL,
+            `Heat_and_Oil_Resistant` varchar(255) NOT NULL,
+            `Length_Trough_Bore_in` varchar(255) NOT NULL,
+            `Length_Trough_Bore_mm` varchar(255) NOT NULL,
+            `Material` varchar(255) NOT NULL,
+            `Max_Bore_Size_in` varchar(255) NOT NULL,
+            `Max_Bore_Size_mm` varchar(255) NOT NULL,
+            `Max_RPM` varchar(255) NOT NULL,
+            `Max_Temperature_C` varchar(255) NOT NULL,
+            `Max_Temperature_F` varchar(255) NOT NULL,
+            `Min_Bore_Size_in_Bushings` varchar(255) NOT NULL,
+            `Min_Bore_Size_mm` varchar(255) NOT NULL,
+            `Min_Temperature_C` varchar(255) NOT NULL,
+            `Min_Temperature_F` varchar(255) NOT NULL,
+            `Number_of_Grooves` varchar(255) NOT NULL,
+            `Number_of_Ribs` varchar(255) NOT NULL,
+            `Number_of_teeth` varchar(100) NOT NULL,
+            `Outside_Diameter_in` varchar(50) NOT NULL,
+            `Outside_Diameter_mm` varchar(50) NOT NULL,
+            `Outside_Length_in` varchar(50) NOT NULL,
+            `Outside_Length_mm` varchar(50) NOT NULL,
+            `Pitch_in` varchar(50) NOT NULL,
+            `Pitch_mm` varchar(50) NOT NULL,
+            `Pitch_Diameter_in` varchar(50) NOT NULL,
+            `Pitch_Diameter_mm` varchar(50) NOT NULL,
+            `Product_inside_Length_in` varchar(50) NOT NULL,
+            `Product_inside_Length_mm` varchar(50) NOT NULL,
+            `Profile` varchar(50) NOT NULL,
+            `Reinforcement` varchar(40) NOT NULL,
+            `Static_Conductive` varchar(40) NOT NULL,
+            `Stock_Bore_in` varchar(50) NOT NULL,
+            `Stock_Bore_mm` varchar(50) NOT NULL,
+            `Top_Belt_Width_per_Strand_in` varchar(50) NOT NULL,
+            `Top_Belt_Width_per_Strand_mm` varchar(50) NOT NULL,
+            `Width_in` varchar(50) NOT NULL,
+            `Width_mm` varchar(50) NOT NULL,
+            PRIMARY KEY (`SAPMaterialCode`)
+          ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+        //   $this->db->query($sql);
+
+        $sql2 = "CREATE TABLE IF NOT EXISTS `siopLvl5_objects` (
+            `siopLvl5_object_id` varchar(10) NOT NULL,
+  `siopFullCode` varchar(20) NOT NULL,
+  `SAPMaterialCode` varchar(20) NOT NULL,
+  `Product_Hrc_Lvl2_Name` varchar(100) NOT NULL,
+  `Product_Hrc_Lvl3_Name` varchar(100) NOT NULL,
+  `Product_Hrc_Lvl4_Name` varchar(100) NOT NULL,
+  `LongDescriptionHTML` text NOT NULL,
+  `Bullet_Point_1` varchar(100) NOT NULL,
+  `Bullet_Point_2` varchar(100) NOT NULL,
+  `Bullet_Point_3` varchar(100) NOT NULL,
+  `Bullet_Point_4` varchar(100) NOT NULL,
+  `Bullet_Point_5` varchar(100) NOT NULL,
+  `CharacteristicDescription` varchar(255) NOT NULL,
+  `Belt_Profile_Grv_Cross_Section` varchar(255) NOT NULL,
+  `Brand` varchar(100) NOT NULL,
+  `Bushing_Number` varchar(20) NOT NULL,
+  `Bushing_Style` varchar(100) NOT NULL,
+  `Color` varchar(20) NOT NULL,
+  `Datum_Diameter_in` varchar(50) NOT NULL,
+  `Datum_Diameter_mm` varchar(50) NOT NULL,
+  `Datum_Length_in` varchar(50) NOT NULL,
+  `Datum_Length_mm` varchar(20) NOT NULL,
+  `Face_Width_in` varchar(255) NOT NULL,
+  `Face_Width_mm` varchar(255) NOT NULL,
+  `Flange_Outer_Diameter_in` varchar(255) NOT NULL,
+  `Flange_Outer_Diameter_mm` varchar(255) NOT NULL,
+  `Flanges_Yes_No` varchar(255) NOT NULL,
+  `Heat_and_Oil_Resistant` varchar(255) NOT NULL,
+  `Length_Trough_Bore_in` varchar(255) NOT NULL,
+  `Length_Trough_Bore_mm` varchar(255) NOT NULL,
+  `Material` varchar(255) NOT NULL,
+  `Max_Bore_Size_in` varchar(255) NOT NULL,
+  `Max_Bore_Size_mm` varchar(255) NOT NULL,
+  `Max_RPM` varchar(255) NOT NULL,
+  `Max_Temperature_C` varchar(255) NOT NULL,
+  `Max_Temperature_F` varchar(255) NOT NULL,
+  `Min_Bore_Size_in_Bushings` varchar(255) NOT NULL,
+  `Min_Bore_Size_mm` varchar(255) NOT NULL,
+  `Min_Temperature_C` varchar(255) NOT NULL,
+  `Min_Temperature_F` varchar(255) NOT NULL,
+  `Number_of_Grooves` varchar(255) NOT NULL,
+  `Number_of_Ribs` varchar(255) NOT NULL,
+  `Number_of_teeth` varchar(100) NOT NULL,
+  `Outside_Diameter_in` varchar(50) NOT NULL,
+  `Outside_Diameter_mm` varchar(50) NOT NULL,
+  `Outside_Length_in` varchar(50) NOT NULL,
+  `Outside_Length_mm` varchar(50) NOT NULL,
+  `Pitch_in` varchar(50) NOT NULL,
+  `Pitch_mm` varchar(50) NOT NULL,
+  `Pitch_Diameter_in` varchar(50) NOT NULL,
+  `Pitch_Diameter_mm` varchar(50) NOT NULL,
+  `Product_inside_Length_in` varchar(50) NOT NULL,
+  `Product_inside_Length_mm` varchar(50) NOT NULL,
+  `Profile` varchar(50) NOT NULL,
+  `Reinforcement` varchar(40) NOT NULL,
+  `Static_Conductive` varchar(40) NOT NULL,
+  `Stock_Bore_in` varchar(50) NOT NULL,
+  `Stock_Bore_mm` varchar(50) NOT NULL,
+  `Top_Belt_Width_per_Strand_in` varchar(50) NOT NULL,
+  `Top_Belt_Width_per_Strand_mm` varchar(50) NOT NULL,
+  `Width_in` varchar(50) NOT NULL,
+  `Width_mm` varchar(50) NOT NULL,
+  PRIMARY KEY (`siopLvl5_object_id`)
+          ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+        //   $this->db->query($sql);
+
+        $sql3 = "CREATE TABLE IF NOT EXISTS `siopLvl6_objects` (
+            `siopLvl6_object_id` varchar(10) NOT NULL,
+  `siopFullCode` varchar(20) NOT NULL,
+  `SAPMaterialCode` varchar(20) NOT NULL,
+  `Product_Hrc_Lvl2_Name` varchar(100) NOT NULL,
+  `Product_Hrc_Lvl3_Name` varchar(100) NOT NULL,
+  `Product_Hrc_Lvl4_Name` varchar(100) NOT NULL,
+  `LongDescriptionHTML` text NOT NULL,
+  `Bullet_Point_1` varchar(100) NOT NULL,
+  `Bullet_Point_2` varchar(100) NOT NULL,
+  `Bullet_Point_3` varchar(100) NOT NULL,
+  `Bullet_Point_4` varchar(100) NOT NULL,
+  `Bullet_Point_5` varchar(100) NOT NULL,
+  `CharacteristicDescription` varchar(255) NOT NULL,
+  `Belt_Profile_Grv_Cross_Section` varchar(255) NOT NULL,
+  `Brand` varchar(100) NOT NULL,
+  `Bushing_Number` varchar(20) NOT NULL,
+  `Bushing_Style` varchar(100) NOT NULL,
+  `Color` varchar(20) NOT NULL,
+  `Datum_Diameter_in` varchar(50) NOT NULL,
+  `Datum_Diameter_mm` varchar(50) NOT NULL,
+  `Datum_Length_in` varchar(50) NOT NULL,
+  `Datum_Length_mm` varchar(20) NOT NULL,
+  `Face_Width_in` varchar(255) NOT NULL,
+  `Face_Width_mm` varchar(255) NOT NULL,
+  `Flange_Outer_Diameter_in` varchar(255) NOT NULL,
+  `Flange_Outer_Diameter_mm` varchar(255) NOT NULL,
+  `Flanges_Yes_No` varchar(255) NOT NULL,
+  `Heat_and_Oil_Resistant` varchar(255) NOT NULL,
+  `Length_Trough_Bore_in` varchar(255) NOT NULL,
+  `Length_Trough_Bore_mm` varchar(255) NOT NULL,
+  `Material` varchar(255) NOT NULL,
+  `Max_Bore_Size_in` varchar(255) NOT NULL,
+  `Max_Bore_Size_mm` varchar(255) NOT NULL,
+  `Max_RPM` varchar(255) NOT NULL,
+  `Max_Temperature_C` varchar(255) NOT NULL,
+  `Max_Temperature_F` varchar(255) NOT NULL,
+  `Min_Bore_Size_in_Bushings` varchar(255) NOT NULL,
+  `Min_Bore_Size_mm` varchar(255) NOT NULL,
+  `Min_Temperature_C` varchar(255) NOT NULL,
+  `Min_Temperature_F` varchar(255) NOT NULL,
+  `Number_of_Grooves` varchar(255) NOT NULL,
+  `Number_of_Ribs` varchar(255) NOT NULL,
+  `Number_of_teeth` varchar(100) NOT NULL,
+  `Outside_Diameter_in` varchar(50) NOT NULL,
+  `Outside_Diameter_mm` varchar(50) NOT NULL,
+  `Outside_Length_in` varchar(50) NOT NULL,
+  `Outside_Length_mm` varchar(50) NOT NULL,
+  `Pitch_in` varchar(50) NOT NULL,
+  `Pitch_mm` varchar(50) NOT NULL,
+  `Pitch_Diameter_in` varchar(50) NOT NULL,
+  `Pitch_Diameter_mm` varchar(50) NOT NULL,
+  `Product_inside_Length_in` varchar(50) NOT NULL,
+  `Product_inside_Length_mm` varchar(50) NOT NULL,
+  `Profile` varchar(50) NOT NULL,
+  `Reinforcement` varchar(40) NOT NULL,
+  `Static_Conductive` varchar(40) NOT NULL,
+  `Stock_Bore_in` varchar(50) NOT NULL,
+  `Stock_Bore_mm` varchar(50) NOT NULL,
+  `Top_Belt_Width_per_Strand_in` varchar(50) NOT NULL,
+  `Top_Belt_Width_per_Strand_mm` varchar(50) NOT NULL,
+  `Width_in` varchar(50) NOT NULL,
+  `Width_mm` varchar(50) NOT NULL,
+  PRIMARY KEY (`siopLvl6_object_id`)
+          ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+
+        $sql4 = "CREATE TABLE IF NOT EXISTS `ptg_import_log` (
+            `logId` bigint(20) NOT NULL AUTO_INCREMENT,
+            `id` varchar(30) NOT NULL,
+            `record` longtext,
+            `statusCode` char(10) DEFAULT NULL,
+            `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            `failedReason` varchar(255) DEFAULT NULL,
+            PRIMARY KEY (`logId`)
+          ) ENGINE=InnoDB AUTO_INCREMENT=15440 DEFAULT CHARSET=utf8mb4;";
+        $sql = $sql1 . $sql2 . $sql3 . $sql4;
+        $this->db->query($sql);
+    }
+}
