@@ -1,29 +1,16 @@
-<?php 
+<?php
 
-/** 
-* Generated at: 2020-09-25T15:01:27+02:00
-* IP: 127.0.0.1
-
-
-Fields Summary: 
-- profile [input]
-- heightIn [numeric]
-- staticConductive [input]
-- beltAngle [numeric]
-- heightMm [numeric]
-- heatOilResistant [input]
-*/ 
-
+/**
+ * Fields Summary:
+ * - profile [input]
+ * - heightIn [numeric]
+ * - staticConductive [input]
+ * - beltAngle [numeric]
+ * - heightMm [numeric]
+ * - heatOilResistant [input]
+ */
 
 return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
-   'classDefinitions' => 
-  array (
-    0 => 
-    array (
-      'classname' => 'Product',
-      'fieldname' => 'Skeleton',
-    ),
-  ),
    'dao' => NULL,
    'key' => 'PTGSkeleton',
    'parentClass' => '',
@@ -32,10 +19,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'group' => 'PTG',
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-     'fieldtype' => 'panel',
-     'labelWidth' => 100,
-     'layout' => NULL,
-     'border' => false,
      'name' => NULL,
      'type' => NULL,
      'region' => NULL,
@@ -47,14 +30,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
      'bodyStyle' => NULL,
      'datatype' => 'layout',
      'permissions' => NULL,
-     'childs' => 
+     'children' => 
     array (
       0 => 
       Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-         'fieldtype' => 'panel',
-         'labelWidth' => 100,
-         'layout' => NULL,
-         'border' => false,
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
@@ -66,14 +45,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'bodyStyle' => '',
          'datatype' => 'layout',
          'permissions' => NULL,
-         'childs' => 
+         'children' => 
         array (
           0 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-             'fieldtype' => 'fieldcontainer',
-             'labelWidth' => 100,
-             'layout' => 'hbox',
-             'fieldLabel' => '',
              'name' => 'Flange',
              'type' => NULL,
              'region' => NULL,
@@ -85,14 +60,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'bodyStyle' => '',
              'datatype' => 'layout',
              'permissions' => NULL,
-             'childs' => 
+             'children' => 
             array (
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                 'fieldtype' => 'fieldcontainer',
-                 'labelWidth' => 200,
-                 'layout' => 'vbox',
-                 'fieldLabel' => '',
                  'name' => 'Field Container',
                  'type' => NULL,
                  'region' => NULL,
@@ -104,20 +75,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'bodyStyle' => '',
                  'datatype' => 'layout',
                  'permissions' => NULL,
-                 'childs' => 
+                 'children' => 
                 array (
                   0 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => 300,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
                      'name' => 'profile',
                      'title' => 'Profile',
                      'tooltip' => '',
@@ -128,27 +89,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',
+                     'fieldtype' => 'input',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'width' => 300,
+                     'defaultValue' => NULL,
+                     'columnLength' => 190,
+                     'regex' => '',
+                     'regexFlags' => 
+                    array (
+                    ),
+                     'unique' => false,
+                     'showCharCount' => false,
                      'defaultValueGenerator' => '',
                   )),
                   1 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                     'fieldtype' => 'numeric',
-                     'width' => 300,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'double',
-                     'columnType' => 'double',
-                     'phpdocType' => 'float',
-                     'integer' => false,
-                     'unsigned' => true,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'unique' => false,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => 3,
                      'name' => 'heightIn',
                      'title' => 'Height (in)',
                      'tooltip' => '',
@@ -159,24 +120,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',
+                     'fieldtype' => 'numeric',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'width' => 300,
+                     'defaultValue' => NULL,
+                     'integer' => false,
+                     'unsigned' => true,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => 3,
                      'defaultValueGenerator' => '',
                   )),
                   2 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => 300,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
                      'name' => 'staticConductive',
                      'title' => 'Static Conductive',
                      'tooltip' => '',
@@ -187,21 +151,38 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',
+                     'fieldtype' => 'input',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'width' => 300,
+                     'defaultValue' => NULL,
+                     'columnLength' => 190,
+                     'regex' => '',
+                     'regexFlags' => 
+                    array (
+                    ),
+                     'unique' => false,
+                     'showCharCount' => false,
                      'defaultValueGenerator' => '',
                   )),
                 ),
                  'locked' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'fieldtype' => 'fieldcontainer',
+                 'layout' => 'vbox',
+                 'fieldLabel' => '',
+                 'labelWidth' => 200,
+                 'labelAlign' => 'left',
               )),
               1 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                 'fieldtype' => 'fieldcontainer',
-                 'labelWidth' => 200,
-                 'layout' => 'vbox',
-                 'fieldLabel' => '',
                  'name' => 'Field Container',
                  'type' => NULL,
                  'region' => NULL,
@@ -213,23 +194,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'bodyStyle' => '',
                  'datatype' => 'layout',
                  'permissions' => NULL,
-                 'childs' => 
+                 'children' => 
                 array (
                   0 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                     'fieldtype' => 'numeric',
-                     'width' => 300,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'double',
-                     'columnType' => 'double',
-                     'phpdocType' => 'float',
-                     'integer' => false,
-                     'unsigned' => false,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'unique' => false,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => 1,
                      'name' => 'beltAngle',
                      'title' => 'Belt Angle',
                      'tooltip' => '',
@@ -240,27 +208,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'style' => 'margin-left:20px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
+                     'fieldtype' => 'numeric',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  1 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                     'fieldtype' => 'numeric',
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
                      'width' => 300,
                      'defaultValue' => NULL,
-                     'queryColumnType' => 'double',
-                     'columnType' => 'double',
-                     'phpdocType' => 'float',
                      'integer' => false,
-                     'unsigned' => true,
+                     'unsigned' => false,
                      'minValue' => NULL,
                      'maxValue' => NULL,
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => 1,
+                     'defaultValueGenerator' => '',
+                  )),
+                  1 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'name' => 'heightMm',
                      'title' => 'Height (mm)',
                      'tooltip' => '',
@@ -271,24 +239,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'style' => 'margin-left:20px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
+                     'fieldtype' => 'numeric',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'width' => 300,
+                     'defaultValue' => NULL,
+                     'integer' => false,
+                     'unsigned' => true,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => 1,
                      'defaultValueGenerator' => '',
                   )),
                   2 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => 300,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
                      'name' => 'heatOilResistant',
                      'title' => 'Heat & Oil Resistant',
                      'tooltip' => '',
@@ -299,24 +270,81 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'style' => 'margin-left:20px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
+                     'fieldtype' => 'input',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'width' => 300,
+                     'defaultValue' => NULL,
+                     'columnLength' => 190,
+                     'regex' => '',
+                     'regexFlags' => 
+                    array (
+                    ),
+                     'unique' => false,
+                     'showCharCount' => false,
                      'defaultValueGenerator' => '',
                   )),
                 ),
                  'locked' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'fieldtype' => 'fieldcontainer',
+                 'layout' => 'vbox',
+                 'fieldLabel' => '',
+                 'labelWidth' => 200,
+                 'labelAlign' => 'left',
               )),
             ),
              'locked' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'fieldtype' => 'fieldcontainer',
+             'layout' => 'hbox',
+             'fieldLabel' => '',
+             'labelWidth' => 100,
+             'labelAlign' => 'left',
           )),
         ),
          'locked' => false,
+         'blockedVarsForExport' => 
+        array (
+        ),
+         'fieldtype' => 'panel',
+         'layout' => NULL,
+         'border' => false,
          'icon' => '',
+         'labelWidth' => 100,
+         'labelAlign' => 'left',
       )),
     ),
      'locked' => false,
+     'blockedVarsForExport' => 
+    array (
+    ),
+     'fieldtype' => 'panel',
+     'layout' => NULL,
+     'border' => false,
      'icon' => NULL,
+     'labelWidth' => 100,
+     'labelAlign' => 'left',
   )),
+   'generateTypeDeclarations' => false,
+   'blockedVarsForExport' => 
+  array (
+  ),
+   'classDefinitions' => 
+  array (
+    0 => 
+    array (
+      'classname' => 'Product',
+      'fieldname' => 'Skeleton',
+    ),
+  ),
 ));

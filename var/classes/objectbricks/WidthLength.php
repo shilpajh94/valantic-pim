@@ -1,42 +1,29 @@
-<?php 
+<?php
 
-/** 
-* Generated at: 2023-04-27T15:26:10+05:30
-* IP: 127.0.0.1
-
-
-Fields Summary: 
-- LengthM [numeric]
-- WidthMM [numeric]
-- AvailableBeltWidthMM [numeric]
-- ProfileWidthMM [numeric]
-- CleatWidthTopBottom [numeric]
-- LengthMUOM [input]
-- WIdthMMUOM [input]
-- AvailableBeltWidthMMUnit [input]
-- ProfileWidthMMUnit [input]
-- LengthFeet [numeric]
-- WidthInch [numeric]
-- AvailableBeltWidthInch [numeric]
-- ProfileWidthInch [numeric]
-- LengthFeetUOM [input]
-- WIdthInchUOM [input]
-- AvailableBeltWidthInchUnit [input]
-- ProfileWidthInchUnit [input]
-- localizedfields [localizedfields]
--- Size [input]
-*/ 
-
+/**
+ * Fields Summary:
+ * - LengthM [numeric]
+ * - WidthMM [numeric]
+ * - AvailableBeltWidthMM [numeric]
+ * - ProfileWidthMM [numeric]
+ * - CleatWidthTopBottom [numeric]
+ * - LengthMUOM [input]
+ * - WIdthMMUOM [input]
+ * - AvailableBeltWidthMMUnit [input]
+ * - ProfileWidthMMUnit [input]
+ * - LengthFeet [numeric]
+ * - WidthInch [numeric]
+ * - AvailableBeltWidthInch [numeric]
+ * - ProfileWidthInch [numeric]
+ * - LengthFeetUOM [input]
+ * - WIdthInchUOM [input]
+ * - AvailableBeltWidthInchUnit [input]
+ * - ProfileWidthInchUnit [input]
+ * - localizedfields [localizedfields]
+ * -- Size [input]
+ */
 
 return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
-   'classDefinitions' => 
-  array (
-    0 => 
-    array (
-      'classname' => 'CSProducts',
-      'fieldname' => 'ProductAttributes',
-    ),
-  ),
    'dao' => NULL,
    'key' => 'WidthLength',
    'parentClass' => '',
@@ -45,10 +32,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'group' => 'CONVEYOR-BELT-SOLUTION',
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-     'fieldtype' => 'panel',
-     'labelWidth' => 100,
-     'layout' => NULL,
-     'border' => false,
      'name' => NULL,
      'type' => NULL,
      'region' => NULL,
@@ -60,14 +43,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
      'bodyStyle' => NULL,
      'datatype' => 'layout',
      'permissions' => NULL,
-     'childs' => 
+     'children' => 
     array (
       0 => 
       Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-         'fieldtype' => 'panel',
-         'labelWidth' => 100,
-         'layout' => NULL,
-         'border' => false,
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
@@ -79,14 +58,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'bodyStyle' => '',
          'datatype' => 'layout',
          'permissions' => NULL,
-         'childs' => 
+         'children' => 
         array (
           0 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-             'fieldtype' => 'fieldcontainer',
-             'labelWidth' => 100,
-             'layout' => 'hbox',
-             'fieldLabel' => '',
              'name' => 'Field Container',
              'type' => NULL,
              'region' => NULL,
@@ -98,14 +73,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'bodyStyle' => '',
              'datatype' => 'layout',
              'permissions' => NULL,
-             'childs' => 
+             'children' => 
             array (
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                 'fieldtype' => 'fieldcontainer',
-                 'labelWidth' => 100,
-                 'layout' => 'vbox',
-                 'fieldLabel' => '',
                  'name' => 'Field Container',
                  'type' => NULL,
                  'region' => NULL,
@@ -117,23 +88,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'bodyStyle' => '',
                  'datatype' => 'layout',
                  'permissions' => NULL,
-                 'childs' => 
+                 'children' => 
                 array (
                   0 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                     'fieldtype' => 'numeric',
-                     'width' => 200,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'double',
-                     'columnType' => 'double',
-                     'phpdocType' => 'float',
-                     'integer' => false,
-                     'unsigned' => false,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'unique' => false,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
                      'name' => 'LengthM',
                      'title' => 'Length',
                      'tooltip' => '',
@@ -144,20 +102,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'style' => 'margin-left:10px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
+                     'fieldtype' => 'numeric',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  1 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                     'fieldtype' => 'numeric',
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
                      'width' => 200,
                      'defaultValue' => NULL,
-                     'queryColumnType' => 'double',
-                     'columnType' => 'double',
-                     'phpdocType' => 'float',
                      'integer' => false,
                      'unsigned' => false,
                      'minValue' => NULL,
@@ -165,6 +119,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
+                     'defaultValueGenerator' => '',
+                  )),
+                  1 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'name' => 'WidthMM',
                      'title' => 'Width',
                      'tooltip' => '',
@@ -175,20 +133,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'style' => 'margin-left:10px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
+                     'fieldtype' => 'numeric',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  2 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                     'fieldtype' => 'numeric',
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
                      'width' => 200,
                      'defaultValue' => NULL,
-                     'queryColumnType' => 'double',
-                     'columnType' => 'double',
-                     'phpdocType' => 'float',
                      'integer' => false,
                      'unsigned' => false,
                      'minValue' => NULL,
@@ -196,6 +150,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
+                     'defaultValueGenerator' => '',
+                  )),
+                  2 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'name' => 'AvailableBeltWidthMM',
                      'title' => 'Available Belt Width',
                      'tooltip' => '',
@@ -206,20 +164,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'style' => 'margin-left:10px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
+                     'fieldtype' => 'numeric',
                      'relationType' => false,
                      'invisible' => true,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  3 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                     'fieldtype' => 'numeric',
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
                      'width' => 200,
                      'defaultValue' => NULL,
-                     'queryColumnType' => 'double',
-                     'columnType' => 'double',
-                     'phpdocType' => 'float',
                      'integer' => false,
                      'unsigned' => false,
                      'minValue' => NULL,
@@ -227,6 +181,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
+                     'defaultValueGenerator' => '',
+                  )),
+                  3 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'name' => 'ProfileWidthMM',
                      'title' => 'Profile Width',
                      'tooltip' => '',
@@ -237,20 +195,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'style' => 'margin-left:10px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
+                     'fieldtype' => 'numeric',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  4 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                     'fieldtype' => 'numeric',
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
                      'width' => 200,
                      'defaultValue' => NULL,
-                     'queryColumnType' => 'double',
-                     'columnType' => 'double',
-                     'phpdocType' => 'float',
                      'integer' => false,
                      'unsigned' => false,
                      'minValue' => NULL,
@@ -258,6 +212,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
+                     'defaultValueGenerator' => '',
+                  )),
+                  4 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'name' => 'CleatWidthTopBottom',
                      'title' => 'Cleat Width (Top/Bottom)',
                      'tooltip' => '',
@@ -268,21 +226,38 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'style' => 'margin-left:10px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
+                     'fieldtype' => 'numeric',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'width' => 200,
+                     'defaultValue' => NULL,
+                     'integer' => false,
+                     'unsigned' => false,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => NULL,
                      'defaultValueGenerator' => '',
                   )),
                 ),
                  'locked' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'fieldtype' => 'fieldcontainer',
+                 'layout' => 'vbox',
+                 'fieldLabel' => '',
+                 'labelWidth' => 100,
+                 'labelAlign' => 'left',
               )),
               1 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                 'fieldtype' => 'fieldcontainer',
-                 'labelWidth' => 40,
-                 'layout' => 'vbox',
-                 'fieldLabel' => '',
                  'name' => 'Field Container',
                  'type' => NULL,
                  'region' => NULL,
@@ -294,20 +269,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'bodyStyle' => '',
                  'datatype' => 'layout',
                  'permissions' => NULL,
-                 'childs' => 
+                 'children' => 
                 array (
                   0 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => 40,
-                     'defaultValue' => 'M',
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
                      'name' => 'LengthMUOM',
                      'title' => '',
                      'tooltip' => '',
@@ -318,24 +283,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'style' => 'padding-left:10px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
+                     'fieldtype' => 'input',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'width' => 40,
+                     'defaultValue' => 'M',
+                     'columnLength' => 190,
+                     'regex' => '',
+                     'regexFlags' => 
+                    array (
+                    ),
+                     'unique' => false,
+                     'showCharCount' => false,
                      'defaultValueGenerator' => '',
                   )),
                   1 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => 40,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
                      'name' => 'WIdthMMUOM',
                      'title' => '',
                      'tooltip' => '',
@@ -346,24 +314,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'style' => 'padding-left:10px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
+                     'fieldtype' => 'input',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'width' => 40,
+                     'defaultValue' => NULL,
+                     'columnLength' => 190,
+                     'regex' => '',
+                     'regexFlags' => 
+                    array (
+                    ),
+                     'unique' => false,
+                     'showCharCount' => false,
                      'defaultValueGenerator' => '',
                   )),
                   2 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => 40,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
                      'name' => 'AvailableBeltWidthMMUnit',
                      'title' => '',
                      'tooltip' => '',
@@ -374,24 +345,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'style' => 'padding-left:10px;margin-top:4px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
+                     'fieldtype' => 'input',
                      'relationType' => false,
                      'invisible' => true,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'width' => 40,
+                     'defaultValue' => NULL,
+                     'columnLength' => 190,
+                     'regex' => '',
+                     'regexFlags' => 
+                    array (
+                    ),
+                     'unique' => false,
+                     'showCharCount' => false,
                      'defaultValueGenerator' => '',
                   )),
                   3 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => 40,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
                      'name' => 'ProfileWidthMMUnit',
                      'title' => '',
                      'tooltip' => '',
@@ -402,21 +376,38 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'style' => 'padding-left:10px;margin-top:5px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
+                     'fieldtype' => 'input',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'width' => 40,
+                     'defaultValue' => NULL,
+                     'columnLength' => 190,
+                     'regex' => '',
+                     'regexFlags' => 
+                    array (
+                    ),
+                     'unique' => false,
+                     'showCharCount' => false,
                      'defaultValueGenerator' => '',
                   )),
                 ),
                  'locked' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'fieldtype' => 'fieldcontainer',
+                 'layout' => 'vbox',
+                 'fieldLabel' => '',
+                 'labelWidth' => 40,
+                 'labelAlign' => 'left',
               )),
               2 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                 'fieldtype' => 'fieldcontainer',
-                 'labelWidth' => 90,
-                 'layout' => 'vbox',
-                 'fieldLabel' => '',
                  'name' => 'Field Container',
                  'type' => NULL,
                  'region' => NULL,
@@ -428,23 +419,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'bodyStyle' => '',
                  'datatype' => 'layout',
                  'permissions' => NULL,
-                 'childs' => 
+                 'children' => 
                 array (
                   0 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                     'fieldtype' => 'numeric',
-                     'width' => 200,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'double',
-                     'columnType' => 'double',
-                     'phpdocType' => 'float',
-                     'integer' => false,
-                     'unsigned' => false,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'unique' => false,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
                      'name' => 'LengthFeet',
                      'title' => 'Length',
                      'tooltip' => '',
@@ -455,20 +433,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'style' => 'margin-left:80px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
+                     'fieldtype' => 'numeric',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  1 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                     'fieldtype' => 'numeric',
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
                      'width' => 200,
                      'defaultValue' => NULL,
-                     'queryColumnType' => 'double',
-                     'columnType' => 'double',
-                     'phpdocType' => 'float',
                      'integer' => false,
                      'unsigned' => false,
                      'minValue' => NULL,
@@ -476,6 +450,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
+                     'defaultValueGenerator' => '',
+                  )),
+                  1 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'name' => 'WidthInch',
                      'title' => 'Width',
                      'tooltip' => '',
@@ -486,20 +464,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'style' => 'margin-left:80px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
+                     'fieldtype' => 'numeric',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  2 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                     'fieldtype' => 'numeric',
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
                      'width' => 200,
                      'defaultValue' => NULL,
-                     'queryColumnType' => 'double',
-                     'columnType' => 'double',
-                     'phpdocType' => 'float',
                      'integer' => false,
                      'unsigned' => false,
                      'minValue' => NULL,
@@ -507,6 +481,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
+                     'defaultValueGenerator' => '',
+                  )),
+                  2 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'name' => 'AvailableBeltWidthInch',
                      'title' => 'Available Belt Width',
                      'tooltip' => '',
@@ -517,20 +495,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'style' => 'margin-left:80px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
+                     'fieldtype' => 'numeric',
                      'relationType' => false,
                      'invisible' => true,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  3 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                     'fieldtype' => 'numeric',
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
                      'width' => 200,
                      'defaultValue' => NULL,
-                     'queryColumnType' => 'double',
-                     'columnType' => 'double',
-                     'phpdocType' => 'float',
                      'integer' => false,
                      'unsigned' => false,
                      'minValue' => NULL,
@@ -538,6 +512,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
+                     'defaultValueGenerator' => '',
+                  )),
+                  3 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'name' => 'ProfileWidthInch',
                      'title' => 'Profile Width',
                      'tooltip' => '',
@@ -548,21 +526,38 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'style' => 'margin-left:80px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
+                     'fieldtype' => 'numeric',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'width' => 200,
+                     'defaultValue' => NULL,
+                     'integer' => false,
+                     'unsigned' => false,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => NULL,
                      'defaultValueGenerator' => '',
                   )),
                 ),
                  'locked' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'fieldtype' => 'fieldcontainer',
+                 'layout' => 'vbox',
+                 'fieldLabel' => '',
+                 'labelWidth' => 90,
+                 'labelAlign' => 'left',
               )),
               3 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                 'fieldtype' => 'fieldcontainer',
-                 'labelWidth' => 40,
-                 'layout' => 'vbox',
-                 'fieldLabel' => '',
                  'name' => 'Field Container',
                  'type' => NULL,
                  'region' => NULL,
@@ -574,20 +569,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'bodyStyle' => '',
                  'datatype' => 'layout',
                  'permissions' => NULL,
-                 'childs' => 
+                 'children' => 
                 array (
                   0 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => 40,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
                      'name' => 'LengthFeetUOM',
                      'title' => '',
                      'tooltip' => '',
@@ -598,24 +583,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'style' => 'padding-left:10px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
+                     'fieldtype' => 'input',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'width' => 40,
+                     'defaultValue' => NULL,
+                     'columnLength' => 190,
+                     'regex' => '',
+                     'regexFlags' => 
+                    array (
+                    ),
+                     'unique' => false,
+                     'showCharCount' => false,
                      'defaultValueGenerator' => '',
                   )),
                   1 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => 40,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
                      'name' => 'WIdthInchUOM',
                      'title' => '',
                      'tooltip' => '',
@@ -626,24 +614,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'style' => 'padding-left:10px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
+                     'fieldtype' => 'input',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'width' => 40,
+                     'defaultValue' => NULL,
+                     'columnLength' => 190,
+                     'regex' => '',
+                     'regexFlags' => 
+                    array (
+                    ),
+                     'unique' => false,
+                     'showCharCount' => false,
                      'defaultValueGenerator' => '',
                   )),
                   2 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => 40,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
                      'name' => 'AvailableBeltWidthInchUnit',
                      'title' => '',
                      'tooltip' => '',
@@ -654,24 +645,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'style' => 'padding-left:10px;margin-top:4px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
+                     'fieldtype' => 'input',
                      'relationType' => false,
                      'invisible' => true,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'width' => 40,
+                     'defaultValue' => NULL,
+                     'columnLength' => 190,
+                     'regex' => '',
+                     'regexFlags' => 
+                    array (
+                    ),
+                     'unique' => false,
+                     'showCharCount' => false,
                      'defaultValueGenerator' => '',
                   )),
                   3 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => 40,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
                      'name' => 'ProfileWidthInchUnit',
                      'title' => '',
                      'tooltip' => '',
@@ -682,36 +676,71 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'style' => 'padding-left:10px;margin-top:5px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
+                     'fieldtype' => 'input',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'width' => 40,
+                     'defaultValue' => NULL,
+                     'columnLength' => 190,
+                     'regex' => '',
+                     'regexFlags' => 
+                    array (
+                    ),
+                     'unique' => false,
+                     'showCharCount' => false,
                      'defaultValueGenerator' => '',
                   )),
                 ),
                  'locked' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'fieldtype' => 'fieldcontainer',
+                 'layout' => 'vbox',
+                 'fieldLabel' => '',
+                 'labelWidth' => 40,
+                 'labelAlign' => 'left',
               )),
             ),
              'locked' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'fieldtype' => 'fieldcontainer',
+             'layout' => 'hbox',
+             'fieldLabel' => '',
+             'labelWidth' => 100,
+             'labelAlign' => 'left',
           )),
           1 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+             'name' => 'localizedfields',
+             'title' => '',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
              'fieldtype' => 'localizedfields',
-             'phpdocType' => '\\Pimcore\\Model\\DataObject\\Localizedfield',
-             'childs' => 
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => true,
+             'visibleSearch' => true,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'children' => 
             array (
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                 'fieldtype' => 'input',
-                 'width' => 200,
-                 'defaultValue' => NULL,
-                 'queryColumnType' => 'varchar',
-                 'columnType' => 'varchar',
-                 'columnLength' => 190,
-                 'phpdocType' => 'string',
-                 'regex' => '',
-                 'unique' => false,
-                 'showCharCount' => false,
                  'name' => 'Size',
                  'title' => 'Size',
                  'tooltip' => '',
@@ -722,21 +751,31 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'input',
                  'relationType' => false,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'width' => 200,
+                 'defaultValue' => NULL,
+                 'columnLength' => 190,
+                 'regex' => '',
+                 'regexFlags' => 
+                array (
+                ),
+                 'unique' => false,
+                 'showCharCount' => false,
                  'defaultValueGenerator' => '',
               )),
             ),
-             'name' => 'localizedfields',
              'region' => NULL,
              'layout' => NULL,
-             'title' => '',
              'width' => '',
              'height' => '',
              'maxTabs' => 20,
-             'labelWidth' => NULL,
              'border' => false,
              'provideSplitView' => false,
              'tabPosition' => NULL,
@@ -744,25 +783,46 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'referencedFields' => 
             array (
             ),
-             'tooltip' => '',
-             'mandatory' => false,
-             'noteditable' => false,
-             'index' => NULL,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'datatype' => 'data',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => true,
-             'visibleSearch' => true,
+             'fieldDefinitionsCache' => NULL,
+             'permissionView' => NULL,
+             'permissionEdit' => NULL,
+             'labelWidth' => 0,
+             'labelAlign' => 'left',
           )),
         ),
          'locked' => false,
+         'blockedVarsForExport' => 
+        array (
+        ),
+         'fieldtype' => 'panel',
+         'layout' => NULL,
+         'border' => false,
          'icon' => '',
+         'labelWidth' => 100,
+         'labelAlign' => 'left',
       )),
     ),
      'locked' => false,
+     'blockedVarsForExport' => 
+    array (
+    ),
+     'fieldtype' => 'panel',
+     'layout' => NULL,
+     'border' => false,
      'icon' => NULL,
+     'labelWidth' => 100,
+     'labelAlign' => 'left',
   )),
+   'generateTypeDeclarations' => false,
+   'blockedVarsForExport' => 
+  array (
+  ),
+   'classDefinitions' => 
+  array (
+    0 => 
+    array (
+      'classname' => 'CSProducts',
+      'fieldname' => 'ProductAttributes',
+    ),
+  ),
 ));

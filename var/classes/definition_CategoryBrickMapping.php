@@ -1,27 +1,24 @@
-<?php 
+<?php
 
-/** 
-* Generated at: 2020-04-14T12:19:45+02:00
-* Inheritance: no
-* Variants: no
-* Changed by: admin (2)
-
-
-Fields Summary: 
-- brickName [input]
-- category [manyToManyObjectRelation]
-*/ 
-
+/**
+ * Inheritance: no
+ * Variants: no
+ *
+ * Fields Summary:
+ * - brickName [input]
+ * - category [manyToManyObjectRelation]
+ */
 
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
+   'dao' => NULL,
    'id' => '14',
    'name' => 'CategoryBrickMapping',
-   'description' => NULL,
+   'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1586859585,
+   'modificationDate' => 1699596849,
    'userOwner' => 0,
    'userModification' => 2,
-   'parentClass' => NULL,
+   'parentClass' => '',
    'implementsInterfaces' => NULL,
    'listingParentClass' => '',
    'useTraits' => '',
@@ -31,14 +28,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
   array (
   ),
    'allowInherit' => false,
-   'allowVariants' => NULL,
+   'allowVariants' => false,
    'showVariants' => false,
+   'fieldDefinitions' => 
+  array (
+  ),
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-     'fieldtype' => 'panel',
-     'labelWidth' => 100,
-     'layout' => NULL,
-     'border' => false,
      'name' => 'pimcore_root',
      'type' => NULL,
      'region' => NULL,
@@ -50,14 +46,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'bodyStyle' => NULL,
      'datatype' => 'layout',
      'permissions' => NULL,
-     'childs' => 
+     'children' => 
     array (
       0 => 
       Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-         'fieldtype' => 'panel',
-         'labelWidth' => 100,
-         'layout' => NULL,
-         'border' => false,
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
@@ -69,19 +61,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'bodyStyle' => '',
          'datatype' => 'layout',
          'permissions' => NULL,
-         'childs' => 
+         'children' => 
         array (
           0 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-             'fieldtype' => 'input',
-             'width' => NULL,
-             'queryColumnType' => 'varchar',
-             'columnType' => 'varchar',
-             'columnLength' => 190,
-             'phpdocType' => 'string',
-             'regex' => '',
-             'unique' => false,
-             'showCharCount' => NULL,
              'name' => 'brickName',
              'title' => 'Brick Name',
              'tooltip' => '',
@@ -92,34 +75,27 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
+             'fieldtype' => 'input',
              'relationType' => false,
              'invisible' => false,
              'visibleGridView' => false,
              'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'width' => NULL,
+             'defaultValue' => NULL,
+             'columnLength' => 190,
+             'regex' => '',
+             'regexFlags' => 
+            array (
+            ),
+             'unique' => false,
+             'showCharCount' => false,
+             'defaultValueGenerator' => '',
           )),
           1 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-             'fieldtype' => 'manyToManyObjectRelation',
-             'width' => '',
-             'height' => '',
-             'maxItems' => '',
-             'queryColumnType' => 'text',
-             'phpdocType' => 'array',
-             'relationType' => true,
-             'visibleFields' => NULL,
-             'allowToCreateNewObject' => true,
-             'optimizedAdminLoading' => false,
-             'visibleFieldDefinitions' => 
-            array (
-            ),
-             'classes' => 
-            array (
-              0 => 
-              array (
-                'classes' => 'ProductCategory',
-              ),
-            ),
-             'pathFormatterClass' => '',
              'name' => 'category',
              'title' => 'Category',
              'tooltip' => '',
@@ -130,26 +106,68 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
+             'fieldtype' => 'manyToManyObjectRelation',
+             'relationType' => true,
              'invisible' => false,
              'visibleGridView' => false,
              'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'classes' => 
+            array (
+              0 => 
+              array (
+                'classes' => 'ProductCategory',
+              ),
+            ),
+             'pathFormatterClass' => '',
+             'width' => '',
+             'height' => '',
+             'maxItems' => NULL,
+             'visibleFields' => NULL,
+             'allowToCreateNewObject' => true,
+             'optimizedAdminLoading' => false,
+             'enableTextSelection' => false,
+             'visibleFieldDefinitions' => 
+            array (
+            ),
           )),
         ),
          'locked' => false,
+         'blockedVarsForExport' => 
+        array (
+        ),
+         'fieldtype' => 'panel',
+         'layout' => NULL,
+         'border' => false,
          'icon' => NULL,
+         'labelWidth' => 100,
+         'labelAlign' => 'left',
       )),
     ),
      'locked' => false,
+     'blockedVarsForExport' => 
+    array (
+    ),
+     'fieldtype' => 'panel',
+     'layout' => NULL,
+     'border' => false,
      'icon' => NULL,
+     'labelWidth' => 100,
+     'labelAlign' => 'left',
   )),
    'icon' => NULL,
    'previewUrl' => NULL,
    'group' => 'SystemConfiguration',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => NULL,
+   'previewGeneratorReference' => NULL,
    'compositeIndices' => 
   array (
   ),
+   'generateTypeDeclarations' => false,
+   'showFieldLookup' => false,
    'propertyVisibility' => 
   array (
     'grid' => 
@@ -170,5 +188,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
     ),
   ),
    'enableGridLocking' => false,
-   'dao' => NULL,
+   'deletedDataComponents' => 
+  array (
+  ),
+   'blockedVarsForExport' => 
+  array (
+  ),
+   'activeDispatchingEvents' => 
+  array (
+  ),
 ));

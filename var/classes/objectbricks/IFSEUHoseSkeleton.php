@@ -1,61 +1,38 @@
-<?php 
+<?php
 
-/** 
-<<<<<<< HEAD
-* Generated at: 2023-05-29T07:39:18+00:00
-=======
-* Generated at: 2023-05-24T11:19:32+00:00
->>>>>>> IFSEU_production_CTTFSE01-216-SkeletonLevel_AttributeRemoval
-* IP: 127.0.0.1
-
-
-Fields Summary: 
-- IdMM [numeric]
-- IdInch [numeric]
-- wallThicknessMM [numeric]
-- wallThicknessInch [numeric]
-- Odmm [numeric]
-<<<<<<< HEAD
-- OdIn [numeric]
-- hoseIdMMActualId [numeric]
-- hoseIdNominalActualId [numeric]
-- FittingFamily [multiselect]
-=======
->>>>>>> IFSEU_production_CTTFSE01-216-SkeletonLevel_AttributeRemoval
-- withHelix [booleanSelect]
-- SkeletonBrickMapping [input]
-- workingPressureBAR [numeric]
-- workingPressurePSI [numeric]
-- workingPressureMPA [numeric]
-- VacuumBar [numeric]
-- VacuumMM [numeric]
-- VacuumIN [numeric]
-- testPressureBar [numeric]
-- testPressurePSI [numeric]
-- BurstPressureBar [numeric]
-- BurstPressurePSI [numeric]
-- BurstPressurempa [numeric]
-- BendingRadiusMM [numeric]
-- BendingRadiusIN [numeric]
-- descriptive [input]
-- negativeToleranceIdMM [numeric]
-- PositiveToleranceIdMM [numeric]
-- negativeToleranceWtMM [numeric]
-- PositiveToleranceWtMM [numeric]
-- negativeToleranceOdMM [numeric]
-- PositiveToleranceOdMM [numeric]
-*/ 
-
+/**
+ * Fields Summary:
+ * - IdMM [numeric]
+ * - IdInch [numeric]
+ * - wallThicknessMM [numeric]
+ * - wallThicknessInch [numeric]
+ * - Odmm [numeric]
+ * - OdIn [numeric]
+ * - withHelix [booleanSelect]
+ * - SkeletonBrickMapping [input]
+ * - workingPressureBAR [numeric]
+ * - workingPressurePSI [numeric]
+ * - workingPressureMPA [numeric]
+ * - VacuumBar [numeric]
+ * - VacuumMM [numeric]
+ * - VacuumIN [numeric]
+ * - testPressureBar [numeric]
+ * - testPressurePSI [numeric]
+ * - BurstPressureBar [numeric]
+ * - BurstPressurePSI [numeric]
+ * - BurstPressurempa [numeric]
+ * - BendingRadiusMM [numeric]
+ * - BendingRadiusIN [numeric]
+ * - descriptive [input]
+ * - negativeToleranceIdMM [numeric]
+ * - PositiveToleranceIdMM [numeric]
+ * - negativeToleranceWtMM [numeric]
+ * - PositiveToleranceWtMM [numeric]
+ * - negativeToleranceOdMM [numeric]
+ * - PositiveToleranceOdMM [numeric]
+ */
 
 return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
-   'classDefinitions' => 
-  array (
-    0 => 
-    array (
-      'classname' => 'IFSEUProduct',
-      'fieldname' => 'Skeleton',
-    ),
-  ),
    'dao' => NULL,
    'key' => 'IFSEUHoseSkeleton',
    'parentClass' => '',
@@ -64,10 +41,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'group' => 'IFSEU_Bricks',
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-     'fieldtype' => 'panel',
-     'labelWidth' => 100,
-     'layout' => NULL,
-     'border' => false,
      'name' => NULL,
      'type' => NULL,
      'region' => NULL,
@@ -79,14 +52,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
      'bodyStyle' => NULL,
      'datatype' => 'layout',
      'permissions' => NULL,
-     'childs' => 
+     'children' => 
     array (
       0 => 
       Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-         'fieldtype' => 'panel',
-         'labelWidth' => 100,
-         'layout' => '',
-         'border' => false,
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
@@ -98,12 +67,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'bodyStyle' => '',
          'datatype' => 'layout',
          'permissions' => NULL,
-         'childs' => 
+         'children' => 
         array (
           0 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
-             'fieldtype' => 'fieldset',
-             'labelWidth' => 220,
              'name' => 'Layout',
              'type' => NULL,
              'region' => NULL,
@@ -115,23 +82,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'bodyStyle' => '',
              'datatype' => 'layout',
              'permissions' => NULL,
-             'childs' => 
+             'children' => 
             array (
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
-                 'width' => 200,
-                 'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
-                 'integer' => false,
-                 'unsigned' => false,
-                 'minValue' => NULL,
-                 'maxValue' => NULL,
-                 'unique' => false,
-                 'decimalSize' => NULL,
-                 'decimalPrecision' => NULL,
                  'name' => 'IdMM',
                  'title' => 'ID (mm)',
                  'tooltip' => '',
@@ -142,20 +96,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'style' => 'float:left; margin-right: 20px; clear:left;',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'numeric',
                  'relationType' => false,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              1 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
+                 'blockedVarsForExport' => 
+                array (
+                ),
                  'width' => 200,
                  'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
                  'integer' => false,
                  'unsigned' => false,
                  'minValue' => NULL,
@@ -163,6 +113,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'unique' => false,
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
+                 'defaultValueGenerator' => '',
+              )),
+              1 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'IdInch',
                  'title' => 'ID (Inch)',
                  'tooltip' => '',
@@ -173,20 +127,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'style' => 'float:left;',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'numeric',
                  'relationType' => false,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              2 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
+                 'blockedVarsForExport' => 
+                array (
+                ),
                  'width' => 200,
                  'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
                  'integer' => false,
                  'unsigned' => false,
                  'minValue' => NULL,
@@ -194,6 +144,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'unique' => false,
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
+                 'defaultValueGenerator' => '',
+              )),
+              2 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'wallThicknessMM',
                  'title' => 'Wall thickness (mm)',
                  'tooltip' => '',
@@ -204,20 +158,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'style' => 'float:left;  margin-right: 20px; clear:left;',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'numeric',
                  'relationType' => false,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              3 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
+                 'blockedVarsForExport' => 
+                array (
+                ),
                  'width' => 200,
                  'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
                  'integer' => false,
                  'unsigned' => false,
                  'minValue' => NULL,
@@ -225,6 +175,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'unique' => false,
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
+                 'defaultValueGenerator' => '',
+              )),
+              3 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'wallThicknessInch',
                  'title' => 'Wall thickness (in)',
                  'tooltip' => '',
@@ -235,20 +189,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'style' => 'float:left;',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'numeric',
                  'relationType' => false,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              4 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
+                 'blockedVarsForExport' => 
+                array (
+                ),
                  'width' => 200,
                  'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
                  'integer' => false,
                  'unsigned' => false,
                  'minValue' => NULL,
@@ -256,6 +206,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'unique' => false,
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
+                 'defaultValueGenerator' => '',
+              )),
+              4 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'Odmm',
                  'title' => 'OD (mm)',
                  'tooltip' => '',
@@ -266,20 +220,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'style' => 'float:left; margin-right: 20px; clear:left;',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'numeric',
                  'relationType' => false,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              5 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
+                 'blockedVarsForExport' => 
+                array (
+                ),
                  'width' => 200,
                  'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
                  'integer' => false,
                  'unsigned' => false,
                  'minValue' => NULL,
@@ -287,6 +237,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'unique' => false,
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
+                 'defaultValueGenerator' => '',
+              )),
+              5 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'OdIn',
                  'title' => 'OD (in)',
                  'tooltip' => '',
@@ -297,15 +251,45 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'style' => 'float:left; ',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'numeric',
                  'relationType' => false,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'width' => 200,
+                 'defaultValue' => NULL,
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'unique' => false,
+                 'decimalSize' => NULL,
+                 'decimalPrecision' => NULL,
                  'defaultValueGenerator' => '',
               )),
               6 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                 'name' => 'withHelix',
+                 'title' => 'With Helix',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => 'float:left; margin-right: 20px; clear:left;',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
                  'fieldtype' => 'booleanSelect',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
                  'yesLabel' => 'Yes',
                  'noLabel' => 'No',
                  'emptyLabel' => 'Empty',
@@ -328,36 +312,9 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   ),
                 ),
                  'width' => 200,
-                 'queryColumnType' => 'tinyint(1) null',
-                 'columnType' => 'tinyint(1) null',
-                 'phpdocType' => 'boolean',
-                 'name' => 'withHelix',
-                 'title' => 'With Helix',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => 'float:left; margin-right: 20px; clear:left;',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
               )),
               7 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                 'fieldtype' => 'input',
-                 'width' => NULL,
-                 'defaultValue' => NULL,
-                 'queryColumnType' => 'varchar',
-                 'columnType' => 'varchar',
-                 'columnLength' => 190,
-                 'phpdocType' => 'string',
-                 'regex' => '',
-                 'unique' => false,
-                 'showCharCount' => false,
                  'name' => 'SkeletonBrickMapping',
                  'title' => 'SkeletonBrickMapping',
                  'tooltip' => '',
@@ -368,19 +325,36 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'input',
                  'relationType' => false,
                  'invisible' => true,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'width' => NULL,
+                 'defaultValue' => NULL,
+                 'columnLength' => 190,
+                 'regex' => '',
+                 'regexFlags' => 
+                array (
+                ),
+                 'unique' => false,
+                 'showCharCount' => false,
                  'defaultValueGenerator' => '',
               )),
             ),
              'locked' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'fieldtype' => 'fieldset',
+             'labelWidth' => 220,
+             'labelAlign' => 'left',
           )),
           1 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
-             'fieldtype' => 'fieldset',
-             'labelWidth' => 220,
              'name' => 'Working Pressure',
              'type' => NULL,
              'region' => NULL,
@@ -392,23 +366,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'bodyStyle' => '',
              'datatype' => 'layout',
              'permissions' => NULL,
-             'childs' => 
+             'children' => 
             array (
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
-                 'width' => 200,
-                 'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
-                 'integer' => false,
-                 'unsigned' => false,
-                 'minValue' => NULL,
-                 'maxValue' => NULL,
-                 'unique' => false,
-                 'decimalSize' => NULL,
-                 'decimalPrecision' => NULL,
                  'name' => 'workingPressureBAR',
                  'title' => 'Working Pressure (BAR)',
                  'tooltip' => '',
@@ -419,20 +380,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'style' => 'float:left; margin-right: 20px; clear:left;',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'numeric',
                  'relationType' => false,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              1 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
+                 'blockedVarsForExport' => 
+                array (
+                ),
                  'width' => 200,
                  'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
                  'integer' => false,
                  'unsigned' => false,
                  'minValue' => NULL,
@@ -440,6 +397,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'unique' => false,
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
+                 'defaultValueGenerator' => '',
+              )),
+              1 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'workingPressurePSI',
                  'title' => 'Working Pressure (PSI)',
                  'tooltip' => '',
@@ -450,20 +411,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'style' => 'float:left; ',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'numeric',
                  'relationType' => false,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              2 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
+                 'blockedVarsForExport' => 
+                array (
+                ),
                  'width' => 200,
                  'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
                  'integer' => false,
                  'unsigned' => false,
                  'minValue' => NULL,
@@ -471,6 +428,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'unique' => false,
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
+                 'defaultValueGenerator' => '',
+              )),
+              2 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'workingPressureMPA',
                  'title' => 'Working Pressure (mpa)',
                  'tooltip' => '',
@@ -481,20 +442,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'style' => 'float:left; margin-right: 20px; clear:left;',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'numeric',
                  'relationType' => false,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              3 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
+                 'blockedVarsForExport' => 
+                array (
+                ),
                  'width' => 200,
                  'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
                  'integer' => false,
                  'unsigned' => false,
                  'minValue' => NULL,
@@ -502,6 +459,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'unique' => false,
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
+                 'defaultValueGenerator' => '',
+              )),
+              3 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'VacuumBar',
                  'title' => 'Vacuum (Bar)',
                  'tooltip' => '',
@@ -512,20 +473,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'style' => 'float:left;  margin-right: 20px; clear:left;',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'numeric',
                  'relationType' => false,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              4 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
+                 'blockedVarsForExport' => 
+                array (
+                ),
                  'width' => 200,
                  'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
                  'integer' => false,
                  'unsigned' => false,
                  'minValue' => NULL,
@@ -533,6 +490,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'unique' => false,
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
+                 'defaultValueGenerator' => '',
+              )),
+              4 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'VacuumMM',
                  'title' => 'Vacuum (mmHg)',
                  'tooltip' => '',
@@ -543,20 +504,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'style' => 'float:left; ',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'numeric',
                  'relationType' => false,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              5 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
+                 'blockedVarsForExport' => 
+                array (
+                ),
                  'width' => 200,
                  'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
                  'integer' => false,
                  'unsigned' => false,
                  'minValue' => NULL,
@@ -564,6 +521,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'unique' => false,
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
+                 'defaultValueGenerator' => '',
+              )),
+              5 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'VacuumIN',
                  'title' => 'Vacuum (in)',
                  'tooltip' => '',
@@ -574,20 +535,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'style' => 'float:left; margin-right: 20px; clear:left;',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'numeric',
                  'relationType' => false,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              6 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
+                 'blockedVarsForExport' => 
+                array (
+                ),
                  'width' => 200,
                  'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
                  'integer' => false,
                  'unsigned' => false,
                  'minValue' => NULL,
@@ -595,6 +552,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'unique' => false,
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
+                 'defaultValueGenerator' => '',
+              )),
+              6 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'testPressureBar',
                  'title' => 'Test Pressure (Bar)',
                  'tooltip' => '',
@@ -605,20 +566,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'style' => 'float:left;  margin-right: 20px; clear:left;',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'numeric',
                  'relationType' => false,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              7 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
+                 'blockedVarsForExport' => 
+                array (
+                ),
                  'width' => 200,
                  'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
                  'integer' => false,
                  'unsigned' => false,
                  'minValue' => NULL,
@@ -626,6 +583,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'unique' => false,
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
+                 'defaultValueGenerator' => '',
+              )),
+              7 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'testPressurePSI',
                  'title' => 'Test Pressure (PSI)',
                  'tooltip' => '',
@@ -636,20 +597,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'style' => 'float:left;',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'numeric',
                  'relationType' => false,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              8 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
+                 'blockedVarsForExport' => 
+                array (
+                ),
                  'width' => 200,
                  'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
                  'integer' => false,
                  'unsigned' => false,
                  'minValue' => NULL,
@@ -657,6 +614,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'unique' => false,
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
+                 'defaultValueGenerator' => '',
+              )),
+              8 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'BurstPressureBar',
                  'title' => 'Burst Pressure (Bar)',
                  'tooltip' => '',
@@ -667,20 +628,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'style' => 'float:left; margin-right: 20px; clear:left;',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'numeric',
                  'relationType' => false,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              9 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
+                 'blockedVarsForExport' => 
+                array (
+                ),
                  'width' => 200,
                  'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
                  'integer' => false,
                  'unsigned' => false,
                  'minValue' => NULL,
@@ -688,6 +645,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'unique' => false,
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
+                 'defaultValueGenerator' => '',
+              )),
+              9 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'BurstPressurePSI',
                  'title' => 'Burst pressure (PSI)',
                  'tooltip' => '',
@@ -698,20 +659,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'style' => 'float:left;',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'numeric',
                  'relationType' => false,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              10 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
+                 'blockedVarsForExport' => 
+                array (
+                ),
                  'width' => 200,
                  'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
                  'integer' => false,
                  'unsigned' => false,
                  'minValue' => NULL,
@@ -719,6 +676,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'unique' => false,
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
+                 'defaultValueGenerator' => '',
+              )),
+              10 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'BurstPressurempa',
                  'title' => 'Burst Pressure (mpa)',
                  'tooltip' => '',
@@ -729,20 +690,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'style' => 'float:left; margin-right: 20px; clear:left;',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'numeric',
                  'relationType' => false,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              11 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
+                 'blockedVarsForExport' => 
+                array (
+                ),
                  'width' => 200,
                  'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
                  'integer' => false,
                  'unsigned' => false,
                  'minValue' => NULL,
@@ -750,6 +707,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'unique' => false,
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
+                 'defaultValueGenerator' => '',
+              )),
+              11 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'BendingRadiusMM',
                  'title' => 'Bending Radius (mm)',
                  'tooltip' => '',
@@ -760,20 +721,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'style' => 'float:left;margin-right: 20px; clear:left;',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'numeric',
                  'relationType' => false,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              12 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
+                 'blockedVarsForExport' => 
+                array (
+                ),
                  'width' => 200,
                  'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
                  'integer' => false,
                  'unsigned' => false,
                  'minValue' => NULL,
@@ -781,6 +738,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'unique' => false,
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
+                 'defaultValueGenerator' => '',
+              )),
+              12 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'BendingRadiusIN',
                  'title' => 'BendingRadius (in)',
                  'tooltip' => '',
@@ -791,24 +752,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'style' => 'float:left; ',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'numeric',
                  'relationType' => false,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'width' => 200,
+                 'defaultValue' => NULL,
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'unique' => false,
+                 'decimalSize' => NULL,
+                 'decimalPrecision' => NULL,
                  'defaultValueGenerator' => '',
               )),
               13 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                 'fieldtype' => 'input',
-                 'width' => 200,
-                 'defaultValue' => NULL,
-                 'queryColumnType' => 'varchar',
-                 'columnType' => 'varchar',
-                 'columnLength' => 190,
-                 'phpdocType' => 'string',
-                 'regex' => '',
-                 'unique' => false,
-                 'showCharCount' => false,
                  'name' => 'descriptive',
                  'title' => 'Descriptive #',
                  'tooltip' => '',
@@ -819,19 +783,36 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'style' => 'float:left; margin-right: 20px; clear:left;',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'input',
                  'relationType' => false,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'width' => 200,
+                 'defaultValue' => NULL,
+                 'columnLength' => 190,
+                 'regex' => '',
+                 'regexFlags' => 
+                array (
+                ),
+                 'unique' => false,
+                 'showCharCount' => false,
                  'defaultValueGenerator' => '',
               )),
             ),
              'locked' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'fieldtype' => 'fieldset',
+             'labelWidth' => 220,
+             'labelAlign' => 'left',
           )),
           2 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
-             'fieldtype' => 'fieldset',
-             'labelWidth' => 220,
              'name' => 'Tolerance Data',
              'type' => NULL,
              'region' => NULL,
@@ -843,23 +824,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'bodyStyle' => '',
              'datatype' => 'layout',
              'permissions' => NULL,
-             'childs' => 
+             'children' => 
             array (
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
-                 'width' => 200,
-                 'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
-                 'integer' => false,
-                 'unsigned' => false,
-                 'minValue' => NULL,
-                 'maxValue' => NULL,
-                 'unique' => false,
-                 'decimalSize' => NULL,
-                 'decimalPrecision' => NULL,
                  'name' => 'negativeToleranceIdMM',
                  'title' => 'Negative Tolerance Id (MM)',
                  'tooltip' => '',
@@ -870,20 +838,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'style' => 'float:left; margin-right: 20px; clear:left;',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'numeric',
                  'relationType' => false,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              1 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
+                 'blockedVarsForExport' => 
+                array (
+                ),
                  'width' => 200,
                  'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
                  'integer' => false,
                  'unsigned' => false,
                  'minValue' => NULL,
@@ -891,6 +855,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'unique' => false,
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
+                 'defaultValueGenerator' => '',
+              )),
+              1 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'PositiveToleranceIdMM',
                  'title' => 'Positive Tolerance Id (MM)',
                  'tooltip' => '',
@@ -901,20 +869,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'style' => 'float:left; ',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'numeric',
                  'relationType' => false,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              2 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
+                 'blockedVarsForExport' => 
+                array (
+                ),
                  'width' => 200,
                  'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
                  'integer' => false,
                  'unsigned' => false,
                  'minValue' => NULL,
@@ -922,6 +886,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'unique' => false,
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
+                 'defaultValueGenerator' => '',
+              )),
+              2 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'negativeToleranceWtMM',
                  'title' => 'Negative Tolerance WT (MM)',
                  'tooltip' => '',
@@ -932,20 +900,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'style' => 'float:left; margin-right: 20px; clear:left;',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'numeric',
                  'relationType' => false,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              3 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
+                 'blockedVarsForExport' => 
+                array (
+                ),
                  'width' => 200,
                  'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
                  'integer' => false,
                  'unsigned' => false,
                  'minValue' => NULL,
@@ -953,6 +917,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'unique' => false,
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
+                 'defaultValueGenerator' => '',
+              )),
+              3 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'PositiveToleranceWtMM',
                  'title' => 'Positive Tolerance WT (MM)',
                  'tooltip' => '',
@@ -963,20 +931,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'style' => 'float:left; ',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'numeric',
                  'relationType' => false,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              4 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
+                 'blockedVarsForExport' => 
+                array (
+                ),
                  'width' => 200,
                  'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
                  'integer' => false,
                  'unsigned' => false,
                  'minValue' => NULL,
@@ -984,6 +948,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'unique' => false,
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
+                 'defaultValueGenerator' => '',
+              )),
+              4 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'negativeToleranceOdMM',
                  'title' => 'Negative Tolerance OD (MM)',
                  'tooltip' => '',
@@ -994,20 +962,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'style' => 'float:left; margin-right: 20px; clear:left;',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'numeric',
                  'relationType' => false,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              5 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
+                 'blockedVarsForExport' => 
+                array (
+                ),
                  'width' => 200,
                  'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
                  'integer' => false,
                  'unsigned' => false,
                  'minValue' => NULL,
@@ -1015,6 +979,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'unique' => false,
                  'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
+                 'defaultValueGenerator' => '',
+              )),
+              5 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'PositiveToleranceOdMM',
                  'title' => 'Positive Tolerance OD (MM)',
                  'tooltip' => '',
@@ -1025,21 +993,68 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'style' => 'float:left; ',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'numeric',
                  'relationType' => false,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'width' => 200,
+                 'defaultValue' => NULL,
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'unique' => false,
+                 'decimalSize' => NULL,
+                 'decimalPrecision' => NULL,
                  'defaultValueGenerator' => '',
               )),
             ),
              'locked' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'fieldtype' => 'fieldset',
+             'labelWidth' => 220,
+             'labelAlign' => 'left',
           )),
         ),
          'locked' => false,
+         'blockedVarsForExport' => 
+        array (
+        ),
+         'fieldtype' => 'panel',
+         'layout' => '',
+         'border' => false,
          'icon' => '',
+         'labelWidth' => 100,
+         'labelAlign' => 'left',
       )),
     ),
      'locked' => false,
+     'blockedVarsForExport' => 
+    array (
+    ),
+     'fieldtype' => 'panel',
+     'layout' => NULL,
+     'border' => false,
      'icon' => NULL,
+     'labelWidth' => 100,
+     'labelAlign' => 'left',
   )),
+   'generateTypeDeclarations' => false,
+   'blockedVarsForExport' => 
+  array (
+  ),
+   'classDefinitions' => 
+  array (
+    0 => 
+    array (
+      'classname' => 'IFSEUProduct',
+      'fieldname' => 'Skeleton',
+    ),
+  ),
 ));

@@ -4,29 +4,45 @@
   "license": "GPL-3.0-or-later",
   "config": {
     "optimize-autoloader": true,
-    "sort-packages": true
+    "sort-packages": true,
+    "allow-plugins": {
+      "ocramius/package-versions": true
+    }
   },
   "require": {
-    "php": ">=7.2",
+    "php": ">=8.0",
+    "doctrine/doctrine-migrations-bundle": "^3.0.1",
     "elements/process-manager-bundle": "~3.0.0",
-    "pimcore/pimcore": "~6.6.0",
-    "w-vision/data-definitions": "^3.2",
-    "wikimedia/composer-merge-plugin": "^1.4"
+    "php-http/guzzle7-adapter": "^0.1.1",
+    "pimcore/pimcore": "~10.6.0"
+  },
+  "conflict": {
+    "doctrine/doctrine-migrations-bundle": "3.1.0"
   },
   "require-dev": {
-    "cache/integration-tests": "^0.16.0",
-    "codeception/codeception": "~2.4.5"
+    "cache/integration-tests": "dev-master",
+    "codeception/codeception": "^4.1.12"
   },
   "autoload": {
     "psr-4": {
-      "": ["src/"],
+      "App\\": "src/",
       "Pimcore\\Model\\DataObject\\": "var/classes/DataObject",
       "Pimcore\\Model\\Object\\": "var/classes/Object",
-      "Website\\": "legacy/website/lib"
-    },
-    "classmap": [
-      "app/AppKernel.php"
-    ]
+      "Website\\": "legacy/website/lib",
+      "ADAuthBundle\\": "bundles/ADAuthBundle",
+      "AppBundle\\": "bundles/AppBundle",
+      "B2BExportBundle\\": "bundles/B2BExportBundle",
+      "B2BTranslationBundle\\": "bundles/B2BTranslationBundle",
+      "CatalogBundle\\": "bundles/CatalogBundle",
+      "ClassRelationBundle\\": "bundles/ClassRelationBundle",
+      "DistributionHubBundle\\": "bundles/DistributionHubBundle",
+      "EmailNotificationBundle\\": "bundles/EmailNotificationBundle",
+      "ImportBundle\\": "bundles/ImportBundle",
+      "PimDataPostBundle\\": "bundles/PimDataPostBundle",
+      "RequiredAttributesBundle\\": "bundles/RequiredAttributesBundle",
+      "RestApiBundle\\": "bundles/RestApiBundle",
+      "S3CustomizationBundle\\": "bundles/S3CustomizationBundle"
+    }
   },
   "scripts": {
     "post-create-project-cmd": "Pimcore\\Composer::postCreateProject",

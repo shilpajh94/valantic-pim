@@ -1,3 +1,0 @@
-b2_b_export_homepage:
-    path:     /b2_b_export
-    defaults: { _controller: B2BExportBundle:Default:index }

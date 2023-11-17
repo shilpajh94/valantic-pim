@@ -1,25 +1,21 @@
-<?php 
+<?php
 
-/** 
-* Generated at: 2022-06-28T08:57:13+02:00
-* Inheritance: no
-* Variants: no
-* Changed by: admin (2)
-* IP: ::1
-
-
-Fields Summary: 
-- code [input]
-- description [wysiwyg]
-*/ 
-
+/**
+ * Inheritance: no
+ * Variants: no
+ *
+ * Fields Summary:
+ * - code [input]
+ * - description [wysiwyg]
+ */
 
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
+   'dao' => NULL,
    'id' => 'PTGEUMaterialGroup',
    'name' => 'PTGEUMaterialGroup',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1656399432,
+   'modificationDate' => 1699596923,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -32,14 +28,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
   array (
   ),
    'allowInherit' => false,
-   'allowVariants' => NULL,
+   'allowVariants' => false,
    'showVariants' => false,
+   'fieldDefinitions' => 
+  array (
+  ),
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-     'fieldtype' => 'panel',
-     'labelWidth' => 100,
-     'layout' => NULL,
-     'border' => false,
      'name' => 'pimcore_root',
      'type' => NULL,
      'region' => NULL,
@@ -51,14 +46,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'bodyStyle' => NULL,
      'datatype' => 'layout',
      'permissions' => NULL,
-     'childs' => 
+     'children' => 
     array (
       0 => 
       Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-         'fieldtype' => 'panel',
-         'labelWidth' => 100,
-         'layout' => NULL,
-         'border' => false,
          'name' => 'MaterialGroup',
          'type' => NULL,
          'region' => NULL,
@@ -70,20 +61,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'bodyStyle' => '',
          'datatype' => 'layout',
          'permissions' => NULL,
-         'childs' => 
+         'children' => 
         array (
           0 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-             'fieldtype' => 'input',
-             'width' => 350,
-             'defaultValue' => NULL,
-             'queryColumnType' => 'varchar',
-             'columnType' => 'varchar',
-             'columnLength' => 190,
-             'phpdocType' => 'string',
-             'regex' => '',
-             'unique' => false,
-             'showCharCount' => false,
              'name' => 'code',
              'title' => 'Code',
              'tooltip' => '',
@@ -94,22 +75,27 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'style' => 'padding:10px 10px 10px 10px;',
              'permissions' => NULL,
              'datatype' => 'data',
+             'fieldtype' => 'input',
              'relationType' => false,
              'invisible' => false,
              'visibleGridView' => true,
              'visibleSearch' => true,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'width' => 350,
+             'defaultValue' => NULL,
+             'columnLength' => 190,
+             'regex' => '',
+             'regexFlags' => 
+            array (
+            ),
+             'unique' => false,
+             'showCharCount' => false,
              'defaultValueGenerator' => '',
           )),
           1 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
-             'fieldtype' => 'wysiwyg',
-             'width' => 600,
-             'height' => 100,
-             'queryColumnType' => 'longtext',
-             'columnType' => 'longtext',
-             'phpdocType' => 'string',
-             'toolbarConfig' => '',
-             'excludeFromSearchIndex' => false,
              'name' => 'description',
              'title' => 'Description',
              'tooltip' => '',
@@ -120,27 +106,55 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
+             'fieldtype' => 'wysiwyg',
              'relationType' => false,
              'invisible' => false,
              'visibleGridView' => true,
              'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'width' => 600,
+             'height' => 100,
+             'toolbarConfig' => '',
+             'excludeFromSearchIndex' => false,
+             'maxCharacters' => 0,
           )),
         ),
          'locked' => false,
+         'blockedVarsForExport' => 
+        array (
+        ),
+         'fieldtype' => 'panel',
+         'layout' => NULL,
+         'border' => false,
          'icon' => '',
+         'labelWidth' => 100,
+         'labelAlign' => 'left',
       )),
     ),
      'locked' => false,
+     'blockedVarsForExport' => 
+    array (
+    ),
+     'fieldtype' => 'panel',
+     'layout' => NULL,
+     'border' => false,
      'icon' => NULL,
+     'labelWidth' => 100,
+     'labelAlign' => 'left',
   )),
    'icon' => '',
    'previewUrl' => '',
    'group' => 'PTGEU_Masters',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
+   'previewGeneratorReference' => NULL,
    'compositeIndices' => 
   array (
   ),
+   'generateTypeDeclarations' => false,
+   'showFieldLookup' => false,
    'propertyVisibility' => 
   array (
     'grid' => 
@@ -163,5 +177,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
     ),
   ),
    'enableGridLocking' => false,
-   'dao' => NULL,
+   'deletedDataComponents' => 
+  array (
+  ),
+   'blockedVarsForExport' => 
+  array (
+  ),
+   'activeDispatchingEvents' => 
+  array (
+  ),
 ));

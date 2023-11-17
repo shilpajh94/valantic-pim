@@ -1,7 +1,0 @@
-ifseu_import:
-    resource: "@IFSEUImportBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
-_pimcore:
-    resource: "@PimcoreCoreBundle/Resources/config/routing.yml"

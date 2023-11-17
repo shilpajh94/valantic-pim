@@ -1,3 +1,0 @@
-ad_auth_homepage:
-    path:     /
-    defaults: { _controller: ADAuthBundle:Default:index }

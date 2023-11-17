@@ -1,3 +1,0 @@
-class_relation_homepage:
-    path:     /
-    defaults: { _controller: ClassRelationBundle:Default:index }

@@ -1,3 +1,0 @@
-parameters:
-  optionProviderClasses: ["Applications", "Brand", "Chemical", "FittingFamily", "Features", "FittingEndFamilyType", "MultiselectMaster"]
-  postAddNotAllowClasses: ["Applications", "MultiselectMaster"]

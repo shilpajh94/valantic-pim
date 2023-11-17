@@ -1,35 +1,31 @@
-<?php 
+<?php
 
-/** 
-* Generated at: 2020-11-03T10:56:44+01:00
-* Inheritance: no
-* Variants: no
-* Changed by: admin (2)
-* IP: 127.0.0.1
-
-
-Fields Summary: 
-- firstname [firstname]
-- lastname [lastname]
-- email [email]
-- Phone [input]
-- Mobile [input]
-- active [checkbox]
-- userName [input]
-- Password [input]
-- adminReference [user]
-- userType [multiselect]
-- MaterialGroupAccess [manyToManyObjectRelation]
-- SIOPAccess [manyToManyObjectRelation]
-*/ 
-
+/**
+ * Inheritance: no
+ * Variants: no
+ *
+ * Fields Summary:
+ * - firstname [firstname]
+ * - lastname [lastname]
+ * - email [email]
+ * - Phone [input]
+ * - Mobile [input]
+ * - active [checkbox]
+ * - userName [input]
+ * - Password [input]
+ * - adminReference [user]
+ * - userType [multiselect]
+ * - MaterialGroupAccess [manyToManyObjectRelation]
+ * - SIOPAccess [manyToManyObjectRelation]
+ */
 
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
+   'dao' => NULL,
    'id' => '23',
    'name' => 'Users',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1604397404,
+   'modificationDate' => 1699596944,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -42,14 +38,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
   array (
   ),
    'allowInherit' => false,
-   'allowVariants' => NULL,
+   'allowVariants' => false,
    'showVariants' => false,
+   'fieldDefinitions' => 
+  array (
+  ),
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-     'fieldtype' => 'panel',
-     'labelWidth' => 100,
-     'layout' => NULL,
-     'border' => false,
      'name' => 'pimcore_root',
      'type' => NULL,
      'region' => NULL,
@@ -61,13 +56,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'bodyStyle' => NULL,
      'datatype' => 'layout',
      'permissions' => NULL,
-     'childs' => 
+     'children' => 
     array (
       0 => 
       Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
-         'fieldtype' => 'tabpanel',
-         'border' => false,
-         'tabPosition' => 'top',
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
@@ -79,14 +71,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'bodyStyle' => '',
          'datatype' => 'layout',
          'permissions' => NULL,
-         'childs' => 
+         'children' => 
         array (
           0 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-             'fieldtype' => 'panel',
-             'labelWidth' => 100,
-             'layout' => NULL,
-             'border' => false,
              'name' => 'Base Data',
              'type' => NULL,
              'region' => NULL,
@@ -98,20 +86,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'bodyStyle' => '',
              'datatype' => 'layout',
              'permissions' => NULL,
-             'childs' => 
+             'children' => 
             array (
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Firstname::__set_state(array(
-                 'fieldtype' => 'firstname',
-                 'width' => NULL,
-                 'defaultValue' => NULL,
-                 'queryColumnType' => 'varchar',
-                 'columnType' => 'varchar',
-                 'columnLength' => 190,
-                 'phpdocType' => 'string',
-                 'regex' => '',
-                 'unique' => false,
-                 'showCharCount' => NULL,
                  'name' => 'firstname',
                  'title' => 'Firstname',
                  'tooltip' => '',
@@ -122,24 +100,27 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'firstname',
                  'relationType' => false,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'width' => NULL,
+                 'defaultValue' => NULL,
+                 'columnLength' => 190,
+                 'regex' => '',
+                 'regexFlags' => 
+                array (
+                ),
+                 'unique' => false,
+                 'showCharCount' => false,
                  'defaultValueGenerator' => '',
               )),
               1 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Lastname::__set_state(array(
-                 'fieldtype' => 'lastname',
-                 'width' => NULL,
-                 'defaultValue' => NULL,
-                 'queryColumnType' => 'varchar',
-                 'columnType' => 'varchar',
-                 'columnLength' => 190,
-                 'phpdocType' => 'string',
-                 'regex' => '',
-                 'unique' => false,
-                 'showCharCount' => NULL,
                  'name' => 'lastname',
                  'title' => 'Lastname',
                  'tooltip' => '',
@@ -150,24 +131,27 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'lastname',
                  'relationType' => false,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'width' => NULL,
+                 'defaultValue' => NULL,
+                 'columnLength' => 190,
+                 'regex' => '',
+                 'regexFlags' => 
+                array (
+                ),
+                 'unique' => false,
+                 'showCharCount' => false,
                  'defaultValueGenerator' => '',
               )),
               2 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Email::__set_state(array(
-                 'fieldtype' => 'email',
-                 'width' => NULL,
-                 'defaultValue' => NULL,
-                 'queryColumnType' => 'varchar',
-                 'columnType' => 'varchar',
-                 'columnLength' => 190,
-                 'phpdocType' => 'string',
-                 'regex' => '',
-                 'unique' => false,
-                 'showCharCount' => NULL,
                  'name' => 'email',
                  'title' => 'Email',
                  'tooltip' => '',
@@ -178,24 +162,27 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'email',
                  'relationType' => false,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'width' => NULL,
+                 'defaultValue' => NULL,
+                 'columnLength' => 190,
+                 'regex' => '',
+                 'regexFlags' => 
+                array (
+                ),
+                 'unique' => false,
+                 'showCharCount' => false,
                  'defaultValueGenerator' => '',
               )),
               3 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                 'fieldtype' => 'input',
-                 'width' => NULL,
-                 'defaultValue' => NULL,
-                 'queryColumnType' => 'varchar',
-                 'columnType' => 'varchar',
-                 'columnLength' => 190,
-                 'phpdocType' => 'string',
-                 'regex' => '',
-                 'unique' => false,
-                 'showCharCount' => false,
                  'name' => 'Phone',
                  'title' => 'Phone',
                  'tooltip' => '',
@@ -206,24 +193,27 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'input',
                  'relationType' => false,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'width' => NULL,
+                 'defaultValue' => NULL,
+                 'columnLength' => 190,
+                 'regex' => '',
+                 'regexFlags' => 
+                array (
+                ),
+                 'unique' => false,
+                 'showCharCount' => false,
                  'defaultValueGenerator' => '',
               )),
               4 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                 'fieldtype' => 'input',
-                 'width' => NULL,
-                 'defaultValue' => NULL,
-                 'queryColumnType' => 'varchar',
-                 'columnType' => 'varchar',
-                 'columnLength' => 190,
-                 'phpdocType' => 'string',
-                 'regex' => '',
-                 'unique' => false,
-                 'showCharCount' => false,
                  'name' => 'Mobile',
                  'title' => 'Mobile',
                  'tooltip' => '',
@@ -234,19 +224,27 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'input',
                  'relationType' => false,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'width' => NULL,
+                 'defaultValue' => NULL,
+                 'columnLength' => 190,
+                 'regex' => '',
+                 'regexFlags' => 
+                array (
+                ),
+                 'unique' => false,
+                 'showCharCount' => false,
                  'defaultValueGenerator' => '',
               )),
               5 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                 'fieldtype' => 'checkbox',
-                 'defaultValue' => 1,
-                 'queryColumnType' => 'tinyint(1)',
-                 'columnType' => 'tinyint(1)',
-                 'phpdocType' => 'boolean',
                  'name' => 'active',
                  'title' => 'Active',
                  'tooltip' => '',
@@ -257,22 +255,31 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'checkbox',
                  'relationType' => false,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'defaultValue' => 1,
                  'defaultValueGenerator' => '',
               )),
             ),
              'locked' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'fieldtype' => 'panel',
+             'layout' => NULL,
+             'border' => false,
              'icon' => NULL,
+             'labelWidth' => 100,
+             'labelAlign' => 'left',
           )),
           1 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-             'fieldtype' => 'panel',
-             'labelWidth' => 100,
-             'layout' => NULL,
-             'border' => false,
              'name' => 'Authentication',
              'type' => NULL,
              'region' => NULL,
@@ -284,20 +291,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'bodyStyle' => '',
              'datatype' => 'layout',
              'permissions' => NULL,
-             'childs' => 
+             'children' => 
             array (
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                 'fieldtype' => 'input',
-                 'width' => NULL,
-                 'defaultValue' => NULL,
-                 'queryColumnType' => 'varchar',
-                 'columnType' => 'varchar',
-                 'columnLength' => 190,
-                 'phpdocType' => 'string',
-                 'regex' => '',
-                 'unique' => false,
-                 'showCharCount' => false,
                  'name' => 'userName',
                  'title' => 'Username',
                  'tooltip' => '',
@@ -308,24 +305,27 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'input',
                  'relationType' => false,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'width' => NULL,
+                 'defaultValue' => NULL,
+                 'columnLength' => 190,
+                 'regex' => '',
+                 'regexFlags' => 
+                array (
+                ),
+                 'unique' => false,
+                 'showCharCount' => false,
                  'defaultValueGenerator' => '',
               )),
               1 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                 'fieldtype' => 'input',
-                 'width' => NULL,
-                 'defaultValue' => NULL,
-                 'queryColumnType' => 'varchar',
-                 'columnType' => 'varchar',
-                 'columnLength' => 190,
-                 'phpdocType' => 'string',
-                 'regex' => '',
-                 'unique' => false,
-                 'showCharCount' => false,
                  'name' => 'Password',
                  'title' => 'Password',
                  'tooltip' => '',
@@ -336,153 +336,27 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'input',
                  'relationType' => false,
                  'invisible' => true,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'width' => NULL,
+                 'defaultValue' => NULL,
+                 'columnLength' => 190,
+                 'regex' => '',
+                 'regexFlags' => 
+                array (
+                ),
+                 'unique' => false,
+                 'showCharCount' => false,
                  'defaultValueGenerator' => '',
               )),
               2 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\User::__set_state(array(
-                 'fieldtype' => 'user',
-                 'unique' => false,
-                 'options' => 
-                array (
-                  0 => 
-                  array (
-                    'value' => 2,
-                    'key' => 'admin',
-                  ),
-                  1 => 
-                  array (
-                    'value' => 23,
-                    'key' => 'Andy (Andy Speidel)',
-                  ),
-                  2 => 
-                  array (
-                    'value' => 16,
-                    'key' => 'Ben (Ben Tracey)',
-                  ),
-                  3 => 
-                  array (
-                    'value' => 11,
-                    'key' => 'cory (Cory Walter)',
-                  ),
-                  4 => 
-                  array (
-                    'value' => 21,
-                    'key' => 'Dave (Dave Smith)',
-                  ),
-                  5 => 
-                  array (
-                    'value' => 33,
-                    'key' => 'editor',
-                  ),
-                  6 => 
-                  array (
-                    'value' => 22,
-                    'key' => 'Eric (Eric Dupont)',
-                  ),
-                  7 => 
-                  array (
-                    'value' => 28,
-                    'key' => 'Jarek (Jarek Zakrzewski)',
-                  ),
-                  8 => 
-                  array (
-                    'value' => 20,
-                    'key' => 'Jeff (Jeff Epperson)',
-                  ),
-                  9 => 
-                  array (
-                    'value' => 25,
-                    'key' => 'Jeremy (Jeremy Lidgett)',
-                  ),
-                  10 => 
-                  array (
-                    'value' => 14,
-                    'key' => 'Joe (joe glandorf)',
-                  ),
-                  11 => 
-                  array (
-                    'value' => 26,
-                    'key' => 'Karina (Karina Robinson)',
-                  ),
-                  12 => 
-                  array (
-                    'value' => 17,
-                    'key' => 'Laszlo (Laszlo Dobo)',
-                  ),
-                  13 => 
-                  array (
-                    'value' => 12,
-                    'key' => 'macenzie',
-                  ),
-                  14 => 
-                  array (
-                    'value' => 8,
-                    'key' => 'Mark (Rohan Kumar)',
-                  ),
-                  15 => 
-                  array (
-                    'value' => 24,
-                    'key' => 'MarkR (Mark Rosetta)',
-                  ),
-                  16 => 
-                  array (
-                    'value' => 15,
-                    'key' => 'Nicole (Nicole Kostelnick)',
-                  ),
-                  17 => 
-                  array (
-                    'value' => 27,
-                    'key' => 'Paul (Paul Whiffin)',
-                  ),
-                  18 => 
-                  array (
-                    'value' => 34,
-                    'key' => 'productmanager',
-                  ),
-                  19 => 
-                  array (
-                    'value' => 29,
-                    'key' => 'Randy (Rohan Kumar)',
-                  ),
-                  20 => 
-                  array (
-                    'value' => 9,
-                    'key' => 'Reji',
-                  ),
-                  21 => 
-                  array (
-                    'value' => 13,
-                    'key' => 'Rohit (Rohit Sriwastva)',
-                  ),
-                  22 => 
-                  array (
-                    'value' => 18,
-                    'key' => 'Steve (Steve Davison)',
-                  ),
-                  23 => 
-                  array (
-                    'value' => 30,
-                    'key' => 'uic60917 (Rohan Kumar)',
-                  ),
-                  24 => 
-                  array (
-                    'value' => 19,
-                    'key' => 'Zach (Zach Christenson)',
-                  ),
-                ),
-                 'width' => '',
-                 'defaultValue' => NULL,
-                 'optionsProviderClass' => NULL,
-                 'optionsProviderData' => NULL,
-                 'queryColumnType' => 'varchar',
-                 'columnType' => 'varchar',
-                 'columnLength' => 190,
-                 'phpdocType' => 'string',
-                 'dynamicOptions' => false,
                  'name' => 'adminReference',
                  'title' => 'Admin Reference',
                  'tooltip' => '',
@@ -493,22 +367,38 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'user',
                  'relationType' => false,
                  'invisible' => true,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'options' => NULL,
+                 'width' => '',
+                 'defaultValue' => NULL,
+                 'optionsProviderClass' => NULL,
+                 'optionsProviderData' => NULL,
+                 'columnLength' => 190,
+                 'dynamicOptions' => false,
                  'defaultValueGenerator' => '',
+                 'unique' => false,
               )),
             ),
              'locked' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'fieldtype' => 'panel',
+             'layout' => NULL,
+             'border' => false,
              'icon' => NULL,
+             'labelWidth' => 100,
+             'labelAlign' => 'left',
           )),
           2 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-             'fieldtype' => 'panel',
-             'labelWidth' => 100,
-             'layout' => NULL,
-             'border' => false,
              'name' => 'Segments',
              'type' => NULL,
              'region' => NULL,
@@ -520,39 +410,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'bodyStyle' => '',
              'datatype' => 'layout',
              'permissions' => NULL,
-             'childs' => 
+             'children' => 
             array (
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                 'fieldtype' => 'multiselect',
-                 'options' => 
-                array (
-                  0 => 
-                  array (
-                    'key' => 'Editor',
-                    'value' => 3,
-                  ),
-                  1 => 
-                  array (
-                    'key' => 'ProductManager',
-                    'value' => 4,
-                  ),
-                  2 => 
-                  array (
-                    'key' => 'ReadOnly',
-                    'value' => 31,
-                  ),
-                ),
-                 'width' => '',
-                 'height' => '',
-                 'maxItems' => '',
-                 'renderType' => 'tags',
-                 'optionsProviderClass' => 'AppBundle\\OptionProvider\\UserRoleOptionProvider',
-                 'optionsProviderData' => '',
-                 'queryColumnType' => 'text',
-                 'columnType' => 'text',
-                 'phpdocType' => 'array',
-                 'dynamicOptions' => false,
                  'name' => 'userType',
                  'title' => 'Roles',
                  'tooltip' => '',
@@ -563,34 +424,25 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'multiselect',
                  'relationType' => false,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'options' => NULL,
+                 'width' => '',
+                 'height' => '',
+                 'maxItems' => NULL,
+                 'renderType' => 'tags',
+                 'optionsProviderClass' => 'AppBundle\\OptionProvider\\UserRoleOptionProvider',
+                 'optionsProviderData' => '',
+                 'dynamicOptions' => false,
               )),
               1 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-                 'fieldtype' => 'manyToManyObjectRelation',
-                 'width' => '',
-                 'height' => '',
-                 'maxItems' => '',
-                 'queryColumnType' => 'text',
-                 'phpdocType' => 'array',
-                 'relationType' => true,
-                 'visibleFields' => 'fullpath,name',
-                 'allowToCreateNewObject' => true,
-                 'optimizedAdminLoading' => false,
-                 'visibleFieldDefinitions' => 
-                array (
-                ),
-                 'classes' => 
-                array (
-                  0 => 
-                  array (
-                    'classes' => 'MaterialGroup',
-                  ),
-                ),
-                 'pathFormatterClass' => '',
                  'name' => 'MaterialGroupAccess',
                  'title' => 'Material Group Access',
                  'tooltip' => '',
@@ -601,33 +453,35 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'manyToManyObjectRelation',
+                 'relationType' => true,
                  'invisible' => true,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
-              )),
-              2 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-                 'fieldtype' => 'manyToManyObjectRelation',
-                 'width' => '',
-                 'height' => '',
-                 'maxItems' => '',
-                 'queryColumnType' => 'text',
-                 'phpdocType' => 'array',
-                 'relationType' => true,
-                 'visibleFields' => 'code,fullCode,description',
-                 'allowToCreateNewObject' => false,
-                 'optimizedAdminLoading' => false,
-                 'visibleFieldDefinitions' => 
+                 'blockedVarsForExport' => 
                 array (
                 ),
                  'classes' => 
                 array (
                   0 => 
                   array (
-                    'classes' => 'ProductCategory',
+                    'classes' => 'MaterialGroup',
                   ),
                 ),
                  'pathFormatterClass' => '',
+                 'width' => '',
+                 'height' => '',
+                 'maxItems' => NULL,
+                 'visibleFields' => 'fullpath,name',
+                 'allowToCreateNewObject' => true,
+                 'optimizedAdminLoading' => false,
+                 'enableTextSelection' => false,
+                 'visibleFieldDefinitions' => 
+                array (
+                ),
+              )),
+              2 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                  'name' => 'SIOPAccess',
                  'title' => 'SIOP Access',
                  'tooltip' => '',
@@ -638,29 +492,77 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
+                 'fieldtype' => 'manyToManyObjectRelation',
+                 'relationType' => true,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                  0 => 
+                  array (
+                    'classes' => 'ProductCategory',
+                  ),
+                ),
+                 'pathFormatterClass' => '',
+                 'width' => '',
+                 'height' => '',
+                 'maxItems' => NULL,
+                 'visibleFields' => 'code,fullCode,description',
+                 'allowToCreateNewObject' => false,
+                 'optimizedAdminLoading' => false,
+                 'enableTextSelection' => false,
+                 'visibleFieldDefinitions' => 
+                array (
+                ),
               )),
             ),
              'locked' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'fieldtype' => 'panel',
+             'layout' => NULL,
+             'border' => false,
              'icon' => NULL,
+             'labelWidth' => 100,
+             'labelAlign' => 'left',
           )),
         ),
          'locked' => false,
+         'blockedVarsForExport' => 
+        array (
+        ),
+         'fieldtype' => 'tabpanel',
+         'border' => false,
+         'tabPosition' => 'top',
       )),
     ),
      'locked' => false,
+     'blockedVarsForExport' => 
+    array (
+    ),
+     'fieldtype' => 'panel',
+     'layout' => NULL,
+     'border' => false,
      'icon' => NULL,
+     'labelWidth' => 100,
+     'labelAlign' => 'left',
   )),
    'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/sports_mode.svg',
    'previewUrl' => '',
    'group' => '',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
+   'previewGeneratorReference' => NULL,
    'compositeIndices' => 
   array (
   ),
+   'generateTypeDeclarations' => false,
+   'showFieldLookup' => false,
    'propertyVisibility' => 
   array (
     'grid' => 
@@ -683,5 +585,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
     ),
   ),
    'enableGridLocking' => false,
-   'dao' => NULL,
+   'deletedDataComponents' => 
+  array (
+  ),
+   'blockedVarsForExport' => 
+  array (
+  ),
+   'activeDispatchingEvents' => 
+  array (
+  ),
 ));

@@ -1,3 +1,0 @@
-email_notification_homepage:
-    path:     /email_notification
-    defaults: { _controller: EmailNotificationBundle:Default:index }

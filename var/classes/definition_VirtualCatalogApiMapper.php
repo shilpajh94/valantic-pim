@@ -1,25 +1,21 @@
-<?php 
+<?php
 
-/** 
-* Generated at: 2022-09-23T10:51:05+02:00
-* Inheritance: no
-* Variants: no
-* Changed by: admin (2)
-* IP: ::1
-
-
-Fields Summary: 
-- GroupingField [select]
-- originalValues [table]
-*/ 
-
+/**
+ * Inheritance: no
+ * Variants: no
+ *
+ * Fields Summary:
+ * - GroupingField [select]
+ * - originalValues [table]
+ */
 
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
+   'dao' => NULL,
    'id' => 'VirtualCatalogApiMapper',
    'name' => 'VirtualCatalogApiMapper',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1663923065,
+   'modificationDate' => 1699596944,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -32,14 +28,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
   array (
   ),
    'allowInherit' => false,
-   'allowVariants' => NULL,
+   'allowVariants' => false,
    'showVariants' => false,
+   'fieldDefinitions' => 
+  array (
+  ),
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-     'fieldtype' => 'panel',
-     'labelWidth' => 100,
-     'layout' => NULL,
-     'border' => false,
      'name' => 'pimcore_root',
      'type' => NULL,
      'region' => NULL,
@@ -51,14 +46,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'bodyStyle' => NULL,
      'datatype' => 'layout',
      'permissions' => NULL,
-     'childs' => 
+     'children' => 
     array (
       0 => 
       Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-         'fieldtype' => 'panel',
-         'labelWidth' => 100,
-         'layout' => NULL,
-         'border' => false,
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
@@ -70,11 +61,28 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'bodyStyle' => '',
          'datatype' => 'layout',
          'permissions' => NULL,
-         'childs' => 
+         'children' => 
         array (
           0 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+             'name' => 'GroupingField',
+             'title' => 'Grouping Field',
+             'tooltip' => '',
+             'mandatory' => true,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
              'fieldtype' => 'select',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
              'options' => 
             array (
               0 => 
@@ -127,34 +135,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'defaultValue' => '',
              'optionsProviderClass' => '',
              'optionsProviderData' => '',
-             'queryColumnType' => 'varchar',
-             'columnType' => 'varchar',
              'columnLength' => 190,
-             'phpdocType' => 'string',
              'dynamicOptions' => false,
-             'name' => 'GroupingField',
-             'title' => 'Grouping Field',
-             'tooltip' => '',
-             'mandatory' => true,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'datatype' => 'data',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
              'defaultValueGenerator' => '',
           )),
           1 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
-             'fieldtype' => 'text',
-             'html' => '<div class="alert alert-warning" style="width:400px">Mapping is not applicable for numeric fields.</div>',
-             'renderingClass' => '',
-             'renderingData' => '',
-             'border' => false,
              'name' => 'Layout',
              'type' => NULL,
              'region' => NULL,
@@ -166,28 +152,21 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'bodyStyle' => '',
              'datatype' => 'layout',
              'permissions' => NULL,
-             'childs' => 
+             'children' => 
             array (
             ),
              'locked' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'fieldtype' => 'text',
+             'html' => '<div class="alert alert-warning" style="width:400px">Mapping is not applicable for numeric fields.</div>',
+             'renderingClass' => '',
+             'renderingData' => '',
+             'border' => false,
           )),
           2 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Table::__set_state(array(
-             'fieldtype' => 'table',
-             'width' => 600,
-             'height' => '',
-             'cols' => '',
-             'colsFixed' => false,
-             'rows' => '',
-             'rowsFixed' => false,
-             'data' => '',
-             'columnConfigActivated' => false,
-             'columnConfig' => 
-            array (
-            ),
-             'queryColumnType' => 'longtext',
-             'columnType' => 'longtext',
-             'phpdocType' => 'array',
              'name' => 'originalValues',
              'title' => 'Mapping',
              'tooltip' => '',
@@ -198,27 +177,61 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'style' => 'float: left;margin-right: 50px;',
              'permissions' => NULL,
              'datatype' => 'data',
+             'fieldtype' => 'table',
              'relationType' => false,
              'invisible' => false,
              'visibleGridView' => false,
              'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'width' => 600,
+             'height' => '',
+             'cols' => NULL,
+             'colsFixed' => false,
+             'rows' => NULL,
+             'rowsFixed' => false,
+             'data' => '',
+             'columnConfigActivated' => false,
+             'columnConfig' => 
+            array (
+            ),
           )),
         ),
          'locked' => false,
+         'blockedVarsForExport' => 
+        array (
+        ),
+         'fieldtype' => 'panel',
+         'layout' => NULL,
+         'border' => false,
          'icon' => '',
+         'labelWidth' => 100,
+         'labelAlign' => 'left',
       )),
     ),
      'locked' => false,
+     'blockedVarsForExport' => 
+    array (
+    ),
+     'fieldtype' => 'panel',
+     'layout' => NULL,
+     'border' => false,
      'icon' => NULL,
+     'labelWidth' => 100,
+     'labelAlign' => 'left',
   )),
    'icon' => '',
    'previewUrl' => '',
    'group' => '',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
+   'previewGeneratorReference' => NULL,
    'compositeIndices' => 
   array (
   ),
+   'generateTypeDeclarations' => false,
+   'showFieldLookup' => false,
    'propertyVisibility' => 
   array (
     'grid' => 
@@ -241,5 +254,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
     ),
   ),
    'enableGridLocking' => false,
-   'dao' => NULL,
+   'deletedDataComponents' => 
+  array (
+  ),
+   'blockedVarsForExport' => 
+  array (
+  ),
+   'activeDispatchingEvents' => 
+  array (
+  ),
 ));
