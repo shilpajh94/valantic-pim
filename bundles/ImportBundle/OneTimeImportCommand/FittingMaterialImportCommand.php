@@ -64,7 +64,7 @@ class FittingMaterialImportCommand extends AbstractCommand
     public function insertFittingMaterialMasterData($result, $parentFolderID)
     {
 
-        $languageConfig = Yaml::parseFile(PIMCORE_PROJECT_ROOT . '/src/ImportBundle/Resources/config/language.yaml');
+        $languageConfig = Yaml::parseFile(PIMCORE_PROJECT_ROOT . '/bundles/ImportBundle/Resources/config/language.yaml');
         // $title = trim($result['ID']).'-'.trim($result['EN']);
         $title = trim($result['EN']);
 

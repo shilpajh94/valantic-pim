@@ -9,10 +9,18 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Elements\Bundle\ProcessManagerBundle\ExecutionTraitClass;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ImportCommand extends AbstractCommand
 {
     use ExecutionTraitClass;
+    private $container;
+
+    public function __construct(ContainerInterface $container)
+    {
+        parent::__construct();
+        $this->container = $container;
+    }
     protected function configure()
     {
         $this->setName('conti:import')
@@ -56,7 +64,7 @@ class ImportCommand extends AbstractCommand
             'filePath'      =>  $options['filePath'] ?: null
         );
 
-        $lookupObj = \Pimcore::getContainer()->get('import.lookup_service');
+        $lookupObj = $this->container->get('import.lookup_service');
         $lookupObj->execDataFeeder($lookupParam);
     }
 }

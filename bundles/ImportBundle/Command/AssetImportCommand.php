@@ -15,9 +15,17 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Pimcore\Db;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class AssetImportCommand extends AbstractCommand
 {
+    private $container;
+
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
+
     protected function configure()
     {
         $this->setName('conti:asset-import')
@@ -27,7 +35,7 @@ class AssetImportCommand extends AbstractCommand
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        $serviceObj = \Pimcore::getContainer()->get('import.asset_import_service');
+        $serviceObj =$this->container->get('import.asset_import_service');
         $importType = strtoupper($input->getArgument('import_type'));
         if(!in_array($importType, ["PTG", "IFS"])){
             echo $importType." is not valid import type. It can either be PTG or IFS".PHP_EOL;

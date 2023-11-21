@@ -4,6 +4,7 @@ namespace AppBundle\Helper;
 
 use Pimcore\Db;
 use ImportBundle\Services\ImportConstants;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class TableImport
 {
@@ -13,6 +14,7 @@ class TableImport
     private $fileColumns;
     private $keyColumns;
     private $mappingCsvColumn;
+    private $container;
 
     private $db;
     private $common;
@@ -20,10 +22,11 @@ class TableImport
     /**
      * Getting DB connection object
      */
-    public function __construct()
+    public function __construct(ContainerInterface $container)
     {
+        $this->container = $container;
         $this->db = Db::get();
-        $this->common = \Pimcore::getContainer()->get('app.common_helper');
+        $this->common = $this->container->get('app.common_helper');
     }
 
     /**

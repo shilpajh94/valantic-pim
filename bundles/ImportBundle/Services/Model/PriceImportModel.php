@@ -8,6 +8,7 @@ use AppBundle\Logger\AppLogger as Logger;
 use Pimcore\Model\DataObject;
 use ImportBundle\Services\Import;
 use ImportBundle\Services\ImportConstants;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class PriceImportModel {
     /**
@@ -36,19 +37,21 @@ class PriceImportModel {
      */
     private $logger;
 
-    public function __construct() {
+    public function __construct(ContainerInterface $container) {
+
+        $this->container = $container;
         $this->datasource = 'FTP'; // "ASSETS" OR "FTP"
         
         $this->assetFilePath = '/Data Import Files/Price List/PIM_ListPrice.csv';
         
-        //$this->common = \Pimcore::getContainer()->get('app.common_helper');
+        //$this->common =$this->container->get('app.common_helper');
         
-        $this->tblImpHelper = \Pimcore::getContainer()->get('import.sap_price_import_table_helper');
+        $this->tblImpHelper =$this->container->get('import.sap_price_import_table_helper');
         
-//        $this->productHelper = \Pimcore::getContainer()->get('app.product_helper');
-//        $this->catHelper = \Pimcore::getContainer()->get('app.category_helper');
-//        $this->catInstance = \Pimcore::getContainer()->get('import.category_service');
-//        $this->prdConfigData = \Pimcore::getContainer()->get('app.config_provider_service')->getProductConfig();
+//        $this->productHelper =$this->container->get('app.product_helper');
+//        $this->catHelper =$this->container->get('app.category_helper');
+//        $this->catInstance =$this->container->get('import.category_service');
+//        $this->prdConfigData =$this->container->get('app.config_provider_service')->getProductConfig();
 //        $this->startRow = $this->common->getParameterItem($this->prdConfigData, 'sheet', 'startRow');
 //        $this->columnName = $this->common->getParameterItem($this->prdConfigData, 'sheet', 'columnName');
     }

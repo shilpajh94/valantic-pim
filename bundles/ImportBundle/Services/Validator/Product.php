@@ -3,6 +3,7 @@
 namespace ImportBundle\Services\Validator;
 
 use Exception;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class Product
 {
@@ -20,11 +21,13 @@ class Product
     public $productType;
     private $prdHelper;
     private $catHelper;
-    public function __construct()
+    private $container;
+    public function __construct(ContainerInterface $container)
     {
+        $this->container = $container;
         $this->rowCnt = 0;
-        $this->prdHelper = \Pimcore::getContainer()->get('app.product_helper');
-        $this->catHelper = \Pimcore::getContainer()->get('app.category_helper');
+        $this->prdHelper = $this->container->get('app.product_helper');
+        $this->catHelper = $this->container->get('app.category_helper');
     }
 
     public function validateRow($reader)

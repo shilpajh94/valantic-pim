@@ -15,6 +15,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Pimcore\Db;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class PtgImportCommand extends AbstractCommand
 {
@@ -53,6 +54,13 @@ class PtgImportCommand extends AbstractCommand
     private $masterTypes;
     private $masters;
     private $brands;
+    private $container;
+
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
+
     protected function configure()
     {
         $this->setName('conti:onetimeimport:ptg')
@@ -286,7 +294,7 @@ class PtgImportCommand extends AbstractCommand
      */
     private function getFertData($results)
     {
-        $unitConverter = \Pimcore::getContainer()->get('AppBundle\Services\UnitConverterService');
+        $unitConverter =$this->container->get('AppBundle\Services\UnitConverterService');
         // Testing
         // $arr = $unitConverter->getGroupWithValues('insideLengthIN', 25.5);
         $d = array();
@@ -462,7 +470,7 @@ class PtgImportCommand extends AbstractCommand
 
     private function getMainClassData($results)
     {
-        $unitConverter = \Pimcore::getContainer()->get('AppBundle\Services\UnitConverterService');
+        $unitConverter =$this->container->get('AppBundle\Services\UnitConverterService');
         $d = array();
         foreach ($results as $k => $r) {
             $reinforcement = array();

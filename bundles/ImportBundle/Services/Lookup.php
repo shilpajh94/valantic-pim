@@ -8,6 +8,7 @@ use Elements\Bundle\ProcessManagerBundle;
 use AppBundle\Logger\AppLogger as Logger;
 use AppBundle\Lib\SFTPConnection;
 use ImportBundle\Model\Import\FailedRecords;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 
 class Lookup
@@ -34,11 +35,13 @@ class Lookup
     private $monitoringItem;
     protected $objFailedRecords;
     protected $scriptStartTime;
+    private $container;
 
-    public function __construct()
+    public function __construct(ContainerInterface $container)
     {
+        $this->container = $container;
         $this->datetime = date('Ymdhis');
-        $this->common = \Pimcore::getContainer()->get('app.common_helper');
+        $this->common = $this->container->get('app.common_helper');
         $this->monitoringItem = ProcessManagerBundle\ElementsProcessManagerBundle::getMonitoringItem();
         $this->objFailedRecords = new FailedRecords; 
     }
@@ -132,7 +135,7 @@ class Lookup
                 // }
                 $this->sysFilePath = realpath($this->filePath);
                 // $this->sysFilePath = $obj->getFileSystemPath();
-                // $feederObj = \Pimcore::getContainer()->get($this->feederService);
+                // $feederObj = $this->container->get($this->feederService);
                 
                 $feederService = $mappedService = $validatorService = $listingService = '';
                 if($cmd == 'plantMaterial')
@@ -159,7 +162,7 @@ class Lookup
                     $validatorService = 'import.category_validator_service';
                     $listingService = 'pim.category_listing_service';
                 }
-                $feederObj = \Pimcore::getContainer()->get($feederService);
+                $feederObj = $this->container->get($feederService);
                 $params = array(
                     'approvedSalesOrg'  =>  $this->approvedSalesOrg,
                     'filePath'          =>  $this->sysFilePath,
@@ -194,7 +197,7 @@ class Lookup
     {
         /* $this->common->loadConfig();
         $commands = $this->common->getParameter($cmd); */
-        $commands = \Pimcore::getContainer()->get('app.config_provider_service')->getCommandConfig();
+        $commands = $this->container->get('app.config_provider_service')->getCommandConfig();
         $commands = $this->common->getParameter($commands, $cmd);
         try {
             if (!empty($commands) && $commands['name']==$cmd) {

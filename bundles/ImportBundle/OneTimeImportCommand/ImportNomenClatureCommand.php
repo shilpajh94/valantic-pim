@@ -9,6 +9,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use ImportBundle\Services\Import;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ImportNomenClatureCommand extends AbstractCommand
 {
@@ -16,10 +17,17 @@ class ImportNomenClatureCommand extends AbstractCommand
     private $successCount = 0;
     private $failedCount = 0;
     private $fileColumns;
+    private $container;
     const NOMENCLATURE_FOLDER = 'Master List/NomenClature';
     const THREAD_FOLDER = "/Master List/Thread";
     const FITTING_FAMILY_FOLDER = "/Master List/Fitting Family";
     const ADAPTER_FOLDER = "/Master List/Adapter";
+
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
+
 
     protected function configure()
     {
@@ -34,7 +42,7 @@ class ImportNomenClatureCommand extends AbstractCommand
 
 
         $time = new \DateTime();
-        $this->common = \Pimcore::getContainer()->get('app.common_helper');
+        $this->common =$this->container->get('app.common_helper');
         $input_file = $input->getArgument('input_file');
         $nomenclature_type = $input->getArgument('nomenclature_type');
         if(!file_exists($input_file)){

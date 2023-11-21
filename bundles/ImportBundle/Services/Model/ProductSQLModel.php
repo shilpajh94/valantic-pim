@@ -9,6 +9,7 @@ use Pimcore\Model\DataObject;
 use ImportBundle\Services\Import;
 use ImportBundle\Services\ImportConstants;
 use AppBundle\Lib\UnitConversion;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ProductSQLModel
 {
@@ -61,6 +62,8 @@ class ProductSQLModel
     private $allBaseProducts;
     private $appService;
     private $weightConversionService;
+    private $container;
+    private $productHelper;
     
     const LOGGER_MODULE = 'SAP IMPORT SHEET';
     const FILE_LAST_COL = 'D';
@@ -74,18 +77,21 @@ class ProductSQLModel
         "G" => UnitConversion\WeightPerLengthConverter::UNIT_G_PER_FT,
     ];
     
-    public function __construct()
+    public function __construct(ContainerInterface $container)
     {
+        $this->container = $container;
+        
         /* Initilize monitoring item and set the number of steps will take to complete the task */
         // $this->monitoringItem = ProcessManagerBundle\ElementsProcessManagerBundle::getMonitoringItem();
-        $this->common = \Pimcore::getContainer()->get('app.common_helper');
-        $this->appService = \Pimcore::getContainer()->get('AppBundle\Services\AppService');
-        $this->tblImpHelper = \Pimcore::getContainer()->get('app.product_import_helper');
-        $this->productHelper = \Pimcore::getContainer()->get('app.product_helper');
-//        $this->catHelper = \Pimcore::getContainer()->get('app.category_helper');
-//        $this->catInstance = \Pimcore::getContainer()->get('import.category_service');
-        $this->prdConfigData = \Pimcore::getContainer()->get('app.config_provider_service')->getProductConfig();
-        $this->brickMappingService = \Pimcore::getContainer()->get('AppBundle\Services\CategoryBrickMappingService');
+        $this->common = $this->container->get('app.common_helper');
+
+        $this->appService = $this->container->get('AppBundle\Services\AppService');
+        $this->tblImpHelper = $this->container->get('app.product_import_helper');
+        $this->productHelper = $this->container->get('app.product_helper');
+//        $this->catHelper = $this->container->get('app.category_helper');
+//        $this->catInstance = $this->container->get('import.category_service');
+        $this->prdConfigData = $this->container->get('app.config_provider_service')->getProductConfig();
+        $this->brickMappingService = $this->container->get('AppBundle\Services\CategoryBrickMappingService');
 //        $this->startRow = $this->common->getParameterItem($this->prdConfigData, 'sheet', 'startRow');
         $this->columnName = $this->common->getParameterItem($this->prdConfigData, 'sheet', 'columnName');
         $this->weightConversionService = new UnitConversion\WeightPerLengthConverter();
@@ -141,7 +147,7 @@ class ProductSQLModel
     {
         try {
             $this->updateDefaults($param);
-            // $this->instance = \Pimcore::getContainer()->get($this->validatorService);
+            // $this->instance = $this->container->get($this->validatorService);
             /**
              * Get spreadsheet object by calling load function
              * Pass file path directly or send array with sheet configuration
@@ -201,7 +207,7 @@ class ProductSQLModel
         try {
             if (!empty($skippedArticles) && count($skippedArticles)>0) {
                 $fileName = "SAP_import_skipped_articles_" . '-' . date('YmdHis') . '.csv';
-                $logFilePath = PIMCORE_TEMPORARY_DIRECTORY."/".$fileName;
+                $logFilePath = PIMCORE_SYSTEM_TEMP_DIRECTORY."/".$fileName;
                 $fp = fopen($logFilePath, 'wb');
                 fputcsv($fp, ['articleNumber', 'siop', '6digit', 'mismatchedSiopCode', 'mismatchedArticleNumber']);
                 foreach ($skippedArticles as $article) {
@@ -216,7 +222,7 @@ class ProductSQLModel
                             'templateName' => $emailTemplate,
                             'attachment' => $logFilePath
                         ];
-                        $this->emailService = \Pimcore::getContainer()->get('email.email_notification_service');
+                        $this->emailService = $this->container->get('email.email_notification_service');
                         $this->emailService->sendNotificationsEmail($emailParams);
                     }else {
                         throw \Exception("Base SIOP mismatch email template not found.");

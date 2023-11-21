@@ -8,6 +8,7 @@ use AppBundle\Logger\AppLogger as Logger;
 use Elements\Bundle\ProcessManagerBundle;
 use ImportBundle\Services\Import;
 use ImportBundle\Services\ImportConstants;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ProductModel
 {
@@ -45,22 +46,24 @@ class ProductModel
     private $bricks;
     private $brickMappingService;
     private $fileHandle;
+    private $container;
     use ProcessManagerBundle\ExecutionTraitClass;
     const LOGGER_MODULE = 'SIOP IMPORT SHEET';
     const FILE_LAST_COL = 'D';
     const MAX_TOP_CAT_LVL = 6;
     const MIN_TOP_CAT_LVL = 4;
-    public function __construct()
+    public function __construct(ContainerInterface $container)
     {
+        $this->container = $container;
         /* Initilize monitoring item and set the number of steps will take to complete the task */
         // $this->monitoringItem = ProcessManagerBundle\ElementsProcessManagerBundle::getMonitoringItem();
-        $this->common = \Pimcore::getContainer()->get('app.common_helper');
-        $this->tblImpHelper = \Pimcore::getContainer()->get('app.table_import_helper');
-        $this->prdHelper = \Pimcore::getContainer()->get('app.product_helper');
-        $this->catHelper = \Pimcore::getContainer()->get('app.category_helper');
-        $this->catInstance = \Pimcore::getContainer()->get('import.category_service');
-        $this->prdConfigData = \Pimcore::getContainer()->get('app.config_provider_service')->getProductConfig();
-        $this->brickMappingService = \Pimcore::getContainer()->get('AppBundle\Services\CategoryBrickMappingService');
+        $this->common = $this->container->get('app.common_helper');
+        $this->tblImpHelper = $this->container->get('app.table_import_helper');
+        $this->prdHelper = $this->container->get('app.product_helper');
+        $this->catHelper = $this->container->get('app.category_helper');
+        $this->catInstance = $this->container->get('import.category_service');
+        $this->prdConfigData = $this->container->get('app.config_provider_service')->getProductConfig();
+        $this->brickMappingService = $this->container->get('AppBundle\Services\CategoryBrickMappingService');
         $this->startRow = $this->common->getParameterItem($this->prdConfigData, 'sheet', 'startRow');
         $this->columnName = $this->common->getParameterItem($this->prdConfigData, 'sheet', 'columnName');
     }
@@ -80,7 +83,7 @@ class ProductModel
     {
         try {
             $this->updateDefaults($param);
-            $this->instance = \Pimcore::getContainer()->get($this->validatorService);
+            $this->instance = $this->container->get($this->validatorService);
             /**
              * Get spreadsheet object by calling load function
              * Pass file path directly or send array with sheet configuration

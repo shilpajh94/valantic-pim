@@ -9,6 +9,7 @@ use AppBundle\Logger\AppLogger as Logger;
 use Elements\Bundle\ProcessManagerBundle;
 use ImportBundle\Services\Import;
 use ImportBundle\Services\ImportConstants;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class SalesMaterialModel
 {
@@ -32,7 +33,7 @@ class SalesMaterialModel
     // private $salesOrganizations;
     // private $distributionChannels;
     private $common;
-
+    private $container;
     private $fileColumns = array();
     private $keyColumns = array();
     private $approvedSalesOrg = array();
@@ -48,8 +49,9 @@ class SalesMaterialModel
 
     const LOGGER_MODULE = 'SALES MATERIAL MASTER';
 
-    public function __construct()
+    public function __construct(ContainerInterface $container)
     {
+        $this->container = $container;
         $this->db = Db::get();
         /* Initilize monitoring item and set the number of steps will take to complete the task */
         $this->monitoringItem = ProcessManagerBundle\ElementsProcessManagerBundle::getMonitoringItem();
@@ -65,9 +67,9 @@ class SalesMaterialModel
             $this->fileColumns = $csvImportedData['header'];
             $csvData = $csvImportedData['data'];
             unset($csvImportedData);
-            $this->common = \Pimcore::getContainer()->get('app.common_helper');
-            $this->tableImportHelper = \Pimcore::getContainer()->get('app.sales_material_import_helper');
-            $salesMaterialConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getSalesMaterialConfig();
+            $this->common = $this->container->get('app.common_helper');
+            $this->tableImportHelper = $this->container->get('app.sales_material_import_helper');
+            $salesMaterialConfig = $this->container->get('app.config_provider_service')->getSalesMaterialConfig();
 
             $this->approvedSalesOrg = $this->common->getParameter($salesMaterialConfig, 'approvedSalesOrg');
             $this->privateMaterialGroup = $this->common->getParameter($salesMaterialConfig, 'privateMaterialGroup');

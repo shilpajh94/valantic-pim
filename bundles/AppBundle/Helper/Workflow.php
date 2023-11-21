@@ -3,13 +3,17 @@
 namespace AppBundle\Helper;
 
 use Pimcore\Db;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class Workflow
 {
 
     private $db;
-    public function __construct()
+    private $container;
+
+    public function __construct(ContainerInterface $container)
     {
+        $this->container = $container;
         $this->db = Db::get();
     }
 
@@ -37,7 +41,7 @@ class Workflow
 
     public function getTemplatePath($transitionName, $optionName = "", $optionVal = "")
     {
-        $wfConfigData = \Pimcore::getContainer()->get('app.config_provider_service')->getWorkFlowConfig()['parameters'];
+        $wfConfigData =$this->container->get('app.config_provider_service')->getWorkFlowConfig()['parameters'];
         $transitions = isset($wfConfigData['transitions']) ? $wfConfigData['transitions'] : false;
 
         if (!empty($optionName) && !empty($optionVal)) {
@@ -49,32 +53,32 @@ class Workflow
 
     public function getReminderTemplatePath($placeName)
     {
-        $wfConfigData = \Pimcore::getContainer()->get('app.config_provider_service')->getWorkFlowConfig()['parameters'];
+        $wfConfigData =$this->container->get('app.config_provider_service')->getWorkFlowConfig()['parameters'];
         $reminder = isset($wfConfigData['reminder']) ? $wfConfigData['reminder'] : false;
         return $reminder['places'][$placeName]['templatePath'];
     }
 
     public function getBUAdminTemplatePath()
     {
-        $wfConfigData = \Pimcore::getContainer()->get('app.config_provider_service')->getWorkFlowConfig()['parameters'];
+        $wfConfigData =$this->container->get('app.config_provider_service')->getWorkFlowConfig()['parameters'];
         $reminder = isset($wfConfigData['reminder']) ? $wfConfigData['reminder'] : false;
         return $reminder['places']['buAdminTemplatePath'];
     }
 
     public function getReminderInterval($placeName) {
-        $wfConfigData = \Pimcore::getContainer()->get('app.config_provider_service')->getWorkFlowConfig()['parameters'];
+        $wfConfigData =$this->container->get('app.config_provider_service')->getWorkFlowConfig()['parameters'];
         $reminder = isset($wfConfigData['reminder']) ? $wfConfigData['reminder'] : false;
         return $reminder['places'][$placeName]['reminderIntervalDay'];
     }
 
     public function getBUAdminReminderInterval($placeName) {
-        $wfConfigData = \Pimcore::getContainer()->get('app.config_provider_service')->getWorkFlowConfig()['parameters'];
+        $wfConfigData =$this->container->get('app.config_provider_service')->getWorkFlowConfig()['parameters'];
         $reminder = isset($wfConfigData['reminder']) ? $wfConfigData['reminder'] : false;
         return $reminder['places'][$placeName]['reminderToBUAdminIntervalDay'];
     }
 
     public function getReminderSubject($placeName) {
-        $wfConfigData = \Pimcore::getContainer()->get('app.config_provider_service')->getWorkFlowConfig()['parameters'];
+        $wfConfigData =$this->container->get('app.config_provider_service')->getWorkFlowConfig()['parameters'];
         $reminder = isset($wfConfigData['reminder']) ? $wfConfigData['reminder'] : false;
         return $reminder['places'][$placeName]['subject'];
     }
@@ -106,7 +110,7 @@ class Workflow
 //        if(!empty($config['general']['domain'])) {
 //            $host = $config['general']['domain'];
 //        } else {
-//            $host = \Pimcore::getContainer()->get('app.config_provider_service')->getWorkFlowConfig()['parameters']['host'];
+//            $host =$this->container->get('app.config_provider_service')->getWorkFlowConfig()['parameters']['host'];
 //        }
         $host = APPLICATION_HOST;
         $link = $host. "/admin/login/deeplink?";
@@ -150,7 +154,7 @@ class Workflow
      */
     public function getOppositeUserRoleIdByRoleId($roleId)
     {
-        $wfConfigData = \Pimcore::getContainer()->get('app.config_provider_service')->getWorkFlowConfig()['parameters'];
+        $wfConfigData =$this->container->get('app.config_provider_service')->getWorkFlowConfig()['parameters'];
         if ($roleId == $wfConfigData['roles']['editor']['id']) {
             return $wfConfigData['roles']['productManager']['id'];
         } else {

@@ -9,6 +9,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use ImportBundle\Services\Import;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ImportCompetitorDataCommand extends AbstractCommand
 {
@@ -21,6 +22,12 @@ class ImportCompetitorDataCommand extends AbstractCommand
     const COMPETITIVE_DATA_FOLDER = 'Competitive Data';
     const COMPETITIVE_DATA_COMPETITOR_FOLDER = 'Competitive Data/Competitor';
     const COMPETITIVE_DATA_COMPETITOR_PARTS_FOLDER = 'Competitive Data/Competitor Parts';
+    private $container;
+
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
 
     protected function configure()
     {
@@ -32,7 +39,7 @@ class ImportCompetitorDataCommand extends AbstractCommand
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $time = new \DateTime();
-        $this->common = \Pimcore::getContainer()->get('app.common_helper');
+        $this->common =$this->container->get('app.common_helper');
         $input_file = $input->getArgument('input_file');
         $csvImportedData = Import::getCSVData($input_file);
         $this->fileColumns = $csvImportedData['header'];

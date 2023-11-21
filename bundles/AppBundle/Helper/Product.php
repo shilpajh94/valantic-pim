@@ -3,6 +3,7 @@
 namespace AppBundle\Helper;
 
 use Pimcore\Model\DataObject;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class Product
 {
@@ -16,14 +17,16 @@ class Product
     private $productType;
     public $siopCodes;
     private $siopObjects;
-    public function __construct()
+    private $container;
+    public function __construct(ContainerInterface $container)
     {
+        $this->container = $container;
         /* Initiate helper */
-        $this->common = \Pimcore::getContainer()->get('app.common_helper');
-        $this->catHelper = \Pimcore::getContainer()->get('app.category_helper');
+        $this->common = $this->container->get('app.common_helper');
+        $this->catHelper = $this->container->get('app.category_helper');
         /* Loading global configuration for category */
-        $this->catConfigData = \Pimcore::getContainer()->get('app.config_provider_service')->getCategoryConfig();
-        $this->prdConfigData = \Pimcore::getContainer()->get('app.config_provider_service')->getProductConfig();
+        $this->catConfigData = $this->container->get('app.config_provider_service')->getCategoryConfig();
+        $this->prdConfigData = $this->container->get('app.config_provider_service')->getProductConfig();
         $this->root = $this->common->getParameter($this->prdConfigData, 'root');
         $this->codeLength = $this->common->getParameter($this->catConfigData, 'codeLength');
         $this->levelLength = $this->common->getParameter($this->catConfigData, 'levelLength');
@@ -51,7 +54,7 @@ class Product
             foreach ($siops as $l => $siop) {
                 $sioLvlName = "setSIOPLevel" . $l;
                 if (!empty($siop) && $siop->getId()) {
-                    $targetObject->$sioLvlName([\Pimcore::getContainer()->get('pim.category_service')::getById($siop->getId())]);
+                    $targetObject->$sioLvlName([$this->container->get('pim.category_service')::getById($siop->getId())]);
                 }
             }
             /**
@@ -218,7 +221,7 @@ class Product
     private function createCategoryObjectHierarchy($code, $parentObj, $siopLevel, $bu = "")
     {
         $catObj = $this->catHelper->getObjectByFullCode($code, $bu);
-        $brickMappingService = \Pimcore::getContainer()->get('AppBundle\Services\CategoryBrickMappingService');
+        $brickMappingService = $this->container->get('AppBundle\Services\CategoryBrickMappingService');
         if (!empty($catObj)) {
             $keyName = $catObj->getKey();
             $prdFullPath = $parentObj->getFullPath() . '/' . $keyName;

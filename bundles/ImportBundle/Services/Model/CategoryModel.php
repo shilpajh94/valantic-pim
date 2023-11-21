@@ -8,6 +8,7 @@ use AppBundle\Logger\AppLogger as Logger;
 use Elements\Bundle\ProcessManagerBundle;
 use ImportBundle\Services\Import;
 use ImportBundle\Services\ImportConstants;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class CategoryModel
 {
@@ -35,16 +36,19 @@ class CategoryModel
     private $catConfigData;
     private $relatedClsfcnLvl;
     private $processingCode;
-    public function __construct()
+    private $container;
+    private $instance;
+    public function __construct(ContainerInterface $container)
     {
         try {
+            $this->container = $container;
             /* Initilize monitoring item and set the number of steps will take to complete the task */
             $this->monitoringItem = ProcessManagerBundle\ElementsProcessManagerBundle::getMonitoringItem();
-            $this->common = \Pimcore::getContainer()->get('app.common_helper');
+            $this->common =$this->container->get('app.common_helper');
             /* Load category configuration file */
-            $this->catConfigData = \Pimcore::getContainer()->get('app.config_provider_service')->getCategoryConfig();
+            $this->catConfigData =$this->container->get('app.config_provider_service')->getCategoryConfig();
             /* Initiating global category helper */
-            $this->catHelper = \Pimcore::getContainer()->get('app.category_helper');
+            $this->catHelper =$this->container->get('app.category_helper');
 
             $this->relatedClsfcnLvl = $this->common->getParameter($this->catConfigData, 'relatedClsfcnLvl');
             $this->fileLastCol = $this->common->getParameterItem($this->catConfigData, 'sheet', 'lastColName');
@@ -67,7 +71,7 @@ class CategoryModel
     {
         try {
             $this->updateDefaults($param);
-            $this->instance = \Pimcore::getContainer()->get($this->validatorService);
+            $this->instance =$this->container->get($this->validatorService);
             $spreadsheet = Import::load($this->filePath);
             $result = $this->instance->validateSpreadSheet($spreadsheet);
             if (!$result['status']) {

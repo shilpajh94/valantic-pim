@@ -15,6 +15,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Pimcore\Db;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class HoseDataImportCommand extends AbstractCommand
 {
@@ -43,6 +44,13 @@ class HoseDataImportCommand extends AbstractCommand
     private $baseLevelRecords;
     private $skeleLevelRecords;
     private $brands;
+    private $container;
+
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
+
     protected function configure()
     {
         $this->setName('conti:onetimeimport:hose')
@@ -507,7 +515,7 @@ class HoseDataImportCommand extends AbstractCommand
      */
     private function getFertData($results)
     {
-        $unitConverter = \Pimcore::getContainer()->get('AppBundle\Services\UnitConverterService');
+        $unitConverter =$this->container->get('AppBundle\Services\UnitConverterService');
         $d = array();
 
 
@@ -565,7 +573,7 @@ class HoseDataImportCommand extends AbstractCommand
 
     private function sanitizeBaseLevelData()
     {
-        $unitConverter = \Pimcore::getContainer()->get('AppBundle\Services\UnitConverterService');
+        $unitConverter =$this->container->get('AppBundle\Services\UnitConverterService');
         $d = array();
         $rows = array();
         $i = 0;
@@ -763,7 +771,7 @@ class HoseDataImportCommand extends AbstractCommand
     }
     private function sanitizeSkeleLevelData()
     {
-        $unitConverter = \Pimcore::getContainer()->get('AppBundle\Services\UnitConverterService');
+        $unitConverter =$this->container->get('AppBundle\Services\UnitConverterService');
         $d = array();
         $rows = array();
         $i = 0;

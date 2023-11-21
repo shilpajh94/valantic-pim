@@ -9,6 +9,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use ImportBundle\Services\Import;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ImportFittingDbCommand extends AbstractCommand
 {
@@ -17,7 +18,14 @@ class ImportFittingDbCommand extends AbstractCommand
     private $failedCount = 0;
     private $fileColumns;
     private $unitConverter;
+    private $container;
     const FITTING_DB_LOG_DIR = 'var/logs/fittingDB/';
+
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
+
 
     protected function configure()
     {
@@ -29,7 +37,7 @@ class ImportFittingDbCommand extends AbstractCommand
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $time = new \DateTime();
-        $this->common = \Pimcore::getContainer()->get('app.common_helper');
+        $this->common =$this->container->get('app.common_helper');
         $input_file = $input->getArgument('input_file');
         $csvImportedData = Import::getCSVData($input_file);
         $this->fileColumns = $csvImportedData['header'];
@@ -51,7 +59,7 @@ class ImportFittingDbCommand extends AbstractCommand
         if($dataCount>0)
         {
 
-            $this->unitConverter = \Pimcore::getContainer()->get('AppBundle\Services\UnitConverterService');
+            $this->unitConverter =$this->container->get('AppBundle\Services\UnitConverterService');
 
             $allErrors = array();
             foreach ($excelData as $key => $recordValue) {

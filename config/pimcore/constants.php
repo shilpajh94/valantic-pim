@@ -9,9 +9,9 @@ require_once('env_constants.php');
  */
 define("DISABLE_S3_CDN", false);
 
-// if (!DISABLE_S3_CDN) {
-//     require_once('s3_config_constants.php');
-// }
+if (!DISABLE_S3_CDN) {
+    require_once('s3_config_constants.php');
+}
 
 /**
  * to include the constants used to name the log file

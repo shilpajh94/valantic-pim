@@ -17,6 +17,7 @@ namespace AppBundle\EventListener;
 use AppBundle\Services\OptionProviderCacheService;
 use Pimcore\Event\Model\DataObjectEvent;
 use Pimcore\Model\DataObject;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class OptionProviderCacheListener
 {
@@ -24,12 +25,14 @@ class OptionProviderCacheListener
     private $commonHelper;
     private $optionProviderClasses;
     private $postAddNotAllowClasses;
+    private $container;
 
-    public function __construct(OptionProviderCacheService $optionProvider)
+    public function __construct(OptionProviderCacheService $optionProvider, ContainerInterface $container)
     {
+        $this->container = $container;
         $this->optionProvider = $optionProvider;
-        $this->commonHelper = \Pimcore::getContainer()->get('app.common_helper');
-        $optionProviderCacheConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getOptionProviderCacheConfig();
+        $this->commonHelper = $this->container->get('app.common_helper');
+        $optionProviderCacheConfig = $this->container->get('app.config_provider_service')->getOptionProviderCacheConfig();
         $this->optionProviderClasses = $this->commonHelper->getParameter($optionProviderCacheConfig, 'optionProviderClasses');
         $this->postAddNotAllowClasses = $this->commonHelper->getParameter($optionProviderCacheConfig, 'postAddNotAllowClasses');
     }

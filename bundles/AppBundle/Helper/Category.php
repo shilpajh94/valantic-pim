@@ -3,6 +3,7 @@
 namespace AppBundle\Helper;
 
 use Pimcore\Model\DataObject;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class Category
 {
@@ -14,12 +15,14 @@ class Category
     private $catConfigData;
     private $businessUnitMaxLevel;
     public $siopCodes;
-    public function __construct()
+    private $container;
+    public function __construct(ContainerInterface $container)
     {
+        $this->container = $container;
         /* Initiate common helper */
-        $this->common = \Pimcore::getContainer()->get('app.common_helper');
+        $this->common = $this->container->get('app.common_helper');
         /* Loading global configuration for category */
-        $this->catConfigData = \Pimcore::getContainer()->get('app.config_provider_service')->getCategoryConfig();
+        $this->catConfigData = $this->container->get('app.config_provider_service')->getCategoryConfig();
         $this->root = $this->common->getParameter($this->catConfigData, 'root');
         $this->codeLength = $this->common->getParameter($this->catConfigData, 'codeLength');
         $this->levelLength = $this->common->getParameter($this->catConfigData, 'levelLength');
@@ -180,7 +183,7 @@ class Category
     public function getObjectByFullCode($code, $bu)
     {
         if (!empty($code)) {
-            // $obj = \Pimcore::getContainer()->get($this->listingService);
+            // $obj = $this->container->get($this->listingService);
             $obj = new DataObject\ProductCategory\Listing;
             $obj->setCondition("FullCode='$code' AND BusinessUnit='$bu'");
             $obj->setLimit(1);

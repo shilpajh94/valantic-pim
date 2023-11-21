@@ -4,6 +4,7 @@ namespace ImportBundle\Services\Validator;
 
 use Exception;
 use Pimcore\Model\DataObject;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class Category
 {
@@ -19,13 +20,15 @@ class Category
     public $validCategories;
     public $rowCnt;
     private $catConfigData;
-    public function __construct()
+    private $container;
+    public function __construct(ContainerInterface $container)
     {
+        $this->container = $container;
         $this->rowCnt = 0;
         /* Column name and it's position */
-        $this->common = \Pimcore::getContainer()->get('app.common_helper');
-        $this->catConfigData = \Pimcore::getContainer()->get('app.config_provider_service')->getCategoryConfig();
-        $this->catHelper = \Pimcore::getContainer()->get('app.category_helper');
+        $this->common = $this->container->get('app.common_helper');
+        $this->catConfigData = $this->container->get('app.config_provider_service')->getCategoryConfig();
+        $this->catHelper = $this->container->get('app.category_helper');
         $this->columns = $this->common->getParameterItem($this->catConfigData, 'sheet','columnName');
     }
     public function validateSpreadSheet($spreadsheet)

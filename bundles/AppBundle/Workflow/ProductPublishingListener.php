@@ -5,9 +5,16 @@ namespace AppBundle\Workflow;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Workflow\Event\CompletedEvent;
 use AppBundle\Workflow\Constants as WFConst;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ProductPublishingListener implements EventSubscriberInterface
 {
+    private $container;
+
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
     
     public function getProductSIOP($product) {
         $siopArray = [];
@@ -29,7 +36,7 @@ class ProductPublishingListener implements EventSubscriberInterface
         $edFullName = '';
         $actionRemarkInfo = array();
         $actionRemark = '';
-        $wfHelper = \Pimcore::getContainer()->get('app.workflow_helper');
+        $wfHelper =$this->container->get('app.workflow_helper');
         $userInfo = \Pimcore\Model\DataObject\Users::getByAdminReference($user->getId(), ['limit' => 1]);
         if (empty($userInfo)) {
             return true;
@@ -60,7 +67,7 @@ class ProductPublishingListener implements EventSubscriberInterface
                         'dataParams'    =>  array('pmFullName' => $user->getFirstname() . ' ' . $user->getLastname(), 'edFullName' => $edFullName, 'actionRemark' => $actionRemark, 'deepLink' => $deepLink, 'articleNumber' => $articleNumber)
                     );
 
-                    $email = \Pimcore::getContainer()->get('email.email_notification_service');
+                    $email =$this->container->get('email.email_notification_service');
                     $email->sendNotificationsEmail($array);
                     unset($array);
                 }
@@ -83,7 +90,7 @@ class ProductPublishingListener implements EventSubscriberInterface
         $cuFullName = '';
         $actionRemarkInfo = array();
         $actionRemark = '';
-        $wfHelper = \Pimcore::getContainer()->get('app.workflow_helper');
+        $wfHelper =$this->container->get('app.workflow_helper');
         $userInfo = \Pimcore\Model\DataObject\Users::getByAdminReference($user->getId(), ['limit' => 1]);
         if (empty($userInfo)) {
             return true;
@@ -111,7 +118,7 @@ class ProductPublishingListener implements EventSubscriberInterface
                         'ccEmails'      =>  array($cuEmail => $cuFullName),
                         'dataParams'    =>  array('pmFullName' => $cuFullName, 'edFullName' => $user->getFirstname() . ' ' . $user->getLastname(), 'actionRemark' => $actionRemark, 'deepLink' => $deepLink, 'articleNumber' => $articleNumber)
                     );
-                    $email = \Pimcore::getContainer()->get('email.email_notification_service');
+                    $email =$this->container->get('email.email_notification_service');
                     $email->sendNotificationsEmail($array);
                     unset($array);
                 }
@@ -134,7 +141,7 @@ class ProductPublishingListener implements EventSubscriberInterface
         $cuFullName = '';
         $actionRemarkInfo = array();
         $actionRemark = '';
-        $wfHelper = \Pimcore::getContainer()->get('app.workflow_helper');
+        $wfHelper =$this->container->get('app.workflow_helper');
         $userInfo = \Pimcore\Model\DataObject\Users::getByAdminReference($user->getId(), ['limit' => 1]);
         if (empty($userInfo)) {
             return true;
@@ -164,7 +171,7 @@ class ProductPublishingListener implements EventSubscriberInterface
                         'ccEmails'      =>  array($cuEmail => $cuFullName),
                         'dataParams'    =>  array('pmFullName' => $cuFullName, 'pmEmail' => $cuEmail, 'edFullName' => $user->getFirstname() . ' ' . $user->getLastname(), 'pmTimestamp' => $wfHelper->getDateTime(), 'actionRemark' => $actionRemark, 'deepLink' => $deepLink, 'articleNumber' => $articleNumber)
                     );
-                    $email = \Pimcore::getContainer()->get('email.email_notification_service');
+                    $email =$this->container->get('email.email_notification_service');
                     $email->sendNotificationsEmail($array);
                     unset($array);
                 }
@@ -187,7 +194,7 @@ class ProductPublishingListener implements EventSubscriberInterface
         $cuFullName = '';
         $actionRemarkInfo = array();
         $actionRemark = '';
-        $wfHelper = \Pimcore::getContainer()->get('app.workflow_helper');
+        $wfHelper =$this->container->get('app.workflow_helper');
         $userInfo = \Pimcore\Model\DataObject\Users::getByAdminReference($user->getId(), ['limit' => 1]);
         if (empty($userInfo)) {
             return true;
@@ -218,7 +225,7 @@ class ProductPublishingListener implements EventSubscriberInterface
                         'ccEmails'      =>  array($cuEmail => $cuFullName),
                         'dataParams'    =>  array('pmFullName' => $cuFullName, 'pmEmail' => $cuEmail, 'edFullName' => $user->getFirstname() . ' ' . $user->getLastname(), 'pmTimestamp' => $wfHelper->getDateTime(), 'actionRemark' => $actionRemark, 'deepLink' => $deepLink, 'articleNumber' => $articleNumber)
                     );
-                    $email = \Pimcore::getContainer()->get('email.email_notification_service');
+                    $email =$this->container->get('email.email_notification_service');
                     $email->sendNotificationsEmail($array);
                     unset($array);
                 }
@@ -236,7 +243,7 @@ class ProductPublishingListener implements EventSubscriberInterface
         $cuFullName = '';
         $actionRemarkInfo = array();
         $actionRemark = '';
-        $wfHelper = \Pimcore::getContainer()->get('app.workflow_helper');
+        $wfHelper =$this->container->get('app.workflow_helper');
         $userInfo = \Pimcore\Model\DataObject\Users::getByAdminReference($user->getId(), ['limit' => 1]);
         if (empty($userInfo)) {
             return true;
@@ -266,7 +273,7 @@ class ProductPublishingListener implements EventSubscriberInterface
                         'ccEmails'      =>  array($cuEmail => $cuFullName),
                         'dataParams'    =>  array('pmFullName' => $cuFullName, 'pmEmail' => $cuEmail, 'edFullName' => $user->getFirstname() . ' ' . $user->getLastname(), 'pmTimestamp' => $wfHelper->getDateTime(), 'actionRemark' => $actionRemark, 'deepLink' => $deepLink, 'articleNumber' => $articleNumber)
                     );
-                    $email = \Pimcore::getContainer()->get('email.email_notification_service');
+                    $email =$this->container->get('email.email_notification_service');
                     $email->sendNotificationsEmail($array);
                     unset($array);
                 }

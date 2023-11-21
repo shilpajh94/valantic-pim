@@ -7,10 +7,19 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use AppBundle\Workflow\Constants as WFConst;
 use \Pimcore\Db;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class WorkflowReminderCommand extends AbstractCommand
 {
     private $db;
+    private $container;
+
+    public function __construct(ContainerInterface $container)
+    {
+        parent::__construct();
+        $this->container = $container;
+    }
+
     protected function configure()
     {
         $this->setName('contitech:workflow:reminder')
@@ -58,7 +67,7 @@ class WorkflowReminderCommand extends AbstractCommand
         $actionRemarkInfo = '';
         $actionRemark = '';
 
-        $wfHelper = \Pimcore::getContainer()->get('app.workflow_helper');
+        $wfHelper = $this->container->get('app.workflow_helper');
 
         if (isset($data['user']) && !empty($data['user'])) {
             $interval = $wfHelper->getReminderInterval($data['place']);
@@ -105,7 +114,7 @@ class WorkflowReminderCommand extends AbstractCommand
                                 'dataParams'    =>  array('receiverFullName' => $user->getFirstname() . ' ' . $user->getLastname(), 'senderFullName' => $senderFullName, 'actionRemark' => $actionRemark, 'deepLink' => $deepLink, 'articleNumber' => $articleNumber)
                             );
                             // p_r($array);
-                            $email = \Pimcore::getContainer()->get('email.email_notification_service');
+                            $email = $this->container->get('email.email_notification_service');
                             $email->sendNotificationsEmail($array);
                             unset($array);
                         }
@@ -144,7 +153,7 @@ class WorkflowReminderCommand extends AbstractCommand
         $actionTitle = '';
         $actionDate = '';
 
-        $wfHelper = \Pimcore::getContainer()->get('app.workflow_helper');
+        $wfHelper = $this->container->get('app.workflow_helper');
         $sender = \Pimcore\Model\User::getById($data['user']);
         $userInfo = \Pimcore\Model\DataObject\Users::getByAdminReference($data['user'], ['limit' => 1]);
         if (!empty($userInfo)) {
@@ -180,7 +189,7 @@ class WorkflowReminderCommand extends AbstractCommand
                         )
                     );
                     
-                    $email = \Pimcore::getContainer()->get('email.email_notification_service');
+                    $email = $this->container->get('email.email_notification_service');
                     $email->sendNotificationsEmail($array);
                     unset($array);
                 }
