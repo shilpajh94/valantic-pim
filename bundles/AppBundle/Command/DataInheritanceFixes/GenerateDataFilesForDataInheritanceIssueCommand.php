@@ -316,7 +316,7 @@ class GenerateDataFilesForDataInheritanceIssueCommand extends Command
                                 childId
                     ";
 
-        $result = $this->db->fetchAll($fetchParentHasDataRegardlessOfChildQuery);
+        $result = $this->db->fetchAllAssociative($fetchParentHasDataRegardlessOfChildQuery);
         echo PHP_EOL . "Total = " . count($result) . PHP_EOL;
 
         foreach ($result as $item) {
@@ -358,7 +358,7 @@ class GenerateDataFilesForDataInheritanceIssueCommand extends Command
                                 childId
                 ";
 
-        $result = $this->db->fetchAll($fetchParentAndChildBothHaveDataQuery);
+        $result = $this->db->fetchAllAssociative($fetchParentAndChildBothHaveDataQuery);
         echo PHP_EOL . "Total = " . count($result) . PHP_EOL;
 
         foreach ($result as $item) {
@@ -377,7 +377,7 @@ class GenerateDataFilesForDataInheritanceIssueCommand extends Command
         $brickTableName = "object_brick_store_" . $brickName . "_1";
 
         p_r($brickName);
-        $a = PIMCORE_TEMPORARY_DIRECTORY;
+        $a = PIMCORE_SYSTEM_TEMP_DIRECTORY;
         p_r($attr);
 
         $fetchChildWithDistinctDataQuery = "
@@ -405,7 +405,7 @@ class GenerateDataFilesForDataInheritanceIssueCommand extends Command
                                 HAVING COUNT(DISTINCT childsBrickTable.$attr) > 1
         ";
 
-        $childWithDistinctData = $this->db->fetchAll($fetchChildWithDistinctDataQuery);
+        $childWithDistinctData = $this->db->fetchAllAssociative($fetchChildWithDistinctDataQuery);
 
         foreach($childWithDistinctData as $childWithDistinctDataRow){
             $parentId = $childWithDistinctDataRow['parentId'];
@@ -447,7 +447,7 @@ class GenerateDataFilesForDataInheritanceIssueCommand extends Command
                                 childId
                 ";
 
-        $result = $this->db->fetchAll($fetchParentAndChildBothHaveDataQuery);
+        $result = $this->db->fetchAllAssociative($fetchParentAndChildBothHaveDataQuery);
         echo PHP_EOL . "Total = " . count($result) . PHP_EOL;
 
         foreach ($result as $item) {
@@ -489,7 +489,7 @@ class GenerateDataFilesForDataInheritanceIssueCommand extends Command
                                 childId
                 ";
 
-        $result = $this->db->fetchAll($fetchChildHasDataParentDoesNotQuery);
+        $result = $this->db->fetchAllAssociative($fetchChildHasDataParentDoesNotQuery);
         echo PHP_EOL . "Total = " . count($result) . PHP_EOL;
 
         foreach ($result as $item) {
@@ -535,7 +535,7 @@ class GenerateDataFilesForDataInheritanceIssueCommand extends Command
                                 HAVING MIN(childsBrickTable.$attr) != MAX(childsBrickTable.$attr)
         ";
 
-        $childWithDistinctData = $this->db->fetchAll($fetchChildWithDistinctDataQuery);
+        $childWithDistinctData = $this->db->fetchAllAssociative($fetchChildWithDistinctDataQuery);
 
         foreach($childWithDistinctData as $childWithDistinctDataRow){
             $parentId = $childWithDistinctDataRow['parentId'];
@@ -579,7 +579,7 @@ class GenerateDataFilesForDataInheritanceIssueCommand extends Command
                                 childId
                 ";
 
-        $result = $this->db->fetchAll($fetchParentAndChildBothHaveDataQuery);
+        $result = $this->db->fetchAllAssociative($fetchParentAndChildBothHaveDataQuery);
         echo PHP_EOL . "Total = " . count($result) . PHP_EOL;
 
         foreach ($result as $item) {
@@ -623,7 +623,7 @@ class GenerateDataFilesForDataInheritanceIssueCommand extends Command
                                 AND fertObjectTable.productType = '$childType'
                 ";
 
-        $result = $this->db->fetchAll($fetchBaseHasDataRegardlessOfFertQuery);
+        $result = $this->db->fetchAllAssociative($fetchBaseHasDataRegardlessOfFertQuery);
         echo PHP_EOL . "Total = " . count($result) . PHP_EOL;
 
         foreach ($result as $item) {
@@ -668,7 +668,7 @@ class GenerateDataFilesForDataInheritanceIssueCommand extends Command
                                 AND fertObjectTable.productType = '$childType'
                 ";
 
-        $result = $this->db->fetchAll($fetchBaseAndFertBothHaveDataQuery);
+        $result = $this->db->fetchAllAssociative($fetchBaseAndFertBothHaveDataQuery);
         echo PHP_EOL . "Total = " . count($result) . PHP_EOL;
 
         foreach ($result as $item) {
@@ -719,7 +719,7 @@ class GenerateDataFilesForDataInheritanceIssueCommand extends Command
                                 HAVING COUNT(DISTINCT fertBrickTable.$attr) > 1
         ";
 
-        $childWithDistinctData = $this->db->fetchAll($fetchChildWithDistinctDataQuery);
+        $childWithDistinctData = $this->db->fetchAllAssociative($fetchChildWithDistinctDataQuery);
 
         foreach($childWithDistinctData as $childWithDistinctDataRow){
             $parentId = $childWithDistinctDataRow['baseId'];
@@ -770,7 +770,7 @@ class GenerateDataFilesForDataInheritanceIssueCommand extends Command
                                     HAVING MIN(fertBrickTable.$attr) != MAX(fertBrickTable.$attr)
         ";
 
-        $childWithDistinctData = $this->db->fetchAll($fetchChildWithDistinctDataQuery);
+        $childWithDistinctData = $this->db->fetchAllAssociative($fetchChildWithDistinctDataQuery);
 
         foreach($childWithDistinctData as $childWithDistinctDataRow){
             $parentId = $childWithDistinctDataRow['baseId'];
@@ -815,7 +815,7 @@ class GenerateDataFilesForDataInheritanceIssueCommand extends Command
                                 AND fertObjectTable.productType = '$childType'
                 ";
 
-        $result = $this->db->fetchAll($fetchBaseAndFertBothHaveDataQuery);
+        $result = $this->db->fetchAllAssociative($fetchBaseAndFertBothHaveDataQuery);
         echo PHP_EOL . "Total = " . count($result) . PHP_EOL;
 
         foreach ($result as $item) {
@@ -859,7 +859,7 @@ class GenerateDataFilesForDataInheritanceIssueCommand extends Command
                                 AND fertObjectTable.productType = '$childType'
                 ";
 
-        $result = $this->db->fetchAll($fetchFertHasDataBaseDoesNotQuery);
+        $result = $this->db->fetchAllAssociative($fetchFertHasDataBaseDoesNotQuery);
         echo PHP_EOL . "Total = " . count($result) . PHP_EOL;
 
         foreach ($result as $item) {

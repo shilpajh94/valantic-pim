@@ -23,6 +23,7 @@ class SapPriceImportCommand extends AbstractCommand
 
     public function __construct(ContainerInterface $container)
     {
+        parent::__construct();
         $this->container = $container;
     }
 
@@ -36,5 +37,6 @@ class SapPriceImportCommand extends AbstractCommand
     {
         $serviceObj = $this->container->get('import.sap_price_import');
         $serviceObj->import();
+        return 1;
     }
 }

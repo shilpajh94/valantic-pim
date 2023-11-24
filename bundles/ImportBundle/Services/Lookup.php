@@ -36,6 +36,7 @@ class Lookup
     protected $objFailedRecords;
     protected $scriptStartTime;
     private $container;
+    private $approvedSalesOrg;
 
     public function __construct(ContainerInterface $container)
     {
@@ -80,7 +81,7 @@ class Lookup
                 }
             }
 
-            $tmpFilePath = BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR.$fileName;
+            $tmpFilePath = BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR. $fileName;
             $SFTPConObj->downloadFile($tmpFilePath, $ftpFilePath."/".$fileName);
 //            $SFTPConObj->downloadFile($tmpFilePath, constant('BW_SAP_IMPORT_SFTP_'. strtoupper($cmd).'_FILE_PATH'));
 

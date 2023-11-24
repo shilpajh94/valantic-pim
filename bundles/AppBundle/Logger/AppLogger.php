@@ -23,7 +23,7 @@ class AppLogger {
      * @return \Pimcore\Log\ApplicationLogger
      */
     static function log($module) {
-        if (!self::$logger[$module]) {
+        if (!isset(self::$logger[$module])) {
             self::$logger[$module] = \Pimcore\Log\ApplicationLogger::getInstance($module, true);
         }
         return self::$logger[$module];

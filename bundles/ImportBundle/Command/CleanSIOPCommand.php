@@ -18,6 +18,8 @@ use Pimcore\Db;
 
 class CleanSIOPCommand extends AbstractCommand
 {
+    private $db;
+    
     protected function configure()
     {
         $this->setName('conti:product-siop-cleaning')
@@ -28,11 +30,11 @@ class CleanSIOPCommand extends AbstractCommand
     {
         $this->db = Db::get(); //
         $sql = "select src_id, sum(if(fieldname = 'SIOPLevel1', 1, 0)) as Level1Count from object_relations_1 group by src_id  Having Level1Count > 1";
-        $data = $this->db->fetchAll($sql);
+        $data = $this->db->fetchAllAssociative($sql);
         foreach($data as $rec) {
             echo $rec['src_id'].PHP_EOL;
             $queryTableSql = "Select SIOPLevel1, SIOPLevel2, SIOPLevel3, SIOPLevel4, SIOPLevel5, SIOPLevel6 from object_query_1 WHERE `oo_id` = '".$rec['src_id']."'";
-            $queryData = $this->db->fetchAll($queryTableSql);
+            $queryData = $this->db->fetchAllAssociative($queryTableSql);
             foreach ($queryData as $qData) {
                 $siopLevel1 = $qData['SIOPLevel1'];
                 if (!empty($siopLevel1)) {

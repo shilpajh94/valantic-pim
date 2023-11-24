@@ -157,7 +157,7 @@ class HosesFlagSetCommand extends AbstractCommand
     private function getProductsData() {
         $db = \Pimcore\Db::get();
         $sql = "SELECT `oo_id`, `articleNumber` From `object_query_1` where `ProductType` = 'fert' ";
-        $results = $db->fetchAll($sql);
+        $results = $db->fetchAllAssociative($sql);
         $productArray = [];
         foreach ($results as $product) {
             $productArray[$product['articleNumber']] = $product['oo_id'];

@@ -283,7 +283,6 @@ class SalesMaterialModel
                 $errorsData[] = 'Distribution channel should not be blank.';  
             // else if(!isset($this->distributionChannels[$distributionChannel]))
             //     $errorsData[] = "Distribution channel ".$distributionChannel. " not found  in system.";
-
             if(!count($errorsData))
             {
                 try
@@ -309,7 +308,7 @@ class SalesMaterialModel
 
                         $materialFolderId= DataObject\Service::createFolderByPath(ImportConstants::MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER."/".$material)->getId();
                         $query = "SELECT oo_id, o_parentId, o_key, o_path FROM `object_10` WHERE `o_parentId` = '{$materialFolderId}' AND `o_key` LIKE '%{$salesMaterialKey}%' limit 1";
-                        $objectMaterial = $this->db->fetchRow($query);
+                        $objectMaterial = $this->db->fetchAssociative($query);
         
                         if(!empty(trim($plantName)) && !isset($this->plantArray[$plantName]))
                         {
@@ -365,7 +364,7 @@ class SalesMaterialModel
                         $salesUnit = $rowvalue[$columnSalesUnit];
                         $pricePageFlag = $rowvalue[$columnMaterialGroup2];
                         $epixFlag = $rowvalue[$columnMaterialGroup1];
-                        $deletionFlag = $rowvalue[$columnDeletionFlag];
+                        $deletionFlag = isset($rowvalue[$columnDeletionFlag]) ? $rowvalue[$columnDeletionFlag] : NULL;
                         $distChainStatus = $rowvalue[$columnDistChainStatus];
                         $privateOrGenericBrand = $this->getPrivateOrGenericMaterial($pricePageFlag);
                         
@@ -423,7 +422,6 @@ class SalesMaterialModel
                     }
                 } 
                 catch (\Exception $e) {
-
                     /* return error massage if any exception found */
                     $errorsData[] = "Sales Material Code: ".$salesMaterialKey. " - ".$e->getMessage();
                 }
@@ -621,7 +619,7 @@ class SalesMaterialModel
      */
     public function getMaterialObject($MaterialKey){
         $query = "SELECT oo_id, o_key, o_path FROM `object_1` WHERE `articleNumber` LIKE '%{$MaterialKey}%' limit 1";
-        $objectMaterial = $this->db->fetchAll($query);
+        $objectMaterial = $this->db->fetchAllAssociative($query);
         
         foreach ($objectMaterial as $material) {
             $this->monitoringItem->getLogger()->info("Material: ".$MaterialKey." found");

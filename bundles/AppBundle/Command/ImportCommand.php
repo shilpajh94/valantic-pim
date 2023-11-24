@@ -61,10 +61,11 @@ class ImportCommand extends AbstractCommand
 
         $lookupParam = array(
             'commandType'   =>  $options['commandType'] ?: null,
-            'filePath'      =>  $options['filePath'] ?: null
+            'filePath'      =>  isset($options['filePath']) ? $options['filePath'] : null
         );
 
         $lookupObj = $this->container->get('import.lookup_service');
         $lookupObj->execDataFeeder($lookupParam);
+        return 1;
     }
 }

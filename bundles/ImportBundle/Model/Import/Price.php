@@ -4,12 +4,17 @@ namespace ImportBundle\Model\Import;
 
 
 use ImportBundle\Services\ImportConstants;
+use Exception;
 
 /**
  * Description of Price
  *
  */
 class Price {
+
+    private $db;
+    private $tempTable;
+    private $masterTable;
     /**
      * Function is constructor and set the db connection
      */
@@ -76,7 +81,7 @@ class Price {
     {
         try {
             $sql   = "SELECT t.id, t.record FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE (t.hash != m.hash OR m.id is null) ";
-            $delta = $this->db->fetchAll($sql);
+            $delta = $this->db->fetchAllAssociative($sql);
 
             return $delta;
         } catch (\Exception $ex) {
@@ -87,12 +92,12 @@ class Price {
     
     public function getDeletedPriceDataProducts() {
         $sql   = "SELECT m.id FROM {$this->masterTable} m LEFT JOIN {$this->tempTable} t ON t.id = m.id WHERE t.id is null";
-        return $this->db->fetchAll($sql);
+        return $this->db->fetchAllAssociative($sql);
     }
     
     public function fetchArticles() {
         $sql   = "select oo_id, articleNumber, priceData from `object_query_1` where articleNumber is not null";
-        $queryData = $this->db->fetchAll($sql);
+        $queryData = $this->db->fetchAllAssociative($sql);
 
         return [
             'queryTableData' => $queryData

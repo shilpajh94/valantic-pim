@@ -33,7 +33,7 @@ class S3WrongPathsCommand extends Command
     {
         $db = \Pimcore\Db::get();
         $query = "select * from pimcore_s3_path_mapping";
-        $result = $db->fetchAll($query);
+        $result = $db->fetchAllAssociative($query);
 
         $csvLogFilePath = PIMCORE_LOG_DIRECTORY."/"."s3_wrong_paths_" . time() .".csv";
         $csvLogFileHandle = fopen($csvLogFilePath,"w");

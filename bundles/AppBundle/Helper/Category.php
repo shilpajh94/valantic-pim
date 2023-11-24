@@ -16,6 +16,7 @@ class Category
     private $businessUnitMaxLevel;
     public $siopCodes;
     private $container;
+    private $levelLength;
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
@@ -81,7 +82,7 @@ class Category
      */
     public function extractFullCodeLevelWise($currLevel, $code)
     {
-        $levelLength = $this->levelLength[$currLevel];
+        $levelLength = isset($this->levelLength[$currLevel]) ? $this->levelLength[$currLevel] : NULL;
         return substr($code, 0, $levelLength);
     }
 
@@ -91,8 +92,8 @@ class Category
     public function extractCodeLevelWise($level, $code)
     {
         $len = strlen($code);
-        $codeLength = $this->codeLength[$level];
-        $levelLength = $this->levelLength[$level];
+        $codeLength = isset($this->codeLength[$level]) ? $this->codeLength[$level] : NULL;
+        $levelLength = isset($this->levelLength[$level]) ? $this->levelLength[$level] : NULL;
         // p_r($levelLength);
 
         $levelCode = substr($code, 0, $levelLength);

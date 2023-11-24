@@ -64,6 +64,17 @@ class ProductSQLModel
     private $weightConversionService;
     private $container;
     private $productHelper;
+    private $emailService;
+    private $logArray;
+    private $objectsTableData;
+    private $queryTableDataArray;
+    private $storeTableDataArray;
+    private $localisedQueryTableDataArray;
+    private $localisedDataTableDataArray;
+    private $dependencyTableDataArray;
+    private $bricksDataArray;
+    private $relationTableDataArray;
+    private $relationTableDataDeleteArray;
     
     const LOGGER_MODULE = 'SAP IMPORT SHEET';
     const FILE_LAST_COL = 'D';
@@ -168,7 +179,6 @@ class ProductSQLModel
         } catch (\Throwable $th) {
             //throw $th;
             Logger::error($this->logFileName, $th);
-            // echo $th->getMessage();
             die;
         }
     }
@@ -225,10 +235,10 @@ class ProductSQLModel
                         $this->emailService = $this->container->get('email.email_notification_service');
                         $this->emailService->sendNotificationsEmail($emailParams);
                     }else {
-                        throw \Exception("Base SIOP mismatch email template not found.");
+                        throw new \Exception("Base SIOP mismatch email template not found.");
                     }
                 } else {
-                    throw \Exception("Base SIOP mismatch email template not configured.");
+                    throw new \Exception("Base SIOP mismatch email template not configured.");
                 }
             }
         } catch (\Throwable $th) {
@@ -783,7 +793,7 @@ class ProductSQLModel
 
     public function getQueryTableData($objId, $record, $levelInfo, $level=4, $productType = 'fert', $businessUnit = 'IFS') {
         $siopData = [];
-        for ($k=1; $k<=6; $k++) {
+        for ($k=2; $k<=6; $k++) {
             $index = 'SIOPLevel'.$k;
             if ($k<=$level) {
                 $catCode = $levelInfo[$k]['levelFullCode'];
@@ -931,7 +941,7 @@ class ProductSQLModel
     }
 
     public function getRelationTableData($objId, $record, $levelInfo, $level=4, $productType = 'fert') {
-        for ($k=1; $k<=$level; $k++) {
+        for ($k=2; $k<=$level; $k++) {
             $index = 'SIOPLevel'.$k;
             $catCode = $levelInfo[$k]['levelFullCode'];
             $targetId = $this->categories[$catCode]['id'];
@@ -965,7 +975,7 @@ class ProductSQLModel
         }
     }
     public function getDependencyTableData($objId, $record, $levelInfo, $level=4, $productType = 'fert') {
-        for ($k=1; $k<=$level; $k++) {
+        for ($k=2; $k<=$level; $k++) {
             $index = 'SIOPLevel'.$k;
             $catCode = $levelInfo[$k]['levelFullCode'];
             $targetId = $this->categories[$catCode]['id'];

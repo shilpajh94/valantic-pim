@@ -146,7 +146,7 @@ class TableImport
     {
         try {
             $sql   = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE LENGTH(t.siopfullcode) = 18 AND (t.hash != m.hash OR m.id is null)";
-            $delta = $this->db->fetchAll($sql);
+            $delta = $this->db->fetchAllAssociative($sql);
 
             return $delta;
         } catch (\Exception $ex) {
@@ -163,7 +163,7 @@ class TableImport
     {
         try {
             $sql   = "SELECT t.id, t.record FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE (t.id=20041945 OR t.id=20019862 OR t.id=20012857 OR t.id=20012472) AND (t.hash != m.hash OR m.id is null)";
-            $delta = $this->db->fetchAll($sql);
+            $delta = $this->db->fetchAllAssociative($sql);
 
             return $delta;
         } catch (\Exception $ex) {
@@ -180,7 +180,7 @@ class TableImport
     {
         try {
             $sql   = "SELECT t.id, t.record FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE (t.id like '%20041945%' OR t.id like '%20012857%' OR t.id like '%20012472%' OR t.id like '%20019862%') AND (t.hash != m.hash OR m.id is null)";
-            $delta = $this->db->fetchAll($sql);
+            $delta = $this->db->fetchAllAssociative($sql);
 
             return $delta;
         } catch (\Exception $ex) {
@@ -218,6 +218,7 @@ class TableImport
      */
     public function insertDataToLogTable($data)
     {
+        $values = '';
         try {
             $rowCount = 1;
             $sql = "INSERT INTO {$this->logTable} (id, record, statusCode, failedReason, createdAt) VALUES";

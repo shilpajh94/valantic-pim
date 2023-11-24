@@ -33,7 +33,8 @@ class PlantMaterialModel
     // private $salesOrganizations;
     // private $distributionChannels;
     private $common;
-
+    private $salesOrgDesc;
+    private $distributionChannelDesc;
     private $fileColumns = array();
     private $keyColumns = array();
     private $approvedSalesOrg = array();
@@ -234,6 +235,10 @@ class PlantMaterialModel
     }
 
     public function processSlicedData($data, $plantFolderId, $countryFolderId, $salesOrganizationsFolderId, $distributionChannelFolderId) {
+        
+        $salesOrgDesc = '';
+        $distributionChannelDesc = '';
+
 	    $time2 = new \DateTime();
         \Pimcore\Model\Version::disable();
         $queryTableDataArray = array();
@@ -312,7 +317,7 @@ class PlantMaterialModel
 
                     if(isset($this->materialArray[$material]))
                     {
-                        $deleteFlag = $rowvalue[$columnDeleteFlag];
+                        $deleteFlag = isset($rowvalue[$columnDeleteFlag]) ? $rowvalue[$columnDeleteFlag] : NULL;
                         $materialObjId = $this->materialArray[$material];
                         // $salesOrgCode = $this->salesOrganizations[$salesOrg];
                         // $distributionChannelCode = $this->distributionChannels[$distributionChannel];
@@ -325,7 +330,7 @@ class PlantMaterialModel
 
                         $materialFolderId= DataObject\Service::createFolderByPath(ImportConstants::MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER."/".$material)->getId();
                         $query = "SELECT oo_id, o_parentId, o_key, o_path FROM `object_12` WHERE `o_parentId` = '{$materialFolderId}' AND `o_key` LIKE '%{$plantMaterialKey}%' limit 1";
-                        $objectMaterial = $this->db->fetchRow($query);
+                        $objectMaterial = $this->db->fetchAssociative($query);
 
                         if(!empty(trim($plantName)) && !isset($this->plantArray[$plantName]))
                         {
@@ -514,7 +519,6 @@ class PlantMaterialModel
                     }
                 }
                 catch (\Exception $e) {
-
                     /* return error massage if any exception found */
                     $errorsData[] = "Plant Material Code: ".$plantMaterialKey. " - ".$e->getMessage();
                 }
@@ -614,7 +618,7 @@ class PlantMaterialModel
      */
     public function getMaterialObject($MaterialKey){
         $query = "SELECT oo_id, o_key, o_path FROM `object_1` WHERE `articleNumber` LIKE '%{$MaterialKey}%' limit 1";
-        $objectMaterial = $this->db->fetchAll($query);
+        $objectMaterial = $this->db->fetchAllAssociative($query);
 
         foreach ($objectMaterial as $material) {
             $this->monitoringItem->getLogger()->info("Material: ".$MaterialKey." found");

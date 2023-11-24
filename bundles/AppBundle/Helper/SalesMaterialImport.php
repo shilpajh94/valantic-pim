@@ -203,7 +203,7 @@ class SalesMaterialImport
     {
         try {
             $sql   = "SELECT m.id FROM {$this->masterTable} m LEFT JOIN {$this->tempTable} t ON t.id = m.id WHERE t.id is null";
-            $delta = $this->db->fetchAll($sql);
+            $delta = $this->db->fetchAllAssociative($sql);
 
             return $delta;
         } catch (\Exception $ex) {
@@ -234,7 +234,7 @@ class SalesMaterialImport
     {
         try {
             $sql   = "SELECT t.id, t.record FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id  WHERE t.hash != m.hash OR m.id IS NULL ORDER BY t.id ASC ";
-            $delta = $this->db->fetchAll($sql);
+            $delta = $this->db->fetchAllAssociative($sql);
 
             return $delta;
         } catch (\Exception $ex) {
@@ -244,7 +244,7 @@ class SalesMaterialImport
     
     public function getSalesMaterialRecordsByMaterial($materialObjId) {
         $sql = "SELECT * from object_query_10 where `Material` = ".$this->db->quote(",".$materialObjId.","); //." AND deletedFlagAtDistributionChainLevel != 0 AND deletedFlagAtDistributionChainLevel != '' AND deletedFlagAtDistributionChainLevel IS NOT NULL";
-        $salesData = $this->db->fetchAll($sql);
+        $salesData = $this->db->fetchAllAssociative($sql);
         $flag = true;
         foreach ($salesData as $rec) {
             if (empty($rec['deletedFlagAtDistributionChainLevel'])) {
@@ -286,6 +286,7 @@ class SalesMaterialImport
      */
     public function insertDataToLogTable($data)
     {
+        $values = '';
         try {
             $rowCount = 1;
             $sql = "INSERT INTO {$this->logTable} (id, record, statusCode, failedReason, createdAt) VALUES";

@@ -274,7 +274,7 @@ class ClearChildBrickDataWhenParentHasDataCommand extends Command
         $this->db->beginTransaction();
         $success = 'TRUE';
         try{
-            $rowsToBeAffected = $this->db->fetchAll($recordsToBeUpdatedQuery);
+            $rowsToBeAffected = $this->db->fetchAllAssociative($recordsToBeUpdatedQuery);
 
             $childIds = array_column($rowsToBeAffected, "childId");
             if(count($childIds) > 0){
@@ -392,7 +392,7 @@ class ClearChildBrickDataWhenParentHasDataCommand extends Command
         $this->db->beginTransaction();
         $success = 'TRUE';
         try{
-            $rowsToBeAffected = $this->db->fetchAll($fetchBaseHasDataRegardlessOfFertQuery);
+            $rowsToBeAffected = $this->db->fetchAllAssociative($fetchBaseHasDataRegardlessOfFertQuery);
 
             $fertIds = array_column($rowsToBeAffected, "fertId");
             if(count($fertIds) > 0){
@@ -480,7 +480,7 @@ class ClearChildBrickDataWhenParentHasDataCommand extends Command
         $this->db->beginTransaction();
         $success = 'TRUE';
         try{
-            $rowsToBeAffected = $this->db->fetchAll($recordsToBeUpdatedQuery);
+            $rowsToBeAffected = $this->db->fetchAllAssociative($recordsToBeUpdatedQuery);
 
             $childIds = array_column($rowsToBeAffected, "childId");
             if(count($childIds) > 0){
@@ -504,7 +504,7 @@ class ClearChildBrickDataWhenParentHasDataCommand extends Command
             }
         }
 
-        $this->csvLog($csvLogFileHandle, [$brickName, $attr, $success, count($rowsToBeAffected), $affectedRowsForStoreTableQuery, $affectedRowsForQueryTableQuery]);
+        $this->csvLog($csvLogFileHandle, [$brickName, $attr, $success, count($rowsToBeAffected), $affectedRowsForStoreTableQuery, isset($affectedRowsForQueryTableQuery) ? $affectedRowsForQueryTableQuery : NULL]);
     }
 
     private function csvLog($logHandler, array $dataRow)

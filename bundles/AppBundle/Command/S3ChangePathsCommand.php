@@ -37,7 +37,7 @@ class S3ChangePathsCommand extends Command
         $query .= " on pimcore_s3_path_mapping.pimcore_object_id = assets.id";
         $query .= " where type != 'folder'";
 
-        $result = $db->fetchAll($query);
+        $result = $db->fetchAllAssociative($query);
 
         $csvLogFilePath = PIMCORE_LOG_DIRECTORY."/"."s3_changed_paths_" . time() .".csv";
         $csvLogFileHandle = fopen($csvLogFilePath,"w");

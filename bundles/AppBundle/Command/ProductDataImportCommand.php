@@ -19,6 +19,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class to Import Articles data
@@ -27,6 +28,26 @@ use Symfony\Component\Console\Command\Command;
 class ProductDataImportCommand extends Command
 
 {
+    private $storeTableDataArray; 
+    private $categories; 
+    private $relationTableDataArray; 
+    private $dependencyTableDataArray; 
+    private $tableObj; 
+    private $productHelper; 
+    private $langArr; 
+    private $logArray; 
+    private $objectsTableData; 
+    private $queryTableDataArray; 
+    private $localisedQueryTableDataArray; 
+    private $localisedDataTableDataArray; 
+    private $products;
+    private $container;
+
+    public function __construct(ContainerInterface $container)
+    {
+        parent::__construct();
+        $this->container = $container;
+    }
 
     /**
      * Function to set the command configurations
@@ -57,11 +78,11 @@ class ProductDataImportCommand extends Command
 //        $csvData = \ImportBundle\Services\Import::getCSVData($csvFilePath);
 //        $csvHeader = $csvData['header'];
 //        $data = $csvData['data'];
-        $this->tableObj = new \AppBundle\Helper\ProductImport();
+        $this->tableObj = $this->container->get('app.product_import_helper');;
 //        $this->tableObj->truncateTempTable();
 //        $this->tableObj->insertDataInTemp($data);
         
-        $this->productHelper = new \AppBundle\Helper\Product();
+        $this->productHelper = $this->container->get('app.product_helper');
         
         $this->langArr = ['de', 'en', 'es_MX', 'fr_CA', 'pt'];
         

@@ -26,7 +26,7 @@ class Workflow
     {
         $sql = "SELECT n.description, nd.name optionname, nd.data prioritytype FROM notes n LEFT JOIN notes_data nd ON(nd.id=n.id)
         WHERE n.cid=$id ORDER BY n.`date` DESC LIMIT 1";
-        $results = $this->db->fetchAll($sql);
+        $results = $this->db->fetchAllAssociative($sql);
         if (count($results)) {
             foreach ($results as $row) {
                 return array(

@@ -151,7 +151,7 @@ class InvokeLambdaCommand extends Command
         $query .= " on pimcore_s3_path_mapping.pimcore_object_id = assets.id";
         $query .= " where type = 'image'";
 
-        $result = $db->fetchAll($query);
+        $result = $db->fetchAllAssociative($query);
 
         /*
         $result = [

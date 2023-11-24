@@ -2,6 +2,7 @@
 
 namespace AppBundle\Helper;
 
+use Exception;
 use Pimcore\Model\DataObject;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -18,6 +19,11 @@ class Product
     public $siopCodes;
     private $siopObjects;
     private $container;
+    private $catHelper;
+    private $levelLength;
+    private $level;
+    private $siop;
+
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
@@ -102,13 +108,13 @@ class Product
         $len = strlen($code);
         $level = $this->catHelper->getLevelByLength($len);
         $levels = array();
-        for ($i = $level; $i >= 1; $i--) {
-            $objectKey = empty($reader) ?: $reader[$this->level[$i]['key']];
+        for ($i = $level; $i >= 2; $i--) {
+            $objectKey = empty($reader) ?:( isset($reader[$this->level[$i]['key']]) ? $reader[$this->level[$i]['key']] : NULL);
             $parentLevel = $this->catHelper->getParentLevel($i);
             $levelFullCode = $this->catHelper->extractFullCodeLevelWise($i, $code);
             $parentFullCode = $this->catHelper->extractFullCodeLevelWise(($i - 1), $code);
             $parentPath = $parentLevel ? $this->getParentPath($parentLevel, $buCode, $reader) : $this->root['fullPath'];
-            $objectPath = $parentPath . '/' . $objectKey;
+            $objectPath = $parentPath . '/' . $objectKey; 
             $levels[$i] = array(
                 'code'          =>  $this->catHelper->extractCodeLevelWise($i, $code),
                 'parentCode'    =>  $this->catHelper->extractCodeLevelWise($parentLevel, $code),
@@ -118,11 +124,10 @@ class Product
                 'level'         =>  $i,
                 'bu'            =>  $bu,
                 'objectKey'     =>  $objectKey,
-                'parentObjectKey'   =>  empty($reader) ?: $reader[$this->level[$parentLevel]['key']],
+                'parentObjectKey'   =>  empty($reader) ?: ((isset($reader[$this->level[$parentLevel]['key']]) && isset($this->level[$parentLevel])) ? $reader[$this->level[$parentLevel]['key']] : NULL),
                 'objectPath'    =>  $objectPath,
                 'parentPath'    =>  $parentPath
             );
-            // p_r($levels);die;
         }
 
         return array(
@@ -140,10 +145,12 @@ class Product
         } else {
             for ($i = 1; $i <= $lvl; $i++) {
                 // $path[] = \Pimcore\Model\Element\Service::getValidKey($reader[$this->level[$i]['key']], 'object');
-                if (empty($path))
+                if (empty($path) && isset($reader[$this->level[$i]['key']]))
                     $path = \Pimcore\Model\Element\Service::getValidKey($reader[$this->level[$i]['key']], 'folder');
                 else {
-                    $path .= '/' . \Pimcore\Model\Element\Service::getValidKey($reader[$this->level[$i]['key']], 'folder');
+                    if(isset($reader[$this->level[$i]['key']])){
+                        $path .= '/' . \Pimcore\Model\Element\Service::getValidKey($reader[$this->level[$i]['key']], 'folder');
+                    }
                 }
             }
         }

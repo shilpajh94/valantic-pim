@@ -61,6 +61,10 @@ class OptimizedObjectSearchBackendReindexCommand extends AbstractCommand
      */
     private $olderTimestampData;
 
+    private $logger;
+
+    private $olderTimeStamp;
+
     /**
      * OptimizedObjectSearchBackendReindexCommand constructor.
      * @param string|null $name
@@ -361,7 +365,7 @@ class OptimizedObjectSearchBackendReindexCommand extends AbstractCommand
         $query .= " AND o_className = "."'".$className."'";
 
         try {
-            $ids = $this->db->fetchCol($query);
+            $ids = $this->db->fetchOne($query);
         } catch (\Exception $exception) {
             $this->log($exception->getMessage(), "critical");
             $this->monitoringItem->setMessage("An exception occured. Please see log for details");
@@ -383,7 +387,7 @@ class OptimizedObjectSearchBackendReindexCommand extends AbstractCommand
 
             if (is_numeric($days)) {
                 $query = "SELECT UNIX_TIMESTAMP(CURTIME() - INTERVAL $days DAY) AS timestamp,FROM_UNIXTIME(UNIX_TIMESTAMP(CURTIME() - INTERVAL $days DAY)) AS formattedTimestamp";
-                $this->olderTimestampData = $this->db->fetchRow($query);
+                $this->olderTimestampData = $this->db->fetchAssociative($query);
 
             } else {
                 $msg = "Please specify a valid numeric value for modification-days-count (-d).";

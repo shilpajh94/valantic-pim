@@ -175,7 +175,7 @@ class CopyChildDataToParentAndRemoveDataFromChildWhenParentDoesNotHaveDataComman
                             HAVING MIN(childsBrickTable.$brickAttr) = MAX(childsBrickTable.$brickAttr)
                 ";
 
-        $result = $this->db->fetchAll($fetchChildHasDataParentDoesNotQuery);
+        $result = $this->db->fetchAllAssociative($fetchChildHasDataParentDoesNotQuery);
         echo PHP_EOL . "Total = " . count($result) . PHP_EOL;
 
         foreach($result as $childWithDistinctDataRow){
@@ -282,7 +282,7 @@ class CopyChildDataToParentAndRemoveDataFromChildWhenParentDoesNotHaveDataComman
                                 HAVING MIN(fertBrickTable.$brickAttr) = MAX(fertBrickTable.$brickAttr)
                 ";
 
-        $result = $this->db->fetchAll($fetchFertHasDataBaseDoesNotQuery);
+        $result = $this->db->fetchAllAssociative($fetchFertHasDataBaseDoesNotQuery);
         echo PHP_EOL . "Total = " . count($result) . PHP_EOL;
 
         foreach($result as $childWithDistinctDataRow){

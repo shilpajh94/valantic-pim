@@ -75,7 +75,7 @@ class DataFixingOfMultiselectDropDownCommand extends Command
                     {
                         $where = 'WHERE CONCAT(",", `'.$columnName.'`, ",") REGEXP ",('.$deletedIdStr.'),"';
                         $sql = "SELECT * FROM object_brick_store_HoseBase_1 $where";
-                        $record = $this->db->fetchAll($sql);                       
+                        $record = $this->db->fetchAllAssociative($sql);                       
                         foreach ($record as $product)
                         {
                             $productId = $product['o_id'];
@@ -93,7 +93,7 @@ class DataFixingOfMultiselectDropDownCommand extends Command
                     {
                         $where  = 'WHERE CONCAT(",", `reinforcement`, ",") REGEXP ",('.$deletedIdStr.'),"';
                         $sql1    = "SELECT * FROM object_store_1 $where";
-                        $record = $this->db->fetchAll($sql1);
+                        $record = $this->db->fetchAllAssociative($sql1);
                         if($record)
                         {
                             foreach ($record as $product)

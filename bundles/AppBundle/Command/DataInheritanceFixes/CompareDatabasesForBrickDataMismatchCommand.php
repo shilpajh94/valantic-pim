@@ -120,7 +120,7 @@ class CompareDatabasesForBrickDataMismatchCommand extends Command
                                             )
                         ";
 
-                        $result = $this->dbCon->fetchAll($query);
+                        $result = $this->dbCon->fetchAllAssociative($query);
                         p_r("Result Count = " . count($result));
                         $c = 0;
                         foreach ($result as $item) {
@@ -230,7 +230,7 @@ class CompareDatabasesForBrickDataMismatchCommand extends Command
 
                         ";
 
-                        $result = $this->dbCon->fetchAll($query);
+                        $result = $this->dbCon->fetchAllAssociative($query);
                         p_r("Result Count = " . count($result));
                         $c = 0;
                         foreach ($result as $item) {
@@ -359,7 +359,7 @@ class CompareDatabasesForBrickDataMismatchCommand extends Command
 
                         ";
 
-                        $result = $this->dbCon->fetchAll($query);
+                        $result = $this->dbCon->fetchAllAssociative($query);
                         p_r("Result Count = " . count($result));
                         $c = 0;
                         foreach ($result as $item) {
@@ -488,7 +488,7 @@ class CompareDatabasesForBrickDataMismatchCommand extends Command
 
                         ";
 
-                        $result = $this->dbCon->fetchAll($query);
+                        $result = $this->dbCon->fetchAllAssociative($query);
                         p_r("Result Count = " . count($result));
                         $c = 0;
                         foreach ($result as $item) {
@@ -595,7 +595,7 @@ class CompareDatabasesForBrickDataMismatchCommand extends Command
                             GROUP BY newDBSkeletonProduct_Store_Table.o_id) AS dataTable
                         ";
 
-                        $result = $this->dbCon->fetchAll($query);
+                        $result = $this->dbCon->fetchAllAssociative($query);
                         p_r("Result Count = " . count($result));
                         $c = 0;
                         foreach ($result as $item) {
@@ -698,7 +698,7 @@ class CompareDatabasesForBrickDataMismatchCommand extends Command
                             GROUP BY newDBFertProduct_Store_Table.o_id) AS dataTable
                         ";
 
-                        $result = $this->dbCon->fetchAll($query);
+                        $result = $this->dbCon->fetchAllAssociative($query);
                         p_r("Result Count = " . count($result));
                         $c = 0;
                         foreach ($result as $item) {
@@ -788,7 +788,7 @@ class CompareDatabasesForBrickDataMismatchCommand extends Command
                             GROUP BY newDBFertProduct_Store_Table.o_id) AS dataTable
                         ";
 
-                        $result = $this->dbCon->fetchAll($query);
+                        $result = $this->dbCon->fetchAllAssociative($query);
                         p_r("Result Count = " . count($result));
                         $c = 0;
                         foreach ($result as $item) {
@@ -835,7 +835,7 @@ class CompareDatabasesForBrickDataMismatchCommand extends Command
                         AND table_name = '" . $tableName . "'
         ";
 
-        return $this->dbCon->fetchCol($allColumnQuery);
+        return $this->dbCon->fetchOne($allColumnQuery);
     }
 
     private function csvLog($logHandler, array $dataRow)

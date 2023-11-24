@@ -22,6 +22,9 @@ use Pimcore\Db;
 class CopyAssetCommand  extends AbstractCommand {
     
     private $fullFilesArray = [];
+    private $destPath;
+    private $filesPathArray;
+    private $filesNameArray;
     protected function configure()
     {
         $this->setName('conti:copy-asset')

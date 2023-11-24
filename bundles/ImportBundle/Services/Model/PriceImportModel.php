@@ -23,6 +23,13 @@ class PriceImportModel {
      */
     private $modelArticle;
     private $productModel;
+    private $datasource; 
+    private $assetFilePath; 
+    private $tblImpHelper; 
+    private $logArray; 
+    private $queryTableNewData; 
+    private $storeTableNewData; 
+    private $csvHeader;
 
 
     /**
@@ -58,6 +65,7 @@ class PriceImportModel {
     
     public function import()
     {
+        $deletedPriceRecords = '';
         $csvData = $this->fetchDataFromDataSource();
         if (empty($csvData) || count($csvData)==0) {
             return false;
@@ -89,8 +97,10 @@ class PriceImportModel {
         
         $this->logArray = [];
         $i = 0;
+        $j = 1;
         $length = 2000;
         while ($i<$deltaCount) {
+            $a = time();
             $offset = $i;
             $diff = $deltaCount-$i;
             if ($diff < $length) {
@@ -106,7 +116,6 @@ class PriceImportModel {
             echo "Part ".$j." completed in time: ".$a."====".$b.PHP_EOL;
             \Pimcore::collectGarbage();
             gc_collect_cycles();
-            $a = time();
             $j++;
         }
         $this->tblImpHelper->updateMasterTable();
@@ -114,7 +123,6 @@ class PriceImportModel {
  
     public function processPriceData($sapPriceData) {
         $i = $j = 0;
-        
         foreach ($sapPriceData as $record) {
             $artNo = $record['id'];
             if (!empty($this->products[$artNo])) {
@@ -129,7 +137,7 @@ class PriceImportModel {
             }
             $this->logArray[] = [
                 'id' => $artNo,
-                'record' => $record['record'],
+                'record' => isset($record['record']) ? $record['record'] : NULL,
                 'status' => $status,
                 'reason' => $msg,
                 'createdAt' => time()
@@ -240,7 +248,7 @@ class PriceImportModel {
                 return null;
             }
         }
-        $tmpFilePath = BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR.$fileName;
+        $tmpFilePath = BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR. $fileName;
 
         $SFTPConObj->downloadFile($tmpFilePath, $ftpFilePath."/".$fileName);
 

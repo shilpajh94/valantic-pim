@@ -115,7 +115,7 @@ class AssociateNomenclatureToProductCommand extends AbstractCommand
         $sql = "SELECT o_id,DescriptivePartNumber FROM ".$hydFittingTableName;
         $sql .= " WHERE DescriptivePartNumber IS NOT NULL";
 
-        $resultset = $this->db->fetchAll($sql);
+        $resultset = $this->db->fetchAllAssociative($sql);
 
         return $resultset;
     }

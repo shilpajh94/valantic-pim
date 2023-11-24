@@ -114,7 +114,7 @@ class IdentifyMissedUnitConversionAttributes extends Command {
                                     AND table_name = '" . $brickTableName . "'
             ";
 
-            $allColumns = $this->db->fetchCol($allColumnQuery);
+            $allColumns = $this->db->fetchOne($allColumnQuery);
 
             foreach ($allColumns as $columnName) {
 
@@ -130,7 +130,7 @@ class IdentifyMissedUnitConversionAttributes extends Command {
                                     AND object_1.productType = '$levelForQuery'
                 ";
 
-                $contaminatedIds = $this->db->fetchCol($columnQuery);
+                $contaminatedIds = $this->db->fetchOne($columnQuery);
 
                 $fetchChildParentNotEqualDataQuery = "
                             SELECT
@@ -150,7 +150,7 @@ class IdentifyMissedUnitConversionAttributes extends Command {
                                 AND childObjectTable.productType = '$levelForQuery'
                 ";
 
-                $childParentNotEqualDataQueryResult = $this->db->fetchCol($fetchChildParentNotEqualDataQuery);
+                $childParentNotEqualDataQueryResult = $this->db->fetchOne($fetchChildParentNotEqualDataQuery);
 
                 $fetchChildWhereParentDataNullDataQuery = "
                             SELECT
@@ -170,7 +170,7 @@ class IdentifyMissedUnitConversionAttributes extends Command {
                                 AND childObjectTable.productType = '$levelForQuery'
                 ";
 
-                $fetchChildWhereParentDataNullDataQueryResult = $this->db->fetchCol($fetchChildWhereParentDataNullDataQuery);
+                $fetchChildWhereParentDataNullDataQueryResult = $this->db->fetchOne($fetchChildWhereParentDataNullDataQuery);
 
                 $fetchChildParentDataEqualQuery = "
                             SELECT
@@ -190,7 +190,7 @@ class IdentifyMissedUnitConversionAttributes extends Command {
                                 AND childObjectTable.productType = '$levelForQuery'
                 ";
 
-                $fetchChildParentDataEqualQueryResult = $this->db->fetchCol($fetchChildParentDataEqualQuery);
+                $fetchChildParentDataEqualQueryResult = $this->db->fetchOne($fetchChildParentDataEqualQuery);
 
                 $fetchChildParentNotNullNotEqualDataQuery = "
                             SELECT
@@ -211,7 +211,7 @@ class IdentifyMissedUnitConversionAttributes extends Command {
                                 AND childObjectTable.productType = '$levelForQuery'
                 ";
 
-                $fetchChildParentNotNullNotEqualDataQueryResult = $this->db->fetchCol($fetchChildParentNotNullNotEqualDataQuery);
+                $fetchChildParentNotNullNotEqualDataQueryResult = $this->db->fetchOne($fetchChildParentNotNullNotEqualDataQuery);
 
                 echo "Column [$columnName], Count of Child Product having own data [" . count($contaminatedIds) . "], eg  $contaminatedIds[0] " . PHP_EOL;
                 echo "Count of child product where parent-child data is not equal: [" . count($childParentNotEqualDataQueryResult) . "]";
@@ -279,7 +279,7 @@ class IdentifyMissedUnitConversionAttributes extends Command {
                                 $query = "select o_id from " . $brickTableName . "
                                             where (" . $attr1 . " is not null and  " . $attr2 . " is null) OR
                                             (" . $attr1 . " is null and  " . $attr2 . " is not null)";
-                                $result = $this->db->fetchCol($query);
+                                $result = $this->db->fetchOne($query);
                                 $count = count($result);
                                 if ($count > 0) {
                                     if (!array_key_exists($groupName, $this->groups)) {
@@ -310,7 +310,7 @@ class IdentifyMissedUnitConversionAttributes extends Command {
                                              (" . $attr2 . " is null and  " . $attr3 . " is not null)
                                              ";
 
-                                $result = $this->db->fetchCol($query);
+                                $result = $this->db->fetchOne($query);
                                 $count = count($result);
                                 if ($count > 0) {
                                     if (!array_key_exists($groupName, $this->groups)) {

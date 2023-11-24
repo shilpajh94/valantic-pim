@@ -26,7 +26,7 @@ class NutTypeDataImportCommand extends AbstractCommand
 
         $sql = "SELECT o_id FROM object_brick_store_HydFittingsFert_1 
                 WHERE '1' IN (ThrustWireNut, CrimpNutYN)";
-         $results = $this->db->fetchAll($sql);
+         $results = $this->db->fetchAllAssociative($sql);
 
          foreach($results as $id){
             $element = DataObject\Product::getById($id['o_id']);

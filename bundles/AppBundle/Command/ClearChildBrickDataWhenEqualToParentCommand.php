@@ -161,7 +161,7 @@ class ClearChildBrickDataWhenEqualToParentCommand extends Command
                                 AND childObjectTable.productType = '$childType'
                 ";
 
-        $fetchChildParentEqualDataQueryResult = $this->db->fetchAll($fetchChildParentEqualDataQuery);
+        $fetchChildParentEqualDataQueryResult = $this->db->fetchAllAssociative($fetchChildParentEqualDataQuery);
         echo PHP_EOL . "Total = " . count($fetchChildParentEqualDataQueryResult) . PHP_EOL;
 
         foreach ($fetchChildParentEqualDataQueryResult as $item) {
