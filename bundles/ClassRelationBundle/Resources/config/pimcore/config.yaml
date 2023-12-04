@@ -1,0 +1,11 @@
+## YAML Template.
+#parameters: 
+#  classname: Product
+##  CategoryClassname: ProductCategory
+##  CategoryFieldnameInClass: categories
+##  ObjectbrickFieldnameInClass: specificAttributes    
+           
+
+#imports:
+#    - { resource: ../categorySpecificBrick.yaml }
+
