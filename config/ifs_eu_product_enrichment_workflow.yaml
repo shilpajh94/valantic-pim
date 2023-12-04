@@ -11,12 +11,12 @@ pimcore:
                     label: Open
                     color: #377ea9
                     permissions:
-                        - condition: '!(has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA") or has_role("ROLE_MARCOMIFSEMEA"))'
+                        - condition: '!(("ROLE_PIMCORE_ADMIN") in role_names or ("ROLE_APPLICATIONADMINIFSEMEA") in role_names or ("ROLE_EDITORIFSEMEA") in role_names or ("ROLE_PRODUCTMANAGEMENTIFSEMEA") in role_names or ("ROLE_MARCOMIFSEMEA") in role_names)'
                           save: false
                           publish: false
                           delete: false
                           unpublish: false
-                        - condition: '(has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA") or has_role("ROLE_MARCOMIFSEMEA"))'
+                        - condition: '(("ROLE_APPLICATIONADMINIFSEMEA") in role_names or ("ROLE_EDITORIFSEMEA") in role_names or ("ROLE_PRODUCTMANAGEMENTIFSEMEA") in role_names or ("ROLE_MARCOMIFSEMEA") in role_names)'
                           save: true
                           publish: false
                           delete: false
@@ -25,12 +25,12 @@ pimcore:
                     label: In Marcom Edit
                     color: #377ea9
                     permissions:
-                        - condition: '!(has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA") or has_role("ROLE_MARCOMIFSEMEA"))'
+                        - condition: '!(("ROLE_PIMCORE_ADMIN") in role_names or ("ROLE_APPLICATIONADMINIFSEMEA") in role_names or ("ROLE_EDITORIFSEMEA") in role_names or ("ROLE_PRODUCTMANAGEMENTIFSEMEA") in role_names or ("ROLE_MARCOMIFSEMEA") in role_names)'
                           save: false
                           publish: false
                           delete: false
                           unpublish: false
-                        - condition: '(has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA") or has_role("ROLE_MARCOMIFSEMEA"))'
+                        - condition: '(("ROLE_APPLICATIONADMINIFSEMEA") in role_names or ("ROLE_EDITORIFSEMEA") in role_names or ("ROLE_PRODUCTMANAGEMENTIFSEMEA") in role_names or ("ROLE_MARCOMIFSEMEA") in role_names)'
                           save: true
                           publish: false
                           delete: false
@@ -39,12 +39,12 @@ pimcore:
                     label: In Editor Edit
                     color: #377ea9
                     permissions:
-                        - condition: '!(has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA") or has_role("ROLE_MARCOMIFSEMEA"))'
+                        - condition: '!(("ROLE_PIMCORE_ADMIN") in role_names or ("ROLE_APPLICATIONADMINIFSEMEA") in role_names or ("ROLE_EDITORIFSEMEA") in role_names or ("ROLE_PRODUCTMANAGEMENTIFSEMEA") in role_names or ("ROLE_MARCOMIFSEMEA") in role_names)'
                           save: false
                           publish: false
                           delete: false
                           unpublish: false
-                        - condition: '(has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA") or has_role("ROLE_MARCOMIFSEMEA"))'
+                        - condition: '(("ROLE_APPLICATIONADMINIFSEMEA") in role_names or ("ROLE_EDITORIFSEMEA") in role_names or ("ROLE_PRODUCTMANAGEMENTIFSEMEA") in role_names or ("ROLE_MARCOMIFSEMEA") in role_names)'
                           save: true
                           publish: false
                           delete: false
@@ -53,12 +53,12 @@ pimcore:
                     label: In Product Manger Review
                     color: #377ea9
                     permissions:
-                        - condition: '!(has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA") or has_role("ROLE_MARCOMIFSEMEA"))'
+                        - condition: '!(("ROLE_PIMCORE_ADMIN") in role_names or ("ROLE_APPLICATIONADMINIFSEMEA") in role_names or ("ROLE_EDITORIFSEMEA") in role_names or ("ROLE_PRODUCTMANAGEMENTIFSEMEA") in role_names or ("ROLE_MARCOMIFSEMEA") in role_names)'
                           save: false
                           publish: false
                           delete: false
                           unpublish: false
-                        - condition: '(has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA") or has_role("ROLE_MARCOMIFSEMEA"))'
+                        - condition: '(("ROLE_APPLICATIONADMINIFSEMEA") in role_names or ("ROLE_EDITORIFSEMEA") in role_names or ("ROLE_PRODUCTMANAGEMENTIFSEMEA") in role_names or ("ROLE_MARCOMIFSEMEA") in role_names)'
                           save: true
                           publish: false
                           delete: false
@@ -67,12 +67,12 @@ pimcore:
                     label: Published
                     color: #377ea9
                     permissions:
-                        - condition: '!(has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA") or has_role("ROLE_MARCOMIFSEMEA"))'
+                        - condition: '!(("ROLE_PIMCORE_ADMIN") in role_names or ("ROLE_APPLICATIONADMINIFSEMEA") in role_names or ("ROLE_EDITORIFSEMEA") in role_names or ("ROLE_PRODUCTMANAGEMENTIFSEMEA") in role_names or ("ROLE_MARCOMIFSEMEA") in role_names)'
                           save: false
                           publish: false
                           delete: false
                           unpublish: false
-                        - condition: '(has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA") or has_role("ROLE_MARCOMIFSEMEA"))'
+                        - condition: '(("ROLE_APPLICATIONADMINIFSEMEA") in role_names or ("ROLE_EDITORIFSEMEA") in role_names or ("ROLE_PRODUCTMANAGEMENTIFSEMEA") in role_names or ("ROLE_MARCOMIFSEMEA") in role_names)'
                           save: true
                           publish: false
                           delete: false
@@ -81,12 +81,12 @@ pimcore:
                     label: In Editor Edit
                     color: #377ea9
                     permissions:
-                        - condition: '!(has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA") or has_role("ROLE_MARCOMIFSEMEA"))'
+                        - condition: '!(("ROLE_PIMCORE_ADMIN") in role_names or ("ROLE_APPLICATIONADMINIFSEMEA") in role_names or ("ROLE_EDITORIFSEMEA") in role_names or ("ROLE_PRODUCTMANAGEMENTIFSEMEA") in role_names or ("ROLE_MARCOMIFSEMEA") in role_names)'
                           save: false
                           publish: false
                           delete: false
                           unpublish: false
-                        - condition: '(has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA") or has_role("ROLE_MARCOMIFSEMEA"))'
+                        - condition: '(("ROLE_APPLICATIONADMINIFSEMEA") in role_names or ("ROLE_EDITORIFSEMEA") in role_names or ("ROLE_PRODUCTMANAGEMENTIFSEMEA") in role_names or ("ROLE_MARCOMIFSEMEA") in role_names)'
                           save: true
                           publish: false
                           delete: false
@@ -95,12 +95,12 @@ pimcore:
                     label: In Marcom Edit
                     color: #377ea9
                     permissions:
-                        - condition: '!(has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA") or has_role("ROLE_MARCOMIFSEMEA"))'
+                        - condition: '!(("ROLE_PIMCORE_ADMIN") in role_names or ("ROLE_APPLICATIONADMINIFSEMEA") in role_names or ("ROLE_EDITORIFSEMEA") in role_names or ("ROLE_PRODUCTMANAGEMENTIFSEMEA") in role_names or ("ROLE_MARCOMIFSEMEA") in role_names)'
                           save: false
                           publish: false
                           delete: false
                           unpublish: false
-                        - condition: '(has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA") or has_role("ROLE_MARCOMIFSEMEA"))'
+                        - condition: '(("ROLE_APPLICATIONADMINIFSEMEA") in role_names or ("ROLE_EDITORIFSEMEA") in role_names or ("ROLE_PRODUCTMANAGEMENTIFSEMEA") in role_names or ("ROLE_MARCOMIFSEMEA") in role_names)'
                           save: true
                           publish: false
                           delete: false
@@ -109,12 +109,12 @@ pimcore:
                     label: In Product Manger Review
                     color: #377ea9
                     permissions:
-                        - condition: '!(has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA") or has_role("ROLE_MARCOMIFSEMEA"))'
+                        - condition: '!(("ROLE_PIMCORE_ADMIN") in role_names or ("ROLE_APPLICATIONADMINIFSEMEA") in role_names or ("ROLE_EDITORIFSEMEA") in role_names or ("ROLE_PRODUCTMANAGEMENTIFSEMEA") in role_names or ("ROLE_MARCOMIFSEMEA") in role_names)'
                           save: false
                           publish: false
                           delete: false
                           unpublish: false
-                        - condition: '(has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA") or has_role("ROLE_MARCOMIFSEMEA"))'
+                        - condition: '(("ROLE_APPLICATIONADMINIFSEMEA") in role_names or ("ROLE_EDITORIFSEMEA") in role_names or ("ROLE_PRODUCTMANAGEMENTIFSEMEA") in role_names or ("ROLE_MARCOMIFSEMEA") in role_names)'
                           save: true
                           publish: false
                           delete: false
@@ -124,7 +124,7 @@ pimcore:
                     from:
                         - open
                     to: in_marcom_edit
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA"))
+                    guard: (("ROLE_PIMCORE_ADMIN")  in role_names or ("ROLE_APPLICATIONADMINIFSEMEA") in role_names or ("ROLE_EDITORIFSEMEA") in role_names)
                     options:
                         label: 'Send to Marcom'
                         notes:
@@ -135,7 +135,7 @@ pimcore:
                     from:
                         - in_editor_edit
                     to: in_marcom_edit
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA"))
+                    guard: (("ROLE_PIMCORE_ADMIN") in role_names or ("ROLE_APPLICATIONADMINIFSEMEA") in role_names or ("ROLE_EDITORIFSEMEA") in role_names)
                     options:
                         label: 'Send to MarCom'
                         notes:
@@ -146,7 +146,7 @@ pimcore:
                     from:
                         - in_marcom_edit
                     to: in_editor_edit
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_MARCOMIFSEMEA"))
+                    guard: (("ROLE_PIMCORE_ADMIN") in role_names or ("ROLE_APPLICATIONADMINIFSEMEA") in role_names or ("ROLE_MARCOMIFSEMEA") in role_names)
                     options:
                         label: 'Send to Editor for Fixes'
                         notes:
@@ -157,7 +157,7 @@ pimcore:
                     from:
                         - in_review
                     to: in_marcom_edit
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA"))
+                    guard: (("ROLE_PIMCORE_ADMIN") in role_names or ("ROLE_APPLICATIONADMINIFSEMEA") in role_names or ("ROLE_PRODUCTMANAGEMENTIFSEMEA") in role_names)
                     options:
                         label: 'Send to MarCom for Fixes'
                         notes:
@@ -168,7 +168,7 @@ pimcore:
                     from:
                         - in_marcom_edit
                     to: in_review
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_MARCOMIFSEMEA"))
+                    guard: (("ROLE_PIMCORE_ADMIN") in role_names or ("ROLE_APPLICATIONADMINIFSEMEA") in role_names or ("ROLE_MARCOMIFSEMEA") in role_names)
                     options:
                         label: 'Send to PM for Review'
                         notes:
@@ -180,7 +180,7 @@ pimcore:
                         - in_review
                         - published
                     to: published
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA"))
+                    guard: (("ROLE_PIMCORE_ADMIN") in role_names or ("ROLE_APPLICATIONADMINIFSEMEA") in role_names or ("ROLE_PRODUCTMANAGEMENTIFSEMEA") in role_names)
                     options:
                         label: 'Published'
                         notes:
@@ -191,7 +191,7 @@ pimcore:
                     from:
                         - published
                     to: in_editor_edit_after_publish
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_MARCOMIFSEMEA"))
+                    guard: (("ROLE_PIMCORE_ADMIN") in role_names or ("ROLE_APPLICATIONADMINIFSEMEA") in role_names or ("ROLE_MARCOMIFSEMEA") in role_names)
                     options:
                         label: 'Send to Editor For Fixes'
                         notes:
@@ -202,7 +202,7 @@ pimcore:
                     from:
                         - published
                     to: in_marcom_edit_after_publish
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA"))
+                    guard: (("ROLE_PIMCORE_ADMIN") in role_names or ("ROLE_APPLICATIONADMINIFSEMEA") in role_names or ("ROLE_EDITORIFSEMEA") in role_names)
                     options:
                         label: 'Send to Marcom for Review'
                         notes:
@@ -213,7 +213,7 @@ pimcore:
                     from:
                         - published
                     to: in_pm_review_after_publish
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA") or has_role("ROLE_MARCOMIFSEMEA"))
+                    guard: (("ROLE_PIMCORE_ADMIN") in role_names or ("ROLE_APPLICATIONADMINIFSEMEA") in role_names or ("ROLE_EDITORIFSEMEA") in role_names or ("ROLE_MARCOMIFSEMEA") in role_names)
                     options:
                         label: 'Send to PM for Review'
                         notes:
@@ -224,7 +224,7 @@ pimcore:
                     from:
                         - in_marcom_edit_after_publish
                     to: in_editor_edit_after_publish
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_MARCOMIFSEMEA"))
+                    guard: (("ROLE_PIMCORE_ADMIN") in role_names or ("ROLE_APPLICATIONADMINIFSEMEA") in role_names or ("ROLE_MARCOMIFSEMEA") in role_names)
                     options:
                         label: 'Send to Editor for Fixes'
                         notes:
@@ -235,7 +235,7 @@ pimcore:
                     from:
                         - in_marcom_edit_after_publish
                     to: in_pm_review_after_publish
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_MARCOMIFSEMEA"))
+                    guard: (("ROLE_PIMCORE_ADMIN") in role_names or ("ROLE_APPLICATIONADMINIFSEMEA") in role_names or ("ROLE_MARCOMIFSEMEA") in role_names)
                     options:
                         label: 'Send to PM for Review'
                         notes:
@@ -246,7 +246,7 @@ pimcore:
                     from:
                         - in_editor_edit_after_publish
                     to: in_marcom_edit_after_publish
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA"))
+                    guard: (("ROLE_PIMCORE_ADMIN") in role_names or ("ROLE_APPLICATIONADMINIFSEMEA") in role_names or ("ROLE_EDITORIFSEMEA") in role_names)
                     options:
                         label: 'Send to Marcom'
                         notes:
@@ -257,7 +257,7 @@ pimcore:
                     from:
                         - in_editor_edit_after_publish
                     to: in_pm_review_after_publish
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_EDITORIFSEMEA"))
+                    guard: (("ROLE_PIMCORE_ADMIN") in role_names or ("ROLE_APPLICATIONADMINIFSEMEA") in role_names or ("ROLE_EDITORIFSEMEA") in role_names)
                     options:
                         label: 'Send to PM for Review'
                         notes:
@@ -268,7 +268,7 @@ pimcore:
                     from:
                         - in_pm_review_after_publish
                     to: in_marcom_edit_after_publish
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA"))
+                    guard: (("ROLE_PIMCORE_ADMIN") in role_names or ("ROLE_APPLICATIONADMINIFSEMEA") in role_names or ("ROLE_PRODUCTMANAGEMENTIFSEMEA") in role_names)
                     options:
                         label: 'Send to Marcom for Fixes'
                         notes:
@@ -279,7 +279,7 @@ pimcore:
                     from:
                         - in_pm_review_after_publish
                     to: in_editor_edit_after_publish
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA"))
+                    guard: (("ROLE_PIMCORE_ADMIN") in role_names or ("ROLE_APPLICATIONADMINIFSEMEA") in role_names or ("ROLE_PRODUCTMANAGEMENTIFSEMEA") in role_names)
                     options:
                         label: 'Send to Editor for Fixes'
                         notes:
@@ -290,7 +290,7 @@ pimcore:
                     from:
                         - in_pm_review_after_publish
                     to: published
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_APPLICATIONADMINIFSEMEA") or has_role("ROLE_PRODUCTMANAGEMENTIFSEMEA"))
+                    guard: (("ROLE_PIMCORE_ADMIN") in role_names or ("ROLE_APPLICATIONADMINIFSEMEA") in role_names or ("ROLE_PRODUCTMANAGEMENTIFSEMEA") in role_names)
                     options:
                         label: 'Published'
                         notes:

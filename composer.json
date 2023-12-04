@@ -47,11 +47,7 @@
       "PTGEU\\CatalogBundle\\": "bundles/PTGEU/CatalogBundle",
       "IFSEU\\ProductBundle\\": "bundles/IFSEU/ProductBundle",
       "IFSEU\\ImportBundle\\": "bundles/IFSEU/ImportBundle",
-      "IFSEU\\RestApiBundle\\": "bundles/IFSEU/RestApiBundle",
-      "ContitechCS\\CatalogBundle\\": "bundles/ContitechCS/CatalogBundle",
-      "ContitechCS\\CatalogUIApiBundle\\": "bundles/ContitechCS/CatalogUIApiBundle",
-      "ContitechCS\\ImportBundle\\": "bundles/ContitechCS/ImportBundle",
-      "ContitechCS\\ProductBundle\\": "bundles/ContitechCS/ProductBundle"
+      "IFSEU\\RestApiBundle\\": "bundles/IFSEU/RestApiBundle"
     }
   },
   "scripts": {

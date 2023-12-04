@@ -5,12 +5,12 @@ return [
         "ADAuthBundle\\ADAuthBundle" => FALSE,
         // "Elements\\Bundle\\ProcessManagerBundle\\ElementsProcessManagerBundle" => TRUE,
         "ImportBundle\\ImportBundle" => TRUE,
-        "RequiredAttributesBundle\\RequiredAttributesBundle" => TRUE,
+        // "RequiredAttributesBundle\\RequiredAttributesBundle" => TRUE,
         // "S3CustomizationBundle\\S3CustomizationBundle" => TRUE,
         // "CatalogBundle\\CatalogBundle" => TRUE,
         "ContitechCS\\ProductBundle\\ContitechCSProductBundle" => TRUE,
-        "ContitechCS\\ImportBundle\\ContitechCSImportBundle" => TRUE,
-        "ContitechCS\\CatalogBundle\\ContitechCSCatalogBundle" => TRUE,
+        // "ContitechCS\\ImportBundle\\ContitechCSImportBundle" => TRUE,
+        // "ContitechCS\\CatalogBundle\\ContitechCSCatalogBundle" => TRUE,
         "ContitechCS\\CatalogUIApiBundle\\CatalogUIApiBundle" => TRUE,
         // "Wvision\\Bundle\\DataDefinitionsBundle\\DataDefinitionsBundle" => TRUE,
         // "DistributionHubBundle\\DistributionHubBundle" => TRUE,
@@ -22,7 +22,7 @@ return [
         "RestApiBundle\\RestApiBundle" => TRUE,
         "IFSEU\\ProductBundle\\IFSEUProductBundle" => TRUE,
         "IFSEU\\ImportBundle\\IFSEUImportBundle" => TRUE,
-        "PTGEU\\CatalogBundle\\PTGEUCatalogBundle" => TRUE,
+        // "PTGEU\\CatalogBundle\\PTGEUCatalogBundle" => TRUE,
         // "PimDataPostBundle\\PimDataPostBundle" => TRUE
     ]
 ];

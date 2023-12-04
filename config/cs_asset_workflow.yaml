@@ -7,7 +7,7 @@ pimcore:
 #            supports:
 #                - 'Pimcore\Model\Asset'
             support_strategy:
-               #service: ContitechCS\ProductBundle\Workflow\AssetSupportStrategy
+            #    service: ContitechCS\ProductBundle\Workflow\AssetSupportStrategy
     
 
                 # Define a custom service to handle the logic. Take a look at the Symfony docs for more details.
@@ -26,7 +26,7 @@ pimcore:
                     from:
                         - default
                     to: archived
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_MARCOMCS"))
+                    guard: (("ROLE_PIMCORE_ADMIN") in role_names or ("ROLE_PIMCORE_APPLICATIONADMINCS") in role_names or ("ROLE_MARCOMCS") in role_names)
                     options:
                         label: 'Archive Asset'
                         notes:
@@ -37,7 +37,7 @@ pimcore:
                     from:
                         - archived
                     to: default
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_MARCOMCS"))
+                    guard: (("ROLE_PIMCORE_ADMIN") in role_names or ("ROLE_PIMCORE_APPLICATIONADMINCS") in role_names or ("ROLE_MARCOMCS") in role_names)
                     options:
                         label: 'UnArchive Asset'
                         notes:
