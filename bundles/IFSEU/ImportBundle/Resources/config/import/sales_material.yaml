@@ -1,0 +1,28 @@
+parameters:
+  mappingCsvColumn: 
+    'Material': 'Material'
+    'MaterialDescLanguage': 'Material Desc Langu'
+    'SalesOrganization' : 'Sales Org'
+    'DistributionChannel' : 'Distribution Channel'
+    'DeliveringPlant' : 'PLANT'
+    'MaterialDescription' : 'Material Description'
+    # 'countryOfOriginCode' : 'CountryofOriginCode'
+    # 'countryOfOriginName':  'CountryofOriginname'
+    # 'epixFlag' : 'EPIXFlag'
+    # 'pricePageFlag': 'PricePageFlag'
+    # 'deletedFlagAtDistributionChainLevel': 'Deletionflag'
+    # 'salesText1': 'Salestext1'
+    # 'salesText2': 'Salestext2'
+    # 'privateBrand': 'MaterialGroup5'
+    'SalesUOM': 'Sales Unit'
+    'deletedFlagAtDistributionChainLevel' : 'Dist Chain Status'
+    'MaterialGroup1': 'Material Group 1'
+    'MaterialGroup2': 'Material Group 2'
+    'MaterialGroup3': 'Material Group 3'
+    'MaterialGroup4': 'Material Group 4'
+    'MaterialGroup5': 'Material Group 5'
+    
+    # These below are not the Sales Material Master attributes. These are for sales and distribution channel attribute that we are 
+    # creating using this script
+    'SalesOrgDesc' : 'Sales Org Desc' #Class - IFSEUSalesOrganisation
+    'DistChannelDesc' : 'Dist Channel Desc' #Class - IFSEUDistributionChannel

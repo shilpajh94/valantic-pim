@@ -1,0 +1,402 @@
+<?php
+namespace B2BExportBundle\Services\Model;
+
+use AppBundle\Logger\LogLevel;
+use Exception;
+use Pimcore\Db;
+use Pimcore\Log\Simple as Logger;
+use Pimcore\Model\DataObject;
+use Pimcore\Model\DataObject\ClassDefinition;
+
+/**
+ * Model Class CatalogGroup
+ *
+ * Catalog Group Service Model
+ *
+ * @package ExportBundle\Services\Model
+ */
+class Catalog {
+    /**
+     * Execute getGroups Function
+     *
+     * @return array
+     * @throws Exception
+     *
+     */
+	public static function getGroups(){
+		try {
+			// Querying product category from database
+			$productCategories = Db::get()->fetchAll('SELECT
+				*	from object_localized_2_en where o_published = 1
+			');
+			return $productCategories;
+		} catch (\Exception $e) {
+            \B2BExportBundle\Lib\Utils::log("CatalogGroup Model Exception :: " .$e->getMessage(),LogLevel::CRITICAL());
+		}
+	}
+
+	/**
+     * Execute getGroupsDescription Function
+     *
+     * @return array
+     * @throws Exception
+     *
+     */
+	public static function getGroupsDescription(){
+		try {
+            // Querying data from Sales Material Master Database
+	    	$siopMasterList = Db::get()->fetchAll('SELECT object_2.o_id as id,
+				Level,
+				code,
+				fullCode,
+				ParentCategoryCode ,
+				BusinessUnit
+				FROM object_2
+				WHERE BusinessUnit != "" AND o_published = 1
+			');
+			$data = [];
+			$count = 0;
+			foreach ($siopMasterList as $siop) {
+				$siopList = DataObject::getById($siop['id']);
+				$localizedArray = array_merge($siop, ['language' => $siopList->getLocalizedfields()->getInternalData(), 'languageMaster' => self::languageMaster()]);
+				$data[] = $localizedArray;
+				$count++;
+			}
+
+	    	return $data;
+		} catch (\Exception $e) {
+            \B2BExportBundle\Lib\Utils::log("Catalog Group Description Model Exception :: " .$e->getMessage(),LogLevel::CRITICAL());
+		}
+	}
+
+	public function getAllManualCategories()
+    {
+        $categoryClassId = $this->getPimcoreClassIdbyName("Category");
+        $subCategoryClassId = $this->getPimcoreClassIdbyName("SubCategory");
+        $fittingCategoryClassId = $this->getPimcoreClassIdbyName("FittingCategory");
+        $fittingSubCategoryClassId = $this->getPimcoreClassIdbyName("FittingSubCategory");
+
+        try{
+            $categorySql = "
+                SELECT oo_id,Name FROM object_". $categoryClassId ." where o_published = 1
+                UNION
+                SELECT oo_id,Name FROM object_". $subCategoryClassId ." where o_published = 1
+                UNION
+                SELECT oo_id,Name FROM object_". $fittingCategoryClassId ." where o_published = 1
+                UNION
+                SELECT oo_id,Name FROM object_". $fittingSubCategoryClassId ." where o_published = 1
+		    ";
+
+            $result = Db::get()->fetchAll($categorySql);
+            return $result;
+        }catch (\Exception $e) {
+            \B2BExportBundle\Lib\Utils::log("Catalog Model Exception :: " .$e->getMessage(),LogLevel::CRITICAL());
+        }
+    }
+
+    public function getAllManualCategoriesWithLevel()
+    {
+        $categoryClassId = $this->getPimcoreClassIdbyName("Category");
+        $subCategoryClassId = $this->getPimcoreClassIdbyName("SubCategory");
+        $fittingCategoryClassId = $this->getPimcoreClassIdbyName("FittingCategory");
+        $fittingSubCategoryClassId = $this->getPimcoreClassIdbyName("FittingSubCategory");
+
+        try{
+            $categorySql = "
+                SELECT oo_id,Name,'TRUE' as top_group,'1' as sequence,'0' as parent_group_identifier FROM object_". $categoryClassId ." where o_published = 1
+		    ";
+
+            $categoryData = Db::get()->fetchAll($categorySql);
+
+            $subCategoriesSQL = "SELECT oo_id,Name, 'FALSE' as top_group,'2' as sequence,category FROM object_". $subCategoryClassId . " where o_published = 1";
+            $subCategories = Db::get()->fetchAll($subCategoriesSQL);
+            $subCategoryData = [];
+            foreach($subCategories as $subCategory){
+
+                $categoriesString = trim($subCategory['Category'],',');
+                $categoriesArray = explode(",",$categoriesString);
+                foreach($categoriesArray as $categoryId){
+                    $row = [];
+                    $row['oo_id'] = $subCategory['oo_id'];
+                    $row['Name'] = $subCategory['Name'];
+                    $row['top_group'] = $subCategory['top_group'];
+                    $row['sequence'] = $subCategory['sequence'];
+                    $row['parent_group_identifier'] = $categoryId;
+                    $subCategoryData[] = $row;
+                }
+            }
+
+            $fittingCategorySql = "
+                SELECT oo_id,Name,'TRUE' as top_group,'1' as sequence,'0' as parent_group_identifier FROM object_". $fittingCategoryClassId ." where o_published = 1
+                UNION
+                SELECT oo_id,Name,'TRUE' as top_group,'1' as sequence,'0' as parent_group_identifier FROM object_". $fittingSubCategoryClassId ." where o_published = 1
+		    ";
+
+            $fittingCategoryData = Db::get()->fetchAll($fittingCategorySql);
+
+            return array_merge($categoryData,$subCategoryData, $fittingCategoryData);
+        }catch (\Exception $e) {
+
+            \B2BExportBundle\Lib\Utils::log("Catalog Model Exception :: " .$e->getMessage(),LogLevel::CRITICAL());
+        }
+    }
+
+	/**
+     * Execute getEntries Function
+     *
+     * @return array
+     * @throws Exception
+     *
+     */
+	public static function getEntries(){
+		try {
+
+//		    $sql1 = "
+//                SELECT DISTINCT
+//                    SUBSTRING(TRIM(material),
+//                        2,
+//                        (LENGTH(TRIM(material)) - 2))
+//                FROM
+//                    object_query_10
+//                WHERE
+//                    epixFlag = '001'
+//                        AND material IS NOT NULL
+//                        AND material != ''
+//		    ";
+//
+//		    $productIds = Db::get()->fetchCol($sql1);
+
+//		    $oldSql = "SELECT
+//				DISTINCT
+//					oCommaSaperated.oo_id,
+//					oCommaSaperated.mainImage,
+//					oCommaSaperated.articleNumber as partNo,
+//					oCommaSaperated.manufacturerPartNumber as MFPartNumber,
+//					oCommaSaperated.industryStandard,
+//					oCommaSaperated.siopFullCode,
+//					objld1.sapDescription,
+//					objld1.longDescription,
+//					oCommaSaperated.netWeight,
+//					oCommaSaperated.weightUnit,
+//					objld1.language
+//				FROM object_10 o10
+//				RIGHT JOIN object_1 oCommaSaperated
+//				ON FIND_IN_SET(oCommaSaperated.oo_id, o10.Material)
+//				JOIN object_localized_data_1 objld1
+//				ON oCommaSaperated.oo_id = objld1.ooo_id
+//				AND objld1.sapDescription != ''
+//				AND objld1.language = 'en'
+//				WHERE o10.epixFlag = '001'
+//				AND LOCATE(',', o10.Material)
+//				UNION DISTINCT
+//				SELECT
+//					o1.oo_id,
+//					o1.mainImage,
+//					o1.articleNumber as partNo,
+//					o1.manufacturerPartNumber as MFPartNumber,
+//					o1.industryStandard,
+//					o1.siopFullCode,
+//					objld1.sapDescription,
+//					objld1.longDescription,
+//					o1.netWeight,
+//					o1.weightUnit,
+//					objld1.language
+//				FROM object_10 o10
+//				JOIN object_1 o1
+//				ON o1.oo_id = o10.Material
+//				JOIN object_localized_data_1 objld1
+//				ON o1.oo_id = objld1.ooo_id
+//				AND objld1.language = 'en'
+//				AND objld1.sapDescription != ''
+//				WHERE o10.epixFlag = '001'
+//			";
+
+            $newSQL = "SELECT
+                            product.oo_id,
+                            product.mainImage,
+                            product.articleNumber AS partNo,
+                            product.manufacturerPartNumber AS MFPartNumber,
+                            product.industryStandard,
+                            product.siopFullCode,
+                            objld1.sapDescription,
+                            objld1.longDescription,
+                            product.netWeight,
+                            product.weightUnit,
+                            SUBSTRING(product.category, 2, LOCATE(',', product.category, 2) - 2) as categoryId,
+                            SUBSTRING(product.fittingCategory, 2, LOCATE(',', product.fittingCategory, 2) - 2) as fittingCategoryId
+                        FROM
+                            object_1 product
+                                JOIN
+                            object_localized_query_1_en objld1 ON product.oo_id = objld1.ooo_id
+                                AND objld1.sapDescription != ''
+                        WHERE
+                            product.o_published = 1 AND
+                            product.oo_id IN (SELECT DISTINCT
+                                    SUBSTRING(TRIM(material),
+                                            2,
+                                            (LENGTH(TRIM(material)) - 2))
+                                FROM
+                                    object_query_10
+                                WHERE
+                                    epixFlag = '001'
+                                        AND material IS NOT NULL
+                                        AND material != '')
+
+                                        ";
+
+
+            // Querying data from product Master data from Database
+            $productMaster = Db::get()->fetchAll($newSQL);
+
+	    	return $productMaster;
+		} catch (\Exception $e) {
+            \B2BExportBundle\Lib\Utils::log("Catalog Entries Model Exception :: " .$e->getMessage(),LogLevel::CRITICAL());
+		}
+	}
+
+	/**
+     * Execute getEntriesDescription Function
+     *
+     * @return array
+     * @throws Exception
+     *
+     */
+	public function getEntriesDescription(){
+		try {
+            // Querying data from product Master data from Database
+//            $sql1 = "
+//                SELECT DISTINCT
+//                    SUBSTRING(TRIM(material),
+//                        2,
+//                        (LENGTH(TRIM(material)) - 2))
+//                FROM
+//                    object_query_10
+//                WHERE
+//                    epixFlag = '001'
+//                        AND material IS NOT NULL
+//                        AND material != ''
+//		    ";
+//
+//            $productIds = Db::get()->fetchCol($sql1);
+
+//            $oldSql = "SELECT
+//				DISTINCT
+//					oCommaSaperated.oo_id,
+//					oCommaSaperated.mainImage,
+//					oCommaSaperated.articleNumber as partNo,
+//					oCommaSaperated.manufacturerPartNumber as MFPartNumber,
+//					oCommaSaperated.industryStandard,
+//					oCommaSaperated.siopFullCode,
+//					objld1.sapDescription,
+//					objld1.longDescription,
+//					oCommaSaperated.netWeight,
+//					oCommaSaperated.weightUnit,
+//					objld1.language
+//				FROM object_10 o10
+//				RIGHT JOIN object_1 oCommaSaperated
+//				ON FIND_IN_SET(oCommaSaperated.oo_id, o10.Material)
+//				JOIN object_localized_data_1 objld1
+//				ON oCommaSaperated.oo_id = objld1.ooo_id
+//				AND objld1.sapDescription != ''
+//				WHERE o10.epixFlag = '001'
+//				AND LOCATE(',', o10.Material)
+//				UNION DISTINCT
+//				SELECT
+//					o1.oo_id,
+//					o1.mainImage,
+//					o1.articleNumber as partNo,
+//					o1.manufacturerPartNumber as MFPartNumber,
+//					o1.industryStandard,
+//					o1.siopFullCode,
+//					objld1.sapDescription,
+//					objld1.longDescription,
+//					o1.netWeight,
+//					o1.weightUnit,
+//					objld1.language
+//				FROM object_10 o10
+//				JOIN object_1 o1
+//				ON o1.oo_id = o10.Material
+//				JOIN object_localized_data_1 objld1
+//				ON o1.oo_id = objld1.ooo_id
+//				AND objld1.sapDescription != ''
+//				WHERE o10.epixFlag = '001'
+//			";
+
+
+            $newSql = "SELECT
+                            oCommaSaperated.oo_id,
+                            oCommaSaperated.epixImage,
+                            oCommaSaperated.articleNumber as partNo,
+                            oCommaSaperated.manufacturerPartNumber as MFPartNumber,
+                            oCommaSaperated.industryStandard,
+                            oCommaSaperated.siopFullCode,
+                            objld1.sapDescription,
+                            objld1.longDescription,
+                            oCommaSaperated.netWeight,
+                            oCommaSaperated.weightUnit,
+                            objld1.language
+                        FROM
+                            object_1 oCommaSaperated
+                                JOIN
+                            object_localized_data_1 objld1 ON oCommaSaperated.oo_id = objld1.ooo_id
+                                AND objld1.sapDescription != ''
+                        WHERE
+                            oCommaSaperated.o_published = 1 AND
+                            oCommaSaperated.oo_id IN (SELECT DISTINCT
+                                    SUBSTRING(TRIM(material),
+                                            2,
+                                            (LENGTH(TRIM(material)) - 2))
+                                FROM
+                                    object_query_10
+                                WHERE
+                                    epixFlag = '001'
+                                        AND material IS NOT NULL
+                                        AND material != '')
+			";
+
+            $productMaster = Db::get()->fetchAll($newSql);
+
+	    	// returning product master and language master data
+	    	return ['productMaster' => $productMaster, 'languageMaster' => self::languageMaster()];
+		} catch (\Exception $e) {
+            \B2BExportBundle\Lib\Utils::log("Catalog Entries Description Model Exception :: " .$e->getMessage(),LogLevel::CRITICAL());
+		}
+	}
+
+	/**
+	 * Querying languages with languageId from Database
+	 * @return array $languageMaster
+	 */
+	protected function languageMaster() {
+		$languageMasterKeys = array_map(function($e){
+				return $e['SystemCode'];
+			}, Db::get()->fetchAll('
+				SELECT SystemCode
+				FROM object_27
+			')
+		);
+		$languageMasterValues = array_map(function($e){
+				return $e['Code'];
+			}, Db::get()->fetchAll('
+				SELECT Code
+				FROM object_27
+			')
+		);
+		// Language master from object_27 , ex : ['en' => -1, 'fr_CA' => -2]
+		$languageMaster = array_combine($languageMasterKeys,$languageMasterValues);
+		return 	$languageMaster;
+	}
+
+    /**
+     * @param string $pimcoreClassName
+     * @return string|null
+     */
+    public function getPimcoreClassIdbyName(string $pimcoreClassName): ?string
+    {
+        $classDef = ClassDefinition::getByName($pimcoreClassName);
+        if($classDef){
+            return $classDef->getId();
+        }
+        return null;
+    }
+}

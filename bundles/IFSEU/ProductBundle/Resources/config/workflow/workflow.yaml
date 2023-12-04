@@ -1,0 +1,218 @@
+parameters:
+    host: 'https://stage.pim.conti.de'
+    completed:
+        send_to_marcom:
+            templatePath: '/Contitech_IFS_EMEA/WorkflowEmailTemplates/Send for Enrichment to Marcom'
+            notificationTo: 
+                users:
+                    # - ProductManagementIFSEMEA
+                roles:
+                    - MarComIFSEMEA
+        send_to_marcom_again:
+            templatePath: '/Contitech_IFS_EMEA/WorkflowEmailTemplates/Send for Enrichment to Marcom'
+            notificationTo: 
+                users:
+                    # - MarComIFSEMEA
+                roles:
+                    - MarComIFSEMEA
+        # send_to_marcom_for_review:
+        #     templatePath: '/Contitech_IFS_EMEA/WorkflowEmailTemplates/Sent for Fixes'
+        #     notificationTo: 
+        #         users: 
+        #             # - ProductOwner
+        #         roles:
+        #             - MarComIFSEMEA
+        send_to_editor_for_fixes:
+            templatePath: '/Contitech_IFS_EMEA/WorkflowEmailTemplates/Send to Editor for Fixes'
+            notificationTo: 
+                users:
+                    # - ProductManagementIFSEMEA
+                roles:
+                    - EditorIFSEMEA
+        send_to_marcom_for_fixes:
+            templatePath: '/Contitech_IFS_EMEA/WorkflowEmailTemplates/Send to Marcom for Fixes'
+            notificationTo: 
+                users:
+                    # - MarComIFSEMEA
+                roles:
+                    - MarComIFSEMEA
+        send_to_pm_for_review:
+            templatePath: '/Contitech_IFS_EMEA/WorkflowEmailTemplates/Sent for PM Review'
+            notificationTo: 
+                users:
+                    # - ProductManagementIFSEMEA
+                roles:
+                    - ProductManagementIFSEMEA
+        approved:
+            templatePath: '/Contitech_IFS_EMEA/WorkflowEmailTemplates/Notification for Publish Product'
+            notificationTo: 
+                users:
+                    # - ProductManagementIFSEMEA
+                roles:
+                    - ProductManagementIFSEMEA
+                    - EditorIFSEMEA
+                    - MarComIFSEMEA
+        # published:
+        #     templatePath: '/Contitech_IFS_EMEA/WorkflowEmailTemplates/Sent for Fixes'
+        #     notificationTo: 
+        #         users:
+        #             # - RnDUser
+        #         roles:
+        #             - ProductManagementIFSEMEA
+        in_editor_edit_after_publish:
+            templatePath: '/Contitech_IFS_EMEA/WorkflowEmailTemplates/Send for Enrichment to Editor'
+            notificationTo: 
+                users:
+                    # - ProductManagementIFSEMEA
+                roles:
+                    - EditorIFSEMEA
+        in_marcom_edit_after_publish:
+            templatePath: '/Contitech_IFS_EMEA/WorkflowEmailTemplates/Send to Marcom for Fixes'
+            notificationTo: 
+                users:
+                    # - MarComIFSEMEA
+                roles:
+                    - MarComIFSEMEA
+        in_pm_review_after_editor_edit:
+            templatePath: '/Contitech_IFS_EMEA/WorkflowEmailTemplates/Sent for PM Review'
+            notificationTo: 
+                users:
+                    # - ProductManagementIFSEMEA
+                roles:
+                    - ProductManagementIFSEMEA
+        in_editor_edit_after_marcom_review:
+            templatePath: '/Contitech_IFS_EMEA/WorkflowEmailTemplates/Send to Editor for Fixes'
+            notificationTo: 
+                users:
+                    # - ProductManagementIFSEMEA
+                roles:
+                    - EditorIFSEMEA
+        in_pm_review_after_marcom:
+            templatePath: '/Contitech_IFS_EMEA/WorkflowEmailTemplates/Sent for PM Review'
+            notificationTo: 
+                users:
+                    # - ProductManagementIFSEMEA
+                roles:
+                    - ProductManagementIFSEMEA
+        in_marcom_edit_after_editor_fixes:
+            templatePath: '/Contitech_IFS_EMEA/WorkflowEmailTemplates/Send for Enrichment to Marcom'
+            notificationTo: 
+                users:
+                    # - MarComIFSEMEA
+                roles:
+                    - MarComIFSEMEA
+        in_pm_review_after_editor:
+            templatePath: '/Contitech_IFS_EMEA/WorkflowEmailTemplates/Sent for PM Review'
+            notificationTo: 
+                users:
+                    # - ProductManagementIFSEMEA
+                roles:
+                    - ProductManagementIFSEMEA
+        in_marcom_edit_after_pm_review:
+            templatePath: '/Contitech_IFS_EMEA/WorkflowEmailTemplates/Send to Marcom for Fixes'
+            notificationTo: 
+                users:
+                    # - MarComIFSEMEA
+                roles:
+                    - MarComIFSEMEA
+        in_editor_edit_after_pm_review:
+            templatePath: '/Contitech_IFS_EMEA/WorkflowEmailTemplates/Send to Editor for Fixes'
+            notificationTo: 
+                users:
+                    # - ProductManagementIFSEMEA
+                roles:
+                    - EditorIFSEMEA
+        in_pm_review:
+            templatePath: '/Contitech_IFS_EMEA/WorkflowEmailTemplates/Notification for Publish Product'
+            notificationTo: 
+                users:
+                    # - ProductManagementIFSEMEA
+                roles:
+                     - ProductManagementIFSEMEA
+    transition: 
+        send_to_marcom:
+            condition:
+                methods:
+                    - checkForMandatoryValidation
+
+        send_to_marcom_again:
+            condition:
+                methods:
+                    - checkForMandatoryValidation
+
+        send_to_pm_for_review:
+            condition:
+                methods:
+                    - checkForMandatoryValidation
+
+        send_to_editor_for_fixes:
+            condition:
+                methods:
+                    - checkForMandatoryValidation
+
+        send_to_marcom_for_fixes:
+            condition:
+                methods:
+                    - checkForMandatoryValidation
+
+        in_editor_edit_after_publish:
+            condition:
+                methods:
+                    - checkForMandatoryValidation
+
+        in_marcom_edit_after_publish:
+            condition:
+                methods:
+                    - checkForMandatoryValidation
+
+        in_pm_review_after_marcom:
+            condition:
+                methods:
+                    - checkForMandatoryValidation
+
+
+        in_pm_review_after_editor_edit:
+            condition:
+                methods:
+                    - checkForMandatoryValidation
+
+        in_editor_edit_after_marcom_review:
+            condition:
+                methods:
+                    - checkForMandatoryValidation
+
+        in_marcom_edit_after_pm_review:
+             condition:
+                methods:
+                    - checkForMandatoryValidation
+
+        in_marcom_edit_after_editor_fixes:
+            condition:
+                methods:
+                    - checkForMandatoryValidation
+
+        in_editor_edit_after_pm_review:
+            condition:
+                methods:
+                    - checkForMandatoryValidation
+
+        in_pm_review_after_editor:
+            condition:
+                methods:
+                    - checkForMandatoryValidation
+                    
+        in_pm_review:
+            action: 
+                published: true
+            condition:
+                methods:
+                    - checkForMandatoryValidation
+                    - checkIfParentUnPublished
+
+        approved:
+            action: 
+                published: true
+            condition:
+                methods:
+                    - checkForMandatoryValidation
+                    - checkIfParentUnPublished
