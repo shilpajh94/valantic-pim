@@ -1,0 +1,6 @@
+product_type_to_product_brick_field_mapping:
+  productAttributes: 'ProductAttributes'
+cleated_belts_table_display_in_region:
+  regionName: 'North America'  
+defualtUnit:
+  North America: inch

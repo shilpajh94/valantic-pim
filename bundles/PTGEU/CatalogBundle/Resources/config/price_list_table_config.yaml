@@ -1,0 +1,15 @@
+parameters:
+  priceListTableColumn:
+    "Unique ID": 0
+    "Sales Organization": 1
+    "Distribution Channel": 2
+    "Validity End Date": 3
+    "Validity Start Date": 4
+    "Rate": 5
+    "Rate Unit": 6
+    "Condition Type": 7
+  priceListCurrency:
+    "USD": '$'
+    "CAD": '$'
+    "MXN": '$'
+    "EUR": '$'  
