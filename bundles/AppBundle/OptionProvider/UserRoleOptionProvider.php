@@ -14,19 +14,19 @@ class UserRoleOptionProvider implements SelectOptionsProviderInterface
      * @return array
      */
     public function getOptions($context, $fieldDefinition) {
-        // $roleList = new \Pimcore\Model\User\Role\Listing;
-        // $roleList->load();
-        // $roles = array();
-        // $roleList = $roleList->getItems();
-        // if(!empty($roleList) && count($roleList)>0) {
-        //     foreach($roleList as $role) {
-        //         $roles[] = array(
-        //             'key'       =>  $role->name,
-        //             'value'     =>  $role->id
-        //         );
-        //     }
-        // }
-        // return $roles;
+        $roleList = new \Pimcore\Model\User\Role\Listing;
+        $roleList->load();
+        $roles = array();
+        $roleList = $roleList->getItems();
+        if(!empty($roleList) && count($roleList)>0) {
+            foreach($roleList as $role) {
+                $roles[] = array(
+                    'key'       =>  $role->getName(),
+                    'value'     =>  $role->getId()
+                );
+            }
+        }
+        return $roles;
     }
 
     /**
