@@ -48,10 +48,10 @@
       "IFSEU\\ProductBundle\\": "bundles/IFSEU/ProductBundle",
       "IFSEU\\ImportBundle\\": "bundles/IFSEU/ImportBundle",
       "IFSEU\\RestApiBundle\\": "bundles/IFSEU/RestApiBundle",
-      "ContitechCS\\ImportBundle": "bundles/ContitechCS/ImportBundle",
-      "ContitechCS\\ProductBundle": "bundles/ContitechCS/ProductBundle",
-      "ContitechCS\\CatalogUIApiBundle": "bundles/ContitechCS/CatalogUIApiBundle",
-      "ContitechCS\\CatalogBundle": "bundles/ContitechCS/CatalogBundle"
+      "ContitechCS\\ImportBundle\\": "bundles/ContitechCS/ImportBundle",
+      "ContitechCS\\ProductBundle\\": "bundles/ContitechCS/ProductBundle",
+      "ContitechCS\\CatalogUIApiBundle\\": "bundles/ContitechCS/CatalogUIApiBundle",
+      "ContitechCS\\CatalogBundle\\": "bundles/ContitechCS/CatalogBundle"
     }
   },
   "scripts": {
