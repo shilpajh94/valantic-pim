@@ -1,0 +1,14 @@
+{% extends "@Catalog/Layouts/layout.html.twig" %}
+
+{% for child in allChildren %}
+
+    {% if(child instanceof \Pimcore\Model\Document\Hardlink) %}
+
+        {% set child = \Pimcore\Model\Document\Hardlink\Service::wrap(child) %}
+    
+        {{ pimcore_inc(child,{containerRequest:TRUE})}}
+
+    {% endif %}
+
+{% endfor %}
+<script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
