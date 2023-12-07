@@ -1,280 +1,350 @@
 MarCom:
+    blockName: null
     fieldName: MarcomUser
     fieldType: User
     objectType: class
 Product Manager:
+    blockName: null
     fieldName: ProductOwner
     fieldType: User
     objectType: class
 RandD:
+    blockName: null
     fieldName: RnDUser
     fieldType: User
     objectType: class
 industrial service tension capacity in PIW (for Elevator Belt only):
+    blockName: null
     fieldName: IndustrialServiceTensionCapacityinPIW
     fieldType: Number
     objectType: TensionElevatorBelt
 spaced industrial max. bucket projection (Elevator Belt only):
+    blockName: null
     fieldName: SpacedIndustrialMaxBucketProjectionInch
     fieldType: Number
     objectType: TensionElevatorBelt
 continuous industrial max. bucket projection(Elevator Belt only):
+    blockName: null
     fieldName: ContinuousIndustrialMaxBucketProjectionInch
     fieldType: Number
     objectType: TensionElevatorBelt
 industrial service tension capacity in KNM (for Elevator Belt only):
+    blockName: null
     fieldName: IndustrialServiceTensionCapacityinKNM
     fieldType: Number
     objectType: TensionElevatorBelt
 spaced industrial max. bucket projection in mm(Elevator Belt only):
+    blockName: null
     fieldName: SpacedIndustrialMaxBucketProjectionMM
     fieldType: Number
     objectType: TensionElevatorBelt
 continuous industrial max. bucket projection in mm(Elevator Belt only):
+    blockName: null
     fieldName: ContinuousIndustrialMaxBucketProjectionMM
     fieldType: Number
     objectType: TensionElevatorBelt
 Cover weight per 1 mm thickness (kg/m2):
+    blockName: null
     fieldName: CoverWeightPer1mmThicknessKGM
     fieldType: Number
     objectType: BeltData
 Cover weight per 1/32 in. thickness (lb./sq.ft.):
+    blockName: null
     fieldName: CoverWeightPer132inThicknessLBS
     fieldType: Number
     objectType: BeltData
 belt rating in N/mm:
+    blockName: null
     fieldName: beltRatingNMM
     fieldType: Number
     objectType: BeltData
 carcass weight in (kg/m2):
+    blockName: null
     fieldName: CarcassWeightKGM
     fieldType: Number
     objectType: BeltData
 elastic modulus in kN/mm:
+    blockName: null
     fieldName: ElasticModulusinKNMM
     fieldType: Number
     objectType: BeltData
 Belt Modulus:
+    blockName: null
     fieldName: BeltModulusKNM
     fieldType: Number
     objectType: BeltData
 Elevator Rating:
+    blockName: null
     fieldName: ElevatorRatingPIW
     fieldType: Number
     objectType: TensionElevatorBelt
 Maximum Bucket Projection (in.):
+    blockName: null
     fieldName: MaximumBucketProjectionInch
     fieldType: Number
     objectType: TensionElevatorBelt
 minimum pulley diameter in mm (@tails and snubs):
+    blockName: null
     fieldName: MinimumPulleyDiameterinMMTailsAndSnubs
     fieldType: Number
     objectType: BeltData
 minimum pulley diameter in mm (@up to 40 % tension):
+    blockName: null
     fieldName: MinimumPulleyDiameterinMM40Tension
     fieldType: Number
     objectType: BeltData
 Minimum pulley diameter (@up to 60 % tension):
+    blockName: null
     fieldName: MinimumPulleyDiameterinMM60Tension
     fieldType: Number
     objectType: BeltData
 minimum pulley diameter in mm (@40 % to 60 % tension):
+    blockName: null
     fieldName: MinimumPulleyDiameterinMM40_60Tension
     fieldType: Number
     objectType: BeltData
 minimum pulley diameter in mm (@60 % to 80 % tension):
+    blockName: null
     fieldName: MinimumPulleyDiameterinMM60_80Tension
     fieldType: Number
     objectType: BeltData
 minimum pulley diameter in mm (@> 80 % tension):
+    blockName: null
     fieldName: MinimumPulleyDiameterinMMGreaterThan80Tension
     fieldType: Number
     objectType: BeltData
 operating tension in kN/m:
+    blockName: null
     fieldName: OperatingTensioninKNM
     fieldType: Number
     objectType: BeltData
 belt thickness in mm:
+    blockName: null
     fieldName: BeltThicknessinMM
     fieldType: Number
     objectType: BeltData
 specific belt mass in kg / m2:
+    blockName: null
     fieldName: SpecificBeltMassinKGM
     fieldType: Number
     objectType: BeltData
 cover gauge examples metric in mm:
+    blockName: null
     fieldName: CoverGaugeExamplesMetricinMM
     fieldType: Input
     objectType: BeltData
 average permanent elongation in (%):
+    blockName: null
     fieldName: AveragePermanentElongationPercentage
     fieldType: Number
     objectType: BeltData
 Belt Rating in PIW:
+    blockName: null
     fieldName: beltRatingPIW
     fieldType: Number
     objectType: BeltData
 carcass weight lb/sq.ft.:
+    blockName: null
     fieldName: CarcassWeightLBS
     fieldType: Number
     objectType: BeltData
 elastic modulus in PIW:
+    blockName: null
     fieldName: ElasticModulusinPIW
     fieldType: Number
     objectType: BeltData
 minimum pulley diameter in inch (@tails and snubs):
+    blockName: null
     fieldName: MinimumPulleyDiameterinInchTailsAndSnubs
     fieldType: Number
     objectType: BeltData
 minimum pulley diameter in inch (@up to 40 % tension):
+    blockName: null
     fieldName: MinimumPulleyDiameterinInch40Tension
     fieldType: Number
     objectType: BeltData
 Minimum pulley diameter in inch (@up to 60 % tension):
+    blockName: null
     fieldName: MinimumPulleyDiameterinInch60Tension
     fieldType: Number
     objectType: BeltData
 minimum pulley diameter in inch (@40 % to 60 % tension):
+    blockName: null
     fieldName: MinimumPulleyDiameterinInch40_60Tension
     fieldType: Number
     objectType: BeltData
 minimum pulley diameter in inch (@60 % to 80 % tension):
+    blockName: null
     fieldName: MinimumPulleyDiameterinInch60_80Tension
     fieldType: Number
     objectType: BeltData
 minimum pulley diameter in inch (@> 80 % tension):
+    blockName: null
     fieldName: MinimumPulleyDiameterinInchGreaterThan80Tension
     fieldType: Number
     objectType: BeltData
 operating tension in PIW:
+    blockName: null
     fieldName: OperatingTensioninPIW
     fieldType: Number
     objectType: BeltData
 belt thickness in inch:
+    blockName: null
     fieldName: BeltThicknessinInch
     fieldType: Number
     objectType: BeltData
 specific belt mass lb/sq.ft.:
+    blockName: null
     fieldName: SpecificBeltMassinLBS
     fieldType: Number
     objectType: BeltData
 cover gauge examples imperial in inch:
+    blockName: null
     fieldName: CoverGaugeExamplesImperialinInch
     fieldType: Input
     objectType: BeltData
 Belt Modulus in PIW:
+    blockName: null
     fieldName: BeltModulusInPIW
     fieldType: Number
     objectType: BeltData
 Elevator Rating (N/mm):
+    blockName: null
     fieldName: ElevatorRatingNmm
     fieldType: Number
     objectType: TensionElevatorBelt
 nominal cable diameter in mm:
+    blockName: null
     fieldName: NominalCableDiameterinMM
     fieldType: Number
     objectType: BeltData
 nominal cable diameter in inch:
+    blockName: null
     fieldName: NominalCableDiameterinInch
     fieldType: Number
     objectType: BeltData
 Cleat profile sizes:
+    blockName: null
     fieldName: CleatProfileSizes
     fieldType: Input
     objectType: Material
 Maximum Bucket Projection (mm):
+    blockName: null
     fieldName: MaximumBucketProjectionMM
     fieldType: Number
     objectType: TensionElevatorBelt
 Minimum ultimate tension PIW:
+    blockName: null
     fieldName: MinimumUltimateTensionPIW
     fieldType: Number
     objectType: BeltData
 Minimum ultimate tension kN/m:
+    blockName: null
     fieldName: MinimumUltimateTensionKNM
     fieldType: Number
     objectType: BeltData
 Cleat Size (Width x Length):
+    blockName: null
     fieldName: CleatSize
     fieldType: Input
     objectType: BeltData
 Additional Information:
+    blockName: null
     fieldName: AdditionalInformation
     fieldType: Input
     objectType: BeltData
 splice type:
+    blockName: null
     fieldName: SpliceType
     fieldType: Input
     objectType: SpliceData
 step length in mm:
+    blockName: null
     fieldName: StepLengthinMM
     fieldType: Number
     objectType: SpliceData
 step length in inch:
+    blockName: null
     fieldName: StepLengthinInch
     fieldType: Number
     objectType: SpliceData
 finger length in mm:
+    blockName: null
     fieldName: FingerLengthMM
     fieldType: Number
     objectType: SpliceData
 finger length in inch:
+    blockName: null
     fieldName: FingerLengthInch
     fieldType: Number
     objectType: SpliceData
 hinge:
+    blockName: null
     fieldName: Hinge
     fieldType: Input
     objectType: SpliceData
 hinge 2:
+    blockName: null
     fieldName: Hinge2
     fieldType: Input
     objectType: SpliceData
 Ease of Installation:
+    blockName: null
     fieldName: EaseofInstallation
     fieldType: Input
     objectType: Functionality
 Penetration Resistance:
+    blockName: null
     fieldName: PenetrationResistance
     fieldType: Input
     objectType: Functionality
 Functionality:
+    blockName: null
     fieldName: Functionality
     fieldType: TextArea
     objectType: Functionality
 Product Options:
+    blockName: null
     fieldName: ProductOptions
     fieldType: Input
     objectType: OptionsStandards
 Cover Options:
+    blockName: null
     fieldName: CoverOptions
     fieldType: Input
     objectType: OptionsStandards
 International Standards:
+    blockName: null
     fieldName: InternationalStandards
     fieldType: TextArea
     objectType: OptionsStandards
 Certificate:
+    blockName: null
     fieldName: Certificate
     fieldType: Input
     objectType: OptionsStandards
 Width:
+    blockName: null
     fieldName: WidthMM
     fieldType: Input
     objectType: WidthLength
 Width - Inch:
+    blockName: null
     fieldName: WidthInch
     fieldType: Number
     objectType: WidthLength
 Length M:
+    blockName: null
     fieldName: LengthM
     fieldType: Number
     objectType: WidthLength
 Length (Ft):
+    blockName: null
     fieldName: LengthFeet
     fieldType: Number
     objectType: WidthLength
 Size:
+    blockName: null
     fieldName: Size
     fieldType: Input
     objectType: WidthLength
@@ -294,682 +364,852 @@ Available Belt Widths in mm:
     fieldType: Block
     objectType: ProdDimensions
 Cleat Width (Top/Bottom):
+    blockName: null
     fieldName: CleatWidthTopBottom
     fieldType: Number
     objectType: WidthLength
 Profile Width in mm:
+    blockName: null
     fieldName: ProfileWidthMM
     fieldType: Number
     objectType: WidthLength
 Profile Width in Inch:
+    blockName: null
     fieldName: ProfileWidthInch
     fieldType: Number
     objectType: WidthLength
 Sales unit:
+    blockName: null
     fieldName: Salesunit
     fieldType: Multiselection
     objectType: SalesOrga
 "SAP #":
+    blockName: null
     fieldName: SapCode
     fieldType: Number
     objectType: SalesOrga
 Price:
+    blockName: null
     fieldName: Price
     fieldType: Number
     objectType: SalesOrga
 OEM Name:
+    blockName: null
     fieldName: OEMName
     fieldType: Input
     objectType: SalesOrga
 Fabric Type:
+    blockName: null
     fieldName: FabricType
     fieldType: Input
     objectType: Material
 Material:
+    blockName: null
     fieldName: Material
     fieldType: Multiselection
     objectType: Material
 carcass gauge in mm:
+    blockName: null
     fieldName: CarcassGaugeinMM
     fieldType: Number
     objectType: Material
 carcass gauge in inches:
+    blockName: null
     fieldName: CarcassGaugeinInch
     fieldType: Number
     objectType: Material
 number of plies:
+    blockName: null
     fieldName: NumberofPlies
     fieldType: Number
     objectType: Material
 Cleat Height:
+    blockName: null
     fieldName: CleatHeightMM
     fieldType: Number
     objectType: Material
 carcass construction:
+    blockName: null
     fieldName: CarcassConstruction
     fieldType: Select
     objectType: BeltData
 Cleat Height in inch:
+    blockName: null
     fieldName: CleatHeightInch
     fieldType: Number
     objectType: Material
 Plastic Liner Type:
+    blockName: null
     fieldName: PlasticLinerType
     fieldType: Multiselection
     objectType: Material
 Rubber type:
+    blockName: null
     fieldName: RubberType
     fieldType: Input
     objectType: Material
 Profile Type:
+    blockName: null
     fieldName: ProfileType
     fieldType: Input
     objectType: Material
 Polymer Type:
+    blockName: null
     fieldName: PolymerType
     fieldType: Multiselection
     objectType: Material
 Plastic Liner Color:
+    blockName: null
     fieldName: PlasticLinerColor
     fieldType: Input
     objectType: Material
 Steel Type:
+    blockName: null
     fieldName: SteelType
     fieldType: Input
     objectType: Material
 PermanentElongation:
+    blockName: null
     fieldName: PermanentElongation
     fieldType: Input
     objectType: ProdSpec
 Length:
+    blockName: null
     fieldName: LengthMM
     fieldType: Number
     objectType: ProdSpec
 Tracking Performance:
+    blockName: null
     fieldName: TrackingPerformance
     fieldType: Input
     objectType: ProdSpec
 Dynamic Performance:
+    blockName: null
     fieldName: DynamicPerformance
     fieldType: Input
     objectType: ProdSpec
 Wear Resistance:
+    blockName: null
     fieldName: WearResistance
     fieldType: Input
     objectType: ProdSpec
 Width-mm:
+    blockName: null
     fieldName: WidthMM
     fieldType: Number
     objectType: ProdSpec
 Thickness:
+    blockName: null
     fieldName: ThicknessMM
     fieldType: Number
     objectType: ProdSpec
 Cleat Width:
+    blockName: null
     fieldName: CleatWidthMM
     fieldType: Number
     objectType: ProdSpec
 Fabric Weight:
+    blockName: null
     fieldName: FabricWeight
     fieldType: Number
     objectType: ProdSpec
 Number of Holes:
+    blockName: null
     fieldName: NumberofHoles
     fieldType: Number
     objectType: ProdSpec
 Fastener Type:
+    blockName: null
     fieldName: FastenerType
     fieldType: Input
     objectType: ProdSpec
 Manufacturer Part:
+    blockName: null
     fieldName: ManufacturerPart
     fieldType: Input
     objectType: ProdSpec
 Compound Type:
+    blockName: null
     fieldName: CompoundType
     fieldType: Input
     objectType: ProdSpec
 Endless or Laced:
+    blockName: null
     fieldName: EndlessOrLaced
     fieldType: Input
     objectType: ProdSpec
 Fastener or Bulk:
+    blockName: null
     fieldName: FastenerorBulk
     fieldType: Input
     objectType: ProdSpec
 Length in inch:
+    blockName: null
     fieldName: LengthInch
     fieldType: Number
     objectType: ProdSpec
 Width in Inch:
+    blockName: null
     fieldName: WidthInch
     fieldType: Number
     objectType: ProdSpec
 Thickness in Inch:
+    blockName: null
     fieldName: ThicknessInch
     fieldType: Number
     objectType: ProdSpec
 Cleat Width in inch:
+    blockName: null
     fieldName: CleatWidthInch
     fieldType: Number
     objectType: ProdSpec
 Top Cover Surface Impression:
+    blockName: null
     fieldName: TopCoverSurfaceImpression
     fieldType: Input
     objectType: ProdSpec
 Bottom Cover Surface Impression:
+    blockName: null
     fieldName: BottomCoverSurfaceImpression
     fieldType: Input
     objectType: ProdSpec
 Side Belt or Center Belt:
+    blockName: null
     fieldName: SideBeltorCenterBelt
     fieldType: Input
     objectType: ProdSpec
 Features (ie. Grain saver):
+    blockName: null
     fieldName: FeaturesieGrainSaver
     fieldType: Input
     objectType: ProdSpec
 Manufacture Make and Model:
+    blockName: null
     fieldName: ManufactureMakeAndModel
     fieldType: Input
     objectType: ProdSpec
 No Of V-Guides:
+    blockName: null
     fieldName: NoOfVGuides
     fieldType: Number
     objectType: ProdSpec
 Description:
+    blockName: null
     fieldName: Description
     fieldType: TextArea
     objectType: ProdSpec
 Pitch in mm:
+    blockName: null
     fieldName: Pitch
     fieldType: Number
     objectType: ProdSpec
 Max. Abration Rotating:
+    blockName: null
     fieldName: MaxAbrasionRotatingMM
     fieldType: Number
     objectType: Performance1
 Min. Elongation (%):
+    blockName: null
     fieldName: MinElongationPercent
     fieldType: Number
     objectType: Performance1
 Typical Elongation (%):
+    blockName: null
     fieldName: TypicalElongationPercent
     fieldType: Number
     objectType: Performance1
 Min. Tensile (Mpa):
+    blockName: null
     fieldName: MinTensileMPa
     fieldType: Number
     objectType: Performance1
 Typical Tensile (Mpa):
+    blockName: null
     fieldName: TypicalTensileMPa
     fieldType: Number
     objectType: Performance1
 Min. Tensile (PSI):
+    blockName: null
     fieldName: MinTensilePSI
     fieldType: Number
     objectType: Performance1
 Typical Tensile (PSI):
+    blockName: null
     fieldName: TypicalTensilePSI
     fieldType: Number
     objectType: Performance1
 Max Temperature (F):
+    blockName: null
     fieldName: MaxTemperatureF
     fieldType: Number
     objectType: Performance1
 Min Temperature (F):
+    blockName: null
     fieldName: MinTemperatureF
     fieldType: Number
     objectType: Performance1
 Max Temperature (C):
+    blockName: null
     fieldName: MaxTemperatureC
     fieldType: Number
     objectType: Performance1
 Min Temperature (C):
+    blockName: null
     fieldName: MinTemperatureC
     fieldType: Number
     objectType: Performance1
 Abrasion Resistance:
+    blockName: null
     fieldName: AbrasionResistance
     fieldType: Input
     objectType: Performance1
 Oil Resistance:
+    blockName: null
     fieldName: OilResistance
     fieldType: Input
     objectType: Performance1
 Flame Resistance:
+    blockName: null
     fieldName: FlameResistance
     fieldType: Input
     objectType: Performance1
 ISO 284 Static Conductive:
+    blockName: null
     fieldName: ISO284StaticConductive
     fieldType: Input
     objectType: Performance1
 Max. Abrasion Non-Rotating:
+    blockName: null
     fieldName: MaxAbrasionNonRotatingMM
     fieldType: Number
     objectType: Performance1
 Typical Abration Rotating:
+    blockName: null
     fieldName: TypicalAbrasionRotatingMM
     fieldType: Number
     objectType: Performance1
 Typical Abrasion Non-Rotating:
+    blockName: null
     fieldName: TypicalAbrasionNonRotatingMM
     fieldType: Number
     objectType: Performance1
 Cut And Gouge Resistance:
+    blockName: null
     fieldName: CutAndGougeResistance
     fieldType: Input
     objectType: Performance1
 Max. Abration Rotating in inch:
+    blockName: null
     fieldName: MaxAbrasionRotatingInch
     fieldType: Number
     objectType: Performance1
 Max. Abrasion Non-Rotating in inch:
+    blockName: null
     fieldName: MaxAbrasionNonRotatingInch
     fieldType: Number
     objectType: Performance1
 Typical Abration Rotating in inch:
+    blockName: null
     fieldName: TypicalAbrasionRotatingInch
     fieldType: Number
     objectType: Performance1
 Typical Abrasion Non-Rotating in inch:
+    blockName: null
     fieldName: TypicalAbrasionNonRotatingInch
     fieldType: Number
     objectType: Performance1
 Conveyor Capacity at 1.5m/s m³/h:
+    blockName: null
     fieldName: ConveyorCapacityAtMSMH
     fieldType: Number
     objectType: Performance1
 Conveyor Capacity at 3.28ft/s cu.ft/min:
+    blockName: null
     fieldName: ConveyorCapacityAtCUFT
     fieldType: Number
     objectType: Performance1
 Volume Flow:
+    blockName: null
     fieldName: VolumeFlow
     fieldType: Number
     objectType: ProdDimensions
 Belt Width in in.:
+    blockName: null
     fieldName: BeltWidth
     fieldType: Multiselection
     objectType: ProdDimensions
 Belt width in mm:
+    blockName: null
     fieldName: BeltWidthmm
     fieldType: Multiselection
     objectType: ProdDimensions
 Minimum Belt width:
+    blockName: null
     fieldName: MinimumBeltMMWidth
     fieldType: Number
     objectType: ProdDimensions
 Maximum Belt Width:
+    blockName: null
     fieldName: MaximumBeltWidthMM
     fieldType: Number
     objectType: ProdDimensions
 Minimum Belt width Inch:
+    blockName: null
     fieldName: MinimumBeltWidthInch
     fieldType: Number
     objectType: ProdDimensions
 Maximum Belt Width Inch:
+    blockName: null
     fieldName: MaximumBeltWidthInch
     fieldType: Number
     objectType: ProdDimensions
 Diameter:
+    blockName: null
     fieldName: Diameter
     fieldType: Number
     objectType: ProdDimensions
 Diameter Inch:
+    blockName: null
     fieldName: DiameterInch
     fieldType: Number
     objectType: ProdDimensions
 Weight:
+    blockName: null
     fieldName: WeightKG
     fieldType: Number
     objectType: ProdDimensions
 Weight (Lb):
+    blockName: null
     fieldName: WeightLb
     fieldType: Number
     objectType: ProdDimensions
 Belt Speed:
+    blockName: null
     fieldName: BeltSpeed
     fieldType: Input
     objectType: DigitalSolution
 Input Power:
+    blockName: null
     fieldName: InputPower
     fieldType: Input
     objectType: DigitalSolution
 Humidity:
+    blockName: null
     fieldName: Humidity
     fieldType: Input
     objectType: DigitalSolution
 Input Power text:
+    blockName: null
     fieldName: InputPowerText
     fieldType: Input
     objectType: DigitalSolution
 Belt Range:
+    blockName: null
     fieldName: BeltRange
     fieldType: Number
     objectType: DigitalSolution
 IP Class:
+    blockName: null
     fieldName: IPClass
     fieldType: Input
     objectType: DigitalSolution
 Belt Type:
+    blockName: null
     fieldName: BeltType
     fieldType: Input
     objectType: DigitalSolution
 System Outputs:
+    blockName: null
     fieldName: SystemOutputs
     fieldType: TextArea
     objectType: DigitalSolution
 Temperature range:
+    blockName: null
     fieldName: TemperatureRange
     fieldType: Input
     objectType: DigitalSolution
 load-support maximum belt width in mm (0-640 kg/m2 20):
+    blockName: null
     fieldName: LoadSupportMaximumBeltWidthinMM640KGM20
     fieldType: Number
     objectType: LoadSupport
 load-support maximum belt width in mm (0-640 kg/m2 35):
+    blockName: null
     fieldName: LoadSupportMaximumBeltWidthinMM640KGM35
     fieldType: Number
     objectType: LoadSupport
 load-support maximum belt width in mm (0-640 kg/m2 45):
+    blockName: null
     fieldName: LoadSupportMaximumBeltWidthinMM640KGM45
     fieldType: Number
     objectType: LoadSupport
 load-support maximum belt width in mm (641-1280 kg/m2 20):
+    blockName: null
     fieldName: LoadSupportMaximumBeltWidthinMM1280KGM20
     fieldType: Number
     objectType: LoadSupport
 load-support maximum belt width in mm (641-1280 kg/m2 35):
+    blockName: null
     fieldName: LoadSupportMaximumBeltWidthinMM1280KGM35
     fieldType: Number
     objectType: LoadSupport
 load-support maximum belt width in mm (641-1280 kg/m2 45):
+    blockName: null
     fieldName: LoadSupportMaximumBeltWidthinMM1280KGM45
     fieldType: Number
     objectType: LoadSupport
 load-support maximum belt width in mm (1281-1920 kg/m2 20):
+    blockName: null
     fieldName: LoadSupportMaximumBeltWidthinMM1920KGM20
     fieldType: Number
     objectType: LoadSupport
 load-support maximum belt width in mm (1281-1920 kg/m2 35):
+    blockName: null
     fieldName: LoadSupportMaximumBeltWidthinMM1920KGM35
     fieldType: Number
     objectType: LoadSupport
 load-support maximum belt width in mm (1281-1920 kg/m2 45):
+    blockName: null
     fieldName: LoadSupportMaximumBeltWidthinMM1920KGM45
     fieldType: Number
     objectType: LoadSupport
 load-support maximum belt width in mm (>1920 kg/m2 35):
+    blockName: null
     fieldName: LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM35
     fieldType: Number
     objectType: LoadSupport
 load-support maximum belt width in mm (>1920 kg/m2 45):
+    blockName: null
     fieldName: LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM45
     fieldType: Number
     objectType: LoadSupport
 load-support maximum belt width in mm (>1920 kg/m2 20):
+    blockName: null
     fieldName: LoadSupportMaximumBeltWidthinMMGreaterThan1920KGM20
     fieldType: Number
     objectType: LoadSupport
 troughability minimum belts width in mm (20):
+    blockName: null
     fieldName: TroughabilityMinimumBeltsWidthinMM20
     fieldType: Number
     objectType: LoadSupport
 troughability minimum belts width in mm (35):
+    blockName: null
     fieldName: TroughabilityMinimumBeltsWidthinMM35
     fieldType: Number
     objectType: LoadSupport
 troughability minimum belts width in mm (45):
+    blockName: null
     fieldName: TroughabilityMinimumBeltsWidthinMM45
     fieldType: Number
     objectType: LoadSupport
 vulcanized and fastener rating in N/mm:
+    blockName: null
     fieldName: VulcanizedAndFastenerRatinginNMM
     fieldType: Number
     objectType: LoadSupport
 Recommended fastener plate:
+    blockName: null
     fieldName: RecommendedFastenerPlate
     fieldType: Input
     objectType: LoadSupport
 load-support maximum belt width in inches (0-40 lb./cu. ft.20):
+    blockName: null
     fieldName: LoadSupportMaximumBeltWidthinInch640KGM20
     fieldType: Number
     objectType: LoadSupport
 load-support maximum belt width in inches (0-40 lb./cu. ft.35 ):
+    blockName: null
     fieldName: LoadSupportMaximumBeltWidthinInch640KGM35
     fieldType: Number
     objectType: LoadSupport
 load-support maximum belt width in inches (0-40 lb./cu. Ft.45 ):
+    blockName: null
     fieldName: LoadSupportMaximumBeltWidthinInch640KGM45
     fieldType: Number
     objectType: LoadSupport
 load-support maximum belt width in inches (41-80 lb./cu. ft. 20 ):
+    blockName: null
     fieldName: LoadSupportMaximumBeltWidthinInch1280KGM20
     fieldType: Number
     objectType: LoadSupport
 load-support maximum belt width in inches (41-80 lb./cu. ft.35 ):
+    blockName: null
     fieldName: LoadSupportMaximumBeltWidthinInch1280KGM35
     fieldType: Number
     objectType: LoadSupport
 load-support maximum belt width in inches (41-80 lb./cu. ft.45 ):
+    blockName: null
     fieldName: LoadSupportMaximumBeltWidthinInch1280KGM45
     fieldType: Number
     objectType: LoadSupport
 load-support maximum belt width in inches (81-120 lb./cu. ft.20 ):
+    blockName: null
     fieldName: LoadSupportMaximumBeltWidthinInch1920KGM20
     fieldType: Number
     objectType: LoadSupport
 load-support maximum belt width in inches (81-120 lb./cu. ft.35 ):
+    blockName: null
     fieldName: LoadSupportMaximumBeltWidthinInch1920KGM35
     fieldType: Number
     objectType: LoadSupport
 load-support maximum belt width in inches (81-120 lb./cu. ft.45 ):
+    blockName: null
     fieldName: LoadSupportMaximumBeltWidthinInch1920KGM45
     fieldType: Number
     objectType: LoadSupport
 load-support maximum belt width in inches (Over 120 lb./cu. ft.35 ):
+    blockName: null
     fieldName: LoadSupportMaximumBeltWidthinInchGreaterThan1920KGM35
     fieldType: Number
     objectType: LoadSupport
 load-support maximum belt width in inches (Over 120 lb./cu. ft.45 ):
+    blockName: null
     fieldName: LoadSupportMaximumBeltWidthinInchGreaterThan1920KGM45
     fieldType: Number
     objectType: LoadSupport
 load-support maximum belt width in inches (Over 120 lb./cu. ft.20 ):
+    blockName: null
     fieldName: LoadSupportMaximumBeltWidthinInchGreaterThan1920KGM20
     fieldType: Number
     objectType: LoadSupport
 troughability minimum belts width in inch (20):
+    blockName: null
     fieldName: TroughabilityMinimumBeltsWidthinInch20
     fieldType: Number
     objectType: LoadSupport
 troughability minimum belts width in inch (35):
+    blockName: null
     fieldName: TroughabilityMinimumBeltsWidthinInch35
     fieldType: Number
     objectType: LoadSupport
 troughability minimum belts width in inch (45):
+    blockName: null
     fieldName: TroughabilityMinimumBeltsWidthinInch45
     fieldType: Number
     objectType: LoadSupport
 vulcanized and fastener rating in PIW:
+    blockName: null
     fieldName: VulcanizedAndFastenerRatinginPIW
     fieldType: Number
     objectType: LoadSupport
 Type of Idler  - Inline - 20:
+    blockName: null
     fieldName: TypeofIdlerInline20inch
     fieldType: Number
     objectType: TypeOfIdler
 Type of Idler  - Inline - 35:
+    blockName: null
     fieldName: TypeofIdlerInline35inch
     fieldType: Number
     objectType: TypeOfIdler
 Type of Idler  - Inline - 45:
+    blockName: null
     fieldName: TypeofIdlerInline45inch
     fieldType: Number
     objectType: TypeOfIdler
 Type of Idler - Offset Equal - 20:
+    blockName: null
     fieldName: TypeofIdlerOffsetEqual20inch
     fieldType: Number
     objectType: TypeOfIdler
 Type of Idler - Offset Equal - 35:
+    blockName: null
     fieldName: TypeofIdlerOffsetEqual35inch
     fieldType: Number
     objectType: TypeOfIdler
 Type of Idler - Offset Equal - 45:
+    blockName: null
     fieldName: TypeofIdlerOffsetEqual45inch
     fieldType: Number
     objectType: TypeOfIdler
 Type of Idler - Offset LC Roll - 20:
+    blockName: null
     fieldName: TypeofIdlerOffsetLCRoll20inch
     fieldType: Number
     objectType: TypeOfIdler
 Type of Idler - Offset LC Roll - 35:
+    blockName: null
     fieldName: TypeofIdlerOffsetLCRoll35inch
     fieldType: Number
     objectType: TypeOfIdler
 Type of Idler - Offset LC Roll - 45:
+    blockName: null
     fieldName: TypeofIdlerOffsetLCRoll45inch
     fieldType: Number
     objectType: TypeOfIdler
 Type of Idler - Inline - 20 in mm:
+    blockName: null
     fieldName: TypeofIdlerInline20mm
     fieldType: Number
     objectType: TypeOfIdler
 Type of Idler - Inline - 35 in mm:
+    blockName: null
     fieldName: TypeofIdlerInline35mm
     fieldType: Number
     objectType: TypeOfIdler
 Type of Idler - Inline - 45 in mm:
+    blockName: null
     fieldName: TypeofIdlerInline45mm
     fieldType: Number
     objectType: TypeOfIdler
 Type of Idler - Offset Equal - 20 in mm:
+    blockName: null
     fieldName: TypeofIdlerOffsetEqual20mm
     fieldType: Number
     objectType: TypeOfIdler
 Type of Idler - Offset Equal - 35 in mm:
+    blockName: null
     fieldName: TypeofIdlerOffsetEqual35mm
     fieldType: Number
     objectType: TypeOfIdler
 Type of Idler - Offset Equal - 45 in mm:
+    blockName: null
     fieldName: TypeofIdlerOffsetEqual45mm
     fieldType: Number
     objectType: TypeOfIdler
 Type of Idler - Offset LC Roll - 20 in mm:
+    blockName: null
     fieldName: TypeofIdlerOffsetLCRoll20mm
     fieldType: Number
     objectType: TypeOfIdler
 Type of Idler - Offset LC Roll - 35 in mm:
+    blockName: null
     fieldName: TypeofIdlerOffsetLCRoll35mm
     fieldType: Number
     objectType: TypeOfIdler
 Type of Idler - Offset LC Roll - 40 in mm:
+    blockName: null
     fieldName: TypeofIdlerOffsetLCRoll45mm
     fieldType: Number
     objectType: TypeOfIdler
 DIN Abrasion in mm3:
+    blockName: null
     fieldName: DINAbrasion
     fieldType: Number
     objectType: Performance2
 Thickness mm:
+    blockName: null
     fieldName: ThicknessMM
     fieldType: Number
     objectType: Performance2
 Max Temperature:
+    blockName: null
     fieldName: MaxTemperatureC
     fieldType: Number
     objectType: Performance2
 Min Temperature:
+    blockName: null
     fieldName: MinTemperatureC
     fieldType: Number
     objectType: Performance2
 Abrasion Rotating:
+    blockName: null
     fieldName: AbrasionRotatingMM
     fieldType: Number
     objectType: Performance2
 Abrasion Non-Rotating:
+    blockName: null
     fieldName: AbrasionNonRotatingMM
     fieldType: Number
     objectType: Performance2
 pulley diameter:
+    blockName: null
     fieldName: PulleyDiameter
     fieldType: Number
     objectType: Performance2
 Shore hardness:
+    blockName: null
     fieldName: ShoreHardness
     fieldType: Number
     objectType: Performance2
 Size of profile:
+    blockName: null
     fieldName: SizeOfProfile
     fieldType: Number
     objectType: Performance2
 Specific Weight:
+    blockName: null
     fieldName: SpecificWeight
     fieldType: Number
     objectType: Performance2
 Outer diameter:
+    blockName: null
     fieldName: OuterDiameter
     fieldType: Number
     objectType: Performance2
 Light/Ozone resistance:
+    blockName: null
     fieldName: LightOzoneResistance
     fieldType: Input
     objectType: Performance2
 Thickness Inch:
+    blockName: null
     fieldName: ThicknessInch
     fieldType: Number
     objectType: Performance2
 Max Temperature F:
+    blockName: null
     fieldName: MaxTemperatureF
     fieldType: Number
     objectType: Performance2
 Min Temperature F:
+    blockName: null
     fieldName: MinTemperatureF
     fieldType: Number
     objectType: Performance2
 Abrasion Rotating in inch:
+    blockName: null
     fieldName: AbrasionRotatingInch
     fieldType: Number
     objectType: Performance2
 Abrasion Non-Rotating in inch:
+    blockName: null
     fieldName: AbrasionNonRotatingInch
     fieldType: Number
     objectType: Performance2
 Tensile strength:
+    blockName: null
     fieldName: TensileStrength
     fieldType: Number
     objectType: Performance2
 Tensile strength in PIW:
+    blockName: null
     fieldName: TensileStrengthPIW
     fieldType: Number
     objectType: Performance2
 Elongation at break (%):
+    blockName: null
     fieldName: ElongationAtBreakPercent
     fieldType: Number
     objectType: Performance2
 Profile Depth:
+    blockName: null
     fieldName: ProfileDepth
     fieldType: Number
     objectType: Performance2
 Tensile Strength (PSI):
+    blockName: null
     fieldName: TensileStrengthPSI
     fieldType: Number
     objectType: Performance2
 Inner diameter:
+    blockName: null
     fieldName: InnerDiameter
     fieldType: Number
     objectType: Performance2
 Rubber Compound:
+    blockName: null
     fieldName: RubberCompound
     fieldType: Multiselection
     objectType: Performance2
 Corporate Brand:
+    blockName: null
     fieldName: CorporateBrand
     fieldType: Input
     objectType: class
 Product Brand:
+    blockName: null
     fieldName: ProductBrand
     fieldType: Input
     objectType: class
@@ -996,6 +1236,7 @@ Features:
     className: CSProducts
     createFlag: false
 Applications:
+    blockName: null
     fieldName: CSProductApplications
     fieldType: manyToManyObjectRelation
     className: CSApplications
@@ -1004,6 +1245,7 @@ Applications:
     mandatoryFields: "ApplicationName|ApplicationCode"
     createFlag: false
 Features and Benefits (combination of text and pic):
+    blockName: null
     fieldName: CSProductFeaturesAndBenefits
     fieldType: manyToManyObjectRelation
     className: CSFeaturesAndBenefits
@@ -1012,6 +1254,7 @@ Features and Benefits (combination of text and pic):
     mandatoryFields: "FeatureName|FeatureDescription"
     createFlag: false
 Industries:
+    blockName: null
     fieldName: CSProductIndustries
     fieldType: manyToManyObjectRelation
     className: CSIndustries
@@ -1027,90 +1270,112 @@ Industries:
 #   objectType: class
 #   createFlag: false
 Product description:
+    blockName: null
     fieldName: ProductDescription
     fieldType: TextArea
     objectType: class
 Product Flag:
+    blockName: null
     fieldName: NatureOfProduct
     fieldType: Input
     objectType: class
 Short Text:
+    blockName: null
     fieldName: ShortText
     fieldType: TextArea
     objectType: class
 Long Text:
+    blockName: null
     fieldName: LongText
     fieldType: TextArea
     objectType: class
 Product Image:
+    blockName: null
     fieldName: productImage
     fieldType: Image
     objectType: class
 Performance categories:
+    blockName: null
     fieldName: CSPerformanceCategory
     fieldType: Multiselection
     objectType: class
 Ecommerce:
+    blockName: null
     fieldName: EcommerceFlag
     fieldType: Boolean Select
     objectType: class
 Printed Catalog Flag:
+    blockName: null
     fieldName: PrintedCatalogFlag
     fieldType: Boolean Select
     objectType: class
 Application Image:
+    blockName: null
     fieldName: applicationImage
     fieldType: Image
     objectType: class
 Functionality Image:
+    blockName: null
     fieldName: functionalityImage
     fieldType: Image
     objectType: class
 Damage Image:
+    blockName: null
     fieldName: damageImage
     fieldType: Image
     objectType: class
 Field Photo:
+    blockName: null
     fieldName: fieldPhoto
     fieldType: Image
     objectType: class
 Software Image:
+    blockName: null
     fieldName: softwareImage
     fieldType: Image
     objectType: class
 Report Image:
+    blockName: null
     fieldName: reportImage
     fieldType: Image
     objectType: class
 Image Gallery:
+    blockName: null
     fieldName: imageGallery
     fieldType: Image Gallery
     objectType: class
 System Animation:
+    blockName: null
     fieldName: systemAnimation
     fieldType: Video
     objectType: class
 System Video:
+    blockName: null
     fieldName: systemVideo
     fieldType: Video
     objectType: class
 Completeness Percentage:
+    blockName: null
     fieldName: CompletenessPercentage
     fieldType: Input
     objectType: class
 Empty Fields:
+    blockName: null
     fieldName: EmptyFields
     fieldType: TextArea
     objectType: class
 Product Claim/Slogan:
+    blockName: null
     fieldName: ProductClaimSlogan
     fieldType: Input
     objectType: class
 Product Name Prefix:
+    blockName: null
     fieldName: ProductNamePrefix
     fieldType: Input
     objectType: class
 Region:
+    blockName: null
     fieldName: CSRegion
     fieldType: Multiselection
     className: CSRegion
@@ -1119,6 +1384,7 @@ Region:
     mandatoryFields: "RegionName"
     createFlag: false
 Segment:
+    blockName: null
     fieldName: CSSegment
     fieldType: Multiselection
     className: CSSegment

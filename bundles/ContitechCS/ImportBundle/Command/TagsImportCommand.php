@@ -155,7 +155,7 @@ class TagsImportCommand  extends AbstractCommand {
                     if ($count == 0) {
                         foreach ($rowData as $key => $value) {
                             unset($rowData[$key]);
-                            $rowData[utf8_decode(trim($key))] = utf8_decode(trim($value));
+                            $rowData[mb_convert_encoding(trim($key), 'ISO-8859-1', 'UTF-8')] = mb_convert_encoding(trim($value), 'ISO-8859-1', 'UTF-8'); // alternate for utf8_decode
                         }
                         $firstRowData = $rowData;
                     } else {

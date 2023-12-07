@@ -18,13 +18,26 @@ use ContitechCS\ImportBundle\Services\ImportConstants;
 use ContitechCS\ProductBundle\Services\ConfigProviderService;
 use Pimcore\Model\User;
 use Pimcore\Logger;
-
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use ContitechCS\ProductBundle\Services\AppService;
 
 class CSProductDataImportCommand extends AbstractCommand
 {
     private $configProviderService;
     private $t;
     const LOG_FILE_NAME = "Product_Data_Import_command_log";
+    private $container;
+    private $db;
+    private $appService;
+
+    public function __construct(ContainerInterface $container)
+    {
+        parent::__construct();
+        $this->container = $container;
+
+        $this->appService = $this->container->get('ContitechCS\ProductBundle\Services\AppService');
+    }
+
     protected function configure()
     {
         $this->setName('cs:one-time-import:product-data-import')
@@ -53,6 +66,7 @@ class CSProductDataImportCommand extends AbstractCommand
             p_r('--------------Total Execution Time---------------');
             p_r('Script completed after: ' . (abs(time() - $this->t) / 60) . ' mnt');
         }
+        return 1;
     }
 
 
@@ -276,9 +290,9 @@ class CSProductDataImportCommand extends AbstractCommand
                                 } else {
                                     $product->setName($hierarchy, $language);
                                 }
-                                if ($hierarchyPathObj) {
+                                if ($hierarchyPathObj && $parentHierarchyObj) {
                                     $product->setParentCategory([$parentHierarchyObj]);
-                                } else {
+                                } elseif($parentObjForLeaf->getParent()->getType() != 'folder') {
                                     $product->setParentCategory([$parentObjForLeaf]);
                                 }
 
@@ -309,6 +323,7 @@ class CSProductDataImportCommand extends AbstractCommand
                                                 }
 
                                                 $method = 'set' . $fieldName;
+                                                $masterObjects = array_filter($masterObjects);
                                                 $product->$method($masterObjects, $language);
                                             } else if ($fieldConfig['fieldType'] == 'Multiselection') {
                                                 $fieldValue = trim($fieldValue);
@@ -386,17 +401,18 @@ class CSProductDataImportCommand extends AbstractCommand
 
                                                 $product->$method($fieldValueBlock, $language);
                                             } else if ($fieldConfig['fieldType'] == 'User') {
+                                                $fieldValueId = '';
                                                 //if ($fieldName == 'MarcomUser') {
                                                 $userList = new User\Listing();
                                                 $userList->setCondition('name = ?', $fieldValue);
                                                 if ($userList) {
                                                     foreach ($userList as $user) {
-                                                        $fieldValue = $user->getId();
+                                                        $fieldValueId = $user->getId();
                                                     }
                                                 }
                                                 //}
                                                 $method = 'set' . $fieldName;
-                                                $product->$method($fieldValue, $language);
+                                                $product->$method($fieldValueId, $language);
                                             } else {
                                                 if ($fieldName == 'NatureOfProduct') {
                                                     if ($fieldValue) {
@@ -484,6 +500,8 @@ class CSProductDataImportCommand extends AbstractCommand
                                                         $patternDataValue = $fieldValue;
                                                     }
                                                     if ($fieldData['blockName'] == 'BeltWidthBlock' && (!empty($fieldValue))) {
+                                                        $beltWidthObjId = '';
+
                                                         $i = 0;
                                                         foreach ($fieldValue as $key => $val) {
                                                             if (strpos($val, "-") !== false && $fieldKey == 'AvailableBeltWidthInch') {
@@ -519,7 +537,6 @@ class CSProductDataImportCommand extends AbstractCommand
                                                             }
                                                         }
                                                         $beltWidthBlockData = [];
-                                                        $beltWidthObjId = '';
                                                         $idArray = [];
                                                     }
                                                 } else {
@@ -568,12 +585,12 @@ class CSProductDataImportCommand extends AbstractCommand
                                 echo "\n Hierarchy created: " . $productPath;
                                 $comment = "Product added successfully";
                                 echo "\n Product asset folder creation started.";
-                                \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\AppService')->createAssetsHierarch($prd);
+                                $this->appService->createAssetsHierarch($prd);
                                 echo "\n Product asset folder creation Done.";
                                 echo "\n";
                             } catch (\Throwable $th) {
                                 p_r($th->getMessage());
-                                //p_r($th->getTraceAsString());
+                                // p_r($th->getTraceAsString());
                             }
                         } else {
                             $parentId = $CSProductObj->getId();
@@ -668,9 +685,9 @@ class CSProductDataImportCommand extends AbstractCommand
 
         if ($createFlag) {
             $mandatoryFields = trim($mandatoryFields);
-            // p_r($searchString);
             $validKey = DataObject\Service::getValidKey($searchString, "object");
-            $constant = ImportConstants::getDynamicConstant($className);
+            $constantObj = new ImportConstants();
+            $constant = $constantObj->getDynamicConstant($className);
 
             $parentId = DataObject\Service::createFolderByPath($constant)->getId();
 
@@ -737,13 +754,13 @@ class CSProductDataImportCommand extends AbstractCommand
                     if ($count == 0) {
                         foreach ($rowData as $key => $value) {
                             unset($rowData[$key]);
-                            $rowData[utf8_decode(trim($key))] = utf8_decode(trim($value));
+                            $rowData[mb_convert_encoding(trim($key), 'ISO-8859-1', 'UTF-8')] = mb_convert_encoding(trim($value), 'ISO-8859-1', 'UTF-8'); // alternate for utf8_decode
                         }
                         $firstRowData = $rowData;
                     } else {
                         $tmpData = [];
                         foreach ($firstRowData as $key => $value) {
-                            $tmpData[$value] = utf8_encode($rowData[$key]);
+                            $tmpData[$value] = mb_convert_encoding($rowData[$key], 'UTF-8');
                             $tmpData[$value] = $rowData[$key];
                         }
                         $data[] = $tmpData;
@@ -757,6 +774,7 @@ class CSProductDataImportCommand extends AbstractCommand
                 'data'      =>  $data
             );
         } catch (\Exception $e) {
+            p_r($e->getMessage());
             return array(
                 'error' => $e->getMessage()
             );
