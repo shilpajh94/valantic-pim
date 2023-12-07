@@ -199,7 +199,7 @@ class PopulateHydFittingTableNameCommand extends AbstractCommand
             $query = "SELECT o_id FROM " . $hydFittingFertTableName;
             $query .= " WHERE nomenclatureDetails = " . "',". $nomId . ",'" ;
 
-            $productIds = $this->db->fetchCol($query);
+            $productIds = $this->db->fetchOne($query);
         }
         return $productIds;
     }

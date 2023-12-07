@@ -31,6 +31,8 @@ use Symfony\Component\Process\Process;
 class UpdateMissedUnitConversionAttributes extends AbstractCommand
 {
     private $identifier;
+    private $unitConverterService;
+    private $appService;
     
     // Using an array to run the appropriate command
     // on the basis of argument passed by User

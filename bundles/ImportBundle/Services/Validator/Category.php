@@ -21,6 +21,8 @@ class Category
     public $rowCnt;
     private $catConfigData;
     private $container;
+    private $common;
+    private $catHelper;
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;

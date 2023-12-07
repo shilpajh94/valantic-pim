@@ -1107,13 +1107,13 @@ class HoseDataImportCommand extends AbstractCommand
                     if ($count == 0) {
                         foreach ($columns as $key => $value) {
                             unset($rowData[$key]);
-                            $rowData[utf8_decode(trim($key))] = utf8_decode(trim($value));
+                            $rowData[mb_convert_encoding(trim($key), 'ISO-8859-1', 'UTF-8')] = mb_convert_encoding(trim($value), 'ISO-8859-1', 'UTF-8'); // alternate for utf8_decode
                         }
                         $firstRowData = $rowData;
                     } else {
                         $tmpData = [];
                         foreach ($firstRowData as $key => $value) {
-                            $tmpData[$value] = utf8_encode($rowData[$key]);
+                            $tmpData[$value] = mb_convert_encoding($rowData[$key], 'UTF-8'); // alternate for utf8_encode
                             $tmpData[$value] = $rowData[$key];
                         }
                         $data[] = $tmpData;
@@ -1140,6 +1140,7 @@ class HoseDataImportCommand extends AbstractCommand
     public function insertDataToLogTable($data, $success = "", $failedReason = "")
     {
         try {
+            $values = '';
             $rowCount = 1;
             $sql = "INSERT INTO oti_hosedata_log (id, record, statusCode, failedReason, createdAt) VALUES";
             foreach ($data as $dataKey => $dataValue) {

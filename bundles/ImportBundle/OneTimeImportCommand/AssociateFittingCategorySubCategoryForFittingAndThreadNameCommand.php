@@ -258,7 +258,7 @@ class AssociateFittingCategorySubCategoryForFittingAndThreadNameCommand extends 
         $sql = "SELECT o_id FROM object_" . $nomeclatureClassId;
         $sql .= " WHERE " . $attributeName . " LIKE " . " '%," . $value . ",%' ";
 
-        return $this->db->fetchCol($sql);
+        return $this->db->fetchOne($sql);
     }
 
     private function getProductIdsHavingNomenclatureIds(array $nomeclatureIds): array
@@ -272,7 +272,7 @@ class AssociateFittingCategorySubCategoryForFittingAndThreadNameCommand extends 
             $sql .= " WHERE fieldname = 'fert' ";
             $sql .= " AND nomenclatureDetails IN (" .implode(",", $formatedNomenIds).  ")";
 
-            $result = $this->db->fetchCol($sql);
+            $result = $this->db->fetchOne($sql);
         }
         return $result;
     }
