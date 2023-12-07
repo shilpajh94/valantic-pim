@@ -7,9 +7,18 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Elements\Bundle\ProcessManagerBundle\ExecutionTraitClass;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class CSImportCommand extends AbstractCommand
 {
+    private $container;
+
+    public function __construct(ContainerInterface $container)
+    {
+        parent::__construct();
+        $this->container = $container;
+    }
+
     use ExecutionTraitClass;
     protected function configure()
     {
@@ -53,7 +62,7 @@ class CSImportCommand extends AbstractCommand
             'filePath'      =>  $options['filePath'] ?: null
         );
 
-        $lookupObj = \Pimcore::getContainer()->get('cs_import.lookup_service');
+        $lookupObj = $this->container->get('cs_import.lookup_service');
         $lookupObj->execDataFeeder($lookupParam);
     }
 }

@@ -20,6 +20,7 @@ class CSIndustriesImportCommand extends AbstractCommand
 {
     private $t;
     private $duplicateTitle = [];
+    private $configProviderService;
 
     protected function configure()
     {
@@ -49,6 +50,7 @@ class CSIndustriesImportCommand extends AbstractCommand
             p_r('--------------Total Execution Time---------------');
             p_r('Script completed after: ' . (abs(time() - $this->t) / 60) . ' mnt');
         }
+        return 1;
     }
 
 
@@ -67,7 +69,6 @@ class CSIndustriesImportCommand extends AbstractCommand
                 $parentFolderID = DataObject\Service::createFolderByPath(ImportConstants::CONTITECH_CS_MASTERDATA_INDUSTRIES_FOLDER)->getId();
 
                 foreach ($data  as $result) {
-
                     if (isset($result) && is_array($result)) {
                         $this->insertIndustries($result, $parentFolderID, $language);
                     }
@@ -130,13 +131,13 @@ class CSIndustriesImportCommand extends AbstractCommand
                     if ($count == 0) {
                         foreach ($rowData as $key => $value) {
                             unset($rowData[$key]);
-                            $rowData[utf8_decode(trim($key))] = utf8_decode(trim($value));
+                            $rowData[mb_convert_encoding(trim($key), 'ISO-8859-1', 'UTF-8')] = mb_convert_encoding(trim($value), 'ISO-8859-1', 'UTF-8'); // alternate for utf8_decode
                         }
                         $firstRowData = $rowData;
                     } else {
                         $tmpData = [];
                         foreach ($firstRowData as $key => $value) {
-                            $tmpData[$value] = utf8_encode($rowData[$key]);
+                            $tmpData[$value] = mb_convert_encoding($rowData[$key], 'UTF-8');
                             $tmpData[$value] = $rowData[$key];
                         }
                         $data[] = $tmpData;

@@ -32,9 +32,9 @@ services:
         resource: "../../Command/*"
         tags: ["console.command"]
 
-    ContitechCS\ImportBundle\CSImportCommand:
-        tags:
-            - { name: "console.command", command: "cs:import" }
+    # ContitechCS\ImportBundle\CSImportCommand:
+    #     tags:
+    #         - { name: "console.command", command: "cs:import" }
     ContitechCS\ImportBundle\OneTimeImportCommand\CSHierarchyImportCommand:
         tags:
             - {

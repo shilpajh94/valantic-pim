@@ -86,18 +86,18 @@ class ObjectListener
                     if (isset($config[$product_name])) {
                         $applyvalidation = true;
                     } else {
-                        if ($parent != "/Contitech_ConveyorSolution/Products") {
-                            if ($parent->getType() == 'folder') {
-                                $parent_name = $parent->getParent()->getName();
-                            } else {
-                                $parent_name = trim($parent->getName());
-                            }
+                        // if ($parent != "/Contitech_ConveyorSolution/Products") {
+                        //     if ($parent->getType() == 'folder') {
+                        //         $parent_name = $parent->getParent()->getName();
+                        //     } else {
+                        //         $parent_name = trim($parent->getName());
+                        //     }
 
-                            if (isset($config[$parent_name])) {
-                                $applyvalidation = true;
-                                $product_name = $parent_name;
-                            }
-                        }
+                        //     if (isset($config[$parent_name])) {
+                        //         $applyvalidation = true;
+                        //         $product_name = $parent_name;
+                        //     }
+                        // }
                     }
                 }
                 $applyvalidation = false;

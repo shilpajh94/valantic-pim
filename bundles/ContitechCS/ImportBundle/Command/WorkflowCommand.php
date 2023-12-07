@@ -17,9 +17,19 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Elements\Bundle\ProcessManagerBundle\ExecutionTraitClass;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class WorkflowCommand extends AbstractCommand {
     //put your code here
+
+    private $container;
+    private $workflow;
+
+    public function __construct(ContainerInterface $container)
+    {
+        parent::__construct();
+        $this->container = $container;
+    }
 
     protected function configure()
     {
@@ -30,7 +40,7 @@ class WorkflowCommand extends AbstractCommand {
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $options = $input->getOptions();
-        $this->workflow = \Pimcore::getContainer()->get('state_machine.product_enrichment');
+        $this->workflow = $this->container->get('state_machine.product_enrichment');
         $listObject = new \Pimcore\Model\DataObject\CSProducts\Listing();
         $listObject->setCondition("o_published = 1");
         $listObject->load();
