@@ -18,6 +18,9 @@ class AssetImport {
     /**
      * Function is constructor and set the db connection
      */
+
+    private $db;
+
     public function __construct()
     {
         $this->db = \Pimcore\Db::get();
@@ -32,7 +35,7 @@ class AssetImport {
             $type = 'skeleton';
         }
         $sql = 'SELECT o.o_id, o.siopfullcode, CONCAT(s.o_path, s.o_key) AS siopFullPath FROM object_1 o LEFT JOIN object_2 s ON (o.siopfullcode = s.fullCode) WHERE o.o_key like '.$this->db->quote($code."%").' AND o.ProductType = '.$this->db->quote($type);
-        return $this->db->fetchAll($sql);
+        return $this->db->fetchAllAssociative($sql);
     }
 
     public function getProductByAttribute(string $idValue,string $idAttribute, string $importType, ?string $siopLevel = "")
@@ -77,7 +80,7 @@ class AssetImport {
         $productTypeCondition = " o.ProductType = " . $this->db->quote($productType);
         $sql .= " AND " . $productTypeCondition;
 
-        return $this->db->fetchAll($sql);
+        return $this->db->fetchAllAssociative($sql);
 
     }
 

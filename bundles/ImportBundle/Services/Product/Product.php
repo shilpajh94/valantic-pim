@@ -6,12 +6,13 @@ use Exception;
 use Pimcore\Model\DataObject;
 use Pimcore\Log\FileObject;
 use Throwable;
-use ImportBundle\Controller\LogController as Logger;
+use Pimcore\Logger;
 use Elements\Bundle\ProcessManagerBundle;
 use ImportBundle\Services\Helper\Util;
 use ImportBundle\Services\Model\ProductModel;
 use ImportBundle\Services\Category\Category as CategoryService;
 use ImportBundle\Services\Import;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 class Product
 {
     public $name; // Command Name
@@ -35,17 +36,20 @@ class Product
     private $siop;
     private $catInstance;
     private $rowStatus;
+    private $instance;
+    private $container;
     use ProcessManagerBundle\ExecutionTraitClass;
     const LOGGER_MODULE = 'SIOP IMPORT SHEET';
     const FILE_LAST_COL = 'D';
-    public function __construct()
+    public function __construct(ContainerInterface $container)
     {
-        $this->util = new Util;
+        $this->container = $container;
         /* Initilize monitoring item and set the number of steps will take to complete the task */
         $this->monitoringItem = ProcessManagerBundle\ElementsProcessManagerBundle::getMonitoringItem();
-        $this->productModel = new ProductModel;
-        $this->catInstance = new CategoryService;
+        $this->productModel = $this->container->get('import.product_service');
+        $this->catInstance = $this->container->get('import.category_service');
     }
+    
     public function config($param = array())
     {
         try {

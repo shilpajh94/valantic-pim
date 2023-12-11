@@ -9,7 +9,7 @@ return [
         // "S3CustomizationBundle\\S3CustomizationBundle" => TRUE,
         "CatalogBundle\\CatalogBundle" => TRUE,
         "ContitechCS\\ProductBundle\\ContitechCSProductBundle" => TRUE,
-        // "ContitechCS\\ImportBundle\\ContitechCSImportBundle" => TRUE,
+        "ContitechCS\\ImportBundle\\ContitechCSImportBundle" => TRUE,
         // "ContitechCS\\CatalogBundle\\ContitechCSCatalogBundle" => TRUE,
         "ContitechCS\\CatalogUIApiBundle\\CatalogUIApiBundle" => TRUE,
         // "Wvision\\Bundle\\DataDefinitionsBundle\\DataDefinitionsBundle" => TRUE,

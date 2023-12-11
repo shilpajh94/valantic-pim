@@ -171,7 +171,7 @@ class ClearChildBrickDataWhenEqualToParentCommand extends Command
             $parentData = $item['parentData'];
 
             $updateQuery = "UPDATE $brickTableName SET $attr = null WHERE o_id = $childId";
-            $response = $this->db->executeUpdate($updateQuery);
+            $response = $this->db->executeQuery($updateQuery);
 
             $this->csvLog($csvLogFileHandle, [++$c, $brickName, $attr, $childId, $parentId, $childData, $parentData, $childType, $response]);
 

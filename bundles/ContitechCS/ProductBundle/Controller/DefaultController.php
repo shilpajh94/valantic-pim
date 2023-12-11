@@ -132,9 +132,9 @@ class DefaultController extends FrontendController
      */
     public function getParentBricks(Request $request)
     {
+        $result = [];
         $parentId = $request->get('parentId');
         $parentId = json_decode($parentId);
-
         if ($parentId) {
             $hierarchyObj = new \Pimcore\Model\DataObject\CSHierarchy;
             $parentObj = $hierarchyObj::getById($parentId);

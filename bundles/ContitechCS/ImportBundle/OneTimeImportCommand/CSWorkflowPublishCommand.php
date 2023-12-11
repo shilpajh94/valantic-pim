@@ -24,10 +24,10 @@ class CSWorkflowPublishCommand extends AbstractCommand
                         FROM `object_CSProducts`
                         WHERE `o_path` LIKE '%/Contitech_ConveyorSolution/Products/Material Handling/Cover Options/%'";
 
-        $productsList = $this->db->fetchAll($sqlQuery);
+        $productsList = $this->db->fetchAllAssociative($sqlQuery);
 
         $sql = "SELECT `cid` from element_workflow_state";
-        $record = $this->db->fetchAll($sql);
+        $record = $this->db->fetchAllAssociative($sql);
         if($productsList)
         {
             foreach ($productsList as $id) {
@@ -35,7 +35,7 @@ class CSWorkflowPublishCommand extends AbstractCommand
                 $key = array_search($objectId, array_column($record, 'cid'));
                 if ($key){
                     $updateQuery = "UPDATE element_workflow_state SET place = 'published' where cid = $objectId";
-                    $this->db->executeUpdate($updateQuery);
+                    $this->db->executeQuery($updateQuery);
                     print_r('Updated state for ----- '.$objectId);
                     echo PHP_EOL;
                 }else{

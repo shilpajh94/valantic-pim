@@ -7,6 +7,8 @@ use Throwable;
 use Elements\Bundle\ProcessManagerBundle;
 use AppBundle\Logger\AppLogger as Logger;
 use AppBundle\Lib\SFTPConnection;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
 
 class Lookup
 {
@@ -27,11 +29,14 @@ class Lookup
     public $sysFilePath;
     private $common;
     private $monitoringItem;
+    private $container;
 
-    public function __construct()
+    public function __construct(ContainerInterface $container)
     {
+        
+        $this->container = $container;
         $this->datetime = date('Ymdhis');
-        $this->common = \Pimcore::getContainer()->get('app.common_helper');
+        $this->common = $this->container->get('app.common_helper');
         $this->monitoringItem = ProcessManagerBundle\ElementsProcessManagerBundle::getMonitoringItem();
     }
 
@@ -72,7 +77,7 @@ class Lookup
 
             // $this->filePath = $tmpFilePath;
 
-            $this->filePath = CS_BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR.'PIM_Structure_Hierarchy_demo.csv';
+            // $this->filePath = CS_BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR.'PIM_Structure_Hierarchy_demo.csv';
 
             // $SFTPConObj->moveFile($ftpFilePath."/".$fileName, CS_BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH.$fileName);
             
@@ -120,17 +125,17 @@ class Lookup
                 // }
                 //
                 
-                $feederObj = \Pimcore::getContainer()->get($feederService);
-                $params = array(
-                    'approvedSalesOrg'  =>  $this->approvedSalesOrg,
-                    'filePath'          =>  $this->sysFilePath,
-                    'validatorService'  =>  $validatorService,
-                    'mappedService'     =>  $mappedService,
-                    'listingService'    =>  $listingService,
-                    'logFileName'       =>  $this->logFileName,
-                    'name'              =>  $this->name
-                );
-                $feederObj->config($params);
+                // $feederObj = $this->container->get($feederService);
+                // $params = array(
+                //     'approvedSalesOrg'  =>  $this->approvedSalesOrg,
+                //     'filePath'          =>  $this->sysFilePath,
+                //     'validatorService'  =>  $validatorService,
+                //     'mappedService'     =>  $mappedService,
+                //     'listingService'    =>  $listingService,
+                //     'logFileName'       =>  $this->logFileName,
+                //     'name'              =>  $this->name
+                // );
+                // $feederObj->config($params);
             } else {
                 throw new Exception(sprintf(ALLOWED_FILE_TYPES, implode(' and ', $this->fileType)));
             }
