@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use \Exception;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class IndustrialHoseController extends AbstractController
 {
@@ -23,23 +25,27 @@ class IndustrialHoseController extends AbstractController
     private $attributeImages = array();
     private $featuresList = array();
     private $catalogTemplatingHelper;
+    private $container;
+    private $translator;
 
 
-    public function __construct(CatalogTemplatingHelper $catalogTemplatingHelper)
+    public function __construct(CatalogTemplatingHelper $catalogTemplatingHelper, ContainerInterface $container, TranslatorInterface $translator)
     {
         $this->db = Db::get();
         $this->catalogTemplatingHelper = $catalogTemplatingHelper;
+        $this->container = $container;
+        $this->translator = $translator;
     }
 
     public function templateIndustrialHoseIndexByApplicationDynamicAction(Request $request)
     {
         try
         {
-            $folderId =$this->document->getParent()->getId(); 
-            $listing = new \Pimcore\Model\Document\Listing(); 
+            $folderId =$this->document->getParent()->getId();
+            $listing = new \Pimcore\Model\Document\Listing();
             $listing->setCondition("parentId = $folderId");
             $listing->load();
-            $listing->setOrderKey("index");     
+            $listing->setOrderKey("index");
             $listing->setOrder("asc");
             $templateArray = [
                 'CatalogBundle:INH:inhprintcatalogproductpage.html.php',
@@ -172,11 +178,12 @@ class IndustrialHoseController extends AbstractController
                     array_push($industrial_hose_list, $data);
                 }
             }
-
-            $this->view['data'] = $industrial_hose_list;  
+            $parameterVar = [];
+            $parameterVar['data'] = $industrial_hose_list;
+            return $this->render("@Catalog/INH/template_industrial_hose_index_by_application_dynamic.html.twig", $parameterVar);
         }
         catch(Exception $e)
-        {  
+        {
             return new Response($e->getMessage());
         }
     }
@@ -185,11 +192,11 @@ class IndustrialHoseController extends AbstractController
     {
         try
         {
-            $folderId =$this->document->getParent()->getId(); 
-            $listing = new \Pimcore\Model\Document\Listing(); 
+            $folderId =$this->document->getParent()->getId();
+            $listing = new \Pimcore\Model\Document\Listing();
             $listing->setCondition("parentId = $folderId");
             $listing->load();
-            $listing->setOrderKey("index");     
+            $listing->setOrderKey("index");
             $listing->setOrder("asc");
             $templateArray = [
                 'CatalogBundle:INH:inhprintcatalogproductpage.html.php',
@@ -296,12 +303,12 @@ class IndustrialHoseController extends AbstractController
             }
 
             sort($allHoses);
-            
+
             $industrial_hose_list_alphabet_sorted = [];
             if($allHoses)
             {
                 foreach ($allHoses as $key => $hose) {
-                    
+
                     $alphabetChar = $hose[0];
                     $industrial_hose_list[$alphabetChar][] = $hose;
                 }
@@ -318,10 +325,12 @@ class IndustrialHoseController extends AbstractController
                 }
             }
 
-            $this->view['data'] = $industrial_hose_list_alphabet_sorted;  
+            $parameterVar = [];
+            $parameterVar['data'] = $industrial_hose_list_alphabet_sorted;
+            return $this->render("@Catalog/INH/template_industrial_hose_index_by_alphabet_dynamic.html.twig", $parameterVar);
         }
         catch(Exception $e)
-        {  
+        {
             return new Response($e->getMessage());
         }
     }
@@ -330,11 +339,11 @@ class IndustrialHoseController extends AbstractController
     {
         try
         {
-            $folderId =$this->document->getParent()->getId(); 
-            $listing = new \Pimcore\Model\Document\Listing(); 
+            $folderId =$this->document->getParent()->getId();
+            $listing = new \Pimcore\Model\Document\Listing();
             $listing->setCondition("parentId = $folderId");
             $listing->load();
-            $listing->setOrderKey("index");     
+            $listing->setOrderKey("index");
             $listing->setOrder("asc");
             $templateArray = [
                 'CatalogBundle:INH:inhprintcatalogproductpage.html.php'
@@ -366,7 +375,7 @@ class IndustrialHoseController extends AbstractController
                         else
                         {
                             if (in_array($childDoc->getTemplate(), $templateArray)) {
-                                
+
                                 $obj = $childDoc->getElement('industrial_hose_details');
                                 if (!empty($obj) && !empty($obj->getData())) {
                                     $dataParts = explode('$$', $obj->getData());
@@ -376,7 +385,7 @@ class IndustrialHoseController extends AbstractController
                                         $industrial_hose_list[$dataParts2[0]][] = trim($dataParts2[1]);
                                     }
                                 }
-                                
+
                             }
                         }
                     }
@@ -416,10 +425,12 @@ class IndustrialHoseController extends AbstractController
                     $toc_data[] = $contiTech_industrial_hose;
                 }
             }
-            $this->view['data'] = $toc_data;  
+            $parameterVar = [];
+            $parameterVar['data'] = $toc_data;
+            return $this->render("@Catalog/INH/template_industrial_hose_table_of_contents_dynamic.html.twig", $parameterVar);
         }
         catch(Exception $e)
-        {  
+        {
             return new Response($e->getMessage());
         }
     }
@@ -435,13 +446,13 @@ class IndustrialHoseController extends AbstractController
     public function inhPrintCatalogAction(Request $request)
     {
         $containerRequest = $request->get('containerRequest') ? $request->get('containerRequest') : FALSE;
-        $inhSectionPageConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getINHSectionPageConfig()['parameters'];
-        $CatalogImagesINHFooter = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHFooter'];
-        $CatalogImagesINHProduct = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHProduct'];
-        // $common = \Pimcore::getContainer()->get('app.common_helper');
+        $inhSectionPageConfig = $this->container->get('app.config_provider_service')->getINHSectionPageConfig()['parameters'];
+        $CatalogImagesINHFooter = $this->container->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHFooter'];
+        $CatalogImagesINHProduct = $this->container->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHProduct'];
+        // $common = $this->container->get('app.common_helper');
         $dispColumns = array();
 
-        $template = $this->getDocumentTag('relation', 'inh-printcatalog')->getElement();
+        $template = $this->document->getEditable('relation', 'inh-printcatalog')->getElement();
 
         if ($template instanceof  \Pimcore\Model\DataObject) {
 
@@ -469,12 +480,12 @@ class IndustrialHoseController extends AbstractController
             if($headers && $productPageColumns)
             {
                 foreach ($productPageColumns['dispColumns'] as $key => $value) {
-                    $productPageColumns['dispColumns'][$key]['title'] = $this->get('translator')->trans($key);
+                    $productPageColumns['dispColumns'][$key]['title'] = $this->translator->trans($key);
                 }
 
                 $headerKeys = array_keys($headers);
                 $headerKeys[] = 'ConstructionType';
-                
+
                 $brandsList = $this->getBrandsList();
                 $data = array();
 
@@ -487,7 +498,7 @@ class IndustrialHoseController extends AbstractController
                     foreach ($template->getProductsData() as $k => $row) {
                         $row[]= '';
                         $newRow = array_combine($headerKeys, $row);
-                        
+
                         $query = "select TRIM( BOTH ',' FROM SIOPLevel4)  from object_query_1 where oo_id IN (".$newRow['id'].") ";
                         $SIOPLevel4Id = $this->db->fetchColumn($query);
 
@@ -500,10 +511,10 @@ class IndustrialHoseController extends AbstractController
                         {
                             $productMinMaxPressure[$newRow['brandName'][0]][] = $newRow['workingPressurePSI'];
                         }
-                        
+
                     }
                     $i = 0;
-                    
+
                     foreach ($productsData as $k => $row) {
 
                         if (isset($row['brandName']) && !empty($row['brandName'])) {
@@ -531,14 +542,14 @@ class IndustrialHoseController extends AbstractController
                                         else{
                                             $data[$uniqueId]['data'][$brandName][$col] = $row[$col];
                                         }
-                                        
+
                                     }
 
                                 }
                             }
 
                             $data[$uniqueId]['data'][$brandName]['SortOrder'] = $brandsList[$brandName]['SortOrder'];
-                            
+
                             if(isset($data[$uniqueId]['data']))
                                 array_multisort (array_column($data[$uniqueId]['data'], 'SortOrder'), SORT_ASC, $data[$uniqueId]['data']);
                         }
@@ -550,7 +561,8 @@ class IndustrialHoseController extends AbstractController
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
             $categories = $this->getSIOP($lang);
-            $this->view['info'] = array(
+            $parameterVar = [];
+            $parameterVar['info'] = array(
                 'configTableName'=> $configTableName,
                 'siop4Description'=> $siop4Description,
                 'data' => $data,
@@ -561,6 +573,7 @@ class IndustrialHoseController extends AbstractController
                 'containerRequest' => $containerRequest
             );
         }
+        return $this->render("@Catalog/INH/inhprintcatalog.html.twig", $parameterVar);
     }
 
     /**
@@ -569,14 +582,14 @@ class IndustrialHoseController extends AbstractController
      */
     public function inhPrintCatalogProductPageAction(Request $request) {
         $containerRequest = $request->get('containerRequest') ? $request->get('containerRequest') : FALSE;
-        $inhProductPageConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getINHProductPageConfig()['parameters'];
-        $this->attributeImages = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['attributeImages'];
-        $CatalogImagesINHFooter = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHFooter'];
-        $CatalogImagesINHProduct = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHProduct'];
-        // $common = \Pimcore::getContainer()->get('app.common_helper');
+        $inhProductPageConfig = $this->container->get('app.config_provider_service')->getINHProductPageConfig()['parameters'];
+        $this->attributeImages = $this->container->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['attributeImages'];
+        $CatalogImagesINHFooter = $this->container->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHFooter'];
+        $CatalogImagesINHProduct = $this->container->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHProduct'];
+        // $common = $this->container->get('app.common_helper');
         $dispColumns = array();
 
-        $template = $this->getDocumentTag('relation', 'inh-printcatalogproduct')->getElement();
+        $template = $this->document->getEditable('relation', 'inh-printcatalogproduct')->getElement();
 
         if ($template instanceof  \Pimcore\Model\DataObject) {
 
@@ -598,12 +611,12 @@ class IndustrialHoseController extends AbstractController
 
             $this->iconRequired = 'YES';
             // $subHeaderRequired = 'NO';
-            
+
 
             // $attrbuteImgS3Arr = array();
 
             // $language = $request->getLocale();
-            $this->get('translator')->setLocale($CatalogLanguage);
+            $this->translator->setLocale($CatalogLanguage);
 
             $brandsList = $this->getBrandsList();
             $this->featuresList = $this->getFeaturesList('', $CatalogLanguage);
@@ -650,7 +663,7 @@ class IndustrialHoseController extends AbstractController
                         // }
 
                         $brandsData[$item[$headerKeysIndex['brandName']][0]][] = $item;
-                        
+
                         unset($item);
                     }
                 }
@@ -693,7 +706,7 @@ class IndustrialHoseController extends AbstractController
                     $longDescription = '';
                     $FeaturesBenefitsBulletPointArr = array();
                     $oldMaterialCodeArr = array();
-                    
+
                     foreach ($brand as $bkey => $bvalue) {
                         $GroupingFieldName = $brandsList[$key]['GroupingFieldName'];
                         $GroupingFieldNameValue = $bvalue[$headerKeysIndex[$GroupingFieldName]];
@@ -766,7 +779,7 @@ class IndustrialHoseController extends AbstractController
                                 $VirtualCatalogCoverMaterial = $bvalue[$headerKeysIndex['VirtualCatalogCoverMaterial']];
                             }
 
-                            if(!$mainImage && $bvalue[$headerKeysIndex['mainImage']]) 
+                            if(!$mainImage && $bvalue[$headerKeysIndex['mainImage']])
                                 $mainImage = \Pimcore\Model\Asset::getByPath($bvalue[$headerKeysIndex['mainImage']]);
 
                             if(!$temperatureRangeFAndC && $bvalue[$headerKeysIndex['temperatureRangeFAndC']]) {
@@ -799,7 +812,7 @@ class IndustrialHoseController extends AbstractController
                             $this->subHeaderRequired = 'NO';
 
                             $columnsDataWithImages = $this->getColumnHeadersForCatalog(TRUE, $FittingTableKeys);
-                            
+
                             // Getting order of the keys
                             $orderKeys = array();
                             foreach ($columnsDataWithImages as $skey => $svalue) {
@@ -864,7 +877,7 @@ class IndustrialHoseController extends AbstractController
                     $newBrandArray[$key]['brandData']['BrandingLayline'] = $BrandingLayline;
                     $newBrandArray[$key]['brandData']['reinforcement'] = $reinforcementStr;
                     $newBrandArray[$key]['brandData']['designFactor'] = $designFactorStr;
-                    
+
                     $newBrandArray[$key]['brandData']['tubeMaterial'] = $tubeMaterialStr;
                     $newBrandArray[$key]['brandData']['coverMaterial'] = $coverMaterialStr;
                     $newBrandArray[$key]['brandData']['mainImage'] = $mainImage;
@@ -904,7 +917,8 @@ class IndustrialHoseController extends AbstractController
             //unset($this->columnsData);
             //unset($this->attributeImages);
 
-            $this->view['info'] = array(
+            $parameterVar = [];
+            $parameterVar['info'] = array(
                 'iconRequired' => $this->iconRequired,
                 'brandsData' => $newBrandArray,
                 'categories' => $categories,
@@ -915,6 +929,7 @@ class IndustrialHoseController extends AbstractController
                 'containerRequest' => $containerRequest
             );
         }
+        return $this->render("@Catalog/INH/inhprintcatalogproductpage.html.twig", $parameterVar);
     }
 
 
@@ -924,11 +939,11 @@ class IndustrialHoseController extends AbstractController
      */
     public function inhFittingPageAction(Request $request) {
         $containerRequest = $request->get('containerRequest') ? $request->get('containerRequest') : FALSE;
-        $template = $this->getDocumentTag('relation', 'inh_fitting_page')->getElement();
+        $template = $this->document->getEditable('relation', 'inh_fitting_page')->getElement();
         if($template)
         {
-            $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
-            $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
+            $commonHelper = $this->container->get('app.common_helper');
+            $attributeImagesConfig = $this->container->get('app.config_provider_service')->getAttributeImagesConfig();
 
             $this->attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
             $CatalogImagesINHFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesINHFooter');
@@ -941,7 +956,7 @@ class IndustrialHoseController extends AbstractController
             $footerBgColor = $template->getColor();
             $productsData = $template->getProductsData();
             $headerData = json_decode($template->getHeaderData(), true);
-            
+
             if($headerData)
             {
                 $headerKeys = array_keys($headerData);
@@ -952,13 +967,13 @@ class IndustrialHoseController extends AbstractController
 
                 $menuCategories = $this->getSIOP($CatalogLanguage);
 
-                $this->get('translator')->setLocale($CatalogLanguage);
+                $this->translator->setLocale($CatalogLanguage);
 
                 $this->iconRequired = 'YES';
                 $this->subHeaderRequired = 'NO';
 
                 $columnsDataWithImages = $this->getColumnHeadersForCatalog(FALSE, []);
-                
+
                 unset($objColumnsData);
                 //unset($this->columnsData);
                 //unset($this->attributeImages);
@@ -1111,23 +1126,25 @@ class IndustrialHoseController extends AbstractController
                     $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
                 }
             }
-            $this->view['groupData'] = $groupData;
-            $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
-            $this->view['footer_logo_src'] = $footer_logo_src;
-            $this->view['containerRequest'] = $containerRequest;
+            $parameterVar = [];
+            $parameterVar['groupData'] = $groupData;
+            $parameterVar['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
+            $parameterVar['footer_logo_src'] = $footer_logo_src;
+            $parameterVar['containerRequest'] = $containerRequest;
         }
+        return $this->render("@Catalog/INH/inhfitting.html.twig", $parameterVar);
     }
 
     public function inhFittingCoverAction(Request $request){
         $containerRequest = $request->get('containerRequest') ? $request->get('containerRequest') : FALSE;
-        $templates = $this->getDocumentTag('relations', 'inh_fitting_cover_page')->getElements();
+        $templates = $this->document->getEditable('relations', 'inh_fitting_cover_page')->getElements();
 
         if($templates)
         {
-            $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
+            $commonHelper = $this->container->get('app.common_helper');
 
-            $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
-            $INHFittingCoverPageConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getINHFittingCoverPageConfig();
+            $attributeImagesConfig = $this->container->get('app.config_provider_service')->getAttributeImagesConfig();
+            $INHFittingCoverPageConfig = $this->container->get('app.config_provider_service')->getINHFittingCoverPageConfig();
 
             $featuresMaterials = $commonHelper->getParameter($INHFittingCoverPageConfig, 'headers');
             $CatalogImagesINHFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesINHFooter');
@@ -1142,7 +1159,6 @@ class IndustrialHoseController extends AbstractController
             $templateBrandDtata = array();
             $menuCategories = $this->getSIOP($CatalogLanguage);
             $catagoryDescription = array();
-
 
             $query = "select oo_id, Level, description, PrintedCatalogDescription from object_localized_2_{$CatalogLanguage} where level IN (3,4) ";
 
@@ -1163,7 +1179,7 @@ class IndustrialHoseController extends AbstractController
 
                 $productsData = $template->getProductsData();
                 $headerData = json_decode($template->getHeaderData(), true);
-                
+
                 if($headerData)
                 {
                     $headerKeys = array_keys($headerData);
@@ -1198,15 +1214,17 @@ class IndustrialHoseController extends AbstractController
             $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesINHFooter['Black']:$CatalogImagesINHFooter['Orange'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
-            $this->view['featuresMaterials'] = $featuresMaterials;
-            $this->view['templateBrandDtata'] = $templateBrandDtata;
-            $this->view['categories'] = $menuCategories;
-            $this->view['selectedCategory'] = $catagoryDescription['SIOP3Description'];
+            $parameterVar = [];
+            $parameterVar['featuresMaterials'] = $featuresMaterials;
+            $parameterVar['templateBrandDtata'] = $templateBrandDtata;
+            $parameterVar['categories'] = $menuCategories;
+            $parameterVar['selectedCategory'] = $catagoryDescription['SIOP3Description'];
             // $this->view['defaultPageImage'] = \Pimcore\Model\Asset::getByPath($CatalogImagesINHProduct['DefaultCoverImage']);
-            $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
-            $this->view['footer_logo_src'] = $footer_logo_src;
-            $this->view['containerRequest'] = $containerRequest;
+            $parameterVar['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
+            $parameterVar['footer_logo_src'] = $footer_logo_src;
+            $parameterVar['containerRequest'] = $containerRequest;
         }
+        return $this->render("@Catalog/INH/inhfitting_cover.html.twig", $parameterVar);
     }
 
     private function getSIOP($language) {
@@ -1240,7 +1258,7 @@ class IndustrialHoseController extends AbstractController
                         'printable' => 0,
                         'SortOrder' => $category->getSortOrder()
                     );
-                    $categories[$fullCode]['SortOrder']=$category->getSortOrder();      
+                    $categories[$fullCode]['SortOrder']=$category->getSortOrder();
                 }
                 $categories[$fullCode]['subCategory'][] = $cat;
             }
@@ -1276,7 +1294,7 @@ class IndustrialHoseController extends AbstractController
     }
 
     public function getFiveSortedFeaturesWithIconList($safetyFeatures){
-        
+
         $safetyFeatures = array_unique($safetyFeatures);
 
         $safetyFeaturesList  = array();
@@ -1300,18 +1318,18 @@ class IndustrialHoseController extends AbstractController
 
         if($safetyFeaturesListWithImage)
             array_multisort (array_column($safetyFeaturesListWithImage, 'SortOrder'), SORT_ASC, $safetyFeaturesListWithImage);
-        
+
         if($safetyFeaturesListWithOutImage)
             array_multisort (array_column($safetyFeaturesListWithOutImage, 'SortOrder'), SORT_ASC, $safetyFeaturesListWithOutImage);
 
         $safetyFeaturesList = array_merge_recursive($safetyFeaturesListWithImage,$safetyFeaturesListWithOutImage);
-        
+
         if($safetyFeaturesList)
             $safetyFeaturesList = array_slice($safetyFeaturesList, 0, 5);
 
         unset($safetyFeaturesListWithImage);
         unset($safetyFeaturesListWithOutImage);
-        
+
         return $safetyFeaturesList;
     }
 
@@ -1342,7 +1360,7 @@ class IndustrialHoseController extends AbstractController
     public function getBrandsList(){
         $query = "select name, SortOrder, GroupingFieldNameForInhHoseProductTemplate from object_query_3";
         $brandslistRecords = $this->db->fetchAll($query);
-        
+
         $brandslist = array();
         if($brandslistRecords)
         {
@@ -1360,7 +1378,7 @@ class IndustrialHoseController extends AbstractController
 
         if($isTableNameColumnRequired)
         {
-            foreach ($this->columnsData as $dkey => $value) 
+            foreach ($this->columnsData as $dkey => $value)
             {
                 if(in_array($dkey,$tableNameColumns))
                 {
@@ -1373,9 +1391,9 @@ class IndustrialHoseController extends AbstractController
 
                     $columnsDataWithImages[$groupColumnName][$dkey]['groupName'] = $value['groupName'];
                     $columnsDataWithImages[$groupColumnName][$dkey]['columnWidth'] = $value['columnWidth'];
-                    $columnsDataWithImages[$groupColumnName][$dkey]['unitName'] = $this->replaceYellowCode($this->get('translator')->trans($value['unitName']));
+                    $columnsDataWithImages[$groupColumnName][$dkey]['unitName'] = $this->replaceYellowCode($this->translator->trans($value['unitName']));
                     $columnsDataWithImages[$groupColumnName][$dkey]['columnName'] = $value['columnName'];
-                    $columnsDataWithImages[$groupColumnName][$dkey]['columnLabel'] = $this->replaceYellowCode($this->get('translator')->trans($groupColumnName));
+                    $columnsDataWithImages[$groupColumnName][$dkey]['columnLabel'] = $this->replaceYellowCode($this->translator->trans($groupColumnName));
 
                     if ($this->iconRequired == 'YES')
                     {
@@ -1411,10 +1429,10 @@ class IndustrialHoseController extends AbstractController
                 if($value['columnName'] == 'listPrice')
                     $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $value['unitName'];
                 else
-                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = ($value['unitName']) ? $this->replaceYellowCode($this->get('translator')->trans($value['unitName'])) : '';
+                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = ($value['unitName']) ? $this->replaceYellowCode($this->translator->trans($value['unitName'])) : '';
 
                 $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
-                $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->replaceYellowCode($this->get('translator')->trans($groupColumnName));
+                $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->replaceYellowCode($this->translator->trans($groupColumnName));
 
                 if ($this->iconRequired == 'YES')
                 {
