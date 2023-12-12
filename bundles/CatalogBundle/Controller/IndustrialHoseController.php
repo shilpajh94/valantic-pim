@@ -25,7 +25,7 @@ class IndustrialHoseController extends AbstractController
     private $attributeImages = array();
     private $featuresList = array();
     private $catalogTemplatingHelper;
-    private $container;
+    private $containerInterface;
     private $translator;
 
 
@@ -33,7 +33,7 @@ class IndustrialHoseController extends AbstractController
     {
         $this->db = Db::get();
         $this->catalogTemplatingHelper = $catalogTemplatingHelper;
-        $this->container = $container;
+        $this->containerInterface = $container;
         $this->translator = $translator;
     }
 
@@ -446,10 +446,10 @@ class IndustrialHoseController extends AbstractController
     public function inhPrintCatalogAction(Request $request)
     {
         $containerRequest = $request->get('containerRequest') ? $request->get('containerRequest') : FALSE;
-        $inhSectionPageConfig = $this->container->get('app.config_provider_service')->getINHSectionPageConfig()['parameters'];
-        $CatalogImagesINHFooter = $this->container->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHFooter'];
-        $CatalogImagesINHProduct = $this->container->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHProduct'];
-        // $common = $this->container->get('app.common_helper');
+        $inhSectionPageConfig = $this->containerInterface->get('app.config_provider_service')->getINHSectionPageConfig()['parameters'];
+        $CatalogImagesINHFooter = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHFooter'];
+        $CatalogImagesINHProduct = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHProduct'];
+        // $common = $this->containerInterface->get('app.common_helper');
         $dispColumns = array();
 
         $template = $this->document->getEditable('relation', 'inh-printcatalog')->getElement();
@@ -582,11 +582,11 @@ class IndustrialHoseController extends AbstractController
      */
     public function inhPrintCatalogProductPageAction(Request $request) {
         $containerRequest = $request->get('containerRequest') ? $request->get('containerRequest') : FALSE;
-        $inhProductPageConfig = $this->container->get('app.config_provider_service')->getINHProductPageConfig()['parameters'];
-        $this->attributeImages = $this->container->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['attributeImages'];
-        $CatalogImagesINHFooter = $this->container->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHFooter'];
-        $CatalogImagesINHProduct = $this->container->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHProduct'];
-        // $common = $this->container->get('app.common_helper');
+        $inhProductPageConfig = $this->containerInterface->get('app.config_provider_service')->getINHProductPageConfig()['parameters'];
+        $this->attributeImages = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['attributeImages'];
+        $CatalogImagesINHFooter = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHFooter'];
+        $CatalogImagesINHProduct = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHProduct'];
+        // $common = $this->containerInterface->get('app.common_helper');
         $dispColumns = array();
 
         $template = $this->document->getEditable('relation', 'inh-printcatalogproduct')->getElement();
@@ -942,8 +942,8 @@ class IndustrialHoseController extends AbstractController
         $template = $this->document->getEditable('relation', 'inh_fitting_page')->getElement();
         if($template)
         {
-            $commonHelper = $this->container->get('app.common_helper');
-            $attributeImagesConfig = $this->container->get('app.config_provider_service')->getAttributeImagesConfig();
+            $commonHelper = $this->containerInterface->get('app.common_helper');
+            $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
 
             $this->attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
             $CatalogImagesINHFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesINHFooter');
@@ -1141,10 +1141,10 @@ class IndustrialHoseController extends AbstractController
 
         if($templates)
         {
-            $commonHelper = $this->container->get('app.common_helper');
+            $commonHelper = $this->containerInterface->get('app.common_helper');
 
-            $attributeImagesConfig = $this->container->get('app.config_provider_service')->getAttributeImagesConfig();
-            $INHFittingCoverPageConfig = $this->container->get('app.config_provider_service')->getINHFittingCoverPageConfig();
+            $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
+            $INHFittingCoverPageConfig = $this->containerInterface->get('app.config_provider_service')->getINHFittingCoverPageConfig();
 
             $featuresMaterials = $commonHelper->getParameter($INHFittingCoverPageConfig, 'headers');
             $CatalogImagesINHFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesINHFooter');

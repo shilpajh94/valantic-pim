@@ -17,14 +17,14 @@ class HydraulicFittingController extends AbstractController
     private $columnsData = array();
     private $attributeImages = array();
     private $catalogTemplatingHelper;
-    private $container;
+    private $containerInterface;
     private $translator;
 
     public function __construct(CatalogTemplatingHelper $catalogTemplatingHelper, ContainerInterface $container, TranslatorInterface $translator)
     {
         $this->db = Db::get();
         $this->catalogTemplatingHelper = $catalogTemplatingHelper;
-        $this->container = $container;
+        $this->containerInterface = $container;
         $this->translator = $translator;
     }
 
@@ -37,14 +37,14 @@ class HydraulicFittingController extends AbstractController
     public function fittingPageAction(Request $request)
     {
         $containerRequest = $request->get('containerRequest') ? $request->get('containerRequest') : FALSE;
-        $fittingTableColumnConfig = $this->container->get('app.config_provider_service')->getFittingTableConfig()['parameters'];
+        $fittingTableColumnConfig = $this->containerInterface->get('app.config_provider_service')->getFittingTableConfig()['parameters'];
 
         $fittingTableColumn = $fittingTableColumnConfig['tables'];
         $shortDescriptionSortKeys = $fittingTableColumnConfig['shortDescriptionSortKeys'];
         $skiveTypeSortKeys = $fittingTableColumnConfig['skiveTypeSortKeys'];
 
-        $common = $this->container->get('app.common_helper');
-        $attributeImagesConfig = $this->container->get('app.config_provider_service')->getAttributeImagesConfig();
+        $common = $this->containerInterface->get('app.common_helper');
+        $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
         $this->attributeImages = $common->getParameter($attributeImagesConfig, 'attributeImages');
         $CatalogImagesHYDFooter = $common->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
         if ($this->document->getEditable('relation', 'fitting-straight')->getElement() instanceof  \Pimcore\Model\DataObject) {
