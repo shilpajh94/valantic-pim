@@ -595,7 +595,7 @@ class DefaultController extends AbstractController
                             $pData[$item->getId()][$dFieldKey] = '';
                         }
                     } else if ($dFieldName['fieldLevel'] == 'class' && strtolower($dFieldName['fieldType']) == 'relation') {
-                        
+
                         $dataValues = [];
                         $getter = 'get' . ucfirst($dFieldKey);
                         if($item->$getter() !== null)
@@ -1590,7 +1590,7 @@ if(isset($data[$baseId])) {
     {
         // p_r($request); die;
         $printermarks = false;
-        
+
         // p_r($this->printermarks); die;
         return $this->render('@Catalog/Default/template_table_of_contents.html.twig',['printermarks'=>$printermarks]);
         // return;
@@ -2155,7 +2155,7 @@ if(isset($data[$baseId])) {
         $catalogData['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
         $catalogData['footer_logo_src'] = $footer_logo_src;
         $catalogData['imageWidth'] = 300; // for safe purpose only. we need to remove once solution done
-        
+
         // p_r($catalogData);die;
         return $this->render("@Catalog/Default/template_fitting_split_flanges.html.twig", $catalogData);
     }
@@ -2510,7 +2510,7 @@ if(isset($data[$baseId])) {
                 $parameterVar['containerRequest'] = $containerRequest;
             }
         }
-        return $this->render("@Catalog/Default/template_hose_sub_cover.html.twig", $parameterVar);
+        return $this->render("@Catalog/Default/template_ptg_product_page.html.twig", $parameterVar);
     }
 
     public function getFiveSortedFeaturesWithIconList($safetyFeatures){
