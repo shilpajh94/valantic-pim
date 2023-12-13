@@ -15,19 +15,22 @@
 namespace CatalogBundle\Controller;
 
 use Pimcore\Controller\FrontendController;
-use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
+use Symfony\Component\HttpKernel\Event\ControllerEvent;
 
 abstract class AbstractController extends FrontendController
 {
     public $region;
     public $language;
+    public $printermarks;
+    public $imageQuality;
+    public $imageWidth;
     /**
      * @inheritDoc
      */
-    public function onKernelController(FilterControllerEvent $event)
+    public function onKernelController(ControllerEvent $event)
     {
-        $this->setViewAutoRender($event->getRequest(), true, 'php');
-        $this->view->printermarks = $event->getRequest()->get('printermarks');
+        // $this->setViewAutoRender($event->getRequest(), true, 'php');
+        $this->printermarks = $event->getRequest()->get('printermarks');
 
         $sourceDoc = $_SESSION[PDF_GENERATION_REQUEST_SOURCE_DOC_SESSION_KEY];
       
@@ -42,7 +45,7 @@ abstract class AbstractController extends FrontendController
             $imageWidth = $printConfig['config']['Image Width'];            
         }
 
-        $this->view->imageQuality = $imageRecompression;
-        $this->view->imageWidth = $imageWidth;
+        $this->imageQuality = $imageRecompression;
+        $this->imageWidth = $imageWidth;
     }
 }

@@ -61,7 +61,7 @@ class ObjectListener
         $options = $arguments['options'];
 
         $processor = $event->getProcessor();
-        if($processor instanceof \Pimcore\Web2Print\Processor\PdfReactor8) {
+        if($processor instanceof \Pimcore\Web2Print\Processor\PdfReactor) {
 
             //add option disableBackgroundExecution into pdf generation process (pdf reactor functionality)
             $options[] = ['name' => 'disableBackgroundExecution', 'type' => 'bool', 'default' => true];

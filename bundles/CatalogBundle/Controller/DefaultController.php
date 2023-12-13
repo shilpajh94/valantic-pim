@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use \Exception;
+use Symfony\Component\HttpKernel\Event\ControllerEvent;
 
 class DefaultController extends AbstractController {
 
@@ -1577,9 +1578,11 @@ if(isset($data[$baseId])) {
 
     public function templateTableOfContentsAction(Request $request)
     {
+        // p_r($request); die;
+        $printermarks = false;
         
         // p_r($this->printermarks); die;
-        return $this->render('@Catalog/Default/template_table_of_contents.html.twig',['printermarks'=>$this->printermarks]);
+        return $this->render('@Catalog/Default/template_table_of_contents.html.twig',['printermarks'=>$printermarks]);
         // return;
     }
 

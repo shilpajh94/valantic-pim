@@ -147,7 +147,7 @@
                                 {% else %}
                                         {% set imgSrcObj = pimcore_image("HHAFC_Image") %}
                                         {% if imgSrcObj %}
-                                                <img src="" height="300" width="400"/>
+                                                <img src="{{getImageThumbnail(imgSrcObj, imageWidth)}}" height="300" width="400"/>
                                         {% endif %}
                                 {% endif %}
                         </figure>
