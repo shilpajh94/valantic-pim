@@ -11,9 +11,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use \Exception;
-use Symfony\Component\HttpKernel\Event\ControllerEvent;
 
-class DefaultController extends AbstractController {
+class DefaultController extends AbstractController
+{
 
     private $tableColumns;
     private $s3srcArr = [];
@@ -28,7 +28,8 @@ class DefaultController extends AbstractController {
     private $containerInterface;
     private $translatorInterface;
 
-    public function __construct(ContainerInterface $container, TranslatorInterface $translator, CatalogTemplatingHelper $catalogTemplatingHelper) {
+    public function __construct(ContainerInterface $container, TranslatorInterface $translator, CatalogTemplatingHelper $catalogTemplatingHelper)
+    {
         $this->db = Db::get();
         $this->catalogTemplatingHelper = $catalogTemplatingHelper;
         $this->containerInterface = $container;
@@ -39,14 +40,16 @@ class DefaultController extends AbstractController {
     /**
      * @Route("/catalog")
      */
-    public function indexAction(Request $request) {
+    public function indexAction(Request $request)
+    {
         return new Response('Hello world from catalog');
     }
 
     /**
      * @Route("/catalog/get-category")
      */
-    public function getCategory(Request $request) {
+    public function getCategory(Request $request)
+    {
         $parentCat = $request->get('catId');
         $catalogObj = DataObject\Catalog::getById($parentCat);
         $category = $catalogObj->getCatalogType();
@@ -90,7 +93,8 @@ class DefaultController extends AbstractController {
     /**
      * @Route("/catalog/get-tables")
      */
-    public function getTablesAction(Request $request) {
+    public function getTablesAction(Request $request)
+    {
         $parentCat = $request->get('catId');
         $parentObj = DataObject\CatalogCategory::getById($parentCat);
         $parent = $parentObj->getParentId();
@@ -114,7 +118,8 @@ class DefaultController extends AbstractController {
     /**
      * @Route("/catalog/get-base-products")
      */
-    public function getBaseProductsAction(Request $request) {
+    public function getBaseProductsAction(Request $request)
+    {
         $parentCat = $request->get('catId');
         $categoryObj = DataObject\CatalogCategory::getById($parentCat);
         $category = $categoryObj->getCategory();
@@ -138,25 +143,25 @@ class DefaultController extends AbstractController {
     /**
      * @Route("/catalog/get-siop-data")
      */
-    public function getSiopDataAction(Request $request) {
+    public function getSiopDataAction(Request $request)
+    {
         $parentCat = $request->get('catId');
         $categoryObj = DataObject\CatalogCategory::getById($parentCat);
         $catalog = DataObject\Catalog::getById($categoryObj->getParentId());
         $catalogType = $catalog->getCatalogType();
 
-         $options = [];
+        $options = [];
 
-        if($catalogType == '041000')
-        {
+        if ($catalogType == '041000') {
 
-        $category = $categoryObj->getCategory();
-        $siopList = new DataObject\ProductCategory\Listing();
-        $siopList->addConditionParam('Level = ?',['4'],'AND');
-        $siopList->setCondition('o_parentId IN (?)',[$category]);
+            $category = $categoryObj->getCategory();
+            $siopList = new DataObject\ProductCategory\Listing();
+            $siopList->addConditionParam('Level = ?', ['4'], 'AND');
+            $siopList->setCondition('o_parentId IN (?)', [$category]);
 
-        foreach ($siopList as $cat) {
-            $options[] = array('text' =>  $cat->getDescription('en') . '-' . $cat->getFullcode(), 'id' => $cat->getId());
-        }
+            foreach ($siopList as $cat) {
+                $options[] = array('text' =>  $cat->getDescription('en') . '-' . $cat->getFullcode(), 'id' => $cat->getId());
+            }
         }
 
         echo json_encode(['data' => $options, 'length' => count($options)]);
@@ -166,7 +171,8 @@ class DefaultController extends AbstractController {
     /**
      * @Route("/catalog/get-skeleton-products")
      */
-    public function getSkeletonProductsAction(Request $request) {
+    public function getSkeletonProductsAction(Request $request)
+    {
         $baseProducts = json_decode($request->get('products'), 1);
         //  p_r($baseProducts);
         $productList = new DataObject\Product\Listing();
@@ -186,7 +192,8 @@ class DefaultController extends AbstractController {
     /**
      * @Route("/catalog/get-available-headers")
      */
-    public function getAvailableHeaders(Request $request) {
+    public function getAvailableHeaders(Request $request)
+    {
 
         $objectId = $request->get('o_id');
         $table = $request->get('table');
@@ -259,7 +266,8 @@ class DefaultController extends AbstractController {
     /**
      * @Route("/catalog/get-table-data")
      */
-    public function getTableData(Request $request) {
+    public function getTableData(Request $request)
+    {
 
         $this->getTableColumns();
         $dynamicColumnsData = $this->getDynamicColumns();
@@ -277,13 +285,9 @@ class DefaultController extends AbstractController {
         $tableColumns = json_decode($tableData, 1);
         // p_r($dynamicColumnsData);
         // p_r($tableColumns);
-        if($tableColumns!== null)
-        {
-                $columns = array_keys($tableColumns);
-
-        }
-        else
-        {
+        if ($tableColumns !== null) {
+            $columns = array_keys($tableColumns);
+        } else {
             $columns = [];
         }
         $parentObj = $tableObj->getParentId();
@@ -301,22 +305,18 @@ class DefaultController extends AbstractController {
 
         $catalogObj = DataObject\Catalog::getById($catalogCategory->getParentId());
 
-        if($catalogObj->getCatalogType() == '041000')
-        {
-          $productList->addConditionParam("SIOPLevel3 IN (:category)", ["category" => $x], 'AND');
-          if($siop4 != null && count($siop4) > 0)
-          {
-              $catx = array();
-            for ($i = 0; $i < count($siop4); $i++) {
-            $caty = "," . $siop4[$i] . ",";
-            array_push($catx, $caty);
-            array_push($catx, $siop4[$i]);
-             }
-            $productList->addConditionParam("SIOPLevel4 IN (:siop4)", ["siop4" => $catx], 'AND');
-          }
-        }
-        else
-        {
+        if ($catalogObj->getCatalogType() == '041000') {
+            $productList->addConditionParam("SIOPLevel3 IN (:category)", ["category" => $x], 'AND');
+            if ($siop4 != null && count($siop4) > 0) {
+                $catx = array();
+                for ($i = 0; $i < count($siop4); $i++) {
+                    $caty = "," . $siop4[$i] . ",";
+                    array_push($catx, $caty);
+                    array_push($catx, $siop4[$i]);
+                }
+                $productList->addConditionParam("SIOPLevel4 IN (:siop4)", ["siop4" => $catx], 'AND');
+            }
+        } else {
             $productList->addConditionParam("SIOPLevel4 IN (:category)", ["category" => $x], 'AND');
         }
         $conditionArray[] = "ProductType = 'fert' ";
@@ -2040,9 +2040,11 @@ if(isset($data[$baseId])) {
 
         // getEditable
         // $template = $this->getDocumentTag('relation', 'template_hose_accessories_flanges')->getElement();
-
-        if($catalogTableObject)
-        {
+        $catalogData = [];
+        $footer_logo_src = '';
+        $footerBgColor = '';
+        $data = '';
+        if ($catalogTableObject) {
             $catalogTableObjectElement = $catalogTableObject->getElement();
 
             $commonHelper = $this->containerInterface->get('app.common_helper');
@@ -2080,8 +2082,7 @@ if(isset($data[$baseId])) {
             $orderKeys = array();
             foreach ($columnsDataWithImages as $skey => $svalue) {
                 foreach ($svalue as $vkey => $vvalue) {
-                    if(isset($headerKeysIndex[$vvalue['columnName']]))
-                    {
+                    if (isset($headerKeysIndex[$vvalue['columnName']])) {
                         $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
                     }
                 }
@@ -2091,10 +2092,9 @@ if(isset($data[$baseId])) {
 
             $brandsData = array();
             $data = [];
-            if($productsData)
-            {
+            if ($productsData) {
                 foreach ($productsData as $key => $item) {
-                    if(!empty(trim($item[$headerKeysIndex['brandName']][0])))
+                    if (!empty(trim($item[$headerKeysIndex['brandName']][0])))
                         $brandsData[$item[$headerKeysIndex['brandName']][0]][] = $item;
                 }
 
@@ -2104,19 +2104,19 @@ if(isset($data[$baseId])) {
                     $imageObj = '';
                     $shortDescription = '';
 
-                    foreach($brandArray as $key => $element):
+                    foreach ($brandArray as $key => $element) :
 
-                            $brandName = $element[$headerKeysIndex['brandName']][0];
+                        $brandName = $element[$headerKeysIndex['brandName']][0];
 
-                            if(empty($imageObj) && $element[$headerKeysIndex['mainImage']])
-                                $imageObj = \Pimcore\Model\Asset::getByPath($element[$headerKeysIndex['mainImage']]);
+                        if (empty($imageObj) && $element[$headerKeysIndex['mainImage']])
+                            $imageObj = \Pimcore\Model\Asset::getByPath($element[$headerKeysIndex['mainImage']]);
 
-                            if(empty($shortDescription) && $element[$headerKeysIndex['shortDescription']])
-                                $shortDescription = $element[$headerKeysIndex['shortDescription']];
+                        if (empty($shortDescription) && $element[$headerKeysIndex['shortDescription']])
+                            $shortDescription = $element[$headerKeysIndex['shortDescription']];
 
-                            foreach ($orderKeys as $ckey => $cvalue) {
-                                $articlesData[$key][$ckey] = $element[$headerKeysIndex[$ckey]];
-                            }
+                        foreach ($orderKeys as $ckey => $cvalue) {
+                            $articlesData[$key][$ckey] = $element[$headerKeysIndex[$ckey]];
+                        }
 
                     endforeach;
 
@@ -2129,23 +2129,21 @@ if(isset($data[$baseId])) {
 
                     $data[$uniqueId]['articlesData'] = $articlesData;
                     $data[$uniqueId]['SortOrder'] = $brandsList[$brandName];
-
                 }
 
-                if($data)
-                    array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
+                if ($data)
+                    array_multisort(array_column($data, 'SortOrder'), SORT_ASC, $data);
             }
 
-            $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
+            $footer_logo_src = (strtolower($footerBgColor) == 'orange') ? $CatalogImagesHYDFooter['Black'] : $CatalogImagesHYDFooter['Orange'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
-            $catalogData = [];
-            $catalogData['data'] = $data;
             $catalogData['iconRequired'] = $this->iconRequired;
             $catalogData['subHeaderRequired'] = $this->subHeaderRequired;
-            $catalogData['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
-            $catalogData['footer_logo_src'] = $footer_logo_src;
         }
+        $catalogData['data'] = $data;
+        $catalogData['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
+        $catalogData['footer_logo_src'] = $footer_logo_src;
 
         return $this->render("@Catalog/Default/template_fitting_split_flanges.html.twig", $catalogData);
     }
