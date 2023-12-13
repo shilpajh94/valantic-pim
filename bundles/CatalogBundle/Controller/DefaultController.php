@@ -595,6 +595,7 @@ class DefaultController extends AbstractController
                             $pData[$item->getId()][$dFieldKey] = '';
                         }
                     } else if ($dFieldName['fieldLevel'] == 'class' && strtolower($dFieldName['fieldType']) == 'relation') {
+                        
                         $dataValues = [];
                         $getter = 'get' . ucfirst($dFieldKey);
                         if($item->$getter() !== null)
@@ -605,12 +606,21 @@ class DefaultController extends AbstractController
                         $classObj = new $class();
                         $classObj->setCondition('o_id IN (?)', [$value]);
                         $fieldGetter = 'get' . $dFieldName['parent']['class']['fieldName'];
-
+                        // p_r($dFieldKey);
                         foreach ($classObj as $obj) {
                             array_push($dataValues, $obj->$fieldGetter());
                         }
                         }
+
+                        if(in_array($dFieldKey,['brandName']))
+                        {
+                            $pData[$item->getId()][$dFieldKey] = implode('||',$dataValues);
+                        }
+                        else
+                        {
                         $pData[$item->getId()][$dFieldKey] = $this->convertValueToDecimal($needUpdateValue, $dataValues, $numberOfDecimalPoints);
+                        }
+
                     } else if ($dFieldName['fieldLevel'] == 'objectBrick' && in_array($dFieldName['parent']['name'], $bricksList['fert']) && strtolower($dFieldName['fieldType']) != 'relation') {
                         $brickGetter = 'get' . ucfirst($dFieldName['parent']['name']);
                         $getter = 'get' . ucfirst($dFieldKey);
@@ -2094,8 +2104,8 @@ if(isset($data[$baseId])) {
             $data = [];
             if ($productsData) {
                 foreach ($productsData as $key => $item) {
-                    if (!empty(trim($item[$headerKeysIndex['brandName']][0])))
-                        $brandsData[$item[$headerKeysIndex['brandName']][0]][] = $item;
+                    if (!empty(trim($item[$headerKeysIndex['brandName']])))
+                        $brandsData[$item[$headerKeysIndex['brandName']]][] = $item;
                 }
 
                 foreach ($brandsData as $brandKey => $brandArray) {
@@ -2106,9 +2116,9 @@ if(isset($data[$baseId])) {
 
                     foreach ($brandArray as $key => $element) :
 
-                        $brandName = $element[$headerKeysIndex['brandName']][0];
+                        $brandName = $element[$headerKeysIndex['brandName']];
 
-                        if (empty($imageObj) && $element[$headerKeysIndex['mainImage']])
+                        if (empty($imageObj) && isset($headerKeysIndex['mainImage']) && $element[$headerKeysIndex['mainImage']])
                             $imageObj = \Pimcore\Model\Asset::getByPath($element[$headerKeysIndex['mainImage']]);
 
                         if (empty($shortDescription) && $element[$headerKeysIndex['shortDescription']])
@@ -2144,7 +2154,9 @@ if(isset($data[$baseId])) {
         $catalogData['data'] = $data;
         $catalogData['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
         $catalogData['footer_logo_src'] = $footer_logo_src;
-
+        $catalogData['imageWidth'] = 300; // for safe purpose only. we need to remove once solution done
+        
+        // p_r($catalogData);die;
         return $this->render("@Catalog/Default/template_fitting_split_flanges.html.twig", $catalogData);
     }
 
