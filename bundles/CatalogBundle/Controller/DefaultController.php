@@ -1622,44 +1622,6 @@ if(isset($data[$baseId])) {
         return $this->render('@Catalog/Default/template_table_of_contents.html.twig',$paramsBag);
     }
 
-    public function testPageAction(Request $request)
-    {
-        return $this->render('@Catalog/Default/test_page.html.twig');
-    }
-
-    public function container2Action(Request $request)
-    {
-        $paramsBag = [
-            'document' => $this->document
-        ];
-
-        foreach ($request->attributes as $key => $value) {
-            $paramsBag[$key] = $value;
-        }
-
-        $allChildren = [];
-
-        //prepare children for include
-        foreach ($this->document->getAllChildren() as $child) {
-            if ($child instanceof \Pimcore\Model\Document\Hardlink) {
-                $child = \Pimcore\Model\Document\Hardlink\Service::wrap($child);
-            }
-
-            $child->setProperty('hide-layout', 'bool', true, false, true);
-
-            $allChildren[] = $child;
-        }
-
-        $paramsBag['allChildren'] = $allChildren;
-        // $paramsBag['printermarks'] = $this->printermarks;
-        // $allChildren = $this->document->getAllChildren();
-        // $this->view->allChildren = $allChildren;
-        // p_r("MMMAMA"); die;
-        // $allChildren = [1,2];
-        return $this->render('@Catalog/Default/container2.html.twig',$paramsBag);
-        // return;
-    }
-
     public function templateHydraulicTableOfContentsDynamicAction(Request $request)
     {
         try
