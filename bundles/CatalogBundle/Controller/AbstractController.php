@@ -44,12 +44,12 @@ abstract class AbstractController extends FrontendController implements EventSub
 
         // $sourceDoc = $_SESSION[PDF_GENERATION_REQUEST_SOURCE_DOC_SESSION_KEY];
         // $documentId = $event->document->getId();
-        // $sourceDoc = 1171;
+        $sourceDoc = 1171;
       
         $imageRecompression = null;
         $imageWidth = null;
         // 
-        $printConfigFile = \Pimcore\Web2Print\Processor::getJobConfigFile($documentId);
+        $printConfigFile = \Pimcore\Web2Print\Processor::getJobConfigFile($sourceDoc);
         if(file_exists($printConfigFile)){
             $printConfigFileContent = file_get_contents($printConfigFile);
             $printConfig = json_decode( $printConfigFileContent,true);
