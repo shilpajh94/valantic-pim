@@ -1588,19 +1588,23 @@ if(isset($data[$baseId])) {
 
     public function templateTableOfContentsAction(Request $request)
     {
-        // p_r($request); die;
-        $printermarks = false;
+        $paramsBag = [
+            'document' => $this->document
+        ];
+
+        foreach ($request->attributes as $key => $value) {
+            $paramsBag[$key] = $value;
+        }
+
+        $paramsBag['imageQuality'] = $this->imageQuality;
+        $paramsBag['imageWidth'] = $this->imageWidth;
         
-        // p_r($this->printermarks); die;
-        return $this->render('@Catalog/Default/template_table_of_contents.html.twig',['printermarks'=>$printermarks]);
-        // return;
+        return $this->render('@Catalog/Default/template_table_of_contents.html.twig',$paramsBag);
     }
 
     public function testPageAction(Request $request)
     {
-        // p_r("MMMAMA"); die;
-        return $this->render('@Catalog/Default/test_page.html.twig',['printermarks'=>$this->printermarks]);
-        // return;
+        return $this->render('@Catalog/Default/test_page.html.twig');
     }
 
     public function container2Action(Request $request)
@@ -1627,7 +1631,7 @@ if(isset($data[$baseId])) {
         }
 
         $paramsBag['allChildren'] = $allChildren;
-        $paramsBag['printermarks'] = $this->printermarks;
+        // $paramsBag['printermarks'] = $this->printermarks;
         // $allChildren = $this->document->getAllChildren();
         // $this->view->allChildren = $allChildren;
         // p_r("MMMAMA"); die;
@@ -2184,7 +2188,7 @@ if(isset($data[$baseId])) {
         }
 
         $paramsBag['allChildren'] = $allChildren;
-        $paramsBag['printermarks'] = $this->printermarks;
+        // $paramsBag['printermarks'] = $this->printermarks;
         // $allChildren = $this->document->getAllChildren();
         // $this->view->allChildren = $allChildren;
         // p_r("MMMAMA"); die;
