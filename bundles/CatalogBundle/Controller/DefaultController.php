@@ -917,7 +917,7 @@ if(isset($data[$baseId])) {
     public function templateHoseProductPageAction(Request $request)
     {
         $containerRequest = $request->get('containerRequest') ? $request->get('containerRequest') : FALSE;
-        $template = $this->document->getEditable('relation', 'inh_template_hose_product_page')->getElement();
+        $template = $this->document->getEditable('inh_template_hose_product_page')->getElement();
 
         if($template)
         {
@@ -1598,7 +1598,7 @@ if(isset($data[$baseId])) {
 
         $paramsBag['imageQuality'] = $this->imageQuality;
         $paramsBag['imageWidth'] = $this->imageWidth;
-        
+
         return $this->render('@Catalog/Default/template_table_of_contents.html.twig',$paramsBag);
     }
 

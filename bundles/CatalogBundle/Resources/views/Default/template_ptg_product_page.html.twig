@@ -264,7 +264,7 @@
 				</menu>
 			{% endif %}
 
-            {% set tableNoteCount = 0 %}
+			{% set tableNoteCount = 0 %}
 			{% for articleGroupKey, articleGroupData in groupData.data %}
 				<table class="grid continueLable" cellpadding="0" cellspacing="0">
 					<thead>
@@ -288,18 +288,16 @@
 
 						<tr class="head">
 							{% for key, c2data in groupData.columnsDataWithImages %}
-									{% set columnWidth = '' %}
-									{% set g2count = c2data|length %}
-									{% set first2Array = c2data|first %}
-									{% if first2Array.columnWidth %}
-										{% set columnWidth = "width=" ~ first2Array.columnWidth %}
-									{% endif %}
-									<td colspan="{{ g2count }}" {{ columnWidth }}>
-										{% if first2Array.columnIcon %}
-											<img src="{{ first2Array.columnIcon }}" width="45" height="45"/>
-										{% endif %}
-									</td>
-								{% endfor %}
+								{% set columnWidth = '' %}
+								{% set g2count = c2data|length %}
+								{% set first2Array = c2data|first %}
+								{% if first2Array.columnWidth %}
+									{% set columnWidth = "width=" ~ first2Array.columnWidth %}
+								{% endif %}
+								<td colspan="{{ g2count }}" {{ columnWidth }}>
+									{{first2Array.columnLabel}}
+								</td>
+							{% endfor %}
 						</tr>
 
 						{% if groupData.subHeaderRequired == 'YES' %}
