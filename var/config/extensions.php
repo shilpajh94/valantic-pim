@@ -17,7 +17,7 @@ return [
         "EmailNotificationBundle\\EmailNotificationBundle" => TRUE,
         "PTGEU\\ProductBundle\\PTGEUProductBundle" => TRUE,
         "PTGEU\\ImportBundle\\PTGEUImportBundle" => TRUE,
-        // "B2BTranslationBundle\\B2BTranslationBundle" => TRUE,
+        "B2BTranslationBundle\\B2BTranslationBundle" => TRUE,
         "IFSEU\\RestApiBundle\\IFSEURestApiBundle" => TRUE,
         "RestApiBundle\\RestApiBundle" => TRUE,
         "IFSEU\\ProductBundle\\IFSEUProductBundle" => TRUE,

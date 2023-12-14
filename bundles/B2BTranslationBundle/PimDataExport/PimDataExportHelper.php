@@ -12,14 +12,14 @@ class PimDataExportHelper
     private $b2bProductTable = [
         'IFS_PTG_US' => 'salesforce_integration_b2b_product_master',
         'CS' => '',
-        'PTG_EU' => '', 
+        'PTG_EU' => '',
         'IFS_EMEA' => ''
     ];
 
     private $b2bCategoryTable = [
         'IFS_PTG_US' => 'salesforce_integration_b2b_category_master',
         'CS' => '',
-        'PTG_EU' => '', 
+        'PTG_EU' => '',
         'IFS_EMEA' => ''
     ];
 
@@ -34,7 +34,7 @@ class PimDataExportHelper
     {
         $remotefile = B2B_TRANSLATION_SFTP_INBOUND_FOLDER_PATH.'/'.$customFileName;
         $localfile = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR.$customFileName;
-        try 
+        try
         {
             $conn = ftp_connect(B2B_TRANSLATION_SFTP_HOST);
             if(!$conn) {
@@ -43,7 +43,7 @@ class PimDataExportHelper
             }
 
             $login = ftp_login($conn, B2B_TRANSLATION_SFTP_USERNAME, B2B_TRANSLATION_SFTP_PASSWORD);
-            $mode = ftp_pasv($conn, TRUE);
+            $mode = ftp_pasv($conn, true);
 
             if ((!$conn) || (!$login) || (!$mode)) {
                 die("FTP connection has failed !");
@@ -112,15 +112,15 @@ class PimDataExportHelper
         {
             $businessUnitFileName = B2BTranslationConstants::B2B_IFS_PTG_US_FILE_NAME;
         }
-        else if($bu == 'CS')
+        elseif($bu == 'CS')
         {
             $businessUnitFileName = B2BTranslationConstants::B2B_CS_US_FILE_NAME;
         }
-        else if($bu == 'PTG_EU')
+        elseif($bu == 'PTG_EU')
         {
             $businessUnitFileName = B2BTranslationConstants::B2B_PTG_EU_FILE_NAME;
         }
-        else if($bu == 'IFS_EMEA')
+        elseif($bu == 'IFS_EMEA')
         {
             $businessUnitFileName = B2BTranslationConstants::B2B_IFS_EU_FILE_NAME;
         }
