@@ -11,8 +11,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use \Exception;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Pimcore\Controller\FrontendController;
 
-class IndustrialHoseController extends AbstractController
+class IndustrialHoseController extends FrontendController
 {
 
     private $tableColumns;

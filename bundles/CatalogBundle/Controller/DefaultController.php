@@ -11,8 +11,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use \Exception;
+use Pimcore\Controller\FrontendController;
 
-class DefaultController extends AbstractController
+class DefaultController extends FrontendController
 {
 
     private $tableColumns;
@@ -27,6 +28,8 @@ class DefaultController extends AbstractController
     private $catalogTemplatingHelper;
     private $containerInterface;
     private $translatorInterface;
+    private $imageQuality;
+    private $imageWidth;
 
     public function __construct(ContainerInterface $container, TranslatorInterface $translator, CatalogTemplatingHelper $catalogTemplatingHelper)
     {
@@ -894,8 +897,8 @@ if(isset($data[$baseId])) {
                 $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
                 $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
-                $parameterVar = [];
-                $parameterVar['info'] = array(
+                $parameterBag = [];
+                $parameterBag['info'] = array(
                     'brandsInfo' => $data,
                     'blockDes' => $blockDes,
                     'footer_class' => (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'',
@@ -910,7 +913,7 @@ if(isset($data[$baseId])) {
                 );
             }
         }
-        return $this->render("@Catalog/Default/template_hose_line_tile_template.html.twig", $parameterVar);
+        return $this->render("@Catalog/Default/template_hose_line_tile_template.html.twig", $parameterBag);
     }
 
 
@@ -1185,15 +1188,15 @@ if(isset($data[$baseId])) {
 
                 $branding_image_src = $this->getS3ImageSrc($CatalogImagesHYDProduct['BrandingImage']);
 
-                $parameterVar = [];
-                $parameterVar['data'] = $catalogGroupData;
-                $parameterVar['branding_image_src'] = $branding_image_src;
-                $parameterVar['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
-                $parameterVar['footer_logo_src'] = $footer_logo_src;
-                $parameterVar['containerRequest'] = $containerRequest;
+                $parameterBag = [];
+                $parameterBag['data'] = $catalogGroupData;
+                $parameterBag['branding_image_src'] = $branding_image_src;
+                $parameterBag['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
+                $parameterBag['footer_logo_src'] = $footer_logo_src;
+                $parameterBag['containerRequest'] = $containerRequest;
             }
         }
-        return $this->render("@Catalog/Default/template_hose_product_page.html.twig", $parameterVar);
+        return $this->render("@Catalog/Default/template_hose_product_page.html.twig", $parameterBag);
     }
 
     public function templateHoseAccessoriesSleevingAction(Request $request)
@@ -1348,12 +1351,12 @@ if(isset($data[$baseId])) {
             $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
-            $parameterVar = [];
-            $parameterVar['data'] = $data;
-            $parameterVar['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
-            $parameterVar['footer_logo_src'] = $footer_logo_src;
+            $parameterBag = [];
+            $parameterBag['data'] = $data;
+            $parameterBag['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
+            $parameterBag['footer_logo_src'] = $footer_logo_src;
         }
-        return $this->render("@Catalog/Default/template_hose_accessories_sleeving.html.twig", $parameterVar);
+        return $this->render("@Catalog/Default/template_hose_accessories_sleeving.html.twig", $parameterBag);
     }
 
     public function templateHoseAccessoriesClampsAction(Request $request)
@@ -1454,12 +1457,12 @@ if(isset($data[$baseId])) {
             $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
-            $parameterVar = [];
-            $parameterVar['data'] = $data;
-            $parameterVar['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
-            $parameterVar['footer_logo_src'] = $footer_logo_src;
+            $parameterBag = [];
+            $parameterBag['data'] = $data;
+            $parameterBag['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
+            $parameterBag['footer_logo_src'] = $footer_logo_src;
         }
-        return $this->render("@Catalog/Default/template_hose_accessories_clamps.html.twig", $parameterVar);
+        return $this->render("@Catalog/Default/template_hose_accessories_clamps.html.twig", $parameterBag);
     }
 
     public function templateHoseAccessoriesOringAction(Request $request)
@@ -1578,16 +1581,17 @@ if(isset($data[$baseId])) {
             $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
-            $parameterVar = [];
-            $parameterVar['data'] = $data;
-            $parameterVar['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
-            $parameterVar['footer_logo_src'] = $footer_logo_src;
+            $parameterBag = [];
+            $parameterBag['data'] = $data;
+            $parameterBag['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
+            $parameterBag['footer_logo_src'] = $footer_logo_src;
         }
-        return $this->render("@Catalog/Default/template_hose_accessories_oring.html.twig", $parameterVar);
+        return $this->render("@Catalog/Default/template_hose_accessories_oring.html.twig", $parameterBag);
     }
 
     public function templateTableOfContentsAction(Request $request)
     {
+        // p_R($request); die;
         $paramsBag = [
             'document' => $this->document
         ];
@@ -1596,9 +1600,25 @@ if(isset($data[$baseId])) {
             $paramsBag[$key] = $value;
         }
 
+        $imageWidth = null;
+        $imageRecompression = null;
+        $printConfigFile = \Pimcore\Web2Print\Processor::getJobConfigFile($this->document->getId());
+        if(file_exists($printConfigFile)){
+            // echo "Insdie";
+            $printConfigFileContent = file_get_contents($printConfigFile);
+            $printConfig = json_decode( $printConfigFileContent,true);
+            // p_r($printConfig);
+            $imageRecompression = $printConfig['config']['Image Quality'];  
+            $imageWidth = $printConfig['config']['Image Width'];   
+        }
+
+        $this->imageQuality = $imageRecompression;
+        $this->imageWidth = $imageWidth;
+        
+
         $paramsBag['imageQuality'] = $this->imageQuality;
         $paramsBag['imageWidth'] = $this->imageWidth;
-        
+
         return $this->render('@Catalog/Default/template_table_of_contents.html.twig',$paramsBag);
     }
 
@@ -1806,9 +1826,9 @@ if(isset($data[$baseId])) {
             {
                 $DynamicPageData[] = $hydraulicFitting;
             }
-            $parameterVar = [];
-            $parameterVar['data'] = $DynamicPageData;
-            return $this->render("@Catalog/Default/template_hydraulic_table_of_contents_dynamic.html.twig", $parameterVar);
+            $parameterBag = [];
+            $parameterBag['data'] = $DynamicPageData;
+            return $this->render("@Catalog/Default/template_hydraulic_table_of_contents_dynamic.html.twig", $parameterBag);
         }
         catch(Exception $e)
         {
@@ -1854,12 +1874,12 @@ if(isset($data[$baseId])) {
         $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
         $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
-        $parameterVar = [];
-        $parameterVar['data'] = $catalogGrouping;
-        $parameterVar['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
-        $parameterVar['footer_logo_src'] = $footer_logo_src;
+        $parameterBag = [];
+        $parameterBag['data'] = $catalogGrouping;
+        $parameterBag['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
+        $parameterBag['footer_logo_src'] = $footer_logo_src;
 
-        return $this->render("@Catalog/Default/template_part_number_designations.html.twig", $parameterVar);
+        return $this->render("@Catalog/Default/template_part_number_designations.html.twig", $parameterBag);
     }
 
     public function templateHoseSubCoverAction(Request $request)
@@ -2040,12 +2060,12 @@ if(isset($data[$baseId])) {
             $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
-            $parameterVar = [];
-            $parameterVar['data'] = $catalogGroupData;
-            $parameterVar['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
-            $parameterVar['footer_logo_src'] = $footer_logo_src;
+            $parameterBag = [];
+            $parameterBag['data'] = $catalogGroupData;
+            $parameterBag['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
+            $parameterBag['footer_logo_src'] = $footer_logo_src;
         }
-        return $this->render("@Catalog/Default/template_hose_sub_cover.html.twig", $parameterVar);
+        return $this->render("@Catalog/Default/template_hose_sub_cover.html.twig", $parameterBag);
     }
 
     public function templateFittingSplitFlangesAction(Request $request)
@@ -2507,14 +2527,14 @@ if(isset($data[$baseId])) {
                 $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesPTGFooter['Black']:$CatalogImagesPTGFooter['Orange'];
                 $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
-                $parameterVar = [];
-                $parameterVar['groupData'] = $groupData;
-                $parameterVar['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
-                $parameterVar['footer_logo_src'] = $footer_logo_src;
-                $parameterVar['containerRequest'] = $containerRequest;
+                $parameterBag = [];
+                $parameterBag['groupData'] = $groupData;
+                $parameterBag['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
+                $parameterBag['footer_logo_src'] = $footer_logo_src;
+                $parameterBag['containerRequest'] = $containerRequest;
             }
         }
-        return $this->render("@Catalog/Default/template_ptg_product_page.html.twig", $parameterVar);
+        return $this->render("@Catalog/Default/template_ptg_product_page.html.twig", $parameterBag);
     }
 
     public function getFiveSortedFeaturesWithIconList($safetyFeatures){
@@ -2764,9 +2784,9 @@ if(isset($data[$baseId])) {
             $all_doc_arr = array_unique($all_doc_arr);
             sort($all_doc_arr);
 
-            $parameterVar = [];
-            $parameterVar['data'] = $all_doc_arr;
-            return $this->render("@Catalog/Default/template_hydraulic_alphanumeric_index_by_descriptive_number_dynamic.html.twig", $parameterVar);
+            $parameterBag = [];
+            $parameterBag['data'] = $all_doc_arr;
+            return $this->render("@Catalog/Default/template_hydraulic_alphanumeric_index_by_descriptive_number_dynamic.html.twig", $parameterBag);
         }
         catch(Exception $e)
         {
@@ -2838,9 +2858,9 @@ if(isset($data[$baseId])) {
             $all_doc_arr = array_unique($all_doc_arr);
             sort($all_doc_arr);
 
-            $parameterVar = [];
-            $parameterVar['data'] = $all_doc_arr;
-            return $this->render("@Catalog/Default/template_hydraulic_alphanumeric_index_by_product_number_dynamic.html.twig", $parameterVar);
+            $parameterBag = [];
+            $parameterBag['data'] = $all_doc_arr;
+            return $this->render("@Catalog/Default/template_hydraulic_alphanumeric_index_by_product_number_dynamic.html.twig", $parameterBag);
         }
         catch(Exception $e)
         {

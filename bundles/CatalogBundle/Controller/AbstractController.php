@@ -15,49 +15,34 @@
 namespace CatalogBundle\Controller;
 
 use Pimcore\Controller\FrontendController;
-use Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\RequestEvent;
-use Symfony\Component\HttpKernel\KernelEvents;
+// use Symfony\Component\HttpKernel\Event\ControllerEvent;
 
-abstract class AbstractController extends FrontendController implements EventSubscriberInterface
+abstract class AbstractController extends FrontendController
 {
-    public $region;
-    public $language;
-    public $imageQuality;
-    public $imageWidth;
+    // public $region;
+    // public $language;
+    // /**
+    //  * @inheritDoc
+    //  */
+    // public function onKernelController(ControllerEvent $event)
+    // {
+    //     // $this->setViewAutoRender($event->getRequest(), true, 'php');
+    //     $this->view->printermarks = $event->getRequest()->get('printermarks');
 
-        /**
-     * {@inheritdoc}
-     */
-    public static function getSubscribedEvents()
-    {
-        return [
-            KernelEvents::CONTROLLER_ARGUMENTS => 'onKernelController',
-        ];
-    }
-
-    public function onKernelController(ControllerArgumentsEvent $event)
-    {
-        // p_r($event);
-    //    $this->printermarks = $event->getRequest()->get('printermarks');
-
-        // $sourceDoc = $_SESSION[PDF_GENERATION_REQUEST_SOURCE_DOC_SESSION_KEY];
-        // $documentId = $event->document->getId();
-        $sourceDoc = 1171;
+    //     $sourceDoc = $_SESSION[PDF_GENERATION_REQUEST_SOURCE_DOC_SESSION_KEY];
       
-        $imageRecompression = null;
-        $imageWidth = null;
-        // 
-        $printConfigFile = \Pimcore\Web2Print\Processor::getJobConfigFile($sourceDoc);
-        if(file_exists($printConfigFile)){
-            $printConfigFileContent = file_get_contents($printConfigFile);
-            $printConfig = json_decode( $printConfigFileContent,true);
-            $imageRecompression = $printConfig['config']['Image Quality'];  
-            $imageWidth = $printConfig['config']['Image Width'];   
-        }
+    //     $imageRecompression = null;
+    //     $imageWidth = null;
+    //     // $documentId = $this->document->getId();
+    //     $printConfigFile = \Pimcore\Web2Print\Processor::getJobConfigFile($sourceDoc);
+    //     if(file_exists($printConfigFile)){
+    //         $printConfigFileContent = file_get_contents($printConfigFile);
+    //         $printConfig = json_decode( $printConfigFileContent,true);
+    //         $imageRecompression = $printConfig['config']['Image Quality'];  
+    //         $imageWidth = $printConfig['config']['Image Width'];            
+    //     }
 
-        $this->imageQuality = $imageRecompression;
-        $this->imageWidth = $imageWidth;
-    }
+    //     $this->view->imageQuality = $imageRecompression;
+    //     $this->view->imageWidth = $imageWidth;
+    // }
 }

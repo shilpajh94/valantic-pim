@@ -162,7 +162,7 @@
                                 <h3 class="contitech-yellow paddingNo">
                                         {% if editmode %}
                                                 {% if pimcore_input("HHAFC_BrandName_"~md5key).isEmpty() %}
-                                                        {{ pimcore_input("HHAFC_BrandName_"~md5key).setDataFromResource(brand['brandName']) }}
+                                                        {{ pimcore_input("HHAFC_BrandName_"~md5key).setDataFromResource("") }}
                                                 {% else %}
                                                         {{ pimcore_input("HHAFC_BrandName_"~md5key) }}
                                                 {% endif %}
