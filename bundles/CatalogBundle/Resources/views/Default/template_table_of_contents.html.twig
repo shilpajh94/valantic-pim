@@ -1,4 +1,6 @@
-{% extends "@Catalog/Layouts/layout.html.twig" %}
+{% if parentContainer is not defined %}
+        {% extends "@Catalog/Layouts/layout.html.twig" %}
+{% endif %}
 
 {% block _content %}
 <div class="template">
