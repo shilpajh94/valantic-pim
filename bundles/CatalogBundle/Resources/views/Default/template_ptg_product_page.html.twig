@@ -33,7 +33,7 @@
 								{% if not pimcore_input("PTG_Footer_BrandName").isEmpty() %}
 									{{ pimcore_input("PTG_Footer_BrandName") }}
 								{% else %}
-									{{ pimcore_input("PTG_Footer_BrandName").setDataFromResource(groupData.brandName) }}
+									{{ pimcore_input("PTG_Footer_BrandName").setDataFromResource(groupData.brandName) | raw}}
 								{% endif %}
 							{% else %}
 								{{ pimcore_input("PTG_Footer_BrandName") }}
@@ -44,7 +44,7 @@
 									{% if not pimcore_input("PTG_Footer_HoseType").isEmpty() %}
 										{{ pimcore_input("PTG_Footer_HoseType") }}
 									{% else %}
-										{{ pimcore_input("PTG_Footer_HoseType").setDataFromResource(groupData.siop3Category) }}
+										{{ pimcore_input("PTG_Footer_HoseType").setDataFromResource(groupData.siop3Category) | raw}}
 									{% endif %}
 
 									/
@@ -52,7 +52,7 @@
 									{% if not pimcore_input("PTG_Footer_HoseType2").isEmpty() %}
 										{{ pimcore_input("PTG_Footer_HoseType2") }}
 									{% else %}
-										{{ pimcore_input("PTG_Footer_HoseType2").setDataFromResource(groupData.siop4Category) }}
+										{{ pimcore_input("PTG_Footer_HoseType2").setDataFromResource(groupData.siop4Category) | raw}}
 									{% endif %}
 								{% else %}
 									{{ pimcore_input("PTG_Footer_HoseType") }}/{{ pimcore_input("PTG_Footer_HoseType2") }}
@@ -66,7 +66,7 @@
 									{% if not pimcore_input("PTG_Footer_Compatibility").isEmpty() %}
 										{{ pimcore_input("PTG_Footer_Compatibility") }}
 									{% else %}
-										{{ pimcore_input("PTG_Footer_Compatibility").setDataFromResource('Compatible fittings') }}
+										{{ pimcore_input("PTG_Footer_Compatibility").setDataFromResource('Compatible fittings') | raw}}
 									{% endif %}
 								{% else %}
 									{{ pimcore_input("PTG_Footer_Compatibility") }}
@@ -78,7 +78,7 @@
 								{% if not pimcore_input("PTG_Footer_Compatibility_Description").isEmpty() %}
 									{{ pimcore_input("PTG_Footer_Compatibility_Description") }}
 								{% else %}
-									{{ pimcore_input("PTG_Footer_Compatibility_Description").setDataFromResource(compatibility_description) }}
+									{{ pimcore_input("PTG_Footer_Compatibility_Description").setDataFromResource(compatibility_description) | raw}}
 								{% endif %}
 							{% else %}
 								{{ pimcore_input("PTG_Footer_Compatibility_Description") }}
@@ -98,7 +98,7 @@
 									{% if not pimcore_input("PTG_Footer_Compatibility1").isEmpty() %}
 										{{ pimcore_input("PTG_Footer_Compatibility1") }}
 									{% else %}
-										{{ pimcore_input("PTG_Footer_Compatibility1").setDataFromResource('Compatible fittings') }}
+										{{ pimcore_input("PTG_Footer_Compatibility1").setDataFromResource('Compatible fittings') | raw}}
 									{% endif %}
 								{% else %}
 									{{ pimcore_input("PTG_Footer_Compatibility1") }}
@@ -110,7 +110,7 @@
 								{% if not pimcore_input("PTG_Footer_Compatibility1_Description").isEmpty() %}
 									{{ pimcore_input("PTG_Footer_Compatibility1_Description") }}
 								{% else %}
-									{{ pimcore_input("PTG_Footer_Compatibility1_Description").setDataFromResource(compatibility_description) }}
+									{{ pimcore_input("PTG_Footer_Compatibility1_Description").setDataFromResource(compatibility_description) | raw}}
 								{% endif %}
 							{% else %}
 								{{ pimcore_input("PTG_Footer_Compatibility1_Description") }}
@@ -121,7 +121,7 @@
 								{% if not pimcore_input("PTG_Footer_BrandName1").isEmpty() %}
 									{{ pimcore_input("PTG_Footer_BrandName1") }}
 								{% else %}
-									{{ pimcore_input("PTG_Footer_BrandName1").setDataFromResource(groupData.brandName) }}
+									{{ pimcore_input("PTG_Footer_BrandName1").setDataFromResource(groupData.brandName) | raw}}
 								{% endif %}
 							{% else %}
 								{{ pimcore_input("PTG_Footer_BrandName1") }}
@@ -132,7 +132,7 @@
 									{% if not pimcore_input("PTG_Footer_HoseType1").isEmpty() %}
 										{{ pimcore_input("PTG_Footer_HoseType1") }}
 									{% else %}
-										{{ pimcore_input("PTG_Footer_HoseType1").setDataFromResource(groupData.siop3Category) }}
+										{{ pimcore_input("PTG_Footer_HoseType1").setDataFromResource(groupData.siop3Category) | raw}}
 									{% endif %}
 
 									/
@@ -140,7 +140,7 @@
 									{% if not pimcore_input("PTG_Footer_HoseType3").isEmpty() %}
 										{{ pimcore_input("PTG_Footer_HoseType3") }}
 									{% else %}
-										{{ pimcore_input("PTG_Footer_HoseType3").setDataFromResource(groupData.siop4Category) }}
+										{{ pimcore_input("PTG_Footer_HoseType3").setDataFromResource(groupData.siop4Category) | raw}}
 									{% endif %}
 								{% else %}
 									{{ pimcore_input("PTG_Footer_HoseType1") }}/{{ pimcore_input("PTG_Footer_HoseType3") }}
@@ -160,7 +160,7 @@
 						{% if not pimcore_input("PTG_Heading").isEmpty() %}
 							{{ pimcore_input("PTG_Heading") }}
 						{% else %}
-							{{ pimcore_input("PTG_Heading").setDataFromResource(groupData.brandName) }}
+							{{ pimcore_input("PTG_Heading").setDataFromResource(groupData.brandName) | raw}}
 						{% endif %}
 					{% else %}
 						{{ pimcore_input("PTG_Heading") }}
@@ -172,7 +172,7 @@
 							{% if not pimcore_wysiwyg("PTG_LongDescription").isEmpty() %}
 								{{ pimcore_wysiwyg("PTG_LongDescription") }}
 							{% else %}
-								{{ pimcore_wysiwyg("PTG_LongDescription").setDataFromResource(groupData.longDescription) }}
+								{{ pimcore_wysiwyg("PTG_LongDescription").setDataFromResource(groupData.longDescription) | raw}}
 							{% endif %}
 						{% else %}
 							{{ pimcore_wysiwyg("PTG_LongDescription") }}
@@ -183,7 +183,7 @@
 							{% if not pimcore_image("HHPP_Image_Left").isEmpty() %}
 								{{ pimcore_image("HHPP_Image_Left", {"width": 400, "height": 200}) }}
 							{% else %}
-								{{ pimcore_image("HHPP_Image_Left", {"width": 400, "height": 200}).setImage(groupData.mainImageObj) }}
+								{{ pimcore_image("HHPP_Image_Left", {"width": 400, "height": 200}).setImage(groupData.mainImageObj) | raw}}
 							{% endif %}
 						{% else %}
 							{# if not pimcore_image("HHPP_Image_Left").isEmpty() #}
@@ -198,7 +198,7 @@
 							{% if not pimcore_image("Drawing_Picture").isEmpty() %}
 								{{ pimcore_image("Drawing_Picture", {"width": 400, "height": 200}) }}
 							{% else %}
-								{{ pimcore_image("Drawing_Picture", {"width": 400, "height": 200}).setImage(groupData.ProfileDimensionImageObj) }}
+								{{ pimcore_image("Drawing_Picture", {"width": 400, "height": 200}).setImage(groupData.ProfileDimensionImageObj) | raw}}
 							{% endif %}
 						{% else %}
 							{# if not pimcore_image("Drawing_Picture").isEmpty() #}

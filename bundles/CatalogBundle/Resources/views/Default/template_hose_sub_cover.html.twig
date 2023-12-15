@@ -28,7 +28,7 @@
                             <b>
                                 {% if editmode %}
                                     {% if pimcore_input("HHSC_Logo_Text1_" ~ md5Key).isEmpty() %}
-                                        {{ pimcore_input("HHSC_Logo_Text1_" ~ md5Key).setDataFromResource('Hose') }}
+                                        {{ pimcore_input("HHSC_Logo_Text1_" ~ md5Key).setDataFromResource('Hose') | raw}}
                                     {% else %}
                                         {{ pimcore_input("HHSC_Logo_Text1_" ~ md5Key) }}
                                     {% endif %}
@@ -51,7 +51,7 @@
                                 <font>
                                     {% if editmode %}
                                         {% if pimcore_input("HHSC_Footer_" ~ md5Key).isEmpty() %}
-                                            {{ pimcore_input("HHSC_Footer_" ~ md5Key).setDataFromResource(catalogGroupKey) }}
+                                            {{ pimcore_input("HHSC_Footer_" ~ md5Key).setDataFromResource(catalogGroupKey) | raw}}
                                         {% else %}
                                             {{ pimcore_input("HHSC_Footer_" ~ md5Key) }}
                                         {% endif %}
@@ -79,7 +79,7 @@
                                 <font>
                                     {% if editmode %}
                                         {% if pimcore_input("HHSC_Footer1_" ~ md5Key).isEmpty() %}
-                                            {{ pimcore_input("HHSC_Footer1_" ~ md5Key).setDataFromResource(catalogGroupKey) }}
+                                            {{ pimcore_input("HHSC_Footer1_" ~ md5Key).setDataFromResource(catalogGroupKey) | raw}}
                                         {% else %}
                                             {{ pimcore_input("HHSC_Footer1_" ~ md5Key) }}
                                         {% endif %}
@@ -93,7 +93,7 @@
                             <b>
                                 {% if editmode %}
                                     {% if pimcore_input("HHSC_Logo_Text2_" ~ md5Key).isEmpty() %}
-                                        {{ pimcore_input("HHSC_Logo_Text2_" ~ md5Key).setDataFromResource('Hose') }}
+                                        {{ pimcore_input("HHSC_Logo_Text2_" ~ md5Key).setDataFromResource('Hose') | raw}}
                                     {% else %}
                                         {{ pimcore_input("HHSC_Logo_Text2_" ~ md5Key) }}
                                     {% endif %}
@@ -168,7 +168,7 @@
                                     <td>{{ brandData['workingPressurePSIString'] }}</td>
                                     <td>{{ brandData['rangeTemperatureF'] }}</td>
                                     <td>{{ brandData['fittingFamily'] }}</td>
-                                    <td>{{ pimcore_input("Construction_Type_" ~ md5brandKey).setDataFromResource(brandData['industryStandard']) }}</td>
+                                    <td>{{ pimcore_input("Construction_Type_" ~ md5brandKey).setDataFromResource(brandData['industryStandard']) | raw}}</td>
                                     <td>{{ brandData['CatalogPackaging'] }}</td>
                                 </tr>
  

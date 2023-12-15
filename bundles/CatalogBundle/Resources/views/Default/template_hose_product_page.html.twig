@@ -28,7 +28,7 @@
 						<span class="pageName">
 							{% if editmode %}
 								{% if pimcore_input("HHPP_Header_" ~ md5key ~ "_" ~ incr).isEmpty() %}
-									{{ pimcore_input("HHPP_Header_" ~ md5key ~ "_" ~ incr).setDataFromResource('Hydraulic Hose') }}
+									{{ pimcore_input("HHPP_Header_" ~ md5key ~ "_" ~ incr).setDataFromResource('Hydraulic Hose') | raw }}
 								{% else %}
 									{{ pimcore_input("HHPP_Header_" ~ md5key ~ "_" ~ incr) }}
 								{% endif %}
@@ -43,7 +43,7 @@
 									<b>
 										{% if editmode %}
 											{% if pimcore_input("HHPP_Logo_Text1_" ~ md5key ~ "_" ~ incr).isEmpty() %}
-												{{ pimcore_input("HHPP_Logo_Text1_" ~ md5key ~ "_" ~ incr).setDataFromResource('Hose') }}
+												{{ pimcore_input("HHPP_Logo_Text1_" ~ md5key ~ "_" ~ incr).setDataFromResource('Hose') | raw}}
 											{% else %}
 												{{ pimcore_input("HHPP_Logo_Text1_" ~ md5key ~ "_" ~ incr) }}
 											{% endif %}
@@ -57,7 +57,7 @@
 									<h5>
 										{% if editmode %}
 											{% if pimcore_input("HHPP_Footer_BrandName_" ~ md5key ~ "_" ~ incr).isEmpty() %}
-												{{ pimcore_input("HHPP_Footer_BrandName_" ~ md5key ~ "_" ~ incr).setDataFromResource(brandData['brandName']) }}
+												{{ pimcore_input("HHPP_Footer_BrandName_" ~ md5key ~ "_" ~ incr).setDataFromResource(brandData['brandName']) | raw}}
 											{% else %}
 												{{ pimcore_input("HHPP_Footer_BrandName_" ~ md5key ~ "_" ~ incr) }}
 											{% endif %}
@@ -68,12 +68,12 @@
 										<span>
 											{% if editmode %}
 												{% if pimcore_input("HHPP_Footer_HoseType_" ~ md5key ~ "_" ~ incr).isEmpty() %}
-													{{ pimcore_input("HHPP_Footer_HoseType_" ~ md5key ~ "_" ~ incr).setDataFromResource(catalogGroupKey) }}
+													{{ pimcore_input("HHPP_Footer_HoseType_" ~ md5key ~ "_" ~ incr).setDataFromResource(catalogGroupKey) | raw}}
 												{% else %}
 													{{ pimcore_input("HHPP_Footer_HoseType_" ~ md5key ~ "_" ~ incr) }}
 												{% endif %}
 											{% else %}
-												{{ pimcore_input("HHPP_Footer_HoseType_" ~ md5key ~ "_" ~ incr).setDataFromResource(catalogGroupKey) }}
+												{{ pimcore_input("HHPP_Footer_HoseType_" ~ md5key ~ "_" ~ incr).setDataFromResource(catalogGroupKey) | raw}}
 											{% endif %}
 										</span>
 									</h5>
@@ -82,7 +82,7 @@
 										<b>
 											{% if editmode %}
 												{% if pimcore_input("HHPP_Footer_Compatibility_" ~ md5key ~ "_" ~ incr).isEmpty() %}
-													{{ pimcore_input("HHPP_Footer_Compatibility_" ~ md5key ~ "_" ~ incr).setDataFromResource('Compatible fittings') }}
+													{{ pimcore_input("HHPP_Footer_Compatibility_" ~ md5key ~ "_" ~ incr).setDataFromResource('Compatible fittings') | raw}}
 												{% else %}
 													{{ pimcore_input("HHPP_Footer_Compatibility_" ~ md5key ~ "_" ~ incr) }}
 												{% endif %}
@@ -95,7 +95,7 @@
 										{% set compatibility_description = "All fittings compatible with " ~ brandData['brandName'] ~ " are listed in Section 1 (starting on page 131)." %}
 										{% if editmode %}
 											{% if pimcore_input("HHPP_Footer_Compatibility_Description_" ~ md5key ~ "_" ~ incr).isEmpty() %}
-												{{ pimcore_input("HHPP_Footer_Compatibility_Description_" ~ md5key ~ "_" ~ incr).setDataFromResource(compatibility_description) }}
+												{{ pimcore_input("HHPP_Footer_Compatibility_Description_" ~ md5key ~ "_" ~ incr).setDataFromResource(compatibility_description) | raw}}
 											{% else %}
 												{{ pimcore_input("HHPP_Footer_Compatibility_Description_" ~ md5key ~ "_" ~ incr) }}
 											{% endif %}
@@ -114,7 +114,7 @@
 										<b>
 											{% if editmode %}
 												{% if pimcore_input("HHPP_Footer_Compatibility1_" ~ md5key ~ "_" ~ incr2).isEmpty() %}
-													{{ pimcore_input("HHPP_Footer_Compatibility1_" ~ md5key ~ "_" ~ incr2).setDataFromResource('Compatible fittings') }}
+													{{ pimcore_input("HHPP_Footer_Compatibility1_" ~ md5key ~ "_" ~ incr2).setDataFromResource('Compatible fittings') | raw}}
 												{% else %}
 													{{ pimcore_input("HHPP_Footer_Compatibility1_" ~ md5key ~ "_" ~ incr2) }}
 												{% endif %}
@@ -126,7 +126,7 @@
 										{# Compatibility Description #}
 										{% if editmode %}
 											{% if pimcore_input("HHPP_Footer_Compatibility_Description1_" ~ md5key ~ "_" ~ incr2).isEmpty() %}
-												{{ pimcore_input("HHPP_Footer_Compatibility_Description1_" ~ md5key ~ "_" ~ incr2).setDataFromResource(compatibility_description) }}
+												{{ pimcore_input("HHPP_Footer_Compatibility_Description1_" ~ md5key ~ "_" ~ incr2).setDataFromResource(compatibility_description) | raw}}
 											{% else %}
 												{{ pimcore_input("HHPP_Footer_Compatibility_Description1_" ~ md5key ~ "_" ~ incr2) }}
 											{% endif %}
@@ -137,7 +137,7 @@
 									<h5>
 										{% if editmode %}
 											{% if pimcore_input("HHPP_Footer_BrandName1_" ~ md5key ~ "_" ~ incr2).isEmpty() %}
-												{{ pimcore_input("HHPP_Footer_BrandName1_" ~ md5key ~ "_" ~ incr2).setDataFromResource(brandData['brandName']) }}
+												{{ pimcore_input("HHPP_Footer_BrandName1_" ~ md5key ~ "_" ~ incr2).setDataFromResource(brandData['brandName']) | raw}}
 											{% else %}
 												{{ pimcore_input("HHPP_Footer_BrandName1_" ~ md5key ~ "_" ~ incr2) }}
 											{% endif %}
@@ -148,12 +148,12 @@
 										<span>
 											{% if editmode %}
 												{% if pimcore_input("HHPP_Footer_HoseType1_" ~ md5key ~ "_" ~ incr2).isEmpty() %}
-													{{ pimcore_input("HHPP_Footer_HoseType1_" ~ md5key ~ "_" ~ incr2).setDataFromResource(catalogGroupKey) }}
+													{{ pimcore_input("HHPP_Footer_HoseType1_" ~ md5key ~ "_" ~ incr2).setDataFromResource(catalogGroupKey) | raw}}
 												{% else %}
 													{{ pimcore_input("HHPP_Footer_HoseType1_" ~ md5key ~ "_" ~ incr2) }}
 												{% endif %}
 											{% else %}
-												{{ pimcore_input("HHPP_Footer_HoseType1_" ~ md5key ~ "_" ~ incr2).setDataFromResource(catalogGroupKey) }}
+												{{ pimcore_input("HHPP_Footer_HoseType1_" ~ md5key ~ "_" ~ incr2).setDataFromResource(catalogGroupKey) | raw}}
 											{% endif %}
 										</span>
 									</h5>
@@ -162,7 +162,7 @@
 									<b>
 										{% if editmode %}
 											{% if pimcore_input("HHPP_Logo_Text2_" ~ md5key ~ "_" ~ incr2).isEmpty() %}
-												{{ pimcore_input("HHPP_Logo_Text2_" ~ md5key ~ "_" ~ incr2).setDataFromResource('Hose') }}
+												{{ pimcore_input("HHPP_Logo_Text2_" ~ md5key ~ "_" ~ incr2).setDataFromResource('Hose') | raw}}
 											{% else %}
 												{{ pimcore_input("HHPP_Logo_Text2_" ~ md5key ~ "_" ~ incr2) }}
 											{% endif %}
@@ -178,7 +178,7 @@
 							<h1>
 								{% if editmode %}
 									{% if pimcore_input("HHPP_Heading_" ~ md5key ~ "_" ~ incr2).isEmpty() %}
-										{{ pimcore_input("HHPP_Heading_" ~ md5key ~ "_" ~ incr2).setDataFromResource(brandData['brandName']) }}
+										{{ pimcore_input("HHPP_Heading_" ~ md5key ~ "_" ~ incr2).setDataFromResource(brandData['brandName']) | raw}}
 									{% else %}
 										{{ pimcore_input("HHPP_Heading_" ~ md5key ~ "_" ~ incr2) }}
 									{% endif %}
@@ -190,7 +190,7 @@
 								<p>
 									{% if editmode %}
 										{% if pimcore_wysiwyg("HHPP_LongDescription_" ~ md5key ~ "_" ~ incr2).isEmpty() %}
-											{{ pimcore_wysiwyg("HHPP_LongDescription_" ~ md5key ~ "_" ~ incr2).setDataFromResource(brandData['longDescription']) }}
+											{{ pimcore_wysiwyg("HHPP_LongDescription_" ~ md5key ~ "_" ~ incr2).setDataFromResource(brandData['longDescription']) | raw}}
 										{% else %}
 											{{ pimcore_wysiwyg("HHPP_LongDescription_" ~ md5key ~ "_" ~ incr2) }}
 										{% endif %}
@@ -203,14 +203,14 @@
 									{% if not imgSrcObj1.isEmpty() %}
 										{{ pimcore_image("HHPP_Image_Left_" ~ md5key ~ "_" ~ incr2, {"class": "leftImg", "width": 600, "height": 200}) }}
 									{% else %}
-										{{ pimcore_image("HHPP_Image_Left_" ~ md5key ~ "_" ~ incr2, {"class": "leftImg", "width": 600, "height": 200}).setImage(brandData['LeftPrintCatalogImageObj']) }}
+										{{ pimcore_image("HHPP_Image_Left_" ~ md5key ~ "_" ~ incr2, {"class": "leftImg", "width": 600, "height": 200}).setImage(brandData['LeftPrintCatalogImageObj']) | raw}}
 									{% endif %}
 
 									{% set imgSrcObj2 = pimcore_image("HHPP_Image_Right_" ~ md5key ~ "_" ~ incr2) %}
 									{% if not imgSrcObj2.isEmpty() %}
 										{{ pimcore_image("HHPP_Image_Right_" ~ md5key ~ "_" ~ incr2, {"class": "rightImg", "width": 600, "height": 200}) }}
 									{% else %}
-										{{ pimcore_image("HHPP_Image_Right_" ~ md5key ~ "_" ~ incr2, {"class": "rightImg", "width": 600, "height": 200}).setImage(brandData['RightPrintCatalogImageObj']) }}
+										{{ pimcore_image("HHPP_Image_Right_" ~ md5key ~ "_" ~ incr2, {"class": "rightImg", "width": 600, "height": 200}).setImage(brandData['RightPrintCatalogImageObj']) | raw}}
 									{% endif %}
 								{% else %}
 									{% set imgSrcObj1 = pimcore_image("HHPP_Image_Left_" ~ md5key ~ "_" ~ incr2, {"class": "leftImg", "width": 600, "height": 200}) %}
@@ -241,7 +241,7 @@
 																{% if brandData['standardMetHoseListData']|length > 0 %}
 																	{% if editmode %}
 																		{% if pimcore_input("meetPerformanceRequirements_" ~ md5key ~ "_" ~ incr2).isEmpty() %}
-																			{{ pimcore_input("meetPerformanceRequirements_" ~ md5key ~ "_" ~ incr2).setDataFromResource("Meets or exceeds the performance requirements of:") }}
+																			{{ pimcore_input("meetPerformanceRequirements_" ~ md5key ~ "_" ~ incr2).setDataFromResource("Meets or exceeds the performance requirements of:") | raw}}
 																		{% else %}
 																			{{ pimcore_input("meetPerformanceRequirements_" ~ md5key ~ "_" ~ incr2) }}
 																		{% endif %}
@@ -254,7 +254,7 @@
 																	{% set hoseMetCount = 0 %}
 																	{% for standard in brandData['standardMetHoseListData'] %}
 																		<div class="is-highlight">
-																			{{ pimcore_input("standardMetHose" ~ md5key ~ "_" ~ hoseMetCount ~ "_" ~ incr2).setDataFromResource(standard['name']) }}
+																			{{ pimcore_input("standardMetHose" ~ md5key ~ "_" ~ hoseMetCount ~ "_" ~ incr2).setDataFromResource(standard['name']) | raw}}
 																		</div>
 																		{% set hoseMetCount = hoseMetCount + 1 %}
 																	{% endfor %}
@@ -266,7 +266,7 @@
 																{% for standard2 in brandData['standardMetHoseMeetFlameResistence'] %}
 																	{% if editmode %}
 																		{% if pimcore_input("standardMetHoseFlameResistenceLabel" ~ md5key ~ "_" ~ hoseMetFlameCount).isEmpty() %}
-																			{{ pimcore_input("standardMetHoseFlameResistenceLabel" ~ md5key ~ "_" ~ hoseMetFlameCount).setDataFromResource(standard2['CustomerFacingVersion']) }}
+																			{{ pimcore_input("standardMetHoseFlameResistenceLabel" ~ md5key ~ "_" ~ hoseMetFlameCount).setDataFromResource(standard2['CustomerFacingVersion']) | raw}}
 																		{% else %}
 																			{{ pimcore_input("standardMetHoseFlameResistenceLabel" ~ md5key ~ "_" ~ hoseMetFlameCount) }}
 																		{% endif %}
@@ -275,7 +275,7 @@
 																	{% endif %}
 
 																	<div class="is-highlight">
-																		{{ pimcore_input("standardMetHoseFlameResistence" ~ md5key ~ "_" ~ hoseMetFlameCount).setDataFromResource(standard2['name']) }}
+																		{{ pimcore_input("standardMetHoseFlameResistence" ~ md5key ~ "_" ~ hoseMetFlameCount).setDataFromResource(standard2['name']) | raw}}
 																	</div>
 																	{% set hoseMetFlameCount = hoseMetFlameCount + 1 %}
 																{% endfor %}
@@ -436,7 +436,7 @@
 
 		{% if partNumbers|length > 0 %}
 			<div class="hide">
-				{{ pimcore_textarea('product_page_part_number').setDataFromResource(partNumbers|join(',')) }}
+				{{ pimcore_textarea('product_page_part_number').setDataFromResource(partNumbers|join(',')) | raw}}
 			</div>
 		{% endif %}
 

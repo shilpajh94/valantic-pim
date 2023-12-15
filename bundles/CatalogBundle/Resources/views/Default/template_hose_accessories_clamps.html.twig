@@ -30,7 +30,7 @@
                                         <b>
                                                 {% if editmode %} 
                                                         {% if pimcore_input("HHAC_Logo_Text1").isEmpty() %} 
-                                                                {{ pimcore_input("HHAC_Logo_Text1").setDataFromResource('Hose') }}
+                                                                {{ pimcore_input("HHAC_Logo_Text1").setDataFromResource('Hose') | raw }}
                                                         {% else %}
                                                                 {{ pimcore_input("HHAC_Logo_Text1") }}
                                                         {% endif %}
@@ -47,7 +47,7 @@
                                         <h5>
                                                 {% if editmode %}
                                                         {% if pimcore_input("HHAC_Footer_Title1").isEmpty() %} 
-                                                                {{ pimcore_input("HHAC_Footer_Title1").setDataFromResource('Hose Accessories') }}
+                                                                {{ pimcore_input("HHAC_Footer_Title1").setDataFromResource('Hose Accessories') | raw}}
                                                         {% else %}
                                                                 {{ pimcore_input("HHAC_Footer_Title1") }}
                                                         {% endif %}
@@ -58,7 +58,7 @@
                                                 <span>
                                                         {% if editmode %}
                                                                 {% if pimcore_input("HHAC_Footer_SubTitle1").isEmpty() %} 
-                                                                        {{ pimcore_input("HHAC_Footer_SubTitle1").setDataFromResource('Routing Clamps') }}
+                                                                        {{ pimcore_input("HHAC_Footer_SubTitle1").setDataFromResource('Routing Clamps') | raw}}
                                                                 {% else %}
                                                                         {{ pimcore_input("HHAC_Footer_SubTitle1") }}
                                                                 {% endif %}
@@ -77,7 +77,7 @@
                                         <h5>
                                                 {% if editmode %}
                                                         {% if pimcore_input("HHAC_Footer_Title2").isEmpty() %} 
-                                                                {{ pimcore_input("HHAC_Footer_Title2").setDataFromResource('Hose Accessories') }}
+                                                                {{ pimcore_input("HHAC_Footer_Title2").setDataFromResource('Hose Accessories') | raw }}
                                                         {% else %}
                                                                 {{ pimcore_input("HHAC_Footer_Title2") }}
                                                         {% endif %}
@@ -88,7 +88,7 @@
                                                 <span>
                                                         {% if editmode %}
                                                                 {% if pimcore_input("HHAC_Footer_SubTitle2").isEmpty() %} 
-                                                                        {{ pimcore_input("HHAC_Footer_SubTitle2").setDataFromResource('Routing Clamps') }}
+                                                                        {{ pimcore_input("HHAC_Footer_SubTitle2").setDataFromResource('Routing Clamps') | raw}}
                                                                 {% else %}
                                                                         {{ pimcore_input("HHAC_Footer_SubTitle2") }}
                                                                 {% endif %}
@@ -103,7 +103,7 @@
                                         <b>
                                                 {% if editmode %}
                                                         {% if pimcore_input("HHAC_Logo_Text2").isEmpty() %} 
-                                                                {{ pimcore_input("HHAC_Logo_Text2").setDataFromResource('Hose') }}
+                                                                {{ pimcore_input("HHAC_Logo_Text2").setDataFromResource('Hose') | raw}}
                                                         {% else %}
                                                                 {{ pimcore_input("HHAC_Logo_Text2") }}
                                                         {% endif %}
@@ -132,7 +132,7 @@
                                                                                 <h2>
                                                                                         {% if editmode %}
                                                                                                 {% if pimcore_input("HHAC_Heading"~md5key).isEmpty() %}
-                                                                                                        {{ pimcore_input("HHAC_Heading"~md5key).setDataFromResource("Hose Accessories") }}
+                                                                                                        {{ pimcore_input("HHAC_Heading"~md5key).setDataFromResource("Hose Accessories") | raw }}
                                                                                                 {% else %}
                                                                                                         {{ pimcore_input("HHAC_Heading"~md5key) }}
                                                                                                 {% endif %}
@@ -147,7 +147,7 @@
                                                                         <h3 class="contitech-yellow">
                                                                                 {% if editmode %}
                                                                                         {% if pimcore_input("HHAC_BrandName_"~md5key).isEmpty() %}
-                                                                                                {{ pimcore_input("HHAC_BrandName_"~md5key).setDataFromResource(brand['brandName']) }}
+                                                                                                {{ pimcore_input("HHAC_BrandName_"~md5key).setDataFromResource(brand['brandName']) | raw}}
                                                                                         {% else %}
                                                                                                 {{ pimcore_input("HHAC_BrandName_"~md5key) }}
                                                                                         {% endif %}
@@ -159,7 +159,7 @@
                                                                         <span>
                                                                                 {% if editmode %}
                                                                                         {% if pimcore_input("HHAC_LongDescription_"~md5key).isEmpty() %}
-                                                                                                {{ pimcore_input("HHAC_LongDescription_"~md5key).setDataFromResource(brand['longDescription']) }}
+                                                                                                {{ pimcore_input("HHAC_LongDescription_"~md5key).setDataFromResource(brand['longDescription']) | raw}}
                                                                                         {% else %}
                                                                                                 {{ pimcore_input("HHAC_LongDescription_"~md5key) }}
                                                                                         {% endif %}
@@ -191,7 +191,7 @@
                                                                         {% if pimcore_image("HHAC_Image_"~md5key).isEmpty() %}
                                                                                 {{ pimcore_image("HHAC_Image_"~md5key,{"width":200, "height":200}) }}
                                                                         {% else %}
-                                                                                {{ pimcore_image("HHAC_Image_"~md5key,{"width":200, "height":200}).setImage(brand['imageObj']) }}
+                                                                                {{ pimcore_image("HHAC_Image_"~md5key,{"width":200, "height":200}).setImage(brand['imageObj']) | raw }}
                                                                         {% endif %}
                                                                 {% else %}
                                                                         {% set imgSrcObj =  pimcore_image("HHAC_Image_"~md5key) %}
@@ -304,12 +304,12 @@
         <div class="hide">
                 {% if partNumbers|length > 0 %}
                         {% set partNumberString = partNumbers|join(',') %}
-                        {{ pimcore_textarea('product_page_part_number').setDataFromResource(partNumberString)}}
+                        {{ pimcore_textarea('product_page_part_number').setDataFromResource(partNumberString) | raw}}
                 {% endif %}
                 
                 {% if productNumbers|length > 0 %}
                         {% set productNumbersString = productNumbers|join(',') %}
-                        {{ pimcore_textarea('product_page_product_number').setDataFromResource(productNumbersString)}}
+                        {{ pimcore_textarea('product_page_product_number').setDataFromResource(productNumbersString) | raw}}
                 {% endif %}
         </div>
 </div>

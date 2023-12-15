@@ -28,7 +28,7 @@
                                         <b>
                                         {% if editmode %} 
                                                 {% if pimcore_input("HHAO_Logo_Text1").isEmpty() %} 
-                                                        {{ pimcore_input("HHAO_Logo_Text1").setDataFromResource('Fittings') }}
+                                                        {{ pimcore_input("HHAO_Logo_Text1").setDataFromResource('Fittings') | raw }}
                                                 {% else %}
                                                         {{ pimcore_input("HHAO_Logo_Text1") }}
                                                 {% endif %}
@@ -42,7 +42,7 @@
                                         <h5>
                                         {% if editmode %}
                                                 {% if pimcore_input("HHAO_Footer_Title1").isEmpty() %} 
-                                                        {{ pimcore_input("HHAO_Footer_Title1").setDataFromResource('Fitting Accessories') }}
+                                                        {{ pimcore_input("HHAO_Footer_Title1").setDataFromResource('Fitting Accessories') | raw}}
                                                 {% else %}
                                                         {{ pimcore_input("HHAO_Footer_Title1") }}
                                                 {% endif %}
@@ -52,7 +52,7 @@
                                         <span>
                                                 {% if editmode %}
                                                         {% if pimcore_input("HHAO_Footer_SubTitle1").isEmpty() %} 
-                                                                {{ pimcore_input("HHAO_Footer_SubTitle1").setDataFromResource('O-Rings') }}
+                                                                {{ pimcore_input("HHAO_Footer_SubTitle1").setDataFromResource('O-Rings') | raw}}
                                                         {% else %}
                                                                 {{ pimcore_input("HHAO_Footer_SubTitle1") }}
                                                         {% endif %}
@@ -70,7 +70,7 @@
                                         <h5>
                                         {% if editmode %}
                                                 {% if pimcore_input("HHAO_Footer_Title2").isEmpty() %} 
-                                                        {{ pimcore_input("HHAO_Footer_Title2").setDataFromResource('Fitting Accessories') }}
+                                                        {{ pimcore_input("HHAO_Footer_Title2").setDataFromResource('Fitting Accessories') | raw}}
                                                 {% else %}
                                                         {{ pimcore_input("HHAO_Footer_Title2") }}
                                                 {% endif %}
@@ -80,7 +80,7 @@
                                         <span>
                                                 {% if editmode %}
                                                         {% if pimcore_input("HHAO_Footer_SubTitle2").isEmpty() %} 
-                                                                {{ pimcore_input("HHAO_Footer_SubTitle2").setDataFromResource('O-Rings') }}
+                                                                {{ pimcore_input("HHAO_Footer_SubTitle2").setDataFromResource('O-Rings') | raw}}
                                                         {% else %}
                                                                 {{ pimcore_input("HHAO_Footer_SubTitle2") }}
                                                         {% endif %}
@@ -94,7 +94,7 @@
                                         <b>
                                         {% if editmode %}
                                                 {% if pimcore_input("HHAO_Logo_Text2").isEmpty() %} 
-                                                        {{ pimcore_input("HHAO_Logo_Text2").setDataFromResource('Fittings') }}
+                                                        {{ pimcore_input("HHAO_Logo_Text2").setDataFromResource('Fittings') | raw}}
                                                 {% else %}
                                                         {{ pimcore_input("HHAO_Logo_Text2") }}
                                                 {% endif %}
@@ -112,7 +112,7 @@
                                 <h1 class="oRing">
                                         {% if editmode %}
                                                 {% if pimcore_input("HHAO_Heading").isEmpty() %} 
-                                                        {{ pimcore_input("HHAO_Heading").setDataFromResource('Fitting Accessories: O-Rings') }}
+                                                        {{ pimcore_input("HHAO_Heading").setDataFromResource('Fitting Accessories: O-Rings') | raw}}
                                                 {% else %}
                                                         {{ pimcore_input("HHAO_Heading") }}
                                                 {% endif %}
@@ -131,7 +131,7 @@
                                                         {% if pimcore_image("HHAO_Image").isEmpty() %}
                                                                 {{ pimcore_image("HHAO_Image",{"width":200}) }}
                                                         {% else %}
-                                                                {{ pimcore_image("HHAO_Image",{"width":200}).setImage(data['imageObj']) }}
+                                                                {{ pimcore_image("HHAO_Image",{"width":200}).setImage(data['imageObj']) | raw}}
                                                         {% endif %}
                                                 {% else %}
                                                         {% set imgSrcObj =  pimcore_image("HHAO_Image") %}
@@ -173,7 +173,7 @@
                                                         <h3 class="contitech-yellow">
                                                         {% if editmode %}
                                                                 {% if pimcore_input("HHAO_BrandName_"~md5key).isEmpty() %}
-                                                                        {{ pimcore_input("HHAO_BrandName_"~md5key).setDataFromResource(brand['brandName']) }}
+                                                                        {{ pimcore_input("HHAO_BrandName_"~md5key).setDataFromResource(brand['brandName']) | raw}}
                                                                 {% else %}
                                                                         {{ pimcore_input("HHAO_BrandName_"~md5key) }}
                                                                 {% endif %}
@@ -306,12 +306,12 @@
                         <div class="hide">
                         {% if partNumbers|length > 0 %}
                                 {% set partNumberString = partNumbers|join(',') %}
-                                {{ pimcore_textarea('product_page_part_number').setDataFromResource(partNumberString)}}
+                                {{ pimcore_textarea('product_page_part_number').setDataFromResource(partNumberString) | raw}}
                         {% endif %}
                         
                         {% if productNumbers|length > 0 %}
                                 {% set productNumbersString = productNumbers|join(',') %}
-                                {{ pimcore_textarea('product_page_product_number').setDataFromResource(productNumbersString)}}
+                                {{ pimcore_textarea('product_page_product_number').setDataFromResource(productNumbersString) | raw}}
                         {% endif %}
                         </div>
                 </div>

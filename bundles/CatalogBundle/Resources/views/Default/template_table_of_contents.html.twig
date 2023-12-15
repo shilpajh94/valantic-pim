@@ -9,7 +9,7 @@
             <header class="content partNumber tableContent">
             {% if (editmode) %} 
                 {% if pimcore_input("TOC_Heading").isEmpty() %} 
-                    <h2>{{ pimcore_input("TOC_Heading", {'placeholder':'Table of Contents'}) }}</h2>
+                    <h2>{{ pimcore_input("TOC_Heading", {'placeholder':'Table of Contents'}).setDataFromResource('Table of Contents') |raw }}</h2>
                 {% else %}
                     <h2>{{ pimcore_input("TOC_Heading") }}</h2>
                 {% endif %}

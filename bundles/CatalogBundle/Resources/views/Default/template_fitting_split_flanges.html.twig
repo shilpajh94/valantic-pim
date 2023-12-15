@@ -31,7 +31,7 @@
                                                 <b>
                                                 {% if editmode %} 
                                                         {% if pimcore_input("HHAFC_Logo_Text1").isEmpty() %} 
-                                                                {{ pimcore_input("HHAFC_Logo_Text1").setDataFromResource('Fittings') }}
+                                                                {{ pimcore_input("HHAFC_Logo_Text1").setDataFromResource('Fittings') | raw }}
                                                         {% else %}
                                                                 {{ pimcore_input("HHAFC_Logo_Text1") }}
                                                         {% endif %}
@@ -47,7 +47,7 @@
                                                 <h5>
                                                         {% if editmode %}
                                                                         {% if pimcore_input("HHAFC_Footer_Title1").isEmpty() %} 
-                                                                                {{ pimcore_input("HHAFC_Footer_Title1").setDataFromResource('Split Flanges') }}
+                                                                                {{ pimcore_input("HHAFC_Footer_Title1").setDataFromResource('Split Flanges') | raw }}
                                                                         {% else %}
                                                                                 {{ pimcore_input("HHAFC_Footer_Title1") }}
                                                                         {% endif %}
@@ -58,7 +58,7 @@
                                                         <span>
                                                                 {% if editmode %}
                                                                         {% if pimcore_input("HHAFC_Footer_SubTitle1").isEmpty() %} 
-                                                                                {{ pimcore_input("HHAFC_Footer_SubTitle1").setDataFromResource('Code 61 / Code 62 Clamp Kits') }}
+                                                                                {{ pimcore_input("HHAFC_Footer_SubTitle1").setDataFromResource('Code 61 / Code 62 Clamp Kits') | raw }}
                                                                         {% else %}
                                                                                 {{ pimcore_input("HHAFC_Footer_SubTitle1") }}
                                                                         {% endif %}
@@ -77,7 +77,7 @@
                                         <h5>
                                                 {% if editmode %}
                                                         {% if pimcore_input("HHAFC_Footer_Title2").isEmpty() %} 
-                                                                {{ pimcore_input("HHAFC_Footer_Title2").setDataFromResource('Split Flanges') }}
+                                                                {{ pimcore_input("HHAFC_Footer_Title2").setDataFromResource('Split Flanges') | raw }}
                                                         {% else %}
                                                                 {{ pimcore_input("HHAFC_Footer_Title2") }}
                                                         {% endif %}
@@ -88,7 +88,7 @@
                                                 <span>
                                                         {% if editmode %}
                                                                 {% if pimcore_input("HHAFC_Footer_SubTitle2").isEmpty() %} 
-                                                                        {{ pimcore_input("HHAFC_Footer_SubTitle2").setDataFromResource('Code 61 / Code 62 Clamp Kits') }}
+                                                                        {{ pimcore_input("HHAFC_Footer_SubTitle2").setDataFromResource('Code 61 / Code 62 Clamp Kits') | raw }}
                                                                 {% else %}
                                                                         {{ pimcore_input("HHAFC_Footer_SubTitle2") }}
                                                                 {% endif %}
@@ -103,7 +103,7 @@
                                         <b>
                                                 {% if editmode %} 
                                                         {% if pimcore_input("HHAFC_Logo_Text2").isEmpty() %} 
-                                                                {{ pimcore_input("HHAFC_Logo_Text2").setDataFromResource('Fittings') }}
+                                                                {{ pimcore_input("HHAFC_Logo_Text2").setDataFromResource('Fittings') | raw }}
                                                         {% else %}
                                                                 {{ pimcore_input("HHAFC_Logo_Text2") }}
                                                         {% endif %}
@@ -162,11 +162,10 @@
                         <div class="marginBottom30 margin15" >
                                 
                                 <h3 class="contitech-yellow paddingNo">
-                                        {# pimcore_input("HHAFC_BrandName_TTT").setDataFromResource("ssssss") #}
                                         
                                         {% if editmode %}
                                                 {% if pimcore_input("HHAFC_BrandName_"~md5key).isEmpty() %}
-                                                        {{ pimcore_input("HHAFC_BrandName_"~md5key).setDataFromResource("") }}
+                                                        {{ pimcore_input("HHAFC_BrandName_"~md5key).setDataFromResource(brand['brandName']) | raw }}
                                                 {% else %}
                                                         {{ pimcore_input("HHAFC_BrandName_"~md5key) }}
                                                 {% endif %}
@@ -180,7 +179,7 @@
                                 <h3 class="light paddingNo borderBottom">
                                         {% if editmode %}
                                                 {% if pimcore_wysiwyg("HHAFC_BrandName_Description_"~md5key).isEmpty() %}
-                                                        {{ pimcore_wysiwyg("HHAFC_BrandName_Description_"~md5key).setDataFromResource(brand['shortDescription']) }}
+                                                        {{ pimcore_wysiwyg("HHAFC_BrandName_Description_"~md5key).setDataFromResource(brand['shortDescription']) | raw }}
                                                 {% else %}
                                                         {{ pimcore_wysiwyg("HHAFC_BrandName_Description_"~md5key) }}
                                                 {% endif %}
@@ -296,12 +295,12 @@
         <div class="hide">
                 {% if partNumbers|length > 0 %}
                         {% set partNumberString = partNumbers|join(',') %}
-                        {{ pimcore_textarea('product_page_part_number').setDataFromResource(partNumberString)}}
+                        {{ pimcore_textarea('product_page_part_number').setDataFromResource(partNumberString) | raw}}
                 {% endif %}
                 
                 {% if productNumbers|length > 0 %}
                         {% set productNumbersString = productNumbers|join(',') %}
-                        {{ pimcore_textarea('product_page_product_number').setDataFromResource(productNumbersString)}}
+                        {{ pimcore_textarea('product_page_product_number').setDataFromResource(productNumbersString) | raw}}
                 {% endif %}
         </div>
 </div>
@@ -315,6 +314,4 @@ li .pimcore_tag_input.empty{
     color: #231f20;
 }
 </style>
-{% endblock %}
-
 {% endblock %}
