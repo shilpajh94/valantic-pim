@@ -215,12 +215,12 @@
 								{% else %}
 									{% set imgSrcObj1 = pimcore_image("HHPP_Image_Left_" ~ md5key ~ "_" ~ incr2, {"class": "leftImg", "width": 600, "height": 200}) %}
 									{% if imgSrcObj1 %}
-										<img src="{{ getImageThumbnail(imgSrcObj1, imageWidth) }}" class="leftImg" width="600" height="200"/>
+										{# <img src="{{ getImageThumbnail(imgSrcObj1, imageWidth) }}" class="leftImg" width="600" height="200"/> #}
 									{% endif %}
 
 									{% set imgSrcObj2 = pimcore_image("HHPP_Image_Right_" ~ md5key ~ "_" ~ incr2, {"class": "rightImg", "width": 600, "height": 200}) %}
 									{% if imgSrcObj2 %}
-										<img src="{{ getImageThumbnail(imgSrcObj2, imageWidth) }}" class="rightImg" width="600" height="200"/>
+										{# <img src="{{ getImageThumbnail(imgSrcObj2, imageWidth) }}" class="rightImg" width="600" height="200"/> #}
 									{% endif %}
 								{% endif %}
 							</aside>
@@ -233,39 +233,59 @@
 											<div
 												class="specs">
 												{# <h6>{{ pimcore_translate('specs') }}</h6> #}
-												<div
-													class="spec-requirement">
-													{# {% if brandData['standardMetHoseListData'] or brandData['standardMetHoseMeetFlameResistence'] %}
-																																							<div class="col-6">
-																																								<div class="standard-hose-met">
-																																									{% if brandData['standardMetHoseListData']|length > 0 %}
-																																										{% if editmode %}
-																																											{% if pimcore_input("meetPerformanceRequirements_" ~ md5key ~ "_" ~ incr2).isEmpty() %}
-																																												{{ pimcore_input("meetPerformanceRequirements_" ~ md5key ~ "_" ~ incr2).setDataFromResource("Meets or exceeds the performance requirements of:") }}
-																																											{% else %}
-																																												{{ pimcore_input("meetPerformanceRequirements_" ~ md5key ~ "_" ~ incr2) }}
-																																											{% endif %}
-																																										{% else %}
-																																											{{ pimcore_input("meetPerformanceRequirements_" ~ md5key ~ "_" ~ incr2) }}
-																																										{% endif %}
-																																										<br/>
-																																										{% for standard in brandData['standardMetHoseListData'] %}
-																																											<div class="is-highlight">{{ pimcore_input("standardMetHose" ~ md5key ~ "_" ~ loop.index0 ~ "_" ~ incr2).setDataFromResource(standard['name']) }}</div>
-																																										{% endfor %}
-																																									{% endif %}
-																																								</div>
-																										
-																																								<div class="standard-hose-met-flame">
-																																									{% for standard2 in brandData['standardMetHoseMeetFlameResistence'] %}
-																																										<div class="is-highlight">{{ pimcore_input("standardMetHoseFlameResistence{$md5key}_{$loop.index}_{$incr2}").setDataFromResource(standard2['name']) }}</div>
-																																									{% endfor %}
-																																								</div>
-																										
-																																								<div class="custom-specs-text">
-																																									{{ pimcore_wysiwyg("customSpecsText" ~ md5key ~ "_" ~ incr2) }}
-																																								</div>
-																																							</div>
-																																						{% endif %} #}
+												<div class="spec-requirement">
+													{% if brandData['standardMetHoseListData'] or brandData['standardMetHoseMeetFlameResistence'] %}
+														<div
+															class="col-6">
+															<div class="standard-hose-met">
+																{% if brandData['standardMetHoseListData']|length > 0 %}
+																	{% if editmode %}
+																		{% if pimcore_input("meetPerformanceRequirements_" ~ md5key ~ "_" ~ incr2).isEmpty() %}
+																			{{ pimcore_input("meetPerformanceRequirements_" ~ md5key ~ "_" ~ incr2).setDataFromResource("Meets or exceeds the performance requirements of:") }}
+																		{% else %}
+																			{{ pimcore_input("meetPerformanceRequirements_" ~ md5key ~ "_" ~ incr2) }}
+																		{% endif %}
+																	{% else %}
+																		{{ pimcore_input("meetPerformanceRequirements_" ~ md5key ~ "_" ~ incr2) }}
+																	{% endif %}
+
+																	<br/>
+
+																	{% set hoseMetCount = 0 %}
+																	{% for standard in brandData['standardMetHoseListData'] %}
+																		<div class="is-highlight">
+																			{{ pimcore_input("standardMetHose" ~ md5key ~ "_" ~ hoseMetCount ~ "_" ~ incr2).setDataFromResource(standard['name']) }}
+																		</div>
+																		{% set hoseMetCount = hoseMetCount + 1 %}
+																	{% endfor %}
+																{% endif %}
+															</div>
+
+															<div class="standard-hose-met-flame">
+																{% set hoseMetFlameCount = 1 %}
+																{% for standard2 in brandData['standardMetHoseMeetFlameResistence'] %}
+																	{% if editmode %}
+																		{% if pimcore_input("standardMetHoseFlameResistenceLabel" ~ md5key ~ "_" ~ hoseMetFlameCount).isEmpty() %}
+																			{{ pimcore_input("standardMetHoseFlameResistenceLabel" ~ md5key ~ "_" ~ hoseMetFlameCount).setDataFromResource(standard2['CustomerFacingVersion']) }}
+																		{% else %}
+																			{{ pimcore_input("standardMetHoseFlameResistenceLabel" ~ md5key ~ "_" ~ hoseMetFlameCount) }}
+																		{% endif %}
+																	{% else %}
+																		{{ pimcore_input("standardMetHoseFlameResistenceLabel" ~ md5key ~ "_" ~ hoseMetFlameCount) }}
+																	{% endif %}
+
+																	<div class="is-highlight">
+																		{{ pimcore_input("standardMetHoseFlameResistence" ~ md5key ~ "_" ~ hoseMetFlameCount).setDataFromResource(standard2['name']) }}
+																	</div>
+																	{% set hoseMetFlameCount = hoseMetFlameCount + 1 %}
+																{% endfor %}
+															</div>
+
+															<div class="custom-specs-text">
+																{{ pimcore_wysiwyg("customSpecsText" ~ md5key ~ "_" ~ incr2) }}
+															</div>
+														</div>
+													{% endif %}
 													<div class="col-6">
 														{% if brandData['tubeMaterialAtrributeString'] %}
 															<div
@@ -331,7 +351,6 @@
 									</menu>
 								{% endif %}
 
-								{# Assuming 'columnsDataWithImages' is always available in brandData #}
 								{% set columnList = [] %}
 								<table cellpadding="0" cellspacing="0" class="grid continueLable">
 									<thead>
@@ -369,10 +388,16 @@
 
 										{% if brandData['subHeaderRequired'] == 'YES' %}
 											<tr class="sub-head">
-												{% for c3data in brandData['columnsDataWithImages'] %}
-													{% for c3value in c3data %}
-														{% set unitName = c3value['unitName'] %}
-														<td>{{ unitName ? unitName : '' }}</td>
+												{% for key, c3data in brandData['columnsDataWithImages'] %}
+													{% for c3key, c3value in c3data %}
+														{% set columnList = columnList|merge([c3key]) %}
+														{% if c3value.unitName %}
+															<td>
+																{{c3value.unitName}}
+															</td>
+														{% else %}
+															<td></td>
+														{% endif %}
 													{% endfor %}
 												{% endfor %}
 											</tr>
@@ -384,12 +409,12 @@
 										{% set isEven = incrRow is even %}
 										<tr
 											class="{{ isEven ? 'tableNewFont' : 'active tableNewFont' }}">
-											{# Assuming there is a 'descriptive' key in each element #}
-											{% set descriptiveNumber = element['descriptive'] %}
-											{% if descriptiveNumber %}
-												{% set descriptiveNumberList = descriptiveNumber|split('-') %}
+											{% if columnList['descriptive'] is defined %}
+												{% set descriptiveNumberText = element['descriptive'] %}
+												{% set descriptiveNumberList = descriptiveNumberText | split('-') %}
+
 												{% if descriptiveNumberList[0] not in partNumbers %}
-													{% set _ = partNumbers.append(descriptiveNumberList[0]) %}
+													{% set partNumbers = partNumbers|merge([descriptiveNumberList[0]]) %}
 												{% endif %}
 											{% endif %}
 
@@ -408,7 +433,7 @@
 				</div>
 			{% endfor %}
 		{% endfor %}
-		{# Check if partNumbers array has elements to avoid unnecessary rendering of textarea #}
+
 		{% if partNumbers|length > 0 %}
 			<div class="hide">
 				{{ pimcore_textarea('product_page_part_number').setDataFromResource(partNumbers|join(',')) }}
