@@ -7,8 +7,9 @@ use Pimcore\Db;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Pimcore\Controller\FrontendController;
 
-class HydraulicFittingController extends AbstractController
+class HydraulicFittingController extends FrontendController
 {
     private $db;
     private $iconRequired = 'NO';

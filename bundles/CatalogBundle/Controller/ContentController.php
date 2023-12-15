@@ -11,13 +11,14 @@ namespace CatalogBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Pimcore\Controller\FrontendController;
 
 /**
  * Description of ContentController
  *
  * @author rohitsrivastava
  */
-class ContentController extends AbstractController {
+class ContentController extends FrontendController {
     
     /**
      * @Route("/print_page")

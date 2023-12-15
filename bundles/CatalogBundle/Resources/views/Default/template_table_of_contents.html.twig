@@ -19,23 +19,6 @@
             </header>
         </div>
 
-        {% if sss is defined %}
-            TT{{ dump(sss) }}TT
-        {% endif %}
-
-        {% if printermarks is defined %}
-            PP{{printermarks}}PP
-        {% endif %}
-
-        {% if imageQuality is defined %}
-            QQ{{imageQuality}}QQ
-        {% endif %}
-
-        {% if imageWidth is defined %}
-            SS{{imageWidth}}SS
-        {% endif %}
-        
-        
         <div class="content content_double  table-content ">
             {% set sectionBlock = pimcore_block('TOC_SectionBlock') %}
             {% for i in sectionBlock.iterator %}

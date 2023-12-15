@@ -1,4 +1,6 @@
-{% extends "@Catalog/Layouts/layout.html.twig" %}
+{% if parentContainer is not defined %}
+        {% extends "@Catalog/Layouts/layout.html.twig" %}
+{% endif %}
 
 {% block _content %}
 
@@ -99,15 +101,15 @@
                                 
                                 <span class="logo">
                                         <b>
-                                                <?php if($this->editmode): ?>
-                                                        <?php if($this->input("HHAFC_Logo_Text2")->isEmpty()): ?>
-                                                                <?= $this->input("HHAFC_Logo_Text2")->setDataFromResource('Fittings') ?>
-                                                        <?php else: ?>
-                                                                <?= $this->input("HHAFC_Logo_Text2"); ?>
-                                                        <?php endif; ?>
-                                                <?php else: ?>
-                                                        <?= $this->input("HHAFC_Logo_Text2") ?>
-                                                <?php endif; ?>
+                                                {% if editmode %} 
+                                                        {% if pimcore_input("HHAFC_Logo_Text2").isEmpty() %} 
+                                                                {{ pimcore_input("HHAFC_Logo_Text2").setDataFromResource('Fittings') }}
+                                                        {% else %}
+                                                                {{ pimcore_input("HHAFC_Logo_Text2") }}
+                                                        {% endif %}
+                                                {% else %}
+                                                        {{ pimcore_input("HHAFC_Logo_Text2") }}
+                                                {% endif %}
                                         </b>
                                         <img src="<?= $footer_logo_src; ?>">
                                 </span>
@@ -160,15 +162,18 @@
                         <div class="marginBottom30 margin15" >
                                 
                                 <h3 class="contitech-yellow paddingNo">
+                                        {# pimcore_input("HHAFC_BrandName_TTT").setDataFromResource("ssssss") #}
+                                        
                                         {% if editmode %}
                                                 {% if pimcore_input("HHAFC_BrandName_"~md5key).isEmpty() %}
-                                                        {{ pimcore_input("HHAFC_BrandName_"~md5key).setDataFromResource(brand['brandName']) }}
+                                                        {{ pimcore_input("HHAFC_BrandName_"~md5key).setDataFromResource("") }}
                                                 {% else %}
                                                         {{ pimcore_input("HHAFC_BrandName_"~md5key) }}
                                                 {% endif %}
                                         {% else %}
                                                 {{ pimcore_input("HHAFC_BrandName_"~md5key) }}
                                         {% endif %}
+                                        
                                         
                                 </h3>
 
@@ -184,8 +189,6 @@
                                         {% endif %}
                                 </h3>
 
-                                {% set columnList = [] %}
-                                        
                                 <table class="grid special" cellspacing="0" cellpadding="0">
                                         <thead>
 
@@ -229,8 +232,6 @@
                                                         <tr class="sub-head">
                                                                 {% for key, c3data in brand['columnsDataWithImages'] %}
                                                                         {% for c3key, c3value in c3data %}
-                                                                                {% set columnList = columnList|merge([c3key]) %}
-
                                                                                 {% if (c3value['unitName']) %}
                                                                                         <td>{{c3value['unitName']}}</td>
                                                                                 {% else %}
@@ -314,4 +315,6 @@ li .pimcore_tag_input.empty{
     color: #231f20;
 }
 </style>
+{% endblock %}
+
 {% endblock %}
