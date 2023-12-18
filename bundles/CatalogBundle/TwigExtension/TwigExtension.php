@@ -13,6 +13,7 @@ class TwigExtension extends AbstractExtension
     {
         return [
             new TwigFunction('getImageThumbnail', [$this, 'getImageThumbnail']),
+            new TwigFunction('getAssetFullPathCompatibleToS3', [$this, 'getAssetFullPathCompatibleToS3']),
         ];
     }
 
@@ -36,6 +37,11 @@ class TwigExtension extends AbstractExtension
         }
 
         return $thumbnail !== "" ? $thumbnail : null ;
+    }
+
+    public function getAssetFullPathCompatibleToS3($pdfElement)
+    {
+        return \S3CustomizationBundle\Lib\Utils::getAssetFullPathCompatibleToS3($pdfElement);
     }
 }
 

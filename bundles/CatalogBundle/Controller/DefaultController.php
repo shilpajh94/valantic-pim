@@ -1592,12 +1592,12 @@ if(isset($data[$baseId])) {
     public function templateTableOfContentsAction(Request $request)
     {
         // p_R($request); die;
-        $paramsBag = [
+        $parameterBag = [
             'document' => $this->document
         ];
 
         foreach ($request->attributes as $key => $value) {
-            $paramsBag[$key] = $value;
+            $parameterBag[$key] = $value;
         }
 
         $imageWidth = null;
@@ -1616,10 +1616,10 @@ if(isset($data[$baseId])) {
         $this->imageWidth = $imageWidth;
 
 
-        $paramsBag['imageQuality'] = $this->imageQuality;
-        $paramsBag['imageWidth'] = $this->imageWidth;
+        $parameterBag['imageQuality'] = $this->imageQuality;
+        $parameterBag['imageWidth'] = $this->imageWidth;
 
-        return $this->render('@Catalog/Default/template_table_of_contents.html.twig',$paramsBag);
+        return $this->render('@Catalog/Default/template_table_of_contents.html.twig',$parameterBag);
     }
 
     public function templateHydraulicTableOfContentsDynamicAction(Request $request)
@@ -2148,12 +2148,12 @@ if(isset($data[$baseId])) {
 
     public function containerAction(Request $request)
     {
-        $paramsBag = [
+        $parameterBag = [
             'document' => $this->document
         ];
 
         foreach ($request->attributes as $key => $value) {
-            $paramsBag[$key] = $value;
+            $parameterBag[$key] = $value;
         }
 
         $allChildren = [];
@@ -2169,13 +2169,13 @@ if(isset($data[$baseId])) {
             $allChildren[] = $child;
         }
 
-        $paramsBag['allChildren'] = $allChildren;
-        // $paramsBag['printermarks'] = $this->printermarks;
+        $parameterBag['allChildren'] = $allChildren;
+        // $parameterBag['printermarks'] = $this->printermarks;
         // $allChildren = $this->document->getAllChildren();
         // $this->view->allChildren = $allChildren;
         // p_r("MMMAMA"); die;
         // $allChildren = [1,2];
-        return $this->render('@Catalog/Default/container.html.twig',$paramsBag);
+        return $this->render('@Catalog/Default/container.html.twig',$parameterBag);
     }
 
     public function getFeaturesList($catalog_type, $language){

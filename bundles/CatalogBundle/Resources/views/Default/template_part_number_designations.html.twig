@@ -1,0 +1,194 @@
+{% if parentContainer is not defined %}
+        {% extends "@Catalog/Layouts/layout.html.twig" %}
+{% endif %}
+
+{% block _content %}
+
+{% if editmode %}
+
+        {{ pimcore_relation("page_number_designations",{
+        "types": ["object"],
+        "subtypes": {
+                "object": ["object"],
+        },
+        "classes": ["CatalogTables"]
+        }) }}
+{% endif %}
+
+{% set hydraulic_hose_data = [] %}
+
+<div class="template">
+<div>
+    <div id="pageHeader"></div>
+    <span class="pageName">Hydraulic Hose</span>
+    <div class="footer">
+        <footer class="flex-center <?php echo $footer_class; ?>">
+            <span class="logo">
+                <b>
+                    {% if editmode %} 
+                            {% if pimcore_input("PBD_Logo_Text1").isEmpty() %} 
+                                    {{ pimcore_input("PBD_Logo_Text1").setDataFromResource('Hose') | raw }}
+                            {% else %}
+                                    {{ pimcore_input("PBD_Logo_Text1") }}
+                            {% endif %}
+                    {% else %}
+                            {{ pimcore_input("PBD_Logo_Text1") }}
+                    {% endif %}
+                </b>
+                <img src="{{footer_logo_src}}">
+            </span>
+            <div class="flex aligned ">
+                <h5>
+                    {% if editmode %} 
+                            {% if pimcore_input("PBD_Title1").isEmpty() %} 
+                                    {{ pimcore_input("PBD_Title1").setDataFromResource('General Information') | raw }}
+                            {% else %}
+                                    {{ pimcore_input("PBD_Title1") }}
+                            {% endif %}
+                    {% else %}
+                            {{ pimcore_input("PBD_Title1") }}
+                    {% endif %}
+                    <span>
+                        {% if editmode %} 
+                                {% if pimcore_input("PBD_SubTitle1").isEmpty() %} 
+                                        {{ pimcore_input("PBD_SubTitle1").setDataFromResource('Part Number Designations') | raw }}
+                                {% else %}
+                                        {{ pimcore_input("PBD_SubTitle1") }}
+                                {% endif %}
+                        {% else %}
+                                {{ pimcore_input("PBD_SubTitle1") }}
+                        {% endif %}
+                    </span>
+                </h5>
+            </div>
+        </footer>
+    </div>
+    <div class="footer1">
+        <footer class="flex-center <?php echo $footer_class; ?>">
+            <div class="flex aligned ">
+                <h5>
+                    {% if editmode %} 
+                            {% if pimcore_input("PBD_Title2").isEmpty() %} 
+                                    {{ pimcore_input("PBD_Title2").setDataFromResource('General Information') | raw }}
+                            {% else %}
+                                    {{ pimcore_input("PBD_Title2") }}
+                            {% endif %}
+                    {% else %}
+                            {{ pimcore_input("PBD_Title2") }}
+                    {% endif %}
+                    
+                    <span>
+                        {% if editmode %} 
+                                {% if pimcore_input("PBD_SubTitle2").isEmpty() %} 
+                                        {{ pimcore_input("PBD_SubTitle2").setDataFromResource('Part Number Designations') | raw }}
+                                {% else %}
+                                        {{ pimcore_input("PBD_SubTitle2") }}
+                                {% endif %}
+                        {% else %}
+                                {{ pimcore_input("PBD_SubTitle2") }}
+                        {% endif %}
+                    </span>
+                </h5>
+            </div>
+            <span class="logo">
+                <b>
+                    {% if editmode %} 
+                            {% if pimcore_input("PBD_Logo_Text2").isEmpty() %} 
+                                    {{ pimcore_input("PBD_Logo_Text2").setDataFromResource('Hose') | raw }}
+                            {% else %}
+                                    {{ pimcore_input("PBD_Logo_Text2") }}
+                            {% endif %}
+                    {% else %}
+                            {{ pimcore_input("PBD_Logo_Text2") }}
+                    {% endif %}
+                </b>
+                <img src="{{footer_logo_src}}">
+            </span>
+        </footer>
+    </div>
+
+    <div class="wrapper partDesignation">
+        <article class="fullcontainer">
+            <header class="content partNumber">
+                <h3>{{ pimcore_input("PBD_Heading").setDataFromResource('Part Number Designations') | raw }}</h3>
+            </header>
+            {% if data %}
+                <section class="">
+                    <table  class="part_number_table" cellspacing="0" cellpadding="0">
+                        <thead>
+                            <tr class="row top">
+                                <td></td>   
+                                <td>description</td>     
+                                <td>page</td>     
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for key, brandData in data %}
+                                <tr class="row full">
+                                    <td colspan="3">{{key}}</td>
+                                </tr>
+
+                                {% set rowcount = 0 %}
+                                {% for brand, bkey in brandData %}
+
+                                    {% set hydraulic_hose_data = hydraulic_hose_data[key]|merge(bkey) %}
+                                    {% set md5key = (key~bkey) | md5 %}
+
+                                    {% set brandDataCount = brandData | length %}
+                                        {% if (brandDataCount == rowcount) %}
+                                        <tr class="row borderLess">
+                                        {% else %} 
+                                        <tr class="row">
+                                        {% endif %} 
+                                        <td>
+                                            {% if editmode %}
+                                                    {% if pimcore_input("PND_FamilyName_"~md5key).isEmpty() %}
+                                                            {{ pimcore_input("PND_FamilyName_"~md5key).setDataFromResource(bkey) | raw }}
+                                                    {% else %}
+                                                            {{ pimcore_input("PND_FamilyName_"~md5key) }}
+                                                    {% endif %}
+                                            {% else %}
+                                                    {{ pimcore_input("PND_FamilyName_"~md5key) }}
+                                            {% endif %}
+                                        
+                                        </td>   
+                                        <td>
+                                            {% if editmode %}
+                                                    {% if pimcore_input("PND_IndustryStandard_"~md5key).isEmpty() %}
+                                                            {{ pimcore_input("PND_IndustryStandard_"~md5key).setDataFromResource(brand[0]) | raw }}
+                                                    {% else %}
+                                                            {{ pimcore_input("PND_IndustryStandard_"~md5key) }}
+                                                    {% endif %}
+                                            {% else %}
+                                                    {{ pimcore_input("PND_IndustryStandard_"~md5key) }}
+                                            {% endif %}
+                                        </td>     
+                                        <td>{{ pimcore_input("PND_PageNumber_"~md5key) }}</td>     
+                                    </tr>
+                                    {% set rowcount = rowcount + 1 %} 
+                                {% endfor %} 
+                            {% endfor %} 
+                        </tbody>
+                    </table>
+                </section>
+            {% endif %} 
+        </article>
+    </div>
+</div>
+<div class="hide">
+    {% set hydraulic_hose_data_list = [] %} 
+
+    {% if hydraulic_hose_data %} 
+
+        {% for key, value in hydraulic_hose_data %}
+            {% hydraulic_hose_data_list = hydraulic_hose_data_list | merge(key~"$$"~(value|join(','))) %}
+        {% endfor %} 
+
+        {% if hydraulic_hose_data_list %} 
+            {% set hydraulic_hose_details_text =  hydraulic_hose_data_list | join(nl2br) %}
+            {{ pimcore_textarea('hydraulic_hose_details').setDataFromResource(hydraulic_hose_details_text) | raw }}
+        {% endif %} 
+    {% endif %} 
+</div>
+</div>
+{% endblock %}
