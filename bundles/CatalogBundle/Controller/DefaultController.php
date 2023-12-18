@@ -789,8 +789,8 @@ class DefaultController extends FrontendController
         $commonHelper = $this->containerInterface->get('app.common_helper');
         $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
         $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
-        if ($this->document->getEditable('href', 'tiletemplate')->getElement() instanceof  \Pimcore\Model\DataObject) {
-            $id = $this->document->getEditable('href', 'tiletemplate')->getId();
+        if ($this->document->getEditable('tiletemplate')->getElement()) {
+            $id = $this->document->getEditable('tiletemplate')->getId();
             $obj = \Pimcore\Model\DataObject::getById($id);
 
             $footerBgColor = $obj->getColor();
@@ -1923,17 +1923,17 @@ if(isset($data[$baseId])) {
                             if(empty($CatalogGrouping) && $element[$headerKeysIndex['CatalogGrouping']])
                                 $CatalogGrouping = $element[$headerKeysIndex['CatalogGrouping']];
 
-                            if(empty($rangeTemperatureF) && $element[$headerKeysIndex['rangeTemperatureF']])
-                                $rangeTemperatureF = $element[$headerKeysIndex['rangeTemperatureF']];
+                            // if(empty($rangeTemperatureF) && $element[$headerKeysIndex['rangeTemperatureF']])
+                            //     $rangeTemperatureF = $element[$headerKeysIndex['rangeTemperatureF']];
 
-                            if(empty($constructionType) && $element[$headerKeysIndex['siopFullCode']]){
-                                $entries = new DataObject\ProductCategory\Listing();
-                                $entries->setCondition("fullCode LIKE ?", $element[$headerKeysIndex['siopFullCode']]);
-                                $entries->load();
-                                foreach($entries as $entry) {
-                                    $constructionType = $entry->getConstructionType();
-                                }
-                            }
+                            // if(empty($constructionType) && $element[$headerKeysIndex['siopFullCode']]){
+                            //     $entries = new DataObject\ProductCategory\Listing();
+                            //     $entries->setCondition("fullCode LIKE ?", $element[$headerKeysIndex['siopFullCode']]);
+                            //     $entries->load();
+                            //     foreach($entries as $entry) {
+                            //         $constructionType = $entry->getConstructionType();
+                            //     }
+                            // }
 
                             foreach($element as $bkey => $value):
 
