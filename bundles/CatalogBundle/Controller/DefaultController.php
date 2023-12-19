@@ -2678,6 +2678,8 @@ if(isset($data[$baseId])) {
 
     public function templateIndexDescriptiveNumberAction(Request $request)
     {
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        return $this->render("@Catalog/Default/template_index_descriptive_number.html.twig", $parameterBag);
     }
 
     public function templateHydraulicAlphanumericIndexByDescriptiveNumberDynamicAction(Request $request)
@@ -2832,6 +2834,8 @@ if(isset($data[$baseId])) {
 
     public function templateIndexProductNumberAction(Request $request)
     {
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        return $this->render("@Catalog/Default/template_index_product_number.html.twig", $parameterBag);
     }
 
     public function replaceYellowCode($string)
@@ -2859,5 +2863,27 @@ if(isset($data[$baseId])) {
         {
             return $this->json(array("success" => false,"msg" => $e->getMessage()));
         }
+    }
+
+    public function getRequestedParameter(Request $request, $documentId): array
+    {
+        foreach ($request->attributes as $key => $value) {
+            $parameterBag[$key] = $value;
+        }
+
+        $imageWidth = null;
+        $imageRecompression = null;
+        $printConfigFile = \Pimcore\Web2Print\Processor::getJobConfigFile($documentId);
+        if(file_exists($printConfigFile)){
+            $printConfigFileContent = file_get_contents($printConfigFile);
+            $printConfig = json_decode( $printConfigFileContent,true);
+            $imageRecompression = $printConfig['config']['Image Quality'];
+            $imageWidth = $printConfig['config']['Image Width'];
+        }
+
+        $parameterBag['imageQuality'] = $imageRecompression;
+        $parameterBag['imageWidth'] = $imageWidth;
+
+        return $parameterBag;
     }
 }

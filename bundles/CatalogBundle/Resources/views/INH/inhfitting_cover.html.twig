@@ -1,0 +1,177 @@
+{% if parentContainer is not defined %}
+        {% extends "@Catalog/Layouts/layout.html.twig" %}
+{% endif %}
+
+{% block _content %}
+
+    {% if editmode %}
+
+            {{ pimcore_relation("inh_fitting_cover_page",{
+            "types": ["object"],
+            "subtypes": {
+                    "object": ["object"],
+            },
+            "classes": ["CatalogTables"]
+            }) }}
+
+    {% endif %}
+
+    {% if templateBrandDtata %}
+
+        <div class="template">
+            <div class="segregate inhSettingCover">
+
+                <div id="pageHeader"></div>
+                <span  class="pageName">
+                    {{ selectedCategory }}
+                </span>
+
+                <div class="footer">
+                    <footer class="flex-center {{footer_class}}">
+                        <span class="logo">
+                                <img src="{{footer_logo_src}}">
+                        </span>
+                        <div class="flex-center aligned">
+                            <h5>
+                                {% if editmode %} 
+                                        {% if pimcore_input("INH_Fitting_Cover_Category").isEmpty() %} 
+                                                {{ pimcore_input("INH_Fitting_Cover_Category", {"placeholder" : "Enter Fitting Category"}).setDataFromResource(selectedCategory) | raw }}
+                                        {% else %}
+                                                {{ pimcore_input("INH_Fitting_Cover_Category", {"placeholder" : "Enter Fitting Category"}) }}
+                                        {% endif %}
+                                {% else %}
+                                        {{ pimcore_input("INH_Fitting_Cover_Category", {"placeholder" : "Enter Fitting Category"}) }}
+                                {% endif %}
+                            </h5>
+                        </div>
+                    </footer>
+                </div>
+                <div class="footer1">
+                    <footer class="flex-center {{footer_class}}">
+                        <div class="flex-center aligned">
+                            <h5>
+                                {% if editmode %} 
+                                        {% if pimcore_input("INH_Fitting_Cover_Category1").isEmpty() %} 
+                                                {{ pimcore_input("INH_Fitting_Cover_Category1", {"placeholder" : "Enter Fitting Category"}).setDataFromResource(selectedCategory) | raw }}
+                                        {% else %}
+                                                {{ pimcore_input("INH_Fitting_Cover_Category1", {"placeholder" : "Enter Fitting Category"}) }}
+                                        {% endif %}
+                                {% else %}
+                                        {{ pimcore_input("INH_Fitting_Cover_Category1", {"placeholder" : "Enter Fitting Category"}) }}
+                                {% endif %}
+                            </h5>
+                        </div>
+                        <span class="logo">
+                                <img src="{{footer_logo_src}}">
+                        </span>
+                    </footer>
+                </div>
+
+                <article class="fullcontainer single">
+                    <div class="inhsetting1">
+                        <div class="inhsetting-sidebar30">
+                                                <div class="sidebar">
+                                                    <ul>
+                                                        {% if categories is iterable %}
+                                                            {% for category in categories %}
+                                                                {% set first = '' %}
+                                                                {% if (selectedCategory == category['mainCategory'][0]['name']) %}
+                                                                    {% set first = 'first' %}
+                                                                {% endif %}
+                                                                
+                                                                <li class='{{first}}'>
+                                                                    {% if category['mainCategory'][0]['name'] is defined %}
+                                                                        <p><b>{{category['mainCategory'][0]['name']}}</b></p>
+                                                                    {% else %}
+                                                                        <p</p>
+                                                                    {% endif %}
+
+                                                                    {% if category['subCategory'] is iterable and category['subCategory'] is not empty %}
+                                                                        {% for k, cat in category['subCategory'] %}
+                                                                            {% if cat['printable'] == 1 %} 
+                                                                                <p>{{cat['name']}}</p>
+                                                                            {% endif %}
+                                                                        {% endfor %}
+                                                                    {% endif %}
+                                                                </li>
+                                                            {% endfor %}
+                                                        {% endif %}
+                                                    </ul>
+                                                </div>
+                        </div>
+                        <div class=" inhRight">
+
+                            <h1 class="borderBottom block marginBottom5 contitech-yellow">
+                                {% if editmode %}
+                                        {% if pimcore_input("INH_Fitting_Cover_brandName").isEmpty() %}
+                                            {{ pimcore_input("INH_Fitting_Cover_brandName", {'placeholder':'Enter Fitting Category'}).setDataFromResource(selectedCategory) | raw }}
+                                        {% else %}
+                                            {{ pimcore_input("INH_Fitting_Cover_brandName", {'placeholder':'Enter Fitting Category'}) }}
+                                        {% endif %}
+                                {% else %}
+                                        {{ pimcore_input("INH_Fitting_Cover_brandName", {'placeholder':'Enter Fitting Category'}) }}
+                                {% endif %}
+                            </h1>
+                            
+                            {% if editmode %}
+                                    <p class=" borderBottom block">
+                                        {{ pimcore_image('INH_Fitting_Cover_DefaultImage', {'width': 600, 'height': 200}) }}
+                                    </p>
+                            {% else %}
+                                    {% if not pimcore_image('INH_Fitting_Cover_DefaultImage').isEmpty() %}
+                                        <p class=" borderBottom block">
+                                            {% set imgSrcObj = pimcore_image('INH_Fitting_Cover_DefaultImage') %}
+                                            {% if imgSrcObj %}
+                                                <img src="{{ getImageThumbnail(imgSrcObj,imageWidth) }}" width="600" height="200"/>
+                                            {% endif %}
+                                        </p>
+                                    {% endif %}
+                            {% endif %}
+
+                            <table class="grid special marginBottom5" cellspacing="0" cellpadding="0">
+                                        <tr class="head">
+                                                <td></td>
+                                                <td>page</td>
+                                                {% for mkey, material in featuresMaterials %}
+                                                        <td>{{ material }}</td>
+                                                {% endfor %}
+                                        </tr>
+                                        {% set incrRow = 1 %}
+                                        
+                                        {% for key, element in templateBrandDtata %}
+                                                {% if (incrRow%2 == 0) %}
+                                                <tr class = 'tableNewFont'>
+                                                {% else %}
+                                                <tr class="active tableNewFont">
+                                                {% endif %}
+                                                        <td>{{key}}</td>
+                                                        <td>{{pimcore_input("page_"~incrRow)}}</td>
+                                                        {% for ekey, value in element %}
+                                                            <td>{{ value }}</td>
+                                                        {% endfor %}
+                                                </tr>
+                                                {% set incrRow = incrRow + 1 %}
+                                        {% endfor %}
+
+                            </table>
+                            {% if editmode %}
+                            <p class="small">*{{ pimcore_input('INH_Fitting_Cover_Table_Bottom_Text', {"placeholder":"Table Bottom Title"}) }}</p>
+                            {% endif %}
+
+                            {% if editmode and not (pimcore_input('INH_Fitting_Cover_Table_Bottom_Text').isEmpty()) %} 
+                                <p class="small">*{{ pimcore_input('INH_Fitting_Cover_Table_Bottom_Text', {"placeholder":"Table Bottom Title"}) }}</p>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                </article>
+            </div>
+        </div>
+
+        {% if not containerRequest %}
+            <script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
+        {% endif %}
+
+    {% endif %}
+
+{% endblock %}
