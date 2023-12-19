@@ -6,7 +6,7 @@
 
     {% if editmode %}
 
-            {{ pimcore_relation("inh_fitting_cover_page",{
+            {{ pimcore_relations("inh_fitting_cover_page",{
             "types": ["object"],
             "subtypes": {
                     "object": ["object"],
@@ -16,7 +16,7 @@
 
     {% endif %}
 
-    {% if templateBrandDtata %}
+    {% if templateBrandDtata is defined %}
 
         <div class="template">
             <div class="segregate inhSettingCover">
@@ -85,14 +85,15 @@
                                                                     {% else %}
                                                                         <p</p>
                                                                     {% endif %}
-
-                                                                    {% if category['subCategory'] is iterable and category['subCategory'] is not empty %}
+                                                                    
+                                                                    {% if category['subCategory'] is defined and category['subCategory'] is iterable and category['subCategory'] is not empty %}
                                                                         {% for k, cat in category['subCategory'] %}
                                                                             {% if cat['printable'] == 1 %} 
                                                                                 <p>{{cat['name']}}</p>
                                                                             {% endif %}
                                                                         {% endfor %}
                                                                     {% endif %}
+                                                                    
                                                                 </li>
                                                             {% endfor %}
                                                         {% endif %}

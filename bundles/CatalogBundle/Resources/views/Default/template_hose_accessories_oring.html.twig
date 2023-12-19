@@ -15,7 +15,7 @@
                 }) }}
         {% endif %}
 
-        {% if data %}
+        {% if data is defined and data %}
                 {% set partNumbers = [] %}
                 {% set productNumbers = [] %}
                 <div class="template">
@@ -292,7 +292,7 @@
                                                         </tbody>
                                                         </table>
                                                         <p class="small">
-                                                                {{ pimcore_input("HHAO_note_"~md5Key, {placeholder:'Enter comment'}) }}
+                                                                {{ pimcore_input("HHAO_note_"~md5key, {placeholder:'Enter comment'}) }}
                                                         </p>
                                                 </div>
                                                 {% endfor %}

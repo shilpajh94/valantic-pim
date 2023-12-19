@@ -203,7 +203,7 @@
 
                                                         <table class="grid inh" cellspacing="0" cellpadding="0">
                                                                 <thead>
-                                                                        {% if (iconRequired == 'YES') %}
+                                                                        {% if (brand['iconRequired'] == 'YES') %}
                                                                                 <tr class="sub-head">
                                                                                         {% for key, c1data in brand['columnsDataWithImages'] %}
 
@@ -240,7 +240,7 @@
                                                                         </tr>
 
                                                                         
-                                                                        {% if (subHeaderRequired == 'YES') %}
+                                                                        {% if (brand['subHeaderRequired'] == 'YES') %}
                                                                                 <tr class="sub-head">
                                                                                         {% for key, c3data in brand['columnsDataWithImages'] %}
                                                                                                 {% for c3key, c3value in c3data %}
@@ -292,7 +292,7 @@
                                                                 </tbody>
                                                         </table>
                                                         <p class="small">
-                                                                {{ pimcore_input("HHAC_note_"~md5Key, {placeholder:'Enter comment'}) }}
+                                                                {{ pimcore_input("HHAC_note_"~md5key, {placeholder:'Enter comment'}) }}
                                                         </p>
                                                 {% endfor %}
                                         {% endif %}
