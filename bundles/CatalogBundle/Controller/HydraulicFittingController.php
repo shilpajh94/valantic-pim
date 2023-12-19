@@ -48,8 +48,8 @@ class HydraulicFittingController extends FrontendController
         $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
         $this->attributeImages = $common->getParameter($attributeImagesConfig, 'attributeImages');
         $CatalogImagesHYDFooter = $common->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
-        if ($this->document->getEditable('relation', 'fitting-straight')->getElement() instanceof  \Pimcore\Model\DataObject) {
-            $id = $this->document->getEditable('relation', 'fitting-straight')->getId();
+        if ($this->document->getEditable('fitting-straight')->getElement() instanceof  \Pimcore\Model\DataObject) {
+            $id = $this->document->getEditable('fitting-straight')->getId();
             $obj = \Pimcore\Model\DataObject::getById($id);
 
             $footerBgColor = $obj->getColor();
@@ -104,7 +104,7 @@ class HydraulicFittingController extends FrontendController
 
                 foreach ($productsData as $key => $item)
                 {
-                    $brandName = $item[$headerKeysIndex['brandName']][0];
+                    // $brandName = $item[$headerKeysIndex['brandName']][0];
                     $shortDescription = strip_tags($item[$headerKeysIndex['shortDescription']]);
                     $shortDescription = str_replace(array(" ","-","°","/",PHP_EOL), "", $shortDescription);
                     $FittingTableName = $item[$headerKeysIndex['FittingTableName']];
@@ -307,7 +307,7 @@ class HydraulicFittingController extends FrontendController
 
         if($imgObj){
             // $s3src = $imgObj->getThumbnail('catalog_thumb');
-            $s3src = $this->catalogTemplatingHelper->getImageThumbnail($imgObj,$this->view->imageWidth);
+            // $s3src = $this->catalogTemplatingHelper->getImageThumbnail($imgObj,$this->view->imageWidth);
 //            $s3src = Utils::getAssetFullPathCompatibleToS3($imgObj);
         }
 
