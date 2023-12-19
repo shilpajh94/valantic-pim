@@ -228,7 +228,7 @@ class DefaultController extends FrontendController
 
         if ($template && $table) {
 
-            $tableColumns = $this->tableColumns[$template][$table];
+            $tableColumns = isset($this->tableColumns[$template][$table])? $this->tableColumns[$template][$table]: null;
 
             if ($tableColumns !== null) {
                 if (!empty($tableColumns) && count($tableColumns) > 0) {
@@ -615,14 +615,14 @@ class DefaultController extends FrontendController
                         }
                         }
 
-                        if(in_array($dFieldKey,['brandName']))
-                        {
-                            $pData[$item->getId()][$dFieldKey] = implode('||',$dataValues);
-                        }
-                        else
-                        {
+                        // if(in_array($dFieldKey,['brandName', 'FeaturesBenefitsBulletPoint', 'Color']))
+                        // {
+                        //     $pData[$item->getId()][$dFieldKey] = implode('||',$dataValues);
+                        // }
+                        // else
+                        // {
                         $pData[$item->getId()][$dFieldKey] = $this->convertValueToDecimal($needUpdateValue, $dataValues, $numberOfDecimalPoints);
-                        }
+                        // }
 
                     } else if ($dFieldName['fieldLevel'] == 'objectBrick' && in_array($dFieldName['parent']['name'], $bricksList['fert']) && strtolower($dFieldName['fieldType']) != 'relation') {
                         $brickGetter = 'get' . ucfirst($dFieldName['parent']['name']);
@@ -738,7 +738,9 @@ class DefaultController extends FrontendController
 
     public function convertValueToDecimal($needUpdateValue, $value, $numberOfDecimalPoints)
     {
-        if($needUpdateValue && $value && is_numeric($value))
+        if(is_array($value))
+            $fieldValue = implode('||',$value);
+        else if($needUpdateValue && $value && is_numeric($value))
             $fieldValue = number_format($value, $numberOfDecimalPoints);
         else
             $fieldValue = $value;
@@ -1202,7 +1204,8 @@ if(isset($data[$baseId])) {
     public function templateHoseAccessoriesSleevingAction(Request $request)
     {
         $template = $this->document->getEditable('template_hose_accessories_sleeving')->getElement();
-
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        
         if($template)
         {
             $commonHelper = $this->containerInterface->get('app.common_helper');
@@ -1251,8 +1254,8 @@ if(isset($data[$baseId])) {
             if($productsData)
             {
                 foreach ($productsData as $key => $item) {
-                    if(!empty(trim($item[$headerKeysIndex['brandName']][0])))
-                        $brandsData[$item[$headerKeysIndex['brandName']][0]][] = $item;
+                    if(!empty(trim($item[$headerKeysIndex['brandName']])))
+                        $brandsData[$item[$headerKeysIndex['brandName']]][] = $item;
                 }
 
                 foreach ($brandsData as $brandKey => $brandArray) {
@@ -1272,7 +1275,7 @@ if(isset($data[$baseId])) {
 
                     foreach($brandArray as $key => $element):
 
-                            $brandName = $element[$headerKeysIndex['brandName']][0];
+                            $brandName = $element[$headerKeysIndex['brandName']];
 
                             if(empty($imageObj) && $element[$headerKeysIndex['mainImage']])
                                 $imageObj = \Pimcore\Model\Asset::getByPath($element[$headerKeysIndex['mainImage']]);
@@ -1286,10 +1289,12 @@ if(isset($data[$baseId])) {
                             foreach($element as $bkey => $value):
                                     if($bkey == $headerKeysIndex['FeaturesBenefitsBulletPoint'])
                                     {
-                                        if(count($value)>0)
+                                        $fbvalue = explode('||', $value);
+                                        if(count($fbvalue)>0)
                                         {
-                                            foreach ($value as $fkey => $feature) {
-                                                array_push($safetyFeatures,$feature);
+                                            foreach ($fbvalue as $fkey => $feature) {
+                                                if($feature)
+                                                    array_push($safetyFeatures,$feature);
                                             }
                                         }
                                     }
@@ -1351,7 +1356,7 @@ if(isset($data[$baseId])) {
             $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
-            $parameterBag = [];
+            // $parameterBag = [];
             $parameterBag['data'] = $data;
             $parameterBag['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
             $parameterBag['footer_logo_src'] = $footer_logo_src;
@@ -1362,6 +1367,7 @@ if(isset($data[$baseId])) {
     public function templateHoseAccessoriesClampsAction(Request $request)
     {
         $template = $this->document->getEditable('template_hose_accessories_clamps')->getElement();
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
 
         if($template)
         {
@@ -1405,8 +1411,8 @@ if(isset($data[$baseId])) {
             $brandsData = array();
 
             foreach ($productsData as $key => $item) {
-                if(!empty(trim($item[$headerKeysIndex['brandName']][0])))
-                    $brandsData[$item[$headerKeysIndex['brandName']][0]][] = $item;
+                if(!empty(trim($item[$headerKeysIndex['brandName']])))
+                    $brandsData[$item[$headerKeysIndex['brandName']]][] = $item;
             }
 
             foreach ($brandsData as $brandKey => $brandArray)
@@ -1420,7 +1426,7 @@ if(isset($data[$baseId])) {
 
                 foreach($brandArray as $key => $element):
 
-                    $brandName = $element[$headerKeysIndex['brandName']][0];
+                    $brandName = $element[$headerKeysIndex['brandName']];
 
                     if(empty($imageObj) && $element[$headerKeysIndex['mainImage']])
                         $imageObj = \Pimcore\Model\Asset::getByPath($element[$headerKeysIndex['mainImage']]);
@@ -1457,7 +1463,6 @@ if(isset($data[$baseId])) {
             $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
-            $parameterBag = [];
             $parameterBag['data'] = $data;
             $parameterBag['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
             $parameterBag['footer_logo_src'] = $footer_logo_src;
@@ -1467,10 +1472,13 @@ if(isset($data[$baseId])) {
 
     public function templateHoseAccessoriesOringAction(Request $request)
     {
-        $template = $this->document->getEditable('template_hose_accessories_oring')->getElement();
+        $template = $this->document->getEditable('template_hose_accessories_oring');
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
 
         if($template)
         {
+            $template = $this->document->getEditable('template_hose_accessories_oring')->getElement();
+
             $commonHelper = $this->containerInterface->get('app.common_helper');
 
             $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
@@ -1518,9 +1526,9 @@ if(isset($data[$baseId])) {
 
             if($productsData){
                 foreach ($productsData as $key => $item) {
-                    if(!empty(trim($item[$headerKeysIndex['brandName']][0])))
+                    if(!empty(trim($item[$headerKeysIndex['brandName']])))
                     {
-                        $brandName = $item[$headerKeysIndex['brandName']][0];
+                        $brandName = $item[$headerKeysIndex['brandName']];
 
                         if($item[$headerKeysIndex['MaterialType']] && is_array($item[$headerKeysIndex['MaterialType']]))
                             $material = array_merge($material, $item[$headerKeysIndex['MaterialType']]);
@@ -1581,7 +1589,6 @@ if(isset($data[$baseId])) {
             $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
-            $parameterBag = [];
             $parameterBag['data'] = $data;
             $parameterBag['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
             $parameterBag['footer_logo_src'] = $footer_logo_src;
@@ -1591,34 +1598,7 @@ if(isset($data[$baseId])) {
 
     public function templateTableOfContentsAction(Request $request)
     {
-        // p_R($request); die;
-        $parameterBag = [
-            'document' => $this->document
-        ];
-
-        foreach ($request->attributes as $key => $value) {
-            $parameterBag[$key] = $value;
-        }
-
-        $imageWidth = null;
-        $imageRecompression = null;
-        $printConfigFile = \Pimcore\Web2Print\Processor::getJobConfigFile($this->document->getId());
-        if(file_exists($printConfigFile)){
-            // echo "Insdie";
-            $printConfigFileContent = file_get_contents($printConfigFile);
-            $printConfig = json_decode( $printConfigFileContent,true);
-            // p_r($printConfig);
-            $imageRecompression = $printConfig['config']['Image Quality'];
-            $imageWidth = $printConfig['config']['Image Width'];
-        }
-
-        $this->imageQuality = $imageRecompression;
-        $this->imageWidth = $imageWidth;
-
-
-        $parameterBag['imageQuality'] = $this->imageQuality;
-        $parameterBag['imageWidth'] = $this->imageWidth;
-
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
         return $this->render('@Catalog/Default/template_table_of_contents.html.twig',$parameterBag);
     }
 
@@ -2867,9 +2847,11 @@ if(isset($data[$baseId])) {
 
     public function getRequestedParameter(Request $request, $documentId): array
     {
-        foreach ($request->attributes as $key => $value) {
-            $parameterBag[$key] = $value;
-        }
+        $parameterBag = [];
+        // foreach ($request->attributes as $key => $value) {
+        //     $parameterBag[$key] = $value;
+        // }
+        $parameterBag['printermarks'] = $request->get('printermarks');
 
         $imageWidth = null;
         $imageRecompression = null;
@@ -2880,10 +2862,11 @@ if(isset($data[$baseId])) {
             $imageRecompression = $printConfig['config']['Image Quality'];
             $imageWidth = $printConfig['config']['Image Width'];
         }
-
+        $this->imageWidth = $imageWidth;
         $parameterBag['imageQuality'] = $imageRecompression;
         $parameterBag['imageWidth'] = $imageWidth;
 
         return $parameterBag;
     }
+
 }

@@ -17,7 +17,7 @@
         {% set partNumbers = [] %}
         {% set productNumbers = [] %}
  
- 
+{% if data is defined %}
 <div class="template">
         <section class="segregate">
                 <div id="pageHeader"></div>
@@ -327,7 +327,7 @@
                                                                 </tbody>
                                                         </table>
                                                         <p class="small">
-                                                                {{ pimcore_input("HHAS_note_"~md5Key, {placeholder:'Enter comment'}) }}
+                                                                {{ pimcore_input("HHAS_note_"~md5key, {placeholder:'Enter comment'}) }}
                                                         </p>
                                                 {% endfor %}
                                         {% endif %}
@@ -347,4 +347,5 @@
                 {% endif %}
         </div>
 </div>
+{% endif %}
 {% endblock %}

@@ -28,6 +28,7 @@ class IndustrialHoseController extends FrontendController
     private $catalogTemplatingHelper;
     private $containerInterface;
     private $translator;
+    private $imageWidth;
 
 
     public function __construct(CatalogTemplatingHelper $catalogTemplatingHelper, ContainerInterface $container, TranslatorInterface $translator)
@@ -1138,7 +1139,9 @@ class IndustrialHoseController extends FrontendController
 
     public function inhFittingCoverAction(Request $request){
         $containerRequest = $request->get('containerRequest') ? $request->get('containerRequest') : FALSE;
-        $templates = $this->document->getEditable('relations', 'inh_fitting_cover_page')->getElements();
+        $templates = $this->document->getEditable('inh_fitting_cover_page')->getElements();
+
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
 
         if($templates)
         {
@@ -1189,7 +1192,7 @@ class IndustrialHoseController extends FrontendController
                     $materialKeys = array_fill_keys($featuresMaterials, '');
                     foreach ($productsData as $key => $item) {
 
-                        if($item[$headerKeysIndex['brandName']][0])
+                        if($item[$headerKeysIndex['brandName']])
                         {
                             if(!isset($catagoryDescription['SIOP3Description']))
                             {
@@ -1204,7 +1207,7 @@ class IndustrialHoseController extends FrontendController
                                 if($material == $item[$headerKeysIndex['FittingMaterial']])
                                     $materialKeys[$material] = 'Yes';
                             }
-                            $templateBrandDtata[$item[$headerKeysIndex['brandName']][0]]= $materialKeys;
+                            $templateBrandDtata[$item[$headerKeysIndex['brandName']]]= $materialKeys;
                         }
                     }
                 }
@@ -1215,17 +1218,19 @@ class IndustrialHoseController extends FrontendController
             $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesINHFooter['Black']:$CatalogImagesINHFooter['Orange'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
-            $parameterVar = [];
-            $parameterVar['featuresMaterials'] = $featuresMaterials;
-            $parameterVar['templateBrandDtata'] = $templateBrandDtata;
-            $parameterVar['categories'] = $menuCategories;
-            $parameterVar['selectedCategory'] = $catagoryDescription['SIOP3Description'];
+            // $parameterVar = [];
+            $parameterBag['featuresMaterials'] = $featuresMaterials;
+            $parameterBag['templateBrandDtata'] = $templateBrandDtata;
+            $parameterBag['categories'] = $menuCategories;
+            $parameterBag['selectedCategory'] = $catagoryDescription['SIOP3Description'];
             // $this->view['defaultPageImage'] = \Pimcore\Model\Asset::getByPath($CatalogImagesINHProduct['DefaultCoverImage']);
-            $parameterVar['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
-            $parameterVar['footer_logo_src'] = $footer_logo_src;
-            $parameterVar['containerRequest'] = $containerRequest;
+            $parameterBag['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
+            $parameterBag['footer_logo_src'] = $footer_logo_src;
+            $parameterBag['containerRequest'] = $containerRequest;
+            // p_r($parameterBag);
+            
         }
-        return $this->render("@Catalog/INH/inhfitting_cover.html.twig", $parameterVar);
+        return $this->render("@Catalog/INH/inhfitting_cover.html.twig", $parameterBag);
     }
 
     private function getSIOP($language) {
@@ -1351,7 +1356,7 @@ class IndustrialHoseController extends FrontendController
 
         if($imgObj){
             // $s3src = $imgObj->getThumbnail('catalog_thumb');
-            $s3src = $this->catalogTemplatingHelper->getImageThumbnail($imgObj,$this->view->imageWidth);
+            $s3src = $this->catalogTemplatingHelper->getImageThumbnail($imgObj,$this->imageWidth);
 //            $s3src = Utils::getAssetFullPathCompatibleToS3($imgObj);
         }
 
@@ -1461,4 +1466,29 @@ class IndustrialHoseController extends FrontendController
         $string = str_replace('*%','</span>', $string);
         return $string;
     }
+
+    public function getRequestedParameter(Request $request, $documentId): array
+    {
+        $parameterBag = [];
+        // foreach ($request->attributes as $key => $value) {
+        //     $parameterBag[$key] = $value;
+        // }
+        $parameterBag['printermarks'] = $request->get('printermarks');
+
+        $imageWidth = null;
+        $imageRecompression = null;
+        $printConfigFile = \Pimcore\Web2Print\Processor::getJobConfigFile($documentId);
+        if(file_exists($printConfigFile)){
+            $printConfigFileContent = file_get_contents($printConfigFile);
+            $printConfig = json_decode( $printConfigFileContent,true);
+            $imageRecompression = $printConfig['config']['Image Quality'];
+            $imageWidth = $printConfig['config']['Image Width'];
+        }
+        $this->imageWidth = $imageWidth;
+        $parameterBag['imageQuality'] = $imageRecompression;
+        $parameterBag['imageWidth'] = $imageWidth;
+
+        return $parameterBag;
+    }
 }
+
