@@ -595,7 +595,7 @@ class IndustrialHoseController extends FrontendController
         // $common = $this->containerInterface->get('app.common_helper');
         $dispColumns = array();
 
-        $template = $this->document->getEditable('relation', 'inh-printcatalogproduct')->getElement();
+        $template = $this->document->getEditable('inh-printcatalogproduct')->getElement();
         $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
 
         if ($template instanceof  \Pimcore\Model\DataObject) {
@@ -1434,13 +1434,13 @@ class IndustrialHoseController extends FrontendController
                     $this->subHeaderRequired = 'YES';
                 }
 
-                // $columnsDataWithImages[$groupColumnName][$key]['groupName'] = $value['groupName'];
-                // $columnsDataWithImages[$groupColumnName][$key]['columnWidth'] = $value['columnWidth'];
+                $columnsDataWithImages[$groupColumnName][$key]['groupName'] = $value['groupName'];
+                $columnsDataWithImages[$groupColumnName][$key]['columnWidth'] = $value['columnWidth'];
 
                 if($value['columnName'] == 'listPrice')
                     $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $value['unitName'];
                 else
-                    // $columnsDataWithImages[$groupColumnName][$key]['unitName'] = ($value['unitName']) ? $this->replaceYellowCode($this->translator->trans($value['unitName'])) : '';
+                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = ($value['unitName']) ? $this->replaceYellowCode($this->translator->trans($value['unitName'])) : '';
 
                 $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
                 $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->replaceYellowCode($this->translator->trans($groupColumnName));

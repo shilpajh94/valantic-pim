@@ -107,7 +107,7 @@ class HydraulicFittingController extends FrontendController
 
                 foreach ($productsData as $key => $item)
                 {
-                    // $brandName = $item[$headerKeysIndex['brandName']][0];
+                    $brandName = $item[$headerKeysIndex['brandName']][0];
                     $shortDescription = strip_tags($item[$headerKeysIndex['shortDescription']]);
                     $shortDescription = str_replace(array(" ","-","°","/",PHP_EOL), "", $shortDescription);
                     $FittingTableName = $item[$headerKeysIndex['FittingTableName']];
