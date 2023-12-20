@@ -3,6 +3,7 @@
 namespace IFSEU\ImportBundle\Helper;
 
 use Pimcore\Model\DataObject;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class Category
 {
@@ -13,12 +14,15 @@ class Category
     private $catConfigData;
     public $siopCodes;
     public $levelLength;
-    public function __construct()
+    private $container;
+
+    public function __construct(ContainerInterface $container)
     {
         /* Initiate common helper */
-        $this->common = \Pimcore::getContainer()->get('ifs_eu_import.common_helper');
+        $this->container = $container;
+        $this->common = $this->container->get('ifs_eu_import.common_helper');
         /* Loading global configuration for category */
-        $this->catConfigData = \Pimcore::getContainer()->get('ifs_eu_import.config_provider_service')->getCategoryConfig();
+        $this->catConfigData = $this->container->get('ifs_eu_import.config_provider_service')->getCategoryConfig();
         $this->root = $this->common->getParameter($this->catConfigData, 'root');
         $this->codeLength = $this->common->getParameter($this->catConfigData, 'codeLength');
         $this->levelLength = $this->common->getParameter($this->catConfigData, 'levelLength');
@@ -71,7 +75,7 @@ class Category
      */
     public function extractFullCodeLevelWise($currLevel, $code)
     {
-        $levelLength = $this->levelLength[$currLevel];
+        $levelLength = isset($this->levelLength[$currLevel]) ? $this->levelLength[$currLevel] : NULL;
         return substr($code, 0, $levelLength);
     }
 
@@ -80,10 +84,10 @@ class Category
      */
     public function extractCodeLevelWise($level, $code)
     {
-        $levelLength= $this->levelLength[$level];
+        $levelLength= isset($this->levelLength[$level]) ? $this->levelLength[$level] : NULL;
         $levelCode  = substr($code, 0, $levelLength);
         $len        = strlen($levelCode);
-        $from       = $len - $this->codeLength[$level];
+        $from       = $len - (isset($this->codeLength[$level]) ? $this->codeLength[$level] : 0);
         return substr($levelCode, $from, $len);
     }
 

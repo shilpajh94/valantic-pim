@@ -8,9 +8,10 @@ use AppBundle\Lib\UnitConversion;
 use DateTime;
 use IFSEU\ImportBundle\Model\ProductModel;
 use IFSEU\ProductBundle\Services\CompletenessPercentageService;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 
-class ProductImportService
+class EHoseProductImportService
 {
     
     public $name; // Command Name
@@ -68,7 +69,8 @@ class ProductImportService
     private $ConditionsIdArray;
     private $productionLengthIdArray;
     private $noteInfoIdArray;
-    
+    private $container;
+
     const LOGGER_MODULE = 'SAP IMPORT SHEET';
     const GROSS_WEIGHT_UNITS = [
         "LB" => UnitConversion\WeightPerLengthConverter::UNIT_LBS_PER_FT,
@@ -76,24 +78,24 @@ class ProductImportService
         "G" => UnitConversion\WeightPerLengthConverter::UNIT_G_PER_FT
     ];
     
-    public function __construct(
-        CompletenessPercentageService $percentageCompletionService
-    ) {
+    public function __construct(CompletenessPercentageService $percentageCompletionService, ContainerInterface $container)
+    {
+            $this->container = $container;
         $this->percentageCompletionService = $percentageCompletionService;        /* Initilize monitoring item and set the number of steps will take to complete the task */
         $this->logFileName          = 'ifseu-products-log-' . date('Ymdhis');
-        $this->common               = \Pimcore::getContainer()->get('ifs_eu_import.common_helper');
-        $this->productModel         = new ProductModel;
-        $this->configProviderService= \Pimcore::getContainer()->get('ifs_eu_import.config_provider_service');
-        $this->productHelper        = \Pimcore::getContainer()->get('ifs_eu_import.product_helper');
+        $this->common               = $this->container->get('ifs_eu_import.common_helper');
+        $this->productModel         = $this->container->get('ifs_eu_import.product_model');
+        $this->configProviderService= $this->container->get('ifs_eu_import.config_provider_service');
+        $this->productHelper        = $this->container->get('ifs_eu_import.product_helper');
         $this->materialConfigData   = $this->configProviderService->getProductImportConfig();
         $this->catConfigData        = $this->configProviderService->getCategoryConfig();
         $this->businessUnit         = $this->common->getParameter($this->catConfigData, 'businessUnit');
-        $this->brickMappingService  = \Pimcore::getContainer()->get('ifs_eu_import.category_brick_mapping_service');
+        $this->brickMappingService  = $this->container->get('ifs_eu_import.category_brick_mapping_service');
         $this->columnName           = $this->common->getParameterItem($this->materialConfigData, 'sheet', 'columnName');
         $this->weightConversionService = new UnitConversion\WeightPerLengthConverter();
 
         $this->baseSiopMismatchLog  = [];
-        $this->unitConversionService= \Pimcore::getContainer()->get('ifs_eu_import.unit_conversion_import_service');
+        $this->unitConversionService= $this->container->get('ifs_eu_import.unit_conversion_import_service');
     }
     
     /**
@@ -141,7 +143,7 @@ class ProductImportService
         $this->SubCategory = [];
         $this->minimumOrderIdArray = [];
         $this->shippingConditionsIdArray = [];
-        $this->manufacturingLengthIdArray = [];
+        // $this->manufacturingLengthIdArray = [];
         $this->ConditionsIdArray = [];
         $this->productionLengthIdArray = [];
         $this->noteInfoIdArray = [];
@@ -157,7 +159,7 @@ class ProductImportService
         $subCategoryList = $this->productModel->getSubCategoryData();
         $minimumOrderList = $this->productModel->getMinimumOrderLanguageData();
         $shippingConditionsList = $this->productModel->getShippingConditionsData();
-        $manufacturingLengthList = $this->productModel->getManufacturingLengthData();
+        // $manufacturingLengthList = $this->productModel->getManufacturingLengthData();
         $ConditionsList = $this->productModel->getConditionsData();
         $productionLengthList = $this->productModel->getProductionLengthData();
         $NoteInfoList = $this->productModel->getNoteInfoBelowTableData();
@@ -174,11 +176,11 @@ class ProductImportService
             unset($id);
         }
 
-        foreach($manufacturingLengthList as $manufacturingLengthData) {
-            $id = $manufacturingLengthData['ManufacturingLength'];
-            $this->manufacturingLengthIdArray[$id] = $manufacturingLengthData['oo_id'];
-            unset($id);
-        }
+        // foreach($manufacturingLengthList as $manufacturingLengthData) {
+        //     $id = $manufacturingLengthData['ManufacturingLength'];
+        //     $this->manufacturingLengthIdArray[$id] = $manufacturingLengthData['oo_id'];
+        //     unset($id);
+        // }
 
         foreach($productionLengthList as $productionLengthData) {
             $id = $productionLengthData['ProductionLength'];
@@ -242,7 +244,7 @@ class ProductImportService
       
     public function import()
     {
-        $sapFileFeeder  = \Pimcore::getContainer()->get('ifs_eu_import.sap_file_feeder_service');
+        $sapFileFeeder  = $this->container->get('ifs_eu_import.sap_file_feeder_service');
         $this->filePath = $sapFileFeeder->execFileFeeder('eHoseProduct');
         if($this->filePath){
             $csvInfo = ImportService::getCSVData($this->filePath);
@@ -254,8 +256,8 @@ class ProductImportService
                 $this->productModel->truncateTempTable();
                 $this->productModel->insertDataInTemp($csvInfo['data']);
                 Logger::log(self::LOGGER_MODULE)->info("Data Sheet imported in temp table");
-                $this->productModel->processDeletedProducts();
-                Logger::log(self::LOGGER_MODULE)->info("Removed records in data sheet, marked as unpublished.");
+                // $this->productModel->processDeletedProducts();
+                // Logger::log(self::LOGGER_MODULE)->info("Removed records in data sheet, marked as unpublished.");
                 Logger::log(self::LOGGER_MODULE)->info("Product import started");
                 $this->initiateProductsProcess();
                 Logger::log(self::LOGGER_MODULE)->info("Product import completed");
@@ -273,6 +275,7 @@ class ProductImportService
                     $this->sendSkippedArticlesEmailNotification($this->baseSiopMismatchLog, $this->baseSiopMismatchEmailTemplate);
                 }
             } catch (\Throwable $th) {
+                p_r($th);
                 Logger::error($this->logFileName, $th);
                 die;
             }
@@ -287,7 +290,7 @@ class ProductImportService
         try {
             if (!empty($skippedArticles) && count($skippedArticles)>0) {
                 $fileName = "IFSEU_SAP_import_skipped_articles_" . '-' . date('YmdHis') . '.csv';
-                $logFilePath = PIMCORE_TEMPORARY_DIRECTORY."/".$fileName;
+                $logFilePath = PIMCORE_SYSTEM_TEMP_DIRECTORY."/".$fileName;
                 $fp = fopen($logFilePath, 'wb');
                 fputcsv($fp, ['materialNumber', 'siop', '6digit', 'mismatchedSiopCode', 'mismatchedMatrialNumber']);
                 foreach ($skippedArticles as $article) {
@@ -302,7 +305,7 @@ class ProductImportService
                             'templateName' => $emailTemplate,
                             'attachment' => $logFilePath
                         ];
-                        $this->emailService = \Pimcore::getContainer()->get('email.email_notification_service');
+                        $this->emailService = $this->container->get('email.email_notification_service');
                         $this->emailService->sendNotificationsEmail($emailParams);
                     }else {
                         throw new Exception("Base SIOP mismatch email template not found.");
@@ -312,6 +315,7 @@ class ProductImportService
                 }
             }
         } catch (\Throwable $th) {
+            p_r($th);
             \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($th);
 //            Logger::error("sap_import_log", $th);
         }
@@ -423,13 +427,13 @@ class ProductImportService
         }
     }
 
-    public function getmanufacturingLengthID($eachmanufacturingLengthValue){
-        foreach ($this->manufacturingLengthIdArray as $manufacturingLengthName => $manufacturingLengthId) {
-            if ($manufacturingLengthName == $eachmanufacturingLengthValue) {
-                return $manufacturingLengthId;
-            }
-        }
-    }
+    // public function getmanufacturingLengthID($eachmanufacturingLengthValue){
+    //     foreach ($this->manufacturingLengthIdArray as $manufacturingLengthName => $manufacturingLengthId) {
+    //         if ($manufacturingLengthName == $eachmanufacturingLengthValue) {
+    //             return $manufacturingLengthId;
+    //         }
+    //     }
+    // }
 
     public function getMinimumOrderID($eachMinimumOrderValue){
         foreach ($this->minimumOrderIdArray as $minimumOrderName => $minId) {
@@ -472,6 +476,8 @@ class ProductImportService
     }
     public function createIFSEUObject($record, $parentId, $parentPath, $levelInfo, $type) 
     {
+        $bricksList = '';
+
         $objectIndex        = $this->productHelper->getObjectIndex($type, $levelInfo);
         
         $currentLevelCode   = $levelInfo[$objectIndex]['levelFullCode'];
@@ -656,7 +662,8 @@ class ProductImportService
     }
     
     public function getLocalizedQueryData($objId, $record, $productType = 'fert') {
-        
+        $noteInfoIds = '';
+
         foreach ($this->langArr as $lang) {
             $value =$headlineWeb=$marking1=$marking2=$noteInformationBelowTable= null;
             if ($lang == 'en' && strtolower($productType) == 'fert') {
@@ -707,7 +714,7 @@ class ProductImportService
     public function getQueryTableData($objId, $record, $levelInfo, $level=5, $productType = 'fert', $businessUnit = 'IFSEU') {
 
         $siopData = [];
-        for ($k=1; $k<=7; $k++) {
+        for ($k=2; $k<=7; $k++) {
             $index = 'SIOPLevel'.$k;
             if ($k<=$level) {
                 $catCode = $levelInfo[$k]['levelFullCode'];
@@ -730,19 +737,19 @@ class ProductImportService
             'materialNumber' => null,
             'materialGroup__id' => null,
             'materialGroup__type' => null,
-            'baseUOM' => null,
-            'oldMaterialCode' => null,
-            'industryStandard' => null,
-            'manufacturer' => null,
-            'manufacturerPartNumber' => null,
+            // 'baseUOM' => null,
+            // 'oldMaterialCode' => null,
+            // 'industryStandard' => null,
+            // 'manufacturer' => null,
+            // 'manufacturerPartNumber' => null,
             'EANCode' => null,
-            'stccCode' => null,
-            'grossWeight' => null,
-            'netWeight' => null,
-            'weightUnit' => null,
+            // 'stccCode' => null,
+            // 'grossWeight' => null,
+            // 'netWeight' => null,
+            // 'weightUnit' => null,
             'weightKg' => null,
             'weightg' => null,
-            'b2BexternalID' => null,
+            // 'b2BexternalID' => null,
             'WeightLbsPerFTUOM' => null,
             'productLength' => null,
             'EhoseID' => null,
@@ -767,11 +774,11 @@ class ProductImportService
         
         if (strtolower($productType) == 'fert') {
             $queryTableData['materialNumber'] = trim($record[$this->getRecordIndexByKey('material')]);
-            $queryTableData['baseUOM'] = trim($record[$this->getRecordIndexByKey('baseUOM')]);
-            $queryTableData['oldMaterialCode'] = trim($record[$this->getRecordIndexByKey('oldMaterial')]);
-            $queryTableData['industryStandard'] = trim($record[$this->getRecordIndexByKey('industryStandard')]);
-            $queryTableData['manufacturer'] = trim($record[$this->getRecordIndexByKey('manufacture')]);
-            $queryTableData['manufacturerPartNumber'] = trim($record[$this->getRecordIndexByKey('manufacturePartNumber')]);
+            // $queryTableData['baseUOM'] = trim($record[$this->getRecordIndexByKey('baseUOM')]);
+            // $queryTableData['oldMaterialCode'] = trim($record[$this->getRecordIndexByKey('oldMaterial')]);
+            // $queryTableData['industryStandard'] = trim($record[$this->getRecordIndexByKey('industryStandard')]);
+            // $queryTableData['manufacturer'] = trim($record[$this->getRecordIndexByKey('manufacture')]);
+            // $queryTableData['manufacturerPartNumber'] = trim($record[$this->getRecordIndexByKey('manufacturePartNumber')]);
             $queryTableData['productLength'] = trim($record[$this->getRecordIndexByKey('productLength')]);
             $queryTableData['additionalDiscount'] = trim($record[$this->getRecordIndexByKey('additionalDiscount')]);
             $queryTableData['EhoseID'] = trim($record[$this->getRecordIndexByKey('EhoseID')]);
@@ -790,13 +797,13 @@ class ProductImportService
             $queryTableData['Department'] = trim($record[$this->getRecordIndexByKey('Department')]);
             $queryTableData['ConnectionType'] = trim($record[$this->getRecordIndexByKey('ConnectionType')]);
             $queryTableData['eHoseProduct'] = true;
-            $queryTableData['stccCode'] = trim($record[$this->getRecordIndexByKey('stccCode')]);
-            $grossWeight = trim($record[$this->getRecordIndexByKey('grossWeight')]);
-            $weightUnit = trim($record[$this->getRecordIndexByKey('weightUnit')]);
-            $queryTableData['grossWeight'] = $grossWeight;
-            $queryTableData['netWeight'] = trim($record[$this->getRecordIndexByKey('netWeight')]);
-            $queryTableData['weightUnit'] = $weightUnit;
-            $queryTableData['b2BexternalID'] = trim($record[$this->getRecordIndexByKey('b2BexternalID')]);
+            // $queryTableData['stccCode'] = trim($record[$this->getRecordIndexByKey('stccCode')]);
+            // $grossWeight = trim($record[$this->getRecordIndexByKey('grossWeight')]);
+            // $weightUnit = trim($record[$this->getRecordIndexByKey('weightUnit')]);
+            // $queryTableData['grossWeight'] = $grossWeight;
+            // $queryTableData['netWeight'] = trim($record[$this->getRecordIndexByKey('netWeight')]);
+            // $queryTableData['weightUnit'] = $weightUnit;
+            // $queryTableData['b2BexternalID'] = trim($record[$this->getRecordIndexByKey('b2BexternalID')]);
             $queryTableData['weightg'] = trim($record[$this->getRecordIndexByKey('weightg')]);
 
             if(!empty(trim($record[$this->getRecordIndexByKey('productionLength')]))){
@@ -821,11 +828,11 @@ class ProductImportService
                 $queryTableData['EANCode'] = trim($record[$this->getRecordIndexByKey('EANCode')]);
             }
             
-            $materialGrpId = $this->getOrCreateMaterialGroupCodeId(trim($record[$this->getRecordIndexByKey('group')]));
-            if(!empty($materialGrpId)) {
-                $queryTableData['materialGroup__id'] = $materialGrpId;
-                $queryTableData['materialGroup__type'] = 'object';
-            }
+            // $materialGrpId = $this->getOrCreateMaterialGroupCodeId(trim($record[$this->getRecordIndexByKey('group')]));
+            // if(!empty($materialGrpId)) {
+            //     $queryTableData['materialGroup__id'] = $materialGrpId;
+            //     $queryTableData['materialGroup__type'] = 'object';
+            // }
             $countryOriginId = $this->getCountryOriginCodeId(trim($record[$this->getRecordIndexByKey('countryOfOrigin')]));
             if(!empty($countryOriginId)) {
                 $queryTableData['countryOfOrigin__id'] = $countryOriginId;
@@ -843,7 +850,7 @@ class ProductImportService
             $queryTableData['minimumOrder'] = null;
             $queryTableData['Conditions'] = null;
             $queryTableData['shippingConditions'] = null;
-            $queryTableData['ManufacturingLength'] = null;
+            // $queryTableData['ManufacturingLength'] = null;
 
             $queryTableData['temporaryUntilC'] = trim($record[$this->getRecordIndexByKey('temporaryUntilC')]);
             $queryTableData['temporaryUntilT'] = trim($record[$this->getRecordIndexByKey('temporaryUntilT')]);
@@ -855,21 +862,21 @@ class ProductImportService
 
             $queryTableData['eHoseProduct'] = true;
 
-            if(!empty(trim($record[$this->getRecordIndexByKey('ManufacturingLength')]))){
+            // if(!empty(trim($record[$this->getRecordIndexByKey('ManufacturingLength')]))){
 
-                $manufacturingLengthValue=trim($record[$this->getRecordIndexByKey('ManufacturingLength')]);
-                $manufacturingLengthValueArr=explode(',',$manufacturingLengthValue);
-                foreach($manufacturingLengthValueArr as $eachManufacturingLengthValueArr){
-                    if(!empty($eachManufacturingLengthValueArr)){
-                        $eachManufacturingLengthValue=trim($eachManufacturingLengthValueArr);
-                        $manufacturingLengthIdsArr[] = $this->getManufacturingLengthID($eachManufacturingLengthValue); 
-                    }
-                }
-                if(!empty($manufacturingLengthIdsArr)){
-                    $manufacturingLengthIds=implode(',',$manufacturingLengthIdsArr);
-                    $queryTableData['ManufacturingLength']=$manufacturingLengthIds;
-                }
-            }
+            //     $manufacturingLengthValue=trim($record[$this->getRecordIndexByKey('ManufacturingLength')]);
+            //     $manufacturingLengthValueArr=explode(',',$manufacturingLengthValue);
+            //     foreach($manufacturingLengthValueArr as $eachManufacturingLengthValueArr){
+            //         if(!empty($eachManufacturingLengthValueArr)){
+            //             $eachManufacturingLengthValue=trim($eachManufacturingLengthValueArr);
+            //             $manufacturingLengthIdsArr[] = $this->getManufacturingLengthID($eachManufacturingLengthValue); 
+            //         }
+            //     }
+            //     if(!empty($manufacturingLengthIdsArr)){
+            //         $manufacturingLengthIds=implode(',',$manufacturingLengthIdsArr);
+            //         $queryTableData['ManufacturingLength']=$manufacturingLengthIds;
+            //     }
+            // }
 
             if(!empty(trim($record[$this->getRecordIndexByKey('minimumOrder')]))){
 
@@ -944,13 +951,13 @@ class ProductImportService
             $maximumTemperatureC = trim($record[$this->getRecordIndexByKey('maximumTemperatureC')]);
             $queryTableData['minimumTemperatureC'] = $minimumTemperatureC;
             $queryTableData['maximumTemperatureC'] = $maximumTemperatureC;
-            $queryTableData['minimumTemperatureF'] =  trim($record[$this->getRecordIndexByKey('minimumTemperatureF')]);
-            $queryTableData['maximumTemperatureF'] =  trim($record[$this->getRecordIndexByKey('maximumTemperatureF')]);
+            // $queryTableData['minimumTemperatureF'] =  trim($record[$this->getRecordIndexByKey('minimumTemperatureF')]);
+            // $queryTableData['maximumTemperatureF'] =  trim($record[$this->getRecordIndexByKey('maximumTemperatureF')]);
 
             $queryTableData['minimumTemperatureC'] = $minimumTemperatureC;
             $queryTableData['maximumTemperatureC'] = $maximumTemperatureC;
-            $queryTableData['minimumTemperatureF'] =  trim($record[$this->getRecordIndexByKey('minimumTemperatureF')]);
-            $queryTableData['maximumTemperatureF'] =  trim($record[$this->getRecordIndexByKey('maximumTemperatureF')]);
+            // $queryTableData['minimumTemperatureF'] =  trim($record[$this->getRecordIndexByKey('minimumTemperatureF')]);
+            // $queryTableData['maximumTemperatureF'] =  trim($record[$this->getRecordIndexByKey('maximumTemperatureF')]);
 
             if(!empty($minimumTemperatureC)){
                 $attributeGroupName = $this->unitConversionService->getAttributeGroupName('minimumTemperatureC');
@@ -975,14 +982,14 @@ class ProductImportService
                 $queryTableData['rangeTemperatureC']=$queryTableData['minimumTemperatureC'] . "°C" ." to " . $queryTableData['maximumTemperatureC'] . "°C";
 
             }
-            if(isset($queryTableData['minimumTemperatureF']) && isset($queryTableData['maximumTemperatureF'])){
-                $queryTableData['rangeTemperatureF']=$queryTableData['minimumTemperatureF'] . "°F" ." to " . $queryTableData['maximumTemperatureF'] . "°F";
+            // if(isset($queryTableData['minimumTemperatureF']) && isset($queryTableData['maximumTemperatureF'])){
+            //     $queryTableData['rangeTemperatureF']=$queryTableData['minimumTemperatureF'] . "°F" ." to " . $queryTableData['maximumTemperatureF'] . "°F";
 
-            }
+            // }
 
-            if(isset($queryTableData['minimumTemperatureC']) && isset($queryTableData['maximumTemperatureC'])){
-                $queryTableData['temperatureRangeFAndC']= $queryTableData['rangeTemperatureF']. " ( ".$queryTableData['rangeTemperatureC']." )";
-            }
+            // if(isset($queryTableData['minimumTemperatureC']) && isset($queryTableData['maximumTemperatureC'])){
+            //     $queryTableData['temperatureRangeFAndC']= $queryTableData['rangeTemperatureF']. " ( ".$queryTableData['rangeTemperatureC']." )";
+            // }
 
 
 
@@ -1024,19 +1031,19 @@ class ProductImportService
             'BusinessUnit' => strtoupper($businessUnit),
             'siopFullCode' => $siopFullCode,
             'materialNumber' => null,
-            'baseUOM' => null,
-            'oldMaterialCode' => null,
-            'industryStandard' => null,
-            'manufacturer' => null,
-            'manufacturerPartNumber' => null,
+            // 'baseUOM' => null,
+            // 'oldMaterialCode' => null,
+            // 'industryStandard' => null,
+            // 'manufacturer' => null,
+            // 'manufacturerPartNumber' => null,
             'EANCode' => null,
-            'stccCode' => null,
-            'grossWeight' => null,
-            'netWeight' => null,
-            'weightUnit' => null,
+            // 'stccCode' => null,
+            // 'grossWeight' => null,
+            // 'netWeight' => null,
+            // 'weightUnit' => null,
             'weightKg' => null,
             'weightg' => null,
-            'b2BexternalID' => null,
+            // 'b2BexternalID' => null,
             'WeightLbsPerFTUOM' => null,
             'productLength' => null,
             'EhoseID' => null,
@@ -1058,11 +1065,11 @@ class ProductImportService
         ];
         if (strtolower($productType) == 'fert') {
             $storeTableDataArray['materialNumber'] = trim($record[$this->getRecordIndexByKey('material')]);
-            $storeTableDataArray['baseUOM'] = trim($record[$this->getRecordIndexByKey('baseUOM')]);
-            $storeTableDataArray['oldMaterialCode'] = trim($record[$this->getRecordIndexByKey('oldMaterial')]);
-            $storeTableDataArray['industryStandard'] = trim($record[$this->getRecordIndexByKey('industryStandard')]);
-            $storeTableDataArray['manufacturer'] = trim($record[$this->getRecordIndexByKey('manufacture')]);
-            $storeTableDataArray['manufacturerPartNumber'] = trim($record[$this->getRecordIndexByKey('manufacturePartNumber')]);
+            // $storeTableDataArray['baseUOM'] = trim($record[$this->getRecordIndexByKey('baseUOM')]);
+            // $storeTableDataArray['oldMaterialCode'] = trim($record[$this->getRecordIndexByKey('oldMaterial')]);
+            // $storeTableDataArray['industryStandard'] = trim($record[$this->getRecordIndexByKey('industryStandard')]);
+            // $storeTableDataArray['manufacturer'] = trim($record[$this->getRecordIndexByKey('manufacture')]);
+            // $storeTableDataArray['manufacturerPartNumber'] = trim($record[$this->getRecordIndexByKey('manufacturePartNumber')]);
             $storeTableDataArray['productLength'] = trim($record[$this->getRecordIndexByKey('productLength')]);
             $storeTableDataArray['additionalDiscount'] = trim($record[$this->getRecordIndexByKey('additionalDiscount')]);
             $storeTableDataArray['EhoseID'] = trim($record[$this->getRecordIndexByKey('EhoseID')]);
@@ -1080,14 +1087,14 @@ class ProductImportService
             $storeTableDataArray['Note'] = trim($record[$this->getRecordIndexByKey('Note')]);
             $storeTableDataArray['Department'] = trim($record[$this->getRecordIndexByKey('Department')]);
             $storeTableDataArray['ConnectionType'] = trim($record[$this->getRecordIndexByKey('ConnectionType')]);
-            $storeTableDataArray['stccCode'] = trim($record[$this->getRecordIndexByKey('stccCode')]);
-            $storeTableDataArray['netWeight'] = trim($record[$this->getRecordIndexByKey('netWeight')]);
-            $storeTableDataArray['b2BexternalID'] = trim($record[$this->getRecordIndexByKey('b2BexternalID')]);
+            // $storeTableDataArray['stccCode'] = trim($record[$this->getRecordIndexByKey('stccCode')]);
+            // $storeTableDataArray['netWeight'] = trim($record[$this->getRecordIndexByKey('netWeight')]);
+            // $storeTableDataArray['b2BexternalID'] = trim($record[$this->getRecordIndexByKey('b2BexternalID')]);
             $storeTableDataArray['weightg'] = trim($record[$this->getRecordIndexByKey('weightg')]);
-            $grossWeight = trim($record[$this->getRecordIndexByKey('grossWeight')]);
-            $storeTableDataArray['grossWeight'] = $grossWeight;
-            $weightUnit = trim($record[$this->getRecordIndexByKey('weightUnit')]);
-            $storeTableDataArray['weightUnit'] = $weightUnit;
+            // $grossWeight = trim($record[$this->getRecordIndexByKey('grossWeight')]);
+            // $storeTableDataArray['grossWeight'] = $grossWeight;
+            // $weightUnit = trim($record[$this->getRecordIndexByKey('weightUnit')]);
+            // $storeTableDataArray['weightUnit'] = $weightUnit;
 
             if(!empty(trim($record[$this->getRecordIndexByKey('productionLength')]))){
 
@@ -1132,15 +1139,15 @@ class ProductImportService
             $storeTableDataArray['minimumOrder'] = null;
             $storeTableDataArray['Conditions'] = null;
             $storeTableDataArray['shippingConditions'] = null;
-            $storeTableDataArray['ManufacturingLength'] = null;
+            // $storeTableDataArray['ManufacturingLength'] = null;
             
 
             $minimumTemperatureC = trim($record[$this->getRecordIndexByKey('minimumTemperatureC')]);
             $maximumTemperatureC = trim($record[$this->getRecordIndexByKey('maximumTemperatureC')]);
             $storeTableDataArray['minimumTemperatureC'] = $minimumTemperatureC;
             $storeTableDataArray['maximumTemperatureC'] = $maximumTemperatureC;
-            $storeTableDataArray['minimumTemperatureF'] =  trim($record[$this->getRecordIndexByKey('minimumTemperatureF')]);
-            $storeTableDataArray['maximumTemperatureF'] =  trim($record[$this->getRecordIndexByKey('maximumTemperatureF')]);
+            // $storeTableDataArray['minimumTemperatureF'] =  trim($record[$this->getRecordIndexByKey('minimumTemperatureF')]);
+            // $storeTableDataArray['maximumTemperatureF'] =  trim($record[$this->getRecordIndexByKey('maximumTemperatureF')]);
             $storeTableDataArray['temporaryUntilC'] = trim($record[$this->getRecordIndexByKey('temporaryUntilC')]);
             $storeTableDataArray['temporaryUntilT'] = trim($record[$this->getRecordIndexByKey('temporaryUntilT')]);
             $storeTableDataArray['DampableUntil1C'] = trim($record[$this->getRecordIndexByKey('DampableUntil1C')]);
@@ -1150,21 +1157,21 @@ class ProductImportService
             $storeTableDataArray['WebsiteLink']     = trim($record[$this->getRecordIndexByKey('WebsiteLink')]);
             $storeTableDataArray['eHoseProduct']    = true; 
 
-            if(!empty(trim($record[$this->getRecordIndexByKey('ManufacturingLength')]))){
+            // if(!empty(trim($record[$this->getRecordIndexByKey('ManufacturingLength')]))){
 
-                $manufacturingLengthValue=trim($record[$this->getRecordIndexByKey('ManufacturingLength')]);
-                $manufacturingLengthValueArr=explode(',',$manufacturingLengthValue);
-                foreach($manufacturingLengthValueArr as $eachManufacturingLengthValueArr){
-                    if(!empty($eachManufacturingLengthValueArr)){
-                        $eachManufacturingLengthValue=trim($eachManufacturingLengthValueArr);
-                        $manufacturingLengthIdsArr[] = $this->getManufacturingLengthID($eachManufacturingLengthValue);
-                    }
-                }
-                if(!empty($manufacturingLengthIdsArr)){
-                    $manufacturingLengthIds=implode(',',$manufacturingLengthIdsArr);
-                    $storeTableDataArray['ManufacturingLength']=$manufacturingLengthIds;
-                }
-            }
+            //     $manufacturingLengthValue=trim($record[$this->getRecordIndexByKey('ManufacturingLength')]);
+            //     $manufacturingLengthValueArr=explode(',',$manufacturingLengthValue);
+            //     foreach($manufacturingLengthValueArr as $eachManufacturingLengthValueArr){
+            //         if(!empty($eachManufacturingLengthValueArr)){
+            //             $eachManufacturingLengthValue=trim($eachManufacturingLengthValueArr);
+            //             $manufacturingLengthIdsArr[] = $this->getManufacturingLengthID($eachManufacturingLengthValue);
+            //         }
+            //     }
+            //     if(!empty($manufacturingLengthIdsArr)){
+            //         $manufacturingLengthIds=implode(',',$manufacturingLengthIdsArr);
+            //         $storeTableDataArray['ManufacturingLength']=$manufacturingLengthIds;
+            //     }
+            // }
 
 
             if(!empty(trim($record[$this->getRecordIndexByKey('minimumOrder')]))){
@@ -1255,14 +1262,14 @@ class ProductImportService
                 $storeTableDataArray['rangeTemperatureC']=$storeTableDataArray['minimumTemperatureC'] . "°C" ." to " . $storeTableDataArray['maximumTemperatureC'] . "°C";
 
             }
-            if(isset($storeTableDataArray['minimumTemperatureF']) && isset($storeTableDataArray['maximumTemperatureF'])){
-                $storeTableDataArray['rangeTemperatureF']=$storeTableDataArray['minimumTemperatureF'] . "°F" ." to " . $storeTableDataArray['maximumTemperatureF'] . "°F";
+            // if(isset($storeTableDataArray['minimumTemperatureF']) && isset($storeTableDataArray['maximumTemperatureF'])){
+            //     $storeTableDataArray['rangeTemperatureF']=$storeTableDataArray['minimumTemperatureF'] . "°F" ." to " . $storeTableDataArray['maximumTemperatureF'] . "°F";
 
-            }
+            // }
 
-            if(isset($storeTableDataArray['minimumTemperatureC']) && isset($storeTableDataArray['maximumTemperatureC'])){
-                $storeTableDataArray['temperatureRangeFAndC']= $storeTableDataArray['rangeTemperatureF']. " ( ".$storeTableDataArray['rangeTemperatureC']." )";
-            }
+            // if(isset($storeTableDataArray['minimumTemperatureC']) && isset($storeTableDataArray['maximumTemperatureC'])){
+            //     $storeTableDataArray['temperatureRangeFAndC']= $storeTableDataArray['rangeTemperatureF']. " ( ".$storeTableDataArray['rangeTemperatureC']." )";
+            // }
 
             if(!empty(trim($record[$this->getRecordIndexByKey('FeaturesBenefitsBulletPoint')]))){
 
@@ -1291,7 +1298,7 @@ class ProductImportService
         $this->storeTableDataArray[] = $storeTableDataArray;
     }
     public function getRelationTableData($objId, $record, $levelInfo, $level=5, $productType = 'fert') {
-        for ($k=1; $k<=$level; $k++) {
+        for ($k=2; $k<=$level; $k++) {
             $index = 'SIOPLevel'.$k;
             $catCode = $levelInfo[$k]['levelFullCode'];
             $targetId = $this->categories[$catCode]['id'];
@@ -1308,20 +1315,20 @@ class ProductImportService
             ];
         }
         if (strtolower($productType) == 'fert') {
-            $materialGroupCode = trim($record[$this->getRecordIndexByKey('group')]);
-            $materialGroupId = $this->getOrCreateMaterialGroupCodeId($materialGroupCode);
-            if (!empty($materialGroupId)) {
-                $this->relationTableDataArray[] = [
-                    'src_id' => $objId,
-                    'dest_id' => $materialGroupId,
-                    'type' => 'object',
-                    'fieldname' => "materialGroup",
-                    'ownertype' => 'object',
-                    'index' => 0,
-                    'ownername' => '',
-                    'position' => 0
-                ];
-            }
+            // $materialGroupCode = trim($record[$this->getRecordIndexByKey('group')]);
+            // $materialGroupId = $this->getOrCreateMaterialGroupCodeId($materialGroupCode);
+            // if (!empty($materialGroupId)) {
+            //     $this->relationTableDataArray[] = [
+            //         'src_id' => $objId,
+            //         'dest_id' => $materialGroupId,
+            //         'type' => 'object',
+            //         'fieldname' => "materialGroup",
+            //         'ownertype' => 'object',
+            //         'index' => 0,
+            //         'ownername' => '',
+            //         'position' => 0
+            //     ];
+            // }
             $countryOriginName = trim($record[$this->getRecordIndexByKey('countryOfOrigin')]);
             $countryOriginId = $this->getCountryOriginCodeId($countryOriginName);
             if (!empty($countryOriginId)) {
@@ -1339,7 +1346,7 @@ class ProductImportService
         }
     }
     public function getDependencyTableData($objId, $record, $levelInfo, $level=5, $productType = 'fert') {
-        for ($k=1; $k<=$level; $k++) {
+        for ($k=2; $k<=$level; $k++) {
             $index = 'SIOPLevel'.$k;
             $catCode = $levelInfo[$k]['levelFullCode'];
             $targetId = $this->categories[$catCode]['id'];
@@ -1351,16 +1358,16 @@ class ProductImportService
             ];
         }
         if (strtolower($productType) == 'fert') {
-            $materialGroupCode = trim($record[$this->getRecordIndexByKey('group')]);
-            $materialGroupId = $this->getOrCreateMaterialGroupCodeId($materialGroupCode);
-            if (!empty($materialGroupId)) {
-                $this->dependencyTableDataArray[] = [
-                    'sourceid' => $objId,
-                    'targetid' => $materialGroupId,
-                    'sourcetype' => 'object',
-                    'targettype' => 'object'
-                ];
-            }
+            // $materialGroupCode = trim($record[$this->getRecordIndexByKey('group')]);
+            // $materialGroupId = $this->getOrCreateMaterialGroupCodeId($materialGroupCode);
+            // if (!empty($materialGroupId)) {
+            //     $this->dependencyTableDataArray[] = [
+            //         'sourceid' => $objId,
+            //         'targetid' => $materialGroupId,
+            //         'sourcetype' => 'object',
+            //         'targettype' => 'object'
+            //     ];
+            // }
 
             $countryOriginName = trim($record[$this->getRecordIndexByKey('countryOfOrigin')]);
             $countryOriginId = $this->getCountryOriginCodeId($countryOriginName);

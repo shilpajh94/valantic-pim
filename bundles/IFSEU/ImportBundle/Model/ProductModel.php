@@ -5,6 +5,7 @@ namespace IFSEU\ImportBundle\Model;
 use Pimcore\Db;
 use Pimcore\Model\DataObject;
 use IFSEU\ImportBundle\Services\ImportConstants;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ProductModel
 {
@@ -14,17 +15,18 @@ class ProductModel
     private $fileColumns;
     private $keyColumns;
     private $mappingCsvColumn;
-
+    private $container;
     private $db;
     private $common;
     
     /**
      * Getting DB connection object
      */
-    public function __construct()
+    public function __construct(ContainerInterface $container)
     {
+        $this->container = $container;
         $this->db = Db::get();
-        $this->common = \Pimcore::getContainer()->get('ifs_eu_import.common_helper');
+        $this->common = $this->container->get('ifs_eu_import.common_helper');
         $this->createImportTables();
     }
     
@@ -44,7 +46,7 @@ class ProductModel
     
     public function checkIfArticleExists($materialNumber) {
         $sql = " SELECT `oo_id`, `o_parentId`, `o_path`, `materialNumber`, `oldMaterialCode`,`siopFullCode`,`o_key`  FROM `object_IFSEUProduct` WHERE `materialNumber` = ".$this->db->quote(trim($materialNumber)) ." AND `productType` = 'fert'";
-        return $this->db->fetchAll($sql);
+        return $this->db->fetchAllAssociative($sql);
     }
 
     public function insertInObjects($data) {
@@ -113,17 +115,19 @@ class ProductModel
                     }
                     $valColumns[] = $key;
             }
+            
             $sql = $sql." (".implode(",", $sqlColumns).") VALUES ";
             $update = " ON DUPLICATE KEY UPDATE ".implode(",", $updateColumns);
             $values = '';
             foreach ($dataArray as $data) {
                     $valueArray = [];
                     foreach ($valColumns as $key) {
-                        if (is_null($data[$key]) || $data[$key] == '') {
-                            $valueArray[] = "NULL";      
-                        } else {
-                            $valueArray[] = $this->db->quote($data[$key]);
-                        }
+                        // if (is_null($data[$key]) || $data[$key] == '') {
+                        //     $valueArray[] = "NULL";      
+                        // } else {
+                        //     $valueArray[] = $this->db->quote($data[$key]);
+                        // }
+                        $valueArray[] = isset($data[$key]) ? $this->db->quote($data[$key]) : "NULL";
                     }
                 $values .= '('.implode(",", $valueArray).'),';
                 // inserting records in batch
@@ -139,7 +143,7 @@ class ProductModel
                 $this->db->query($query);
             }
         } catch (\Exception $e) {
-            echo $e->getMessage(); die;
+            p_r($e);  die;
         }
     }
 
@@ -181,7 +185,7 @@ class ProductModel
         try {
             $catLength  = 16;
             $sql        = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE LENGTH(t.siopfullcode) = '".$catLength."' AND (t.hash != m.hash OR m.id is null) ";
-            return $this->db->fetchAll($sql);
+            return $this->db->fetchAllAssociative($sql);
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
@@ -203,7 +207,7 @@ class ProductModel
     
     public function getDeletedProducts() {
         $sql   = "SELECT m.id FROM {$this->masterTable} m LEFT JOIN {$this->tempTable} t ON t.id = m.id WHERE t.id is null";
-        return $this->db->fetchAll($sql);
+        return $this->db->fetchAllAssociative($sql);
     }
         
     /**
@@ -292,21 +296,21 @@ class ProductModel
 
     public function getCategories() {
         $query = "SELECT oo_id, code, o_key, fullCode, RelatedObjectBrick, o_path, BusinessUnit, Level FROM `object_IFSEUProductCategory` ";
-        return $this->db->fetchAll($query);
+        return $this->db->fetchAllAssociative($query);
     }
 
     public function getMaterialGroupData() {
         $query = "SELECT oo_id, code FROM `object_IFSEUMaterialGroup` ";
-        return $this->db->fetchAll($query);
+        return $this->db->fetchAllAssociative($query);
     }
     
     public function getCountryOriginData() {
         $query = "SELECT oo_id, CountryName FROM `object_IFSEUCountries` ";
-        return $this->db->fetchAll($query);
+        return $this->db->fetchAllAssociative($query);
     }
     public function getCatagoryData() {
         $query = "SELECT oo_id, o_key,CategoryCode FROM `object_IFSEUCategory` ";
-        return $this->db->fetchAll($query);
+        return $this->db->fetchAllAssociative($query);
     }
 
     /**
@@ -317,63 +321,63 @@ class ProductModel
         //dd($lang);
         $tbl="object_localized_IFSEUCategory_".$lang;
         $query = "SELECT oo_id, o_key,CategoryCode,CategoryName FROM ".$tbl;
-        return $this->db->fetchAll($query);
+        return $this->db->fetchAllAssociative($query);
     }
     public function getMinimumOrderLanguageData() {
         $tbl="object_localized_IFSEUMinimumOrder_".'en';
         $query = "SELECT oo_id, o_key,MinimumOrder FROM ".$tbl;
-        return $this->db->fetchAll($query);
+        return $this->db->fetchAllAssociative($query);
     }
     public function getConditionsData() {
         $tbl="object_localized_IFSEUConditions_".'en';
         $query = "SELECT oo_id, o_key,Conditions FROM ".$tbl;
-        return $this->db->fetchAll($query);
+        return $this->db->fetchAllAssociative($query);
     }
     public function getShippingConditionsData() {
         $tbl="object_localized_IFSEUShippingConditions_".'en';
         $query = "SELECT oo_id, o_key,ShippingConditions FROM ".$tbl;
-        return $this->db->fetchAll($query);
+        return $this->db->fetchAllAssociative($query);
     }
     public function getManufacturingLengthData() {
         $tbl="object_localized_IFSEUManufacturingLength_".'en';
         $query = "SELECT oo_id, o_key,ManufacturingLength FROM ".$tbl;
-        return $this->db->fetchAll($query);
+        return $this->db->fetchAllAssociative($query);
     }
     public function getProductionLengthData() {
         $tbl="object_localized_IFSEUProductionLength_".'en';
         $query = "SELECT oo_id, o_key,ProductionLength FROM ".$tbl;
-        return $this->db->fetchAll($query);
+        return $this->db->fetchAllAssociative($query);
     }
     public function getNoteInfoBelowTableData() {
         $tbl="object_localized_IFSEUNoteInformationBelowTable_".'en';
         $query = "SELECT oo_id, o_key,NoteInformationBelowtable FROM ".$tbl;
-        return $this->db->fetchAll($query);
+        return $this->db->fetchAllAssociative($query);
     }
     public function getNoteInformationBelowTableData() {
         $tbl="object_localized_IFSEUNoteInformationBelowTable_".'en';
         $query = "SELECT oo_id, o_key,NoteInformationBelowTable FROM ".$tbl;
-        return $this->db->fetchAll($query);
+        return $this->db->fetchAllAssociative($query);
     }
 
     public function getPropertiesLanguageData($lang){
         $tbl="object_localized_IFSEUProperties_".$lang;
         $query = "SELECT oo_id,TypeName,o_key,PropertyName FROM ".$tbl;
-        return $this->db->fetchAll($query);
+        return $this->db->fetchAllAssociative($query);
     }
     public function getfieldsOfApplicationLanguageData($lang){
         $tbl="object_localized_IFSEUApplications_".$lang;
         $query = "SELECT oo_id,o_key,ApplicationName FROM  ".$tbl;
-        return $this->db->fetchAll($query);
+        return $this->db->fetchAllAssociative($query);
     }
     public function getflowMediumLanguageData($lang){
         $tbl="object_localized_IFSEUFlowMedium_".$lang;
         $query = "SELECT oo_id,o_key,FlowMedium FROM  ".$tbl;
-        return $this->db->fetchAll($query);
+        return $this->db->fetchAllAssociative($query);
     }
     public function getstandardsLanguageData($lang){
         $tbl="object_localized_IFSEUNorm_".$lang;
         $query = "SELECT oo_id,o_key,Norm FROM  ".$tbl;
-        return $this->db->fetchAll($query);
+        return $this->db->fetchAllAssociative($query);
     }
 
     /**
@@ -382,38 +386,38 @@ class ProductModel
 
     public function getPropertiesData(){
         $query = "SELECT oo_id,TypeName,o_key FROM `object_IFSEUProperties` ";
-        return $this->db->fetchAll($query);
+        return $this->db->fetchAllAssociative($query);
     }
     public function getfieldsOfApplicationData(){
         $query = "SELECT oo_id,o_key FROM `object_IFSEUApplications` ";
-        return $this->db->fetchAll($query);
+        return $this->db->fetchAllAssociative($query);
     }
     public function getflowMediumData(){
         $query = "SELECT oo_id,o_key FROM `object_IFSEUFlowMedium` ";
-        return $this->db->fetchAll($query);
+        return $this->db->fetchAllAssociative($query);
     }
     public function getstandardsData(){
         $query = "SELECT oo_id,o_key FROM `object_IFSEUNorm` ";
-        return $this->db->fetchAll($query);
+        return $this->db->fetchAllAssociative($query);
     }
     public function getBrandsData(){
         $query = "SELECT oo_id,o_key FROM `object_IFSEUBrand` ";
-        return $this->db->fetchAll($query);
+        return $this->db->fetchAllAssociative($query);
     }
     public function getSubCategoryData(){
         $query = "SELECT oo_id,o_key FROM `object_IFSEUSubCategory` ";
-        return $this->db->fetchAll($query);
+        return $this->db->fetchAllAssociative($query);
     }
 
 
     public function getProducts() {
         $query = "SELECT oo_id, o_key, o_path FROM `object_IFSEUProduct` ";
-        return $this->db->fetchAll($query);
+        return $this->db->fetchAllAssociative($query);
     }
     
     public function getObjectsTableData() {
         $query = "SELECT o_id, o_key, o_path FROM `objects` where o_type = 'object' AND o_classId = 'IFSEUProduct'";
-        return $this->db->fetchAll($query);
+        return $this->db->fetchAllAssociative($query);
     }
 
     public function processDeletedProducts() {
@@ -437,7 +441,7 @@ class ProductModel
     public function checkHierarchyExistAtLevel($fullCode, $level=6) : bool
     {
         $sql = "SELECT `fullCode` FROM object_IFSEUProductCategory WHERE Level='".$level."' AND  fullCode = '".$fullCode."'";
-        $resultArray = $this->db->fetchAll($sql);
+        $resultArray = $this->db->fetchAllAssociative($sql);
         if(!empty($resultArray))
         {
             return true; 

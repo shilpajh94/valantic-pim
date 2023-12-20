@@ -6,7 +6,7 @@ use IFSEU\ImportBundle\Model\ProductModel;
 use Pimcore\Model\DataObject\ClassDefinition;
 use IFSEU\ProductBundle\Services\SkippedFieldList;
 use Pimcore\Model\DataObject\AbstractObject;
-
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class CompletenessPercentageService
 {
@@ -14,13 +14,19 @@ class CompletenessPercentageService
 
     private $productModel;
     private $localisedDataTableDataArray;
+    private $container;
+
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
 
     public function completenessPercentage($object, $task)
     {
         $originalGetInheritedValues = AbstractObject::doGetInheritedValues();
         AbstractObject::setGetInheritedValues(true);
 
-        $this->productModel =  new ProductModel;
+        $this->productModel =  $this->container->get('ifs_eu_import.product_model');
         $this->localisedDataTableDataArray = [];
         $count = 0;
         $emptyFieldCounter = 0;

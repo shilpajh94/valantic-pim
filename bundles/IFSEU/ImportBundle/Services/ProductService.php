@@ -7,6 +7,7 @@ use Pimcore\Model\DataObject;
 use AppBundle\Lib\UnitConversion;
 use IFSEU\ImportBundle\Model\ProductModel;
 use IFSEU\ProductBundle\Services\CompletenessPercentageService;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ProductService
 {
@@ -51,7 +52,7 @@ class ProductService
     private $bricksDataArray;
     private $mapBricksArray;
     private $percentageCompletionService;
-
+    private $container;
     
     const LOGGER_MODULE = 'SAP IMPORT SHEET';
     const GROSS_WEIGHT_UNITS = [
@@ -60,21 +61,21 @@ class ProductService
         "G" => UnitConversion\WeightPerLengthConverter::UNIT_G_PER_FT
     ];
     
-    public function __construct(
-        CompletenessPercentageService $percentageCompletionService
-    ) {
+    public function __construct(CompletenessPercentageService $percentageCompletionService, ContainerInterface $container)
+    {
+        $this->container = $container;
         $this->percentageCompletionService = $percentageCompletionService;
 
         /* Initilize monitoring item and set the number of steps will take to complete the task */
         $this->logFileName          = 'ifseu-products-log-' . date('Ymdhis');
-        $this->common               = \Pimcore::getContainer()->get('ifs_eu_import.common_helper');
-        $this->productModel         = new ProductModel;
-        $this->configProviderService= \Pimcore::getContainer()->get('ifs_eu_import.config_provider_service');
-        $this->productHelper        = \Pimcore::getContainer()->get('ifs_eu_import.product_helper');
+        $this->common               = $this->container->get('ifs_eu_import.common_helper');
+        $this->productModel         = $this->container->get('ifs_eu_import.product_model');
+        $this->configProviderService= $this->container->get('ifs_eu_import.config_provider_service');
+        $this->productHelper        = $this->container->get('ifs_eu_import.product_helper');
         $this->materialConfigData   = $this->configProviderService->getProductConfig();
         $this->catConfigData        = $this->configProviderService->getCategoryConfig();
         $this->businessUnit         = $this->common->getParameter($this->catConfigData, 'businessUnit');
-        $this->brickMappingService  = \Pimcore::getContainer()->get('ifs_eu_import.category_brick_mapping_service');
+        $this->brickMappingService  = $this->container->get('ifs_eu_import.category_brick_mapping_service');
         $this->columnName           = $this->common->getParameterItem($this->materialConfigData, 'sheet', 'columnName');
         $this->weightConversionService = new UnitConversion\WeightPerLengthConverter();
 
@@ -126,7 +127,7 @@ class ProductService
       
     public function import()
     {
-        $sapFileFeeder  = \Pimcore::getContainer()->get('ifs_eu_import.sap_file_feeder_service');
+        $sapFileFeeder  = $this->container->get('ifs_eu_import.sap_file_feeder_service');
         $this->filePath = $sapFileFeeder->execFileFeeder('product');
         if($this->filePath){
             $csvInfo = ImportService::getCSVData($this->filePath);
@@ -138,8 +139,8 @@ class ProductService
                 $this->productModel->truncateTempTable();
                 $this->productModel->insertDataInTemp($csvInfo['data']);
                 Logger::log(self::LOGGER_MODULE)->info("Data Sheet imported in temp table");
-                $this->productModel->processDeletedProducts();
-                Logger::log(self::LOGGER_MODULE)->info("Removed records in data sheet, marked as unpublished.");
+                // $this->productModel->processDeletedProducts();
+                // Logger::log(self::LOGGER_MODULE)->info("Removed records in data sheet, marked as unpublished.");
                 Logger::log(self::LOGGER_MODULE)->info("Product import started");
                 $this->initiateProductsProcess();
                 Logger::log(self::LOGGER_MODULE)->info("Product import completed");
@@ -158,6 +159,7 @@ class ProductService
                     $this->sendSkippedArticlesEmailNotification($this->baseSiopMismatchLog, $this->baseSiopMismatchEmailTemplate);
                 }
             } catch (\Throwable $th) {
+                p_r($th);
                 Logger::error($this->logFileName, $th);
                 die;
             }
@@ -172,7 +174,7 @@ class ProductService
         try {
             if (!empty($skippedArticles) && count($skippedArticles)>0) {
                 $fileName = "IFSEU_SAP_import_skipped_articles_" . '-' . date('YmdHis') . '.csv';
-                $logFilePath = PIMCORE_TEMPORARY_DIRECTORY."/".$fileName;
+                $logFilePath = PIMCORE_SYSTEM_TEMP_DIRECTORY."/".$fileName;
                 $fp = fopen($logFilePath, 'wb');
                 fputcsv($fp, ['materialNumber', 'siop', '6digit', 'mismatchedSiopCode', 'mismatchedMatrialNumber']);
                 foreach ($skippedArticles as $article) {
@@ -187,7 +189,7 @@ class ProductService
                             'templateName' => $emailTemplate,
                             'attachment' => $logFilePath
                         ];
-                        $this->emailService = \Pimcore::getContainer()->get('email.email_notification_service');
+                        $this->emailService = $this->container->get('email.email_notification_service');
                         $this->emailService->sendNotificationsEmail($emailParams);
                     }else {
                         throw new Exception("Base SIOP mismatch email template not found.");
@@ -197,6 +199,7 @@ class ProductService
                 }
             }
         } catch (\Throwable $th) {
+            p_r($th);
             \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($th);
 //            Logger::error("sap_import_log", $th);
         }
@@ -312,7 +315,7 @@ class ProductService
     }
     public function createIFSEUObject($record, $parentId, $parentPath, $levelInfo, $type) 
     {
-        
+        $bricksList = '';
         $objectIndex        = $this->productHelper->getObjectIndex($type, $levelInfo);
         
         $currentLevelCode   = $levelInfo[$objectIndex]['levelFullCode'];
@@ -320,7 +323,6 @@ class ProductService
         $fertLevelCode      = $levelInfo[count($levelInfo)]['levelFullCode'];
         
         $categoryPath       = $this->categories[$currentLevelCode]['fullPath'];
-        
         if ($type == 'base' || $type == 'skeleton') {
             $currentLevelPath = $this->productHelper->convertCategoryPathToProduct($categoryPath);
             $currentLevelArray = explode('/', $currentLevelPath);
@@ -459,7 +461,7 @@ class ProductService
         $levelInfo = $this->productHelper->getLevels($record['code'], $record);
 
         if ($levelInfo['status']) {
-            $folderIndex = count($levelInfo['levels'])-2;
+            $folderIndex = count($levelInfo['levels'])-1;
             $folderCode = $levelInfo['levels'][$folderIndex]['levelFullCode'];
             $folderPath = $this->categories[$folderCode]['fullPath'];
             
@@ -520,7 +522,7 @@ class ProductService
 
     public function getQueryTableData($objId, $record, $levelInfo, $level=5, $productType = 'fert', $businessUnit = 'IFSEU') {
         $siopData = [];
-        for ($k=1; $k<=7; $k++) {
+        for ($k=2; $k<=7; $k++) {
             $index = 'SIOPLevel'.$k;
             if ($k<=$level) {
                 $catCode = $levelInfo[$k]['levelFullCode'];
@@ -664,7 +666,7 @@ class ProductService
     }
 
     public function getRelationTableData($objId, $record, $levelInfo, $level=5, $productType = 'fert') {
-        for ($k=1; $k<=$level; $k++) {
+        for ($k=2; $k<=$level; $k++) {
             $index = 'SIOPLevel'.$k;
             $catCode = $levelInfo[$k]['levelFullCode'];
             $targetId = $this->categories[$catCode]['id'];
@@ -698,7 +700,7 @@ class ProductService
         }
     }
     public function getDependencyTableData($objId, $record, $levelInfo, $level=5, $productType = 'fert') {
-        for ($k=1; $k<=$level; $k++) {
+        for ($k=2; $k<=$level; $k++) {
             $index = 'SIOPLevel'.$k;
             $catCode = $levelInfo[$k]['levelFullCode'];
             $targetId = $this->categories[$catCode]['id'];

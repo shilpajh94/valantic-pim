@@ -4,6 +4,7 @@ namespace IFSEU\ImportBundle\Helper;
 
 use Pimcore\Model\DataObject;
 use Exception;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class Product
 {
@@ -22,14 +23,16 @@ class Product
     public $siop;
     private $configProviderService;
     private $unitConversionService;
+    private $container;
 
-    public function __construct()
-    {
+    public function __construct(ContainerInterface $container)
+    {        
         /* Initiate helper */
-        $this->common           = \Pimcore::getContainer()->get('ifs_eu_import.common_helper');
-        $this->catHelper        = \Pimcore::getContainer()->get('ifs_eu_import.category_helper');
-        $this->configProviderService= \Pimcore::getContainer()->get('ifs_eu_import.config_provider_service');
-        $this->unitConversionService= \Pimcore::getContainer()->get('ifs_eu_import.unit_conversion_import_service');
+        $this->container = $container;
+        $this->common           = $this->container->get('ifs_eu_import.common_helper');
+        $this->catHelper        = $this->container->get('ifs_eu_import.category_helper');
+        $this->configProviderService= $this->container->get('ifs_eu_import.config_provider_service');
+        $this->unitConversionService= $this->container->get('ifs_eu_import.unit_conversion_import_service');
         $this->catConfigData    = $this->configProviderService->getCategoryConfig();
         $this->prdConfigData    = $this->configProviderService->getProductConfig();
         $this->root             = $this->common->getParameter($this->prdConfigData, 'root');
@@ -67,8 +70,8 @@ class Product
         $len = strlen($code);
         $level = $this->catHelper->getLevelByLength($len);
         $levels = array();
-        for ($i = $level; $i >= 1; $i--) {
-            $objectKey = empty($reader) ?: $reader[$this->level[$i]['key']];
+        for ($i = $level; $i >= 2; $i--) {
+            $objectKey = empty($reader) ?:( isset($reader[$this->level[$i]['key']]) ? $reader[$this->level[$i]['key']] : NULL);
             $parentLevel = $this->catHelper->getParentLevel($i);
             $levelFullCode = $this->catHelper->extractFullCodeLevelWise($i, $code);
             $parentFullCode = $this->catHelper->extractFullCodeLevelWise(($i - 1), $code);
@@ -83,7 +86,7 @@ class Product
                 'level'         =>  $i,
                 'bu'            =>  $bu,
                 'objectKey'     =>  $objectKey,
-                'parentObjectKey'   =>  empty($reader) ?: $reader[$this->level[$parentLevel]['key']],
+                'parentObjectKey'   =>  empty($reader) ?: ((isset($reader[$this->level[$parentLevel]['key']]) && isset($this->level[$parentLevel])) ? $reader[$this->level[$parentLevel]['key']] : NULL),
                 'objectPath'    =>  $objectPath,
                 'parentPath'    =>  $parentPath
             );
@@ -102,12 +105,14 @@ class Product
             $path = '';
         } else {
             for ($i = 1; $i <= $lvl; $i++) {
-                if (empty($path))
+                if (empty($path) && isset($reader[$this->level[$i]['key']]))
                 {
                     $path = \Pimcore\Model\Element\Service::getValidKey($reader[$this->level[$i]['key']], 'folder');
                 }
                 else {
-                    $path .= '/' . \Pimcore\Model\Element\Service::getValidKey($reader[$this->level[$i]['key']], 'folder');
+                    if(isset($reader[$this->level[$i]['key']])){
+                        $path .= '/' . \Pimcore\Model\Element\Service::getValidKey($reader[$this->level[$i]['key']], 'folder');
+                    }
                 }
             }
         }
@@ -146,9 +151,9 @@ class Product
     public function getObjectIndex($type, $levelInfo) 
     {
         if ($type == 'base') {
-            $objectIndex = count($levelInfo)-1;
-        } elseif ($type == 'skeleton' || $type == 'fert') {
             $objectIndex = count($levelInfo);
+        } elseif ($type == 'skeleton' || $type == 'fert') {
+            $objectIndex = count($levelInfo) + 1;
         }
         return $objectIndex;
     }

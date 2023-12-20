@@ -188,8 +188,8 @@ services:
     ifs_eu_import.sap_product_import:
         class: IFSEU\ImportBundle\Services\ProductService
         public: true
-    ifs_eu_import.product_import:
-        class: IFSEU\ImportBundle\Services\ProductImportService
+    ifs_eu_import.eHose_product_import:
+        class: IFSEU\ImportBundle\Services\EHoseProductImportService
         public: true
     ifs_eu_import.product_import_localization:
         class: IFSEU\ImportBundle\Services\EhoseProductLocalizationImportService
@@ -213,4 +213,8 @@ services:
 
     ifs_eu_import.appServices:
         class: IFSEU\ImportBundle\Services\AppService
+        public: true
+
+    ifs_eu_import.product_model:
+        class: IFSEU\ImportBundle\Model\ProductModel
         public: true

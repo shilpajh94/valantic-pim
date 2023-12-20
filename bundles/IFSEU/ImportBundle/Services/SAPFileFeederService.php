@@ -6,6 +6,7 @@ use Exception;
 use Throwable;
 use AppBundle\Lib\SFTPConnection;
 use TypeError;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class SAPFileFeederService
 {
@@ -18,11 +19,13 @@ class SAPFileFeederService
     public $fileType = ['csv', 'xlsx'];
     public $filePath;
     private $datetime;
+    private $container;
 
-    public function __construct()
+    public function __construct(ContainerInterface $container)
     {
+        $this->container = $container;
         $this->datetime = date('Ymdhis');
-        $this->common = \Pimcore::getContainer()->get('ifs_eu_import.common_helper');
+        $this->common = $this->container->get('ifs_eu_import.common_helper');
     }
 
     /**
@@ -35,34 +38,34 @@ class SAPFileFeederService
     {
         try
         {
-            $SFTPConObj = new SFTPConnection(BW_SAP_IMPORT_SFTP_HOST, BW_SAP_IMPORT_SFTP_PORT);
-            $SFTPConObj->login(BW_SAP_IMPORT_SFTP_USERNAME, BW_SAP_IMPORT_SFTP_PASSWORD);
+            // $SFTPConObj = new SFTPConnection(BW_SAP_IMPORT_SFTP_HOST, BW_SAP_IMPORT_SFTP_PORT);
+            // $SFTPConObj->login(BW_SAP_IMPORT_SFTP_USERNAME, BW_SAP_IMPORT_SFTP_PASSWORD);
 
-            $filePathInfo   = explode('/',constant('BW_SAP_IMPORT_SFTP_'. strtoupper($commandType).'_FILE_PATH_IFSEMEA'));
-            $fileName       = array_pop($filePathInfo);
-            $ftpFilePath    = implode("/", $filePathInfo);
-            $fileNameArray  = explode(".", $fileName);
-            $fileNamePrefix = $fileNameArray[0];
-            $ext            = $fileNameArray[1];
-            $fileName       = $fileNamePrefix."_".date("mdY").".".$ext;
+            // $filePathInfo   = explode('/',constant('BW_SAP_IMPORT_SFTP_'. strtoupper($commandType).'_FILE_PATH_IFSEMEA'));
+            // $fileName       = array_pop($filePathInfo);
+            // $ftpFilePath    = implode("/", $filePathInfo);
+            // $fileNameArray  = explode(".", $fileName);
+            // $fileNamePrefix = $fileNameArray[0];
+            // $ext            = $fileNameArray[1];
+            // $fileName       = $fileNamePrefix."_".date("mdY").".".$ext;
 
-            if(!$SFTPConObj->fileExists($ftpFilePath."/".$fileName)) 
-            {
-                $fileName = $fileNamePrefix."_".date('mdY',strtotime("-1 days")).".".$ext;
+            // if(!$SFTPConObj->fileExists($ftpFilePath."/".$fileName)) 
+            // {
+            //     $fileName = $fileNamePrefix."_".date('mdY',strtotime("-1 days")).".".$ext;
                 
-                if (!$SFTPConObj->fileExists($ftpFilePath."/".$fileName)) 
-                {
-                    echo "Today's file not uploaded.";
-                    return null;
-                }
-            }
+            //     if (!$SFTPConObj->fileExists($ftpFilePath."/".$fileName)) 
+            //     {
+            //         echo "Today's file not uploaded.";
+            //         return null;
+            //     }
+            // }
 
-            $tmpFilePath    = BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR.$fileName;
+            $tmpFilePath    = BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR.'Apr_26_eHose_Complete.csv';
 
-            $SFTPConObj->downloadFile($tmpFilePath, $ftpFilePath."/".$fileName);
+            // $SFTPConObj->downloadFile($tmpFilePath, $ftpFilePath."/".$fileName);
 
-            $this->filePath = $tmpFilePath;
-            $SFTPConObj->moveFile($ftpFilePath."/".$fileName, BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH.$fileName);
+            // $this->filePath = $tmpFilePath;
+            // $SFTPConObj->moveFile($ftpFilePath."/".$fileName, BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH.$fileName);
 
             // $fileName='Apr_26_eHose_Complete.csv';
 
