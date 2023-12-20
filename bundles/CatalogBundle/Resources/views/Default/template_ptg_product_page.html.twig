@@ -186,7 +186,6 @@
 								{{ pimcore_image("HHPP_Image_Left", {"width": 400, "height": 200}).setImage(groupData.mainImageObj) | raw}}
 							{% endif %}
 						{% else %}
-							{# if not pimcore_image("HHPP_Image_Left").isEmpty() #}
 							{% set imgSrcObj1 = pimcore_image("HHPP_Image_Left") %}
 
 							{% if imgSrcObj1 %}
@@ -201,7 +200,6 @@
 								{{ pimcore_image("Drawing_Picture", {"width": 400, "height": 200}).setImage(groupData.ProfileDimensionImageObj) | raw}}
 							{% endif %}
 						{% else %}
-							{# if not pimcore_image("Drawing_Picture").isEmpty() #}
 							{% set imgSrcObj2 = pimcore_image("Drawing_Picture") %}
 
 							{% if imgSrcObj2 %}

@@ -791,6 +791,7 @@ class DefaultController extends FrontendController
         $commonHelper = $this->containerInterface->get('app.common_helper');
         $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
         $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
         if ($this->document->getEditable('tiletemplate')->getElement()) {
             $id = $this->document->getEditable('tiletemplate')->getId();
             $obj = \Pimcore\Model\DataObject::getById($id);
@@ -899,7 +900,6 @@ if(isset($data[$baseId])) {
                 $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
                 $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
-                $parameterBag = [];
                 $parameterBag['info'] = array(
                     'brandsInfo' => $data,
                     'blockDes' => $blockDes,
@@ -923,6 +923,7 @@ if(isset($data[$baseId])) {
     {
         $containerRequest = $request->get('containerRequest') ? $request->get('containerRequest') : FALSE;
         $template = $this->document->getEditable('inh_template_hose_product_page')->getElement();
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
 
         if($template)
         {
@@ -1190,7 +1191,6 @@ if(isset($data[$baseId])) {
 
                 $branding_image_src = $this->getS3ImageSrc($CatalogImagesHYDProduct['BrandingImage']);
 
-                $parameterBag = [];
                 $parameterBag['data'] = $catalogGroupData;
                 $parameterBag['branding_image_src'] = $branding_image_src;
                 $parameterBag['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
@@ -1205,7 +1205,7 @@ if(isset($data[$baseId])) {
     {
         $template = $this->document->getEditable('template_hose_accessories_sleeving')->getElement();
         $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
-        
+
         if($template)
         {
             $commonHelper = $this->containerInterface->get('app.common_helper');
@@ -1604,6 +1604,7 @@ if(isset($data[$baseId])) {
 
     public function templateHydraulicTableOfContentsDynamicAction(Request $request)
     {
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
         try
         {
             $folderId =$this->document->getParent()->getId();
@@ -1768,7 +1769,6 @@ if(isset($data[$baseId])) {
             {
                 $DynamicPageData[] = $hydraulicFitting;
             }
-            $parameterBag = [];
             $parameterBag['data'] = $DynamicPageData;
             return $this->render("@Catalog/Default/template_hydraulic_table_of_contents_dynamic.html.twig", $parameterBag);
         }
@@ -1781,6 +1781,7 @@ if(isset($data[$baseId])) {
     public function templatePartNumberDesignationsAction(Request $request)
     {
         $templates = $this->document->getEditable('relations', 'page_number_designations')->getElements();
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
 
         $footerBgColor = '';
         if($templates)
@@ -1816,7 +1817,6 @@ if(isset($data[$baseId])) {
         $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
         $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
-        $parameterBag = [];
         $parameterBag['data'] = $catalogGrouping;
         $parameterBag['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
         $parameterBag['footer_logo_src'] = $footer_logo_src;
@@ -1827,6 +1827,7 @@ if(isset($data[$baseId])) {
     public function templateHoseSubCoverAction(Request $request)
     {
         $template = $this->document->getEditable('template_hose_product_page')->getElement();
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
 
         if($template)
         {
@@ -1903,17 +1904,17 @@ if(isset($data[$baseId])) {
                             if(empty($CatalogGrouping) && $element[$headerKeysIndex['CatalogGrouping']])
                                 $CatalogGrouping = $element[$headerKeysIndex['CatalogGrouping']];
 
-                            // if(empty($rangeTemperatureF) && $element[$headerKeysIndex['rangeTemperatureF']])
-                            //     $rangeTemperatureF = $element[$headerKeysIndex['rangeTemperatureF']];
+                            if(empty($rangeTemperatureF) && $element[$headerKeysIndex['rangeTemperatureF']])
+                                $rangeTemperatureF = $element[$headerKeysIndex['rangeTemperatureF']];
 
-                            // if(empty($constructionType) && $element[$headerKeysIndex['siopFullCode']]){
-                            //     $entries = new DataObject\ProductCategory\Listing();
-                            //     $entries->setCondition("fullCode LIKE ?", $element[$headerKeysIndex['siopFullCode']]);
-                            //     $entries->load();
-                            //     foreach($entries as $entry) {
-                            //         $constructionType = $entry->getConstructionType();
-                            //     }
-                            // }
+                            if(empty($constructionType) && $element[$headerKeysIndex['siopFullCode']]){
+                                $entries = new DataObject\ProductCategory\Listing();
+                                $entries->setCondition("fullCode LIKE ?", $element[$headerKeysIndex['siopFullCode']]);
+                                $entries->load();
+                                foreach($entries as $entry) {
+                                    $constructionType = $entry->getConstructionType();
+                                }
+                            }
 
                             foreach($element as $bkey => $value):
 
@@ -2002,7 +2003,6 @@ if(isset($data[$baseId])) {
             $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
-            $parameterBag = [];
             $parameterBag['data'] = $catalogGroupData;
             $parameterBag['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
             $parameterBag['footer_logo_src'] = $footer_logo_src;
@@ -2214,6 +2214,7 @@ if(isset($data[$baseId])) {
 
         $template = $this->document->getEditable('ptg_product_page')->getElement();
         // $template = $this->getDocumentTag('relation', 'ptg_product_page')->getElement();
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
 
         if($template)
         {
@@ -2469,7 +2470,6 @@ if(isset($data[$baseId])) {
                 $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesPTGFooter['Black']:$CatalogImagesPTGFooter['Orange'];
                 $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
-                $parameterBag = [];
                 $parameterBag['groupData'] = $groupData;
                 $parameterBag['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
                 $parameterBag['footer_logo_src'] = $footer_logo_src;

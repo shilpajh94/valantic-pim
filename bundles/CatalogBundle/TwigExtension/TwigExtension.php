@@ -15,13 +15,14 @@ class TwigExtension extends AbstractExtension
             new TwigFunction('getImageThumbnail', [$this, 'getImageThumbnail']),
             new TwigFunction('getAssetFullPathCompatibleToS3', [$this, 'getAssetFullPathCompatibleToS3']),
             new TwigFunction('md5Twig', [$this, 'md5Twig']),
+            new TwigFunction('explodePHP_EOL', [$this, 'explodePHP_EOL']),
         ];
     }
 
     /**
      * @param Image|Pimcore\Model\Document\Tag\Image $image
      * @param string $selectedThumbnaiWidth
-     * 
+     *
      * @return Image\Thumbnail
      */
     public function getImageThumbnail($image, ?string $selectedThumbnaiWidth): ?Image\Thumbnail
@@ -48,6 +49,11 @@ class TwigExtension extends AbstractExtension
     public function md5Twig($string)
     {
         return md5($string);
+    }
+
+    public function explodePHP_EOL($string)
+    {
+        return explode(PHP_EOL, $string);
     }
 }
 

@@ -98,7 +98,7 @@
 									{% if k == 0 %}
 										<p>
 											{% if pimcore_input('prodDesc' ~ k).isEmpty() %}
-												{# {{ pimcore_input("prodDesc" ~ k, {'width': 540}).setDataFromResource(info['productDescription']) | raw }} #}
+												{{ pimcore_input("prodDesc" ~ k, {'width': 540}).setDataFromResource(info['productDescription']) | raw }}
 											{% else %}
 												{{ pimcore_input("prodDesc" ~ k, {'width': 540}) }}
 											{% endif %}

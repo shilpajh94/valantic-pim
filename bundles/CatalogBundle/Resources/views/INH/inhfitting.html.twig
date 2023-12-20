@@ -112,13 +112,6 @@
 													<p></p>
 												{% endif %}
 
-												{# {% if category.subCategory is iterable and category.subCategory is not empty %}
-																																																	{% for cat in category.subCategory %}
-																																																		{% if cat.printable == 1 %}
-																																																			{{ cat.name }}</p>
-																																																		{% endif %}
-																																																	{% endfor %}
-																																																{% endif %} #}
 												{% if category['subCategory'] is defined and category['subCategory'] is iterable and category['subCategory'] is not empty %}
 													{% for k, cat in category['subCategory'] %}
 														{% if cat['printable'] == 1 %}
@@ -199,13 +192,13 @@
 									{% if groupData['material'] or groupData['pressureRating'] or groupData['brandingLayline'] or groupData['orderCodes'] %}
 										<div
 											class="specs col-6">
-											{# <h6>{{ pimcore_translate('specs') }}</h6> #}
+											<h6>{{ 'specs'|trans }}</h6>
 											<div class="spec-requirement">
 												<div>
 													{% if groupData['material'] %}
 														<div
 															class="full">
-															{# <b>{{ pimcore_translate('Materials') }}</b> #}
+															<b>{{ 'Materials'|trans }}</b>
 															{{ groupData['material'] }}
 														</div>
 													{% endif %}
@@ -213,7 +206,7 @@
 													{% if groupData['pressureRating'] %}
 														<div
 															class="full">
-															{# <b>{{ pimcore_translate('Pressure Rating') }}</b> #}
+															<b>{{ 'Pressure Rating'|trans }}</b>
 															{{ groupData['pressureRating'] }}
 														</div>
 													{% endif %}
@@ -221,7 +214,7 @@
 													{% if groupData['brandingLayline'] %}
 														<div
 															class="full">
-															{# <b>{{ pimcore_translate('Branding') }}</b> #}
+															<b>{{ 'Branding'|trans }}</b>
 															{{ groupData['brandingLayline'] }}
 														</div>
 													{% endif %}
@@ -229,7 +222,7 @@
 													{% if groupData['orderCodes'] %}
 														<div
 															class="full">
-															{# <b>{{ pimcore_translate('Order Codes') }}</b> #}
+															<b>{{ 'Order Codes'|trans }}</b>
 															{{ groupData['orderCodes'] }}
 														</div>
 													{% endif %}
@@ -241,7 +234,7 @@
 									{% if groupData['safetyFeatures'] %}
 										<div
 											class="feature col-6">
-											{# <h6>{{ pimcore_translate('features') }}</h6> #}
+											<h6>{{ 'features'|trans }}</h6>
 											<div>
 												{% for feature in groupData['safetyFeatures'] %}
 													<p class="flex">
@@ -265,9 +258,9 @@
 												{% for c1data in groupData['columnsDataWithImages'] %}
 													{% set columnWidth = '' %}
 													{% set firstArray = c1data|first %}
-													{# {% if firstArray['columnWidth'] %}
+													{% if firstArray['columnWidth'] %}
 														{% set columnWidth = 'width=' ~ firstArray['columnWidth'] %}
-													{% endif %} #}
+													{% endif %}
 													<td colspan="{{ c1data|length }}" {{ columnWidth }}><img src="{{ firstArray['columnIcon'] }}" width="45" height="45"/></td>
 												{% endfor %}
 											</tr>
@@ -277,9 +270,9 @@
 											{% for c2data in groupData['columnsDataWithImages'] %}
 												{% set columnWidth = '' %}
 												{% set first2Array = c2data|first %}
-												{# {% if first2Array['columnWidth'] %}
+												{% if first2Array['columnWidth'] %}
 													{% set columnWidth = 'width=' ~ first2Array['columnWidth'] %}
-												{% endif %} #}
+												{% endif %}
 												<td colspan="{{ c2data|length }}" {{ columnWidth }}>{{ first2Array['columnLabel'] }}</td>
 											{% endfor %}
 										</tr>
@@ -288,11 +281,11 @@
 											<tr class="sub-head">
 												{% for c3data in groupData['columnsDataWithImages'] %}
 													{% for c3value in c3data %}
-														{# {% if c3value['unitName'] %}
+														{% if c3value['unitName'] %}
 															<td>{{ c3value['unitName'] }}</td>
 														{% else %}
 															<td></td>
-														{% endif %} #}
+														{% endif %}
 													{% endfor %}
 												{% endfor %}
 											</tr>

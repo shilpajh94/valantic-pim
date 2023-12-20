@@ -91,7 +91,6 @@
 											{% endif %}
 										</b>
 
-										{# Compatibility Description #}
 										{% set compatibility_description = "All fittings compatible with " ~ brandData['brandName'] ~ " are listed in Section 1 (starting on page 131)." %}
 										{% if editmode %}
 											{% if pimcore_input("HHPP_Footer_Compatibility_Description_" ~ md5key ~ "_" ~ incr).isEmpty() %}
@@ -123,7 +122,6 @@
 											{% endif %}
 										</b>
 
-										{# Compatibility Description #}
 										{% if editmode %}
 											{% if pimcore_input("HHPP_Footer_Compatibility_Description1_" ~ md5key ~ "_" ~ incr2).isEmpty() %}
 												{{ pimcore_input("HHPP_Footer_Compatibility_Description1_" ~ md5key ~ "_" ~ incr2).setDataFromResource(compatibility_description) | raw}}
@@ -232,7 +230,7 @@
 										{% if brandData['standardMetHoseListData'] or brandData['tubeMaterialAtrributeString'] or brandData['reinforcement'] or brandData['coverMaterialattributeString'] or brandData['temperatureRangeFAndC'] %}
 											<div
 												class="specs">
-												{# <h6>{{ pimcore_translate('specs') }}</h6> #}
+												<h6>{{ 'specs'|trans }}</h6>
 												<div class="spec-requirement">
 													{% if brandData['standardMetHoseListData'] or brandData['standardMetHoseMeetFlameResistence'] %}
 														<div
@@ -290,7 +288,7 @@
 														{% if brandData['tubeMaterialAtrributeString'] %}
 															<div
 																class="full">
-																{# <b>{{ pimcore_translate('Inner Tube') }}</b> #}
+																<b>{{ 'Inner Tube'|trans }}</b>
 																{{ brandData['tubeMaterialAtrributeString'] }}
 															</div>
 														{% endif %}
@@ -298,7 +296,7 @@
 														{% if brandData['reinforcement'] %}
 															<div
 																class="full">
-																{# <b>{{ pimcore_translate('Reinforcement') }}</b> #}
+																<b>{{ 'Reinforcement'|trans }}</b>
 																{{ brandData['reinforcement'] }}
 															</div>
 														{% endif %}
@@ -306,7 +304,7 @@
 														{% if brandData['coverMaterialattributeString'] %}
 															<div
 																class="full">
-																{# <b>{{ pimcore_translate('Cover') }}</b> #}
+																<b>{{ 'Cover'|trans }}</b>
 																{{ brandData['coverMaterialattributeString'] }}
 															</div>
 														{% endif %}
@@ -314,7 +312,7 @@
 														{% if brandData['temperatureRangeFAndC'] %}
 															<div
 																class="full">
-																{# <b>{{ pimcore_translate('Temperature Range') }}</b> #}
+																<b>{{ 'Temperature Range'|trans }}</b>
 																{{ brandData['temperatureRangeFAndC'] }}
 															</div>
 														{% endif %}
@@ -326,7 +324,7 @@
 										{% if brandData['safetyFeatures'] %}
 											<div
 												class="feature">
-												{# <h6>{{ pimcore_translate('features') }}</h6> #}
+												<h6>{{ 'features'|trans }}</h6>
 												<div>
 													{% for feature in brandData['safetyFeatures'] %}
 														<p class="flex">
@@ -344,7 +342,7 @@
 
 								{% if brandData['BrandingLayline'] %}
 									<menu>
-										{# <h6>{{ pimcore_translate('branding') }}</h6> #}
+										<h6>{{ 'branding'|trans }}</h6>
 										<figure class="brandingLaylineStyle">
 											<figcaption>{{ brandData['BrandingLayline'] }}</figcaption>
 										</figure>
