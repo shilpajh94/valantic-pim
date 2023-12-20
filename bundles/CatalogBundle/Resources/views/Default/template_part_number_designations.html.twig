@@ -132,7 +132,7 @@
                                 {% for brand, bkey in brandData %}
 
                                     {% set hydraulic_hose_data = hydraulic_hose_data[key]|merge(bkey) %}
-                                    {% set md5key = (key~bkey) | md5 %}
+                                    {% set md5key = md5Twig(key~bkey) %}
 
                                     {% set brandDataCount = brandData | length %}
                                         {% if (brandDataCount == rowcount) %}

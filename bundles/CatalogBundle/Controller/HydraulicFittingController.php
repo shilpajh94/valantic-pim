@@ -20,6 +20,7 @@ class HydraulicFittingController extends FrontendController
     private $catalogTemplatingHelper;
     private $containerInterface;
     private $translator;
+    private $imageWidth;
 
     public function __construct(CatalogTemplatingHelper $catalogTemplatingHelper, ContainerInterface $container, TranslatorInterface $translator)
     {
@@ -48,6 +49,8 @@ class HydraulicFittingController extends FrontendController
         $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
         $this->attributeImages = $common->getParameter($attributeImagesConfig, 'attributeImages');
         $CatalogImagesHYDFooter = $common->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+
         if ($this->document->getEditable('fitting-straight')->getElement() instanceof  \Pimcore\Model\DataObject) {
             $id = $this->document->getEditable('fitting-straight')->getId();
             $obj = \Pimcore\Model\DataObject::getById($id);
@@ -288,16 +291,15 @@ class HydraulicFittingController extends FrontendController
             $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
-            $parameterVar = [];
-            $parameterVar['HydFittingFamily'] = implode(', ',array_unique($HydFittingFamilyArr));
-            $parameterVar['iconRequired'] = $this->iconRequired;
-            $parameterVar['brandsData'] = $newBrandArray;
-            $parameterVar['skiveTypeSortKeys'] = $skiveTypeSortKeys;
-            $parameterVar['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
-            $parameterVar['footer_logo_src'] = $footer_logo_src;
-            $parameterVar['containerRequest'] = $containerRequest;
+            $parameterBag['HydFittingFamily'] = implode(', ',array_unique($HydFittingFamilyArr));
+            $parameterBag['iconRequired'] = $this->iconRequired;
+            $parameterBag['brandsData'] = $newBrandArray;
+            $parameterBag['skiveTypeSortKeys'] = $skiveTypeSortKeys;
+            $parameterBag['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
+            $parameterBag['footer_logo_src'] = $footer_logo_src;
+            $parameterBag['containerRequest'] = $containerRequest;
         }
-        return $this->render("@Catalog/Fitting/hydraulic_fitting.html.twig", $parameterVar);
+        return $this->render("@Catalog/Fitting/hydraulic_fitting.html.twig", $parameterBag);
     }
 
     public function getS3ImageSrc($src)
@@ -307,7 +309,7 @@ class HydraulicFittingController extends FrontendController
 
         if($imgObj){
             // $s3src = $imgObj->getThumbnail('catalog_thumb');
-            // $s3src = $this->catalogTemplatingHelper->getImageThumbnail($imgObj,$this->view->imageWidth);
+            $s3src = $this->catalogTemplatingHelper->getImageThumbnail($imgObj,$this->imageWidth);
 //            $s3src = Utils::getAssetFullPathCompatibleToS3($imgObj);
         }
 
@@ -447,6 +449,27 @@ class HydraulicFittingController extends FrontendController
         }
 
         return $decimal;
+    }
+
+    public function getRequestedParameter(Request $request, $documentId): array
+    {
+        $parameterBag = [];
+        $parameterBag['printermarks'] = $request->get('printermarks');
+
+        $imageWidth = null;
+        $imageRecompression = null;
+        $printConfigFile = \Pimcore\Web2Print\Processor::getJobConfigFile($documentId);
+        if(file_exists($printConfigFile)){
+            $printConfigFileContent = file_get_contents($printConfigFile);
+            $printConfig = json_decode( $printConfigFileContent,true);
+            $imageRecompression = $printConfig['config']['Image Quality'];
+            $imageWidth = $printConfig['config']['Image Width'];
+        }
+        $this->imageWidth = $imageWidth;
+        $parameterBag['imageQuality'] = $imageRecompression;
+        $parameterBag['imageWidth'] = $imageWidth;
+
+        return $parameterBag;
     }
 
 }

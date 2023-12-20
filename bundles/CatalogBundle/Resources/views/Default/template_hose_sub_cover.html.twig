@@ -16,7 +16,7 @@
  
 {% if data %}
     {% for catalogGroupKey, catalogGroupData in data %}
-        {% set md5Key = catalogGroupKey|md5 %}
+        {% set md5Key = md5Twig(catalogGroupKey) %}
         <div class="template">
             <div class="segregate" id="subCover">
  

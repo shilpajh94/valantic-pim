@@ -152,12 +152,12 @@
 					{% for tableName, tableRowsSkiveType in tableData %}
 						{% set firstKey = tableRowsSkiveType|keys|first %}
 						{% set uniqueIdTemp = uniqueId %}
-						{% set uniqueId = uniqueId ~ shortDescrioptionKey ~ tableName %}
+						{% set uniqueId = md5Twig(uniqueId ~ shortDescrioptionKey ~ tableName) %}
 						<article class="container page-break-inside-avoid">
 							<figure class="headingSection">
 								{% if tableRowsSkiveType['NS'] is defined and tableRowsSkiveType['DG'] is defined %}
 									<span>
-										{% set uniqueIdDG = uniqueIdTemp ~ shortDescrioptionKey ~ tableName ~ 'DG' %}
+										{% set uniqueIdDG = md5Twig(uniqueIdTemp ~ shortDescrioptionKey ~ tableName ~ 'DG') %}
 										{% if editmode %}
 											{% if not pimcore_image('catLeftImage' ~ uniqueIdDG).isEmpty() %}
 												{{ pimcore_image('catLeftImage' ~ uniqueIdDG, {'class': 'leftImg', 'width': 226, 'height': 150}) }}
@@ -202,7 +202,7 @@
 									</span>
 									<span>
 
-										{% set uniqueIdNS = (uniqueIdTemp ~ shortDescrioptionKey ~ tableName ~ 'NS') %}
+										{% set uniqueIdNS = md5Twig(uniqueIdTemp ~ shortDescrioptionKey ~ tableName ~ 'NS') %}
 										{% if editmode %}
 											{% if not pimcore_image('catLeftImage' ~ uniqueIdNS).isEmpty() %}
 												{{ pimcore_image('catLeftImage' ~ uniqueIdNS, {"class" : "leftImg", "width" : 226, "height" : 150}) }}
@@ -303,7 +303,7 @@
 									{% set showTitle = tableRowsSkiveType|length > 1 %}
 									{% set tableRows = tableRowsSkiveType[skiveTypekValue] %}
 
-									{% set uniqueId2 = (uniqueId ~ shortDescrioptionKey ~ tableName ~ skiveTypekey) %}
+									{% set uniqueId2 = md5Twig(uniqueId ~ shortDescrioptionKey ~ tableName ~ skiveTypekey) %}
 
 									{% if tableRows['articleData'] is defined and tableRows['articleData'] is iterable %}
 										{% set skiveTypeTableTitle = '' %}

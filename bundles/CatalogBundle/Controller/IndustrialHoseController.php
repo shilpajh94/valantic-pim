@@ -41,6 +41,7 @@ class IndustrialHoseController extends FrontendController
 
     public function templateIndustrialHoseIndexByApplicationDynamicAction(Request $request)
     {
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
         try
         {
             $folderId =$this->document->getParent()->getId();
@@ -180,9 +181,9 @@ class IndustrialHoseController extends FrontendController
                     array_push($industrial_hose_list, $data);
                 }
             }
-            $parameterVar = [];
-            $parameterVar['data'] = $industrial_hose_list;
-            return $this->render("@Catalog/INH/template_industrial_hose_index_by_application_dynamic.html.twig", $parameterVar);
+
+            $parameterBag['data'] = $industrial_hose_list;
+            return $this->render("@Catalog/INH/template_industrial_hose_index_by_application_dynamic.html.twig", $parameterBag);
         }
         catch(Exception $e)
         {
@@ -192,6 +193,7 @@ class IndustrialHoseController extends FrontendController
 
     public function templateIndustrialHoseIndexByAlphabetDynamicAction(Request $request)
     {
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
         try
         {
             $folderId =$this->document->getParent()->getId();
@@ -327,9 +329,8 @@ class IndustrialHoseController extends FrontendController
                 }
             }
 
-            $parameterVar = [];
-            $parameterVar['data'] = $industrial_hose_list_alphabet_sorted;
-            return $this->render("@Catalog/INH/template_industrial_hose_index_by_alphabet_dynamic.html.twig", $parameterVar);
+            $parameterBag['data'] = $industrial_hose_list_alphabet_sorted;
+            return $this->render("@Catalog/INH/template_industrial_hose_index_by_alphabet_dynamic.html.twig", $parameterBag);
         }
         catch(Exception $e)
         {
@@ -339,6 +340,7 @@ class IndustrialHoseController extends FrontendController
 
     public function templateIndustrialHoseTableOfContentsDynamicAction(Request $request)
     {
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
         try
         {
             $folderId =$this->document->getParent()->getId();
@@ -427,9 +429,9 @@ class IndustrialHoseController extends FrontendController
                     $toc_data[] = $contiTech_industrial_hose;
                 }
             }
-            $parameterVar = [];
-            $parameterVar['data'] = $toc_data;
-            return $this->render("@Catalog/INH/template_industrial_hose_table_of_contents_dynamic.html.twig", $parameterVar);
+
+            $parameterBag['data'] = $toc_data;
+            return $this->render("@Catalog/INH/template_industrial_hose_table_of_contents_dynamic.html.twig", $parameterBag);
         }
         catch(Exception $e)
         {
@@ -594,6 +596,7 @@ class IndustrialHoseController extends FrontendController
         $dispColumns = array();
 
         $template = $this->document->getEditable('relation', 'inh-printcatalogproduct')->getElement();
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
 
         if ($template instanceof  \Pimcore\Model\DataObject) {
 
@@ -921,8 +924,7 @@ class IndustrialHoseController extends FrontendController
             //unset($this->columnsData);
             //unset($this->attributeImages);
 
-            $parameterVar = [];
-            $parameterVar['info'] = array(
+            $parameterBag['info'] = array(
                 'iconRequired' => $this->iconRequired,
                 'brandsData' => $newBrandArray,
                 'categories' => $categories,
@@ -933,7 +935,7 @@ class IndustrialHoseController extends FrontendController
                 'containerRequest' => $containerRequest
             );
         }
-        return $this->render("@Catalog/INH/inhprintcatalogproductpage.html.twig", $parameterVar);
+        return $this->render("@Catalog/INH/inhprintcatalogproductpage.html.twig", $parameterBag);
     }
 
 
@@ -943,7 +945,8 @@ class IndustrialHoseController extends FrontendController
      */
     public function inhFittingPageAction(Request $request) {
         $containerRequest = $request->get('containerRequest') ? $request->get('containerRequest') : FALSE;
-        $template = $this->document->getEditable('relation', 'inh_fitting_page')->getElement();
+        $template = $this->document->getEditable('inh_fitting_page')->getElement();
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
         if($template)
         {
             $commonHelper = $this->containerInterface->get('app.common_helper');
@@ -960,6 +963,8 @@ class IndustrialHoseController extends FrontendController
             $footerBgColor = $template->getColor();
             $productsData = $template->getProductsData();
             $headerData = json_decode($template->getHeaderData(), true);
+            $groupData = '';
+            $footer_logo_src = '';
 
             if($headerData)
             {
@@ -1130,13 +1135,12 @@ class IndustrialHoseController extends FrontendController
                     $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
                 }
             }
-            $parameterVar = [];
-            $parameterVar['groupData'] = $groupData;
-            $parameterVar['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
-            $parameterVar['footer_logo_src'] = $footer_logo_src;
-            $parameterVar['containerRequest'] = $containerRequest;
+            $parameterBag['groupData'] = $groupData;
+            $parameterBag['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
+            $parameterBag['footer_logo_src'] = $footer_logo_src;
+            $parameterBag['containerRequest'] = $containerRequest;
         }
-        return $this->render("@Catalog/INH/inhfitting.html.twig", $parameterVar);
+        return $this->render("@Catalog/INH/inhfitting.html.twig", $parameterBag);
     }
 
     public function inhFittingCoverAction(Request $request){
@@ -1209,7 +1213,7 @@ class IndustrialHoseController extends FrontendController
                                 if($material == $item[$headerKeysIndex['FittingMaterial']])
                                     $materialKeys[$material] = 'Yes';
                             }
-                            $templateBrandDtata[$item[$headerKeysIndex['brandName']]]= $materialKeys;
+                            // $templateBrandDtata[$item[$headerKeysIndex['brandName']]]= $materialKeys;
                         }
                     }
                 }
@@ -1220,7 +1224,6 @@ class IndustrialHoseController extends FrontendController
             $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesINHFooter['Black']:$CatalogImagesINHFooter['Orange'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
-            // $parameterVar = [];
             $parameterBag['featuresMaterials'] = $featuresMaterials;
             $parameterBag['templateBrandDtata'] = $templateBrandDtata;
             $parameterBag['categories'] = $menuCategories;
@@ -1230,7 +1233,7 @@ class IndustrialHoseController extends FrontendController
             $parameterBag['footer_logo_src'] = $footer_logo_src;
             $parameterBag['containerRequest'] = $containerRequest;
             // p_r($parameterBag);
-            
+
         }
         return $this->render("@Catalog/INH/inhfitting_cover.html.twig", $parameterBag);
     }
@@ -1431,13 +1434,13 @@ class IndustrialHoseController extends FrontendController
                     $this->subHeaderRequired = 'YES';
                 }
 
-                $columnsDataWithImages[$groupColumnName][$key]['groupName'] = $value['groupName'];
-                $columnsDataWithImages[$groupColumnName][$key]['columnWidth'] = $value['columnWidth'];
+                // $columnsDataWithImages[$groupColumnName][$key]['groupName'] = $value['groupName'];
+                // $columnsDataWithImages[$groupColumnName][$key]['columnWidth'] = $value['columnWidth'];
 
                 if($value['columnName'] == 'listPrice')
                     $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $value['unitName'];
                 else
-                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = ($value['unitName']) ? $this->replaceYellowCode($this->translator->trans($value['unitName'])) : '';
+                    // $columnsDataWithImages[$groupColumnName][$key]['unitName'] = ($value['unitName']) ? $this->replaceYellowCode($this->translator->trans($value['unitName'])) : '';
 
                 $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
                 $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->replaceYellowCode($this->translator->trans($groupColumnName));
