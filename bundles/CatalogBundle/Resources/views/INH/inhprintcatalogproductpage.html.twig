@@ -169,13 +169,13 @@
 										<aside>
 											<div>
 												{% if editmode %}
-													{% if pimcore_input("INH_LONG_DESCRIPTION_"~uniqueId).isEmpty() %}
-														{{ pimcore_input("INH_LONG_DESCRIPTION_"~uniqueId, {"placeholder" : "eg: Enter Brand Description"}).setDataFromResource(brand['brandData']['longDescription']) | raw }}
+													{% if pimcore_wysiwyg("INH_LONG_DESCRIPTION_"~uniqueId).isEmpty() %}
+														{{ pimcore_wysiwyg("INH_LONG_DESCRIPTION_"~uniqueId, {"placeholder" : "eg: Enter Brand Description"}).setDataFromResource(brand['brandData']['longDescription']) | raw }}
 													{% else %}
-														{{ pimcore_input("INH_LONG_DESCRIPTION_"~uniqueId, {"placeholder" : "eg: Enter Brand Description"}) }}
+														{{ pimcore_wysiwyg("INH_LONG_DESCRIPTION_"~uniqueId, {"placeholder" : "eg: Enter Brand Description"}) }}
 													{% endif %}
 												{% else %}
-													{{ pimcore_input("INH_LONG_DESCRIPTION_"~uniqueId, {"placeholder" : "eg: Enter Brand Description"}) }}
+													{{ pimcore_wysiwyg("INH_LONG_DESCRIPTION_"~uniqueId, {"placeholder" : "eg: Enter Brand Description"}) }}
 												{% endif %}
 											</div>
 
@@ -210,35 +210,35 @@
 																{% if brand['brandData']['tubeMaterial']|trim %}
 																	<div class="full">
 																		<b>{{ 'Tube Material'|trans }}</b>
-																		{{ brand['brandData']['tubeMaterial'] }}
+																		{{ brand['brandData']['tubeMaterial'] | raw}}
 																	</div>
 																{% endif %}
 
 																{% if brand['brandData']['coverMaterial']|trim %}
 																	<div class="full">
 																		<b>{{ 'Cover Material'|trans }}</b>
-																		{{ brand['brandData']['coverMaterial'] }}
+																		{{ brand['brandData']['coverMaterial'] | raw }}
 																	</div>
 																{% endif %}
 
 																{% if brand['brandData']['reinforcement']|trim %}
 																	<div class="full">
 																		<b>{{ 'Reinforcement'|trans }}</b>
-																		{{ brand['brandData']['reinforcement'] }}
+																		{{ brand['brandData']['reinforcement'] | raw }}
 																	</div>
 																{% endif %}
 
 																{% if brand['brandData']['temperatureRangeFAndC']|trim %}
 																	<div class="full">
 																		<b>{{ 'Temperature Range'|trans }}</b>
-																		{{ brand['brandData']['temperatureRangeFAndC'] }}
+																		{{ brand['brandData']['temperatureRangeFAndC'] | raw }}
 																	</div>
 																{% endif %}
 
 																{% if brand['brandData']['designFactor']|trim %}
 																	<div class="full">
 																		<b>{{ 'Design Factor'|trans }}</b>
-																		{{ brand['brandData']['designFactor'] }}
+																		{{ brand['brandData']['designFactor'] | raw }}
 																	</div>
 																{% endif %}
 															</div>
@@ -252,12 +252,12 @@
 																				<tr>
 																					{% set rowColData = row|split(' - ') %}
 																					{% if rowColData|length == 2 %}
-																						<td>{{ rowColData[0] }}</td>
+																						<td>{{ rowColData[0] | raw}}</td>
 																						<td>
 																							-
-																							{{ rowColData[1] }}</td>
+																							{{ rowColData[1] | raw }}</td>
 																					{% else %}
-																						<td colspan="2">{{ row }}</td>
+																						<td colspan="2">{{ row  | raw}}</td>
 																					{% endif %}
 																				</tr>
 																			{% endfor %}
@@ -268,7 +268,7 @@
 																{% if brand['brandData']['Coupling']|trim %}
 																	<div class="right-full">
 																		<b>{{ 'Coupling'|trans }}</b>
-																		{{ brand['brandData']['Coupling'] }}
+																		{{ brand['brandData']['Coupling'] | raw }}
 																	</div>
 																{% endif %}
 															</div>
@@ -307,8 +307,8 @@
 										{% set noterow = 0 %}
 
 										{% if brand['articleData'] is defined and brand['articleData'] is iterable %}
-											{% for GroupingFields in brand['articleData'] %}
-												{% for fittingTableName in GroupingFields %}
+											{% for key, GroupingFields in brand['articleData'] %}
+												{% for gkey, fittingTableName in GroupingFields %}
 													{% set industrial_hose_data = industrial_hose_data | merge({ (categoryForCatalog): [brandKey ~ " " ~ key] }) %}
 													{% set tableKey = md5Twig(key ~ gkey) %}
 
@@ -346,9 +346,9 @@
 																{% if info['iconRequired'] == 'YES' %}
 																	<tr class="sub-head">
 																		{% for c1data in fittingTableName['columnsDataWithImages'] %}
-																			{% set columnWidth = c1data[0]['columnWidth'] ? 'width=' ~ c1data[0]['columnWidth'] : '' %}
+																			{% set columnWidth = c1data[0]['columnWidth'] is defined ? 'width=' ~ c1data[0]['columnWidth'] : '' %}
 																			<td colspan="{{ c1data|length }}" {{ columnWidth }}>
-																				{% if c1data[0]['columnIcon'] %}
+																				{% if c1data[0]['columnIcon'] is defined and c1data[0]['columnIcon'] %}
 																					<img src="{{ c1data[0]['columnIcon'] }}" width="45" height="45"/>
 																				{% endif %}
 																			</td>
@@ -357,9 +357,11 @@
 																{% endif %}
 																<tr class="head">
 																	{% for c2data in fittingTableName['columnsDataWithImages'] %}
-																		{% set columnWidth = c2data[0]['columnWidth'] ? 'width=' ~ c2data[0]['columnWidth'] : '' %}
+																		{% set columnWidth = cdata[0]['columnWidth'] is defined  ? 'width=' ~ c2data[0]['columnWidth'] : '' %}
 																		<td colspan="{{ c2data|length }}" {{ columnWidth }}>
-																			{{ c2data[0]['columnLabel'] }}
+																			{% if c2data[0]['columnLabel'] is defined and c2data[0]['columnLabel'] %}
+																				{{ c2data[0]['columnLabel'] }}
+																			{% endif %}
 																		</td>
 																	{% endfor %}
 																</tr>
@@ -421,11 +423,11 @@
 
 				{% for key, value in industrial_hose_data %}
 					{% set mergeData = key~"$$"~value|join(',') %}
-					{% set industrial_hose_data_list = industrial_hose_data_list|merge(mergeData) %}
+					{% set industrial_hose_data_list = industrial_hose_data_list|merge([mergeData]) %}
 				{% endfor %}
 
 				{% if industrial_hose_data_list %}
-					{% set industrial_hose_details_text = industrial_hose_data_list|join(nl2br) %}
+					{% set industrial_hose_details_text = implodePHP_EOL(industrial_hose_data_list) %}
 					{{ pimcore_textarea('industrial_hose_details').setDataFromResource(industrial_hose_details_text)| raw }}
 				{% endif %}
 

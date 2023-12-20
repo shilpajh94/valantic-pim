@@ -12,7 +12,7 @@
                 {% if editmode %}
                     {{ pimcore_pdf("pdf", {'placeholder': 'PDF drop'})}}
                 {% else %}
-                    {% showPDFInput %}
+                    {% if showPDFInput %}
                         {{ pimcore_pdf("pdf", {'placeholder': 'PDF drop'})}}
                     {% else %}
                         {% set element = pimcore_pdf("pdf").getElement() %}

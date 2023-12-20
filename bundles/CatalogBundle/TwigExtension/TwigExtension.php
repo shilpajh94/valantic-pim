@@ -16,6 +16,7 @@ class TwigExtension extends AbstractExtension
             new TwigFunction('getAssetFullPathCompatibleToS3', [$this, 'getAssetFullPathCompatibleToS3']),
             new TwigFunction('md5Twig', [$this, 'md5Twig']),
             new TwigFunction('explodePHP_EOL', [$this, 'explodePHP_EOL']),
+            new TwigFunction('implodePHP_EOL', [$this, 'implodePHP_EOL']),
         ];
     }
 
@@ -54,6 +55,11 @@ class TwigExtension extends AbstractExtension
     public function explodePHP_EOL($string)
     {
         return explode(PHP_EOL, $string);
+    }
+
+    public function implodePHP_EOL($array)
+    {
+        return implode(PHP_EOL, $array);
     }
 }
 

@@ -181,11 +181,11 @@
     {% if hydraulic_hose_data %} 
 
         {% for key, value in hydraulic_hose_data %}
-            {% hydraulic_hose_data_list = hydraulic_hose_data_list | merge(key~"$$"~(value|join(','))) %}
+            {% hydraulic_hose_data_list = hydraulic_hose_data_list | merge([key~"$$"~value|join(',')]) %}
         {% endfor %} 
 
         {% if hydraulic_hose_data_list %} 
-            {% set hydraulic_hose_details_text =  hydraulic_hose_data_list | join(nl2br) %}
+            {% set hydraulic_hose_details_text =  implodePHP_EOL(hydraulic_hose_data_list) %}
             {{ pimcore_textarea('hydraulic_hose_details').setDataFromResource(hydraulic_hose_details_text) | raw }}
         {% endif %} 
     {% endif %} 

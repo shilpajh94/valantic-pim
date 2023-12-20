@@ -29,6 +29,7 @@ class IndustrialHoseController extends FrontendController
     private $containerInterface;
     private $translator;
     private $imageWidth;
+    private $translatorInterface;
 
 
     public function __construct(CatalogTemplatingHelper $catalogTemplatingHelper, ContainerInterface $container, TranslatorInterface $translator)
@@ -36,7 +37,7 @@ class IndustrialHoseController extends FrontendController
         $this->db = Db::get();
         $this->catalogTemplatingHelper = $catalogTemplatingHelper;
         $this->containerInterface = $container;
-        $this->translator = $translator;
+        $this->translatorInterface = $translator;
     }
 
     public function templateIndustrialHoseIndexByApplicationDynamicAction(Request $request)
@@ -486,7 +487,7 @@ class IndustrialHoseController extends FrontendController
             if($headers && $productPageColumns)
             {
                 foreach ($productPageColumns['dispColumns'] as $key => $value) {
-                    $productPageColumns['dispColumns'][$key]['title'] = $this->translator->trans($key);
+                    $productPageColumns['dispColumns'][$key]['title'] = $this->translatorInterface->trans($key);
                 }
 
                 $headerKeys = array_keys($headers);
@@ -623,9 +624,10 @@ class IndustrialHoseController extends FrontendController
             // $attrbuteImgS3Arr = array();
 
             // $language = $request->getLocale();
-            $this->translator->setLocale($CatalogLanguage);
+            // $this->translator->setLocale($CatalogLanguage);
 
             $brandsList = $this->getBrandsList();
+            // p_r($brandsList);die;
             $this->featuresList = $this->getFeaturesList('', $CatalogLanguage);
 
             // Getting Selected 3rd Level Category at Catalog Category object
@@ -657,7 +659,7 @@ class IndustrialHoseController extends FrontendController
                 $brandsData = array();
                 foreach ($productsData as $key => $item)
                 {
-                    if($item[$headerKeysIndex['brandName']][0])
+                    if($item[$headerKeysIndex['brandName']])
                     {
                         // if(trim($brandsList[$item[$headerKeysIndex['brandName']][0]]['GroupingFieldName']))
                         // {
@@ -669,7 +671,7 @@ class IndustrialHoseController extends FrontendController
                             // $brandsData[$item[$headerKeysIndex['brandName']][0]][0][] = $item;
                         // }
 
-                        $brandsData[$item[$headerKeysIndex['brandName']][0]][] = $item;
+                        $brandsData[$item[$headerKeysIndex['brandName']]][] = $item;
 
                         unset($item);
                     }
@@ -715,8 +717,18 @@ class IndustrialHoseController extends FrontendController
                     $oldMaterialCodeArr = array();
 
                     foreach ($brand as $bkey => $bvalue) {
+                        // p_r($key);
                         $GroupingFieldName = $brandsList[$key]['GroupingFieldName'];
-                        $GroupingFieldNameValue = $bvalue[$headerKeysIndex[$GroupingFieldName]];
+                        // p_r($bvalue);
+                        // p_r($headerKeysIndex);
+                        // p_r($GroupingFieldName);
+                        // die;
+                        $GroupingFieldNameValue = null;
+                        if($GroupingFieldName && isset($bvalue[$headerKeysIndex[$GroupingFieldName]]))
+                        {
+                            $GroupingFieldNameValue = $bvalue[$headerKeysIndex[$GroupingFieldName]];
+                        }
+                        
 
                         if(is_array($GroupingFieldNameValue))
                             $GroupingFieldNameValue = implode(",", $GroupingFieldNameValue);
@@ -755,11 +767,13 @@ class IndustrialHoseController extends FrontendController
                             }
 
                             if($bvalue[$headerKeysIndex['reinforcement']]) {
-                                $reinforcementArr = array_merge($reinforcementArr, $bvalue[$headerKeysIndex['reinforcement']]);
+                                $arr_reinforcement = explode('||', $bvalue[$headerKeysIndex['reinforcement']]);
+                                $reinforcementArr = array_merge($reinforcementArr, $arr_reinforcement);
                             }
 
                             if($bvalue[$headerKeysIndex['safetyFactor']]) {
-                                $designFactorArr = array_merge($designFactorArr, $bvalue[$headerKeysIndex['safetyFactor']]);
+                                $arr_safetyFactor = explode('||', $bvalue[$headerKeysIndex['safetyFactor']]);
+                                $designFactorArr = array_merge($designFactorArr, $arr_safetyFactor);
                             }
 
                             if(!$BrandingLayline && $bvalue[$headerKeysIndex['BrandingLayline']]) {
@@ -771,7 +785,8 @@ class IndustrialHoseController extends FrontendController
                             }
 
                             if($bvalue[$headerKeysIndex['tubeMaterial']]) {
-                                $tubeMaterialArr = array_merge($tubeMaterialArr, $bvalue[$headerKeysIndex['tubeMaterial']]);
+                                $arr_tubeMaterial = explode('||', $bvalue[$headerKeysIndex['tubeMaterial']]);
+                                $tubeMaterialArr = array_merge($tubeMaterialArr, $arr_tubeMaterial);
                             }
 
                             if(!$VirtualCatalogTubeMaterial && $bvalue[$headerKeysIndex['VirtualCatalogTubeMaterial']]) {
@@ -779,7 +794,8 @@ class IndustrialHoseController extends FrontendController
                             }
 
                             if($bvalue[$headerKeysIndex['coverMaterial']]) {
-                                $coverMaterialArr = array_merge($tubeMaterialArr, $bvalue[$headerKeysIndex['coverMaterial']]);
+                                $arr_coverMaterial = explode('||', $bvalue[$headerKeysIndex['coverMaterial']]);
+                                $coverMaterialArr = array_merge($tubeMaterialArr, $arr_coverMaterial);
                             }
 
                             if(!$VirtualCatalogCoverMaterial && $bvalue[$headerKeysIndex['VirtualCatalogCoverMaterial']]) {
@@ -807,9 +823,10 @@ class IndustrialHoseController extends FrontendController
 
                             if($bvalue[$headerKeysIndex['FeaturesBenefitsBulletPoint']])
                             {
-                                if(count($bvalue[$headerKeysIndex['FeaturesBenefitsBulletPoint']])>0)
+                                $arr_FeaturesBenefitsBulletPoint = explode('||', $bvalue[$headerKeysIndex['FeaturesBenefitsBulletPoint']]);
+                                if(count($arr_FeaturesBenefitsBulletPoint)>0)
                                 {
-                                    foreach ($bvalue[$headerKeysIndex['FeaturesBenefitsBulletPoint']] as $fkey => $feature) {
+                                    foreach ($arr_FeaturesBenefitsBulletPoint as $fkey => $feature) {
                                         array_push($FeaturesBenefitsBulletPointArr,$feature);
                                     }
                                 }
@@ -832,9 +849,11 @@ class IndustrialHoseController extends FrontendController
                                     if($ckey == 'coverColor')
                                     {
                                         $temp = '';
-                                        if($bvalue[$headerKeysIndex[$ckey]])
+                                        $arr_coverColor = explode('||', $bvalue[$headerKeysIndex[$ckey]]);
+                                
+                                        if($arr_coverColor)
                                         {
-                                            $temp = implode(', ', $bvalue[$headerKeysIndex[$ckey]]);
+                                            $temp = implode(', ', $arr_coverColor);
                                         }
                                     }
                                     else{
@@ -934,6 +953,9 @@ class IndustrialHoseController extends FrontendController
                 'footer_logo_src' => $footer_logo_src,
                 'containerRequest' => $containerRequest
             );
+
+            // p_r($parameterBag);
+            // die;
         }
         return $this->render("@Catalog/INH/inhprintcatalogproductpage.html.twig", $parameterBag);
     }
@@ -976,7 +998,7 @@ class IndustrialHoseController extends FrontendController
 
                 $menuCategories = $this->getSIOP($CatalogLanguage);
 
-                $this->translator->setLocale($CatalogLanguage);
+                // $this->translator->setLocale($CatalogLanguage);
 
                 $this->iconRequired = 'YES';
                 $this->subHeaderRequired = 'NO';
@@ -1394,26 +1416,44 @@ class IndustrialHoseController extends FrontendController
                 if(in_array($dkey,$tableNameColumns))
                 {
                     $groupColumnName = $value['columnName'];
+                    $groupName = '';
+                    $columnWidth = '';
+                    $unitName = '';
+
+                    if(isset($value['columnWidth']) && $value['columnWidth'])
+                    {
+                        $columnWidth = $value['columnWidth'];
+                    }
+
+                    if(isset($value['unitName']) && $value['unitName'])
+                    {
+                        $unitName = $value['unitName'];
+                    }
+
                     if(isset($value['groupName']) && $value['groupName'])
                     {
                         $groupColumnName = $value['groupName'];
+                        $groupName = $value['groupName'];
                         $this->subHeaderRequired = 'YES';
                     }
 
-                    $columnsDataWithImages[$groupColumnName][$dkey]['groupName'] = $value['groupName'];
-                    $columnsDataWithImages[$groupColumnName][$dkey]['columnWidth'] = $value['columnWidth'];
-                    $columnsDataWithImages[$groupColumnName][$dkey]['unitName'] = $this->replaceYellowCode($this->translator->trans($value['unitName']));
+                    $columnsDataWithImages[$groupColumnName][$dkey]['groupName'] = $groupName;
+                    $columnsDataWithImages[$groupColumnName][$dkey]['columnWidth'] = $columnWidth;
+                    $columnsDataWithImages[$groupColumnName][$dkey]['unitName'] = $this->replaceYellowCode($this->translatorInterface->trans($unitName));
                     $columnsDataWithImages[$groupColumnName][$dkey]['columnName'] = $value['columnName'];
-                    $columnsDataWithImages[$groupColumnName][$dkey]['columnLabel'] = $this->replaceYellowCode($this->translator->trans($groupColumnName));
+                    $columnsDataWithImages[$groupColumnName][$dkey]['columnLabel'] = $this->replaceYellowCode($this->translatorInterface->trans($groupColumnName));
 
                     if ($this->iconRequired == 'YES')
                     {
                         if(!isset($this->attrbuteImgS3Arr[$groupColumnName]))
                         {
-                            $attributeImagesSrc = $this->attributeImages[$groupColumnName];
-                            $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
-                            $this->attrbuteImgS3Arr[$groupColumnName] = $attributeImagesSrc;
-                            $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $attributeImagesSrc;
+                            if(isset($this->attributeImages[$groupColumnName]))
+                            {
+                                $attributeImagesSrc = $this->attributeImages[$groupColumnName];
+                                $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
+                                $this->attrbuteImgS3Arr[$groupColumnName] = $attributeImagesSrc;
+                                $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $attributeImagesSrc;
+                            }
                         }
                         else
                         {
@@ -1428,31 +1468,50 @@ class IndustrialHoseController extends FrontendController
             foreach ($this->columnsData as $key => $value) {
 
                 $groupColumnName = $value['columnName'];
+                $groupName = '';
+
+                $columnWidth = '';
+                $unitName = '';
+
+                if(isset($value['columnWidth']) && $value['columnWidth'])
+                {
+                    $columnWidth = $value['columnWidth'];
+                }
+
+                if(isset($value['unitName']) && $value['unitName'])
+                {
+                    $unitName = $value['unitName'];
+                }
+
                 if(isset($value['groupName']) && $value['groupName'])
                 {
                     $groupColumnName = $value['groupName'];
+                    $groupName = $value['groupName'];
                     $this->subHeaderRequired = 'YES';
                 }
 
-                $columnsDataWithImages[$groupColumnName][$key]['groupName'] = $value['groupName'];
-                $columnsDataWithImages[$groupColumnName][$key]['columnWidth'] = $value['columnWidth'];
+                $columnsDataWithImages[$groupColumnName][$key]['groupName'] = $groupName;
+                $columnsDataWithImages[$groupColumnName][$key]['columnWidth'] = $columnWidth;
 
                 if($value['columnName'] == 'listPrice')
-                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $value['unitName'];
+                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $unitName;
                 else
-                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = ($value['unitName']) ? $this->replaceYellowCode($this->translator->trans($value['unitName'])) : '';
+                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = ($unitName) ? $this->replaceYellowCode($this->translatorInterface->trans($unitName)) : '';
 
                 $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
-                $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->replaceYellowCode($this->translator->trans($groupColumnName));
+                $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->replaceYellowCode($this->translatorInterface->trans($groupColumnName));
 
                 if ($this->iconRequired == 'YES')
                 {
                     if(!isset($this->attrbuteImgS3Arr[$groupColumnName]))
                     {
-                        $attributeImagesSrc = $this->attributeImages[$groupColumnName];
-                        $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
-                        $this->attrbuteImgS3Arr[$groupColumnName] = $attributeImagesSrc;
-                        $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImagesSrc;
+                        if(isset($this->attributeImages[$groupColumnName]))
+                        {
+                            $attributeImagesSrc = $this->attributeImages[$groupColumnName];
+                            $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
+                            $this->attrbuteImgS3Arr[$groupColumnName] = $attributeImagesSrc;
+                            $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImagesSrc;
+                        }
                     }
                     else
                     {
