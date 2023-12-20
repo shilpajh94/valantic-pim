@@ -215,12 +215,12 @@
 								{% else %}
 									{% set imgSrcObj1 = pimcore_image("HHPP_Image_Left_" ~ md5key ~ "_" ~ incr2, {"class": "leftImg", "width": 600, "height": 200}) %}
 									{% if imgSrcObj1 %}
-										{# <img src="{{ getImageThumbnail(imgSrcObj1, imageWidth) }}" class="leftImg" width="600" height="200"/> #}
+										<img src="{{ getImageThumbnail(imgSrcObj1, imageWidth) }}" class="leftImg" width="600" height="200"/>
 									{% endif %}
 
 									{% set imgSrcObj2 = pimcore_image("HHPP_Image_Right_" ~ md5key ~ "_" ~ incr2, {"class": "rightImg", "width": 600, "height": 200}) %}
 									{% if imgSrcObj2 %}
-										{# <img src="{{ getImageThumbnail(imgSrcObj2, imageWidth) }}" class="rightImg" width="600" height="200"/> #}
+										<img src="{{ getImageThumbnail(imgSrcObj2, imageWidth) }}" class="rightImg" width="600" height="200"/>
 									{% endif %}
 								{% endif %}
 							</aside>

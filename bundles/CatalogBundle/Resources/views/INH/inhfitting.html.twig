@@ -165,7 +165,7 @@
 										{% if not pimcore_image("INH_Fitting_MainImage").isEmpty() %}
 											{{ pimcore_image("INH_Fitting_MainImage", {'width' : 400, 'height' : 200}) }}
 										{% else %}
-											{{ pimcore_image("INH_Fitting_MainImage", {"width" : 400, "height" : 200}).setImage(groupData['mainImageObj']) }}
+											{{ pimcore_image("INH_Fitting_MainImage", {"width" : 400, "height" : 200}).setImage(groupData['mainImageObj']) | raw }}
 										{% endif %}
 									{% else %}
 										{% if not pimcore_image("INH_Fitting_MainImage").isEmpty() %}
@@ -180,7 +180,7 @@
 										{% if not pimcore_image("INH_Fitting_ProfileDimension").isEmpty() %}
 											{{ pimcore_image("INH_Fitting_ProfileDimension", {"width" : 400, "height" : 200}) }}
 										{% else %}
-											{{ pimcore_image("INH_Fitting_ProfileDimension", {"width" : 400, "height" : 200}).setImage(groupData['ProfileDimensionImageObj']) }}
+											{{ pimcore_image("INH_Fitting_ProfileDimension", {"width" : 400, "height" : 200}).setImage(groupData['ProfileDimensionImageObj']) | raw }}
 										{% endif %}
 									{% else %}
 										{% if not pimcore_image("INH_Fitting_ProfileDimension").isEmpty() %}

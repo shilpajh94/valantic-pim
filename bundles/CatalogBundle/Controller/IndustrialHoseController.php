@@ -1213,7 +1213,7 @@ class IndustrialHoseController extends FrontendController
                                 if($material == $item[$headerKeysIndex['FittingMaterial']])
                                     $materialKeys[$material] = 'Yes';
                             }
-                            // $templateBrandDtata[$item[$headerKeysIndex['brandName']]]= $materialKeys;
+                            $templateBrandDtata[$item[$headerKeysIndex['brandName']]]= $materialKeys;
                         }
                     }
                 }
@@ -1232,7 +1232,7 @@ class IndustrialHoseController extends FrontendController
             $parameterBag['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
             $parameterBag['footer_logo_src'] = $footer_logo_src;
             $parameterBag['containerRequest'] = $containerRequest;
-            // p_r($parameterBag);
+            // p_r($parameterBag); die;
 
         }
         return $this->render("@Catalog/INH/inhfitting_cover.html.twig", $parameterBag);
