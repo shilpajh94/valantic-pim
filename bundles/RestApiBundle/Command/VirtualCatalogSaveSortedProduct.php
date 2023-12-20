@@ -17,7 +17,7 @@ use Symfony\Component\Yaml\Yaml;
 
 class VirtualCatalogSaveSortedProduct extends AbstractCommand
 {
-    private $virtual_catalog_sorted_product_table = 'virtual_catalog_sorted_product_table';
+    private $virtualCatalogSortedProductTable = 'virtual_catalog_sorted_product_table';
     private $db;
     private $brandList;
     private $t;
@@ -25,7 +25,8 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
     protected function configure()
     {
         $this->setName('restApi:virtual-catalog-save-sorted-product')
-            ->setDescription('Get all products, sort these products and save them into virtual_catalog_sorted_product_table table.');
+            ->setDescription('Get all products, sort these products and
+            save them into virtual_catalog_sorted_product_table table.');
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
@@ -42,7 +43,7 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
 
             $brandsData  = $this->getAllBrand();
 
-            echo "Processing ".count($brandsData)." products having virtual catalog flag - true ". PHP_EOL; 
+            echo "Processing ".count($brandsData)." products having virtual catalog flag - true ". PHP_EOL;
 
             $this->getBrandProducts($brandsData);
 
@@ -52,7 +53,7 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
         } catch (\Throwable $th) {
             p_r($th->getMessage());
         }
-        
+        return 1;
     }
 
     private function saveBrandProducts($allBrandProducts, $customArrayFlag, $customArray)
@@ -61,8 +62,10 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
         {
 
             $insertValues = [];
-            $insert  = "INSERT INTO `{$this->virtual_catalog_sorted_product_table}` (`oo_id`, `brand_name`, `selectedSortFieldName`, `selectedSortFieldValues`, `sortFieldValue`, `sapCode`, `siopFullcode`, `updatedAt`) VALUES ";
-            foreach ($allBrandProducts as $brandKey => $brandProducts) {
+            $insert  = "INSERT INTO `{$this->virtualCatalogSortedProductTable}`
+            (`oo_id`, `brand_name`, `selectedSortFieldName`, `selectedSortFieldValues`,
+            `sortFieldValue`, `sapCode`, `siopFullcode`, `updatedAt`) VALUES ";
+            foreach ($allBrandProducts as $brandProducts) {
                 
                 $oo_id = $brandProducts["oo_id"];
 
@@ -83,10 +86,11 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
                 
                 $sapCode = $brandProducts["articleNumber"];
                 $siopFullcode = $brandProducts["siopFullCode"];
-                $sortFieldValue = $brandProducts["sortFieldValue"];
+                $sortFieldValue = isset($brandProducts["sortFieldValue"]) ? $brandProducts["sortFieldValue"] : null;
                 $updatedAt = $brandProducts["o_modificationDate"];
 
-                $insertValues[] = " ($oo_id, '$brandName', '$selectedSortFieldName', '$selectedSortFieldValues', '$sortFieldValue', $sapCode, '$siopFullcode', $updatedAt) ";
+                $insertValues[] = " ($oo_id, '$brandName', '$selectedSortFieldName',
+                '$selectedSortFieldValues', '$sortFieldValue', $sapCode, '$siopFullcode', $updatedAt) ";
 
             }
 
@@ -102,43 +106,7 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
         
     }
 
-    private function saveBrandProducts2($allBrandProducts)
-    {
-        if($allBrandProducts)
-        {
-            foreach ($allBrandProducts as $brandKey => $brandProducts) {
-                
-                $brandName = addslashes($this->brandList[$brandKey]['brandNameText']);
-                
-                $selectedSortFieldName = $this->brandList[$brandKey]['sorting_GroupingField'];
-                $selectedSortFieldValues = $this->brandList[$brandKey]['sorting'];
-                $selectedSortFieldValues = str_replace("'","",$selectedSortFieldValues);
-                
-                $insert  = "INSERT INTO `{$this->virtual_catalog_sorted_product_table}` (`oo_id`, `brand_name`, `selectedSortFieldName`, `selectedSortFieldValues`, `sortFieldValue`, `sapCode`, `siopFullcode`, `updatedAt`) VALUES ";
-
-                foreach ($brandProducts as $indexKey => $product) {
-                    
-                    $oo_id = $product["oo_id"];
-                    $sapCode = $product["articleNumber"];
-                    $siopFullcode = $product["siopFullCode"];
-                    $sortFieldValue = $product["sortFieldValue"];
-                    $updatedAt = $product["updatedAt"];
-                    
-                    $insertValues[] = " ($oo_id, '$brandName', '$selectedSortFieldName', '$selectedSortFieldValues', '$sortFieldValue', $sapCode, $siopFullcode, $updatedAt) ";
-                }
-
-                if($insertValues)
-                {
-                    $sql = $insert. implode(',', $insertValues);
-                    $stmt = $this->db->prepare($sql);
-                    $stmt->execute();
-
-                    unset($insertValues);
-                }
-            }
-        }
-        
-    }
+    
 
     private function getBrandProducts($brandsArray)
     {
@@ -147,12 +115,12 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
             $brandWiseProductList = [];
             if($brandsArray)
             {
-                foreach ($brandsArray as $brandData) 
+                foreach ($brandsArray as $brandData)
                 {
                     $brandWiseProductList[$brandData['brand_id']][] = $brandData;
                 }
 
-                foreach ($brandWiseProductList as $brandKey => $brandProducts) 
+                foreach ($brandWiseProductList as $brandKey => $brandProducts)
                 {
                     if($brandKey)
                     {
@@ -164,7 +132,8 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
                         {
                             $sortingConfig = $brandProducts[0];
                             $brandNameText = $sortingConfig['brandNameText'];
-                            echo "Save: Brand - ".$brandNameText. ", Product Count - ".count($brandProducts). ", Sorting Config - No.".PHP_EOL;
+                            echo "Save: Brand - ".$brandNameText. ", Product Count - ".
+                            count($brandProducts). ", Sorting Config - No.".PHP_EOL;
                             $this->saveBrandProducts($brandProducts, false, []);
                         }
                         else
@@ -178,11 +147,11 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
                             if(strtolower($sorting) == 'ascending' || strtolower($sorting) == 'descending'){
                                 $sortingData = strtolower($sorting) == 'ascending' ? 'ASC' : 'DESC';
                                 
-                            } else if(strtolower($sorting) == 'yes' || strtolower($sorting) == 'no'){
+                            } elseif(strtolower($sorting) == 'yes' || strtolower($sorting) == 'no'){
                                 $sortingData[] = strtolower($sorting) == 'yes' ? 1 : -1;
                             }
                             else{
-                                $sortingData = json_decode($sorting, TRUE);
+                                $sortingData = json_decode($sorting, true);
                                 $sortingData = array_keys($sortingData);
                             }
                             $brickName = $this->getSortingFieldDataFromConfig($fieldForSort);
@@ -193,7 +162,8 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
                             $customArray['sorting_GroupingField'] = $fieldForSort;
                             $customArray['sorting'] = $sorting;
 
-                            echo "Save: Brand - ".$brandNameText. ", Product Count - ".count($arr). ", Sorting Config - Yes.".PHP_EOL;
+                            echo "Save: Brand - ".$brandNameText. ", Product Count - ".
+                            count($arr). ", Sorting Config - Yes.".PHP_EOL;
 
                             $this->saveBrandProducts($arr, true, $customArray);
                         }
@@ -209,8 +179,12 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
     }
 
     private function getProductsInSortedFormat($brandId,$fieldForSort,$sortingData, $brickName){
-        $select = "SELECT `oo_id`, `objbrickquery1`.{$fieldForSort} AS `sortFieldValue` ,`articleNumber`, `siopFullCode`, `o_modificationDate` from `object_1` INNER JOIN `object_brick_query_".$brickName."_1` AS `objbrickquery1` ON object_1.oo_id = objbrickquery1.o_id
-        where `VirtualCatalogFlag` = 1 AND `object_1`.`brandName` = ".$brandId." and `ProductType` = 'fert' "." ORDER BY ";
+        $select = "SELECT `oo_id`, `objbrickquery1`.{$fieldForSort} AS
+        `sortFieldValue` ,`articleNumber`, `siopFullCode`, `o_modificationDate`
+        from `object_1` INNER JOIN `object_brick_query_".$brickName."_1`
+        AS `objbrickquery1` ON object_1.oo_id = objbrickquery1.o_id
+        where `VirtualCatalogFlag` = 1 AND `object_1`.`brandName` = ".$brandId."
+        and `ProductType` = 'fert' "." ORDER BY ";
         if(is_array($sortingData)){
             $condition = '';
             $case = 'Case ';
@@ -219,15 +193,20 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
                 $eachSortingData = trim($eachSortingData,"'");
                 $eachSortingData = trim($eachSortingData,",");
                 if($fieldForSort == 'reinforcement'){
-                    $condition = $condition . " WHEN  TRIM(BOTH ',' FROM ".$fieldForSort.") = '". $eachSortingData."' THEN ".$i;
+                    $condition = $condition . " WHEN  TRIM(BOTH ',' FROM ".$fieldForSort.") =
+                    '". $eachSortingData."' THEN ".$i;
                 }else {
-                    $condition = $condition. " WHEN TRIM(BOTH ',' FROM `objbrickquery1`.".$fieldForSort.")  = '". $eachSortingData."' THEN ".$i;
+                    $condition = $condition. " WHEN TRIM(BOTH ',' FROM `objbrickquery1`.".$fieldForSort.") =
+                    '". $eachSortingData."' THEN ".$i;
                 }
                 $i++;
             }
             $else = ' ELSE '.$i++. ' END';
             if($fieldForSort == 'reinforcement'){
-                $sql = "SELECT `oo_id`, `{$fieldForSort}` AS `sortFieldValue`,`articleNumber`, `siopFullCode`, `o_modificationDate` from `object_1` where `VirtualCatalogFlag` = 1 AND `brandName` = ".$brandId." and `ProductType` = 'fert' "." ORDER BY ".$case.$condition.$else;
+                $sql = "SELECT `oo_id`, `{$fieldForSort}` AS
+                `sortFieldValue`,`articleNumber`, `siopFullCode`, `o_modificationDate`
+                from `object_1` where `VirtualCatalogFlag` = 1 AND `brandName` = ".$brandId."
+                and `ProductType` = 'fert' "." ORDER BY ".$case.$condition.$else;
             }else{
                 $sql = $select.$case.$condition.$else;
             }
@@ -240,18 +219,13 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
     }
 
     private function getSortingFieldDataFromConfig($groupingFieldNameForSorting){
-        $groupingFieldsConfig = Yaml::parseFile(PIMCORE_PROJECT_ROOT . '/bundles/RestApiBundle/Resources/config/config.yaml');
+        $groupingFieldsConfig = Yaml::parseFile(PIMCORE_PROJECT_ROOT .
+         '/bundles/RestApiBundle/Resources/config/config.yaml');
         if(array_key_exists($groupingFieldNameForSorting,$groupingFieldsConfig['parameters']['grouping_fields'])){
-            return $groupingFieldsConfig['parameters']['grouping_fields'][$groupingFieldNameForSorting]['container_name'];
+            return $groupingFieldsConfig['parameters']['grouping_fields']
+            [$groupingFieldNameForSorting]['container_name'];
         }
         return null;
-    }
-
-    private function getProductsForTheRequiredBrand($brandId){
-        $sql = "SELECT `oo_id`, `articleNumber`, `siopFullCode`, `o_modificationDate` AS `updatedAt` from `object_1` where `VirtualCatalogFlag` = 1 AND `ProductType` = 'fert' AND `brandName` = ".$brandId;
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll();
     }
 
     private function createTable()
@@ -276,27 +250,26 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
 
     private function getAllBrand()
     {
-        $sql = "SELECT 
-            p.oo_id, p.articleNumber, p.siopFullcode, p.o_modificationDate,p.brandName as brand_id, 
+        $sql = "SELECT
+            p.oo_id, p.articleNumber, p.siopFullcode, p.o_modificationDate,p.brandName as brand_id,
             b.name AS brandNameText,
-            vcmap.GroupingField as mapper_GroupingField, 
-            vcmap.originalValues as mapping, 
-            vcsort.GroupingField as sorting_GroupingField, 
+            vcmap.GroupingField as mapper_GroupingField,
+            vcmap.originalValues as mapping,
+            vcsort.GroupingField as sorting_GroupingField,
             IF(vcsort.columns = '{}' ,vcsort.Order,vcsort.columns) as sorting
 
-            from object_1 p 
-            left join object_3 b on p.brandName = b.oo_id  
-            left join object_VirtualCatalogApiSorter vcsort on b.VirtualCatalogApiSorter__id = vcsort.oo_id 
+            from object_1 p
+            left join object_3 b on p.brandName = b.oo_id
+            left join object_VirtualCatalogApiSorter vcsort on b.VirtualCatalogApiSorter__id = vcsort.oo_id
             left join object_VirtualCatalogApiMapper vcmap on b.VirtualCatalogApiMapper__id = vcmap.oo_id
 
-            WHERE `p`.`VirtualCatalogFlag` = '1' AND `p`.`ProductType` = 'fert' 
+            WHERE `p`.`VirtualCatalogFlag` = '1' AND `p`.`ProductType` = 'fert'
 
             ORDER BY b.name IS NULL, b.name ASC";
-    //  p.brandName is not null and p.brandName <> '' and p.brandName IN (1649, 1646, 1660, 1722) 
+    //  p.brandName is not null and p.brandName <> '' and p.brandName IN (1649, 1646, 1660, 1722)
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
-        $result = $stmt->fetchAll();
-        return $result;
+        return $stmt->fetchAll();
     }
 
 }

@@ -57,9 +57,6 @@ trait RestResponce
             $arr['InvalidApiKey'] = array('code' => 403, 'message' => 'Invalid API Key');
             $arr['MissingId'] = array('code' => 400, 'message' => 'Bad Request');
             $arr['InsufficientPermissions'] = array('code' => 403, 'message' => 'Access Denied');
-//            if ($message) {
-//                $message = UtilsHelper::translate($message);
-//            }
             if (isset($arr[$type]) && $arr[$type] != null) {
                 $response['code'] = $arr[$type]['code'];
                 $response['response']['status'] = 'false';
