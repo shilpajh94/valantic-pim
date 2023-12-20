@@ -203,7 +203,7 @@ class HydraulicFittingController extends FrontendController
 
                                     $articlesData = array();
                                     $this->subHeaderRequired = 'NO';
-                                    $columnsDataWithImages = $this->getColumnHeadersForCatalog(TRUE, $FittingTableKeys, $fittingTableColWidths);
+                                    $columnsDataWithImages = $this->getColumnHeadersForCatalog($fittingTableColWidths, TRUE, $FittingTableKeys);
                                     // Getting order of the keys
                                     $orderKeys = array();
 
@@ -333,7 +333,7 @@ class HydraulicFittingController extends FrontendController
         return $brandslist;
     }
 
-    public function getColumnHeadersForCatalog($isTableNameColumnRequired = FALSE, $tableNameColumns = [], $fittingTableColWidths){
+    public function getColumnHeadersForCatalog($fittingTableColWidths, $isTableNameColumnRequired = FALSE, $tableNameColumns = []){
         $columnsDataWithImages = array();
 
         if($isTableNameColumnRequired)
