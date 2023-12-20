@@ -119,19 +119,19 @@
                                             <p class=" borderBottom block">
                                         {% endif %}
 
-                                        {{ pimcore_image('INH_SP_'~ md5(tableName), {"width" : 250, "height" : 130}) }}
+                                        {{ pimcore_image('INH_SP_'~ md5Twig(tableName), {"width" : 250, "height" : 130}) }}
                                         
                                         </p>
                                 {% else %}
 
-                                        {% if not (pimcore_image('INH_SP_'~ md5(tableName)).isEmpty()) %}
+                                        {% if not (pimcore_image('INH_SP_'~ md5Twig(tableName)).isEmpty()) %}
                                             {% if (tableName == 'Welding') %}
                                                 <p class=" borderBottom block weldingSectionPageBlock">
                                             {% else %}
                                                 <p class=" borderBottom block">
                                             {% endif %}
 
-                                            {% set imgSrcObj =  pimcore_image('INH_SP_'~ md5(tableName)) %}
+                                            {% set imgSrcObj =  pimcore_image('INH_SP_'~ md5Twig(tableName)) %}
 
                                             {% if imgSrcObj %}
                                                 <img src="{{getImageThumbnail(imgSrcObj,imageWidth)}}" width="250" height="130"/>
@@ -150,7 +150,7 @@
                                         <tr class="head ">
                                             <td width = "80"></td>
                                             {% for key, colInfo in data['dispColumns'] %}
-                                                {% set colwidth = colInfo['colWidth'] %}
+                                                {% set colwidth =  colInfo['colWidth'] is defined ? colInfo['colWidth'] : null %}
                                                 <td width = {{colwidth}}>{{colInfo['title']|trans}}</td>
                                             {% endfor %}
                                         </tr>
@@ -164,22 +164,22 @@
                                     */
                                     #}
 
-                                    {% i = 1 %}
+                                    {% set i = 1 %}
 
                                     {% if data['data'] is defined and data['data'] is not empty %}
                                         {% for brandName, row in data['data'] %}
 
-                                            {% active = "tableNewFont" %}
-                                            {% if (i%2 !== 0) %}
-                                                {% active = "active tableNewFont" %}
+                                            {% set active = "tableNewFont" %}
+                                            {% if (i%2 != 0) %}
+                                                {% set active = "active tableNewFont" %}
                                             {% endif %}
 
-                                            {% i = i + 1 %}
+                                            {% set i = i + 1 %}
                                             
                                             <tr class='{{active}}'>
                                                 <td>{{brandName}}</td>
                                                 {% for key, colInfo in data['dispColumns'] %}
-                                                    {% td = false %}
+                                                    {% set td = false %}
 
                                                     {% if row[key] is defined %}
                                                         {% if colInfo['type'] == 'attr' %}
@@ -188,33 +188,33 @@
                                                             {% else %}
                                                                 <td>{{row[key]}}</td>
                                                             {% endif %}
-                                                            {% td = true %}
+                                                            {% set td = true %}
                                                         {% endif %}
-                                                    {% else if colInfo['type'] is defined and colInfo['type'] == 'feature' and row[colInfo['fieldName']] is defined %} 
+                                                    {% elseif colInfo['type'] is defined and colInfo['type'] == 'feature' and row[colInfo['fieldName']] is defined %} 
 
                                                         {% if colInfo['feature'] in row[colInfo['fieldName']] %}
                                                             <td>Yes</td>
-                                                            {% td = true %}
+                                                            {% set td = true %}
                                                         {% else %}
                                                             <td>No</td>
-                                                            {% td = true %}
+                                                            {% set td = true %}
                                                         {% endif %}
 
-                                                    {% else if colInfo['type'] is defined and colInfo['type'] == 'hoseMedia' and row[colInfo['fieldName']] is defined %} 
+                                                    {% elseif colInfo['type'] is defined and colInfo['type'] == 'hoseMedia' and row[colInfo['fieldName']] is defined %} 
 
                                                         {% if colInfo['hoseMedia'] in row[colInfo['fieldName']] %}
                                                             <td>Yes</td>
-                                                            {% td = true %}
+                                                            {% set td = true %}
                                                         {% else %}
                                                             <td>No</td>
-                                                            {% td = true %}
+                                                            {% set td = true %}
                                                         {% endif %}
 
                                                     {% endif %}
 
                                                     {% if not td %}
                                                         {% if colInfo['mode'] is defined %}
-                                                            <td>{{pimcore_input('ING_PP_PageNumber_'~md5(tableName~brandName~key),{"width":"40", "placeholder":"Page Number"})}}</td>
+                                                            <td>{{pimcore_input('ING_PP_PageNumber_'~md5Twig(tableName~brandName~key),{"width":"40", "placeholder":"Page Number"})}}</td>
                                                         {% else %}
                                                             <td></td>
                                                         {% endif %}
@@ -227,15 +227,15 @@
 
                                 </table>
                                 {% if editmode %}
-                                    <p class="small">&nbsp;{{pimcore_wysiwyg('INH_PP_'~md5(tableName), {"width":"720", "placeholder":"Table Bottom Title"}) }}</p>
+                                    <p class="small">&nbsp;{{pimcore_wysiwyg('INH_PP_'~md5Twig(tableName), {"width":"720", "placeholder":"Table Bottom Title"}) }}</p>
                                 {% endif %}
 
-                                {% if not editmode and not pimcore_wysiwyg('INH_PP_'~md5(tableName)).isEmpty() %}
-                                    <p class="small">&nbsp;{{pimcore_wysiwyg('INH_PP_'~md5(tableName), {"width":"720", "placeholder":"Table Bottom Title"}) }}</p>
+                                {% if not editmode and not pimcore_wysiwyg('INH_PP_'~md5Twig(tableName)).isEmpty() %}
+                                    <p class="small">&nbsp;{{pimcore_wysiwyg('INH_PP_'~md5Twig(tableName), {"width":"720", "placeholder":"Table Bottom Title"}) }}</p>
                                 {% endif %}
                             </div>
                         </div>
-                    {% endif %}
+                    {% endfor %}
                 </article>
             </div>
         </div>

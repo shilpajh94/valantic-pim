@@ -14,6 +14,7 @@ class TwigExtension extends AbstractExtension
         return [
             new TwigFunction('getImageThumbnail', [$this, 'getImageThumbnail']),
             new TwigFunction('getAssetFullPathCompatibleToS3', [$this, 'getAssetFullPathCompatibleToS3']),
+            new TwigFunction('md5Twig', [$this, 'md5Twig']),
         ];
     }
 
@@ -42,6 +43,11 @@ class TwigExtension extends AbstractExtension
     public function getAssetFullPathCompatibleToS3($pdfElement)
     {
         return \S3CustomizationBundle\Lib\Utils::getAssetFullPathCompatibleToS3($pdfElement);
+    }
+
+    public function md5Twig($string)
+    {
+        return md5($string);
     }
 }
 

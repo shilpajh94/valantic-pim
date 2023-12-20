@@ -454,14 +454,16 @@ class IndustrialHoseController extends FrontendController
         // $common = $this->containerInterface->get('app.common_helper');
         $dispColumns = array();
 
-        $template = $this->document->getEditable('relation', 'inh-printcatalog')->getElement();
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+
+        $template = $this->document->getEditable('inh-printcatalog')->getElement();
 
         if ($template instanceof  \Pimcore\Model\DataObject) {
 
             $catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());
             $catalogObj = DataObject\Catalog::getById($catalogCategoryObj->getParentId());
             $CatalogLanguage = $catalogObj->getCatalogLanguage();
-
+            $lang = $CatalogLanguage;
             $footerBgColor = $template->getColor();
 
             $siop = $template->getSiopLevel4();
@@ -511,7 +513,7 @@ class IndustrialHoseController extends FrontendController
 
                         if(trim($newRow['brandName'][0]))
                         {
-                            $productMinMaxPressure[$newRow['brandName'][0]][] = $newRow['workingPressurePSI'];
+                            $productMinMaxPressure[$newRow['brandName']][] = $newRow['workingPressurePSI'];
                         }
 
                     }
@@ -521,7 +523,7 @@ class IndustrialHoseController extends FrontendController
 
                         if (isset($row['brandName']) && !empty($row['brandName'])) {
                             $uniqueId = $configTableName;
-                            $brandName = $row['brandName'][0];
+                            $brandName = $row['brandName'];
                             if (!isset($data[$uniqueId])) {
                                 $data[$uniqueId]['columns'] = $productPageColumns['columns'];
                                 $data[$uniqueId]['dispColumns'] = $productPageColumns['dispColumns'];
@@ -563,8 +565,8 @@ class IndustrialHoseController extends FrontendController
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
             $categories = $this->getSIOP($lang);
-            $parameterVar = [];
-            $parameterVar['info'] = array(
+            // $parameterVar = [];
+            $parameterBag['info'] = array(
                 'configTableName'=> $configTableName,
                 'siop4Description'=> $siop4Description,
                 'data' => $data,
@@ -575,7 +577,7 @@ class IndustrialHoseController extends FrontendController
                 'containerRequest' => $containerRequest
             );
         }
-        return $this->render("@Catalog/INH/inhprintcatalog.html.twig", $parameterVar);
+        return $this->render("@Catalog/INH/inhprintcatalog.html.twig", $parameterBag);
     }
 
     /**
