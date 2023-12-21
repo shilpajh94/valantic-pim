@@ -70,7 +70,7 @@ class ProductModel
      *
      * @return array $productDetail Product Details array
      */
-    public function fetchProductNewAPI($conditionArray, $vCatalogMap, $productType = 'fert', $lang = 'en')
+    public function fetchProduct($conditionArray, $vCatalogMap, $productType = 'fert', $lang = 'en')
     {
         // Get Condition String.
         $conditionString = $this->getConditionStringNewAPI($conditionArray, $productType);
@@ -84,28 +84,16 @@ class ProductModel
         // Get Total record count.
         $totalCount =   $this->getTotalCountNewAPI($lang, $conArray);
 
-        if (empty($totalCount)) {
-            return false;
-        } else {
-            // Get Offset and Limit.
-            $offsetLimit    =   $this->getOffsetLimit($conditionArray, $totalCount);
-            if ($offsetLimit) {
-                try {
-                    $rFlag = $this->createProductSqlNewAPI($lang, $conArray, $offsetLimit);
-                    if ($rFlag) {
-                        $product = $this->db->fetchAllAssociative($this->getSql());
-                        if (empty($product)) {
-                            return false;
-                        }
-                    } else {
-                        return false;
-                    }
-                    return $product;
-                } catch (\Exception $ex) {
-                    Logger::error($ex->getTraceAsString());
-                    return false;
+        // Get Offset and Limit.
+        $offsetLimit    =   $this->getOffsetLimit($conditionArray, $totalCount);
+        if ($offsetLimit) {
+            try {
+                $rFlag = $this->createProductSqlNewAPI($lang, $conArray, $offsetLimit);
+                if ($rFlag) {
+                    return $this->db->fetchAllAssociative($this->getSql());
                 }
-            } else {
+            } catch (\Exception $ex) {
+                Logger::error($ex->getTraceAsString());
                 return false;
             }
         }
@@ -121,7 +109,6 @@ class ProductModel
      */
     public function getConditionString($conditionArray, $productType)
     {
-
         $conditionString = "ProductType='" . $productType . "'AND";
         if (empty($conditionArray)) {
             $conditionString    =   trim($conditionString, 'AND ');
@@ -130,37 +117,23 @@ class ProductModel
 
         if ($productType == 'fert') {
             $conditionString .= " virtualCatalogFlag=1 AND ";
+
+            if (isset($conditionArray['ids']) && !empty($conditionArray['ids'])) {
+
+                $conditionString    .=   " articleNumber in (" . $conditionArray['ids'] . ")  AND ";
+            }
+            if (isset($conditionArray['siop']) && !empty($conditionArray['siop'])) {
+                $conditionString    .=   " siopFullCode ='" . $conditionArray['siop'] . "'AND ";
+            }
+            if (isset($conditionArray['updatedFrom']) && !empty($conditionArray['updatedFrom'])) {
+                $conditionString    .=   " o_modificationDate >= " . strtotime($conditionArray['updatedFrom']) .
+                " AND o_modificationDate <=" . strtotime(date('Y-m-d H:i:s')) . "AND";
+            }
         }
-
-        switch ($productType) {
-            case 'fert':
-                // Code to be executed if productType=base
-                if (isset($conditionArray['ids']) && !empty($conditionArray['ids'])) {
-
-                    $conditionString    .=   " articleNumber in (" . $conditionArray['ids'] . ")  AND ";
-                }
-                if (isset($conditionArray['siop']) && !empty($conditionArray['siop'])) {
-                    $conditionString    .=   " siopFullCode ='" . $conditionArray['siop'] . "'AND ";
-                }
-                if (isset($conditionArray['updatedFrom']) && !empty($conditionArray['updatedFrom'])) {
-                    $conditionString    .=   " o_modificationDate >= " . strtotime($conditionArray['updatedFrom']) .
-                    " AND o_modificationDate <=" . strtotime(date('Y-m-d H:i:s')) . "AND";
-                }
-                break;
-            case 'skeleton':
-                // Code to be executed if productType=skelton
-                if (isset($conditionArray['ids']) && !empty($conditionArray['ids'])) {
-                    $conditionString    .=   "oo_id = " . $conditionArray['ids'];
-                }
-                break;
-            case 'base':
-                // Code to be executed if productType=fert
-                if (isset($conditionArray['ids']) && !empty($conditionArray['ids'])) {
-                    $conditionString    .=   " oo_id =" . $conditionArray['ids'];
-                }
-                break;
-            default:
-                // Code to be executed if productType is empty
+        else {
+            if (isset($conditionArray['ids']) && !empty($conditionArray['ids'])) {
+                $conditionString    .=   "oo_id = " . $conditionArray['ids'];
+            }
         }
 
         $conditionString    =   trim($conditionString, 'AND ');
@@ -185,39 +158,25 @@ class ProductModel
             return $conditionString;
         }
 
-        if ($productType == 'fert') {
+        if($productType == 'fert') {
             $conditionString .= " `objlocal`.`virtualCatalogFlag`=1 AND ";
+
+            if (isset($conditionArray['ids']) && !empty($conditionArray['ids'])) {
+
+                $conditionString    .=   " `vc`.`sapCode` in (" . $conditionArray['ids'] . ")  AND ";
+            }
+            if (isset($conditionArray['siop']) && !empty($conditionArray['siop'])) {
+                $conditionString    .=   " `vc`.`siopFullcode` ='" . $conditionArray['siop'] . "'  AND ";
+            }
+            if (isset($conditionArray['updatedFrom']) && !empty($conditionArray['updatedFrom'])) {
+                $conditionString    .=   " `vc`.updatedAt >= " . strtotime($conditionArray['updatedFrom']) .
+                " AND  o_modificationDate <=" . strtotime(date('Y-m-d H:i:s')) . "AND ";
+            }
         }
-
-        switch ($productType) {
-            case 'fert':
-                // Code to be executed if productType=base
-                if (isset($conditionArray['ids']) && !empty($conditionArray['ids'])) {
-
-                    $conditionString    .=   " `vc`.`sapCode` in (" . $conditionArray['ids'] . ")  AND ";
-                }
-                if (isset($conditionArray['siop']) && !empty($conditionArray['siop'])) {
-                    $conditionString    .=   " `vc`.`siopFullcode` ='" . $conditionArray['siop'] . "'  AND ";
-                }
-                if (isset($conditionArray['updatedFrom']) && !empty($conditionArray['updatedFrom'])) {
-                    $conditionString    .=   " `vc`.updatedAt >= " . strtotime($conditionArray['updatedFrom']) .
-                    " AND  o_modificationDate <=" . strtotime(date('Y-m-d H:i:s')) . "  AND ";
-                }
-                break;
-            case 'skeleton':
-                // Code to be executed if productType=skelton
-                if (isset($conditionArray['ids']) && !empty($conditionArray['ids'])) {
-                    $conditionString    .=   " oo_id = " . $conditionArray['ids'];
-                }
-                break;
-            case 'base':
-                // Code to be executed if productType=fert
-                if (isset($conditionArray['ids']) && !empty($conditionArray['ids'])) {
-                    $conditionString    .=   " oo_id = " . $conditionArray['ids'];
-                }
-                break;
-            default:
-                // Code to be executed if productType is empty
+        else {
+            if (isset($conditionArray['ids']) && !empty($conditionArray['ids'])) {
+                $conditionString    .=   " oo_id = " . $conditionArray['ids'];
+            }
         }
 
         $conditionString    =   trim($conditionString, '  AND ');
@@ -486,7 +445,8 @@ class ProductModel
     {
         $pTypeData  =   array();
         $pTypeConditionArray['ids'] = $id;
-        $pTypeArray   =   $this->fetchProduct('en', $pTypeConditionArray, $productType, $vCatalogMap);
+        $pTypeArray = false;
+        $pTypeArray   =   $this->fetchProduct($pTypeConditionArray, $vCatalogMap, $productType, 'en');
         if (!empty($pTypeArray)) {
             $pTypeData    =   array_filter(array_pop($pTypeArray));
         }
@@ -518,7 +478,7 @@ class ProductModel
         LEFT JOIN object_query_VirtualCatalogApiMapper AS oq_mapper
         ON oq_mapper.oo_id = oq3.VirtualCatalogApiMapper__id
         WHERE oq3.oo_id = ' . $id;
-        $brand = $this->db->fetchAssoc($query);
+        $brand = $this->db->fetchAssociative($query);
 
         if ($brand['originalValues']) {
             $originalValuesList = explode(PHP_EOL, $brand['originalValues']);
@@ -560,7 +520,7 @@ class ProductModel
         //Removing comma from begining and end
         $oo_id = substr($oo_id, 1, -1);
         $query = 'SELECT o_key FROM object_localized_' . $classId . '_en WHERE `oo_id` IN (' . $oo_id . ')';
-        $features = $this->db->fetchCol($query);
+        $features = $this->db->fetchFirstColumn($query);
         return implode(", ", $features);
     }
 

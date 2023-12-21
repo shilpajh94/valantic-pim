@@ -106,8 +106,6 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
         
     }
 
-    
-
     private function getBrandProducts($brandsArray)
     {
         if($brandsArray)

@@ -97,7 +97,7 @@ class ProductModelService {
         // ($langCode, $parameterArray,'fert',$this->vCatalog);
         //return $filterProductBrandWise = $this->filterProductBrandWise($productsByBrand);
         // these are all ferts with offset, limit and conditions
-        $products = $this->model->fetchProductNewAPI($parameterArray, $this->vCatalog, "fert", $langCode);
+        $products = $this->model->fetchProduct($parameterArray, $this->vCatalog, "fert", $langCode);
         if ($products) {
             $productDetail["apikey"] = $parameterArray["apiKey"];
             // iterating all the ferts and fetching their 9 digit and 6 digit data
@@ -453,17 +453,22 @@ class ProductModelService {
                     $productCat->setUnpublished(true);
                     $productCat->load();
                     $productCat = $productCat->getObjects();
-                    $tempArray = [];
-                    if (isset($productCat) && empty($productCat)) {
-                        $productCategory = $productCat[0];
-                        foreach ($v1["Fields"] as $fvalue) {
-                            $fCommand = "get" . $fvalue;
-                            $tempArray[strtolower($fvalue) ] = $productCategory->$fCommand();
-                        }
-                        $siopDetail[$key][] = $tempArray;
-                    }
+                    $siopDetail = $this->getSiopData($siopDetail, $productCat, $v1, $key);
                 }
             }
+        }
+        return $siopDetail;
+    }
+
+    public function getSiopData($siopDetail, $productCat, $v1, $key){
+        $tempArray = [];
+        if (isset($productCat) && empty($productCat)) {
+            $productCategory = $productCat[0];
+            foreach ($v1["Fields"] as $fvalue) {
+                $fCommand = "get" . $fvalue;
+                $tempArray[strtolower($fvalue) ] = $productCategory->$fCommand();
+            }
+            $siopDetail[$key][] = $tempArray;
         }
         return $siopDetail;
     }
@@ -493,18 +498,24 @@ class ProductModelService {
             } elseif ($key == "base") {
                 $variantId = substr($oldMaterialValue, 0, 6);
             }
-            foreach ($imagesFields as $ivalue) {
-                if (isset($value[$ivalue]) && !empty($value[$ivalue])) {
-                    if (!isset($imageDetail[$value[$ivalue]]) || empty($imageDetail[$value[$ivalue]])) {
-                        if ($propertyAssetData = $this->getPropertyAssetData($value[$ivalue])) {
-                            $imageDetail[$value[$ivalue]] = $propertyAssetData;
-                        }
-                    }
-                    if ($this->getPropertyAssetData($value[$ivalue])) {
-                        $imageDetail[$value[$ivalue]]["variant_ids"][] = $variantId;
-                        $imageDetail[$value[$ivalue]]["variant_ids"] = array_unique
-                        ($imageDetail[$value[$ivalue]]["variant_ids"]);
-                    }
+
+            $imageDetail = $this->getImageDetail($imageDetail, $imagesFields, $variantId, $value);
+            
+        }
+        return $imageDetail;
+    }
+
+    public function getImageDetail($imageDetail, $imagesFields, $variantId, $value){
+        foreach ($imagesFields as $ivalue) {
+            if (isset($value[$ivalue]) && !empty($value[$ivalue])) {
+                if ((!isset($imageDetail[$value[$ivalue]]) || empty($imageDetail[$value[$ivalue]]))
+                && ($propertyAssetData = $this->getPropertyAssetData($value[$ivalue])) ) {
+                        $imageDetail[$value[$ivalue]] = $propertyAssetData;
+                }
+                if ($this->getPropertyAssetData($value[$ivalue])) {
+                    $imageDetail[$value[$ivalue]]["variant_ids"][] = $variantId;
+                    $imageDetail[$value[$ivalue]]["variant_ids"] = array_unique
+                    ($imageDetail[$value[$ivalue]]["variant_ids"]);
                 }
             }
         }
