@@ -2368,10 +2368,22 @@ if(isset($data[$baseId])) {
                             $ProfileDimensionImageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['ProfileDimensionImage']]);
 
                         if($item[$headerKeysIndex['material']])
-                            $material = array_merge($material, $item[$headerKeysIndex['material']]);
+                            $arr_material = [];
 
+                            if(!is_array($item[$headerKeysIndex['material']]))
+                            {
+                                $arr_material = explode('||', $item[$headerKeysIndex['material']]);
+                            }
+                            $material = array_merge($material, $arr_material);
+                            
                         if($item[$headerKeysIndex['reinforcement']])
-                            $reinforcement = array_merge($reinforcement, $item[$headerKeysIndex['reinforcement']]);
+                            
+                            $arr_reinforcement = [];
+                            if(!is_array($item[$headerKeysIndex['reinforcement']]))
+                            {
+                                $arr_reinforcement = explode('||', $item[$headerKeysIndex['reinforcement']]);
+                            }
+                            $reinforcement = array_merge($reinforcement, $arr_reinforcement);
 
                         if($item[$headerKeysIndex['VirtualCatalogReinforcement']] && empty($VirtualCatalogReinforcement))
                             $VirtualCatalogReinforcement = $item[$headerKeysIndex['VirtualCatalogReinforcement']];
@@ -2384,7 +2396,13 @@ if(isset($data[$baseId])) {
 
                         if($item[$headerKeysIndex['FeaturesBenefitsBulletPoint']])
                         {
-                            foreach ($item[$headerKeysIndex['FeaturesBenefitsBulletPoint']] as $fkey => $feature) {
+                            $arr_FeaturesBenefitsBulletPoint = [];
+                            if(!is_array($item[$headerKeysIndex['FeaturesBenefitsBulletPoint']]))
+                            {
+                                $arr_FeaturesBenefitsBulletPoint = explode('||', $item[$headerKeysIndex['FeaturesBenefitsBulletPoint']]);
+                            }
+
+                            foreach ($arr_FeaturesBenefitsBulletPoint as $fkey => $feature) {
                                 array_push($safetyFeatures,$feature);
                             }
                         }
@@ -2490,15 +2508,16 @@ if(isset($data[$baseId])) {
         if($safetyFeatures)
         {
             foreach ($safetyFeatures as $fkey => $fvalue) {
-                if($this->featuresList[$fvalue]['icon'])
+                $fIcon = isset($this->featuresList[$fvalue]['icon']) ? $this->featuresList[$fvalue]['icon'] : null;
+                if($fIcon)
                 {
                     if(!isset($this->s3srcArr[$fvalue]))
-                        $this->s3srcArr[$fvalue] = $this->getS3ImageSrc($this->featuresList[$fvalue]['icon']);
+                        $this->s3srcArr[$fvalue] = $this->getS3ImageSrc($fIcon);
 
                     $safetyFeaturesListWithImage[] = array('name'=>$this->featuresList[$fvalue]['name'], 'iconSrc' => $this->s3srcArr[$fvalue], 'SortOrder' =>$this->featuresList[$fvalue]['SortOrder']);
                 }
                 else
-                    $safetyFeaturesListWithOutImage[] = array('name'=>$this->featuresList[$fvalue]['name'], 'iconSrc' => $this->featuresList[$fvalue]['icon'], 'SortOrder' =>$this->featuresList[$fvalue]['SortOrder']);
+                    $safetyFeaturesListWithOutImage[] = array('name'=>$this->featuresList[$fvalue]['name'], 'iconSrc' => $fIcon, 'SortOrder' =>$this->featuresList[$fvalue]['SortOrder']);
             }
         }
 

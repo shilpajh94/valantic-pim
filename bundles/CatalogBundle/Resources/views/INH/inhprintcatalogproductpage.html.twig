@@ -345,24 +345,35 @@
 															<thead>
 																{% if info['iconRequired'] == 'YES' %}
 																	<tr class="sub-head">
-																		{% for c1data in fittingTableName['columnsDataWithImages'] %}
-																			{% set columnWidth = c1data[0]['columnWidth'] is defined ? 'width=' ~ c1data[0]['columnWidth'] : '' %}
-																			<td colspan="{{ c1data|length }}" {{ columnWidth }}>
-																				{% if c1data[0]['columnIcon'] is defined and c1data[0]['columnIcon'] %}
-																					<img src="{{ c1data[0]['columnIcon'] }}" width="45" height="45"/>
-																				{% endif %}
+																		{% for key, c1data in fittingTableName['columnsDataWithImages'] %}
+																			{% set columnWidth = '' %}
+																			{% set g1count = c1data|length %}
+																			{% set firstArray = c1data|first %}
+
+																			{% if (firstArray['columnWidth']) %}
+                                                                                {% set columnWidth = "width="~firstArray['columnWidth'] %}
+																			{% endif %}
+
+																			<td colspan="{{g1count}}" {{columnWidth}}>
+																					{% if ( firstArray['columnIcon'] is defined and firstArray['columnIcon']) %}
+																							<img src="{{firstArray['columnIcon']}}" width="45" height="45" />
+																					{% endif %}
 																			</td>
 																		{% endfor %}
 																	</tr>
 																{% endif %}
 																<tr class="head">
 																	{% for c2data in fittingTableName['columnsDataWithImages'] %}
-																		{% set columnWidth = cdata[0]['columnWidth'] is defined  ? 'width=' ~ c2data[0]['columnWidth'] : '' %}
-																		<td colspan="{{ c2data|length }}" {{ columnWidth }}>
-																			{% if c2data[0]['columnLabel'] is defined and c2data[0]['columnLabel'] %}
-																				{{ c2data[0]['columnLabel'] }}
-																			{% endif %}
-																		</td>
+
+																		{% set columnWidth = '' %}
+																		{% set g2count = c2data|length %}
+																		{% set first2Array = c2data|first %}
+
+																		{% if (first2Array['columnWidth']) %}
+																				{% set columnWidth = "width="~first2Array['columnWidth'] %}
+																		{% endif %}
+
+																		<td colspan="{{g2count}}" {{columnWidth}}>{{first2Array['columnLabel']}}</td>
 																	{% endfor %}
 																</tr>
 
