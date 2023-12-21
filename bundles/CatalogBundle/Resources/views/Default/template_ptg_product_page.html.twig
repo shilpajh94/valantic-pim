@@ -19,7 +19,7 @@
 		<section class="segregate">
 			<div id="pageHeader"></div>
 			<span class="pageName">
-				{{ groupData.siop3Category }}
+				{{ groupData['siop3Category'] }}
 			</span>
 
 			<div class="footer">
@@ -33,7 +33,7 @@
 								{% if not pimcore_input("PTG_Footer_BrandName").isEmpty() %}
 									{{ pimcore_input("PTG_Footer_BrandName") }}
 								{% else %}
-									{{ pimcore_input("PTG_Footer_BrandName").setDataFromResource(groupData.brandName) | raw}}
+									{{ pimcore_input("PTG_Footer_BrandName").setDataFromResource(groupData['brandName']) | raw}}
 								{% endif %}
 							{% else %}
 								{{ pimcore_input("PTG_Footer_BrandName") }}
@@ -44,7 +44,7 @@
 									{% if not pimcore_input("PTG_Footer_HoseType").isEmpty() %}
 										{{ pimcore_input("PTG_Footer_HoseType") }}
 									{% else %}
-										{{ pimcore_input("PTG_Footer_HoseType").setDataFromResource(groupData.siop3Category) | raw}}
+										{{ pimcore_input("PTG_Footer_HoseType").setDataFromResource(groupData['siop3Category']) | raw}}
 									{% endif %}
 
 									/
@@ -52,7 +52,7 @@
 									{% if not pimcore_input("PTG_Footer_HoseType2").isEmpty() %}
 										{{ pimcore_input("PTG_Footer_HoseType2") }}
 									{% else %}
-										{{ pimcore_input("PTG_Footer_HoseType2").setDataFromResource(groupData.siop4Category) | raw}}
+										{{ pimcore_input("PTG_Footer_HoseType2").setDataFromResource(groupData['siop4Category']) | raw}}
 									{% endif %}
 								{% else %}
 									{{ pimcore_input("PTG_Footer_HoseType") }}/{{ pimcore_input("PTG_Footer_HoseType2") }}
@@ -73,7 +73,7 @@
 								{% endif %}
 							</b>
 
-							{% set compatibility_description = "All fittings compatible with " ~ groupData.brandName ~ " are listed in Section 1 (starting on page 131)." %}
+							{% set compatibility_description = "All fittings compatible with " ~ groupData['brandName'] ~ " are listed in Section 1 (starting on page 131)." %}
 							{% if editmode %}
 								{% if not pimcore_input("PTG_Footer_Compatibility_Description").isEmpty() %}
 									{{ pimcore_input("PTG_Footer_Compatibility_Description") }}
@@ -105,7 +105,7 @@
 								{% endif %}
 							</b>
 
-							{% set compatibility_description = "All fittings compatible with " ~ groupData.brandName ~ " are listed in Section 1 (starting on page 131)." %}
+							{% set compatibility_description = "All fittings compatible with " ~ groupData['brandName'] ~ " are listed in Section 1 (starting on page 131)." %}
 							{% if editmode %}
 								{% if not pimcore_input("PTG_Footer_Compatibility1_Description").isEmpty() %}
 									{{ pimcore_input("PTG_Footer_Compatibility1_Description") }}
@@ -121,7 +121,7 @@
 								{% if not pimcore_input("PTG_Footer_BrandName1").isEmpty() %}
 									{{ pimcore_input("PTG_Footer_BrandName1") }}
 								{% else %}
-									{{ pimcore_input("PTG_Footer_BrandName1").setDataFromResource(groupData.brandName) | raw}}
+									{{ pimcore_input("PTG_Footer_BrandName1").setDataFromResource(groupData['brandName']) | raw}}
 								{% endif %}
 							{% else %}
 								{{ pimcore_input("PTG_Footer_BrandName1") }}
@@ -132,7 +132,7 @@
 									{% if not pimcore_input("PTG_Footer_HoseType1").isEmpty() %}
 										{{ pimcore_input("PTG_Footer_HoseType1") }}
 									{% else %}
-										{{ pimcore_input("PTG_Footer_HoseType1").setDataFromResource(groupData.siop3Category) | raw}}
+										{{ pimcore_input("PTG_Footer_HoseType1").setDataFromResource(groupData['siop3Category']) | raw}}
 									{% endif %}
 
 									/
@@ -140,7 +140,7 @@
 									{% if not pimcore_input("PTG_Footer_HoseType3").isEmpty() %}
 										{{ pimcore_input("PTG_Footer_HoseType3") }}
 									{% else %}
-										{{ pimcore_input("PTG_Footer_HoseType3").setDataFromResource(groupData.siop4Category) | raw}}
+										{{ pimcore_input("PTG_Footer_HoseType3").setDataFromResource(groupData['siop4Category']) | raw}}
 									{% endif %}
 								{% else %}
 									{{ pimcore_input("PTG_Footer_HoseType1") }}/{{ pimcore_input("PTG_Footer_HoseType3") }}
@@ -160,7 +160,7 @@
 						{% if not pimcore_input("PTG_Heading").isEmpty() %}
 							{{ pimcore_input("PTG_Heading") }}
 						{% else %}
-							{{ pimcore_input("PTG_Heading").setDataFromResource(groupData.brandName) | raw}}
+							{{ pimcore_input("PTG_Heading").setDataFromResource(groupData['brandName']) | raw}}
 						{% endif %}
 					{% else %}
 						{{ pimcore_input("PTG_Heading") }}
@@ -172,7 +172,7 @@
 							{% if not pimcore_wysiwyg("PTG_LongDescription").isEmpty() %}
 								{{ pimcore_wysiwyg("PTG_LongDescription") }}
 							{% else %}
-								{{ pimcore_wysiwyg("PTG_LongDescription").setDataFromResource(groupData.longDescription) | raw}}
+								{{ pimcore_wysiwyg("PTG_LongDescription").setDataFromResource(groupData['longDescription']) | raw}}
 							{% endif %}
 						{% else %}
 							{{ pimcore_wysiwyg("PTG_LongDescription") }}
@@ -183,7 +183,7 @@
 							{% if not pimcore_image("HHPP_Image_Left").isEmpty() %}
 								{{ pimcore_image("HHPP_Image_Left", {"width": 400, "height": 200}) }}
 							{% else %}
-								{{ pimcore_image("HHPP_Image_Left", {"width": 400, "height": 200}).setImage(groupData.mainImageObj) | raw}}
+								{{ pimcore_image("HHPP_Image_Left", {"width": 400, "height": 200}).setImage(groupData['mainImageObj']) | raw}}
 							{% endif %}
 						{% else %}
 							{% set imgSrcObj1 = pimcore_image("HHPP_Image_Left") %}
@@ -197,7 +197,7 @@
 							{% if not pimcore_image("Drawing_Picture").isEmpty() %}
 								{{ pimcore_image("Drawing_Picture", {"width": 400, "height": 200}) }}
 							{% else %}
-								{{ pimcore_image("Drawing_Picture", {"width": 400, "height": 200}).setImage(groupData.ProfileDimensionImageObj) | raw}}
+								{{ pimcore_image("Drawing_Picture", {"width": 400, "height": 200}).setImage(groupData['ProfileDimensionImageObj']) | raw}}
 							{% endif %}
 						{% else %}
 							{% set imgSrcObj2 = pimcore_image("Drawing_Picture") %}
@@ -212,18 +212,18 @@
 
 			<article class="fullcontainer">
 				<section class="content single ptg">
-					{% if groupData.safetyFeatures or groupData.material or groupData.reinforcement or groupData.temperatureRange %}
+					{% if groupData.safetyFeatures or ((groupData['material'])|trim is not empty) or ((groupData['reinforcement'])|trim is not empty) or ((groupData['temperatureRange'])|trim is not empty) %}
 						<menu class="flex">
-							{% if groupData.safetyFeatures %}
+							{% if groupData['safetyFeatures'] %}
 								<div class="specs">
 									<h6>{{ 'features'|trans }}</h6>
 									<div>
-										{% for key, feature in groupData.safetyFeatures %}
+										{% for key, feature in groupData['safetyFeatures'] %}
 											<p class="flex center">
-												{% if feature.iconSrc %}
-													<img src="{{ feature.iconSrc }}"/>
+												{% if feature['iconSrc'] %}
+													<img src="{{ feature['iconSrc'] }}"/>
 												{% endif %}
-												{{ feature.name }}
+												{{ feature['name'] }}
 											</p>
 										</font>
 									</p>
@@ -232,27 +232,27 @@
 						</div>
 					{% endif %}
 
-					{% if groupData.material or groupData.reinforcement or groupData.temperatureRange %}
+					{% if ((groupData['material'])|trim is not empty) or ((groupData['reinforcement'])|trim is not empty) or ((groupData['temperatureRange'])|trim is not empty) %}
 						<div class="specs">
 							<h6>{{ 'specs'|trans }}</h6>
 							<div class="spec-requirement">
 								<div>
-									{% if groupData.material %}
+									{% if groupData['material'] %}
 										<div class="full">
 											<b>{{ 'Material'|trans }}</b>
-											{{ groupData.material }}
+											{{ groupData['material'] }}
 										</div>
 									{% endif %}
-									{% if groupData.reinforcement %}
+									{% if groupData['reinforcement'] %}
 										<div class="full">
 											<b>{{ 'Reinforcement'|trans }}</b>
-											{{ groupData.reinforcement }}
+											{{ groupData['reinforcement'] }}
 										</div>
 									{% endif %}
-									{% if groupData.temperatureRange %}
+									{% if groupData['temperatureRange'] %}
 										<div class="full">
 											<b>{{ 'Temperature Range'|trans }}</b>
-											{{ groupData.temperatureRange }}
+											{{ groupData['temperatureRange'] }}
 										</div>
 									{% endif %}
 								</div>
@@ -263,21 +263,21 @@
 			{% endif %}
 
 			{% set tableNoteCount = 0 %}
-			{% for articleGroupKey, articleGroupData in groupData.data %}
+			{% for articleGroupKey, articleGroupData in groupData['data'] %}
 				<table class="grid continueLable" cellpadding="0" cellspacing="0">
 					<thead>
 						{% if groupData.iconRequired == 'YES' %}
 							<tr class="sub-head">
-								{% for key, c1data in groupData.columnsDataWithImages %}
+								{% for key, c1data in groupData['columnsDataWithImages'] %}
 									{% set columnWidth = '' %}
 									{% set g1count = c1data|length %}
 									{% set firstArray = c1data|first %}
-									{% if firstArray.columnWidth %}
-										{% set columnWidth = "width=" ~ firstArray.columnWidth %}
+									{% if firstArray['columnWidth'] %}
+										{% set columnWidth = "width=" ~ firstArray['columnWidth'] %}
 									{% endif %}
 									<td colspan="{{ g1count }}" {{ columnWidth }}>
-										{% if firstArray.columnIcon %}
-											<img src="{{ firstArray.columnIcon }}" width="45" height="45"/>
+										{% if firstArray['columnIcon'] %}
+											<img src="{{ firstArray['columnIcon'] }}" width="45" height="45"/>
 										{% endif %}
 									</td>
 								{% endfor %}
@@ -285,25 +285,25 @@
 						{% endif %}
 
 						<tr class="head">
-							{% for key, c2data in groupData.columnsDataWithImages %}
+							{% for key, c2data in groupData['columnsDataWithImages'] %}
 								{% set columnWidth = '' %}
 								{% set g2count = c2data|length %}
 								{% set first2Array = c2data|first %}
-								{% if first2Array.columnWidth %}
-									{% set columnWidth = "width=" ~ first2Array.columnWidth %}
+								{% if first2Array['columnWidth'] %}
+									{% set columnWidth = "width=" ~ first2Array['columnWidth'] %}
 								{% endif %}
 								<td colspan="{{ g2count }}" {{ columnWidth }}>
-									{{first2Array.columnLabel}}
+									{{first2Array['columnLabel']}}
 								</td>
 							{% endfor %}
 						</tr>
 
-						{% if groupData.subHeaderRequired == 'YES' %}
+						{% if groupData['subHeaderRequired'] == 'YES' %}
 							<tr class="sub-head">
-								{% for key, c3data in groupData.columnsDataWithImages %}
+								{% for key, c3data in groupData['columnsDataWithImages'] %}
 									{% for c3key, c3value in c3data %}
-										{% if c3value.unitName %}
-											<td>{{ c3value.unitName }}</td>
+										{% if c3value['unitName'] %}
+											<td>{{ c3value['unitName'] }}</td>
 										{% else %}
 											<td></td>
 										{% endif %}
