@@ -26,6 +26,8 @@ use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
  * Description of UserController
@@ -116,5 +118,319 @@ class UserController extends ParentUserController {
         }
 
         return $tmpUser;
+    }
+
+    /**
+     * @Route("/get", methods={"GET"})
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse
+     *
+     * @throws \Exception
+     */
+    public function getAction(Request $request)
+    {
+        $userId = (int)$request->get('id');
+        if ($userId < 1) {
+            throw $this->createNotFoundException();
+        }
+
+        $user = User::getById($userId);
+
+        if (!$user) {
+            throw $this->createNotFoundException();
+        }
+
+        if ($user->isAdmin() && !$this->getAdminUser()->isAdmin()) {
+            throw $this->createAccessDeniedHttpException('Only admin users are allowed to modify admin users');
+        }
+
+        // workspaces
+        $types = ['asset', 'document', 'object'];
+        foreach ($types as $type) {
+            $workspaces = $user->{'getWorkspaces' . ucfirst($type)}();
+            foreach ($workspaces as $wKey => $workspace) {
+                $el = Element\Service::getElementById($type, $workspace->getCid());
+                if ($el) {
+                    // direct injection => not nice but in this case ok ;-)
+                    $workspace->path = $el->getRealFullPath();
+                    $workspaces[$wKey] = $workspace->getObjectVars();
+                }
+            }
+            $user->{'setWorkspaces' . ucfirst($type)}($workspaces);
+        }
+
+        // object <=> user dependencies
+        $userObjects = DataObject\Service::getObjectsReferencingUser($user->getId());
+        $userObjectData = [];
+        $hasHidden = false;
+
+        foreach ($userObjects as $o) {
+            if ($o->isAllowed('list')) {
+                $userObjectData[] = [
+                    'path' => $o->getRealFullPath(),
+                    'id' => $o->getId(),
+                    'subtype' => $o->getClass()->getName(),
+                ];
+            } else {
+                $hasHidden = true;
+            }
+        }
+
+        // get available permissions
+        $availableUserPermissionsList = new User\Permission\Definition\Listing();
+        $availableUserPermissions = $availableUserPermissionsList->load();
+
+        $availableUserPermissionsData = [];
+        if (is_array($availableUserPermissions)) {
+            foreach ($availableUserPermissions as $availableUserPermission) {
+                $availableUserPermissionsData[] = $availableUserPermission->getObjectVars();
+            }
+        }
+
+        // get available roles
+        $list = new User\Role\Listing();
+        $list->setCondition('`type` = ?', ['role']);
+        $list->load();
+
+        $roles = [];
+        if (is_array($list->getItems())) {
+            foreach ($list->getItems() as $role) {
+                $roles[] = [$role->getId(), $role->getName()];
+            }
+        }
+
+        // unset confidential informations
+        $userData = $user->getObjectVars();
+        $userData['roles'] =  array_map('intval', $user->getRoles());
+        $userData['docTypes'] =  $user->getDocTypes();
+        $contentLanguages = Tool\Admin::reorderWebsiteLanguages($user, Tool::getValidLanguages());
+        $userData['contentLanguages'] = $contentLanguages;
+        $userData['twoFactorAuthentication']['isActive'] = ($user->getTwoFactorAuthentication('enabled') || $user->getTwoFactorAuthentication('secret'));
+        unset($userData['password']);
+        unset($userData['twoFactorAuthentication']['secret']);
+        $userData['hasImage'] = $user->hasImage();
+
+        $availablePerspectives = \Pimcore\Perspective\Config::getAvailablePerspectives(null);
+
+        return $this->adminJson([
+            'success' => true,
+            'user' => $userData,
+            'roles' => $roles,
+            'permissions' => $user->generatePermissionList(),
+            'availablePermissions' => $availableUserPermissionsData,
+            'availablePerspectives' => $availablePerspectives,
+            'validLanguages' => Tool::getValidLanguages(),
+            'objectDependencies' => [
+                'hasHidden' => $hasHidden,
+                'dependencies' => $userObjectData,
+            ],
+        ]);
+    }
+
+    /**
+     * @Route("/get-image", methods={"GET"})
+     *
+     * @param Request $request
+     *
+     * @return StreamedResponse
+     */
+    public function getImageAction(Request $request)
+    {
+        $userObj = User::getById($this->getUserId($request));
+        if (!$userObj) {
+            throw $this->createNotFoundException();
+        }
+        $stream = $userObj->getImage();
+
+        return new StreamedResponse(function () use ($stream) {
+            fpassthru($stream);
+        }, 200, [
+            'Content-Type' => 'image/png',
+        ]);
+    }
+
+    /**
+     * @Route("/get-token-login-link", methods={"GET"})
+     *
+     * @param Request $request
+     * @param TranslatorInterface $translator
+     *
+     * @return JsonResponse
+     *
+     * @throws \Exception
+     */
+    public function getTokenLoginLinkAction(Request $request, TranslatorInterface $translator)
+    {
+        $user = User::getById((int) $request->get('id'));
+
+        if (!$user) {
+            return $this->adminJson([
+                'success' => false,
+                'message' => $translator->trans('login_token_invalid_user_error', [], 'admin'),
+            ], Response::HTTP_NOT_FOUND);
+        }
+
+        if ($user->isAdmin() && !$this->getAdminUser()->isAdmin()) {
+            return $this->adminJson([
+                'success' => false,
+                'message' => $translator->trans('login_token_as_admin_non_admin_user_error', [], 'admin'),
+            ], Response::HTTP_FORBIDDEN);
+        }
+
+        if (empty($user->getPassword())) {
+            return $this->adminJson([
+                'success' => false,
+                'message' => $translator->trans('login_token_no_password_error', [], 'admin'),
+            ], Response::HTTP_FORBIDDEN);
+        }
+
+        $token = Tool\Authentication::generateToken($user->getName());
+        $link = $this->generateCustomUrl([
+            'token' => $token,
+        ]);
+
+        return $this->adminJson([
+            'success' => true,
+            'link' => $link,
+        ]);
+    }
+
+    /**
+     * @Route("/update", methods={"PUT"})
+     *
+     * @param Request $request
+     * @param TranslatorInterface $translator
+     *
+     * @return JsonResponse
+     *
+     * @throws \Exception
+     */
+    public function updateAction(Request $request, TranslatorInterface $translator)
+    {
+        $user = User\UserRole::getById((int)$request->get('id'));
+        $currentUserIsAdmin = $this->getAdminUser()->isAdmin();
+
+        if (!$user) {
+            throw $this->createNotFoundException();
+        }
+
+        if ($user instanceof User && $user->isAdmin() && !$currentUserIsAdmin) {
+            throw $this->createAccessDeniedHttpException('Only admin users are allowed to modify admin users');
+        }
+
+        if ($request->get('data')) {
+            $values = $this->decodeJson($request->get('data'), true);
+
+            if (!empty($values['password'])) {
+                if (strlen($values['password']) < 10) {
+                    throw new \Exception('Passwords have to be at least 10 characters long');
+                }
+                $values['password'] = Tool\Authentication::getPasswordHash($user->getName(), $values['password']);
+            }
+
+            // check if there are permissions transmitted, if so reset them all to false (they will be set later)
+            foreach ($values as $key => $value) {
+                if (strpos($key, 'permission_') === 0) {
+                    if (method_exists($user, 'setAllAclToFalse')) {
+                        $user->setAllAclToFalse();
+                    }
+
+                    break;
+                }
+            }
+
+            if ($user instanceof User && isset($values['2fa_required'])) {
+                $user->setTwoFactorAuthentication('required', (bool) $values['2fa_required']);
+            }
+
+            $user->setValues($values);
+
+            // only admins are allowed to create admin users
+            // if the logged in user isn't an admin, set admin always to false
+            if ($user instanceof User && !$currentUserIsAdmin) {
+                $user->setAdmin(false);
+            }
+
+            // check for permissions
+            $availableUserPermissionsList = new User\Permission\Definition\Listing();
+            $availableUserPermissions = $availableUserPermissionsList->load();
+
+            foreach ($availableUserPermissions as $permission) {
+                if (isset($values['permission_' . $permission->getKey()])) {
+                    $user->setPermission($permission->getKey(), (bool) $values['permission_' . $permission->getKey()]);
+                }
+            }
+
+            // check for workspaces
+            if ($request->get('workspaces')) {
+                $processedPaths = ['object' => [], 'asset' => [], 'document' => []]; //array to find if there are multiple entries for a path
+                $workspaces = $this->decodeJson($request->get('workspaces'), true);
+                foreach ($workspaces as $type => $spaces) {
+                    $newWorkspaces = [];
+                    foreach ($spaces as $space) {
+                        if (in_array($space['path'], $processedPaths[$type])) {
+                            throw new \Exception('Error saving workspaces as multiple entries found for path "' . $space['path'] .'" in '.$translator->trans((string)$type, [], 'admin') . 's');
+                        }
+
+                        $element = Element\Service::getElementByPath($type, $space['path']);
+                        if ($element) {
+                            $className = '\\Pimcore\\Model\\User\\Workspace\\' . Element\Service::getBaseClassNameForElement($type);
+                            $workspace = new $className();
+                            $workspace->setValues($space);
+
+                            $workspace->setCid($element->getId());
+                            $workspace->setCpath($element->getRealFullPath());
+                            $workspace->setUserId($user->getId());
+
+                            $newWorkspaces[] = $workspace;
+                            $processedPaths[$type][] = $space['path'];
+                        }
+                    }
+                    $user->{'setWorkspaces' . ucfirst($type)}($newWorkspaces);
+                }
+            }
+        }
+
+        if ($user instanceof User && $request->get('keyBindings')) {
+            $keyBindings = json_decode($request->get('keyBindings'), true);
+            $tmpArray = [];
+            foreach ($keyBindings as $action => $item) {
+                $tmpArray[] = json_decode($item, true);
+            }
+            $tmpArray = array_values(array_filter($tmpArray));
+            $tmpArray = User::strictKeybinds($tmpArray);
+            $tmpArray = json_encode($tmpArray);
+
+            $user->setKeyBindings($tmpArray);
+        }
+
+        $user->save();
+
+        return $this->adminJson(['success' => true]);
+    }
+
+    /**
+     *
+     * @param array $params
+     * @param string $fallbackUrl
+     * @param int $referenceType //UrlGeneratorInterface::ABSOLUTE_URL, ABSOLUTE_PATH, RELATIVE_PATH, NETWORK_PATH
+     *
+     * @return string The generated URL
+     */
+    private function generateCustomUrl(array $params, $fallbackUrl = 'pimcore_admin_login_check', $referenceType = UrlGeneratorInterface::ABSOLUTE_URL): string
+    {
+        try {
+            $adminEntryPointRoute = $this->getParameter('pimcore_admin.custom_admin_route_name');
+
+            //try to generate invitation link for custom admin point
+            $loginUrl = $this->generateUrl($adminEntryPointRoute, $params, $referenceType);
+        } catch (\Exception $e) {
+            //use default login check for invitation link
+            $loginUrl = $this->generateUrl($fallbackUrl, $params, $referenceType);
+        }
+
+        return $loginUrl;
     }
 }

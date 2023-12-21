@@ -10,7 +10,7 @@ namespace ContitechCS\ProductBundle\Controller;
 
 
 use ContitechCS\ProductBundle\Lib\Constants;
-use Pimcore\Bundle\AdminBundle\Controller\AdminController;
+use Pimcore\Controller\UserAwareController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,7 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/admin/contitechcs/roles")
  */
-class RolesController extends AdminController {
+class RolesController extends UserAwareController {
     
     /**
      * This function will return configuration for object tree folders and their allowed class mapping

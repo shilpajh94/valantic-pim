@@ -131,9 +131,9 @@ class ProductEnrichmentListener
             }
             $template = $transitionConfig['templatePath'];
             $to = $transitionConfig['notificationTo'];
-            $cc = $transitionConfig['notificationCC'];
+            // $cc = $transitionConfig['notificationCC'];
             $toEmails = $this->getUserEmailsListByRoles($to, $product);
-            $ccEmails = $this->getUserEmailsListByRoles($cc, $product);
+            // $ccEmails = $this->getUserEmailsListByRoles($cc, $product);
             $parentCategory = $product->getParentCategory();
             $categoryName = '';
             if (!empty($parentCategory) && count($parentCategory)>0) {
@@ -143,7 +143,7 @@ class ProductEnrichmentListener
             $params = [
                 'template' => $template,
                 'toEmails' => $toEmails,
-                'ccEmails' => $ccEmails,
+                // 'ccEmails' => $ccEmails,
                 'params' => [
                     'deeplink' => $deepLink,
                     'productName' => $product->getName(),
@@ -151,7 +151,7 @@ class ProductEnrichmentListener
                     'actionRemark' => $actionRemark
                 ]
             ];
-            $this->sendMail($params);
+           // $this->sendMail($params);
         }
     }
     
