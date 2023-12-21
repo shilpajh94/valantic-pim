@@ -18,6 +18,7 @@ class TwigExtension extends AbstractExtension
             new TwigFunction('explodePHP_EOL', [$this, 'explodePHP_EOL']),
             new TwigFunction('implodePHP_EOL', [$this, 'implodePHP_EOL']),
             new TwigFunction('unsetTwig', [$this, 'unsetTwig']),
+            new TwigFunction('setMultiDimensionalArray', [$this, 'setMultiDimensionalArray']),
         ];
     }
 
@@ -66,7 +67,11 @@ class TwigExtension extends AbstractExtension
     public function unsetTwig($array)
     {
         unset($array);
-        return $array;
+    }
+
+    public function setMultiDimensionalArray($array, $key, $newArray)
+    {
+        return $array[$key][] = $newArray;
     }
 }
 

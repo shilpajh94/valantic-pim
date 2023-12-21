@@ -19,15 +19,17 @@ class HydraulicFittingController extends FrontendController
     private $attributeImages = array();
     private $catalogTemplatingHelper;
     private $containerInterface;
-    private $translator;
+    // private $translator;
     private $imageWidth;
+    private $translatorInterface;
 
     public function __construct(CatalogTemplatingHelper $catalogTemplatingHelper, ContainerInterface $container, TranslatorInterface $translator)
     {
         $this->db = Db::get();
         $this->catalogTemplatingHelper = $catalogTemplatingHelper;
         $this->containerInterface = $container;
-        $this->translator = $translator;
+        // $this->translator = $translator;
+        $this->translatorInterface = $translator;
     }
 
     /**
@@ -62,7 +64,7 @@ class HydraulicFittingController extends FrontendController
             */
             $lang = $common->getCatalogLanguage($obj);
             // $lang = 'fr_CA';
-            $this->translator->setLocale($lang);
+            // $this->translator->setLocale($lang);
 
 
             $data = array();
@@ -107,7 +109,7 @@ class HydraulicFittingController extends FrontendController
 
                 foreach ($productsData as $key => $item)
                 {
-                    $brandName = $item[$headerKeysIndex['brandName']][0];
+                    $brandName = $item[$headerKeysIndex['brandName']];
                     $shortDescription = strip_tags($item[$headerKeysIndex['shortDescription']]);
                     $shortDescription = str_replace(array(" ","-","°","/",PHP_EOL), "", $shortDescription);
                     $FittingTableName = $item[$headerKeysIndex['FittingTableName']];
@@ -165,13 +167,13 @@ class HydraulicFittingController extends FrontendController
                             $RightPrintCatalogImageObj = '';
                             foreach ($articlesGroups as $agkey => $articles)
                             {
-                                if($articles[$headerKeysIndex['NutType']]){
+                                if(isset($headerKeysIndex['NutType']) && $articles[$headerKeysIndex['NutType']]){
                                     $nutType = $articles[$headerKeysIndex['NutType']];
                                 }
                                 else{
                                     $nutType = '';
                                 }
-                                if($articles[$headerKeysIndex['SingleHexYN']])
+                                if(isset($headerKeysIndex['SingleHexYN']) && $articles[$headerKeysIndex['SingleHexYN']])
                                 {
                                     $singleHex = $articles[$headerKeysIndex['SingleHexYN']];
                                 }
@@ -185,7 +187,12 @@ class HydraulicFittingController extends FrontendController
 
                                 if(is_array($FittingTableKeys))
                                 {
-                                    if($articles[$headerKeysIndex['HydFittingFamily']][0]) {
+                                    if(!is_array($articles[$headerKeysIndex['HydFittingFamily']]))
+                                    {
+                                        $HydFittingFamilyArr = explode('||', $articles[$headerKeysIndex['HydFittingFamily']]);
+                                    }
+
+                                    if(isset($articles[$headerKeysIndex['HydFittingFamily']][0]) && $articles[$headerKeysIndex['HydFittingFamily']][0]) {
                                         $HydFittingFamilyArr[$articles[$headerKeysIndex['HydFittingFamily']][0]] = $articles[$headerKeysIndex['HydFittingFamily']][0];
                                     }
 
@@ -216,15 +223,22 @@ class HydraulicFittingController extends FrontendController
                                         }
                                     }
 
-                                    if($articles[$headerKeysIndex['DescriptivePartNumber']])
+                                    if(isset($headerKeysIndex['DescriptivePartNumber']) && $articles[$headerKeysIndex['DescriptivePartNumber']])
                                     {
                                         $partialPartNumberArray = explode('-',$articles[$headerKeysIndex['DescriptivePartNumber']]);
                                         $partialPartNumber = $partialPartNumberArray[0].'-'.$partialPartNumberArray[1];
-                                        $articles[$headerKeysIndex['ElbowType']]= $nomenClatureList[$partialPartNumber];
+                                        if(isset($headerKeysIndex['ElbowType']))
+                                        {
+                                            $articles[$headerKeysIndex['ElbowType']]= $nomenClatureList[$partialPartNumber];
+                                        }
+                                        
                                     }
                                     else
                                     {
-                                        $articles[$headerKeysIndex['ElbowType']]= '';
+                                        if(isset($headerKeysIndex['ElbowType']))
+                                        {
+                                            $articles[$headerKeysIndex['ElbowType']]= '';
+                                        }
                                     }
 
                                     $skiveType = '';
@@ -346,26 +360,44 @@ class HydraulicFittingController extends FrontendController
                         $colWidth = $fittingTableColWidths[$dkey];
                     }
                     $groupColumnName = $value['columnName'];
+                    $groupName = '';
+                    $columnWidth = '';
+                    $unitName = '';
+
+                    if(isset($value['columnWidth']) && $value['columnWidth'])
+                    {
+                        $columnWidth = $value['columnWidth'];
+                    }
+
+                    if(isset($value['unitName']) && $value['unitName'])
+                    {
+                        $unitName = $value['unitName'];
+                    }
+
                     if(isset($value['groupName']) && $value['groupName'])
                     {
-
                         $groupColumnName = $value['groupName'];
+                        $groupName = $value['groupName'];
                         $this->subHeaderRequired = 'YES';
                     }
-                    $columnsDataWithImages[$groupColumnName][$dkey]['groupName'] = $value['groupName'];
-                    $columnsDataWithImages[$groupColumnName][$dkey]['columnWidth'] = $colWidth;
-                    $columnsDataWithImages[$groupColumnName][$dkey]['unitName'] = $this->replaceYellowCode($this->translator->trans($value['unitName']));
+
+                    $columnsDataWithImages[$groupColumnName][$dkey]['groupName'] = $groupName;
+                    $columnsDataWithImages[$groupColumnName][$dkey]['columnWidth'] = $columnWidth;
+                    $columnsDataWithImages[$groupColumnName][$dkey]['unitName'] = $this->replaceYellowCode($this->translatorInterface->trans($unitName));
                     $columnsDataWithImages[$groupColumnName][$dkey]['columnName'] = $value['columnName'];
-                    $columnsDataWithImages[$groupColumnName][$dkey]['columnLabel'] = $this->replaceYellowCode($this->translator->trans($groupColumnName));
+                    $columnsDataWithImages[$groupColumnName][$dkey]['columnLabel'] = $this->replaceYellowCode($this->translatorInterface->trans($groupColumnName));
 
                     if ($this->iconRequired == 'YES')
                     {
                         if(!isset($this->attrbuteImgS3Arr[$groupColumnName]))
                         {
-                            $attributeImagesSrc = $this->attributeImages[$groupColumnName];
-                            $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
-                            $this->attrbuteImgS3Arr[$groupColumnName] = $attributeImagesSrc;
-                            $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $attributeImagesSrc;
+                            if(isset($this->attributeImages[$groupColumnName]))
+                            {
+                                $attributeImagesSrc = $this->attributeImages[$groupColumnName];
+                                $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
+                                $this->attrbuteImgS3Arr[$groupColumnName] = $attributeImagesSrc;
+                                $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $attributeImagesSrc;
+                            }
                         }
                         else
                         {
@@ -380,31 +412,50 @@ class HydraulicFittingController extends FrontendController
             foreach ($this->columnsData as $key => $value) {
 
                 $groupColumnName = $value['columnName'];
+                $groupName = '';
+
+                $columnWidth = '';
+                $unitName = '';
+
+                if(isset($value['columnWidth']) && $value['columnWidth'])
+                {
+                    $columnWidth = $value['columnWidth'];
+                }
+
+                if(isset($value['unitName']) && $value['unitName'])
+                {
+                    $unitName = $value['unitName'];
+                }
+
                 if(isset($value['groupName']) && $value['groupName'])
                 {
                     $groupColumnName = $value['groupName'];
+                    $groupName = $value['groupName'];
                     $this->subHeaderRequired = 'YES';
                 }
 
-                $columnsDataWithImages[$groupColumnName][$key]['groupName'] = $value['groupName'];
-                $columnsDataWithImages[$groupColumnName][$key]['columnWidth'] = $value['columnWidth'];
+                $columnsDataWithImages[$groupColumnName][$key]['groupName'] = $groupName;
+                $columnsDataWithImages[$groupColumnName][$key]['columnWidth'] = $columnWidth;
 
                 if($value['columnName'] == 'listPrice')
-                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $value['unitName'];
+                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $unitName;
                 else
-                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = ($value['unitName']) ? $this->replaceYellowCode($this->translator->trans($value['unitName'])) : '';
+                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = ($unitName) ? $this->replaceYellowCode($this->translatorInterface->trans($unitName)) : '';
 
                 $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
-                $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->replaceYellowCode($this->translator->trans($groupColumnName));
+                $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->replaceYellowCode($this->translatorInterface->trans($groupColumnName));
 
                 if ($this->iconRequired == 'YES')
                 {
                     if(!isset($this->attrbuteImgS3Arr[$groupColumnName]))
                     {
-                        $attributeImagesSrc = $this->attributeImages[$groupColumnName];
-                        $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
-                        $this->attrbuteImgS3Arr[$groupColumnName] = $attributeImagesSrc;
-                        $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImagesSrc;
+                        if(isset($this->attributeImages[$groupColumnName]))
+                        {
+                            $attributeImagesSrc = $this->attributeImages[$groupColumnName];
+                            $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
+                            $this->attrbuteImgS3Arr[$groupColumnName] = $attributeImagesSrc;
+                            $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImagesSrc;
+                        }
                     }
                     else
                     {
@@ -416,7 +467,6 @@ class HydraulicFittingController extends FrontendController
 
         return $columnsDataWithImages;
     }
-
     public function replaceYellowCode($string)
     {
         $string = str_replace('%*','<span style="color: #ffa500;">', $string);

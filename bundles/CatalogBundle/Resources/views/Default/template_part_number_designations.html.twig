@@ -6,7 +6,7 @@
 
 {% if editmode %}
 
-        {{ pimcore_relation("page_number_designations",{
+        {{ pimcore_relations("page_number_designations",{
         "types": ["object"],
         "subtypes": {
                 "object": ["object"],
@@ -14,8 +14,6 @@
         "classes": ["CatalogTables"]
         }) }}
 {% endif %}
-
-{% set hydraulic_hose_data = [] %}
 
 <div class="template">
 <div>
@@ -129,9 +127,8 @@
                                 </tr>
 
                                 {% set rowcount = 0 %}
-                                {% for brand, bkey in brandData %}
-
-                                    {% set hydraulic_hose_data = hydraulic_hose_data[key]|merge(bkey) %}
+                                {% for bkey, brand in brandData %}
+                                
                                     {% set md5key = md5Twig(key~bkey) %}
 
                                     {% set brandDataCount = brandData | length %}
@@ -176,19 +173,7 @@
     </div>
 </div>
 <div class="hide">
-    {% set hydraulic_hose_data_list = [] %} 
-
-    {% if hydraulic_hose_data %} 
-
-        {% for key, value in hydraulic_hose_data %}
-            {% hydraulic_hose_data_list = hydraulic_hose_data_list | merge([key~"$$"~value|join(',')]) %}
-        {% endfor %} 
-
-        {% if hydraulic_hose_data_list %} 
-            {% set hydraulic_hose_details_text =  implodePHP_EOL(hydraulic_hose_data_list) %}
-            {{ pimcore_textarea('hydraulic_hose_details').setDataFromResource(hydraulic_hose_details_text) | raw }}
-        {% endif %} 
-    {% endif %} 
+        {{ pimcore_textarea('hydraulic_hose_details').setDataFromResource(hydraulic_hose_details_text) | raw }}
 </div>
 </div>
 {% endblock %}

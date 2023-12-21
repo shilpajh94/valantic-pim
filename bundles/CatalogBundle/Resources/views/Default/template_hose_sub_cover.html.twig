@@ -161,15 +161,15 @@
                                     {% else %}
                                         <tr class="active tableNewFont">
                                     {% endif %}
-                                    <td><b>{{ brandData['brandName'] }}</b></td>
+                                    <td><b>{{ brandData['brandName'] | raw }}</b></td>
                                     <td>{{ pimcore_input("HHSC_Page_" ~ md5brandKey) }}</td>
-                                    <td>{{ brandData['reinforcement'] }}</td>
-                                    <td>{{ brandData['tubeMaterialAtrributeString'] }}</td>
-                                    <td>{{ brandData['workingPressurePSIString'] }}</td>
-                                    <td>{{ brandData['rangeTemperatureF'] }}</td>
-                                    <td>{{ brandData['fittingFamily'] }}</td>
+                                    <td>{{ brandData['reinforcement'] | raw }}</td>
+                                    <td>{{ brandData['tubeMaterialAtrributeString'] | raw }}</td>
+                                    <td>{{ brandData['workingPressurePSIString'] | raw}}</td>
+                                    <td>{{ brandData['rangeTemperatureF'] | raw}}</td>
+                                    <td>{{ brandData['fittingFamily'] | raw}}</td>
                                     <td>{{ pimcore_input("Construction_Type_" ~ md5brandKey).setDataFromResource(brandData['industryStandard']) | raw}}</td>
-                                    <td>{{ brandData['CatalogPackaging'] }}</td>
+                                    <td>{{ brandData['CatalogPackaging'] | raw}}</td>
                                 </tr>
  
                                 {% set incr = incr + 1 %}

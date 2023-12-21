@@ -287,7 +287,7 @@
 															<div
 																class="full">
 																<b>{{ 'Inner Tube'|trans }}</b>
-																{{ brandData['tubeMaterialAtrributeString'] }}
+																{{ brandData['tubeMaterialAtrributeString'] | raw}}
 															</div>
 														{% endif %}
 
@@ -295,7 +295,7 @@
 															<div
 																class="full">
 																<b>{{ 'Reinforcement'|trans }}</b>
-																{{ brandData['reinforcement'] }}
+																{{ brandData['reinforcement'] | raw}}
 															</div>
 														{% endif %}
 
@@ -303,7 +303,7 @@
 															<div
 																class="full">
 																<b>{{ 'Cover'|trans }}</b>
-																{{ brandData['coverMaterialattributeString'] }}
+																{{ brandData['coverMaterialattributeString'] | raw}}
 															</div>
 														{% endif %}
 
@@ -311,7 +311,7 @@
 															<div
 																class="full">
 																<b>{{ 'Temperature Range'|trans }}</b>
-																{{ brandData['temperatureRangeFAndC'] }}
+																{{ brandData['temperatureRangeFAndC'] | raw}}
 															</div>
 														{% endif %}
 													</div>
@@ -329,7 +329,7 @@
 															{% if feature['iconSrc'] %}
 																<img src="{{ feature['iconSrc'] }}"/>
 															{% endif %}
-															<font>{{ feature['name'] }}</font>
+															<font>{{ feature['name'] | raw}}</font>
 														</p>
 													{% endfor %}
 												</div>
@@ -342,7 +342,7 @@
 									<menu>
 										<h6>{{ 'branding'|trans }}</h6>
 										<figure class="brandingLaylineStyle">
-											<figcaption>{{ brandData['BrandingLayline'] }}</figcaption>
+											<figcaption>{{ brandData['BrandingLayline'] | raw }}</figcaption>
 										</figure>
 									</menu>
 								{% endif %}

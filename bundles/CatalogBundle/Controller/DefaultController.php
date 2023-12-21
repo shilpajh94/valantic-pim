@@ -977,9 +977,9 @@ if(isset($data[$baseId])) {
                 foreach ($productsData as $key => $item) {
                     // $productsDataWithHeaders = array_combine($headerKeys, $item);
 
-                    if(!empty(trim($item[$headerKeysIndex['CatalogGrouping']])) && !empty(trim($item[$headerKeysIndex['brandName']][0])))
+                    if(!empty(trim($item[$headerKeysIndex['CatalogGrouping']])) && !empty(trim($item[$headerKeysIndex['brandName']])))
                     {
-                        $catalogGrouping[$item[$headerKeysIndex['CatalogGrouping']]][$item[$headerKeysIndex['brandName']][0]][] = $item;
+                        $catalogGrouping[$item[$headerKeysIndex['CatalogGrouping']]][$item[$headerKeysIndex['brandName']]][] = $item;
                     }
                 }
 
@@ -1014,7 +1014,7 @@ if(isset($data[$baseId])) {
 
                         foreach($brandArray as $key => $element):
 
-                            $brandName = $element[$headerKeysIndex['brandName']][0];
+                            $brandName = $element[$headerKeysIndex['brandName']];
 
                             if(empty($VirtualCatalogTubeMaterial) && $element[$headerKeysIndex['VirtualCatalogTubeMaterial']])
                                 $VirtualCatalogTubeMaterial = $element[$headerKeysIndex['VirtualCatalogTubeMaterial']];
@@ -1046,6 +1046,11 @@ if(isset($data[$baseId])) {
 
                                     if($bkey == $headerKeysIndex['standardMetHose'])
                                     {
+                                        if(!is_array($value))
+                                        {
+                                            $value = explode('||', $value);
+                                        }
+
                                         if($value && count($value)>0)
                                         {
                                             foreach ($value as $standardMetHosekey => $standardMetHoseValue) {
@@ -1054,17 +1059,57 @@ if(isset($data[$baseId])) {
                                         }
                                     }
                                     if($bkey == $headerKeysIndex['tubeMaterial'])
+                                    {
+                                        if(!is_array($value))
+                                        {
+                                            $value = explode('||', $value);
+                                        }
                                         $tubeMaterial = array_merge($tubeMaterial, $value);
+                                    }
+                                        
                                     if($bkey == $headerKeysIndex['tubeColor'])
+                                    {
+                                        if(!is_array($value))
+                                        {
+                                            $value = explode('||', $value);
+                                        }
                                         $tubeAttribute = array_merge($tubeAttribute, $value);
+                                    }
+                                        
                                     if($bkey == $headerKeysIndex['reinforcement'])
+                                    {
+                                        if(!is_array($value))
+                                        {
+                                            $value = explode('||', $value);
+                                        }
                                         $reinforcement = array_merge($reinforcement, $value);
+                                    }
+                                        
                                     if($bkey == $headerKeysIndex['coverColor'])
+                                    {
+                                        if(!is_array($value))
+                                        {
+                                            $value = explode('||', $value);
+                                        }
                                         $coverAttribute = array_merge($coverAttribute, $value);
+                                    }
+                                        
                                     if($bkey == $headerKeysIndex['coverMaterial'])
+                                    {
+                                        if(!is_array($value))
+                                        {
+                                            $value = explode('||', $value);
+                                        }
                                         $coverMaterial = array_merge($coverMaterial, $value);
+                                    }
+                                        
                                     if($bkey == $headerKeysIndex['FeaturesBenefitsBulletPoint'])
                                     {
+                                        if(!is_array($value))
+                                        {
+                                            $value = explode('||', $value);
+                                        }
+
                                         if(count($value)>0)
                                         {
                                             foreach ($value as $fkey => $feature) {
@@ -1077,7 +1122,14 @@ if(isset($data[$baseId])) {
 
                             foreach ($orderKeys as $ckey => $cvalue) {
                                 if($ckey == 'HoseFittingFamily')
-                                    $articlesData[$key][] = ($element[$headerKeysIndex[$ckey]])? implode(',',($element[$headerKeysIndex[$ckey]])): '';
+                                {
+                                    $HoseFittingFamilyArr = [];
+                                    if(!is_array($element[$headerKeysIndex[$ckey]]))
+                                    {
+                                        $HoseFittingFamilyArr = explode('||', $element[$headerKeysIndex[$ckey]]);
+                                    }
+                                    $articlesData[$key][] = ($HoseFittingFamilyArr)? implode(',',($HoseFittingFamilyArr)): '';
+                                }
                                 else
                                 {
                                     if($ckey == 'workingPressurePSI'){
@@ -1780,9 +1832,10 @@ if(isset($data[$baseId])) {
 
     public function templatePartNumberDesignationsAction(Request $request)
     {
-        $templates = $this->document->getEditable('relations', 'page_number_designations')->getElements();
+        $templates = $this->document->getEditable('page_number_designations')->getElements();
         $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
 
+        $hydraulic_hose_data = [];
         $footerBgColor = '';
         if($templates)
         {
@@ -1807,6 +1860,7 @@ if(isset($data[$baseId])) {
                         $productsDataWithHeaders = array_combine($headerKeys, $item);
                         if(!empty(trim($productsDataWithHeaders['CatalogGrouping'])) && !empty(trim($productsDataWithHeaders['brandName'][0])))
                         {
+                            $hydraulic_hose_data[$productsDataWithHeaders['CatalogGrouping']][$productsDataWithHeaders['brandName'][0]] = $productsDataWithHeaders['brandName'][0];
                             $catalogGrouping[$productsDataWithHeaders['CatalogGrouping']][$productsDataWithHeaders['brandName'][0]][] = $productsDataWithHeaders['industryStandard'];
                         }
                     }
@@ -1820,6 +1874,19 @@ if(isset($data[$baseId])) {
         $parameterBag['data'] = $catalogGrouping;
         $parameterBag['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
         $parameterBag['footer_logo_src'] = $footer_logo_src;
+
+        $hydraulic_hose_data_list = [];
+        foreach ($hydraulic_hose_data as $key => $value) {
+            $hydraulic_hose_data_list[] = $key."$$".implode(',', $value);
+        }
+
+        $hydraulic_hose_details_text = '';
+        if($hydraulic_hose_data_list)
+        {
+            $hydraulic_hose_details_text = implode(PHP_EOL, $hydraulic_hose_data_list);
+        }
+
+        $parameterBag['hydraulic_hose_details_text'] = $hydraulic_hose_details_text;
 
         return $this->render("@Catalog/Default/template_part_number_designations.html.twig", $parameterBag);
     }
@@ -1887,7 +1954,7 @@ if(isset($data[$baseId])) {
 
                         foreach($brandArray as $key => $element):
 
-                            $brandName = $element[$headerKeysIndex['brandName']][0];
+                            $brandName = $element[$headerKeysIndex['brandName']];
 
                             if(empty($CatalogPackaging) && $element[$headerKeysIndex['Packaging']])
                                     $CatalogPackaging = $element[$headerKeysIndex['Packaging']];
@@ -1919,9 +1986,23 @@ if(isset($data[$baseId])) {
                             foreach($element as $bkey => $value):
 
                                     if($bkey == $headerKeysIndex['tubeMaterial'])
+                                    {
+                                        if(!is_array($value))
+                                        {
+                                            $value = explode('||', $value);
+                                        }
                                         $tubeMaterial = array_merge($tubeMaterial, $value);
+                                    }
+                                        
                                     if($bkey == $headerKeysIndex['reinforcement'])
+                                    {
+                                        if(!is_array($value))
+                                        {
+                                            $value = explode('||', $value);
+                                        }
                                         $reinforcement = array_merge($reinforcement, $value);
+                                    }
+                                        
                                     if(isset($headerKeysIndex['workingPressurePSI']) && ($bkey == $headerKeysIndex['workingPressurePSI']))
                                     {
                                         if($value){
@@ -1931,9 +2012,23 @@ if(isset($data[$baseId])) {
                                         }
                                     }
                                     if(isset($headerKeysIndex['HoseFittingFamily']) && ($bkey == $headerKeysIndex['HoseFittingFamily']) && $value)
+                                    {
+                                        if(!is_array($value))
+                                        {
+                                            $value = explode('||', $value);
+                                        }
                                         $fittingFamily = array_merge($fittingFamily, $value);
+                                    }
+                                        
                                     if($bkey == $headerKeysIndex['standardMetHose'])
+                                    {
+                                        if(!is_array($value))
+                                        {
+                                            $value = explode('||', $value);
+                                        }
                                         $industryStandardKey = array_merge($industryStandardKey, $value);
+                                    }
+                                        
 
                             endforeach;
 
@@ -2366,8 +2461,8 @@ if(isset($data[$baseId])) {
 
                         if(!$ProfileDimensionImageObj && $item[$headerKeysIndex['ProfileDimensionImage']])
                             $ProfileDimensionImageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['ProfileDimensionImage']]);
-
                         if($item[$headerKeysIndex['material']])
+                        {
                             $arr_material = [];
 
                             if(!is_array($item[$headerKeysIndex['material']]))
@@ -2375,16 +2470,16 @@ if(isset($data[$baseId])) {
                                 $arr_material = explode('||', $item[$headerKeysIndex['material']]);
                             }
                             $material = array_merge($material, $arr_material);
-                            
+                        }
                         if($item[$headerKeysIndex['reinforcement']])
-                            
+                        {
                             $arr_reinforcement = [];
                             if(!is_array($item[$headerKeysIndex['reinforcement']]))
                             {
                                 $arr_reinforcement = explode('||', $item[$headerKeysIndex['reinforcement']]);
                             }
                             $reinforcement = array_merge($reinforcement, $arr_reinforcement);
-
+                        }
                         if($item[$headerKeysIndex['VirtualCatalogReinforcement']] && empty($VirtualCatalogReinforcement))
                             $VirtualCatalogReinforcement = $item[$headerKeysIndex['VirtualCatalogReinforcement']];
 
