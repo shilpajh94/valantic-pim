@@ -163,9 +163,9 @@
 									{% else %}
 										{% if not pimcore_image("INH_Fitting_MainImage").isEmpty() %}
 											{% set imgSrcObj1 = pimcore_image("INH_Fitting_MainImage") %}
-										    {% if imgSrcObj1 %}
-											<img src="{{getImageThumbnail(imgSrcObj1, imageWidth)}}" width="400" height="200"/>
-                                            {% endif %}
+											{% if imgSrcObj1 %}
+												<img src="{{getImageThumbnail(imgSrcObj1, imageWidth)}}" width="400" height="200"/>
+											{% endif %}
 										{% endif %}
 									{% endif %}
 
@@ -178,10 +178,10 @@
 									{% else %}
 										{% if not pimcore_image("INH_Fitting_ProfileDimension").isEmpty() %}
 											{% set imgSrcObj2 = pimcore_image("INH_Fitting_ProfileDimension") %}
-										    {% if imgSrcObj2 %}
-											<img src="{{getImageThumbnail(imgSrcObj2, imageWidth)}}" width="400" height="200"/>
-										    {% endif %}
-                                        {% endif %}
+											{% if imgSrcObj2 %}
+												<img src="{{getImageThumbnail(imgSrcObj2, imageWidth)}}" width="400" height="200"/>
+											{% endif %}
+										{% endif %}
 									{% endif %}
 								</span>
 							</aside>
@@ -190,38 +190,33 @@
 							{% if groupData['safetyFeatures'] or groupData['material'] or groupData['pressureRating'] or groupData['brandingLayline'] or groupData['orderCodes'] %}
 								<menu class="flex">
 									{% if groupData['material'] or groupData['pressureRating'] or groupData['brandingLayline'] or groupData['orderCodes'] %}
-										<div
-											class="specs col-6">
+										<div class="specs col-6">
 											<h6>{{ 'specs'|trans }}</h6>
 											<div class="spec-requirement">
 												<div>
 													{% if groupData['material'] %}
-														<div
-															class="full">
+														<div class="full">
 															<b>{{ 'Materials'|trans }}</b>
 															{{ groupData['material'] }}
 														</div>
 													{% endif %}
 
 													{% if groupData['pressureRating'] %}
-														<div
-															class="full">
+														<div class="full">
 															<b>{{ 'Pressure Rating'|trans }}</b>
 															{{ groupData['pressureRating'] }}
 														</div>
 													{% endif %}
 
 													{% if groupData['brandingLayline'] %}
-														<div
-															class="full">
+														<div class="full">
 															<b>{{ 'Branding'|trans }}</b>
 															{{ groupData['brandingLayline'] }}
 														</div>
 													{% endif %}
 
 													{% if groupData['orderCodes'] %}
-														<div
-															class="full">
+														<div class="full">
 															<b>{{ 'Order Codes'|trans }}</b>
 															{{ groupData['orderCodes'] }}
 														</div>
@@ -232,11 +227,10 @@
 									{% endif %}
 
 									{% if groupData['safetyFeatures'] %}
-										<div
-											class="feature col-6">
+										<div class="feature col-6">
 											<h6>{{ 'features'|trans }}</h6>
 											<div>
-												{% for feature in groupData['safetyFeatures'] %}
+												{% for key, feature in groupData['safetyFeatures'] %}
 													<p class="flex">
 														{% if feature['iconSrc'] %}
 															<img src="{{ feature['iconSrc'] }}"/>
@@ -255,7 +249,7 @@
 									<thead>
 										{% if groupData['iconRequired'] == 'YES' %}
 											<tr class="sub-head">
-												{% for c1data in groupData['columnsDataWithImages'] %}
+												{% for key, c1data in groupData['columnsDataWithImages'] %}
 													{% set columnWidth = '' %}
 													{% set firstArray = c1data|first %}
 													{% if firstArray['columnWidth'] %}
@@ -267,7 +261,7 @@
 										{% endif %}
 
 										<tr class="head">
-											{% for c2data in groupData['columnsDataWithImages'] %}
+											{% for key, c2data in groupData['columnsDataWithImages'] %}
 												{% set columnWidth = '' %}
 												{% set first2Array = c2data|first %}
 												{% if first2Array['columnWidth'] %}
@@ -279,8 +273,8 @@
 
 										{% if groupData['subHeaderRequired'] == 'YES' %}
 											<tr class="sub-head">
-												{% for c3data in groupData['columnsDataWithImages'] %}
-													{% for c3value in c3data %}
+												{% for key, c3data in groupData['columnsDataWithImages'] %}
+													{% for c3key, c3value in c3data %}
 														{% if c3value['unitName'] %}
 															<td>{{ c3value['unitName'] }}</td>
 														{% else %}
@@ -292,17 +286,21 @@
 										{% endif %}
 									</thead>
 									<tbody>
-										{% for element in groupData['data'] %}
-											{% if loop.index is even %}
-												<tr class='tableNewFont'>
-												{% else %}
-													<tr class="active tableNewFont">
-													{% endif %}
-													{% for value in element %}
-														<td>{{ value }}</td>
-													{% endfor %}
-												</tr>
-											{% endfor %}
+										{% if groupData['data'] is defined and groupData['data'] is iterable %}
+											{% set incrRow = 1 %}
+											{% for key, element in groupData['data'] %}
+												{% if incrRow % 2 == 0 %}
+													<tr class='tableNewFont'>
+													{% else %}
+														<tr class="active tableNewFont">
+														{% endif %}
+														{% for ekey, value in element %}
+															<td>{{ value }}</td>
+														{% endfor %}
+													</tr>
+													{% set incrRow = incrRow + 1 %}
+												{% endfor %}
+											{% endif %}
 										</tbody>
 									</tbody>
 								</table>
@@ -311,6 +309,23 @@
 						</section>
 					</div>
 				</article>
+			</div>
+
+			<div class="hide">
+
+				{% set industrial_hose_data_list = [] %}
+				{% if industrial_hose_data %}
+					{% for key, value in industrial_hose_data %}
+						{% set mergeData = key ~ '$$' ~ value|join(',') %}
+						{% set industrial_hose_data_list = industrial_hose_data_list|merge([mergeData]) %}
+					{% endfor %}
+
+					{% if industrial_hose_data_list %}
+						{% set industrial_hose_details_text = implodePHP_EOL(industrial_hose_data_list) %}
+						{{ pimcore_textarea('industrial_hose_details').setDataFromResource(industrial_hose_details_text)| raw }}
+					{% endif %}
+				{% endif %}
+
 			</div>
 		</div>
 		{% if not containerRequest %}

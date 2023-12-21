@@ -115,7 +115,7 @@
                                                 'interlace': true,
                                                 'quality': 95,
                                                 'format': 'PNG'
-                                            }).setImage(row['mainImage']) }}
+                                            }).setImage(row['mainImage']) | raw }}
 											{% else %}
 												{% set imgSrcObj1 = pimcore_image('productImage' ~ k, {
                                                 'width': 92,
@@ -188,7 +188,7 @@
                                                                 'interlace': true,
                                                                 'quality': 95,
                                                                 'format': 'PNG'
-                                                            }).setImage(featureIcon['icon']) }}
+                                                            }).setImage(featureIcon['icon']) | raw }}
 																{% else %}
 																	{{ pimcore_image("productLogo" ~ key ~ iccnt, {
                                                                 'width': 91,
@@ -233,7 +233,7 @@
 									</figure>
 
 									{% set k = k + 1 %}
-									{% unset(key) %}
+									{% unsetTwig(key) %}
 								{% endfor %}
 							{% endif %}
 						{% endif %}

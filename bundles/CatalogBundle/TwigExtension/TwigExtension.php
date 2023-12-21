@@ -17,6 +17,7 @@ class TwigExtension extends AbstractExtension
             new TwigFunction('md5Twig', [$this, 'md5Twig']),
             new TwigFunction('explodePHP_EOL', [$this, 'explodePHP_EOL']),
             new TwigFunction('implodePHP_EOL', [$this, 'implodePHP_EOL']),
+            new TwigFunction('unsetTwig', [$this, 'unsetTwig']),
         ];
     }
 
@@ -60,6 +61,12 @@ class TwigExtension extends AbstractExtension
     public function implodePHP_EOL($array)
     {
         return implode(PHP_EOL, $array);
+    }
+
+    public function unsetTwig($array)
+    {
+        unset($array);
+        return $array;
     }
 }
 
