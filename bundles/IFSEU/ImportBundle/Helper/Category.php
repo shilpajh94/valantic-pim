@@ -76,7 +76,10 @@ class Category
     public function extractFullCodeLevelWise($currLevel, $code)
     {
         $levelLength = isset($this->levelLength[$currLevel]) ? $this->levelLength[$currLevel] : NULL;
-        return substr($code, 0, $levelLength);
+        if($levelLength)
+            return substr($code, 0, $levelLength);
+        else   
+            return '';
     }
 
     /**

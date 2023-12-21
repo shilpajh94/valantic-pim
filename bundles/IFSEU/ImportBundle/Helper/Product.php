@@ -70,7 +70,7 @@ class Product
         $len = strlen($code);
         $level = $this->catHelper->getLevelByLength($len);
         $levels = array();
-        for ($i = $level; $i >= 2; $i--) {
+        for ($i = $level; $i >= 1; $i--) {
             $objectKey = empty($reader) ?:( isset($reader[$this->level[$i]['key']]) ? $reader[$this->level[$i]['key']] : NULL);
             $parentLevel = $this->catHelper->getParentLevel($i);
             $levelFullCode = $this->catHelper->extractFullCodeLevelWise($i, $code);
@@ -86,7 +86,7 @@ class Product
                 'level'         =>  $i,
                 'bu'            =>  $bu,
                 'objectKey'     =>  $objectKey,
-                'parentObjectKey'   =>  empty($reader) ?: ((isset($reader[$this->level[$parentLevel]['key']]) && isset($this->level[$parentLevel])) ? $reader[$this->level[$parentLevel]['key']] : NULL),
+                'parentObjectKey'   =>  empty($reader) ?: ((isset($this->level[$parentLevel]) && isset($reader[$this->level[$parentLevel]['key']])) ? $reader[$this->level[$parentLevel]['key']] : NULL),
                 'objectPath'    =>  $objectPath,
                 'parentPath'    =>  $parentPath
             );
@@ -151,9 +151,9 @@ class Product
     public function getObjectIndex($type, $levelInfo) 
     {
         if ($type == 'base') {
-            $objectIndex = count($levelInfo);
+            $objectIndex = count($levelInfo)-1;
         } elseif ($type == 'skeleton' || $type == 'fert') {
-            $objectIndex = count($levelInfo) + 1;
+            $objectIndex = count($levelInfo);
         }
         return $objectIndex;
     }

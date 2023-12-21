@@ -459,9 +459,8 @@ class ProductService
     private function processLevelInfo($record, $recData, $errorFlag) 
     {
         $levelInfo = $this->productHelper->getLevels($record['code'], $record);
-
         if ($levelInfo['status']) {
-            $folderIndex = count($levelInfo['levels'])-1;
+            $folderIndex = count($levelInfo['levels'])-2;
             $folderCode = $levelInfo['levels'][$folderIndex]['levelFullCode'];
             $folderPath = $this->categories[$folderCode]['fullPath'];
             
@@ -522,7 +521,7 @@ class ProductService
 
     public function getQueryTableData($objId, $record, $levelInfo, $level=5, $productType = 'fert', $businessUnit = 'IFSEU') {
         $siopData = [];
-        for ($k=2; $k<=7; $k++) {
+        for ($k=1; $k<=7; $k++) {
             $index = 'SIOPLevel'.$k;
             if ($k<=$level) {
                 $catCode = $levelInfo[$k]['levelFullCode'];
@@ -666,7 +665,7 @@ class ProductService
     }
 
     public function getRelationTableData($objId, $record, $levelInfo, $level=5, $productType = 'fert') {
-        for ($k=2; $k<=$level; $k++) {
+        for ($k=1; $k<=$level; $k++) {
             $index = 'SIOPLevel'.$k;
             $catCode = $levelInfo[$k]['levelFullCode'];
             $targetId = $this->categories[$catCode]['id'];
@@ -700,7 +699,8 @@ class ProductService
         }
     }
     public function getDependencyTableData($objId, $record, $levelInfo, $level=5, $productType = 'fert') {
-        for ($k=2; $k<=$level; $k++) {
+
+        for ($k=1; $k<=$level; $k++) {
             $index = 'SIOPLevel'.$k;
             $catCode = $levelInfo[$k]['levelFullCode'];
             $targetId = $this->categories[$catCode]['id'];
