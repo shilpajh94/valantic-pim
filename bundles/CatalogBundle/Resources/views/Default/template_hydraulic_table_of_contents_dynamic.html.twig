@@ -80,11 +80,10 @@
 
 						{% endif %}
 
-						{% set TOC_HeadingBlockBlock = pimcore_block('TOC_HeadingBlock', {'default':innerDataCount}) %}
+						{% set TOC_HeadingBlock = pimcore_block('TOC_HeadingBlock', {'default':innerDataCount}) %}
 
-						{% for incr in TOC_SectionBlockBlock.iterator %}
+						{% for incr in TOC_HeadingBlock.iterator %}
 							{% set heading = innerData[j][0] %}
-
 
 							<h5>{{ pimcore_input("TOC_HeadingName", {'placeholder' : 'Enter Heading here.'}).setDataFromResource(heading) | raw}}</h5>
 							{% if editmode %}
