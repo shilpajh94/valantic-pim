@@ -23,6 +23,8 @@ class ImportCompetitorDataCommand extends AbstractCommand
     const COMPETITIVE_DATA_COMPETITOR_FOLDER = 'Competitive Data/Competitor';
     const COMPETITIVE_DATA_COMPETITOR_PARTS_FOLDER = 'Competitive Data/Competitor Parts';
     private $container;
+    private $createdCount;
+    private $updatedCount;
 
     public function __construct(ContainerInterface $container)
     {
@@ -346,6 +348,6 @@ class ImportCompetitorDataCommand extends AbstractCommand
         else{
             echo "Competitor: ".$competitorKey." found in master list \n";
         }
-        return $objectPlant;
+        //return $objectPlant;
     }
 }

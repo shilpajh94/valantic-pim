@@ -26,6 +26,7 @@ class FTPHandler {
     private $importPath; // = PIMCORE_PRIVATE_VAR.IMPORT_FILE_DIR;
     public $latestFile = '';
     public $files = '';
+    private $port;
 
 
     public function __construct() {
@@ -134,7 +135,7 @@ class FTPHandler {
     
     public function getFtpFileContent($ftpPath, $filename) {
         try {
-            $tmpFile = PIMCORE_TEMPORARY_DIRECTORY."/tmp-".date("Ymdhis")."-".$filename;
+            $tmpFile = PIMCORE_SYSTEM_TEMP_DIRECTORY."/tmp-".date("Ymdhis")."-".$filename;
             ftp_get($this->sftp, $tmpFile, $this->folderPath."/".$ftpPath, FTP_BINARY);
             //$this->sftp->get($this->folderPath."/".$ftpPath, $tmpFile);
             $content = file_get_contents($tmpFile);

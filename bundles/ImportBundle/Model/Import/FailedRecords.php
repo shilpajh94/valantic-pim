@@ -8,7 +8,8 @@
 
 namespace ImportBundle\Model\Import;
 
-
+use Egulias\EmailValidator\EmailValidator;
+use Egulias\EmailValidator\Validation\RFCValidation;
 use Pimcore\Mail;
 use Pimcore\Model\Asset;
 use Pimcore\Model\Document;
@@ -25,6 +26,8 @@ class FailedRecords {
     /**
      * Function is constructor and set the db connection
      */
+    private $db;
+
     public function __construct()
     {
         $this->db = \Pimcore\Db::get();
@@ -55,7 +58,7 @@ class FailedRecords {
     private function manageSalesMaterialImportLog($scriptStartTime) 
     {
       $sql = "SELECT * FROM material_sales_import_log WHERE statusCode = 'FAILED' AND createdAt >= '$scriptStartTime'";
-      $record = $this->db->fetchAll($sql);
+      $record = $this->db->fetchAllAssociative($sql);
         if($record) {
           $columns[] = "Log Id";
           $columns[] = "Id";
@@ -91,7 +94,7 @@ class FailedRecords {
     private function manageProductMaterialLog($scriptStartTime) 
     {
       $sql = "SELECT * FROM material_import_log WHERE statusCode = 'FAILED' AND createdAt >= '$scriptStartTime'";
-      $record = $this->db->fetchAll($sql);
+      $record = $this->db->fetchAllAssociative($sql);
 
         if($record) {
           // $columns = array_keys(current($record));
@@ -123,7 +126,7 @@ class FailedRecords {
     private function managePlantImportLog($scriptStartTime) 
     {     
       $sql = "SELECT * FROM `material_plant_import_log` WHERE statusCode = 'FAILED' AND createdAt >= '$scriptStartTime'";
-      $record = $this->db->fetchAll($sql); 
+      $record = $this->db->fetchAllAssociative($sql); 
         if($record) {
           $columns[] = "Log Id";
           $columns[] = "Id";
@@ -175,7 +178,7 @@ class FailedRecords {
       $parentFolder = $obj->getPath().$obj->getFileName();
         
         $newAsset = new \Pimcore\Model\Asset();
-        $newFilename = Element\Service::getSaveCopyName('asset', $fileName,\Pimcore\Model\Asset::getByPath("$parentFolder"));
+        $newFilename = Element\Service::getSafeCopyName($fileName,\Pimcore\Model\Asset::getByPath("$parentFolder"));
 
         $newAsset->setFilename($newFilename);
         $newAsset->setData(file_get_contents(PIMCORE_SYSTEM_TEMP_DIRECTORY.'/'.$fileName));
@@ -200,11 +203,10 @@ class FailedRecords {
             foreach ($email_Id as $eachBccEmailID) {
               $mail->addBcc($eachBccEmailID);
           }
-            $mail->setSubject("SAP BW - Failure SKU(s) list");
+            $mail->Subject("SAP BW - Failure SKU(s) list");
             $mail->setDocument($document);
             // $mail->setParams($templateParam);
-            $mail->createAttachment($objAsset->getData(),'',$objAsset->getFilename());
-
+            $mail->attach($objAsset->getData(),'',$objAsset->getFilename());
             
             $mailSent = $mail->send();
               if ($mailSent) {
@@ -226,6 +228,7 @@ class FailedRecords {
 
     public function usersForEmail () 
     {
+      $emailValidator = new EmailValidator();
       $roleClass = new \Pimcore\Model\User\Role\Listing();
       $roleClass->setCondition("name IN ('ProductManager','ApplicationAdmin')");
       $userRoles = $roleClass->getRoles(); 
@@ -241,9 +244,9 @@ class FailedRecords {
       $list->load();
       $userList = $list->getUsers();
       $email_Id = []; 
-        
+    
         foreach ($userList as $users) {
-          if (Mail::isValidEmailAddress($users->getEmail())) {
+          if ($emailValidator->isValid($users->getEmail(), new RFCValidation())) {
             $email_Id[] = $users->getEmail();
           }
         }

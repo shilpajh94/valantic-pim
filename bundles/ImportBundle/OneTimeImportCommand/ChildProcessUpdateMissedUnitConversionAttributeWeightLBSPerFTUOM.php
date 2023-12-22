@@ -15,6 +15,8 @@ use Pimcore\Model\DataObject;
 
 class ChildProcessUpdateMissedUnitConversionAttributeWeightLBSPerFTUOM extends AbstractCommand
 {
+    private $unitConverterService;
+    private $appService;
     const GROSS_WEIGHT_UNITS = [
         "LB" => Unit::LBS,
         "KG" => Unit::KG,

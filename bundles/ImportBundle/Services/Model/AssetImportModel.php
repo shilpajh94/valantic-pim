@@ -55,6 +55,10 @@ class AssetImportModel {
 
     const VALID_SIOP_LEVELS_FOR_PTG = ['5','6','SAP #'];
 
+    private $datasource;
+    private $assetPath;
+    private $defaultAssetPath;
+
     public function __construct() {
 
         $this->datasource = 'LOCAL'; // "LOCAL" OR "FTP"

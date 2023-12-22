@@ -31,6 +31,8 @@ use Symfony\Component\Process\Process;
 class UpdateMissedUnitConversionAttributes extends AbstractCommand
 {
     private $identifier;
+    private $unitConverterService;
+    private $appService;
     
     // Using an array to run the appropriate command
     // on the basis of argument passed by User
@@ -109,13 +111,21 @@ class UpdateMissedUnitConversionAttributes extends AbstractCommand
 
     private function initializeChildProcess(int $offset,int $limit,string $logFile)
     {
-        $command = implode(' ',array(
+        // $command = implode(' ',array(
+        //     PIMCORE_PROJECT_ROOT."/bin/console ",
+        //     $this->commands[$this->identifier]['command'],
+        //     $offset,
+        //     $limit,
+        //     $logFile
+        // ));
+
+        $command = array(
             PIMCORE_PROJECT_ROOT."/bin/console ",
             $this->commands[$this->identifier]['command'],
             $offset,
             $limit,
             $logFile
-        ));
+        );
 
         $process = new Process($command);
         $process->setTimeout(1800);
