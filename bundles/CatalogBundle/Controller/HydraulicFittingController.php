@@ -187,13 +187,8 @@ class HydraulicFittingController extends FrontendController
 
                                 if(is_array($FittingTableKeys))
                                 {
-                                    if(!is_array($articles[$headerKeysIndex['HydFittingFamily']]))
-                                    {
-                                        $HydFittingFamilyArr = explode('||', $articles[$headerKeysIndex['HydFittingFamily']]);
-                                    }
-
-                                    if(isset($articles[$headerKeysIndex['HydFittingFamily']][0]) && $articles[$headerKeysIndex['HydFittingFamily']][0]) {
-                                        $HydFittingFamilyArr[$articles[$headerKeysIndex['HydFittingFamily']][0]] = $articles[$headerKeysIndex['HydFittingFamily']][0];
+                                    if(isset($articles[$headerKeysIndex['HydFittingFamily']]) && $articles[$headerKeysIndex['HydFittingFamily']]) {
+                                        $HydFittingFamilyArr[$articles[$headerKeysIndex['HydFittingFamily']]] = $articles[$headerKeysIndex['HydFittingFamily']];
                                     }
 
                                     if(!$shortDescription && $articles[$headerKeysIndex['shortDescription']]) {
@@ -313,6 +308,8 @@ class HydraulicFittingController extends FrontendController
             $parameterBag['footer_logo_src'] = $footer_logo_src;
             $parameterBag['containerRequest'] = $containerRequest;
         }
+
+        // p_r($parameterBag); die;
         return $this->render("@Catalog/Fitting/hydraulic_fitting.html.twig", $parameterBag);
     }
 
