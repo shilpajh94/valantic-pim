@@ -6,10 +6,12 @@ use Pimcore\Controller\FrontendController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class DefaultController extends FrontendController
 {
     private $classDefinition;
+    protected $container;
 
     /**
      * @Route("/rest_api")
@@ -22,12 +24,15 @@ class DefaultController extends FrontendController
     /**
      * @Route("/virtual_catalog/get_available_headers")
      */
-    public function getAvailableHeadersAction(Request $request) {
+    public function getAvailableHeadersAction(Request $request, ContainerInterface $container) {
 
+        $this->container = $container;
         $storeData=array();
         $completeData=array();
-        $cofigArray =  \Pimcore::getContainer()->get('app.config_provider_service')->getConfigFromYmlFile(PIMCORE_PROJECT_ROOT.'/bundles/RestApiBundle/Resources/config/config.yaml');
-        if(isset($cofigArray['parameters']['grouping_fields'][$request->get('table')]) && $cofigArray['parameters']['grouping_fields'][$request->get('table')]['field_type'] == 'Select')
+        $cofigArray = $this->container->get('app.config_provider_service')
+        ->getConfigFromYmlFile(PIMCORE_PROJECT_ROOT.'/bundles/RestApiBundle/Resources/config/config.yaml');
+        if(isset($cofigArray['parameters']['grouping_fields'][$request->get('table')]) &&
+        $cofigArray['parameters']['grouping_fields'][$request->get('table')]['field_type'] == 'Select')
         {
             \Pimcore::setAdminMode();
             $className = $cofigArray['parameters']['grouping_fields'][$request->get('table')]['container_name'];
@@ -39,8 +44,8 @@ class DefaultController extends FrontendController
             foreach ($options as $option) {
                 $storeData[] = [$option['value'], $option['key']];
                 $completeData[$option['value']] = array(
-                                                "fieldLevel" => "class", 
-                                                "fieldType" => "Select", 
+                                                "fieldLevel" => "class",
+                                                "fieldType" => "Select",
                                                 "fieldLabel" => $option['key'],
                                                 );
             }
@@ -50,8 +55,8 @@ class DefaultController extends FrontendController
           "storeData" => $storeData,
           "completeData" =>  $completeData,
           "type" => $type,
-          "success" => true 
-       ]; 
+          "success" => true
+       ];
        echo json_encode($arr);
        die();
  
@@ -68,8 +73,11 @@ class DefaultController extends FrontendController
         return $this->classDefinition[$className];
     }
 
-    public function getAvailableMappersAction(Request $request) {
-
+    /**
+     * @Route("/virtual_catalog/get_mapper_data")
+     */
+    public function getAvailableMappersAction(Request $request, ContainerInterface $container) {
+        $this->container = $container;
         $aliasValueArray = [];
         $listing = new \Pimcore\Model\DataObject\VirtualCatalogApiMapper\Listing();
         $listing->setCondition("oo_id = ? ", [$request->get('objId')]);
@@ -78,8 +86,8 @@ class DefaultController extends FrontendController
         foreach($listing as $obj)
         {
             $selectedField = $obj->getGroupingField();
-
-            if($selectedField == $request->get('table') && is_array($obj->getOriginalValues()) && !empty($obj->getOriginalValues()))
+            if($selectedField == $request->get('table') &&
+            is_array($obj->getOriginalValues()) && !empty($obj->getOriginalValues()))
             {
                 foreach($obj->getOriginalValues() as $values)
                 {
@@ -90,9 +98,11 @@ class DefaultController extends FrontendController
         }
         $storeData=array();
         $newData=array();
-        $cofigArray =  \Pimcore::getContainer()->get('app.config_provider_service')->getConfigFromYmlFile(PIMCORE_PROJECT_ROOT.'/bundles/RestApiBundle/Resources/config/config.yaml');
+        $cofigArray =  $this->container->get('app.config_provider_service')
+        ->getConfigFromYmlFile(PIMCORE_PROJECT_ROOT.'/bundles/RestApiBundle/Resources/config/config.yaml');
         $type = $cofigArray['parameters']['grouping_fields'][$request->get('table')]['field_type'];
-        if(isset($cofigArray['parameters']['grouping_fields'][$request->get('table')]) && $cofigArray['parameters']['grouping_fields'][$request->get('table')]['field_type'] == 'Select')
+        if(isset($cofigArray['parameters']['grouping_fields'][$request->get('table')]) &&
+        $cofigArray['parameters']['grouping_fields'][$request->get('table')]['field_type'] == 'Select')
         {
             \Pimcore::setAdminMode();
             $className = $cofigArray['parameters']['grouping_fields'][$request->get('table')]['container_name'];
@@ -110,7 +120,7 @@ class DefaultController extends FrontendController
                 $storeData[] = [$option['value'], $option['key'], $aliasText];
                 $newData[] = [''];
             }
-        } 
+        }
 
         $arrayVar = [
             "objectData" => $aliasValueArray,
@@ -151,7 +161,7 @@ class DefaultController extends FrontendController
             ],
             "data" =>  $storeData,
             "type" => $type
-        ];   
+        ];
         
         echo  json_encode($arrayVar); die();
     }

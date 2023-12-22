@@ -23,6 +23,7 @@ use RestApiBundle\RestTrait\RestResponce;
 use RestApiBundle\RestTrait\LanguageCode;
 use RestApiBundle\Security\ApiKeyUserProvider;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Pimcore\Db;
 
 class ProductController extends FrontendController
 {
@@ -51,26 +52,22 @@ class ProductController extends FrontendController
     private $vcRestAPILogFileName   =   '';
 
     protected $container;
+    private $db;
+
+    const RESPONSE = "Response:-";
+    const VIRTUAL_CATALOG_DATA_NOT_FOUND = 'Virtual catalog data not found!';
     
     /**
      * Constructor function to set variables
      */
     public function __construct(ContainerInterface $container)
     {
+        $this->db = Db::get();
         $this->container = $container;
         $this->service = $this->container->get('restapi_product_model_service');
         $this->vcRestAPILogFileName ='virtual_catalog_restapi_log_'. date("Ymd");
         $this->security = new ApiKeyUserProvider();
     }
-
-    /**
-     * Disabling layout for apis
-     */
-    // public function init()
-    // {
-    //     parent::init();
-    //     $this->disableLayout();
-    // }
 
     /**
      * Function to fetch products by ids,siopcode and UpdatedFrom to till date.
@@ -92,8 +89,6 @@ class ProductController extends FrontendController
         // $returnValidationFlag =   $this->validateApiKey($request);
         $returnValidationFlag = true;
         if($returnValidationFlag){
-            // Get Virtual catalog fields mapping configuration.
-            $vConfig = $this->service->getVirtualCatalogFieldMapping();
             // Get Parameter Array.
             $conditionArray =   $this->getParameterArray($request);
             // Get Virtual catalog data based on parameter request.
@@ -104,14 +99,17 @@ class ProductController extends FrontendController
             // If Virtual catalog data not exist return error.
             
             if (empty($productDetail)) {
-                \Pimcore\Log\Simple::log($this->vcRestAPILogFileName, "Response:-".json_encode($this->responseCode('ObjectNotFound', 'Virtual catalog data not found!')));
-                return $this->jsonResponce($this->responseCode('ObjectNotFound', 'Virtual catalog data not found!'), 404);
+                \Pimcore\Log\Simple::log($this->vcRestAPILogFileName, self::RESPONSE.json_encode
+                ($this->responseCode('ObjectNotFound', self::VIRTUAL_CATALOG_DATA_NOT_FOUND)));
+                return $this->jsonResponce($this->responseCode('ObjectNotFound',
+                self::VIRTUAL_CATALOG_DATA_NOT_FOUND), 404);
             }
-            \Pimcore\Log\Simple::log($this->vcRestAPILogFileName, "Response:-".json_encode($productDetail));
+            \Pimcore\Log\Simple::log($this->vcRestAPILogFileName, self::RESPONSE.json_encode($productDetail));
             return $this->jsonResponce($productDetail);
         }else{
-            \Pimcore\Log\Simple::log($this->vcRestAPILogFileName, "Response:-".json_encode($this->responseCode('ObjectNotFound', 'Virtual catalog data not found!')));
-            return $this->jsonResponce($this->responseCode('InvalidApiKey', 'Api key is not valid!'), 404);            
+            \Pimcore\Log\Simple::log($this->vcRestAPILogFileName, self::RESPONSE.json_encode
+            ($this->responseCode('ObjectNotFound', self::VIRTUAL_CATALOG_DATA_NOT_FOUND)));
+            return $this->jsonResponce($this->responseCode('InvalidApiKey', 'Api key is not valid!'), 404);
         }
     }
 
@@ -135,8 +133,6 @@ class ProductController extends FrontendController
          $returnValidationFlag =    $this->validateApiKey($request);
          
          if($returnValidationFlag){
-             // Get Virtual catalog fields mapping configuration.
-             $vConfig = $this->service->getVirtualCatalogFieldMapping();
              // Get Parameter Array.
              $conditionArray =   $this->getParameterArrayAPI($request);
              // Get Virtual catalog data based on parameter request.
@@ -146,14 +142,17 @@ class ProductController extends FrontendController
              \Pimcore\Log\Simple::log($this->vcRestAPILogFileName, "Request:-".json_encode($conditionArray));
              // If Virtual catalog data not exist return error.
              if (empty($productDetail)) {
-                 \Pimcore\Log\Simple::log($this->vcRestAPILogFileName, "Response:-".json_encode($this->responseCode('ObjectNotFound', 'Virtual catalog data not found!')));
-                 return $this->jsonResponce($this->responseCode('ObjectNotFound', 'Virtual catalog data not found!'), 404);
+                 \Pimcore\Log\Simple::log($this->vcRestAPILogFileName, self::RESPONSE.json_encode
+                 ($this->responseCode('ObjectNotFound', self::VIRTUAL_CATALOG_DATA_NOT_FOUND)));
+                 return $this->jsonResponce($this->responseCode('ObjectNotFound',
+                 self::VIRTUAL_CATALOG_DATA_NOT_FOUND), 404);
              }
-             \Pimcore\Log\Simple::log($this->vcRestAPILogFileName, "Response:-".json_encode($productDetail));
+             \Pimcore\Log\Simple::log($this->vcRestAPILogFileName, self::RESPONSE.json_encode($productDetail));
              return $this->jsonResponce($productDetail);
          }else{
-             \Pimcore\Log\Simple::log($this->vcRestAPILogFileName, "Response:-".json_encode($this->responseCode('ObjectNotFound', 'Virtual catalog data not found!')));
-             return $this->jsonResponce($this->responseCode('InvalidApiKey', 'Api key is not valid!'), 404);            
+             \Pimcore\Log\Simple::log($this->vcRestAPILogFileName, self::RESPONSE.json_encode
+             ($this->responseCode('ObjectNotFound', self::VIRTUAL_CATALOG_DATA_NOT_FOUND)));
+             return $this->jsonResponce($this->responseCode('InvalidApiKey', 'Api key is not valid!'), 404);
          }
      }
 
@@ -184,7 +183,7 @@ class ProductController extends FrontendController
      * @return array $parameterArray Parameters array
      *
      * @throws \Exception
-     */    
+     */
     private function getParameterArrayAPI($request){
         $parameterArray['apiKey'] = $request->headers->get('apiKey');
         $parameterArray['ids'] = $request->get('ids');
@@ -192,7 +191,7 @@ class ProductController extends FrontendController
         $parameterArray['page']= $request->get('page');
         $parameterArray['limit']= $request->get('limit');
         $parameterArray['updatedFrom'] = $request->get('updatedAt');
-        return  $parameterArray;    
+        return  $parameterArray;
     }
     
     /**
@@ -215,6 +214,6 @@ class ProductController extends FrontendController
         return false;
        }
         return true;
-    } 
+    }
 
 }
