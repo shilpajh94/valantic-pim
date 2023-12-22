@@ -15,6 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use IFSEU\ImportBundle\Services\ImportService;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\ClassDefinition;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class IFSEUProductEditableAttributesImportCommand extends AbstractCommand
 {
@@ -22,6 +23,12 @@ class IFSEUProductEditableAttributesImportCommand extends AbstractCommand
     private $t;
     private $featurePoints;
     const LOG_FILE_NAME = "ifseu-editable-product-attributes-log.csv";
+    private $container;
+    
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
 
     protected function configure()
     {
@@ -41,6 +48,7 @@ class IFSEUProductEditableAttributesImportCommand extends AbstractCommand
             p_r('--------------Total Execution Time---------------');
             p_r('Script completed after: ' . (abs(time() - $this->t) / 60) . ' mnt');
         }
+        return 1;
     }
 
     private function import($filePath)
@@ -58,7 +66,7 @@ class IFSEUProductEditableAttributesImportCommand extends AbstractCommand
 
         try {
                 // get editable product attribute config
-                $this->configProviderService    = \Pimcore::getContainer()->get('ifs_eu_import.config_provider_service');
+                $this->configProviderService    = $this->container->get('ifs_eu_import.config_provider_service');
 
                 // get imported csv data
                 $csvInfo        = ImportService::getCSVData($filePath);

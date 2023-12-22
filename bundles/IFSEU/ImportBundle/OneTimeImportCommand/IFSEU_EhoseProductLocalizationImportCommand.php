@@ -6,10 +6,17 @@ use Pimcore\Console\AbstractCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class IFSEU_EhoseProductLocalizationImportCommand extends AbstractCommand
 {
     private $lang;
+    private $container;
+
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
     protected function configure()
     {
         $this->setName('contitech:ifs:eu:ehose-product-localization-import')
@@ -23,7 +30,9 @@ class IFSEU_EhoseProductLocalizationImportCommand extends AbstractCommand
 
         $localizedLanguage=$input->getArgument('localizedLanguage');
         $filePath=$input->getArgument('filePath');
-        $serviceObj = \Pimcore::getContainer()->get('ifs_eu_import.product_import_localization');
+        $serviceObj = $this->container->get('ifs_eu_import.product_import_localization');
         $serviceObj->import($filePath,$localizedLanguage);
+        return 1;
     }
+    
 }

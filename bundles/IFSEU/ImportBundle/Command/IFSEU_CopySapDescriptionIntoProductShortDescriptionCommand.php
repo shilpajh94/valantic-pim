@@ -39,7 +39,7 @@ class IFSEU_CopySapDescriptionIntoProductShortDescriptionCommand extends Abstrac
 
         $sql = $select.$join." Where ". $productTypeCondition." And ".$languageCondition." And ".$productShortDescriptionCondition;
         try{
-            $modifiedEmptyProductShortDescriptionProductIds = $this->db->fetchCol($sql);
+            $modifiedEmptyProductShortDescriptionProductIds = $this->db->fetchFirstColumn($sql);
         }catch (\Exception $exception){
             Logger::error("Exception: " . $exception->getMessage());
             throw new \Exception("An unexpected error occurred.");
@@ -66,6 +66,7 @@ class IFSEU_CopySapDescriptionIntoProductShortDescriptionCommand extends Abstrac
                 Logger::error("Exception: " . $exception->getMessage());
             }
         }
+        return 1;
 
     }
 }

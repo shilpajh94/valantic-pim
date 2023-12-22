@@ -6,6 +6,7 @@ namespace IFSEU\ImportBundle\Services;
 use AppBundle\Lib\UnitConversion\ConverterFactory;
 use AppBundle\Lib\UnitConversion\Unit;
 use Wvision\Bundle\DataDefinitionsBundle\Lib\DataImportLogger;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * responsible to handle the unit conversion requirements according to the attribute_group config
@@ -29,9 +30,13 @@ class UnitConverterService
      * UnitConverterService constructor.
      * @param ConfigProviderService $configProviderService
      */
-    public function __construct()
+
+     private $container;
+     
+    public function __construct(ContainerInterface $container)
     {
-        $this->configProvider = \Pimcore::getContainer()->get('ifs_eu_import.config_provider_service');
+        $this->container = $container;
+        $this->configProvider = $this->container->get('ifs_eu_import.config_provider_service');
     }
 
     /**

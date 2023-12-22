@@ -8,6 +8,7 @@ use Pimcore\Db;
 use IFSEU\ImportBundle\Services\ImportConstants;
 use IFSEU\ProductBundle\Services\ImportConstants as ServicesImportConstants;
 use Pimcore\Model\DataObject;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 
 
@@ -32,21 +33,24 @@ class SalesMaterialService
     private $distributionChannelArray = array();
     private $productUpdateArray = array();
     private $failedIDs = [];
+    private $container;
 
     const LOGGER_MODULE = 'IFSEU SALES MATERIAL MASTER';
 
-    public function __construct() {
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
         $this->db = Db::get();
         /* Initilize monitoring item and set the number of steps will take to complete the task */
-        $this->common = \Pimcore::getContainer()->get('ifs_eu_import.common_helper');
+        $this->common = $this->container->get('ifs_eu_import.common_helper');
         $this->tableImportHelper = new SalesMaterialModel;
-        $salesMaterialConfig = \Pimcore::getContainer()->get('ifs_eu_import.config_provider_service')->getSalesMaterialConfig();
+        $salesMaterialConfig = $this->container->get('ifs_eu_import.config_provider_service')->getSalesMaterialConfig();
         $this->mappingCsvColumn = $this->common->getParameter($salesMaterialConfig, 'mappingCsvColumn');
     }
 
     public function import() {
         
-        $sapFileFeeder  = \Pimcore::getContainer()->get('ifs_eu_import.sap_file_feeder_service');
+        $sapFileFeeder  = $this->container->get('ifs_eu_import.sap_file_feeder_service');
         $this->filePath = $sapFileFeeder->execFileFeeder('salesMaterial');
 
         $csvImportedData = ImportService::getCSVData($this->filePath);
@@ -294,7 +298,7 @@ class SalesMaterialService
 
                         $materialFolderId= DataObject\Service::createFolderByPath(ImportConstants::IFSEU_MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER."/".$material)->getId();
                         $query = "SELECT oo_id, o_parentId, o_key, o_path FROM `object_IFSEUSalesMaterialMaster` WHERE `o_parentId` = '{$materialFolderId}' AND `o_key` LIKE '%{$salesMaterialKey}%' limit 1";
-                        $objectMaterial = $this->db->fetchRow($query);
+                        $objectMaterial = $this->db->fetchAssociative($query);
         
                         if(!empty(trim($plantName)) && !isset($this->plantArray[$plantName])) {
                             $plantId = $this->getPlantObject($plantName, $plantFolderId);
@@ -483,7 +487,7 @@ class SalesMaterialService
      */
     public function getMaterialObject($MaterialKey) {
         $query = "SELECT oo_id, o_key, o_path FROM `object_IFSEUProduct` WHERE `materialNumber` LIKE '%{$MaterialKey}%' limit 1";
-        $objectMaterial = $this->db->fetchAll($query);
+        $objectMaterial = $this->db->fetchAllAssociative($query);
         
         foreach ($objectMaterial as $material) {
             return $material['oo_id'];

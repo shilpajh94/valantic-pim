@@ -122,11 +122,6 @@ class ProductModel
             foreach ($dataArray as $data) {
                     $valueArray = [];
                     foreach ($valColumns as $key) {
-                        // if (is_null($data[$key]) || $data[$key] == '') {
-                        //     $valueArray[] = "NULL";      
-                        // } else {
-                        //     $valueArray[] = $this->db->quote($data[$key]);
-                        // }
                         $valueArray[] = isset($data[$key]) ? $this->db->quote($data[$key]) : "NULL";
                     }
                 $values .= '('.implode(",", $valueArray).'),';

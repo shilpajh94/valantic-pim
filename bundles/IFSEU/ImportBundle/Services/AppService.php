@@ -7,6 +7,7 @@ use Pimcore\Model\DataObject\ClassDefinition;
 use Pimcore\Model\DataObject\Folder;
 use Pimcore\Model\DataObject\IFSEUProduct;
 use Pimcore\Model\DataObject\Service;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 
 class AppService
@@ -22,16 +23,18 @@ class AppService
     private $configProviderService;
 
     private $db;
+    private $container;
 
     /**
      * AppService constructor.
      * @param UnitConverterService $unitConverterService
      * @param ConfigProviderService $configProviderService
      */
-    public function __construct()
+    public function __construct(ContainerInterface $container)
     {
-        $this->unitConverterService = \Pimcore::getContainer()->get('ifs_eu_import.unit_conversion_import_service');;
-        $this->configProviderService = \Pimcore::getContainer()->get('ifs_eu_import.config_provider_service');
+        $this->container = $container;
+        $this->unitConverterService = $this->container->get('ifs_eu_import.unit_conversion_import_service');;
+        $this->configProviderService = $this->container->get('ifs_eu_import.config_provider_service');
         $this->db = \Pimcore\Db::get();
     }
 

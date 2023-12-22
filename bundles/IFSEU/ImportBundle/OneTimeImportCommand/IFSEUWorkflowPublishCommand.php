@@ -25,13 +25,13 @@ class IFSEUWorkflowPublishCommand extends AbstractCommand
         if($productsList)
         {
             $sql = "SELECT `cid` from element_workflow_state";
-            $record = $this->db->fetchAll($sql);
+            $record = $this->db->fetchAllAssociative($sql);
             foreach ($productsList->getObjects() as $obj) {
                 $objectId = $obj->getId();
                 $key = array_search($objectId, array_column($record, 'cid'));
                 if ($key){
                     $updateQuery = "UPDATE element_workflow_state SET place = 'published' where cid = $objectId";
-                    $this->db->executeUpdate($updateQuery);
+                    $this->db->executeStatement($updateQuery);
                     print_r('Updated state for ----- '.$objectId);
                     echo PHP_EOL;
                 }else{
@@ -44,5 +44,6 @@ class IFSEUWorkflowPublishCommand extends AbstractCommand
     
             
         }
+        return 1;
     }
 }

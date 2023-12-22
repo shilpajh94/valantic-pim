@@ -86,7 +86,7 @@ class PriceModel
     {
         try {
             $sql   = "SELECT t.id, t.record FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE (t.hash != m.hash OR m.id is null) ";
-            return $this->db->fetchAll($sql);
+            return $this->db->fetchAllAssociative($sql);
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
@@ -97,7 +97,7 @@ class PriceModel
      */
     public function getDeletedPriceDataProducts() {
         $sql   = "SELECT m.id FROM {$this->masterTable} m LEFT JOIN {$this->tempTable} t ON t.id = m.id WHERE t.id IS NULL";
-        return $this->db->fetchAll($sql);
+        return $this->db->fetchAllAssociative($sql);
     }
     
     /**
@@ -105,7 +105,7 @@ class PriceModel
      */
     public function getAllProducts() {
         $sql   = "SELECT oo_id, materialNumber, priceData FROM `object_query_IFSEUProduct` WHERE materialNumber IS NOT NULL";
-        $queryData = $this->db->fetchAll($sql);
+        $queryData = $this->db->fetchAllAssociative($sql);
 
         return [
             'queryTableData' => $queryData

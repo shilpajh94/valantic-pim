@@ -8,6 +8,7 @@ use \Pimcore\Model\Asset;
 use Pimcore\Model\DataObject\IFSEUProduct;
 use IFSEU\ImportBundle\Model\ProductModel;
 use Pimcore\Db;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ProductAssetMappingService
 {   
@@ -16,12 +17,14 @@ class ProductAssetMappingService
     private $assetConfigData;
 
     private $productModel;
+    private $container;
    
-    public function __construct()
+    public function __construct(ContainerInterface $container)
     {
+        $this->container = $container;
         $this->db = Db::get();
         $this->productModel    = new ProductModel;
-        $this->assetConfigData = \Pimcore::getContainer()->get('ifs_eu_import.config_provider_service')->getAssetConfig();
+        $this->assetConfigData = $this->container->get('ifs_eu_import.config_provider_service')->getAssetConfig();
     }
 
     public function import(string $filePath, string $downloadOrMapping): void

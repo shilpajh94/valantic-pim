@@ -1298,22 +1298,22 @@ class EHoseProductImportService
         $this->storeTableDataArray[] = $storeTableDataArray;
     }
     public function getRelationTableData($objId, $record, $levelInfo, $level=5, $productType = 'fert') {
-        // for ($k=1; $k<=$level; $k++) {
-        //     $index = 'SIOPLevel'.$k;
-        //     $catCode = $levelInfo[$k]['levelFullCode'];
-        //     $targetId = $this->categories[$catCode]['id'];
-        //     $this->relationTableDataDeleteArray[$index][] = $objId;
-        //     $this->relationTableDataArray[] = [
-        //         'src_id' => $objId,
-        //         'dest_id' => $targetId,
-        //         'type' => 'object',
-        //         'fieldname' => $index,
-        //         'ownertype' => 'object',
-        //         'index' => 0,
-        //         'ownername' => '',
-        //         'position' => 0
-        //     ];
-        // }
+        for ($k=1; $k<=$level; $k++) {
+            $index = 'SIOPLevel'.$k;
+            $catCode = $levelInfo[$k]['levelFullCode'];
+            $targetId = $this->categories[$catCode]['id'];
+            $this->relationTableDataDeleteArray[$index][] = $objId;
+            $this->relationTableDataArray[] = [
+                'src_id' => $objId,
+                'dest_id' => $targetId,
+                'type' => 'object',
+                'fieldname' => $index,
+                'ownertype' => 'object',
+                'index' => 0,
+                'ownername' => '',
+                'position' => 0
+            ];
+        }
         if (strtolower($productType) == 'fert') {
             // $materialGroupCode = trim($record[$this->getRecordIndexByKey('group')]);
             // $materialGroupId = $this->getOrCreateMaterialGroupCodeId($materialGroupCode);

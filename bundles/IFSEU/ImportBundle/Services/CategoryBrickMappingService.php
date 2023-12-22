@@ -6,6 +6,7 @@ namespace IFSEU\ImportBundle\Services;
 use Pimcore\Model\DataObject\IFSEUProduct;
 use Pimcore\Model\DataObject\IFSEUProductCategory;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 
 class CategoryBrickMappingService
@@ -19,9 +20,13 @@ class CategoryBrickMappingService
      * CategoryBrickMappingService constructor.
      * @param \IFSEU\ImportBundle\Services\ConfigProviderService $configProviderService
      */
-    public function __construct()
+
+     private $container;
+
+    public function __construct(ContainerInterface $container)
     {
-        $this->configProviderService= \Pimcore::getContainer()->get('ifs_eu_import.config_provider_service');
+        $this->container = $container;
+        $this->configProviderService= $this->container->get('ifs_eu_import.config_provider_service');
     }
 
     /**

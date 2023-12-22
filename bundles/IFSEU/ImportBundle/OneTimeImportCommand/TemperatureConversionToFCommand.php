@@ -10,21 +10,23 @@ use Pimcore\Model\DataObject;
 use IFSEU\ProductBundle\Services\ImportConstants;
 use Symfony\Component\Yaml\Yaml;
 use Exception;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class TemperatureConversionToFCommand extends AbstractCommand
 {
     private $unitConversionService;
-
+    private $container;
 
     protected function configure()
     {
         $this->setName('ifs-eu-temperature-conversion-to-farenheit-command')
             ->setDescription('Temperature conversion to farenheit command');
     }
-    public function __construct(){
+    public function __construct(ContainerInterface $container)
+    {
         parent::__construct();
-        $this->unitConversionService= \Pimcore::getContainer()->get('ifs_eu_import.unit_conversion_import_service');
-
+        $this->container = $container;
+        $this->unitConversionService= $this->container->get('ifs_eu_import.unit_conversion_import_service');
     }
 
 
@@ -73,5 +75,6 @@ class TemperatureConversionToFCommand extends AbstractCommand
         }catch(Exception $ex){
             p_r($ex->getMessage());
         }
+        return 1;
     }
 }

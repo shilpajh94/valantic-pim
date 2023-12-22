@@ -4,7 +4,7 @@ namespace IFSEU\ImportBundle\Services\Validator;
 
 use Exception;
 use Pimcore\Model\DataObject;
-
+use Symfony\Component\DependencyInjection\ContainerInterface;
 class Category
 {
     public $columns;
@@ -17,14 +17,18 @@ class Category
     public $businessUnit;
     public $rowCnt;
     private $catConfigData;
+    private $common;
+    private $catHelper;
+    private $container;
     
-    public function __construct()
+    public function __construct(ContainerInterface $container)
     {
+        $this->container = $container;
         $this->rowCnt = 0;
         /* Column name and it's position */
-        $this->common = \Pimcore::getContainer()->get('ifs_eu_import.common_helper');
-        $this->catConfigData = \Pimcore::getContainer()->get('ifs_eu_import.config_provider_service')->getCategoryConfig();
-        $this->catHelper = \Pimcore::getContainer()->get('ifs_eu_import.category_helper');
+        $this->common = $this->container->get('ifs_eu_import.common_helper');
+        $this->catConfigData = $this->container->get('ifs_eu_import.config_provider_service')->getCategoryConfig();
+        $this->catHelper = $this->container->get('ifs_eu_import.category_helper');
         $this->columns = $this->common->getParameterItem($this->catConfigData, 'sheet','columnName');
     }
 

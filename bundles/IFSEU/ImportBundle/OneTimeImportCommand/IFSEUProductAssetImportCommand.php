@@ -12,11 +12,17 @@ use Pimcore\Console\AbstractCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class IFSEUProductAssetImportCommand extends AbstractCommand
 {
     private $t;
+    private $container;
+    
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
 
     protected function configure()
     {
@@ -39,10 +45,11 @@ class IFSEUProductAssetImportCommand extends AbstractCommand
         if (is_file($filePath)) {
             p_r('Script started at: ' . date('h:i:s', $this->t));
             p_r('------------------------------------------------');
-            $serviceObj = \Pimcore::getContainer()->get('ifs_eu_import.sap_product_asset_service');
+            $serviceObj = $this->container->get('ifs_eu_import.sap_product_asset_service');
             $serviceObj->import($filePath, $downloadOrMapping);
             p_r('--------------Total Execution Time---------------');
             p_r('Script completed after: ' . (abs(time() - $this->t) / 60) . ' mnt');
         }
+        return 1;
     }
 }

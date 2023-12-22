@@ -2,8 +2,15 @@
 
 namespace IFSEU\ImportBundle\Helper;
 use Exception;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 class Common
 {
+    private $container;
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
+
     public function getParameter($data, $key) {
         if(!empty($data) && isset($data['parameters'])) {
             return isset($data['parameters'][$key])?$data['parameters'][$key]:false;       
@@ -11,7 +18,7 @@ class Common
     }
 
     public function getInstance($service) {
-        return \Pimcore::getContainer()->get($service);
+        return $this->container->get($service);
     }
 
     public function getParameterItem($data, $key, $item) {

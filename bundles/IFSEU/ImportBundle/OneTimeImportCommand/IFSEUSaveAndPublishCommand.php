@@ -22,7 +22,7 @@ class IFSEUSaveAndPublishCommand extends AbstractCommand
 	{
 		$this->db = Db::get();
 		$getIfseuProductIdsSQL = "SELECT oo_id from object_IFSEUProduct";
-		$productIds = $this->db->fetchAll($getIfseuProductIdsSQL);
+		$productIds = $this->db->fetchAllAssociative($getIfseuProductIdsSQL);
 		$trucateSql = "TRUNCATE TABLE ifseu_product_left_to_save";
 		$this->db->query($trucateSql);
 		foreach($productIds as $productId)
@@ -31,7 +31,7 @@ class IFSEUSaveAndPublishCommand extends AbstractCommand
 			$this->db->query($insertSql);
 		}
 		$sql = "SELECT `oo_id` from ifseu_product_left_to_save";
-		$record = $this->db->fetchAll($sql);
+		$record = $this->db->fetchAllAssociative($sql);
 		p_r(count($record));
 		foreach($record as $oo_id){
 			$id = $oo_id['oo_id'];
@@ -50,5 +50,6 @@ class IFSEUSaveAndPublishCommand extends AbstractCommand
 			}
 			\Pimcore::collectGarbage();
 		}
+		return 1;
 	}
 }

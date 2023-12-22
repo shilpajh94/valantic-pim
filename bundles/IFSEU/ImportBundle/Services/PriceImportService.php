@@ -8,21 +8,26 @@ use AppBundle\Logger\AppLogger as Logger;
 use Pimcore\Model\DataObject;
 use IFSEU\ImportBundle\Services\ImportService;
 use IFSEU\ImportBundle\Model\PriceModel;
-
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class PriceImportService {
         private $filePath;
         private $logArray;
         private $products = [];    
         public $priceModel;
-        public function __construct() 
-        { 
+        private $csvHeader;
+        private $queryTableNewData;
+        private $storeTableNewData;
+        private $container;
+        public function __construct(ContainerInterface $container)
+        {
+            $this->container = $container;
             $this->priceModel       = new PriceModel;     
         }
         
         public function import()
         {
-            $sapFileFeeder  = \Pimcore::getContainer()->get('ifs_eu_import.sap_file_feeder_service');
+            $sapFileFeeder  = $this->container->get('ifs_eu_import.sap_file_feeder_service');
             $this->filePath = $sapFileFeeder->execFileFeeder('price');
             $csvInfo        = ImportService::getCSVData($this->filePath);
             $this->csvHeader= array_flip($csvInfo['header']);
@@ -83,7 +88,6 @@ class PriceImportService {
      
         public function processPriceData($sapPriceData) {
             $i = $j = 0;
-            
             foreach ($sapPriceData as $record) {
                 $artNo = $record['id'];
                 if (!empty($this->products[$artNo])) {
@@ -98,7 +102,7 @@ class PriceImportService {
                 }
                 $this->logArray[] = [
                     'id' => $artNo,
-                    'record' => $record['record'],
+                    'record' => isset($record['record']) ? $record['record'] : '',
                     'status' => $status,
                     'reason' => $msg,
                     'createdAt' => time()
@@ -122,16 +126,15 @@ class PriceImportService {
                 $dataArray = (array) json_decode($record['record']);
                 foreach ($dataArray as $priceData) {
                     $uniqueKeyArr = [];
+
                     $uniqueKeyArr[] = $priceData[1]; // Sales Organization
                     $uniqueKeyArr[] = $priceData[2]; // Distribution Channel
                     $uniqueKeyArr[] = $priceData[3]; // End Date
                     $uniqueKeyArr[] = $priceData[4]; // Start Date
+                    $uniqueKeyArr[] = $priceData[5]; // Condition Type
                     $uniqueKeyArr[] = $priceData[6]; // Rate
                     $uniqueKeyArr[] = $priceData[7]; // Rate Unit
-                    $uniqueKeyArr[] = $priceData[8]; // Condition Type
-                    $uniqueKeyArr[] = $priceData[9]; // Price Ref.
-                    $uniqueKeyArr[] = $priceData[10]; // Per
-                    $uniqueKeyArr[] = $priceData[11]; // Unit
+
                     $uniqueKey = implode('_', $uniqueKeyArr);
                     $priceDataArray = [
                         $uniqueKey,
@@ -142,7 +145,6 @@ class PriceImportService {
                         trim($priceData[6]),
                         $priceData[7],
                         $priceData[5],
-                        $priceData[10],
                     ];
                     $storeTablePriceArray[] = $priceDataArray;
                     $queryTablePriceDataStr = implode('|', $priceDataArray);

@@ -8,6 +8,7 @@ use AppBundle\Logger\AppLogger as Logger;
 use IFSEU\ImportBundle\Services\ImportService;
 use IFSEU\ImportBundle\Services\ImportConstants;
 use Throwable;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class CategoryService
 {
@@ -28,16 +29,18 @@ class CategoryService
     private $catHelper;
     private $catConfigData;
     private $processingCode;
-    public function __construct()
+    private $container;
+    public function __construct(ContainerInterface $container)
     {
         try {
+            $this->container = $container;
             $this->logFileName  = 'ifseu-product-category-log-'.date('Y-m-d-his');
-            $this->common = \Pimcore::getContainer()->get('ifs_eu_import.common_helper');
+            $this->common = $this->container->get('ifs_eu_import.common_helper');
             /* Load category configuration file */
-            $this->catConfigData = \Pimcore::getContainer()->get('ifs_eu_import.config_provider_service')->getCategoryConfig();
+            $this->catConfigData = $this->container->get('ifs_eu_import.config_provider_service')->getCategoryConfig();
             /* Initiating global category helper */
-            $this->catHelper = \Pimcore::getContainer()->get('ifs_eu_import.category_helper');
-            $this->instance = \Pimcore::getContainer()->get('ifs_eu_import.category_validator_service');
+            $this->catHelper = $this->container->get('ifs_eu_import.category_helper');
+            $this->instance = $this->container->get('ifs_eu_import.category_validator_service');
             $this->fileLastCol = $this->common->getParameterItem($this->catConfigData, 'sheet', 'lastColName');
 
             /* Create parent if it does not exist */
