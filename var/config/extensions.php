@@ -1,25 +1,28 @@
-<?php
+<?php 
 
 return [
     "bundle" => [
         "ADAuthBundle\\ADAuthBundle" => FALSE,
+        // "Elements\\Bundle\\ProcessManagerBundle\\ElementsProcessManagerBundle" => TRUE,
         "ImportBundle\\ImportBundle" => TRUE,
-<<<<<<< HEAD
-        "RequiredAttributesBundle\\RequiredAttributesBundle" => TRUE,
-=======
         // "RequiredAttributesBundle\\RequiredAttributesBundle" => TRUE,
         // "S3CustomizationBundle\\S3CustomizationBundle" => TRUE,
         // "CatalogBundle\\CatalogBundle" => TRUE,
->>>>>>> ada53af86d69fb397e438db6507dacaac3cb6615
         "ContitechCS\\ProductBundle\\ContitechCSProductBundle" => TRUE,
         "ContitechCS\\ImportBundle\\ContitechCSImportBundle" => TRUE,
+        // "ContitechCS\\CatalogBundle\\ContitechCSCatalogBundle" => TRUE,
         "ContitechCS\\CatalogUIApiBundle\\CatalogUIApiBundle" => TRUE,
+        // "Wvision\\Bundle\\DataDefinitionsBundle\\DataDefinitionsBundle" => TRUE,
+        // "DistributionHubBundle\\DistributionHubBundle" => TRUE,
         "EmailNotificationBundle\\EmailNotificationBundle" => TRUE,
         "PTGEU\\ProductBundle\\PTGEUProductBundle" => TRUE,
         "PTGEU\\ImportBundle\\PTGEUImportBundle" => TRUE,
+        "B2BTranslationBundle\\B2BTranslationBundle" => TRUE,
         "IFSEU\\RestApiBundle\\IFSEURestApiBundle" => TRUE,
         "RestApiBundle\\RestApiBundle" => TRUE,
         "IFSEU\\ProductBundle\\IFSEUProductBundle" => TRUE,
-        "IFSEU\\ImportBundle\\IFSEUImportBundle" => TRUE
+        "IFSEU\\ImportBundle\\IFSEUImportBundle" => TRUE,
+        // "PTGEU\\CatalogBundle\\PTGEUCatalogBundle" => TRUE,
+        // "PimDataPostBundle\\PimDataPostBundle" => TRUE
     ]
 ];

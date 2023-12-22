@@ -11,7 +11,7 @@ use B2BTranslationBundle\PimDataExport\PimDataExportHelper;
 
 class PimDataExportCommand extends AbstractCommand
 {
-    private $BusinessUnits = ['1' => 'IFS_PTG_US', '2' => 'CS', '3' => 'PTG_EU', '4' => 'IFS_EMEA'];
+    private $businessUnits = ['1' => 'IFS_PTG_US', '2' => 'CS', '3' => 'PTG_EU', '4' => 'IFS_EMEA'];
     private $bu;
     private $helper;
 
@@ -19,7 +19,9 @@ class PimDataExportCommand extends AbstractCommand
     {
         $this->setName('contitech:b2b:pim-data-export-command')
             ->setDescription('Create and send translation csv to ftp')
-            ->addArgument('optionForBusinessUnit', InputArgument::REQUIRED, "Enter 'IFS_PTG_US' for 'IFS/PTG US', 'CS' for 'Conveyor Solution', 'PTG_EU' for 'PTG EU' and 'IFS_EMEA' for 'IFS EMEA'");
+            ->addArgument('optionForBusinessUnit', InputArgument::REQUIRED,
+            "Enter 'IFS_PTG_US' for 'IFS/PTG US', 'CS' for 'Conveyor Solution',
+            'PTG_EU' for 'PTG EU' and 'IFS_EMEA' for 'IFS EMEA'");
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
@@ -30,7 +32,7 @@ class PimDataExportCommand extends AbstractCommand
         $this->helper->logMessage($msg, LogLevel::INFO());
 
         $optionForBusinessUnit = $input->getArgument('optionForBusinessUnit');
-        if(in_array($optionForBusinessUnit,$this->BusinessUnits))
+        if(in_array($optionForBusinessUnit,$this->businessUnits))
         {
             $this->bu = $optionForBusinessUnit;
             $this->exportDataForB2BShop();
@@ -65,4 +67,3 @@ class PimDataExportCommand extends AbstractCommand
         echo PHP_EOL;
     }
 }
-?>

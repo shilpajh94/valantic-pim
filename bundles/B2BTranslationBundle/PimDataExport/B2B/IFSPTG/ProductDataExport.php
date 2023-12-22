@@ -15,7 +15,7 @@ class ProductDataExport implements IDataExport
     private $db;
     private $bu;
     private $common;
-    private $helper; 
+    private $helper;
     private $languages;
     private $productAttributeConfig;
     private $headerMapping;
@@ -25,6 +25,8 @@ class ProductDataExport implements IDataExport
         'PTG_EU' => 'PTGEUProduct',
         'IFS_EU' => 'IFSEUProduct',
     ];
+
+    private $languageNameDisplayArray;
 
     public function __construct($bu)
     {
@@ -36,10 +38,12 @@ class ProductDataExport implements IDataExport
 
     public function exportData()
     {
+        $languageNameDisplayArray = array('en' => 'en_US', 'fi_FI' => 'fi', 'it_IT' => 'it', 'nn_NO' => 'no', 'pl_PL' => 'pl', 'pt' => 'pt_PT', 'ro_RO' => 'ro', 'ru_RU' => 'ru', 'sv_SE' => 'sv', 'zh' => 'zh_CN');
+
         $this->helper->logMessage("{$this->bu}: Script Execution Started", LogLevel::DEBUG());
         try{
             # Get valid languages
-            $this->languages = \Pimcore\Tool::getValidLanguages(); 
+            $this->languages = \Pimcore\Tool::getValidLanguages();
 
             $this->productAttributeConfig = $this->helper->getLocalizedAttribute($this->bu,'Product');
             if($this->productAttributeConfig)
@@ -159,14 +163,14 @@ class ProductDataExport implements IDataExport
                             // $filePath = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR."{$this->bu}_Product_".date('M')."_".date('d')."_".date('Y').".csv";
                             // $file = fopen($filePath,"w+");
 
-                            $filePath1 = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR."SFPIM_PRODUCT_TRANSLATION_INSERT.csv";
+                            $filePath1 = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR."SFPIM_PRODUCT_TRANSLATION_INSERT".date('M')."_".date('d')."_".date('Y').".csv";
                             $file1 = fopen($filePath1,"w+");
 
-                            $filePath2 = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR."SFPIM_PRODUCT_TRANSLATION_UPDATE.csv";
-                            $file2 = fopen($filePath2,"w+");
+                            // $filePath2 = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR."SFPIM_PRODUCT_TRANSLATION_UPDATE".date('M')."_".date('d')."_".date('Y').".csv";
+                            // $file2 = fopen($filePath2,"w+");
 
 
-                            foreach ($b2bProductsChucks as $batchNum => $productIds) 
+                            foreach ($b2bProductsChucks as $batchNum => $productIds)
                             {
                                 echo "Processing Batch - ".($batchNum+1). ", It holds ".count($productIds)." products ".PHP_EOL;
                                 
@@ -175,7 +179,6 @@ class ProductDataExport implements IDataExport
                                     # Product's non localized field
                                     $productNonLocalisedSelectFilteredAttributeField = array_keys($productNonLocalisedSelectFilteredAttribute);
                                     $result0 = $this->getRecordsWithFilteredMasterFields($productNonLocalisedSelectFilteredAttributeField, $productIds);
-
                                     if(isset($result0[0]['brandName']))
                                     {
                                         foreach ($result0 as $key => $value) {
@@ -191,10 +194,9 @@ class ProductDataExport implements IDataExport
                                     $localizeData1 = [];
                                     $productFilteredAttributeField = array_keys($productFilteredAttribute);
                                     $result1 = $this->getRecordsWithFilteredFields($productFilteredAttributeField, $productIds);
-                                    // p_r($result1);
                                     foreach ($result1 as $key => $fields) {
                                         foreach ($fields as $fkey => $field) {
-                                            if(!in_array($fkey, ['ooo_id','language']))
+                                            if(!in_array($fkey, ['oo_id','language']))
                                             {
 
                                                 if($fkey == 'FeaturesBenefitsBulletPoint')
@@ -212,16 +214,19 @@ class ProductDataExport implements IDataExport
                                                         }
                                                     }
 
-                                                    $localizeData1[$fields['ooo_id']][$fkey][$fields['language']] = ($featureStringList) ? implode("|", $featureStringList) : '';
+                                                    $localizeData1[$fields['oo_id']][$fkey][$fields['language']] = ($featureStringList) ? implode("|", $featureStringList) : '';
+                                                }
+                                                elseif($fkey == 'productShortDescription' && $field == ''){
+                                                    $productShortDescription_en = $this->getProductShortDescriptionValueInEnglish($result1, $fields['oo_id']);
+                                                    $localizeData1[$fields['oo_id']][$fkey][$fields['language']] = $productShortDescription_en;
                                                 }
                                                 else{
-                                                    $localizeData1[$fields['ooo_id']][$fkey][$fields['language']] = $field;
+                                                    $localizeData1[$fields['oo_id']][$fkey][$fields['language']] = $field;
                                                 }
                                                 
                                             }
                                         }
                                     }
-                                    // p_r($localizeData1);
                                     
                                     # Product's localized multiselect localized field data
                                     $localizeData2 = [];
@@ -230,7 +235,6 @@ class ProductDataExport implements IDataExport
                                         $fkey = $columm['fieldName'];
                                         $objectBricksLocalisedFields[] = "TRIM(BOTH ',' FROM $fkey) AS $key";
                                     }
-                                    
                                     if($objectBricksLocalisedFields)
                                     {
                                         $result2 = $this->getRecordsWithFilteredMasterFields($objectBricksLocalisedFields, $productIds);
@@ -239,7 +243,7 @@ class ProductDataExport implements IDataExport
                                         {
                                             foreach ($result2 as $key => $fields) {
                                                 foreach ($fields as $fkey => $field) {
-                                                    $masterType = $productMultiSelectFilteredAttribute[$fkey]['masterType'];
+                                                    $masterType = isset($productMultiSelectFilteredAttribute[$fkey]['masterType']) ? $productMultiSelectFilteredAttribute[$fkey]['masterType'] : null;
                                                     if(isset($multiSelectMastersGroupList[$masterType][$field]))
                                                     {
                                                         $master = $multiSelectMastersGroupList[$masterType][$field];
@@ -259,19 +263,22 @@ class ProductDataExport implements IDataExport
                                         $localizeDataNonLocalized[$key] = '';
                                         $objectBricksNonLocalisedFields[$columm['objectBrickClassName']][] = "TRIM(BOTH ',' FROM $fkey) AS $key";
                                     }
-
-                                    if($objectBricksNonLocalisedFields);
+                                    
+                                    if($objectBricksNonLocalisedFields)
                                     {
                                         $resultNonLocalized = $this->getRecordsWithFilteredObjectbrickMasterFields($objectBricksNonLocalisedFields, $productIds);
                                         if($resultNonLocalized)
                                         {
+
                                             foreach ($result0 as $key1 => $value1) {
                                                 $dataFound = [];
                                                 foreach ($resultNonLocalized as $key2 => $value2) {
                                                     if($value1['oo_id'] == $value2['o_id'])
                                                     {
-                                                        $dataFound = $value2;
-                                                        break;
+                                                        // $dataFound = $value2;
+                                                        // break;
+                                                        $dataFound = array_merge($dataFound,$value2);
+
                                                     }
                                                 }
 
@@ -293,7 +300,6 @@ class ProductDataExport implements IDataExport
                                         }
                                     }
                                     
-                                    
                                     if($productNomenClatureRelationalNonLocalizedAttribute)
                                     {
                                         $localizeDataNonLocalized = [];
@@ -310,7 +316,7 @@ class ProductDataExport implements IDataExport
                                             foreach ($result0 as $key1 => $value1) {
 
                                                 $dataFound = [];
-                                                foreach ($nomenClature as $key2 => $value2) 
+                                                foreach ($nomenClature as $key2 => $value2)
                                                 {
                                                     if($value1['oo_id'] == $value2['o_id'])
                                                     {
@@ -378,7 +384,7 @@ class ProductDataExport implements IDataExport
                                         {
                                             foreach ($result3 as $key => $fields) {
                                                 foreach ($fields as $fkey => $field) {
-                                                    $masterType = $productMultiSelectFilteredOjbectbrickAttribute[$fkey]['masterType'];
+                                                    $masterType = isset($productMultiSelectFilteredOjbectbrickAttribute[$fkey]['masterType']) ? $productMultiSelectFilteredOjbectbrickAttribute[$fkey]['masterType'] : null;
                                                     if(isset($multiSelectMastersGroupList[$masterType][$field]))
                                                     {
                                                         $master = $multiSelectMastersGroupList[$masterType][$field];
@@ -398,16 +404,16 @@ class ProductDataExport implements IDataExport
                                         $fkey = $columm['fieldName'];
                                         $objectBricksLocalisedFittingFields[$columm['objectBrickClassName']][] = "TRIM(BOTH ',' FROM $fkey) AS $key";
                                     }
-                                    
+
                                     if($objectBricksLocalisedFittingFields)
                                     {
                                         $result4 = $this->getRecordsWithFilteredObjectbrickMasterFields($objectBricksLocalisedFittingFields, $productIds);
 
                                         if($result4)
                                         {
-                                            foreach ($result4 as $key => $fields) 
+                                            foreach ($result4 as $key => $fields)
                                             {
-                                                foreach ($fields as $fkey => $field) 
+                                                foreach ($fields as $fkey => $field)
                                                 {
                                                     if(isset($fitingFamilyMastersGroupList[$field]))
                                                     {
@@ -438,16 +444,18 @@ class ProductDataExport implements IDataExport
                                             foreach ($productIds as $key => $id) {
 
                                                 $rawData = [];
-
                                                 foreach ($result0 as $rkey => $rvalue) {
                                                     if($id == $rvalue['oo_id'])
                                                     {
                                                         unset($rvalue['oo_id']);
-                                                        $rvalue['language'] = $language;
+                                                        if (array_key_exists($language,$languageNameDisplayArray)){
+                                                            $rvalue['language'] = $languageNameDisplayArray[$language];
+                                                        }else{
+                                                            $rvalue['language'] = $language;
+                                                        }
                                                         $rawData = $rvalue;
                                                     }
                                                 }
-
                                                 $common_header_list1 = array_intersect($header_Keys, $productFilteredAttributeField);
                                                 if($localizeData1)
                                                 {
@@ -457,7 +465,11 @@ class ProductDataExport implements IDataExport
                                                             $rawData[$field] = $localizeData1[$id][$field][$language];
                                                         }
                                                         else{
-                                                            $rawData[$field] = '';
+                                                            if($field == 'productShortDescription'){
+                                                                $rawData[$field] = $localizeData1[$id][$field]['en'];
+                                                            }else{
+                                                                $rawData[$field] = '';
+                                                            }
                                                         }
                                                     }
                                                 }
@@ -529,7 +541,6 @@ class ProductDataExport implements IDataExport
                                                 }
 
                                                 $finalPritingList[] = $rawData;
-
                                             }
                                         }
                                     }
@@ -539,7 +550,7 @@ class ProductDataExport implements IDataExport
                                             $finalPritingList[] = $rvalue;
                                         }
                                     }
-                                    
+
                                     if($finalPritingList)
                                     {
                                         if(!$areHeadersAlreadyAdded)
@@ -547,7 +558,7 @@ class ProductDataExport implements IDataExport
                                             $keys = array_keys($finalPritingList[0]);
                                             
                                             $displayKeys = [];
-                                            $staticHeaderMappingArr=['language'=>'Language','BussinessUnit'=>'BussinessUnit'];
+                                            $staticHeaderMappingArr=['language'=>'Language','Product.B2B_External_Id__c'=>'Product.B2B_External_Id__c'];
                                             $booleanFields=$this->getBooleanAttribute();
                                             foreach ($headerMapping as $headerIndex => $headerName) {
                                                 $displayKeys[$headerIndex] = $headerName;
@@ -555,40 +566,49 @@ class ProductDataExport implements IDataExport
                                             $displayKeys=array_merge($staticHeaderMappingArr,$displayKeys);
 
                                             fputcsv($file1, $displayKeys);
-                                            fputcsv($file2, $displayKeys);
+                                            // fputcsv($file2, $displayKeys);
                                             $areHeadersAlreadyAdded = true;
                                         }
-                                        
                                         foreach($finalPritingList as $key=>$record){
                                             foreach ($displayKeys as $keyHeader => $keyHeaderValue) {
                                                 if(array_key_exists($keyHeader,$record)){
+                                                    if(isset($record['language'])){
+                                                        if (array_key_exists($record['language'],$languageNameDisplayArray)){
+                                                            $lang = $languageNameDisplayArray[$record['language']];
+                                                        }else{
+                                                            $lang = $record['language'];
+                                                        }
+                                                    }
                                                     $mapping_record[$keyHeaderValue] = strip_tags($record[$keyHeader]);
                                                     if(array_key_exists($keyHeader,$booleanFields)){
                                                         $booleanValue=$record[$keyHeader];
                                                         $fieldBooleanValue=$this->getBooleanValue($booleanValue);
                                                         $mapping_record[$keyHeaderValue] = $fieldBooleanValue;
                                                     }
+                                                    if($keyHeader == 'externalID' && $record[$keyHeader]){
+                                                        $mapping_record[$keyHeaderValue]= $record[$keyHeader].'-'.$lang;
+                                                    }
                                                     if($keyHeader!='SalesForce_ID'){
                                                         unset($record[$keyHeader]);
                                                     }
                                                     
-                                                }else if($keyHeaderValue=='BussinessUnit'){
-                                                    $mapping_record[$keyHeaderValue]=$this->bu;
-                                                }else if($keyHeaderValue=='Language'){
+                                                }elseif($keyHeaderValue=='Language'){
                                                     $mapping_record[$keyHeaderValue]='';
+                                                }
+                                                elseif($keyHeaderValue == 'Product.B2B_External_Id__c'){
+                                                    $mapping_record[$keyHeaderValue] = $record['externalID'];
                                                 }
                                             }
                                             $record=array_merge($mapping_record,$record);
-
-                                            if($record['SalesForce_ID'])
-                                            {
-                                                unset($record['SalesForce_ID']);
-                                                fputcsv($file2, $record);
-                                            }
-                                            else{
+                                            // if($record['SalesForce_ID'])
+                                            // {
+                                            //     unset($record['SalesForce_ID']);
+                                            //     fputcsv($file2, $record);
+                                            // }
+                                            // else{
                                                 unset($record['SalesForce_ID']);
                                                 fputcsv($file1, $record);
-                                            }
+                                            // }
                                         }
                                     }
                                 }
@@ -599,7 +619,7 @@ class ProductDataExport implements IDataExport
 
                             // fclose($file);
                             fclose($file1);
-                            fclose($file2);
+                            // fclose($file2);
 
                             echo $message = "{$this->bu}: B2B product data csv file created";
                             echo PHP_EOL;
@@ -638,22 +658,32 @@ class ProductDataExport implements IDataExport
            
     }
     
+    public function getProductShortDescriptionValueInEnglish($fields, $id){
+
+        foreach($fields as $eachField){
+            if($eachField['language'] == 'en' && $eachField['productShortDescription'] && $eachField['oo_id'] == $id){
+                return $eachField['productShortDescription'];
+            }
+        }
+
+    }
+
     public function uploadFile()
     {
         // $customFileName = "{$this->bu}_Product_".date('M')."_".date('d')."_".date('Y').".csv";
         // $this->helper->uploadFile($customFileName);
 
-        $customFileName1 = "SFPIM_PRODUCT_TRANSLATION_UPDATE.csv";
-        $this->helper->uploadFile($customFileName1);
+        // $customFileName1 = "SFPIM_PRODUCT_TRANSLATION_UPDATE.csv";
+        // $this->helper->uploadFile($customFileName1);
 
         $customFileName2 = "SFPIM_PRODUCT_TRANSLATION_INSERT.csv";
         $this->helper->uploadFile($customFileName2);
     }
 
     public function getFittingFamilyMasterList()
-    {   
+    {
         $languages = "'" . implode ( "', '", $this->languages ) . "'";
-        $sqlMapping = "select oo_id, oo_className, language, Description from object_query_30  oq_30 
+        $sqlMapping = "select oo_id, oo_className, language, Description from object_query_30  oq_30
                     left join object_localized_data_30 old_30 ON oq_30.oo_id = old_30.ooo_id AND old_30.language IN ($languages)";
         return $this->db->fetchAll($sqlMapping);
     }
@@ -661,7 +691,7 @@ class ProductDataExport implements IDataExport
     public function getFittingEndFamilyTypeMasterList()
     {
         $languages = "'" . implode ( "', '", $this->languages ) . "'";
-        $sqlMapping = "select oo_id, oo_className, language, Description from object_query_31  oq_31 
+        $sqlMapping = "select oo_id, oo_className, language, Description from object_query_31  oq_31
                     left join object_localized_data_31 old_31 ON oq_31.oo_id = old_31.ooo_id AND old_31.language IN ($languages)";
         return $this->db->fetchAll($sqlMapping);
     }
@@ -669,7 +699,7 @@ class ProductDataExport implements IDataExport
     public function getMultiSelectMasterList()
     {
         $languages = "'" . implode ( "', '", $this->languages ) . "'";
-        $sqlMapping = "select oo_id, masterType, language, name from object_query_22  oq_22 
+        $sqlMapping = "select oo_id, masterType, language, name from object_query_22  oq_22
                     left join object_localized_data_22 old_22 ON oq_22.oo_id = old_22.ooo_id AND old_22.language IN ($languages)";
         return $this->db->fetchAll($sqlMapping);
     }
@@ -677,7 +707,7 @@ class ProductDataExport implements IDataExport
     public function getFeaturesMasterList()
     {
         $languages = "'" . implode ( "', '", $this->languages ) . "'";
-        $sqlMapping = "select oo_id, language, name from object_query_29  oq_29 
+        $sqlMapping = "select oo_id, language, name from object_query_29  oq_29
                     left join object_localized_data_29 old_29 ON oq_29.oo_id = old_29.ooo_id AND old_29.language IN ($languages)";
         return $this->db->fetchAll($sqlMapping);
     }
@@ -714,15 +744,15 @@ class ProductDataExport implements IDataExport
         {
             $businessUnitFileName = B2BTranslationConstants::B2B_IFS_PTG_US_FILE_NAME;
         }
-        else if($this->bu == 'CS')
+        elseif($this->bu == 'CS')
         {
             $businessUnitFileName = B2BTranslationConstants::B2B_CS_US_FILE_NAME;
         }
-        else if($this->bu == 'PTG_EU')
+        elseif($this->bu == 'PTG_EU')
         {
             $businessUnitFileName = B2BTranslationConstants::B2B_PTG_EU_FILE_NAME;
         }
-        else if($this->bu == 'IFS_EMEA')
+        elseif($this->bu == 'IFS_EMEA')
         {
             $businessUnitFileName = B2BTranslationConstants::B2B_IFS_EU_FILE_NAME;
         }
@@ -754,20 +784,28 @@ class ProductDataExport implements IDataExport
 
     public function getRecordsWithFilteredFields($columnsList, $b2bProducts)
     {
-        $languages = "'" . implode ( "', '", $this->languages ) . "'";
         $selectedFields = [];
-        $selectedFields[] = 'ooo_id';
-        $selectedFields[] = 'language';
+        $selectedFields[] = 'oo_id';
+        $sqlArray = [];
+
         foreach ($columnsList as $key => $columm) {
             $selectedFields[] = "$columm";
         }
 
         $columnsString = implode(',', $selectedFields);
         $ids = implode(',', $b2bProducts);
-        $sql = "select {$columnsString} from object_localized_data_1 where ooo_id IN ($ids) AND language IN ($languages)";
-        return $this->db->fetchAll($sql);
+        foreach($this->languages as $eachLanguage){
+            $tableName = 'object_localized_1_'.$eachLanguage;
+            $sql = "select {$columnsString} from $tableName where oo_id IN ($ids)";
+            $sqlData = $this->db->fetchAll($sql);
+            foreach($sqlData as $eachSqlData){
+                $eachSqlData['language'] = $eachLanguage;
+                $sqlArray[] = $eachSqlData;
+            }
+        }
+        return $sqlArray;
     }
-    
+
     public function getRecordsWithFilteredMasterFields($fields, $b2bProducts)
     {
         $config = $this->bUProductClassTableID[$this->bu];
@@ -787,19 +825,54 @@ class ProductDataExport implements IDataExport
 
     public function getRecordsWithFilteredObjectbrickMasterFields($multiObjectbrickColumnsList, $b2bProducts)
     {
+        
         $allObjectBrickData = [];
         $config = $this->bUProductClassTableID[$this->bu];
         $productClassId = $config['productClassId'];
-
         foreach ($multiObjectbrickColumnsList as $brickName => $fields) {
+            $brickAttributeCommaSeparatedName = '';
+            $brickAttributeNameArray =[];
+            $brickAttributesWithNullValueArray =[];
+
+            foreach($fields as $eachBrickAttributeName){
+                $brickAttributeName = substr($eachBrickAttributeName, strpos($eachBrickAttributeName, "AS ") + 3);
+                $brickAttributeCommaSeparatedName = $brickAttributeCommaSeparatedName.$brickAttributeName. ',';
+            }
             $columnsString = implode(',', $fields);
             $ids = implode(',', $b2bProducts);
+
+            $brickAttributeNameArray = explode(',', rtrim($brickAttributeCommaSeparatedName, ','));
+            $idsArray = explode(',',$ids);
+            foreach($idsArray as $keys => $eachid){
+                foreach($brickAttributeNameArray as $eachBrickAttributeName1){
+                    $brickAttributesWithNullValueArray[$keys]['o_id'] = $eachid;
+                    $brickAttributesWithNullValueArray[$keys][$eachBrickAttributeName1] = null;
+                }
+            }
             $sql = "select o_id, {$columnsString} from object_brick_query_{$brickName}_{$productClassId} where o_id IN ($ids)";
             $resultSet = $this->db->fetchAll($sql);
 
-            $allObjectBrickData = array_merge($allObjectBrickData, $resultSet);
-        }
+            if(!$resultSet){
+                $allObjectBrickData = array_merge($allObjectBrickData, $brickAttributesWithNullValueArray);
+            }else{
+                
+                $resultSet_oid_Array = [];
+                $resultSetDataArray = [];
 
+                foreach($resultSet as $eachResultSet){
+                    $resultSet_oid_Array[] = $eachResultSet['o_id'];
+                    $resultSetDataArray[] = $eachResultSet;
+                }
+
+                foreach($brickAttributesWithNullValueArray as $eachProductArraySet){
+                    if(!in_array($eachProductArraySet['o_id'],$resultSet_oid_Array)){
+                        $resultSetDataArray[] = $eachProductArraySet;
+                    }
+                }
+
+                $allObjectBrickData = array_merge($allObjectBrickData, $resultSetDataArray);
+            }
+        }
         return $allObjectBrickData;
     }
 
@@ -814,7 +887,7 @@ class ProductDataExport implements IDataExport
         // $salesMaterialMasterClassId = $config['salesMaterialMasterClassId'];
         
         // $sql = "SELECT DISTINCT
-        //             product.o_id  
+        //             product.o_id
         //         FROM
         //             object_{$salesMaterialMasterClassId} salesMaster
         //                 JOIN
