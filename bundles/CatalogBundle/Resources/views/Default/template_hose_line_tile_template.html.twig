@@ -89,8 +89,7 @@
 							{% if brandIds is iterable and brandIds is not empty %}
 
 								{% set k = 0 %}
-								{# {% block contentblock with {'default': brandIds|length} %} #}
-								{% set contentBlock = pimcore_block('contentBlock') %}
+								{% set contentBlock = pimcore_block('contentBlock', {'default': brandIds|length}) %}
 								{% for i in contentBlock.iterator %}
 									{% set key = brandIds[k] %}
 									{% set row = brandsInfo[key] %}
