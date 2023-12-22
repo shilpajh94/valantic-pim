@@ -5,9 +5,9 @@
 {% block _content %}
 
 	{% if editmode %}
-		{{ pimcore_href("tiletemplate") }}
+		{{ pimcore_relation("tiletemplate") }}
 	{% endif %}
-
+	{% if info is defined and info %}
 	{% set featuresFooter = false %}
 
 	<div class="template">
@@ -90,15 +90,20 @@
 
 								{% set k = 0 %}
 								{# {% block contentblock with {'default': brandIds|length} %} #}
-								{% set contentBlock = pimcore_block('contentBlock') %}
+								{% set contentBlock = pimcore_block('contentBlock', {'default': brandIds|length}) %}
 								{% for i in contentBlock.iterator %}
-									{% set key = brandIds[k] %}
-									{% set row = brandsInfo[key] %}
+
+									{% set k = i - 1 %}
+
+									{% if brandIds[k] is defined %}
+										{% set key = brandIds[k] %}
+										{% set row = brandsInfo[key] %}
+									{% endif %}
 
 									{% if k == 0 %}
 										<p>
 											{% if pimcore_input('prodDesc' ~ k).isEmpty() %}
-												{{ pimcore_input("prodDesc" ~ k, {'width': 540}).setDataFromResource(info['productDescription']) | raw }}
+												{{ pimcore_input("prodDesc" ~ k, {'width': 540}).setDataFromResource(info['blockDes']) | raw }}
 											{% else %}
 												{{ pimcore_input("prodDesc" ~ k, {'width': 540}) }}
 											{% endif %}
@@ -182,24 +187,25 @@
 															{% if editmode and iccnt <= 3 %}
 																{% if pimcore_input("productLogo" ~ key ~ iccnt).isEmpty() and featureIcon['icon'] is not null %}
 																	{{ pimcore_image("productLogo" ~ key ~ iccnt, {
-                                                                'width': featureIcon['icon'].getWidth(),
-                                                                'height': featureIcon['icon'].getHeight(),
-                                                                'aspectratio': true,
-                                                                'interlace': true,
-                                                                'quality': 95,
-                                                                'format': 'PNG'
-                                                            }).setImage(featureIcon['icon']) | raw }}
+																		'width': featureIcon['icon'].getWidth(),
+																		'height': featureIcon['icon'].getHeight(),
+																		'aspectratio': true,
+																		'interlace': true,
+																		'quality': 95,
+																		'format': 'PNG'
+																	}).setImage(featureIcon['icon']) | raw }}
 																{% else %}
 																	{{ pimcore_image("productLogo" ~ key ~ iccnt, {
-                                                                'width': 91,
-                                                                'height': 53,
-                                                                'aspectratio': true,
-                                                                'interlace': true,
-                                                                'quality': 95,
-                                                                'format': 'PNG'
-                                                            }) }}
+																		'width': 91,
+																		'height': 53,
+																		'aspectratio': true,
+																		'interlace': true,
+																		'quality': 95,
+																		'format': 'PNG'
+																	}) }}
 																{% endif %}
-															{% elseif not editmode %}
+																{% set iccnt = iccnt + 1 %}
+															{% else %}
 																{% if iccnt <= 3 %}
 																	{% set imgSrcObj2 = pimcore_image("productLogo" ~ key ~ iccnt) %}
 																	{% if imgSrcObj2 %}
@@ -210,16 +216,18 @@
 															{% endif %}
 														{% endfor %}
 													{% endif %}
-													{% for iccnt in iccnt..3 %}
-														{{ pimcore_image("productLogo" ~ key ~ iccnt, {
-                                                        'width': 91,
-                                                        'height': 53,
-                                                        'aspectratio': true,
-                                                        'interlace': true,
-                                                        'quality': 95,
-                                                        'format': 'PNG'
-                                                    }) }}
-													{% endfor %}
+													{% if (iccnt < 3) %}
+														{% for iccnt in iccnt..3 %}
+															{{ pimcore_image("productLogo" ~ key ~ iccnt, {
+																'width': 91,
+																'height': 53,
+																'aspectratio': true,
+																'interlace': true,
+																'quality': 95,
+																'format': 'PNG'
+															}) }}
+														{% endfor %}
+													{% endif %}
 												</span>
 												<span class="details">
 													{% if pimcore_input("sizeRange" ~ k).isEmpty() and row['range'] is not empty %}
@@ -232,8 +240,8 @@
 										</figcaption>
 									</figure>
 
-									{% set k = k + 1 %}
-									{% unsetTwig(key) %}
+									
+									{% set key= '' %}
 								{% endfor %}
 							{% endif %}
 						{% endif %}
@@ -245,4 +253,5 @@
 			</section>
 		</div>
 	</div>
+	{% endif %}
 {% endblock %}

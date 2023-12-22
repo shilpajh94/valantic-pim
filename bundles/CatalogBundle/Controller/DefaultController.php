@@ -799,12 +799,16 @@ class DefaultController extends FrontendController
             $footerBgColor = $obj->getColor();
             $data = array();
             $blockDes = "";
+            $blockDesId = "";
             $headers = (array)json_decode($obj->getHeaderData());
             $headerKeys = array_keys($headers);
             $productsData = array();
             $baseIdArr = array();
             $fertId = array();
             $images = array();
+
+            $onlyOnce = true;
+            
 
             $brandsList = $this->getBrandsList();
 
@@ -824,6 +828,13 @@ class DefaultController extends FrontendController
                         $data[$baseId] = array();
                         $fertId[$baseId] = $row['id'];
                         $images[$baseId] = $row['mainImage'];
+
+                        if($onlyOnce)
+                        {   
+                            $blockDesId = $row['id'];
+                            $onlyOnce = false;
+                        }    
+
                     }
                     if (isset($data[$baseId]) && empty($data[$baseId])) {
                         $data[$baseId]['brandName'] = isset($data[$baseId]['brandName']) && !empty($data[$baseId]['brandName']) ? $data[$baseId]['brandName'] : $row['brandName'][0];
@@ -901,6 +912,7 @@ if(isset($data[$baseId])) {
                 $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
                 $parameterBag['info'] = array(
+                    // 'brandsInfo' => [$data[0],$data[1], $data[13], $data[28]],
                     'brandsInfo' => $data,
                     'blockDes' => $blockDes,
                     'footer_class' => (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'',
@@ -915,6 +927,7 @@ if(isset($data[$baseId])) {
                 );
             }
         }
+        // p_r($parameterBag);
         return $this->render("@Catalog/Default/template_hose_line_tile_template.html.twig", $parameterBag);
     }
 
