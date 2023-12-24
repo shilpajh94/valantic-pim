@@ -1079,7 +1079,7 @@ if(isset($data[$baseId])) {
                                         }
                                         $tubeMaterial = array_merge($tubeMaterial, $value);
                                     }
-                                        
+
                                     if($bkey == $headerKeysIndex['tubeColor'])
                                     {
                                         if(!is_array($value))
@@ -1088,7 +1088,7 @@ if(isset($data[$baseId])) {
                                         }
                                         $tubeAttribute = array_merge($tubeAttribute, $value);
                                     }
-                                        
+
                                     if($bkey == $headerKeysIndex['reinforcement'])
                                     {
                                         if(!is_array($value))
@@ -1097,7 +1097,7 @@ if(isset($data[$baseId])) {
                                         }
                                         $reinforcement = array_merge($reinforcement, $value);
                                     }
-                                        
+
                                     if($bkey == $headerKeysIndex['coverColor'])
                                     {
                                         if(!is_array($value))
@@ -1106,7 +1106,7 @@ if(isset($data[$baseId])) {
                                         }
                                         $coverAttribute = array_merge($coverAttribute, $value);
                                     }
-                                        
+
                                     if($bkey == $headerKeysIndex['coverMaterial'])
                                     {
                                         if(!is_array($value))
@@ -1115,7 +1115,7 @@ if(isset($data[$baseId])) {
                                         }
                                         $coverMaterial = array_merge($coverMaterial, $value);
                                     }
-                                        
+
                                     if($bkey == $headerKeysIndex['FeaturesBenefitsBulletPoint'])
                                     {
                                         if(!is_array($value))
@@ -1679,8 +1679,8 @@ if(isset($data[$baseId])) {
             $listing->setOrderKey("index");
             $listing->setOrder("asc");
             $templateArray = [
-                'CatalogBundle:Default:template_part_number_designations.html.php',
-                'CatalogBundle:Fitting:hydraulic_fitting.html.php',
+                '@Catalog/Default/template_part_number_designations.html.twig',
+                '@Catalog/Fitting/hydraulic_fitting.html.twig',
             ];
 
             $hydraulicHose[] = 'HYDRAULIC HOSE';
@@ -1700,9 +1700,9 @@ if(isset($data[$baseId])) {
                             {
                                 if (in_array($child2Doc->getTemplate(), $templateArray)) {
 
-                                    if($child2Doc->getTemplate() == 'CatalogBundle:Default:template_part_number_designations.html.php')
+                                    if($child2Doc->getTemplate() == '@Catalog/Default/template_part_number_designations.html.twig')
                                     {
-                                        $obj = $child2Doc->getElement('hydraulic_hose_details');
+                                        $obj = $child2Doc->getEditable('hydraulic_hose_details');
                                         if (!empty($obj) && !empty($obj->getData())) {
 
                                             $hydraulicHoseData = explode(PHP_EOL, $obj->getData());
@@ -1722,9 +1722,9 @@ if(isset($data[$baseId])) {
                                             }
                                         }
                                     }
-                                    else if($child2Doc->getTemplate() == 'CatalogBundle:Fitting:hydraulic_fitting.html.php')
+                                    else if($child2Doc->getTemplate() == '@Catalog/Fitting/hydraulic_fitting.html.twig')
                                     {
-                                        $obj = $child2Doc->getElement('hydraulic_fitting_brand');
+                                        $obj = $child2Doc->getEditable('hydraulic_fitting_brand');
                                         if (!empty($obj) && !empty($obj->getData())) {
                                             $fittingBrandNames = explode('$$', $obj->getData());
                                             $data = [];
@@ -1740,9 +1740,9 @@ if(isset($data[$baseId])) {
                         {
                             if (in_array($childDoc->getTemplate(), $templateArray)) {
 
-                                if($childDoc->getTemplate() == 'CatalogBundle:Default:template_part_number_designations.html.php')
+                                if($childDoc->getTemplate() == '@Catalog/Default/template_part_number_designations.html.twig')
                                 {
-                                    $obj = $childDoc->getElement('hydraulic_hose_details');
+                                    $obj = $childDoc->getEditable('hydraulic_hose_details');
                                     if (!empty($obj) && !empty($obj->getData())) {
 
                                         $hydraulicHoseData = explode(PHP_EOL, $obj->getData());
@@ -1762,9 +1762,9 @@ if(isset($data[$baseId])) {
                                         }
                                     }
                                 }
-                                else if($childDoc->getTemplate() == 'CatalogBundle:Fitting:hydraulic_fitting.html.php')
+                                else if($childDoc->getTemplate() == '@Catalog/Fitting/hydraulic_fitting.html.twig')
                                 {
-                                    $obj = $childDoc->getElement('hydraulic_fitting_brand');
+                                    $obj = $childDoc->getEditable('hydraulic_fitting_brand');
                                     if (!empty($obj) && !empty($obj->getData())) {
                                         $fittingBrandNames = explode('$$', $obj->getData());
                                         $data = [];
@@ -1784,9 +1784,9 @@ if(isset($data[$baseId])) {
                 {
 
                     if (in_array($doc->getTemplate(), $templateArray)) {
-                        if($doc->getTemplate() == 'CatalogBundle:Default:template_part_number_designations.html.php')
+                        if($doc->getTemplate() == '@Catalog/Default/template_part_number_designations.html.twig')
                         {
-                            $obj = $doc->getElement('hydraulic_hose_details');
+                            $obj = $doc->getEditable('hydraulic_hose_details');
                             if (!empty($obj) && !empty($obj->getData())) {
 
                                 $hydraulicHoseData = explode(PHP_EOL, $obj->getData());
@@ -1806,9 +1806,9 @@ if(isset($data[$baseId])) {
                                 }
                             }
                         }
-                        else if($doc->getTemplate() == 'CatalogBundle:Fitting:hydraulic_fitting.html.php')
+                        else if($doc->getTemplate() == '@Catalog/Fitting/hydraulic_fitting.html.twig')
                         {
-                            $obj = $doc->getElement('hydraulic_fitting_brand');
+                            $obj = $doc->getEditable('hydraulic_fitting_brand');
                             if (!empty($obj) && !empty($obj->getData())) {
                                 $fittingBrandNames = explode('$$', $obj->getData());
                                 $data = [];
@@ -1834,13 +1834,14 @@ if(isset($data[$baseId])) {
             {
                 $DynamicPageData[] = $hydraulicFitting;
             }
-            $parameterBag['data'] = $DynamicPageData;
-            return $this->render("@Catalog/Default/template_hydraulic_table_of_contents_dynamic.html.twig", $parameterBag);
         }
         catch(Exception $e)
         {
             return new Response($e->getMessage());
         }
+
+        $parameterBag['data'] = $DynamicPageData;
+        return $this->render("@Catalog/Default/template_hydraulic_table_of_contents_dynamic.html.twig", $parameterBag);
     }
 
     public function templatePartNumberDesignationsAction(Request $request)
@@ -2006,7 +2007,7 @@ if(isset($data[$baseId])) {
                                         }
                                         $tubeMaterial = array_merge($tubeMaterial, $value);
                                     }
-                                        
+
                                     if($bkey == $headerKeysIndex['reinforcement'])
                                     {
                                         if(!is_array($value))
@@ -2015,7 +2016,7 @@ if(isset($data[$baseId])) {
                                         }
                                         $reinforcement = array_merge($reinforcement, $value);
                                     }
-                                        
+
                                     if(isset($headerKeysIndex['workingPressurePSI']) && ($bkey == $headerKeysIndex['workingPressurePSI']))
                                     {
                                         if($value){
@@ -2032,7 +2033,7 @@ if(isset($data[$baseId])) {
                                         }
                                         $fittingFamily = array_merge($fittingFamily, $value);
                                     }
-                                        
+
                                     if($bkey == $headerKeysIndex['standardMetHose'])
                                     {
                                         if(!is_array($value))
@@ -2041,7 +2042,7 @@ if(isset($data[$baseId])) {
                                         }
                                         $industryStandardKey = array_merge($industryStandardKey, $value);
                                     }
-                                        
+
 
                             endforeach;
 
@@ -2791,6 +2792,7 @@ if(isset($data[$baseId])) {
 
     public function templateHydraulicAlphanumericIndexByDescriptiveNumberDynamicAction(Request $request)
     {
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
         try
         {
             $folderId =$this->document->getParent()->getId();
@@ -2800,12 +2802,12 @@ if(isset($data[$baseId])) {
             $listing->setOrderKey("index");
             $listing->setOrder("asc");
             $templateArray = [
-                'CatalogBundle:Default:template_fitting_split_flanges.html.php',
-                'CatalogBundle:Default:template_hose_accessories_clamps.html.php',
-                'CatalogBundle:Default:template_hose_accessories_oring.html.php',
-                'CatalogBundle:Default:template_hose_accessories_sleeving.html.php',
-                'CatalogBundle:Default:template_hose_product_page.html.php',
-                'CatalogBundle:Fitting:hydraulic_fitting.html.php'
+                '@Catalog/Default/template_fitting_split_flanges.html.twig',
+                '@Catalog/Default/template_hose_accessories_clamps.html.twig',
+                '@Catalog/Default/template_hose_accessories_oring.html.twig',
+                '@Catalog/Default/template_hose_accessories_sleeving.html.twig',
+                '@Catalog/Default/template_hose_product_page.html.twig',
+                '@Catalog/Fitting/hydraulic_fitting.html.twig'
             ];
 
             $all_doc_arr = [];
@@ -2820,7 +2822,7 @@ if(isset($data[$baseId])) {
                             foreach ($childDoc->getChildren() as $key => $child2Doc)
                             {
                                 if (in_array($child2Doc->getTemplate(), $templateArray)) {
-                                    $obj = $child2Doc->getElement('product_page_part_number');
+                                    $obj = $child2Doc->getEditable('product_page_part_number');
                                     if (!empty($obj) && !empty($obj->getData())) {
                                         $partNumberList = explode(',', $obj->getData());
                                         $all_doc_arr = array_merge($all_doc_arr, $partNumberList);
@@ -2831,7 +2833,7 @@ if(isset($data[$baseId])) {
                         else
                         {
                             if (in_array($childDoc->getTemplate(), $templateArray)) {
-                                $obj = $childDoc->getElement('product_page_part_number');
+                                $obj = $childDoc->getEditable('product_page_part_number');
                                 if (!empty($obj) && !empty($obj->getData())) {
                                     $partNumberList = explode(',', $obj->getData());
                                     $all_doc_arr = array_merge($all_doc_arr, $partNumberList);
@@ -2843,7 +2845,7 @@ if(isset($data[$baseId])) {
                 else
                 {
                     if (in_array($doc->getTemplate(), $templateArray)) {
-                        $obj = $doc->getElement('product_page_part_number');
+                        $obj = $doc->getEditable('product_page_part_number');
                         if (!empty($obj) && !empty($obj->getData())) {
                             $partNumberList = explode(',', $obj->getData());
                             $all_doc_arr = array_merge($all_doc_arr, $partNumberList);
@@ -2855,7 +2857,6 @@ if(isset($data[$baseId])) {
             $all_doc_arr = array_unique($all_doc_arr);
             sort($all_doc_arr);
 
-            $parameterBag = [];
             $parameterBag['data'] = $all_doc_arr;
             return $this->render("@Catalog/Default/template_hydraulic_alphanumeric_index_by_descriptive_number_dynamic.html.twig", $parameterBag);
         }
@@ -2867,6 +2868,7 @@ if(isset($data[$baseId])) {
 
     public function templateHydraulicAlphanumericIndexByProductNumberDynamicAction(Request $request)
     {
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
         try
         {
             $folderId =$this->document->getParent()->getId();
@@ -2876,13 +2878,13 @@ if(isset($data[$baseId])) {
             $listing->setOrderKey("index");
             $listing->setOrder("asc");
             $templateArray = [
-                'CatalogBundle:Default:template_fitting_split_flanges.html.php',
-                'CatalogBundle:Default:template_hose_accessories_clamps.html.php',
-                'CatalogBundle:Default:template_hose_accessories_oring.html.php',
-                'CatalogBundle:Default:template_hose_accessories_sleeving.html.php',
-                'CatalogBundle:Fitting:hydraulic_fitting.html.php'
+                '@Catalog/Default/template_fitting_split_flanges.html.twig',
+                '@Catalog/Default/template_hose_accessories_clamps.html.twig',
+                '@Catalog/Default/template_hose_accessories_oring.html.twig',
+                '@Catalog/Default/template_hose_accessories_sleeving.html.twig',
+                '@Catalog/Fitting/hydraulic_fitting.html.twig'
             ];
-
+            
             $all_doc_arr = [];
             foreach($listing as $doc)
             {
@@ -2894,7 +2896,7 @@ if(isset($data[$baseId])) {
                         {
                             foreach ($childDoc->getChildren() as $key => $child2Doc) {
                                 if (in_array($child2Doc->getTemplate(), $templateArray)) {
-                                    $obj = $child2Doc->getElement('product_page_product_number');
+                                    $obj = $child2Doc->getEditable('product_page_product_number');
                                     if (!empty($obj) && !empty($obj->getData())) {
                                         $partNumberList = explode(',', $obj->getData());
                                         $all_doc_arr = array_merge($all_doc_arr, $partNumberList);
@@ -2905,7 +2907,7 @@ if(isset($data[$baseId])) {
                         else
                         {
                             if (in_array($childDoc->getTemplate(), $templateArray)) {
-                                $obj = $childDoc->getElement('product_page_product_number');
+                                $obj = $childDoc->getEditable('product_page_product_number');
                                 if (!empty($obj) && !empty($obj->getData())) {
                                     $partNumberList = explode(',', $obj->getData());
                                     $all_doc_arr = array_merge($all_doc_arr, $partNumberList);
@@ -2917,7 +2919,7 @@ if(isset($data[$baseId])) {
                 else
                 {
                     if (in_array($doc->getTemplate(), $templateArray)) {
-                        $obj = $doc->getElement('product_page_product_number');
+                        $obj = $doc->getEditable('product_page_product_number');
                         if (!empty($obj) && !empty($obj->getData())) {
                             $partNumberList = explode(',', $obj->getData());
                             $all_doc_arr = array_merge($all_doc_arr, $partNumberList);
@@ -2929,7 +2931,6 @@ if(isset($data[$baseId])) {
             $all_doc_arr = array_unique($all_doc_arr);
             sort($all_doc_arr);
 
-            $parameterBag = [];
             $parameterBag['data'] = $all_doc_arr;
             return $this->render("@Catalog/Default/template_hydraulic_alphanumeric_index_by_product_number_dynamic.html.twig", $parameterBag);
         }

@@ -71,25 +71,14 @@
 					<div class="flex aligned ">
 						<p class="flex-center">
 							{% if editmode %}
-								{% if pimcore_image('myCrampApp_f1').isEmpty() %}
-									{{ pimcore_image('myCrampApp_f1', {
-                                        "width" : 61,
-                                        "height" : 60,
-                                        "aspectratio" : true,
-                                        "interlace" : true,
-                                        "quality" : 95,
-                                        "format" : "PNG"
-                                    }).setImage(logo) | raw }}
-								{% else %}
-									{{ pimcore_image('myCrampApp_f1', {
-                                        "width" : 61,
-                                        "height" : 60,
-                                        "aspectratio" : true,
-                                        "interlace" : true,
-                                        "quality" : 95,
-                                        "format" : "PNG"
-                                    }) }}
-								{% endif %}
+								{{ pimcore_image('myCrampApp_f1', {
+									"width" : 61,
+									"height" : 60,
+									"aspectratio" : true,
+									"interlace" : true,
+									"quality" : 95,
+									"format" : "PNG"
+								}) }}
 							{% else %}
 								{% set imgSrcObj4 = pimcore_image('myCrampApp_f1') %}
 								{% if getImageThumbnail(imgSrcObj4, imageWidth) %}
