@@ -5,8 +5,11 @@ namespace CatalogBundle\Controller;
 use CatalogBundle\Helper\CatalogTemplatingHelper;
 use Pimcore\Db;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Pimcore\Controller\FrontendController;
 
-class HydraulicFittingController extends AbstractController
+class HydraulicFittingController extends FrontendController
 {
     private $db;
     private $iconRequired = 'NO';
@@ -15,11 +18,18 @@ class HydraulicFittingController extends AbstractController
     private $columnsData = array();
     private $attributeImages = array();
     private $catalogTemplatingHelper;
+    private $containerInterface;
+    // private $translator;
+    private $imageWidth;
+    private $translatorInterface;
 
-    public function __construct(CatalogTemplatingHelper $catalogTemplatingHelper)
+    public function __construct(CatalogTemplatingHelper $catalogTemplatingHelper, ContainerInterface $container, TranslatorInterface $translator)
     {
         $this->db = Db::get();
         $this->catalogTemplatingHelper = $catalogTemplatingHelper;
+        $this->containerInterface = $container;
+        // $this->translator = $translator;
+        $this->translatorInterface = $translator;
     }
 
     /**
@@ -31,18 +41,20 @@ class HydraulicFittingController extends AbstractController
     public function fittingPageAction(Request $request)
     {
         $containerRequest = $request->get('containerRequest') ? $request->get('containerRequest') : FALSE;
-        $fittingTableColumnConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getFittingTableConfig()['parameters'];
+        $fittingTableColumnConfig = $this->containerInterface->get('app.config_provider_service')->getFittingTableConfig()['parameters'];
 
         $fittingTableColumn = $fittingTableColumnConfig['tables'];
         $shortDescriptionSortKeys = $fittingTableColumnConfig['shortDescriptionSortKeys'];
         $skiveTypeSortKeys = $fittingTableColumnConfig['skiveTypeSortKeys'];
 
-        $common = \Pimcore::getContainer()->get('app.common_helper');
-        $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
+        $common = $this->containerInterface->get('app.common_helper');
+        $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
         $this->attributeImages = $common->getParameter($attributeImagesConfig, 'attributeImages');
         $CatalogImagesHYDFooter = $common->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
-        if ($this->getDocumentTag('relation', 'fitting-straight')->getElement() instanceof  \Pimcore\Model\DataObject) {
-            $id = $this->getDocumentTag('relation', 'fitting-straight')->getId();
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+
+        if ($this->document->getEditable('fitting-straight')->getElement() instanceof  \Pimcore\Model\DataObject) {
+            $id = $this->document->getEditable('fitting-straight')->getId();
             $obj = \Pimcore\Model\DataObject::getById($id);
 
             $footerBgColor = $obj->getColor();
@@ -52,7 +64,7 @@ class HydraulicFittingController extends AbstractController
             */
             $lang = $common->getCatalogLanguage($obj);
             // $lang = 'fr_CA';
-            $this->get('translator')->setLocale($lang);
+            // $this->translator->setLocale($lang);
 
 
             $data = array();
@@ -97,7 +109,7 @@ class HydraulicFittingController extends AbstractController
 
                 foreach ($productsData as $key => $item)
                 {
-                    $brandName = $item[$headerKeysIndex['brandName']][0];
+                    $brandName = $item[$headerKeysIndex['brandName']];
                     $shortDescription = strip_tags($item[$headerKeysIndex['shortDescription']]);
                     $shortDescription = str_replace(array(" ","-","°","/",PHP_EOL), "", $shortDescription);
                     $FittingTableName = $item[$headerKeysIndex['FittingTableName']];
@@ -115,18 +127,18 @@ class HydraulicFittingController extends AbstractController
                     foreach ($brandsDataList as $brandNameKey => $brandInfo) {
 
                         foreach ($shortDescriptionSortKeys as $shortDescriptionKey => $shortDescriptionKeyName) {
-                           
+
                             if(isset($brandInfo[$shortDescriptionKey]))
                             {
                                 $sortedBrandsData[$brandNameKey][$shortDescriptionKey] = $brandInfo[$shortDescriptionKey];
                             }
-                           
+
                         }
 
                         // Add the short marketing keys not in above shorted list
 
                         foreach ($brandInfo as $shortDKey => $shortDValue) {
-                            
+
                             if(!isset($sortedBrandsData[$brandNameKey][$shortDKey]))
                             {
                                 $sortedBrandsData[$brandNameKey][$shortDKey] = $brandInfo[$shortDKey];
@@ -134,34 +146,34 @@ class HydraulicFittingController extends AbstractController
                         }
                     }
                 }
-                
+
                 unset($brandsDataList);
 
             }
-            
+
             $newBrandArray = array();
             $HydFittingFamilyArr = array();
             if($sortedBrandsData)
             {
                 foreach ($sortedBrandsData as $brandKey => $sortDescriptionTables)
                 {
-                    foreach ($sortDescriptionTables as $sortDescriptionTableslist => $fittingTables) 
+                    foreach ($sortDescriptionTables as $sortDescriptionTableslist => $fittingTables)
                     {
-                        foreach ($fittingTables as $FittingTableName => $articlesGroups) 
+                        foreach ($fittingTables as $FittingTableName => $articlesGroups)
                         {
-                            
+
                             $shortDescription = '';
                             $LeftPrintCatalogImageObj = '';
                             $RightPrintCatalogImageObj = '';
-                            foreach ($articlesGroups as $agkey => $articles) 
+                            foreach ($articlesGroups as $agkey => $articles)
                             {
-                                if($articles[$headerKeysIndex['NutType']]){
+                                if(isset($headerKeysIndex['NutType']) && $articles[$headerKeysIndex['NutType']]){
                                     $nutType = $articles[$headerKeysIndex['NutType']];
                                 }
                                 else{
                                     $nutType = '';
                                 }
-                                if($articles[$headerKeysIndex['SingleHexYN']])
+                                if(isset($headerKeysIndex['SingleHexYN']) && $articles[$headerKeysIndex['SingleHexYN']])
                                 {
                                     $singleHex = $articles[$headerKeysIndex['SingleHexYN']];
                                 }
@@ -172,11 +184,11 @@ class HydraulicFittingController extends AbstractController
 
                                 $FittingTableKeys = $fittingTableColumn[$FittingTableName]['columns'];
                                 $fittingTableColWidths = $fittingTableColumn[$FittingTableName]['widthSetting'];
-                                
+
                                 if(is_array($FittingTableKeys))
                                 {
-                                    if($articles[$headerKeysIndex['HydFittingFamily']][0]) {
-                                        $HydFittingFamilyArr[$articles[$headerKeysIndex['HydFittingFamily']][0]] = $articles[$headerKeysIndex['HydFittingFamily']][0];
+                                    if(isset($articles[$headerKeysIndex['HydFittingFamily']]) && $articles[$headerKeysIndex['HydFittingFamily']]) {
+                                        $HydFittingFamilyArr[$articles[$headerKeysIndex['HydFittingFamily']]] = $articles[$headerKeysIndex['HydFittingFamily']];
                                     }
 
                                     if(!$shortDescription && $articles[$headerKeysIndex['shortDescription']]) {
@@ -193,28 +205,35 @@ class HydraulicFittingController extends AbstractController
 
                                     $articlesData = array();
                                     $this->subHeaderRequired = 'NO';
-                                    $columnsDataWithImages = $this->getColumnHeadersForCatalog(TRUE, $FittingTableKeys, $fittingTableColWidths);
+                                    $columnsDataWithImages = $this->getColumnHeadersForCatalog($fittingTableColWidths, TRUE, $FittingTableKeys);
                                     // Getting order of the keys
                                     $orderKeys = array();
 
-                                    
+
                                     foreach ($columnsDataWithImages as $skey => $svalue) {
-                                        
+
                                         foreach ($svalue as $vkey => $vvalue) {
-                                            
+
                                                 $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
                                         }
                                     }
 
-                                    if($articles[$headerKeysIndex['DescriptivePartNumber']])
+                                    if(isset($headerKeysIndex['DescriptivePartNumber']) && $articles[$headerKeysIndex['DescriptivePartNumber']])
                                     {
                                         $partialPartNumberArray = explode('-',$articles[$headerKeysIndex['DescriptivePartNumber']]);
                                         $partialPartNumber = $partialPartNumberArray[0].'-'.$partialPartNumberArray[1];
-                                        $articles[$headerKeysIndex['ElbowType']]= $nomenClatureList[$partialPartNumber];
+                                        if(isset($headerKeysIndex['ElbowType']))
+                                        {
+                                            $articles[$headerKeysIndex['ElbowType']]= $nomenClatureList[$partialPartNumber];
+                                        }
+                                        
                                     }
                                     else
                                     {
-                                        $articles[$headerKeysIndex['ElbowType']]= '';
+                                        if(isset($headerKeysIndex['ElbowType']))
+                                        {
+                                            $articles[$headerKeysIndex['ElbowType']]= '';
+                                        }
                                     }
 
                                     $skiveType = '';
@@ -228,7 +247,7 @@ class HydraulicFittingController extends AbstractController
                                             if($articles[$headerKeysIndex['LeftPrintCatalogImage']]) {
                                                 $LeftPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($articles[$headerKeysIndex['LeftPrintCatalogImage']]);
                                             }
-        
+
                                             if($articles[$headerKeysIndex['RightPrintCatalogImage']]) {
                                                 $RightPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($articles[$headerKeysIndex['RightPrintCatalogImage']]);
                                             }
@@ -239,7 +258,7 @@ class HydraulicFittingController extends AbstractController
                                             if($articles[$headerKeysIndex['LeftPrintCatalogImage']]) {
                                                 $LeftPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($articles[$headerKeysIndex['LeftPrintCatalogImage']]);
                                             }
-        
+
                                             if($articles[$headerKeysIndex['RightPrintCatalogImage']]) {
                                                 $RightPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($articles[$headerKeysIndex['RightPrintCatalogImage']]);
                                             }
@@ -250,7 +269,7 @@ class HydraulicFittingController extends AbstractController
                                     {
                                         $originalHoseID1InFractIndex = array_search("HoseID1InFract",array_keys($orderKeys));
                                     }
-                                    
+
                                     foreach ($orderKeys as $ckey => $cvalue) {
                                         $articlesData[] = $articles[$headerKeysIndex[$ckey]];
                                     }
@@ -281,14 +300,17 @@ class HydraulicFittingController extends AbstractController
             $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
-            $this->view['HydFittingFamily'] = implode(', ',array_unique($HydFittingFamilyArr));
-            $this->view['iconRequired'] = $this->iconRequired;
-            $this->view['brandsData'] = $newBrandArray;
-            $this->view['skiveTypeSortKeys'] = $skiveTypeSortKeys;
-            $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
-            $this->view['footer_logo_src'] = $footer_logo_src;
-            $this->view['containerRequest'] = $containerRequest;
+            $parameterBag['HydFittingFamily'] = implode(', ',array_unique($HydFittingFamilyArr));
+            $parameterBag['iconRequired'] = $this->iconRequired;
+            $parameterBag['brandsData'] = $newBrandArray;
+            $parameterBag['skiveTypeSortKeys'] = $skiveTypeSortKeys;
+            $parameterBag['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
+            $parameterBag['footer_logo_src'] = $footer_logo_src;
+            $parameterBag['containerRequest'] = $containerRequest;
         }
+
+        // p_r($parameterBag); die;
+        return $this->render("@Catalog/Fitting/hydraulic_fitting.html.twig", $parameterBag);
     }
 
     public function getS3ImageSrc($src)
@@ -298,7 +320,7 @@ class HydraulicFittingController extends AbstractController
 
         if($imgObj){
             // $s3src = $imgObj->getThumbnail('catalog_thumb');
-            $s3src = $this->catalogTemplatingHelper->getImageThumbnail($imgObj,$this->view->imageWidth);
+            $s3src = $this->catalogTemplatingHelper->getImageThumbnail($imgObj,$this->imageWidth);
 //            $s3src = Utils::getAssetFullPathCompatibleToS3($imgObj);
         }
 
@@ -322,12 +344,12 @@ class HydraulicFittingController extends AbstractController
         return $brandslist;
     }
 
-    public function getColumnHeadersForCatalog($isTableNameColumnRequired = FALSE, $tableNameColumns = [], $fittingTableColWidths){
+    public function getColumnHeadersForCatalog($fittingTableColWidths, $isTableNameColumnRequired = FALSE, $tableNameColumns = []){
         $columnsDataWithImages = array();
 
         if($isTableNameColumnRequired)
         {
-            foreach ($this->columnsData as $dkey => $value) 
+            foreach ($this->columnsData as $dkey => $value)
             {
                 if(in_array($dkey,$tableNameColumns))
                 {
@@ -335,26 +357,44 @@ class HydraulicFittingController extends AbstractController
                         $colWidth = $fittingTableColWidths[$dkey];
                     }
                     $groupColumnName = $value['columnName'];
+                    $groupName = '';
+                    $columnWidth = '';
+                    $unitName = '';
+
+                    if(isset($value['columnWidth']) && $value['columnWidth'])
+                    {
+                        $columnWidth = $value['columnWidth'];
+                    }
+
+                    if(isset($value['unitName']) && $value['unitName'])
+                    {
+                        $unitName = $value['unitName'];
+                    }
+
                     if(isset($value['groupName']) && $value['groupName'])
                     {
-
                         $groupColumnName = $value['groupName'];
+                        $groupName = $value['groupName'];
                         $this->subHeaderRequired = 'YES';
                     }
-                    $columnsDataWithImages[$groupColumnName][$dkey]['groupName'] = $value['groupName'];
-                    $columnsDataWithImages[$groupColumnName][$dkey]['columnWidth'] = $colWidth;
-                    $columnsDataWithImages[$groupColumnName][$dkey]['unitName'] = $this->replaceYellowCode($this->get('translator')->trans($value['unitName']));
+
+                    $columnsDataWithImages[$groupColumnName][$dkey]['groupName'] = $groupName;
+                    $columnsDataWithImages[$groupColumnName][$dkey]['columnWidth'] = $columnWidth;
+                    $columnsDataWithImages[$groupColumnName][$dkey]['unitName'] = $this->replaceYellowCode($this->translatorInterface->trans($unitName));
                     $columnsDataWithImages[$groupColumnName][$dkey]['columnName'] = $value['columnName'];
-                    $columnsDataWithImages[$groupColumnName][$dkey]['columnLabel'] = $this->replaceYellowCode($this->get('translator')->trans($groupColumnName));
+                    $columnsDataWithImages[$groupColumnName][$dkey]['columnLabel'] = $this->replaceYellowCode($this->translatorInterface->trans($groupColumnName));
 
                     if ($this->iconRequired == 'YES')
                     {
                         if(!isset($this->attrbuteImgS3Arr[$groupColumnName]))
                         {
-                            $attributeImagesSrc = $this->attributeImages[$groupColumnName];
-                            $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
-                            $this->attrbuteImgS3Arr[$groupColumnName] = $attributeImagesSrc;
-                            $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $attributeImagesSrc;
+                            if(isset($this->attributeImages[$groupColumnName]))
+                            {
+                                $attributeImagesSrc = $this->attributeImages[$groupColumnName];
+                                $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
+                                $this->attrbuteImgS3Arr[$groupColumnName] = $attributeImagesSrc;
+                                $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $attributeImagesSrc;
+                            }
                         }
                         else
                         {
@@ -369,31 +409,50 @@ class HydraulicFittingController extends AbstractController
             foreach ($this->columnsData as $key => $value) {
 
                 $groupColumnName = $value['columnName'];
+                $groupName = '';
+
+                $columnWidth = '';
+                $unitName = '';
+
+                if(isset($value['columnWidth']) && $value['columnWidth'])
+                {
+                    $columnWidth = $value['columnWidth'];
+                }
+
+                if(isset($value['unitName']) && $value['unitName'])
+                {
+                    $unitName = $value['unitName'];
+                }
+
                 if(isset($value['groupName']) && $value['groupName'])
                 {
                     $groupColumnName = $value['groupName'];
+                    $groupName = $value['groupName'];
                     $this->subHeaderRequired = 'YES';
                 }
 
-                $columnsDataWithImages[$groupColumnName][$key]['groupName'] = $value['groupName'];
-                $columnsDataWithImages[$groupColumnName][$key]['columnWidth'] = $value['columnWidth'];
+                $columnsDataWithImages[$groupColumnName][$key]['groupName'] = $groupName;
+                $columnsDataWithImages[$groupColumnName][$key]['columnWidth'] = $columnWidth;
 
                 if($value['columnName'] == 'listPrice')
-                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $value['unitName'];
+                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $unitName;
                 else
-                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = ($value['unitName']) ? $this->replaceYellowCode($this->get('translator')->trans($value['unitName'])) : '';
+                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = ($unitName) ? $this->replaceYellowCode($this->translatorInterface->trans($unitName)) : '';
 
                 $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
-                $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->replaceYellowCode($this->get('translator')->trans($groupColumnName));
+                $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->replaceYellowCode($this->translatorInterface->trans($groupColumnName));
 
                 if ($this->iconRequired == 'YES')
                 {
                     if(!isset($this->attrbuteImgS3Arr[$groupColumnName]))
                     {
-                        $attributeImagesSrc = $this->attributeImages[$groupColumnName];
-                        $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
-                        $this->attrbuteImgS3Arr[$groupColumnName] = $attributeImagesSrc;
-                        $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImagesSrc;
+                        if(isset($this->attributeImages[$groupColumnName]))
+                        {
+                            $attributeImagesSrc = $this->attributeImages[$groupColumnName];
+                            $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
+                            $this->attrbuteImgS3Arr[$groupColumnName] = $attributeImagesSrc;
+                            $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImagesSrc;
+                        }
                     }
                     else
                     {
@@ -405,7 +464,6 @@ class HydraulicFittingController extends AbstractController
 
         return $columnsDataWithImages;
     }
-
     public function replaceYellowCode($string)
     {
         $string = str_replace('%*','<span style="color: #ffa500;">', $string);
@@ -428,16 +486,37 @@ class HydraulicFittingController extends AbstractController
         else{
             $fractionValues = explode("/",$stringParts[0]);
             if(count($fractionValues) > 1)
-            {   
+            {
                 $decimal = $fractionValues[0]/$fractionValues[1];
             }
             else{
                 $decimal = $stringParts[0];
             }
-            
+
         }
 
         return $decimal;
+    }
+
+    public function getRequestedParameter(Request $request, $documentId): array
+    {
+        $parameterBag = [];
+        $parameterBag['printermarks'] = $request->get('printermarks');
+
+        $imageWidth = null;
+        $imageRecompression = null;
+        $printConfigFile = \Pimcore\Web2Print\Processor::getJobConfigFile($documentId);
+        if(file_exists($printConfigFile)){
+            $printConfigFileContent = file_get_contents($printConfigFile);
+            $printConfig = json_decode( $printConfigFileContent,true);
+            $imageRecompression = $printConfig['config']['Image Quality'];
+            $imageWidth = $printConfig['config']['Image Width'];
+        }
+        $this->imageWidth = $imageWidth;
+        $parameterBag['imageQuality'] = $imageRecompression;
+        $parameterBag['imageWidth'] = $imageWidth;
+
+        return $parameterBag;
     }
 
 }

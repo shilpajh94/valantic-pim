@@ -1,0 +1,249 @@
+{% if parentContainer is not defined %}
+        {% extends "@Catalog/Layouts/layout.html.twig" %}
+{% endif %}
+
+{% block _content %}
+
+    {% if editmode %}
+        {{ pimcore_relation("inh-printcatalog") }}
+    {% endif %}
+
+    {% if info['data'] is defined and info['data'] is not empty %}
+
+        <div class="template">
+            <div class="segregate inhSettingSectionPage">
+
+                <div id="pageHeader"></div>
+                <span  class="pageName">{{ info['configTableName']~" - "~info['siop4Description'] }}</span>
+                <div class="footer">
+                    <footer class="flex-center {{info['footer_class']}}">
+                        <span class="logo">
+                            <img src="{{info['footer_logo_src']}}">
+                        </span>
+                        <div class="flex aligned">
+                            <h5>
+                                {% if editmode %} 
+                                        {% if pimcore_input("INH_SP_FOOTER_BRAND_1").isEmpty() %} 
+                                                {{ pimcore_input("INH_SP_FOOTER_BRAND_1", {"placeholder" : "Enter Product Category"}).setDataFromResource(info['configTableName']) | raw }}
+                                        {% else %}
+                                                {{ pimcore_input("INH_SP_FOOTER_BRAND_1", {"placeholder" : "Enter Product Category"}) }}
+                                        {% endif %}
+                                {% else %}
+                                        {{ pimcore_input("INH_SP_FOOTER_BRAND_1", {"placeholder" : "Enter Product Category"}) }}
+                                {% endif %}
+                            </h5>
+                        </div>
+                    </footer>
+                </div>
+                <div class="footer1">
+                    <footer class="flex-center {{info['footer_class']}}">
+                        <div class="flex aligned">
+                            <h5>
+                                {% if editmode %} 
+                                        {% if pimcore_input("INH_SP_FOOTER_BRAND_2").isEmpty() %} 
+                                                {{ pimcore_input("INH_SP_FOOTER_BRAND_2", {"placeholder" : "Enter Product Category"}).setDataFromResource(info['configTableName']) | raw }}
+                                        {% else %}
+                                                {{ pimcore_input("INH_SP_FOOTER_BRAND_2", {"placeholder" : "Enter Product Category"}) }}
+                                        {% endif %}
+                                {% else %}
+                                        {{ pimcore_input("INH_SP_FOOTER_BRAND_2", {"placeholder" : "Enter Product Category"}) }}
+                                {% endif %}
+                            </h5>
+                        </div>
+                        <span class="logo">
+                            <img src="{{info['footer_logo_src']}}">
+                        </span>
+                    </footer>
+                </div>
+
+                <article class="fullcontainer single">
+                    {% for tableName, data in info['data'] %}
+                        <div class="inhsetting1">
+                            <div class="inhsetting-sidebar20">
+                                <div class=" sidebar">
+                                    <ul>
+                                        {% if info['categories'] is iterable %}
+                                            {% for category in info['categories'] %}
+                                                {% set first = '' %}
+
+                                                {% if (tableName == category['mainCategory'][0]['name']) %}
+                                                    {% set first = 'first' %}
+                                                {% endif %}
+
+                                                <li class='{{first}}'>
+
+                                                    {% if category['mainCategory'][0]['name'] is defined %}
+                                                        <p><b>{{category['mainCategory'][0]['name']}}</b></p>
+                                                    {% else %}
+                                                        <p></p>
+                                                    {% endif %}
+
+                                                    {% if category['subCategory'] is defined and category['subCategory'] is iterable and category['subCategory'] is not empty %}
+                                                        {% for k, cat in category['subCategory'] %}
+                                                            {% if cat['printable'] == 1 %} 
+                                                                <p>{{cat['name']}}</p>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                
+                                                </li>
+
+                                            {% endfor %}
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="inhRight">
+                                {% if (tableName == 'Welding') %}
+                                    <h1 class="borderBottom block marginBottom5 contitech-black weldingSectionPageHeader">
+                                {% else %}
+                                    <h1 class="borderBottom block marginBottom5 contitech-black">
+                                {% endif %}
+
+                                {% if editmode %} 
+                                        {% if pimcore_input("INH_SP_CATAGORY").isEmpty() %} 
+                                                {{ pimcore_input("INH_SP_CATAGORY", {"placeholder" : "Enter Product Category"}).setDataFromResource(info['configTableName']) | raw }}
+                                        {% else %}
+                                                {{ pimcore_input("INH_SP_CATAGORY", {"placeholder" : "Enter Product Category"}) }}
+                                        {% endif %}
+                                {% else %}
+                                        {{ pimcore_input("INH_SP_CATAGORY", {"placeholder" : "Enter Product Category"}) }}
+                                {% endif %}
+
+                                </h1>
+
+                                {% if editmode %} 
+                                        {% if (tableName == 'Welding') %}
+                                            <p class=" borderBottom block weldingSectionPageBlock">
+                                        {% else %}
+                                            <p class=" borderBottom block">
+                                        {% endif %}
+
+                                        {{ pimcore_image('INH_SP_'~ md5Twig(tableName), {"width" : 250, "height" : 130}) }}
+                                        
+                                        </p>
+                                {% else %}
+
+                                        {% if not (pimcore_image('INH_SP_'~ md5Twig(tableName)).isEmpty()) %}
+                                            {% if (tableName == 'Welding') %}
+                                                <p class=" borderBottom block weldingSectionPageBlock">
+                                            {% else %}
+                                                <p class=" borderBottom block">
+                                            {% endif %}
+
+                                            {% set imgSrcObj =  pimcore_image('INH_SP_'~ md5Twig(tableName)) %}
+
+                                            {% if imgSrcObj %}
+                                                <img src="{{getImageThumbnail(imgSrcObj,imageWidth)}}" width="250" height="130"/>
+                                            {% endif %}
+
+                                            </p>
+                                        {% endif %}
+                                {% endif %}
+
+                                {% if (tableName == 'Welding') %}
+                                    <table class="grid special marginBottom5 weldingSectionPageTable" cellspacing="0" cellpadding="0">
+                                {% else %}
+                                    <table class="grid special marginBottom5" cellspacing="0" cellpadding="0">
+                                {% endif %}
+                                    <thead>
+                                        <tr class="head ">
+                                            <td width = "80"></td>
+                                            {% for key, colInfo in data['dispColumns'] %}
+                                                {% set colwidth =  colInfo['colWidth'] is defined ? colInfo['colWidth'] : null %}
+                                                <td width = {{colwidth}}>{{colInfo['title']|trans}}</td>
+                                            {% endfor %}
+                                        </tr>
+                                    </thead>
+                                    {# 
+                                    /**
+                                    * Printable columns is attribut which we get from table-column mapping
+                                    * In this template Display column is different. It is combination of printable column and feature attribute
+                                    * If Key of display column will be feature type, then it will get the value of feature and print as column value.
+                                    * Feature attribut will become seperate column here.
+                                    */
+                                    #}
+
+                                    {% set i = 1 %}
+
+                                    {% if data['data'] is defined and data['data'] is not empty %}
+                                        {% for brandName, row in data['data'] %}
+
+                                            {% set active = "tableNewFont" %}
+                                            {% if (i%2 != 0) %}
+                                                {% set active = "active tableNewFont" %}
+                                            {% endif %}
+
+                                            {% set i = i + 1 %}
+                                            
+                                            <tr class='{{active}}'>
+                                                <td>{{brandName}}</td>
+                                                {% for key, colInfo in data['dispColumns'] %}
+                                                    {% set td = false %}
+
+                                                    {% if row[key] is defined %}
+                                                        {% if colInfo['type'] == 'attr' %}
+                                                            {% if row[key][0] is defined %}
+                                                                <td>{{row[key][0]}}</td>
+                                                            {% else %}
+                                                                <td>{{row[key]}}</td>
+                                                            {% endif %}
+                                                            {% set td = true %}
+                                                        {% endif %}
+                                                    {% elseif colInfo['type'] is defined and colInfo['type'] == 'feature' and row[colInfo['fieldName']] is defined %} 
+
+                                                        {% if colInfo['feature'] in row[colInfo['fieldName']] %}
+                                                            <td>Yes</td>
+                                                            {% set td = true %}
+                                                        {% else %}
+                                                            <td>No</td>
+                                                            {% set td = true %}
+                                                        {% endif %}
+
+                                                    {% elseif colInfo['type'] is defined and colInfo['type'] == 'hoseMedia' and row[colInfo['fieldName']] is defined %} 
+
+                                                        {% if colInfo['hoseMedia'] in row[colInfo['fieldName']] %}
+                                                            <td>Yes</td>
+                                                            {% set td = true %}
+                                                        {% else %}
+                                                            <td>No</td>
+                                                            {% set td = true %}
+                                                        {% endif %}
+
+                                                    {% endif %}
+
+                                                    {% if not td %}
+                                                        {% if colInfo['mode'] is defined %}
+                                                            <td>{{pimcore_input('ING_PP_PageNumber_'~md5Twig(tableName~brandName~key),{"width":"40", "placeholder":"Page Number"})}}</td>
+                                                        {% else %}
+                                                            <td></td>
+                                                        {% endif %}
+                                                    {% endif %}
+
+                                                {% endfor %}
+                                            </tr>
+                                        {% endfor %}
+                                    {% endif %}
+
+                                </table>
+                                {% if editmode %}
+                                    <p class="small">&nbsp;{{pimcore_wysiwyg('INH_PP_'~md5Twig(tableName), {"width":"720", "placeholder":"Table Bottom Title"}) }}</p>
+                                {% endif %}
+
+                                {% if not editmode and not pimcore_wysiwyg('INH_PP_'~md5Twig(tableName)).isEmpty() %}
+                                    <p class="small">&nbsp;{{pimcore_wysiwyg('INH_PP_'~md5Twig(tableName), {"width":"720", "placeholder":"Table Bottom Title"}) }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </article>
+            </div>
+        </div>
+
+        {% if info['containerRequest'] is not defined or not info['containerRequest'] %}
+            <script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
+        {% endif %}
+
+    {% endif %}
+
+{% endblock %}

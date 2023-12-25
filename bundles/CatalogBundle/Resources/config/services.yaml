@@ -30,3 +30,8 @@ services:
             - { name: templating.helper, alias: catalogTemplatingHelper }
 
     CatalogBundle\Helper\CatalogTemplatingHelper:
+
+    catalog.twig.TwigExtension:
+        class: CatalogBundle\TwigExtension\TwigExtension
+        tags:
+        - { name: twig.extension }
