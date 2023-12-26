@@ -1,0 +1,463 @@
+{% if parentContainer is not defined %}
+	{% extends "@Catalog/Layouts/layout.html.twig" %}
+{% endif %}
+
+{% block _content %}
+
+	{% if editmode %}
+		{{ pimcore_relation("inh-printcatalogproduct") }}
+	{% endif %}
+
+
+	{% if info['brandsData'] is defined %}
+		{% set industrial_hose_data = [] %}
+
+		{% if info['brandsData'] is iterable %}
+			{% set pg = 0 %}
+
+			{% for brandKey, brand in info['brandsData'] %}
+				{% set uniqueId = md5Twig(brandKey) %}
+				{% set categoryForCatalog = brand['brandData']['SIOP3Description']~": "~brand['brandData']['SIOP4Description'] %}
+
+				<div class="template">
+					<div class="segregate inh  inhSettingProductPage">
+
+						<div id="pageHeader"></div>
+						<span class="pageName">
+							{{ brand['brandData']['SIOP3Description']~" - "~brand['brandData']['SIOP4Description'] }}
+						</span>
+
+						<div class="footer">
+							<footer class="flex-center {{info['footer_class']}}">
+								<span class="logo">
+									<img src="{{info['footer_logo_src']}}">
+								</span>
+								<div class="flex aligned">
+									<h5 class="marginTop2">
+										{% if editmode %}
+											{% if pimcore_input("INH_PP_FOOTER_BRAND_"~uniqueId).isEmpty() %}
+												{{ pimcore_input("INH_PP_FOOTER_BRAND_"~uniqueId, {"placeholder" : "Brand"}).setDataFromResource(brandKey) | raw }}
+											{% else %}
+												{{ pimcore_input("INH_PP_FOOTER_BRAND_"~uniqueId, {"placeholder" : "Brand"}) }}
+											{% endif %}
+										{% else %}
+											{{ pimcore_input("INH_PP_FOOTER_BRAND_"~uniqueId, {"placeholder" : "Brand"}) }}
+										{% endif %}
+
+										<span>
+											{% if editmode %}
+												{% if pimcore_input("INH_PP_FOOTER_HP_"~uniqueId).isEmpty() %}
+													{{ pimcore_input("INH_PP_FOOTER_HP_"~uniqueId, {"placeholder" : "eg: Enter Product Category"}).setDataFromResource(info['selectedCategory']) | raw }}
+												{% else %}
+													{{ pimcore_input("INH_PP_FOOTER_HP_"~uniqueId, {"placeholder" : "eg: Enter Product Category"}) }}
+												{% endif %}
+											{% else %}
+												{{ pimcore_input("INH_PP_FOOTER_HP_"~uniqueId, {"placeholder" : "eg: Enter Product Category"}) }}
+											{% endif %}
+										</span>
+									</h5>
+
+									<div class="compatible">
+										{% if editmode %}
+											{% if pimcore_wysiwyg("INH_PP_FOOTER_COMP_FITTING_"~uniqueId).isEmpty() %}
+												{{ pimcore_wysiwyg("INH_PP_FOOTER_COMP_FITTING_"~uniqueId, {"placeholder" : "eg: Enter Product Category"}).setDataFromResource("<b>Compatible Fitting</b><p>Meets or exceeds the performance requirements of</p>") | raw }}
+											{% else %}
+												{{ pimcore_wysiwyg("INH_PP_FOOTER_COMP_FITTING_"~uniqueId, {"placeholder" : "eg: Enter Product Category"}) }}
+											{% endif %}
+										{% else %}
+											{{ pimcore_wysiwyg("INH_PP_FOOTER_COMP_FITTING_"~uniqueId, {"placeholder" : "eg: Enter Product Category"}) }}
+										{% endif %}
+									</div>
+								</div>
+							</footer>
+						</div>
+
+						<div class="footer1">
+							<footer class="flex-center {{info['footer_class']}}">
+								<div class="flex aligned">
+
+									<div class="compatible">
+										{% if editmode %}
+											{% if pimcore_wysiwyg("INH_PP_FOOTER_COMP_FITTING1_"~uniqueId).isEmpty() %}
+												{{ pimcore_wysiwyg("INH_PP_FOOTER_COMP_FITTING1_"~uniqueId, {"placeholder" : "eg: Enter Product Category"}).setDataFromResource("<b>Compatible Fitting</b><p>Meets or exceeds the performance requirements of</p>") | raw }}
+											{% else %}
+												{{ pimcore_wysiwyg("INH_PP_FOOTER_COMP_FITTING1_"~uniqueId, {"placeholder" : "eg: Enter Product Category"}) }}
+											{% endif %}
+										{% else %}
+											{{ pimcore_wysiwyg("INH_PP_FOOTER_COMP_FITTING1_"~uniqueId, {"placeholder" : "eg: Enter Product Category"}) }}
+										{% endif %}
+									</div>
+
+									<h5 class="marginTop2">
+										{% if editmode %}
+											{% if pimcore_input("INH_PP_FOOTER_BRAND1_"~uniqueId).isEmpty() %}
+												{{ pimcore_input("INH_PP_FOOTER_BRAND1_"~uniqueId, {"placeholder" : "Brand"}).setDataFromResource(brandKey) | raw }}
+											{% else %}
+												{{ pimcore_input("INH_PP_FOOTER_BRAND1_"~uniqueId, {"placeholder" : "Brand"}) }}
+											{% endif %}
+										{% else %}
+											{{ pimcore_input("INH_PP_FOOTER_BRAND1_"~uniqueId, {"placeholder" : "Brand"}) }}
+										{% endif %}
+
+										<span>
+											{% if editmode %}
+												{% if pimcore_input("INH_PP_FOOTER_HP1_"~uniqueId).isEmpty() %}
+													{{ pimcore_input("INH_PP_FOOTER_HP1_"~uniqueId, {"placeholder" : "eg: Enter Product Category"}).setDataFromResource(info['selectedCategory']) | raw }}
+												{% else %}
+													{{ pimcore_input("INH_PP_FOOTER_HP1_"~uniqueId, {"placeholder" : "eg: Enter Product Category"}) }}
+												{% endif %}
+											{% else %}
+												{{ pimcore_input("INH_PP_FOOTER_HP1_"~uniqueId, {"placeholder" : "eg: Enter Product Category"}) }}
+											{% endif %}
+										</span>
+									</h5>
+
+								</div>
+								<span class="logo">
+									<img src="{{ info['footer_logo_src']}}">
+								</span>
+							</footer>
+						</div>
+
+						<article class="fullcontainer single">
+							<div class="inhsetting1">
+								<div class="inhsetting-sidebar">
+									<div class=" sidebar">
+										<ul>
+											{% if info['categories'] is iterable %}
+												{% for category in info['categories'] %}
+													{% set first = '' %}
+													{% if (info['selectedCategory'] == category['mainCategory'][0]['name']) %}
+														{% set first = 'first' %}
+													{% endif %}
+
+													<li class='{{first}}'>
+														{% if category['mainCategory'][0]['name'] is defined %}
+															<p>
+																<b>{{category['mainCategory'][0]['name']}}</b>
+															</p>
+														{% else %}
+															<p></p>
+														{% endif %}
+
+														{% if category['subCategory'] is defined and category['subCategory'] is iterable and category['subCategory'] is not empty %}
+															{% for k, cat in category['subCategory'] %}
+																{% if cat['printable'] == 1 %}
+																	<p>{{cat['name']}}</p>
+																{% endif %}
+															{% endfor %}
+														{% endif %}
+													</li>
+												{% endfor %}
+											{% endif %}
+										</ul>
+									</div>
+								</div>
+								<div class="inhRight">
+									<header class=" white">
+										<h1>
+											{% if editmode %}
+												{% if pimcore_input("INH_PRODUCT_BRANDNAME_"~uniqueId).isEmpty() %}
+													{{ pimcore_input("INH_PRODUCT_BRANDNAME_"~uniqueId, {"placeholder" : "eg: Enter Brand"}).setDataFromResource(brandKey) | raw }}
+												{% else %}
+													{{ pimcore_input("INH_PRODUCT_BRANDNAME_"~uniqueId, {"placeholder" : "eg: Enter Brand"}) }}
+												{% endif %}
+											{% else %}
+												{{ pimcore_input("INH_PRODUCT_BRANDNAME_"~uniqueId, {"placeholder" : "eg: Enter Brand"}) }}
+											{% endif %}
+										</h1>
+										<aside>
+											<div>
+												{% if editmode %}
+													{% if pimcore_wysiwyg("INH_LONG_DESCRIPTION_"~uniqueId).isEmpty() %}
+														{{ pimcore_wysiwyg("INH_LONG_DESCRIPTION_"~uniqueId, {"placeholder" : "eg: Enter Brand Description"}).setDataFromResource(brand['brandData']['longDescription']) | raw }}
+													{% else %}
+														{{ pimcore_wysiwyg("INH_LONG_DESCRIPTION_"~uniqueId, {"placeholder" : "eg: Enter Brand Description"}) }}
+													{% endif %}
+												{% else %}
+													{{ pimcore_wysiwyg("INH_LONG_DESCRIPTION_"~uniqueId, {"placeholder" : "eg: Enter Brand Description"}) }}
+												{% endif %}
+											</div>
+
+											{% if editmode %}
+												{% if pimcore_image('INH_MAIN_IMAGE_'~uniqueId).isEmpty() %}
+													{{ pimcore_image('INH_MAIN_IMAGE_'~uniqueId, {'width': 1067, 'height': 128}).setImage(brand['brandData']['mainImage']) }}
+												{% else %}
+													{{ pimcore_image('INH_MAIN_IMAGE_'~uniqueId, {'width': 1067, 'height': 128}) }}
+												{% endif %}
+
+
+											{% else %}
+
+												{% if not pimcore_image('INH_MAIN_IMAGE_'~uniqueId).isEmpty() %}
+													{% set imgSrcObj = pimcore_image('INH_MAIN_IMAGE_'~uniqueId) %}
+												{% endif %}
+
+												{% if imgSrcObj %}
+													<img src="{{getImageThumbnail(imgSrcObj,imageWidth)}}" width="1067" height="128"/>
+												{% endif %}
+											{% endif %}
+										</aside>
+									</header>
+									<section class="content">
+										{% if brand['brandData']['safetyFeatures'] or brand['brandData']['designFactor']|trim or brand['brandData']['tubeMaterial']|trim or brand['brandData']['coverMaterial']|trim or brand['brandData']['reinforcement']|trim or brand['brandData']['temperatureRangeFAndC']|trim or brand['brandData']['Coupling']|trim or brand['brandData']['Packaging']|trim %}
+											<menu class="flex">
+												{% if brand['brandData']['designFactor']|trim or brand['brandData']['tubeMaterial']|trim or brand['brandData']['coverMaterial']|trim or brand['brandData']['reinforcement']|trim or brand['brandData']['temperatureRangeFAndC']|trim or brand['brandData']['Coupling']|trim or brand['brandData']['Packaging']|trim %}
+													<div class="specs">
+														<h6>{{ 'specs'|trans }}</h6>
+														<div class="spec-requirement flex">
+															<div class="col-6">
+																{% if brand['brandData']['tubeMaterial']|trim %}
+																	<div class="full">
+																		<b>{{ 'Tube Material'|trans }}</b>
+																		{{ brand['brandData']['tubeMaterial'] | raw}}
+																	</div>
+																{% endif %}
+
+																{% if brand['brandData']['coverMaterial']|trim %}
+																	<div class="full">
+																		<b>{{ 'Cover Material'|trans }}</b>
+																		{{ brand['brandData']['coverMaterial'] | raw }}
+																	</div>
+																{% endif %}
+
+																{% if brand['brandData']['reinforcement']|trim %}
+																	<div class="full">
+																		<b>{{ 'Reinforcement'|trans }}</b>
+																		{{ brand['brandData']['reinforcement'] | raw }}
+																	</div>
+																{% endif %}
+
+																{% if brand['brandData']['temperatureRangeFAndC']|trim %}
+																	<div class="full">
+																		<b>{{ 'Temperature Range'|trans }}</b>
+																		{{ brand['brandData']['temperatureRangeFAndC'] | raw }}
+																	</div>
+																{% endif %}
+
+																{% if brand['brandData']['designFactor']|trim %}
+																	<div class="full">
+																		<b>{{ 'Design Factor'|trans }}</b>
+																		{{ brand['brandData']['designFactor'] | raw }}
+																	</div>
+																{% endif %}
+															</div>
+															<div class="col-6">
+																{% if brand['brandData']['Packaging']|trim %}
+																	<div class="right-full">
+																		<b>{{ 'Packaging'|trans }}</b>
+																		<table>
+																			{% set rows = explodePHP_EOL(brand['brandData']['Packaging']) %}
+																			{% for row in rows %}
+																				<tr>
+																					{% set rowColData = row|split(' - ') %}
+																					{% if rowColData|length == 2 %}
+																						<td>{{ rowColData[0] | raw}}</td>
+																						<td>
+																							-
+																							{{ rowColData[1] | raw }}</td>
+																					{% else %}
+																						<td colspan="2">{{ row  | raw}}</td>
+																					{% endif %}
+																				</tr>
+																			{% endfor %}
+																		</table>
+																	</div>
+																{% endif %}
+
+																{% if brand['brandData']['Coupling']|trim %}
+																	<div class="right-full">
+																		<b>{{ 'Coupling'|trans }}</b>
+																		{{ brand['brandData']['Coupling'] | raw }}
+																	</div>
+																{% endif %}
+															</div>
+														</div>
+													</div>
+												{% endif %}
+
+												{% if brand['brandData']['safetyFeatures'] %}
+													<div class="feature">
+														<h6>{{ 'features'|trans }}</h6>
+														<div>
+															{% for feature in brand['brandData']['safetyFeatures'] %}
+																<p class="flex">
+																	{% if feature['iconSrc'] %}
+																		<img src="{{ feature['iconSrc'] }}"/>
+																	{% endif %}
+																	<font>
+																		{{ feature['name'] }}</font>
+																</p>
+															{% endfor %}
+														</div>
+													</div>
+												{% endif %}
+											</menu>
+										{% endif %}
+
+										<menu>
+											<h6>{{ 'branding'|trans }}</h6>
+											<figure class="brandingLaylineStyle">
+												<figcaption>
+													{{ brand['brandData']['BrandingLayline'] }}
+												</figcaption>
+											</figure>
+										</menu>
+
+										{% set noterow = 0 %}
+
+										{% if brand['articleData'] is defined and brand['articleData'] is iterable %}
+											{% for key, GroupingFields in brand['articleData'] %}
+												{% for gkey, fittingTableName in GroupingFields %}
+													{% set industrial_hose_data = industrial_hose_data | merge({ (categoryForCatalog): [brandKey ~ " " ~ key] }) %}
+													{% set tableKey = md5Twig(key ~ gkey) %}
+
+													<div class="inh-section-break">
+														<aside class="borders">
+															<h5 class="marginTop ">
+																{% if editmode %}
+																	{% if pimcore_input('INH_PP_BrandNameGroupKey_' ~ uniqueId ~ '_' ~ tableKey, {'placeholder': 'eg: Enter Brand Name Group Text'}).isEmpty() %}
+																		{{ pimcore_input('INH_PP_BrandNameGroupKey_' ~ uniqueId ~ '_' ~ tableKey, {'placeholder': 'eg: Enter Brand Name Group Text'}).setDataFromResource(brandKey ~ " " ~ key) | raw }}
+																	{% else %}
+																		{{ pimcore_input('INH_PP_BrandNameGroupKey_' ~ uniqueId ~ '_' ~ tableKey, {'placeholder': 'eg: Enter Brand Name Group Text'}) }}
+																	{% endif %}
+																{% else %}
+																	{{ pimcore_input('INH_PP_BrandNameGroupKey_' ~ uniqueId ~ '_' ~ tableKey, {'placeholder': 'eg: Enter Brand Name Group Text'}) }}
+																{% endif %}
+															</h5>
+
+															{% if fittingTableName['orderCodes'] %}
+																<div class="flex alignCenter orderCode">Order Codes :
+																	{% if editmode %}
+																		{% if pimcore_input('INH_PP_OrderCodes_' ~ uniqueId ~ '_' ~ tableKey, {'placeholder': 'eg: Enter Order Codes'}).isEmpty() %}
+																			{{ pimcore_input('INH_PP_OrderCodes_' ~ uniqueId ~ '_' ~ tableKey, {'placeholder': 'eg: Enter Order Codes'}).setDataFromResource(fittingTableName['orderCodes']) | raw }}
+																		{% else %}
+																			{{ pimcore_input('INH_PP_OrderCodes_' ~ uniqueId ~ '_' ~ tableKey, {'placeholder': 'eg: Enter Order Codes'}) }}
+																		{% endif %}
+																	{% else %}
+																		{{ pimcore_input('INH_PP_OrderCodes_' ~ uniqueId ~ '_' ~ tableKey, {'placeholder': 'eg: Enter Order Codes'}) }}
+																	{% endif %}
+																</div>
+															{% endif %}
+														</aside>
+
+														<table class="grid special inh marginBottom5 continueLable" cellspacing="0" cellpadding="0">
+															<thead>
+																{% if info['iconRequired'] == 'YES' %}
+																	<tr class="sub-head">
+																		{% for key, c1data in fittingTableName['columnsDataWithImages'] %}
+																			{% set columnWidth = '' %}
+																			{% set g1count = c1data|length %}
+																			{% set firstArray = c1data|first %}
+
+																			{% if (firstArray['columnWidth']) %}
+                                                                                {% set columnWidth = "width="~firstArray['columnWidth'] %}
+																			{% endif %}
+
+																			<td colspan="{{g1count}}" {{columnWidth}}>
+																					{% if ( firstArray['columnIcon'] is defined and firstArray['columnIcon']) %}
+																							<img src="{{firstArray['columnIcon']}}" width="45" height="45" />
+																					{% endif %}
+																			</td>
+																		{% endfor %}
+																	</tr>
+																{% endif %}
+																<tr class="head">
+																	{% for c2data in fittingTableName['columnsDataWithImages'] %}
+
+																		{% set columnWidth = '' %}
+																		{% set g2count = c2data|length %}
+																		{% set first2Array = c2data|first %}
+
+																		{% if (first2Array['columnWidth']) %}
+																				{% set columnWidth = "width="~first2Array['columnWidth'] %}
+																		{% endif %}
+
+																		<td colspan="{{g2count}}" {{columnWidth}}>{{first2Array['columnLabel']}}</td>
+																	{% endfor %}
+																</tr>
+
+																{% if fittingTableName['subHeaderRequired'] == 'YES' %}
+																	<tr class="head">
+																		{% for c3data in fittingTableName['columnsDataWithImages'] %}
+																			{% for c3value in c3data %}
+																				{% if c3value['unitName'] %}
+																					<td>{{ c3value['unitName'] }}</td>
+																				{% else %}
+																					<td></td>
+																				{% endif %}
+																			{% endfor %}
+																		{% endfor %}
+																	</tr>
+																{% endif %}
+															</thead>
+															<tbody>
+																{% if fittingTableName['articles'] is defined and fittingTableName['articles'] is iterable %}
+																	{% set incrRow = 1 %}
+																	{% for element in fittingTableName['articles'] %}
+																		{% if incrRow % 2 == 0 %}
+																			<tr class="tableNewFont">
+																			{% else %}
+																				<tr class="active tableNewFont">
+																				{% endif %}
+																				{% for value in element %}
+																					<td>{{ value }}</td>
+																				{% endfor %}
+																			</tr>
+																			{% set incrRow = incrRow + 1 %}
+																		{% endfor %}
+																	{% endif %}
+																</tbody>
+															</tbody>
+														</table>
+														<p class="small">{{ pimcore_input('INH_PP_Note_' ~ uniqueId ~ '_' ~ tableKey, {'placeholder': 'Enter comment'}) }}</p>
+													</div>
+													{% set noterow = noterow + 1 %}
+												{% endfor %}
+											{% endfor %}
+										{% endif %}
+									</section>
+								</div>
+							</div>
+						</article>
+					</div>
+				</div>
+				{% set pg = pg +1 %}
+			{% endfor %}
+		{% endif %}
+
+		<div class="hide">
+
+			{% set industrial_hose_data_list = [] %}
+
+			{% if industrial_hose_data %}
+
+				{% for key, value in industrial_hose_data %}
+					{% set mergeData = key~"$$"~value|join(',') %}
+					{% set industrial_hose_data_list = industrial_hose_data_list|merge([mergeData]) %}
+				{% endfor %}
+
+				{% if industrial_hose_data_list %}
+					{% set industrial_hose_details_text = implodePHP_EOL(industrial_hose_data_list) %}
+					{{ pimcore_textarea('industrial_hose_details').setDataFromResource(industrial_hose_details_text)| raw }}
+				{% endif %}
+
+			{% endif %}
+		</div>
+
+		<style>
+			.inhsetting-sidebar.inhsettingLeft {
+				border: solid 2px blue !important;
+			}
+			.inhsetting-sidebar.inhsettingRight {
+				border: solid 2px red !important;
+			}
+		</style>
+
+		{% if info['containerRequest'] is not defined %}
+			<script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
+		{% endif %}
+
+	{% endif %}
+
+{% endblock %}

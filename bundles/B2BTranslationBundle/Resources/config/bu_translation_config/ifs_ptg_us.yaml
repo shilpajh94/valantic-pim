@@ -5,6 +5,11 @@ parameters:
             fieldLocation: class
             className: Product
             isLocalized: false
+        shortDescription:
+            fieldName: shortDescription
+            fieldLocation: class
+            className: Product
+            isLocalized: true
         externalID:
             fieldName: externalID
             fieldLocation: class
@@ -52,11 +57,6 @@ parameters:
             isLocalized: true
         BrandShortText5:
             fieldName: BrandShortText5
-            fieldLocation: class
-            className: Product
-            isLocalized: true
-        shortDescription:
-            fieldName: shortDescription
             fieldLocation: class
             className: Product
             isLocalized: true
@@ -144,101 +144,121 @@ parameters:
             className: Product
             isLocalized: false
         BoltHoleSizeInFract:
+            className: ''
             fieldName: BoltHoleSizeInFract
             fieldLocation: objectbrick
             objectBrickClassName: AccessoriesFert
             isLocalized: false
         ClampingDiameterInFract:
+            className: ''
             fieldName: ClampingDiameterInFract
             fieldLocation: objectbrick
             objectBrickClassName: AccessoriesFert
             isLocalized: false
         DescriptivePartNumber:
+            className: ''
             fieldName: DescriptivePartNumber
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false
         FlangeIDInFract:
+            className: ''
             fieldName: FlangeIDInFract
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false
         HoseID1InFract:
+            className: ''
             fieldName: HoseID1InFract
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false
         OringMaterial:
+            className: ''
             fieldName: OringMaterial
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false
         swivel:
+            className: ''
             fieldName: swivel
             fieldLocation: relational
             objectBrickClassName: HydFittingsFert
             isLocalized: false
         ThreadDashSize1:
+            className: ''
             fieldName: ThreadDashSize1
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false
         hoseDashSize:
+            className: ''
             fieldName: hoseDashSize
             fieldLocation: objectbrick
             objectBrickClassName: HoseSkeleton
             isLocalized: false
         DashSize:
+            className: ''
             fieldName: DashSize
             fieldLocation: objectbrick
             objectBrickClassName: AccessoriesFert
             isLocalized: false
         HoseIDNominalIDFrac:
+            className: ''
             fieldName: HoseIDNominalIDFrac
             fieldLocation: objectbrick
             objectBrickClassName: HoseSkeleton
             isLocalized: false
         bendRestrictorType:
+            className: ''
             fieldName: bendRestrictorType
             fieldLocation: objectbrick
             objectBrickClassName: HoseFert
             isLocalized: false
         descriptive:
+            className: ''
             fieldName: descriptive
             fieldLocation: objectbrick
             objectBrickClassName: HoseFert
             isLocalized: false
         fitting1Material:
+            className: ''
             fieldName: fitting1Material
             fieldLocation: objectbrick
             objectBrickClassName: HoseFert
             isLocalized: false
         fitting1Size:
+            className: ''
             fieldName: fitting1Size
             fieldLocation: objectbrick
             objectBrickClassName: HoseFert
             isLocalized: false
         fitting1Type:
+            className: ''
             fieldName: fitting1Type
             fieldLocation: objectbrick
             objectBrickClassName: HoseFert
             isLocalized: false
         fitting2Material:
+            className: ''
             fieldName: fitting2Material
             fieldLocation: objectbrick
             objectBrickClassName: HoseFert
             isLocalized: false
         fitting2Size:
+            className: ''
             fieldName: fitting2Size
             fieldLocation: objectbrick
             objectBrickClassName: HoseFert
             isLocalized: false
         fitting2Type:
+            className: ''
             fieldName: fitting2Type
             fieldLocation: objectbrick
             objectBrickClassName: HoseFert
             isLocalized: false
         effectiveLengthUOM:
+            className: ''
             fieldName: effectiveLengthUOM
             fieldLocation: objectbrick
             objectBrickClassName: BeltsFert
@@ -253,92 +273,109 @@ parameters:
             fieldLocation: class
             className: Product
             isLocalized: false 
-        californiaProposition65ChemicalName1:
+        californiaProposition65ChemicalName1:        
             fieldName: californiaProposition65ChemicalName1
             fieldLocation: class
             className: Product
             isLocalized: false 
         totalWeight:
+            className: ''
             fieldName: totalWeight
             fieldLocation: objectbrick
             objectBrickClassName: HoseFert
             isLocalized: false 
         totalWeightPerPackage:
+            className: ''
             fieldName: totalWeightPerPackage
             fieldLocation: objectbrick
             objectBrickClassName: HoseFert
             isLocalized: false 
         BoltHoleSizeInDec:
+            className: ''
             fieldName: BoltHoleSizeInDec
             fieldLocation: objectbrick
             objectBrickClassName: AccessoriesFert
             isLocalized: false 
         BoltHoleSizeMM:
+            className: ''
             fieldName: BoltHoleSizeMM
             fieldLocation: objectbrick
             objectBrickClassName: AccessoriesFert
             isLocalized: false 
         ClampingDiameterInDec:
+            className: ''
             fieldName: ClampingDiameterInDec
             fieldLocation: objectbrick
             objectBrickClassName: AccessoriesFert
             isLocalized: false 
         ClampingDiameterMM:
+            className: ''
             fieldName: ClampingDiameterMM
             fieldLocation: objectbrick
             objectBrickClassName: AccessoriesFert
             isLocalized: false 
         FlatWidthIn:
+            className: ''
             fieldName: FlatWidthIn
             fieldLocation: objectbrick
             objectBrickClassName: AccessoriesFert
             isLocalized: false 
         HoseIdDecIN:
+            className: ''
             fieldName: HoseIdDecIN
             fieldLocation: objectbrick
             objectBrickClassName: AccessoriesFert
             isLocalized: false 
         OringIdInDec:
+            className: ''
             fieldName: OringIdInDec
             fieldLocation: objectbrick
             objectBrickClassName: AccessoriesFert
             isLocalized: false 
         OringIdMM:
+            className: ''
             fieldName: OringIdMM
             fieldLocation: objectbrick
             objectBrickClassName: AccessoriesFert
             isLocalized: false 
         OringThicknessMM:
+            className: ''
             fieldName: OringThicknessMM
             fieldLocation: objectbrick
             objectBrickClassName: AccessoriesFert
             isLocalized: false 
         OringThicknessInDec:
+            className: ''
             fieldName: OringThicknessInDec
             fieldLocation: objectbrick
             objectBrickClassName: AccessoriesFert
             isLocalized: false 
         Width:
+            className: ''
             fieldName: Width
             fieldLocation: objectbrick
             objectBrickClassName: AccessoriesFert
             isLocalized: false 
         CutOffLengthIN:
+            className: ''
             fieldName: CutOffLengthIN
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false 
         CutOffLengthMM:
+            className: ''
             fieldName: CutOffLengthMM
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false 
         DropLengthIN:
+            className: ''
             fieldName: DropLengthIN
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false 
         DropLengthMM:
+            className: ''
             fieldName: DropLengthMM
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
@@ -356,21 +393,25 @@ parameters:
             objectBrickClassName: HydFittingsFert
             isLocalized: false
         PackagingQuantityPerBox:
+            className: ''
             fieldName: PackagingQuantityPerBox
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false 
         FittingWeight:
+            className: ''
             fieldName: FittingWeight
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false 
         FlangeODInDec:
+            className: ''
             fieldName: FlangeODInDec
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false 
         FlangeODMM:
+            className: ''
             fieldName: FlangeODMM
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
@@ -382,46 +423,55 @@ parameters:
             objectBrickClassName: HydFittingsFert
             isLocalized: false
         Hex1WrenchSizeIN:
+            className: ''
             fieldName: Hex1WrenchSizeIN
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false 
         Hex1WrenchSizeMM:
+            className: ''
             fieldName: Hex1WrenchSizeMM
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false 
         Hex2WrenchSizeIN:
+            className: ''
             fieldName: Hex2WrenchSizeIN
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false 
         Hex2WrenchSizeMM:
+            className: ''
             fieldName: Hex2WrenchSizeMM
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false 
         InsertionDepthIN:
+            className: ''
             fieldName: InsertionDepthIN
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false 
         AssemblyMaterial:
+            className: ''
             fieldName: AssemblyMaterial
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false 
         OverallLengthIN:
+            className: ''
             fieldName: OverallLengthIN
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false 
         OverallLengthMm:
+            className: ''
             fieldName: OverallLengthMm
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false 
         ThreadSize1InMMDecimal:
+            className: ''
             fieldName: ThreadSize1InMMDecimal
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
@@ -433,11 +483,13 @@ parameters:
             objectBrickClassName: HydFittingsFert
             isLocalized: false
         TubeODInDec:
+            className: ''
             fieldName: TubeODInDec
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false 
         TubeODMM:
+            className: ''
             fieldName: TubeODMM
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
@@ -453,21 +505,25 @@ parameters:
             className: Product
             isLocalized: false 
         hoseOdin:
+            className: ''
             fieldName: hoseOdin
             fieldLocation: objectbrick
             objectBrickClassName: HoseSkeleton
             isLocalized: false 
         hoseOdmm:
+            className: ''
             fieldName: hoseOdmm
             fieldLocation: objectbrick
             objectBrickClassName: HoseSkeleton
             isLocalized: false 
         workingPressureBAR:
+            className: ''
             fieldName: workingPressureBAR
             fieldLocation: objectbrick
             objectBrickClassName: HoseSkeleton
             isLocalized: false 
         workingPressurePSI:
+            className: ''
             fieldName: workingPressurePSI
             fieldLocation: objectbrick
             objectBrickClassName: HoseSkeleton
@@ -494,66 +550,79 @@ parameters:
             masterType: INH-HYD-HOSE~coverCharacteristic
             isLocalized: true
         hoseLengthFT:
+            className: ''
             fieldName: hoseLengthFT
             fieldLocation: objectbrick
             objectBrickClassName: HoseFert
             isLocalized: false
         hoseLengthM:
+            className: ''
             fieldName: hoseLengthM
             fieldLocation: objectbrick
             objectBrickClassName: HoseFert
             isLocalized: false
         staticWire:
+            className: ''
             fieldName: staticWire
             fieldLocation: objectbrick
             objectBrickClassName: HoseBase
             isLocalized: false
         assembly:
+            className: ''
             fieldName: assembly
             fieldLocation: objectbrick
             objectBrickClassName: HoseFert
             isLocalized: false
         BendRadiusIN:
+            className: ''
             fieldName: BendRadiusIN
             fieldLocation: objectbrick
             objectBrickClassName: HoseSkeleton
             isLocalized: false
         bendRestrictor:
+            className: ''
             fieldName: bendRestrictor
             fieldLocation: objectbrick
             objectBrickClassName: HoseFert
             isLocalized: false
         BendRadiusMM:
+            className: ''
             fieldName: BendRadiusMM
             fieldLocation: objectbrick
             objectBrickClassName: HoseSkeleton
             isLocalized: false
         hoseidDec:
+            className: ''
             fieldName: hoseidDec
             fieldLocation: objectbrick
             objectBrickClassName: HoseSkeleton
             isLocalized: false
         hoseidmm:
+            className: ''
             fieldName: hoseidmm
             fieldLocation: objectbrick
             objectBrickClassName: HoseSkeleton
             isLocalized: false
         minBurstPressureMPA:
+            className: ''
             fieldName: minBurstPressureMPA
             fieldLocation: objectbrick
             objectBrickClassName: HoseSkeleton
             isLocalized: false
         minBurstPressurePSI:
+            className: ''
             fieldName: minBurstPressurePSI
             fieldLocation: objectbrick
             objectBrickClassName: HoseSkeleton
             isLocalized: false
         numberOfHelixWires:
+            className: ''
             fieldName: numberOfHelixWires
             fieldLocation: objectbrick
             objectBrickClassName: HoseBase
             isLocalized: false
         numberOfPlies:
+            className: ''
             fieldName: numberOfPlies
             fieldLocation: objectbrick
             objectBrickClassName: HoseBase
@@ -594,21 +663,25 @@ parameters:
             masterType: INH-HYD-HOSE~tubeCharacteristic
             isLocalized: true
         tubeGaugeIN:
+            className: ''
             fieldName: tubeGaugeIN
             fieldLocation: objectbrick
             objectBrickClassName: HoseSkeleton
             isLocalized: false
         tubeGaugeMM:
+            className: ''
             fieldName: tubeGaugeMM
             fieldLocation: objectbrick
             objectBrickClassName: HoseSkeleton
             isLocalized: false
         VacuumIN:
+            className: ''
             fieldName: VacuumIN
             fieldLocation: objectbrick
             objectBrickClassName: HoseSkeleton
             isLocalized: false
         VacuumMM:
+            className: ''
             fieldName: VacuumMM
             fieldLocation: objectbrick
             objectBrickClassName: HoseSkeleton
@@ -634,271 +707,325 @@ parameters:
             className: Product
             isLocalized: false
         heightIn:
+            className: ''
             fieldName: heightIn
             fieldLocation: objectbrick
             objectBrickClassName: PTGSkeleton
             isLocalized: false
         heightMm:
+            className: ''
             fieldName: heightMm
             fieldLocation: objectbrick
             objectBrickClassName: PTGSkeleton
             isLocalized: false
         profile:
+            className: ''
             fieldName: profile
             fieldLocation: objectbrick
             objectBrickClassName: PTGSkeleton
             isLocalized: false
         widthIn:
+            className: ''
             fieldName: widthIn
             fieldLocation: objectbrick
             objectBrickClassName: PTGFert
             isLocalized: false
         widthmm:
+            className: ''
             fieldName: widthmm
             fieldLocation: objectbrick
             objectBrickClassName: PTGFert
             isLocalized: false
         beltAngle:
+            className: ''
             fieldName: beltAngle
             fieldLocation: objectbrick
             objectBrickClassName: PTGSkeleton
             isLocalized: false
         datumLengthIn:
+            className: ''
             fieldName: datumLengthIn
             fieldLocation: objectbrick
             objectBrickClassName: BeltsFert
             isLocalized: false
         datumLengtMM:
+            className: ''
             fieldName: datumLengtMM
             fieldLocation: objectbrick
             objectBrickClassName: BeltsFert
             isLocalized: false
         heatOilResistant:
+            className: ''
             fieldName: heatOilResistant
             fieldLocation: objectbrick
             objectBrickClassName: PTGSkeleton
             isLocalized: false
         insideLengthIN:
+            className: ''
             fieldName: insideLengthIN
             fieldLocation: objectbrick
             objectBrickClassName: BeltsFert
             isLocalized: false
         insideLengthMM:
+            className: ''
             fieldName: insideLengthMM
             fieldLocation: objectbrick
             objectBrickClassName: BeltsFert
             isLocalized: false
         numberOfBands:
+            className: ''
             fieldName: numberOfBands
             fieldLocation: objectbrick
             objectBrickClassName: BeltsFert
             isLocalized: false
         outsideLengthIN:
+            className: ''
             fieldName: outsideLengthIN
             fieldLocation: objectbrick
             objectBrickClassName: BeltsFert
             isLocalized: false
         outsideLengtMM:
+            className: ''
             fieldName: outsideLengtMM
             fieldLocation: objectbrick
             objectBrickClassName: BeltsFert
             isLocalized: false
         productEffectiveLengthIN:
+            className: ''
             fieldName: productEffectiveLengthIN
             fieldLocation: objectbrick
             objectBrickClassName: BeltsFert
             isLocalized: false
         productEffectiveLengthMM:
+            className: ''
             fieldName: productEffectiveLengthMM
             fieldLocation: objectbrick
             objectBrickClassName: BeltsFert
             isLocalized: false
         staticConductive:
+            className: ''
             fieldName: staticConductive
             fieldLocation: objectbrick
             objectBrickClassName: PTGSkeleton
             isLocalized: false
         boreType:
+            className: ''
             fieldName: boreType
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         faceWidthIn:
+            className: ''
             fieldName: faceWidthIn
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         faceWidthMm:
+            className: ''
             fieldName: faceWidthMm
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         finish:
+            className: ''
             fieldName: finish
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         flange:
+            className: ''
             fieldName: flange
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         flangeDiameterIn:
+            className: ''
             fieldName: flangeDiameterIn
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         flangeDiameterMm:
+            className: ''
             fieldName: flangeDiameterMm
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         flangeMaterial:
+            className: ''
             fieldName: flangeMaterial
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         beltType:
+            className: ''
             fieldName: beltType
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         beltWidth:
+            className: ''
             fieldName: beltWidth
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         beltWidthUOM:
+            className: ''
             fieldName: beltWidthUOM
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         hubDiameterIn:
+            className: ''
             fieldName: hubDiameterIn
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         hubDiameterMm:
+            className: ''
             fieldName: hubDiameterMm
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         insideDiameterIn:
+            className: ''
             fieldName: insideDiameterIn
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         insideDiameterMm:
+            className: ''
             fieldName: insideDiameterMm
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         maxBoreSizeIN:
+            className: ''
             fieldName: maxBoreSizeIN
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         maxBoreSizeMM:
+            className: ''
             fieldName: maxBoreSizeMM
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         minBoreIn:
+            className: ''
             fieldName: minBoreIn
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         pitchUOM:
+            className: ''
             fieldName: pitchUOM
             fieldLocation: objectbrick
             objectBrickClassName: SynchronousFert
             isLocalized: false
         minBoreMm:
+            className: ''
             fieldName: minBoreMm
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         outsideDiameterIn:
+            className: ''
             fieldName: outsideDiameterIn
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         outsideDiameterMm:
+            className: ''
             fieldName: outsideDiameterMm
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         MetalFert_OverallLengthIN:
+            className: ''
             fieldName: OverallLengthIN
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         MetalFert_overAllLengthMm:
+            className: ''
             fieldName: overAllLengthMm
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         overallThicknessIn:
+            className: ''
             fieldName: overallThicknessIn
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         overallThicknessMM:
+            className: ''
             fieldName: overallThicknessMM
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         pitchDiameterIn:
+            className: ''
             fieldName: pitchDiameterIn
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         pitchDiameterMm:
+            className: ''
             fieldName: pitchDiameterMm
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         setScrew:
+            className: ''
             fieldName: setScrew
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         stockThicknessIn:
+            className: ''
             fieldName: stockThicknessIn
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         stockThicknessMm:
+            className: ''
             fieldName: stockThicknessMm
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         numberOfTeeth:
+            className: ''
             fieldName: numberOfTeeth
             fieldLocation: objectbrick
             objectBrickClassName: SynchronousFert
             isLocalized: false
         pitchIN:
+            className: ''
             fieldName: pitchIN
             fieldLocation: objectbrick
             objectBrickClassName: SynchronousFert
             isLocalized: false
         pitchMM:
+            className: ''
             fieldName: pitchMM
             fieldLocation: objectbrick
             objectBrickClassName: SynchronousFert
             isLocalized: false
         pitchLengthIN:
+            className: ''
             fieldName: pitchLengthIN
             fieldLocation: objectbrick
             objectBrickClassName: SynchronousFert
             isLocalized: false
         pitchLengthMM:
+            className: ''
             fieldName: pitchLengthMM
             fieldLocation: objectbrick
             objectBrickClassName: SynchronousFert
             isLocalized: false
         pitchLengthUOM:
+            className: ''
             fieldName: pitchLengthUOM
             fieldLocation: objectbrick
             objectBrickClassName: SynchronousFert

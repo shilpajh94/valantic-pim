@@ -1,0 +1,76 @@
+{% if parentContainer is not defined %}
+        {% extends "@Catalog/Layouts/layout.html.twig" %}
+{% endif %}
+
+{% block _content %}
+<div class="template">
+<div id="productive">
+    <div id="pageHeader"></div>
+    <span  class="pageName">Index</span>
+
+    <div class="numberPTitle">
+        {% if editmode %} 
+                {% if pimcore_input("HHIPN_Heading").isEmpty() %} 
+                        <h2>{{ pimcore_input("HHIPN_Heading",{'placeholder':"Index Page Title"}).setDataFromResource('Alphanumeric Index by Product Number') | raw }} </h2>
+                {% else %}
+                        <h2>{{ pimcore_input("HHIPN_Heading") }}</h2>
+                {% endif %}
+        {% else %}
+                <h2>{{ pimcore_input("HHIPN_Heading") }}</h2>
+        {% endif %}
+    </div>
+
+        <div id="amortizationTable1" class="content_double single">
+            {% if editmode %} 
+                <div>
+                    <div class="upper"> {{ pimcore_input("HHIPN_th_col_1",{'placeholder':"Table column 1"}).setDataFromResource('Product #') | raw }}</div>
+                    <div class="upper"> {{ pimcore_input("HHIPN_th_col_2",{'placeholder':"Table column 2"}).setDataFromResource('Page #') | raw}} </div>
+                </div>
+                    
+                {% set rowCount = 1 %}
+                {% for i in pimcore_block('HHIPN_Index_Content').iterator %}
+                <div class="paging">
+                    <span class="pageTitle">{{ pimcore_input("HHIPN_td1",{'placeholder':"Product - "~rowCount}).setDataFromResource("title-"~rowCount) | raw }}</span>
+                    <span class="pageNo">{{ pimcore_input("HHIPN_td2",{'placeholder':"Page - "~rowCount}).setDataFromResource("p-"~rowCount) | raw}}</span>
+                </div>
+                {% set rowCount = rowCount + 1 %}
+                {% endfor %}
+
+            {% else %}
+                <table cellpadding="0" cellspacing="0" class="grid">
+                        <thead>
+                            <tr>
+                            <td><span class="upper">{{ pimcore_input("HHIPN_th_col_1") }}</span></td>
+                            <td align="right"><span class="upper">{{ pimcore_input("HHIPN_th_col_2") }}</span></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% set rowCount = 1 %}
+                            {% for i in pimcore_block('HHIPN_Index_Content').iterator %}
+                                <tr>
+                                    <td colspan="2">
+                                    <div class="paging">
+                                        <span class="pageTitle">{{ pimcore_input("HHIPN_td1",{'placeholder':"Product - "~rowCount}).setDataFromResource("title-"~rowCount) | raw }} </span>
+                                        <span class="pageNo">{{ pimcore_input("HHIPN_td2",{'placeholder':"Page - "~rowCount}).setDataFromResource("p-"~rowCount) | raw }}</span>
+                                    </div>
+                                    </td>
+                                </tr>
+                                {% set rowCount = rowCount + 1 %}
+                            {% endfor %}
+                        </tbody>
+                </table>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<style>
+div.content_double {
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+    -webkit-column-fill: auto;
+    -moz-column-fill: auto;
+    column-fill: auto;
+}
+</style>
+{% endblock %}

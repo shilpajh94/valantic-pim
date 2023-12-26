@@ -10,7 +10,7 @@ use \Pimcore\Model\Asset;
 class CategoryDataExport implements IDataExport
 {
     private $bu;
-    private $helper; 
+    private $helper;
     private $languages;
     private $categoryAttributeConfig;
     private $headerMapping;
@@ -26,7 +26,7 @@ class CategoryDataExport implements IDataExport
         $this->helper->logMessage("{$this->bu}: Script Execution Started", LogLevel::DEBUG());
         try{
             # Get valid languages
-            $this->languages = \Pimcore\Tool::getValidLanguages(); 
+            $this->languages = \Pimcore\Tool::getValidLanguages();
 
             $this->categoryAttributeConfig = $this->helper->getLocalizedAttribute($this->bu,'Category');
             if($this->categoryAttributeConfig)
@@ -76,13 +76,12 @@ class CategoryDataExport implements IDataExport
 
 
                             $areHeadersAlreadyAdded = false;
-                            foreach ($b2bCategoriesChucks as $batchNum => $categoryIds) 
+                            foreach ($b2bCategoriesChucks as $batchNum => $categoryIds)
                             {
                                 # Categories's non-localized field
                                 $nonLocalizedResultSet = [];
                                 $nonLocalizedResultSet = $this->helper->getRecordsWithFilteredMasterFields($this->bu, $categoryFilteredNonLocalizedAttributeField, $categoryIds);
-
-                                if($this->headerMapping['image'])
+                                if(isset($this->headerMapping['image']))
                                 {
                                     foreach ($nonLocalizedResultSet as $key => $value) {
                                         if(isset($value['image']) && $value['image'])
@@ -190,9 +189,9 @@ class CategoryDataExport implements IDataExport
                                                     unset($record[$keyHeader]);
                                                 }
                                                 
-                                            }else if($keyHeaderValue=='BussinessUnit'){
+                                            }elseif($keyHeaderValue=='BussinessUnit'){
                                                 $mapping_record[$keyHeaderValue]=$this->bu;
-                                            }else if($keyHeaderValue=='Language'){
+                                            }elseif($keyHeaderValue=='Language'){
                                                 $mapping_record[$keyHeaderValue]='';
                                             }
                                         }

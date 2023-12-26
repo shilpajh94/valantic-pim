@@ -1,4 +1,6 @@
-{% extends "@Catalog/Layouts/layout.html.twig" %}
+{% if parentContainer is not defined %}
+        {% extends "@Catalog/Layouts/layout.html.twig" %}
+{% endif %}
 
 {% block _content %}
 <div class="template">
@@ -9,7 +11,7 @@
             <header class="content partNumber tableContent">
             {% if (editmode) %} 
                 {% if pimcore_input("TOC_Heading").isEmpty() %} 
-                    <h2>{{ pimcore_input("TOC_Heading", {'placeholder':'Table of Contents'}) }}</h2>
+                    <h2>{{ pimcore_input("TOC_Heading", {'placeholder':'Table of Contents'}).setDataFromResource('Table of Contents') |raw }}</h2>
                 {% else %}
                     <h2>{{ pimcore_input("TOC_Heading") }}</h2>
                 {% endif %}
@@ -18,7 +20,7 @@
             {% endif %}
             </header>
         </div>
-    
+
         <div class="content content_double  table-content ">
             {% set sectionBlock = pimcore_block('TOC_SectionBlock') %}
             {% for i in sectionBlock.iterator %}

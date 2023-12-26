@@ -4,28 +4,33 @@ namespace B2BTranslationBundle\Controller;
 
 use Pimcore\Model\DataObject;
 use Exception;
-use Pimcore\Bundle\AdminBundle\Controller\AdminController;
+use Pimcore\Controller\FrontendController;
 use Pimcore\Tool\Admin;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use B2BTranslationBundle\B2BTranslationConstants;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * @Route("/admin/b2b_translation")
  */
 
-class DefaultController extends AdminController
+class DefaultController extends FrontendController
 {
     private $common;
+    protected $container;
+    private $config;
     public const CONFIG_NAME = 'plugin_b2b_translation_mapping';
     protected const SUCCESS = 'success';
     protected const MESSAGE = 'message';
     protected const B2B_TRANSLATION_MAPPINGS = 'B2B Translation Mappings';
 
-    public function __construct() {
-        $this->common = \Pimcore::getContainer()->get('b2b_translation.common_helper');
+    public function __construct(ContainerInterface $container) {
+        $this->container = $container;
+        $this->config = $this->container->get('b2b_translation.config_provider_service');
+        $this->common = $this->container->get('b2b_translation.common_helper');
     }
 
     /**
@@ -150,14 +155,13 @@ class DefaultController extends AdminController
             if (!empty($data)) {
                 $dataArray = (array)json_decode($data);
                 foreach ($dataArray as $row) {
-
+                    $rowArray = (array)$row;
                     if(in_array($rowArray['b2bName'],$checkDuplicate) && !empty($rowArray['b2bName'])){
                         $duplicateCount=1;
                         $duplicateFieldName[]=$rowArray['b2bName'];
                     }else{
                         $checkDuplicate[]=$rowArray['b2bName'];
                     }
-                    $rowArray = (array)$row;
                     if($rowArray['b2bName'] == '1')
                     {
                         $gridData[] = [$rowArray['name'], ''];
@@ -184,7 +188,7 @@ class DefaultController extends AdminController
     public function getSalesForceAttribute($fileName, $translationClassType)
     {
         $b2bTranslationList = [];
-        $b2bTranslationConfig = \Pimcore::getContainer()->get('b2b_translation.config_provider_service')->getBusinessUnitTranslationConfig($fileName);
+        $b2bTranslationConfig = $this->config->getBusinessUnitTranslationConfig($fileName);
         $b2bTranslationList = $this->common->getParameter($b2bTranslationConfig, $translationClassType);
 
         return $b2bTranslationList;
@@ -211,7 +215,7 @@ class DefaultController extends AdminController
         }
 
         $b2bTranslationList = [];
-        $b2bTranslationConfig = \Pimcore::getContainer()->get('b2b_translation.config_provider_service')->getBusinessUnitTranslationConfig($businessUnitFileName);
+        $b2bTranslationConfig = $this->config->getBusinessUnitTranslationConfig($businessUnitFileName);
         $b2bTranslationList = $this->common->getParameter($b2bTranslationConfig, $className);
 
         return $b2bTranslationList;
