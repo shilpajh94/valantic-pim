@@ -80,7 +80,7 @@ class ImportService
                     if ($count == 0) {
                         foreach ($rowData as $key => $value) {
                             unset($rowData[$key]);
-                            $rowData[utf8_decode(trim($key))] = utf8_decode(trim(str_replace("°","",$value)));
+                            $rowData[mb_convert_encoding(trim($key), 'ISO-8859-1', 'UTF-8')] = mb_convert_encoding((trim(str_replace("°","",$value))), 'ISO-8859-1', 'UTF-8');
                         }
                         $firstRowData = $rowData;
                     } else {

@@ -256,8 +256,8 @@ class EHoseProductImportService
                 $this->productModel->truncateTempTable();
                 $this->productModel->insertDataInTemp($csvInfo['data']);
                 Logger::log(self::LOGGER_MODULE)->info("Data Sheet imported in temp table");
-                // $this->productModel->processDeletedProducts();
-                // Logger::log(self::LOGGER_MODULE)->info("Removed records in data sheet, marked as unpublished.");
+                $this->productModel->processDeletedProducts();
+                Logger::log(self::LOGGER_MODULE)->info("Removed records in data sheet, marked as unpublished.");
                 Logger::log(self::LOGGER_MODULE)->info("Product import started");
                 $this->initiateProductsProcess();
                 Logger::log(self::LOGGER_MODULE)->info("Product import completed");
