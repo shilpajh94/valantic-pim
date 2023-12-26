@@ -279,8 +279,7 @@ class ProductService
             $this->productModel->insertIntoProductTable($this->storeTableDataArray, 'object_store_IFSEUProduct');
         }
         if (!empty($this->relationTableDataArray)) {
-            $this->productModel->deleteRelationTableRecords($this->relationTableDataDeleteArray);
-            $this->productModel->insertIntoProductTable($this->relationTableDataArray, 'object_relations_IFSEUProduct');
+            $this->productModel->insertDataInRelationalTable($this->relationTableDataArray, 'object_relations_IFSEUProduct');
         }
         
         foreach ($this->langArr as $lang) {
