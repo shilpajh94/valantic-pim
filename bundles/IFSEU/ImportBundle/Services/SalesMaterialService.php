@@ -238,16 +238,6 @@ class SalesMaterialService
         $columnSalesOrgDesc = $this->mappingCsvColumn['SalesOrgDesc'];
         
         $columnDistributionChannelDesc = $this->mappingCsvColumn['DistChannelDesc'];
-        // $columnCountryOfOrigin = $this->mappingCsvColumn['countryOfOriginCode'];
-        // $columnCountryOfOriginDesc = $this->mappingCsvColumn['countryOfOriginName'];
-        
-        // $columnEpixFlag = $this->mappingCsvColumn['epixFlag'];
-        // $columnDeletionFlag = $this->mappingCsvColumn['deletionFlag'];
-        // $columnPricePageFlag= $this->mappingCsvColumn['pricePageFlag'];
-        // $columnSalesText1= $this->mappingCsvColumn['salesText1'];
-        // $columnSalesText2= $this->mappingCsvColumn['salesText2'];
-        // $columnPrivateBrand= $this->mappingCsvColumn['privateBrand'];
-        
         
 	    $dataCount = count($data);
         foreach ($data as $rowCount => $rowvalueRecord) {
@@ -262,8 +252,6 @@ class SalesMaterialService
             $material = $rowvalue[$columnMaterial];
             $salesOrg = $rowvalue[$columnSalesOrg];
             $distributionChannel = $rowvalue[$columnDistributionChannel];
-            // $countryOfOrigin = $rowvalue[$columnCountryOfOrigin];
-            // p_r("$plantName - $material - $salesOrg - $distributionChannel");
             $errorsData = array();
 
             if(empty(trim($material))) {

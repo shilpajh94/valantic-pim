@@ -23,7 +23,7 @@ class ProductAssetMappingService
     {
         $this->container = $container;
         $this->db = Db::get();
-        $this->productModel    = new ProductModel;
+        $this->productModel    = $this->container->get('ifs_eu_import.product_model');
         $this->assetConfigData = $this->container->get('ifs_eu_import.config_provider_service')->getAssetConfig();
     }
 
@@ -120,7 +120,7 @@ class ProductAssetMappingService
                     $productObject->save();
                     $this->insertLog($rowData, 'Mapping', 'Success', 'Mapped with productId '.$productObject->getId(), $assetObject->getFilename());
                 } catch (Exception $exception){
-                    $this->insertLog($rowData, 'Mapping', 'Failed', $exception->getMessage().'|| Unable to map with '.$productObject->oo_id, $assetObject->getFilename());
+                    $this->insertLog($rowData, 'Mapping', 'Failed', $exception->getMessage().'|| Unable to map with '.$productObject->getId(), $assetObject->getFilename());
                     echo "Mapping failed - ".$assetObject->getFilename()." to ".$productName." due to ".$exception->getMessage()."\n";
                 }
             }
