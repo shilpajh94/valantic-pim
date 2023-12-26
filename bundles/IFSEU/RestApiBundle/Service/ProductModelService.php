@@ -66,7 +66,7 @@ class ProductModelService
         $conArray['fields']   = ['oo_id'=> ['string']];
         $totalCount = $this->model->getTotalCount($langCode,$conArray);
         // these are all ferts with offset, limit and conditions
-        $products = $this->model->fetchProduct($langCode, $parameterArray,'fert',$this->ehose);
+        $products = $this->model->fetchProduct($parameterArray, $this->ehose, 'fert', $langCode);
         if ($products) {
             $productDetail['apikey'] = $parameterArray['apiKey'];
             // iterating all the ferts and fetching their 9 digit and 6 digit data
@@ -136,7 +136,8 @@ class ProductModelService
 
                 if(isset($resultArrBase['standards']) && $resultArrBase['standards'])
                 {
-                    $localizedData = $this->model->getMastersLocalizedData('IFSEUNorm', 'Norm', 'standards', $resultArrBase['standards']);
+                    $localizedData = $this->model->getMastersLocalizedData('IFSEUNorm', 'Norm',
+                    'standards', $resultArrBase['standards']);
                     if($localizedData)
                     {
                         foreach ($localizedData as $lang => $langData) {
@@ -148,7 +149,8 @@ class ProductModelService
 
                 if(isset($resultArrBase['FieldsOfApplication']) && $resultArrBase['FieldsOfApplication'])
                 {
-                    $localizedData = $this->model->getMastersLocalizedData('IFSEUApplications', 'ApplicationName', 'FieldsOfApplication', $resultArrBase['FieldsOfApplication']);
+                    $localizedData = $this->model->getMastersLocalizedData('IFSEUApplications',
+                    'ApplicationName', 'FieldsOfApplication', $resultArrBase['FieldsOfApplication']);
                     if($localizedData)
                     {
                         foreach ($localizedData as $lang => $langData) {
@@ -160,7 +162,8 @@ class ProductModelService
 
                 if(isset($resultArrBase['flowMedium']) && $resultArrBase['flowMedium'])
                 {
-                    $localizedData = $this->model->getMastersLocalizedData('IFSEUFlowMedium', 'FlowMedium', 'flowMedium', $resultArrBase['flowMedium']);
+                    $localizedData = $this->model->getMastersLocalizedData('IFSEUFlowMedium', 'FlowMedium',
+                    'flowMedium', $resultArrBase['flowMedium']);
                     if($localizedData)
                     {
                         foreach ($localizedData as $lang => $langData) {
@@ -195,7 +198,8 @@ class ProductModelService
                         }
                         
                         unset($localizedData);
-                        $localizedData = $this->model->getMastersLocalizedData('IFSEUProperties', 'PropertyName', $propkey, $propertySelectType);
+                        $localizedData = $this->model->getMastersLocalizedData('IFSEUProperties', 'PropertyName',
+                        $propkey, $propertySelectType);
                         if($localizedData)
                         {
                             foreach ($localizedData as $lang => $langData) {
@@ -218,23 +222,26 @@ class ProductModelService
                 }
                 if(isset($resultArrBase['productPublishedOnline']))
                 {
-                    $resultArrBase['productPublishedOnline'] = ($resultArrBase['productPublishedOnline'] == 1) ? 'Yes' : 'No';
+                    $resultArrBase['productPublishedOnline'] = ($resultArrBase['productPublishedOnline'] == 1)
+                    ? 'Yes' : 'No';
                 }
                 if(isset($resultArrBase['datasheetPublishedInTheDealerPortal']))
                 {
-                    $resultArrBase['datasheetPublishedInTheDealerPortal'] = ($resultArrBase['datasheetPublishedInTheDealerPortal'] == 1) ? 'Yes' : 'No';
+                    $resultArrBase['datasheetPublishedInTheDealerPortal'] =
+                    ($resultArrBase['datasheetPublishedInTheDealerPortal'] == 1) ? 'Yes' : 'No';
                 }
                 if(isset($resultArrBase['pricelistPublishedInTheDealerPortal']))
                 {
-                    $resultArrBase['pricelistPublishedInTheDealerPortal'] = ($resultArrBase['pricelistPublishedInTheDealerPortal'] == 1) ? 'Yes' : 'No';
+                    $resultArrBase['pricelistPublishedInTheDealerPortal'] =
+                    ($resultArrBase['pricelistPublishedInTheDealerPortal'] == 1) ? 'Yes' : 'No';
                 }
                 
                 // We need these 2 ids to get the path of assets
                 // Then we are unseting it to hide the ids
-                $DocumentID = $resultArrBase['Document'];
-                $BrandingLaylineAssets = $resultArrBase['BrandingLaylineAssets'];
-                $Certificate1ID = $resultArrBase['Certificate1'];
-                $Certificate2ID = $resultArrBase['Certificate1'];
+                $documentId = $resultArrBase['Document'];
+                $brandingLaylineAssets = $resultArrBase['BrandingLaylineAssets'];
+                $certificate1ID = $resultArrBase['Certificate1'];
+                $certificate2ID = $resultArrBase['Certificate1'];
                 $video1 = $resultArrBase['video1'];
                 $video2 = $resultArrBase['video2'];
                 $video3 = $resultArrBase['video3'];
@@ -279,7 +286,8 @@ class ProductModelService
                 $images = $this->getImagesData($finalProductArray[$sixDigit]['images'],$imageDataArray);
                 if(count($images) > 0){
                     foreach ($images as $fieldkey => $image) {
-                        if(in_array($fieldkey,['LeftPrintCatalogImage','RightPrintCatalogImage','DrawingPictureForCatalog']))
+                        if(in_array($fieldkey,['LeftPrintCatalogImage','RightPrintCatalogImage',
+                        'DrawingPictureForCatalog']))
                         {
                             $finalProductArray[$sixDigit]['CatalogAssets'][$fieldkey] = $image;
                         }
@@ -287,46 +295,51 @@ class ProductModelService
                         {
                             $finalProductArray[$sixDigit]['ProductImages'][$fieldkey] = $image;
                         }
-                        if(in_array($fieldkey,['altImage1','altImage2','altImage3','altImage4','altImage5','altImage6', 'altImage7', 'altImage8', 'certificationImage']))
+                        if(in_array($fieldkey,['altImage1','altImage2','altImage3','altImage4','altImage5','altImage6',
+                        'altImage7', 'altImage8', 'certificationImage']))
                         {
                             $finalProductArray[$sixDigit]['AlternateImages'][$fieldkey] = $image;
                         }
                     }
                 }
 
-                if(isset($Certificate1ID) && !empty($Certificate1ID) && ($propertyAssetData = $this->getPropertyAssetData($Certificate1ID))) 
+                if(isset($certificate1ID) && !empty($certificate1ID) && ($propertyAssetData =
+                $this->getPropertyAssetData($certificate1ID)))
                 {
                     $finalProductArray[$sixDigit]['Certification']['Certificate1'] = $propertyAssetData;
                 }
-                if(isset($Certificate2ID) && !empty($Certificate2ID) && ($propertyAssetData = $this->getPropertyAssetData($Certificate2ID))) 
+                if(isset($certificate2ID) && !empty($certificate2ID) && ($propertyAssetData =
+                $this->getPropertyAssetData($certificate2ID)))
                 {
                     $finalProductArray[$sixDigit]['Certification']['Certificate2'] = $propertyAssetData;
                 }
 
-                if(isset($DocumentID) && !empty($DocumentID) && ($propertyAssetData = $this->getPropertyAssetData($DocumentID))) 
+                if(isset($documentId) && !empty($documentId) && ($propertyAssetData =
+                $this->getPropertyAssetData($documentId)))
                 {
                     $finalProductArray[$sixDigit]['Documents']['Document'] = $propertyAssetData;
                 }
-                if(isset($BrandingLaylineAssets) && !empty($BrandingLaylineAssets) && ($propertyAssetData = $this->getPropertyAssetData($BrandingLaylineAssets))) 
+                if(isset($brandingLaylineAssets) && !empty($brandingLaylineAssets) &&
+                ($propertyAssetData = $this->getPropertyAssetData($brandingLaylineAssets)))
                 {
                     $finalProductArray[$sixDigit]['Documents']['BrandingLaylineAssets'] = $propertyAssetData;
                 }
 
-                if(isset($video1) && !empty($video1) ) 
+                if(isset($video1) && !empty($video1) )
                 {
                     $video1 = unserialize($video1);
                     $video1ID = $video1['data'];
                     $propertyAssetData = $this->getPropertyAssetData($video1ID);
                     $finalProductArray[$sixDigit]['Videos']['video1'] = $propertyAssetData;
                 }
-                if(isset($video2) && !empty($video2)) 
+                if(isset($video2) && !empty($video2))
                 {
                     $video2 = unserialize($video2);
                     $video2ID = $video2['data'];
                     $propertyAssetData = $this->getPropertyAssetData($video2ID);
                     $finalProductArray[$sixDigit]['Videos']['video2'] = $propertyAssetData;
                 }
-                if(isset($video3) && !empty($video3)) 
+                if(isset($video3) && !empty($video3))
                 {
                     $video3 = unserialize($video3);
                     $video3ID = $video3['data'];
@@ -338,7 +351,8 @@ class ProductModelService
             // $finalProductArray[$sixDigit]['skeletonData'][] = $nineDigit;
             // $finalProductArray[$sixDigit]['skeletonData'][$nineDigit]
             // Set Skeleton data only if it is not set.
-            if(!isset($finalProductArray[$sixDigit]['skeletonData'][$nineDigit]) || empty($finalProductArray[$sixDigit]['skeletonData'][$nineDigit])){
+            if(!isset($finalProductArray[$sixDigit]['skeletonData'][$nineDigit]) ||
+             empty($finalProductArray[$sixDigit]['skeletonData'][$nineDigit])){
                 // Get Skeleton Object Bricks Data.
                 $skeletonObjectBrickData    =   array();
                 if(!empty($nineDigitData)){
@@ -359,7 +373,8 @@ class ProductModelService
 
                 if(isset($resultArrSkeleton['FittingFamily']) && $resultArrSkeleton['FittingFamily'])
                 {
-                    $localizedData = $this->model->getMastersLocalizedData('IFSEUProperties', 'PropertyName', 'FittingFamily', $resultArrSkeleton['FittingFamily']);
+                    $localizedData = $this->model->getMastersLocalizedData('IFSEUProperties',
+                    'PropertyName', 'FittingFamily', $resultArrSkeleton['FittingFamily']);
                     if($localizedData)
                     {
                         foreach ($localizedData as $lang => $langData) {
@@ -401,8 +416,6 @@ class ProductModelService
                 unset($resultArrSkeleton['video1']);
                 unset($resultArrSkeleton['video2']);
                 unset($resultArrSkeleton['video3']);
-                // p_r($resultArrSkeleton);
-                // die;
                 $finalProductArray[$sixDigit]['skeletonData'][$nineDigit]['id']= $nineDigit;
                 $finalProductArray[$sixDigit]['skeletonData'][$nineDigit]= $resultArrSkeleton;
             }
@@ -442,11 +455,13 @@ class ProductModelService
                 }
                 if(isset($resultArrFert['newItemFlagForCatalog']))
                 {
-                    $resultArrFert['newItemFlagForCatalog'] = ($resultArrFert['newItemFlagForCatalog'] == '1') ? 'Yes' : 'No';
+                    $resultArrFert['newItemFlagForCatalog'] = ($resultArrFert['newItemFlagForCatalog'] == '1')
+                    ? 'Yes' : 'No';
                 }
                 if(isset($resultArrFert['proposition65WarningAttributesRequired']))
                 {
-                    $resultArrFert['proposition65WarningAttributesRequired'] = ($resultArrFert['proposition65WarningAttributesRequired'] == '1') ? 'Yes' : 'No';
+                    $resultArrFert['proposition65WarningAttributesRequired'] =
+                     ($resultArrFert['proposition65WarningAttributesRequired'] == '1') ? 'Yes' : 'No';
                 }
                 if(isset($resultArrFert['publishedOnline']))
                 {
@@ -457,17 +472,20 @@ class ProductModelService
                 $resultMasterData = [];
                 if($value['californiaProposition65ChemicalName1'])
                 {
-                    $resultMasterData['californiaProposition65ChemicalName1'] = $value['californiaProposition65ChemicalName1'];
+                    $resultMasterData['californiaProposition65ChemicalName1'] =
+                     $value['californiaProposition65ChemicalName1'];
                 }
 
                 if($value['californiaProposition65ChemicalName2'])
                 {
-                    $resultMasterData['californiaProposition65ChemicalName2'] = $value['californiaProposition65ChemicalName2'];
+                    $resultMasterData['californiaProposition65ChemicalName2'] =
+                     $value['californiaProposition65ChemicalName2'];
                 }
 
                 if($value['californiaProposition65ChemicalName3'])
                 {
-                    $resultMasterData['californiaProposition65ChemicalName3'] = $value['californiaProposition65ChemicalName3'];
+                    $resultMasterData['californiaProposition65ChemicalName3'] =
+                     $value['californiaProposition65ChemicalName3'];
                 }
 
                 if($value['reach'])
@@ -480,7 +498,7 @@ class ProductModelService
                     $resultMasterData['rohs'] = $value['rohs'];
                 }
 
-                if(count($resultMasterData) > 0)
+                if(!empty($resultMasterData))
                 {
                     $fertMasterData = $this->getFertMasterData($resultMasterData);
 
@@ -492,7 +510,8 @@ class ProductModelService
                 if(isset($value['warningIcon']))
                 {
                     $warningIconID = $value['warningIcon'];
-                    if(isset($warningIconID) && !empty($warningIconID) && ($propertyAssetData = $this->getPropertyAssetData($warningIconID))) 
+                    if(isset($warningIconID) && !empty($warningIconID) && ($propertyAssetData =
+                    $this->getPropertyAssetData($warningIconID)))
                     {
                         $resultArrFert['warningIcon'] = $propertyAssetData;
                     }
@@ -500,13 +519,15 @@ class ProductModelService
 
                 if(isset($resultArrFert['countryOfOrigin__id']))
                 {
-                    $resultArrFert['countryOfOrigin'] = $this->model->getCountryInfo($resultArrFert['countryOfOrigin__id']);
+                    $resultArrFert['countryOfOrigin'] = $this->model->getCountryInfo
+                    ($resultArrFert['countryOfOrigin__id']);
                     unset($resultArrFert['countryOfOrigin__id']);
                 }
 
                 if(isset($resultArrFert['materialGroup__id']))
                 {
-                    $resultArrFert['materialGroup'] = $this->model->getMaterialGroupInfo($resultArrFert['materialGroup__id']);
+                    $resultArrFert['materialGroup'] = $this->model->getMaterialGroupInfo
+                    ($resultArrFert['materialGroup__id']);
                     unset($resultArrFert['materialGroup__id']);
                 }
 
@@ -537,7 +558,8 @@ class ProductModelService
                         }
                         
                         unset($localizedData);
-                        $localizedData = $this->model->getMastersLocalizedData('IFSEUProperties', 'PropertyName', $propkey, $propertySelectType);
+                        $localizedData = $this->model->getMastersLocalizedData('IFSEUProperties', 'PropertyName',
+                        $propkey, $propertySelectType);
                         if($localizedData)
                         {
                             foreach ($localizedData as $lang => $langData) {
@@ -639,9 +661,9 @@ class ProductModelService
                     $productCat->load();
                     $productCat = $productCat->getObjects();
                     $tempArray = [];
-                    if (isset($productCat) && count($productCat) > 0) {
+                    if (isset($productCat) && !empty($productCat)) {
                         $productCategory = $productCat[0];
-                        foreach($v1['Fields'] as $fkey=>$fvalue){
+                        foreach($v1['Fields'] as $fvalue){
                             $fCommand   =   "get".$fvalue;
                             $tempArray[strtolower($fvalue)] =  $productCategory->$fCommand();
                         }
@@ -661,9 +683,7 @@ class ProductModelService
      * @throws
      */
     private function getSkeletonData($skeltonParentId){
-        $skeltonDetail = [];
-        $skeltonDetail  =   $this->model->getProductTypeData($skeltonParentId,'skeleton',$this->ehose);
-        return $skeltonDetail;
+        return $this->model->getProductTypeData($skeltonParentId,'skeleton',$this->ehose);
     }
 
     /**
@@ -745,27 +765,12 @@ class ProductModelService
         }
         foreach($imageDataArray as $key=>$value){
             $imagesFields = $this->ehose['ehoseAPI'][ucfirst($key)]['Images'];
-            $variantId = '';
-            // if($key=='fert'){
-            //     $variantId = $value['materialNumber'];
-            // }else if($key=='skeleton'){
-            //     $variantId = substr($oldMaterialValue,0,9);
-            // }else if($key=='base'){
-            //     $variantId = substr($oldMaterialValue,0,6);
-            // }
-
-            foreach($imagesFields as $ikey=>$ivalue){
-                if(isset($value[$ivalue]) && !empty($value[$ivalue])){
-                    if(!isset($imageDetail[$value[$ivalue]]) || empty($imageDetail[$value[$ivalue]])){
-                        if( $propertyAssetData = $this->getPropertyAssetData($value[$ivalue])){
-                            $imageDetail[$ivalue] = $propertyAssetData;  
-                        }
-                    }
-                    // if( $this->getPropertyAssetData($value[$ivalue])){
-                    //     $imageDetail[$value[$ivalue]]['variant_ids'][] = $variantId;
-                    //     $imageDetail[$value[$ivalue]]['variant_ids']   = array_unique($imageDetail[$value[$ivalue]]['variant_ids']);
-                    // }
-                    
+            foreach($imagesFields as $ivalue){
+                if((isset($value[$ivalue]) && !empty($value[$ivalue])) &&
+                !isset($imageDetail[$value[$ivalue]]) || empty($imageDetail[$value[$ivalue]]) &&
+                $propertyAssetData = $this->getPropertyAssetData($value[$ivalue])
+                ){
+                    $imageDetail[$ivalue] = $propertyAssetData;
                 }
             }
         }
@@ -781,16 +786,13 @@ class ProductModelService
      * @throws
      */
     private function getProductLocalizedData($objId,$productType){
-        $productObjectBricksData = [];
-
         // Get Product Object Brick Config Details.
         $localizedFieldMapping = $this->ehose['ehoseAPI'][ucfirst($productType)]['Localizedfields'];
 
         if(empty($localizedFieldMapping)){
             return;
         }
-        $productObjectBricksData =  $this->model->getProductLocalizedData($objId, $localizedFieldMapping);
-        return $productObjectBricksData;
+        return $this->model->getProductLocalizedData($objId, $localizedFieldMapping);
     }
 
     /**
@@ -807,7 +809,6 @@ class ProductModelService
 
         // Get Product Object Brick Config Details.
         $objectBricksMap = $this->ehose['ehoseAPI'][ucfirst($productType)]['ObjectBricks'];
-        // p_r($objectBricksMap); 
         if(empty($objectBricksMap)){
             return;
         }
@@ -823,16 +824,15 @@ class ProductModelService
                     $product = DataObject\IFSEUProduct::getById($objId);
                     $bData  =   '';
                     // Get Field Definition.
-                    // if($fieldName == 'FittingFamily')
-                    // {
                     if($product->$productBrickField()->$brickText()){
                     
-                        $fieldDef = $product->$productBrickField()->$brickText()->getDefinition()->getFieldDefinition($fieldName);
+                        $fieldDef = $product->$productBrickField()->$brickText()->getDefinition()->
+                        getFieldDefinition($fieldName);
                         if(!empty($fieldDef) && $fieldDef->getFieldtype()==="multiselect"){
                              $bDataTmp  =   $product->$productBrickField()->$brickText()->$fieldText();
                              $bData = [];
                              if(!empty($bDataTmp)){
-                                foreach($bDataTmp as $mkey=>$mvalue){
+                                foreach($bDataTmp as $mvalue){
                                     if($fieldName ==='brandName')
                                     {
                                         $bData[] =  $mvalue;
@@ -840,27 +840,18 @@ class ProductModelService
                                     else
                                     {
                                         $objectIndv = DataObject::getById($mvalue);
-                                        if($objectIndv instanceof DataObject\IFSEUApplications) {
+                                        if($objectIndv instanceof DataObject\IFSEUApplications ||
+                                        $objectIndv instanceof DataObject\IFSEUFlowMedium ||
+                                        $objectIndv instanceof DataObject\IFSEUNorm ||
+                                        $objectIndv instanceof DataObject\IFSEUProperties) {
                                             $bData[] = $objectIndv->getId();
-                                        }
-                                        else if($objectIndv instanceof DataObject\IFSEUFlowMedium) {
-                                            $bData[] = $objectIndv->getId();
-                                        }
-                                        else if($objectIndv instanceof DataObject\IFSEUNorm) {
-                                            $bData[] = $objectIndv->getId();
-                                        }
-                                        else if($objectIndv instanceof DataObject\IFSEUProperties) {
-                                            $bData[] = $objectIndv->getId();
-                                            // p_r($bData);
                                         }
                                     }
                                 }
                              }
-// echo "first";
                        }
-                       else if(!empty($fieldDef) && $fieldDef->getFieldtype()==="select")
+                       elseif(!empty($fieldDef) && $fieldDef->getFieldtype()==="select")
                        {
-                        // echo "second";
                             $bData = $product->$productBrickField()->$brickText()->$fieldText();
                             $objectIndv = DataObject::getById($bData);
                             if($objectIndv instanceof DataObject\IFSEUProperties)
@@ -869,19 +860,16 @@ class ProductModelService
                             }
                        }
                        else{
-                        // echo "third";
                             $bData  =   $product->$productBrickField()->$brickText()->$fieldText();
                        }
                     }
-                    if(!empty($bData) || $bData===0){  
-                        
+                    if(!empty($bData) || $bData===0){
                         if(is_array($fieldConfig[0]) && array_key_first($fieldConfig[0]) === "numeric" ){
                             $decimalPoints = $fieldConfig[0]["numeric"] ?? DEFAULT_DECIMAL_PLACES_IN_EHOSE_API;
                             $bData = round(strval($bData), $decimalPoints);
                         }
                         $productObjectBricksData[$fieldName] = $bData;
                     }
-                // }
                 }
             }
         }
@@ -897,7 +885,7 @@ class ProductModelService
      * @throws
      */
     private function getPropertyAssetData($assetIdPath,$assetIdflag=true)
-    {   
+    {
         $assetId ='';
         if($assetIdflag){
             $assetIdPath = trim($assetIdPath,',');
@@ -923,8 +911,6 @@ class ProductModelService
             }
             $assetId= $asset->getId();
         }
-        $assetType = $asset->getType();
-        $assetForThumb = ['image', 'document'];
         $data = [];
         $data['mime_type'] = $asset->getMimetype();
         $data['filename'] = $asset->getFilename();
@@ -968,12 +954,9 @@ class ProductModelService
     private function formatProducts($productData){
         $formattedArray =   array();
         $i=0;
-        foreach($productData as $key=>$value){
+        foreach($productData as $value){
             $formattedArray[$i] =$value;
             $formattedArray[$i]['skeletonData'] =array_values($value['skeletonData']);
-            // if(is_array($value['images'])){
-            //     $formattedArray[$i]['images'] =array_values($value['images']);
-            // }
             $i++;
         }
         return $formattedArray;
@@ -986,11 +969,8 @@ class ProductModelService
      */
     public function getEHoseFieldMapping()
     {
-        $vcFieldMapping = array();
         $yamlFilePath = PIMCORE_PROJECT_ROOT . "/bundles/IFSEU/RestApiBundle/Resources/config/ehoseFieldMapping.yaml";
 
-        $vcFieldMapping = Utils::getYmlConfig($yamlFilePath);
-
-        return $vcFieldMapping;
+        return Utils::getYmlConfig($yamlFilePath);
     }
 }
