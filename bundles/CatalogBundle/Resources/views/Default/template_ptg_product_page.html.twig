@@ -276,7 +276,7 @@
 										{% set columnWidth = "width=" ~ firstArray['columnWidth'] %}
 									{% endif %}
 									<td colspan="{{ g1count }}" {{ columnWidth }}>
-										{% if firstArray['columnIcon'] %}
+										{% if ( firstArray['columnIcon'] is defined and firstArray['columnIcon']) %}
 											<img src="{{ firstArray['columnIcon'] }}" width="45" height="45"/>
 										{% endif %}
 									</td>

@@ -724,7 +724,7 @@ class IndustrialHoseController extends FrontendController
                         // p_r($GroupingFieldName);
                         // die;
                         $GroupingFieldNameValue = null;
-                        if($GroupingFieldName && isset($bvalue[$headerKeysIndex[$GroupingFieldName]]))
+                        if($GroupingFieldName && isset($headerKeysIndex[$GroupingFieldName]) && isset($bvalue[$headerKeysIndex[$GroupingFieldName]]))
                         {
                             $GroupingFieldNameValue = $bvalue[$headerKeysIndex[$GroupingFieldName]];
                         }
@@ -733,9 +733,14 @@ class IndustrialHoseController extends FrontendController
                         if(is_array($GroupingFieldNameValue))
                             $GroupingFieldNameValue = implode(",", $GroupingFieldNameValue);
 
-                        // p_r($GroupingFieldNameValue);
-                        $FittingTableName = $bvalue[$headerKeysIndex['FittingTableName']];
-                        $FittingTableKeys = $inhProductPageConfig[$FittingTableName]['columns'];
+                        $FittingTableName = null;
+                        $FittingTableKeys = null;
+                        if(isset($bvalue[$headerKeysIndex['FittingTableName']]) && $bvalue[$headerKeysIndex['FittingTableName']])
+                        {
+                            $FittingTableName = $bvalue[$headerKeysIndex['FittingTableName']];
+                            $FittingTableKeys = $inhProductPageConfig[$FittingTableName]['columns'];
+                        }
+                        
                         if($FittingTableName && is_array($FittingTableKeys))
                         {
                             $query = "select SIOPLevel3, SIOPLevel4 from object_query_1 where oo_id = '".$bvalue[$headerKeysIndex['id']]."'";
@@ -1337,15 +1342,16 @@ class IndustrialHoseController extends FrontendController
         if($safetyFeatures)
         {
             foreach ($safetyFeatures as $fkey => $fvalue) {
-                if($this->featuresList[$fvalue]['icon'])
+                $fIcon = isset($this->featuresList[$fvalue]['icon']) ? $this->featuresList[$fvalue]['icon'] : null;
+                if($fIcon)
                 {
                     if(!isset($this->s3srcArr[$fvalue]))
-                        $this->s3srcArr[$fvalue] = $this->getS3ImageSrc($this->featuresList[$fvalue]['icon']);
+                        $this->s3srcArr[$fvalue] = $this->getS3ImageSrc($fIcon);
 
                     $safetyFeaturesListWithImage[] = array('name'=>$this->featuresList[$fvalue]['name'], 'iconSrc' => $this->s3srcArr[$fvalue], 'SortOrder' =>$this->featuresList[$fvalue]['SortOrder']);
                 }
                 else
-                    $safetyFeaturesListWithOutImage[] = array('name'=>$this->featuresList[$fvalue]['name'], 'iconSrc' => $this->featuresList[$fvalue]['icon'], 'SortOrder' =>$this->featuresList[$fvalue]['SortOrder']);
+                    $safetyFeaturesListWithOutImage[] = array('name'=>$this->featuresList[$fvalue]['name'], 'iconSrc' => $fIcon, 'SortOrder' =>$this->featuresList[$fvalue]['SortOrder']);
             }
         }
 

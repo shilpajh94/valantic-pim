@@ -425,8 +425,12 @@ class DefaultController extends FrontendController
 
         $pData = [];
         $headers = [];
-
-        $printColumns = $this->tableColumns[$template][$table];
+        
+        $printColumns = null;
+        if(isset($this->tableColumns[$template][$table]))
+        {
+            $printColumns = $this->tableColumns[$template][$table];
+        }
 
         foreach ($productList as $item) {
 
@@ -837,7 +841,7 @@ class DefaultController extends FrontendController
 
                     }
                     if (isset($data[$baseId]) && empty($data[$baseId])) {
-                        $data[$baseId]['brandName'] = isset($data[$baseId]['brandName']) && !empty($data[$baseId]['brandName']) ? $data[$baseId]['brandName'] : $row['brandName'][0];
+                        $data[$baseId]['brandName'] = isset($data[$baseId]['brandName']) && !empty($data[$baseId]['brandName']) ? $data[$baseId]['brandName'] : $row['brandName'];
                         $data[$baseId]['industryStandard'] = isset($data[$baseId]['industryStandard']) && !empty($data[$baseId]['industryStandard']) ? $data[$baseId]['industryStandard'] : $row['industryStandard'];
                         $data[$baseId]['BrandShortText'][0] = isset($data[$baseId]['BrandShortText1'][0]) && !empty($data[$baseId]['BrandShortText1'][0]) ? $data[$baseId]['BrandShortText1'][0] : $row['BrandShortText1'];
                         $data[$baseId]['BrandShortText'][1] = isset($data[$baseId]['BrandShortText2'][1]) && !empty($data[$baseId]['BrandShortText2'][1]) ? $data[$baseId]['BrandShortText2'][1] : $row['BrandShortText2'];
@@ -848,7 +852,13 @@ class DefaultController extends FrontendController
                         $data[$baseId]['SortOrder'] = $brandsList[$data[$baseId]['brandName']];
 
                         if (!isset($data[$baseId]['featureIcon']) && !empty($row['FeaturesBenefitsBulletPoint'])) {
-                            $features = $row['FeaturesBenefitsBulletPoint'];
+                            
+                            $features = null;
+                            if(!is_array($row['FeaturesBenefitsBulletPoint']))
+                            {
+                                $features = explode('||', $row['FeaturesBenefitsBulletPoint']);
+                            }
+                            
                             $featureObj = null;
 
                             if (is_array($features) && !empty($features)) {
@@ -866,7 +876,8 @@ class DefaultController extends FrontendController
                         }
                     }
 
-if(isset($data[$baseId])) {
+                    if(isset($data[$baseId])) 
+                    { 
                         $data[$baseId]['HoseIDNominalIDFrac'][] = isset($data[$baseId]['HoseIDNominalIDFrac'][$k]) && !empty($data[$baseId]['HoseIDNominalIDFrac'][$k]) ? $data[$baseId]['HoseIDNominalIDFrac'][$k] : $row['HoseIDNominalIDFrac'];
                         $data[$baseId]['hoseIdDec'][] = isset($data[$baseId]['hoseIdDec'][$k]) && !empty($data[$baseId]['hoseIdDec'][$k]) ? $data[$baseId]['hoseIdDec'][$k] : $row['hoseIdDec'];
                     }
