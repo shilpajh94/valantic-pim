@@ -1348,7 +1348,7 @@ class IndustrialHoseController extends FrontendController
                     if(!isset($this->s3srcArr[$fvalue]))
                         $this->s3srcArr[$fvalue] = $this->getS3ImageSrc($fIcon);
 
-                    $safetyFeaturesListWithImage[] = array('name'=>$this->featuresList[$fvalue]['name'], 'iconSrc' => $this->s3srcArr[$fvalue], 'SortOrder' =>$this->featuresList[$fvalue]['SortOrder']);
+                    $safetyFeaturesListWithImage[] = array('name'=>$this->featuresList[$fvalue]['name'], 'iconSrc' => $fvalue, 'SortOrder' =>$this->featuresList[$fvalue]['SortOrder']);
                 }
                 else
                     $safetyFeaturesListWithOutImage[] = array('name'=>$this->featuresList[$fvalue]['name'], 'iconSrc' => $fIcon, 'SortOrder' =>$this->featuresList[$fvalue]['SortOrder']);
@@ -1365,6 +1365,17 @@ class IndustrialHoseController extends FrontendController
 
         if($safetyFeaturesList)
             $safetyFeaturesList = array_slice($safetyFeaturesList, 0, 5);
+
+        if($safetyFeaturesList)
+        {
+            foreach ($safetyFeaturesList as $key => $value) {
+
+                if(isset($this->s3srcArr[$value['iconSrc']]))
+                {
+                    $safetyFeaturesList[$key]['iconSrc'] = $this->s3srcArr[$value['iconSrc']];
+                }
+            }
+        }
 
         unset($safetyFeaturesListWithImage);
         unset($safetyFeaturesListWithOutImage);
