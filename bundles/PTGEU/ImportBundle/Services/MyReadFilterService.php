@@ -16,12 +16,12 @@ class MyReadFilterService implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilte
         $this->columns = ['A', $this->lastCol];
     }
 
-    public function readCell($column, $row, $worksheetName = '') 
-    {        
-        if ($row >= $this->startRow && $row <= $this->endRow) {
-            if (in_array($column,range('A',$this->lastCol))) {
-                return true;
-            }
+    public function readCell($column, $row, $worksheetName = '')
+    {
+        if ($row >= $this->startRow && $row <= $this->endRow &&
+        in_array($column,range('A',$this->lastCol))
+        ) {
+            return true;
         }
         return false;
     }

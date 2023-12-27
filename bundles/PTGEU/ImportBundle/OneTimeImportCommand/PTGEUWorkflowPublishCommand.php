@@ -14,7 +14,7 @@ class PTGEUWorkflowPublishCommand extends AbstractCommand
     protected function configure()
     {
         $this->setName('ptgeu-workflow-publish')
-            ->setDescription('This command will publish workflow state for all PTGEU Products');        
+            ->setDescription('This command will publish workflow state for all PTGEU Products');
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
@@ -25,7 +25,7 @@ class PTGEUWorkflowPublishCommand extends AbstractCommand
         if($productsList)
         {
             $sql = "SELECT `cid` from element_workflow_state";
-            $record = $this->db->fetchAll($sql);
+            $record = $this->db->fetchAllAssociative($sql);
             foreach ($productsList->getObjects() as $obj) {
                 $objectId = $obj->getId();
                 $key = array_search($objectId, array_column($record, 'cid'));
@@ -35,7 +35,8 @@ class PTGEUWorkflowPublishCommand extends AbstractCommand
                     print_r('Updated state for ----- '.$objectId);
                     echo PHP_EOL;
                 }else{
-                    $insertQuery = "INSERT into element_workflow_state (`cid`,`ctype`,`place`,`workflow`) VALUES('$objectId', 'object', 'published', 'ptg_eu_product_enrichment')";
+                    $insertQuery = "INSERT into element_workflow_state (`cid`,`ctype`,`place`,
+                    `workflow`) VALUES('$objectId', 'object', 'published', 'ptg_eu_product_enrichment')";
                     $this->db->query($insertQuery);
                     print_r('Inserted for  ----- '.$objectId);
                     echo PHP_EOL;

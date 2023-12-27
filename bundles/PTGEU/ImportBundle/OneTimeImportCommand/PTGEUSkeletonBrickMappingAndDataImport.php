@@ -15,6 +15,7 @@ use Pimcore;
 class PTGEUSkeletonBrickMappingAndDataImport extends AbstractCommand
 {
     private $db;
+    private $t;
 
     /**
      * Function is constructor and set the db connection
@@ -43,7 +44,7 @@ class PTGEUSkeletonBrickMappingAndDataImport extends AbstractCommand
             $this->import($filePath);
             p_r('--------------Total Execution Time---------------');
             p_r('Script completed after: ' . (abs(time() - $this->t) / 60) . ' mnt');
-        }       
+        }
     }
 
     private function import($filePath)
@@ -80,9 +81,11 @@ class PTGEUSkeletonBrickMappingAndDataImport extends AbstractCommand
                             'beltThicknessHsINUnit' => 'inch'
                         ];
                     }
-                    $this->insertDataForSkeletonBrickIntoTable($skeletonBrickData, 'object_brick_query_PTGEUFlatBeltsSkeleton_38', $skeletonObjectId);
-                    $this->insertDataForSkeletonBrickIntoTable($skeletonBrickData, 'object_brick_store_PTGEUFlatBeltsSkeleton_38', $skeletonObjectId);    
-                }                
+                    $this->insertDataForSkeletonBrickIntoTable($skeletonBrickData,
+                     'object_brick_query_PTGEUFlatBeltsSkeleton_38', $skeletonObjectId);
+                    $this->insertDataForSkeletonBrickIntoTable($skeletonBrickData,
+                     'object_brick_store_PTGEUFlatBeltsSkeleton_38', $skeletonObjectId);
+                }
             }
         }catch (\Throwable $th) {
             p_r($th->getMessage());
@@ -121,7 +124,8 @@ class PTGEUSkeletonBrickMappingAndDataImport extends AbstractCommand
             $count = 0;
 
             if (($handle = fopen($csvFilePath, 'r')) !== false) {
-                while (($rowData = fgetcsv($handle, 0, $dialect->delimiter, $dialect->quotechar, $dialect->escapechar)) !== false) {
+                while (($rowData = fgetcsv($handle, 0, $dialect->delimiter,
+                 $dialect->quotechar, $dialect->escapechar)) !== false) {
                     if ($count == 0) {
                         foreach ($rowData as $key => $value) {
                             unset($rowData[$key]);

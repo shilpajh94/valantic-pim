@@ -7,6 +7,7 @@ use Pimcore\Log\FileObject;
 use AppBundle\Logger\AppLogger as Logger;
 use PTGEU\ImportBundle\Services\ImportService;
 use PTGEU\ImportBundle\Services\ImportConstants;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class CategoryService
 {
@@ -27,16 +28,19 @@ class CategoryService
     private $catHelper;
     private $catConfigData;
     private $processingCode;
-    public function __construct()
+    private $container;
+    public function __construct(ContainerInterface $container)
     {
+        $this->container = $container;
+
         try {
             $this->logFileName  = 'ptgeu-product-hierarchy-log-'.date('Y-m-d-his');
-            $this->common = \Pimcore::getContainer()->get('import.common_helper');
+            $this->common = $this->container->get('import.common_helper');
             /* Load category configuration file */
-            $this->catConfigData = \Pimcore::getContainer()->get('import.config_provider_service')->getCategoryConfig();
+            $this->catConfigData = $this->container->get('import.config_provider_service')->getCategoryConfig();
             /* Initiating global category helper */
-            $this->catHelper = \Pimcore::getContainer()->get('import.category_helper');
-            $this->instance = \Pimcore::getContainer()->get('import.ptgeu_category_validator_service');
+            $this->catHelper = $this->container->get('import.category_helper');
+            $this->instance = $this->container->get('import.ptgeu_category_validator_service');
             $this->fileLastCol = $this->common->getParameterItem($this->catConfigData, 'sheet', 'lastColName');
 
             /* Create parent if it does not exist */
@@ -86,10 +90,12 @@ class CategoryService
                 if (!$flag) {
                     $failedCnt++;
                     $this->rowStatus[$this->currentStep] .= 'Status: Failed';
-                    ImportService::setCell($this->fileLastCol . $this->currentStep, $this->rowStatus[$this->currentStep]);
+                    ImportService::setCell($this->fileLastCol . $this->currentStep,
+                     $this->rowStatus[$this->currentStep]);
                 } else {
                     $this->rowStatus[$this->currentStep] .= 'Status Success';
-                    ImportService::setCell($this->fileLastCol . $this->currentStep, $this->rowStatus[$this->currentStep]);
+                    ImportService::setCell($this->fileLastCol . $this->currentStep,
+                     $this->rowStatus[$this->currentStep]);
                 }
             }
 
@@ -101,7 +107,8 @@ class CategoryService
             if ($success) {
                 Logger::log(self::LOGGER_MODULE)->info("Category Imported successfully.");
             } else {
-                Logger::log(self::LOGGER_MODULE)->error("Category Import command failed to import $failedCnt out of $totalRow.");
+                Logger::log(self::LOGGER_MODULE)->error("Category Import command
+                 failed to import $failedCnt out of $totalRow.");
             }
         } catch (\Throwable $th) {
             Logger::error($this->logFileName, $th->getMessage());
@@ -140,16 +147,19 @@ class CategoryService
         foreach ($levelInfo as $info) {
             $obj = $this->catHelper->getObjectByFullCode($info['levelFullCode'], $info['bu']);
             if (!empty($obj) && $obj->getId()) {
-                $this->rowStatus[$this->currentStep] .= 'SIOP code already exists at level ' . $info['level'] . '. Updating Code: ' . $info['code'] . '. ';
+                $this->rowStatus[$this->currentStep] .= 'SIOP code already exists at level
+                 ' . $info['level'] . '. Updating Code: ' . $info['code'] . '. ';
                 return $this->updateCategory($info);
             } else {
                 $parentObj = $this->catHelper->getObjectByFullCode($info['parentFullCode'], $info['bu']);
                 if (!empty($parentObj)) {
                     /* Create or Update Object */
-                    $this->rowStatus[$this->currentStep] .= 'Creating SIOP at level ' . $info['level'] . '. Code: ' . $info['code'] . '. ';
+                    $this->rowStatus[$this->currentStep] .= 'Creating SIOP at level ' .
+                     $info['level'] . '. Code: ' . $info['code'] . '. ';
                     return $this->updateCategory($info, $parentObj);
                 } else {
-                    $this->rowStatus[$this->currentStep] .= 'Parent missing at level ' . $info['level'] . ' Code: ' . $info['code'] . ' Parent Code: ' . $info['parentCode'] . '. ';
+                    $this->rowStatus[$this->currentStep] .= 'Parent missing at level ' .
+                     $info['level'] . ' Code: ' . $info['code'] . ' Parent Code: ' . $info['parentCode'] . '. ';
                     $key = key($levelInfo);
                     unset($levelInfo[$key]);
                     $this->createCategory($levelInfo);
@@ -195,12 +205,12 @@ class CategoryService
             }
         }
 
-        if (isset($this->reader) && isset($this->reader['description'])) {
-            if($this->processingCode==$levelInfo['levelFullCode']) {
-                $catObj->setDescription($this->reader['description'], 'en');
-                $catObj->setPrintedCatalogDescription($this->reader['description'], 'en');
-                $catObj->setConstructionType($this->reader['description'], 'en');
-            }
+        if (isset($this->reader) && isset($this->reader['description'])
+        && $this->processingCode==$levelInfo['levelFullCode']
+        ) {
+            $catObj->setDescription($this->reader['description'], 'en');
+            $catObj->setPrintedCatalogDescription($this->reader['description'], 'en');
+            $catObj->setConstructionType($this->reader['description'], 'en');
         }
 
         /* Set related object brick here */

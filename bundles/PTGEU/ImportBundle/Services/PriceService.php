@@ -8,21 +8,28 @@ use AppBundle\Logger\AppLogger as Logger;
 use Pimcore\Model\DataObject;
 use PTGEU\ImportBundle\Services\ImportService;
 use PTGEU\ImportBundle\Model\PriceModel;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class PriceService 
+class PriceService
 {
     private $filePath;
     private $logArray;
-    private $products = [];    
-
-    public function __construct() 
-    { 
-        $this->priceModel       = new PriceModel;     
+    private $products = [];
+    private $priceModel;
+    public $csvHeader;
+    private $queryTableNewData;
+    private $storeTableNewData;
+    private $container;
+ 
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+        $this->priceModel = new PriceModel;
     }
     
     public function import()
     {
-        $sapFileFeeder  = \Pimcore::getContainer()->get('import.sap_file_feeder_service');
+        $sapFileFeeder  = $this->container->get('import.sap_file_feeder_service');
         $this->filePath = $sapFileFeeder->execFileFeeder('price');
         $csvInfo        = ImportService::getCSVData($this->filePath);
         $this->csvHeader= array_flip($csvInfo['header']);

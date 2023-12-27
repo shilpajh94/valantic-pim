@@ -4,6 +4,7 @@ namespace PTGEU\ImportBundle\Services\Validator;
 
 use Exception;
 use Pimcore\Model\DataObject;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class Category
 {
@@ -17,14 +18,19 @@ class Category
     public $businessUnit;
     public $rowCnt;
     private $catConfigData;
+    private $common;
+    private $catHelper;
+    private $container;
     
-    public function __construct()
+    public function __construct(ContainerInterface $container)
     {
         $this->rowCnt = 0;
+        $this->container = $container;
+
         /* Column name and it's position */
-        $this->common = \Pimcore::getContainer()->get('import.common_helper');
-        $this->catConfigData = \Pimcore::getContainer()->get('import.config_provider_service')->getCategoryConfig();
-        $this->catHelper = \Pimcore::getContainer()->get('import.category_helper');
+        $this->common = $this->container->get('import.common_helper');
+        $this->catConfigData = $this->container->get('import.config_provider_service')->getCategoryConfig();
+        $this->catHelper = $this->container->get('import.category_helper');
         $this->columns = $this->common->getParameterItem($this->catConfigData, 'sheet','columnName');
     }
 
@@ -45,23 +51,26 @@ class Category
     public function validateRow($reader)
     {
         $flag  = true;
-        if (array_key_exists('code', $reader)) {
-            if (!$this->catHelper->getLevels($reader['code'])['status']) {
-                $flag = false;
-                $exception = 'Column for code is not valid at row number ' . $this->rowCnt . '. Please check the code position or it\'s content length';
-            }
+        if (array_key_exists('code', $reader) &&
+        !$this->catHelper->getLevels($reader['code'])['status']
+        ) {
+            $flag = false;
+            $exception = 'Column for code is not valid at row number ' .
+                $this->rowCnt . '. Please check the code position or it\'s content length';
         }
-        if ($flag && array_key_exists('level', $reader)) {
-            if (!$this->validateLevel($reader['level'])) {
-                $flag = false;
-                $exception = 'Column for level is not valid at row number ' . $this->rowCnt . '. Please check the column position or it\'s content length';
-            }
+        if ($flag && array_key_exists('level', $reader) &&
+        !$this->validateLevel($reader['level'])
+        ) {
+            $flag = false;
+            $exception = 'Column for level is not valid at row number ' .
+                $this->rowCnt . '. Please check the column position or it\'s content length';
         }
-        if ($flag && array_key_exists('description', $reader)) {
-            if (!$this->validateDescription($reader['description'])) {
-                $flag = false;
-                $exception = 'Column for description is not valid at row number ' . $this->rowCnt . '. Please check the column position or it\'s content length';
-            }
+        if ($flag && array_key_exists('description', $reader) &&
+        !$this->validateDescription($reader['description'])
+        ) {
+            $flag = false;
+            $exception = 'Column for description is not valid at row number ' .
+                $this->rowCnt . '. Please check the column position or it\'s content length';
         }
 
         return array(

@@ -12,10 +12,17 @@ use Pimcore\Console\AbstractCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class PTGEUProductHierarchyImportCommand extends AbstractCommand
 {
     private $t;
+    private $container;
+ 
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
 
     protected function configure()
     {
@@ -32,7 +39,7 @@ class PTGEUProductHierarchyImportCommand extends AbstractCommand
         if (is_file($filePath)) {
             p_r('Script started at: ' . date('h:i:s', $this->t));
             p_r('------------------------------------------------');
-            $serviceObj = \Pimcore::getContainer()->get('import.sap_category_service');
+            $serviceObj = $this->container->get('import.sap_category_service');
             $serviceObj->import($filePath);
             p_r('--------------Total Execution Time---------------');
             p_r('Script completed after: ' . (abs(time() - $this->t) / 60) . ' mnt');

@@ -5,6 +5,7 @@ namespace PTGEU\ImportBundle\Model;
 use Pimcore\Db;
 use Pimcore\Model\DataObject;
 use PTGEU\ImportBundle\Services\ImportConstants;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ProductModel
 {
@@ -14,6 +15,7 @@ class ProductModel
     private $fileColumns;
     private $keyColumns;
     private $mappingCsvColumn;
+    private $container;
 
     private $db;
     private $common;
@@ -21,10 +23,11 @@ class ProductModel
     /**
      * Getting DB connection object
      */
-    public function __construct()
+    public function __construct(ContainerInterface $container)
     {
+        $this->container = $container;
         $this->db = Db::get();
-        $this->common = \Pimcore::getContainer()->get('import.common_helper');
+        $this->common = $this->container->get('import.common_helper');
     }
     
     /**
@@ -42,8 +45,10 @@ class ProductModel
     }
     
     public function checkIfArticleExists($articleNumber) {
-        $sql = " SELECT `oo_id`, `o_parentId`, `o_path`, `articleNumber`, `oldMaterialCode`  FROM `object_38` WHERE `articleNumber` = ".$this->db->quote(trim($articleNumber)) ." AND `productType` = 'fert'";
-        return $this->db->fetchAll($sql);
+        $sql = " SELECT `oo_id`, `o_parentId`, `o_path`, `articleNumber`, `oldMaterialCode`
+          FROM `object_38` WHERE `articleNumber` = ".$this->db->quote(trim($articleNumber))
+          ." AND `productType` = 'fert'";
+        return $this->db->fetchAllAssociative($sql);
     }
 
     public function insertInObjects($data) {
@@ -58,10 +63,10 @@ class ProductModel
             $insertColumns[] = "`o_type`";
             $insertColumns[] = "`o_key`";
             $insertColumns[] = "`o_path`";
-            $insertColumns[] = "`o_published`"; 
-            $insertColumns[] = "`o_classId`"; 
-            $insertColumns[] = "`o_className`"; 
-            $insertColumns[] = "`o_creationDate`"; 
+            $insertColumns[] = "`o_published`";
+            $insertColumns[] = "`o_classId`";
+            $insertColumns[] = "`o_className`";
+            $insertColumns[] = "`o_creationDate`";
             $insertColumns[] = "`o_modificationDate`";
             $sql      = "INSERT INTO `objects` (".implode(", ", $insertColumns).") VALUES";
             $update[] = " `o_parentId` = VALUES(`o_parentId`) ";
@@ -119,7 +124,7 @@ class ProductModel
                     $valueArray = [];
                     foreach ($valColumns as $key) {
                         if (is_null($data[$key]) || $data[$key] == '') {
-                            $valueArray[] = "NULL";      
+                            $valueArray[] = "NULL";
                         } else {
                             $valueArray[] = $this->db->quote($data[$key]);
                         }
@@ -148,7 +153,8 @@ class ProductModel
         $rowCount   = 1;
         $sql        = "INSERT INTO {$this->tempTable} (id, record, siopfullcode, hash) VALUES";
         $values     = '';
-        $update     = " ON DUPLICATE KEY UPDATE `id` = `id`, `record` = `record`, `siopfullcode` = `siopfullcode`, `hash` = `hash` ";
+        $update     = " ON DUPLICATE KEY UPDATE `id` = `id`, `record` = `record`,
+         `siopfullcode` = `siopfullcode`, `hash` = `hash` ";
         foreach ($arrData as $data) {
             $newData= $data;
             $id     = $data[0];
@@ -180,8 +186,10 @@ class ProductModel
     {
         try {
             $catLength  = 18;
-            $sql        = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE LENGTH(t.siopfullcode) = '".$catLength."' AND (t.hash != m.hash OR m.id is null) ";
-            return $this->db->fetchAll($sql);
+            $sql        = "SELECT t.id, t.record, t.siopfullcode FROM
+            {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id
+            WHERE LENGTH(t.siopfullcode) = '".$catLength."' AND (t.hash != m.hash OR m.id is null) ";
+            return $this->db->fetchAllAssociative($sql);
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
@@ -191,7 +199,8 @@ class ProductModel
         if (count($dataArray)>0) {
             foreach ($dataArray as $fieldName => $objectIds) {
                 $ids = implode(", ", $objectIds);
-                $sql = "Delete from `object_relations_38` where `fieldname` = ".$this->db->quote($fieldName)." AND `src_id` IN (".$ids.")";
+                $sql = "Delete from `object_relations_38` where `fieldname` = ".
+                $this->db->quote($fieldName)." AND `src_id` IN (".$ids.")";
                 try {
                     $this->db->query($sql);
                 } catch (\Exception $e) {
@@ -202,8 +211,9 @@ class ProductModel
     }
     
     public function getDeletedProducts() {
-        $sql   = "SELECT m.id FROM {$this->masterTable} m LEFT JOIN {$this->tempTable} t ON t.id = m.id WHERE t.id is null";
-        return $this->db->fetchAll($sql);
+        $sql   = "SELECT m.id FROM {$this->masterTable} m
+        LEFT JOIN {$this->tempTable} t ON t.id = m.id WHERE t.id is null";
+        return $this->db->fetchAllAssociative($sql);
     }
         
     /**
@@ -251,10 +261,12 @@ class ProductModel
      * Function to update master table
      */
     public function updateMaster()
-    {        
+    {
         try {
             $this->truncateMasterTable();
-            $sql = "REPLACE INTO {$this->masterTable} (id, siopfullcode, record, hash) SELECT t.id, t.siopfullcode, t.record, t.hash FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE t.hash != m.hash OR m.id IS NULL";
+            $sql = "REPLACE INTO {$this->masterTable} (id, siopfullcode, record, hash)
+             SELECT t.id, t.siopfullcode, t.record, t.hash FROM {$this->tempTable} t
+              LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE t.hash != m.hash OR m.id IS NULL";
             $this->db->query($sql);
         } catch (\Exception $ex) {
             echo $ex->getMessage();
@@ -267,10 +279,13 @@ class ProductModel
     {
         try {
             $rowCount   = 1;
-            $sql        = "INSERT INTO {$this->logTable} (id, siopfullcode, record, statusCode, failedReason, createdAt) VALUES";
+            $sql        = "INSERT INTO {$this->logTable} (id, siopfullcode, record,
+             statusCode, failedReason, createdAt) VALUES";
             $values     = '';
             foreach ($data as $dataValue) {
-                $values .= '("'.$dataValue['id'].'", "'.$dataValue['siopfullcode'].'", "'.addslashes($dataValue['record']).'", "'.$dataValue['statusCode'].'","'.$dataValue['failedReason'].'","'.time().'"),';
+                $values .= '("'.$dataValue['id'].'", "'.$dataValue['siopfullcode'].
+                '", "'.addslashes($dataValue['record']).'", "'.$dataValue['statusCode'].
+                '","'.$dataValue['failedReason'].'","'.time().'"),';
                 // inserting records in batch
                 if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
                     $query = $sql.rtrim($values, ',');
@@ -291,23 +306,24 @@ class ProductModel
     }
 
     public function getCategories() {
-        $query = "SELECT oo_id, code, o_key, fullCode, RelatedObjectBrick, o_path, businessUnit, Level FROM `object_39` ";
-        return $this->db->fetchAll($query);
+        $query = "SELECT oo_id, code, o_key, fullCode, RelatedObjectBrick,
+         o_path, businessUnit, Level FROM `object_39` ";
+        return $this->db->fetchAllAssociative($query);
     }
 
     public function getMaterialGroupData() {
         $query = "SELECT oo_id, code FROM `object_PTGEUMaterialGroup` ";
-        return $this->db->fetchAll($query);
+        return $this->db->fetchAllAssociative($query);
     }
     
     public function getProducts() {
         $query = "SELECT oo_id, o_key, o_path FROM `object_38` ";
-        return $this->db->fetchAll($query);
+        return $this->db->fetchAllAssociative($query);
     }
     
     public function getObjectsTableData() {
         $query = "SELECT o_id, o_key, o_path FROM `objects` where o_type = 'object' AND o_classId = '38'";
-        return $this->db->fetchAll($query);
+        return $this->db->fetchAllAssociative($query);
     }
 
     public function processDeletedProducts() {
@@ -321,7 +337,8 @@ class ProductModel
             $obj->setCondition("articleNumber IN (". implode(', ' , $keysArray).")");
             $obj->load();
             foreach($obj as $product) {
-                echo "Mark Product unpublished for id = ".$product->getId()." and article number = ".$product->getArticleNumber().PHP_EOL;
+                echo "Mark Product unpublished for id = ".$product->getId().
+                " and article number = ".$product->getArticleNumber().PHP_EOL;
                 $product->setPublished(false);
                 $product->save();
             }
@@ -331,11 +348,11 @@ class ProductModel
     public function checkHierarchyExistAtLevel($fullCode, $level=5) : bool
     {
         $sql = "SELECT `fullCode` FROM object_39 WHERE Level='".$level."' AND  fullCode = '".$fullCode."'";
-        $resultArray = $this->db->fetchAll($sql);
+        $resultArray = $this->db->fetchAllAssociative($sql);
         if(!empty($resultArray))
         {
-            return true; 
+            return true;
         }
-        return false; 
+        return false;
     }
 }

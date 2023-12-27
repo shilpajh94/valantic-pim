@@ -4,7 +4,7 @@ namespace PTGEU\ImportBundle\Model;
 use Pimcore\Db;
 use Exception;
 
-class EditablesModel 
+class EditablesModel
 {
     private $db;
 
@@ -20,7 +20,7 @@ class EditablesModel
      */
     public function getAllProducts() {
         $sql   = "SELECT oo_id, articleNumber FROM `object_query_38` WHERE articleNumber IS NOT NULL";
-        $queryData = $this->db->fetchAll($sql);
+        $queryData = $this->db->fetchAllAssociative($sql);
 
         return [
             'queryTableData' => $queryData

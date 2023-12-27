@@ -15,6 +15,7 @@ use Pimcore;
 class PTGEUWidthAttributeDataImportCommand extends AbstractCommand
 {
     private $db;
+    private $t;
 
     /**
      * Function is constructor and set the db connection
@@ -43,7 +44,7 @@ class PTGEUWidthAttributeDataImportCommand extends AbstractCommand
             $this->import($filePath);
             p_r('--------------Total Execution Time---------------');
             p_r('Script completed after: ' . (abs(time() - $this->t) / 60) . ' mnt');
-        }       
+        }
     }
 
     private function import($filePath)
@@ -62,8 +63,10 @@ class PTGEUWidthAttributeDataImportCommand extends AbstractCommand
                             'widthMMUnit' => 'mm',
                             'widthINUnit' => 'inch'
                         ];
-                    $this->insertDataForWidthAttributeIntoTable($fertBrickData, 'object_brick_query_PTGEUCommonFert_38', $fertObjectId);
-                    $this->insertDataForWidthAttributeIntoTable($fertBrickData, 'object_brick_store_PTGEUCommonFert_38', $fertObjectId);    
+                    $this->insertDataForWidthAttributeIntoTable($fertBrickData,
+                     'object_brick_query_PTGEUCommonFert_38', $fertObjectId);
+                    $this->insertDataForWidthAttributeIntoTable($fertBrickData,
+                     'object_brick_store_PTGEUCommonFert_38', $fertObjectId);
                 }
             }
         }catch (\Throwable $th) {
@@ -103,7 +106,8 @@ class PTGEUWidthAttributeDataImportCommand extends AbstractCommand
             $count = 0;
 
             if (($handle = fopen($csvFilePath, 'r')) !== false) {
-                while (($rowData = fgetcsv($handle, 0, $dialect->delimiter, $dialect->quotechar, $dialect->escapechar)) !== false) {
+                while (($rowData = fgetcsv($handle, 0, $dialect->delimiter,
+                 $dialect->quotechar, $dialect->escapechar)) !== false) {
                     if ($count == 0) {
                         foreach ($rowData as $key => $value) {
                             unset($rowData[$key]);

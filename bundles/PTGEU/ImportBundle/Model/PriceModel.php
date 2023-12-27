@@ -4,7 +4,7 @@ namespace PTGEU\ImportBundle\Model;
 use Pimcore\Db;
 use Exception;
 
-class PriceModel 
+class PriceModel
 {
     private $tempTable;
     private $masterTable;
@@ -30,10 +30,10 @@ class PriceModel
             $sql = "TRUNCATE TABLE $this->tempTable";
             $this->db->query($sql);
         } catch (Exception $ex) {
-            return ([
+            return [
                 "success" => false,
                 "message" => $ex->getMessage()
-            ]);
+            ];
         }
     }
     
@@ -82,8 +82,9 @@ class PriceModel
     public function getDelta()
     {
         try {
-            $sql   = "SELECT t.id, t.record FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE (t.hash != m.hash OR m.id is null) ";
-            return $this->db->fetchAll($sql);
+            $sql   = "SELECT t.id, t.record FROM {$this->tempTable} t
+            LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE (t.hash != m.hash OR m.id is null) ";
+            return $this->db->fetchAllAssociative($sql);
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
@@ -93,8 +94,9 @@ class PriceModel
      * Function to get deleted records
      */
     public function getDeletedPriceDataProducts() {
-        $sql   = "SELECT m.id FROM {$this->masterTable} m LEFT JOIN {$this->tempTable} t ON t.id = m.id WHERE t.id IS NULL";
-        return $this->db->fetchAll($sql);
+        $sql   = "SELECT m.id FROM {$this->masterTable} m LEFT JOIN
+         {$this->tempTable} t ON t.id = m.id WHERE t.id IS NULL";
+        return $this->db->fetchAllAssociative($sql);
     }
     
     /**
@@ -102,7 +104,7 @@ class PriceModel
      */
     public function getAllProducts() {
         $sql   = "SELECT oo_id, articleNumber, priceData FROM `object_query_38` WHERE articleNumber IS NOT NULL";
-        $queryData = $this->db->fetchAll($sql);
+        $queryData = $this->db->fetchAllAssociative($sql);
 
         return [
             'queryTableData' => $queryData
@@ -171,10 +173,12 @@ class PriceModel
      * Function to update master table
      */
     public function updateMasterTable()
-    {        
+    {
         try {
             $this->truncateMasterTable();
-            $sql = "REPLACE INTO {$this->masterTable} (id, record, hash) SELECT t.id, t.record, t.hash FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE t.hash != m.hash OR m.id IS NULL";
+            $sql = "REPLACE INTO {$this->masterTable} (id, record, hash)
+            SELECT t.id, t.record, t.hash FROM {$this->tempTable} t LEFT JOIN
+             {$this->masterTable} m ON t.id = m.id WHERE t.hash != m.hash OR m.id IS NULL";
             $this->db->query($sql);
         } catch (\Exception $ex) {
             echo $ex->getMessage();

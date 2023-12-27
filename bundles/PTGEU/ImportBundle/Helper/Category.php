@@ -3,6 +3,7 @@
 namespace PTGEU\ImportBundle\Helper;
 
 use Pimcore\Model\DataObject;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class Category
 {
@@ -11,13 +12,17 @@ class Category
     private $codeLength;
     public $businessUnit;
     private $catConfigData;
+    private $levelLength;
     public $siopCodes;
-    public function __construct()
+    private $container;
+
+    public function __construct(ContainerInterface $container)
     {
+        $this->container = $container;
         /* Initiate common helper */
-        $this->common = \Pimcore::getContainer()->get('import.common_helper');
+        $this->common = $this->container->get('import.common_helper');
         /* Loading global configuration for category */
-        $this->catConfigData = \Pimcore::getContainer()->get('import.config_provider_service')->getCategoryConfig();
+        $this->catConfigData = $this->container->get('import.config_provider_service')->getCategoryConfig();
         $this->root = $this->common->getParameter($this->catConfigData, 'root');
         $this->codeLength = $this->common->getParameter($this->catConfigData, 'codeLength');
         $this->levelLength = $this->common->getParameter($this->catConfigData, 'levelLength');
@@ -119,7 +124,7 @@ class Category
                 if ($o->getId())
                 {
                     return $o;
-                } 
+                }
             }
         }
         return false;
