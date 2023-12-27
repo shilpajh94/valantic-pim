@@ -66,6 +66,82 @@ class UserController extends ParentUserController {
     }
 
     /**
+     * @Route("/role-tree-get-childs-by-id", methods={"GET"})
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function roleTreeGetChildsByIdAction(Request $request)
+    {
+        $list = new User\Role\Listing();
+        $list->setCondition('parentId = ?', (int)$request->get('node'));
+        $list->load();
+
+        $roles = [];
+        if (is_array($list->getItems())) {
+            foreach ($list->getItems() as $role) {
+                $roles[] = $this->getRoleTreeNodeConfig($role);
+            }
+        }
+
+        return $this->adminJson($roles);
+    }
+
+    /**
+     * @Route("/role-get", methods={"GET"})
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function roleGetAction(Request $request)
+    {
+        $role = User\Role::getById((int)$request->get('id'));
+
+        if (!$role) {
+            throw $this->createNotFoundException();
+        }
+
+        // workspaces
+        $types = ['asset', 'document', 'object'];
+        foreach ($types as $type) {
+            $workspaces = $role->{'getWorkspaces' . ucfirst($type)}();
+            foreach ($workspaces as $wKey => $workspace) {
+                $el = Element\Service::getElementById($type, $workspace->getCid());
+                if ($el) {
+                    // direct injection => not nice but in this case ok ;-)
+                    $workspace->path = $el->getRealFullPath();
+                    $workspaces[$wKey] = $workspace->getObjectVars();
+                }
+            }
+            $role->{'setWorkspaces' . ucfirst($type)}($workspaces);
+        }
+
+        $replaceFn = function ($value) {
+            return $value->getObjectVars();
+        };
+
+        // get available permissions
+        $availableUserPermissionsList = new User\Permission\Definition\Listing();
+        $availableUserPermissions = $availableUserPermissionsList->load();
+        $availableUserPermissions = array_map($replaceFn, $availableUserPermissions);
+
+        $availablePerspectives = \Pimcore\Perspective\Config::getAvailablePerspectives(null);
+
+        return $this->adminJson([
+            'success' => true,
+            'role' => $role->getObjectVars(),
+            'permissions' => $role->generatePermissionList(),
+            'classes' => $role->getClasses(),
+            'docTypes' => $role->getDocTypes(),
+            'availablePermissions' => $availableUserPermissions,
+            'availablePerspectives' => $availablePerspectives,
+            'validLanguages' => Tool::getValidLanguages(),
+        ]);
+    }
+
+    /**
      * @param User $user
      *
      * @return array
@@ -248,6 +324,44 @@ class UserController extends ParentUserController {
             fpassthru($stream);
         }, 200, [
             'Content-Type' => 'image/png',
+        ]);
+    }
+
+     /**
+     * @Route("/search", methods={"GET"})
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function searchAction(Request $request)
+    {
+        $q = '%' . $request->get('query') . '%';
+
+        $list = new User\Listing();
+        $list->setCondition('name LIKE ? OR firstname LIKE ? OR lastname LIKE ? OR email LIKE ? OR id = ?', [$q, $q, $q, $q, (int)$request->get('query')]);
+        $list->setOrder('ASC');
+        $list->setOrderKey('name');
+        $list->load();
+
+        $users = [];
+        if (is_array($list->getUsers())) {
+            foreach ($list->getUsers() as $user) {
+                if ($user instanceof User && $user->getId() && $user->getName() != 'system') {
+                    $users[] = [
+                        'id' => $user->getId(),
+                        'name' => $user->getName(),
+                        'email' => $user->getEmail(),
+                        'firstname' => $user->getFirstname(),
+                        'lastname' => $user->getLastname(),
+                    ];
+                }
+            }
+        }
+
+        return $this->adminJson([
+            'success' => true,
+            'users' => $users,
         ]);
     }
 
