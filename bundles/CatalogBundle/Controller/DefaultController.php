@@ -987,7 +987,10 @@ class DefaultController extends FrontendController
                 $orderKeys = array();
                 foreach ($columnsDataWithImages as $skey => $svalue) {
                     foreach ($svalue as $vkey => $vvalue) {
-                        $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
+                        if($vvalue['columnName'] && isset($headerKeysIndex[$vvalue['columnName']]))
+                        {
+                            $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
+                        }
                     }
                 }
 
@@ -1480,7 +1483,10 @@ class DefaultController extends FrontendController
             $orderKeys = array();
             foreach ($columnsDataWithImages as $skey => $svalue) {
                 foreach ($svalue as $vkey => $vvalue) {
+                    if(isset($headerKeysIndex[$vvalue['columnName']]))
+                    {
                         $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
+                    }
                 }
             }
 
@@ -1947,9 +1953,9 @@ class DefaultController extends FrontendController
                 $headerKeysIndex = array_flip($headerKeys);
 
                 foreach ($productsData as $key => $item) {
-                    if(!empty(trim($item[$headerKeysIndex['CatalogGrouping']])) && !empty(trim($item[$headerKeysIndex['brandName']][0])))
+                    if(!empty(trim($item[$headerKeysIndex['CatalogGrouping']])) && !empty(trim($item[$headerKeysIndex['brandName']])))
                     {
-                        $catalogGrouping[$item[$headerKeysIndex['CatalogGrouping']]][$item[$headerKeysIndex['brandName']][0]][] = $item;
+                        $catalogGrouping[$item[$headerKeysIndex['CatalogGrouping']]][$item[$headerKeysIndex['brandName']]][] = $item;
                     }
                 }
 
@@ -2066,7 +2072,10 @@ class DefaultController extends FrontendController
                         $industryStandardKey = array_unique($industryStandardKey);
 
                         foreach($industryStandardKey as $industryStandardName){
-                            $industryStandard[] = $standardMetHoseList[$industryStandardName]['name'];
+                            if($industryStandardName && isset($standardMetHoseList[$industryStandardName]))
+                            {
+                                $industryStandard[] = $standardMetHoseList[$industryStandardName]['name'];
+                            }
                         }
 
                         $workingPressurePSIString = "";
@@ -2634,7 +2643,7 @@ class DefaultController extends FrontendController
                     if(!isset($this->s3srcArr[$fvalue]))
                         $this->s3srcArr[$fvalue] = $this->getS3ImageSrc($fIcon);
 
-                    $safetyFeaturesListWithImage[] = array('name'=>$this->featuresList[$fvalue]['name'], 'iconSrc' => $this->s3srcArr[$fvalue], 'SortOrder' =>$this->featuresList[$fvalue]['SortOrder']);
+                    $safetyFeaturesListWithImage[] = array('name'=>$this->featuresList[$fvalue]['name'], 'iconSrc' => $fvalue, 'SortOrder' =>$this->featuresList[$fvalue]['SortOrder']);
                 }
                 else
                     $safetyFeaturesListWithOutImage[] = array('name'=>$this->featuresList[$fvalue]['name'], 'iconSrc' => $fIcon, 'SortOrder' =>$this->featuresList[$fvalue]['SortOrder']);
@@ -2651,6 +2660,17 @@ class DefaultController extends FrontendController
 
         if($safetyFeaturesList)
             $safetyFeaturesList = array_slice($safetyFeaturesList, 0, 5);
+
+        if($safetyFeaturesList)
+        {
+            foreach ($safetyFeaturesList as $key => $value) {
+
+                if(isset($this->s3srcArr[$value['iconSrc']]))
+                {
+                    $safetyFeaturesList[$key]['iconSrc'] = $this->s3srcArr[$value['iconSrc']];
+                }
+            }
+        }
 
         unset($safetyFeaturesListWithImage);
         unset($safetyFeaturesListWithOutImage);

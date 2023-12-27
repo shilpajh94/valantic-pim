@@ -422,7 +422,7 @@
 
 																	{% for ekey, value in shortedRows %}
 																		{% if ekey == 0 %}
-																			<td>{{ value ~ '<sup>' ~ partNumberSuperText ~ '</sup>' | raw }}</td>
+																			<td>{{ value }}<sup>{{ partNumberSuperText }}</sup></td>
 																		{% else %}
 																			<td>{{ value | raw}}</td>
 																		{% endif %}
