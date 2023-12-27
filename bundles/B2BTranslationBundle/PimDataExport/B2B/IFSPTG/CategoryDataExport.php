@@ -60,27 +60,29 @@ class CategoryDataExport implements IDataExport
                             $categoryFilteredAttribute = $this->getFilteredAttribute('class', 'ProductCategory');
                             $categoryFilteredAttributeField = array_keys($categoryFilteredAttribute);
 
-                            $categoryFilteredNonLocalizedAttribute = $this->getFilteredAttribute('class', 'ProductCategory', false);
-                            $categoryFilteredNonLocalizedAttributeField = array_keys($categoryFilteredNonLocalizedAttribute);
+                            $categoryFilteredNonLocalizedAttribute = $this->getFilteredAttribute('class',
+                             'ProductCategory', false);
+                            $categoryFilteredNonLocalizedAttributeField =
+                            array_keys($categoryFilteredNonLocalizedAttribute);
                             
                             $b2bCategoriesChucks = array_chunk($b2bCategories,50);
 
-                            // $filePath = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR."{$this->bu}_Category_".date('M')."_".date('d')."_".date('Y').".csv";
-                            // $file = fopen($filePath,"w+");
-
-                            $filePath1 = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR."SFPIM_PRODUCTCATEGORY_TRANSLATION_INSERT.csv";
+                            $filePath1 = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR.
+                            "SFPIM_PRODUCTCATEGORY_TRANSLATION_INSERT.csv";
                             $file1 = fopen($filePath1,"w+");
 
-                            $filePath2 = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR."SFPIM_PRODUCTCATEGORY_TRANSLATION_UPDATE.csv";
+                            $filePath2 = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR.
+                            "SFPIM_PRODUCTCATEGORY_TRANSLATION_UPDATE.csv";
                             $file2 = fopen($filePath2,"w+");
 
 
                             $areHeadersAlreadyAdded = false;
-                            foreach ($b2bCategoriesChucks as $batchNum => $categoryIds)
+                            foreach ($b2bCategoriesChucks as $categoryIds)
                             {
                                 # Categories's non-localized field
                                 $nonLocalizedResultSet = [];
-                                $nonLocalizedResultSet = $this->helper->getRecordsWithFilteredMasterFields($this->bu, $categoryFilteredNonLocalizedAttributeField, $categoryIds);
+                                $nonLocalizedResultSet = $this->helper->getRecordsWithFilteredMasterFields($this->bu,
+                                $categoryFilteredNonLocalizedAttributeField, $categoryIds);
                                 if(isset($this->headerMapping['image']))
                                 {
                                     foreach ($nonLocalizedResultSet as $key => $value) {
@@ -90,7 +92,8 @@ class CategoryDataExport implements IDataExport
                                             $sourcePath = '';
                                             if($asset)
                                             {
-                                                $sourcePath = \S3CustomizationBundle\Lib\Utils::getAssetFullPathCompatibleToS3($asset);
+                                                $sourcePath = \S3CustomizationBundle\Lib\Utils::
+                                                getAssetFullPathCompatibleToS3($asset);
                                             }
                                             $nonLocalizedResultSet[$key]['image'] = $sourcePath;
                                         }
@@ -102,7 +105,8 @@ class CategoryDataExport implements IDataExport
                                 $localizeData1 = [];
                                 if($categoryFilteredAttributeField)
                                 {
-                                    $localizedResultSet = $this->helper->getRecordsWithFilteredFieldsCategory($this->bu, $this->languages, $categoryFilteredAttributeField, $categoryIds);
+                                    $localizedResultSet = $this->helper->getRecordsWithFilteredFieldsCategory($this->bu,
+                                    $this->languages, $categoryFilteredAttributeField, $categoryIds);
                                 }
 
                                 foreach ($localizedResultSet as $key => $fields) {
@@ -118,13 +122,13 @@ class CategoryDataExport implements IDataExport
                                 if($localizeData1)
                                 {
                                     $header_Keys = array_keys($this->headerMapping);
-                                    foreach($this->languages as $lang => $language)
+                                    foreach($this->languages as $language)
                                     {
                                         foreach ($categoryIds as $key => $id) {
 
                                             $rawData = [];
 
-                                            foreach ($nonLocalizedResultSet as $rkey => $rvalue) {
+                                            foreach ($nonLocalizedResultSet as $rvalue) {
                                                 if($id == $rvalue['o_id'])
                                                 {
                                                     unset($rvalue['o_id']);
@@ -133,7 +137,8 @@ class CategoryDataExport implements IDataExport
                                                 }
                                             }
 
-                                            $common_header_list1 = array_intersect($header_Keys, $categoryFilteredAttributeField);
+                                            $common_header_list1 = array_intersect($header_Keys,
+                                            $categoryFilteredAttributeField);
 
                                             if($localizeData1)
                                             {
@@ -158,7 +163,7 @@ class CategoryDataExport implements IDataExport
                                     }
                                 }
                                 else{
-                                    foreach ($nonLocalizedResultSet as $rkey => $rvalue) {
+                                    foreach ($nonLocalizedResultSet as $rvalue) {
                                         unset($rvalue['o_id']);
                                         $finalPritingList[] = $rvalue;
                                     }
@@ -168,10 +173,9 @@ class CategoryDataExport implements IDataExport
                                 {
                                     if(!$areHeadersAlreadyAdded)
                                     {
-                                        //dd($headerMapping);
-                                        $keys = array_keys($finalPritingList[0]);
                                         $displayKeys = [];
-                                        $staticHeaderMappingArr=['language'=>'Language','BussinessUnit'=>'BussinessUnit'];
+                                        $staticHeaderMappingArr=['language'=>'Language',
+                                        'BussinessUnit'=>'BussinessUnit'];
                                         foreach ($headerMapping as $headerIndex => $headerName) {
                                                 $displayKeys[$headerIndex] = $headerName;
                                         }
@@ -208,8 +212,6 @@ class CategoryDataExport implements IDataExport
                                     }
                                 }
                             }
-
-                            // fclose($file);
                             fclose($file1);
                             fclose($file2);
 
@@ -224,7 +226,8 @@ class CategoryDataExport implements IDataExport
                         }
                     }
                     else{
-                        echo $message = "{$this->bu}: B2B salesforce attribute not mapped to any of the PIM category attribute";
+                        echo $message = "{$this->bu}: B2B salesforce attribute not mapped to
+                        any of the PIM category attribute";
                         echo PHP_EOL;
                         $this->helper->logMessage($message, LogLevel::ERROR());
                     }
@@ -252,7 +255,6 @@ class CategoryDataExport implements IDataExport
 
     public function uploadFile()
     {
-        // $customFileName = "{$this->bu}_Category_".date('M')."_".date('d')."_".date('Y').".csv";
         $customFileName1 = "SFPIM_PRODUCTCATEGORY_TRANSLATION_UPDATE.csv";
         $this->helper->uploadFile($customFileName1);
 
@@ -266,12 +268,12 @@ class CategoryDataExport implements IDataExport
         if($this->categoryAttributeConfig)
         {
             foreach ($this->categoryAttributeConfig as $key => $attributeConfig) {
-                if($attributeConfig['fieldLocation'] == $fieldLocation && $attributeConfig['className'] == $className && $attributeConfig['isLocalized'] == $isLocalized)
+                if($attributeConfig['fieldLocation'] == $fieldLocation
+                 && $attributeConfig['className'] == $className
+                 && $attributeConfig['isLocalized'] == $isLocalized
+                 && isset($this->headerMapping[$key]))
                 {
-                    if(isset($this->headerMapping[$key]))
-                    {
-                        $filteredAttribute[$key] = $attributeConfig;
-                    }
+                    $filteredAttribute[$key] = $attributeConfig;
                 }
             }
         }

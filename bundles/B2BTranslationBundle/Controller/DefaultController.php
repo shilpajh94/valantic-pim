@@ -96,10 +96,9 @@ class DefaultController extends FrontendController
 
             $vendors = [];
             $id = $request->get('id');
-            $name = '';
             if($options)
             {
-                foreach ($options as $key => $value) {
+                foreach ($options as $value) {
                     $vendors[] = array('id'=>$value['value'],'name'=>$value['key']);
                 }
             }
@@ -111,7 +110,8 @@ class DefaultController extends FrontendController
             $msg = $e->getMessage();
             return $this->json(['result' => false, 'data' => [], "msg" => $msg]);
         }
-        return $this->json(['result' => true, 'general' => ['o_id' => $object->getId(), 'o_key' => $object->getName()], 'data' => $data, 'vendors' => $vendors, "msg" => '']);
+        return $this->json(['result' => true, 'general' => ['o_id' => $object->getId(),
+        'o_key' => $object->getName()], 'data' => $data, 'vendors' => $vendors, "msg" => '']);
     }
 
     /**
@@ -138,8 +138,6 @@ class DefaultController extends FrontendController
      */
     public function updateAction(Request $request)
     {
-        $mappings = [];
-        $user = Admin::getCurrentUser();
         $mappingId = $request->get('mappingId');
         $mappingObject = DataObject\B2BTranslationMapping::getById($mappingId);
         if (!empty($mappingObject) && $mappingObject instanceof DataObject\B2BTranslationMapping) {
@@ -187,11 +185,9 @@ class DefaultController extends FrontendController
 
     public function getSalesForceAttribute($fileName, $translationClassType)
     {
-        $b2bTranslationList = [];
         $b2bTranslationConfig = $this->config->getBusinessUnitTranslationConfig($fileName);
-        $b2bTranslationList = $this->common->getParameter($b2bTranslationConfig, $translationClassType);
 
-        return $b2bTranslationList;
+        return $this->common->getParameter($b2bTranslationConfig, $translationClassType);
     }
     public function getLocalizedAttribute($businessUnit, $className)
     {
@@ -201,24 +197,22 @@ class DefaultController extends FrontendController
         {
             $businessUnitFileName = B2BTranslationConstants::B2B_IFS_PTG_US_FILE_NAME;
         }
-        else if($businessUnit == 'CS')
+        elseif($businessUnit == 'CS')
         {
             $businessUnitFileName = B2BTranslationConstants::B2B_CS_US_FILE_NAME;
         }
-        else if($businessUnit == 'PTG_EU')
+        elseif($businessUnit == 'PTG_EU')
         {
             $businessUnitFileName = B2BTranslationConstants::B2B_PTG_EU_FILE_NAME;
         }
-        else if($businessUnit == 'IFS_EMEA')
+        elseif($businessUnit == 'IFS_EMEA')
         {
             $businessUnitFileName = B2BTranslationConstants::B2B_IFS_EU_FILE_NAME;
         }
 
-        $b2bTranslationList = [];
         $b2bTranslationConfig = $this->config->getBusinessUnitTranslationConfig($businessUnitFileName);
-        $b2bTranslationList = $this->common->getParameter($b2bTranslationConfig, $className);
 
-        return $b2bTranslationList;
+        return $this->common->getParameter($b2bTranslationConfig, $className);
     }
 
 
@@ -302,11 +296,7 @@ class DefaultController extends FrontendController
      */
     public function getVendorsAction(Request $request)
     {
-        // $list = new DataObject\Vendor\Listing();
         $vendors = [];
-        // foreach ($list as $vendor) {
-        //     $vendors[] = array('id'=>$vendor->getId(),'name'=>$vendor->getVendorName());
-        // }
         $vendors[] = array('id'=>'1','name'=>'IFS US');
         return $this->json($vendors);
     }
@@ -319,7 +309,6 @@ class DefaultController extends FrontendController
      */
     public function addAction(Request $request)
     {
-        // $this->checkPermission(self::CONFIG_NAME);
         try {
             $name = $request->get('name');
             $object = DataObject\B2BTranslationMapping::getByName(trim($name), 1);
@@ -349,7 +338,6 @@ class DefaultController extends FrontendController
      */
     public function saveAction(Request $request)
     {
-        // $this->checkPermission(self::CONFIG_NAME);
         try {
             $name = $request->get('name');
             $object = DataObject\B2BTranslationMapping::getByName(trim($name), 1);
@@ -436,9 +424,6 @@ class DefaultController extends FrontendController
 
                 $objectService = new \Pimcore\Model\DataObject\Service($object);
                 $newObject = $objectService->copyAsChild($object->getParent(), $object);
-                // $newObject = \Pimcore\Model\DataObject\Service::cloneMe($object);
-                // p_r($newObject);die;
-
                 return $this->json([self::SUCCESS => true, "id" => $newObject->getId(), self::MESSAGE => '']);
             } else {
                 return $this->createNotFoundException('Channel configuration not found');
@@ -455,12 +440,7 @@ class DefaultController extends FrontendController
      */
     public function saveMapping(Request $request)
     {
-        $objectId = (int) $request->get('objectId');
-        
         try {
-            $data = $request->request->all();
-
-            // ChannelService::updateChannelMapping($data, $objectId);
             return $this->json([self::SUCCESS => true, self::MESSAGE => "Mapping Save successfully"]);
         } catch (\Exception $e) {
             return $this->json([self::SUCCESS => false, self::MESSAGE => $e->getMessage()]);

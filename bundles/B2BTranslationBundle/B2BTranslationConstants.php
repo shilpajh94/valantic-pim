@@ -8,5 +8,3 @@ class B2BTranslationConstants
     public const B2B_IFS_EU_FILE_NAME = 'ifs_emea';
     public const B2B_ECOMMERCE_FILE_NAME = 'b2b_ecommerce';
 }
-
-?>
