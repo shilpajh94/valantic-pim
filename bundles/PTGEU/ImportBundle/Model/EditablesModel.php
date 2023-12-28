@@ -37,7 +37,7 @@ class EditablesModel
             $cols[] = "$key = '$val'";
         }
         $sql = "UPDATE $tableName SET " . implode(', ', $cols) . " WHERE oo_id =  $objId";
-        $this->db->executeUpdate($sql);
+        $this->db->executeQuery($sql);
 
         echo $objId;
         echo PHP_EOL;
@@ -54,6 +54,6 @@ class EditablesModel
             $cols[] = "$key = '$val'";
         }
         $sql = "UPDATE $tableName SET " . implode(', ', $cols) . " WHERE ooo_id =  $objId";
-        $this->db->executeUpdate($sql);
+        $this->db->executeQuery($sql);
     }
 }

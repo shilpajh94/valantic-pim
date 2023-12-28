@@ -31,7 +31,7 @@ class PTGEUWorkflowPublishCommand extends AbstractCommand
                 $key = array_search($objectId, array_column($record, 'cid'));
                 if ($key){
                     $updateQuery = "UPDATE element_workflow_state SET place = 'published' where cid = $objectId";
-                    $this->db->executeUpdate($updateQuery);
+                    $this->db->executeQuery($updateQuery);
                     print_r('Updated state for ----- '.$objectId);
                     echo PHP_EOL;
                 }else{
@@ -42,8 +42,7 @@ class PTGEUWorkflowPublishCommand extends AbstractCommand
                     echo PHP_EOL;
                 }
             }
-    
-            
         }
+        return 1;
     }
 }

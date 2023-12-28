@@ -29,5 +29,6 @@ class SAPEditablesImportCommand extends AbstractCommand
         $filePath = $input->getArgument('filePath');
         $serviceObj = $this->container->get('import.editables_service');
         $serviceObj->import($filePath);
+        return 1;
     }
 }

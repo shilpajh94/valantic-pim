@@ -4,6 +4,7 @@ namespace PTGEU\ImportBundle\Helper;
 
 use Pimcore\Model\DataObject;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Exception;
 
 class Category
 {
@@ -75,8 +76,13 @@ class Category
      */
     public function extractFullCodeLevelWise($currLevel, $code)
     {
-        $levelLength = $this->levelLength[$currLevel];
-        return substr($code, 0, $levelLength);
+        $levelLength = isset($this->levelLength[$currLevel]) ? $this->levelLength[$currLevel] : null;
+        if($levelLength){
+            return substr($code, 0, $levelLength);
+        }
+        else{
+            return '';
+        }
     }
 
     /**
@@ -84,10 +90,10 @@ class Category
      */
     public function extractCodeLevelWise($level, $code)
     {
-        $levelLength= $this->levelLength[$level];
+        $levelLength= isset($this->levelLength[$level]) ? $this->levelLength[$level] : null;
         $levelCode  = substr($code, 0, $levelLength);
         $len        = strlen($levelCode);
-        $from       = $len - $this->codeLength[$level];
+        $from       = $len - (isset($this->codeLength[$level]) ? $this->codeLength[$level] : 0);
         return substr($levelCode, $from, $len);
     }
 
@@ -114,20 +120,26 @@ class Category
 
     public function getObjectByFullCode($code, $bu)
     {
-        if (!empty($code)) {
-            $obj = new DataObject\PTGEUProductHierarchy\Listing;
-            $obj->setCondition("fullCode='$code' AND BusinessUnit='$bu'");
-            $obj->setLimit(1);
-            $obj->load();
-
-            foreach ($obj as $o) {
-                if ($o->getId())
-                {
-                    return $o;
+        try{
+            if (!empty($code)) {
+                $obj = new DataObject\PTGEUProductHierarchy\Listing;
+                $obj->setCondition("fullCode='$code' AND BusinessUnit='$bu'");
+                $obj->setLimit(1);
+                $obj->load();
+    
+                foreach ($obj as $o) {
+                    if ($o->getId())
+                    {
+                        return $o;
+                    }
                 }
             }
+            return false;
         }
-        return false;
+        catch(Exception $ex){
+            print_r($ex);
+        }
+        
     }
 
     public function getCategories()

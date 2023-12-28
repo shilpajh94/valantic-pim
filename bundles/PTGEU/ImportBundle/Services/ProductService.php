@@ -52,22 +52,24 @@ class ProductService
     private $bricksDataArray;
     private $relationTableDataArray;
     private $relationTableDataDeleteArray;
+    private $container;
  
     const LOGGER_MODULE = 'SAP IMPORT SHEET';
     
     
-    public function __construct(CompletenessPercentageService $percentageCompletionService)
+    public function __construct(CompletenessPercentageService $percentageCompletionService, ContainerInterface $container)
     {
+        $this->container = $container;
         /* Initilize monitoring item and set the number of steps will take to complete the task */
         $this->logFileName          = 'ptgeu-products-log-' . date('Ymdhis');
-        $this->common               = \Pimcore::getContainer()->get('import.common_helper');
+        $this->common               = $this->container->get('import.common_helper');
         $this->productModel         = new ProductModel;
-        $this->configProviderService= \Pimcore::getContainer()->get('import.config_provider_service');
-        $this->productHelper        = \Pimcore::getContainer()->get('import.product_helper');
+        $this->configProviderService= $this->container->get('import.config_provider_service');
+        $this->productHelper        = $this->container->get('import.product_helper');
         $this->materialConfigData   = $this->configProviderService->getProductConfig();
         $this->catConfigData        = $this->configProviderService->getCategoryConfig();
         $this->businessUnit         = $this->common->getParameter($this->catConfigData, 'businessUnit');
-        $this->brickMappingService  = \Pimcore::getContainer()->get('import.category_brick_mapping_service');
+        $this->brickMappingService  = $this->container->get('import.category_brick_mapping_service');
         $this->columnName           = $this->common->getParameterItem($this->materialConfigData, 'sheet', 'columnName');
         $this->baseSiopMismatchLog  = [];
         $this->percentageCompletionService = $percentageCompletionService;
@@ -118,7 +120,7 @@ class ProductService
     
     public function import()
     {
-        $sapFileFeeder  = \Pimcore::getContainer()->get('import.sap_file_feeder_service');
+        $sapFileFeeder  = $this->container->get('import.sap_file_feeder_service');
         $this->filePath = $sapFileFeeder->execFileFeeder('product');
         if($this->filePath){
             $csvInfo = ImportService::getCSVData($this->filePath);
@@ -130,7 +132,7 @@ class ProductService
                 $this->productModel->truncateTempTable();
                 $this->productModel->insertDataInTemp($csvInfo['data']);
                 Logger::log(self::LOGGER_MODULE)->info("Data Sheet imported in temp table");
-                $this->productModel->processDeletedProducts();
+              //  $this->productModel->processDeletedProducts();
                 Logger::log(self::LOGGER_MODULE)->info("Removed records in data sheet, marked as unpublished.");
                 Logger::log(self::LOGGER_MODULE)->info("Product import started");
                 $this->initiateProductsProcess();
@@ -165,7 +167,7 @@ class ProductService
         try {
             if (!empty($skippedArticles) && count($skippedArticles)>0) {
                 $fileName = "PTGEU_SAP_import_skipped_articles_" . '-' . date('YmdHis') . '.csv';
-                $logFilePath = PIMCORE_TEMPORARY_DIRECTORY."/".$fileName;
+                $logFilePath = PIMCORE_SYSTEM_TEMP_DIRECTORY."/".$fileName;
                 $fp = fopen($logFilePath, 'wb');
                 fputcsv($fp, ['articleNumber', 'siop', '6digit', 'mismatchedSiopCode', 'mismatchedArticleNumber']);
                 foreach ($skippedArticles as $article) {
@@ -180,7 +182,7 @@ class ProductService
                             'templateName' => $emailTemplate,
                             'attachment' => $logFilePath
                         ];
-                        $this->emailService = \Pimcore::getContainer()->get('email.email_notification_service');
+                        $this->emailService = $this->container->get('email.email_notification_service');
                         $this->emailService->sendNotificationsEmail($emailParams);
                     }else {
                         throw \Exception("Base SIOP mismatch email template not found.");

@@ -21,6 +21,7 @@ class Category
     private $common;
     private $catHelper;
     private $container;
+    private $exception;
     
     public function __construct(ContainerInterface $container)
     {
@@ -55,27 +56,27 @@ class Category
         !$this->catHelper->getLevels($reader['code'])['status']
         ) {
             $flag = false;
-            $exception = 'Column for code is not valid at row number ' .
+            $this->exception = 'Column for code is not valid at row number ' .
                 $this->rowCnt . '. Please check the code position or it\'s content length';
         }
         if ($flag && array_key_exists('level', $reader) &&
         !$this->validateLevel($reader['level'])
         ) {
             $flag = false;
-            $exception = 'Column for level is not valid at row number ' .
+            $this->exception = 'Column for level is not valid at row number ' .
                 $this->rowCnt . '. Please check the column position or it\'s content length';
         }
         if ($flag && array_key_exists('description', $reader) &&
         !$this->validateDescription($reader['description'])
         ) {
             $flag = false;
-            $exception = 'Column for description is not valid at row number ' .
+            $this->exception = 'Column for description is not valid at row number ' .
                 $this->rowCnt . '. Please check the column position or it\'s content length';
         }
 
         return array(
             'status'    =>  $flag,
-            'message'   =>  $exception
+            'message'   =>  $this->exception
         );
     }
 

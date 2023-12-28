@@ -26,5 +26,6 @@ class SAPSalesMaterialImportCommand extends AbstractCommand
     {
         $serviceObj = $this->container->get('import.sap_sales_material_import');
         $serviceObj->import();
+        return 1;
     }
 }

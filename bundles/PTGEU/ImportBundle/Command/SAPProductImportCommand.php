@@ -26,5 +26,6 @@ class SAPProductImportCommand extends AbstractCommand
     {
         $serviceObj = $this->container->get('import.sap_product_service');
         $serviceObj->import();
+        return 1;
     }
 }

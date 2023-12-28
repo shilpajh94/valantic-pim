@@ -67,6 +67,7 @@ class PTGEUCopySapDescriptionIntoProductShortDescriptionCommand extends Abstract
                 Logger::error("Exception: " . $exception->getMessage());
             }
         }
+        return 1;
 
     }
 }

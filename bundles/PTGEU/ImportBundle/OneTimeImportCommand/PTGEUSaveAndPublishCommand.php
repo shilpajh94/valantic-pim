@@ -41,6 +41,7 @@ class PTGEUSaveAndPublishCommand extends AbstractCommand
             }
             \Pimcore::collectGarbage();
         }
+        return 1;
     }
 }
 

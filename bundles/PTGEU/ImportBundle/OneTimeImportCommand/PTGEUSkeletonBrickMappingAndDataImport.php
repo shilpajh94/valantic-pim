@@ -45,6 +45,7 @@ class PTGEUSkeletonBrickMappingAndDataImport extends AbstractCommand
             p_r('--------------Total Execution Time---------------');
             p_r('Script completed after: ' . (abs(time() - $this->t) / 60) . ' mnt');
         }
+        return 1;
     }
 
     private function import($filePath)
@@ -101,7 +102,7 @@ class PTGEUSkeletonBrickMappingAndDataImport extends AbstractCommand
             $cols[] = "$key = '$val'";
         }
         $sql = "UPDATE $tableName SET " . implode(', ', $cols) . " WHERE o_id =  $objId";
-        $this->db->executeUpdate($sql);
+        $this->db->executeQuery($sql);
 
 
 

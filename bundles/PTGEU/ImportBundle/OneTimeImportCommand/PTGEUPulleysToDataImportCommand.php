@@ -44,6 +44,7 @@ class PTGEUPulleysToDataImportCommand extends AbstractCommand
             p_r('--------------Total Execution Time---------------');
             p_r('Script completed after: ' . (abs(time() - $this->t) / 60) . ' mnt');
         }
+        return 1;
     }
 
 
@@ -66,11 +67,11 @@ class PTGEUPulleysToDataImportCommand extends AbstractCommand
 
                     $querySql = "UPDATE object_brick_query_PTGEUVBeltsFert_38 SET
                      pulleysTo = $pulleysTo where o_id = $o_id";
-                    $this->db->executeUpdate($querySql);
+                    $this->db->executeQuery($querySql);
 
                     $updateSql = "UPDATE object_brick_store_PTGEUVBeltsFert_38 SET
                      pulleysTo = $pulleysTo where o_id = $o_id";
-                    $this->db->executeUpdate($updateSql);
+                    $this->db->executeQuery($updateSql);
 
                     $this->percentageCompletionService->completenessPercentage($object, 'import');
                     echo $i++.'. Material Number == '.$rowData['SAPMaterialCode'] . "\n";

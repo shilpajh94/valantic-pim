@@ -21,6 +21,7 @@ class PTGEUProductHierarchyImportCommand extends AbstractCommand
  
     public function __construct(ContainerInterface $container)
     {
+        parent::__construct();
         $this->container = $container;
     }
 
@@ -44,5 +45,6 @@ class PTGEUProductHierarchyImportCommand extends AbstractCommand
             p_r('--------------Total Execution Time---------------');
             p_r('Script completed after: ' . (abs(time() - $this->t) / 60) . ' mnt');
         }
+        return 1;
     }
 }

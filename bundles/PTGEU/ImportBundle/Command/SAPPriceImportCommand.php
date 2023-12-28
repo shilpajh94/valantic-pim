@@ -26,5 +26,6 @@ class SAPPriceImportCommand extends AbstractCommand
     {
         $serviceObj = $this->container->get('import.sap_price_service');
         $serviceObj->import();
+        return 1;
     }
 }

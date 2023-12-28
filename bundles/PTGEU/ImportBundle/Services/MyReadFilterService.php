@@ -11,7 +11,7 @@ class MyReadFilterService implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilte
     public function __construct($config)
     {
         $this->startRow = $config['startRow'] ? : 1;
-        $this->endRow   = $config['endRow'] ? : $config['totalRows'];
+        $this->endRow   = isset($config['endRow']) ? : $config['totalRows'];
         $this->lastCol = $config['lastColumnLetter'];
         $this->columns = ['A', $this->lastCol];
     }
