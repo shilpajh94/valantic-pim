@@ -13,7 +13,7 @@ use B2BTranslationBundle\Tool\Utils;
 class ConfigProviderService
 {
     /**
-     * get unit conversion file 
+     * get unit conversion file
      */
     public function getBusinessUnitTranslationConfig($filePath)
     {
@@ -27,7 +27,8 @@ class ConfigProviderService
     }
     public function getBooleanConfigFile(){
         try {
-            $fileNamefullPath = B2BTRANSLATIONBUNDLE_CONFIG_DIRECTORY."/bu_translation_config/boolean_attribute_config.yaml";
+            $fileNamefullPath = B2BTRANSLATIONBUNDLE_CONFIG_DIRECTORY.
+            "/bu_translation_config/boolean_attribute_config.yaml";
             return Utils::getYmlConfig($fileNamefullPath);
         } catch (\Throwable $th) {
             p_r($th->getMessage());

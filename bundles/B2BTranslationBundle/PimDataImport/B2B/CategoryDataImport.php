@@ -29,10 +29,8 @@ class CategoryDataImport implements IDataImport
 
     public function downloadFile()
     {
-        // $customFileName = $this->bu."_Category_".date('M').".csv";
         $customFileName = "SF_PRODUCT_CATEGORY_EXTRACT.csv";
         $this->filePath = $this->helper->downloadFile($customFileName);
-        // $this->filePath = "/var/www/html/cttfse01/var/tmp/SF_PRODUCT_CATEGORY_EXTRACT.csv";
     }
 
     public function importData()
@@ -52,7 +50,7 @@ class CategoryDataImport implements IDataImport
 
                     echo 'Importing File: ' . $this->filePath.PHP_EOL;
                     
-                    foreach($data as $row){   
+                    foreach($data as $row){
                         $record = array_combine($header, $row);
                         $externalIDStr = $record['B2B_EXTERNAL_ID__C'];
                         $salesforceID = $record['ID'];
@@ -65,7 +63,7 @@ class CategoryDataImport implements IDataImport
                             $o_id = $externalIDList[0];
                             $this->updateSalesForceIdByExternalId($salesforceID, $externalIDStr, $o_id);
                         }
-                    } 
+                    }
                 }
                 else{
                     echo PHP_EOL;
@@ -84,9 +82,11 @@ class CategoryDataImport implements IDataImport
     {
         $classID = $this->bUProductClassTableID[$this->bu];
 
-        $query = "UPDATE object_query_{$classID} SET SalesForce_ID = '{$salesforceID}', externalID ='{$externalID}' WHERE oo_id ='{$o_id}'";
+        $query = "UPDATE object_query_{$classID} SET SalesForce_ID = '{$salesforceID}',
+         externalID ='{$externalID}' WHERE oo_id ='{$o_id}'";
         $this->db->query($query);
-        $query = "UPDATE object_store_{$classID} SET SalesForce_ID = '{$salesforceID}', externalID ='{$externalID}' WHERE oo_id ='{$o_id}'";
+        $query = "UPDATE object_store_{$classID} SET SalesForce_ID = '{$salesforceID}',
+         externalID ='{$externalID}' WHERE oo_id ='{$o_id}'";
         $this->db->query($query);
     }
 }
