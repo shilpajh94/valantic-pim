@@ -1,0 +1,179 @@
+{% if parentContainer is defined %}
+	{% extends "@ContitechCSCatalogBundle/Layouts/layout.html.twig" %}
+{% endif %}
+
+{% block _content %}
+
+	{% if editmode %}
+		{{ pimcore_relation("cbs_conti_inspect_systems", {
+        "types" : {"object"},
+        "subtypes" : {
+        "object" : {"object"}
+        },
+        "classes" : {"CSCatalogTables"},
+    }) }}
+	{% endif %}
+
+	{% if data is defined %}
+		<div class="wrapper contiinspectsystem">
+			<footer id="footer" class="footer">
+				<div class="footer-logo">
+					<img src="{{ footer_logo_src }}" alt="" width="150">
+				</div>
+			</footer>
+
+			<main id="content" role="main">
+				<div class="fortressxp-belts conveyor-belt">
+					{% if editmode %}
+						<div class="attr-font">
+							Attribute Name = Product Image
+						</div>
+					{% endif %}
+					<div class="page95" id="contiInspectSystemBanner">
+						{% if editmode %}
+							{% if pimcore_image("CIS_productImage").isEmpty() %}
+								{{ pimcore_image("CIS_productImage", {"height" : 340}).setImage(data['ProductImage']) }}
+							{% else %}
+								{{ pimcore_image("CIS_productImage", {"height" : 340}) }}
+							{% endif %}
+						{% else %}
+							{% set CIS_productImageObj = pimcore_image("CIS_productImage") %}
+							{% if CIS_productImageObj.getId() is not empty %}
+								<img src="{{ getImageThumbnail(CIS_productImageObj, imageWidth) }}" alt="" style="height:340px; width:auto;">
+							{% endif %}
+						{% endif %}
+					</div>
+					<div class="feature-benefit-list" id="contiInspectSystemProducts">
+						{% if editmode %}
+							<div class="attr-font">
+								Attribute Name = Name
+							</div>
+						{% endif %}
+						<h2>
+							{% if editmode %}
+								{% if pimcore_input("CIS_Inspect_Systems").isEmpty() %}
+									{{ pimcore_input("CIS_Inspect_Systems", {'placeholder' : 'Enter Name'}).setDataFromResource(data['Name']) | raw }}
+								{% else %}
+									{{ pimcore_input("CIS_Inspect_Systems", {'placeholder' : 'Enter Name'}) }}
+								{% endif %}
+							{% else %}
+								{{ pimcore_input("CIS_Inspect_Systems", {'placeholder' : 'Enter Name'}) }}
+							{% endif %}
+						</h2>
+						{% if data['childrenData'] is defined %}
+							{% set childrenData = data['childrenData'] %}
+							{% for cKey, cValue in childrenData %}
+								{% set md5Key = md5Twig(cValue['Name']) %}
+								<p>
+									<span class="orange">
+										<strong>
+											{{ cValue['Name'] }}
+										</strong>
+									</span>
+									<strong>»</strong>
+									{{ cValue['ShortText'] }}
+								</p>
+							{% endfor %}
+						{% endif %}
+					</div>
+					<div class="environment-quality-sec" id="contiInspectSystemReport">
+						<div class="media pt-0" id="contiInspectSystemReportImage">
+
+							<div id="instpectReport1">
+								{% if editmode %}
+									<div class="attr-font">
+										Attribute Name = ReportImage
+									</div>
+								{% endif %}
+								{% if editmode %}
+									{% if pimcore_image("CIS_ReportImage1").isEmpty() %}
+										{{ pimcore_image("CIS_ReportImage1", {"height" : 90}).setImage(data['ReportImage']) | raw }}
+									{% else %}
+										{{ pimcore_image("CIS_ReportImage1", {"height" : 90}) }}
+									{% endif %}
+								{% else %}
+									{% set CIS_ReportImageObj1 = pimcore_image("CIS_ReportImage1") %}
+									{% if CIS_ReportImageObj1.getId() is not empty %}
+										<img src="{{ getImageThumbnail(CIS_ReportImageObj1, imageWidth) }}" alt="" style="height:90px;">
+									{% endif %}
+								{% endif %}
+							</div>
+
+                            <div id="instpectReport2">
+								{% if editmode %}
+									<div class="attr-font">
+										Attribute Name = DamageImage
+									</div>
+								{% endif %}
+								{% if editmode %}
+									{% if pimcore_image("CIS_ReportImage2").isEmpty() %}
+										{{ pimcore_image("CIS_ReportImage2", {"height" : 90}).setImage(data['DamageImage']) | raw }}
+									{% else %}
+										{{ pimcore_image("CIS_ReportImage2", {"height" : 90}) }}
+									{% endif %}
+								{% else %}
+									{% set CIS_ReportImageObj2 = pimcore_image("CIS_ReportImage2") %}
+									{% if CIS_ReportImageObj2.getId() is not empty %}
+										<img src="{{ getImageThumbnail(CIS_ReportImageObj2, imageWidth) }}" alt="" style="height: 90px;">
+									{% endif %}
+								{% endif %}
+							</div>
+
+                            <div class="media-body mt-4 mr50 ml20">
+                                <p class="orange mb-0"><strong>
+                                {% if editmode %}
+                                    {% if pimcore_input("CIS_BenefitsLabel").isEmpty() %}
+                                        {{ pimcore_input("CIS_BenefitsLabel", {'placeholder' : 'COMPREHENSIVE REPORTING'}) }}
+                                    {% else %}
+                                        {{ pimcore_input("CIS_BenefitsLabel") }}
+                                    {% endif %}
+                                {% else %}
+                                    {{ pimcore_input("CIS_BenefitsLabel") }}
+                                {% endif %}
+                                </strong></p>
+                                <div id = "reportParagraph">
+                                    <p>
+                                        {% if editmode %}
+                                            <div class="attr-font"> Attribute Name = Features</div>
+                                        {% endif %}
+                                        {% if editmode %}
+                                            {% if pimcore_input("CIS_Benefits").isEmpty() %}
+                                                {{ pimcore_input("CIS_Benefits", {'placeholder' : 'Enter Benefits'}).setDataFromResource(data['Benefits'][0]) }}
+                                            {% else %}
+                                                {{ pimcore_input("CIS_Benefits", {'placeholder' : 'Enter Benefits'}) }}
+                                            {% endif %}
+                                        {% else %}
+                                            {{ pimcore_input("CIS_Benefits", {'placeholder' : 'Enter Benefits'}) }}
+                                        {% endif %}
+                                    </p>
+                                </div>
+                            </div>
+
+						</div>
+					</div>
+
+                    <div id="contiInspectSystemApplicationImage">
+                        {% if editmode %}
+                            <div class="attr-font"> Attribute Name = Application Image</div>
+                        {% endif %}
+                        {% if editmode %}
+                            {% if pimcore_image("CIS_ApplicationImage").isEmpty() %}
+                                {{ pimcore_image("CIS_ApplicationImage", {"height" : 280}).setImage(data['ApplicationImage']) | raw }}
+                            {% else %}
+                                {{ pimcore_image("CIS_ApplicationImage", {"height" : 280}) }}
+                            {% endif %}
+                        {% else %}
+                            {% set CIS_ApplicationImageObj = pimcore_image("CIS_ApplicationImage") %}
+                            {% if CIS_ApplicationImageObj.getId() is not empty %}
+                                <img src="{{ getImageThumbnail(CIS_ApplicationImageObj, imageWidth) }}" alt="" style="max-height: 265px; width:auto;">
+                            {% endif %}
+                        {% endif %}
+                    </div>
+
+				</div>
+			</main>
+
+		</div>
+	{% endif %}
+
+{% endblock %}
