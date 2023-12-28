@@ -52,7 +52,7 @@ class AssetDocumentConversionCommand extends Command
 
         $ids = TmpStore::getIdsByTag('asset-document-conversion');
 
-        // id = path of image relative to PIMCORE_TEMPORARY_DIRECTORY
+        // id = path of image relative to PIMCORE_SYSTEM_TEMP_DIRECTORY
         foreach ($ids as $id) {
             $item = TmpStore::get($id);
             if($item instanceof TmpStore){
