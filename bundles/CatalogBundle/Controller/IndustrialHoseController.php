@@ -27,7 +27,6 @@ class IndustrialHoseController extends FrontendController
     private $featuresList = array();
     private $catalogTemplatingHelper;
     private $containerInterface;
-    private $translator;
     private $imageWidth;
     private $translatorInterface;
 

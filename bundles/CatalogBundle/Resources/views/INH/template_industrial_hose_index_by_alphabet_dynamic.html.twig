@@ -114,46 +114,46 @@
 								{% set i = i + 1 %}
 							{% endfor %}
 
-							{% endif%}
-						{% else %}
-							<table cellpadding="0" cellspacing="0" class="grid">
-								<thead>
+						{% endif%}
+					{% else %}
+						<table cellpadding="0" cellspacing="0" class="grid">
+							<thead>
+								<tr>
+									<td>
+										<span class="inh-upper">{{ pimcore_input("HHIDN_th_col_1") }}</span>
+									</td>
+									<td align="right">
+										<span class="inh-upper">{{ pimcore_input("HHIDN_th_col_2") }}</span>
+									</td>
+								</tr>
+							</thead>
+							<tbody>
+								{% for incr in pimcore_block("INH_Index_Content").iterator %}
 									<tr>
-										<td>
-											<span class="inh-upper">{{ pimcore_input("HHIDN_th_col_1") }}</span>
-										</td>
-										<td align="right">
-											<span class="inh-upper">{{ pimcore_input("HHIDN_th_col_2") }}</span>
+										<td colspan="2">
+											<div class="inh-subcategory">{{ pimcore_input("TOC_HeadingName") }}</div>
 										</td>
 									</tr>
-								</thead>
-								<tbody>
-									{% for incr in pimcore_block("INH_Index_Content").iterator %}
+
+									{% for incr in pimcore_block("INH_Index_Inner_Content").iterator %}
 										<tr>
 											<td colspan="2">
-												<div class="inh-subcategory">{{ pimcore_input("TOC_HeadingName") }}</div>
+												<div class="paging">
+													<span class="pageTitle">{{ pimcore_input("HHIDN_td1") }}</span>
+													<span class="pageNo">{{ pimcore_input("HHIDN_td2") }}</span>
+												</div>
 											</td>
 										</tr>
-
-										{% for incr in pimcore_block("INH_Index_Inner_Content").iterator %}
-											<tr>
-												<td colspan="2">
-													<div class="paging">
-														<span class="pageTitle">{{ pimcore_input("HHIDN_td1") }}</span>
-														<span class="pageNo">{{ pimcore_input("HHIDN_td2") }}</span>
-													</div>
-												</td>
-											</tr>
-										{% endfor %}
 									{% endfor %}
-								</tbody>
-							</table>
-						{% endif %}
-					</div>
+								{% endfor %}
+							</tbody>
+						</table>
+					{% endif %}
 				</div>
 			</div>
-		{% else %}
-			<h6>No data found
-			</h6>
-		{% endif %}
-	{% endblock %}
+		</div>
+	{% else %}
+		<h6>No data found
+		</h6>
+	{% endif %}
+{% endblock %}
