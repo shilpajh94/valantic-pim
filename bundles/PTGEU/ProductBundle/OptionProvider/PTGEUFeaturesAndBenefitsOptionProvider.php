@@ -40,6 +40,7 @@ class PTGEUFeaturesAndBenefitsOptionProvider  implements SelectOptionsProviderIn
      */
     public function getOptions($context, $fieldDefinition)
     {
+        $result = [];
         $featuresAndBenefitsPTGEU = new DataObject\PTGEUFeaturesAndBenefits\Listing();
         $featuresAndBenefitsPTGEU->setCondition("o_path = ?", "/Contitech_PTGEU/Master List/Features and Benefits/" );
         $featuresAndBenefitsPTGEU = $featuresAndBenefitsPTGEU->load();

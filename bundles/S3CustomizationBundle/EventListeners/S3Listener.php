@@ -196,7 +196,8 @@ class S3Listener
      */
     public function onFrontendPathThumbnail(GenericEvent $event) {
         if(!DISABLE_S3_CDN) {
-            $fileSystemPath = $event->getSubject()->getFileSystemPath();
+            //$fileSystemPath = $event->getSubject()->getFileSystemPath(); --- Rajesh
+            $fileSystemPath = $event->getSubject()->getPath();
 
             $cacheKey = "thumb_s3_" . md5($fileSystemPath);
             $path = \Pimcore\Cache::load($cacheKey);
@@ -233,7 +234,8 @@ class S3Listener
     {
         if(!DISABLE_S3_CDN) {
             $thumbnail = $event->getSubject();
-            $fsPath = $thumbnail->getFileSystemPath();
+            //$fsPath = $thumbnail->getFileSystemPath(); --- Rajesh
+            $fsPath = $thumbnail->getPath();
             if ($fsPath && $event->getArgument("generated")) {
                 $cacheKey = "thumb_s3_" . md5($fsPath);
 
