@@ -60,12 +60,12 @@ class Common
             case true:
                 $parentInfo = \Pimcore\Model\Asset::getByPath($archivePath);
                 $newAsset->setParentId($parentInfo->getId());
-                $newAsset->setData(file_get_contents($fileObj->getFileSystemPath()));
+                $newAsset->setData(file_get_contents($fileObj->getPath()));
                 break;
             case false:
                 $parentInfo = \Pimcore\Model\Asset::getByPath($failedPath);
                 $newAsset->setParentId($parentInfo->getId());
-                $newAsset->setData(file_get_contents($fileObj->getFileSystemPath()));
+                $newAsset->setData(file_get_contents($fileObj->getPath()));
                 break;
             default:
                 throw new Exception('Issue in file moving after import ');

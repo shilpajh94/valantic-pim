@@ -109,7 +109,7 @@ class AssetImportModel {
 
                 $mime = $child->getMimetype();
                 if ($mime == 'text/csv' || $mime == 'application/csv') {
-                    $sysFilePath = $child->getFileSystemPath();
+                    $sysFilePath = $child->getPath();
                     $csvInfo = Import::getCSVData($sysFilePath);
 
                     $this->csvHeader = $csvInfo['header'];
