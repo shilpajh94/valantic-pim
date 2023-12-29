@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Template</title>
-    
-    <link href="/static/css/print_style.css" rel="stylesheet"  type="text/css"/>
-    
-    {% if printermarks is defined and printermarks == true %}
-            <link rel="stylesheet" type="text/css" href="/static/css/print-printermarks.css" />
-    {% endif %}
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Template</title>
 
-    <style type="text/css">
-        {% if imageQuality is defined and imageQuality and not (imageQuality == 'Original') %}
+		<link href="/static/css/print_style.css" rel="stylesheet" type="text/css"/>
 
-            img { -ro-image-recompression: jpeg({{imageQuality}}) }
+		{% if printermarks is defined and printermarks == true %}
+			<link rel="stylesheet" type="text/css" href="/static/css/print-printermarks.css"/>
+		{% endif %}
 
-        {% endif %}
-    </style>
+		{% if imageQuality is defined and imageQuality and not (imageQuality == 'Original') %}
+			<style type="text/css">
+				img {
+					-ro-image-recompression: jpeg({{imageQuality}})
+				}
+			</style>
+		{% endif %}
 
-</head>
-<body>
-        {{ block('_content') }}
-</body>
+	</head>
+	<body>
+		{{ block('_content') }}
+	</body>
 </html>
