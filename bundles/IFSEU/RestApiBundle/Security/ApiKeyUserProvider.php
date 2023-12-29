@@ -6,20 +6,17 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\User;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Pimcore\Model\User as PimUser;
-//use Pimcore\Model\DataObject\Widgets;
+use Pimcore\Db;
 
 class ApiKeyUserProvider implements UserProviderInterface
 {
+    private $db;
+    
     public function getUsernameForApiKey($apiKey)
     {
-        $usersObj = new PimUser\Listing();
-        $usersObj->setCondition('apiKey="'. $apiKey . '"');
-        $users = $usersObj->load();
-        $username = '';
-        if ($users) {
-            $username = $users[0]->getName();
-        }
-        return $username;
+        $this->db = Db::get();
+        $sql = "Select user_id from user_api_key where api_key = '{$apiKey}'";
+        return $this->db->fetchAllAssociative($sql);
     }
 
     public function loadUserByUsername($username)
