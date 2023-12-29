@@ -10,7 +10,7 @@ return [
         "CatalogBundle\\CatalogBundle" => TRUE,
         "ContitechCS\\ProductBundle\\ContitechCSProductBundle" => TRUE,
         "ContitechCS\\ImportBundle\\ContitechCSImportBundle" => TRUE,
-        // "ContitechCS\\CatalogBundle\\ContitechCSCatalogBundle" => TRUE,
+        "ContitechCS\\CatalogBundle\\ContitechCSCatalogBundle" => TRUE,
         "ContitechCS\\CatalogUIApiBundle\\CatalogUIApiBundle" => TRUE,
         // "Wvision\\Bundle\\DataDefinitionsBundle\\DataDefinitionsBundle" => TRUE,
         // "DistributionHubBundle\\DistributionHubBundle" => TRUE,

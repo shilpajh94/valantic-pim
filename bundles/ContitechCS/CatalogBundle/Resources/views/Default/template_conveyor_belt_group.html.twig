@@ -1,0 +1,62 @@
+{% if parentContainer is defined %}
+	{% extends "@ContitechCSCatalogBundle/Layouts/layout.html.twig" %}
+{% endif %}
+
+{% block _content %}
+
+	<div class="wrapper">
+		<div class="backcoverpage">
+			<div class="black-bg">
+				<div class="top-sec">
+					<div class="first-sec col-3">
+						<h1 class="orange">
+							{{ pimcore_input("Conveyor_Belt_Group_header_title", {"placeholder" : "Enter Heading"}) }}
+						</h1>
+						{{ pimcore_wysiwyg("CBG_About",{"placeholder" =>"Enter Description" }) }}
+						{% if editmode %}
+							<div class="img-placeholder">
+								{{ pimcore_image("CBG_logo_image") }}
+							</div>
+						{% else %}
+							{% set logoImgSrcObj = pimcore_image("CBG_logo_image") %}
+							{% if logoImgSrcObj.getId() is not empty %}
+								<span class="img-placeholder">
+									<img src="{{ getImageThumbnail(logoImgSrcObj, imageWidth) }}" alt="">
+								</span>
+							{% endif %}
+						{% endif %}
+					</div>
+					<div class="last-sec col-3 ml-5">
+						<h1 class="orange">{{ pimcore_input("back_cover_second_title",{"placeholder" : "Enter Heading"}) }}</h1>
+						{{ pimcore_wysiwyg("CBG_Description", {"placeholder" =>"Enter Description" }) }}
+					</div>
+				</div>
+				<div class="bottom-sect">
+					<div class="backcover-logo">
+						{% if editmode %}
+							{{ pimcore_image("CBG_Image") }}
+						{% else %}
+							{% set imgSrcObj = pimcore_image("CBG_Image") %}
+							{% if imgSrcObj.getId() is not empty %}
+								<img src="{{ getImageThumbnail(imgSrcObj, imageWidth) }}" alt="">
+							{% endif %}
+						{% endif %}
+					</div>
+					<div class="bottom-mid-sec">{{ pimcore_textarea("CBG_Content", {"placeholder" : "Enter Your  Description"}) }}</div>
+					<div class="bottom-end-sec">
+						<p>
+							{{ pimcore_input("myHeadline", {"width" : 140 ,"placeholder" : "Enter Your  Content"}) }}
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<style type="text/css">
+		.top-sec {
+			display: flex;
+		}
+	</style>
+    
+{% endblock %}
