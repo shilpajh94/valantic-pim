@@ -1,0 +1,795 @@
+{% if parentContainer is defined %}
+	{% extends "@ContitechCSCatalogBundle/Layouts/layout.html.twig" %}
+{% endif %}
+
+{% block _content %}
+
+	{% if editmode %}
+		{{ pimcore_relation('cbs_template_product_page', {
+        'types' : {'object'},
+        'subtypes' : {
+            'object' : {'object'}
+        },
+        'classes' : {'CSCatalogTables'},
+    }) }}
+	{% endif %}
+
+	{% if data is defined %}
+		<div class="wrapper beltinfotable">
+
+			<header id="header">
+				<div class="header-sec">
+					<div class="header-txt">
+						<span class="first-title">{{ ('CS_header_title')|trans }}</span>
+						<span class="second-title">
+							{% if editmode %}
+								<div class="attr-font">
+									Parent Attribute Name = Name
+								</div>
+							{% endif %}
+							{% if pimcore_input('PP_title').isEmpty() %}
+								{{ pimcore_input('PP_title', {'placeholder' : 'Enter your title'}).setDataFromResource(data['HierarchyNameLevel2']) | raw }}
+							{% else %}
+								{{ pimcore_input('PP_title', {'placeholder' : 'Enter your title'}) }}
+							{% endif %}
+						</span>
+					</div>
+					<div class="print-pg-no"></div>
+				</div>
+			</header>
+
+			<footer id="footer" class="footer">
+				<div class="footer-logo">
+					<img src="{{ footer_logo_src }}" alt="" width="150">
+				</div>
+			</footer>
+
+			<main id="content" role="main">
+				{% if editmode %}
+					<section class="fortressxp-belts">
+						{% if editmode %}
+							<div class="attr-font">Attribute Name = Name</div>
+						{% endif %}
+
+						<h1 class="orange">
+							{% if pimcore_input("CS_ProductName").isEmpty() %}
+								{{ pimcore_input("CS_ProductName", {'placeholder' : 'Enter Product Name'}).setDataFromResource(data['ProductName']) | raw }}
+							{% else %}
+								{{ pimcore_input("CS_ProductName", {'placeholder' : 'Enter Product Name'}) }}
+							{% endif %}
+
+							<span class="sub-title">
+								{% if editmode %}
+									<div class="attr-font">
+										<div class="attr-font">Attribute Name = Product Claim/Slogan</div>
+									</div>
+								{% endif %}
+								{% if pimcore_input("PP_TitleTagSlogan").isEmpty() %}
+									{{ pimcore_input("PP_TitleTagSlogan", {'placeholder' : 'Enter Title Tag Slogan'}).setDataFromResource(data['ProductClaimSlogan'])  | raw}}
+								{% else %}
+									{{ pimcore_input("PP_TitleTagSlogan", {'placeholder' : 'Enter Title Tag Slogan'}) }}
+								{% endif %}
+							</span>
+						</h1>
+
+						<div class="media pt-0">
+							<div class="media-body">
+								{% if editmode %}
+									<div class="attr-font">Attribute Name = Short Text</div>
+								{% endif %}
+								<p>
+									{% if pimcore_input("PP_ShortText").isEmpty() %}
+										{{ pimcore_input("PP_ShortText", {'placeholder' : 'Enter Short Text'}).setDataFromResource(data['ShortText']) | raw }}
+									{% else %}
+										{{ pimcore_input("PP_ShortText", {'placeholder' : 'Enter Short Text'}) }}
+									{% endif %}
+								</p>
+							</div>
+
+							<div class="seal-image">
+								{% if editmode %}
+									<div class="attr-font">Attribute Name = Logo Image</div>
+								{% endif %}
+								{% if pimcore_image("PP_Product_Image").isEmpty() %}
+									{{ pimcore_image("PP_Product_Image", {"height" : 142}).setImage(data['LogoImage']) | raw }}
+								{% else %}
+									{{ pimcore_image("PP_Product_Image", {"height" : 142}) }}
+								{% endif %}
+							</div>
+						</div>
+
+						<div class="p-medium">
+							{% if editmode %}
+								<div class="attr-font">Attribute Name = Long Text</div>
+							{% endif %}
+							<p>
+								{% if pimcore_input("PP_LongText").isEmpty() %}
+									{{ pimcore_input("PP_LongText", {'placeholder' : 'Enter Long Text'}).setDataFromResource(data['LongText']) | raw }}
+								{% else %}
+									{{ pimcore_input("PP_LongText", {'placeholder' : 'Enter Long Text'}) }}
+								{% endif %}
+							</p>
+						</div>
+
+						{% if data['FeaturesAndBenefitsWithoutImages'] is defined %}
+							<div class="feature-benefit-list">
+								{% if editmode %}
+									<div class="attr-font">Attribute Name = Name</div>
+								{% endif %}
+								<h4>
+									<span class="orange">
+										<strong>
+											{% if pimcore_input("PPF_ProductName").isEmpty() %}
+												{{ pimcore_input("PPF_ProductName", {"placeholder" : "Enter Product Name"}).setDataFromResource(data['ProductName']) }}
+											{% else %}
+												{{ pimcore_input("PPF_ProductName", {"placeholder" : "Enter Product Name"}) }}
+											{% endif %}
+										</strong>
+									</span>
+
+									<span class="light-black" style="color:black">
+										{{ pimcore_input("PPF_FeatureBenefitsLabel", {'placeholder' : 'Features and Benefits'}) }}
+									</span>
+								</h4>
+
+								<ul>
+									{% for key, item in data['FeaturesAndBenefitsWithoutImages'] %}
+										{% if item %}
+											<li>
+												{{ item }}
+											</li>
+										{% endif %}
+									{% endfor %}
+								</ul>
+								<p>
+									{{ pimcore_textarea("PPFB_Comment", {'placeholder' : 'Enter text'}) }}
+								</p>
+							</div>
+						{% endif %}
+
+						<div class="feature-benefit-list">
+							<span class="orange">
+								<strong>
+									{{ pimcore_input("PPContiAlert_Heading1", {"placeholder" : "Cost savings"}) }}
+								</strong>
+							</span>
+
+							<ul>
+								<li>{{ pimcore_input("PPContiAlert_SubHeading1", {'placeholder' : 'Identifying belt wear allows you to get the most out of your current belt'}) }}</li>
+								<li>{{ pimcore_input("PPContiAlert_SubHeading2", {'placeholder' : 'Knowing when to change your belt helps prevent downtime and increase uptime'}) }}</li>
+							</ul>
+
+							<span class="orange">
+								<strong>
+									{{ pimcore_input("PPContiAlert_Heading2", {"placeholder" => "Predictability"}) }}
+								</strong>
+							</span>
+
+							<ul>
+								<li>{{ pimcore_input("PPContiAlert_SubHeading3", {'placeholder' : 'In conjunction with our Conti®Alert Calculator, customers can enter their current belt life data and
+                                            determine how much time is remaining before the carcass is exposed.*'}) }}</li>
+							</ul>
+
+							<p class="fs-8 ml-10">
+								{{ pimcore_textarea("PPContiAlert_Comment", {'placeholder' : 'Enter text'}) }}
+							</p>
+						</div>
+
+						{% if data['Applications'] is defined or data['Markets'] is defined or data['CoverCompounds'] is defined %}
+							<div class="table">
+								<table width="100%">
+									<thead>
+										<tr>
+											{% if data['Markets'] %}
+												<th width="30%" class="orange">{{ ('CS_Markets_Label')|trans }}</th>
+											{% endif %}
+
+											{% if data['Applications'] %}
+												<th width="30%" class="orange">{{ ('CS_Applications_Label')|trans }}</th>
+											{% endif %}
+
+											{% if data['CoverCompounds'] %}
+												<th width="30%" class="orange">{{ ('CS_Cover_Compounds_Label')|trans }}</th>
+											{% endif %}
+										</tr>
+									</thead>
+									<tbody>
+										<tr valign="top">
+											{% if data['Markets'] %}
+												<td>
+													{{ data['Markets'] }}
+												</td>
+											{% endif %}
+											{% if data['Applications'] %}
+												<td>
+													{{ data['Applications'] }}
+												</td>
+											{% endif %}
+
+											{% if data['CoverCompounds']) %}
+												<td>
+													{{ data['CoverCompounds'] }}
+													<p class="details">{{ pimcore_input("PP_CoverCompoundComment", {'placeholder' : 'Enter comment'}) }}</p>
+												</td>
+											{% endif %}
+										</tr>
+									</tbody>
+								</table>
+
+								<p class="note">
+									{{ pimcore_input("PP_ApplicationComment", {'placeholder' : 'Enter Application Comment'}) }}
+								</p>
+
+							</div>
+						{% endif %}
+
+						<div class="components-sec">
+							<h3 class="orange">
+								{{ pimcore_input("PP_PowerOfFortressTechnology", {'placeholder' : 'Fortified with the Power of Fortress™ Technology'}) }}
+								<br/>
+								{{ pimcore_input("PP_ConveyorBeltsComponents", {'placeholder' : 'Conveyor Belt Components'}) }}
+							</h3>
+
+							<div class="media">
+								{% if editmode %}
+									<div class="media-img">
+										{{ pimcore_image("PP_ConveyorBeltsComponents_Image", {"height" => 300}) }}
+									</div>
+								{% else %}
+									{% set componentImage = pimcore_image("PP_ConveyorBeltsComponents_Image") %}
+									{% if componentImage.getId() is not empty %}
+										<div class="media-img">
+											<img src="{{ getImageThumbnail(componentImage, imageWidth) }}" alt="" style="max-height:300px; width:auto"/>
+										</div>
+									{% endif %}
+								{% endif %}
+
+								<div class="media-body">
+									<ul class="components">
+										{% for incr in pimcore_block("PP_ConveyorBeltsComponents_Points").iterator %}
+											<li>
+												{{ pimcore_input("pp_points", {'placeholder' : 'Enter comment'}) }}
+											</li>
+										{% endfor %}
+									</ul>
+								</div>
+							</div>
+						</div>
+
+						<h2>
+							<span class="orange">
+								{% if pimcore_input("ContiA_MoreInfoHeading").isEmpty() %}
+									{{ pimcore_input("ContiA_MoreInfoHeading").setDataFromResource(data['Name']) | raw }}
+								{% else %}
+									{{ pimcore_input("ContiA_MoreInfoHeading").setDataFromResource(data['Name']) | raw }}
+								{% endif %}
+							</span>
+							<span class="light-black">
+								{{ pimcore_input("ContiA_MoreInfo", {'placeholder' : 'Belt Information'}) }}
+							</span>
+						</h2>
+
+						<div class="media-body">
+							<strong>
+								{{ pimcore_input("ContiA_BeltSpecsLabel", {'placeholder' : 'Belt Specs'}) }}
+							</strong>
+
+							<br/>
+							{{ pimcore_input("ContiA_BeltSpecsDescription", {'placeholder' : 'Belt Specs Description'}) }}
+						</div>
+
+						<div class="media" style="margin: 5px 0px;">
+							{{ pimcore_image("ContiA_feature1", {"width" : 41, "height" : 41}) }}
+
+							<div class="media-body">
+								<strong>
+									{{ pimcore_input("ContiA_Feature1Label", {'placeholder' : 'Abrasion-resistant compound specs'}) }}
+								</strong>
+
+								<br/>
+								{{ pimcore_input("ContiA_Feature1Desc", {'placeholder' : 'Feature 1 Desc'}) }}
+							</div>
+						</div>
+
+						<div class="media" style="margin: 5px 0px;">
+							{{ pimcore_image("ContiA_feature2", {"width" : 41, "height" : 41}) }}
+
+							<div class="media-body">
+								<strong>
+									{{ pimcore_input("ContiA_Feature2Label", {'placeholder' : 'Flame-retardant compound specs'}) }}
+								</strong>
+
+								<br/>
+								{{ pimcore_input("ContiA_Feature2Desc", {'placeholder' : 'Feature 2 Desc'}) }}
+							</div>
+						</div>
+
+						<div class="media-body">
+							<strong>
+								{{ pimcore_input("ContiA_AvailabilityLabel", {'placeholder' : 'CONTI®Alert Availability'}) }}
+							</strong>
+
+							<br/>
+
+							{{ pimcore_input("ContiA_AvailabilityDesc", {'placeholder' : 'CONTI®Alert Availability Description'}) }}
+						</div>
+
+						<div class="labels">
+							<table width="100%">
+								<tr>
+									<th>
+										{{ pimcore_input("PP_CostPerTon", {'placeholder' : 'Get a lower cost-per-ton conveyed'}) }}
+									</th>
+									<th class="orange-bg">
+										{{ pimcore_input("PP_TensionRange", {'placeholder' : 'Tension Range: 330 – 1500 PIW'}) }}
+									</th>
+								</tr>
+							</table>
+						</div>
+
+						{% if editmode %}
+							<div class="full-image-sec">
+								{{ pimcore_image("PP_BannerImage", {"height" : 390}) }}
+							</div>
+						{% else %}
+							{% set bannerImage = pimcore_image("PP_BannerImage") %}
+							{% if bannerImage.getId() is not empty %}
+								<div class="full-image-sec">
+									<img src="{{ getImageThumbnail(bannerImage, imageWidth) }}" alt="" style="max-height:390px; width:auto;"/>
+								</div>
+							{% endif %}
+						{% endif %}
+
+						<div class="featuring-sec">
+							{% if editmode %}
+								<div class="attr-font">Attribute Name = Name</div>
+							{% endif %}
+							<h2>
+								<span class="orange">
+									{% if pimcore_input("PPSS_ProductName").isEmpty() %}
+										{{ pimcore_input("PPSS_ProductName", {'placeholder' : 'Enter Product Name'}).setDataFromResource(data['ProductName']) | raw }}
+									{% else %}
+										{{ pimcore_input("PPSS_ProductName", {'placeholder' : 'Enter Product Name'}) }}
+									{% endif %}
+								</span>
+								<span class="light-black">
+									{{ pimcore_input("PPSS_Title", {'placeholder' : 'Featuring Solar-Shield'}) }}
+								</span>
+							</h2>
+
+							<div class="media">
+								{{ pimcore_image("PPSS_Image", {"height" => 235}) }}
+
+								<div class="media-body">
+									<p>
+										{{ pimcore_textarea("PPSS_Description1", {'placeholder' : "Enter Description"}) }}
+									</p>
+									<strong>
+										{{ pimcore_input("PPSS_SubTitle", {'placeholder' : "Enter Description"}) }}
+									</strong>
+									<p>
+										{{ pimcore_textarea("PPSS_Description2", {'placeholder' : 'Enter Text'}) }}
+									</p>
+									<p class="note">
+										{{ pimcore_textarea("PPSS_Note", {"placeholder" : 'Enter Text'}) }}
+									</p>
+								</div>
+							</div>
+						</div>
+
+					</section>
+				{% else %}
+					<section class="fortressxp-belts">
+						{% if not pimcore_input("CS_ProductName").isEmpty() %}
+							<h1 class="orange">
+								{{ pimcore_input("CS_ProductName", {'placeholder' : 'Enter Product Name'}) }}
+								{% if not pimcore_input("PP_TitleTagSlogan").isEmpty() %}
+									<span class="sub-title">
+										{{ pimcore_input("PP_TitleTagSlogan", {'placeholder' : 'Enter Title Tag Slogan'}) }}
+									</span>
+								{% endif %}
+							</h1>
+						{% endif %}
+						{% set productImgSrcObj = pimcore_image("PP_Product_Image") %}
+						{% if not pimcore_input("PP_ShortText").isEmpty() or productImgSrcObj is not empty %}
+							<div class="media pt-0">
+								{% if not pimcore_input("PP_ShortText").isEmpty() %}
+									<div class="media-body">
+										<p>
+											{{ pimcore_input("PP_ShortText", {'placeholder' : 'Enter Short Text'}) }}
+										</p>
+									</div>
+								{% endif %}
+								{% if productImgSrcObj.getId() is not empty %}
+									<div class="seal-image">
+										<img src="{{ getImageThumbnail(productImgSrcObj, imageWidth) }}" alt="" style="max-height:142px; width:auto"/>
+									</div>
+								{% endif %}
+							</div>
+						{% endif %}
+
+						{% if not pimcore_input("PP_LongText").isEmpty() %}
+							<div class="p-medium">
+								<p>
+									{{ pimcore_input("PP_LongText", {'placeholder' : 'Enter Long Text'}) }}
+								</p>
+							</div>
+						{% endif %}
+
+						{% if data['FeaturesAndBenefitsWithoutImages'] %}
+							{% if not pimcore_input("PPF_ProductName").isEmpty() or not pimcore_input("PPF_FeatureBenefitsLabel").isEmpty() or not pimcore_textarea("PPFB_Comment").isEmpty() or data['FeaturesAndBenefitsWithoutImages'] is defined %}
+								<div class="feature-benefit-list">
+									{% if not pimcore_input("PPF_ProductName").isEmpty() or not pimcore_input("PPF_FeatureBenefitsLabel").isEmpty() %}
+										<h4>
+											{% if not pimcore_input("PPF_ProductName").isEmpty() %}
+												<span class="orange">
+													<strong>
+														{{ pimcore_input("PPF_ProductName", {'placeholder' : 'Enter Product Name'}) }}
+													</strong>
+												</span>
+											{% endif %}
+
+											{% if not pimcore_input("PPF_FeatureBenefitsLabel").isEmpty() %}
+												<span class="features-benefit-black">
+													{% pimcore_input("PPF_FeatureBenefitsLabel", {'placeholder' : 'Enter Feature Benefits Label'}) %}
+												</span>
+											{% endif %}
+										</h4>
+									{% endif %}
+
+									{% if data['FeaturesAndBenefitsWithoutImages'] is defined %}
+										<ul>
+											{% for key,item in data['FeaturesAndBenefitsWithoutImages'] %}
+												{% if item is defined %}
+													<li>
+														{{ item }}
+													</li>
+												{% endif %}
+											{% endfor %}
+										</ul>
+									{% endif %}
+
+									{% if not pimcore_textarea("PPFB_Comment").isEmpty() %}
+										<p>
+											{% pimcore_textarea("PPFB_Comment", {'placeholder' : 'Enter Comment'}) %}
+										</p>
+									{% endif %}
+
+								</div>
+							{% endif %}
+						{% endif %}
+
+						{% if not pimcore_input("PPContiAlert_Heading1").isEmpty() or pimcore_input("PPContiAlert_Heading2").isEmpty() %}
+							<div class="feature-benefit-list">
+								<span class="orange">
+									<strong>
+										{{ pimcore_input("PPContiAlert_Heading1", {"placeholder" : "Cost savings"}) }}
+									</strong>
+								</span>
+
+								<ul>
+									<li>{{ pimcore_input("PPContiAlert_SubHeading1", {'placeholder' : 'Identifying belt wear allows you to get the most out of your current belt'}) }}</li>
+									<li>{{ pimcore_input("PPContiAlert_SubHeading2", {'placeholder' : 'Knowing when to change your belt helps prevent downtime and increase uptime'}) }}</li>
+								</ul>
+
+								<span class="orange">
+									<strong>
+										{{ pimcore_input("PPContiAlert_Heading2", {"placeholder" : "Predictability"}) }}
+									</strong>
+								</span>
+
+								<ul>
+									<li>{{ pimcore_input("PPContiAlert_SubHeading3", {'placeholder' : 'In conjunction with our Conti®Alert Calculator, customers can enter their current belt life data and
+                                            determine how much time is remaining before the carcass is exposed.*'}) }}</li>
+								</ul>
+
+								<p class="fs-8 ml-10">
+									{{ pimcore_textarea("PPContiAlert_Comment", {'placeholder' : 'Enter text'}) }}
+								</p>
+							</div>
+						{% endif %}
+
+						{% if data['Applications'] is defined or data['Markets'] is defined or data['CoverCompounds'] is defined %}
+							<div class="table">
+								<table width="100%">
+									<thead>
+										<tr>
+											{% if data['Markets'] %}
+												<th width="30%" class="orange">{{ pimcore_translate('CS_Markets_Label') }}</th>
+											{% endif %}
+
+											{% if data['Applications'] %}
+												<th width="30%" class="orange">{{ pimcore_translate('CS_Applications_Label') }}</th>
+											{% endif %}
+
+											{% if ($data['CoverCompounds']) %}
+												<th width="30%" class="orange">{{ pimcore_translate('CS_Cover_Compounds_Label') }}</th>
+											{% endif %}
+										</tr>
+									</thead>
+									<tbody>
+										<tr valign="top">
+											{% if data['Markets'] %}
+												<td>
+													{{ data['Markets'] }}
+												</td>
+											{% endif %}
+											{% if (data['Applications']) %}
+												<td>
+													{{ data['Applications'] }}
+												</td>
+											{% endif %}
+
+											{% if data['CoverCompounds'] %}
+												<td>
+													{{ data['CoverCompounds'] }}
+													<p class="details">{{ pimcore_input("PP_CoverCompoundComment", {'placeholder' : 'Enter comment'}) }}</p>
+												</td>
+											{% endif %}
+										</tr>
+									</tbody>
+								</table>
+								{% if not pimcore_input("PP_ApplicationComment").isEmpty() %}
+									<p class="note">
+										{{ pimcore_input("PP_ApplicationComment", {'placeholder' : 'Enter Application Comment'}) }}
+									</p>
+								{% endif %}
+							</div>
+						{% endif %}
+
+						{% set cbcImgSrcObj = pimcore_image("PP_ConveyorBeltsComponents_Image") %}
+						{% if not pimcore_input("PP_PowerOfFortressTechnology").isEmpty() or not pimcore_input("PP_ConveyorBeltsComponents").isEmpty() or cbcImgSrcObj.getThumbnail('catalog_thumb') is defined or pimcore_block("PP_ConveyorBeltsComponents_Points").getCount() is defined %}
+							<div class="components-sec">
+								{% if not pimcore_input("PP_PowerOfFortressTechnology").isEmpty() or not pimcore_input("PP_ConveyorBeltsComponents").isEmpty() %}
+									<h3 class="orange">
+										{% if not pimcore_input("PP_PowerOfFortressTechnology").isEmpty() %}
+											{{ pimcore_input("PP_PowerOfFortressTechnology", {'placeholder' : 'Enter Application Comment'}) }}
+										{% endif %}
+										<br/>
+										{% if not pimcore_input("PP_ConveyorBeltsComponents").isEmpty() %}
+											{{ pimcore_input("PP_ConveyorBeltsComponents", {'placeholder' : 'Enter Conveyor Belts Components'}) }}
+										{% endif %}
+									</h3>
+								{% endif %}
+
+								{% if cbcImgSrcObj is not empty or pimcore_block("PP_ConveyorBeltsComponents_Points").getCount() is defined %}
+									<div class="media">
+										{% if cbcImgSrcObj.getId() is not empty %}
+											<div class="media-img">
+												<img src="{{ getImageThumbnail(cbcImgSrcObj, imageWidth) }}" alt="" style="max-height:300px; width:auto"/>
+											</div>
+										{% endif %}
+										{% if pimcore_block("PP_ConveyorBeltsComponents_Points") %}
+											<div class="media-body">
+												<ul class="components">
+													{% for incr1 in pimcore_block("PP_ConveyorBeltsComponents_Points").iterator %}
+														<li>{{ pimcore_input("pp_points", {'placeholder' : 'Enter comment'}) }}</li>
+													{% endfor %}
+												</ul>
+											</div>
+										{% endif %}
+									</div>
+								{% endif %}
+							</div>
+						{% endif %}
+
+						{% if not pimcore_input("ContiA_MoreInfoHeading").isEmpty() or not pimcore_input("ContiA_MoreInfo").isEmpty() %}
+							<h2>
+								<span class="orange">
+									{{ pimcore_input("ContiA_MoreInfoHeading") }}
+								</span>
+								<span class="light-black">
+									{{ pimcore_input("ContiA_MoreInfo") }}
+								</span>
+							</h2>
+						{% endif %}
+
+						{% if not pimcore_input("ContiA_BeltSpecsLabel").isEmpty() or not pimcore_input("ContiA_BeltSpecsDescription").isEmpty() %}
+							<p>
+								<b>
+									{{ pimcore_input("ContiA_BeltSpecsLabel") }}
+								</b>
+								<br/>
+								{{ pimcore_input("ContiA_BeltSpecsDescription") }}
+							</p>
+						{% endif %}
+
+						{% if not pimcore_input("ContiA_Feature1Label").isEmpty() or not pimcore_input("ContiA_Feature1Desc").isEmpty() %}
+							<div class="media" style="margin: 5px 0px;">
+								{% set ContiA_feature1Obj = pimcore_image("ContiA_feature1") %}
+								{% if ContiA_feature1Obj.getId() is not empty %}
+									<img src="{{ getImageThumbnail(ContiA_feature1Obj, imageWidth) }}" alt="" style="max-height:auto; width:41px" class="features-images">
+								{% endif %}
+								<div class="media-body">
+									<p>
+										<b>
+											{{ pimcore_input("ContiA_Feature1Label") }}
+										</b>
+										<br/>
+										{{ pimcore_input("ContiA_Feature1Desc") }}
+									</p>
+								</div>
+							</div>
+						{% endif %}
+
+						{% if not pimcore_input("ContiA_AvailabilityLabel").isEmpty() or not pimcore_input("ContiA_AvailabilityDesc").isEmpty() %}
+							<p>
+								<b>
+									{{ pimcore_input("ContiA_AvailabilityLabel") }}
+								</b>
+								<br/>
+								{{ pimcore_input("ContiA_AvailabilityDesc") }}
+							</p>
+						{% endif %}
+
+						{% if not pimcore_input("PP_CostPerTon").isEmpty() or not pimcore_input("PP_TensionRange").isEmpty() %}
+							<div class="labels">
+								<table width="100%">
+									<tr>
+										<th>
+											{% if not pimcore_input("PP_CostPerTon").isEmpty() %}
+												{{ pimcore_input("PP_CostPerTon", {'placeholder' => 'Enter Cost Per Ton'}) }}
+											{% endif %}
+										</th>
+										<th class="orange-bg">
+											{% if not pimcore_input("PP_TensionRange")->isEmpty() %}
+												{{ pimcore_input("PP_TensionRange", {'placeholder' : 'Enter Tension Range'}) }}
+											{% endif %}
+										</th>
+									</tr>
+								</table>
+							</div>
+						{% endif %}
+
+						{% set ppBannerImgSrcObj = pimcore_image("PP_BannerImage") %}
+						{% if ppBannerImgSrcObj.getId() is not empty %}
+							<div class="full-image-sec">
+								<img src="{{ getImageThumbnail(ppBannerImgSrcObj, imageWidth) }}" alt=""/>
+							</div>
+						{% endif %}
+
+						{% set ppssImgSrcObj = pimcore_image("PPSS_Image") %}
+						{% if ppssImgSrcObj.getThumbnail('catalog_thumb') or not pimcore_input("PPSS_ProductName").isEmpty() or not pimcore_input("PPSS_Title").isEmpty() or not pimcore_textarea("PPSS_Description1").isEmpty() or not pimcore_input("PPSS_SubTitle").isEmpty() or not pimcore_textarea("PPSS_Description2").isEmpty() %}
+							<div class="featuring-sec">
+								{% if not pimcore_input("PPSS_ProductName").isEmpty() or not pimcore_input("PPSS_Title").isEmpty() %}
+									<h2>
+										{% if not pimcore_input("PPSS_ProductName").isEmpty() %}
+											<span class="orange">
+												{{ pimcore_input("PPSS_ProductName", {'placeholder' : 'Enter Product Name'}) }}
+											</span>
+										{% endif %}
+
+										{% if not pimcore_input("PPSS_Title").isEmpty() %}
+											<span class="light-black">
+												{{ pimcore_input("PPSS_Title", {'placeholder' : 'Enter Title'}) }}
+											</span>
+										{% endif %}
+									</h2>
+								{% endif %}
+
+								{% if ppssImgSrcObj.getThumbnail('catalog_thumb') || not pimcore_textarea("PPSS_Description1").isEmpty() or not pimcore_input("PPSS_SubTitle").isEmpty() or not pimcore_textarea("PPSS_Description2").isEmpty() %}
+									<div class="media">
+										{% if ppssImgSrcObj.getThumbnail('catalog_thumb') %}
+											<img src="{{ ppssImgSrcObj.getThumbnail('catalog_thumb') }}" class="features-images" alt="" style="max-height:235px; width:auto"/>
+										{% endif %}
+
+										{% if not pimcore_textarea("PPSS_Description1").isEmpty() or not pimcore_input("PPSS_SubTitle").isEmpty() or not pimcore_textarea("PPSS_Description2").isEmpty() %}
+											<div class="media-body">
+
+												{% if not pimcore_textarea("PPSS_Description1").isEmpty() %}
+													<p>
+														{% pimcore_textarea("PPSS_Description1", {'placeholder' : 'Enter Description'}) %}
+													</p>
+												{% endif %}
+
+												{% if not pimcore_input("PPSS_SubTitle").isEmpty() %}
+													<strong>
+														{% pimcore_input("PPSS_SubTitle", {'placeholder' : 'Enter Sub Title'}) %}
+													</strong>
+												{% endif %}
+
+												{% if not pimcore_textarea("PPSS_Description2").isEmpty() %}
+													<p>
+														{{ pimcore_textarea("PPSS_Description2", {'placeholder' : 'Enter Description'}) }}
+													</p>
+												{% endif %}
+
+												{% if not pimcore_textarea("PPSS_Note").isEmpty() %}
+													<p class="note">
+														{{ pimcore_textarea("PPSS_Note", {'placeholder' : 'Enter Note'}) }}
+													</p>
+												{% endif %}
+											</div>
+										{% endif %}
+									</div>
+								{% endif %}
+							</div>
+						{% endif %}
+					</section>
+				{% endif %}
+
+				{% if data['FeaturesAndBenefits'] is defined %}
+					<section class="features-benefit-sec">
+						{% if editmode %}
+							<div class="attr-font">Attribute Name = Name</div>
+						{% endif %}
+						<h1 class="heading-info">
+							<span class="orange">
+								{% if editmode %}
+									{% if (pimcore_input("PP_FeatureText")->isEmpty()) %}
+										{{ pimcore_input("PP_FeatureText", {'placeholder' : 'Enter Feature Text'}).setDataFromResource(data['ProductName']) | raw }}
+									{% else %}
+										{{ pimcore_input("PP_FeatureText", {'placeholder' : 'Enter Feature Text'}) }}
+									{% endif %}
+								{% else %}
+									{{ pimcore_input("PP_FeatureText", {'placeholder' : 'Enter Feature Text'}) }}
+								{% endif %}
+							</span>
+							<span class="light-black">
+								{{ pimcore_input("PP_FeaturesBeneFit", {'placeholder' : 'Features and Benefits'}) }}
+							</span>
+						</h1>
+
+						{% if data['FeaturesAndBenefits'] is defined %}
+							{% for fkey,feature in data['FeaturesAndBenefits'] %}
+								{% set md5FeatureNameKey = md5Twig(feature['FeatureName']) %}
+								<div class="media">
+									{% if editmode %}
+										<div class="attr-font">Attribute Name = Feature Image</div>
+									{% endif %}
+									{% if editmode %}
+										{% if pimcore_image("PPFI_"~ md5FeatureNameKey ~"").isEmpty() %}
+											{{ pimcore_image("PPFI_"~ md5FeatureNameKey ~"").setImage(feature['FeatureImage']) | raw }}
+										{% else %}
+											{{ pimcore_image("PPFI_"~ md5FeatureNameKey ~"") }}
+										{% endif %}
+									{% else %}
+										{% set PPFIImgSrcObj = pimcore_image("PPFI_"~ md5FeatureNameKey ~"") %}
+										{% if PPFIImgSrcObj.getId() is not empty %}
+											<div class="media-img media-image">
+												<img src="{{ getImageThumbnail(PPFIImgSrcObj, imageWidth)}}" class="features-images" alt=""/>
+											</div>
+										{% endif %}
+									{% endif %}
+									<div class="media-body">
+										{% if editmode %}
+											<div class="attr-font">Attribute Name = Features And Benefits Name</div>
+										{% endif %}
+										<h2 class="orange">
+											{% if editmode %}
+												{% if pimcore_input("PPFN_"~ md5FeatureNameKey ~"").isEmpty() %}
+													{{ pimcore_input("PPFN_"~ md5FeatureNameKey ~"").setDataFromResource(feature['FeatureName']) | raw }}
+												{% else %}
+													{{ pimcore_input("PPFN_"~ md5FeatureNameKey ~"") }}
+												{% endif %}
+											{% else %}
+												{{ pimcore_input("PPFN_"~ md5FeatureNameKey ~"") }}
+											{% endif %}
+										</h2>
+										{% if editmode %}
+											<div class="attr-font">Attribute Name = Features Description</div>
+										{% endif %}
+										<p>
+											{% if editmode %}
+												{% if pimcore_input("PPFD_"~ md5FeatureNameKey ~"").isEmpty() %}
+													{{ pimcore_input("PPFD_"~ md5FeatureNameKey ~"", {'placeholder' : 'Enter Name'}).setDataFromResource(feature['FeatureDescription']) | raw }}
+												{% else %}
+													{{ pimcore_input("PPFD_"~ md5FeatureNameKey ~"", {'placeholder' : 'Enter Name'}) }}
+												{% endif %}
+											{% else %}
+												{{ pimcore_input("PPFD_"~ md5FeatureNameKey ~"", {'placeholder' : 'Enter Name'}) }}
+											{% endif %}
+										</p>
+									</div>
+								</div>
+							{% endfor %}
+						{% endif %}
+					</section>
+				{% endif %}
+
+				{% if data['productTables'] is defined %}{% endif %}
+			</main>
+
+		</div>
+	{% endif %}
+{% endblock %}
