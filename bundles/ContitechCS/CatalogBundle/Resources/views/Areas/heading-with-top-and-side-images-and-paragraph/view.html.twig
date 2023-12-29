@@ -1,0 +1,50 @@
+<div class="environment-quality-sec">
+    <div class="media">
+        {% set image_position = 'right' %}
+
+        <div class="media-body" style="margin-top: 0px;">
+            {% if editmode %}
+                {{ pimcore_image("Conti_Roll_T_Image") }}
+            {% else %}
+                {% set imgSrcObj = pimcore_image("Conti_Roll_T_Image") %}
+
+                {% if getImageThumbnail(imgSrcObj, imageWidth) %}
+                    <img src="{{getImageThumbnail(imgSrcObj, imageWidth)}}" alt="" style="margin-top: 0px;"/>
+                {% endif %}
+            {% endif %}
+
+            {% if editmode %}
+                {{ pimcore_image("Conti_Roll_U_Image") }}
+            {% else %}
+                {% set imgSrcObj = pimcore_image("Conti_Roll_U_Image") %}
+
+                {% if getImageThumbnail(imgSrcObj, imageWidth) %}
+                    <img src="{{getImageThumbnail(imgSrcObj, imageWidth)}}" alt="" style="margin-top: 0px;"/>
+                {% endif %}
+            {% endif %}
+            
+            <div class="p-medium" style = "margin-top: 30px;">
+                {{ pimcore_wysiwyg("quality_description_above",{"placeholder": "Enter Your  Description"}) }}
+            </div>
+        </div>
+
+        {% if image_position == 'right' %}
+            {% if not editmode and (pimcore_image('Environment_Image').getThumbnail('catalog_thumb')) %}
+                <div class="media-image-sec">
+            {% endif %}
+
+            {% if editmode %}
+                {{ pimcore_image('Environment_Image') }}
+            {% else %}
+                {% set imgSrcObj1 = pimcore_image('Environment_Image') %}
+                {% if getImageThumbnail(imgSrcObj, imageWidth) %}
+                    <img src="{{ getImageThumbnail(imgSrcObj1, imageWidth) }}" alt="" class="features-images" style="max-height:350px; margin-top: 20px;" />
+                {% endif %}
+            {% endif %}
+            
+            {% if not editmode and (pimcore_image('Environment_Image').getThumbnail('catalog_thumb')) %}
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>

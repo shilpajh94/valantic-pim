@@ -1,0 +1,47 @@
+{% if editmode %}
+    <h3>Select Column</h3>
+{% endif %}
+
+{% set columns = [] %}
+{% set tds = [] %}
+{% set total_rows = 0 %}
+
+{% for i in pimcore_block('headingblock').iterator %}
+    {% set columns = columns | pimcore_input("heading", {'width': 200}) %}
+{% endfor %}
+
+{% if editmode %}
+    <h3>Select Rows</h3>
+{% endif %}
+
+{% for j in pimcore_block('contentblock').iterator %}
+    {% set total_rows = j-1 %}
+    {% for key, col in columns %}
+        {% if tds["row_"~total_rows] is defined %}
+            {% set tds = tds['row_'~total_rows] | merge([pimcore_wysiwyg("data_"~total_rows~"_"~key)]) %}
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+
+<div class="table-data wpa-table">
+    <table width="100%">
+        <thead>
+            <tr>
+                {% for key, col in columns %}
+                    <th>{{col}}</th>
+                {% endfor %}
+            </tr>
+        <thead>
+        <tbody>
+            {% for i in 0..(total_rows-1) %}
+                <tr>
+                    {% if tds["row_"~i] is defined and tds["row_"~i] %}
+                        {% for tkey, td in tds['row_'~i] %}
+                            <td>{{td}}</td>
+                        {% endfor %}
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

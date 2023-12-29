@@ -1,0 +1,57 @@
+{% if editmode %}
+    <h3>Select Column</h3>
+{% endif %}
+
+{% set columns = [] %}
+{% set tds = [] %}
+{% set total_rows = 0 %}
+
+
+{% for i in pimcore_block('headingblock').iterator %}
+    {% set columns = columns | merge([pimcore_input("heading", {'width': 200})]) %}
+{% endfor %}
+
+{% if editmode %}
+    <h3>Select Rows</h3>
+{% endif %}
+
+{% for j in pimcore_block('contentblock').iterator %}
+    {% set total_rows = j-1 %}
+    {% for key, col in columns %}
+        {% if tds['row_'~total_rows] is defined %}
+            {% set tds = tds['row_'~total_rows] | merge([pimcore_input("data_"~total_rows~"_"~key,{'width': 200})]) %}
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+
+<div class="table-data textile-table">
+    <table width="100%">
+        <thead>
+            <tr>
+                {% for ckey, col_name in columns %}
+                    <th width="9.2%">{{col_name | raw}}</th>
+                {% endfor %}
+            </tr>
+        <thead>
+
+        <tbody>
+            {% for i in 0..(total_rows-1) %}
+                <tr align="center" {{(total_rows-1 == i) ? "class='white-bg'":""}}>
+                    {% if tds["row_"~i] is defined and tds["row_"~i] %}
+                        {% for key, td in tds["row_"~i] %}
+                            {% if total_rows-1 == i and key == 0 %}
+                                <td align="left"><b>{{td}}</b></td>
+                            {% else %} 
+                                {% if key == 0 %}
+                                    <td align="left">{{td}}</td>
+                                {% else %}
+                                    <td>{{td}}</td>
+                                {% endif %} 
+                            {% endif %} 
+                        {% endfor %}
+                    {% endif %} 
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>    

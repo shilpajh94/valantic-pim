@@ -15,6 +15,7 @@ class DefaultController extends AbstractController
 {
     private $configProviderService;
     private $catalogTemplatingHelper;
+    private $imageWidth;
     private $db;
 
     public function __construct(CatalogTemplatingHelper $catalogTemplatingHelper) {
@@ -3543,18 +3544,21 @@ class DefaultController extends AbstractController
 
     public function templateCreatedWithBricksAction(Request $request)
     {   
-        try
-        {
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        // try
+        // {
             $this->configProviderService = new ConfigProviderService();
     
             $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
     
-            $this->view['footer_logo_src'] = $footer_logo_src;
-        }
-        catch(Exception $e)
-        {  
-            echo "<h3>".$e->getMessage()."</h3>";
-        }
+        //     $this->view['footer_logo_src'] = $footer_logo_src;
+        // }
+        // catch(Exception $e)
+        // {  
+        //     echo "<h3>".$e->getMessage()."</h3>";
+        // }
+        $parameterBag['footer_logo_src'] = $footer_logo_src;
+        return $this->render("@ContitechCSCatalog/Default/templates_with_bricks.html.twig", $parameterBag);
     }
 
     /**
@@ -3589,5 +3593,29 @@ class DefaultController extends AbstractController
         } else {
             return null;
         }
+    }
+
+    public function getRequestedParameter(Request $request, $documentId): array
+    {
+        $parameterBag = [];
+        // foreach ($request->attributes as $key => $value) {
+        //     $parameterBag[$key] = $value;
+        // }
+        $parameterBag['printermarks'] = $request->get('printermarks');
+
+        $imageWidth = null;
+        $imageRecompression = null;
+        $printConfigFile = \Pimcore\Web2Print\Processor::getJobConfigFile($documentId);
+        if(file_exists($printConfigFile)){
+            $printConfigFileContent = file_get_contents($printConfigFile);
+            $printConfig = json_decode( $printConfigFileContent,true);
+            $imageRecompression = $printConfig['config']['Image Quality'];
+            $imageWidth = $printConfig['config']['Image Width'];
+        }
+        $this->imageWidth = $imageWidth;
+        $parameterBag['imageQuality'] = $imageRecompression;
+        $parameterBag['imageWidth'] = $imageWidth;
+
+        return $parameterBag;
     }
 }

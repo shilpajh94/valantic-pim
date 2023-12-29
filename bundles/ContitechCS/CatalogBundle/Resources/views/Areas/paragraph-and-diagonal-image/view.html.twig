@@ -1,0 +1,51 @@
+<div class="environment-quality-sec">
+    <div class="media">
+        {% set image_position = 'right' %}
+        <div class="p-medium" style = "position: absolute;">
+            <div>
+                {{ pimcore_wysiwyg("quality_description_above",{"placeholder": "Enter text for Preform™ Panel"}) }}
+            </div>
+            <div style="margin-top: 100px;">
+                {{ pimcore_wysiwyg("quality_description_above_2",{"placeholder": "Enter text for Preform™ Splice Method & Improved Performance"}) }}
+            </div>
+        </div>
+    </div>
+
+    {% if image_position == 'right' %}
+        {% if not editmode and (pimcore_image('Environment_Image').getThumbnail('catalog_thumb')) %}
+            <div class="diagonal-image-sec">
+        {% endif %}
+
+        {% if editmode %}
+            <div style = "margin-left: 500px">
+                {{ pimcore_image('Environment_Image') }}
+            </div>
+        {% else %}
+            {% set imgSrcObj1 = pimcore_image('Environment_Image') %}
+            {% if getImageThumbnail(imgSrcObj1, imageWidth) %}
+                <img src="{{ getImageThumbnail(imgSrcObj1, imageWidth) }}" alt="" class="features-images" style="max-height:400px; width: 430px; margin-top: -69px;" />
+            {% endif %}
+        {% endif %}
+    {% endif %}
+        
+    <div class="p-medium" style = "margin-left: 100px; margin-top: 10px;">
+        {% if editmode %}
+            <div style = "margin-left: 500px; margin-top: 20px;">
+                {{ pimcore_wysiwyg("quality_description_below",{"placeholder": "Enter text for Savings & Less Downtime"}) }}
+            </div>
+        {% else %}
+            {{ pimcore_wysiwyg("quality_description_below",{"placeholder": "Enter text for Savings & Less Downtime"}) }}
+        {% endif %}
+
+        {% if editmode %}
+            <div style = "position: absolute; margin-left: 500px; margin-top: 50px;">
+                {{ pimcore_image("Environment_Image_2") }}
+            </div>
+        {% else %}
+            {% set imgSrcObj1 = pimcore_image('Environment_Image_2') %}
+            {% if getImageThumbnail(imgSrcObj1, imageWidth) %}
+                <img src="{{ getImageThumbnail(imgSrcObj1, imageWidth) }}" alt="" class="features-image1" style="max-height:350px; margin-top: 0px;" />
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
