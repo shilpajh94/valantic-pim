@@ -1,16 +1,16 @@
 {% if parentContainer is defined %}
-	{% extends "@ContitechCSCatalogBundle/Layouts/layout.html.twig" %}
+	{% extends "@ContitechCSCatalog/Layouts/layout.html.twig" %}
 {% endif %}
 
 {% block _content %}
 
 	{% if editmode %}
 		{{ pimcore_relation('cbs_template_product_page', {
-        'types' : {'object'},
+        'types' : ['object'],
         'subtypes' : {
-            'object' : {'object'}
+            'object' : ['object']
         },
-        'classes' : {'CSCatalogTables'},
+        'classes' : ['CSCatalogTables'],
     }) }}
 	{% endif %}
 
@@ -120,7 +120,7 @@
 									<span class="orange">
 										<strong>
 											{% if pimcore_input("PPF_ProductName").isEmpty() %}
-												{{ pimcore_input("PPF_ProductName", {"placeholder" : "Enter Product Name"}).setDataFromResource(data['ProductName']) }}
+												{{ pimcore_input("PPF_ProductName", {"placeholder" : "Enter Product Name"}).setDataFromResource(data['ProductName']) | raw}}
 											{% else %}
 												{{ pimcore_input("PPF_ProductName", {"placeholder" : "Enter Product Name"}) }}
 											{% endif %}
@@ -161,7 +161,7 @@
 
 							<span class="orange">
 								<strong>
-									{{ pimcore_input("PPContiAlert_Heading2", {"placeholder" => "Predictability"}) }}
+									{{ pimcore_input("PPContiAlert_Heading2", {"placeholder": "Predictability"}) }}
 								</strong>
 							</span>
 
@@ -197,18 +197,18 @@
 										<tr valign="top">
 											{% if data['Markets'] %}
 												<td>
-													{{ data['Markets'] }}
+													{{ data['Markets'] | raw }}
 												</td>
 											{% endif %}
 											{% if data['Applications'] %}
 												<td>
-													{{ data['Applications'] }}
+													{{ data['Applications'] | raw}}
 												</td>
 											{% endif %}
 
-											{% if data['CoverCompounds']) %}
+											{% if data['CoverCompounds'] %}
 												<td>
-													{{ data['CoverCompounds'] }}
+													{{ data['CoverCompounds'] | raw}}
 													<p class="details">{{ pimcore_input("PP_CoverCompoundComment", {'placeholder' : 'Enter comment'}) }}</p>
 												</td>
 											{% endif %}
@@ -233,7 +233,7 @@
 							<div class="media">
 								{% if editmode %}
 									<div class="media-img">
-										{{ pimcore_image("PP_ConveyorBeltsComponents_Image", {"height" => 300}) }}
+										{{ pimcore_image("PP_ConveyorBeltsComponents_Image", {"height": 300}) }}
 									</div>
 								{% else %}
 									{% set componentImage = pimcore_image("PP_ConveyorBeltsComponents_Image") %}
@@ -259,9 +259,9 @@
 						<h2>
 							<span class="orange">
 								{% if pimcore_input("ContiA_MoreInfoHeading").isEmpty() %}
-									{{ pimcore_input("ContiA_MoreInfoHeading").setDataFromResource(data['Name']) | raw }}
+									{{ pimcore_input("ContiA_MoreInfoHeading").setDataFromResource(data['ProductName']) | raw }}
 								{% else %}
-									{{ pimcore_input("ContiA_MoreInfoHeading").setDataFromResource(data['Name']) | raw }}
+									{{ pimcore_input("ContiA_MoreInfoHeading").setDataFromResource(data['ProductName']) | raw }}
 								{% endif %}
 							</span>
 							<span class="light-black">
@@ -358,7 +358,7 @@
 							</h2>
 
 							<div class="media">
-								{{ pimcore_image("PPSS_Image", {"height" => 235}) }}
+								{{ pimcore_image("PPSS_Image", {"height": 235}) }}
 
 								<div class="media-body">
 									<p>
@@ -431,7 +431,7 @@
 
 											{% if not pimcore_input("PPF_FeatureBenefitsLabel").isEmpty() %}
 												<span class="features-benefit-black">
-													{% pimcore_input("PPF_FeatureBenefitsLabel", {'placeholder' : 'Enter Feature Benefits Label'}) %}
+													{{ pimcore_input("PPF_FeatureBenefitsLabel", {'placeholder' : 'Enter Feature Benefits Label'}) }}
 												</span>
 											{% endif %}
 										</h4>
@@ -451,7 +451,7 @@
 
 									{% if not pimcore_textarea("PPFB_Comment").isEmpty() %}
 										<p>
-											{% pimcore_textarea("PPFB_Comment", {'placeholder' : 'Enter Comment'}) %}
+											{{ pimcore_textarea("PPFB_Comment", {'placeholder' : 'Enter Comment'}) }}
 										</p>
 									{% endif %}
 
@@ -502,7 +502,7 @@
 												<th width="30%" class="orange">{{ pimcore_translate('CS_Applications_Label') }}</th>
 											{% endif %}
 
-											{% if ($data['CoverCompounds']) %}
+											{% if data['CoverCompounds'] %}
 												<th width="30%" class="orange">{{ pimcore_translate('CS_Cover_Compounds_Label') }}</th>
 											{% endif %}
 										</tr>
@@ -511,18 +511,18 @@
 										<tr valign="top">
 											{% if data['Markets'] %}
 												<td>
-													{{ data['Markets'] }}
+													{{ data['Markets'] | raw }}
 												</td>
 											{% endif %}
 											{% if (data['Applications']) %}
 												<td>
-													{{ data['Applications'] }}
+													{{ data['Applications'] | raw}}
 												</td>
 											{% endif %}
 
 											{% if data['CoverCompounds'] %}
 												<td>
-													{{ data['CoverCompounds'] }}
+													{{ data['CoverCompounds'] | raw}}
 													<p class="details">{{ pimcore_input("PP_CoverCompoundComment", {'placeholder' : 'Enter comment'}) }}</p>
 												</td>
 											{% endif %}
@@ -628,11 +628,11 @@
 									<tr>
 										<th>
 											{% if not pimcore_input("PP_CostPerTon").isEmpty() %}
-												{{ pimcore_input("PP_CostPerTon", {'placeholder' => 'Enter Cost Per Ton'}) }}
+												{{ pimcore_input("PP_CostPerTon", {'placeholder': 'Enter Cost Per Ton'}) }}
 											{% endif %}
 										</th>
 										<th class="orange-bg">
-											{% if not pimcore_input("PP_TensionRange")->isEmpty() %}
+											{% if not pimcore_input("PP_TensionRange").isEmpty() %}
 												{{ pimcore_input("PP_TensionRange", {'placeholder' : 'Enter Tension Range'}) }}
 											{% endif %}
 										</th>
@@ -667,7 +667,7 @@
 									</h2>
 								{% endif %}
 
-								{% if ppssImgSrcObj.getThumbnail('catalog_thumb') || not pimcore_textarea("PPSS_Description1").isEmpty() or not pimcore_input("PPSS_SubTitle").isEmpty() or not pimcore_textarea("PPSS_Description2").isEmpty() %}
+								{% if ppssImgSrcObj.getThumbnail('catalog_thumb') or not pimcore_textarea("PPSS_Description1").isEmpty() or not pimcore_input("PPSS_SubTitle").isEmpty() or not pimcore_textarea("PPSS_Description2").isEmpty() %}
 									<div class="media">
 										{% if ppssImgSrcObj.getThumbnail('catalog_thumb') %}
 											<img src="{{ ppssImgSrcObj.getThumbnail('catalog_thumb') }}" class="features-images" alt="" style="max-height:235px; width:auto"/>
@@ -678,13 +678,13 @@
 
 												{% if not pimcore_textarea("PPSS_Description1").isEmpty() %}
 													<p>
-														{% pimcore_textarea("PPSS_Description1", {'placeholder' : 'Enter Description'}) %}
+														{{ pimcore_textarea("PPSS_Description1", {'placeholder' : 'Enter Description'}) }}
 													</p>
 												{% endif %}
 
 												{% if not pimcore_input("PPSS_SubTitle").isEmpty() %}
 													<strong>
-														{% pimcore_input("PPSS_SubTitle", {'placeholder' : 'Enter Sub Title'}) %}
+														{{ pimcore_input("PPSS_SubTitle", {'placeholder' : 'Enter Sub Title'}) }}
 													</strong>
 												{% endif %}
 
@@ -716,7 +716,7 @@
 						<h1 class="heading-info">
 							<span class="orange">
 								{% if editmode %}
-									{% if (pimcore_input("PP_FeatureText")->isEmpty()) %}
+									{% if (pimcore_input("PP_FeatureText").isEmpty()) %}
 										{{ pimcore_input("PP_FeatureText", {'placeholder' : 'Enter Feature Text'}).setDataFromResource(data['ProductName']) | raw }}
 									{% else %}
 										{{ pimcore_input("PP_FeatureText", {'placeholder' : 'Enter Feature Text'}) }}
