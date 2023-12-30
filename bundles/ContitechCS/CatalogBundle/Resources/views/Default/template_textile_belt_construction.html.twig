@@ -1,0 +1,140 @@
+{% if parentContainer is not defined %}
+	{% extends "@ContitechCSCatalog/Layouts/layout.html.twig" %}
+{% endif %}
+
+{% block _content %}
+
+	{% if editmode %}
+		{{ pimcore_relation("cbs_template_textile_belt_services_page", {
+        "types" : ["object"],
+        "subtypes" : {
+        "object" : ["object"]
+        },
+        "classes" : ["CSCatalogCategory"],
+    }) }}
+	{% endif %}
+
+    {% if data is defined %}
+        <div class="wrapper">
+            <header id="header">
+                <div class="header-sec">
+                    <div class="header-txt"><span class="first-title">{{ 'CS_header_title'| trans }}</span>
+                        <span class="second-title">
+                            {% if pimcore_input("TBC_title").isEmpty() %}
+                                {{ pimcore_input("TBC_title", {'placeholder' : 'Enter your title'}).setDataFromResource(data['HierarchyNameLevel2']) | raw }}
+                            {% else %}
+                                {{ pimcore_input("TBC_title", {'placeholder' : 'Enter your title'}) }}
+                            {% endif %}
+                        </span>
+                    </div>
+                        <div class="print-pg-no"></div>
+                    </div>
+            </header>
+            <footer id="footer" class="footer">
+                <div class="footer-logo">
+                    <img src="{{footer_logo_src}}" alt="" width="150">
+                </div>
+            </footer>
+            <main id="content" role="main">
+                <section class="fortressxp-belts">
+                    {% if editmode %}
+                        <div class="attr-font">Attribute Name = Name</div>
+                    {% endif %}
+                    <h1 class="orange">
+                        {% if editmode %}
+                            {% if pimcore_input("CS_ProductName").isEmpty() %}
+                                {{ pimcore_input("CS_ProductName", {'placeholder' : 'Enter Product Name'}).setDataFromResource(data['Name']) | raw }}
+                            {% else %}
+                                {{ pimcore_input("CS_ProductName", {'placeholder' : 'Enter Product Name'}) }}
+                            {% endif %}
+                        {% else %}
+                            {{ pimcore_input("CS_ProductName", {'placeholder' : 'Enter Product Name'}) }}
+                        {% endif %}
+                    </h1>
+                    
+                    {% if editmode %}
+                        <div class="attr-font">Attribute Name = Product Claim/Slogan</div>
+                    {% endif %}
+
+
+                    <p class="p-medium-big">
+                        {% if editmode %}
+                            {% if pimcore_input("TBS_ProductClaimSlogan").isEmpty() %}
+                                {{ pimcore_input("TBS_ProductClaimSlogan", {'placeholder' : 'Enter Product Slogan'}).setDataFromResource(data['ProductClaimSlogan']) | raw }}
+                            {% else %}
+                                {{ pimcore_input("TBS_ProductClaimSlogan", {'placeholder' : 'Enter Product Slogan'}) }}
+                            {% endif %}
+                        {% else %}
+                            {{ pimcore_input("TBS_ProductClaimSlogan", {'placeholder' : 'Enter Product Slogan'}) }}
+                        {% endif %}
+                    </p>
+
+                    <div class="colum-2 p-0 mb-5">
+                        {% if editmode %}
+                            <div class="attr-font">Attribute Name = Short Text</div>
+                        {% endif %}
+                    
+                        <p>
+                            {% if editmode %}
+                                {% if pimcore_wysiwyg("TBS_ShortText").isEmpty() %}
+                                    {{ pimcore_wysiwyg("TBS_ShortText", {'placeholder' : 'Enter Short Text'}).setDataFromResource(data['ShortText']) | raw }}
+                                {% else %}
+                                    {{ pimcore_wysiwyg("TBS_ShortText", {'placeholder' : 'Enter Short Text'}) }}
+                                {% endif %}
+                            {% else %}
+                                {{ pimcore_wysiwyg("TBS_ShortText", {'placeholder' : 'Enter Short Text'}) }}
+                            {% endif %}
+                        </p>
+                    </div>
+                    
+                    {% if editmode %}
+                        <div class="attr-font">Enter Your  Heading</div>
+                    {% endif %}
+
+                    <h2 class="orange mb-4">{{ pimcore_input("TBS_Header_title",{"placeholder":"Enter Your  Heading"}) }}</h2>
+                    
+                    {% if editmode %}
+                        <div class="attr-font">Attribute Name = Product Image</div>
+                    {% endif %}
+
+                    {% if editmode %}
+                        {% if pimcore_image("TBS_ProductImage").isEmpty() %}
+                            {{ pimcore_image("TBS_ProductImage", {"height" : 350}).setImage(data['ProductImage']) | raw }}
+                        {% else %}
+                            {{ pimcore_image("TBS_ProductImage", {"height" : 350}) }}
+                        {% endif %}
+                    {% else %}
+                        {% set TBSProdImgSrcObj = pimcore_image("TBS_ProductImage") %}
+                        {% if getImageThumbnail(TBSProdImgSrcObj, imageWidth) %}
+                            <img src="{{ getImageThumbnail(TBSProdImgSrcObj, imageWidth) }}" class="mb-4" alt="" style="max-height: 350px; width: auto;">
+                        {% endif %}
+                    {% endif %}
+
+                    {% if editmode %}
+                        <div class="attr-font">Enter Your  Heading</div>
+                    {% endif %}
+
+                    <h2 class="orange mb-0"><?= $this->input("BNE_Header_title",["placeholder" =>"Enter Your  Heading"]); ?>
+                    </h2>
+                    <hr></hr>
+                    {% if editmode %}
+                        <div class="attr-font">Attribute Name = Application Image</div>
+                    {% endif %}
+                    
+                    {% if editmode %}
+                        {% if pimcore_image("TBS_ApplicationImage").isEmpty() %}
+                            {{ pimcore_image("TBS_ApplicationImage", {"height" : 250}).setImage(data['ApplicationImage']) | raw }}
+                        {% else %}
+                            {{ pimcore_image("TBS_ApplicationImage", {"height" : 250}) }}
+                        {% endif %}
+                    {% else %}
+                        {% set TBSAppImgSrcObj = pimcore_image("TBS_ApplicationImage") %}
+                        {% if getImageThumbnail(TBSAppImgSrcObj, imageWidth) %}
+                            <img src="{{ getImageThumbnail(TBSAppImgSrcObj, imageWidth) }}" class="w-100 mb-4" alt="" style="max-height: 210px; width: auto;">
+                        {% endif %}
+                    {% endif %}
+                </section>
+            </main>
+        </div>
+	{% endif %}
+{% endblock %}
