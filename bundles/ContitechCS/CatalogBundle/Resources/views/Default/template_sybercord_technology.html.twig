@@ -1,0 +1,230 @@
+{% if parentContainer is not defined %}
+	{% extends "@ContitechCSCatalog/Layouts/layout.html.twig" %}
+{% endif %}
+
+{% block _content %}
+
+	{% if editmode %}
+		{{ pimcore_relation("cbs_template_sybercord_technology_construction_page", {
+        "types" : ["object"],
+        "subtypes" : {
+        "object" : ["object"]
+        },
+        "classes" : ["CSCatalogTables"],
+    }) }}
+	{% endif %}
+
+    {% if data is defined and data %}
+        <div class="wrapper">
+            <header id="header">
+                <div class="header-sec">
+                    <div class="header-txt"><span class="first-title">{{'CS_header_title'| trans}}</span>
+                        <span class="second-title">
+                            {% if pimcore_input("ST_title").isEmpty() %}
+                                {{ pimcore_input("ST_title", {'placeholder' : 'Enter your title'}).setDataFromResource(data['HierarchyNameLevel2']) | raw }}
+                            {% else %}
+                                {{ pimcore_input("ST_title", {'placeholder' : 'Enter your title'}) }}
+                            {% endif %}
+                        </span>
+                    </div>
+                        <div class="print-pg-no"></div>
+                    </div>
+            </header>
+            <footer id="footer" class="footer">
+                <div class="footer-logo">
+                    <img src="{{footer_logo_src}}" alt="" width="150">
+                </div>
+            </footer>
+            <main id="content" role="main">
+                <section class="fortressxp-belts">
+                    {% if editmode %}
+                        <p class="attr-font">Attribute Name = Name</p>
+                    {% endif %}
+                
+                
+                    <h1 class="orange mb-0">
+                        {% if editmode %}
+                            {% if pimcore_input("CS_ProductName").isEmpty() %}
+                                {{ pimcore_input("CS_ProductName", {'placeholder' : 'Enter Product Name'}).setDataFromResource(data['Name']) | raw }}
+                            {% else %}
+                                {{ pimcore_input("CS_ProductName", {'placeholder' : 'Enter Product Name'}) }}
+                            {% endif %}
+                        {% else %}
+                            {{ pimcore_input("CS_ProductName", {'placeholder' : 'Enter Product Name'}) }}
+                        {% endif %}
+                    </h1>
+                    
+                    <div id="sybercord-para-container" class="d-flex">
+                        <div id="sybercord-para-left-container" class="col-lg-9">
+                            {% if editmode %}
+                                <p class="attr-font">Attribute Name = Product Claim/Slogan</p>
+                            {% endif %}
+                            
+                            <h2 class="sybercord-sub-title black-bold" style="justify-content: space-between;">
+                                {% if editmode %}
+                                    {% if pimcore_input("ST_ProductClaimSlogan").isEmpty() %}
+                                        {{ pimcore_input("ST_ProductClaimSlogan", {'placeholder' : 'Enter Product Slogan'}).setDataFromResource(data['ProductClaimSlogan']) | raw }}
+                                    {% else %}
+                                        {{ pimcore_input("ST_ProductClaimSlogan", {'placeholder' : 'Enter Product Slogan'}) }}
+                                    {% endif %}
+                                {% else %}
+                                    {{ pimcore_input("ST_ProductClaimSlogan", {'placeholder' : 'Enter Product Slogan'}) }}
+                                {% endif %}
+                            </h2>
+
+                            <div class="environment-quality-sec">
+
+                                <div class="media">
+                                    <div class="media-body pr-4">
+                                        {% if editmode %}
+                                            <p class="attr-font">Attribute Name = Short Text</p>
+                                        {% endif %}
+                                        <p>
+                                            {% if editmode %}
+                                                {% if pimcore_input("ST_ShortText").isEmpty() %}
+                                                    {{ pimcore_input("ST_ShortText", {'placeholder' : 'Enter Short Text'}).setDataFromResource(data['ShortText']) | raw }}
+                                                {% else %}
+                                                    {{ pimcore_input("ST_ShortText", {'placeholder' : 'Enter Short Text'}) }}
+                                                {% endif %}
+                                            {% else %}
+                                                {{ pimcore_input("ST_ShortText", {'placeholder' : 'Enter Short Text'}) }}
+                                            {% endif %}
+                                        </p>
+
+                                        {% if editmode %}
+                                            <p class="attr-font">Attribute Name = Product Image</p>
+                                        {% endif %}
+                                        
+                                        {% if editmode %}
+                                            {% if pimcore_image("ST_ProductImage").isEmpty() %}
+                                                {{ pimcore_image("ST_ProductImage", {"height" : 300}).setImage(data['ProductImage']) | raw }}
+                                            {% else %}
+                                                {{ pimcore_image("ST_ProductImage", {"height" : 300}) }}
+                                            {% endif %}
+                                        {% else %}
+                                            {% set STProdImgSrcObj = pimcore_image("ST_ProductImage") %}
+                                            {% if getImageThumbnail(STProdImgSrcObj, imageWidth) %}
+                                                <img src="{{ getImageThumbnail(STProdImgSrcObj, imageWidth) }}" alt="" style="height:auto; width:fit-content;">
+                                            {% endif %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="sybercord-para-right-container" class="col-lg-3">
+                            <div id="syber-right-logo1">
+                                {% if editmode %}
+                                    <p class="attr-font">Attribute Name = Logo Image</p>
+                                {% endif %}
+                                
+                                {% if editmode %}
+                                    {% if pimcore_image("ST_LogoImage").isEmpty() %}
+                                        {{ pimcore_image("ST_LogoImage", {"height" : 200}).setImage(data['LogoImage']) | raw }}
+                                    {% else %}
+                                        {{ pimcore_image("ST_LogoImage", {"height" : 200}) }}
+                                    {% endif %}
+                                {% else %}
+                                    {% set STLogoImgSrcObj = pimcore_image("ST_LogoImage") %}
+                                    {% if getImageThumbnail(STLogoImgSrcObj, imageWidth) %}
+                                        <img src="{{ getImageThumbnail(STLogoImgSrcObj, imageWidth) }}" alt="" style="margin:0 auto; max-width:200px; height:auto;">
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                            <div id="syber-right-logo2" class="pt-4 mleft-10">
+                                {% if editmode %}
+                                    <p class="attr-font">Attribute Name = ApplicationImage</p>
+                                {% endif %}
+                                
+                                {% if editmode %}
+                                    {% if pimcore_image("ST_ApplicationImage").isEmpty() %}
+                                        {{ pimcore_image("ST_ApplicationImage", {"height" : 180}).setImage(data['ApplicationImage']) | raw }}
+                                    {% else %}
+                                        {{ pimcore_image("ST_ApplicationImage", {"height" : 180}) }}
+                                    {% endif %}
+                                {% else %}
+                                    {% set STAppImgSrcObj = pimcore_image("ST_ApplicationImage") %}
+                                    {% if getImageThumbnail(STAppImgSrcObj, imageWidth) %}
+                                        <img src="{{ getImageThumbnail(STAppImgSrcObj, imageWidth) }}" alt="" style="height:auto; width: 180px;">
+                                    {% endif %}
+                                {% endif %}
+
+                                <p class="note">
+                                    {{ pimcore_input("Sybercord_image_note",{"placeholder": "Comment"}) }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {% if data['Features'] is defined and  data['Features'] %}
+                        <div class="feature-benefit-list">
+                            <h3 class="black-bold black mb-3">
+                                {% if editmode %}
+                                    <p class="attr-font">Enter Your  Heading</p>
+                                {% endif %}
+                                {{ pimcore_input("ST_advantage_heading",{"placeholder": "Enter Your Heading"}) }}
+                            <ul>
+                                {% if editmode %}
+                                    <p class="attr-font">Attribute Name = Features</p>
+                                {% endif %}
+
+                                {% for key, item in data['Features'] %}
+                                    <li>
+                                        {{item}}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+
+                    <div class="row">
+                            <div class="col-6">
+                                <div class="feature-benefit-list my-0">
+                                    {% if data['CSProductApplications']|length > 0 %}
+                                        {% if editmode %}
+                                            <p class="attr-font">Enter Your  Heading</p>
+                                        {% endif %}
+                                        
+                                        <h3 class="black-bold black mb-3">
+                                            {{ pimcore_input("ST_application_heading",{"placeholder": "Enter Your Heading"}) }}
+                                        </h3>
+
+                                        <ul>
+                                            {% if editmode %}
+                                                <p class="attr-font">Attribute Name = Application</p>
+                                            {% endif %}
+
+                                            {% for key, applictaion in data['CSProductApplications'] %}
+                                                <li>
+                                                    {{applictaion.getApplicationName()}}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="feature-benefit-list my-0">
+                                    {% if editmode %}
+                                        <p class="attr-font">Enter Your  Heading</p>
+                                    {% endif %}
+
+                                    <h3 class="black-bold black mb-3">
+                                        {{ pimcore_input("ST_product_range_heading",{"placeholder": "Enter Your Heading"}) }}
+                                    </h3>
+                                    
+                                    <ul>
+                                        {% if editmode %}
+                                            <p class="attr-font">Enter Your Points</p>
+                                        {% endif %}
+                                        <li>
+                                            {{ pimcore_input("ST_product_range_content",{"placeholder": "Enter Your Points"}) }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+	{% endif %}
+{% endblock %}

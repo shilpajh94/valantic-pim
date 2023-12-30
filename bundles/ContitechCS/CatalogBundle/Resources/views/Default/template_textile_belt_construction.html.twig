@@ -114,7 +114,8 @@
                         <div class="attr-font">Enter Your  Heading</div>
                     {% endif %}
 
-                    <h2 class="orange mb-0"><?= $this->input("BNE_Header_title",["placeholder" =>"Enter Your  Heading"]); ?>
+                    <h2 class="orange mb-0">
+                        {{ pimcore_input("BNE_Header_title",{"placeholder":"Enter Your  Heading"}) }}
                     </h2>
                     <hr></hr>
                     {% if editmode %}

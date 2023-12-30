@@ -156,18 +156,21 @@ class DefaultController extends AbstractController
      */
     public function templateTableOfContentsAction(Request $request)
     {   
-        try
-        {
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());   
+        // try
+        // {
             $configProviderService = new ConfigProviderService();
     
             $footer_logo_src = $configProviderService->getDefaultImage('CS_footer_logo');
             
-            $this->view['footer_logo_src'] = $footer_logo_src;
-        }
-        catch(Exception $e)
-        {  
-            return new Response($e->getMessage());
-        }
+            $parameterBag['footer_logo_src'] = $footer_logo_src;
+        // }
+        // catch(Exception $e)
+        // {  
+        //     return new Response($e->getMessage());
+        // }
+        
+        return $this->render("@ContitechCSCatalog/Default/template_table_of_contents.html.twig", $parameterBag);
     }
 
     /**
@@ -190,32 +193,32 @@ class DefaultController extends AbstractController
             $listing->setOrderKey("index");     
             $listing->setOrder("asc");
             $templateArray = [
-                'ContitechCSCatalogBundle:Default:templates_with_bricks.html.php',
-                'ContitechCSCatalogBundle:Default:template_conti_inspect_systems.html.php',
-                'ContitechCSCatalogBundle:Default:template_steelcord_belt_construction.html.php',
-                'ContitechCSCatalogBundle:Default:template_continental_conveyor_services.html.php',
-                'ContitechCSCatalogBundle:Default:template_eco_series_pulley.html.php',
-                'ContitechCSCatalogBundle:Default:template_conti_pipe_belt.html.php',
-                'ContitechCSCatalogBundle:Default:template_mega_pipe_belt.html.php',
-                'ContitechCSCatalogBundle:Default:template_sybercord_technology.html.php',
-                'ContitechCSCatalogBundle:Default:template_cleated_belts.html.php',
-                'ContitechCSCatalogBundle:Default:template_conti_protect_systems.html.php',
-                'ContitechCSCatalogBundle:Default:template_product_page.html.php',
-                'ContitechCSCatalogBundle:Default:template_contialert_product_page.html.php',
-                'ContitechCSCatalogBundle:Default:template_conveyor_belt_group.html.php',
-                'ContitechCSCatalogBundle:Default:template_product_section_page.html.php',
-                'ContitechCSCatalogBundle:Default:template_textile_belt_construction.html.php',
-                'ContitechCSCatalogBundle:Default:template_contiClean.html.php',
-                'ContitechCSCatalogBundle:Default:template_cover_compounds.html.php',
-                'ContitechCSCatalogBundle:Default:template_quality_and_the_environment.html.php',
-                'ContitechCSCatalogBundle:Default:template_wood_product.html.php',
-                'ContitechCSCatalogBundle:Content:pdf.html.php'
+                '@ContitechCSCatalog/Default/templates_with_bricks.html.twig',
+                '@ContitechCSCatalog/Default/template_conti_inspect_systems.html.twig',
+                '@ContitechCSCatalog/Default/template_steelcord_belt_construction.html.twig',
+                '@ContitechCSCatalog/Default/template_continental_conveyor_services.html.twig',
+                '@ContitechCSCatalog/Default/template_eco_series_pulley.html.twig',
+                '@ContitechCSCatalog/Default/template_conti_pipe_belt.html.twig',
+                '@ContitechCSCatalog/Default/template_mega_pipe_belt.html.twig',
+                '@ContitechCSCatalog/Default/template_sybercord_technology.html.twig',
+                '@ContitechCSCatalog/Default/template_cleated_belts.html.twig',
+                '@ContitechCSCatalog/Default/template_conti_protect_systems.html.twig',
+                '@ContitechCSCatalog/Default/template_product_page.html.twig',
+                '@ContitechCSCatalog/Default/template_contialert_product_page.html.twig',
+                '@ContitechCSCatalog/Default/template_conveyor_belt_group.html.twig',
+                '@ContitechCSCatalog/Default/template_product_section_page.html.twig',
+                '@ContitechCSCatalog/Default/template_textile_belt_construction.html.twig',
+                '@ContitechCSCatalog/Default/template_contiClean.html.twig',
+                '@ContitechCSCatalog/Default/template_cover_compounds.html.twig',
+                '@ContitechCSCatalog/Default/template_quality_and_the_environment.html.twig',
+                '@ContitechCSCatalog/Default/template_wood_product.html.twig',
+                '@ContitechCSCatalog/Content/pdf.html.twig',
             ];
             $sectionPageTitle = '';
             $all_doc_arr = [];
             foreach($listing as $doc)
             {
-                if ($doc->getTemplate() == 'ContitechCSCatalogBundle:Default:template_product_section_page.html.php')
+                if ($doc->getTemplate() == '@ContitechCSCatalog/Default/template_product_section_page.html.twig')
                 {
                     $obj = $doc->getElement('TOC_Section_Title');
                     if (!empty($obj)) {
@@ -3202,8 +3205,9 @@ class DefaultController extends AbstractController
 
     public function templateTextileConveyorBeltsAction(Request $request)
     {   
-        try
-        {
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        // try
+        // {
             $regionProperty = $this->document->getProperty('region');
             
             if(!$regionProperty)
@@ -3211,7 +3215,7 @@ class DefaultController extends AbstractController
 
             $regionId = $regionProperty->getId();
             
-            $catalogCategoryObject = $this->getDocumentTag('relation', 'cbs_template_textile_belt_services_page')->getElement();
+            $catalogCategoryObjectEditable = $this->document->getEditable('cbs_template_textile_belt_services_page');
     
             $this->configProviderService = new ConfigProviderService();
             
@@ -3219,8 +3223,9 @@ class DefaultController extends AbstractController
             
             $productNameArr = [];
     
-            if ($catalogCategoryObject)
+            if ($catalogCategoryObjectEditable)
             {
+                $catalogCategoryObject = $catalogCategoryObjectEditable->getElement();
                 $selectedSecondLevelCategoryId = $catalogCategoryObject->getSecondLevelCategory();
     
                 $hierarchyObj = DataObject\CSHierarchy::getById($selectedSecondLevelCategoryId);
@@ -3248,19 +3253,23 @@ class DefaultController extends AbstractController
                     }
                 }
             }
-            $this->view['data'] = $productNameArr;
-            $this->view['footer_logo_src'] = $footer_logo_src;
-        }
-        catch(Exception $e)
-        {  
-            throw new Exception($e->getMessage());
-        }
+            $parameterBag['data'] = $productNameArr;
+            $parameterBag['footer_logo_src'] = $footer_logo_src;
+        // }
+        // catch(Exception $e)
+        // {  
+        //     throw new Exception($e->getMessage());
+        // }
+
+        
+        return $this->render("@ContitechCSCatalog/Default/template_textile_belt_construction.html.twig", $parameterBag);
     }
     
     public function templateSteelcordBeltConstructionAction(Request $request)
     {   
-        try
-        {
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        // try
+        // {
             $regionProperty = $this->document->getProperty('region');
             
             if(!$regionProperty)
@@ -3272,7 +3281,7 @@ class DefaultController extends AbstractController
             
             $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
             
-            $catalogCategoryObject = $this->getDocumentTag('relation', 'cbs_template_steelcord_belt_construction_page')->getElement();
+            $catalogCategoryObject = $this->document->getEditable('cbs_template_steelcord_belt_construction_page')->getElement();
     
             $productNameArr = [];
     
@@ -3305,13 +3314,16 @@ class DefaultController extends AbstractController
                     }
                 }
             }
-            $this->view['data'] = $productNameArr;
-            $this->view['footer_logo_src'] = $footer_logo_src;
-        }
-        catch(Exception $e)
-        {  
-            throw new Exception($e->getMessage());
-        }   
+            $parameterBag['data'] = $productNameArr;
+            $parameterBag['footer_logo_src'] = $footer_logo_src;
+        // }
+        // catch(Exception $e)
+        // {  
+        //     throw new Exception($e->getMessage());
+        // }   
+
+        
+        return $this->render("@ContitechCSCatalog/Default/template_steelcord_belt_construction.html.twig", $parameterBag);
     }
     
     /**
@@ -3319,8 +3331,9 @@ class DefaultController extends AbstractController
     */
     public function templateSybercordTechnologyAction(Request $request)
     {   
-        try
-        {
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        // try
+        // {
             $regionProperty = $this->document->getProperty('region');
             
             if(!$regionProperty)
@@ -3332,12 +3345,13 @@ class DefaultController extends AbstractController
     
             $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
     
-            $catalogTableObject = $this->getDocumentTag('relation', 'cbs_template_sybercord_technology_construction_page')->getElement();
+            $catalogTableObjectEditable = $this->document->getEditable('cbs_template_sybercord_technology_construction_page');
     
             $productNameArr = [];
     
-            if($catalogTableObject)
+            if($catalogTableObjectEditable)
             {   
+                $catalogTableObject = $catalogTableObjectEditable->getElement();
                 $selectedProduct = [];
 
                 if(method_exists($catalogTableObject,"getProducts"))
@@ -3394,13 +3408,14 @@ class DefaultController extends AbstractController
                     }
                 }
             }
-            $this->view['data'] = $productNameArr;
-            $this->view['footer_logo_src'] = $footer_logo_src;
-        }
-        catch(Exception $e)
-        {  
-            echo "<h3>".$e->getMessage()."</h3>";
-        }
+            $parameterBag['data'] = $productNameArr;
+            $parameterBag['footer_logo_src'] = $footer_logo_src;
+        // }
+        // catch(Exception $e)
+        // {  
+        //     echo "<h3>".$e->getMessage()."</h3>";
+        // }
+        return $this->render("@ContitechCSCatalog/Default/template_sybercord_technology.html.twig", $parameterBag);
     }
 
     /**
