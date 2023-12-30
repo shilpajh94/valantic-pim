@@ -1,47 +1,34 @@
-{% if editmode %}
-    <h3>Select Column</h3>
-{% endif %}
 
-{% set columns = [] %}
-{% set tds = [] %}
-{% set total_rows = 0 %}
-
-{% for i in pimcore_block('headingblock').iterator %}
-    {% set columns = columns | pimcore_input("heading", {'width': 200}) %}
-{% endfor %}
-
-{% if editmode %}
-    <h3>Select Rows</h3>
-{% endif %}
-
-{% for j in pimcore_block('contentblock').iterator %}
-    {% set total_rows = j-1 %}
-    {% for key, col in columns %}
-        {% if tds["row_"~total_rows] is defined %}
-            {% set tds = tds['row_'~total_rows] | merge([pimcore_wysiwyg("data_"~total_rows~"_"~key)]) %}
-        {% endif %}
-    {% endfor %}
-{% endfor %}
 
 <div class="table-data wpa-table">
     <table width="100%">
         <thead>
             <tr>
-                {% for key, col in columns %}
-                    <th>{{col}}</th>
-                {% endfor %}
+
+                    <th>{{pimcore_input("heading1", {'width': 200})}}</th>
+                    <th>{{pimcore_input("heading2", {'width': 200})}}</th>
+                    <th>{{pimcore_input("heading3", {'width': 200})}}</th>
+                    <th>{{pimcore_input("heading4", {'width': 200})}}</th>
+                    <th>{{pimcore_input("heading5", {'width': 200})}}</th>
             </tr>
         <thead>
         <tbody>
-            {% for i in 0..(total_rows-1) %}
-                <tr>
-                    {% if tds["row_"~i] is defined and tds["row_"~i] %}
-                        {% for tkey, td in tds['row_'~i] %}
-                            <td>{{td}}</td>
-                        {% endfor %}
-                    {% endif %}
-                </tr>
-            {% endfor %}
+            <tr>
+
+                    <td>{{pimcore_wysiwyg("heading6", {'width': 200})|raw}}</td>
+                    <td>{{pimcore_wysiwyg("heading7", {'width': 200})|raw}}</td>
+                    <td>{{pimcore_wysiwyg("heading8", {'width': 200})|raw}}</td>
+                    <td>{{pimcore_wysiwyg("heading9", {'width': 200})|raw}}</td>
+                    <td>{{pimcore_wysiwyg("heading10", {'width': 200})|raw}}</td>
+            </tr>
+            <tr>
+
+                    <td>{{pimcore_wysiwyg("heading11", {'width': 200})|raw}}</td>
+                    <td>{{pimcore_wysiwyg("heading12", {'width': 200})|raw}}</td>
+                    <td>{{pimcore_wysiwyg("heading13", {'width': 200})|raw}}</td>
+                    <td>{{pimcore_wysiwyg("heading14", {'width': 200})|raw}}</td>
+                    <td>{{pimcore_wysiwyg("heading15", {'width': 200})|raw}}</td>
+            </tr>
         </tbody>
     </table>
 </div>
