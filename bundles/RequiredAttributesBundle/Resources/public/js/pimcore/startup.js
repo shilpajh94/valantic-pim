@@ -29,7 +29,7 @@ pimcore.plugin.RequiredAttributesBundle = Class.create(pimcore.plugin.admin, {
             },
         });
 
-        this.overrideTreeGetChildsByIdProxyTimeout();
+        // this.overrideTreeGetChildsByIdProxyTimeout();
 
         pimcore.plugin.broker.registerPlugin(this);
     },
