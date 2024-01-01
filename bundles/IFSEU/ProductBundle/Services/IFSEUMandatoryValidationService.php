@@ -36,11 +36,11 @@ class IFSEUMandatoryValidationService
             while ($parent->getType() == 'folder' && $parent->getFullPath() != "/Contitech_IFS_EMEA/Products") {
                 $parent = $parent->getParent();
             }
-            if ($parent->getType() != 'folder' && $parent instanceof DataObject\IFSEUProduct) {
-                if (isset($config['MandatoryAttributes']) && !empty($config['MandatoryAttributes'])) {
+            if (($parent->getType() != 'folder' && $parent instanceof DataObject\IFSEUProduct) &&
+            (isset($config['MandatoryAttributes']) && !empty($config['MandatoryAttributes']))
+            ) {
                     $applyValidation = true;
                     $this->productConfig = $config['MandatoryAttributes'];
-                }
             }
         }
         return $applyValidation;
@@ -70,7 +70,7 @@ class IFSEUMandatoryValidationService
                             $fieldTitle = $fieldName;
                         }
                         $value = $product->$method();
-                        if (empty($value) && ($value != false || $value != '0')) {
+                        if (empty($value) && ($value != 'false' || $value != '0')) {
                             if($productType == 'fert'){
                                 $productType = 'Finished Goods';
                             }
@@ -97,7 +97,7 @@ class IFSEUMandatoryValidationService
             }
             
             if(count($arr) > 1){
-                if (!empty($reqAttributesByUser) && count($reqAttributesByUser) > 0) {
+                if (!empty($reqAttributesByUser)) {
                     $attributeNameArrayValidate = array('Please fill all mandatory fields');
                     foreach ($attributeNameArray as $attribute) {
                         if (array_key_exists($attribute, $reqAttributesByUser['all'])) {

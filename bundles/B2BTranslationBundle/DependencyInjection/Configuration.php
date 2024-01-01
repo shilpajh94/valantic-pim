@@ -17,13 +17,10 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder('b2b_translation');
-        // $rootNode = $treeBuilder->root('b2b_translation');
-
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
         // more information on that topic.
 
-        return $treeBuilder;
+        return new TreeBuilder('b2b_translation');
     }
 }

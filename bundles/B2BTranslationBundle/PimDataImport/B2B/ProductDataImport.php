@@ -30,10 +30,8 @@ class ProductDataImport implements IDataImport
 
     public function downloadFile()
     {
-        // $customFileName = $this->bu."_Product_".date('M').".csv";
         $customFileName = "SF_PRODUCT_EXTRACT.csv";
         $this->filePath = $this->helper->downloadFile($customFileName);
-        // $this->filePath = "/var/www/html/cttfse01/var/tmp/SF_PRODUCT_EXTRACT.csv";
     }
 
     public function importData()
@@ -47,7 +45,7 @@ class ProductDataImport implements IDataImport
             {
                 if(file_exists($this->filePath))
                 {
-                    \Pimcore\Model\Version::disable(); 
+                    \Pimcore\Model\Version::disable();
 
                     $csvInfo            = ImportService::getCSVData($this->filePath);
                     $header = $csvInfo['header'];
@@ -59,7 +57,7 @@ class ProductDataImport implements IDataImport
                     $t1 = time();
                     p_r('Processing started at: ' . date('h:i:s', $t1));
                     p_r('------------------------------------------------');
-                    foreach($data as $key => $row){   
+                    foreach($data as $key => $row){
                         $record = array_combine($header, $row);
                         
                         $externalID = $record['B2B_EXTERNAL_ID__C'];
@@ -80,7 +78,7 @@ class ProductDataImport implements IDataImport
                     p_r('--------------Total Execution Time---------------');
                     p_r('Processing completed after: ' . (abs(time() - $t1) / 60) . ' mnt');
 
-                    \Pimcore\Model\Version::enable(); 
+                    \Pimcore\Model\Version::enable();
                 }
                 else{
                     echo PHP_EOL;

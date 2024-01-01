@@ -9,7 +9,7 @@ use B2BTranslationBundle\PimDataImport\PimDataImportHelper;
 
 class ImportExternalIDForCategoryCommand extends AbstractCommand
 {
-    private $BusinessUnits = ['1' => 'IFS_PTG_US', '2' => 'CS', '3' => 'PTG_EU', '4' => 'IFS_EMEA'];
+    private $businessUnits = ['1' => 'IFS_PTG_US', '2' => 'CS', '3' => 'PTG_EU', '4' => 'IFS_EMEA'];
     private $bu;
     private $db;
     private $helper;
@@ -33,8 +33,8 @@ class ImportExternalIDForCategoryCommand extends AbstractCommand
         $this->db = Db::get();
         $this->helper = new PimDataImportHelper;
 
-        for ($i=1; $i <= 4; $i++) { 
-            $this->bu = $this->BusinessUnits[$i];
+        for ($i=1; $i <= 4; $i++) {
+            $this->bu = $this->businessUnits[$i];
             echo "Business Unit - {$this->bu}".PHP_EOL.PHP_EOL;
             $this->importExternalIdForCategory();
         }
@@ -81,4 +81,3 @@ class ImportExternalIDForCategoryCommand extends AbstractCommand
         $this->db->query($query);
     }
 }
-?>

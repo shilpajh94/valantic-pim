@@ -5,21 +5,20 @@
 {% block _content %}
 
 	{% if editmode %}
-		{{
-        pimcore_relation("inh_template_hose_product_page", {
+		{{ pimcore_relation("inh_template_hose_product_page", {
             "types": ["object"],
             "subtypes": {
                 "object": ["object"]
             },
             "classes": ["CatalogTables"]
-        })
-    }}
+        })}}
 	{% endif %}
 
-	{% set partNumbers = [] %}
-	{% set incr = 0 %}
-	{% set incr2 = 0 %}
-	{% if data %}
+	{% if data is defined and data %}
+		{% set partNumbers = [] %}
+		{% set incr = 0 %}
+		{% set incr2 = 0 %}
+
 		{% for catalogGroupKey, catalogGroupData in data %}
 			{% for md5key, brandData in catalogGroupData %}
 				<div class="template">
@@ -228,13 +227,11 @@
 								{% if brandData['safetyFeatures'] or brandData['standardMetHoseListData'] or brandData['tubeMaterialAtrributeString'] or brandData['reinforcement'] or brandData['coverMaterialattributeString'] or brandData['temperatureRangeFAndC'] %}
 									<menu class="flex">
 										{% if brandData['standardMetHoseListData'] or brandData['tubeMaterialAtrributeString'] or brandData['reinforcement'] or brandData['coverMaterialattributeString'] or brandData['temperatureRangeFAndC'] %}
-											<div
-												class="specs">
+											<div class="specs">
 												<h6>{{ 'specs'|trans }}</h6>
 												<div class="spec-requirement">
 													{% if brandData['standardMetHoseListData'] or brandData['standardMetHoseMeetFlameResistence'] %}
-														<div
-															class="col-6">
+														<div class="col-6">
 															<div class="standard-hose-met">
 																{% if brandData['standardMetHoseListData']|length > 0 %}
 																	{% if editmode %}
@@ -246,15 +243,15 @@
 																	{% else %}
 																		{{ pimcore_input("meetPerformanceRequirements_" ~ md5key ~ "_" ~ incr2) }}
 																	{% endif %}
-                                                                {% endif %}
-																	<br/>
-                                                                {% set hoseMetCount = 0 %}
-                                                                {% for key, standard in brandData['standardMetHoseListData'] %}
-                                                                    <div class="is-highlight">
-                                                                        {{ pimcore_input("standardMetHose" ~ md5key ~ "_" ~ hoseMetCount ~ "_" ~ incr2).setDataFromResource(standard['name']) | raw}}
-                                                                    </div>
-                                                                    {% set hoseMetCount = hoseMetCount + 1 %}
-                                                                {% endfor %}
+																{% endif %}
+																<br/>
+																{% set hoseMetCount = 0 %}
+																{% for key, standard in brandData['standardMetHoseListData'] %}
+																	<div class="is-highlight">
+																		{{ pimcore_input("standardMetHose" ~ md5key ~ "_" ~ hoseMetCount ~ "_" ~ incr2).setDataFromResource(standard['name']) | raw}}
+																	</div>
+																	{% set hoseMetCount = hoseMetCount + 1 %}
+																{% endfor %}
 															</div>
 
 															<div class="standard-hose-met-flame">
@@ -284,32 +281,28 @@
 													{% endif %}
 													<div class="col-6">
 														{% if brandData['tubeMaterialAtrributeString'] %}
-															<div
-																class="full">
+															<div class="full">
 																<b>{{ 'Inner Tube'|trans }}</b>
 																{{ brandData['tubeMaterialAtrributeString'] | raw}}
 															</div>
 														{% endif %}
 
 														{% if brandData['reinforcement'] %}
-															<div
-																class="full">
+															<div class="full">
 																<b>{{ 'Reinforcement'|trans }}</b>
 																{{ brandData['reinforcement'] | raw}}
 															</div>
 														{% endif %}
 
 														{% if brandData['coverMaterialattributeString'] %}
-															<div
-																class="full">
+															<div class="full">
 																<b>{{ 'Cover'|trans }}</b>
 																{{ brandData['coverMaterialattributeString'] | raw}}
 															</div>
 														{% endif %}
 
 														{% if brandData['temperatureRangeFAndC'] %}
-															<div
-																class="full">
+															<div class="full">
 																<b>{{ 'Temperature Range'|trans }}</b>
 																{{ brandData['temperatureRangeFAndC'] | raw}}
 															</div>
@@ -320,8 +313,7 @@
 										{% endif %}
 
 										{% if brandData['safetyFeatures'] %}
-											<div
-												class="feature">
+											<div class="feature">
 												<h6>{{ 'features'|trans }}</h6>
 												<div>
 													{% for key, feature in brandData['safetyFeatures'] %}
@@ -403,14 +395,14 @@
 									{% set incrRow = 1 %}
 									{% for key, element in brandData['articlesData'] %}
 										{% set isEven = incrRow is even %}
-										<tr	class="{{ isEven ? 'tableNewFont' : 'active tableNewFont' }}">
+										<tr class="{{ isEven ? 'tableNewFont' : 'active tableNewFont' }}">
 											{% if 'descriptive' in columnList %}
-                                                {% set columnKey = null %}
-                                                {% for key, value in columnList %}
-                                                    {% if value == 'descriptive' %}
-                                                        {% set columnKey = key %}
-                                                    {% endif %}
-                                                {% endfor %}
+												{% set columnKey = null %}
+												{% for key, value in columnList %}
+													{% if value == 'descriptive' %}
+														{% set columnKey = key %}
+													{% endif %}
+												{% endfor %}
 												{% set descriptiveNumberText = element[columnKey] %}
 												{% set descriptiveNumberList = descriptiveNumberText | split('-') %}
 
@@ -435,11 +427,11 @@
 			{% endfor %}
 		{% endfor %}
 
-        <div class="hide">
-		    {% if partNumbers|length > 0 %}
-				{{ pimcore_textarea('product_page_part_number').setDataFromResource(partNumbers|join(',')) | raw}}	
-		    {% endif %}
-        </div>
+		<div class="hide">
+			{% if partNumbers|length > 0 %}
+				{{ pimcore_textarea('product_page_part_number').setDataFromResource(partNumbers|join(',')) | raw}}
+			{% endif %}
+		</div>
 
 		{% if not containerRequest %}
 			<script type="text/javascript" src="/static/js/tableContinueLable.js"></script>

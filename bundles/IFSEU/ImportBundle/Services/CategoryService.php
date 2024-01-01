@@ -71,10 +71,10 @@ class CategoryService
 
             $sheetColumns = $this->common->getParameterItem($this->catConfigData, 'sheet', 'columnName');
             foreach ($activeSheet as $rowCnt => $reader) {
-                if ($rowCnt == 0) {
-                    ImportService::setCell($this->fileLastCol . '1', 'Status');
-                    continue;
-                }
+                // if ($rowCnt == 0) {
+                //     ImportService::setCell($this->fileLastCol . '1', 'Status');
+                //     continue;
+                // }
                 $this->processingCode = '';
                 $this->currentStep = $rowCnt + 1;
                 $flag = true;
@@ -83,17 +83,17 @@ class CategoryService
                 $this->instance->rowCnt = $this->currentStep;
                 $result = $this->instance->validateRow($this->reader);
                 $processedResult= $this->processImport($this->currentStep, $this->reader, $result);
-                $flag           = $processedResult['flag'];
+                // $flag           = $processedResult['flag'];
                 $success        = $processedResult['success'];
 
-                if (!$flag) {
-                    $failedCnt++;
-                    $this->rowStatus[$this->currentStep] .= 'Status: Failed';
-                    ImportService::setCell($this->fileLastCol . $this->currentStep, $this->rowStatus[$this->currentStep]);
-                } else {
-                    $this->rowStatus[$this->currentStep] .= 'Status Success';
-                    ImportService::setCell($this->fileLastCol . $this->currentStep, $this->rowStatus[$this->currentStep]);
-                }
+                // if (!$flag) {
+                //     $failedCnt++;
+                //     $this->rowStatus[$this->currentStep] .= 'Status: Failed';
+                //     ImportService::setCell($this->fileLastCol . $this->currentStep, $this->rowStatus[$this->currentStep]);
+                // } else {
+                //     $this->rowStatus[$this->currentStep] .= 'Status Success';
+                //     ImportService::setCell($this->fileLastCol . $this->currentStep, $this->rowStatus[$this->currentStep]);
+                // }
             }
 
             \Pimcore::collectGarbage();
@@ -107,7 +107,7 @@ class CategoryService
                 Logger::log(self::LOGGER_MODULE)->error("Category Import command failed to import $failedCnt out of $totalRow.");
             }
         } catch (\Throwable $th) {
-            p_r($th);
+            p_r($th->getMessage());
             Logger::error($this->logFileName, $th->getMessage());
             die;
         }
@@ -119,7 +119,7 @@ class CategoryService
             if (!$result['status']) {
                 $success = false;
                 $flag = false;
-                $this->rowStatus[$currentStep] .= $result['message'];
+                // $this->rowStatus[$currentStep] .= $result['message'];
             } else {
     
                 $levelInfo = $this->catHelper->getLevels($reader['Code'], $reader['Text']);
@@ -130,17 +130,21 @@ class CategoryService
                         $flag = false;
                         $success = false;
                     }
+                    else{
+                        $success = true;
+                    }
+    
                 } else {
                     /* Validation Error */
                     $flag = false;
                     $success = false;
                 }
             }
-    
-            return ['flag' => $flag, 'success' => $success];
+            // return ['flag' => $flag, 'success' => $success];
+            return ['success' => $success];
     
         }catch(Throwable $th){
-            print_r($th);
+            print_r($th->getMessage());
         }
     }
 
@@ -150,17 +154,17 @@ class CategoryService
             foreach ($levelInfo as $info) {
                 $obj = $this->catHelper->getObjectByFullCode($info['levelFullCode'], $info['bu']);
                 if (!empty($obj) && $obj->getId()) {
-                    $this->rowStatus[$this->currentStep] .= 'SIOP code already exists at level ' . $info['level'] . '. Updating Code: ' . $info['code'] . '. ';
+                    // $this->rowStatus[$this->currentStep] .= 'SIOP code already exists at level ' . $info['level'] . '. Updating Code: ' . $info['code'] . '. ';
                     return $this->updateCategory($info);
                 } else {
     
                     $parentObj = $this->catHelper->getObjectByFullCode($info['parentFullCode'], $info['bu']);
                     if (!empty($parentObj)) {
                         /* Create or Update Object */
-                        $this->rowStatus[$this->currentStep] .= 'Creating SIOP at level ' . $info['level'] . '. Code: ' . $info['code'] . '. ';
+                        // $this->rowStatus[$this->currentStep] .= 'Creating SIOP at level ' . $info['level'] . '. Code: ' . $info['code'] . '. ';
                         return $this->updateCategory($info, $parentObj);
                     } else {
-                        $this->rowStatus[$this->currentStep] .= 'Parent missing at level ' . $info['level'] . ' Code: ' . $info['code'] . ' Parent Code: ' . $info['parentCode'] . '. ';
+                        // $this->rowStatus[$this->currentStep] .= 'Parent missing at level ' . $info['level'] . ' Code: ' . $info['code'] . ' Parent Code: ' . $info['parentCode'] . '. ';
                         $key = key($levelInfo);
                         unset($levelInfo[$key]);
                         $this->createCategory($levelInfo);
@@ -170,7 +174,7 @@ class CategoryService
             }
     
         }catch(Throwable $th){
-            print_r($th);
+            print_r($th->getMessage());
         }
     }
 
@@ -235,7 +239,7 @@ class CategoryService
             return $catObj->getId();
     
         }catch(Throwable $th){
-            print_r($th);
+            print_r($th->getMessage());
 
         }
     }

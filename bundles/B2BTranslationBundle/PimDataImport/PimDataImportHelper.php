@@ -10,7 +10,7 @@ class PimDataImportHelper
     {
         $remotefile = B2B_TRANSLATION_SFTP_OUTBOUND_FOLDER_PATH.'/'.$customFileName;
         $localfile = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR.$customFileName;
-        try 
+        try
         {
             $conn = ftp_connect(B2B_TRANSLATION_SFTP_HOST);
             if(!$conn) {
@@ -19,7 +19,7 @@ class PimDataImportHelper
             }
 
             $login = ftp_login($conn, B2B_TRANSLATION_SFTP_USERNAME, B2B_TRANSLATION_SFTP_PASSWORD);
-            $mode = ftp_pasv($conn, TRUE);
+            $mode = ftp_pasv($conn, true);
 
             if ((!$conn) || (!$login) || (!$mode)) {
                 die("FTP connection has failed !");
@@ -42,7 +42,8 @@ class PimDataImportHelper
 
         } catch (\Throwable $th) {
             echo PHP_EOL;
-            echo "ERROR: File '".B2B_TRANSLATION_SFTP_OUTBOUND_FOLDER_PATH."/".$customFileName."' not downloaded from the server.";
+            echo "ERROR: File '".B2B_TRANSLATION_SFTP_OUTBOUND_FOLDER_PATH."/".
+            $customFileName."' not downloaded from the server.";
             echo PHP_EOL;
             echo "ERROR: ". $th->getMessage();
             echo PHP_EOL;
@@ -51,19 +52,22 @@ class PimDataImportHelper
         //     $SFTPConObj = new SFTPConnection(B2B_TRANSLATION_SFTP_HOST, B2B_TRANSLATION_SFTP_PORT);
         //     $SFTPConObj->login(B2B_TRANSLATION_SFTP_USERNAME, B2B_TRANSLATION_SFTP_PASSWORD);
             
-        //     if(!$SFTPConObj->fileExists(B2B_TRANSLATION_SFTP_OUTBOUND_FOLDER_PATH."/".$customFileName)) 
+        //     if(!$SFTPConObj->fileExists(B2B_TRANSLATION_SFTP_OUTBOUND_FOLDER_PATH."/".$customFileName))
         //     {
-        //         echo "ERROR: Looking for file - ".$customFileName. ". But file not found in given server folder - '".B2B_TRANSLATION_SFTP_OUTBOUND_FOLDER_PATH."'";
+        //         echo "ERROR: Looking for file - ".$customFileName. ". But file not found in given
+        // server folder - '".B2B_TRANSLATION_SFTP_OUTBOUND_FOLDER_PATH."'";
         //         return null;
         //     }
         //     else{
         //         $tmpFilePath    = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR.$customFileName;
-        //         $SFTPConObj->downloadFile($tmpFilePath, B2B_TRANSLATION_SFTP_OUTBOUND_FOLDER_PATH."/".$customFileName);
+        //         $SFTPConObj->downloadFile($tmpFilePath, B2B_TRANSLATION_SFTP_OUTBOUND_FOLDER_
+        // PATH."/".$customFileName);
         //         return $tmpFilePath;
         //     }
         // } catch (\Throwable $th) {
         //     echo PHP_EOL;
-        //     echo "ERROR: File '".B2B_TRANSLATION_SFTP_OUTBOUND_FOLDER_PATH."/".$customFileName."' not downloaded from the server.";
+        //     echo "ERROR: File '".B2B_TRANSLATION_SFTP_OUTBOUND_FOLDER_PATH."/".
+        // $customFileName."' not downloaded from the server.";
         //     echo PHP_EOL;
         //     echo "ERROR: ". $th->getMessage();
         //     echo PHP_EOL;
@@ -75,21 +79,21 @@ class PimDataImportHelper
         $classDef = ClassDefinition::getById($classID);
         $className = $classDef->getName();
         $externalID = $classDef->getFieldDefinition('externalID');
-        $SalesForce_ID = $classDef->getFieldDefinition('SalesForce_ID');
+        $salesForce_ID = $classDef->getFieldDefinition('SalesForce_ID');
 
         $errMsg = '';
         $validFields = true;
-        if(!($externalID && $SalesForce_ID))
+        if(!($externalID && $salesForce_ID))
         {
             $validFields = false;
             $errMsg = "ERROR: `externalID` and `SalesForce_ID` field not found in class - ".$className;
         }
-        else if(!$externalID)
+        elseif(!$externalID)
         {
             $validFields = false;
             $errMsg = "ERROR: `externalID` field not found in class - ".$className;
         }
-        else if(!$SalesForce_ID)
+        elseif(!$salesForce_ID)
         {
             $validFields = false;
             $errMsg = "ERROR: `SalesForce_ID` field not found in class - ".$className;

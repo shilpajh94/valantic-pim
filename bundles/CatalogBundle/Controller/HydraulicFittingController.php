@@ -19,7 +19,6 @@ class HydraulicFittingController extends FrontendController
     private $attributeImages = array();
     private $catalogTemplatingHelper;
     private $containerInterface;
-    // private $translator;
     private $imageWidth;
     private $translatorInterface;
 
@@ -28,7 +27,6 @@ class HydraulicFittingController extends FrontendController
         $this->db = Db::get();
         $this->catalogTemplatingHelper = $catalogTemplatingHelper;
         $this->containerInterface = $container;
-        // $this->translator = $translator;
         $this->translatorInterface = $translator;
     }
 
