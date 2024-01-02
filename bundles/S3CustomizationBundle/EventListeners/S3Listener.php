@@ -198,7 +198,6 @@ class S3Listener
         if(!DISABLE_S3_CDN) {
             //$fileSystemPath = $event->getSubject()->getFileSystemPath();
             $fileSystemPath = $event->getSubject()->getStream();
-
             $cacheKey = "thumb_s3_" . md5($fileSystemPath);
             $path = \Pimcore\Cache::load($cacheKey);
 
