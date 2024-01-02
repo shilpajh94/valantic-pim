@@ -7,8 +7,6 @@ use Pimcore\Log\FileObject;
 use AppBundle\Logger\AppLogger as Logger;
 use PTGEU\ImportBundle\Services\ImportService;
 use PTGEU\ImportBundle\Services\ImportConstants;
-use Throwable;
-use Exception;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class CategoryService
@@ -31,11 +29,11 @@ class CategoryService
     private $catConfigData;
     private $processingCode;
     private $container;
+
     public function __construct(ContainerInterface $container)
     {
-        $this->container = $container;
-
         try {
+            $this->container = $container;
             $this->logFileName  = 'ptgeu-product-hierarchy-log-'.date('Y-m-d-his');
             $this->common = $this->container->get('import.common_helper');
             /* Load category configuration file */
@@ -73,30 +71,16 @@ class CategoryService
 
             $sheetColumns = $this->common->getParameterItem($this->catConfigData, 'sheet', 'columnName');
             foreach ($activeSheet as $rowCnt => $reader) {
-                if ($rowCnt == 0) {
-                    ImportService::setCell($this->fileLastCol . '1', 'Status');
-                    continue;
-                }
                 $this->processingCode = '';
                 $this->currentStep = $rowCnt + 1;
-                $flag = true;
+
                 $this->reader = array_combine($sheetColumns, $reader);
                 /* Validate each row's column value */
                 $this->instance->rowCnt = $this->currentStep;
                 $result = $this->instance->validateRow($this->reader);
-
+                
                 $processedResult= $this->processImport($this->currentStep, $this->reader, $result);
-                $flag           = $processedResult['flag'];
                 $success        = $processedResult['success'];
-
-                if (!$flag) {
-                    $failedCnt++;
-                    $this->rowStatus[$this->currentStep] .= 'Status: Failed';
-                    ImportService::setCell($this->fileLastCol . $this->currentStep, $this->rowStatus[$this->currentStep]);
-                } else {
-                    $this->rowStatus[$this->currentStep] .= 'Status Success';
-                    ImportService::setCell($this->fileLastCol . $this->currentStep, $this->rowStatus[$this->currentStep]);
-                }
             }
 
             \Pimcore::collectGarbage();
@@ -107,8 +91,8 @@ class CategoryService
             if ($success) {
                 Logger::log(self::LOGGER_MODULE)->info("Category Imported successfully.");
             } else {
-                Logger::log(self::LOGGER_MODULE)->error("Category Import command
-                 failed to import $failedCnt out of $totalRow.");
+                Logger::log(self::LOGGER_MODULE)->error("Category Import
+                command failed to import $failedCnt out of $totalRow.");
             }
         } catch (\Throwable $th) {
             Logger::error($this->logFileName, $th->getMessage());
@@ -118,71 +102,53 @@ class CategoryService
 
     private function processImport($currentStep, $reader, $result)
     {
-        try{
-            if (!$result['status']) {
-                $success = false;
-                $flag = false;
-                $this->rowStatus[$currentStep] .= $result['message'];
-            } else {
-                $levelInfo = $this->catHelper->getLevels($reader['code'], $reader['description']);
-                if ($levelInfo['status']) {
-                    $lvl = max(array_keys($levelInfo['levels']));
-                    $this->processingCode = $levelInfo['levels'][$lvl]['levelFullCode'];
-                    if (!$this->createCategory($levelInfo['levels'])) {
-                        $flag = false;
-                        $success = false;
-                    }
-                } else {
-                    /* Validation Error */
-                    $flag = false;
+        if (!$result['status']) {
+            $success = false;
+        } else {
+            $levelInfo = $this->catHelper->getLevels($reader['code'], $reader['description']);
+            if ($levelInfo['status']) {
+                $lvl = max(array_keys($levelInfo['levels']));
+                $this->processingCode = $levelInfo['levels'][$lvl]['levelFullCode'];
+                if (!$this->createCategory($levelInfo['levels'])) {
                     $success = false;
                 }
+                else{
+                    $success = true;
+                }
+            } else {
+                /* Validation Error */
+                $success = false;
             }
-            
-            return ['flag' => $flag, 'success' => $success];
         }
-        catch(Throwable $th){
-            print_r($th);
-        }
+
+        return ['success' => $success];
     }
 
     public function createCategory($levelInfo)
     {
-        try{
-            foreach ($levelInfo as $info) {
-                $obj = $this->catHelper->getObjectByFullCode($info['levelFullCode'], $info['bu']);
-                if (!empty($obj) && $obj->getId()) {
-                    if(isset($this->rowStatus[$this->currentStep])){
-                        $this->rowStatus[$this->currentStep] .= 'SIOP code already exists at level ' . $info['level'] . '. Updating Code: ' . $info['code'] . '. ';
-                        return $this->updateCategory($info);
-                    }
-                    else{
-                        $this->rowStatus[$this->currentStep] = '';
-                    }
-                } else {
-                    $parentObj = $this->catHelper->getObjectByFullCode($info['parentFullCode'], $info['bu']);
-                    if (!empty($parentObj)) {
-                        /* Create or Update Object */
-                        $this->rowStatus[$this->currentStep] .= 'Creating SIOP at level ' . $info['level'] . '. Code: ' . $info['code'] . '. ';
-                        return $this->updateCategory($info, $parentObj);
-                    } else {
-                        $this->rowStatus[$this->currentStep] .= 'Parent missing at level ' . $info['level'] . ' Code: ' . $info['code'] . ' Parent Code: ' . $info['parentCode'] . '. ';
-                        $key = key($levelInfo);
-                        unset($levelInfo[$key]);
-                        $this->createCategory($levelInfo);
-                    }
-                }
+        foreach ($levelInfo as $info) {
+            $obj = $this->catHelper->getObjectByFullCode($info['levelFullCode'], $info['bu']);
+            if (!empty($obj) && $obj->getId()) {
                 return $this->updateCategory($info);
+            } else {
+                $parentObj = $this->catHelper->getObjectByFullCode($info['parentFullCode'], $info['bu']);
+                if (!empty($parentObj)) {
+                    /* Create or Update Object */
+                    return $this->updateCategory($info, $parentObj);
+                } else {
+                    $key = key($levelInfo);
+                    unset($levelInfo[$key]);
+                    $this->createCategory($levelInfo);
+                }
             }
-    
-        }catch(Throwable $th){
-            print_r($th);
+            return $this->updateCategory($info);
         }
     }
 
     public function updateCategory($levelInfo, $parentObj = "")
     {
         $catObj = $this->catHelper->getObjectByFullCode($levelInfo['levelFullCode'], $levelInfo['bu']);
+
         if (empty($catObj)) {
             $catObj = new DataObject\PTGEUProductHierarchy();
         } else {
@@ -215,9 +181,8 @@ class CategoryService
             }
         }
 
-        if (isset($this->reader) && isset($this->reader['description'])
-        && $this->processingCode==$levelInfo['levelFullCode']
-        ) {
+        if (isset($this->reader) && isset($this->reader['description']) &&
+        $this->processingCode==$levelInfo['levelFullCode'] ) {
             $catObj->setDescription($this->reader['description'], 'en');
             $catObj->setPrintedCatalogDescription($this->reader['description'], 'en');
             $catObj->setConstructionType($this->reader['description'], 'en');

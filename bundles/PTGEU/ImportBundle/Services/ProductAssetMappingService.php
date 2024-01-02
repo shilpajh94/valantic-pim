@@ -24,7 +24,7 @@ class ProductAssetMappingService
     {
         $this->db = Db::get();
         $this->container = $container;
-        $this->productModel    = new ProductModel;
+        $this->productModel    = new ProductModel($this->container);
         $this->assetConfigData = $this->container->get('import.config_provider_service')->getAssetConfig();
     }
 

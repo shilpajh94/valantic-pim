@@ -32,6 +32,8 @@ class SalesMaterialService
     private $distributionChannelArray = array();
     private $productUpdateArray = array();
     private $failedIDs = [];
+    private $countryOfOriginCode;
+    private $distributionChannelCode;
     private $container;
 
     const LOGGER_MODULE = 'PTGEU SALES MATERIAL MASTER';
@@ -245,12 +247,12 @@ class SalesMaterialService
         $columnCountryOfOriginDesc = $this->mappingCsvColumn['countryOfOriginName'];
         $columnSalesUnit = $this->mappingCsvColumn['salesUnit'];
         $columnEpixFlag = $this->mappingCsvColumn['epixFlag'];
-        $columnDeletionFlag = $this->mappingCsvColumn['deletionFlag'];
+        $columnDeletionFlag = $this->mappingCsvColumn['deletedFlagAtSalesLevel'];
         $columnPricePageFlag= $this->mappingCsvColumn['pricePageFlag'];
         $columnSalesText1= $this->mappingCsvColumn['salesText1'];
         $columnSalesText2= $this->mappingCsvColumn['salesText2'];
         $columnPrivateBrand= $this->mappingCsvColumn['privateBrand'];
-        $columnDistChainStatus = $this->mappingCsvColumn['deleteFlagAtDistributionChainLevel'];
+        // $columnDistChainStatus = $this->mappingCsvColumn['deleteFlagAtDistributionChainLevel'];
         
 	    $dataCount = count($data);
         foreach ($data as $rowCount => $rowvalueRecord) {
@@ -321,9 +323,9 @@ class SalesMaterialService
                              $salesOrganizationsFolderId);
                             if($salesOrgId) {
                                 $this->salesOrgArray[$salesOrg] = $salesOrgId;
+                                $salesOrgCode = $this->salesOrgArray[$salesOrg];
                             }
                         }
-                        $salesOrgCode = $this->salesOrgArray[$salesOrg];
 
 
                         if(!isset($this->distributionChannelArray[$distributionChannel])) {
@@ -332,9 +334,9 @@ class SalesMaterialService
                              $distributionChannelDesc, $distributionChannelFolderId);
                             if($distributionChannelId) {
                                 $this->distributionChannelArray[$distributionChannel] = $distributionChannelId;
+                                $this->distributionChannelCode = $this->distributionChannelArray[$distributionChannel];
                             }
                         }
-                        $distributionChannelCode = $this->distributionChannelArray[$distributionChannel];
 
                         if(!isset($this->countryOfOriginArray[$countryOfOrigin])) {
                             $countryOfOriginDesc = $rowvalue[$columnCountryOfOriginDesc];
@@ -342,9 +344,9 @@ class SalesMaterialService
                              $countryOfOriginDesc, $countryOfOriginFolderId);
                             if($countryOfOriginId) {
                                 $this->countryOfOriginArray[$countryOfOrigin] = $countryOfOriginId;
+                                $this->countryOfOriginCode = $this->countryOfOriginArray[$countryOfOrigin];
                             }
                         }
-                        $countryOfOriginCode = $this->countryOfOriginArray[$countryOfOrigin];
 
                         $resultRowData      = $this->processRowData($objectMaterial,
                         $materialFolderId, $salesMaterialKey, $material);
@@ -355,7 +357,7 @@ class SalesMaterialService
                         $pricePageFlag = $rowvalue[$columnPricePageFlag];
                         $epixFlag = $rowvalue[$columnEpixFlag];
                         $deletionFlag = $rowvalue[$columnDeletionFlag];
-                        $distChainStatus = $rowvalue[$columnDistChainStatus];
+                        // $distChainStatus = $rowvalue[$columnDistChainStatus];
                         $salesText1 = $rowvalue[$columnSalesText1];
                         $salesText2 = $rowvalue[$columnSalesText2];
                         $materialGroup5Value = $rowvalue[$columnPrivateBrand];
@@ -368,12 +370,12 @@ class SalesMaterialService
                             'oo_className' => 'PTGEUSalesMaterialMaster',
                             'SalesOrganization__id' => $salesOrgCode,
                             'SalesOrganization__type' => 'object',
-                            'DistributionChannel__id' => $distributionChannelCode,
+                            'DistributionChannel__id' => $this->distributionChannelCode,
                             'DistributionChannel__type' => 'object',
                             'SalesUOM' => $salesUnit,
                             'DeliveringPlant__id' => $plantObjId,
                             'DeliveringPlant__type' => 'object',
-                            'CountryOfOrigin__id' => $countryOfOriginCode,
+                            'CountryOfOrigin__id' => $this->countryOfOriginCode,
                             'CountryOfOrigin__type' => 'object',
                             'salesText1' => $salesText1,
                             'salesText2' => $salesText2,
@@ -381,7 +383,7 @@ class SalesMaterialService
                             'pricePageFlag' => (strtoupper(trim($pricePageFlag)) == 'X') ? 1 : -1,
                             'privateBrand' => $privateOrGenericBrand,
                             'Material' => ",".$materialObjId.",",
-                            'deletedFlagAtDistributionChainLevel' => $distChainStatus,
+                            // 'deletedFlagAtDistributionChainLevel' => $distChainStatus,
                             'deletedFlagAtSalesLevel' => (strtoupper(trim($deletionFlag)) == 'X') ? 1 : -1
                         ];
                         
@@ -393,7 +395,7 @@ class SalesMaterialService
                             'salesText2' => $salesText2,
                             'pricePageFlag' => (strtoupper(trim($pricePageFlag)) == 'X') ? 1 : -1,
                             'privateBrand' => $privateOrGenericBrand,
-                            'deletedFlagAtDistributionChainLevel' => $distChainStatus,
+                            // 'deletedFlagAtDistributionChainLevel' => $distChainStatus,
                             'deletedFlagAtSalesLevel' => (strtoupper(trim($deletionFlag)) == 'X') ? 1 : -1
                         ];
                         
@@ -403,9 +405,9 @@ class SalesMaterialService
                         }
                         $relationTableDataArray[] = ['src_id' => $objId, 'dest_id' => $salesOrgCode,
                          'type' => 'object', 'fieldname' => 'SalesOrganization', 'ownertype' => 'object' ];
-                        $relationTableDataArray[] = ['src_id' => $objId, 'dest_id' => $distributionChannelCode,
+                        $relationTableDataArray[] = ['src_id' => $objId, 'dest_id' => $this->distributionChannelCode,
                          'type' => 'object', 'fieldname' => 'DistributionChannel', 'ownertype' => 'object' ];
-                        $relationTableDataArray[] = ['src_id' => $objId, 'dest_id' => $countryOfOriginCode,
+                        $relationTableDataArray[] = ['src_id' => $objId, 'dest_id' => $this->countryOfOriginCode,
                          'type' => 'object', 'fieldname' => 'CountryOfOrigin', 'ownertype' => 'object' ];
                         $relationTableDataArray[] = ['src_id' => $objId, 'dest_id' => $materialObjId,
                          'type' => 'object', 'fieldname' => 'Material', 'ownertype' => 'object' ];
@@ -416,9 +418,9 @@ class SalesMaterialService
                         }
                         $dependencyTableDataArray[] = ['sourceid' => $objId, 'targetid' => $salesOrgCode,
                          'sourcetype' => 'object', 'targettype' => 'object'];
-                        $dependencyTableDataArray[] = ['sourceid' => $objId, 'targetid' => $distributionChannelCode,
+                        $dependencyTableDataArray[] = ['sourceid' => $objId, 'targetid' => $this->distributionChannelCode,
                          'sourcetype' => 'object', 'targettype' => 'object'];
-                        $dependencyTableDataArray[] = ['sourceid' => $objId, 'targetid' => $countryOfOriginCode,
+                        $dependencyTableDataArray[] = ['sourceid' => $objId, 'targetid' => $this->countryOfOriginCode,
                          'sourcetype' => 'object', 'targettype' => 'object'];
                         $dependencyTableDataArray[] = ['sourceid' => $objId, 'targetid' => $materialObjId,
                          'sourcetype' => 'object', 'targettype' => 'object'];
@@ -431,7 +433,6 @@ class SalesMaterialService
                     }
                 }
                 catch (\Exception $e) {
-
                     /* return error massage if any exception found */
                     $errorsData[] = "Sales Material Code: ".$salesMaterialKey. " - ".$e->getMessage();
                 }

@@ -63,7 +63,7 @@ class ProductService
         /* Initilize monitoring item and set the number of steps will take to complete the task */
         $this->logFileName          = 'ptgeu-products-log-' . date('Ymdhis');
         $this->common               = $this->container->get('import.common_helper');
-        $this->productModel         = new ProductModel;
+        $this->productModel         = new ProductModel($this->container);
         $this->configProviderService= $this->container->get('import.config_provider_service');
         $this->productHelper        = $this->container->get('import.product_helper');
         $this->materialConfigData   = $this->configProviderService->getProductConfig();
@@ -125,14 +125,14 @@ class ProductService
         if($this->filePath){
             $csvInfo = ImportService::getCSVData($this->filePath);
             $this->csvHeader = array_flip($csvInfo['header']);
-    
+
             try {
                 $this->initImportTable();
                 Logger::log(self::LOGGER_MODULE)->info("SAP import started");
                 $this->productModel->truncateTempTable();
                 $this->productModel->insertDataInTemp($csvInfo['data']);
                 Logger::log(self::LOGGER_MODULE)->info("Data Sheet imported in temp table");
-              //  $this->productModel->processDeletedProducts();
+                $this->productModel->processDeletedProducts();
                 Logger::log(self::LOGGER_MODULE)->info("Removed records in data sheet, marked as unpublished.");
                 Logger::log(self::LOGGER_MODULE)->info("Product import started");
                 $this->initiateProductsProcess();
@@ -574,7 +574,7 @@ class ProductService
             'sapDescriptionLanguage' => null,
             'materialType' => null,
             'priceRef' => null,
-            'vtlStatus' => null
+            // 'vtlStatus' => null
         ];
         
         if (strtolower($productType) == 'base') {
@@ -693,11 +693,11 @@ class ProductService
                     $queryTableData['weightUnit'] = trim($record[$this->getRecordIndexByKey('weightUnit')]);
                 }
             }
-            $vtlstatus = trim($record[$this->getRecordIndexByKey('vtlStatus')]);
-            $vtlObject = $this->getVtlStatus($vtlstatus);
-            if($vtlObject !=''){
-                $queryTableData['vtlStatus'] = trim($vtlObject);
-            }
+            // $vtlstatus = trim($record[$this->getRecordIndexByKey('vtlStatus')]);
+            // $vtlObject = $this->getVtlStatus($vtlstatus);
+            // if($vtlObject !=''){
+            //     $queryTableData['vtlStatus'] = trim($vtlObject);
+            // }
         }
         
         $this->queryTableDataArray[] = array_merge($queryTableData, $siopData);
@@ -765,7 +765,7 @@ class ProductService
             'sapDescriptionLanguage' => null,
             'materialType' => null,
             'priceRef' => null,
-            'vtlStatus' => null
+            // 'vtlStatus' => null
 
         ];
 
@@ -884,11 +884,11 @@ class ProductService
                     $storeTableDataArray['weightUnit'] = trim($record[$this->getRecordIndexByKey('weightUnit')]);
                 }
             }
-            $vtlstatus = trim($record[$this->getRecordIndexByKey('vtlStatus')]);
-            $vtlObject = $this->getVtlStatus($vtlstatus);
-            if($vtlObject !=''){
-                $storeTableDataArray['vtlStatus'] = trim($vtlObject);
-            }
+            // $vtlstatus = trim($record[$this->getRecordIndexByKey('vtlStatus')]);
+            // $vtlObject = $this->getVtlStatus($vtlstatus);
+            // if($vtlObject !=''){
+            //     $storeTableDataArray['vtlStatus'] = trim($vtlObject);
+            // }
         }
 
         $this->storeTableDataArray[] = $storeTableDataArray;
@@ -980,19 +980,19 @@ class ProductService
     }
 
     public function saveProducts($updatedArticlesArray) {
-        if(is_array($updatedArticlesArray))
-        {
-            $counter = 1;
+        // if(is_array($updatedArticlesArray))
+        // {
+        //     $counter = 1;
             foreach ($updatedArticlesArray as $objectId) {
                 if (!empty($objectId)) {
                     $object = DataObject\PTGEUProduct::getById($objectId, true);
                     if (!empty($object) && $object instanceof \Pimcore\Model\DataObject\PTGEUProduct) {
                         $object->save();
-                        echo "Object saved == ".$counter." ==== ".$objectId.PHP_EOL;
+                        // echo "Object saved == ".$counter." ==== ".$objectId.PHP_EOL;
                     }
                 }
-                $counter++;
+                // $counter++;
             }
-        }
+        // }
     }
 }

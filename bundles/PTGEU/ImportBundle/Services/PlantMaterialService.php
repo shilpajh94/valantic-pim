@@ -569,10 +569,10 @@ class PlantMaterialService
             if($salesOrgId)
             {
                 $this->salesOrgArray[$salesOrg] = $salesOrgId;
+                return $this->salesOrgArray[$salesOrg];
             }
                 
         }
-        return $this->salesOrgArray[$salesOrg];
     }
 
     /**
@@ -588,9 +588,9 @@ class PlantMaterialService
             if($distributionChannelId)
             {
                 $this->distributionChannelArray[$distributionChannel] = $distributionChannelId;
+                return $this->distributionChannelArray[$distributionChannel];
             }
         }
-        return $this->distributionChannelArray[$distributionChannel];
     }
 
     /**

@@ -107,7 +107,7 @@ class Product
         $level = $this->catHelper->getLevelByLength($len);
         $levels = array();
         for ($i = $level; $i >= 1; $i--) {
-            $objectKey = empty($reader) ?: $reader[$this->level[$i]['key']];
+            $objectKey = empty($reader) ?:( isset($reader[$this->level[$i]['key']]) ? $reader[$this->level[$i]['key']] : NULL);
             $parentLevel = $this->catHelper->getParentLevel($i);
             $levelFullCode = $this->catHelper->extractFullCodeLevelWise($i, $code);
             $parentFullCode = $this->catHelper->extractFullCodeLevelWise(($i - 1), $code);
@@ -122,7 +122,7 @@ class Product
                 'level'         =>  $i,
                 'bu'            =>  $bu,
                 'objectKey'     =>  $objectKey,
-                'parentObjectKey'   =>  empty($reader) ?: $reader[$this->level[$parentLevel]['key']],
+                'parentObjectKey'   =>  empty($reader) ?: ((isset($this->level[$parentLevel]) && isset($reader[$this->level[$parentLevel]['key']])) ? $reader[$this->level[$parentLevel]['key']] : NULL),
                 'objectPath'    =>  $objectPath,
                 'parentPath'    =>  $parentPath
             );
@@ -141,13 +141,14 @@ class Product
             $path = '';
         } else {
             for ($i = 1; $i <= $lvl; $i++) {
-                if (empty($path))
+                if (empty($path) && isset($reader[$this->level[$i]['key']]))
                 {
                     $path = \Pimcore\Model\Element\Service::getValidKey($reader[$this->level[$i]['key']], 'folder');
                 }
                 else {
-                    $path .= '/' . \Pimcore\Model\Element\Service::getValidKey($reader[
-                        $this->level[$i]['key']], 'folder');
+                    if(isset($reader[$this->level[$i]['key']])){
+                        $path .= '/' . \Pimcore\Model\Element\Service::getValidKey($reader[$this->level[$i]['key']], 'folder');
+                    }
                 }
             }
         }

@@ -133,12 +133,13 @@ class PriceService
                 $uniqueKeyArr[] = $priceData[2]; // Distribution Channel
                 $uniqueKeyArr[] = $priceData[3]; // End Date
                 $uniqueKeyArr[] = $priceData[4]; // Start Date
+                $uniqueKeyArr[] = $priceData[5]; // Condition Type
                 $uniqueKeyArr[] = $priceData[6]; // Rate
                 $uniqueKeyArr[] = $priceData[7]; // Rate Unit
-                $uniqueKeyArr[] = $priceData[8]; // Condition Type
-                $uniqueKeyArr[] = $priceData[9]; // Price Ref.
-                $uniqueKeyArr[] = $priceData[10]; // Per
-                $uniqueKeyArr[] = $priceData[11]; // Unit
+                // $uniqueKeyArr[] = $priceData[8]; // Price Ref.
+                // $uniqueKeyArr[] = $priceData[9]; // Per
+                // $uniqueKeyArr[] = $priceData[10]; // Unit
+
                 $uniqueKey = implode('_', $uniqueKeyArr);
                 $priceDataArray = [
                     $uniqueKey,
@@ -149,7 +150,6 @@ class PriceService
                     trim($priceData[6]),
                     $priceData[7],
                     $priceData[5],
-                    $priceData[10],
                 ];
                 $storeTablePriceArray[] = $priceDataArray;
                 $queryTablePriceDataStr = implode('|', $priceDataArray);
