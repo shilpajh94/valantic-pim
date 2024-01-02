@@ -10,14 +10,15 @@ use Symfony\Component\Console\Input\InputArgument;
 
 class PimDataImportCommand extends AbstractCommand
 {
-    private $BusinessUnits = ['1' => 'IFS_PTG_US', '2' => 'CS', '3' => 'PTG_EU', '4' => 'IFS_EMEA'];
+    private $businessUnits = ['1' => 'IFS_PTG_US', '2' => 'CS', '3' => 'PTG_EU', '4' => 'IFS_EMEA'];
     private $bu;
 
     protected function configure()
     {
         $this->setName('contitech:b2b:pim-data-import-command')
             ->setDescription('Salesforce id updation respective to externalid using CSV import')
-            ->addArgument('optionForBusinessUnit', InputArgument::REQUIRED, "Enter 'IFS_PTG_US' for 'IFS/PTG US', 'CS' for 'Conveyor Solution', 'PTG_EU' for 'PTG EU' and 'IFS_EMEA' for 'IFS EMEA'");
+            ->addArgument('optionForBusinessUnit', InputArgument::REQUIRED, "Enter 'IFS_PTG_US' for 'IFS/PTG US',
+             'CS' for 'Conveyor Solution', 'PTG_EU' for 'PTG EU' and 'IFS_EMEA' for 'IFS EMEA'");
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
@@ -25,7 +26,7 @@ class PimDataImportCommand extends AbstractCommand
         echo "Script execution started.".PHP_EOL.PHP_EOL;
 
         $optionForBusinessUnit = $input->getArgument('optionForBusinessUnit');
-        if(in_array($optionForBusinessUnit,$this->BusinessUnits))
+        if(in_array($optionForBusinessUnit,$this->businessUnits))
         {
             $this->bu = $optionForBusinessUnit;
             $this->importDataForB2BShop();
@@ -55,4 +56,3 @@ class PimDataImportCommand extends AbstractCommand
         echo "{$this->bu}: Products salesforce id data import stopped.".PHP_EOL.PHP_EOL;
     }
 }
-?>

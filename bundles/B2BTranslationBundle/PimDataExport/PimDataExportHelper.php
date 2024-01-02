@@ -6,9 +6,12 @@ use Pimcore\Db;
 use B2BTranslationBundle\Tool\Utils;
 use B2BTranslationBundle\Logger\LogLevel;
 use B2BTranslationBundle\B2BTranslationConstants;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class PimDataExportHelper
 {
+    private $container;
+ 
     private $b2bProductTable = [
         'IFS_PTG_US' => 'salesforce_integration_b2b_product_master',
         'CS' => '',
@@ -29,6 +32,11 @@ class PimDataExportHelper
         'PTG_EU' => array('categoryClassId'=>'39'),
         'IFS_EMEA' => array('categoryClassId'=>'IFSEUProductCategory'),
     ];
+
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
 
     public function uploadFile($customFileName)
     {
@@ -71,7 +79,8 @@ class PimDataExportHelper
     public function getB2BTranslationMapping($type, $bu)
     {
         $db = Db::get();
-        $sqlMapping="select PIMB2BMappingData from object_B2BTranslationMapping Where TranslationDataType ='{$type}' AND BusinessUnit='{$bu}' ORDER BY o_modificationDate DESC";
+        $sqlMapping="select PIMB2BMappingData from object_B2BTranslationMapping Where TranslationDataType ='{$type}'
+         AND BusinessUnit='{$bu}' ORDER BY o_modificationDate DESC";
         return $db->fetchOne($sqlMapping);
     }
 
@@ -84,7 +93,7 @@ class PimDataExportHelper
         if($table)
         {
             $sql = "SELECT o_id FROM $table";
-            $ids = $db->fetchCol($sql);
+            $ids = $db->fetchFirstColumn($sql);
         }
 
         return $ids;
@@ -98,7 +107,7 @@ class PimDataExportHelper
         if($table)
         {
             $sql = "SELECT o_id FROM $table";
-            $ids = $db->fetchCol($sql);
+            $ids = $db->fetchFirstColumn($sql);
         }
         
         return $ids;
@@ -125,12 +134,11 @@ class PimDataExportHelper
             $businessUnitFileName = B2BTranslationConstants::B2B_IFS_EU_FILE_NAME;
         }
 
-        $b2bTranslationList = [];
-        $common = \Pimcore::getContainer()->get('b2b_translation.common_helper');
-        $b2bTranslationConfig = \Pimcore::getContainer()->get('b2b_translation.config_provider_service')->getBusinessUnitTranslationConfig($businessUnitFileName);
-        $b2bTranslationList = $common->getParameter($b2bTranslationConfig, $className);
+        $common = $this->container->get('b2b_translation.common_helper');
+        $b2bTranslationConfig = $this->container->get('b2b_translation.config_provider_service')
+        ->getBusinessUnitTranslationConfig($businessUnitFileName);
 
-        return $b2bTranslationList;
+        return $common->getParameter($b2bTranslationConfig, $className);
     }
 
     public function getRecordsWithFilteredMasterFields($bu, $fields, $b2bProducts)
@@ -148,7 +156,7 @@ class PimDataExportHelper
         
         $ids = implode(',', $b2bProducts);
         $sql = "select {$columnsString} from object_{$categoryClassId} where o_id IN ($ids)";
-        return $db->fetchAll($sql);
+        return $db->fetchAllAssociative($sql);
     }
 
     public function getRecordsWithFilteredFieldsCategory($bu, $validLanguage, $columnsList, $b2bProducts)
@@ -161,14 +169,15 @@ class PimDataExportHelper
         $selectedFields = [];
         $selectedFields[] = 'ooo_id';
         $selectedFields[] = 'language';
-        foreach ($columnsList as $key => $columm) {
+        foreach ($columnsList as $columm) {
             $selectedFields[] = "$columm";
         }
 
         $columnsString = implode(',', $selectedFields);
         $ids = implode(',', $b2bProducts);
-        $sql = "select {$columnsString} from object_localized_data_{$categoryClassId} where ooo_id IN ($ids) AND language IN ($languages)";
-        return $db->fetchAll($sql);
+        $sql = "select {$columnsString} from object_localized_data_{$categoryClassId}
+         where ooo_id IN ($ids) AND language IN ($languages)";
+        return $db->fetchAllAssociative($sql);
     }
 
     public function logMessage(String $msg, LogLevel $logLevel)

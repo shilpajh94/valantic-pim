@@ -1,3 +1,7 @@
+rest_a_pi:
+    resource: "@IFSEURestApiBundle/Controller/"
+    type:     annotation
+    prefix:   /
 rest_api_homepage:
     path:     /rest_api/afseu
     defaults: { _controller: IFSEURestApiBundle:Default:index }

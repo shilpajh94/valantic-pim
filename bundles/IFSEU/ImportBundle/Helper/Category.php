@@ -31,7 +31,7 @@ class Category
 
     public function getLevels($code, $kn = "")
     {
-        $buCode = '50';
+        $buCode = '30';
         $bu     = $this->businessUnit[$buCode];
 
         if (!$this->isValideCodeLength($code)) {

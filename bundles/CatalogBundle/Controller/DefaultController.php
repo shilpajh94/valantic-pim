@@ -28,7 +28,6 @@ class DefaultController extends FrontendController
     private $catalogTemplatingHelper;
     private $containerInterface;
     private $translatorInterface;
-    private $imageQuality;
     private $imageWidth;
 
     public function __construct(ContainerInterface $container, TranslatorInterface $translator, CatalogTemplatingHelper $catalogTemplatingHelper)
@@ -2685,10 +2684,10 @@ class DefaultController extends FrontendController
 
         if($imgObj){
             // $s3src = $imgObj->getThumbnail('catalog_thumb');
-            $s3src = $this->catalogTemplatingHelper->getImageThumbnail($imgObj,1000);
+            // $s3src = $this->catalogTemplatingHelper->getImageThumbnail($imgObj,1000);
 
             // uncomment below once imageWidth resolved in view
-            // $s3src = $this->catalogTemplatingHelper->getImageThumbnail($imgObj,$this->view->imageWidth);
+            $s3src = $this->catalogTemplatingHelper->getImageThumbnail($imgObj,$this->imageWidth);
 //            $s3src = Utils::getAssetFullPathCompatibleToS3($imgObj);
         }
 

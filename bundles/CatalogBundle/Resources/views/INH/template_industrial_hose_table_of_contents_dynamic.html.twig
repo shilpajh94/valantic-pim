@@ -54,8 +54,9 @@
                         {% set TOC_SectionBlockBlock = pimcore_block('TOC_SectionBlock', {'default':dataCount}) %}
                         
                         {% for incr in TOC_SectionBlockBlock.iterator %}
-
-                            {% set sectionName = data[i][0] %}
+                            {% set i = incr - 1 %}
+                            {% if data[i][0] is defined %}
+                                {% set sectionName = data[i][0] %}
                         
                                 <h4>{{ pimcore_input("TOC_SectionName", {'placeholder' : 'Enter Section name here.'}).setDataFromResource(sectionName) | raw }}</h4>
                                 <article>
@@ -71,37 +72,39 @@
                                     
                                     {% set TOC_HeadingBlockBlock = pimcore_block('TOC_HeadingBlock', {'default':innerDataCount}) %}
 
-                                    {% for incr in TOC_SectionBlockBlock.iterator %}
-                                        {% set heading = innerData[j][0] %}
-                                    
-                                    
-                                        <h5>{{ pimcore_input("TOC_HeadingName", {'placeholder' : 'Enter Heading here.'}).setDataFromResource(heading) | raw}}</h5>
+                                    {% for incr2 in TOC_HeadingBlockBlock.iterator %}
+                                        {% set j = incr2 - 1 %}
+                                        {% if innerData[j][0] is defined %}
+                                            {% set heading = innerData[j][0] %}
                                         
-                                        {% set k = 0 %}
+                                        
+                                            <h5>{{ pimcore_input("TOC_HeadingName", {'placeholder' : 'Enter Heading here.'}).setDataFromResource(heading) | raw}}</h5>
+                                            
+                                            {% set k = 0 %}
 
-                                        {% if innerData[j][1] is defined %}
+                                            {% if innerData[j][1] is defined %}
 
-                                            {% set subInnerData = innerData[j][1] | split %}
-                                            {% set subInnerDataCount = subInnerData | length %}
+                                                {% set subInnerData = innerData[j][1] | split(',') %}
+                                                {% set subInnerDataCount = subInnerData | length %}
 
+                                            {% endif %}
+
+                                            {% set TOC_ContentBlockBlock = pimcore_block('TOC_ContentBlock', {'default':subInnerDataCount}) %}
+
+                                            {% for incr3 in TOC_ContentBlockBlock.iterator %}
+                                                {% set k = incr3 - 1 %}
+                                                {% if subInnerData[k] is defined %}
+                                                    {% set title = subInnerData[k] %}
+                                                    <div class="paging">
+                                                        <span class="pageTitle">{{ pimcore_input("TOC_Title", {'placeholder' : 'Enter title here.'}).setDataFromResource(title) | raw }}</span>
+                                                        <span class="pageNo">{{ pimcore_input("TOC_Page", {'placeholder' : 'Enter page number here.'}) }}</span>
+                                                    </div>
+                                                {% endif %}
+                                            {% endfor %}
                                         {% endif %}
-
-                                        {% set TOC_ContentBlockBlock = pimcore_block('TOC_ContentBlock', {'default':subInnerDataCount}) %}
-
-                                        {% for incr in TOC_ContentBlockBlock.iterator %}
-                                        
-                                            {% set title = subInnerData[k] %}
-                                            <div class="paging">
-                                                <span class="pageTitle">{{ pimcore_input("TOC_Title", {'placeholder' : 'Enter title here.'}).setDataFromResource(title) | raw }}</span>
-                                                <span class="pageNo">{{ pimcore_input("TOC_Page", {'placeholder' : 'Enter page number here.'}) }}</span>
-                                            </div>
-                                            {% set k = k + 1 %}
-                                        {% endfor %}
-
-                                        {% set j = j + 1 %}
                                     {% endfor %}
                                 </article>
-                            {% set i = i + 0 %}
+                            {% endif %}
                         {% endfor %}
 
                     {% endif %}
