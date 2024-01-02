@@ -40,6 +40,7 @@ class PTGEUVTLOptionProvider implements SelectOptionsProviderInterface
      */
     public function getOptions($context, $fieldDefinition)
     {
+        $result = [];
         $uvtlListPTGEU = new DataObject\PTGEUVTL\Listing();
         $uvtlListPTGEU->setCondition("o_path = ?", "/Contitech_PTGEU/Master List/VTL/" );
         $uvtlListPTGEU = $uvtlListPTGEU->load();

@@ -201,10 +201,10 @@ class CategoryModel
 
             /* Set Application Logger Message */
             if ($success) {
-                \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("Category Imported successfully. <a href='" . $movedAssetObj->getFileSystemPath() . "'>Download Log</a>");
+                \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("Category Imported successfully. <a href='" . $movedAssetObj->getPath() . "'>Download Log</a>");
             } else {
                 $fileObject = new FileObject($movedAssetObj->getData());
-                \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error("Category Import command failed to import $failedCnt out of $totalRow. <a href='" . $movedAssetObj->getFileSystemPath() . "'>Download Log</a>");
+                \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error("Category Import command failed to import $failedCnt out of $totalRow. <a href='" . $movedAssetObj->getPath() . "'>Download Log</a>");
             }
         } catch (\Throwable $th) {
             throw $th;
