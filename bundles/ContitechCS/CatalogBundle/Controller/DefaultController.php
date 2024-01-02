@@ -247,8 +247,10 @@ class DefaultController extends AbstractController
      */
     public function templateProductPageAction(Request $request)
     {   
-        try
-        {       
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());   
+        // try
+        // {  
+              
             $regionProperty     = $this->document->getProperty('region');
 
             if(!$regionProperty)
@@ -258,7 +260,7 @@ class DefaultController extends AbstractController
             $configProviderService      = new ConfigProviderService();
             $footer_logo_src            = $configProviderService->getDefaultImage('CS_footer_logo');
     
-            $catalogTableObject = $this->getDocumentTag('relation', 'cbs_template_product_page')->getElement();
+            $catalogTableObject = $this->document->getEditable('cbs_template_product_page')->getElement();
             $productData = [];
 
             if($catalogTableObject)
@@ -441,11 +443,11 @@ class DefaultController extends AbstractController
                                     foreach ($tables as $tablekey => $MetricImperialFields)
                                     {
                                         $ColumnKeys = $MetricImperialFields['ColumnKeys'];
-                                        $CS_Trough_Angle_Label = $MetricImperialFields['CS_Trough_Angle_Label'];
-                                        $CS_Material_Weight_Label = $MetricImperialFields['CS_Material_Weight_Label'];
-                                        $CS_Idlers_Label = $MetricImperialFields['CS_Idlers_Label'];
-                                        $CS_Idler_Angle_Label = $MetricImperialFields['CS_Idler_Angle_Label'];
-                                        $CS_Type_Of_Idler_Label = $MetricImperialFields['CS_Type_Of_Idler_Label'];
+                                        $CS_Trough_Angle_Label = isset($MetricImperialFields['CS_Trough_Angle_Label']) ? $MetricImperialFields['CS_Trough_Angle_Label']:null;
+                                        $CS_Material_Weight_Label = isset($MetricImperialFields['CS_Material_Weight_Label']) ? $MetricImperialFields['CS_Material_Weight_Label']:null;
+                                        $CS_Idlers_Label = isset($MetricImperialFields['CS_Idlers_Label']) ? $MetricImperialFields['CS_Idlers_Label']:null;
+                                        $CS_Idler_Angle_Label = isset($MetricImperialFields['CS_Idler_Angle_Label']) ? $MetricImperialFields['CS_Idler_Angle_Label']:null;
+                                        $CS_Type_Of_Idler_Label = isset($MetricImperialFields['CS_Type_Of_Idler_Label']) ? $MetricImperialFields['CS_Type_Of_Idler_Label']:null;
             
             
                                         unset($MetricImperialFields['ColumnKeys']);
@@ -459,12 +461,19 @@ class DefaultController extends AbstractController
                                         {
                                             foreach ($MetricImperialFields as $MIKey => $MIValues)
                                             {
-                                                unset($KeysGroupLogic);
-                                                unset($RemoveKeys);
-                                                unset($AdditionalHeaderKey);
-                                                unset($AdditionalGroupKey);
-                                                unset($ProductNamePrefix);
-                                                unset($productBrand);
+                                                $KeysGroupLogic = null;
+                                                $RemoveKeys = null;
+                                                $AdditionalHeaderKey = null;
+                                                $AdditionalGroupKey = null;
+                                                $ProductNamePrefix = null;
+                                                
+
+                                                // unset($KeysGroupLogic);
+                                                // unset($RemoveKeys);
+                                                // unset($AdditionalHeaderKey);
+                                                // unset($AdditionalGroupKey);
+                                                // unset($ProductNamePrefix);
+                                                // unset($productBrand);
             
                                                 if(isset($MIValues['KeysGroupLogic']))
                                                 {
@@ -523,7 +532,12 @@ class DefaultController extends AbstractController
                                                     if(isset($value['groupingTitle']))
                                                     {
                                                         $groupingTitleLabel = $this->addPrefix($value['groupingTitle']);
-                                                        $groupingTitle[$groupingTitleLabel] += 1;
+                                                        
+                                                        if(isset($groupingTitle[$groupingTitleLabel]))
+                                                        {
+                                                            $groupingTitle[$groupingTitleLabel] += 1;
+                                                        }
+                                                        
                                                     }
                                                 }
             
@@ -541,6 +555,7 @@ class DefaultController extends AbstractController
                                                 {
                                                     $percentageSymbol = '';
                                                     $showDecimalPlaces = '';
+                                                    $productBrand = null;
                                                     $bricks = $childValue->getProductAttributes();
     
                                                     if($ProductNamePrefix)
@@ -551,9 +566,9 @@ class DefaultController extends AbstractController
                                                     $data = [];
                                                     
                                                     foreach ($MIValues as $key => $value) {
-                                                        $brickName = $value['objectType'];
-                                                        $percentageSymbol = $value['percentageSymbol'];
-                                                        $showDecimalPlaces = $value['showDecimalPlaces'];
+                                                        $brickName = isset($value['objectType'])? $value['objectType']:null;
+                                                        $percentageSymbol = isset($value['percentageSymbol'])? $value['percentageSymbol']:null;
+                                                        $showDecimalPlaces = isset($value['showDecimalPlaces'])? $value['showDecimalPlaces']:null;
                                                         $getBrick = 'get' . $brickName;
                                                         $getField = 'get' . $key;
             
@@ -784,14 +799,15 @@ class DefaultController extends AbstractController
                         $productData['productTables'] = $productTables;
                     }
                 }
-                $this->view['data'] = $productData;
-                $this->view['footer_logo_src']  = $footer_logo_src;
+                $parameterBag['data'] = $productData;
+                $parameterBag['footer_logo_src']  = $footer_logo_src;
             }
-        }
-        catch(Exception $e)
-        {   
-            echo "<h3>".$e->getMessage()."</h3>";
-        }
+        // }
+        // catch(Exception $e)
+        // {   
+        //     echo "<h3>".$e->getMessage()."</h3>";
+        // }
+        return $this->render("@ContitechCSCatalog/Default/template_product_page.html.twig", $parameterBag);
     }
 
         /**
@@ -2147,6 +2163,8 @@ class DefaultController extends AbstractController
      */
     public function templateProductSectionPageAction(Request $request)
     {
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        return $this->render("@ContitechCSCatalog/Default/template_product_section_page.html.twig", $parameterBag);
     }
 
     /**
@@ -2442,7 +2460,7 @@ class DefaultController extends AbstractController
     {
         try
         {
-            
+            $filterArrayData = [];
             $productObject->setGetInheritedValues(true);
             $productChildrenData = [];
             $objectTypeFolderchildren = $productObject->getChildren([DataObject::OBJECT_TYPE_FOLDER]);
@@ -2653,15 +2671,26 @@ class DefaultController extends AbstractController
 
     public function containerAction(Request $request)
     {   
-        try
-        {
-            $allChildren = $this->document->getAllChildren();
-            $this->view->allChildren = $allChildren;
+        $parameterBag = [
+            'document' => $this->document
+        ];
+
+        foreach ($request->attributes as $key => $value) {
+            $parameterBag[$key] = $value;
         }
-        catch(Exception $e)
-        {  
-            echo "<h3>".$e->getMessage()."</h3>";
+
+        $allChildren = [];
+
+        //prepare children for include
+        foreach ($this->document->getAllChildren() as $child) {
+            if ($child instanceof \Pimcore\Model\Document\Hardlink) {
+                $child = \Pimcore\Model\Document\Hardlink\Service::wrap($child);
+            }
+            $allChildren[] = $child;
         }
+
+        $parameterBag['allChildren'] = $allChildren;
+        return $this->render('@Catalog/Default/container.html.twig',$parameterBag);
     }
 
     /**
@@ -2823,8 +2852,9 @@ class DefaultController extends AbstractController
     */
     public function templateContiInspectSystemsAction(Request $request)
     {   
-        try
-        {
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        // try
+        // {
             $regionProperty = $this->document->getProperty('region');
             
             if(!$regionProperty)
@@ -2835,7 +2865,7 @@ class DefaultController extends AbstractController
             
             $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
     
-            $catalogTableObject = $this->getDocumentTag('relation', 'cbs_conti_inspect_systems')->getElement();
+            $catalogTableObject = $this->document->getEditable('cbs_conti_inspect_systems')->getElement();
             $productData = [];
             if($catalogTableObject)
             {
@@ -2886,13 +2916,16 @@ class DefaultController extends AbstractController
                 }
             }
     
-            $this->view['data'] = $productData;
-            $this->view['footer_logo_src'] = $footer_logo_src;
-        }
-        catch(Exception $e)
-        {  
-            echo "<h3>".$e->getMessage()."</h3>";
-        }
+            $parameterBag['data'] = $productData;
+            $parameterBag['footer_logo_src'] = $footer_logo_src;
+        // }
+        // catch(Exception $e)
+        // {  
+        //     echo "<h3>".$e->getMessage()."</h3>";
+        // }
+
+        $parameterBag['footer_logo_src'] = $footer_logo_src;
+        return $this->render("@ContitechCSCatalog/Default/template_conti_inspect_systems.html.twig", $parameterBag);
     }
     
     /**
@@ -2957,8 +2990,9 @@ class DefaultController extends AbstractController
      */
     public function templateContiPipeBeltAction(Request $request)
     {   
-        try
-        {
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        // try
+        // {
             $regionProperty = $this->document->getProperty('region');
             
             if(!$regionProperty)
@@ -2969,7 +3003,7 @@ class DefaultController extends AbstractController
             
             $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
             
-            $catalogTableObject = $this->getDocumentTag('relation', 'cbs_conti_pipe_belt')->getElement();
+            $catalogTableObject = $this->document->getEditable('cbs_conti_pipe_belt')->getElement();
             $productData = [];
             
             if($catalogTableObject)
@@ -3036,13 +3070,16 @@ class DefaultController extends AbstractController
                 }
             }
             
-            $this->view['data'] = $productData;
-            $this->view['footer_logo_src'] = $footer_logo_src;
-        }
-        catch(Exception $e)
-        {  
-            echo "<h3>".$e->getMessage()."</h3>";
-        }
+            $parameterBag['data'] = $productData;
+            $parameterBag['footer_logo_src'] = $footer_logo_src;
+        // }
+        // catch(Exception $e)
+        // {  
+        //     echo "<h3>".$e->getMessage()."</h3>";
+        // }
+
+        $parameterBag['footer_logo_src'] = $footer_logo_src;
+        return $this->render("@ContitechCSCatalog/Default/template_conti_pipe_belt.html.twig", $parameterBag);
     }
     
     /**
@@ -3063,6 +3100,8 @@ class DefaultController extends AbstractController
             $productDataImportConfig = $this->configProviderService->getCatalogProductTablesConfig();
     
             $attributes = [];
+            $data = [];
+            
     
             if(isset($productDataImportConfig['ContiPipe and MegaPipe Table Attributes']))
             {
@@ -3393,6 +3432,8 @@ class DefaultController extends AbstractController
     
     public function templateConveyorBeltGroupAction(Request $request)
     {
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        return $this->render("@ContitechCSCatalog/Default/template_conveyor_belt_group.html.twig", $parameterBag);
     }
 
     public function templateContiCleanAction(Request $request)

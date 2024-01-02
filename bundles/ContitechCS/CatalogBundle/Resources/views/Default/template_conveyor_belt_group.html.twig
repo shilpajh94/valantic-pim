@@ -1,5 +1,5 @@
-{% if parentContainer is defined %}
-	{% extends "@ContitechCSCatalogBundle/Layouts/layout.html.twig" %}
+{% if parentContainer is not defined %}
+	{% extends "@ContitechCSCatalog/Layouts/layout.html.twig" %}
 {% endif %}
 
 {% block _content %}
@@ -12,7 +12,7 @@
 						<h1 class="orange">
 							{{ pimcore_input("Conveyor_Belt_Group_header_title", {"placeholder" : "Enter Heading"}) }}
 						</h1>
-						{{ pimcore_wysiwyg("CBG_About",{"placeholder" =>"Enter Description" }) }}
+						{{ pimcore_wysiwyg("CBG_About",{"placeholder":"Enter Description" }) }}
 						{% if editmode %}
 							<div class="img-placeholder">
 								{{ pimcore_image("CBG_logo_image") }}
@@ -28,7 +28,7 @@
 					</div>
 					<div class="last-sec col-3 ml-5">
 						<h1 class="orange">{{ pimcore_input("back_cover_second_title",{"placeholder" : "Enter Heading"}) }}</h1>
-						{{ pimcore_wysiwyg("CBG_Description", {"placeholder" =>"Enter Description" }) }}
+						{{ pimcore_wysiwyg("CBG_Description", {"placeholder":"Enter Description" }) }}
 					</div>
 				</div>
 				<div class="bottom-sect">

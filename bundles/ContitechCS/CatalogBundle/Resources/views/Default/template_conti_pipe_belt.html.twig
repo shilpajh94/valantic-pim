@@ -1,16 +1,16 @@
-{% if parentContainer is defined %}
-	{% extends "@ContitechCSCatalogBundle/Layouts/layout.html.twig" %}
+{% if parentContainer is not defined %}
+	{% extends "@ContitechCSCatalog/Layouts/layout.html.twig" %}
 {% endif %}
 
 {% block _content %}
 
 	{% if editmode %}
 		{{pimcore_relation("cbs_conti_pipe_belt", {
-                "types" : {"object"},
+                "types" : ["object"],
                 "subtypes" : {
-                "object" : {"object"}
+                "object" : ["object"]
                 },
-                "classes" : {"CSCatalogTables"},
+                "classes" : ["CSCatalogTables"],
         }) }}
 	{% endif %}
 
@@ -79,13 +79,13 @@
 							<div class="attr-font">Attribute Name = Short Text</div>
 						{% endif %}
 						{% if editmode %}
-							{% if pimcore_wysiwyg("CPBParent_ShortText")->isEmpty() %}
+							{% if pimcore_wysiwyg("CPBParent_ShortText").isEmpty() %}
 								{{ pimcore_wysiwyg("CPBParent_ShortText", {'placeholder' : 'Enter Short Text'}).setDataFromResource(parentProductData['ShortText']) | raw }}
 							{% else %}
-								{{ pimcore_wysiwyg("CPBParent_ShortText", ['placeholder' => 'Enter Short Text']) }}
+								{{ pimcore_wysiwyg("CPBParent_ShortText", {'placeholder': 'Enter Short Text'}) }}
 							{% endif %}
 						{% else %}
-							{{ pimcore_wysiwyg("CPBParent_ShortText", ['placeholder' => 'Enter Short Text']) }}
+							{{ pimcore_wysiwyg("CPBParent_ShortText", {'placeholder': 'Enter Short Text'}) }}
 						{% endif %}
 					</div>
 
@@ -158,7 +158,7 @@
                     <span class="orange">
                         {% if editmode %}
                             {% if pimcore_input("CPBChild_ProductNameBeltInfo").isEmpty() %}
-                                {{ pimcore_input("CPBChild_ProductNameBeltInfo").setDataFromResource(childProductData['Name']) }}
+                                {{ pimcore_input("CPBChild_ProductNameBeltInfo").setDataFromResource(childProductData['Name']) | raw}}
                             {% else %}
                                 {{ pimcore_input("CPBChild_ProductNameBeltInfo") }}
                             {% endif %}
@@ -169,7 +169,7 @@
                     <span class="light-black">
                         {% if editmode %}
                             {% if pimcore_input("CPBChild_BeltInfoLabel").isEmpty() %}
-                                {{ pimcore_input("CPBChild_BeltInfoLabel"), {'placeholder' : 'Belt Information'}) }}
+                                {{ pimcore_input("CPBChild_BeltInfoLabel", {'placeholder' : 'Belt Information'}) }}
                             {% else %}
                                 {{ pimcore_input("CPBChild_BeltInfoLabel") }}
                             {% endif %}
@@ -199,7 +199,7 @@
                         <div class="attr-font">Child Attribute Name = Short Text</div>
                     {% endif %}
                     {% if editmode %}
-                        {% if pimcore_wysiwyg("CPBChild_ShortText").isEmpty()) %}
+                        {% if pimcore_wysiwyg("CPBChild_ShortText").isEmpty() %}
                             {{ pimcore_wysiwyg("CPBChild_ShortText").setDataFromResource(childProductData['ShortText']) | raw }}
                         {% else %}
                             {{ pimcore_wysiwyg("CPBChild_ShortText") }}
@@ -227,7 +227,7 @@
 
                 {% if editmode %}
                     {% if pimcore_image("CPBChild_ProductImage").isEmpty() %}
-                        {{ pimcore_image("CPBChild_ProductImage", {'height' : 195}).setImage(childProductData['ProductImage']) }}
+                        {{ pimcore_image("CPBChild_ProductImage", {'height' : 195}).setImage(childProductData['ProductImage']) | raw}}
                     {% else %}
                         {{ pimcore_image("CPBChild_ProductImage", {'height' : 195}) }}
                     {% endif %}

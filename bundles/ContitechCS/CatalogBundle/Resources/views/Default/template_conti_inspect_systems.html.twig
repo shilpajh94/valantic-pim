@@ -1,16 +1,16 @@
-{% if parentContainer is defined %}
-	{% extends "@ContitechCSCatalogBundle/Layouts/layout.html.twig" %}
+{% if parentContainer is not defined %}
+	{% extends "@ContitechCSCatalog/Layouts/layout.html.twig" %}
 {% endif %}
 
 {% block _content %}
 
 	{% if editmode %}
 		{{ pimcore_relation("cbs_conti_inspect_systems", {
-        "types" : {"object"},
+        "types" : ["object"],
         "subtypes" : {
-        "object" : {"object"}
+        "object" : ["object"]
         },
-        "classes" : {"CSCatalogTables"},
+        "classes" : ["CSCatalogTables"],
     }) }}
 	{% endif %}
 
@@ -32,7 +32,7 @@
 					<div class="page95" id="contiInspectSystemBanner">
 						{% if editmode %}
 							{% if pimcore_image("CIS_productImage").isEmpty() %}
-								{{ pimcore_image("CIS_productImage", {"height" : 340}).setImage(data['ProductImage']) }}
+								{{ pimcore_image("CIS_productImage", {"height" : 340}).setImage(data['ProductImage']) | raw}}
 							{% else %}
 								{{ pimcore_image("CIS_productImage", {"height" : 340}) }}
 							{% endif %}
@@ -138,7 +138,7 @@
                                         {% endif %}
                                         {% if editmode %}
                                             {% if pimcore_input("CIS_Benefits").isEmpty() %}
-                                                {{ pimcore_input("CIS_Benefits", {'placeholder' : 'Enter Benefits'}).setDataFromResource(data['Benefits'][0]) }}
+                                                {{ pimcore_input("CIS_Benefits", {'placeholder' : 'Enter Benefits'}).setDataFromResource(data['Benefits'][0]) | raw}}
                                             {% else %}
                                                 {{ pimcore_input("CIS_Benefits", {'placeholder' : 'Enter Benefits'}) }}
                                             {% endif %}
