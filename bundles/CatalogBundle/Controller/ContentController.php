@@ -26,10 +26,15 @@ class ContentController extends FrontendController {
         $documentId = $this->document->getId();
         $parameterBag = $this->getRequestedParameter($request, $documentId);
 
-        $requestUrl = $_SERVER['REQUEST_URI'];
-        $previewUrl = "pimcore_preview=true";
-        $showPDFInput = (strpos($requestUrl, $previewUrl) !== false) ? true : false;
+        $showPDFInput = false;
 
+        if(isset($_SERVER['REQUEST_URI']))
+        {
+            $requestUrl = $_SERVER['REQUEST_URI'];
+            $previewUrl = "pimcore_preview=true";
+            $showPDFInput = (strpos($requestUrl, $previewUrl) !== false) ? true : false;
+        }
+        
         $parameterBag['showPDFInput'] = $showPDFInput;
         return $this->render("@Catalog/Content/pdf.html.twig", $parameterBag);
     }
@@ -38,9 +43,14 @@ class ContentController extends FrontendController {
         $documentId = $this->document->getId();
         $parameterBag = $this->getRequestedParameter($request, $documentId);
 
-        $requestUrl = $_SERVER['REQUEST_URI'];
-        $previewUrl = "pimcore_preview=true";
-        $showPDFInput = (strpos($requestUrl, $previewUrl) !== false) ? true : false;
+        $showPDFInput = false;
+        
+        if(isset($_SERVER['REQUEST_URI']))
+        {
+            $requestUrl = $_SERVER['REQUEST_URI'];
+            $previewUrl = "pimcore_preview=true";
+            $showPDFInput = (strpos($requestUrl, $previewUrl) !== false) ? true : false;
+        }
 
         $parameterBag['showPDFInput'] = $showPDFInput;
         return $this->render("@Catalog/Content/pdfWithFooter.html.twig", $parameterBag);

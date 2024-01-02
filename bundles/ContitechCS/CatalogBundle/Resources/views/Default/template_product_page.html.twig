@@ -416,7 +416,7 @@
                             </div>
                         {% endif %}
 
-                        {% if data['FeaturesAndBenefitsWithoutImages'] %}
+                        {% if data['FeaturesAndBenefitsWithoutImages'] is defined %}
                             {% if not pimcore_input("PPF_ProductName").isEmpty() or not pimcore_input("PPF_FeatureBenefitsLabel").isEmpty() or not pimcore_textarea("PPFB_Comment").isEmpty() or data['FeaturesAndBenefitsWithoutImages'] is defined %}
                                 <div class="feature-benefit-list">
                                     {% if not pimcore_input("PPF_ProductName").isEmpty() or not pimcore_input("PPF_FeatureBenefitsLabel").isEmpty() %}
@@ -495,15 +495,15 @@
                                     <thead>
                                         <tr>
                                             {% if data['Markets'] %}
-                                                <th width="30%" class="orange">{{ pimcore_translate('CS_Markets_Label') }}</th>
+                                                <th width="30%" class="orange">{{ 'CS_Markets_Label'|trans }}</th>
                                             {% endif %}
 
                                             {% if data['Applications'] %}
-                                                <th width="30%" class="orange">{{ pimcore_translate('CS_Applications_Label') }}</th>
+                                                <th width="30%" class="orange">{{ 'CS_Applications_Label'|trans }}</th>
                                             {% endif %}
 
                                             {% if data['CoverCompounds'] %}
-                                                <th width="30%" class="orange">{{ pimcore_translate('CS_Cover_Compounds_Label') }}</th>
+                                                <th width="30%" class="orange">{{ 'CS_Cover_Compounds_Label'|trans }}</th>
                                             {% endif %}
                                         </tr>
                                     </thead>
@@ -852,11 +852,11 @@
                                                         {% for key,td in theadSecondRow %}
                                                             {% set style = '' %}
                                                             {% if firstKey == key %}
-                                                                {% set style = 'align="left" width="17.2%"' %}
+                                                                {% set style = 'align=left width=17.2%' %}
                                                                 {# {% else %}
                                                                 {% set style = 'width="9.2%"' %} #}
                                                             {% endif %}
-                                                            <th {{ style }};>{{ td }}</th>
+                                                            <th {{ style }}>{{ td }}</th>
                                                         {% endfor %}
                                                     </tr>
                                                 </thead>
@@ -868,7 +868,7 @@
                                                             {% for key,value in trows %}
                                                                 {% set style = '' %}
                                                                 {% if firstKey == key %}
-                                                                    {% set style = 'align="left"' %}
+                                                                    {% set style = 'align=left' %}
                                                                     {% set value = value|trans %}
                                                                 {% endif %}
                                                                 <td {{ style }}>
@@ -928,26 +928,26 @@
                                                     <tr class="white-bg">
                                                         {% set theadSecondRowGroup = value['theadSecondRowGroup'] %}
                                                         {% set firstKey = theadSecondRowGroup | keys | first %}
-                                                        {% for key,td in theadSecondRowGroup %}
+                                                        {% for key,colspanData in theadSecondRowGroup %}
                                                             {% set style = '' %}
                                                             {% if firstKey == key %}
-                                                                {% set style = 'align="left"' %}
+                                                                {% set style = 'align=left' %}
                                                             {% endif %}
-                                                            <th colspan="{{ colspan }}" {{ style }}>
+                                                            <th colspan="{{ colspanData }}" {{ style }}>
                                                                 {{(key)|trans}}
                                                                 </th>
                                                         {% endfor %}
                                                     </tr>
 
                                                     <tr class="white-bg">
-                                                        {% set theadSecondRowGroup = value['theadSecondRowGroup'] %}
-                                                        {% set firstKey = theadSecondRowGroup | keys | first %}
-                                                        {% for key,td in theadSecondRowGroup %}
+                                                        {% set theadSecondRow = value['theadSecondRow'] %}
+                                                        {% set firstKey = theadSecondRow | keys | first %}
+                                                        {% for key,td in theadSecondRow %}
                                                             {% set style = '' %}
                                                             {% if firstKey == key %}
-                                                                {% set style = 'align="left" width="13.6%"' %}
+                                                                {% set style = 'align=left width=13.6%' %}
                                                             {% else %}
-                                                                {% set style = 'width="7.2%"' %}
+                                                                {% set style = 'width=7.2%' %}
                                                             {% endif %}
                                                             <th {{ style }}>
                                                                 {{(td)|trans}}
@@ -963,7 +963,7 @@
                                                             {% for key,value in trows %}
                                                                 {% set style = '' %}
                                                                 {% if firstKey == key %}
-                                                                    {# {% set style = 'align="left"' %}
+                                                                    {# {% set style = 'align=left' %}
                                                                     {% set value = value|trans %} #}
                                                                     <th align="left" class="grey-bg border-bottom-0" scope="row">{{ value }}</th>
                                                                 {% else %}
@@ -1015,7 +1015,7 @@
 
                                     <div class="table-data">
                                         {{ pimcore_input("PP_Troughability_Minimum_Belt_Width_Head_Note_" ~ chunkKey, {"placeholder" : "Table based on ISO 703 testing procedure."}) }}
-                                        {% for key,value in LoadSupportMaximumBeltWidthData %}
+                                        {% for key,value in TroughabilityMinimumBeltWidth %}
                                             <table class='cbs' width="100%">
                                                 <thead>
                                                     <tr class="orange-bg">
@@ -1026,22 +1026,21 @@
                                                         {% set theadSecondRow = value['theadSecondRow'] %}
                                                         {# {% set firstKey = theadSecondRow | keys | first %} #}
                                                         {% for key,td in theadSecondRow %}
-                                                            {% set style = '' %}
-                                                            {% if key < 1 %}
-                                                                {# {% set style = 'align="left"' %} #}
-                                                                {# {% continue %} #}
-                                                            {% endif %}
-                                                            {% if key == 1 %}
-                                                                {% set style = 'colspan="2" align="left"' %}
-                                                            {% else %}
-                                                                {#  #}
-                                                            {% endif %}
-                                                            <th {{ style }};>{{ td }}</th>
+															{% if not (key < 1) %}
+																{% set style = '' %}
+																{% if key == 1 %}
+																	{% set style = 'colspan=2 align=left' %}
+																	<th {{ style }}>{{ td }}</th>
+																{% else %}
+																	<th {{ style }}>{{ td }}</th>
+																{% endif %}
+															{% endif %}
                                                         {% endfor %}
                                                     </tr>
 
                                                 </thead>
                                                 <tbody>
+													
                                                     {% set tbody = value['tbody'] %}
                                                     {% set onlyOnce = false %}
                                                     {% set onlyOnceStyle = false %}
@@ -1049,25 +1048,25 @@
                                                         <tr align="center">
 
                                                             {% set onlyOnceData = trows[0] %}
-                                                            {% unsetTwig(trows[0]) %}
+															{% set trowsFilter = trows | filter((v, k) => k > 0) %}
+                                                            
                                                             {% if not onlyOnce %}
                                                                 <th rowspan="3" class="border-0 w-20">{{ (onlyOnceData)|trans }}</th>
                                                                 {% set onlyOnce = true %}
                                                             {% endif %}
-                                                            {% set firstKey = trows | keys | first %}
-                                                            {% for key,value in trows %}
+                                                            {% set firstKey = trowsFilter | keys | first %}
+                                                            {% for key,value in trowsFilter %}
                                                                 {% set style = '' %}
                                                                 {% if firstKey == key %}
-                                                                    {% set style = 'align="left"' %}
+                                                                    {% set style = 'align=left' %}
                                                                     {% set value = value|trans %}
                                                                     {# <th align="left" class="grey-bg border-bottom-0" scope="row">{{ value }}</th> #}
                                                                 {# {% else %} #}
                                                                     {# <td>{{ value }}</td> #}
                                                                 {% endif %}
                                                                 {% if not onlyOnceStyle %}
-                                                                    {% set style = style ~' class="border-right w-20"'%}
                                                                     {% set onlyOnceStyle = true %}
-                                                                    <td {{ style }}>{{ value }}</td>
+                                                                    <td {{ style }} class="border-right w-20">{{ value }}</td>
                                                                 {% endif %}
                                                             {% endfor %}
                                                         </tr>
@@ -1130,9 +1129,9 @@
                                                         {% for key,td in theadSecondRow %}
                                                             {% set style = '' %}
                                                             {% if firstKey == key %}
-                                                                {% set style = 'align="left" width="17.2%"' %}
+                                                                {% set style = 'align=left width=17.2%' %}
                                                             {% endif %}
-                                                            <th {{ style }};>{{ td }}</th>
+                                                            <th {{ style }}>{{ td }}</th>
                                                         {% endfor %}
                                                     </tr>
                                                 </thead>
@@ -1146,7 +1145,7 @@
                                                             {% for key,value in trows %}
                                                                 {% set style = '' %}
                                                                 {% if firstKey == key %}
-                                                                    {% set style = 'align="left"' %}
+                                                                    {% set style = 'align=left' %}
                                                                     {% set value = value|trans %}
                                                                 {% endif %}
                                                                 <td {{ style }}>{{ value }}</td>
@@ -1210,9 +1209,9 @@
                                                         {% for key,td in theadSecondRow %}
                                                             {% set style = '' %}
                                                             {% if firstKey == key %}
-                                                                {% set style = 'align="left" width="17.2%"' %}
+                                                                {% set style = 'align=left width=17.2%' %}
                                                             {% endif %}
-                                                            <th {{ style }};>{{ td }}</th>
+                                                            <th {{ style }}>{{ td }}</th>
                                                         {% endfor %}
                                                     </tr>
                                                 </thead>
@@ -1225,10 +1224,10 @@
                                                             {% for key,value in trows %}
                                                                 {% set style = '' %}
                                                                 {% if firstKey == key %}
-                                                                    {% set style = 'align="left"' %}
+                                                                    {% set style = 'align=left' %}
                                                                     {% set value = value|trans %}
                                                                 {% endif %}
-                                                                <td {{ style }};>{{ value }}</td>
+                                                                <td {{ style }}>{{ value }}</td>
                                                             {% endfor %}
                                                         </tr>
                                                     {% endfor %}
@@ -1289,9 +1288,9 @@
                                                         {% for key,td in theadSecondRow %}
                                                             {% set style = '' %}
                                                             {% if firstKey == key %}
-                                                                {% set style = 'align="left" width="17.2%"' %}
+                                                                {% set style = 'align=left width=17.2%' %}
                                                             {% endif %}
-                                                            <th {{ style }};>{{ td }}</th>
+                                                            <th {{ style }}>{{ td }}</th>
                                                         {% endfor %}
                                                     </tr>
                                                 </thead>
@@ -1304,10 +1303,10 @@
                                                             {% for key,value in trows %}
                                                                 {% set style = '' %}
                                                                 {% if firstKey == key %}
-                                                                    {% set style = 'align="left"' %}
+                                                                    {% set style = 'align=left' %}
                                                                     {% set value = value|trans %}
                                                                 {% endif %}
-                                                                <td {{ style }};>{{ value }}</td>
+                                                                <td {{ style }}>{{ value }}</td>
                                                             {% endfor %}
                                                         </tr>
                                                     {% endfor %}
@@ -1368,9 +1367,9 @@
                                                         {% for key,td in theadSecondRow %}
                                                             {% set style = '' %}
                                                             {% if firstKey == key %}
-                                                                {% set style = 'align="left" width="17.2%"' %}
+                                                                {% set style = 'align=left width=17.2%' %}
                                                             {% endif %}
-                                                            <th {{ style }};>{{ td }}</th>
+                                                            <th {{ style }}>{{ td }}</th>
                                                         {% endfor %}
                                                     </tr>
                                                 </thead>
@@ -1383,10 +1382,10 @@
                                                             {% for key,value in trows %}
                                                                 {% set style = '' %}
                                                                 {% if firstKey == key %}
-                                                                    {% set style = 'align="left"' %}
+                                                                    {% set style = 'align=left' %}
                                                                     {% set value = value|trans %}
                                                                 {% endif %}
-                                                                <td {{ style }};>{{ value }}</td>
+                                                                <td {{ style }}>{{ value }}</td>
                                                             {% endfor %}
                                                         </tr>
                                                     {% endfor %}

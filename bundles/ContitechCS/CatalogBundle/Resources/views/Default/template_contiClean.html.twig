@@ -14,7 +14,7 @@
     }) }}
 	{% endif %}
 
-	{% if data is defined %}
+	{% if data is defined and data %}
 
 		<div class="wrapper conticleanpage">
 			<header id="header">
@@ -22,7 +22,7 @@
 					<div class="header-txt">
 						<span class="first-title">{{ ('CS_header_title')|trans }}</span>
 						<span class="second-title">
-							{{ pimcoreinput("ContiA_title", {"placeholder" : "Enter Your Title"}) }}
+							{{ pimcore_input("ContiA_title", {"placeholder" : "Enter Your Title"}) }}
 						</span>
 					</div>
 					<div class="print-pg-no"></div>
