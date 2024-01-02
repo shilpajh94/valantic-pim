@@ -10,8 +10,9 @@ use Pimcore\Model\DataObject;
 use ContitechCS\ProductBundle\Services\ConfigProviderService;
 use Pimcore\Db;
 use \Exception;
+use Pimcore\Controller\FrontendController;
 
-class DefaultController extends AbstractController
+class DefaultController extends FrontendController
 {
     private $configProviderService;
     private $catalogTemplatingHelper;
@@ -2779,23 +2780,25 @@ class DefaultController extends AbstractController
     */
     public function templateContiProtectSystemsAction(Request $request)
     {   
-        try
-        {
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        // try
+        // {
             $regionProperty = $this->document->getProperty('region');
 
             if(!$regionProperty)
                 Throw new Exception('Unable to find region');
 
             $regionId = $regionProperty->getId();
-            $catalogTableObject = $this->getDocumentTag('relation', 'cbs_conti_protect_systems')->getElement();
+            $catalogTableObjectEditable = $this->document->getEditable('cbs_conti_protect_systems');
     
             $this->configProviderService = new ConfigProviderService();
     
             $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
             
             $productData = [];
-            if($catalogTableObject)
-            {
+            if($catalogTableObjectEditable)
+            {   
+                $catalogTableObject = $catalogTableObjectEditable->getElement();
                 $selectedProduct = $catalogTableObject->getProducts();
                 $singleProduct = $selectedProduct[0];
                 
@@ -2837,17 +2840,19 @@ class DefaultController extends AbstractController
         
                     $productData['childrenData'] = $childrenData;
         
-                    $this->view['monitoring_system'] = $this->getContiProtectFeatures($productObject);
+                    $parameterBag['monitoring_system'] = $this->getContiProtectFeatures($productObject);
                 }
             }
     
-            $this->view['data'] = $productData;
-            $this->view['footer_logo_src'] = $footer_logo_src;
-        }
-        catch(Exception $e)
-        {  
-            echo "<h3>".$e->getMessage()."</h3>";
-        }
+            $parameterBag['data'] = $productData;
+            $parameterBag['footer_logo_src'] = $footer_logo_src;
+        // }
+        // catch(Exception $e)
+        // {  
+        //     echo "<h3>".$e->getMessage()."</h3>";
+        // }
+        
+        return $this->render("@ContitechCSCatalog/Default/template_conti_protect_systems.html.twig", $parameterBag);
     }
 
     /**
@@ -2936,8 +2941,9 @@ class DefaultController extends AbstractController
     */
     public function templateMegaPipeBeltAction(Request $request)
     {   
-        try
-        {
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        // try
+        // {
             $regionProperty = $this->document->getProperty('region');
             
             if(!$regionProperty)
@@ -2949,10 +2955,11 @@ class DefaultController extends AbstractController
             
             $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
             
-            $catalogTableObject = $this->getDocumentTag('relation', 'cbs_mega_pipe_belt')->getElement();
+            $catalogTableObjectEditable = $this->document->getEditable('cbs_mega_pipe_belt');
             $productData = [];
-            if($catalogTableObject)
+            if($catalogTableObjectEditable)
             { 
+                $catalogTableObject = $catalogTableObjectEditable->getElement();
                 $selectedProduct = $catalogTableObject->getProducts();
                 $singleProduct = $selectedProduct[0];
                 $productObject = DataObject\CSProducts::getById($singleProduct);
@@ -2979,13 +2986,15 @@ class DefaultController extends AbstractController
                 
             }
             
-            $this->view['data'] = $productData;
-            $this->view['footer_logo_src'] = $footer_logo_src;
-        }
-        catch(Exception $e)
-        {  
-            echo "<h3>".$e->getMessage()."</h3>";
-        }
+            $parameterBag['data'] = $productData;
+            $parameterBag['footer_logo_src'] = $footer_logo_src;
+        // }
+        // catch(Exception $e)
+        // {  
+        //     echo "<h3>".$e->getMessage()."</h3>";
+        // }
+
+        return $this->render("@ContitechCSCatalog/Default/template_mega_pipe_belt.html.twig", $parameterBag);
     }
     
     /**
