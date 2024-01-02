@@ -1065,7 +1065,7 @@
                                                                     {# <td>{{ value }}</td> #}
                                                                 {% endif %}
                                                                 {% if not onlyOnceStyle %}
-                                                                    {% set style ~= ' class="border-right w-20"'%}
+                                                                    {% set style = style ~' class="border-right w-20"'%}
                                                                     {% set onlyOnceStyle = true %}
                                                                     <td {{ style }}>{{ value }}</td>
                                                                 {% endif %}

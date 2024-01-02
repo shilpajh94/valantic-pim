@@ -1,0 +1,299 @@
+{% if parentContainer is not defined %}
+	{% extends "@ContitechCSCatalog/Layouts/layout.html.twig" %}
+{% endif %}
+
+{% block _content %}
+
+	{% if editmode %}
+		{{ pimcore_relation('cbs_conti_alert', {
+        'types' : ['object'],
+        'subtypes' : {
+            'object' : ['object']
+        },
+        'classes' : ['CSCatalogTables'],
+    }) }}
+	{% endif %}
+
+{% if data is defined %}
+    <div class="wrapper">
+        <header id="header">
+            <div class="header-sec">
+                <div class="header-txt"><span class="first-title">{{ ('CS_header_title')|trans }}</span>
+                    <span class="second-title">
+                        {{ pimcore_input("ContiA_title", {"placeholder" : "Enter Your Title"}) }}</span>
+                </div>
+                <div class="print-pg-no"></div>
+            </div>
+        </header>
+
+        <footer id="footer" class="footer">
+            <div class="footer-logo">
+                <img src="{{ footer_logo_src }}" alt="" width="150">
+            </div>
+        </footer>
+
+        <main id="content" role="main">
+            <section class="fortressxp-belts">
+                <h1 class="orange mb-0">
+                    {% if editmode %}
+                        {% if pimcore_input("ContiA_ProductName").isEmpty() %}
+                            {{ pimcore_input("ContiA_ProductName").setDataFromResource(data['Name']) | raw }}
+                        {% else %}
+                            {{ pimcore_input("ContiA_ProductName") }}
+                        {% endif %}
+                    {% else %}
+                        {{ pimcore_input("ContiA_ProductName") }}
+                    {% endif %}
+                </h1>
+
+                <h2 class="d-flex sub-title" style="justify-content: space-between; align-items:center; padding-bottom:0px;">
+                    {% if editmode %}
+                        {% if pimcore_input("ContiA_TitleTagSlogan").isEmpty() %}
+                            {{ pimcore_input("ContiA_TitleTagSlogan").setDataFromResource(data['ProductClaimSlogan']) | raw }}
+                        {% else %}
+                            {{ pimcore_input("ContiA_TitleTagSlogan") }}
+                        {% endif %}
+                    {% else %}
+                        {{ pimcore_input("ContiA_TitleTagSlogan") }}
+                    {% endif %}
+
+                    {% if editmode %}
+                        {% if pimcore_image("ContiA_Product_Image").isEmpty() %}
+                            {{ pimcore_image("ContiA_Product_Image").setImage(data['ProductImage']) | raw }}
+                        {% else %}
+                            {{ pimcore_image("ContiA_Product_Image") }}
+                        {% endif %}
+                    {% else %}
+                        {% set ContiAProductImageObj = pimcore_image("ContiA_Product_Image") %}
+                        {% if ContiAProductImageObj.getId() is not empty %}
+                            <img src="{{ getImageThumbnail(ContiAProductImageObj, imageWidth) }}" alt="" style="width:200px">
+                        {% endif %}
+                    {% endif %}
+                </h2>
+
+                <div class="feature-benefit-list">
+                    {% if editmode %}
+                        <p>
+                            {% if pimcore_wysiwyg("ContiA_ShortText").isEmpty() %}
+                                {{ pimcore_wysiwyg("ContiA_ShortText").setDataFromResource(data['ShortText']) }}
+                            {% else %}
+                                {{ pimcore_wysiwyg("ContiA_ShortText") }}
+                            {% endif %}
+                        </p>
+                    {% else %}
+                        {% if not pimcore_wysiwyg("ContiA_ShortText").isEmpty() %}
+                            <p>
+                                {{ pimcore_wysiwyg("ContiA_ShortText") }}
+                            </p>
+                        {% endif %}
+                    {% endif %}
+                </div>
+
+                <div class="feature-benefit-list">
+                    <div class="table">
+                        <table width="100%">
+                            <thead>
+                                <tr>
+                                    {% if (data['Material']) %}
+                                        <th width="30%" class="orange">{{ ('CS_Material_Label')|trans }}</th>
+                                    {% endif %}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr valign="top">
+                                    {% if (data['Material']) %}
+                                        <td>
+                                            {{ data['Material'] }}
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                {% if editmode %}
+                    <div class="full-image-sec">
+                        {% if pimcore_image("ContiA_BannerImage").isEmpty() %}
+                            {{ pimcore_image("ContiA_BannerImage").setImage(data['ApplicationImage']) | raw }}
+                        {% else %}
+                            {{ pimcore_image("ContiA_BannerImage") }}
+                        {% endif %}
+                    </div>
+                {% else %}
+                    {% set ppBannerImgSrcObj = pimcore_image("ContiA_BannerImage") %}
+                    {% if ppBannerImgSrcObj.getId() is not empty %}
+                        <div class="full-image-sec">
+                            <img src="{{ getImageThumbnail(ppBannerImgSrcObj, imageWidth) }}" alt="">
+                        </div>
+                    {% endif %}
+                {% endif %}
+
+                <h2>
+                    <span class="orange">
+                        {% if editmode %}
+                            {% if pimcore_input("ContiA_MoreInfoHeading").isEmpty() %}
+                                {{ pimcore_input("ContiA_MoreInfoHeading").setDataFromResource(data['Name']) raw }}
+                            {% else %}
+                                {{ pimcore_input("ContiA_MoreInfoHeading") }}
+                            {% endif %}
+                        {% else %}
+                            {{ pimcore_input("ContiA_MoreInfoHeading") }}
+                        {% endif %}
+                    </span>
+
+                    <span class="light-black">
+                        {% if editmode %}
+                            {% if pimcore_input("ContiA_MoreInfo").isEmpty() %}
+                                {{ pimcore_input("ContiA_MoreInfo", {'placeholder' : 'Belt Information'}) }}
+                            {% else %}
+                                {% pimcore_input("ContiA_MoreInfo") %}
+                            {% endif %}
+                        {% else %}
+                            {{ pimcore_input("ContiA_MoreInfo") }}
+                        {% endif %}
+                    </span>
+                </h2>
+
+                <p>
+                    <b>
+                        {% if editmode %}
+                            {% if pimcore_input("ContiA_BeltSpecsLabel").isEmpty() %}
+                                {{ pimcore_input("ContiA_BeltSpecsLabel", {'placeholder' : 'Belt Specs'}) }}
+                            {% else %}
+                                {{ pimcore_input("ContiA_BeltSpecsLabel") }}
+                            {% endif %}
+                        {% else %}
+                            {{ pimcore_input("ContiA_BeltSpecsLabel") }}
+                        {% endif %}
+                    </b>
+                    </br>
+                    {% if editmode %}
+                        {% if pimcore_input("ContiA_BeltSpecsDescription").isEmpty() %}
+                            {{ pimcore_input("ContiA_BeltSpecsDescription", {'placeholder' : 'Belt Specs Description'}) }}
+                        {% else %}
+                            {{ pimcore_input("ContiA_BeltSpecsDescription") }}
+                        {% endif %}
+                    {% else %}
+                        {{ pimcore_input("ContiA_BeltSpecsDescription") }}
+                    {% endif %}
+                </p>
+
+                <div class="feature-benefit-list">
+                    <div class="media" style="margin: 5px 0px;">
+                        {% if editmode %}
+                            {% if pimcore_image("ContiA_feature1").isEmpty() %}
+                                {{ pimcore_image("ContiA_feature1") }}
+                            {% else %}
+                                {{ pimcore_image("ContiA_feature1") }}
+                            {% endif %}
+                        {% else %}
+                            {% set ContiA_feature1Obj = pimcore_image("ContiA_feature1") %}
+                            {% if ContiA_feature1Obj.getId() is not empty %}
+                                <img src="{{ getImageThumbnail(ContiA_feature1Obj, imageWidth) }}" alt="" class="features-images">
+                            {% endif %}
+                        {% endif %}
+                    
+                        <div class="media-body">
+                            <p><b>
+                                {% if editmode %}
+                                    {% if pimcore_input("ContiA_Feature1Label").isEmpty() %}
+                                        {{ pimcore_input("ContiA_Feature1Label", {'placeholder' : 'Feature 1 Label'}) }}
+                                    {% else %}
+                                        {{ pimcore_input("ContiA_Feature1Label") }}
+                                    {% endif %}
+                                {% else %}
+                                    {{ pimcore_input("ContiA_Feature1Label") }}
+                                {% endif %}
+                            </b>
+                            </br>
+                                {% if editmode %}
+                                    {% if pimcore_input("ContiA_Feature1Desc").isEmpty() %}
+                                        {{ pimcore_input("ContiA_Feature1Desc", {'placeholder' : 'Feature 1 Desc'}) }}
+                                    {% else %}
+                                        {{ pimcore_input("ContiA_Feature1Desc") }}
+                                    {% endif %}
+                                {% else %}
+                                    {{ pimcore_input("ContiA_Feature1Desc") }}
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="media" style="margin: 5px 0px;">
+                        {% if editmode %}
+                            {% if pimcore_image("ContiA_feature2").isEmpty() %}
+                                {{ pimcore_image("ContiA_feature2") }}
+                            {% else %}
+                                {{ pimcore_image("ContiA_feature2") }}
+                            {% endif %}
+                        {% else %}
+                            {% set ContiA_feature2Obj = pimcore_image("ContiA_feature2") %}
+                            {% if ContiA_feature2Obj.getId() is not empty %}
+                                <img src="{{ getImageThumbnail(ContiA_feature2Obj, imageWidth) }}" alt="" class="features-images">
+                            {% endif %}
+                        {% endif %}
+
+                        <div class="media-body">
+                            <p><b>
+                                {% if editmode %}
+                                    {% if pimcore_input("ContiA_Feature2Label").isEmpty() %}
+                                        {{ pimcore_input("ContiA_Feature2Label", {'placeholder' : 'Feature 2 Label'}) }}
+                                    {% else %}
+                                        {{ pimcore_input("ContiA_Feature2Label") }}
+                                    {% endif %}
+                                {% else %}
+                                    {{ pimcore_input("ContiA_Feature2Label") }}
+                                {% endif %}
+                            </b>
+                            </br>
+                                {% if editmode %}
+                                    {% if pimcore_input("ContiA_Feature2Desc").isEmpty() %}
+                                        {{ pimcore_input("ContiA_Feature2Desc", {'placeholder' : 'Feature 2 Desc'}) }}
+                                    {% else %}
+                                        {{ pimcore_input("ContiA_Feature2Desc") }}
+                                    {% endif %}
+                                {% else %}
+                                    {{ pimcore_input("ContiA_Feature2Desc") }}
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <p>
+                    <b>
+                        {% if editmode %}
+                            {% if pimcore_input("ContiA_AvailabilityLabel").isEmpty() %}
+                                {{ pimcore_input("ContiA_AvailabilityLabel", {'placeholder' : 'CONTI®Alert Availability'}) }}
+                            {% else %}
+                                {{ pimcore_input("ContiA_AvailabilityLabel") }}
+                            {% endif %}
+                        {% else %}
+                            {{ pimcore_input("ContiA_AvailabilityLabel") }}
+                        {% endif %}
+                    </b>
+                    </br>
+                    {% if editmode %}
+                        {% if pimcore_input("ContiA_AvailabilityDesc").isEmpty() %}
+                            {{ pimcore_input("ContiA_AvailabilityDesc", {'placeholder' : 'CONTI®Alert Availability Description'}) }}
+                        {% else %}
+                            {{ pimcore_input("ContiA_AvailabilityDesc") }}
+                        {% endif %}
+                    {% else %}
+                        {{ pimcore_input("ContiA_AvailabilityDesc") }}
+                    {% endif %}
+                </p>
+
+            </section>
+        </main>
+
+        <footer id="footer" class="footer">
+            <div class="footer-logo">
+                <img src="{{ footer_logo_src }}" alt="" width="150">
+            </div>
+        </footer>
+
+    </div>
+{% endif %}
+
+{% endblock %}

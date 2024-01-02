@@ -1,0 +1,220 @@
+{% if parentContainer is not defined %}
+	{% extends "@ContitechCSCatalog/Layouts/layout.html.twig" %}
+{% endif %}
+
+{% block _content %}
+
+	{% if editmode %}
+		{{ pimcore_relation('cbs_conti_clean', {
+        'types' : ['object'],
+        'subtypes' : {
+            'object' : ['object']
+        },
+        'classes' : ['CSCatalogTables'],
+    }) }}
+	{% endif %}
+
+	{% if data is defined %}
+
+		<div class="wrapper conticleanpage">
+			<header id="header">
+				<div class="header-sec">
+					<div class="header-txt">
+						<span class="first-title">{{ ('CS_header_title')|trans }}</span>
+						<span class="second-title">
+							{{ pimcoreinput("ContiA_title", {"placeholder" : "Enter Your Title"}) }}
+						</span>
+					</div>
+					<div class="print-pg-no"></div>
+				</div>
+			</header>
+			<footer id="footer" class="footer">
+				<div class="footer-logo">
+					<img src="{{ footer_logo_src }}" alt="" width="150">
+				</div>
+			</footer>
+			<main id="content" role="main">
+				<section class="fortressxp-belts">
+					{% if editmode %}
+						<div class="attr-font">Attribute Name = Name</div>
+					{% endif %}
+					<h1 class="orange">
+						{% if editmode %}
+							{% if pimcore_input("CS_ProductName").isEmpty() %}
+								{{ pimcore_input("CS_ProductName", {'placeholder' : 'Enter Product Name'}).setDataFromResource(data['Name']) | raw }}
+							{% else %}
+								{{ pimcore_input("CS_ProductName", {'placeholder' : 'Enter Product Name'}) }}
+							{% endif %}
+						{% else %}
+							{{ pimcore_input("CS_ProductName", {'placeholder' : 'Enter Product Name'}) }}
+						{% endif %}
+
+						<span class="sub-title">
+							{% if editmode %}
+								<div class="attr-font">Attribute Name = Product Claim/Slogan</div>
+							{% endif %}
+							{% if editmode %}
+								{% if pimcore_input("ContiC_TitleTagSlogan").isEmpty() %}
+									{{ pimcore_input("ContiC_TitleTagSlogan",{'placeholder' : 'Enter Product Slogan'}).setDataFromResource(data['ProductClaimSlogan']) | raw }}
+								{% else %}
+									{{ pimcore_input("ContiC_TitleTagSlogan",{'placeholder' : 'Enter Product Slogan'}) }}
+								{% endif %}
+							{% else %}
+								{{ pimcore_input("ContiC_TitleTagSlogan",{'placeholder' : 'Enter Product Slogan'}) }}
+							{% endif %}
+						</span>
+					</h1>
+
+					{% if editmode %}
+						<div class="attr-font">Attribute Name = Short Text</div>
+					{% endif %}
+					<div class="p-medium pt-0">
+						{% if editmode %}
+							{% if pimcore_wysiwyg("ContiC_ShortText").isEmpty() %}
+								{{ pimcore_wysiwyg("ContiC_ShortText",{'placeholder' : 'Enter Short Text'}).setDataFromResource(data['ShortText']) | raw }}
+							{% else %}
+								{{ pimcore_wysiwyg("ContiC_ShortText",{'placeholder' : 'Enter Short Text'}) }}
+							{% endif %}
+						{% else %}
+							{% if pimcore_wysiwyg("ContiC_ShortText").isEmpty() %}
+								{{ pimcore_wysiwyg("ContiC_ShortText",{'placeholder' : 'Enter Short Text'}) }}
+							{% endif %}
+						{% endif %}
+					</div>
+
+					<div class="full-image-sec">
+						{% if editmode %}
+							<div class="attr-font">
+								Attribute Name = Product Image</div>
+						{% endif %}
+
+						{% if editmode %}
+							{% if pimcore_image("ContiClean_ProductImage").isEmpty() %}
+								{{ pimcore_image("ContiClean_ProductImage", {'height':320}).setImage(data['ProductImage']) | raw }}
+							{% else %}
+								{{ pimcore_image("ContiClean_ProductImage", {'height':320}) }}
+							{% endif %}
+						{% else %}
+							{% set CCProdImgSrcObj = pimcore_image("ContiClean_ProductImage") %}
+							{% if CCProdImgSrcObj.getId() is not empty %}
+								<img src="{{ getImageThumbnail(CCProdImgSrcObj, imageWidth) }}" alt="" style="max-height:320px; width:auto;"/>
+							{% endif %}
+						{% endif %}
+
+						<div>
+							<table width="100%">
+								<tr>
+									<th>
+										{{ pimcore_input("First_Image_Name", {'placeholder':'Image Name'}) }}
+									</th>
+									<th>
+										{{ pimcore_input("Second_Image_Name", {'placeholder':'Image Name'}) }}
+									</th>
+								</tr>
+							</table>
+						</div>
+					</div>
+
+					<div class="conticleancol colum-2 p-0">
+						<div class="conticlean-tab">
+							{% if editmode %}
+								<div class="attr-font">
+									Attribute Name = Benefits</div>
+							{% endif %}
+
+							<div class="row">
+								{% if data['Benefits'] is defined and data['Benefits'] is not null %}
+									<div class="col-7">
+										<h3 class="orange">
+											{{ pimcore_input("ContiC_BenefitsLabel", {'placeholder':'ContiClean® Benefits'}) }}
+										</h3>
+										<div class="feature-benefit-list my-0">
+											<ul>
+												{% for key,item in data['Benefits'] %}
+													<li>
+														<span class="orange">›</span>
+														{{ item }}</li>
+												{% endfor %}
+											</ul>
+										</div>
+									</div>
+								{% endif %}
+								<div class="col-5">
+									{% if data['material'] is defined %}
+										{% if editmode %}
+											<div class="attr-font">
+												Product Specific Data = Materials</div>
+										{% endif %}
+										<h3 class="orange">
+											{{ pimcore_input("Materials_Label", {'placeholder' : 'Materials'}) }}
+										</h3>
+										<ul class="materials-list">
+											{% for key, item in data['material'] %}
+												<li>
+													<span class="orange">›</span>
+													{{ item }}</li>
+											{% endfor %}
+										</ul>
+									{% endif %}
+								</div>
+							</div>
+						</div>
+						<div class="nexcolumtarget">
+							<div class="feature-benefit-list">
+								<h3 class="orange">{{ pimcore_input("CCSM_Header3", {"placeholder" : "Enter Your TableHead" })}}
+								</h3>
+								<ul>
+									{% if editmode %}
+										<div class="attr-font">
+											Enter Your Points</div>
+									{% endif %}
+									{% for incr in pimcore_block("CCSM_Header_Points3").iterator %}
+										<li>
+											<span class="orange">›</span>
+											<i>
+												{{ pimcore_input("ASTM_Label", {'placeholder' : 'ASTM D 1894-06 Coefficient of Friction'}) }}
+											</i>
+										</li>
+									{% endfor %}
+								</ul>
+							</div>
+							{% if editmode %}
+								<div class="attr-font">
+									Attribute Name = Report Image</div>
+							{% endif %}
+							{% if editmode %}
+								{% if pimcore_image("ContiClean_reportImage").isEmpty() %}
+									{{ pimcore_image("ContiClean_reportImage", {'height':153}).setImage(data['reportImage']) | raw }}
+								{% else %}
+									{{ pimcore_image("ContiClean_reportImage", {'height':153}) }}
+								{% endif %}
+							{% else %}
+								{% set CCReportImgSrcObj = pimcore_image("ContiClean_reportImage") %}
+								{% if CCReportImgSrcObj.getId() is not empty %}
+									<img src="{{ getImageThumbnail(CCReportImgSrcObj, imageWidth) }}" alt="" class="chartimage" style="max-height:153px; width:auto;"/>
+								{% endif %}
+							{% endif %}
+						</div>
+					</div>
+					<div class="pg-6">
+                        {% if editmode %}
+                            <div class="attr-font"> Attribute Name = Application Image</div>
+                        {% endif %}
+                        {% if editmode %}
+                            {% if pimcore_image("ContiClean_ApplicationImage").isEmpty() %}
+                                {{ pimcore_image("ContiClean_ApplicationImage", {'height' : 373}).setImage(data['ApplicationImage']) | raw }}
+                            {% else %}
+                                {{ pimcore_image("ContiClean_ApplicationImage", {'height' : 373}) }}
+                            {% endif %}
+                        {% else %}
+                            {% set CCAppImgSrcObj = pimcore_image("ContiClean_ApplicationImage") %}
+                            {% if CCAppImgSrcObj.getId() is not empty %}
+                                <img src="{{ getImageThumbnail(CCAppImgSrcObj, imageWidth) }}" alt="" class="w-100" style="max-height:550px; margin-top: -130px;" />
+                            {% endif %}
+                        {% endif %}
+                    </div>
+				</section>
+			</main>
+		</div>
+	{% endif %}
+{% endblock %}
