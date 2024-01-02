@@ -2152,6 +2152,7 @@ class DefaultController extends FrontendController
                         }
                     }
 
+                    $CCAARows = [];
                     if($level4Data)
                     {
                         foreach ($level4Data as $lkey => $lvalue)

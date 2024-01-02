@@ -97,7 +97,7 @@
                                 <div class="media">
                                     {% if child['ProductImage'] is defined and child['ProductImage'] and getImageThumbnail(child['ProductImage'],imageWidth) %}
                                         <img src="{{getImageThumbnail(child['ProductImage'],imageWidth)}}" width="150"  alt="" class="features-images">
-                                    {% else if default_image %}
+                                    {% elseif default_image %}
                                         <img src="{{default_image}}" alt="" width="150" class="features-images">
                                     {% endif %}
                                     <div class="media-body">

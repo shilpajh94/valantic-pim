@@ -147,22 +147,19 @@
                                     {% set childrenData = data['childrenData'] %}
                                     {% set rendoredProduct = [] %}
                                     {% set count = 0 %}
-                                    {% set break = false %}
 
-                                    {% for cValue in childrenData if not break %}
+                                    {% for cValue in childrenData%}
                                         {% set md5Key = md5Twig(cValue['Name']) %}
                                     
-                                        {% if (count >= 4) %}
-                                            {% set break = true %}
+                                        {% if not (count >= 4) %}
+                                            {% set rendoredProduct = rendoredProduct | merge([md5Key]) %}
+                                            {% set count = count + 1 %}
+                                            <p>
+                                                <strong>{{cValue['Name']}}</strong> 
+                                                <span class="orange">»</span> 
+                                                {{cValue['ShortText']}}
+                                            </p>
                                         {% endif %}
-                                        
-                                        {% set rendoredProduct = rendoredProduct | merge(md5Key) %}
-                                        {% set count = count + 1 %}
-                                        <p>
-                                            <strong>{{cValue['Name']}}</strong> 
-                                            <span class="orange">»</span> 
-                                            {{cValue['ShortText']}}
-                                        </p>
                                     {% endfor %}
                                 </div>
 
