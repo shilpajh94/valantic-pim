@@ -40,6 +40,7 @@ class PTGEUSearchKeywordsOptionProvider  implements SelectOptionsProviderInterfa
      */
     public function getOptions($context, $fieldDefinition)
     {
+        $result = [];
         $searchKeywordsPTGEU = new DataObject\PTGEUSearchKeywords\Listing();
         $searchKeywordsPTGEU->setCondition("o_path = ?", "/Contitech_PTGEU/Master List/Search Keywords/" );
         $searchKeywordsPTGEU = $searchKeywordsPTGEU->load();

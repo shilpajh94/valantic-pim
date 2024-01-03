@@ -55,7 +55,7 @@ class S3Listener
             } else {
                 $this->s3BaseUrl = PIMCORE_S3_BASEURL;
                 $this->s3AssetUrlPrefix = $this->s3BaseUrl . str_replace("s3:/", "", PIMCORE_ASSET_DIRECTORY);
-                $this->s3TmpUrlPrefix = $this->s3BaseUrl . str_replace("s3:/", "", PIMCORE_TEMPORARY_DIRECTORY);
+                $this->s3TmpUrlPrefix = $this->s3BaseUrl . str_replace("s3:/", "", PIMCORE_SYSTEM_TEMP_DIRECTORY);
             }
 
             $this->s3Client =  Utils::getS3Client();
@@ -196,24 +196,24 @@ class S3Listener
      */
     public function onFrontendPathThumbnail(GenericEvent $event) {
         if(!DISABLE_S3_CDN) {
-            $fileSystemPath = $event->getSubject()->getFileSystemPath();
-
+            //$fileSystemPath = $event->getSubject()->getFileSystemPath();
+            $fileSystemPath = $event->getSubject()->getStream();
             $cacheKey = "thumb_s3_" . md5($fileSystemPath);
             $path = \Pimcore\Cache::load($cacheKey);
 
             if(!$path) {
                 if(!file_exists($fileSystemPath)) {
                     // the thumbnail doesn't exist yet, so we need to create it on request -> Thumbnail controller plugin
-                    $path = str_replace(PIMCORE_TEMPORARY_DIRECTORY, "", $fileSystemPath);
+                    $path = str_replace(PIMCORE_SYSTEM_TEMP_DIRECTORY, "", $fileSystemPath);
                 } else {
 
-                $key = str_replace(PIMCORE_TEMPORARY_DIRECTORY . "/", "/", $fileSystemPath);
+                $key = str_replace(PIMCORE_SYSTEM_TEMP_DIRECTORY . "/", "/", $fileSystemPath);
                 try {
                     // $this->makeAssetPublicInS3('tmp'.$key, true);
                 } catch(\Exception $e) {
                     // do nothing
                 }
-                    $path = str_replace(PIMCORE_TEMPORARY_DIRECTORY . "/", $this->s3TmpUrlPrefix . "/", $fileSystemPath);
+                    $path = str_replace(PIMCORE_SYSTEM_TEMP_DIRECTORY . "/", $this->s3TmpUrlPrefix . "/", $fileSystemPath);
                 }
             }
 
@@ -233,7 +233,9 @@ class S3Listener
     {
         if(!DISABLE_S3_CDN) {
             $thumbnail = $event->getSubject();
-            $fsPath = $thumbnail->getFileSystemPath();
+            $stream = $thumbnail->getAsset();
+            //$fsPath = $thumbnail->getFileSystemPath();
+            $fsPath = $stream->getStream();
             if ($fsPath && $event->getArgument("generated")) {
                 $cacheKey = "thumb_s3_" . md5($fsPath);
 
