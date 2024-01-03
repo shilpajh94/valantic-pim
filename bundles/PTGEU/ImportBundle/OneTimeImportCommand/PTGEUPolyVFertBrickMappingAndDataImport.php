@@ -12,6 +12,7 @@ use Pimcore\Model\DataObject;
 class PTGEUPolyVFertBrickMappingAndDataImport extends AbstractCommand
 {
     private $db;
+    private $t;
 
     /**
      * Function is constructor and set the db connection
@@ -40,7 +41,8 @@ class PTGEUPolyVFertBrickMappingAndDataImport extends AbstractCommand
             $this->import($filePath);
             p_r('--------------Total Execution Time---------------');
             p_r('Script completed after: ' . (abs(time() - $this->t) / 60) . ' mnt');
-        }       
+        }
+        return 1;
     }
 
     private function import($filePath)
@@ -69,10 +71,12 @@ class PTGEUPolyVFertBrickMappingAndDataImport extends AbstractCommand
                             'refLineDiffHBMMUnit' => 'mm',
                             'refLineDiffHBINUnit' => 'inch',
                         ];
-                        $this->insertDataForpolyVFertBrickIntoTable($polyVFertBrickData, 'object_brick_query_PTGEUPolyVFert_38', $fertObjectId);
-                        $this->insertDataForpolyVFertBrickIntoTable($polyVFertBrickData, 'object_brick_store_PTGEUPolyVFert_38', $fertObjectId);            
+                        $this->insertDataForpolyVFertBrickIntoTable($polyVFertBrickData,
+                         'object_brick_query_PTGEUPolyVFert_38', $fertObjectId);
+                        $this->insertDataForpolyVFertBrickIntoTable($polyVFertBrickData,
+                         'object_brick_store_PTGEUPolyVFert_38', $fertObjectId);
                     }
-                }    
+                }
             }
         }catch (\Throwable $th) {
             p_r($th->getMessage());
@@ -88,7 +92,7 @@ class PTGEUPolyVFertBrickMappingAndDataImport extends AbstractCommand
             $cols[] = "$key = '$val'";
         }
         $sql = "UPDATE $tableName SET " . implode(', ', $cols) . " WHERE o_id =  $objId";
-        $this->db->executeUpdate($sql);
+        $this->db->executeQuery($sql);
 
 
 
@@ -111,7 +115,8 @@ class PTGEUPolyVFertBrickMappingAndDataImport extends AbstractCommand
             $count = 0;
 
             if (($handle = fopen($csvFilePath, 'r')) !== false) {
-                while (($rowData = fgetcsv($handle, 0, $dialect->delimiter, $dialect->quotechar, $dialect->escapechar)) !== false) {
+                while (($rowData = fgetcsv($handle, 0, $dialect->delimiter,
+                $dialect->quotechar, $dialect->escapechar)) !== false) {
                     if ($count == 0) {
                         foreach ($rowData as $key => $value) {
                             unset($rowData[$key]);

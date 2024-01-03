@@ -4,26 +4,34 @@ namespace PTGEU\ImportBundle\Helper;
 
 use Pimcore\Model\DataObject;
 use Exception;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class Product
 {
     private $common;
-    public $root;
-    private $codeLength;
-    private $validCategories;
+    public  $root;
+    public  $codeLength;
+    public  $validCategories;
     private $businessUnit;
     private $catConfigData;
     private $prdConfigData;
     private $productType;
-    public $siopCodes;
+    public  $siopCodes;
     private $configProviderService;
-
-    public function __construct()
+    private $level;
+    private $catHelper;
+    public  $levelLength;
+    private $siop;
+    private $container;
+ 
+    public function __construct(ContainerInterface $container)
     {
+        $this->container = $container;
+
         /* Initiate helper */
-        $this->common           = \Pimcore::getContainer()->get('import.common_helper');
-        $this->catHelper        = \Pimcore::getContainer()->get('import.category_helper');
-        $this->configProviderService= \Pimcore::getContainer()->get('import.config_provider_service');
+        $this->common           = $this->container->get('import.common_helper');
+        $this->catHelper        = $this->container->get('import.category_helper');
+        $this->configProviderService= $this->container->get('import.config_provider_service');
         $this->catConfigData    = $this->configProviderService->getCategoryConfig();
         $this->prdConfigData    = $this->configProviderService->getProductConfig();
         $this->root             = $this->common->getParameter($this->prdConfigData, 'root');
@@ -53,7 +61,8 @@ class Product
             foreach ($siops as $l => $siop) {
                 $sioLvlName = "setHierarchyLevel" . $l;
                 if (!empty($siop) && $siop->getId()) {
-                    $targetObject->$sioLvlName([\Pimcore::getContainer()->get('pim.category_service')::getById($siop->getId())]);
+                    $targetObject->$sioLvlName([$this->container->get('pim.category_service')::getById(
+                        $siop->getId())]);
                 }
             }
             /**
@@ -98,7 +107,7 @@ class Product
         $level = $this->catHelper->getLevelByLength($len);
         $levels = array();
         for ($i = $level; $i >= 1; $i--) {
-            $objectKey = empty($reader) ?: $reader[$this->level[$i]['key']];
+            $objectKey = empty($reader) ?:( isset($reader[$this->level[$i]['key']]) ? $reader[$this->level[$i]['key']] : NULL);
             $parentLevel = $this->catHelper->getParentLevel($i);
             $levelFullCode = $this->catHelper->extractFullCodeLevelWise($i, $code);
             $parentFullCode = $this->catHelper->extractFullCodeLevelWise(($i - 1), $code);
@@ -113,7 +122,7 @@ class Product
                 'level'         =>  $i,
                 'bu'            =>  $bu,
                 'objectKey'     =>  $objectKey,
-                'parentObjectKey'   =>  empty($reader) ?: $reader[$this->level[$parentLevel]['key']],
+                'parentObjectKey'   =>  empty($reader) ?: ((isset($this->level[$parentLevel]) && isset($reader[$this->level[$parentLevel]['key']])) ? $reader[$this->level[$parentLevel]['key']] : NULL),
                 'objectPath'    =>  $objectPath,
                 'parentPath'    =>  $parentPath
             );
@@ -132,12 +141,14 @@ class Product
             $path = '';
         } else {
             for ($i = 1; $i <= $lvl; $i++) {
-                if (empty($path))
+                if (empty($path) && isset($reader[$this->level[$i]['key']]))
                 {
                     $path = \Pimcore\Model\Element\Service::getValidKey($reader[$this->level[$i]['key']], 'folder');
                 }
                 else {
-                    $path .= '/' . \Pimcore\Model\Element\Service::getValidKey($reader[$this->level[$i]['key']], 'folder');
+                    if(isset($reader[$this->level[$i]['key']])){
+                        $path .= '/' . \Pimcore\Model\Element\Service::getValidKey($reader[$this->level[$i]['key']], 'folder');
+                    }
                 }
             }
         }
@@ -188,7 +199,7 @@ class Product
     private function createCategoryObjectHierarchy($code, $parentObj, $siopLevel, $bu = "")
     {
         $catObj = $this->catHelper->getObjectByFullCode($code, $bu);
-        $brickMappingService = \Pimcore::getContainer()->get('AppBundle\Services\CategoryBrickMappingService');
+        $brickMappingService = $this->container->get('AppBundle\Services\CategoryBrickMappingService');
         if (!empty($catObj)) {
             $keyName = $catObj->getKey();
             $prdFullPath = $parentObj->getFullPath() . '/' . $keyName;
@@ -272,7 +283,7 @@ class Product
         return $folder->getId();
     }
     
-    public function getObjectIndex($type, $levelInfo) 
+    public function getObjectIndex($type, $levelInfo)
     {
         if ($type == 'base') {
             $objectIndex = count($levelInfo)-2;
@@ -286,8 +297,8 @@ class Product
     {
         $bricksData = [];
         $brickAttributesConfigData  = $this->configProviderService->getBrickAttributesConfig();
-        foreach ($brickAttributesConfigData as $attributeLabel => $brickAttributeConfig) 
-        { 
+        foreach ($brickAttributesConfigData as $attributeLabel => $brickAttributeConfig)
+        {
             $fieldName  = $brickAttributeConfig['fieldName'];
             $objectType = $brickAttributeConfig['objectType'];
             $attributeLabel  = trim($attributeLabel);

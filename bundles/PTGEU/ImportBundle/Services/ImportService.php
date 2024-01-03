@@ -25,8 +25,7 @@ class ImportService
         $workSheetInfo = $reader->listWorksheetInfo(self::$filePath);
        
         $workSheet = array_shift($workSheetInfo);
-       
-        $reader->setLoadSheetsOnly($workSheet['workSheetName']);
+        $reader->setLoadSheetsOnly($workSheet['worksheetName']);
         $workSheet['startRow'] = self::$startRow ? : 0;
         $flag = $reader->setReadFilter(new MyReadFilterService($workSheet));
       
@@ -76,11 +75,13 @@ class ImportService
             $count = 0;
             $dialect->delimiter = ',';
             if (($handle = fopen($csvFilePath, 'r')) !== false) {
-                while (($rowData = fgetcsv($handle, 0, $dialect->delimiter, $dialect->quotechar, $dialect->escapechar)) !== false) {
+                while (($rowData = fgetcsv($handle, 0, $dialect->delimiter, $dialect->quotechar,
+                 $dialect->escapechar)) !== false) {
                     if ($count == 0) {
                         foreach ($rowData as $key => $value) {
                             unset($rowData[$key]);
-                            $rowData[utf8_decode(trim($key))] = utf8_decode(trim(str_replace("°","",$value)));
+                            $rowData[mb_convert_encoding(trim($key), 'ISO-8859-1', 'UTF-8')] =
+                             utf8_decode(trim(str_replace("°","",$value)));
                         }
                         $firstRowData = $rowData;
                     } else {

@@ -81,6 +81,7 @@ class DeleteOlderPTGEUSAPFileCommand extends Command
         else{
             $this->logMessage("Empty Folder - ".BW_SAP_IMPORT_SFTP_PATH_PTGEU, LogLevel::NOTICE());
         }
+        return 1;
     }
 
     public function deletedSapFile($fileNamesInDir, $fileValidationDate, $sftpConObj)

@@ -30,10 +30,11 @@ class PTGEUDeleteCommand extends AbstractCommand
         p_r('Script started at: ' . date('h:i:s', $this->t));
         p_r('------------------------------------------------');
         
-        $this->delete();   
+        $this->delete();
         
         p_r('--------------Total Execution Time---------------');
         p_r('Script completed after: ' . (abs(time() - $this->t) / 60) . ' mnt');
+        return 1;
         
     }
 

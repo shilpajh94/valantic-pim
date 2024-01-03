@@ -8,21 +8,28 @@ use AppBundle\Logger\AppLogger as Logger;
 use Pimcore\Model\DataObject;
 use PTGEU\ImportBundle\Services\ImportService;
 use PTGEU\ImportBundle\Model\PriceModel;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class PriceService 
+class PriceService
 {
     private $filePath;
     private $logArray;
-    private $products = [];    
-
-    public function __construct() 
-    { 
-        $this->priceModel       = new PriceModel;     
+    private $products = [];
+    private $priceModel;
+    public $csvHeader;
+    private $queryTableNewData;
+    private $storeTableNewData;
+    private $container;
+ 
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+        $this->priceModel = new PriceModel;
     }
     
     public function import()
     {
-        $sapFileFeeder  = \Pimcore::getContainer()->get('import.sap_file_feeder_service');
+        $sapFileFeeder  = $this->container->get('import.sap_file_feeder_service');
         $this->filePath = $sapFileFeeder->execFileFeeder('price');
         $csvInfo        = ImportService::getCSVData($this->filePath);
         $this->csvHeader= array_flip($csvInfo['header']);
@@ -126,12 +133,13 @@ class PriceService
                 $uniqueKeyArr[] = $priceData[2]; // Distribution Channel
                 $uniqueKeyArr[] = $priceData[3]; // End Date
                 $uniqueKeyArr[] = $priceData[4]; // Start Date
+                $uniqueKeyArr[] = $priceData[5]; // Condition Type
                 $uniqueKeyArr[] = $priceData[6]; // Rate
                 $uniqueKeyArr[] = $priceData[7]; // Rate Unit
-                $uniqueKeyArr[] = $priceData[8]; // Condition Type
-                $uniqueKeyArr[] = $priceData[9]; // Price Ref.
-                $uniqueKeyArr[] = $priceData[10]; // Per
-                $uniqueKeyArr[] = $priceData[11]; // Unit
+                // $uniqueKeyArr[] = $priceData[8]; // Price Ref.
+                // $uniqueKeyArr[] = $priceData[9]; // Per
+                // $uniqueKeyArr[] = $priceData[10]; // Unit
+
                 $uniqueKey = implode('_', $uniqueKeyArr);
                 $priceDataArray = [
                     $uniqueKey,
@@ -142,7 +150,6 @@ class PriceService
                     trim($priceData[6]),
                     $priceData[7],
                     $priceData[5],
-                    $priceData[10],
                 ];
                 $storeTablePriceArray[] = $priceDataArray;
                 $queryTablePriceDataStr = implode('|', $priceDataArray);

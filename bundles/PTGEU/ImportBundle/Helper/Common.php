@@ -8,29 +8,37 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
 use Pimcore\Model\DataObject;
 use PTGEU\ImportBundle\Services\ImportConstants;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class Common
 {
+    private $container;
+ 
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
 
     public function getParameter($data, $key) {
         if(!empty($data) && isset($data['parameters'])) {
-            return isset($data['parameters'][$key])?$data['parameters'][$key]:false;       
+            return isset($data['parameters'][$key])?$data['parameters'][$key]:false;
         }
     }
 
     public function getInstance($service) {
-        return \Pimcore::getContainer()->get($service);
+        return $this->container->get($service);
     }
 
     public function getParameterItem($data, $key, $item) {
         if(!empty($data) && isset($data['parameters'])) {
-            return isset($data['parameters'][$key])&&isset($data['parameters'][$key][$item])?$data['parameters'][$key][$item]:false;       
+            return isset($data['parameters'][$key])&&isset($data['parameters']
+            [$key][$item])?$data['parameters'][$key][$item]:false;
         }
     }
 
     public function moveFile($param)
     {
-        /* 
+        /*
             @$status: success or failed
             if success then move file to archive else move to failed folder
         */
@@ -63,7 +71,8 @@ class Common
             default:
                 throw new Exception('Issue in file moving after import ');
         }
-        $newAsset->save(["versionNote" => "Import completed and status is $status, file path is: " . $fileObj->getFullPath()]);
+        $newAsset->save(["versionNote" => "Import completed and status is $status,
+        file path is: " . $fileObj->getFullPath()]);
         $fileObj->delete();
         return $newAsset;
     }
@@ -83,44 +92,38 @@ class Common
     public function getQuantityValueUnitId($qtyName)
     {
         $unit = DataObject\QuantityValue\Unit::getByAbbreviation($qtyName);
-        $unitId = (!is_null($unit)) ? $unit->getId() : '';
-        return $unitId;
+        return (!is_null($unit)) ? $unit->getId() : '';
     }
 
     /**
      *  return quantity value with quantity unit
      */
     public function getDataQuantityValue($columnStdPackQty, $quantityValueUnitId){
-        $quantityValue = new DataObject\Data\QuantityValue($columnStdPackQty, $quantityValueUnitId);
-        return $quantityValue;
+        return new DataObject\Data\QuantityValue($columnStdPackQty, $quantityValueUnitId);
     }
 
     /**
      *  return corresponding value of a key from an array
      */
     public function getFieldValue($fileColumns, $rowvalue, $string){
-        if(!empty($string))
+        if(!empty($string) && in_array($string, $fileColumns))
         {
-            if(in_array($string, $fileColumns))
-            {
-                $index = array_search($string, $fileColumns);
-                $value = $rowvalue[$index];
-            }
+            $index = array_search($string, $fileColumns);
+            $value = $rowvalue[$index];
         }
         return $value;
     }
 
     public function createKeyForObject($fileColumns, $data, $keyColumns, $mappingCsvColumn){
         $keyColumnValues = array();
-        foreach($keyColumns as $key =>$keyColumn)
+        foreach($keyColumns as $keyColumn)
         {
             $column = $mappingCsvColumn[$keyColumn];
             $columnValue = $this->getFieldValue($fileColumns,$data,$column);
             $keyColumnValues[] = $columnValue;
         }
 
-        $id = implode(ImportConstants::OBJECT_KEY_SEPARATOR, $keyColumnValues);
-        return $id;
+        return implode(ImportConstants::OBJECT_KEY_SEPARATOR, $keyColumnValues);
     }
 
     public function getCatalogLanguage($object) {
@@ -139,7 +142,7 @@ class Common
         return $lang;
     }
 
-    public function fractionToDecimal($fraction) 
+    public function fractionToDecimal($fraction)
     {
         // Split fraction into whole number and fraction components
         preg_match('/^(?P<whole>\d+)?\s?((?P<numerator>\d+)\/(?P<denominator>\d+))?$/', $fraction, $components);

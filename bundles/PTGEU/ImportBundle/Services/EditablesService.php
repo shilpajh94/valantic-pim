@@ -5,21 +5,28 @@ namespace PTGEU\ImportBundle\Services;
 use Pimcore\Model\DataObject;
 use PTGEU\ImportBundle\Services\ImportService;
 use PTGEU\ImportBundle\Model\EditablesModel;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class EditablesService 
+class EditablesService
 {
       
     private $filePath;
     private $baseArray = [];
+    private $editablesModel;
+    private $configProviderService;
+    private $editablesImportConfig;
+    private $csvHeader;
+    private $container;
 
-    public function __construct() 
-    { 
-        $this->editablesModel  = new EditablesModel;     
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+        $this->editablesModel  = new EditablesModel;
     }
     public function import($filePath)
     {
         $this->filePath = $filePath;
-        $this->configProviderService    = \Pimcore::getContainer()->get('import.config_provider_service');
+        $this->configProviderService    = $this->container->get('import.config_provider_service');
         $this->editablesImportConfig  = $this->configProviderService->getEditableProductAttributesImportConfig();
         $csvInfo        = ImportService::getCSVData($this->filePath);
         $this->csvHeader= $csvInfo['header'];
@@ -45,7 +52,7 @@ class EditablesService
         foreach ($queryTableData as $rec) {
             if($rec['articleNumber'] == $record['SAP Code / Material Number']){
                 list($baseData, $baseObjectId) = $this->prepareBaseDataArray($rec['articleNumber'], $record);
-                $fertData = $this->prepareFertDataArray($record);        
+                $fertData = $this->prepareFertDataArray($record);
                 $this->insertDataInDB($fertData, $rec['oo_id'], $baseData, $baseObjectId);
             }
         }
@@ -61,11 +68,11 @@ class EditablesService
         $catalogFlag                    = $record['Catalog Flag'];
         $reach                          = $record['Reach'];
         $rohs                           = $record['Rohs'];
-        $shelfLife                      = $record['Shelf Life'];   
+        $shelfLife                      = $record['Shelf Life'];
         $legalText                      = $record['Legal Text (Term & Conditions)'];
         $specificationConstruction      = $record['Specification Construction'];
         $cadLINK                        = $record['CAD LINK'];
-        $CategoryDescriptionCatalog     = $record['Category Description Catalog'];
+        $categoryDescriptionCatalog     = $record['Category Description Catalog'];
         $pdfLINK                        = $record['PDF LINK'];
 
         $fertLevelData = [
@@ -79,7 +86,7 @@ class EditablesService
             'cadFile' => $cadFile,
             'pdfDrawing' => $pdfDrawing,
             'searchKeywords' => $searchKeywords,
-            'CategoryDescriptionCatalog' => $CategoryDescriptionCatalog,
+            'CategoryDescriptionCatalog' => $categoryDescriptionCatalog,
             'pdfLINK' => $pdfLINK,
             'catalogFlag' => $catalogFlag
         ];
@@ -100,10 +107,10 @@ class EditablesService
     public function prepareBaseDataArray($articleNumber, $record){
         $longDescription                = $record['Marketing / Long Description'];
         $shortDescription               = $record['Marketing / Short Description'];
-        $FeaturesBenefitsBulletPoint    = $this->getFeatureBenefits($record);
+        $featuresBenefitsBulletPoint    = $this->getFeatureBenefits($record);
 
         $baseLevelData = [
-            'FeaturesBenefitsBulletPoint' => $FeaturesBenefitsBulletPoint
+            'FeaturesBenefitsBulletPoint' => $featuresBenefitsBulletPoint
         ];
 
         $baseData['baseLevelData'] = $baseLevelData;
@@ -134,12 +141,12 @@ class EditablesService
         $featureValueArr = [];
         $featuresBenefitsBulletPoint = array_filter($featurePoints);
         if(!empty($featuresBenefitsBulletPoint))
-        {           
+        {
             foreach($featuresBenefitsBulletPoint as $feature)
             {
                 $objFeatures = new DataObject\PTGEUFeaturesAndBenefits\Listing();
                 $objFeatures->setCondition("FeaturesAndBenefits = ?", $feature);
-                if(!empty($objFeatures)) 
+                if(!empty($objFeatures))
                 {
                     foreach ($objFeatures as $featureData) {
                         $featureValueArr[] = $featureData->getId();
@@ -149,8 +156,7 @@ class EditablesService
         }
         unset($objFeatures);
         $featureBenefitValueArr = $featureValueArr;
-        $featureBenefits  = implode(',', $featureBenefitValueArr);
-        return $featureBenefits;
+        return implode(',', $featureBenefitValueArr);
     }
 
     private function getSelectTypeValue($data, $fieldName){
@@ -174,19 +180,25 @@ class EditablesService
 
             $this->baseArray[] = $baseObjectId;
 
-            $this->editablesModel->insertDataForEditablesIntoTable($baseData['baseLevelData'], 'object_query_38', $baseObjectId);
-            $this->editablesModel->insertDataForEditablesIntoTable($baseData['baseLevelData'], 'object_store_38', $baseObjectId);
+            $this->editablesModel->insertDataForEditablesIntoTable($baseData['baseLevelData'],
+             'object_query_38', $baseObjectId);
+            $this->editablesModel->insertDataForEditablesIntoTable($baseData['baseLevelData'],
+             'object_store_38', $baseObjectId);
 
-            $this->editablesModel->insertDataForLocalizedEditablesIntoTable($baseData['baseLevelLocalizedfieldArray'], 'object_localized_query_38_en', $baseObjectId);
-            $this->editablesModel->insertDataForLocalizedEditablesIntoTable($baseData['baseLevelLocalizedfieldArray'], 'object_localized_data_38', $baseObjectId);            
+            $this->editablesModel->insertDataForLocalizedEditablesIntoTable($baseData[
+                'baseLevelLocalizedfieldArray'], 'object_localized_query_38_en', $baseObjectId);
+            $this->editablesModel->insertDataForLocalizedEditablesIntoTable($baseData[
+                'baseLevelLocalizedfieldArray'], 'object_localized_data_38', $baseObjectId);
 
 
         }
         $this->editablesModel->insertDataForEditablesIntoTable($fertData['fertLevelData'], 'object_query_38', $objId);
         $this->editablesModel->insertDataForEditablesIntoTable($fertData['fertLevelData'], 'object_store_38', $objId);
 
-        $this->editablesModel->insertDataForLocalizedEditablesIntoTable($fertData['fertLevelLocalizedfieldArray'], 'object_localized_query_38_en', $objId);
-        $this->editablesModel->insertDataForLocalizedEditablesIntoTable($fertData['fertLevelLocalizedfieldArray'], 'object_localized_data_38', $objId);
+        $this->editablesModel->insertDataForLocalizedEditablesIntoTable($fertData[
+            'fertLevelLocalizedfieldArray'], 'object_localized_query_38_en', $objId);
+        $this->editablesModel->insertDataForLocalizedEditablesIntoTable($fertData[
+            'fertLevelLocalizedfieldArray'], 'object_localized_data_38', $objId);
 
     }
 }

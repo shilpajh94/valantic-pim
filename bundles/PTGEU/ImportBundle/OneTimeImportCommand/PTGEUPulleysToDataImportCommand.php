@@ -44,6 +44,7 @@ class PTGEUPulleysToDataImportCommand extends AbstractCommand
             p_r('--------------Total Execution Time---------------');
             p_r('Script completed after: ' . (abs(time() - $this->t) / 60) . ' mnt');
         }
+        return 1;
     }
 
 
@@ -64,20 +65,21 @@ class PTGEUPulleysToDataImportCommand extends AbstractCommand
                     $o_id = $object->getId();
                     $pulleysTo =  $this->db->quote(trim($rowData['Pulleys to']));
 
-                    $querySql = "UPDATE object_brick_query_PTGEUVBeltsFert_38 SET pulleysTo = $pulleysTo where o_id = $o_id";
-                    $this->db->executeUpdate($querySql);
+                    $querySql = "UPDATE object_brick_query_PTGEUVBeltsFert_38 SET
+                     pulleysTo = $pulleysTo where o_id = $o_id";
+                    $this->db->executeQuery($querySql);
 
-                    $updateSql = "UPDATE object_brick_store_PTGEUVBeltsFert_38 SET pulleysTo = $pulleysTo where o_id = $o_id";
-                    $this->db->executeUpdate($updateSql);
+                    $updateSql = "UPDATE object_brick_store_PTGEUVBeltsFert_38 SET
+                     pulleysTo = $pulleysTo where o_id = $o_id";
+                    $this->db->executeQuery($updateSql);
 
-                    $this->percentageCompletionService->completenessPercentage($object, 'import');  
+                    $this->percentageCompletionService->completenessPercentage($object, 'import');
                     echo $i++.'. Material Number == '.$rowData['SAPMaterialCode'] . "\n";
                 }else{
                     p_r($i++.' Object not found with material number '. $rowData['SAPMaterialCode']);
                 }
             }
-            }catch(Exception $ex){
-
+        }catch(Exception $ex){
             }
     }
 
@@ -98,7 +100,8 @@ class PTGEUPulleysToDataImportCommand extends AbstractCommand
             $count = 0;
 
             if (($handle = fopen($csvFilePath, 'r')) !== false) {
-                while (($rowData = fgetcsv($handle, 0, $dialect->delimiter, $dialect->quotechar, $dialect->escapechar)) !== false) {
+                while (($rowData = fgetcsv($handle, 0, $dialect->delimiter, $dialect->quotechar,
+                 $dialect->escapechar)) !== false) {
                     if ($count == 0) {
                         foreach ($rowData as $key => $value) {
                             unset($rowData[$key]);

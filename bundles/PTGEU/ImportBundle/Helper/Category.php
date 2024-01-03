@@ -3,6 +3,8 @@
 namespace PTGEU\ImportBundle\Helper;
 
 use Pimcore\Model\DataObject;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Exception;
 
 class Category
 {
@@ -11,13 +13,17 @@ class Category
     private $codeLength;
     public $businessUnit;
     private $catConfigData;
+    private $levelLength;
     public $siopCodes;
-    public function __construct()
+    private $container;
+
+    public function __construct(ContainerInterface $container)
     {
+        $this->container = $container;
         /* Initiate common helper */
-        $this->common = \Pimcore::getContainer()->get('import.common_helper');
+        $this->common = $this->container->get('import.common_helper');
         /* Loading global configuration for category */
-        $this->catConfigData = \Pimcore::getContainer()->get('import.config_provider_service')->getCategoryConfig();
+        $this->catConfigData = $this->container->get('import.config_provider_service')->getCategoryConfig();
         $this->root = $this->common->getParameter($this->catConfigData, 'root');
         $this->codeLength = $this->common->getParameter($this->catConfigData, 'codeLength');
         $this->levelLength = $this->common->getParameter($this->catConfigData, 'levelLength');
@@ -70,8 +76,13 @@ class Category
      */
     public function extractFullCodeLevelWise($currLevel, $code)
     {
-        $levelLength = $this->levelLength[$currLevel];
-        return substr($code, 0, $levelLength);
+        $levelLength = isset($this->levelLength[$currLevel]) ? $this->levelLength[$currLevel] : null;
+        if($levelLength){
+            return substr($code, 0, $levelLength);
+        }
+        else{
+            return '';
+        }
     }
 
     /**
@@ -79,10 +90,10 @@ class Category
      */
     public function extractCodeLevelWise($level, $code)
     {
-        $levelLength= $this->levelLength[$level];
+        $levelLength= isset($this->levelLength[$level]) ? $this->levelLength[$level] : null;
         $levelCode  = substr($code, 0, $levelLength);
         $len        = strlen($levelCode);
-        $from       = $len - $this->codeLength[$level];
+        $from       = $len - (isset($this->codeLength[$level]) ? $this->codeLength[$level] : 0);
         return substr($levelCode, $from, $len);
     }
 
@@ -109,20 +120,26 @@ class Category
 
     public function getObjectByFullCode($code, $bu)
     {
-        if (!empty($code)) {
-            $obj = new DataObject\PTGEUProductHierarchy\Listing;
-            $obj->setCondition("fullCode='$code' AND BusinessUnit='$bu'");
-            $obj->setLimit(1);
-            $obj->load();
-
-            foreach ($obj as $o) {
-                if ($o->getId())
-                {
-                    return $o;
-                } 
+        try{
+            if (!empty($code)) {
+                $obj = new DataObject\PTGEUProductHierarchy\Listing;
+                $obj->setCondition("fullCode='$code' AND BusinessUnit='$bu'");
+                $obj->setLimit(1);
+                $obj->load();
+    
+                foreach ($obj as $o) {
+                    if ($o->getId())
+                    {
+                        return $o;
+                    }
+                }
             }
+            return false;
         }
-        return false;
+        catch(Exception $ex){
+            print_r($ex);
+        }
+        
     }
 
     public function getCategories()
