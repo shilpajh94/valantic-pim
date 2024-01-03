@@ -179,13 +179,14 @@ class DefaultController extends FrontendController
      */
     public function templateDynamicTableOfContentsAction(Request $request)
     {   
-        try
-        {
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());   
+        // try
+        // {
             $configProviderService = new ConfigProviderService();
     
             $footer_logo_src = $configProviderService->getDefaultImage('CS_footer_logo');
             
-            $this->view['footer_logo_src'] = $footer_logo_src;
+            $parameterBag['footer_logo_src'] = $footer_logo_src;
     
             $folderId =$this->document->getParent()->getId(); 
             $listing = new \Pimcore\Model\Document\Listing(); 
@@ -221,7 +222,7 @@ class DefaultController extends FrontendController
             {
                 if ($doc->getTemplate() == '@ContitechCSCatalog/Default/template_product_section_page.html.twig')
                 {
-                    $obj = $doc->getElement('TOC_Section_Title');
+                    $obj = $doc->getEditable('TOC_Section_Title');
                     if (!empty($obj)) {
                         $sectionPageTitle = $obj->getData();
                     }
@@ -229,7 +230,7 @@ class DefaultController extends FrontendController
                 } 
                 if (!empty($sectionPageTitle)) {
                     if (in_array($doc->getTemplate(), $templateArray)) {
-                        $obj = $doc->getElement('CS_ProductName');
+                        $obj = $doc->getEditable('CS_ProductName');
                         if (!empty($obj) && !empty($obj->getData())) {
                             $all_doc_arr[$sectionPageTitle][] = $obj->getData();
                         } else {
@@ -238,12 +239,14 @@ class DefaultController extends FrontendController
                     }
                 }
             }
-            $this->view['data'] = $all_doc_arr;//$table_of_content_data;     
-        }
-        catch(Exception $e)
-        {  
-            return new Response($e->getMessage());
-        }
+            $parameterBag['data'] = $all_doc_arr;//$table_of_content_data;     
+        // }
+        // catch(Exception $e)
+        // {  
+        //     return new Response($e->getMessage());
+        // }
+
+        return $this->render("@ContitechCSCatalog/Default/template_dynamic_table_of_contents.html.twig", $parameterBag);
     }
 
     /**
@@ -264,11 +267,12 @@ class DefaultController extends FrontendController
             $configProviderService      = new ConfigProviderService();
             $footer_logo_src            = $configProviderService->getDefaultImage('CS_footer_logo');
     
-            $catalogTableObject = $this->document->getEditable('cbs_template_product_page')->getElement();
+            $catalogTableObjectEditable = $this->document->getEditable('cbs_template_product_page');
             $productData = [];
 
-            if($catalogTableObject)
+            if($catalogTableObjectEditable)
             {
+                $catalogTableObject = $catalogTableObjectEditable->getElement();
                 $productDataImportConfig = $configProviderService->getCatalogProductTablesConfig();
     
                 $catalogCategoryObjectId    = $catalogTableObject->getParentId();
@@ -320,7 +324,10 @@ class DefaultController extends FrontendController
                     $productData['ShortText'] = $productObj->getShortText();
                     $productData['LongText'] = $productObj->getLongText();
                     $productData['LogoImage'] = $productObj->getLogoImage();
-    
+                    
+                    $applicationsHtml = '';
+                    $CoverCompoundHtml = '';
+                    $marketsHtml = '';
                     if(method_exists($productObj,'getCSProductApplications') &&  $productObj->getCSProductApplications())
                     {
                         $applicationsHtml = '<ul>';
@@ -441,7 +448,12 @@ class DefaultController extends FrontendController
                             {
                                 unset($productDataImportConfig['Common Product Page'][$productKeyName]['Product_Table_Column_Limit']);
                                 $tables = $productDataImportConfig['Common Product Page'][$productKeyName];
-                                
+                                // unset($tables['Conveyor Belt Data']);
+                                // unset($tables['Troughability Minimum Belt Width']);
+                                // unset($tables['Minimum Pulley Diameters']);
+                                // unset($tables['Elevator Belt Data']);
+                                // unset($tables['Maximum Bucket Projection']);
+                                // p_r($tables);
                                 if($tables)
                                 {
                                     foreach ($tables as $tablekey => $MetricImperialFields)
@@ -529,21 +541,26 @@ class DefaultController extends FrontendController
                                                 {
                                                     $groupingTitle[$AdditionalGroupKey] = 1;
                                                 }
-                                                
+                                                // p_r($MIValues);
                                                 foreach ($MIValues as $key => $value)
                                                 {
             
                                                     if(isset($value['groupingTitle']))
                                                     {
-                                                        $groupingTitleLabel = $this->addPrefix($value['groupingTitle']);
                                                         
+                                                        $groupingTitleLabel = $this->addPrefix($value['groupingTitle']);
+                                                        // p_r($groupingTitleLabel);
                                                         if(isset($groupingTitle[$groupingTitleLabel]))
                                                         {
                                                             $groupingTitle[$groupingTitleLabel] += 1;
+                                                        }else{
+                                                            $groupingTitle[$groupingTitleLabel] = 1;
                                                         }
+                                                        // p_r($groupingTitle);
                                                         
                                                     }
                                                 }
+                                                // p_r($groupingTitle);
             
                                                 $MIArray = array();
                                                 $theadSecondData = [];
@@ -590,7 +607,7 @@ class DefaultController extends FrontendController
                                                         }
                                                         else
                                                         {
-                                                            if(method_exists($bricks,$getBrick) && method_exists($bricks->$getBrick(),$getField))
+                                                            if(method_exists($bricks,$getBrick) && !is_null($bricks->$getBrick()) && method_exists($bricks->$getBrick(),$getField))
                                                             {   
                                                                 if($bricks->$getBrick()->$getField())
                                                                 {
@@ -806,6 +823,7 @@ class DefaultController extends FrontendController
                 $parameterBag['data'] = $productData;
                 $parameterBag['footer_logo_src']  = $footer_logo_src;
             }
+            // p_r($parameterBag); die;
         // }
         // catch(Exception $e)
         // {   
@@ -819,8 +837,9 @@ class DefaultController extends FrontendController
      */
     public function templateContiAlertPageAction(Request $request)
     {   
-        try
-        {       
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId()); 
+        // try
+        // {       
             $regionProperty     = $this->document->getProperty('region');
 
             if(!$regionProperty)
@@ -830,11 +849,12 @@ class DefaultController extends FrontendController
             $configProviderService      = new ConfigProviderService();
             $footer_logo_src            = $configProviderService->getDefaultImage('CS_footer_logo');
     
-            $catalogTableObject = $this->getDocumentTag('relation', 'cbs_conti_alert')->getElement();
+            $catalogTableObjectEditable = $this->document->getEditable('cbs_conti_alert');
             $productData = [];
 
-            if($catalogTableObject)
+            if($catalogTableObjectEditable)
             {
+                $catalogTableObject = $catalogTableObjectEditable->getElement();
                 $productDataImportConfig = $configProviderService->getCatalogProductTablesConfig();
     
                 $catalogCategoryObjectId    = $catalogTableObject->getParentId();
@@ -1356,14 +1376,16 @@ class DefaultController extends FrontendController
                         $productData['productTables'] = $productTables;
                     }
                 }
-                $this->view['data'] = $productData;
-                $this->view['footer_logo_src']  = $footer_logo_src;
+                $parameterBag['data'] = $productData;
+                $parameterBag['footer_logo_src']  = $footer_logo_src;
             }
-        }
-        catch(Exception $e)
-        {   
-            echo "<h3>".$e->getMessage()."</h3>";
-        }
+        // }
+        // catch(Exception $e)
+        // {   
+        //     echo "<h3>".$e->getMessage()."</h3>";
+        // }
+
+        return $this->render("@ContitechCSCatalog/Default/template_contialert_product_page.html.twig", $parameterBag);
     }
 
 
@@ -1372,8 +1394,9 @@ class DefaultController extends FrontendController
      */
     public function templateTranscontiProductPageAction(Request $request)
     {   
-        try
-        {       
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId()); 
+        // try
+        // {       
             $regionProperty     = $this->document->getProperty('region');
 
             if(!$regionProperty)
@@ -1383,11 +1406,12 @@ class DefaultController extends FrontendController
             $configProviderService      = new ConfigProviderService();
             $footer_logo_src            = $configProviderService->getDefaultImage('CS_footer_logo');
     
-            $catalogTableObject = $this->getDocumentTag('relation', 'cbs_template_transconti_product_page')->getElement();
+            $catalogTableObjectEditable = $this->document->getEditable('cbs_template_transconti_product_page');
             $productData = [];
 
-            if($catalogTableObject)
+            if($catalogTableObjectEditable)
             {
+                $catalogTableObject = $catalogTableObjectEditable->getElement();
                 $productDataImportConfig = $configProviderService->getCatalogProductTablesConfig();
     
                 $catalogCategoryObjectId    = $catalogTableObject->getParentId();
@@ -1893,14 +1917,16 @@ class DefaultController extends FrontendController
                         $productData['productTables'] = $productTables;
                     }
                 }
-                $this->view['data'] = $productData;
-                $this->view['footer_logo_src']  = $footer_logo_src;
+                $parameterBag['data'] = $productData;
+                $parameterBag['footer_logo_src']  = $footer_logo_src;
             }
-        }
-        catch(Exception $e)
-        {   
-            echo "<h3>".$e->getMessage()."</h3>";
-        }
+        // }
+        // catch(Exception $e)
+        // {   
+        //     echo "<h3>".$e->getMessage()."</h3>";
+        // }
+
+        return $this->render("@ContitechCSCatalog/Default/template_transConti_page.html.twig", $parameterBag);
     }
 
     /**
@@ -1908,8 +1934,9 @@ class DefaultController extends FrontendController
      */
     public function templateCoverCompoundsAction(Request $request)
     {   
-        try
-        {   
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        // try
+        // {   
             $regionProperty = $this->document->getProperty('region');
 
             if(!$regionProperty)
@@ -1920,10 +1947,11 @@ class DefaultController extends FrontendController
     
             $footer_logo_src = $configProviderService->getDefaultImage('CS_footer_logo');
     
-            $catalogTableObject = $this->getDocumentTag('relation', 'cbs_template_cover_compound_page')->getElement();
+            $catalogTableObjectEditable = $this->document->getEditable('cbs_template_cover_compound_page');
             $productData = [];
-            if($catalogTableObject)
+            if($catalogTableObjectEditable)
             {
+                $catalogTableObject = $catalogTableObjectEditable->getElement();
                 $productDataImportConfig = $configProviderService->getCatalogProductTablesConfig();
     
                 $coverCompoundData = [];
@@ -2040,82 +2068,91 @@ class DefaultController extends FrontendController
                             
                         }
                     }
-                    $label4Childs = $this->getDocumentTag('relations', 'coverCompoundTableObjects')->getElements();
-                        
-                            if($label4Childs)
-                            {
-                                foreach ($label4Childs as $child) {
-                                    $level4Key = trim($child->getKey());
-                                    $level4Name = trim($child->getName());
-                                    if($child->getCSPerformanceCategory())
-                                    {
-                                        foreach ($child->getCSPerformanceCategory() as $ckey => $coverCompound) {
-                                            $coverCompoundName = $coverCompoundMasterList[$coverCompound];
-                                            $coverCompounds[$coverCompoundName][$level4Key][] = $level4Name;
-                                            $bricks = $child->getProductAttributes();
-    
-                                            foreach ($coverOptionsAttributes as $key => $brickName) {
-    
-                                                $getBrick = 'get' . $brickName;
-                                                $getField = 'get' . $key;
-                                                if(!in_array($this->addPrefix($key), $coverCompoundsHeaderKeys))
-                                                {
-                                                    $coverCompoundsHeaderKeys[] = $this->addPrefix($key);
-                                                }
-                                                if($bricks->$getBrick())
-                                                {
-                                                    if($key == 'MinTemperatureF'){
-                                                        $minTemperatureFValue = $bricks->$getBrick()->$getField();
-                                                        $minTemperatureCValue = $bricks->$getBrick()->getMinTemperatureC();
-                                                        if($minTemperatureFValue){
-                                                            $minTemperatureFValue = $minTemperatureFValue . '°F <br>';
-                                                        }
-                                                        if($minTemperatureCValue){
-                                                            $minTemperatureCValue = '('.$minTemperatureCValue . '°C'.')';
-                                                        }
-                                                        $coverCompounds[$coverCompoundName][$level4Key][] = $minTemperatureFValue . $minTemperatureCValue;
-                                                    }elseif($key == 'MaxTemperatureF'){
-                                                        $maxTemperatureFValue = $bricks->$getBrick()->$getField();
-                                                        $maxTemperatureCValue = $bricks->$getBrick()->getMaxTemperatureC();
-                                                        if($maxTemperatureFValue){
-                                                            $maxTemperatureFValue = $maxTemperatureFValue . '°F <br>';
-                                                        }
-                                                        if($maxTemperatureCValue){
-                                                            $minTemperatureCValue = '('.$maxTemperatureCValue . '°C'.')';
-                                                        }
-                                                        $coverCompounds[$coverCompoundName][$level4Key][] = $maxTemperatureFValue . $minTemperatureCValue;
+                    $label4ChildsEditable = $this->document->getEditable('coverCompoundTableObjects');
+                    if($label4ChildsEditable)
+                    {
+                        $label4Childs = $label4ChildsEditable->getElements();
+                        if($label4Childs)
+                        {
+                            foreach ($label4Childs as $child) {
+                                $level4Key = trim($child->getKey());
+                                $level4Name = trim($child->getName());
+                                if($child->getCSPerformanceCategory())
+                                {
+                                    foreach ($child->getCSPerformanceCategory() as $ckey => $coverCompound) {
+                                        $coverCompoundName = $coverCompoundMasterList[$coverCompound];
+                                        $coverCompounds[$coverCompoundName][$level4Key][] = $level4Name;
+                                        $bricks = $child->getProductAttributes();
+
+                                        foreach ($coverOptionsAttributes as $key => $brickName) {
+
+                                            $getBrick = 'get' . $brickName;
+                                            $getField = 'get' . $key;
+                                            if(!in_array($this->addPrefix($key), $coverCompoundsHeaderKeys))
+                                            {
+                                                $coverCompoundsHeaderKeys[] = $this->addPrefix($key);
+                                            }
+                                            if($bricks->$getBrick())
+                                            {
+                                                if($key == 'MinTemperatureF'){
+                                                    $minTemperatureFValue = $bricks->$getBrick()->$getField();
+                                                    $minTemperatureCValue = $bricks->$getBrick()->getMinTemperatureC();
+                                                    if($minTemperatureFValue){
+                                                        $minTemperatureFValue = $minTemperatureFValue . '°F <br>';
                                                     }
-                                                    else{
-                                                        $coverCompounds[$coverCompoundName][$level4Key][] = $bricks->$getBrick()->$getField();
+                                                    if($minTemperatureCValue){
+                                                        $minTemperatureCValue = '('.$minTemperatureCValue . '°C'.')';
                                                     }
+                                                    $coverCompounds[$coverCompoundName][$level4Key][] = $minTemperatureFValue . $minTemperatureCValue;
+                                                }elseif($key == 'MaxTemperatureF'){
+                                                    $maxTemperatureFValue = $bricks->$getBrick()->$getField();
+                                                    $maxTemperatureCValue = $bricks->$getBrick()->getMaxTemperatureC();
+                                                    if($maxTemperatureFValue){
+                                                        $maxTemperatureFValue = $maxTemperatureFValue . '°F <br>';
+                                                    }
+                                                    if($maxTemperatureCValue){
+                                                        $minTemperatureCValue = '('.$maxTemperatureCValue . '°C'.')';
+                                                    }
+                                                    $coverCompounds[$coverCompoundName][$level4Key][] = $maxTemperatureFValue . $minTemperatureCValue;
                                                 }
                                                 else{
-                                                    $coverCompounds[$coverCompoundName][$level4Key][] = '';
+                                                    $coverCompounds[$coverCompoundName][$level4Key][] = $bricks->$getBrick()->$getField();
                                                 }
-                                            
                                             }
-                                            // $onlyOnce = true;
+                                            else{
+                                                $coverCompounds[$coverCompoundName][$level4Key][] = '';
+                                            }
+                                        
                                         }
+                                        // $onlyOnce = true;
                                     }
-                                    
                                 }
-                            }
-                    $productApplicationObject = $this->getDocumentTag('relations', 'objectPaths')->getElements();
-                    foreach($productApplicationObject as $childObj){
-                        $coverCompoundProducts = $childObj->getName();
-
-                        if($childObj->getCSProductApplications())
-                        {
-                            foreach ($childObj->getCSProductApplications() as $key => $application) {
                                 
-                                $applicationData[$application->getApplicationName()] = $application->getApplicationName();
-                                $level4Data[$coverCompoundProducts][] = $application->getApplicationName();
-
                             }
                         }
-
                     }
 
+                    $productApplicationObjectEditable = $this->document->getEditable('objectPaths');
+                    if($productApplicationObjectEditable)
+                    {
+                        $productApplicationObject = $productApplicationObjectEditable->getElements();
+                        foreach($productApplicationObject as $childObj){
+                            $coverCompoundProducts = $childObj->getName();
+
+                            if($childObj->getCSProductApplications())
+                            {
+                                foreach ($childObj->getCSProductApplications() as $key => $application) {
+                                    
+                                    $applicationData[$application->getApplicationName()] = $application->getApplicationName();
+                                    $level4Data[$coverCompoundProducts][] = $application->getApplicationName();
+
+                                }
+                            }
+
+                        }
+                    }
+
+                    $CCAARows = [];
                     if($level4Data)
                     {
                         foreach ($level4Data as $lkey => $lvalue)
@@ -2152,14 +2189,15 @@ class DefaultController extends FrontendController
                 $productData['coverCompoundData'] = $coverCompoundData;
             }
 
-            $this->view['data']                 = $productData;
-            $this->view['HierarchyNameLevel2']  = $coverCompoundData['HierarchyNameLevel2'];
-            $this->view['footer_logo_src']      = $footer_logo_src;
-        }
-        catch(Exception $e)
-        {  
-            echo "<h3>".$e->getMessage()."</h3>";
-        }
+            $parameterBag['data']                 = $productData;
+            $parameterBag['HierarchyNameLevel2']  = $coverCompoundData['HierarchyNameLevel2'];
+            $parameterBag['footer_logo_src']      = $footer_logo_src;
+        // }
+        // catch(Exception $e)
+        // {  
+        //     echo "<h3>".$e->getMessage()."</h3>";
+        // }
+        return $this->render("@ContitechCSCatalog/Default/template_cover_compounds.html.twig", $parameterBag);
     }
 
     /**
@@ -2176,8 +2214,9 @@ class DefaultController extends FrontendController
      */
     public function templateCleatedBeltsAction(Request $request)
     {   
-        try
-        {   
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        // try
+        // {   
             $regionProperty = $this->document->getProperty('region');
 
             if(!$regionProperty)
@@ -2189,11 +2228,12 @@ class DefaultController extends FrontendController
     
             $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
     
-            $catalogTableObject = $this->getDocumentTag('relation', 'cbs_template_cleated_belts_page')->getElement();
+            $catalogTableObjectEditable = $this->document->getEditable('cbs_template_cleated_belts_page');
             $productData    = [];
             $displayTablesFlag  = false;
-            if($catalogTableObject)
+            if($catalogTableObjectEditable)
             {   
+                $catalogTableObject = $catalogTableObjectEditable->getElement();
                 $selectedProduct = $catalogTableObject->getProducts();
     
                 $productId = $selectedProduct[0];
@@ -2421,14 +2461,16 @@ class DefaultController extends FrontendController
                 }
             }
 
-            $this->view['data']             = $productData;
-            $this->view['displayTablesFlag']    = $displayTablesFlag;
-            $this->view['footer_logo_src']  = $footer_logo_src;
-        }
-        catch(Exception $e)
-        {  
-            echo "<h3>".$e->getMessage()."</h3>";
-        }
+            $parameterBag['data']             = $productData;
+            $parameterBag['displayTablesFlag']    = $displayTablesFlag;
+            $parameterBag['footer_logo_src']  = $footer_logo_src;
+        // }
+        // catch(Exception $e)
+        // {  
+        //     echo "<h3>".$e->getMessage()."</h3>";
+        // }
+
+        return $this->render("@ContitechCSCatalog/Default/template_cleated_belts.html.twig", $parameterBag);
     }
 
     /** Get Reasion Name By id
@@ -2675,13 +2717,7 @@ class DefaultController extends FrontendController
 
     public function containerAction(Request $request)
     {   
-        $parameterBag = [
-            'document' => $this->document
-        ];
-
-        foreach ($request->attributes as $key => $value) {
-            $parameterBag[$key] = $value;
-        }
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
 
         $allChildren = [];
 
@@ -2694,7 +2730,7 @@ class DefaultController extends FrontendController
         }
 
         $parameterBag['allChildren'] = $allChildren;
-        return $this->render('@Catalog/Default/container.html.twig',$parameterBag);
+        return $this->render('@ContitechCSCatalog/Default/container.html.twig',$parameterBag);
     }
 
     /**
@@ -2702,8 +2738,9 @@ class DefaultController extends FrontendController
     */
     public function templateContinentalConveyorServicesAction(Request $request)
     {       
-        try
-        {
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        // try
+        // {
             $regionProperty = $this->document->getProperty('region');
             
             if(!$regionProperty)
@@ -2716,12 +2753,13 @@ class DefaultController extends FrontendController
             
             $default_image = $this->configProviderService->getDefaultImage();
         
-            $catalogCategoryObject = $this->getDocumentTag('relation', 'cbs_template_belt_services_page')->getElement();
+            $catalogCategoryObjectEditable = $this->document->getEditable('cbs_template_belt_services_page');
     
             $productNameArr = [];
     
-            if($catalogCategoryObject)
+            if($catalogCategoryObjectEditable)
             {
+                $catalogCategoryObject = $catalogCategoryObjectEditable->getElement();
                 $selectedSecondLevelCategoryId = $catalogCategoryObject->getSecondLevelCategory();
     
                 $hierarchyObj = DataObject\CSHierarchy::getById($selectedSecondLevelCategoryId);
@@ -2765,14 +2803,16 @@ class DefaultController extends FrontendController
                 
             }
     
-            $this->view['data'] = $productNameArr;
-            $this->view['footer_logo_src']  = $footer_logo_src;
-            $this->view['default_image']    = $default_image;
-        }
-        catch(Exception $e)
-        {  
-            echo "<h3>".$e->getMessage()."</h3>";
-        }
+            $parameterBag['data'] = $productNameArr;
+            $parameterBag['footer_logo_src']  = $footer_logo_src;
+            $parameterBag['default_image']    = $default_image;
+        // }
+        // catch(Exception $e)
+        // {  
+        //     echo "<h3>".$e->getMessage()."</h3>";
+        // }
+
+        return $this->render('@ContitechCSCatalog/Default/template_continental_conveyor_services.html.twig',$parameterBag);
     }
 
     /**
@@ -2873,10 +2913,11 @@ class DefaultController extends FrontendController
             
             $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
     
-            $catalogTableObject = $this->document->getEditable('cbs_conti_inspect_systems')->getElement();
+            $catalogTableObjectEditable = $this->document->getEditable('cbs_conti_inspect_systems');
             $productData = [];
-            if($catalogTableObject)
+            if($catalogTableObjectEditable)
             {
+                $catalogTableObject = $catalogTableObjectEditable->getElement();
                 $selectedProduct = $catalogTableObject->getProducts();
                 $singleProduct = $selectedProduct[0];
                 $productObject = DataObject\CSProducts::getById($singleProduct);
@@ -3015,11 +3056,12 @@ class DefaultController extends FrontendController
             
             $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
             
-            $catalogTableObject = $this->document->getEditable('cbs_conti_pipe_belt')->getElement();
+            $catalogTableObjectEditable = $this->document->getEditable('cbs_conti_pipe_belt');
             $productData = [];
             
-            if($catalogTableObject)
+            if($catalogTableObjectEditable)
             {
+                $catalogTableObject = $catalogTableObjectEditable->getElement();
                 $selectedProduct    = $catalogTableObject->getProducts();
                 $singleProduct      = isset($selectedProduct[0])?$selectedProduct[0]:'';
     
@@ -3290,12 +3332,13 @@ class DefaultController extends FrontendController
             
             $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
             
-            $catalogCategoryObject = $this->document->getEditable('cbs_template_steelcord_belt_construction_page')->getElement();
+            $catalogCategoryObjectEditable = $this->document->getEditable('cbs_template_steelcord_belt_construction_page');
     
             $productNameArr = [];
     
-            if($catalogCategoryObject)
+            if($catalogCategoryObjectEditable)
             {
+                $catalogCategoryObject = $catalogCategoryObjectEditable->getElement();
                 $selectedSecondLevelCategoryId = $catalogCategoryObject->getSecondLevelCategory();
     
                 $hierarchyObj = DataObject\CSHierarchy::getById($selectedSecondLevelCategoryId);
@@ -3462,8 +3505,9 @@ class DefaultController extends FrontendController
 
     public function templateContiCleanAction(Request $request)
     {   
-        try
-        {
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        // try
+        // {
             $regionProperty = $this->document->getProperty('region');
             
             if(!$regionProperty)
@@ -3471,15 +3515,16 @@ class DefaultController extends FrontendController
 
             $regionId = $regionProperty->getId();
             
-            $catalogTableObject = $this->getDocumentTag('relation', 'cbs_conti_clean')->getElement();
+            $catalogTableObjectEditable = $this->document->getEditable('cbs_conti_clean');
     
             $this->configProviderService = new ConfigProviderService();
         
             $footer_logo_src = $this->configProviderService->getDefaultImage('CS_footer_logo');
             
             $productData = [];
-            if($catalogTableObject)
+            if($catalogTableObjectEditable)
             {
+                $catalogTableObject = $catalogTableObjectEditable->getElement();
                 $selectedProduct = $catalogTableObject->getProducts();
                 if($selectedProduct)
                 {
@@ -3506,13 +3551,15 @@ class DefaultController extends FrontendController
                 }
             }
     
-            $this->view['data'] = $productData;
-            $this->view['footer_logo_src'] = $footer_logo_src;
-        }
-        catch(Exception $e)
-        {  
-            echo "<h3>".$e->getMessage()."</h3>";
-        }
+            $parameterBag['data'] = $productData;
+            $parameterBag['footer_logo_src'] = $footer_logo_src;
+        // }
+        // catch(Exception $e)
+        // {  
+        //     echo "<h3>".$e->getMessage()."</h3>";
+        // }
+
+        return $this->render("@ContitechCSCatalog/Default/template_contiClean.html.twig", $parameterBag);
     }
 
     /**

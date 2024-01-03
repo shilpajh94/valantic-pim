@@ -88,7 +88,7 @@
                 {{ pimcore_image('Environment_Image') }}
             {% else %}
                 {% set imgSrcObj1 = pimcore_image('Environment_Image') %}
-                {% if getImageThumbnail(imgSrcObj, imageWidth) %}
+                {% if getImageThumbnail(imgSrcObj1, imageWidth) %}
                     <img src="{{ getImageThumbnail(imgSrcObj1, imageWidth)}}" alt="" class="features-images" style="max-height:350px" />
                 {% endif %}
             {% endif %}

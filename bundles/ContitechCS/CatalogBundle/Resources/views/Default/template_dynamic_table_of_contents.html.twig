@@ -37,7 +37,7 @@
                         {% set parents =  (data is defined and data) ? data|keys : [] %}
 
                         {% for incr0 in pimcore_block("CBS_TOC_HeadingBlock",{'default': parents|length}).iterator %}
-                            {% set i = incr- 1 %}
+                            {% set i = incr0- 1 %}
                             {% set headingVal =  (parents[i] is defined) ? parents[i] : '' %}
                             {% if editmode %}
                                 <label>Enter section heading</label><br></br>
