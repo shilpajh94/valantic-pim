@@ -95,25 +95,25 @@ class RequiredAttributeManager
     {
 
         // non_localized handling
-        $nonLocConfig = $this->config['non_localized'];
+        $nonLocConfig = isset($this->config['non_localized']) ? $this->config['non_localized'] : NULL;
         if($nonLocConfig){
             $this->locNonLocGroupHandler->addEntriesForNonLocAttributeGroup($nonLocConfig,$this->product,array());
         }
 
         // localized handling
-        $locConfig = $this->config['localized'];
+        $locConfig = isset($this->config['localized']) ? $this->config['localized'] : NULL;
         if($locConfig){
             $this->locNonLocGroupHandler->addEntriesForLocAttributeGroup($locConfig,$this->product,array());
         }
 
         // object_relations handling
-        $objectRelationConfig = $this->config['object_relations'];
+        $objectRelationConfig = isset($this->config['object_relations']) ? $this->config['object_relations'] : NULL;
         if($objectRelationConfig){
             $this->objectRelationHandler->addEntriesForRelationalAttributes($objectRelationConfig,$this->product);
         }
 
         // object brick handling
-        $objectBrickConfig = $this->config['object_bricks'];
+        $objectBrickConfig = isset($this->config['object_bricks']) ? $this->config['object_bricks'] : NULL;
         if($objectBrickConfig){
             $this->objectBrickHandler->addEntriesForObjectBricks($objectBrickConfig,$this->product);
         }

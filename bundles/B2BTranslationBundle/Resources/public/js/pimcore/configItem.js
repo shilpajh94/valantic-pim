@@ -178,7 +178,7 @@ pimcore.plugin.b2btranslation.configItem = Class.create(pimcore.element.abstract
                     url: url,
                     reader: {
                         type: 'json',
-                        root: 'data'
+                        rootProperty: 'data'
                     }
                 },
                 totalProperty: 'num',
@@ -208,7 +208,7 @@ pimcore.plugin.b2btranslation.configItem = Class.create(pimcore.element.abstract
                     url: url,
                     reader: {
                         type: 'json',
-                        root: 'data'
+                        rootProperty: 'data'
                     }
                 },
                 totalProperty: 'num',
@@ -239,7 +239,7 @@ pimcore.plugin.b2btranslation.configItem = Class.create(pimcore.element.abstract
                     url: url,
                     reader: {
                         type: 'json',
-                        root: 'data'
+                        rootProperty: 'data'
                     }
                 },
                 totalProperty: 'num',
@@ -269,7 +269,7 @@ pimcore.plugin.b2btranslation.configItem = Class.create(pimcore.element.abstract
                     url: url,
                     reader: {
                         type: 'json',
-                        root: 'data'
+                        rootProperty: 'data'
                     }
                 },
                 totalProperty: 'num',

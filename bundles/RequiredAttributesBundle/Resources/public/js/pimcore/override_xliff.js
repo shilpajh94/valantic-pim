@@ -87,8 +87,11 @@ pimcore.plugin.RequiredAttributesBundle.override_xliff = Class.create({
                             }
 
                             let sheetNamesStore = new Ext.data.JsonStore({
-                            data: sheetNamesStoreData,
-                            fields: ["id", "name"],
+                                proxy: {
+                                    type: 'memory'
+                                },
+                                data: sheetNamesStoreData,
+                                fields: ["id", "name"],
                             });                                            
                             
                             this.xyz = new Ext.form.ComboBox({

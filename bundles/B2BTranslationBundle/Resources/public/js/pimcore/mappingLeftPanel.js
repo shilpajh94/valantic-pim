@@ -47,7 +47,7 @@ pimcore.plugin.b2btranslation.mappingLeftPanel = Class.create({
             this.tree = Ext.create('Ext.tree.Panel', {
                 store: store,
                 rootVisible: true,
-                root: {
+                rootProperty: {
                         id: '0',
                         iconCls: "pimcore_icon_home",
                         text: t('home'),
