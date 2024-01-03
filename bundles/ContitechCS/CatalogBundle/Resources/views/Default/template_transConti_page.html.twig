@@ -1,0 +1,937 @@
+{% if parentContainer is not defined %}
+	{% extends "@ContitechCSCatalog/Layouts/layout.html.twig" %}
+{% endif %}
+
+{% block _content %}
+
+	{% if editmode %}
+		{{ pimcore_relation('cbs_template_transconti_product_page', {
+        'types' : ['object'],
+        'subtypes' : {
+            'object' : ['object']
+        },
+        'classes' : ['CSCatalogTables'],
+    }) }}
+	{% endif %}
+
+	{% if data is defined %}
+		<div class="wrapper beltinfotable">
+			<header id="header">
+				<div class="header-sec">
+					<div class="header-txt">
+						<span class="first-title">{{ ('CS_header_title')|trans }}</span>
+						<span class="second-title">
+							{% if editmode %}
+								<div class="attr-font">
+									Parent Attribute Name = Name
+								</div>
+							{% endif %}
+							{% if pimcore_input("PP_title").isEmpty() %}
+								{{ pimcore_input("PP_title", {'placeholder' : 'Enter your title'}).setDataFromResource(data['HierarchyNameLevel2']) | raw }}
+							{% else %}
+								{{ pimcore_input("PP_title", {'placeholder' : 'Enter your title'}) }}
+							{% endif %}
+						</span>
+					</div>
+					<div class="print-pg-no"></div>
+				</div>
+			</header>
+
+			<footer id="footer" class="footer">
+				<div class="footer-logo">
+					<img src="{{ footer_logo_src }}" alt="" width="150">
+				</div>
+			</footer>
+
+			<main id="content" role="main">
+				{% if editmode %}
+					<section class="fortressxp-belts">
+						{% if editmode %}
+							<div class="attr-font">Attribute Name = Name</div>
+						{% endif %}
+
+						<h1 class="orange">
+
+							{% if pimcore_input("CS_ProductName").isEmpty() %}
+								{{ pimcore_input("CS_ProductName", {'placeholder' : 'Enter Product Name'}).setDataFromResource(data['ProductName']) | raw }}
+							{% else %}
+								{{ pimcore_input("CS_ProductName", {'placeholder' : 'Enter Product Name'}) }}
+							{% endif %}
+
+						</h1>
+
+						<div class="media media-transconti pt-0">
+							<div class="media-body">
+								{% if editmode %}
+									<div class="attr-font">Attribute Name = Short Text</div>
+								{% endif %}
+								<p>
+									{% if pimcore_input("PP_ShortText").isEmpty() %}
+										{{ pimcore_input("PP_ShortText", {'placeholder' : 'Enter Short Text'}).setDataFromResource(data['ShortText']) | raw }}
+									{% else %}
+										{{ pimcore_input("PP_ShortText", {'placeholder' : 'Enter Short Text'}) }}
+									{% endif %}
+								</p>
+							</div>
+						</div>
+
+						{% if data['FeaturesAndBenefits'] is defined %}
+							<div class="feature-benefit-list feature-benefit-list-transconti">
+								{% if editmode %}
+									<div class="attr-font">Attribute Name = Name</div>
+								{% endif %}
+								<h4>
+									<span class="orange">
+										<strong>
+											{% if pimcore_input("PPF_ProductName").isEmpty() %}
+												{{ pimcore_input("PPF_ProductName", {"placeholder" : "Enter Product Name"}).setDataFromResource(data['ProductName']) | raw }}
+											{% else %}
+												{{ pimcore_input("PPF_ProductName", {"placeholder" : "Enter Product Name"}) }}
+											{% endif %}
+										</strong>
+									</span>
+
+									<span class="light-black" style="color:black">
+										{{ pimcore_input("PPF_FeatureBenefitsLabel", {'placeholder' : 'Features and Benefits'}) }}
+									</span>
+								</h4>
+
+								<ul>
+									{% for key,item in data['FeaturesAndBenefits'] %}
+										{% if item is defined %}
+											<li>{{ item['FeatureName'] }}</li>
+										{% endif %}
+									{% endfor %}
+								</ul>
+
+								<p>
+									{{ pimcore_textarea("PPFB_Comment", {'placeholder' : 'Enter text'}) }}
+								</p>
+							</div>
+						{% endif %}
+
+						{% if data['Applications'] is defined or data['Markets'] is defined or data['CoverCompounds'] is defined %}
+							<div class="table">
+								<table width="100%">
+									<thead>
+										<tr>
+											{% if data['Markets'] is defined %}
+												<th width="30%" class="orange">{{ ('CS_Markets_Label')|trans }}</th>
+											{% endif %}
+
+											{% if data['Applications'] is defined %}
+												<th width="30%" class="orange">{{ ('CS_Applications_Label')|trans }}</th>
+											{% endif %}
+
+											{% if data['CoverCompounds'] is defined %}
+												<th width="30%" class="orange">{{ ('CS_Cover_Compounds_Label')|trans }}</th>
+											{% endif %}
+										</tr>
+									</thead>
+									<tbody>
+										<tr valign="top">
+											{% if data['Markets'] %}
+												<td>
+													{{ data['Markets'] }}
+												</td>
+											{% endif %}
+											{% if data['Applications'] %}
+												<td>
+													{{ data['Applications'] }}
+												</td>
+											{% endif %}
+
+											{% if data['CoverCompounds'] %}
+												<td>
+													{{ data['CoverCompounds'] }}
+													<p class="details">{{ pimcore_input("PP_CoverCompoundComment", {'placeholder' : 'Enter comment'}) }}</p>
+												</td>
+											{% endif %}
+										</tr>
+									</tbody>
+								</table>
+
+								<p class="note">
+									{{ pimcore_input("PP_ApplicationComment", {'placeholder' : 'Enter Application Comment'}) }}
+								</p>
+							</div>
+						{% endif %}
+
+						<div class="labels">
+							<table width="100%">
+								<tr>
+									<th>
+										{{ pimcore_input("PP_CostPerTon", {'placeholder' : 'Get a lower cost-per-ton conveyed'}) }}
+									</th>
+									<th class="orange-bg">
+										{{ pimcore_input("PP_TensionRange", {'placeholder' : 'Tension Range: 330 – 1500 PIW'}) }}
+									</th>
+								</tr>
+							</table>
+						</div>
+					</section>
+				{% else %}
+					<section class="fortressxp-belts">
+						{% if pimcore_input("CS_ProductName").isEmpty() %}
+							<h1 class="orange">
+								{{ pimcore_input("CS_ProductName", {'placeholder' : 'Enter Product Name'}) }}
+							</h1>
+						{% endif %}
+
+						{% set productImgSrcObj = pimcore_image("PP_Product_Image") %}
+
+						{% if not pimcore_input("PP_ShortText").isEmpty() %}
+							<div class="media media-transconti pt-0">
+								{% if not pimcore_input("PP_ShortText").isEmpty() %}
+									<div class="media-body">
+										<p>
+											{{ pimcore_input("PP_ShortText", {'placeholder' : 'Enter Short Text'}) }}
+										</p>
+									</div>
+								{% endif %}
+							</div>
+						{% endif %}
+
+						{% if data['FeaturesAndBenefits'] is defined %}
+							{% if not pimcore_input("PPF_ProductName").isEmpty() or not pimcore_input("PPF_FeatureBenefitsLabel").isEmpty() or not pimcore_textarea("PPFB_Comment").isEmpty() or data['FeaturesAndBenefits'] is defined %}
+								<div class="feature-benefit-list feature-benefit-list-transconti">
+									{% if not pimcore_input("PPF_ProductName").isEmpty() or not pimcore_input("PPF_FeatureBenefitsLabel").isEmpty() %}
+										<h4>
+											{% if not pimcore_input("PPF_ProductName").isEmpty() %}
+												<span class="orange">
+													<strong>
+														{{ pimcore_input("PPF_ProductName", {'placeholder' : 'Enter Product Name'}) }}
+													</strong>
+												</span>
+											{% endif %}
+											{% if not pimcore_input("PPF_FeatureBenefitsLabel").isEmpty() %}
+												<span class="features-benefit-black">
+													{{ pimcore_input("PPF_FeatureBenefitsLabel", {'placeholder' : 'Enter Feature Benefits Label'}) }}
+												</span>
+											{% endif %}
+										</h4>
+									{% endif %}
+
+									{% if data['FeaturesAndBenefits'] is defined %}
+										<ul>
+											{% for key,item in data['FeaturesAndBenefits'] %}
+												{% if item is defined %}
+													<li>{{ item['FeatureName'] }}</li>
+												{% endif %}
+											{% endfor %}
+										</ul>
+									{% endif %}
+
+									{% if not pimcore_textarea("PPFB_Comment").isEmpty() %}
+										<p>
+											{{ pimcore_textarea("PPFB_Comment", {'placeholder' : 'Enter Comment'}) }}
+										</p>
+									{% endif %}
+								</div>
+							{% endif %}
+						{% endif %}
+
+						{% if data['Applications'] is defined or data['Markets'] is defined or data['CoverCompounds'] is defined %}
+							<div class="table">
+								<table width="100%">
+									<thead>
+										<tr>
+											{% if data['Markets'] is defined %}
+												<th width="30%" class="orange">{{ ('CS_Markets_Label')|trans }}</th>
+											{% endif %}
+
+											{% if data['Applications'] is defined %}
+												<th width="30%" class="orange">{{ ('CS_Applications_Label')|trans }}</th>
+											{% endif %}
+
+											{% if data['CoverCompounds'] is defined %}
+												<th width="30%" class="orange">{{ ('CS_Cover_Compounds_Label')|trans }}</th>
+											{% endif %}
+										</tr>
+									</thead>
+									<tbody>
+										<tr valign="top">
+											{% if data['Markets'] %}
+												<td>
+													{{ data['Markets'] }}
+												</td>
+											{% endif %}
+											{% if data['Applications'] %}
+												<td>
+													{{ data['Applications'] }}
+												</td>
+											{% endif %}
+
+											{% if data['CoverCompounds'] %}
+												<td>
+													{{ data['CoverCompounds'] }}
+													<p class="details">{{ pimcore_input("PP_CoverCompoundComment", {'placeholder' : 'Enter comment'}) }}</p>
+												</td>
+											{% endif %}
+										</tr>
+									</tbody>
+								</table>
+
+								{% if not pimcore_input("PP_ApplicationComment").isEmpty() %}
+									<p class="note">
+										{{ pimcore_input("PP_ApplicationComment", {'placeholder' : 'Enter Application Comment'}) }}
+									</p>
+								{% endif %}
+
+							</div>
+						{% endif %}
+
+						{% set cbcImgSrcObj = pimcore_image("PP_ConveyorBeltsComponents_Image") %}
+
+						{% if not pimcore_input("PP_PowerOfFortressTechnology").isEmpty() or not pimcore_input("PP_ConveyorBeltsComponents").isEmpty() or cbcImgSrcObj.getThumbnail('catalog_thumb') is defined or pimcore_block("PP_ConveyorBeltsComponents_Points").getCount() is defined %}
+							<div class="components-sec">
+								{% if not pimcore_input("PP_PowerOfFortressTechnology").isEmpty() or not pimcore_input("PP_ConveyorBeltsComponents").isEmpty() %}
+									<h3 class="orange">
+										{% if not pimcore_input("PP_PowerOfFortressTechnology").isEmpty() %}
+											{{ pimcore_input("PP_PowerOfFortressTechnology", {'placeholder' : 'Enter Application Comment'}) }}
+										{% endif %}
+										<br/>
+										{% if not pimcore_input("PP_ConveyorBeltsComponents").isEmpty() %}
+											{{ pimcore_input("PP_ConveyorBeltsComponents", {'placeholder' : 'Enter Conveyor Belts Components'}) }}
+										{% endif %}
+									</h3>
+								{% endif %}
+							</div>
+						{% endif %}
+
+						{% if not pimcore_input("PP_CostPerTon").isEmpty() or not pimcore_input("PP_TensionRange").isEmpty() %}
+							<div class="labels">
+								<table width="100%">
+									<tr>
+										<th>
+											{% if not pimcore_input("PP_CostPerTon").isEmpty() %}
+												{{ pimcore_input("PP_CostPerTon", {'placeholder' : 'Enter Cost Per Ton'}) }}
+											{% endif %}
+										</th>
+										<th class="orange-bg">
+											{% if not pimcore_input("PP_TensionRange").isEmpty() %}
+												{{ pimcore_input("PP_TensionRange", {'placeholder' : 'Enter Tension Range'}) }}
+											{% endif %}
+										</th>
+									</tr>
+								</table>
+							</div>
+						{% endif %}
+
+					</section>
+				{% endif %}
+
+                {% if data['productTables'] is defined %}
+                    <section class="belts-information">
+                        {% if editmode %}
+                            <div class="attr-font">Attribute Name = Name
+                            </div>
+                        {% endif %}
+                        <h1 class="heading-info">
+                            <span class="orange">
+                                {% if editmode %}
+                                    {% if pimcore_input("PP_MoreInfoHeading").isEmpty() %}
+                                        {{ pimcore_input("PP_MoreInfoHeading", {'placeholder' : 'Enter Heading'}).setDataFromResource(data['ProductName']) | raw }}
+                                    {% else %}
+                                        {{ pimcore_input("PP_MoreInfoHeading", {'placeholder' : 'Enter Heading'}) }}
+                                    {% endif %}
+                                {% else %}
+                                    {{ pimcore_input("PP_MoreInfoHeading", {'placeholder' : 'Enter Heading'}) }}
+                                {% endif %}
+                            </span>
+                            <span class="light-black">
+                                {{ pimcore_input("PP_MoreInfo", {'placeholder' : 'Belt Information'}) }}
+                            </span>
+                        </h1>
+
+                        {% if data['productTables']['Conveyor Belt Data'] is defined and data['productTables']['Conveyor Belt Data'] is not null %}
+                            {% set conveyorBeltDataArray = data['productTables']['Conveyor Belt Data'] %}
+                            {% for chunkKey,conveyorBeltData in conveyorBeltDataArray %}
+                                <div class="new-page">
+                                    {% if editmode %}
+                                        <div class="attr-font">Attribute Name = Name</div>
+                                    {% endif %}
+                                    <h3 style="padding-top: 0px;">
+                                        {% if editmode %}
+                                            {% if pimcore_input("PP_Conveyor_Belt_Data_" ~ chunkKey).isEmpty() %}
+                                                {{ pimcore_input("PP_Conveyor_Belt_Data_" ~ chunkKey, {'placeholder' : 'Enter Conveyor Belt Data'}).setDataFromResource(data['ProductName']) | raw }}
+                                            {% else %}
+                                                {{ pimcore_input("PP_Conveyor_Belt_Data_" ~ chunkKey, {'placeholder' : 'Enter Conveyor Belt Data'}) }}
+                                            {% endif %}
+                                            {% if pimcore_input("CS_Conveyor_Belt_Data_" ~ chunkKey).isEmpty() %}
+                                                {{ pimcore_input("CS_Conveyor_Belt_Data_" ~ chunkKey, {'placeholder' : 'Enter Conveyor Belt Data'}).setDataFromResource("CS_Conveyor_Belt_Data"|trans) | raw }}
+                                            {% else %}
+                                                {{ pimcore_input("CS_Conveyor_Belt_Data_" ~ chunkKey, {'placeholder' : 'Enter Conveyor Belt Data'}) }}
+                                            {% endif %}
+                                        {% else %}
+                                            {{ pimcore_input("PP_Conveyor_Belt_Data_" ~ chunkKey, {'placeholder' : 'Enter Conveyor Belt Data'}) }}
+                                            {{ pimcore_input("CS_Conveyor_Belt_Data_" ~ chunkKey, {'placeholder' : 'Enter Conveyor Belt Data'}) }}
+                                        {% endif %}
+                                    </h3>
+
+                                    <div class="table-data">
+                                        {{ pimcore_input("PP_Conveyor_Belt_Data_Head_Note_" ~ chunkKey, {"placeholder" : "Table based on ISO 703 testing procedure."}) }}
+                                        {% for key,value in conveyorBeltData %}
+                                            <table width="100%">
+                                                <thead>
+                                                    <tr class="orange-bg">
+                                                        <th align="left" colspan="{{ value['theadfirstRowColspan'] }}">{{ (key)|trans }}</th>
+                                                    </tr>
+
+                                                    {% set theadSecondRow = value['theadSecondRow'] %}
+
+                                                    <tr class="grey-bg">
+
+                                                        {% set firstKey = theadSecondRow | keys | first %}
+                                                        {% for key,td in theadSecondRow %}
+                                                            {% set style = '' %}
+                                                            {% if firstKey == key %}
+                                                                {% set style = 'align="left" width="17.2%"' %}
+                                                            {% endif %}
+                                                            <th {{ style }};>{{ td }}</th>
+                                                        {% endfor %}
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% set tbody = value['tbody'] %}
+                                                    {% for key,trows in tbody %}
+                                                        <tr align="center">
+                                                            {% set firstKey = trows | keys | first %}
+                                                            {% for key,value in trows %}
+                                                                {% set style = '' %}
+                                                                {% if firstKey == key %}
+                                                                    {% set style = 'align="left"' %}
+                                                                    {% set value = value|trans %}
+                                                                {% endif %}
+                                                                <td {{ style }}>
+                                                                    {{ value }}
+                                                                </td>
+                                                            {% endfor %}
+                                                        </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        {% endfor %}
+                                    </div>
+
+                                    {% if editmode %}
+                                        <p class="table-notes" style="margin-bottom: 0px;">
+                                            {{ pimcore_textarea("PP_Conveyor_Belt_Data_Comment_" ~ chunkKey, {'placeholder' : 'Enter Conveyor Belt Data Comment'}) }}
+                                        </p>
+                                    {% else %}
+                                        {% if pimcore_textarea("PP_Conveyor_Belt_Data_Comment_" ~ chunkKey).isEmpty() %}
+                                            <p class="table-notes" style="margin-bottom: 0px;">
+                                                {{ pimcore_textarea("PP_Conveyor_Belt_Data_Comment_" ~ chunkKey, {'placeholder' : 'Enter Conveyor Belt Data Comment'}) }}
+                                            </p>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+
+                        {% if data['productTables']['Load Support – Maximum Belt Width Data'] is defined and data['productTables']['Load Support – Maximum Belt Width Data'] is not null %}
+                            {% set LoadSupportMaximumBeltWidthDataArr = data['productTables']['Load Support – Maximum Belt Width Data'] %}
+                            {% for chunkKey,LoadSupportMaximumBeltWidthData in LoadSupportMaximumBeltWidthDataArr %}
+                                <div class="new-page" style="margin-top: 0px;">
+                                    {% if editmode %}
+                                        <div class="attr-font">Attribute Name = Name</div>
+                                    {% endif %}
+                                    <h3 style="padding-top: 0px;">
+                                        {% if editmode %}
+                                            {% if pimcore_input("PP_Load_Support_Maximum_Belt_" ~ chunkKey).isEmpty() %}
+                                                {{ pimcore_input("PP_Load_Support_Maximum_Belt_" ~ chunkKey, {'placeholder' : 'Enter Conveyor Belt Data'}).setDataFromResource(data['ProductName'] ~ ' ' ~ 'CS_Load_Support_Maximum_Belt_Width_Data'|trans) | raw }}
+                                            {% else %}
+                                                {{ pimcore_input("PP_Load_Support_Maximum_Belt_" ~ chunkKey, {'placeholder' : 'Enter Conveyor Belt Data'}) }}
+                                            {% endif %}
+                                        {% else %}
+                                            {{ pimcore_input("PP_Load_Support_Maximum_Belt_" ~ chunkKey, {'placeholder' : 'Enter Conveyor Belt Data'}) }}
+                                        {% endif %}
+                                    </h3>
+
+                                    <div class="table-data" style="margin-bottom: 0px; margin-top: 0px;">
+                                        {{ pimcore_input("PP_Load_Support_Maximum_Belt_Head_Note_" ~ chunkKey, {"placeholder" : "Table based on ISO 703 testing procedure."}) }}
+                                        {% for key,value in LoadSupportMaximumBeltWidthData %}
+                                            <table width="100%">
+                                                <thead>
+                                                    <tr class="orange-bg">
+                                                        <th colspan="{{ value['theadfirstRowColspan'] }}" align="left">{{ (key)|trans }}</th>
+                                                    </tr>
+
+                                                    <tr class="white-bg">
+                                                        {% set theadSecondRowGroup = value['theadSecondRowGroup'] %}
+                                                        {% set firstKey = theadSecondRowGroup | keys | first %}
+                                                        {% for key,td in theadSecondRowGroup %}
+                                                            {% set style = '' %}
+                                                            {% if firstKey == key %}
+                                                                {% set style = 'align="left"' %}
+                                                            {% endif %}
+                                                            <th colspan="{{ colspan }}" {{ style }}>
+                                                                {{(key)|trans}}
+                                                                </th>
+                                                        {% endfor %}
+                                                    </tr>
+
+                                                    <tr class="white-bg">
+                                                        {% set theadSecondRowGroup = value['theadSecondRowGroup'] %}
+                                                        {% set firstKey = theadSecondRowGroup | keys | first %}
+                                                        {% for key,td in theadSecondRowGroup %}
+                                                            {% set style = '' %}
+                                                            {% if firstKey == key %}
+                                                                {% set style = 'align="left" width="13.6%"' %}
+                                                            {% else %}
+                                                                {% set style = 'width="7.2%"' %}
+                                                            {% endif %}
+                                                            <th {{ style }}>
+                                                                {{(td)|trans}}
+                                                                </th>
+                                                        {% endfor %}
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% set tbody = value['tbody'] %}
+                                                    {% for key,trows in tbody %}
+                                                        <tr align="center">
+                                                            {% set firstKey = trows | keys | first %}
+                                                            {% for key,value in trows %}
+                                                                {% set style = '' %}
+                                                                {% if firstKey == key %}
+                                                                    <th align="left" class="grey-bg border-bottom-0" scope="row">{{ value }}</th>
+                                                                {% else %}
+                                                                    <td>{{ value }}</td>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        {% endfor %}
+                                    </div>
+
+                                    {% if editmode %}
+                                        <p class="table-notes" style="margin-bottom: 0px;">
+                                            {{ pimcore_textarea("PP_Load_Support_Maximum_Belt_Comment_" ~ chunkKey, {'placeholder' : 'Enter Load Support Maximum Belt Comment'}) }}
+                                        </p>
+                                    {% else %}
+                                        {% if pimcore_textarea("PP_Load_Support_Maximum_Belt_Comment_" ~ chunkKey).isEmpty() %}
+                                            <p class="table-notes" style="margin-bottom: 0px;">
+                                                {{ pimcore_textarea("PP_Load_Support_Maximum_Belt_Comment_" ~ chunkKey, {'placeholder' : 'Enter Load Support Maximum Belt Comment'}) }}
+                                            </p>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+
+                        {% if data['productTables']['Troughability Minimum Belt Width'] is defined and data['productTables']['Troughability Minimum Belt Width'] is not null %}
+                            {% set TroughabilityMinimumBeltWidthArray = data['productTables']['Troughability Minimum Belt Width'] %}
+                            {% for chunkKey,TroughabilityMinimumBeltWidth in TroughabilityMinimumBeltWidthArray %}
+                                <div class="new-page" style="margin-top: 0px;">
+                                    {% if editmode %}
+                                        <div class="attr-font">Attribute Name = Name</div>
+                                    {% endif %}
+                                    <h3>
+                                        <strong>
+                                            {% if editmode %}
+                                                {% if pimcore_input("PP_Troughability_Minimum_Belt_Width_" ~ chunkKey).isEmpty() %}
+                                                    {{ pimcore_input("PP_Troughability_Minimum_Belt_Width_" ~ chunkKey, {'placeholder' : 'Enter Troughability Minimum Belt Width'}).setDataFromResource(data['ProductName'] ~ ' ' ~ 'CS_Troughability_Minimum_Belt_Width'|trans) | raw }}
+                                                {% else %}
+                                                    {{ pimcore_input("PP_Troughability_Minimum_Belt_Width_" ~ chunkKey, {'placeholder' : 'Enter Troughability Minimum Belt Width'}) }}
+                                                {% endif %}
+                                            {% else %}
+                                                {{ pimcore_input("PP_Troughability_Minimum_Belt_Width_" ~ chunkKey, {'placeholder' : 'Enter Troughability Minimum Belt Width'}) }}
+                                            {% endif %}
+                                        </strong>
+                                    </h3>
+
+                                    <div class="table-data">
+                                        {{ pimcore_input("PP_Troughability_Minimum_Belt_Width_Head_Note_" ~ chunkKey, {"placeholder" : "Table based on ISO 703 testing procedure."}) }}
+                                        {% for key,value in TroughabilityMinimumBeltWidth %}
+                                            <table width="100%">
+                                                <thead>
+                                                    <tr class="orange-bg">
+                                                        <th colspan="{{ value['theadfirstRowColspan'] }}" align="left">{{ (key)|trans }}</th>
+                                                    </tr>
+
+                                                    <tr class="grey-bg">
+                                                        {% set theadSecondRow = value['theadSecondRow'] %}
+                                                        {% for key,td in theadSecondRow %}
+                                                            {% set style = '' %}
+                                                            {% if key < 1 %}
+                                                                {# {% continue %} #}
+                                                            {% endif %}
+                                                            {% if key == 1 %}
+                                                                {% set style = 'colspan="2" align="left"' %}
+                                                            {% endif %}
+                                                            <th {{ style }};>{{ td }}</th>
+                                                        {% endfor %}
+                                                    </tr>
+
+                                                </thead>
+                                                <tbody>
+                                                    {% set tbody = value['tbody'] %}
+                                                    {% set onlyOnce = false %}
+                                                    {% set onlyOnceStyle = false %}
+                                                    {% for key,trows in tbody %}
+                                                        <tr align="center">
+
+                                                            {% set onlyOnceData = trows[0] %}
+                                                            {# {% unsetTwig(trows[0]) %} #}
+                                                            {% if not onlyOnce %}
+                                                                <th rowspan="3" class="border-0 w-20">{{ (onlyOnceData)|trans }}</th>
+                                                                {% set onlyOnce = true %}
+                                                            {% endif %}
+                                                            {% set firstKey = trows | keys | first %}
+                                                            {% for key,value in trows %}
+                                                                {% set style = '' %}
+                                                                {% if firstKey == key %}
+                                                                    {% set style = 'align="left"' %}
+                                                                    {% set value = value|trans %}
+                                                                {% endif %}
+                                                                {% if not onlyOnceStyle %}
+                                                                    {% set style = style ~' class="border-right w-20"'%}
+                                                                    {% set onlyOnceStyle = true %}
+                                                                    <td {{ style }}>{{ value }}</td>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        {% endfor %}
+                                    </div>
+
+                                    {% if editmode %}
+                                        <p class="table-notes" style="margin-bottom: 0px;">
+                                            {{ pimcore_textarea("PP_Troughability_Minimum_Belt_Width_Comment_" ~ chunkKey, {'placeholder' : 'Enter Troughability Minimum Belt Width'}) }}
+                                        </p>
+                                    {% else %}
+                                        {% if pimcore_textarea("PP_Troughability_Minimum_Belt_Width_Comment_" ~ chunkKey).isEmpty() %}
+                                            <p class="table-notes" style="margin-bottom: 0px;">
+                                                {{ pimcore_textarea("PP_Troughability_Minimum_Belt_Width_Comment_" ~ chunkKey, {'placeholder' : 'Enter Troughability Minimum Belt Width'}) }}
+                                            </p>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+
+                        {% if data['productTables']['Minimum Pulley Diameters'] is defined and data['productTables']['Minimum Pulley Diameters'] is not null %}
+                            {% set MinimumPulleyDiametersArray = data['productTables']['Minimum Pulley Diameters'] %}
+                            {% for chunkKey,MinimumPulleyDiameters in MinimumPulleyDiametersArray %}
+                                <div class="new-page" style="margin-top: 0px;">
+                                    {% if editmode %}
+                                        <div class="attr-font">Attribute Name = Name</div>
+                                    {% endif %}
+                                    <h3>
+                                        <strong>
+                                            {% if editmode %}
+                                                {% if pimcore_input("PP_Minimum_Pulley_Diameters_" ~ chunkKey).isEmpty() %}
+                                                    {{ pimcore_input("PP_Minimum_Pulley_Diameters_" ~ chunkKey, {'placeholder' : 'Enter Minimum Pulley Diameters'}).setDataFromResource(data['ProductName'] ~ ' ' ~ 'CS_Minimum_Pulley_Diameters'|trans) | raw }}
+                                                {% else %}
+                                                    {{ pimcore_input("PP_Minimum_Pulley_Diameters_" ~ chunkKey, {'placeholder' : 'Enter Minimum Pulley Diameters'}) }}
+                                                {% endif %}
+                                            {% else %}
+                                                {{ pimcore_input("PP_Minimum_Pulley_Diameters_" ~ chunkKey, {'placeholder' : 'Enter Minimum Pulley Diameters'}) }}
+                                            {% endif %}
+                                        </strong>
+                                    </h3>
+
+                                    <div class="table-data">
+                                        {{ pimcore_input("PP_Minimum_Pulley_Diameters_Head_Note_" ~ chunkKey, {"placeholder" : "Table based on ISO 703 testing procedure."}) }}
+                                        {% for key,value in MinimumPulleyDiameters %}
+                                            <table width="100%">
+                                                <thead>
+                                                    <tr align="left" class="orange-bg">
+                                                        <th colspan="{{ value['theadfirstRowColspan'] }}" align="left">{{ (key)|trans }}</th>
+                                                    </tr>
+
+                                                    {% set theadSecondRow = value['theadSecondRow'] %}
+
+                                                    <tr class="grey-bg">
+                                                        {% set theadSecondRow = value['theadSecondRow'] %}
+                                                        {% set firstKey = theadSecondRow | keys | first %}
+                                                        {% for key,td in theadSecondRow %}
+                                                            {% set style = '' %}
+                                                            {% if firstKey == key %}
+                                                                {% set style = 'align="left" width="17.2%"' %}
+                                                            {% endif %}
+                                                            <th {{ style }};>{{ td }}</th>
+                                                        {% endfor %}
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% set tbody = value['tbody'] %}
+                                                    
+                                                    {% for key,trows in tbody %}
+                                                        <tr align="center">
+
+                                                            {% set firstKey = trows | keys | first %}
+                                                            {% for key,value in trows %}
+                                                                {% set style = '' %}
+                                                                {% if firstKey == key %}
+                                                                    {% set style = 'align="left"' %}
+                                                                    {% set value = value|trans %}
+                                                                {% endif %}
+                                                                <td {{ style }}>{{ value }}</td>
+                                                            {% endfor %}
+                                                        </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        {% endfor %}
+                                    </div>
+
+                                    {% if editmode %}
+                                        <p class="table-notes">
+                                            {{ pimcore_textarea("PP_Minimum_Pulley_Diameters_Comment_" ~ chunkKey, {'placeholder' : 'Enter Minimum Pulley Diameters'}) }}
+                                        </p>
+                                    {% else %}
+                                        {% if pimcore_textarea("PP_Minimum_Pulley_Diameters_Comment_" ~ chunkKey).isEmpty() %}
+                                            <p class="table-notes">
+                                                {{ pimcore_textarea("PP_Minimum_Pulley_Diameters_Comment_" ~ chunkKey, {'placeholder' : 'Enter Minimum Pulley Diameters'}) }}
+                                            </p>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+
+                        {% if data['productTables']['Elevator Belt Data'] is defined and data['productTables']['Elevator Belt Data'] is not null %}
+                            {% set ElevatorBeltDataArray = data['productTables']['Elevator Belt Data'] %}
+                            {% for chunkKey,ElevatorBeltData in ElevatorBeltDataArray %}
+                                <div class="new-page">
+                                    {% if editmode %}
+                                        <div class="attr-font">Attribute Name = Name</div>
+                                    {% endif %}
+                                    <h3>
+                                        <strong>
+                                            {% if editmode %}
+                                                {% if pimcore_input("PP_Elevator_Belt_Data_" ~ chunkKey).isEmpty() %}
+                                                    {{ pimcore_input("PP_Elevator_Belt_Data_" ~ chunkKey, {'placeholder' : 'Enter Elevator Belt Data'}).setDataFromResource(data['ProductName'] ~ ' ' ~ 'CS_Elevator_Belt_Data'|trans) | raw }}
+                                                {% else %}
+                                                    {{ pimcore_input("PP_Elevator_Belt_Data_" ~ chunkKey, {'placeholder' : 'Enter Elevator Belt Data'}) }}
+                                                {% endif %}
+                                            {% else %}
+                                                {{ pimcore_input("PP_Elevator_Belt_Data_" ~ chunkKey, {'placeholder' : 'Enter Elevator Belt Data'}) }}
+                                            {% endif %}
+                                        </strong>
+                                    </h3>
+
+                                    <div class="table-data">
+                                        {{ pimcore_input("PP_Elevator_Belt_Data_Head_Note_" ~ chunkKey, {"placeholder" : "Table based on ISO 703 testing procedure."}) }}
+                                        {% for key,value in ElevatorBeltData %}
+                                            <table width="100%">
+                                                <thead>
+                                                    <tr align="left" class="orange-bg">
+                                                        <th colspan="{{ value['theadfirstRowColspan'] }}" align="left">{{ (key)|trans }}</th>
+                                                    </tr>
+
+                                                    {% set theadSecondRow = value['theadSecondRow'] %}
+
+                                                    <tr class="grey-bg">
+                                                        {% set firstKey = theadSecondRow | keys | first %}
+                                                        {% for key,td in theadSecondRow %}
+                                                            {% set style = '' %}
+                                                            {% if firstKey == key %}
+                                                                {% set style = 'align="left" width="17.2%"' %}
+                                                            {% endif %}
+                                                            <th {{ style }};>{{ td }}</th>
+                                                        {% endfor %}
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% set tbody = value['tbody'] %}
+                                                    
+                                                    {% for key,trows in tbody %}
+                                                        <tr align="center">
+                                                            {% set firstKey = trows | keys | first %}
+                                                            {% for key,value in trows %}
+                                                                {% set style = '' %}
+                                                                {% if firstKey == key %}
+                                                                    {% set style = 'align="left"' %}
+                                                                    {% set value = value|trans %}
+                                                                {% endif %}
+                                                                <td {{ style }};>{{ value }}</td>
+                                                            {% endfor %}
+                                                        </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        {% endfor %}
+                                    </div>
+
+                                    {% if editmode %}
+                                        <p class="table-notes">
+                                            {{ pimcore_textarea("PP_Elevator_Belt_Data_Comment_" ~ chunkKey, {'placeholder' : 'Enter Elevator Belt Data Comment'}) }}
+                                        </p>
+                                    {% else %}
+                                        {% if pimcore_textarea("PP_Elevator_Belt_Data_Comment_" ~ chunkKey).isEmpty() %}
+                                            <p class="table-notes">
+                                                {{ pimcore_textarea("PP_Elevator_Belt_Data_Comment_" ~ chunkKey, {'placeholder' : 'Enter Elevator Belt Data Comment'}) }}
+                                            </p>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+
+                        {% if data['productTables']['Maximum Bucket Projection'] is defined and data['productTables']['Maximum Bucket Projection'] is not null %}
+                            {% set MaximumBucketProjectionArray = data['productTables']['Maximum Bucket Projection'] %}
+                            {% for chunkKey,MaximumBucketProjection in MaximumBucketProjectionArray %}
+                                <div class="new-page">
+                                    {% if editmode %}
+                                        <div class="attr-font">Attribute Name = Name</div>
+                                    {% endif %}
+                                    <h3>
+                                        <strong>
+                                            {% if editmode %}
+                                                {% if pimcore_input("PP_Maximum_Bucket_Projection_" ~ chunkKey).isEmpty() %}
+                                                    {{ pimcore_input("PP_Maximum_Bucket_Projection_" ~ chunkKey, {'placeholder' : 'Enter Maximum Bucket Projection'}).setDataFromResource(data['ProductName'] ~ ' ' ~ 'CS_Maximum_Bucket_Projection'|trans) | raw }}
+                                                {% else %}
+                                                    {{ pimcore_input("PP_Maximum_Bucket_Projection_" ~ chunkKey, {'placeholder' : 'Enter Maximum Bucket Projection'}) }}
+                                                {% endif %}
+                                            {% else %}
+                                                {{ pimcore_input("PP_Maximum_Bucket_Projection_" ~ chunkKey, {'placeholder' : 'Enter Maximum Bucket Projection'}) }}
+                                            {% endif %}
+                                        </strong>
+                                    </h3>
+
+                                    <div class="table-data">
+                                        {{ pimcore_input("PP_Maximum_Bucket_Projection_Head_Note_" ~ chunkKey, {"placeholder" : "Table based on ISO 703 testing procedure."}) }}
+                                        {% for key,value in MaximumBucketProjection %}
+                                            <table width="100%">
+                                                <thead>
+                                                    <tr align="left" class="orange-bg">
+                                                        <th colspan="{{ value['theadfirstRowColspan'] }}" align="left">{{ (key)|trans }}</th>
+                                                    </tr>
+
+                                                    {% set theadSecondRow = value['theadSecondRow'] %}
+
+                                                    <tr class="grey-bg">
+                                                        {% set firstKey = theadSecondRow | keys | first %}
+                                                        {% for key,td in theadSecondRow %}
+                                                            {% set style = '' %}
+                                                            {% if firstKey == key %}
+                                                                {% set style = 'align="left" width="17.2%"' %}
+                                                            {% endif %}
+                                                            <th {{ style }};>{{ td }}</th>
+                                                        {% endfor %}
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% set tbody = value['tbody'] %}
+                                                    
+                                                    {% for key,trows in tbody %}
+                                                        <tr align="center">
+                                                            {% set firstKey = trows | keys | first %}
+                                                            {% for key,value in trows %}
+                                                                {% set style = '' %}
+                                                                {% if firstKey == key %}
+                                                                    {% set style = 'align="left"' %}
+                                                                    {% set value = value|trans %}
+                                                                {% endif %}
+                                                                <td {{ style }};>{{ value }}</td>
+                                                            {% endfor %}
+                                                        </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        {% endfor %}
+                                    </div>
+
+                                    {% if editmode %}
+                                        <p class="table-notes">
+                                            {{ pimcore_textarea("PP_Maximum_Bucket_Projection_Comment_" ~ chunkKey, {'placeholder' : 'Enter Maximum Bucket Projection Comment'}) }}
+                                        </p>
+                                    {% else %}
+                                        {% if pimcore_textarea("PP_Maximum_Bucket_Projection_Comment_" ~ chunkKey).isEmpty() %}
+                                            <p class="table-notes">
+                                                {{ pimcore_textarea("PP_Maximum_Bucket_Projection_Comment_" ~ chunkKey, {'placeholder' : 'Enter Maximum Bucket Projection Comment'}) }}
+                                            </p>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+
+                        {% if data['productTables']['Standard Specifications'] is defined and data['productTables']['Standard Specifications'] is not null %}
+                            {% set StandardSpecificationsArray = data['productTables']['Standard Specifications'] %}
+                            {% for chunkKey,StandardSpecifications in StandardSpecificationsArray %}
+                                <div class="new-page">
+                                    {% if editmode %}
+                                        <div class="attr-font">Attribute Name = Name</div>
+                                    {% endif %}
+                                    <h3>
+                                        <strong>
+                                            {% if editmode %}
+                                                {% if pimcore_input("PP_Standard_Specifications_" ~ chunkKey).isEmpty() %}
+                                                    {{ pimcore_input("PP_Standard_Specifications_" ~ chunkKey, {'placeholder' : 'Enter Standard Specifications'}).setDataFromResource(data['ProductName'] ~ ' ' ~ 'CS_Standard_Specifications'|trans) | raw }}
+                                                {% else %}
+                                                    {{ pimcore_input("PP_Standard_Specifications_" ~ chunkKey, {'placeholder' : 'Enter Standard Specifications'}) }}
+                                                {% endif %}
+                                            {% else %}
+                                                {{ pimcore_input("PP_Standard_Specifications_" ~ chunkKey, {'placeholder' : 'Enter Standard Specifications'}) }}
+                                            {% endif %}
+                                        </strong>
+                                    </h3>
+
+                                    <div class="table-data">
+                                        {{ pimcore_input("PP_Standard_Specifications_Head_Note_" ~ chunkKey, {"placeholder" : "Table based on ISO 703 testing procedure."}) }}
+                                        {% for key,value in StandardSpecifications %}
+                                            <table width="100%">
+                                                <thead>
+                                                    <tr align="left" class="orange-bg">
+                                                        <th colspan="{{ value['theadfirstRowColspan'] }}" align="left">{{ (key)|trans }}</th>
+                                                    </tr>
+
+                                                    {% set theadSecondRow = value['theadSecondRow'] %}
+
+                                                    <tr class="grey-bg">
+                                                        {% set firstKey = theadSecondRow | keys | first %}
+                                                        {% for key,td in theadSecondRow %}
+                                                            {% set style = '' %}
+                                                            {% if firstKey == key %}
+                                                                {% set style = 'align="left" width="17.2%"' %}
+                                                            {% endif %}
+                                                            <th {{ style }};>{{ td }}</th>
+                                                        {% endfor %}
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% set tbody = value['tbody'] %}
+                                                    
+                                                    {% for key,trows in tbody %}
+                                                        <tr align="center">
+                                                            {% set firstKey = trows | keys | first %}
+                                                            {% for key,value in trows %}
+                                                                {% set style = '' %}
+                                                                {% if firstKey == key %}
+                                                                    {% set style = 'align="left"' %}
+                                                                    {% set value = value|trans %}
+                                                                {% endif %}
+                                                                <td {{ style }};>{{ value }}</td>
+                                                            {% endfor %}
+                                                        </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        {% endfor %}
+                                    </div>
+
+                                    {% if editmode %}
+                                        {{ pimcore_textarea("PP_Standard_Specifications_Comment_" ~ chunkKey, {'placeholder' : 'Enter Standard Specifications'}) }}
+                                    {% else %}    
+                                        <p class="table-notes">
+                                            {{ pimcore_textarea("PP_Standard_Specifications_Comment_" ~ chunkKey, {'placeholder' : 'Enter Standard Specifications'}) }}
+                                        </p>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </section>
+                {% endif %}
+			</main>
+		</div>
+	{% endif %}
+
+{% endblock %}
