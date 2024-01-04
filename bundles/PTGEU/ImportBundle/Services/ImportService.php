@@ -81,7 +81,7 @@ class ImportService
                         foreach ($rowData as $key => $value) {
                             unset($rowData[$key]);
                             $rowData[mb_convert_encoding(trim($key), 'ISO-8859-1', 'UTF-8')] =
-                             utf8_decode(trim(str_replace("°","",$value)));
+                             mb_convert_encoding(trim(str_replace("°","",$value)), 'ISO-8859-1', 'UTF-8');
                         }
                         $firstRowData = $rowData;
                     } else {
