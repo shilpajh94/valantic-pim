@@ -88,6 +88,135 @@ class UserController extends ParentUserController {
         return $this->adminJson($roles);
     }
 
+     /**
+     * @Route("/add", methods={"POST"})
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function addAction(Request $request)
+    {
+        try {
+            $type = $request->get('type');
+
+            $className = User\Service::getClassNameForType($type);
+            $user = $className::create([
+                'parentId' => (int)$request->get('parentId'),
+                'name' => trim($request->get('name')),
+                'password' => '',
+                'active' => $request->get('active'),
+            ]);
+
+            if ($request->get('rid')) {
+                $rid = $request->get('rid');
+                $rObject = $className::getById($rid);
+                if ($rObject) {
+                    if ($type == 'user' || $type == 'role') {
+                        $user->setParentId($rObject->getParentId());
+                        if ($rObject->getClasses()) {
+                            $user->setClasses(implode(',', $rObject->getClasses()));
+                        }
+                        if ($rObject->getDocTypes()) {
+                            $user->setDocTypes(implode(',', $rObject->getDocTypes()));
+                        }
+
+                        $keys = ['asset', 'document', 'object'];
+                        foreach ($keys as $key) {
+                            $getter = 'getWorkspaces' . ucfirst($key);
+                            $setter = 'setWorkspaces' . ucfirst($key);
+                            $workspaces = $rObject->$getter();
+                            $clonedWorkspaces = [];
+                            if (is_array($workspaces)) {
+                                /** @var User\Workspace\AbstractWorkspace $workspace */
+                                foreach ($workspaces as $workspace) {
+                                    $vars = $workspace->getObjectVars();
+                                    if ($key == 'object') {
+                                        $workspaceClass = '\\Pimcore\\Model\\User\\Workspace\\DataObject';
+                                    } else {
+                                        $workspaceClass = '\\Pimcore\\Model\\User\\Workspace\\' . ucfirst($key);
+                                    }
+                                    $newWorkspace = new $workspaceClass();
+                                    foreach ($vars as $varKey => $varValue) {
+                                        $newWorkspace->setObjectVar($varKey, $varValue);
+                                    }
+                                    $newWorkspace->setUserId($user->getId());
+                                    $clonedWorkspaces[] = $newWorkspace;
+                                }
+                            }
+
+                            $user->$setter($clonedWorkspaces);
+                        }
+
+                        $user->setPerspectives($rObject->getPerspectives());
+                        $user->setPermissions($rObject->getPermissions());
+
+                        if ($type == 'user') {
+                            $user->setAdmin(false);
+                            if ($this->getAdminUser()->isAdmin()) {
+                                $user->setAdmin($rObject->getAdmin());
+                            }
+                            $user->setActive($rObject->getActive());
+                            $user->setRoles($rObject->getRoles());
+                            $user->setWelcomeScreen($rObject->getWelcomescreen());
+                            $user->setMemorizeTabs($rObject->getMemorizeTabs());
+                            $user->setCloseWarning($rObject->getCloseWarning());
+                        }
+
+                        $user->setWebsiteTranslationLanguagesView($rObject->getWebsiteTranslationLanguagesView());
+                        $user->setWebsiteTranslationLanguagesEdit($rObject->getWebsiteTranslationLanguagesEdit());
+
+                        $user->save();
+                    }
+                }
+            }
+
+            return $this->adminJson([
+                'success' => true,
+                'id' => $user->getId(),
+            ]);
+        } catch (\Exception $e) {
+            return $this->adminJson(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
+
+    /**
+     * @Route("/delete", methods={"DELETE"})
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse
+     *
+     * @throws \Exception
+     */
+    public function deleteAction(Request $request)
+    {
+        $user = User\AbstractUser::getById((int)$request->get('id'));
+
+        // only admins are allowed to delete admins and folders
+        // because a folder might contain an admin user, so it is simply not allowed for users with the "users" permission
+        if (($user instanceof User\Folder && !$this->getAdminUser()->isAdmin()) || ($user instanceof User && $user->isAdmin() && !$this->getAdminUser()->isAdmin())) {
+            throw new \Exception('You are not allowed to delete this user');
+        } else {
+            if ($user instanceof User\Role\Folder) {
+                $list = [$user];
+                $this->populateChildNodes($user, $list, $user instanceof User\Role\Folder);
+                $listCount = count($list);
+                for ($i = $listCount - 1; $i >= 0; $i--) {
+                    // iterate over the list from the so that nothing can get "lost"
+                    $user = $list[$i];
+                    $user->delete();
+                }
+            } else {
+                if ($user->getId()) {
+                    $user->delete();
+                }
+            }
+        }
+
+        return $this->adminJson(['success' => true]);
+    }
+
     /**
      * @Route("/role-get", methods={"GET"})
      *
