@@ -66,6 +66,34 @@ class UserController extends ParentUserController {
     }
 
     /**
+     * @param Request $request
+     *
+     * @return JsonResponse
+     *
+     * @Route("/get-users-for-sharing", methods={"GET"})
+     */
+    public function getUsersForSharingAction(Request $request)
+    {
+        $this->checkPermission('share_configurations');
+
+        return $this->getUsersAction($request);
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return JsonResponse
+     *
+     * @Route("/get-roles-for-sharing", methods={"GET"}))
+     */
+    public function getRolesForSharingAction(Request $request)
+    {
+        $this->checkPermission('share_configurations');
+
+        return $this->getRolesAction($request);
+    }
+
+    /**
      * @Route("/role-tree-get-childs-by-id", methods={"GET"})
      *
      * @param Request $request
