@@ -1,6 +1,4 @@
 <?php
-// src/Twig/AppExtension.php
-// namespace App\Twig;
 namespace CatalogBundle\TwigExtension;
 
 use \Pimcore\Model\Asset\Image;
@@ -19,6 +17,7 @@ class TwigExtension extends AbstractExtension
             new TwigFunction('implodePHP_EOL', [$this, 'implodePHP_EOL']),
             new TwigFunction('unsetTwig', [$this, 'unsetTwig']),
             new TwigFunction('setMultiDimensionalArray', [$this, 'setMultiDimensionalArray']),
+            new TwigFunction('isNumericTwig', [$this, 'isNumericTwig']),
         ];
     }
 
@@ -72,6 +71,11 @@ class TwigExtension extends AbstractExtension
     public function setMultiDimensionalArray($array, $key, $newArray)
     {
         return $array[$key][] = $newArray;
+    }
+
+    public function isNumericTwig($element)
+    {
+        return is_numeric($element);
     }
 }
 
