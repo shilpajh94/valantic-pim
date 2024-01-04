@@ -1,10 +1,71 @@
 {% if editmode %}
-    <h3>Select Column</h3>
+    <table width="100%" style="border-bottom: 1px black dashed">
+        <tbody>
+            <tr>
+                <td><h3>Select number of Rows
+                    
+                    </h3>
+                </td>
+                <td>{{ pimcore_select('row_dropdown',{
+                        'store':[[1,1],[2,2],[3,3],[4,4],[5,5],[6,6],[7,7],[8,8],[9,9],[10,10]],
+                        reload:true,
+                        defaultValue: 0
+                    })}}</td>
+                <td><h3>Select number of Columns
+                    
+                    </h3>
+                </td>
+                <td>{{ pimcore_select('column_dropdown',{
+                        'store':[[1,1],[2,2],[3,3],[4,4],[5,5]],
+                        reload:true,
+                        defaultValue: 0
+                    })}}</td>
+            </tr>
+            
+            
+        </tbody>
+    </table>
 {% endif %}
 
-{% set columns = [] %}
-{% set tds = [] %}
-{% set total_rows = 0 %}
+{% set rows = pimcore_select('row_dropdown').getData() %}
+{% set columns = pimcore_select('column_dropdown').getData() %}
 
+<div class="table process-table">
+    <table width="100%">
+        <thead>
+            <tr align="right">
+                <th colspan="4" class="p-0" >
+                    {% if editmode %}
+                        {% if pimcore_image('fieldPhoto').isEmpty() %}
+                            {{ pimcore_image('fieldPhoto').setImage(data['fieldPhoto']) | raw}}
+                        {% else %}
+                            {{ pimcore_image('fieldPhoto')}}
+                        {% endif %}
+                    {% else %}
+                        {% set CSSImgSrcObj = pimcore_image('fieldPhoto').setImage(data['fieldPhoto']) %}
+                        {% if CSSImgSrcObj.getThumbnail('catalog_thumb') %}
+                            <div class="process-image">
+                                <img src="{{ CSSImgSrcObj.getThumbnail('catalog_thumb') }}" alt=""  class="w-100" />
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                </th>
+            </tr>
+            <tr valign="bottom">
+                {% for i in 1..columns %}
+                    <th width="25%"> {{pimcore_wysiwyg("heading"~i, {'width': 200})}}</th>
+                {% endfor %}
+            </tr>
+        <thead>
 
-Mahesh0
+        <tbody>
+            {% for j in 1..rows %}
+                <tr align="left">
+                        {% for k in 1..columns %}
+                            <td>{{pimcore_input("data_"~j~"_"~k, ,{'width': 200})}}</td>
+                        {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

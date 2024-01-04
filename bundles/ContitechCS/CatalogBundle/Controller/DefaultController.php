@@ -99,7 +99,7 @@ class DefaultController extends FrontendController
             $res['data']    = [];
             $product        = $request->get('product');
     
-            $onfigProviderService    = new ConfigProviderService();
+            $configProviderService    = new ConfigProviderService();
             $productDataImportConfig = $configProviderService->getCatalogProductTablesConfig();
     
             if(isset($productDataImportConfig['Common Product Page'][$product]))
@@ -273,551 +273,554 @@ class DefaultController extends FrontendController
             if($catalogTableObjectEditable)
             {
                 $catalogTableObject = $catalogTableObjectEditable->getElement();
-                $productDataImportConfig = $configProviderService->getCatalogProductTablesConfig();
-    
-                $catalogCategoryObjectId    = $catalogTableObject->getParentId();
-                $categoryObj                = DataObject\CSCatalogCategory::getById($catalogCategoryObjectId);
-    
-                $selectedProduct            = $catalogTableObject->getProducts();
-                $productObj                 = null;
-    
-    
-                $productNameArr = [];
-                if($selectedProduct)
+                if($catalogTableObject)
                 {
-                    foreach ($selectedProduct as $key => $singleProduct)
+                    $productDataImportConfig = $configProviderService->getCatalogProductTablesConfig();
+        
+                    $catalogCategoryObjectId    = $catalogTableObject->getParentId();
+                    $categoryObj                = DataObject\CSCatalogCategory::getById($catalogCategoryObjectId);
+        
+                    $selectedProduct            = $catalogTableObject->getProducts();
+                    $productObj                 = null;
+        
+        
+                    $productNameArr = [];
+                    if($selectedProduct)
                     {
-                        $productObject      = DataObject\CSProducts::getById($singleProduct);
-                        if($productObject)
+                        foreach ($selectedProduct as $key => $singleProduct)
                         {
-                            $productNameArr[]   = trim($productObject->getName());
-                        }
-    
-                        if(!$productObj)
-                        {
-                            $productObj = $productObject;
-                        }
-                    }
-                }
-                if (!empty($productObj) && $productObj instanceof DataObject\CSProducts) {
-                    $productObj->setGetInheritedValues(true);
-                }
-                if($productObj && ($productObj->isPublished()) && (empty($productObj->getCSRegion()) || in_array($regionId, $productObj->getCSRegion())))
-                {
-                    $productNameTitle   =   implode(' and ', $productNameArr);
-                    $productName        =   trim($productObj->getName());
-                    $productKeyName     =   trim($productObj->getKey());
-                    $parentParentObj    =   $this->getProductParentObject($productObj); //$productObj->getParent();
-    
-                    /* $hierarchyId = $categoryObj->getSecondLevelCategory();
-                    if($hierarchyId)
-                    {
-                        $hierarchyObj = DataObject\CSHierarchy::getById($hierarchyId);
-                    } */
-                    if (!empty($parentParentObj) && $parentParentObj instanceof DataObject\CSProducts) {
-                        $productData['HierarchyNameLevel2'] = $parentParentObj->getName();
-                    } else {
-                        $productData['HierarchyNameLevel2'] = null;
-                    }
-                    $productData['ProductName'] = $productNameTitle;
-                    $productData['ProductClaimSlogan'] = $productObj->getProductClaimSlogan();
-                    $productData['ShortText'] = $productObj->getShortText();
-                    $productData['LongText'] = $productObj->getLongText();
-                    $productData['LogoImage'] = $productObj->getLogoImage();
-                    
-                    $applicationsHtml = '';
-                    $CoverCompoundHtml = '';
-                    $marketsHtml = '';
-                    if(method_exists($productObj,'getCSProductApplications') &&  $productObj->getCSProductApplications())
-                    {
-                        $applicationsHtml = '<ul>';
-                        foreach ($productObj->getCSProductApplications() as $key => $value) {
-                            $applicationsHtml .= '<li><span class="orange">›</span> '.$value->getApplicationName().' </li>';
-                        }
-                        $applicationsHtml .= '</ul>';
-                    }
-                    
-                    $productData['Applications'] = $applicationsHtml;
-    
-                    if(method_exists($productObj,'getCoverCompounds') && $productObj->getCoverCompounds())
-                    {
-                        $CoverCompoundHtml = '<ul>';
-                        foreach ($productObj->getCoverCompounds() as $key => $value)
-                        {
-                            $CoverCompoundHtml .= '<li><span class="orange">›</span> '.$value->getName().' </li>';
-                        }
-                        $CoverCompoundHtml .= '</ul>';
-                    }
-
-                    $productData['CoverCompounds'] = $CoverCompoundHtml;
-    
-                    if(method_exists($productObj,'getCSProductIndustries') && $productObj->getCSProductIndustries())
-                    {
-                        $marketsHtml = '<ul>';
-                        foreach ($productObj->getCSProductIndustries() as $key => $value)
-                        {
-                            $marketsHtml .= '<li><span class="orange">›</span> '.$value->getIndustryName().' </li>';
-                        }
-                        $marketsHtml .= '</ul>';
-                    }
-                    $productData['Markets'] = $marketsHtml;
-    
-                    $FeaturesAndBenefits = [];
-                    $FeaturesAndBenefitsWithoutImages = [];
-                    $ImageFoundInFeatures = false;
-                    if(method_exists($productObj,'getCSProductFeaturesAndBenefits') && $productObj->getCSProductFeaturesAndBenefits())
-                    {
-                        foreach ($productObj->getCSProductFeaturesAndBenefits() as $key => $value)
-                        {
-                            if(trim($value->getFeatureName()))
+                            $productObject      = DataObject\CSProducts::getById($singleProduct);
+                            if($productObject)
                             {
-                                $feature['FeatureName'] = $value->getFeatureName();
-                                $feature['FeatureDescription'] = $value->getFeatureDescription();
-                                $feature['FeatureImage'] = $value->getFeatureImage();
-                                
-                                if($value->getFeatureImage())
-                                {
-                                    $ImageFoundInFeatures = true;
-                                }
-
-                                $FeaturesAndBenefits[] = $feature;
-
-                                $FeaturesAndBenefitsWithoutImages[] = $value->getFeatureName();
+                                $productNameArr[]   = trim($productObject->getName());
+                            }
+        
+                            if(!$productObj)
+                            {
+                                $productObj = $productObject;
                             }
                         }
                     }
-    
-                    if($ImageFoundInFeatures)
-                    {
-                        $productData['FeaturesAndBenefits'] = $FeaturesAndBenefits;
+                    if (!empty($productObj) && $productObj instanceof DataObject\CSProducts) {
+                        $productObj->setGetInheritedValues(true);
                     }
-                    else{
-                        $productData['FeaturesAndBenefitsWithoutImages'] = $FeaturesAndBenefitsWithoutImages;
-                    }
-    
-                    $MoreThanOneProduct = 0;
-                    $childrenData = [];
-    
-                    if(count($selectedProduct) > 1)
+                    if($productObj && ($productObj->isPublished()) && (empty($productObj->getCSRegion()) || in_array($regionId, $productObj->getCSRegion())))
                     {
-                        $MoreThanOneProduct = 1;
-                    }
-    
-                    if(array_key_exists($productKeyName, $productDataImportConfig['Common Product Page']))
-                    {
-                        if($selectedProduct)
+                        $productNameTitle   =   implode(' and ', $productNameArr);
+                        $productName        =   trim($productObj->getName());
+                        $productKeyName     =   trim($productObj->getKey());
+                        $parentParentObj    =   $this->getProductParentObject($productObj); //$productObj->getParent();
+        
+                        /* $hierarchyId = $categoryObj->getSecondLevelCategory();
+                        if($hierarchyId)
                         {
-                            foreach ($selectedProduct as $key => $singleProduct) {
-                                $productObjSingle = DataObject\CSProducts::getById($singleProduct);
-                                $childrenDataNew = $this->getAllRegionChildern($productObjSingle, $regionId);
-                                $childrenData = array_merge($childrenData,$childrenDataNew);
+                            $hierarchyObj = DataObject\CSHierarchy::getById($hierarchyId);
+                        } */
+                        if (!empty($parentParentObj) && $parentParentObj instanceof DataObject\CSProducts) {
+                            $productData['HierarchyNameLevel2'] = $parentParentObj->getName();
+                        } else {
+                            $productData['HierarchyNameLevel2'] = null;
+                        }
+                        $productData['ProductName'] = $productNameTitle;
+                        $productData['ProductClaimSlogan'] = $productObj->getProductClaimSlogan();
+                        $productData['ShortText'] = $productObj->getShortText();
+                        $productData['LongText'] = $productObj->getLongText();
+                        $productData['LogoImage'] = $productObj->getLogoImage();
+                        
+                        $applicationsHtml = '';
+                        $CoverCompoundHtml = '';
+                        $marketsHtml = '';
+                        if(method_exists($productObj,'getCSProductApplications') &&  $productObj->getCSProductApplications())
+                        {
+                            $applicationsHtml = '<ul>';
+                            foreach ($productObj->getCSProductApplications() as $key => $value) {
+                                $applicationsHtml .= '<li><span class="orange">›</span> '.$value->getApplicationName().' </li>';
                             }
-
-                            if(count($selectedProduct)>1)
+                            $applicationsHtml .= '</ul>';
+                        }
+                        
+                        $productData['Applications'] = $applicationsHtml;
+        
+                        if(method_exists($productObj,'getCoverCompounds') && $productObj->getCoverCompounds())
+                        {
+                            $CoverCompoundHtml = '<ul>';
+                            foreach ($productObj->getCoverCompounds() as $key => $value)
                             {
-                                $filterArrayMultiple = [];
-                                foreach($childrenData as $chKey => $chChild)
+                                $CoverCompoundHtml .= '<li><span class="orange">›</span> '.$value->getName().' </li>';
+                            }
+                            $CoverCompoundHtml .= '</ul>';
+                        }
+
+                        $productData['CoverCompounds'] = $CoverCompoundHtml;
+        
+                        if(method_exists($productObj,'getCSProductIndustries') && $productObj->getCSProductIndustries())
+                        {
+                            $marketsHtml = '<ul>';
+                            foreach ($productObj->getCSProductIndustries() as $key => $value)
+                            {
+                                $marketsHtml .= '<li><span class="orange">›</span> '.$value->getIndustryName().' </li>';
+                            }
+                            $marketsHtml .= '</ul>';
+                        }
+                        $productData['Markets'] = $marketsHtml;
+        
+                        $FeaturesAndBenefits = [];
+                        $FeaturesAndBenefitsWithoutImages = [];
+                        $ImageFoundInFeatures = false;
+                        if(method_exists($productObj,'getCSProductFeaturesAndBenefits') && $productObj->getCSProductFeaturesAndBenefits())
+                        {
+                            foreach ($productObj->getCSProductFeaturesAndBenefits() as $key => $value)
+                            {
+                                if(trim($value->getFeatureName()))
                                 {
-                                    $filterArrayMultiple[$chKey]['data'] = $chChild;
-                                    $filterArrayMultiple[$chKey]['SortOrder'] = $chChild->getSortOrder();
+                                    $feature['FeatureName'] = $value->getFeatureName();
+                                    $feature['FeatureDescription'] = $value->getFeatureDescription();
+                                    $feature['FeatureImage'] = $value->getFeatureImage();
+                                    
+                                    if($value->getFeatureImage())
+                                    {
+                                        $ImageFoundInFeatures = true;
+                                    }
+
+                                    $FeaturesAndBenefits[] = $feature;
+
+                                    $FeaturesAndBenefitsWithoutImages[] = $value->getFeatureName();
+                                }
+                            }
+                        }
+        
+                        if($ImageFoundInFeatures)
+                        {
+                            $productData['FeaturesAndBenefits'] = $FeaturesAndBenefits;
+                        }
+                        else{
+                            $productData['FeaturesAndBenefitsWithoutImages'] = $FeaturesAndBenefitsWithoutImages;
+                        }
+        
+                        $MoreThanOneProduct = 0;
+                        $childrenData = [];
+        
+                        if(count($selectedProduct) > 1)
+                        {
+                            $MoreThanOneProduct = 1;
+                        }
+        
+                        if(array_key_exists($productKeyName, $productDataImportConfig['Common Product Page']))
+                        {
+                            if($selectedProduct)
+                            {
+                                foreach ($selectedProduct as $key => $singleProduct) {
+                                    $productObjSingle = DataObject\CSProducts::getById($singleProduct);
+                                    $childrenDataNew = $this->getAllRegionChildern($productObjSingle, $regionId);
+                                    $childrenData = array_merge($childrenData,$childrenDataNew);
                                 }
 
-                                if($filterArrayMultiple)
+                                if(count($selectedProduct)>1)
                                 {
-                                    $filterArrayMultipleData = $this->phparraysort($filterArrayMultiple, array('SortOrder'), SORT_ASC);
-                                }
-                                
-                                $childrenData = [];
+                                    $filterArrayMultiple = [];
+                                    foreach($childrenData as $chKey => $chChild)
+                                    {
+                                        $filterArrayMultiple[$chKey]['data'] = $chChild;
+                                        $filterArrayMultiple[$chKey]['SortOrder'] = $chChild->getSortOrder();
+                                    }
 
-                                if($filterArrayMultipleData)
-                                {
-                                    foreach ($filterArrayMultipleData as $nChild) {
-                                        $childrenData[] = $nChild['data'];
+                                    if($filterArrayMultiple)
+                                    {
+                                        $filterArrayMultipleData = $this->phparraysort($filterArrayMultiple, array('SortOrder'), SORT_ASC);
+                                    }
+                                    
+                                    $childrenData = [];
+
+                                    if($filterArrayMultipleData)
+                                    {
+                                        foreach ($filterArrayMultipleData as $nChild) {
+                                            $childrenData[] = $nChild['data'];
+                                        }
                                     }
                                 }
                             }
-                        }
 
-                        $productTables          = array();
-                        $productTableColumnLimit = $productDataImportConfig['Common Product Page'][$productKeyName]['Product_Table_Column_Limit'];
-                        $childrenDataChunkArray = array_chunk($childrenData, $productTableColumnLimit);
-    
-                        if($childrenDataChunkArray)
-                        {
-                            foreach ($childrenDataChunkArray as $chunkKey => $childrenDataChunk) 
+                            $productTables          = array();
+                            $productTableColumnLimit = $productDataImportConfig['Common Product Page'][$productKeyName]['Product_Table_Column_Limit'];
+                            $childrenDataChunkArray = array_chunk($childrenData, $productTableColumnLimit);
+        
+                            if($childrenDataChunkArray)
                             {
-                                unset($productDataImportConfig['Common Product Page'][$productKeyName]['Product_Table_Column_Limit']);
-                                $tables = $productDataImportConfig['Common Product Page'][$productKeyName];
-                                // unset($tables['Conveyor Belt Data']);
-                                // unset($tables['Troughability Minimum Belt Width']);
-                                // unset($tables['Minimum Pulley Diameters']);
-                                // unset($tables['Elevator Belt Data']);
-                                // unset($tables['Maximum Bucket Projection']);
-                                // p_r($tables);
-                                if($tables)
+                                foreach ($childrenDataChunkArray as $chunkKey => $childrenDataChunk) 
                                 {
-                                    foreach ($tables as $tablekey => $MetricImperialFields)
+                                    unset($productDataImportConfig['Common Product Page'][$productKeyName]['Product_Table_Column_Limit']);
+                                    $tables = $productDataImportConfig['Common Product Page'][$productKeyName];
+                                    // unset($tables['Conveyor Belt Data']);
+                                    // unset($tables['Troughability Minimum Belt Width']);
+                                    // unset($tables['Minimum Pulley Diameters']);
+                                    // unset($tables['Elevator Belt Data']);
+                                    // unset($tables['Maximum Bucket Projection']);
+                                    // p_r($tables);
+                                    if($tables)
                                     {
-                                        $ColumnKeys = $MetricImperialFields['ColumnKeys'];
-                                        $CS_Trough_Angle_Label = isset($MetricImperialFields['CS_Trough_Angle_Label']) ? $MetricImperialFields['CS_Trough_Angle_Label']:null;
-                                        $CS_Material_Weight_Label = isset($MetricImperialFields['CS_Material_Weight_Label']) ? $MetricImperialFields['CS_Material_Weight_Label']:null;
-                                        $CS_Idlers_Label = isset($MetricImperialFields['CS_Idlers_Label']) ? $MetricImperialFields['CS_Idlers_Label']:null;
-                                        $CS_Idler_Angle_Label = isset($MetricImperialFields['CS_Idler_Angle_Label']) ? $MetricImperialFields['CS_Idler_Angle_Label']:null;
-                                        $CS_Type_Of_Idler_Label = isset($MetricImperialFields['CS_Type_Of_Idler_Label']) ? $MetricImperialFields['CS_Type_Of_Idler_Label']:null;
-            
-            
-                                        unset($MetricImperialFields['ColumnKeys']);
-                                        unset($MetricImperialFields['CS_Trough_Angle_Label']);
-                                        unset($MetricImperialFields['CS_Material_Weight_Label']);
-                                        unset($MetricImperialFields['CS_Idlers_Label']);
-                                        unset($MetricImperialFields['CS_Idler_Angle_Label']);
-                                        unset($MetricImperialFields['CS_Type_Of_Idler_Label']);
-            
-                                        if($MetricImperialFields)
+                                        foreach ($tables as $tablekey => $MetricImperialFields)
                                         {
-                                            foreach ($MetricImperialFields as $MIKey => $MIValues)
+                                            $ColumnKeys = $MetricImperialFields['ColumnKeys'];
+                                            $CS_Trough_Angle_Label = isset($MetricImperialFields['CS_Trough_Angle_Label']) ? $MetricImperialFields['CS_Trough_Angle_Label']:null;
+                                            $CS_Material_Weight_Label = isset($MetricImperialFields['CS_Material_Weight_Label']) ? $MetricImperialFields['CS_Material_Weight_Label']:null;
+                                            $CS_Idlers_Label = isset($MetricImperialFields['CS_Idlers_Label']) ? $MetricImperialFields['CS_Idlers_Label']:null;
+                                            $CS_Idler_Angle_Label = isset($MetricImperialFields['CS_Idler_Angle_Label']) ? $MetricImperialFields['CS_Idler_Angle_Label']:null;
+                                            $CS_Type_Of_Idler_Label = isset($MetricImperialFields['CS_Type_Of_Idler_Label']) ? $MetricImperialFields['CS_Type_Of_Idler_Label']:null;
+                
+                
+                                            unset($MetricImperialFields['ColumnKeys']);
+                                            unset($MetricImperialFields['CS_Trough_Angle_Label']);
+                                            unset($MetricImperialFields['CS_Material_Weight_Label']);
+                                            unset($MetricImperialFields['CS_Idlers_Label']);
+                                            unset($MetricImperialFields['CS_Idler_Angle_Label']);
+                                            unset($MetricImperialFields['CS_Type_Of_Idler_Label']);
+                
+                                            if($MetricImperialFields)
                                             {
-                                                $KeysGroupLogic = null;
-                                                $RemoveKeys = null;
-                                                $AdditionalHeaderKey = null;
-                                                $AdditionalGroupKey = null;
-                                                $ProductNamePrefix = null;
-                                                
-
-                                                // unset($KeysGroupLogic);
-                                                // unset($RemoveKeys);
-                                                // unset($AdditionalHeaderKey);
-                                                // unset($AdditionalGroupKey);
-                                                // unset($ProductNamePrefix);
-                                                // unset($productBrand);
-            
-                                                if(isset($MIValues['KeysGroupLogic']))
+                                                foreach ($MetricImperialFields as $MIKey => $MIValues)
                                                 {
-                                                    $KeysGroupLogic = $MIValues['KeysGroupLogic'];
-                                                    unset($MIValues['KeysGroupLogic']);
-                                                }
-                                                
-                                                if(isset($MIValues['ProductNamePrefix']))
-                                                {
-                                                    $ProductNamePrefix = true;
-                                                }
-                                                
-                                                if(isset($MIValues['RemoveKeys']))
-                                                {
-                                                    $RemoveKeys = $MIValues['RemoveKeys'];
-                                                    unset($MIValues['RemoveKeys']);
-                                                }
-            
-                                                $AdditionalHeaderKey = $productName;
-                                                if($MoreThanOneProduct)
-                                                {
-                                                    $AdditionalHeaderKey = '';
-                                                }
-            
-                                                if($CS_Trough_Angle_Label)
-                                                {
-                                                    $AdditionalHeaderKey = "Trough_Angle_Label";
-                                                }
-                                                
-                                                if($CS_Idler_Angle_Label)
-                                                {
-                                                    $AdditionalHeaderKey = "Idler_Angle_Label";
-                                                }
-            
-                                                if($CS_Material_Weight_Label)
-                                                {
-                                                    $AdditionalGroupKey = "CS_Material_Weight_Label";
-                                                }
-            
-                                                if($CS_Type_Of_Idler_Label)
-                                                {
-                                                    $AdditionalGroupKey = "CS_Type_Of_Idler_Label";
-                                                }
-            
-                                                // $keysTitle = [];
-                                                $groupingTitle = [];
-            
-                                                if($AdditionalGroupKey)
-                                                {
-                                                    $groupingTitle[$AdditionalGroupKey] = 1;
-                                                }
-                                                // p_r($MIValues);
-                                                foreach ($MIValues as $key => $value)
-                                                {
-            
-                                                    if(isset($value['groupingTitle']))
-                                                    {
-                                                        
-                                                        $groupingTitleLabel = $this->addPrefix($value['groupingTitle']);
-                                                        // p_r($groupingTitleLabel);
-                                                        if(isset($groupingTitle[$groupingTitleLabel]))
-                                                        {
-                                                            $groupingTitle[$groupingTitleLabel] += 1;
-                                                        }else{
-                                                            $groupingTitle[$groupingTitleLabel] = 1;
-                                                        }
-                                                        // p_r($groupingTitle);
-                                                        
-                                                    }
-                                                }
-                                                // p_r($groupingTitle);
-            
-                                                $MIArray = array();
-                                                $theadSecondData = [];
-                                                $tableHeaderKeys = [];
-                                                $theadSecondData[] = $AdditionalHeaderKey;
-            
-                                                if($CS_Idlers_Label)
-                                                {
-                                                    $theadSecondData[] = $AdditionalHeaderKey;
-                                                }
-            
-                                                foreach ($childrenDataChunk as $childValue)
-                                                {
-                                                    $percentageSymbol = '';
-                                                    $showDecimalPlaces = '';
-                                                    $productBrand = null;
-                                                    $bricks = $childValue->getProductAttributes();
-    
-                                                    if($ProductNamePrefix)
-                                                    {
-                                                        $productBrand = $childValue->getProductNamePrefix();
-                                                    }
-    
-                                                    $data = [];
+                                                    $KeysGroupLogic = null;
+                                                    $RemoveKeys = null;
+                                                    $AdditionalHeaderKey = null;
+                                                    $AdditionalGroupKey = null;
+                                                    $ProductNamePrefix = null;
                                                     
-                                                    foreach ($MIValues as $key => $value) {
-                                                        $brickName = isset($value['objectType'])? $value['objectType']:null;
-                                                        $percentageSymbol = isset($value['percentageSymbol'])? $value['percentageSymbol']:null;
-                                                        $showDecimalPlaces = isset($value['showDecimalPlaces'])? $value['showDecimalPlaces']:null;
-                                                        $getBrick = 'get' . $brickName;
-                                                        $getField = 'get' . $key;
-            
-                                                        if($brickName == 'class')
-                                                        { 
-                                                            if($showDecimalPlaces == '')
+
+                                                    // unset($KeysGroupLogic);
+                                                    // unset($RemoveKeys);
+                                                    // unset($AdditionalHeaderKey);
+                                                    // unset($AdditionalGroupKey);
+                                                    // unset($ProductNamePrefix);
+                                                    // unset($productBrand);
+                
+                                                    if(isset($MIValues['KeysGroupLogic']))
+                                                    {
+                                                        $KeysGroupLogic = $MIValues['KeysGroupLogic'];
+                                                        unset($MIValues['KeysGroupLogic']);
+                                                    }
+                                                    
+                                                    if(isset($MIValues['ProductNamePrefix']))
+                                                    {
+                                                        $ProductNamePrefix = true;
+                                                    }
+                                                    
+                                                    if(isset($MIValues['RemoveKeys']))
+                                                    {
+                                                        $RemoveKeys = $MIValues['RemoveKeys'];
+                                                        unset($MIValues['RemoveKeys']);
+                                                    }
+                
+                                                    $AdditionalHeaderKey = $productName;
+                                                    if($MoreThanOneProduct)
+                                                    {
+                                                        $AdditionalHeaderKey = '';
+                                                    }
+                
+                                                    if($CS_Trough_Angle_Label)
+                                                    {
+                                                        $AdditionalHeaderKey = "Trough_Angle_Label";
+                                                    }
+                                                    
+                                                    if($CS_Idler_Angle_Label)
+                                                    {
+                                                        $AdditionalHeaderKey = "Idler_Angle_Label";
+                                                    }
+                
+                                                    if($CS_Material_Weight_Label)
+                                                    {
+                                                        $AdditionalGroupKey = "CS_Material_Weight_Label";
+                                                    }
+                
+                                                    if($CS_Type_Of_Idler_Label)
+                                                    {
+                                                        $AdditionalGroupKey = "CS_Type_Of_Idler_Label";
+                                                    }
+                
+                                                    // $keysTitle = [];
+                                                    $groupingTitle = [];
+                
+                                                    if($AdditionalGroupKey)
+                                                    {
+                                                        $groupingTitle[$AdditionalGroupKey] = 1;
+                                                    }
+                                                    // p_r($MIValues);
+                                                    foreach ($MIValues as $key => $value)
+                                                    {
+                
+                                                        if(isset($value['groupingTitle']))
+                                                        {
+                                                            
+                                                            $groupingTitleLabel = $this->addPrefix($value['groupingTitle']);
+                                                            // p_r($groupingTitleLabel);
+                                                            if(isset($groupingTitle[$groupingTitleLabel]))
                                                             {
-                                                                $data[$key] = $childValue->$getField();
+                                                                $groupingTitle[$groupingTitleLabel] += 1;
+                                                            }else{
+                                                                $groupingTitle[$groupingTitleLabel] = 1;
                                                             }
-                                                            else{
-                                                                $formattedFieldValue = number_format($childValue->$getField(),3);
-                                                                $data[$key] = $formattedFieldValue;
-                                                            }
+                                                            // p_r($groupingTitle);
                                                             
                                                         }
-                                                        else
+                                                    }
+                                                    // p_r($groupingTitle);
+                
+                                                    $MIArray = array();
+                                                    $theadSecondData = [];
+                                                    $tableHeaderKeys = [];
+                                                    $theadSecondData[] = $AdditionalHeaderKey;
+                
+                                                    if($CS_Idlers_Label)
+                                                    {
+                                                        $theadSecondData[] = $AdditionalHeaderKey;
+                                                    }
+                
+                                                    foreach ($childrenDataChunk as $childValue)
+                                                    {
+                                                        $percentageSymbol = '';
+                                                        $showDecimalPlaces = '';
+                                                        $productBrand = null;
+                                                        $bricks = $childValue->getProductAttributes();
+        
+                                                        if($ProductNamePrefix)
                                                         {
-                                                            if(method_exists($bricks,$getBrick) && !is_null($bricks->$getBrick()) && method_exists($bricks->$getBrick(),$getField))
-                                                            {   
-                                                                if($bricks->$getBrick()->$getField())
+                                                            $productBrand = $childValue->getProductNamePrefix();
+                                                        }
+        
+                                                        $data = [];
+                                                        
+                                                        foreach ($MIValues as $key => $value) {
+                                                            $brickName = isset($value['objectType'])? $value['objectType']:null;
+                                                            $percentageSymbol = isset($value['percentageSymbol'])? $value['percentageSymbol']:null;
+                                                            $showDecimalPlaces = isset($value['showDecimalPlaces'])? $value['showDecimalPlaces']:null;
+                                                            $getBrick = 'get' . $brickName;
+                                                            $getField = 'get' . $key;
+                
+                                                            if($brickName == 'class')
+                                                            { 
+                                                                if($showDecimalPlaces == '')
                                                                 {
-                                                                    if($showDecimalPlaces == '')
-                                                                    {
-                                                                        $formattedFieldValue = $bricks->$getBrick()->$getField();
-                                                                    }
-                                                                    else{
-                                                                        $formattedFieldValue = number_format($bricks->$getBrick()->$getField(),3);
-                                                                    }
-
-                                                                    $data[$key] = $formattedFieldValue.$percentageSymbol;
+                                                                    $data[$key] = $childValue->$getField();
                                                                 }
-                                                                else
-                                                                {
-                                                                    if($showDecimalPlaces == '')
-                                                                    {
-                                                                        $data[$key] = $bricks->$getBrick()->$getField();
-                                                                    }
-                                                                    else{
-                                                                        $formattedFieldValue = number_format($bricks->$getBrick()->$getField(),3);
-                                                                        $data[$key] = $formattedFieldValue;
-                                                                    }
+                                                                else{
+                                                                    $formattedFieldValue = number_format($childValue->$getField(),3);
+                                                                    $data[$key] = $formattedFieldValue;
                                                                 }
+                                                                
                                                             }
-                                                            else{
-                                                                $data[$key] = '';
+                                                            else
+                                                            {
+                                                                if(method_exists($bricks,$getBrick) && !is_null($bricks->$getBrick()) && method_exists($bricks->$getBrick(),$getField))
+                                                                {   
+                                                                    if($bricks->$getBrick()->$getField())
+                                                                    {
+                                                                        if($showDecimalPlaces == '')
+                                                                        {
+                                                                            $formattedFieldValue = $bricks->$getBrick()->$getField();
+                                                                        }
+                                                                        else{
+                                                                            $formattedFieldValue = number_format($bricks->$getBrick()->$getField(),3);
+                                                                        }
+
+                                                                        $data[$key] = $formattedFieldValue.$percentageSymbol;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        if($showDecimalPlaces == '')
+                                                                        {
+                                                                            $data[$key] = $bricks->$getBrick()->$getField();
+                                                                        }
+                                                                        else{
+                                                                            $formattedFieldValue = number_format($bricks->$getBrick()->$getField(),3);
+                                                                            $data[$key] = $formattedFieldValue;
+                                                                        }
+                                                                    }
+                                                                }
+                                                                else{
+                                                                    $data[$key] = '';
+                                                                }
                                                             }
                                                         }
+                
+                                                        if($ColumnKeys)
+                                                        {
+                                                            foreach ($KeysGroupLogic as $hValue) {
+                                                                $tableHeaderKeys[] = $data[$hValue];
+                                                            }
+                
+                
+                                                            if($tableHeaderKeys)
+                                                            {
+                                                                $productBrandString = $productBrand. " ". implode('/', $tableHeaderKeys);
+                                                                $theadSecondData[] = $productBrandString;
+                                                                unset($productBrand);
+                                                            }
+                                                        }
+                
+                                                        unset($tableHeaderKeys);
+                                                        $MIArray[]= $data;
                                                     }
-            
+                
+                                                    $tbodyArray = [];
+                                                    $theadfirstColspan = 0;
+                
                                                     if($ColumnKeys)
                                                     {
-                                                        foreach ($KeysGroupLogic as $hValue) {
-                                                            $tableHeaderKeys[] = $data[$hValue];
-                                                        }
-            
-            
-                                                        if($tableHeaderKeys)
+                                                        $tableRows = [];
+                                                        if($MIArray)
                                                         {
-                                                            $productBrandString = $productBrand. " ". implode('/', $tableHeaderKeys);
-                                                            $theadSecondData[] = $productBrandString;
-                                                            unset($productBrand);
-                                                        }
-                                                    }
-            
-                                                    unset($tableHeaderKeys);
-                                                    $MIArray[]= $data;
-                                                }
-            
-                                                $tbodyArray = [];
-                                                $theadfirstColspan = 0;
-            
-                                                if($ColumnKeys)
-                                                {
-                                                    $tableRows = [];
-                                                    if($MIArray)
-                                                    {
-                                                        foreach ($MIArray as $variant)
-                                                        {
-                                                            foreach ($variant as $key => $value)
+                                                            foreach ($MIArray as $variant)
                                                             {
-                                                                if($RemoveKeys)
+                                                                foreach ($variant as $key => $value)
                                                                 {
-                                                                    if(!isset($RemoveKeys[$key]))
+                                                                    if($RemoveKeys)
+                                                                    {
+                                                                        if(!isset($RemoveKeys[$key]))
+                                                                        {
+                                                                            $tableRows[$key][] = $value;
+                                                                        }
+                                                                    }
+                                                                    else
                                                                     {
                                                                         $tableRows[$key][] = $value;
                                                                     }
                                                                 }
-                                                                else
-                                                                {
-                                                                    $tableRows[$key][] = $value;
-                                                                }
                                                             }
                                                         }
-                                                    }
-            
-                                                    if($tableRows)
-                                                    {
-                                                        foreach ($tableRows as $tdkey => $trvalue)
+                
+                                                        if($tableRows)
                                                         {
-            
-                                                            if($CS_Idlers_Label)
+                                                            foreach ($tableRows as $tdkey => $trvalue)
                                                             {
-                                                                $rows[]= 'CS_Idlers_Label';
+                
+                                                                if($CS_Idlers_Label)
+                                                                {
+                                                                    $rows[]= 'CS_Idlers_Label';
+                                                                }
+                                                                // $rows[]= $keysTitle[$tdkey];
+                                                                $rows[]= $this->addPrefix($tdkey);
+                
+                
+                                                                foreach ($trvalue as $key => $value) {
+                                                                    $rows[]= $value;
+                                                                }
+                
+                                                                $tbodyArray[] = $rows;
+                                                                unset($rows);
                                                             }
-                                                            // $rows[]= $keysTitle[$tdkey];
-                                                            $rows[]= $this->addPrefix($tdkey);
-            
-            
-                                                            foreach ($trvalue as $key => $value) {
-                                                                $rows[]= $value;
+                                                            $theadfirstColspan = count($tbodyArray[0]);
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        $tableHeadKey = $MIArray[0];
+                                                        if($RemoveKeys)
+                                                        {
+                                                            foreach ($RemoveKeys as $key => $value) {
+                                                                unset($tableHeadKey[$key]);
                                                             }
-            
-                                                            $tbodyArray[] = $rows;
-                                                            unset($rows);
+                                                            $tableHeadKey = array_keys($tableHeadKey);
+                                                            $theadSecondData = \array_merge($theadSecondData,$tableHeadKey);
+                                                        }
+                
+                                                        // Converting field to its title name
+                
+                                                        foreach ($theadSecondData as $key => $value)
+                                                        {
+                                                                $theadSecondData[$key] = $this->addPrefix($value);
+                                                        }
+                
+                                                        foreach ($MIArray as $variant)
+                                                        {
+                                                            $newKey = [];
+                                                            $newArray = [];
+                
+                                                            if($RemoveKeys)
+                                                            {
+                
+                                                                foreach ($RemoveKeys as $key => $value)
+                                                                {
+                                                                    $newKey[] = $variant[$key];
+                                                                    unset($variant[$key]);
+                                                                }
+                
+                                                                $newArray[] = implode('/', $newKey);
+                                                                $newArray = \array_merge($newArray,$variant);
+                
+                                                                $tbodyArray[] = array_values($newArray);
+                                                            }
                                                         }
                                                         $theadfirstColspan = count($tbodyArray[0]);
                                                     }
-                                                }
-                                                else
-                                                {
-                                                    $tableHeadKey = $MIArray[0];
-                                                    if($RemoveKeys)
+
+                                                    // Remove blank row 
+                                                    foreach($tbodyArray as $tableColKey => $tableRow)
                                                     {
-                                                        foreach ($RemoveKeys as $key => $value) {
-                                                            unset($tableHeadKey[$key]);
-                                                        }
-                                                        $tableHeadKey = array_keys($tableHeadKey);
-                                                        $theadSecondData = \array_merge($theadSecondData,$tableHeadKey);
-                                                    }
-            
-                                                    // Converting field to its title name
-            
-                                                    foreach ($theadSecondData as $key => $value)
-                                                    {
-                                                            $theadSecondData[$key] = $this->addPrefix($value);
-                                                    }
-            
-                                                    foreach ($MIArray as $variant)
-                                                    {
-                                                        $newKey = [];
-                                                        $newArray = [];
-            
-                                                        if($RemoveKeys)
+                                                        if(count(array_filter($tableRow)) <= 1)
                                                         {
-            
-                                                            foreach ($RemoveKeys as $key => $value)
-                                                            {
-                                                                $newKey[] = $variant[$key];
-                                                                unset($variant[$key]);
-                                                            }
-            
-                                                            $newArray[] = implode('/', $newKey);
-                                                            $newArray = \array_merge($newArray,$variant);
-            
-                                                            $tbodyArray[] = array_values($newArray);
+                                                            unset($tbodyArray[$tableColKey]);
                                                         }
                                                     }
-                                                    $theadfirstColspan = count($tbodyArray[0]);
-                                                }
 
-                                                // Remove blank row 
-                                                foreach($tbodyArray as $tableColKey => $tableRow)
-                                                {
-                                                    if(count(array_filter($tableRow)) <= 1)
+                                                    if(!empty($tbodyArray))
                                                     {
-                                                        unset($tbodyArray[$tableColKey]);
+                                                        $MIKey = $this->addPrefix($MIKey);
+                                                        $productTables[$tablekey][$chunkKey][$MIKey]['tbody']= $tbodyArray;
+                                                        $productTables[$tablekey][$chunkKey][$MIKey]['theadfirstRowColspan']= $theadfirstColspan;
+                    
+                    
+                                                        if($groupingTitle)
+                                                        {
+                                                            $productTables[$tablekey][$chunkKey][$MIKey]['theadSecondRowGroup']= $groupingTitle;
+                                                        }
+                    
+                                                            $productTables[$tablekey][$chunkKey][$MIKey]['theadSecondRow']= $theadSecondData;
                                                     }
-                                                }
-
-                                                if(!empty($tbodyArray))
-                                                {
-                                                    $MIKey = $this->addPrefix($MIKey);
-                                                    $productTables[$tablekey][$chunkKey][$MIKey]['tbody']= $tbodyArray;
-                                                    $productTables[$tablekey][$chunkKey][$MIKey]['theadfirstRowColspan']= $theadfirstColspan;
-                
-                
-                                                    if($groupingTitle)
-                                                    {
-                                                        $productTables[$tablekey][$chunkKey][$MIKey]['theadSecondRowGroup']= $groupingTitle;
-                                                    }
-                
-                                                        $productTables[$tablekey][$chunkKey][$MIKey]['theadSecondRow']= $theadSecondData;
                                                 }
                                             }
                                         }
                                     }
                                 }
                             }
-                        }
 
-                        if(isset($productTables['Load Support – Maximum Belt Width Data']) && (count($productTables['Load Support – Maximum Belt Width Data']) > 1))
-                        {
-                            $singleLoadSupportMaximumBeltWidthData = [];
-                            $loadSupportMaximumBeltWidthData = $productTables['Load Support – Maximum Belt Width Data'];
+                            if(isset($productTables['Load Support – Maximum Belt Width Data']) && (count($productTables['Load Support – Maximum Belt Width Data']) > 1))
+                            {
+                                $singleLoadSupportMaximumBeltWidthData = [];
+                                $loadSupportMaximumBeltWidthData = $productTables['Load Support – Maximum Belt Width Data'];
 
-                            foreach ($loadSupportMaximumBeltWidthData as $key => $section) {
-                                foreach ($section as $sectionKey => $tableSection) {
+                                foreach ($loadSupportMaximumBeltWidthData as $key => $section) {
+                                    foreach ($section as $sectionKey => $tableSection) {
 
-                                    foreach ($tableSection as $tableSectionKey => $tableSectionValue) {
+                                        foreach ($tableSection as $tableSectionKey => $tableSectionValue) {
 
-                                        if($tableSectionKey == 'tbody')
-                                        {
-                                            foreach ($tableSection[$tableSectionKey] as $tbodyKey => $value) {
-                                                $singleLoadSupportMaximumBeltWidthData[0][$sectionKey][$tableSectionKey][] = $value;
+                                            if($tableSectionKey == 'tbody')
+                                            {
+                                                foreach ($tableSection[$tableSectionKey] as $tbodyKey => $value) {
+                                                    $singleLoadSupportMaximumBeltWidthData[0][$sectionKey][$tableSectionKey][] = $value;
+                                                }
                                             }
-                                        }
-                                        else{
-                                            $singleLoadSupportMaximumBeltWidthData[0][$sectionKey][$tableSectionKey] = $tableSectionValue;
+                                            else{
+                                                $singleLoadSupportMaximumBeltWidthData[0][$sectionKey][$tableSectionKey] = $tableSectionValue;
+                                            }
                                         }
                                     }
                                 }
+
+                                #Move first imperail then matric
+                                if(isset($singleLoadSupportMaximumBeltWidthData[0]['CS_Imperial']))
+                                {
+                                    $sortedSingleLoadSupportMaximumBeltWidthData[0]['CS_Imperial'] = $singleLoadSupportMaximumBeltWidthData[0]['CS_Imperial'];
+                                }
+
+                                if(isset($singleLoadSupportMaximumBeltWidthData[0]['CS_Metric']))
+                                {
+                                    $sortedSingleLoadSupportMaximumBeltWidthData[0]['CS_Metric'] = $singleLoadSupportMaximumBeltWidthData[0]['CS_Metric'];
+                                }
+                                
+                                $productTables['Load Support – Maximum Belt Width Data'] = $sortedSingleLoadSupportMaximumBeltWidthData;
                             }
 
-                            #Move first imperail then matric
-                            if(isset($singleLoadSupportMaximumBeltWidthData[0]['CS_Imperial']))
-                            {
-                                $sortedSingleLoadSupportMaximumBeltWidthData[0]['CS_Imperial'] = $singleLoadSupportMaximumBeltWidthData[0]['CS_Imperial'];
-                            }
-
-                            if(isset($singleLoadSupportMaximumBeltWidthData[0]['CS_Metric']))
-                            {
-                                $sortedSingleLoadSupportMaximumBeltWidthData[0]['CS_Metric'] = $singleLoadSupportMaximumBeltWidthData[0]['CS_Metric'];
-                            }
-                            
-                            $productTables['Load Support – Maximum Belt Width Data'] = $sortedSingleLoadSupportMaximumBeltWidthData;
+                            $productData['productTables'] = $productTables;
                         }
-
-                        $productData['productTables'] = $productTables;
                     }
                 }
                 $parameterBag['data'] = $productData;
@@ -855,525 +858,528 @@ class DefaultController extends FrontendController
             if($catalogTableObjectEditable)
             {
                 $catalogTableObject = $catalogTableObjectEditable->getElement();
-                $productDataImportConfig = $configProviderService->getCatalogProductTablesConfig();
-    
-                $catalogCategoryObjectId    = $catalogTableObject->getParentId();
-                $categoryObj                = DataObject\CSCatalogCategory::getById($catalogCategoryObjectId);
-    
-                $selectedProduct            = $catalogTableObject->getProducts();
-                $productObj                 = null;
-    
-    
-                $productNameArr = [];
-                if($selectedProduct)
+                if($catalogTableObject)
                 {
-                    foreach ($selectedProduct as $key => $singleProduct)
+                    $productDataImportConfig = $configProviderService->getCatalogProductTablesConfig();
+        
+                    $catalogCategoryObjectId    = $catalogTableObject->getParentId();
+                    $categoryObj                = DataObject\CSCatalogCategory::getById($catalogCategoryObjectId);
+        
+                    $selectedProduct            = $catalogTableObject->getProducts();
+                    $productObj                 = null;
+        
+        
+                    $productNameArr = [];
+                    if($selectedProduct)
                     {
-                        $productObject      = DataObject\CSProducts::getById($singleProduct);
-                        if($productObject)
+                        foreach ($selectedProduct as $key => $singleProduct)
                         {
-                            $productNameArr[]   = trim($productObject->getName());
-                        }
-    
-                        if(!$productObj)
-                        {
-                            $productObj = $productObject;
-                        }
-                    }
-                }
-                if (!empty($productObj) && $productObj instanceof DataObject\CSProducts) {
-                    $productObj->setGetInheritedValues(true);
-                }
-                if($productObj && ($productObj->isPublished()) && (empty($productObj->getCSRegion()) || in_array($regionId, $productObj->getCSRegion())))
-                {
-                    $productNameTitle   =   implode(' and ', $productNameArr);
-                    $productName        =   trim($productObj->getName());
-                    $productKeyName     =   trim($productObj->getKey());
-                    $parentParentObj    =   $this->getProductParentObject($productObj); //$productObj->getParent();
-    
-                    /* $hierarchyId = $categoryObj->getSecondLevelCategory();
-                    if($hierarchyId)
-                    {
-                        $hierarchyObj = DataObject\CSHierarchy::getById($hierarchyId);
-                    } */
-                    if (!empty($parentParentObj) && $parentParentObj instanceof DataObject\CSProducts) {
-                        $productData['HierarchyNameLevel2'] = $parentParentObj->getName();
-                    } else {
-                        $productData['HierarchyNameLevel2'] = null;
-                    }
-                    $productData['ProductName'] = $productNameTitle;
-                    $productData['ProductClaimSlogan'] = $productObj->getProductClaimSlogan();
-                    $productData['ShortText'] = $productObj->getShortText();
-                    $productData['LongText'] = $productObj->getLongText();
-                    $productData['LogoImage'] = $productObj->getLogoImage();
-    
-                    if(method_exists($productObj,'getCSProductApplications') &&  $productObj->getCSProductApplications())
-                    {
-                        $applicationsHtml = '<ul>';
-                        foreach ($productObj->getCSProductApplications() as $key => $value) {
-                            $applicationsHtml .= '<li><span class="orange">›</span> '.$value->getApplicationName().' </li>';
-                        }
-                        $applicationsHtml .= '</ul>';
-                    }
-                    
-                    $productData['Applications'] = $applicationsHtml;
-    
-                    if(method_exists($productObj,'getCoverCompounds') && $productObj->getCoverCompounds())
-                    {
-                        $CoverCompoundHtml = '<ul>';
-                        foreach ($productObj->getCoverCompounds() as $key => $value)
-                        {
-                            $CoverCompoundHtml .= '<li><span class="orange">›</span> '.$value->getName().' </li>';
-                        }
-                        $CoverCompoundHtml .= '</ul>';
-                    }
-
-                    $productData['CoverCompounds'] = $CoverCompoundHtml;
-    
-                    if(method_exists($productObj,'getCSProductIndustries') && $productObj->getCSProductIndustries())
-                    {
-                        $marketsHtml = '<ul>';
-                        foreach ($productObj->getCSProductIndustries() as $key => $value)
-                        {
-                            $marketsHtml .= '<li><span class="orange">›</span> '.$value->getIndustryName().' </li>';
-                        }
-                        $marketsHtml .= '</ul>';
-                    }
-                    $productData['Markets'] = $marketsHtml;
-    
-                    $FeaturesAndBenefits = [];
-                    $FeaturesAndBenefitsWithoutImages = [];
-                    $ImageFoundInFeatures = false;
-                    if(method_exists($productObj,'getCSProductFeaturesAndBenefits') && $productObj->getCSProductFeaturesAndBenefits())
-                    {
-                        foreach ($productObj->getCSProductFeaturesAndBenefits() as $key => $value)
-                        {
-                            if(trim($value->getFeatureName()))
+                            $productObject      = DataObject\CSProducts::getById($singleProduct);
+                            if($productObject)
                             {
-                                $feature['FeatureName'] = $value->getFeatureName();
-                                $feature['FeatureDescription'] = $value->getFeatureDescription();
-                                $feature['FeatureImage'] = $value->getFeatureImage();
-                                
-                                if($value->getFeatureImage())
-                                {
-                                    $ImageFoundInFeatures = true;
-                                }
-
-                                $FeaturesAndBenefits[] = $feature;
-
-                                $FeaturesAndBenefitsWithoutImages[] = $value->getFeatureName();
+                                $productNameArr[]   = trim($productObject->getName());
+                            }
+        
+                            if(!$productObj)
+                            {
+                                $productObj = $productObject;
                             }
                         }
                     }
-    
-                    if($ImageFoundInFeatures)
-                    {
-                        $productData['FeaturesAndBenefits'] = $FeaturesAndBenefits;
+                    if (!empty($productObj) && $productObj instanceof DataObject\CSProducts) {
+                        $productObj->setGetInheritedValues(true);
                     }
-                    else{
-                        $productData['FeaturesAndBenefitsWithoutImages'] = $FeaturesAndBenefitsWithoutImages;
-                    }
-    
-                    $MoreThanOneProduct = 0;
-                    $childrenData = [];
-    
-                    if(count($selectedProduct) > 1)
+                    if($productObj && ($productObj->isPublished()) && (empty($productObj->getCSRegion()) || in_array($regionId, $productObj->getCSRegion())))
                     {
-                        $MoreThanOneProduct = 1;
-                    }
-    
-                    if(array_key_exists($productKeyName, $productDataImportConfig['Common Product Page']))
-                    {
-                        if($selectedProduct)
+                        $productNameTitle   =   implode(' and ', $productNameArr);
+                        $productName        =   trim($productObj->getName());
+                        $productKeyName     =   trim($productObj->getKey());
+                        $parentParentObj    =   $this->getProductParentObject($productObj); //$productObj->getParent();
+        
+                        /* $hierarchyId = $categoryObj->getSecondLevelCategory();
+                        if($hierarchyId)
                         {
-                            foreach ($selectedProduct as $key => $singleProduct) {
-                                $productObjSingle = DataObject\CSProducts::getById($singleProduct);
-                                $childrenDataNew = $this->getAllRegionChildern($productObjSingle, $regionId);
-                                $childrenData = array_merge($childrenData,$childrenDataNew);
+                            $hierarchyObj = DataObject\CSHierarchy::getById($hierarchyId);
+                        } */
+                        if (!empty($parentParentObj) && $parentParentObj instanceof DataObject\CSProducts) {
+                            $productData['HierarchyNameLevel2'] = $parentParentObj->getName();
+                        } else {
+                            $productData['HierarchyNameLevel2'] = null;
+                        }
+                        $productData['ProductName'] = $productNameTitle;
+                        $productData['ProductClaimSlogan'] = $productObj->getProductClaimSlogan();
+                        $productData['ShortText'] = $productObj->getShortText();
+                        $productData['LongText'] = $productObj->getLongText();
+                        $productData['LogoImage'] = $productObj->getLogoImage();
+        
+                        if(method_exists($productObj,'getCSProductApplications') &&  $productObj->getCSProductApplications())
+                        {
+                            $applicationsHtml = '<ul>';
+                            foreach ($productObj->getCSProductApplications() as $key => $value) {
+                                $applicationsHtml .= '<li><span class="orange">›</span> '.$value->getApplicationName().' </li>';
                             }
-
-                            if(count($selectedProduct)>1)
+                            $applicationsHtml .= '</ul>';
+                        }
+                        
+                        $productData['Applications'] = $applicationsHtml;
+        
+                        if(method_exists($productObj,'getCoverCompounds') && $productObj->getCoverCompounds())
+                        {
+                            $CoverCompoundHtml = '<ul>';
+                            foreach ($productObj->getCoverCompounds() as $key => $value)
                             {
-                                $filterArrayMultiple = [];
-                                foreach($childrenData as $chKey => $chChild)
+                                $CoverCompoundHtml .= '<li><span class="orange">›</span> '.$value->getName().' </li>';
+                            }
+                            $CoverCompoundHtml .= '</ul>';
+                        }
+
+                        $productData['CoverCompounds'] = $CoverCompoundHtml;
+        
+                        if(method_exists($productObj,'getCSProductIndustries') && $productObj->getCSProductIndustries())
+                        {
+                            $marketsHtml = '<ul>';
+                            foreach ($productObj->getCSProductIndustries() as $key => $value)
+                            {
+                                $marketsHtml .= '<li><span class="orange">›</span> '.$value->getIndustryName().' </li>';
+                            }
+                            $marketsHtml .= '</ul>';
+                        }
+                        $productData['Markets'] = $marketsHtml;
+        
+                        $FeaturesAndBenefits = [];
+                        $FeaturesAndBenefitsWithoutImages = [];
+                        $ImageFoundInFeatures = false;
+                        if(method_exists($productObj,'getCSProductFeaturesAndBenefits') && $productObj->getCSProductFeaturesAndBenefits())
+                        {
+                            foreach ($productObj->getCSProductFeaturesAndBenefits() as $key => $value)
+                            {
+                                if(trim($value->getFeatureName()))
                                 {
-                                    $filterArrayMultiple[$chKey]['data'] = $chChild;
-                                    $filterArrayMultiple[$chKey]['SortOrder'] = $chChild->getSortOrder();
+                                    $feature['FeatureName'] = $value->getFeatureName();
+                                    $feature['FeatureDescription'] = $value->getFeatureDescription();
+                                    $feature['FeatureImage'] = $value->getFeatureImage();
+                                    
+                                    if($value->getFeatureImage())
+                                    {
+                                        $ImageFoundInFeatures = true;
+                                    }
+
+                                    $FeaturesAndBenefits[] = $feature;
+
+                                    $FeaturesAndBenefitsWithoutImages[] = $value->getFeatureName();
+                                }
+                            }
+                        }
+        
+                        if($ImageFoundInFeatures)
+                        {
+                            $productData['FeaturesAndBenefits'] = $FeaturesAndBenefits;
+                        }
+                        else{
+                            $productData['FeaturesAndBenefitsWithoutImages'] = $FeaturesAndBenefitsWithoutImages;
+                        }
+        
+                        $MoreThanOneProduct = 0;
+                        $childrenData = [];
+        
+                        if(count($selectedProduct) > 1)
+                        {
+                            $MoreThanOneProduct = 1;
+                        }
+        
+                        if(array_key_exists($productKeyName, $productDataImportConfig['Common Product Page']))
+                        {
+                            if($selectedProduct)
+                            {
+                                foreach ($selectedProduct as $key => $singleProduct) {
+                                    $productObjSingle = DataObject\CSProducts::getById($singleProduct);
+                                    $childrenDataNew = $this->getAllRegionChildern($productObjSingle, $regionId);
+                                    $childrenData = array_merge($childrenData,$childrenDataNew);
                                 }
 
-                                if($filterArrayMultiple)
+                                if(count($selectedProduct)>1)
                                 {
-                                    $filterArrayMultipleData = $this->phparraysort($filterArrayMultiple, array('SortOrder'), SORT_ASC);
-                                }
-                                
-                                $childrenData = [];
+                                    $filterArrayMultiple = [];
+                                    foreach($childrenData as $chKey => $chChild)
+                                    {
+                                        $filterArrayMultiple[$chKey]['data'] = $chChild;
+                                        $filterArrayMultiple[$chKey]['SortOrder'] = $chChild->getSortOrder();
+                                    }
 
-                                if($filterArrayMultipleData)
-                                {
-                                    foreach ($filterArrayMultipleData as $nChild) {
-                                        $childrenData[] = $nChild['data'];
+                                    if($filterArrayMultiple)
+                                    {
+                                        $filterArrayMultipleData = $this->phparraysort($filterArrayMultiple, array('SortOrder'), SORT_ASC);
+                                    }
+                                    
+                                    $childrenData = [];
+
+                                    if($filterArrayMultipleData)
+                                    {
+                                        foreach ($filterArrayMultipleData as $nChild) {
+                                            $childrenData[] = $nChild['data'];
+                                        }
                                     }
                                 }
                             }
-                        }
 
-                        $productTables          = array();
-                        $productTableColumnLimit = $productDataImportConfig['Common Product Page'][$productKeyName]['Product_Table_Column_Limit'];
-                        $childrenDataChunkArray = array_chunk($childrenData, $productTableColumnLimit);
-    
-                        if($childrenDataChunkArray)
-                        {
-                            foreach ($childrenDataChunkArray as $chunkKey => $childrenDataChunk) 
+                            $productTables          = array();
+                            $productTableColumnLimit = $productDataImportConfig['Common Product Page'][$productKeyName]['Product_Table_Column_Limit'];
+                            $childrenDataChunkArray = array_chunk($childrenData, $productTableColumnLimit);
+        
+                            if($childrenDataChunkArray)
                             {
-                                unset($productDataImportConfig['Common Product Page'][$productKeyName]['Product_Table_Column_Limit']);
-                                $tables = $productDataImportConfig['Common Product Page'][$productKeyName];
-                                
-                                if($tables)
+                                foreach ($childrenDataChunkArray as $chunkKey => $childrenDataChunk) 
                                 {
-                                    foreach ($tables as $tablekey => $MetricImperialFields)
+                                    unset($productDataImportConfig['Common Product Page'][$productKeyName]['Product_Table_Column_Limit']);
+                                    $tables = $productDataImportConfig['Common Product Page'][$productKeyName];
+                                    
+                                    if($tables)
                                     {
-                                        $ColumnKeys = $MetricImperialFields['ColumnKeys'];
-                                        $CS_Trough_Angle_Label = $MetricImperialFields['CS_Trough_Angle_Label'];
-                                        $CS_Material_Weight_Label = $MetricImperialFields['CS_Material_Weight_Label'];
-                                        $CS_Idlers_Label = $MetricImperialFields['CS_Idlers_Label'];
-                                        $CS_Idler_Angle_Label = $MetricImperialFields['CS_Idler_Angle_Label'];
-                                        $CS_Type_Of_Idler_Label = $MetricImperialFields['CS_Type_Of_Idler_Label'];
-            
-            
-                                        unset($MetricImperialFields['ColumnKeys']);
-                                        unset($MetricImperialFields['CS_Trough_Angle_Label']);
-                                        unset($MetricImperialFields['CS_Material_Weight_Label']);
-                                        unset($MetricImperialFields['CS_Idlers_Label']);
-                                        unset($MetricImperialFields['CS_Idler_Angle_Label']);
-                                        unset($MetricImperialFields['CS_Type_Of_Idler_Label']);
-            
-                                        if($MetricImperialFields)
+                                        foreach ($tables as $tablekey => $MetricImperialFields)
                                         {
-                                            foreach ($MetricImperialFields as $MIKey => $MIValues)
+                                            $ColumnKeys = $MetricImperialFields['ColumnKeys'];
+                                            $CS_Trough_Angle_Label = $MetricImperialFields['CS_Trough_Angle_Label'];
+                                            $CS_Material_Weight_Label = $MetricImperialFields['CS_Material_Weight_Label'];
+                                            $CS_Idlers_Label = $MetricImperialFields['CS_Idlers_Label'];
+                                            $CS_Idler_Angle_Label = $MetricImperialFields['CS_Idler_Angle_Label'];
+                                            $CS_Type_Of_Idler_Label = $MetricImperialFields['CS_Type_Of_Idler_Label'];
+                
+                
+                                            unset($MetricImperialFields['ColumnKeys']);
+                                            unset($MetricImperialFields['CS_Trough_Angle_Label']);
+                                            unset($MetricImperialFields['CS_Material_Weight_Label']);
+                                            unset($MetricImperialFields['CS_Idlers_Label']);
+                                            unset($MetricImperialFields['CS_Idler_Angle_Label']);
+                                            unset($MetricImperialFields['CS_Type_Of_Idler_Label']);
+                
+                                            if($MetricImperialFields)
                                             {
-                                                unset($KeysGroupLogic);
-                                                unset($RemoveKeys);
-                                                unset($AdditionalHeaderKey);
-                                                unset($AdditionalGroupKey);
-                                                unset($ProductNamePrefix);
-                                                unset($productBrand);
-            
-                                                if(isset($MIValues['KeysGroupLogic']))
+                                                foreach ($MetricImperialFields as $MIKey => $MIValues)
                                                 {
-                                                    $KeysGroupLogic = $MIValues['KeysGroupLogic'];
-                                                    unset($MIValues['KeysGroupLogic']);
-                                                }
-                                                
-                                                if(isset($MIValues['ProductNamePrefix']))
-                                                {
-                                                    $ProductNamePrefix = true;
-                                                }
-                                                
-                                                if(isset($MIValues['RemoveKeys']))
-                                                {
-                                                    $RemoveKeys = $MIValues['RemoveKeys'];
-                                                    unset($MIValues['RemoveKeys']);
-                                                }
-            
-                                                $AdditionalHeaderKey = $productName;
-                                                if($MoreThanOneProduct)
-                                                {
-                                                    $AdditionalHeaderKey = '';
-                                                }
-            
-                                                if($CS_Trough_Angle_Label)
-                                                {
-                                                    $AdditionalHeaderKey = "Trough_Angle_Label";
-                                                }
-                                                
-                                                if($CS_Idler_Angle_Label)
-                                                {
-                                                    $AdditionalHeaderKey = "Idler_Angle_Label";
-                                                }
-            
-                                                if($CS_Material_Weight_Label)
-                                                {
-                                                    $AdditionalGroupKey = "CS_Material_Weight_Label";
-                                                }
-            
-                                                if($CS_Type_Of_Idler_Label)
-                                                {
-                                                    $AdditionalGroupKey = "CS_Type_Of_Idler_Label";
-                                                }
-            
-                                                // $keysTitle = [];
-                                                $groupingTitle = [];
-            
-                                                if($AdditionalGroupKey)
-                                                {
-                                                    $groupingTitle[$AdditionalGroupKey] = 1;
-                                                }
-                                                
-                                                foreach ($MIValues as $key => $value)
-                                                {
-            
-                                                    if(isset($value['groupingTitle']))
+                                                    unset($KeysGroupLogic);
+                                                    unset($RemoveKeys);
+                                                    unset($AdditionalHeaderKey);
+                                                    unset($AdditionalGroupKey);
+                                                    unset($ProductNamePrefix);
+                                                    unset($productBrand);
+                
+                                                    if(isset($MIValues['KeysGroupLogic']))
                                                     {
-                                                        $groupingTitleLabel = $this->addPrefix($value['groupingTitle']);
-                                                        $groupingTitle[$groupingTitleLabel] += 1;
+                                                        $KeysGroupLogic = $MIValues['KeysGroupLogic'];
+                                                        unset($MIValues['KeysGroupLogic']);
                                                     }
-                                                }
-            
-                                                $MIArray = array();
-                                                $theadSecondData = [];
-                                                $tableHeaderKeys = [];
-                                                $theadSecondData[] = $AdditionalHeaderKey;
-            
-                                                if($CS_Idlers_Label)
-                                                {
-                                                    $theadSecondData[] = $AdditionalHeaderKey;
-                                                }
-            
-                                                foreach ($childrenDataChunk as $childValue)
-                                                {
-                                                    $percentageSymbol = '';
-                                                    $showDecimalPlaces = '';
-                                                    $bricks = $childValue->getProductAttributes();
-    
-                                                    if($ProductNamePrefix)
-                                                    {
-                                                        $productBrand = $childValue->getProductNamePrefix();
-                                                    }
-    
-                                                    $data = [];
                                                     
-                                                    foreach ($MIValues as $key => $value) {
-                                                        $brickName = $value['objectType'];
-                                                        $percentageSymbol = $value['percentageSymbol'];
-                                                        $showDecimalPlaces = $value['showDecimalPlaces'];
-                                                        $getBrick = 'get' . $brickName;
-                                                        $getField = 'get' . $key;
-            
-                                                        if($brickName == 'class')
-                                                        { 
-                                                            if($showDecimalPlaces == '')
-                                                            {
-                                                                $data[$key] = $childValue->$getField();
-                                                            }
-                                                            else{
-                                                                $formattedFieldValue = number_format($childValue->$getField(),3);
-                                                                $data[$key] = $formattedFieldValue;
-                                                            }
-                                                            
-                                                        }
-                                                        else
+                                                    if(isset($MIValues['ProductNamePrefix']))
+                                                    {
+                                                        $ProductNamePrefix = true;
+                                                    }
+                                                    
+                                                    if(isset($MIValues['RemoveKeys']))
+                                                    {
+                                                        $RemoveKeys = $MIValues['RemoveKeys'];
+                                                        unset($MIValues['RemoveKeys']);
+                                                    }
+                
+                                                    $AdditionalHeaderKey = $productName;
+                                                    if($MoreThanOneProduct)
+                                                    {
+                                                        $AdditionalHeaderKey = '';
+                                                    }
+                
+                                                    if($CS_Trough_Angle_Label)
+                                                    {
+                                                        $AdditionalHeaderKey = "Trough_Angle_Label";
+                                                    }
+                                                    
+                                                    if($CS_Idler_Angle_Label)
+                                                    {
+                                                        $AdditionalHeaderKey = "Idler_Angle_Label";
+                                                    }
+                
+                                                    if($CS_Material_Weight_Label)
+                                                    {
+                                                        $AdditionalGroupKey = "CS_Material_Weight_Label";
+                                                    }
+                
+                                                    if($CS_Type_Of_Idler_Label)
+                                                    {
+                                                        $AdditionalGroupKey = "CS_Type_Of_Idler_Label";
+                                                    }
+                
+                                                    // $keysTitle = [];
+                                                    $groupingTitle = [];
+                
+                                                    if($AdditionalGroupKey)
+                                                    {
+                                                        $groupingTitle[$AdditionalGroupKey] = 1;
+                                                    }
+                                                    
+                                                    foreach ($MIValues as $key => $value)
+                                                    {
+                
+                                                        if(isset($value['groupingTitle']))
                                                         {
-                                                            if(method_exists($bricks,$getBrick) && method_exists($bricks->$getBrick(),$getField))
-                                                            {   
-                                                                if($bricks->$getBrick()->$getField())
-                                                                {
-                                                                    if($showDecimalPlaces == '')
-                                                                    {
-                                                                        $formattedFieldValue = $bricks->$getBrick()->$getField();
-                                                                    }
-                                                                    else{
-                                                                        $formattedFieldValue = number_format($bricks->$getBrick()->$getField(),3);
-                                                                    }
-
-                                                                    $data[$key] = $formattedFieldValue.$percentageSymbol;
-                                                                }
-                                                                else
-                                                                {
-                                                                    if($showDecimalPlaces == '')
-                                                                    {
-                                                                        $data[$key] = $bricks->$getBrick()->$getField();
-                                                                    }
-                                                                    else{
-                                                                        $formattedFieldValue = number_format($bricks->$getBrick()->$getField(),3);
-                                                                        $data[$key] = $formattedFieldValue;
-                                                                    }
-                                                                }
-                                                            }
-                                                            else{
-                                                                $data[$key] = '';
-                                                            }
+                                                            $groupingTitleLabel = $this->addPrefix($value['groupingTitle']);
+                                                            $groupingTitle[$groupingTitleLabel] += 1;
                                                         }
                                                     }
-            
+                
+                                                    $MIArray = array();
+                                                    $theadSecondData = [];
+                                                    $tableHeaderKeys = [];
+                                                    $theadSecondData[] = $AdditionalHeaderKey;
+                
+                                                    if($CS_Idlers_Label)
+                                                    {
+                                                        $theadSecondData[] = $AdditionalHeaderKey;
+                                                    }
+                
+                                                    foreach ($childrenDataChunk as $childValue)
+                                                    {
+                                                        $percentageSymbol = '';
+                                                        $showDecimalPlaces = '';
+                                                        $bricks = $childValue->getProductAttributes();
+        
+                                                        if($ProductNamePrefix)
+                                                        {
+                                                            $productBrand = $childValue->getProductNamePrefix();
+                                                        }
+        
+                                                        $data = [];
+                                                        
+                                                        foreach ($MIValues as $key => $value) {
+                                                            $brickName = $value['objectType'];
+                                                            $percentageSymbol = $value['percentageSymbol'];
+                                                            $showDecimalPlaces = $value['showDecimalPlaces'];
+                                                            $getBrick = 'get' . $brickName;
+                                                            $getField = 'get' . $key;
+                
+                                                            if($brickName == 'class')
+                                                            { 
+                                                                if($showDecimalPlaces == '')
+                                                                {
+                                                                    $data[$key] = $childValue->$getField();
+                                                                }
+                                                                else{
+                                                                    $formattedFieldValue = number_format($childValue->$getField(),3);
+                                                                    $data[$key] = $formattedFieldValue;
+                                                                }
+                                                                
+                                                            }
+                                                            else
+                                                            {
+                                                                if(method_exists($bricks,$getBrick) && method_exists($bricks->$getBrick(),$getField))
+                                                                {   
+                                                                    if($bricks->$getBrick()->$getField())
+                                                                    {
+                                                                        if($showDecimalPlaces == '')
+                                                                        {
+                                                                            $formattedFieldValue = $bricks->$getBrick()->$getField();
+                                                                        }
+                                                                        else{
+                                                                            $formattedFieldValue = number_format($bricks->$getBrick()->$getField(),3);
+                                                                        }
+
+                                                                        $data[$key] = $formattedFieldValue.$percentageSymbol;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        if($showDecimalPlaces == '')
+                                                                        {
+                                                                            $data[$key] = $bricks->$getBrick()->$getField();
+                                                                        }
+                                                                        else{
+                                                                            $formattedFieldValue = number_format($bricks->$getBrick()->$getField(),3);
+                                                                            $data[$key] = $formattedFieldValue;
+                                                                        }
+                                                                    }
+                                                                }
+                                                                else{
+                                                                    $data[$key] = '';
+                                                                }
+                                                            }
+                                                        }
+                
+                                                        if($ColumnKeys)
+                                                        {
+                                                            foreach ($KeysGroupLogic as $hValue) {
+                                                                $tableHeaderKeys[] = $data[$hValue];
+                                                            }
+                
+                
+                                                            if($tableHeaderKeys)
+                                                            {
+                                                                $productBrandString = $productBrand. " ". implode('/', $tableHeaderKeys);
+                                                                $theadSecondData[] = $productBrandString;
+                                                                unset($productBrand);
+                                                            }
+                                                        }
+                
+                                                        unset($tableHeaderKeys);
+                                                        $MIArray[]= $data;
+                                                    }
+                
+                                                    $tbodyArray = [];
+                                                    $theadfirstColspan = 0;
+                
                                                     if($ColumnKeys)
                                                     {
-                                                        foreach ($KeysGroupLogic as $hValue) {
-                                                            $tableHeaderKeys[] = $data[$hValue];
-                                                        }
-            
-            
-                                                        if($tableHeaderKeys)
+                                                        $tableRows = [];
+                                                        if($MIArray)
                                                         {
-                                                            $productBrandString = $productBrand. " ". implode('/', $tableHeaderKeys);
-                                                            $theadSecondData[] = $productBrandString;
-                                                            unset($productBrand);
-                                                        }
-                                                    }
-            
-                                                    unset($tableHeaderKeys);
-                                                    $MIArray[]= $data;
-                                                }
-            
-                                                $tbodyArray = [];
-                                                $theadfirstColspan = 0;
-            
-                                                if($ColumnKeys)
-                                                {
-                                                    $tableRows = [];
-                                                    if($MIArray)
-                                                    {
-                                                        foreach ($MIArray as $variant)
-                                                        {
-                                                            foreach ($variant as $key => $value)
+                                                            foreach ($MIArray as $variant)
                                                             {
-                                                                if($RemoveKeys)
+                                                                foreach ($variant as $key => $value)
                                                                 {
-                                                                    if(!isset($RemoveKeys[$key]))
+                                                                    if($RemoveKeys)
+                                                                    {
+                                                                        if(!isset($RemoveKeys[$key]))
+                                                                        {
+                                                                            $tableRows[$key][] = $value;
+                                                                        }
+                                                                    }
+                                                                    else
                                                                     {
                                                                         $tableRows[$key][] = $value;
                                                                     }
                                                                 }
-                                                                else
-                                                                {
-                                                                    $tableRows[$key][] = $value;
-                                                                }
                                                             }
                                                         }
-                                                    }
-            
-                                                    if($tableRows)
-                                                    {
-                                                        foreach ($tableRows as $tdkey => $trvalue)
+                
+                                                        if($tableRows)
                                                         {
-            
-                                                            if($CS_Idlers_Label)
+                                                            foreach ($tableRows as $tdkey => $trvalue)
                                                             {
-                                                                $rows[]= 'CS_Idlers_Label';
+                
+                                                                if($CS_Idlers_Label)
+                                                                {
+                                                                    $rows[]= 'CS_Idlers_Label';
+                                                                }
+                                                                // $rows[]= $keysTitle[$tdkey];
+                                                                $rows[]= $this->addPrefix($tdkey);
+                
+                
+                                                                foreach ($trvalue as $key => $value) {
+                                                                    $rows[]= $value;
+                                                                }
+                
+                                                                $tbodyArray[] = $rows;
+                                                                unset($rows);
                                                             }
-                                                            // $rows[]= $keysTitle[$tdkey];
-                                                            $rows[]= $this->addPrefix($tdkey);
-            
-            
-                                                            foreach ($trvalue as $key => $value) {
-                                                                $rows[]= $value;
+                                                            $theadfirstColspan = count($tbodyArray[0]);
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        $tableHeadKey = $MIArray[0];
+                                                        if($RemoveKeys)
+                                                        {
+                                                            foreach ($RemoveKeys as $key => $value) {
+                                                                unset($tableHeadKey[$key]);
                                                             }
-            
-                                                            $tbodyArray[] = $rows;
-                                                            unset($rows);
+                                                            $tableHeadKey = array_keys($tableHeadKey);
+                                                            $theadSecondData = \array_merge($theadSecondData,$tableHeadKey);
+                                                        }
+                
+                                                        // Converting field to its title name
+                
+                                                        foreach ($theadSecondData as $key => $value)
+                                                        {
+                                                                $theadSecondData[$key] = $this->addPrefix($value);
+                                                        }
+                
+                                                        foreach ($MIArray as $variant)
+                                                        {
+                                                            $newKey = [];
+                                                            $newArray = [];
+                
+                                                            if($RemoveKeys)
+                                                            {
+                
+                                                                foreach ($RemoveKeys as $key => $value)
+                                                                {
+                                                                    $newKey[] = $variant[$key];
+                                                                    unset($variant[$key]);
+                                                                }
+                
+                                                                $newArray[] = implode('/', $newKey);
+                                                                $newArray = \array_merge($newArray,$variant);
+                
+                                                                $tbodyArray[] = array_values($newArray);
+                                                            }
                                                         }
                                                         $theadfirstColspan = count($tbodyArray[0]);
                                                     }
-                                                }
-                                                else
-                                                {
-                                                    $tableHeadKey = $MIArray[0];
-                                                    if($RemoveKeys)
+
+                                                    // Remove blank row 
+                                                    foreach($tbodyArray as $tableColKey => $tableRow)
                                                     {
-                                                        foreach ($RemoveKeys as $key => $value) {
-                                                            unset($tableHeadKey[$key]);
-                                                        }
-                                                        $tableHeadKey = array_keys($tableHeadKey);
-                                                        $theadSecondData = \array_merge($theadSecondData,$tableHeadKey);
-                                                    }
-            
-                                                    // Converting field to its title name
-            
-                                                    foreach ($theadSecondData as $key => $value)
-                                                    {
-                                                            $theadSecondData[$key] = $this->addPrefix($value);
-                                                    }
-            
-                                                    foreach ($MIArray as $variant)
-                                                    {
-                                                        $newKey = [];
-                                                        $newArray = [];
-            
-                                                        if($RemoveKeys)
+                                                        if(count(array_filter($tableRow)) <= 1)
                                                         {
-            
-                                                            foreach ($RemoveKeys as $key => $value)
-                                                            {
-                                                                $newKey[] = $variant[$key];
-                                                                unset($variant[$key]);
-                                                            }
-            
-                                                            $newArray[] = implode('/', $newKey);
-                                                            $newArray = \array_merge($newArray,$variant);
-            
-                                                            $tbodyArray[] = array_values($newArray);
+                                                            unset($tbodyArray[$tableColKey]);
                                                         }
                                                     }
-                                                    $theadfirstColspan = count($tbodyArray[0]);
-                                                }
 
-                                                // Remove blank row 
-                                                foreach($tbodyArray as $tableColKey => $tableRow)
-                                                {
-                                                    if(count(array_filter($tableRow)) <= 1)
+                                                    if(!empty($tbodyArray))
                                                     {
-                                                        unset($tbodyArray[$tableColKey]);
+                                                        $MIKey = $this->addPrefix($MIKey);
+                                                        $productTables[$tablekey][$chunkKey][$MIKey]['tbody']= $tbodyArray;
+                                                        $productTables[$tablekey][$chunkKey][$MIKey]['theadfirstRowColspan']= $theadfirstColspan;
+                    
+                    
+                                                        if($groupingTitle)
+                                                        {
+                                                            $productTables[$tablekey][$chunkKey][$MIKey]['theadSecondRowGroup']= $groupingTitle;
+                                                        }
+                    
+                                                            $productTables[$tablekey][$chunkKey][$MIKey]['theadSecondRow']= $theadSecondData;
                                                     }
-                                                }
-
-                                                if(!empty($tbodyArray))
-                                                {
-                                                    $MIKey = $this->addPrefix($MIKey);
-                                                    $productTables[$tablekey][$chunkKey][$MIKey]['tbody']= $tbodyArray;
-                                                    $productTables[$tablekey][$chunkKey][$MIKey]['theadfirstRowColspan']= $theadfirstColspan;
-                
-                
-                                                    if($groupingTitle)
-                                                    {
-                                                        $productTables[$tablekey][$chunkKey][$MIKey]['theadSecondRowGroup']= $groupingTitle;
-                                                    }
-                
-                                                        $productTables[$tablekey][$chunkKey][$MIKey]['theadSecondRow']= $theadSecondData;
                                                 }
                                             }
                                         }
                                     }
                                 }
                             }
-                        }
 
-                        if(isset($productTables['Load Support – Maximum Belt Width Data']) && (count($productTables['Load Support – Maximum Belt Width Data']) > 1))
-                        {
-                            $singleLoadSupportMaximumBeltWidthData = [];
-                            $loadSupportMaximumBeltWidthData = $productTables['Load Support – Maximum Belt Width Data'];
+                            if(isset($productTables['Load Support – Maximum Belt Width Data']) && (count($productTables['Load Support – Maximum Belt Width Data']) > 1))
+                            {
+                                $singleLoadSupportMaximumBeltWidthData = [];
+                                $loadSupportMaximumBeltWidthData = $productTables['Load Support – Maximum Belt Width Data'];
 
-                            foreach ($loadSupportMaximumBeltWidthData as $key => $section) {
-                                foreach ($section as $sectionKey => $tableSection) {
+                                foreach ($loadSupportMaximumBeltWidthData as $key => $section) {
+                                    foreach ($section as $sectionKey => $tableSection) {
 
-                                    foreach ($tableSection as $tableSectionKey => $tableSectionValue) {
+                                        foreach ($tableSection as $tableSectionKey => $tableSectionValue) {
 
-                                        if($tableSectionKey == 'tbody')
-                                        {
-                                            foreach ($tableSection[$tableSectionKey] as $tbodyKey => $value) {
-                                                $singleLoadSupportMaximumBeltWidthData[0][$sectionKey][$tableSectionKey][] = $value;
+                                            if($tableSectionKey == 'tbody')
+                                            {
+                                                foreach ($tableSection[$tableSectionKey] as $tbodyKey => $value) {
+                                                    $singleLoadSupportMaximumBeltWidthData[0][$sectionKey][$tableSectionKey][] = $value;
+                                                }
                                             }
-                                        }
-                                        else{
-                                            $singleLoadSupportMaximumBeltWidthData[0][$sectionKey][$tableSectionKey] = $tableSectionValue;
+                                            else{
+                                                $singleLoadSupportMaximumBeltWidthData[0][$sectionKey][$tableSectionKey] = $tableSectionValue;
+                                            }
                                         }
                                     }
                                 }
+
+                                #Move first imperail then matric
+                                if(isset($singleLoadSupportMaximumBeltWidthData[0]['CS_Imperial']))
+                                {
+                                    $sortedSingleLoadSupportMaximumBeltWidthData[0]['CS_Imperial'] = $singleLoadSupportMaximumBeltWidthData[0]['CS_Imperial'];
+                                }
+
+                                if(isset($singleLoadSupportMaximumBeltWidthData[0]['CS_Metric']))
+                                {
+                                    $sortedSingleLoadSupportMaximumBeltWidthData[0]['CS_Metric'] = $singleLoadSupportMaximumBeltWidthData[0]['CS_Metric'];
+                                }
+                                
+                                $productTables['Load Support – Maximum Belt Width Data'] = $sortedSingleLoadSupportMaximumBeltWidthData;
                             }
 
-                            #Move first imperail then matric
-                            if(isset($singleLoadSupportMaximumBeltWidthData[0]['CS_Imperial']))
-                            {
-                                $sortedSingleLoadSupportMaximumBeltWidthData[0]['CS_Imperial'] = $singleLoadSupportMaximumBeltWidthData[0]['CS_Imperial'];
-                            }
-
-                            if(isset($singleLoadSupportMaximumBeltWidthData[0]['CS_Metric']))
-                            {
-                                $sortedSingleLoadSupportMaximumBeltWidthData[0]['CS_Metric'] = $singleLoadSupportMaximumBeltWidthData[0]['CS_Metric'];
-                            }
-                            
-                            $productTables['Load Support – Maximum Belt Width Data'] = $sortedSingleLoadSupportMaximumBeltWidthData;
+                            $productData['productTables'] = $productTables;
                         }
-
-                        $productData['productTables'] = $productTables;
                     }
                 }
                 $parameterBag['data'] = $productData;
@@ -1412,509 +1418,512 @@ class DefaultController extends FrontendController
             if($catalogTableObjectEditable)
             {
                 $catalogTableObject = $catalogTableObjectEditable->getElement();
-                $productDataImportConfig = $configProviderService->getCatalogProductTablesConfig();
-    
-                $catalogCategoryObjectId    = $catalogTableObject->getParentId();
-                $categoryObj                = DataObject\CSCatalogCategory::getById($catalogCategoryObjectId);
-    
-                $selectedProduct            = $catalogTableObject->getProducts();
-                $productObj                 = null;
-    
-    
-                $productNameArr = [];
-                if($selectedProduct)
+                if($catalogTableObject)
                 {
-                    foreach ($selectedProduct as $key => $singleProduct)
+                    $productDataImportConfig = $configProviderService->getCatalogProductTablesConfig();
+        
+                    $catalogCategoryObjectId    = $catalogTableObject->getParentId();
+                    $categoryObj                = DataObject\CSCatalogCategory::getById($catalogCategoryObjectId);
+        
+                    $selectedProduct            = $catalogTableObject->getProducts();
+                    $productObj                 = null;
+        
+        
+                    $productNameArr = [];
+                    if($selectedProduct)
                     {
-                        $productObject      = DataObject\CSProducts::getById($singleProduct);
-                        if($productObject)
+                        foreach ($selectedProduct as $key => $singleProduct)
                         {
-                            $productNameArr[]   = trim($productObject->getName());
-                        }
-    
-                        if(!$productObj)
-                        {
-                            $productObj = $productObject;
-                        }
-                    }
-                }
-                if (!empty($productObj) && $productObj instanceof DataObject\CSProducts) {
-                    $productObj->setGetInheritedValues(true);
-                }
-                if($productObj && ($productObj->isPublished()) && (empty($productObj->getCSRegion()) || in_array($regionId, $productObj->getCSRegion())))
-                {
-                    $productNameTitle   =   implode(' and ', $productNameArr);
-                    $productName        =   trim($productObj->getName());
-                    $productKeyName     =   trim($productObj->getKey());
-                    $parentParentObj    =   $this->getProductParentObject($productObj); //$productObj->getParent();
-    
-                    /* $hierarchyId = $categoryObj->getSecondLevelCategory();
-                    if($hierarchyId)
-                    {
-                        $hierarchyObj = DataObject\CSHierarchy::getById($hierarchyId);
-                    } */
-                    if (!empty($parentParentObj) && $parentParentObj instanceof DataObject\CSProducts) {
-                        $productData['HierarchyNameLevel2'] = $parentParentObj->getName();
-                    } else {
-                        $productData['HierarchyNameLevel2'] = null;
-                    }
-                    $productData['ProductName'] = $productNameTitle;
-                    $productData['ShortText'] = $productObj->getShortText();
-    
-                    if(method_exists($productObj,'getCSProductApplications') &&  $productObj->getCSProductApplications())
-                    {
-                        $applicationsHtml = '<ul>';
-                        foreach ($productObj->getCSProductApplications() as $key => $value) {
-                            $applicationsHtml .= '<li><span class="orange">›</span> '.$value->getApplicationName().' </li>';
-                        }
-                        $applicationsHtml .= '</ul>';
-                    }
-                    
-                    $productData['Applications'] = $applicationsHtml;
-    
-                    if(method_exists($productObj,'getCoverCompounds') && $productObj->getCoverCompounds())
-                    {
-                        $CoverCompoundHtml = '<ul>';
-                        foreach ($productObj->getCoverCompounds() as $key => $value)
-                        {
-                            $CoverCompoundHtml .= '<li><span class="orange">›</span> '.$value->getName().' </li>';
-                        }
-                        $CoverCompoundHtml .= '</ul>';
-                    }
-
-                    $productData['CoverCompounds'] = $CoverCompoundHtml;
-    
-                    if(method_exists($productObj,'getCSProductIndustries') && $productObj->getCSProductIndustries())
-                    {
-                        $marketsHtml = '<ul>';
-                        foreach ($productObj->getCSProductIndustries() as $key => $value)
-                        {
-                            $marketsHtml .= '<li><span class="orange">›</span> '.$value->getIndustryName().' </li>';
-                        }
-                        $marketsHtml .= '</ul>';
-                    }
-                    $productData['Markets'] = $marketsHtml;
-    
-                    $FeaturesAndBenefits = [];
-
-                    if(method_exists($productObj,'getCSProductFeaturesAndBenefits') && $productObj->getCSProductFeaturesAndBenefits())
-                    {
-                        foreach ($productObj->getCSProductFeaturesAndBenefits() as $key => $value)
-                        {
-                            if(trim($value->getFeatureName()))
+                            $productObject      = DataObject\CSProducts::getById($singleProduct);
+                            if($productObject)
                             {
-                                $feature['FeatureName'] = $value->getFeatureName();
-                                $feature['FeatureDescription'] = $value->getFeatureDescription();
-                                $feature['FeatureImage'] = $value->getFeatureImage();
-
-                                $FeaturesAndBenefits[] = $feature;
-
+                                $productNameArr[]   = trim($productObject->getName());
+                            }
+        
+                            if(!$productObj)
+                            {
+                                $productObj = $productObject;
                             }
                         }
                     }
-    
-                    $productData['FeaturesAndBenefits'] = $FeaturesAndBenefits;
-    
-                    $MoreThanOneProduct = 0;
-                    $childrenData = [];
-    
-                    if(count($selectedProduct) > 1)
-                    {
-                        $MoreThanOneProduct = 1;
+                    if (!empty($productObj) && $productObj instanceof DataObject\CSProducts) {
+                        $productObj->setGetInheritedValues(true);
                     }
-    
-                    if(array_key_exists($productKeyName, $productDataImportConfig['Common Product Page']))
+                    if($productObj && ($productObj->isPublished()) && (empty($productObj->getCSRegion()) || in_array($regionId, $productObj->getCSRegion())))
                     {
-                        if($selectedProduct)
+                        $productNameTitle   =   implode(' and ', $productNameArr);
+                        $productName        =   trim($productObj->getName());
+                        $productKeyName     =   trim($productObj->getKey());
+                        $parentParentObj    =   $this->getProductParentObject($productObj); //$productObj->getParent();
+        
+                        /* $hierarchyId = $categoryObj->getSecondLevelCategory();
+                        if($hierarchyId)
                         {
-                            foreach ($selectedProduct as $key => $singleProduct) {
-                                $productObjSingle = DataObject\CSProducts::getById($singleProduct);
-                                $childrenDataNew = $this->getAllRegionChildern($productObjSingle, $regionId);
-                                $childrenData = array_merge($childrenData,$childrenDataNew);
+                            $hierarchyObj = DataObject\CSHierarchy::getById($hierarchyId);
+                        } */
+                        if (!empty($parentParentObj) && $parentParentObj instanceof DataObject\CSProducts) {
+                            $productData['HierarchyNameLevel2'] = $parentParentObj->getName();
+                        } else {
+                            $productData['HierarchyNameLevel2'] = null;
+                        }
+                        $productData['ProductName'] = $productNameTitle;
+                        $productData['ShortText'] = $productObj->getShortText();
+        
+                        if(method_exists($productObj,'getCSProductApplications') &&  $productObj->getCSProductApplications())
+                        {
+                            $applicationsHtml = '<ul>';
+                            foreach ($productObj->getCSProductApplications() as $key => $value) {
+                                $applicationsHtml .= '<li><span class="orange">›</span> '.$value->getApplicationName().' </li>';
                             }
-
-                            if(count($selectedProduct)>1)
+                            $applicationsHtml .= '</ul>';
+                        }
+                        
+                        $productData['Applications'] = $applicationsHtml;
+        
+                        if(method_exists($productObj,'getCoverCompounds') && $productObj->getCoverCompounds())
+                        {
+                            $CoverCompoundHtml = '<ul>';
+                            foreach ($productObj->getCoverCompounds() as $key => $value)
                             {
-                                $filterArrayMultiple = [];
-                                foreach($childrenData as $chKey => $chChild)
+                                $CoverCompoundHtml .= '<li><span class="orange">›</span> '.$value->getName().' </li>';
+                            }
+                            $CoverCompoundHtml .= '</ul>';
+                        }
+
+                        $productData['CoverCompounds'] = $CoverCompoundHtml;
+        
+                        if(method_exists($productObj,'getCSProductIndustries') && $productObj->getCSProductIndustries())
+                        {
+                            $marketsHtml = '<ul>';
+                            foreach ($productObj->getCSProductIndustries() as $key => $value)
+                            {
+                                $marketsHtml .= '<li><span class="orange">›</span> '.$value->getIndustryName().' </li>';
+                            }
+                            $marketsHtml .= '</ul>';
+                        }
+                        $productData['Markets'] = $marketsHtml;
+        
+                        $FeaturesAndBenefits = [];
+
+                        if(method_exists($productObj,'getCSProductFeaturesAndBenefits') && $productObj->getCSProductFeaturesAndBenefits())
+                        {
+                            foreach ($productObj->getCSProductFeaturesAndBenefits() as $key => $value)
+                            {
+                                if(trim($value->getFeatureName()))
                                 {
-                                    $filterArrayMultiple[$chKey]['data'] = $chChild;
-                                    $filterArrayMultiple[$chKey]['SortOrder'] = $chChild->getSortOrder();
+                                    $feature['FeatureName'] = $value->getFeatureName();
+                                    $feature['FeatureDescription'] = $value->getFeatureDescription();
+                                    $feature['FeatureImage'] = $value->getFeatureImage();
+
+                                    $FeaturesAndBenefits[] = $feature;
+
+                                }
+                            }
+                        }
+        
+                        $productData['FeaturesAndBenefits'] = $FeaturesAndBenefits;
+        
+                        $MoreThanOneProduct = 0;
+                        $childrenData = [];
+        
+                        if(count($selectedProduct) > 1)
+                        {
+                            $MoreThanOneProduct = 1;
+                        }
+        
+                        if(array_key_exists($productKeyName, $productDataImportConfig['Common Product Page']))
+                        {
+                            if($selectedProduct)
+                            {
+                                foreach ($selectedProduct as $key => $singleProduct) {
+                                    $productObjSingle = DataObject\CSProducts::getById($singleProduct);
+                                    $childrenDataNew = $this->getAllRegionChildern($productObjSingle, $regionId);
+                                    $childrenData = array_merge($childrenData,$childrenDataNew);
                                 }
 
-                                if($filterArrayMultiple)
+                                if(count($selectedProduct)>1)
                                 {
-                                    $filterArrayMultipleData = $this->phparraysort($filterArrayMultiple, array('SortOrder'), SORT_ASC);
-                                }
-                                
-                                $childrenData = [];
+                                    $filterArrayMultiple = [];
+                                    foreach($childrenData as $chKey => $chChild)
+                                    {
+                                        $filterArrayMultiple[$chKey]['data'] = $chChild;
+                                        $filterArrayMultiple[$chKey]['SortOrder'] = $chChild->getSortOrder();
+                                    }
 
-                                if($filterArrayMultipleData)
-                                {
-                                    foreach ($filterArrayMultipleData as $nChild) {
-                                        $childrenData[] = $nChild['data'];
+                                    if($filterArrayMultiple)
+                                    {
+                                        $filterArrayMultipleData = $this->phparraysort($filterArrayMultiple, array('SortOrder'), SORT_ASC);
+                                    }
+                                    
+                                    $childrenData = [];
+
+                                    if($filterArrayMultipleData)
+                                    {
+                                        foreach ($filterArrayMultipleData as $nChild) {
+                                            $childrenData[] = $nChild['data'];
+                                        }
                                     }
                                 }
                             }
-                        }
 
-                        $productTables          = array();
-                        $productTableColumnLimit = $productDataImportConfig['Common Product Page'][$productKeyName]['Product_Table_Column_Limit'];
-                        $childrenDataChunkArray = array_chunk($childrenData, $productTableColumnLimit);
-    
-                        if($childrenDataChunkArray)
-                        {
-                            foreach ($childrenDataChunkArray as $chunkKey => $childrenDataChunk) 
+                            $productTables          = array();
+                            $productTableColumnLimit = $productDataImportConfig['Common Product Page'][$productKeyName]['Product_Table_Column_Limit'];
+                            $childrenDataChunkArray = array_chunk($childrenData, $productTableColumnLimit);
+        
+                            if($childrenDataChunkArray)
                             {
-                                unset($productDataImportConfig['Common Product Page'][$productKeyName]['Product_Table_Column_Limit']);
-                                $tables = $productDataImportConfig['Common Product Page'][$productKeyName];
-                                
-                                if($tables)
+                                foreach ($childrenDataChunkArray as $chunkKey => $childrenDataChunk) 
                                 {
-                                    foreach ($tables as $tablekey => $MetricImperialFields)
+                                    unset($productDataImportConfig['Common Product Page'][$productKeyName]['Product_Table_Column_Limit']);
+                                    $tables = $productDataImportConfig['Common Product Page'][$productKeyName];
+                                    
+                                    if($tables)
                                     {
-                                        $ColumnKeys = $MetricImperialFields['ColumnKeys'];
-                                        $CS_Trough_Angle_Label = $MetricImperialFields['CS_Trough_Angle_Label'];
-                                        $CS_Material_Weight_Label = $MetricImperialFields['CS_Material_Weight_Label'];
-                                        $CS_Idlers_Label = $MetricImperialFields['CS_Idlers_Label'];
-                                        $CS_Idler_Angle_Label = $MetricImperialFields['CS_Idler_Angle_Label'];
-                                        $CS_Type_Of_Idler_Label = $MetricImperialFields['CS_Type_Of_Idler_Label'];
-            
-            
-                                        unset($MetricImperialFields['ColumnKeys']);
-                                        unset($MetricImperialFields['CS_Trough_Angle_Label']);
-                                        unset($MetricImperialFields['CS_Material_Weight_Label']);
-                                        unset($MetricImperialFields['CS_Idlers_Label']);
-                                        unset($MetricImperialFields['CS_Idler_Angle_Label']);
-                                        unset($MetricImperialFields['CS_Type_Of_Idler_Label']);
-            
-                                        if($MetricImperialFields)
+                                        foreach ($tables as $tablekey => $MetricImperialFields)
                                         {
-                                            foreach ($MetricImperialFields as $MIKey => $MIValues)
+                                            $ColumnKeys = $MetricImperialFields['ColumnKeys'];
+                                            $CS_Trough_Angle_Label = $MetricImperialFields['CS_Trough_Angle_Label'];
+                                            $CS_Material_Weight_Label = $MetricImperialFields['CS_Material_Weight_Label'];
+                                            $CS_Idlers_Label = $MetricImperialFields['CS_Idlers_Label'];
+                                            $CS_Idler_Angle_Label = $MetricImperialFields['CS_Idler_Angle_Label'];
+                                            $CS_Type_Of_Idler_Label = $MetricImperialFields['CS_Type_Of_Idler_Label'];
+                
+                
+                                            unset($MetricImperialFields['ColumnKeys']);
+                                            unset($MetricImperialFields['CS_Trough_Angle_Label']);
+                                            unset($MetricImperialFields['CS_Material_Weight_Label']);
+                                            unset($MetricImperialFields['CS_Idlers_Label']);
+                                            unset($MetricImperialFields['CS_Idler_Angle_Label']);
+                                            unset($MetricImperialFields['CS_Type_Of_Idler_Label']);
+                
+                                            if($MetricImperialFields)
                                             {
-                                                unset($KeysGroupLogic);
-                                                unset($RemoveKeys);
-                                                unset($AdditionalHeaderKey);
-                                                unset($AdditionalGroupKey);
-                                                unset($ProductNamePrefix);
-                                                unset($productBrand);
-            
-                                                if(isset($MIValues['KeysGroupLogic']))
+                                                foreach ($MetricImperialFields as $MIKey => $MIValues)
                                                 {
-                                                    $KeysGroupLogic = $MIValues['KeysGroupLogic'];
-                                                    unset($MIValues['KeysGroupLogic']);
-                                                }
-                                                
-                                                if(isset($MIValues['ProductNamePrefix']))
-                                                {
-                                                    $ProductNamePrefix = true;
-                                                }
-                                                
-                                                if(isset($MIValues['RemoveKeys']))
-                                                {
-                                                    $RemoveKeys = $MIValues['RemoveKeys'];
-                                                    unset($MIValues['RemoveKeys']);
-                                                }
-            
-                                                $AdditionalHeaderKey = $productName;
-                                                if($MoreThanOneProduct)
-                                                {
-                                                    $AdditionalHeaderKey = '';
-                                                }
-            
-                                                if($CS_Trough_Angle_Label)
-                                                {
-                                                    $AdditionalHeaderKey = "Trough_Angle_Label";
-                                                }
-                                                
-                                                if($CS_Idler_Angle_Label)
-                                                {
-                                                    $AdditionalHeaderKey = "Idler_Angle_Label";
-                                                }
-            
-                                                if($CS_Material_Weight_Label)
-                                                {
-                                                    $AdditionalGroupKey = "CS_Material_Weight_Label";
-                                                }
-            
-                                                if($CS_Type_Of_Idler_Label)
-                                                {
-                                                    $AdditionalGroupKey = "CS_Type_Of_Idler_Label";
-                                                }
-            
-                                                // $keysTitle = [];
-                                                $groupingTitle = [];
-            
-                                                if($AdditionalGroupKey)
-                                                {
-                                                    $groupingTitle[$AdditionalGroupKey] = 1;
-                                                }
-                                                
-                                                foreach ($MIValues as $key => $value)
-                                                {
-            
-                                                    if(isset($value['groupingTitle']))
+                                                    unset($KeysGroupLogic);
+                                                    unset($RemoveKeys);
+                                                    unset($AdditionalHeaderKey);
+                                                    unset($AdditionalGroupKey);
+                                                    unset($ProductNamePrefix);
+                                                    unset($productBrand);
+                
+                                                    if(isset($MIValues['KeysGroupLogic']))
                                                     {
-                                                        $groupingTitleLabel = $this->addPrefix($value['groupingTitle']);
-                                                        $groupingTitle[$groupingTitleLabel] += 1;
+                                                        $KeysGroupLogic = $MIValues['KeysGroupLogic'];
+                                                        unset($MIValues['KeysGroupLogic']);
                                                     }
-                                                }
-            
-                                                $MIArray = array();
-                                                $theadSecondData = [];
-                                                $tableHeaderKeys = [];
-                                                $theadSecondData[] = $AdditionalHeaderKey;
-            
-                                                if($CS_Idlers_Label)
-                                                {
-                                                    $theadSecondData[] = $AdditionalHeaderKey;
-                                                }
-            
-                                                foreach ($childrenDataChunk as $childValue)
-                                                {
-                                                    $percentageSymbol = '';
-                                                    $showDecimalPlaces = '';
-                                                    $bricks = $childValue->getProductAttributes();
-    
-                                                    if($ProductNamePrefix)
-                                                    {
-                                                        $productBrand = $childValue->getProductNamePrefix();
-                                                    }
-    
-                                                    $data = [];
                                                     
-                                                    foreach ($MIValues as $key => $value) {
-                                                        $brickName = $value['objectType'];
-                                                        $percentageSymbol = $value['percentageSymbol'];
-                                                        $showDecimalPlaces = $value['showDecimalPlaces'];
-                                                        $getBrick = 'get' . $brickName;
-                                                        $getField = 'get' . $key;
-            
-                                                        if($brickName == 'class')
-                                                        { 
-                                                            if($showDecimalPlaces == '')
-                                                            {
-                                                                $data[$key] = $childValue->$getField();
-                                                            }
-                                                            else{
-                                                                $formattedFieldValue = number_format($childValue->$getField(),3);
-                                                                $data[$key] = $formattedFieldValue;
-                                                            }
-                                                            
-                                                        }
-                                                        else
+                                                    if(isset($MIValues['ProductNamePrefix']))
+                                                    {
+                                                        $ProductNamePrefix = true;
+                                                    }
+                                                    
+                                                    if(isset($MIValues['RemoveKeys']))
+                                                    {
+                                                        $RemoveKeys = $MIValues['RemoveKeys'];
+                                                        unset($MIValues['RemoveKeys']);
+                                                    }
+                
+                                                    $AdditionalHeaderKey = $productName;
+                                                    if($MoreThanOneProduct)
+                                                    {
+                                                        $AdditionalHeaderKey = '';
+                                                    }
+                
+                                                    if($CS_Trough_Angle_Label)
+                                                    {
+                                                        $AdditionalHeaderKey = "Trough_Angle_Label";
+                                                    }
+                                                    
+                                                    if($CS_Idler_Angle_Label)
+                                                    {
+                                                        $AdditionalHeaderKey = "Idler_Angle_Label";
+                                                    }
+                
+                                                    if($CS_Material_Weight_Label)
+                                                    {
+                                                        $AdditionalGroupKey = "CS_Material_Weight_Label";
+                                                    }
+                
+                                                    if($CS_Type_Of_Idler_Label)
+                                                    {
+                                                        $AdditionalGroupKey = "CS_Type_Of_Idler_Label";
+                                                    }
+                
+                                                    // $keysTitle = [];
+                                                    $groupingTitle = [];
+                
+                                                    if($AdditionalGroupKey)
+                                                    {
+                                                        $groupingTitle[$AdditionalGroupKey] = 1;
+                                                    }
+                                                    
+                                                    foreach ($MIValues as $key => $value)
+                                                    {
+                
+                                                        if(isset($value['groupingTitle']))
                                                         {
-                                                            if(method_exists($bricks,$getBrick) && method_exists($bricks->$getBrick(),$getField))
-                                                            {   
-                                                                if($bricks->$getBrick()->$getField())
-                                                                {
-                                                                    if($showDecimalPlaces == '')
-                                                                    {
-                                                                        $formattedFieldValue = $bricks->$getBrick()->$getField();
-                                                                    }
-                                                                    else{
-                                                                        $formattedFieldValue = number_format($bricks->$getBrick()->$getField(),3);
-                                                                    }
-
-                                                                    $data[$key] = $formattedFieldValue.$percentageSymbol;
-                                                                }
-                                                                else
-                                                                {
-                                                                    if($showDecimalPlaces == '')
-                                                                    {
-                                                                        $data[$key] = $bricks->$getBrick()->$getField();
-                                                                    }
-                                                                    else{
-                                                                        $formattedFieldValue = number_format($bricks->$getBrick()->$getField(),3);
-                                                                        $data[$key] = $formattedFieldValue;
-                                                                    }
-                                                                }
-                                                            }
-                                                            else{
-                                                                $data[$key] = '';
-                                                            }
+                                                            $groupingTitleLabel = $this->addPrefix($value['groupingTitle']);
+                                                            $groupingTitle[$groupingTitleLabel] += 1;
                                                         }
                                                     }
-            
+                
+                                                    $MIArray = array();
+                                                    $theadSecondData = [];
+                                                    $tableHeaderKeys = [];
+                                                    $theadSecondData[] = $AdditionalHeaderKey;
+                
+                                                    if($CS_Idlers_Label)
+                                                    {
+                                                        $theadSecondData[] = $AdditionalHeaderKey;
+                                                    }
+                
+                                                    foreach ($childrenDataChunk as $childValue)
+                                                    {
+                                                        $percentageSymbol = '';
+                                                        $showDecimalPlaces = '';
+                                                        $bricks = $childValue->getProductAttributes();
+        
+                                                        if($ProductNamePrefix)
+                                                        {
+                                                            $productBrand = $childValue->getProductNamePrefix();
+                                                        }
+        
+                                                        $data = [];
+                                                        
+                                                        foreach ($MIValues as $key => $value) {
+                                                            $brickName = $value['objectType'];
+                                                            $percentageSymbol = $value['percentageSymbol'];
+                                                            $showDecimalPlaces = $value['showDecimalPlaces'];
+                                                            $getBrick = 'get' . $brickName;
+                                                            $getField = 'get' . $key;
+                
+                                                            if($brickName == 'class')
+                                                            { 
+                                                                if($showDecimalPlaces == '')
+                                                                {
+                                                                    $data[$key] = $childValue->$getField();
+                                                                }
+                                                                else{
+                                                                    $formattedFieldValue = number_format($childValue->$getField(),3);
+                                                                    $data[$key] = $formattedFieldValue;
+                                                                }
+                                                                
+                                                            }
+                                                            else
+                                                            {
+                                                                if(method_exists($bricks,$getBrick) && method_exists($bricks->$getBrick(),$getField))
+                                                                {   
+                                                                    if($bricks->$getBrick()->$getField())
+                                                                    {
+                                                                        if($showDecimalPlaces == '')
+                                                                        {
+                                                                            $formattedFieldValue = $bricks->$getBrick()->$getField();
+                                                                        }
+                                                                        else{
+                                                                            $formattedFieldValue = number_format($bricks->$getBrick()->$getField(),3);
+                                                                        }
+
+                                                                        $data[$key] = $formattedFieldValue.$percentageSymbol;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        if($showDecimalPlaces == '')
+                                                                        {
+                                                                            $data[$key] = $bricks->$getBrick()->$getField();
+                                                                        }
+                                                                        else{
+                                                                            $formattedFieldValue = number_format($bricks->$getBrick()->$getField(),3);
+                                                                            $data[$key] = $formattedFieldValue;
+                                                                        }
+                                                                    }
+                                                                }
+                                                                else{
+                                                                    $data[$key] = '';
+                                                                }
+                                                            }
+                                                        }
+                
+                                                        if($ColumnKeys)
+                                                        {
+                                                            foreach ($KeysGroupLogic as $hValue) {
+                                                                $tableHeaderKeys[] = $data[$hValue];
+                                                            }
+                
+                
+                                                            if($tableHeaderKeys)
+                                                            {
+                                                                $productBrandString = $productBrand. " ". implode('/', $tableHeaderKeys);
+                                                                $theadSecondData[] = $productBrandString;
+                                                                unset($productBrand);
+                                                            }
+                                                        }
+                
+                                                        unset($tableHeaderKeys);
+                                                        $MIArray[]= $data;
+                                                    }
+                
+                                                    $tbodyArray = [];
+                                                    $theadfirstColspan = 0;
+                
                                                     if($ColumnKeys)
                                                     {
-                                                        foreach ($KeysGroupLogic as $hValue) {
-                                                            $tableHeaderKeys[] = $data[$hValue];
-                                                        }
-            
-            
-                                                        if($tableHeaderKeys)
+                                                        $tableRows = [];
+                                                        if($MIArray)
                                                         {
-                                                            $productBrandString = $productBrand. " ". implode('/', $tableHeaderKeys);
-                                                            $theadSecondData[] = $productBrandString;
-                                                            unset($productBrand);
-                                                        }
-                                                    }
-            
-                                                    unset($tableHeaderKeys);
-                                                    $MIArray[]= $data;
-                                                }
-            
-                                                $tbodyArray = [];
-                                                $theadfirstColspan = 0;
-            
-                                                if($ColumnKeys)
-                                                {
-                                                    $tableRows = [];
-                                                    if($MIArray)
-                                                    {
-                                                        foreach ($MIArray as $variant)
-                                                        {
-                                                            foreach ($variant as $key => $value)
+                                                            foreach ($MIArray as $variant)
                                                             {
-                                                                if($RemoveKeys)
+                                                                foreach ($variant as $key => $value)
                                                                 {
-                                                                    if(!isset($RemoveKeys[$key]))
+                                                                    if($RemoveKeys)
+                                                                    {
+                                                                        if(!isset($RemoveKeys[$key]))
+                                                                        {
+                                                                            $tableRows[$key][] = $value;
+                                                                        }
+                                                                    }
+                                                                    else
                                                                     {
                                                                         $tableRows[$key][] = $value;
                                                                     }
                                                                 }
-                                                                else
-                                                                {
-                                                                    $tableRows[$key][] = $value;
-                                                                }
                                                             }
                                                         }
-                                                    }
-            
-                                                    if($tableRows)
-                                                    {
-                                                        foreach ($tableRows as $tdkey => $trvalue)
+                
+                                                        if($tableRows)
                                                         {
-            
-                                                            if($CS_Idlers_Label)
+                                                            foreach ($tableRows as $tdkey => $trvalue)
                                                             {
-                                                                $rows[]= 'CS_Idlers_Label';
+                
+                                                                if($CS_Idlers_Label)
+                                                                {
+                                                                    $rows[]= 'CS_Idlers_Label';
+                                                                }
+                                                                // $rows[]= $keysTitle[$tdkey];
+                                                                $rows[]= $this->addPrefix($tdkey);
+                
+                
+                                                                foreach ($trvalue as $key => $value) {
+                                                                    $rows[]= $value;
+                                                                }
+                
+                                                                $tbodyArray[] = $rows;
+                                                                unset($rows);
                                                             }
-                                                            // $rows[]= $keysTitle[$tdkey];
-                                                            $rows[]= $this->addPrefix($tdkey);
-            
-            
-                                                            foreach ($trvalue as $key => $value) {
-                                                                $rows[]= $value;
+                                                            $theadfirstColspan = count($tbodyArray[0]);
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        $tableHeadKey = $MIArray[0];
+                                                        if($RemoveKeys)
+                                                        {
+                                                            foreach ($RemoveKeys as $key => $value) {
+                                                                unset($tableHeadKey[$key]);
                                                             }
-            
-                                                            $tbodyArray[] = $rows;
-                                                            unset($rows);
+                                                            $tableHeadKey = array_keys($tableHeadKey);
+                                                            $theadSecondData = \array_merge($theadSecondData,$tableHeadKey);
+                                                        }
+                
+                                                        // Converting field to its title name
+                
+                                                        foreach ($theadSecondData as $key => $value)
+                                                        {
+                                                                $theadSecondData[$key] = $this->addPrefix($value);
+                                                        }
+                
+                                                        foreach ($MIArray as $variant)
+                                                        {
+                                                            $newKey = [];
+                                                            $newArray = [];
+                
+                                                            if($RemoveKeys)
+                                                            {
+                
+                                                                foreach ($RemoveKeys as $key => $value)
+                                                                {
+                                                                    $newKey[] = $variant[$key];
+                                                                    unset($variant[$key]);
+                                                                }
+                
+                                                                $newArray[] = implode('/', $newKey);
+                                                                $newArray = \array_merge($newArray,$variant);
+                
+                                                                $tbodyArray[] = array_values($newArray);
+                                                            }
                                                         }
                                                         $theadfirstColspan = count($tbodyArray[0]);
                                                     }
-                                                }
-                                                else
-                                                {
-                                                    $tableHeadKey = $MIArray[0];
-                                                    if($RemoveKeys)
+
+                                                    // Remove blank row 
+                                                    foreach($tbodyArray as $tableColKey => $tableRow)
                                                     {
-                                                        foreach ($RemoveKeys as $key => $value) {
-                                                            unset($tableHeadKey[$key]);
-                                                        }
-                                                        $tableHeadKey = array_keys($tableHeadKey);
-                                                        $theadSecondData = \array_merge($theadSecondData,$tableHeadKey);
-                                                    }
-            
-                                                    // Converting field to its title name
-            
-                                                    foreach ($theadSecondData as $key => $value)
-                                                    {
-                                                            $theadSecondData[$key] = $this->addPrefix($value);
-                                                    }
-            
-                                                    foreach ($MIArray as $variant)
-                                                    {
-                                                        $newKey = [];
-                                                        $newArray = [];
-            
-                                                        if($RemoveKeys)
+                                                        if(count(array_filter($tableRow)) <= 1)
                                                         {
-            
-                                                            foreach ($RemoveKeys as $key => $value)
-                                                            {
-                                                                $newKey[] = $variant[$key];
-                                                                unset($variant[$key]);
-                                                            }
-            
-                                                            $newArray[] = implode('/', $newKey);
-                                                            $newArray = \array_merge($newArray,$variant);
-            
-                                                            $tbodyArray[] = array_values($newArray);
+                                                            unset($tbodyArray[$tableColKey]);
                                                         }
                                                     }
-                                                    $theadfirstColspan = count($tbodyArray[0]);
-                                                }
 
-                                                // Remove blank row 
-                                                foreach($tbodyArray as $tableColKey => $tableRow)
-                                                {
-                                                    if(count(array_filter($tableRow)) <= 1)
+                                                    if(!empty($tbodyArray))
                                                     {
-                                                        unset($tbodyArray[$tableColKey]);
+                                                        $MIKey = $this->addPrefix($MIKey);
+                                                        $productTables[$tablekey][$chunkKey][$MIKey]['tbody']= $tbodyArray;
+                                                        $productTables[$tablekey][$chunkKey][$MIKey]['theadfirstRowColspan']= $theadfirstColspan;
+                    
+                    
+                                                        if($groupingTitle)
+                                                        {
+                                                            $productTables[$tablekey][$chunkKey][$MIKey]['theadSecondRowGroup']= $groupingTitle;
+                                                        }
+                    
+                                                            $productTables[$tablekey][$chunkKey][$MIKey]['theadSecondRow']= $theadSecondData;
                                                     }
-                                                }
-
-                                                if(!empty($tbodyArray))
-                                                {
-                                                    $MIKey = $this->addPrefix($MIKey);
-                                                    $productTables[$tablekey][$chunkKey][$MIKey]['tbody']= $tbodyArray;
-                                                    $productTables[$tablekey][$chunkKey][$MIKey]['theadfirstRowColspan']= $theadfirstColspan;
-                
-                
-                                                    if($groupingTitle)
-                                                    {
-                                                        $productTables[$tablekey][$chunkKey][$MIKey]['theadSecondRowGroup']= $groupingTitle;
-                                                    }
-                
-                                                        $productTables[$tablekey][$chunkKey][$MIKey]['theadSecondRow']= $theadSecondData;
                                                 }
                                             }
                                         }
                                     }
                                 }
                             }
-                        }
 
-                        if(isset($productTables['Load Support – Maximum Belt Width Data']) && (count($productTables['Load Support – Maximum Belt Width Data']) > 1))
-                        {
-                            $singleLoadSupportMaximumBeltWidthData = [];
-                            $loadSupportMaximumBeltWidthData = $productTables['Load Support – Maximum Belt Width Data'];
+                            if(isset($productTables['Load Support – Maximum Belt Width Data']) && (count($productTables['Load Support – Maximum Belt Width Data']) > 1))
+                            {
+                                $singleLoadSupportMaximumBeltWidthData = [];
+                                $loadSupportMaximumBeltWidthData = $productTables['Load Support – Maximum Belt Width Data'];
 
-                            foreach ($loadSupportMaximumBeltWidthData as $key => $section) {
-                                foreach ($section as $sectionKey => $tableSection) {
+                                foreach ($loadSupportMaximumBeltWidthData as $key => $section) {
+                                    foreach ($section as $sectionKey => $tableSection) {
 
-                                    foreach ($tableSection as $tableSectionKey => $tableSectionValue) {
+                                        foreach ($tableSection as $tableSectionKey => $tableSectionValue) {
 
-                                        if($tableSectionKey == 'tbody')
-                                        {
-                                            foreach ($tableSection[$tableSectionKey] as $tbodyKey => $value) {
-                                                $singleLoadSupportMaximumBeltWidthData[0][$sectionKey][$tableSectionKey][] = $value;
+                                            if($tableSectionKey == 'tbody')
+                                            {
+                                                foreach ($tableSection[$tableSectionKey] as $tbodyKey => $value) {
+                                                    $singleLoadSupportMaximumBeltWidthData[0][$sectionKey][$tableSectionKey][] = $value;
+                                                }
                                             }
-                                        }
-                                        else{
-                                            $singleLoadSupportMaximumBeltWidthData[0][$sectionKey][$tableSectionKey] = $tableSectionValue;
+                                            else{
+                                                $singleLoadSupportMaximumBeltWidthData[0][$sectionKey][$tableSectionKey] = $tableSectionValue;
+                                            }
                                         }
                                     }
                                 }
+
+                                #Move first imperail then matric
+                                if(isset($singleLoadSupportMaximumBeltWidthData[0]['CS_Imperial']))
+                                {
+                                    $sortedSingleLoadSupportMaximumBeltWidthData[0]['CS_Imperial'] = $singleLoadSupportMaximumBeltWidthData[0]['CS_Imperial'];
+                                }
+
+                                if(isset($singleLoadSupportMaximumBeltWidthData[0]['CS_Metric']))
+                                {
+                                    $sortedSingleLoadSupportMaximumBeltWidthData[0]['CS_Metric'] = $singleLoadSupportMaximumBeltWidthData[0]['CS_Metric'];
+                                }
+                                
+                                $productTables['Load Support – Maximum Belt Width Data'] = $sortedSingleLoadSupportMaximumBeltWidthData;
                             }
 
-                            #Move first imperail then matric
-                            if(isset($singleLoadSupportMaximumBeltWidthData[0]['CS_Imperial']))
-                            {
-                                $sortedSingleLoadSupportMaximumBeltWidthData[0]['CS_Imperial'] = $singleLoadSupportMaximumBeltWidthData[0]['CS_Imperial'];
-                            }
-
-                            if(isset($singleLoadSupportMaximumBeltWidthData[0]['CS_Metric']))
-                            {
-                                $sortedSingleLoadSupportMaximumBeltWidthData[0]['CS_Metric'] = $singleLoadSupportMaximumBeltWidthData[0]['CS_Metric'];
-                            }
-                            
-                            $productTables['Load Support – Maximum Belt Width Data'] = $sortedSingleLoadSupportMaximumBeltWidthData;
+                            $productData['productTables'] = $productTables;
                         }
-
-                        $productData['productTables'] = $productTables;
                     }
                 }
                 $parameterBag['data'] = $productData;
@@ -1952,11 +1961,11 @@ class DefaultController extends FrontendController
             if($catalogTableObjectEditable)
             {
                 $catalogTableObject = $catalogTableObjectEditable->getElement();
-                $productDataImportConfig = $configProviderService->getCatalogProductTablesConfig();
     
                 $coverCompoundData = [];
                 if($catalogTableObject)
                 {
+                    $productDataImportConfig = $configProviderService->getCatalogProductTablesConfig();
                     $selectedCategoryId = $catalogTableObject->getSecondLevelCategory();
     
                     $hierarchyObj = DataObject\CSHierarchy::getById($selectedCategoryId);
@@ -2234,229 +2243,232 @@ class DefaultController extends FrontendController
             if($catalogTableObjectEditable)
             {   
                 $catalogTableObject = $catalogTableObjectEditable->getElement();
-                $selectedProduct = $catalogTableObject->getProducts();
-    
-                $productId = $selectedProduct[0];
-    
-                $productDetails = DataObject\CSProducts::getById($productId);
-                if (!empty($productDetails) && $productDetails instanceof DataObject\CSProducts) {
-                    $productDetails->setGetInheritedValues(true);
-                }
-                if(!empty($productDetails) && ($productDetails->isPublished()) && (empty($productDetails->getCSRegion()) || in_array($regionId, $productDetails->getCSRegion())))
+                if($catalogTableObject)
                 {
-                    $productData['HierarchyNameLevel2'] = trim($productDetails->getName());
-                    $productData['Name'] = $productDetails->getName();
-                    $productData['LongText'] = $productDetails->getShortText();
-                    $productData['BeltRollDiameters'] = $productDetails->getBeltRollDiameters();
-                    $productData['AngleOfInclination'] = $productDetails->getAnglesofInclination();
-                    $productData['cover_compounds'] = $productDetails->getCoverCompounds();
-    
-                    $productChildrenData = $this->getAllRegionChildern($productDetails, $regionId);
-
-                    $contiRollChildProducts = [];
-                    $contiRollProductsDetails = [];
-                    $normalProductsDetails = [];
-                    $parentDataInfo = [];
-                    foreach ($productChildrenData as $key => $child) {
-                        $children = $child->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
-                        if($children)
-                        {
-                            $parentDataInfo['Name'] = $child->getName();
-                            $parentDataInfo['ShortText'] = $child->getShortText();
-                            unset($productChildrenData[$key]);
-                            $contiRollChildProducts = $children;
-                        }
+                    $selectedProduct = $catalogTableObject->getProducts();
+        
+                    $productId = $selectedProduct[0];
+        
+                    $productDetails = DataObject\CSProducts::getById($productId);
+                    if (!empty($productDetails) && $productDetails instanceof DataObject\CSProducts) {
+                        $productDetails->setGetInheritedValues(true);
                     }
-                    $contiRollProductsDetails['parentData'] = $parentDataInfo;
-
-                    $cleatedProducts = [];
-                    $contiRollProductsChildDetails = [];
-                    $normalProductsChildDetails = [];
-                    $availableBeltWidthMasterList = $this->getAvailableBeltWidthMasterList();
-                    $availablePatternWidthMasterList = $this->getAvailablePatternWidthMasterList();
-
-                    if($productChildrenData)
+                    if(!empty($productDetails) && ($productDetails->isPublished()) && (empty($productDetails->getCSRegion()) || in_array($regionId, $productDetails->getCSRegion())))
                     {
-                        foreach ($productChildrenData as $child) {
+                        $productData['HierarchyNameLevel2'] = trim($productDetails->getName());
+                        $productData['Name'] = $productDetails->getName();
+                        $productData['LongText'] = $productDetails->getShortText();
+                        $productData['BeltRollDiameters'] = $productDetails->getBeltRollDiameters();
+                        $productData['AngleOfInclination'] = $productDetails->getAnglesofInclination();
+                        $productData['cover_compounds'] = $productDetails->getCoverCompounds();
+        
+                        $productChildrenData = $this->getAllRegionChildern($productDetails, $regionId);
 
-                            $data1 = [];
-                            $normalContiData = [];
-                            $data1['Name'] = $child->getName();
-                            $data1['ProductImage'] = $child->getProductImage();
-
-                            $normalContiData['Name'] = $child->getName();
-                            $normalContiData['ShortText'] = $child->getShortText();
-                            $normalContiData['ProductImage'] = $child->getProductImage();
-                            $normalContiData['ApplicationImage'] = $child->getApplicationImage();
-
-                            if(method_exists($child->getProductAttributes(),'getMaterial'))
+                        $contiRollChildProducts = [];
+                        $contiRollProductsDetails = [];
+                        $normalProductsDetails = [];
+                        $parentDataInfo = [];
+                        foreach ($productChildrenData as $key => $child) {
+                            $children = $child->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
+                            if($children)
                             {
-                                $materialBrick = $child->getProductAttributes()->getMaterial();
-                                $cleatHeightInch = $materialBrick->getCleatHeightInch();
-                                if($cleatHeightInch)
+                                $parentDataInfo['Name'] = $child->getName();
+                                $parentDataInfo['ShortText'] = $child->getShortText();
+                                unset($productChildrenData[$key]);
+                                $contiRollChildProducts = $children;
+                            }
+                        }
+                        $contiRollProductsDetails['parentData'] = $parentDataInfo;
+
+                        $cleatedProducts = [];
+                        $contiRollProductsChildDetails = [];
+                        $normalProductsChildDetails = [];
+                        $availableBeltWidthMasterList = $this->getAvailableBeltWidthMasterList();
+                        $availablePatternWidthMasterList = $this->getAvailablePatternWidthMasterList();
+
+                        if($productChildrenData)
+                        {
+                            foreach ($productChildrenData as $child) {
+
+                                $data1 = [];
+                                $normalContiData = [];
+                                $data1['Name'] = $child->getName();
+                                $data1['ProductImage'] = $child->getProductImage();
+
+                                $normalContiData['Name'] = $child->getName();
+                                $normalContiData['ShortText'] = $child->getShortText();
+                                $normalContiData['ProductImage'] = $child->getProductImage();
+                                $normalContiData['ApplicationImage'] = $child->getApplicationImage();
+
+                                if(method_exists($child->getProductAttributes(),'getMaterial'))
                                 {
-                                    $normalContiData['CS_CleatHeightInch'] = 'CS_CleatHeightInch';
-                                    $normalContiData['CS_CleatHeightInchVal'] = $cleatHeightInch;
+                                    $materialBrick = $child->getProductAttributes()->getMaterial();
+                                    $cleatHeightInch = $materialBrick->getCleatHeightInch();
+                                    if($cleatHeightInch)
+                                    {
+                                        $normalContiData['CS_CleatHeightInch'] = 'CS_CleatHeightInch';
+                                        $normalContiData['CS_CleatHeightInchVal'] = $cleatHeightInch;
+                                    }
                                 }
+
+                                if(method_exists($child->getProductAttributes(),'getProdDimensions'))
+                                {
+                                    $prodDimensions = $child->getProductAttributes()->getProdDimensions();
+                                    if($prodDimensions)
+                                    {
+                                        if($prodDimensions->getAvailableBeltPatternWidthBlock())
+                                        {
+                                            $block = $prodDimensions->getAvailableBeltPatternWidthBlock();
+
+                                            $availableBeltWidthList = [];
+                                            $maxRowLength = 1;
+                                            $maxColumnLenth = 1;
+                                            $blocklistInch = [];
+                                            foreach ($block as $key => $value) {
+                                                $availableBeltWidthVal = $value['availableBeltWidthInch']->getData();
+                                                $availableBeltWidthList[] = $availableBeltWidthMasterList[$availableBeltWidthVal]['AvailableBeltWidthInch'];
+
+                                                $blocklist = $value['availablePatternWidthInch']->getData();
+
+                                                $maxRowLength = count($blocklist) > $maxRowLength ? count($blocklist) : $maxRowLength;
+
+                                                $data = [];
+                                                foreach ($blocklist as $key => $value) {
+                                                    if($availablePatternWidthMasterList[$value]['AvailablePatternWidthText'])
+                                                    {
+                                                        $data[] = $availablePatternWidthMasterList[$value]['AvailablePatternWidthText'];
+                                                    }
+                                                    else
+                                                    {
+                                                        $data[] = $availablePatternWidthMasterList[$value]['AvailableProfilePatternWidthsInch'];
+                                                    }
+                                                }
+                                                $blocklistInch[] = $data;
+                                            }
+
+                                            if($availableBeltWidthList)
+                                            {
+                                                $normalContiData['CS_AvailableBeltWidthInch'] = 'CS_AvailableBeltWidthInch';
+                                                $normalContiData['CS_AvailableBeltWidthInchList'] = $availableBeltWidthList;
+                                                $maxColumnLenth = count($availableBeltWidthList) > 1 ? count($availableBeltWidthList) : 1;
+                                                $normalContiData['maxColumnLenth'] = $maxColumnLenth;
+                                                $normalContiData['maxRowLength'] = $maxRowLength;
+                                            }
+
+                                            $totalRows = [];
+                                            for ($i=0; $i < $maxRowLength; $i++) { 
+                                                for ($j=0; $j < $maxColumnLenth; $j++) { 
+                                                    $totalRows[$i][$j] = isset($blocklistInch[$j][$i]) ? $blocklistInch[$j][$i] : ''; 
+                                                }
+                                            }
+
+                                            $normalContiData['CS_AvailableProfilePatternWidthsInch'] = $totalRows;
+                                        }
+                                    }
+                                }
+
+                                $normalProductsChildDetails[] = $normalContiData;
+                                $cleatedProducts[] = $data1;
+                            }
+                        }
+
+                        $normalProductsDetails['childData'] = $normalProductsChildDetails;
+
+                        if($contiRollChildProducts)
+                        {
+                            $contiRollChildSortedProducts =[];
+
+                            foreach($contiRollChildProducts as $nc)
+                            {
+                                $contiRollChildSortedProducts[$nc->getSortOrder()] = $nc;
                             }
 
-                            if(method_exists($child->getProductAttributes(),'getProdDimensions'))
-                            {
-                                $prodDimensions = $child->getProductAttributes()->getProdDimensions();
-                                if($prodDimensions)
+                            ksort($contiRollChildSortedProducts);
+
+                            foreach ($contiRollChildSortedProducts as $child) {
+
+                                $data = [];
+                                $contiData = [];
+                                $data['Name'] = $child->getName();
+                                $data['ProductImage'] = $child->getProductImage();
+
+                                $contiData['Name'] = $child->getName();
+                                $contiData['ProductImage'] = $child->getProductImage();
+                                $contiData['ApplicationImage'] = $child->getApplicationImage();
+
+                                $blocklistInch = [];
+                                $blocklistMm = [];
+                                if(method_exists($child->getProductAttributes(),'getProdDimensions'))
                                 {
-                                    if($prodDimensions->getAvailableBeltPatternWidthBlock())
+                                    $prodDimensions = $child->getProductAttributes()->getProdDimensions();
+                                    $WidthLength = $child->getProductAttributes()->getWidthLength();
+
+                                    $profileWidthMM = $WidthLength->getProfileWidthMM();
+                                    $contiData['CS_profileWidthMm']= $profileWidthMM;
+
+                                    if($prodDimensions)
                                     {
-                                        $block = $prodDimensions->getAvailableBeltPatternWidthBlock();
+                                        if($prodDimensions->getAvailableBeltPatternWidthBlock())
+                                        {
+                                            $block = $prodDimensions->getAvailableBeltPatternWidthBlock();
+                                            $blocklist = $block[0]['availablePatternWidthInch']->getData();
 
-                                        $availableBeltWidthList = [];
-                                        $maxRowLength = 1;
-                                        $maxColumnLenth = 1;
-                                        $blocklistInch = [];
-                                        foreach ($block as $key => $value) {
-                                            $availableBeltWidthVal = $value['availableBeltWidthInch']->getData();
-                                            $availableBeltWidthList[] = $availableBeltWidthMasterList[$availableBeltWidthVal]['AvailableBeltWidthInch'];
-
-                                            $blocklist = $value['availablePatternWidthInch']->getData();
-
-                                            $maxRowLength = count($blocklist) > $maxRowLength ? count($blocklist) : $maxRowLength;
-
-                                            $data = [];
                                             foreach ($blocklist as $key => $value) {
-                                                if($availablePatternWidthMasterList[$value]['AvailablePatternWidthText'])
-                                                {
-                                                    $data[] = $availablePatternWidthMasterList[$value]['AvailablePatternWidthText'];
-                                                }
-                                                else
-                                                {
-                                                    $data[] = $availablePatternWidthMasterList[$value]['AvailableProfilePatternWidthsInch'];
-                                                }
+                                                $blocklistInch[] = $availablePatternWidthMasterList[$value]['AvailableProfilePatternWidthsInch'];
+                                                $blocklistMm[] = $availablePatternWidthMasterList[$value]['AvailableProfilePatternWidthsMM'];
                                             }
-                                            $blocklistInch[] = $data;
+
+                                            if($blocklistInch || $blocklistMm)
+                                            {
+                                                $contiData['CS_profileWidth'] = 'CS_profileWidth';
+                                                $contiData['CS_profileWidthInch'] = implode(' & ', $blocklistInch);
+                                            // $contiData['CS_profileWidthMm'] = implode('/', $blocklistMm);
+                                            }
                                         }
 
-                                        if($availableBeltWidthList)
+                                        // $beltWidthRangeInch = $prodDimensions->getAvailableBeltWidthRangeInch();
+                                        // $beltWidthRangeMm = $prodDimensions->getAvailableBeltWidthRangeMm();
+
+                                        $beltWidthRangeInch = $prodDimensions->getBeltWidthRangeInch();
+                                        $beltWidthRangeMm = $prodDimensions->getBeltWidthRangeMM();
+
+                                        
+                                        if($beltWidthRangeInch || $beltWidthRangeMm)
                                         {
-                                            $normalContiData['CS_AvailableBeltWidthInch'] = 'CS_AvailableBeltWidthInch';
-                                            $normalContiData['CS_AvailableBeltWidthInchList'] = $availableBeltWidthList;
-                                            $maxColumnLenth = count($availableBeltWidthList) > 1 ? count($availableBeltWidthList) : 1;
-                                            $normalContiData['maxColumnLenth'] = $maxColumnLenth;
-                                            $normalContiData['maxRowLength'] = $maxRowLength;
+                                            $contiData['CS_beltWidthRange'] = 'CS_beltWidthRange';
+                                            $contiData['CS_beltWidthRangeInch'] = $beltWidthRangeInch;
+                                            $contiData['CS_beltWidthRangeMm'] = $beltWidthRangeMm;
                                         }
-
-                                        $totalRows = [];
-                                        for ($i=0; $i < $maxRowLength; $i++) { 
-                                            for ($j=0; $j < $maxColumnLenth; $j++) { 
-                                                $totalRows[$i][$j] = isset($blocklistInch[$j][$i]) ? $blocklistInch[$j][$i] : ''; 
-                                            }
-                                        }
-
-                                        $normalContiData['CS_AvailableProfilePatternWidthsInch'] = $totalRows;
+                                        
                                     }
                                 }
+
+                                if(method_exists($child->getProductAttributes(),'getBeltData'))
+                                {
+                                    $beltData = $child->getProductAttributes()->getBeltData();
+                                    $additionalInformation = $beltData->getAdditionalInformation();
+                                    if($additionalInformation)
+                                    {
+                                        $contiData['CS_AdditionalInformation'] = 'CS_AdditionalInformation';
+                                        $contiData['CS_AdditionalInformationValue'] = $additionalInformation;
+                                    }
+                                }
+
+                                $contiRollProductsChildDetails[] = $contiData;
+                                $cleatedProducts[] = $data;
                             }
-
-                            $normalProductsChildDetails[] = $normalContiData;
-                            $cleatedProducts[] = $data1;
                         }
-                    }
 
-                    $normalProductsDetails['childData'] = $normalProductsChildDetails;
-
-                    if($contiRollChildProducts)
-                    {
-                        $contiRollChildSortedProducts =[];
-
-                        foreach($contiRollChildProducts as $nc)
+                        $contiRollProductsDetails['childData'] = $contiRollProductsChildDetails;
+                        $productData['cleatedProducts'] = $cleatedProducts;
+                        $productData['normalProductsDetails'] = $normalProductsDetails;
+                        $productData['contiRollProductsDetails'] = $contiRollProductsDetails;
+                        $ymlData = $this->configProviderService->getBrickMappingConfig();
+                        
+                        if(isset($ymlData['cleated_belts_table_display_in_region']['regionName']) && ($ymlData['cleated_belts_table_display_in_region']['regionName'] === $region))
                         {
-                            $contiRollChildSortedProducts[$nc->getSortOrder()] = $nc;
+                            $displayTablesFlag = true;
                         }
-
-                        ksort($contiRollChildSortedProducts);
-
-                        foreach ($contiRollChildSortedProducts as $child) {
-
-                            $data = [];
-                            $contiData = [];
-                            $data['Name'] = $child->getName();
-                            $data['ProductImage'] = $child->getProductImage();
-
-                            $contiData['Name'] = $child->getName();
-                            $contiData['ProductImage'] = $child->getProductImage();
-                            $contiData['ApplicationImage'] = $child->getApplicationImage();
-
-                            $blocklistInch = [];
-                            $blocklistMm = [];
-                            if(method_exists($child->getProductAttributes(),'getProdDimensions'))
-                            {
-                                $prodDimensions = $child->getProductAttributes()->getProdDimensions();
-                                $WidthLength = $child->getProductAttributes()->getWidthLength();
-
-                                $profileWidthMM = $WidthLength->getProfileWidthMM();
-                                $contiData['CS_profileWidthMm']= $profileWidthMM;
-
-                                if($prodDimensions)
-                                {
-                                    if($prodDimensions->getAvailableBeltPatternWidthBlock())
-                                    {
-                                        $block = $prodDimensions->getAvailableBeltPatternWidthBlock();
-                                        $blocklist = $block[0]['availablePatternWidthInch']->getData();
-
-                                        foreach ($blocklist as $key => $value) {
-                                            $blocklistInch[] = $availablePatternWidthMasterList[$value]['AvailableProfilePatternWidthsInch'];
-                                            $blocklistMm[] = $availablePatternWidthMasterList[$value]['AvailableProfilePatternWidthsMM'];
-                                        }
-
-                                        if($blocklistInch || $blocklistMm)
-                                        {
-                                            $contiData['CS_profileWidth'] = 'CS_profileWidth';
-                                            $contiData['CS_profileWidthInch'] = implode(' & ', $blocklistInch);
-                                           // $contiData['CS_profileWidthMm'] = implode('/', $blocklistMm);
-                                        }
-                                    }
-
-                                    // $beltWidthRangeInch = $prodDimensions->getAvailableBeltWidthRangeInch();
-                                    // $beltWidthRangeMm = $prodDimensions->getAvailableBeltWidthRangeMm();
-
-                                    $beltWidthRangeInch = $prodDimensions->getBeltWidthRangeInch();
-                                    $beltWidthRangeMm = $prodDimensions->getBeltWidthRangeMM();
-
-                                    
-                                    if($beltWidthRangeInch || $beltWidthRangeMm)
-                                    {
-                                        $contiData['CS_beltWidthRange'] = 'CS_beltWidthRange';
-                                        $contiData['CS_beltWidthRangeInch'] = $beltWidthRangeInch;
-                                        $contiData['CS_beltWidthRangeMm'] = $beltWidthRangeMm;
-                                    }
-                                    
-                                }
-                            }
-
-                            if(method_exists($child->getProductAttributes(),'getBeltData'))
-                            {
-                                $beltData = $child->getProductAttributes()->getBeltData();
-                                $additionalInformation = $beltData->getAdditionalInformation();
-                                if($additionalInformation)
-                                {
-                                    $contiData['CS_AdditionalInformation'] = 'CS_AdditionalInformation';
-                                    $contiData['CS_AdditionalInformationValue'] = $additionalInformation;
-                                }
-                            }
-
-                            $contiRollProductsChildDetails[] = $contiData;
-                            $cleatedProducts[] = $data;
-                        }
-                    }
-
-                    $contiRollProductsDetails['childData'] = $contiRollProductsChildDetails;
-                    $productData['cleatedProducts'] = $cleatedProducts;
-                    $productData['normalProductsDetails'] = $normalProductsDetails;
-                    $productData['contiRollProductsDetails'] = $contiRollProductsDetails;
-                    $ymlData = $this->configProviderService->getBrickMappingConfig();
-                    
-                    if(isset($ymlData['cleated_belts_table_display_in_region']['regionName']) && ($ymlData['cleated_belts_table_display_in_region']['regionName'] === $region))
-                    {
-                        $displayTablesFlag = true;
                     }
                 }
             }
@@ -2839,48 +2851,51 @@ class DefaultController extends FrontendController
             if($catalogTableObjectEditable)
             {   
                 $catalogTableObject = $catalogTableObjectEditable->getElement();
-                $selectedProduct = $catalogTableObject->getProducts();
-                $singleProduct = $selectedProduct[0];
-                
-                $productObject = DataObject\CSProducts::getById($singleProduct);
-                if (!empty($productObject) && $productObject instanceof DataObject\CSProducts) {
-                    $productObject->setGetInheritedValues(true);
-                }
-                
-                if(!empty($productObject) && ($productObject->isPublished()) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())))
+                if($catalogTableObject)
                 {
-                    $productData['Name'] = $productObject->getName();
-                    $productData['ShortText'] = $productObject->getLongText();
-                    $productData['ProductImage'] = $productObject->getProductImage();
-                    $productData['ApplicationImage'] = $productObject->getApplicationImage();
-        
-                    $parentParentObj    =   $this->getProductParentObject($productObject); //$productObj->getParent();
-    
-                    if (!empty($parentParentObj) && $parentParentObj instanceof DataObject\CSProducts) {
-                        $productData['HierarchyNameLevel2'] = $parentParentObj->getName();
-                    } else {
-                        $productData['HierarchyNameLevel2'] = null;
+                    $selectedProduct = $catalogTableObject->getProducts();
+                    $singleProduct = $selectedProduct[0];
+                    
+                    $productObject = DataObject\CSProducts::getById($singleProduct);
+                    if (!empty($productObject) && $productObject instanceof DataObject\CSProducts) {
+                        $productObject->setGetInheritedValues(true);
                     }
-        
-                    // $productData['HierarchyNameLevel2'] = $objParent?$objParent->getName():'';
-        
-                    $childrenData = [];
-                    $childObject = $this->getAllRegionChildern($productObject, $regionId);
-        
-                    foreach ($childObject as $childValue) {
-                        if(trim($childValue->getName()))
-                        {
-                            $data['Name'] = $childValue->getName();
-                            $data['ShortText'] = $childValue->getProductDescription();
+                    
+                    if(!empty($productObject) && ($productObject->isPublished()) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())))
+                    {
+                        $productData['Name'] = $productObject->getName();
+                        $productData['ShortText'] = $productObject->getLongText();
+                        $productData['ProductImage'] = $productObject->getProductImage();
+                        $productData['ApplicationImage'] = $productObject->getApplicationImage();
             
-                            $childrenData[] = $data;
-                            unset($data);
+                        $parentParentObj    =   $this->getProductParentObject($productObject); //$productObj->getParent();
+        
+                        if (!empty($parentParentObj) && $parentParentObj instanceof DataObject\CSProducts) {
+                            $productData['HierarchyNameLevel2'] = $parentParentObj->getName();
+                        } else {
+                            $productData['HierarchyNameLevel2'] = null;
                         }
+            
+                        // $productData['HierarchyNameLevel2'] = $objParent?$objParent->getName():'';
+            
+                        $childrenData = [];
+                        $childObject = $this->getAllRegionChildern($productObject, $regionId);
+            
+                        foreach ($childObject as $childValue) {
+                            if(trim($childValue->getName()))
+                            {
+                                $data['Name'] = $childValue->getName();
+                                $data['ShortText'] = $childValue->getProductDescription();
+                
+                                $childrenData[] = $data;
+                                unset($data);
+                            }
+                        }
+            
+                        $productData['childrenData'] = $childrenData;
+            
+                        $parameterBag['monitoring_system'] = $this->getContiProtectFeatures($productObject);
                     }
-        
-                    $productData['childrenData'] = $childrenData;
-        
-                    $parameterBag['monitoring_system'] = $this->getContiProtectFeatures($productObject);
                 }
             }
     
@@ -2918,50 +2933,53 @@ class DefaultController extends FrontendController
             if($catalogTableObjectEditable)
             {
                 $catalogTableObject = $catalogTableObjectEditable->getElement();
-                $selectedProduct = $catalogTableObject->getProducts();
-                $singleProduct = $selectedProduct[0];
-                $productObject = DataObject\CSProducts::getById($singleProduct);
-                
-                if (!empty($productObject) && $productObject instanceof DataObject\CSProducts) {
-                    $productObject->setGetInheritedValues(true);
-                }
-                
-                if($productObject  && ($productObject->isPublished()) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())))
+                if($catalogTableObject)
                 {
-                    $parentParentObj    =   $this->getProductParentObject($productObject); //$productObj->getParent();
-    
-                    if (!empty($parentParentObj) && $parentParentObj instanceof DataObject\CSProducts) {
-                        $productData['HierarchyNameLevel2'] = $parentParentObj->getName();
-                    } else {
-                        $productData['HierarchyNameLevel2'] = null;
-                    }
-                    $productData['Name'] = $productObject->getName();
-                    $productData['ShortText'] = $productObject->getShortText();
-                    $productData['ProductImage'] = $productObject->getProductImage();
-                    $productData['ReportImage'] = $productObject->getReportImage();
-                    $productData['DamageImage'] = $productObject->getDamageImage();
+                    $selectedProduct = $catalogTableObject->getProducts();
+                    $singleProduct = $selectedProduct[0];
+                    $productObject = DataObject\CSProducts::getById($singleProduct);
                     
-                    $productData['ApplicationImage'] = $productObject->getApplicationImage();
-                    $productData['Benefits'] = $this->getContiProtectFeatures($productObject);
-        
-                    $childrenData = [];
-                    $childObject = $this->getAllRegionChildern($productObject, $regionId);
-        
-                    if($childObject)
+                    if (!empty($productObject) && $productObject instanceof DataObject\CSProducts) {
+                        $productObject->setGetInheritedValues(true);
+                    }
+                    
+                    if($productObject  && ($productObject->isPublished()) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())))
                     {
-                        foreach ($childObject as $childValue) {
-                            if(trim($childValue->getName()))
-                            {
-                                $data['Name'] = $childValue->getName();
-                                $data['ShortText'] = $childValue->getProductDescription();
+                        $parentParentObj    =   $this->getProductParentObject($productObject); //$productObj->getParent();
+        
+                        if (!empty($parentParentObj) && $parentParentObj instanceof DataObject\CSProducts) {
+                            $productData['HierarchyNameLevel2'] = $parentParentObj->getName();
+                        } else {
+                            $productData['HierarchyNameLevel2'] = null;
+                        }
+                        $productData['Name'] = $productObject->getName();
+                        $productData['ShortText'] = $productObject->getShortText();
+                        $productData['ProductImage'] = $productObject->getProductImage();
+                        $productData['ReportImage'] = $productObject->getReportImage();
+                        $productData['DamageImage'] = $productObject->getDamageImage();
+                        
+                        $productData['ApplicationImage'] = $productObject->getApplicationImage();
+                        $productData['Benefits'] = $this->getContiProtectFeatures($productObject);
             
-                                $childrenData[] = $data;
-                                unset($data);
+                        $childrenData = [];
+                        $childObject = $this->getAllRegionChildern($productObject, $regionId);
+            
+                        if($childObject)
+                        {
+                            foreach ($childObject as $childValue) {
+                                if(trim($childValue->getName()))
+                                {
+                                    $data['Name'] = $childValue->getName();
+                                    $data['ShortText'] = $childValue->getProductDescription();
+                
+                                    $childrenData[] = $data;
+                                    unset($data);
+                                }
                             }
                         }
+            
+                        $productData['childrenData'] = $childrenData;
                     }
-        
-                    $productData['childrenData'] = $childrenData;
                 }
             }
     
@@ -3001,30 +3019,31 @@ class DefaultController extends FrontendController
             if($catalogTableObjectEditable)
             { 
                 $catalogTableObject = $catalogTableObjectEditable->getElement();
-                $selectedProduct = $catalogTableObject->getProducts();
-                $singleProduct = $selectedProduct[0];
-                $productObject = DataObject\CSProducts::getById($singleProduct);
-                if (!empty($productObject) && $productObject instanceof DataObject\CSProducts) {
-                    $productObject->setGetInheritedValues(true);
-                }
-                if($productObject  && ($productObject->isPublished()) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())))
+                if($catalogTableObject)
                 {
-                    $objParent = DataObject\CSProducts::getById($productObject->getParentId());
-        
-                    $productData['HierarchyNameLevel2'] = $objParent?$objParent->getName():'';
-        
-                    $productData['Name'] = $productObject->getName();
-                    $productData['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
-                    $productData['ShortText'] = $productObject->getShortText();
-                    $productData['ProductImage'] = $productObject->getProductImage();
-                    
-                    $productData['Features'] = $this->getSybercordTechnologyFeature($productObject);
-        
-                    $productData['CSProductFeaturesAndBenefits'] = $productObject->getCSProductFeaturesAndBenefits();
-                    $productData['HierarchyNameLevel1'] = 'Conveying Solutions';
+                    $selectedProduct = $catalogTableObject->getProducts();
+                    $singleProduct = $selectedProduct[0];
+                    $productObject = DataObject\CSProducts::getById($singleProduct);
+                    if (!empty($productObject) && $productObject instanceof DataObject\CSProducts) {
+                        $productObject->setGetInheritedValues(true);
+                    }
+                    if($productObject  && ($productObject->isPublished()) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())))
+                    {
+                        $objParent = DataObject\CSProducts::getById($productObject->getParentId());
+            
+                        $productData['HierarchyNameLevel2'] = $objParent?$objParent->getName():'';
+            
+                        $productData['Name'] = $productObject->getName();
+                        $productData['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
+                        $productData['ShortText'] = $productObject->getShortText();
+                        $productData['ProductImage'] = $productObject->getProductImage();
+                        
+                        $productData['Features'] = $this->getSybercordTechnologyFeature($productObject);
+            
+                        $productData['CSProductFeaturesAndBenefits'] = $productObject->getCSProductFeaturesAndBenefits();
+                        $productData['HierarchyNameLevel1'] = 'Conveying Solutions';
+                    }
                 }
-    
-                
             }
             
             $parameterBag['data'] = $productData;
@@ -3062,65 +3081,68 @@ class DefaultController extends FrontendController
             if($catalogTableObjectEditable)
             {
                 $catalogTableObject = $catalogTableObjectEditable->getElement();
-                $selectedProduct    = $catalogTableObject->getProducts();
-                $singleProduct      = isset($selectedProduct[0])?$selectedProduct[0]:'';
-    
-                $singleProductObj = DataObject\CSProducts::getById($singleProduct);
-                if (!empty($singleProductObj) && $singleProductObj instanceof DataObject\CSProducts) {
-                    $singleProductObj->setGetInheritedValues(true);
-                }
-                
-                if($singleProductObj && ($singleProductObj->isPublished()) && (empty($singleProductObj->getCSRegion()) || in_array($regionId, $singleProductObj->getCSRegion())))
+                if($catalogTableObject)
                 {
-                    $childProductData['Name'] = $singleProductObj->getName();
-                    $childProductData['ProductClaimSlogan'] = $singleProductObj->getProductClaimSlogan();
-                    $childProductData['ShortText'] = $singleProductObj->getShortText();
-                    $childProductData['ProductImage'] = $singleProductObj->getProductImage();
-                    $childProductData['productSpecificData'] = $this->prepareContiPipeAndMegaPipeAttributes($singleProductObj, $regionId);
-                    $FeaturesAndBenefits = [];
-                    if($singleProductObj->getCSProductFeaturesAndBenefits())
+                    $selectedProduct    = $catalogTableObject->getProducts();
+                    $singleProduct      = isset($selectedProduct[0])?$selectedProduct[0]:'';
+        
+                    $singleProductObj = DataObject\CSProducts::getById($singleProduct);
+                    if (!empty($singleProductObj) && $singleProductObj instanceof DataObject\CSProducts) {
+                        $singleProductObj->setGetInheritedValues(true);
+                    }
+                    
+                    if($singleProductObj && ($singleProductObj->isPublished()) && (empty($singleProductObj->getCSRegion()) || in_array($regionId, $singleProductObj->getCSRegion())))
                     {
-                        foreach ($singleProductObj->getCSProductFeaturesAndBenefits() as $value) {
-                            if(trim($value->getFeatureName()))
-                            {
-                                $FeaturesAndBenefits[] = $value->getFeatureName();
+                        $childProductData['Name'] = $singleProductObj->getName();
+                        $childProductData['ProductClaimSlogan'] = $singleProductObj->getProductClaimSlogan();
+                        $childProductData['ShortText'] = $singleProductObj->getShortText();
+                        $childProductData['ProductImage'] = $singleProductObj->getProductImage();
+                        $childProductData['productSpecificData'] = $this->prepareContiPipeAndMegaPipeAttributes($singleProductObj, $regionId);
+                        $FeaturesAndBenefits = [];
+                        if($singleProductObj->getCSProductFeaturesAndBenefits())
+                        {
+                            foreach ($singleProductObj->getCSProductFeaturesAndBenefits() as $value) {
+                                if(trim($value->getFeatureName()))
+                                {
+                                    $FeaturesAndBenefits[] = $value->getFeatureName();
+                                }
                             }
                         }
+                        $childProductData['Benefits'] = $FeaturesAndBenefits;
+                        $productData['childProductData'] = $childProductData;
                     }
-                    $childProductData['Benefits'] = $FeaturesAndBenefits;
-                    $productData['childProductData'] = $childProductData;
-                }
-    
-                
-                
-                // $productObject = [];
-
-                // if(method_exists($singleProductObj,'getParent'))
-                // {
-                //     $productObject = $singleProductObj->getParent();
-                // }
-                
-                $productObject    =   $this->getProductParentObject($singleProductObj); //$productObj->getParent();
-                if (!empty($productObject) && $productObject instanceof DataObject\CSProducts) {
-                    $productObject->setGetInheritedValues(true);
-                }
-                if($productObject && ($productObject->isPublished()) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())) )
-                {
-                    $parentProductData['Name'] = $productObject->getName();
-                    $parentProductData['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
-                    $parentProductData['ShortText'] = $productObject->getShortText();
-                    $parentProductData['ProductImage'] = $productObject->getProductImage();
+        
                     
-                    $applications = [];
-                    if($productObject->getCSProductApplications())
-                    {
-                        foreach ($productObject->getCSProductApplications() as $value) {
-                            $applications[] = $value->getApplicationName();
-                        }
+                    
+                    // $productObject = [];
+
+                    // if(method_exists($singleProductObj,'getParent'))
+                    // {
+                    //     $productObject = $singleProductObj->getParent();
+                    // }
+                    
+                    $productObject    =   $this->getProductParentObject($singleProductObj); //$productObj->getParent();
+                    if (!empty($productObject) && $productObject instanceof DataObject\CSProducts) {
+                        $productObject->setGetInheritedValues(true);
                     }
-                    $parentProductData['Applications'] = $applications;
-                    $parentProductData['HierarchyNameLevel2'] = $productObject->getName();;
-                    $productData['parentProductData'] = $parentProductData;
+                    if($productObject && ($productObject->isPublished()) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())) )
+                    {
+                        $parentProductData['Name'] = $productObject->getName();
+                        $parentProductData['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
+                        $parentProductData['ShortText'] = $productObject->getShortText();
+                        $parentProductData['ProductImage'] = $productObject->getProductImage();
+                        
+                        $applications = [];
+                        if($productObject->getCSProductApplications())
+                        {
+                            foreach ($productObject->getCSProductApplications() as $value) {
+                                $applications[] = $value->getApplicationName();
+                            }
+                        }
+                        $parentProductData['Applications'] = $applications;
+                        $parentProductData['HierarchyNameLevel2'] = $productObject->getName();;
+                        $productData['parentProductData'] = $parentProductData;
+                    }
                 }
             }
             
@@ -3406,57 +3428,60 @@ class DefaultController extends FrontendController
                 $catalogTableObject = $catalogTableObjectEditable->getElement();
                 $selectedProduct = [];
 
-                if(method_exists($catalogTableObject,"getProducts"))
+                if($catalogTableObject)
                 {
-                    $selectedProduct = $catalogTableObject->getProducts();
-                }
-    
-                if($selectedProduct)
-                {
-                    $singleProduct = $selectedProduct[0];
-                    $productObject = DataObject\CSProducts::getById($singleProduct);
-
-                    // $parentProductObject = [];
-
-                    // if(method_exists($productObject,'getParent'))
-                    // {
-                    //     $parentProductObject = $productObject->getParent();
-                    // }
-                    if (!empty($productObject) && $productObject instanceof DataObject\CSProducts) {
-                        $productObject->setGetInheritedValues(true);
+                    if(method_exists($catalogTableObject,"getProducts"))
+                    {
+                        $selectedProduct = $catalogTableObject->getProducts();
                     }
-                    if ($productObject  && ($productObject->isPublished()) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())) ) {
-                        $parentParentObj    =   $this->getProductParentObject($productObject); //$productObj->getParent();
-                        $parentParentObj->setGetInheritedValues(true);
-                        if (!empty($parentParentObj) && $parentParentObj instanceof DataObject\CSProducts) {
-                            $productNameArr['HierarchyNameLevel2'] = $parentParentObj->getName();
-                        } else {
-                            $productNameArr['HierarchyNameLevel2'] = null;
+        
+                    if($selectedProduct)
+                    {
+                        $singleProduct = $selectedProduct[0];
+                        $productObject = DataObject\CSProducts::getById($singleProduct);
+
+                        // $parentProductObject = [];
+
+                        // if(method_exists($productObject,'getParent'))
+                        // {
+                        //     $parentProductObject = $productObject->getParent();
+                        // }
+                        if (!empty($productObject) && $productObject instanceof DataObject\CSProducts) {
+                            $productObject->setGetInheritedValues(true);
                         }
-
-                        $productNameArr['Name'] = trim($productObject->getName());
-                        $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
-                        $productNameArr['ShortText'] = $productObject->getShortText();
-                        $productNameArr['LogoImage'] = $productObject->getLogoImage();     
-                        $productNameArr['ProductImage'] = $productObject->getProductImage();
-                        $productNameArr['ApplicationImage'] = $productObject->getApplicationImage();
-
-                        $FeaturesAndBenefits = [];
-                        if($productObject->getCSProductFeaturesAndBenefits())
-                        {
-                            foreach ($productObject->getCSProductFeaturesAndBenefits() as $value)
-                            {
-                                if($value->getFeatureName())
-                                {
-                                    $FeaturesAndBenefits[] = $value->getFeatureName();
-                                }
-
+                        if ($productObject  && ($productObject->isPublished()) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())) ) {
+                            $parentParentObj    =   $this->getProductParentObject($productObject); //$productObj->getParent();
+                            $parentParentObj->setGetInheritedValues(true);
+                            if (!empty($parentParentObj) && $parentParentObj instanceof DataObject\CSProducts) {
+                                $productNameArr['HierarchyNameLevel2'] = $parentParentObj->getName();
+                            } else {
+                                $productNameArr['HierarchyNameLevel2'] = null;
                             }
+
+                            $productNameArr['Name'] = trim($productObject->getName());
+                            $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
+                            $productNameArr['ShortText'] = $productObject->getShortText();
+                            $productNameArr['LogoImage'] = $productObject->getLogoImage();     
+                            $productNameArr['ProductImage'] = $productObject->getProductImage();
+                            $productNameArr['ApplicationImage'] = $productObject->getApplicationImage();
+
+                            $FeaturesAndBenefits = [];
+                            if($productObject->getCSProductFeaturesAndBenefits())
+                            {
+                                foreach ($productObject->getCSProductFeaturesAndBenefits() as $value)
+                                {
+                                    if($value->getFeatureName())
+                                    {
+                                        $FeaturesAndBenefits[] = $value->getFeatureName();
+                                    }
+
+                                }
+                            }
+
+                            $productNameArr['Features'] = $FeaturesAndBenefits;
+
+                            $productNameArr['CSProductApplications'] = $productObject->getCSProductApplications();
                         }
-
-                        $productNameArr['Features'] = $FeaturesAndBenefits;
-
-                        $productNameArr['CSProductApplications'] = $productObject->getCSProductApplications();
                     }
                 }
             }
@@ -3525,28 +3550,31 @@ class DefaultController extends FrontendController
             if($catalogTableObjectEditable)
             {
                 $catalogTableObject = $catalogTableObjectEditable->getElement();
-                $selectedProduct = $catalogTableObject->getProducts();
-                if($selectedProduct)
+                if($catalogTableObject)
                 {
-                    $singleProduct = $selectedProduct[0];
-                    $productObject = DataObject\CSProducts::getById($singleProduct);
-                    if (!empty($productObject) && $productObject instanceof DataObject\CSProducts) {
-                        $productObject->setGetInheritedValues(true);
-                    }
-                    if ($productObject  && ($productObject->isPublished()) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())) )
+                    $selectedProduct = $catalogTableObject->getProducts();
+                    if($selectedProduct)
                     {
-                        $productData['Name'] = $productObject->getName();
-                        $productData['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
-                        $productData['ShortText'] = $productObject->getShortText();
-                        $productData['ProductImage'] = $productObject->getProductImage();
-                        $productData['ApplicationImage'] = $productObject->getApplicationImage();
-                        $productData['reportImage'] = $productObject->getReportImage();
-                        
-                        // $this->view['data'] = $productData;
-                        
-                        $productData['material'] = $this->getContiCleanMaterials($productObject);
-    
-                        $productData['Benefits'] = $this->getContiCleanBenefits($productObject);
+                        $singleProduct = $selectedProduct[0];
+                        $productObject = DataObject\CSProducts::getById($singleProduct);
+                        if (!empty($productObject) && $productObject instanceof DataObject\CSProducts) {
+                            $productObject->setGetInheritedValues(true);
+                        }
+                        if ($productObject  && ($productObject->isPublished()) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion())) )
+                        {
+                            $productData['Name'] = $productObject->getName();
+                            $productData['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
+                            $productData['ShortText'] = $productObject->getShortText();
+                            $productData['ProductImage'] = $productObject->getProductImage();
+                            $productData['ApplicationImage'] = $productObject->getApplicationImage();
+                            $productData['reportImage'] = $productObject->getReportImage();
+                            
+                            // $this->view['data'] = $productData;
+                            
+                            $productData['material'] = $this->getContiCleanMaterials($productObject);
+        
+                            $productData['Benefits'] = $this->getContiCleanBenefits($productObject);
+                        }
                     }
                 }
             }
