@@ -129,4 +129,10 @@ class DefaultController extends FrontendController
         }
         return $config;
     }
+
+    public function newProductsEmailAction()
+    {
+        $parameterBag = [];
+        return $this->render("@IFSEUProduct/default/NewProductsEmail.html.twig", $parameterBag);
+    }
 }
