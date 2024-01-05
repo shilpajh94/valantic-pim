@@ -22,7 +22,7 @@ return [
         "RestApiBundle\\RestApiBundle" => TRUE,
         "IFSEU\\ProductBundle\\IFSEUProductBundle" => TRUE,
         "IFSEU\\ImportBundle\\IFSEUImportBundle" => TRUE,
-        // "PTGEU\\CatalogBundle\\PTGEUCatalogBundle" => TRUE,
+        "PTGEU\\CatalogBundle\\PTGEUCatalogBundle" => TRUE,
         // "PimDataPostBundle\\PimDataPostBundle" => TRUE
     ]
 ];

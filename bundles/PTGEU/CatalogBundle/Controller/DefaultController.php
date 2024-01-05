@@ -8,8 +8,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Pimcore\Model\DataObject;
 use CatalogBundle\Helper\CatalogTemplatingHelper;
 use Pimcore\Db;
+use Pimcore\Controller\FrontendController;
 
-class DefaultController extends AbstractController
+class DefaultController extends FrontendController
 {
     private $featuresList = [];
     private $s3srcArr = [];
@@ -24,6 +25,7 @@ class DefaultController extends AbstractController
     private $subHeaderRequired = 'NO';
     private $catalogTemplatingHelper;
     private $db;
+    private $imageWidth;
 
     const COMMON_HELPER = 'app.common_helper';
     const CATALOG_CONFIG_PROVIDER_SERVICE = 'catalog.config_provider_service';
@@ -156,167 +158,173 @@ class DefaultController extends AbstractController
     
     public function templatePtgEuProductProfileAction(Request $request)
     {
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
         $language = $this->document->getProperty('language');
         $language = $language ? $language : 'en';
 
-        $catalogCategoryTableObject = $this->getDocumentTag('relation', 'ptg_eu_product_profile_page')->getElement();
-        if($catalogCategoryTableObject)
+        $catalogCategoryTableObjectEditable = $this->document->getEditable('ptg_eu_product_profile_page');
+        if($catalogCategoryTableObjectEditable)
         {
-            $commonHelper = \Pimcore::getContainer()->get(self::COMMON_HELPER);
-            $attributeImagesConfig = \Pimcore::getContainer()->get(self::CATALOG_CONFIG_PROVIDER_SERVICE)->getAttributeImagesConfig();
-            $BrandLogoSrc = $commonHelper->getParameter($attributeImagesConfig, 'BrandLogoSrc');
-            $fifthLevelCategoryObj = $catalogCategoryTableObject->getFifthLevelCategory();
-            $sixSevenLevelCategoryObj = $catalogCategoryTableObject->getSixSevenLevelCategory();
-            $BrandLogoSrc = $this->getS3ImageSrc($BrandLogoSrc);
-            $nominalLengthAndDatumLengthColumnMapping = array(
-                'LP' => self::PITCH_LENGTH,
-                'LP(MM)' => self::PITCH_LENGTH,
-                'LP (MM)' => self::PITCH_LENGTH,
-                'LI' => 'Inside Length',
-                'LD' => 'Datum Length',
-                'LE' => 'Effective Length',
-                'LB' => 'Reference Length'
-            );
-            
-            $PTGEUProductHierarchy = DataObject\PTGEUProductHierarchy::getById($fifthLevelCategoryObj);
-            if($PTGEUProductHierarchy)
-            {   
-                $sql = "SELECT oo_id FROM `object_query_38` WHERE productType = 'base' AND hierarchyLevel5 LIKE '%$fifthLevelCategoryObj%' LIMIT 1";
-                $objectLevel5thId =  $this->db->fetchColumn($sql);
-            }
-
-            if($objectLevel5thId)
+            $catalogCategoryTableObject = $catalogCategoryTableObjectEditable->getElement();
+            if($catalogCategoryTableObject)
             {
-                $seventhLevelProductList = [];
-                if($sixSevenLevelCategoryObj)
+                $commonHelper = \Pimcore::getContainer()->get(self::COMMON_HELPER);
+                $attributeImagesConfig = \Pimcore::getContainer()->get(self::CATALOG_CONFIG_PROVIDER_SERVICE)->getAttributeImagesConfig();
+                $BrandLogoSrc = $commonHelper->getParameter($attributeImagesConfig, 'BrandLogoSrc');
+                $fifthLevelCategoryObj = $catalogCategoryTableObject->getFifthLevelCategory();
+                $sixSevenLevelCategoryObj = $catalogCategoryTableObject->getSixSevenLevelCategory();
+                $BrandLogoSrc = $this->getS3ImageSrc($BrandLogoSrc);
+                $nominalLengthAndDatumLengthColumnMapping = array(
+                    'LP' => self::PITCH_LENGTH,
+                    'LP(MM)' => self::PITCH_LENGTH,
+                    'LP (MM)' => self::PITCH_LENGTH,
+                    'LI' => 'Inside Length',
+                    'LD' => 'Datum Length',
+                    'LE' => 'Effective Length',
+                    'LB' => 'Reference Length'
+                );
+                
+                $PTGEUProductHierarchy = DataObject\PTGEUProductHierarchy::getById($fifthLevelCategoryObj);
+                if($PTGEUProductHierarchy)
+                {   
+                    $sql = "SELECT oo_id FROM `object_query_38` WHERE productType = 'base' AND hierarchyLevel5 LIKE '%$fifthLevelCategoryObj%' LIMIT 1";
+                    $objectLevel5thId =  $this->db->fetchColumn($sql);
+                }
+
+                if($objectLevel5thId)
                 {
-                    foreach ($sixSevenLevelCategoryObj as $categoryId) {
+                    $seventhLevelProductList = [];
+                    if($sixSevenLevelCategoryObj)
+                    {
+                        foreach ($sixSevenLevelCategoryObj as $categoryId) {
 
-                        $sql = "SELECT oo_id FROM `object_query_38` WHERE productType = 'skeleton' AND hierarchyLevel7 LIKE '%$categoryId%' LIMIT 1";
-                        $objectLevel7thId =  $this->db->fetchColumn($sql);
+                            $sql = "SELECT oo_id FROM `object_query_38` WHERE productType = 'skeleton' AND hierarchyLevel7 LIKE '%$categoryId%' LIMIT 1";
+                            $objectLevel7thId =  $this->db->fetchColumn($sql);
 
-                        if($objectLevel7thId) 
-                        {
-                            $seventhLevelProductList[] = $objectLevel7thId;
+                            if($objectLevel7thId) 
+                            {
+                                $seventhLevelProductList[] = $objectLevel7thId;
+                            }
                         }
                     }
                 }
-            }
 
-            $sql = "SELECT o_id FROM `object_38` WHERE `o_parentId` = '$objectLevel5thId' ORDER BY o_id ASC";
-            $row6ThLevelDetails =  $this->db->fetchCol($sql);
-            
-            $profile = [];
-            foreach ($row6ThLevelDetails as $objectLevel6thId) {
+                $sql = "SELECT o_id FROM `object_38` WHERE `o_parentId` = '$objectLevel5thId' ORDER BY o_id ASC";
+                $row6ThLevelDetails =  $this->db->fetchCol($sql);
                 
-                if(empty($seventhLevelProductList) || in_array($objectLevel6thId, $seventhLevelProductList))
-                {
-                    $nominalLength= $upperRibWidth= $staticConductive='';
-                    $profileObjectDetails =[];
-                    $sql = "SELECT `oo_id`, `profile`, `mainImage1`, `nominalLength`, `technicalDrawing1`,`ProductName`,`material`, `reinforcement`, `fabricType`, `beltAngle`, `beltHardness`, `netWeight`,`minPulleyDia`, `minOutsidePulleyDia`, `heatAndOilResistant`, `rangeTemperatureC` FROM `object_query_38` WHERE `oo_id` = '$objectLevel6thId'";
-                    $profileObjectDetails =  $this->db->fetchRow($sql);
-
-                    $sql = "SELECT staticConductive FROM `object_query_38` WHERE `oo_id` = '$objectLevel6thId'";
-                    $staticConductive =  $this->db->fetchColumn($sql);
+                $profile = [];
+                foreach ($row6ThLevelDetails as $objectLevel6thId) {
                     
-                    $sql = "SELECT o_id FROM `object_38` WHERE `o_parentId` = '$objectLevel6thId' AND `PrintedCatalogFlag` = '1' ORDER BY o_id ASC LIMIT 1";
-                    $fertObjId =  $this->db->fetchColumn($sql);
-
-                    if($fertObjId)
+                    if(empty($seventhLevelProductList) || in_array($objectLevel6thId, $seventhLevelProductList))
                     {
-                        $sql = "SELECT heightMM FROM `object_brick_query_PTGEUCommonFert_38` WHERE `o_id` = '$fertObjId'";
-                        $beltHeight =  $this->db->fetchColumn($sql);
+                        $nominalLength= $upperRibWidth= $staticConductive='';
+                        $profileObjectDetails =[];
+                        $sql = "SELECT `oo_id`, `profile`, `mainImage1`, `nominalLength`, `technicalDrawing1`,`ProductName`,`material`, `reinforcement`, `fabricType`, `beltAngle`, `beltHardness`, `netWeight`,`minPulleyDia`, `minOutsidePulleyDia`, `heatAndOilResistant`, `rangeTemperatureC` FROM `object_query_38` WHERE `oo_id` = '$objectLevel6thId'";
+                        $profileObjectDetails =  $this->db->fetchRow($sql);
 
-                        $sql = "SELECT widthMM FROM `object_brick_query_PTGEUCommonFert_38` WHERE `o_id` = '$fertObjId'";
-                        $upperRibWidth =  $this->db->fetchColumn($sql);
+                        $sql = "SELECT staticConductive FROM `object_query_38` WHERE `oo_id` = '$objectLevel6thId'";
+                        $staticConductive =  $this->db->fetchColumn($sql);
+                        
+                        $sql = "SELECT o_id FROM `object_38` WHERE `o_parentId` = '$objectLevel6thId' AND `PrintedCatalogFlag` = '1' ORDER BY o_id ASC LIMIT 1";
+                        $fertObjId =  $this->db->fetchColumn($sql);
+
+                        if($fertObjId)
+                        {
+                            $sql = "SELECT heightMM FROM `object_brick_query_PTGEUCommonFert_38` WHERE `o_id` = '$fertObjId'";
+                            $beltHeight =  $this->db->fetchColumn($sql);
+
+                            $sql = "SELECT widthMM FROM `object_brick_query_PTGEUCommonFert_38` WHERE `o_id` = '$fertObjId'";
+                            $upperRibWidth =  $this->db->fetchColumn($sql);
+                        }
+
+                        $groupData = [];
+                        $profile = $profileObjectDetails['profile'];
+                        $material = $profileObjectDetails['material'];
+                        $nominalLength = $profileObjectDetails['nominalLength'];
+                        $reinforcementSelected = trim($profileObjectDetails['reinforcement'], ",");
+                        $fabricType = $profileObjectDetails['fabricType'];
+                        $beltDesignlistContent = [];
+                        
+                        if($material)
+                        {
+                            $beltDesignlistContent['PTGEU_Material'] = $material;
+                        }
+
+                        if($reinforcementSelected)
+                        {
+                            $beltDesignlistContent['PTGEU_Reinforcement'] = $reinforcementSelected;
+                        }
+
+                        if($fabricType)
+                        {
+                            $beltDesignlistContent['PTGEU_FabricType'] = $fabricType;
+                        }
+
+                        $heatAndOilResistant = $profileObjectDetails['heatAndOilResistant'];
+                        $rangeTemperatureC = $profileObjectDetails['rangeTemperatureC'];
+
+                        if($heatAndOilResistant)
+                        {
+                            $propertieslistContent['PTGEU_HeatAndOilResistant'] = $heatAndOilResistant;
+                        }
+
+                        if($staticConductive)
+                        {
+                            $propertieslistContent['PTGEU_StaticConductive'] = $staticConductive;
+                        }
+
+                        if($rangeTemperatureC)
+                        {
+                            $propertieslistContent['PTGEU_RangeTemperatureC'] = $rangeTemperatureC;
+                        }
+
+                        if($profileObjectDetails['mainImage1'])
+                        {
+                            $mainImageObj = \Pimcore\Model\Asset::getById($profileObjectDetails['mainImage1']);
+                        }
+                        $groupData['mainImageObj'] = $mainImageObj;
+
+                        if($profileObjectDetails['technicalDrawing1'])
+                        {
+                            $technicalDrawing1Obj = \Pimcore\Model\Asset::getById($profileObjectDetails['technicalDrawing1']);
+                        }
+                        $groupData['technicalDrawing1Obj'] = $technicalDrawing1Obj;
+                        
+                        if($nominalLength)
+                        {
+                            $nominalLengthUpperCase = strtoupper($nominalLength);
+                            $nominalLengthSortName = ($nominalLengthUpperCase == 'LP' || $nominalLengthUpperCase == 'LP(MM)' || $nominalLengthUpperCase == 'LP (MM)') ? 'LP' : $nominalLength;
+                            $groupData['nominalLength'] = 'PTGEU_Nominal_Length_'. $nominalLengthSortName;
+                            $groupData['datumLengthColumn'] = $nominalLengthAndDatumLengthColumnMapping[$nominalLengthUpperCase];
+
+                            $groupData['nominalLengthList'] = array(
+                                array('datumLength' => '< 1350','lengthTolerance' => '&plusmn;2'),
+                                array('datumLength' => '1350 < '.$nominalLength.' < 3550','lengthTolerance' => '&plusmn;3'),
+                                array('datumLength' => '3550 < '.$nominalLength.' < 5000','lengthTolerance' => '&plusmn;4'),
+                                array('datumLength' => '> 5000','lengthTolerance' => '')
+                            );
+                        }
+                        
+                        $groupData['profile'] = $profile;
+                        $groupData['brandName'] = $profileObjectDetails['ProductName']. " " . $profile;
+                        $groupData['beltDesign'] = $beltDesignlistContent;
+                        $groupData['upperRibWidth'] = floatval($upperRibWidth);
+                        $groupData['beltHeight'] = floatval($beltHeight);
+                        $groupData['flankAngle'] = $profileObjectDetails['beltAngle']; 
+                        $groupData['hardness'] = floatval($profileObjectDetails['beltHardness']);
+                        $groupData['weightPerMLength'] = floatval($profileObjectDetails['netWeight']);
+                        $groupData['minDiameter'] = floatval($profileObjectDetails['minPulleyDia']);
+                        $groupData['minBlackIdlerDiameter'] = floatval($profileObjectDetails['minOutsidePulleyDia']);
+                        $groupData['properties'] = $propertieslistContent;
+                        $profileData[$profile] = $groupData;
                     }
-
-                    $groupData = [];
-                    $profile = $profileObjectDetails['profile'];
-                    $material = $profileObjectDetails['material'];
-                    $nominalLength = $profileObjectDetails['nominalLength'];
-                    $reinforcementSelected = trim($profileObjectDetails['reinforcement'], ",");
-                    $fabricType = $profileObjectDetails['fabricType'];
-                    $beltDesignlistContent = [];
-                    
-                    if($material)
-                    {
-                        $beltDesignlistContent['PTGEU_Material'] = $material;
-                    }
-
-                    if($reinforcementSelected)
-                    {
-                        $beltDesignlistContent['PTGEU_Reinforcement'] = $reinforcementSelected;
-                    }
-
-                    if($fabricType)
-                    {
-                        $beltDesignlistContent['PTGEU_FabricType'] = $fabricType;
-                    }
-
-                    $heatAndOilResistant = $profileObjectDetails['heatAndOilResistant'];
-                    $rangeTemperatureC = $profileObjectDetails['rangeTemperatureC'];
-
-                    if($heatAndOilResistant)
-                    {
-                        $propertieslistContent['PTGEU_HeatAndOilResistant'] = $heatAndOilResistant;
-                    }
-
-                    if($staticConductive)
-                    {
-                        $propertieslistContent['PTGEU_StaticConductive'] = $staticConductive;
-                    }
-
-                    if($rangeTemperatureC)
-                    {
-                        $propertieslistContent['PTGEU_RangeTemperatureC'] = $rangeTemperatureC;
-                    }
-
-                    if($profileObjectDetails['mainImage1'])
-                    {
-                        $mainImageObj = \Pimcore\Model\Asset::getById($profileObjectDetails['mainImage1']);
-                    }
-                    $groupData['mainImageObj'] = $mainImageObj;
-
-                    if($profileObjectDetails['technicalDrawing1'])
-                    {
-                        $technicalDrawing1Obj = \Pimcore\Model\Asset::getById($profileObjectDetails['technicalDrawing1']);
-                    }
-                    $groupData['technicalDrawing1Obj'] = $technicalDrawing1Obj;
-                    
-                    if($nominalLength)
-                    {
-                        $nominalLengthUpperCase = strtoupper($nominalLength);
-                        $nominalLengthSortName = ($nominalLengthUpperCase == 'LP' || $nominalLengthUpperCase == 'LP(MM)' || $nominalLengthUpperCase == 'LP (MM)') ? 'LP' : $nominalLength;
-                        $groupData['nominalLength'] = 'PTGEU_Nominal_Length_'. $nominalLengthSortName;
-                        $groupData['datumLengthColumn'] = $nominalLengthAndDatumLengthColumnMapping[$nominalLengthUpperCase];
-
-                        $groupData['nominalLengthList'] = array(
-                            array('datumLength' => '< 1350','lengthTolerance' => '&plusmn;2'),
-                            array('datumLength' => '1350 < '.$nominalLength.' < 3550','lengthTolerance' => '&plusmn;3'),
-                            array('datumLength' => '3550 < '.$nominalLength.' < 5000','lengthTolerance' => '&plusmn;4'),
-                            array('datumLength' => '> 5000','lengthTolerance' => '')
-                        );
-                    }
-                    
-                    $groupData['profile'] = $profile;
-                    $groupData['brandName'] = $profileObjectDetails['ProductName']. " " . $profile;
-                    $groupData['beltDesign'] = $beltDesignlistContent;
-                    $groupData['upperRibWidth'] = floatval($upperRibWidth);
-                    $groupData['beltHeight'] = floatval($beltHeight);
-                    $groupData['flankAngle'] = $profileObjectDetails['beltAngle']; 
-                    $groupData['hardness'] = floatval($profileObjectDetails['beltHardness']);
-                    $groupData['weightPerMLength'] = floatval($profileObjectDetails['netWeight']);
-                    $groupData['minDiameter'] = floatval($profileObjectDetails['minPulleyDia']);
-                    $groupData['minBlackIdlerDiameter'] = floatval($profileObjectDetails['minOutsidePulleyDia']);
-                    $groupData['properties'] = $propertieslistContent;
-                    $profileData[$profile] = $groupData;
                 }
             }
 
-            $this->view['BrandLogoSrc'] = $BrandLogoSrc;
-            $this->view['profileData'] = $profileData;
+            $parameterBag['BrandLogoSrc'] = $BrandLogoSrc;
+            $parameterBag['profileData'] = $profileData;
         }
+        return $this->render("@PTGEUCatalog/Default/template_ptg_eu_product_profile.html.twig", $parameterBag);
     }
     public function templatePtgEuProductPageAction(Request $request)
     {
@@ -1760,7 +1768,7 @@ class DefaultController extends AbstractController
         $imgObj = \Pimcore\Model\Asset::getByPath($src);
 
         if($imgObj){
-            $s3src = $this->catalogTemplatingHelper->getImageThumbnail($imgObj,$this->view->imageWidth);
+            $s3src = $this->catalogTemplatingHelper->getImageThumbnail($imgObj,$this->imageWidth);
         }
 
         return $s3src;
@@ -1813,5 +1821,29 @@ class DefaultController extends AbstractController
         }
 
         return $columnsDataWithImages;
+    }
+
+    public function getRequestedParameter(Request $request, $documentId): array
+    {
+        $parameterBag = [];
+        // foreach ($request->attributes as $key => $value) {
+        //     $parameterBag[$key] = $value;
+        // }
+        $parameterBag['printermarks'] = $request->get('printermarks');
+
+        $imageWidth = null;
+        $imageRecompression = null;
+        $printConfigFile = \Pimcore\Web2Print\Processor::getJobConfigFile($documentId);
+        if(file_exists($printConfigFile)){
+            $printConfigFileContent = file_get_contents($printConfigFile);
+            $printConfig = json_decode( $printConfigFileContent,true);
+            $imageRecompression = $printConfig['config']['Image Quality'];
+            $imageWidth = $printConfig['config']['Image Width'];
+        }
+        $this->imageWidth = $imageWidth;
+        $parameterBag['imageQuality'] = $imageRecompression;
+        $parameterBag['imageWidth'] = $imageWidth;
+
+        return $parameterBag;
     }
 }
