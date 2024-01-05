@@ -1,32 +1,67 @@
 {% if editmode %}
-    <h3>Select Column</h3>
-{% endif %}
-
-{% set columns = [] %}
-{% set tds = [] %}
-{% set total_rows = 0 %}
-
-
-
-
-{% if editmode %}
-    <h3>Select Rows</h3>
-{% endif %}
-
-Mahesh1
-
-<div class="table-data textile-table">
-    <table width="100%">
-        <thead>
-            <tr>
-                
-                
-            </tr>
-        <thead>
-
+    <table width="100%" style="border-bottom: 1px black dashed">
         <tbody>
+            <tr>
+                <td><h3>Select number of Rows
+                    
+                    </h3>
+                </td>
+                <td>{{ pimcore_select('tb_row_dropdown',{
+                        'store':[[1,1],[2,2],[3,3],[4,4],[5,5],[6,6],[7,7],[8,8],[9,9],[10,10],[11,11],[12,12],[13,13],[14,14],[15,15]],
+                        reload:true,
+                        defaultValue: 11
+                    })}}</td>
+                <td><h3>Select number of Columns
+                    
+                    </h3>
+                </td>
+                <td>{{ pimcore_select('tb_column_dropdown',{
+                        'store':[[1,1],[2,2],[3,3],[4,4],[5,5],[6,6],[7,7],[8,8],[9,9],[10,10],[11,11],[12,12],[13,13],[14,14],[15,15]],
+                        reload:true,
+                        defaultValue: 10
+                    })}}</td>
+            </tr>
             
             
         </tbody>
     </table>
+{% endif %}
+
+
+{% set tb_row_dropdown = pimcore_select('tb_row_dropdown').getData() %}
+{% set tb_column_dropdown = pimcore_select('tb_column_dropdown').getData() %}
+
+{% if( tb_row_dropdown > 0 and tb_column_dropdown > 0) %}
+<div class="table-data textile-table">
+    <table width="100%">
+        <thead>
+            <tr>
+                {% for i in 1..tb_column_dropdown %}
+                        <th width="9.2%"> {{pimcore_input("tb_heading"~i)}}</th>
+                {% endfor %}
+            </tr>
+            <thead>
+
+            <tbody>
+
+                {% for j in 1..tb_row_dropdown %}
+                    {% set class = '' %}
+                    {% if j == tb_row_dropdown %}
+                        {% set class = 'white-bg' %}
+                    {% endif %}
+                    <tr align="center" class={{class}}>
+                            {% for k in 1..tb_column_dropdown %}
+                                {% if k == 1 and j == tb_row_dropdown%}
+                                    <td align="left"><b>{{pimcore_input("tb_data_"~j~"_"~k)}}</b></td>
+                                {% elseif k == 1 %}
+                                    <td align="left">{{pimcore_input("tb_data_"~j~"_"~k)}}</td>
+                                {% else %}
+                                    <td>{{pimcore_input("tb_data_"~j~"_"~k)}}</td>
+                                {% endif %}
+                            {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+    </table>
 </div>    
+{% endif %}
