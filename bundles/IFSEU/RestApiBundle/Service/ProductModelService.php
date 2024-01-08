@@ -238,13 +238,13 @@ class ProductModelService
                 
                 // We need these 2 ids to get the path of assets
                 // Then we are unseting it to hide the ids
-                $documentId = $resultArrBase['Document'];
-                $brandingLaylineAssets = $resultArrBase['BrandingLaylineAssets'];
-                $certificate1ID = $resultArrBase['Certificate1'];
-                $certificate2ID = $resultArrBase['Certificate1'];
-                $video1 = $resultArrBase['video1'];
-                $video2 = $resultArrBase['video2'];
-                $video3 = $resultArrBase['video3'];
+                $documentId = isset($resultArrBase['Document']) ? $resultArrBase['Document'] : null;
+                $brandingLaylineAssets = isset($resultArrBase['BrandingLaylineAssets']) ? $resultArrBase['BrandingLaylineAssets'] : null;
+                $certificate1ID = isset($resultArrBase['Certificate1']) ? $resultArrBase['Certificate1'] : null;
+                $certificate2ID = isset($resultArrBase['Certificate1']) ? $resultArrBase['Certificate1'] : null;
+                $video1 = isset($resultArrBase['video1']) ? $resultArrBase['video1'] : null;
+                $video2 = isset($resultArrBase['video2']) ? $resultArrBase['video2'] : null;
+                $video3 = isset($resultArrBase['video3']) ? $resultArrBase['video3'] : null;
                 
                 unset($resultArrBase['SIOPLevel1']);
                 unset($resultArrBase['SIOPLevel2']);
@@ -282,8 +282,8 @@ class ProductModelService
 
 
                 $imageDataArray['base'] = $sixDigitData;
-            
-                $images = $this->getImagesData($finalProductArray[$sixDigit]['images'],$imageDataArray);
+                $existingImageArray = isset($finalProductArray[$sixDigit]['images']) ? $finalProductArray[$sixDigit]['images'] : [];
+                $images = $this->getImagesData($existingImageArray,$imageDataArray);
                 if(count($images) > 0){
                     foreach ($images as $fieldkey => $image) {
                         if(in_array($fieldkey,['LeftPrintCatalogImage','RightPrintCatalogImage',
@@ -470,30 +470,30 @@ class ProductModelService
 
 
                 $resultMasterData = [];
-                if($value['californiaProposition65ChemicalName1'])
+                if(isset($value['californiaProposition65ChemicalName1']))
                 {
                     $resultMasterData['californiaProposition65ChemicalName1'] =
                      $value['californiaProposition65ChemicalName1'];
                 }
 
-                if($value['californiaProposition65ChemicalName2'])
+                if(isset($value['californiaProposition65ChemicalName2']))
                 {
                     $resultMasterData['californiaProposition65ChemicalName2'] =
                      $value['californiaProposition65ChemicalName2'];
                 }
 
-                if($value['californiaProposition65ChemicalName3'])
+                if(isset($value['californiaProposition65ChemicalName3']))
                 {
                     $resultMasterData['californiaProposition65ChemicalName3'] =
                      $value['californiaProposition65ChemicalName3'];
                 }
 
-                if($value['reach'])
+                if(isset($value['reach']))
                 {
                     $resultMasterData['reach'] = $value['reach'];
                 }
 
-                if($value['rohs'])
+                if(isset($value['rohs']))
                 {
                     $resultMasterData['rohs'] = $value['rohs'];
                 }
@@ -697,6 +697,31 @@ class ProductModelService
         $baseDetail = [];
         $brandName = '';
         $baseDetail  =   $this->model->getProductTypeData($baseParentId,'base',$this->ehose);
+
+        if(isset($baseDetail['shippingConditions']) && !empty($baseDetail['shippingConditions'])){
+            $classId = $this->appService->getPimcoreClassIdbyName('IFSEUShippingConditions');
+            $shippingConditions  =   $this->model->getShippingConditions($baseDetail['shippingConditions'], $classId);
+            if(!empty($shippingConditions)){
+                $baseDetail['shippingConditions'] = $shippingConditions;
+            }
+        }
+
+        if(isset($baseDetail['Conditions']) && !empty($baseDetail['Conditions'])){
+            $classId = $this->appService->getPimcoreClassIdbyName('IFSEUConditions');
+            $conditions  =   $this->model->getConditions($baseDetail['Conditions'], $classId);
+            if(!empty($conditions)){
+                $baseDetail['Conditions'] = $conditions;
+            }
+        }
+
+        if(isset($baseDetail['minimumOrder']) && !empty($baseDetail['minimumOrder'])){
+            $classId = $this->appService->getPimcoreClassIdbyName('IFSEUMinimumOrder');
+            $minimumOrder  =   $this->model->getMinimumOrder($baseDetail['minimumOrder'], $classId);
+            if(!empty($minimumOrder)){
+                $baseDetail['minimumOrder'] = $minimumOrder;
+            }
+        }
+
         // Getting brand name from object_query_3 table
         if(isset($baseDetail['productBrandName']) && !empty($baseDetail['productBrandName'])) {
             $brandName  =   $this->model->getBrandName($baseDetail['productBrandName']);
@@ -766,11 +791,12 @@ class ProductModelService
         foreach($imageDataArray as $key=>$value){
             $imagesFields = $this->ehose['ehoseAPI'][ucfirst($key)]['Images'];
             foreach($imagesFields as $ivalue){
-                if((isset($value[$ivalue]) && !empty($value[$ivalue])) &&
-                !isset($imageDetail[$value[$ivalue]]) || empty($imageDetail[$value[$ivalue]]) &&
-                $propertyAssetData = $this->getPropertyAssetData($value[$ivalue])
-                ){
-                    $imageDetail[$ivalue] = $propertyAssetData;
+                if(isset($value[$ivalue]) && !empty($value[$ivalue])){
+                    if(!isset($imageDetail[$value[$ivalue]]) || empty($imageDetail[$value[$ivalue]])){
+                        if( $propertyAssetData = $this->getPropertyAssetData($value[$ivalue])){
+                            $imageDetail[$ivalue] = $propertyAssetData;  
+                        }
+                    }
                 }
             }
         }
