@@ -1,372 +1,305 @@
-<?php
-if (!isset($this->parentContainer)) {
-    $this->extend('PTGEUCatalogBundle:Layouts:layout.html.php');
-}
-?>
+{% if parentContainer is not defined %}
+	{% extends "@PTGEUCatalog/Layouts/layout.html.twig" %}
+{% endif %}
 
-<?php if($this->editmode): ?>
-        <?= $this->relation("ptg_eu_product_profile_page", [
-                "types" => ["object"],
-                "subtypes" => [
-                "object" => ["object"]
-                ],
-                "classes" => ["PTGEUCatalogCategory"],
-        ]);
-        ?>
-<?php endif; ?>
+{% block _content %}
 
-<?php if($profileData){ ?>
-	<div class="wrapper">
-		<div class="footer3">
-			<p>
-				<?= $this->textarea("PTGEU_disclaimer_$profileKey"); ?>
-			</p>
-			<hr/>
-			<div class="mt-10">
+    {% if editmode %}
+        {{ pimcore_relation("ptg_eu_product_profile_page", {
+                    "types" : ["object"],
+                    "subtypes" : {
+                    "object" : ["object"]
+                    },
+                    "classes" : ["PTGEUCatalogCategory"],
+            }) }}
+    {% endif %}
 
-				<?php
-					if($this->editmode){
-						
-						?>
-							<span class="mr-4 display-float-left">
-								<?php
-							echo $this->image("PTGEU_Barcode_$profileKey",["width" => 50, "height" => 50]);
-							?>
-							</span>
-							<?php
-					}else{
-							$imgSrcObj1 = $this->image("PTGEU_Barcode_$profileKey");
+    {% if profileData is defined and profileData %}
 
-							if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth))
-							{
-							?>
-							<span class="mr-4 display-float-left">
-							<img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth); ?> " style="width:50px;" alt="PTG Barcode Image"/>
-							</span>
-							<?php
-							}
-					} 
-				?>
-				<div class="display-flow-root">
-				<?= $this->wysiwyg("PTGEU_ContactInfo_$profileKey"); ?>
-				</div>
-				
-			</div>
-		</div>
+        <div class="footer3">
+            <p>
+                {{pimcore_textarea("PTGEU_disclaimer_")}}
+            </p>
+            <hr/>
+            <div class="mt-10">
+                {% if editmode %}
+                    <span class="mr-4 display-float-left">
+                        {{ pimcore_image("PTGEU_Barcode_",{"width": 50, "height": 50}) }}
+                    </span>
+                {% else %}
+                    {% set imgSrcObj1 = pimcore_image("PTGEU_Barcode_") %}
+                    {% if getImageThumbnail(imgSrcObj1,imageWidth) %}
+                        <span class="mr-4 display-float-left">
+                            <img src="{{ getImageThumbnail(imgSrcObj1, imageWidth) }}" style="width:50px;" alt="PTG Barcode Image"/>
+                        </span>
+                    {% endif %}
+                {% endif %}
+                <div class="display-flow-root">
+                    {{ pimcore_wysiwyg("PTGEU_ContactInfo_") }}
+                </div>
+            </div>
+        </div>
 
-		<?php foreach ($profileData as $profile => $groupData) { ?>
-			
-			<?php 
-				$profileKey = md5($groupData['brandName'].$profile);
-			?>
-			<div class="top-section page-break-before-always above edit-prev-mode-mt-50">
-				<?php
-				if($BrandLogoSrc){
-					?>
-						<div class="logo">
-						<img src="<?= $BrandLogoSrc ?>" alt="logo"/>
-						</div>
-					<?php
-				}
-				?>
-				
-				<div class="img-wrapper position-relative">
-					<div class="set1 bg-mask">
-					<?php
-					if($this->editmode){
-							?>
+        {% for profile, groupData in profileData %}
 
-							<div class="attr-font text-center">Attribute Name = Main Image</div>
+            {% set profileKey = md5Twig(groupData['brandName'] ~ profile) %}
+            <div class="top-section page-break-before-always above edit-prev-mode-mt-50">
+                {% if BrandLogoSrc %}
+                    <div class="logo">
+                        <img src="{{BrandLogoSrc}}" alt="logo"/>
+                    </div>
+                {% endif %}
+                <div class="img-wrapper position-relative">
+                    <div class="set1 bg-mask">
+                        {% if editmode %}
+                            <div class="attr-font text-center">Attribute Name = Main Image</div>
+                            {% if pimcore_image("PTGEU_Product_MainImage_"~profileKey).isEmpty() %}
+                                {{ pimcore_image("PTGEU_Product_MainImage_"~profileKey).setImage(groupData['mainImageObj']) | raw }}
+                            {% else %}
+                                {{ pimcore_image("PTGEU_Product_MainImage_"~profileKey) }}
+                            {% endif %}
+                        {% else %}
+                            {% set imgSrcObj1 = pimcore_image("PTGEU_Product_MainImage_"~profileKey) %}
+                            {% if getImageThumbnail(imgSrcObj1, imageWidth) %}
+                                <img src="{{ getImageThumbnail(imgSrcObj1, imageWidth) }}" alt="logo"/>
+                            {% endif %}
+                        {% endif %}
+                    </div>
 
-							<?php
-							if(!$this->image("PTGEU_Product_MainImage_$profileKey")->isEmpty())
-							{
-									echo $this->image("PTGEU_Product_MainImage_$profileKey");
-							}
-							else
-							{
-									echo $this->image("PTGEU_Product_MainImage_$profileKey")->setImage($groupData['mainImageObj']);
-							}
-									
-					}else{
-							$imgSrcObj1 = $this->image("PTGEU_Product_MainImage_$profileKey");
+                    <div class="abs">
+                        {% if editmode %}
+                            <div class="attr-font">Attribute Name = Technical Image</div>
+                            {% if pimcore_image("PTGEU_Product_TechnicalImage_"~profileKey).isEmpty() %}
+                                {{ pimcore_image("PTGEU_Product_TechnicalImage_"~profileKey).setImage(groupData['technicalDrawing1Obj']) | raw }}
+                            {% else %}
+                                {{ pimcore_image("PTGEU_Product_TechnicalImage_"~profileKey) }}
+                            {% endif %}
+                        {% else %}
+                            {% set imgSrcObj1 = pimcore_image("PTGEU_Product_TechnicalImage_"~profileKey) %}
+                            {% if getImageThumbnail(imgSrcObj1, imageWidth) %}
+                                <img src="{{ getImageThumbnail(imgSrcObj1, imageWidth) }}" alt="technical image"/>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+                <section class="">
+                    <h4>
+                        {% if editmode %}
+                            {% if pimcore_input("PTG_Footer_BrandName_"~profileKey).isEmpty() %}
+                                {{ pimcore_input("PTG_Footer_BrandName_"~profileKey).setDataFromResource(groupData['brandName']) | raw }}
+                            {% else %}
+                                {{ pimcore_input("PTG_Footer_BrandName_"~profileKey) }}
+                            {% endif %}
+                        {% else %}
+                            {{ pimcore_input("PTG_Footer_BrandName_"~profileKey) }}
+                        {% endif %}
+                    </h4>
 
-							if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth))
-							{
-							?>
-							<img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth); ?> " alt="logo"/>
-							<?php
-							}
-					}
-					?>
-					</div>
-					<div class="abs">
-					<?php
-					if($this->editmode){
-							?>
+                    <h6>
+                        {{ pimcore_input("PTGEU_Technical_Data_"~profileKey, {'placeholder': 'Technical Data'}) }}
+                    </h6>
 
-							<div class="attr-font">Attribute Name = Technical Image</div>
+                    <table class="table1" aria-describedby="outer">
 
-							<?php
-							if(!$this->image("PTGEU_Product_TechnicalImage_$profileKey")->isEmpty())
-							{
-									echo $this->image("PTGEU_Product_TechnicalImage_$profileKey");
-							}
-							else
-							{
-									echo $this->image("PTGEU_Product_TechnicalImage_$profileKey")->setImage($groupData['technicalDrawing1Obj']);
-							}
-									
-					}else{
-							$imgSrcObj1 = $this->image("PTGEU_Product_TechnicalImage_$profileKey");
+                        {% if groupData['profile'] is defined and groupData['profile'] %}
+                            <tr>
+                                <th scope="outer">{{ 'PTGEU_Profile'|trans }}</th>
+                                <td></td>
+                                <td>{{ groupData['profile'] }}</td>
+                            </tr>
+                        {% endif %}
 
-							if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth))
-							{
-							?>
-							<img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth); ?> " alt="technical image"/>
-							<?php
-							}
-					}
-					?>
-					</div>
-				</div>
-				<section class="">
-					<h4>
-					<?php
-						if($this->editmode){
-								if(!$this->input("PTG_Footer_BrandName_$profileKey")->isEmpty())
-								{
-										echo $this->input("PTG_Footer_BrandName_$profileKey");
-								}
-								else
-								{
-										echo $this->input("PTG_Footer_BrandName_$profileKey")->setDataFromResource($groupData['brandName']);
-								}
-										
-						}else{
-								echo $this->input("PTG_Footer_BrandName_$profileKey");
-						}
-						?>
-					</h4>
+                        {% if groupData['beltDesign'] is defined and groupData['beltDesign'] %}
+                            <tr>
+                                <th scope="outer">{{ 'PTGEU_Belt_design'|trans }}</th>
+                                <td></td>
+                                <td>
+                                    {% set beltDesignCombine = [] %}
+                                    {% set propertyKey = '' %}
+                                    {% for key, value in groupData['beltDesign'] %}
+                                        {% set propertyKey = key|trans %}
+                                        {% set beltDesignCombine = beltDesignCombine|merge([propertyKey~": "~value]) %}
+                                        {{ implodeBR(beltDesignCombine) }}
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                        {% endif %}
 
-					<h6><?= $this->input("PTGEU_Technical_Data_$profileKey",['placeholder'=>'Technical Data']); ?></h4>
+                        {% if groupData['upperRibWidth'] is defined and groupData['upperRibWidth'] %}
+                            <tr>
+                                <th scope="outer">{{ 'PTGEU_Upper_rib_width'|trans }}</th>
+                                <td>[{{ 'PTGEU_unit_mm'|trans }}]</td>
+                                <td>{{ groupData['upperRibWidth'] }}</td>
+                            </tr>
+                        {% endif %}
 
-					<table class="table1" aria-describedby="outer">
+                        {% if groupData['beltHeight'] is defined and groupData['beltHeight'] %}
+                            <tr>
+                                <th scope="outer">{{ 'PTGEU_Belt_height'|trans }}</th>
+                                <td>[{{ 'PTGEU_unit_mm'|trans }}]</td>
+                                <td>{{ groupData['beltHeight'] }}</td>
+                            </tr>
+                        {% endif %}
 
-						<?php if($groupData['profile']){ ?>
-						<tr>
-							<th scope="outer"><?= $this->translate('PTGEU_Profile'); ?></th>
-							<td></td>
-							<td><?= $groupData['profile']; ?></td>
-						</tr>
-						<?php } ?>
+                        {% if groupData['flankAngle'] is defined and groupData['flankAngle'] %}
+                            <tr>
+                                <th scope="outer">{{ 'PTGEU_Flank_angle'|trans }}</th>
+                                <td>[{{ 'PTGEU_unit_degree'|trans }}]</td>
+                                <td>{{ groupData['flankAngle'] }}</td>
+                            </tr>
+                        {% endif %}
 
-						<?php if($groupData['beltDesign']){ ?>
-						<tr>
-							<th scope="outer"><?= $this->translate('PTGEU_Belt_design'); ?></th>
-							<td></td>
-							<td>
-								<?php
-									$beltDesignCombine = [];
-									foreach ($groupData['beltDesign'] as $key => $value) {
-										$key = $this->translate($key);
-										$beltDesignCombine[] = "$key: $value";
-									}
-									echo implode('<br/>', $beltDesignCombine);
-								?>
-							</td>
-						</tr>
-						<?php } ?>
+                        {% if groupData['hardness'] is defined and groupData['hardness'] %}
+                            <tr>
+                                <th scope="outer">{{ 'PTGEU_Hardness'|trans }}</th>
+                                <td>[{{ 'PTGEU_unit_hardness_shore_a'|trans }}]</td>
+                                <td>{{ groupData['hardness'] }}</td>
+                            </tr>
+                        {% endif %}
 
-						<?php if($groupData['upperRibWidth']){ ?>
-						<tr>
-							<th scope="outer"><?= $this->translate('PTGEU_Upper_rib_width'); ?></th>
-							<td>[<?= $this->translate('PTGEU_unit_mm'); ?>]</td>
-							<td><?= $groupData['upperRibWidth']; ?></td>
-						</tr>
-						<?php } ?>
+                        {% if groupData['weightPerMLength'] %}
+                            <tr>
+                                <th scope="outer">{{ 'PTGEU_Weight_per_m_length'|trans }}</th>
+                                <td>[{{ 'PTGEU_unit_kg_per_m'|trans }}]</td>
+                                <td>{{ groupData['weightPerMLength'] }}</td>
+                            </tr>
+                        {% endif %}
 
-						<?php if($groupData['beltHeight']){ ?>
-						<tr>
-							<th scope="outer"><?= $this->translate('PTGEU_Belt_height'); ?></th>
-							<td>[<?= $this->translate('PTGEU_unit_mm'); ?>]</td>
-							<td><?= $groupData['beltHeight']; ?></td>
-						</tr>
-						<?php } ?>
+                        {% if groupData['minDiameter'] is defined and groupData['minDiameter'] %}
+                            <tr>
+                                <th scope="outer">{{ 'PTGEU_Min_diameter'|trans }}</th>
+                                <td>[{{ 'PTGEU_unit_mm'|trans }}]</td>
+                                <td>{{ groupData['minDiameter'] }}</td>
+                            </tr>
+                        {% endif %}
 
-						<?php if($groupData['flankAngle']){ ?>
-						<tr>
-							<th scope="outer"><?= $this->translate('PTGEU_Flank_angle'); ?></th>
-							<td>[<?= $this->translate('PTGEU_unit_degree'); ?>]</td>
-							<td><?= $groupData['flankAngle']; ?></td>
-						</tr>
-						<?php } ?>
+                        {% if groupData['minBlackIdlerDiameter'] is defined and groupData['minBlackIdlerDiameter'] %}
+                            <tr>
+                                <th scope="outer">{{ 'PTGEU_Min_black_idler_diameter'|trans }}</th>
+                                <td>[{{ 'PTGEU_unit_mm'|trans }}]</td>
+                                <td>{{ groupData['minBlackIdlerDiameter'] }}</td>
+                            </tr>
+                        {% endif %}
 
-						<?php if($groupData['hardness']){ ?>
-						<tr>
-							<th scope="outer"><?= $this->translate('PTGEU_Hardness'); ?></th>
-							<td>[<?= $this->translate('PTGEU_unit_hardness_shore_a'); ?>]</td>
-							<td><?= $groupData['hardness']; ?></td>
-						</tr>
-						<?php } ?>
+                        {% if groupData['properties'] is defined and groupData['properties'] %}
+                            <tr>
+                                <th scope="outer">{{ 'PTGEU_Properties'|trans }}</th>
+                                <td></td>
+                                <td>
+                                    {% set propertiesCombine = [] %}
+                                    {% set propertyKey = '' %}
+                                    {% for key, value in groupData['properties'] %}
+                                        {% set propertyKey = key|trans %}
+                                        {% set propertiesCombine = propertiesCombine|merge([propertyKey ~" "~value]) %}
+                                        {{ implodeBR(propertiesCombine) }}
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                        {% endif %}
 
-						<?php if($groupData['weightPerMLength']){ ?>
-						<tr>
-							<th scope="outer"><?= $this->translate('PTGEU_Weight_per_m_length'); ?></th>
-							<td>[<?= $this->translate('PTGEU_unit_kg_per_m'); ?>]</td>
-							<td><?= $groupData['weightPerMLength']; ?></td>
-						</tr>
-						<?php } ?>
+                        {% if groupData['nominalLengthList'] is defined and groupData['nominalLengthList'] %}
+                            <tr>
+                                <th scope="outer">{{ groupData['nominalLength']|trans }}</th>
 
-						<?php if($groupData['minDiameter']){ ?>
-						<tr>
-							<th scope="outer"><?= $this->translate('PTGEU_Min_diameter'); ?></th>
-							<td>[<?= $this->translate('PTGEU_unit_mm'); ?>]</td>
-							<td><?= $groupData['minDiameter']; ?></td>
-						</tr>
-						<?php } ?>
+                                <td class="noPadding">
+                                    <table aria-describedby="inner1">
+                                        <tr>
+                                            <th scope="inner1">&nbsp;</th>
+                                        </tr>
+                                        {% for key, value in groupData['nominalLengthList'] %}
+                                            <tr>
+                                                <td colspan="1">[{{ 'PTGEU_unit_mm'|trans }}]</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </table>
+                                </td>
 
-						<?php if($groupData['minBlackIdlerDiameter']){ ?>
-						<tr>
-							<th scope="outer"><?= $this->translate('PTGEU_Min_black_idler_diameter'); ?></th>
-							<td>[<?= $this->translate('PTGEU_unit_mm'); ?>]</td>
-							<td><?= $groupData['minBlackIdlerDiameter']; ?></td>
-						</tr>
-						<?php } ?>
+                                <td colspan="1" class="noPadding">
+                                    <table aria-describedby="inner2">
+                                        <tr>
+                                            <th scope="inner2">{{ groupData['datumLengthColumn']|trans }}</th>
+                                            <th scope="inner3">{{ 'PTGEU_Length_tolerance'|trans }}</th>
+                                        </tr>
 
-						<?php if($groupData['properties']){ ?>
-						<tr>
-							<th scope="outer"><?= $this->translate('PTGEU_Properties'); ?></th>
-							<td></td>
-							<td>
-								<?php
-									$propertiesCombine = [];
-									foreach ($groupData['properties'] as $key => $value) {
-										$key = $this->translate($key);
-										$propertiesCombine[] = "$key $value";
-									}
-									echo implode('<br/>', $propertiesCombine);
-								?>
-							</td>
-						</tr>
-						<?php } ?>
+                                        {% for key, value in groupData['nominalLengthList'] %}
+                                            <tr>
+                                                <td>{{ value['datumLength'] }}</td>
+                                                <td>{{ value['lengthTolerance']|raw }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </table>
+                                </td>
+                            </tr>
+                        {% endif %}
+                    </table>
 
-						<?php if($groupData['nominalLengthList']){ ?>
-						<tr>
-							<th scope="outer" ><?= $this->translate($groupData['nominalLength']); ?></th>
-							
-							<td class="noPadding">
-								<table aria-describedby="inner1">
-								<tr><th scope="inner1">&nbsp;</th></tr>
-								<?php foreach ($groupData['nominalLengthList'] as $key => $value) { ?>
-									<tr><td colspan="1">[<?= $this->translate('PTGEU_unit_mm'); ?>]</td></tr>
-								<?php } ?>
-								</table>
-							</td>
-							
-							<td colspan="1" class="noPadding">
-								<table aria-describedby="inner2">
-									<tr>
-										<th scope="inner2"><?= $this->translate($groupData['datumLengthColumn']); ?></th>
-										<th scope="inner3"><?= $this->translate('PTGEU_Length_tolerance'); ?></th>
-									</tr>
+                    <h6 class="mt-4">{{ pimcore_input("Schematic_belt_marking_and_production_code_"~profileKey,{'placeholder': 'Schematic belt marking and production code'}) }}</h6>
 
-									<?php foreach ($groupData['nominalLengthList'] as $key => $value) { ?>
-									<tr>
-										<td><?= $value['datumLength']; ?></td>
-										<td><?= $value['lengthTolerance']; ?></td>
-									</tr>
-									<?php } ?>
-								</table>
-							</td>
-						</tr>
-						<?php } ?>
-					</table>
+                    <div class="img-wrapper">
+                        <div class="branding-img">
 
-					<h6 class="mt-4"><?= $this->input("Schematic_belt_marking_and_production_code_$profileKey",['placeholder'=>'Schematic belt marking and production code']); ?></h4>
-					
-					<div class="img-wrapper">
-						<div class="branding-img">
-						<?php
-							if($this->editmode){
-									?>
+                            {% if editmode %}
+                                    {{ pimcore_image("PTGEU_Product_BrandingImage_"~profileKey) }}
+                            {% else %}
+                                {% set imgSrcObj1 = pimcore_image("PTGEU_Product_BrandingImage_"~profileKey) %}
+                                {% if getImageThumbnail(imgSrcObj1, imageWidth) %}
+                                    <img src="{{ getImageThumbnail(imgSrcObj1, imageWidth) }}" alt="logo"/>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </section>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <style>
+        .footer3 p {
+            margin-bottom: 0.3rem;
+        }
 
-									<?php
-										echo $this->image("PTGEU_Product_BrandingImage_$profileKey");
-											
-							}else{
-									$imgSrcObj1 = $this->image("PTGEU_Product_BrandingImage_$profileKey");
+        .footer3 {
+            margin-left: 50px;
+            margin-right: 50px;
+            font-size: 10px;
+            position: running(footer3);
+        }
+        @media print {
+            .footer3 {
+                padding-bottom: 50px;
+            }
+        }
 
-									if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth))
-									{
-									?>
-									<img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth); ?> " alt="logo"/>
-									<?php
-									}
-							}
-							?>
-						</div>
-					</div>
-				</section>
-				
-			</div>
-			
-		<?php } ?>	
-	</div>
-<?php } ?>
-
-<style>
-.footer3 p
-{
-  margin-bottom: 0.3rem;
-}
-
-.footer3{
-    margin-left: 50px;
-    margin-right: 50px;
-    font-size: 10px;
-    position: running(footer3);
-}
-@media print {
-	.footer3{
-		padding-bottom: 50px;
-	}
-}
-
-@page {
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 50px;
-	margin-bottom: 150px;
-}
+        @page {
+            margin: 50px 0 150px;
+        }
 
 
-@page:left {
-    @top-left-corner{
-        content: '';
-    }
-    @top-right{
-        content: '';
-    }
-    @bottom-center {
-        content: element(footer3);
-        z-index: 1;
-    }
-}
+        @page:left {
+            @top-left-corner {
+                content: '';
+            }
+            @top-right {
+                content: '';
+            }
+            @bottom-center {
+                content: element(footer3);
+                z-index: 1;
+            }
+        }
 
 
-@page:right {
-    @top-right-corner{
-        content: '';
-    }
+        @page:right {
+            @top-right-corner {
+                content: '';
+            }
 
-    @top-left{
-		content: '';
-    }
-    @bottom-center {
-        content: element(footer3);
-        z-index: 1;
-    }
-}
-
-</style>
+            @top-left {
+                content: '';
+            }
+            @bottom-center {
+                content: element(footer3);
+                z-index: 1;
+            }
+        }
+    </style>
+{% endblock %}

@@ -1,473 +1,361 @@
-<?php
-if (!isset($this->parentContainer)) {
-    $this->extend('PTGEUCatalogBundle:Layouts:layout.html.php');
-}
-?>
+{% if parentContainer is not defined %}
+	{% extends "@PTGEUCatalog/Layouts/layout.html.twig" %}
+{% endif %}
 
-<?php if($this->editmode): ?>
-        <?= $this->relation("ptg_eu_product_page", [
-                "types" => ["object"],
-                "subtypes" => [
-                "object" => ["object"]
-                ],
-                "classes" => ["PTGEUCatalogCategory"],
-        ]);
-        ?>
-<?php endif; ?>
+{% block _content %}
 
-<?php
-if($groupData){
-?>
-<article class="template page-break-after-always">
-        <span  class="pageName">
-                <?= $groupData['siop5Category']; ?>
-        </span>
-        <div class="footer">
-                <footer class="flex-center <?php echo $footer_class; ?>">
-                        <span class="logo">
-                                <img src="<?= $footer_logo_src; ?>" alt="footer image">
-                        </span>
-                        <div class="flex aligned ">
-                                <h5>
-                                        <?php
-                                        if($this->editmode){
-                                                if(!$this->input("PTG_Footer_BrandName")->isEmpty())
-                                                {
-                                                        echo $this->input("PTG_Footer_BrandName");
-                                                }
-                                                else
-                                                {
-                                                        echo $this->input("PTG_Footer_BrandName")->setDataFromResource($groupData['brandName']);
-                                                }
-                                                        
-                                        }else{
-                                                echo $this->input("PTG_Footer_BrandName");
-                                        }
-                                        ?>
-                                
-                                        <span>
-                                        <?php
-                                        if($this->editmode){
-                                                if(!$this->input("PTG_Footer_HoseType")->isEmpty())
-                                                {
-                                                        echo $this->input("PTG_Footer_HoseType");
-                                                }
-                                                else
-                                                {
-                                                        echo $this->input("PTG_Footer_HoseType")->setDataFromResource($groupData['siop5Category']);
-                                                }
-                                                        
+    {% if editmode %}
+		{{ pimcore_relation("ptg_eu_product_page", {
+                "types" : ["object"],
+                "subtypes" : {
+                "object" : ["object"]
+                },
+                "classes" : ["PTGEUCatalogCategory"],
+        }) }}
+	{% endif %}
 
-                                                echo "/";
-                                                
-                                                if(!$this->input("PTG_Footer_HoseType2")->isEmpty())
-                                                {
-                                                        echo $this->input("PTG_Footer_HoseType2")->setDataFromResource($groupData['siop6siop7Category']);
-                                                }
-                                                else
-                                                {
-                                                        echo $this->input("PTG_Footer_HoseType2")->setDataFromResource($groupData['siop6siop7Category']);
-                                                }
-                                                        
-                                        }else{
-                                                echo $this->input("PTG_Footer_HoseType")."/".$this->input("PTG_Footer_HoseType2");
-                                        }
-                                        ?>
-                                        </span>
+    {% if groupData is defined and groupData %}
+        <article class="template page-break-after-always">
+            <span  class="pageName">
+                {{ groupData['siop5Category'] }}
+            </span>
+            <div class="footer">
+                <footer class="flex-center {{footer_class}}">
+                    <span class="logo">
+                            <img src="{{footer_logo_src}}" alt="footer image">
+                    </span>
+                    <div class="flex aligned ">
+                        <h5>
+                            {% if editmode %}
+                                {% if pimcore_input("PTG_Footer_BrandName").isEmpty() %}
+                                    {{ pimcore_input("PTG_Footer_BrandName").setDataFromResource(groupData['brandName']) | raw }}
+                                {% else %}
+                                    {{ pimcore_input("PTG_Footer_BrandName") }}
+                                {% endif %}
+                            {% else %}
+                                {{ pimcore_input("PTG_Footer_BrandName") }}
+                            {% endif %}
+                    
+                            <span>
+                                {% if editmode %}
+                                    {% if pimcore_input("PTG_Footer_HoseType").isEmpty() %}
+                                        {{ pimcore_input("PTG_Footer_HoseType").setDataFromResource(groupData['siop5Category']) | raw }}
+                                    {% else %}
+                                        {{ pimcore_input("PTG_Footer_HoseType") }}
+                                    {% endif %}
+
+                                    /
+                                    
+                                    {% if pimcore_input("PTG_Footer_HoseType2").isEmpty() %}
+                                        {{ pimcore_input("PTG_Footer_HoseType2").setDataFromResource(groupData['siop6siop7Category']) | raw }}
+                                    {% else %}
+                                        {{ pimcore_input("PTG_Footer_HoseType2") }}
+                                    {% endif %}
+                                {% else %}
+                                    {{ pimcore_input("PTG_Footer_HoseType") }} / {{ pimcore_input("PTG_Footer_HoseType2") }}
+                                {% endif %}
+                            </span>
+                        </h5>
+                        <div class="sets">
+                            <strong>
+                                {% if editmode %}
+                                    {% if pimcore_input("PTG_Footer_Compatibility").isEmpty() %}
+                                        {{ pimcore_input("PTG_Footer_Compatibility").setDataFromResource('Compatible fittings') | raw }}
+                                    {% else %}
+                                        {{ pimcore_input("PTG_Footer_Compatibility") }}
+                                    {% endif %}
+                                {% else %}
+                                    {{ pimcore_input("PTG_Footer_Compatibility") }}
+                                {% endif %}
+                            </strong>
+                                {% set  compatibility_description = "All fittings compatible with " ~ groupData['brandName'] ~ " are listed in Section 1 (starting on page 131)." %}
+                                {% if editmode %}
+                                    {% if pimcore_input("PTG_Footer_Compatibility_Description").isEmpty() %}
+                                        {{ pimcore_input("PTG_Footer_Compatibility_Description").setDataFromResource(compatibility_description) | raw }}
+                                    {% else %}
+                                        {{ pimcore_input("PTG_Footer_Compatibility_Description") }}
+                                    {% endif %}
+                                {% else %}
+                                    {{ pimcore_input("PTG_Footer_Compatibility_Description") }}
+                                {% endif %}
+                        </div>
+                    </div>
+                </footer>
+            </div>
+
+            <div class="footer1">
+                <footer class="flex-center {{footer_class}}">
+                    <div class="flex aligned ">
+                        <div class="sets">
+                            <strong>
+                                {% if editmode %}
+                                    {% if pimcore_input("PTG_Footer_Compatibility1").isEmpty() %}
+                                        {{ pimcore_input("PTG_Footer_Compatibility1").setDataFromResource('Compatible fittings') | raw }}
+                                    {% else %}
+                                        {{ pimcore_input("PTG_Footer_Compatibility1") }}
+                                    {% endif %}
+                                {% else %}
+                                    {{ pimcore_input("PTG_Footer_Compatibility1") }}
+                                {% endif %}
+                            </strong>
+
+                            {% set  compatibility_description = "All fittings compatible with " ~ groupData['brandName'] ~ " are listed in Section 1 (starting on page 131)." %}
+                            {% if editmode %}
+                                {% if pimcore_input("PTG_Footer_Compatibility1_Description").isEmpty() %}
+                                    {{ pimcore_input("PTG_Footer_Compatibility1_Description").setDataFromResource(compatibility_description) | raw }}
+                                {% else %}
+                                    {{ pimcore_input("PTG_Footer_Compatibility1_Description") }}
+                                {% endif %}
+                            {% else %}
+                                {{ pimcore_input("PTG_Footer_Compatibility1_Description") }}
+                            {% endif %}
+                        </div>
+                        <h5>
+                            {% if editmode %}
+                                {% if pimcore_input("PTG_Footer_BrandName1").isEmpty() %}
+                                    {{ pimcore_input("PTG_Footer_BrandName1").setDataFromResource(groupData['brandName']) | raw }}
+                                {% else %}
+                                    {{ pimcore_input("PTG_Footer_BrandName1") }}
+                                {% endif %}
+                            {% else %}
+                                {{ pimcore_input("PTG_Footer_BrandName1") }}
+                            {% endif %}
+
+                            <span>
+                                {% if editmode %}
+                                    {% if pimcore_input("PTG_Footer_HoseType1").isEmpty() %}
+                                        {{ pimcore_input("PTG_Footer_HoseType1").setDataFromResource(groupData['siop5Category']) | raw }}
+                                    {% else %}
+                                        {{ pimcore_input("PTG_Footer_HoseType1") }}
+                                    {% endif %}
+
+                                    /
+                                    
+                                    {% if pimcore_input("PTG_Footer_HoseType3").isEmpty() %}
+                                        {{ pimcore_input("PTG_Footer_HoseType3").setDataFromResource(groupData['siop6siop7Category']) | raw }}
+                                    {% else %}
+                                        {{ pimcore_input("PTG_Footer_HoseType3") }}
+                                    {% endif %}
+                                {% else %}
+                                    {{ pimcore_input("PTG_Footer_HoseType1") }} / {{ pimcore_input("PTG_Footer_HoseType3") }}
+                                {% endif %}
+                            </span>
+                        </h5>
+                    </div>
+
+                    <span class="logo">
+                            <img src="{{footer_logo_src}}" alt="footer image">
+                    </span>
+                </footer>
+            </div>
                         
-                
-                                </h5>
-                                <div class="sets">
-                                        <strong>
-                                                <?php
-                                                if($this->editmode){
-                                                        if(!$this->input("PTG_Footer_Compatibility")->isEmpty())
-                                                        {
-                                                                echo $this->input("PTG_Footer_Compatibility");
-                                                        }
-                                                        else
-                                                        {
-                                                                echo $this->input("PTG_Footer_Compatibility")->setDataFromResource('Compatible fittings');
-                                                        }
-                                                                
-                                                }else{
-                                                        echo $this->input("PTG_Footer_Compatibility");
-                                                }
-                                                ?>
-                                        </strong>
-                                                <?php
-                                                $compatibility_description = "All fittings compatible with ".$groupData['brandName']." are listed in Section 1 (starting on page 131).";
-                                                if($this->editmode){
-                                                        if(!$this->input("PTG_Footer_Compatibility_Description")->isEmpty())
-                                                        {
-                                                                echo $this->input("PTG_Footer_Compatibility_Description");
-                                                        }
-                                                        else
-                                                        {
-                                                                echo $this->input("PTG_Footer_Compatibility_Description")->setDataFromResource($compatibility_description);
-                                                        }
-                                                                
-                                                }else{
-                                                        echo $this->input("PTG_Footer_Compatibility_Description");
-                                                }
-                                                ?>
-                                </div>
-                        </div>
-                </footer>
-        </div>
-
-        <div class="footer1">
-                <footer class="flex-center <?php echo $footer_class; ?>">
-                        <div class="flex aligned ">
-                                <div class="sets">
-                                        <strong>
-                                                <?php
-                                                        if($this->editmode){
-                                                                if(!$this->input("PTG_Footer_Compatibility1")->isEmpty())
-                                                                {
-                                                                        echo $this->input("PTG_Footer_Compatibility1");
-                                                                }
-                                                                else
-                                                                {
-                                                                        echo $this->input("PTG_Footer_Compatibility1")->setDataFromResource('Compatible fittings');
-                                                                }
-                                                                        
-                                                        }else{
-                                                                echo $this->input("PTG_Footer_Compatibility1");
-                                                        }
-                                                ?>
-                                        </strong>
-
-                                        <?php
-                                        $compatibility_description = "All fittings compatible with ".$groupData['brandName']." are listed in Section 1 (starting on page 131).";
-                                        if($this->editmode){
-                                                if(!$this->input("PTG_Footer_Compatibility1_Description")->isEmpty())
-                                                {
-                                                        echo $this->input("PTG_Footer_Compatibility1_Description");
-                                                }
-                                                else
-                                                {
-                                                        echo $this->input("PTG_Footer_Compatibility1_Description")->setDataFromResource($compatibility_description);
-                                                }
-                                        }else{
-                                                echo $this->input("PTG_Footer_Compatibility1_Description");
-                                        }
-                                        ?>
-                                </div>
-                                <h5>
-                                        <?php
-                                                if($this->editmode){
-                                                        if(!$this->input("PTG_Footer_BrandName1")->isEmpty())
-                                                        {
-                                                                echo $this->input("PTG_Footer_BrandName1");
-                                                        }
-                                                        else
-                                                        {
-                                                                echo $this->input("PTG_Footer_BrandName1")->setDataFromResource($groupData['brandName']);
-                                                        }
-                                                                
-                                                }else{
-                                                        echo $this->input("PTG_Footer_BrandName1");
-                                                }
-                                        ?>
-
-                                        <span>
-
-                                                <?php
-
-                                                if($this->editmode){
-                                                        if(!$this->input("PTG_Footer_HoseType1")->isEmpty())
-                                                        {
-                                                                echo $this->input("PTG_Footer_HoseType1");
-                                                        }
-                                                        else
-                                                        {
-                                                                echo $this->input("PTG_Footer_HoseType1")->setDataFromResource($groupData['siop5Category']);
-                                                        }
-                                                                
-
-                                                        echo "/";
-                                                        
-                                                        if(!$this->input("PTG_Footer_HoseType3")->isEmpty())
-                                                        {
-                                                                echo $this->input("PTG_Footer_HoseType3")->setDataFromResource($groupData['siop6siop7Category']);
-                                                        }
-                                                        else
-                                                        {
-                                                                echo $this->input("PTG_Footer_HoseType3")->setDataFromResource($groupData['siop6siop7Category']);
-                                                        }
-                                                                
-                                                }else{
-                                                        echo $this->input("PTG_Footer_HoseType1")."/".$this->input("PTG_Footer_HoseType3");
-                                                }
-
-                                                ?>
-
-                                        </span>
-                                </h5>
-                        </div>
-
-                        <span class="logo">
-                                <img src="<?= $footer_logo_src; ?>" alt="footer image">
-                        </span>
-                </footer>
-        </div>
-                
-        <header class="content white">
+            <header class="content white">
                 <h1>
-                        <?php
-                                if($this->editmode){
-                                        if(!$this->input("PTG_Heading")->isEmpty())
-                                        {
-                                                echo $this->input("PTG_Heading");
-                                        }
-                                        else
-                                        {
-                                                echo $this->input("PTG_Heading")->setDataFromResource($groupData['brandName']);
-                                        }
-                                                
-                                }else{
-                                        echo $this->input("PTG_Heading");
-                                }
-                        ?>
+                    {% if editmode %}
+                        {% if pimcore_input("PTG_Heading").isEmpty() %}
+                            {{ pimcore_input("PTG_Heading").setDataFromResource(groupData['brandName']) | raw }}
+                        {% else %}
+                            {{ pimcore_input("PTG_Heading") }}
+                        {% endif %}
+                    {% else %}
+                        {{ pimcore_input("PTG_Heading") }}
+                    {% endif %}
                 </h1>
 
                 <aside class="row justify-between ">
-                        <div class="col-8">
-                                <?php
-                                if($this->editmode){
-                                        if(!$this->wysiwyg("PTG_LongDescription")->isEmpty())
-                                        {
-                                                echo $this->wysiwyg("PTG_LongDescription");
-                                        }
-                                        else
-                                        {
-                                                echo $this->wysiwyg("PTG_LongDescription")->setDataFromResource($groupData['longDescription']);
-                                        }
-                                                
-                                }else{
-                                        echo $this->wysiwyg("PTG_LongDescription");
-                                }
-                                ?>
-                        </div>
-                        <div class="col-4 d-flex flex-column">
-                        <?php
-                        if($this->editmode){
-                                if(!$this->image("HHPP_Image_Left")->isEmpty())
-                                {
-                                        echo $this->image("HHPP_Image_Left", ["width" => 200, "height" => 200]);
-                                }
-                                else
-                                {
-                                        echo $this->image("HHPP_Image_Left", ["width" => 200, "height" => 200])->setImage($groupData['mainImageObj']);
-                                }
-                                        
-                        }else{
-                                $imgSrcObj1 = $this->image("HHPP_Image_Left");
-
-                                if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth))
-                                {
-                                ?>
-                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth); ?>"width="200" height="200" alt="product image"/>
-                                <?php
-                                }
-                        }
-                        ?>
-
-                        <?php
-                        if($this->editmode){
-                                if(!$this->image("Drawing_Picture")->isEmpty())
-                                {
-                                        echo $this->image("Drawing_Picture",["width" => 200, "height" => 200]);
-                                }
-                                else
-                                {
-                                        echo $this->image("Drawing_Picture", ["width" => 200, "height" => 200])->setImage($groupData['technicalDrawing1Obj']);
-                                }
-                        }else{
-                                $imgSrcObj2 = $this->image("Drawing_Picture");
-
-                                if($view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth))
-                                {
-                                ?>
-                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth); ?>"width="200" height="200" alt="technical drawring"/>
-                                <?php
-                                }
-                        }
-                        ?>
-                        </div>
+                    <div class="col-8">
+                        {% if editmode %}
+                            {% if pimcore_wysiwyg("PTG_LongDescription").isEmpty() %}
+                                {{ pimcore_wysiwyg("PTG_LongDescription").setDataFromResource(groupData['longDescription']) | raw }}
+                            {% else %}
+                                {{ pimcore_wysiwyg("PTG_LongDescription") }}
+                            {% endif %}
+                        {% else %}
+                            {{ pimcore_wysiwyg("PTG_LongDescription") }}
+                        {% endif %}
+                    </div>
+                    <div class="col-4 d-flex flex-column">
+                        {% if editmode %}
+                            {% if pimcore_image("HHPP_Image_Left").isEmpty() %}
+                                {{ pimcore_image("HHPP_Image_Left", {"width" : 200, "height" : 200}).setImage(data['mainImageObj']) | raw }}
+                            {% else %}
+                                {{ pimcore_image("HHPP_Image_Left", {"width" : 200, "height" : 200}) }}
+                            {% endif %}
+                        {% else %}
+                            {% set imgSrcObj1 = pimcore_image("HHPP_Image_Left") %}
+                            {% if getImageThumbnail(imgSrcObj1, imageWidth) %}
+                                <img src="{{ getImageThumbnail(imgSrcObj1, imageWidth) }}" width="200" height="200" alt="product image"/>
+                            {% endif %}
+                        {% endif %}
+                                
+                        {% if editmode %}
+                            {% if pimcore_image("Drawing_Picture").isEmpty() %}
+                                {{ pimcore_image("Drawing_Picture", {"width" : 200, "height" : 200}).setImage(data['technicalDrawing1Obj']) | raw }}
+                            {% else %}
+                                {{ pimcore_image("Drawing_Picture", {"width" : 200, "height" : 200}) }}
+                            {% endif %}
+                        {% else %}
+                            {% set imgSrcObj2 = pimcore_image("Drawing_Picture") %}
+                            {% if getImageThumbnail(imgSrcObj2, imageWidth) %}
+                                <img src="{{ getImageThumbnail(imgSrcObj2, imageWidth) }}" width="200" height="200" alt="technical drawring"/>
+                            {% endif %}
+                        {% endif %}
+                    </div>
                 </aside>
-        </header>
+            </header>
 
-        <section class="content">
-               
-                <?php if($groupData['safetyFeatures'] || !empty(trim($groupData['material'])) || !empty(trim($groupData['reinforcement'])) || !empty(trim($groupData['temperatureRange']))): ?>
-                        
-                        <menu class="flex">
-                                <?php if($groupData['safetyFeatures']): ?>
-                                        <div class="feature mr-4">
-                                                <h6><?= $this->translate('PTGEU_features') ?></h6>
-                                                <div >
-                                                        <?php foreach($groupData['safetyFeatures'] as $key => $feature): ?>
-                                                                <p  class="flex center">
-                                                                        <?php if($groupData['isAnyIconFeatureAvailable']): ?>
-                                                                                <?php if($feature['iconSrc']): ?>
-                                                                                <img src="<?= $feature['iconSrc'] ?>" alt=""/>
-                                                                                <?php else: ?>
-                                                                                        <span class="mr-40"></span>
-                                                                                <?php endif;?>
-                                                                        <?php endif; ?>
+            <section class="content">
+                {% if (groupData['safetyFeatures']) or (groupData['material']|trim is not empty) or (groupData['reinforcement']|trim is not empty) or (groupData['temperatureRange']|trim is not empty)%}
+                    <menu class="flex">
+                        {% if groupData['safetyFeatures'] is defined and groupData['safetyFeatures'] %}
+                            <div class="feature mr-4">
+                                <h6>{{'PTGEU_features'|trans}}</h6>
+                                <div >
+                                    {% for key, feature in groupData['safetyFeatures'] %}
+                                        <p  class="flex center">
+                                            {% if groupData['isAnyIconFeatureAvailable'] %}
+                                                    {% if feature['iconSrc'] %}
+                                                    <img src="{{feature['iconSrc']}}" alt=""/>
+                                                    {% else %}
+                                                            <span class="mr-40"></span>
+                                                    {% endif %}
+                                            {% endif %}
+                                            <span class="ptb-5">{{feature['name']}}</span>
+                                        </p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
 
-                                                                        <span class="ptb-5"><?= $feature['name'] ?></span>
-                                                                </p>
-                                                        <?php endforeach; ?>
-                                                </div>
-                                        </div>
-                                <?php endif; ?>
+                        {% if (groupData['material']|trim is not empty) or (groupData['reinforcement']|trim is not empty) or (groupData['temperatureRange']|trim is not empty) %}
+                            <div class="specs">
+                                <h6>{{'PTGEU_specs'|trans}}</h6>
+                                <div>
+                                    {% if groupData['material']|trim is not empty %}
+                                            <p>
+                                                    <strong>{{'PTGEU_Material'|trans}}</strong>
+                                                    {{groupData['material']}}
+                                            </p>
+                                    {% endif %}
+                                    
+                                    {% if groupData['reinforcement']|trim is not empty %}
+                                            <p>
+                                                    <strong>{{'PTGEU_Reinforcement'|trans}}</strong>
+                                                    {{groupData['reinforcement']}}
+                                            </p>
+                                    {% endif %}
 
-                                <?php if(!empty(trim($groupData['material'])) || !empty(trim($groupData['reinforcement'])) || !empty(trim($groupData['temperatureRange']))): ?>
-                                        <div class="specs">
-                                                <h6><?= $this->translate('PTGEU_specs') ?></h6>
-                                                <div>
-                                                        <?php if(!empty(trim($groupData['material']))): ?>
-                                                                <p>
-                                                                        <strong><?= $this->translate('PTGEU_Material') ?></strong>
-                                                                        <?= $groupData['material'] ?>
-                                                                </p>
-                                                        <?php endif; ?>
-                                                        
-                                                        <?php if(!empty(trim($groupData['reinforcement']))): ?>
-                                                                <p>
-                                                                        <strong><?= $this->translate('PTGEU_Reinforcement') ?></strong>
-                                                                        <?= $groupData['reinforcement'] ?>
-                                                                </p>
-                                                        <?php endif; ?>
+                                    {% if groupData['temperatureRange']|trim is not empty %}
+                                            <p>
+                                                    <strong>{{'PTGEU_Temperature_Range'|trans}}</strong>
+                                                    {{groupData['temperatureRange']}}
+                                            </p>
+                                    {% endif %}
 
-                                                        <?php if(!empty(trim($groupData['temperatureRange']))): ?>
-                                                                <p>
-                                                                        <strong><?= $this->translate('PTGEU_Temperature_Range') ?></strong>
-                                                                        <?= $groupData['temperatureRange']; ?>
-                                                                </p>
-                                                        <?php endif; ?>
+                                    {% if groupData['heatAndOilResistant']|trim is not empty %}
+                                            <p>
+                                                    <strong>{{'PTGEU_HeatAndOilResistant'|trans}}</strong>
+                                                    {{groupData['heatAndOilResistant']}}
+                                            </p>
+                                    {% endif %}
 
-                                                        <?php if(!empty(trim($groupData['heatAndOilResistant']))): ?>
-                                                                <p>
-                                                                        <strong><?= $this->translate('PTGEU_HeatAndOilResistant') ?></strong>
-                                                                        <?= $groupData['heatAndOilResistant']; ?>
-                                                                </p>
-                                                        <?php endif; ?>
+                                    {% if groupData['staticConductive']|trim is not empty %}
+                                            <p>
+                                                    <strong>{{'PTGEU_StaticConductivity'|trans}}</strong>
+                                                    {{groupData['staticConductive']}}
+                                            </p>
+                                    {% endif %}
 
-                                                        <?php if(!empty(trim($groupData['staticConductive']))): ?>
-                                                                <p>
-                                                                        <strong><?= $this->translate('PTGEU_StaticConductivity') ?></strong>
-                                                                        <?= $groupData['staticConductive']; ?>
-                                                                </p>
-                                                        <?php endif; ?>
-
-                                                        <?php if(!empty(trim($groupData['performance']))): ?>
-                                                                <p>
-                                                                        <strong><?= $this->translate('PTGEU_Performance') ?></strong>
-                                                                        <?= $groupData['performance']; ?>
-                                                                </p>
-                                                        <?php endif; ?>
-                                                </div>
-                                        </div> 
-                                <?php endif; ?>
-                        </menu>
-
-                <?php endif; ?>
+                                    {% if groupData['performance']|trim is not empty %}
+                                            <p>
+                                                    <strong>{{'PTGEU_Performance'|trans}}</strong>
+                                                    {{groupData['performance']}}
+                                            </p>
+                                    {% endif %}
+                                </div>
+                            </div> 
+                        {% endif %}
+                    </menu>
+                {% endif %}
                 
                 <div class="page-break-after-always"></div>
-                <?php
+                {% for articleGroupKey, articleGroupData in groupData['data'] %}
 
-                $tableNoteCount = 0;
-                foreach($groupData['data'] as $articleGroupKey => $articleGroupData)
-                {
-                        ?>
+                    <table aria-describedby="articleTable" class="table page-break-inside-always continueLable">
+                        <thead>
+                            {% if groupData['iconRequired'] == 'YES' %}
+                                <tr>
+                                    {% for key, c1data in groupData['columnsDataWithImages'] %}
+                                        {% set columnWidth = '' %}
+                                        {% set g1count = c1data|length %}
+                                        {% set firstArray = c1data|first %}
+                                        {% if firstArray['columnWidth'] %}
+                                            {% set columnWidth = "width=" ~ firstArray['columnWidth'] %}
+                                        {% endif %}
+                                        <th scope="outer" colspan="{{g1count}}" {{columnWidth}}>
+                                            {% if ( firstArray['columnIcon'] is defined and firstArray['columnIcon']) %}
+                                                <img src="{{ firstArray['columnIcon'] }}" width="45" height="45" alt="icon image"/>
+                                            {% endif %}
+                                        </th>
+                                    {% endfor %}
+                                </tr>
+                            {% endif %}
 
-                        <table aria-describedby="articleTable" class="table page-break-inside-always continueLable">
-                                <thead>
+                            <tr class="border-bottom">
+                                {% for key, c2data in groupData['columnsDataWithImages'] %}
+                                    {% set columnWidth = '' %}
+                                    {% set g2count = c2data|length %}
+                                    {% set first2Array = c2data|first %}
+                                    {% if first2Array['columnWidth'] %}
+                                        {% set columnWidth = "width=" ~ first2Array['columnWidth'] %}
+                                    {% endif %}
+                                    <th scope="outer" colspan="{{ g2count }}" {{ columnWidth }}>
+                                        {{first2Array['columnLabel']}}
+                                    </th>
+                                {% endfor %}
+                            </tr>
 
-                                        <?php if($groupData['iconRequired'] == 'YES'): ?>
-                                                <tr>
-                                                        <?php foreach($groupData['columnsDataWithImages'] as $key => $c1data): ?>
-                                                                <?php
-                                                                        $columnWidth = '';
-                                                                        $g1count = count($c1data);
-                                                                        $firstArray = array_shift($c1data);
-                                                                        if($firstArray['columnWidth'])
-                                                                        {
-                                                                                $columnWidth = "width=".$firstArray['columnWidth'];
-                                                                        }
-                                                                                
-                                                                ?>
-                                                                <th scope="outer" colspan="<?= $g1count; ?>" <?php echo $columnWidth; ?>>
-                                                                <?php if($firstArray['columnIcon']): ?>
-                                                                <img src="<?= $firstArray['columnIcon'] ?>" width="45" height="45" alt="icon image"/>
-                                                                <?php endif; ?>
-                                                                </th>
-                                                        <?php endforeach; ?>
-                                                </tr>
-                                        <?php endif; ?>
+                            {% if groupData['subHeaderRequired'] == 'YES' %}
+                                <tr class="sub-head">
+                                    {% for key, c3data in groupData['columnsDataWithImages'] %}
+                                        {% for c3key, c3value in c3data %}
+                                            {% if c3value['unitName'] %}
+                                                <th scope="outer">
+                                                    {{c3value['unitName']}}
+                                                </th>
+                                            {% else %}
+                                                <th scope="outer"></th>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endfor %}
+                                </tr>
+                            {% endif %}
+                        </thead>
 
-                                        <tr class="border-bottom">
-                                                <?php foreach($groupData['columnsDataWithImages'] as $key => $c2data): ?>
-                                                        <?php
-                                                                $columnWidth = '';
-                                                                $g2count = count($c2data);
-                                                                $first2Array = array_shift($c2data);
-                                                                if($first2Array['columnWidth'])
-                                                                {
-                                                                        $columnWidth = "width=".$first2Array['columnWidth'];
-                                                                }
-                                                        ?>
-                                                        <th scope="outer" colspan="<?= $g2count; ?>" <?php echo $columnWidth; ?>><?= $first2Array['columnLabel'] ?></th>
-                                                <?php endforeach; ?>
-                                        </tr>
+                        <tbody>
+                            {% set incrRow = 1 %}
+                            {% for key, element in articleGroupData %}
+                                    {% if incrRow%2 == 0 %}
+                                    <tr class = "tableNewFont">
+                                    {% else %}
+                                    <tr class="active tableNewFont">
+                                    {% endif %}
 
-                                        <?php if($groupData['subHeaderRequired'] == 'YES'): ?>
-                                                <tr>
-                                                        <?php foreach($groupData['columnsDataWithImages'] as $key => $c3data): ?>
-                                                                <?php  foreach($c3data as $c3key => $c3value): ?>
-                                                                        <?php if($c3value['unitName']): ?>
-                                                                                <th scope="outer"><?= $c3value['unitName'] ?></th>
-                                                                        <?php else: ?>
-                                                                                <th scope="outer"></th>
-                                                                        <?php endif; ?>
-                                                                <?php endforeach; ?>
-                                                        <?php endforeach; ?>
-                                                </tr>
-                                        <?php endif; ?>
-                                </thead>
+                                            {% for ekey, value in element %}
+                                                <td>{{ value }}</td>
+                                            {% endfor %}
+                                    </tr>
+                                    {% set incrRow = incrRow + 1 %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endfor %}
+            </section>
+        </article>
 
-                                <tbody>
-                                        <?php $incrRow = 1; ?>
-                                        <?php foreach($articleGroupData as $key => $element): ?>
-                                                <?php if($incrRow%2==0): ?>
-                                                <tr class = "tableNewFont">
-                                                <?php else: ?>
-                                                <tr class="active tableNewFont">
-                                                <?php endif; ?>
-                                                        <?php foreach($element as $ekey => $value): ?>
-                                                                        <td><?= $value ?></td>
-                                                        <?php endforeach; ?>
-                                                </tr>
-                                                <?php $incrRow++ ?>
-                                        <?php endforeach; ?>
-                                </tbody>
-                        </table>
-
-                        <?php
-                        $tableNoteCount++;
-
-                } ?>
-        </section>
-
-</article>
-
-<?php if (!$containerRequest): ?>
-        <script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
-<?php endif; ?>
-
-<?php } ?>
+        {% if containerRequest is not defined %}
+            <script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
+        {% endif %}
+    {% endif %}     
+{% endblock %}
 
