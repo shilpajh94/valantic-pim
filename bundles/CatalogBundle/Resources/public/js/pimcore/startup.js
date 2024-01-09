@@ -10,6 +10,9 @@ pimcore.plugin.CatalogBundle = Class.create(pimcore.plugin.admin, {
     },
 
     pimcoreReady: function (params, broker) {
+        document.dispatchEvent(new Event('pimcore.plugin.CatalogBundle::pimcoreReady'));
+    },
+    // pimcoreReady: function (params, broker) {
         // alert('override');
         //     Ext.override(pimcore.object.tags.table,{
 
@@ -52,7 +55,7 @@ pimcore.plugin.CatalogBundle = Class.create(pimcore.plugin.admin, {
          },*/
 //});
 
-    },
+    // },
     postOpenObject: function (object, type) {
        
         let objectClassName = object.data.general.o_className;
@@ -374,7 +377,10 @@ pimcore.plugin.CatalogBundle = Class.create(pimcore.plugin.admin, {
 
 });
 
-var CatalogBundlePlugin = new pimcore.plugin.CatalogBundle();
+//var CatalogBundlePlugin = new pimcore.plugin.CatalogBundle();
+document.addEventListener('pimcore.plugin.CatalogBundle::pimcoreReady', function (event) {
+    // For instance: alert("ImportBundle ready!");
+});
 Ext.define('Conti.pimcore.object.tags.table', {
     extend: 'pimcore.object.tags.table',
     initStore: function (data, comp, field, columnArr) {

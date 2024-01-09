@@ -34,41 +34,45 @@ pimcore.plugin.RequiredAttributesBundle = Class.create(pimcore.plugin.admin, {
         pimcore.plugin.broker.registerPlugin(this);
     },
 
+    // Code changes done by piyush start
     pimcoreReady: function (params, broker) {
-
-        new pimcore.plugin.RequiredAttributesBundle.overrides().quicksearchOverride();
-
-        // calling of overriden function for xliff filter
-        new pimcore.plugin.RequiredAttributesBundle.override_xliff().filterOnExportProducts();
-
-
-        /**
-         * screen was moving up and down when setTitle was running to set dirty mark on the tab
-         */
-        Ext.override(pimcore.element.abstract,{
-            detectedChange: function () {
-                // this.tab.setTitle(this.tab.initialConfig.title + " *");
-                let titleDom = this.tab.tab.btnInnerEl.dom;
-                titleDom.innerHTML = titleDom.innerHTML + " *";
-
-                this.dirty = true;
-                this.stopChangeDetector();
-            },
-        });
-
-        new pimcore.plugin.RequiredAttributesBundle.overrides().showNomenclatureCustomPanel();
-        new pimcore.plugin.RequiredAttributesBundle.pdf_preview_override().overrideGetLayout();
-        new pimcore.plugin.RequiredAttributesBundle.pdf_preview_override().overrideGeneratePdf();
-
-        new pimcore.plugin.RequiredAttributesBundle.overrides().overrideSelect();
-        new pimcore.plugin.RequiredAttributesBundle.overrides().overrideMultiselect();
-
-        new pimcore.plugin.RequiredAttributesBundle.overrides().dataObjectSearchOverride();
-        new pimcore.plugin.RequiredAttributesBundle.overrides().assetSearchOverride();
-        new pimcore.plugin.RequiredAttributesBundle.overrides().documentSearchOverride();
-
-        new pimcore.plugin.RequiredAttributesBundle.search_override().customizeCreateGrid();
+        document.dispatchEvent(new Event('pimcore.plugin.RequiredAttributesBundle::pimcoreReady'));
     },
+    // pimcoreReady: function (params, broker) {
+
+    //     new pimcore.plugin.RequiredAttributesBundle.overrides().quicksearchOverride();
+
+    //     // calling of overriden function for xliff filter
+    //     new pimcore.plugin.RequiredAttributesBundle.override_xliff().filterOnExportProducts();
+
+
+    //     /**
+    //      * screen was moving up and down when setTitle was running to set dirty mark on the tab
+    //      */
+    //     Ext.override(pimcore.element.abstract,{
+    //         detectedChange: function () {
+    //             // this.tab.setTitle(this.tab.initialConfig.title + " *");
+    //             let titleDom = this.tab.tab.btnInnerEl.dom;
+    //             titleDom.innerHTML = titleDom.innerHTML + " *";
+
+    //             this.dirty = true;
+    //             this.stopChangeDetector();
+    //         },
+    //     });
+
+    //     new pimcore.plugin.RequiredAttributesBundle.overrides().showNomenclatureCustomPanel();
+    //     new pimcore.plugin.RequiredAttributesBundle.pdf_preview_override().overrideGetLayout();
+    //     new pimcore.plugin.RequiredAttributesBundle.pdf_preview_override().overrideGeneratePdf();
+
+    //     new pimcore.plugin.RequiredAttributesBundle.overrides().overrideSelect();
+    //     new pimcore.plugin.RequiredAttributesBundle.overrides().overrideMultiselect();
+
+    //     new pimcore.plugin.RequiredAttributesBundle.overrides().dataObjectSearchOverride();
+    //     new pimcore.plugin.RequiredAttributesBundle.overrides().assetSearchOverride();
+    //     new pimcore.plugin.RequiredAttributesBundle.overrides().documentSearchOverride();
+
+    //     new pimcore.plugin.RequiredAttributesBundle.search_override().customizeCreateGrid();
+    // },
     postOpenObject: function (object, type) {
 
         new pimcore.plugin.RequiredAttributesBundle.overrides().allowSQLEditorOnObjectGrid(object,type);
@@ -441,4 +445,42 @@ pimcore.plugin.RequiredAttributesBundle = Class.create(pimcore.plugin.admin, {
     }
 });
 
-var RequiredAttributesBundlePlugin = new pimcore.plugin.RequiredAttributesBundle();
+// var RequiredAttributesBundlePlugin = new pimcore.plugin.RequiredAttributesBundle();
+document.addEventListener('pimcore.plugin.RequiredAttributesBundle::pimcoreReady', function (event) {
+        new pimcore.plugin.RequiredAttributesBundle.overrides().quicksearchOverride();
+
+        // calling of overriden function for xliff filter
+        new pimcore.plugin.RequiredAttributesBundle.override_xliff().filterOnExportProducts();
+
+
+        /**
+         * screen was moving up and down when setTitle was running to set dirty mark on the tab
+         */
+        Ext.override(pimcore.element.abstract,{
+            detectedChange: function () {
+                // this.tab.setTitle(this.tab.initialConfig.title + " *");
+                let titleDom = this.tab.tab.btnInnerEl.dom;
+                titleDom.innerHTML = titleDom.innerHTML + " *";
+
+                this.dirty = true;
+                this.stopChangeDetector();
+            },
+        });
+
+        new pimcore.plugin.RequiredAttributesBundle.overrides().showNomenclatureCustomPanel();
+        new pimcore.plugin.RequiredAttributesBundle.pdf_preview_override().overrideGetLayout();
+        new pimcore.plugin.RequiredAttributesBundle.pdf_preview_override().overrideGeneratePdf();
+
+        new pimcore.plugin.RequiredAttributesBundle.overrides().overrideSelect();
+        new pimcore.plugin.RequiredAttributesBundle.overrides().overrideMultiselect();
+
+        new pimcore.plugin.RequiredAttributesBundle.overrides().dataObjectSearchOverride();
+        new pimcore.plugin.RequiredAttributesBundle.overrides().assetSearchOverride();
+        new pimcore.plugin.RequiredAttributesBundle.overrides().documentSearchOverride();
+
+        new pimcore.plugin.RequiredAttributesBundle.search_override().customizeCreateGrid();
+});
+
+// Code changes done by piyush end
+
+ 
