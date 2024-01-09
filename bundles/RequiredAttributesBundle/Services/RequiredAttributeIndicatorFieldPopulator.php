@@ -45,7 +45,7 @@ class RequiredAttributeIndicatorFieldPopulator
                 try {
                     $config = $this->configResolver->getConfig($categorySiopCode, $configType, $productType);
                 } catch (\Exception $exception) {
-                    Utils::log(REQUIRED_ATTRIBUTES_LOG_FILE, $exception->getMessage(), LogLevel::CRITICAL());
+                    Utils::log(REQUIRED_ATTRIBUTES_LOG_FILE, $exception, LogLevel::CRITICAL());
                     return;
                 }
                 $manager = new RequiredAttributeManager($config, $product);
@@ -68,7 +68,7 @@ class RequiredAttributeIndicatorFieldPopulator
                 }
 
             } catch (\Exception $exception) {
-                Utils::log(REQUIRED_ATTRIBUTES_LOG_FILE, $exception->getMessage(), LogLevel::CRITICAL());
+                Utils::log(REQUIRED_ATTRIBUTES_LOG_FILE, $exception, LogLevel::CRITICAL());
                 throw $exception;
             }
         }

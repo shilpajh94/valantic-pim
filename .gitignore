@@ -78,6 +78,7 @@ siop-import-error-log
 # Ignore to update sample files
 *.csv
 
+config/local/database.yaml
 var/config/extensions.php
 composer.json
 composer.lock

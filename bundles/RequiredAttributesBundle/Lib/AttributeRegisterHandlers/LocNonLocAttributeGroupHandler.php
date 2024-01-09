@@ -45,8 +45,8 @@ class LocNonLocAttributeGroupHandler
      */
     public function addEntriesForLocNonLocAttributeGroup($locNonLocConfig, $object,array $titles)
     {
-        $nonLocConfig = $locNonLocConfig['non_localized'];
-        $locConfig = $locNonLocConfig['localized'];
+        $nonLocConfig = isset($locNonLocConfig['non_localized']) ? $locNonLocConfig['non_localized'] : '';
+        $locConfig = isset($locNonLocConfig['localized']) ? $locNonLocConfig['localized'] : '';
 
         if($nonLocConfig){
             $this->addEntriesForNonLocAttributeGroup($nonLocConfig,$object,$titles);

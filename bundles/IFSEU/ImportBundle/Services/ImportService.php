@@ -26,7 +26,7 @@ class ImportService
        
         $workSheet = array_shift($workSheetInfo);
        
-        $reader->setLoadSheetsOnly($workSheet['workSheetName']);
+        $reader->setLoadSheetsOnly($workSheet['worksheetName']);
         $workSheet['startRow'] = self::$startRow ? : 0;
         $flag = $reader->setReadFilter(new MyReadFilterService($workSheet));
       

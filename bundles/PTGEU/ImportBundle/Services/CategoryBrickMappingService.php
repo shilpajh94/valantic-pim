@@ -6,6 +6,7 @@ namespace PTGEU\ImportBundle\Services;
 use Pimcore\Model\DataObject\PTGEUProduct;
 use Pimcore\Model\DataObject\PTGEUProductHierarchy;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 
 class CategoryBrickMappingService
@@ -14,14 +15,16 @@ class CategoryBrickMappingService
      * @var \PTGEU\ImportBundle\Services\ConfigProviderService
      */
     private $configProviderService;
+    private $container;
 
     /**
      * CategoryBrickMappingService constructor.
      * @param \PTGEU\ImportBundle\Services\ConfigProviderService $configProviderService
      */
-    public function __construct()
+    public function __construct(ContainerInterface $container)
     {
-        $this->configProviderService= \Pimcore::getContainer()->get('import.config_provider_service');
+        $this->container = $container;
+        $this->configProviderService= $this->container->get('import.config_provider_service');
     }
 
     /**
@@ -56,7 +59,8 @@ class CategoryBrickMappingService
         $baseSkeletonFertLevels = $this->getBaseSkeletonFertLevelsToUpdateForProductType($object->getProductType());
 
         if (is_array($selectedObjectBrickGroups)) {
-            // if $objectBrickGroups array is empty with size  = 0 then following implementation will remove all the bricks
+            // if $objectBrickGroups array is empty with size  = 0 then
+            //  following implementation will remove all the bricks
             foreach ($baseSkeletonFertLevels as $baseSkeletonFertLevel) {
                 if ($baseSkeletonFertLevel) {
                     $this->manageBrickForProductAtLevel($object, $selectedObjectBrickGroups, $baseSkeletonFertLevel);
@@ -161,7 +165,8 @@ class CategoryBrickMappingService
      * @return PTGEUProduct
      * @throws \Exception
      */
-    private function manageBrickForProductAtLevel(PTGEUProduct $product, array $selectedClassificationNames, string $level): PTGEUProduct
+    private function manageBrickForProductAtLevel(PTGEUProduct $product,
+     array $selectedClassificationNames, string $level): PTGEUProduct
     {
         $shouldBeAttachedBrickKeys = $this->getMappedBrickKeys($selectedClassificationNames, $level);
 

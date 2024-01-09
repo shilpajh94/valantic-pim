@@ -62,7 +62,7 @@ class DefaultController extends FrontendController
             $objIds=explode('/',$idPath);
             $objectinfodb =$this->getProductLevelInfoFromDb($objIds);
             if(!empty($objectinfodb['ProdcutsIdAndType'])){
-                $objectinfodb['success']=true; 
+                $objectinfodb['success']=true;
             }else{
                 $objectinfodb['success']=false;
                 $objectinfodb['msg'] ="Unable to find IFSEUProduct info ";
@@ -75,23 +75,15 @@ class DefaultController extends FrontendController
     }
     private function getProductLevelInfoFromDb(array $objIds){
         $productIdAndType = [];
-        $productLevel =['base','skeleton','fert']; 
+        $productLevel =['base','skeleton','fert'];
         $level = -1;
         foreach($objIds as $objId){
             $query = "SELECT `o_id`,`o_type` FROM objects where o_id =".$this->db->quote(trim($objId));
             $dbData = $this->db->fetchAssoc($query);
-            if(!empty($dbData)){
-                
-                if($dbData['o_type']!= 'folder' && !empty($dbData)){
-                    $level++;
-                    array_push($productIdAndType,$dbData);
-                    
-                }
-                else{
-                    continue;
-                }
+            if(!empty($dbData) && $dbData['o_type']!= 'folder'){
+                $level++;
+                array_push($productIdAndType,$dbData);
             }
-
         }
         return ['ProdcutsIdAndType'=>$productIdAndType,"level"=>$productLevel[$level]];
     }
@@ -100,12 +92,11 @@ class DefaultController extends FrontendController
     }
     private function checkLevelExist(): bool {
         $this->configFile= $this->getAttributesConfigPath();
+        $status = false;
         if(array_key_exists($this->levelName,$this->configFile)){
-            return true;
+            $status = true;
         }
-        else{
-            return false;
-        }
+        return $status;
     }
     private function getAttributesConfigPath(){
         return $this->getConfigFromYmlFile(IFS_EU_PRODUCT_LEVEL_CONFIG_FILE_PATH);

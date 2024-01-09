@@ -15,6 +15,7 @@ use Pimcore;
 class PTGEUWidthAttributeDataImportCommand extends AbstractCommand
 {
     private $db;
+    private $t;
 
     /**
      * Function is constructor and set the db connection
@@ -43,7 +44,8 @@ class PTGEUWidthAttributeDataImportCommand extends AbstractCommand
             $this->import($filePath);
             p_r('--------------Total Execution Time---------------');
             p_r('Script completed after: ' . (abs(time() - $this->t) / 60) . ' mnt');
-        }       
+        }
+        return 1;
     }
 
     private function import($filePath)
@@ -62,8 +64,10 @@ class PTGEUWidthAttributeDataImportCommand extends AbstractCommand
                             'widthMMUnit' => 'mm',
                             'widthINUnit' => 'inch'
                         ];
-                    $this->insertDataForWidthAttributeIntoTable($fertBrickData, 'object_brick_query_PTGEUCommonFert_38', $fertObjectId);
-                    $this->insertDataForWidthAttributeIntoTable($fertBrickData, 'object_brick_store_PTGEUCommonFert_38', $fertObjectId);    
+                    $this->insertDataForWidthAttributeIntoTable($fertBrickData,
+                     'object_brick_query_PTGEUCommonFert_38', $fertObjectId);
+                    $this->insertDataForWidthAttributeIntoTable($fertBrickData,
+                     'object_brick_store_PTGEUCommonFert_38', $fertObjectId);
                 }
             }
         }catch (\Throwable $th) {
@@ -80,7 +84,7 @@ class PTGEUWidthAttributeDataImportCommand extends AbstractCommand
             $cols[] = "$key = '$val'";
         }
         $sql = "UPDATE $tableName SET " . implode(', ', $cols) . " WHERE o_id =  $objId";
-        $this->db->executeUpdate($sql);
+        $this->db->executeQuery($sql);
 
 
 
@@ -103,17 +107,19 @@ class PTGEUWidthAttributeDataImportCommand extends AbstractCommand
             $count = 0;
 
             if (($handle = fopen($csvFilePath, 'r')) !== false) {
-                while (($rowData = fgetcsv($handle, 0, $dialect->delimiter, $dialect->quotechar, $dialect->escapechar)) !== false) {
+                while (($rowData = fgetcsv($handle, 0, $dialect->delimiter,
+                 $dialect->quotechar, $dialect->escapechar)) !== false) {
                     if ($count == 0) {
                         foreach ($rowData as $key => $value) {
                             unset($rowData[$key]);
-                            $rowData[utf8_decode(trim($key))] = utf8_decode(trim($value));
+                            $rowData[mb_convert_encoding(trim($key), 'ISO-8859-1', 'UTF-8')] =
+                            mb_convert_encoding(trim($value), 'ISO-8859-1', 'UTF-8');
                         }
                         $firstRowData = $rowData;
                     } else {
                         $tmpData = [];
                         foreach ($firstRowData as $key => $value) {
-                            $tmpData[$value] = utf8_encode($rowData[$key]);
+                            $tmpData[$value] = mb_convert_encoding($rowData[$key], 'UTF-8');
                             $tmpData[$value] = $rowData[$key];
                         }
                         $data[] = $tmpData;

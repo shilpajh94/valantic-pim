@@ -34,7 +34,7 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
     public function supportsToken(TokenInterface $token, $providerKey)
     {
         return $token instanceof PreAuthenticatedToken &&
-            $token->getProviderKey();
+        $token->getProviderKey();
     }
 
     public function authenticateToken(TokenInterface $token, UserProviderInterface $userProvider, $providerKey)

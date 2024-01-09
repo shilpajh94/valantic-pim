@@ -15,6 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use PTGEU\ImportBundle\Services\ImportService;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\ClassDefinition;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
 {
@@ -22,6 +23,12 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
     private $t;
     private $featurePoints;
     const LOG_FILE_NAME = "ptgeu-editable-product-attributes-log.csv";
+    private $container;
+ 
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
 
     protected function configure()
     {
@@ -41,6 +48,7 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
             p_r('--------------Total Execution Time---------------');
             p_r('Script completed after: ' . (abs(time() - $this->t) / 60) . ' mnt');
         }
+        return 1;
     }
 
     private function import($filePath)
@@ -58,7 +66,7 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
 
         try {
                 // get editable product attribute config
-                $this->configProviderService    = \Pimcore::getContainer()->get('import.config_provider_service');
+                $this->configProviderService    = $this->container->get('import.config_provider_service');
 
                 // get imported csv data
                 $csvInfo        = ImportService::getCSVData($filePath);
@@ -68,7 +76,7 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
                 $i = 1;
                 $colNameArray       = [];
                 $incorrectDataArray = [];
-                foreach($csvData  as $rowData) 
+                foreach($csvData  as $rowData)
                 {
                     $i++;
                     $articleNumber  = $rowData[0];
@@ -128,19 +136,20 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
 
     private function processProduct($rowData, $product ,$i)
     {
-        $productImportConfig  = $this->configProviderService->getEditableProductAttributesImportConfig();       
-        foreach ($rowData as $fieldCSVKey => $fieldValue) 
-        { 
+        $productImportConfig  = $this->configProviderService->getEditableProductAttributesImportConfig();
+        foreach ($rowData as $fieldCSVKey => $fieldValue)
+        {
             $fieldCSVKey = trim($fieldCSVKey);
-            if(isset($productImportConfig[$fieldCSVKey])) 
+            if(isset($productImportConfig[$fieldCSVKey]))
             {
                 $fieldConfig= $productImportConfig[$fieldCSVKey];
                 $fieldName  = $fieldConfig['fieldName'];
                 $fieldType  = $fieldConfig['fieldType'];
                 $objectType = $fieldConfig['objectType'];
-                if ($objectType == 'class') 
+                if ($objectType == 'class')
                 {
-                    if($fieldName == 'longDescription' || $fieldName == 'shortDescription' || $fieldName=='FeaturesBenefitsBulletPoint'){
+                    if($fieldName == 'longDescription' || $fieldName == 'shortDescription' ||
+                     $fieldName=='FeaturesBenefitsBulletPoint'){
                         if($fieldType=='Multiselection' && $fieldName=='FeaturesBenefitsBulletPoint')
                         {
                             $this->featurePoints[] = trim($fieldValue);
@@ -197,14 +206,15 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
                 $product->$method($searchKeywordObject);
             }
         }
-        elseif($fieldName=='longDescription' || $fieldName=='shortDescription' || $fieldName=='webDiscription' || $fieldName=='legalText' || $fieldName=='CategoryDescriptionCatalog')
+        elseif($fieldName=='longDescription' || $fieldName=='shortDescription' ||
+         $fieldName=='webDiscription' || $fieldName=='legalText' || $fieldName=='CategoryDescriptionCatalog')
         {
             $product->$method($fieldValue, 'en');
         }
         else
         {
             $product->$method($fieldValue, 1);
-        }        
+        }
     }
 
     private function getBooleanValue($data)
@@ -223,13 +233,13 @@ class PTGEUProductEditableAttributesImportCommand extends AbstractCommand
     {
         $featureValueArr = [];
         $featuresBenefitsBulletPoint = array_filter($featurePoints);
-        if(!empty($featuresBenefitsBulletPoint)) 
-        {           
+        if(!empty($featuresBenefitsBulletPoint))
+        {
             foreach($featuresBenefitsBulletPoint as $feature)
             {
                 $objFeatures = new DataObject\PTGEUFeaturesAndBenefits\Listing();
                 $objFeatures->setCondition("FeaturesAndBenefits = ?", $feature);
-                if(!empty($objFeatures)) 
+                if(!empty($objFeatures))
                 {
                     foreach ($objFeatures as $featureData) {
                         $featureValueArr[] = $featureData->getId();

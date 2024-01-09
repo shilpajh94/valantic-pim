@@ -100,6 +100,7 @@ class MovePTGEUSAPFileToS3Command extends Command
         }
 
         $this->logMessage('Script Execution Stopped!', LogLevel::INFO());
+        return 1;
     }
 
     public function moveSFTPFileToS3(String $fileName, SFTPConnection $sftpConObj)

@@ -39,7 +39,7 @@ class Service extends \Pimcore\Model\DataObject\Service {
         $context['object'] = $object;
 
         if (method_exists($layout, 'enrichLayoutDefinition')) {
-            $layout->enrichLayoutDefinition($object, $context);
+            self::enrichLayoutDefinition($object, $context);
         }
 
         if ($layout instanceof Model\DataObject\ClassDefinition\Data\Localizedfields) {
@@ -58,22 +58,21 @@ class Service extends \Pimcore\Model\DataObject\Service {
                 $context['ownerType'] = 'localizedfield';
             }
             $context['ownerName'] = 'localizedfields';
-        } 
-        else if (!$user->isAdmin() && !empty($object) && ($object->getClassName() == 'IFSEUProduct') && $layout instanceof Model\DataObject\ClassDefinition\Data && !($layout instanceof Model\DataObject\ClassDefinition\Data\Objectbricks) && !($layout instanceof Model\DataObject\ClassDefinition\Data\Fieldcollections)) {
-            if (($context['purpose'] ?? null) !== 'gridconfig') {
-               
-                if (count($editableFields['byRole'])>0) {
-                   
-                    if (array_key_exists($layout->getName(), $editableFields['all'])) {
-                        if (array_key_exists($layout->getName(), $editableFields['byRole'])) {
-                            $layout->setNoteditable(false);
-                        } else {
-                            $layout->setNoteditable(true);
-                        }
-                    }
+        }
+        elseif (!$user->isAdmin() && !empty($object) && ($object->getClassName() == 'IFSEUProduct') &&
+        $layout instanceof Model\DataObject\ClassDefinition\Data &&
+        !($layout instanceof Model\DataObject\ClassDefinition\Data\Objectbricks) &&
+        !($layout instanceof Model\DataObject\ClassDefinition\Data\Fieldcollections)) {
+            if (($context['purpose'] ?? null) !== 'gridconfig' &&
+            count($editableFields['byRole'])>0 &&
+            (array_key_exists($layout->getName(), $editableFields['all']))
+            ) {
+                if (array_key_exists($layout->getName(), $editableFields['byRole'])) {
+                    $layout->setNoteditable(false);
+                } else {
+                    $layout->setNoteditable(true);
                 }
             }
-            
         }
 
         if (method_exists($layout, 'getChildren')) {

@@ -4,7 +4,7 @@ namespace PTGEU\ImportBundle\Model;
 use Pimcore\Db;
 use Exception;
 
-class EditablesModel 
+class EditablesModel
 {
     private $db;
 
@@ -20,7 +20,7 @@ class EditablesModel
      */
     public function getAllProducts() {
         $sql   = "SELECT oo_id, articleNumber FROM `object_query_38` WHERE articleNumber IS NOT NULL";
-        $queryData = $this->db->fetchAll($sql);
+        $queryData = $this->db->fetchAllAssociative($sql);
 
         return [
             'queryTableData' => $queryData
@@ -37,7 +37,7 @@ class EditablesModel
             $cols[] = "$key = '$val'";
         }
         $sql = "UPDATE $tableName SET " . implode(', ', $cols) . " WHERE oo_id =  $objId";
-        $this->db->executeUpdate($sql);
+        $this->db->executeQuery($sql);
 
         echo $objId;
         echo PHP_EOL;
@@ -54,6 +54,6 @@ class EditablesModel
             $cols[] = "$key = '$val'";
         }
         $sql = "UPDATE $tableName SET " . implode(', ', $cols) . " WHERE ooo_id =  $objId";
-        $this->db->executeUpdate($sql);
+        $this->db->executeQuery($sql);
     }
 }

@@ -47,9 +47,9 @@ class ObjectBrickHandler
      */
     public function addEntriesForObjectBricks($brickConfig, $object)
     {
-        $baseConfig = $brickConfig['Base'];
-        $skeletonConfig = $brickConfig['Skeleton'];
-        $fertConfig = $brickConfig['Fert'];
+        $baseConfig = isset($brickConfig['Base']) ? $brickConfig['Base'] : '';
+        $skeletonConfig = isset($brickConfig['Skeleton']) ? $brickConfig['Skeleton'] : '';
+        $fertConfig = isset($brickConfig['Fert']) ? $brickConfig['Fert'] : '';
 
         if ($baseConfig) {
             $this->addEntriesForBaseLevel($baseConfig, $object);

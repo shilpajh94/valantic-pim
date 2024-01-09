@@ -37,5 +37,6 @@ class PTGEUProductSaveAndPublishCommand extends AbstractCommand
             echo PHP_EOL;
             $i++;
         }
+        return 1;
     }
 }

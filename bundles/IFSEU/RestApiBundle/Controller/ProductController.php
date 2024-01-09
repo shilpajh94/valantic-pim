@@ -22,6 +22,7 @@ use Symfony\Component\HttpFoundation\Request;
 use IFSEU\RestApiBundle\RestTrait\RestResponce;
 use IFSEU\RestApiBundle\RestTrait\LanguageCode;
 use IFSEU\RestApiBundle\Security\ApiKeyUserProvider;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ProductController extends FrontendController
 {
@@ -48,24 +49,19 @@ class ProductController extends FrontendController
     public $security;
     
     private $ehoseRestAPILogFileName   =   '';
+
+    const RESPONSE = "Response:-";
+    const EHOSE_DATA_NOT_FOUND = 'ehose data not found!';
     
     /**
      * Constructor function to set variables
      */
-    public function __construct()
+    public function __construct(ContainerInterface $container)
     {
-        $this->service = \Pimcore::getContainer()->get('ifs_eu_restapi_product_model_services');
+        $this->container = $container;
+        $this->service = $this->container->get('ifs_eu_restapi_product_model_services');
         $this->ehoseRestAPILogFileName ='restapi_ehose_ifseu_product_log_'. date("Ymd");
         $this->security = new ApiKeyUserProvider();
-    }
-
-    /**
-     * Disabling layout for apis
-     */
-    public function init()
-    {
-        parent::init();
-        $this->disableLayout();
     }
 
     /**
@@ -86,11 +82,8 @@ class ProductController extends FrontendController
     {
         // Get Apikey validation.
         $returnValidationFlag =   $this->validateApiKey($request);
-        // $returnValidationFlag =   true;
         
         if($returnValidationFlag){
-            // Get eHose fields mapping configuration.
-            $vConfig = $this->service->getEHoseFieldMapping();
             // Get Parameter Array.
             $conditionArray =   $this->getParameterArray($request);
             // Get eHose data based on parameter request.
@@ -99,14 +92,16 @@ class ProductController extends FrontendController
             \Pimcore\Log\Simple::log($this->ehoseRestAPILogFileName, "Request:-".json_encode($conditionArray));
             // If eHose data not exist return error.
             if (empty($productDetail)) {
-                \Pimcore\Log\Simple::log($this->ehoseRestAPILogFileName, "Response:-".json_encode($this->responseCode('ObjectNotFound', 'ehose data not found!')));
-                return $this->jsonResponce($this->responseCode('ObjectNotFound', 'ehose data not found!'), 404);
+                \Pimcore\Log\Simple::log($this->ehoseRestAPILogFileName, self::RESPONSE.
+                json_encode($this->responseCode('ObjectNotFound', self::EHOSE_DATA_NOT_FOUND)));
+                return $this->jsonResponce($this->responseCode('ObjectNotFound', self::EHOSE_DATA_NOT_FOUND), 404);
             }
-            \Pimcore\Log\Simple::log($this->ehoseRestAPILogFileName, "Response:-".json_encode($productDetail));
+            \Pimcore\Log\Simple::log($this->ehoseRestAPILogFileName, self::RESPONSE.json_encode($productDetail));
             return $this->jsonResponce($productDetail);
         }else{
-            \Pimcore\Log\Simple::log($this->ehoseRestAPILogFileName, "Response:-".json_encode($this->responseCode('ObjectNotFound', 'ehose data not found!')));
-            return $this->jsonResponce($this->responseCode('InvalidApiKey', 'Api key is not valid!'), 404);            
+            \Pimcore\Log\Simple::log($this->ehoseRestAPILogFileName, self::RESPONSE.
+            json_encode($this->responseCode('ObjectNotFound', self::EHOSE_DATA_NOT_FOUND)));
+            return $this->jsonResponce($this->responseCode('InvalidApiKey', 'Api key is not valid!'), 404);
         }
     }
 
@@ -118,15 +113,14 @@ class ProductController extends FrontendController
      * @return array $parameterArray Parameters array
      *
      * @throws \Exception
-     */    
+     */
     private function getParameterArray($request){
         $parameterArray['apiKey'] = $request->headers->get('apiKey');
         $parameterArray['ids'] = $request->get('ids');
         $parameterArray['siop']= $request->get('siop');
         $parameterArray['page']= $request->get('page');
         $parameterArray['limit']= $request->get('limit');
-        // $parameterArray['updatedFrom'] = $request->get('updatedFrom');
-        return  $parameterArray;    
+        return  $parameterArray;
     }
     
     /**
@@ -149,6 +143,6 @@ class ProductController extends FrontendController
         return false;
        }
         return true;
-    } 
+    }
 
 }

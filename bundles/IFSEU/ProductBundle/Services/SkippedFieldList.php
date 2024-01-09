@@ -2,7 +2,6 @@
 
 namespace IFSEU\ProductBundle\Services;
 
-
 class SkippedFieldList
 {
     public static function completenessPercentageList()
@@ -37,8 +36,3 @@ class SkippedFieldList
         ];
     }
 }
-
-
-
-
-                                              

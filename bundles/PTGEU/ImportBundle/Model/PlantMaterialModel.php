@@ -60,13 +60,14 @@ class PlantMaterialModel
         if (!empty($values)) {
             $query = $sql.rtrim($values, ',').$update ;
             $this->db->query($query);
-        }        
+        }
     }
 
 
     public function insertInObjects($data) {
     	try {
-	        $sql      = "INSERT INTO `objects` (`o_parentId`, `o_type`, `o_key`, `o_path`, `o_published`, `o_classId`, `o_className`, `o_creationDate`, `o_modificationDate`) VALUES";
+	        $sql      = "INSERT INTO `objects` (`o_parentId`, `o_type`, `o_key`, `o_path`,
+             `o_published`, `o_classId`, `o_className`, `o_creationDate`, `o_modificationDate`) VALUES";
 	        $update[] = " `o_parentId` = VALUES(`o_parentId`) ";
 	        $update[] = " `o_type` = VALUES(`o_type`) ";
 	        $update[] = " `o_key` = VALUES(`o_key`) ";
@@ -99,7 +100,7 @@ class PlantMaterialModel
     public function deleteFailedRecordsFromMaster($failedRecords) {
         try {
             if (!empty($failedRecords) && count($failedRecords)>0) {
-                $sql = "DELETE FROM {$this->masterTable} WHERE `id` IN (";                
+                $sql = "DELETE FROM {$this->masterTable} WHERE `id` IN (";
                 if (count($failedRecords)>0) {
                     $str = "'" . implode ( "', '", $failedRecords ) . "'";
                     $query = $sql.$str." )";
@@ -120,7 +121,8 @@ class PlantMaterialModel
             $update = " ON DUPLICATE KEY UPDATE `id` = `id`, `record` = `record`, `hash` = `hash` ";
             foreach ($arrData as $data) {
                 $tempData = array_combine($fileColumns, $data);
-                $id = $tempData['SAPMaterialCode'].'$'.$tempData['DeliveringPlantCode'].'$'.$tempData['SalesOrgCode'].'$'.$tempData['DCCode'];
+                $id = $tempData['SAPMaterialCode'].'$'.$tempData['DeliveringPlantCode'].'$'.
+                $tempData['SalesOrgCode'].'$'.$tempData['DCCode'];
                 unset($tempData);
                 $record = addslashes(json_encode($data, true));
                 $hash   = md5($record);
@@ -151,8 +153,9 @@ class PlantMaterialModel
     public function getDeletedRecords()
     {
         try {
-            $sql   = "SELECT m.id FROM {$this->masterTable} m LEFT JOIN {$this->tempTable} t ON t.id = m.id WHERE t.id is null";
-            return $this->db->fetchAll($sql);
+            $sql   = "SELECT m.id FROM {$this->masterTable} m LEFT JOIN
+             {$this->tempTable} t ON t.id = m.id WHERE t.id is null";
+            return $this->db->fetchAllAssociative($sql);
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
@@ -166,8 +169,9 @@ class PlantMaterialModel
     public function getDelta()
     {
         try {
-            $sql   = "SELECT t.id, t.record FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id  WHERE t.hash != m.hash OR m.id IS NULL ORDER BY t.id ASC ";
-            return $this->db->fetchAll($sql);
+            $sql   = "SELECT t.id, t.record FROM {$this->tempTable} t
+            LEFT JOIN {$this->masterTable} m ON t.id = m.id  WHERE t.hash != m.hash OR m.id IS NULL ORDER BY t.id ASC ";
+            return $this->db->fetchAllAssociative($sql);
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
@@ -177,7 +181,7 @@ class PlantMaterialModel
      * Function to update master table
      */
     public function updateMaster()
-    {        
+    {
         try {
             $this->db->query("TRUNCATE {$this->masterTable}");
             $sql = "INSERT INTO {$this->masterTable} SELECT * FROM {$this->tempTable};";
@@ -209,7 +213,8 @@ class PlantMaterialModel
             $sql = "INSERT INTO {$this->logTable} (id, record, statusCode, failedReason, createdAt) VALUES";
             $values = '';
             foreach ($data as $dataValue) {
-                $values .= '("'.$dataValue['id'].'", "'.addslashes($dataValue['record']).'", "'.$dataValue['statusCode'].'","'.$dataValue['failedReason'].'","'.time().'"),';
+                $values .= '("'.$dataValue['id'].'", "'.addslashes($dataValue['record']).'", "'.
+                $dataValue['statusCode'].'","'.$dataValue['failedReason'].'","'.time().'"),';
                 // inserting records in batch
                 if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
                     $query = $sql.rtrim($values, ',');

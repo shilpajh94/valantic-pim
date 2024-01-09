@@ -49,6 +49,7 @@ class Category
     public function validateRow($reader)
     {
         $flag  = true;
+        $exception = '';
         if (array_key_exists('code', $reader)) {
             if (!$this->catHelper->getLevels($reader['code'])['status']) {
                 $flag = false;

@@ -96,15 +96,13 @@ class OtherPropertiesMasterDataImportCommand extends AbstractCommand
                             $lang = ($languageConfig[$key]['language']);
                             $obj->setPropertyName($result[$key],$lang);
                             $obj->setDescription($result[$key],$lang);
-                        $obj->setPropertiesCustomerFacingVersion($result[$key],$lang);
+                            $obj->setPropertiesCustomerFacingVersion($result[$key],$lang);
                         }
-                        $obj->setPropertyName($result['Name'],$lang);
-                        $obj->setDescription($result['Name'],$lang);
-                        $obj->setPropertiesCustomerFacingVersion($result['Name'],$lang);
-                    
-                        
-
-
+                        else{
+                            $obj->setPropertyName($result['Name'],'en');
+                            $obj->setDescription($result['Name'],'en');
+                            $obj->setPropertiesCustomerFacingVersion($result['Name'],'en');    
+                        }
                     }
                     $obj->setPublished(true);
                     $obj->setOmitMandatoryCheck(true);

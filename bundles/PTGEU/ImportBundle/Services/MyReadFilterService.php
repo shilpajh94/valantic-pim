@@ -11,17 +11,17 @@ class MyReadFilterService implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilte
     public function __construct($config)
     {
         $this->startRow = $config['startRow'] ? : 1;
-        $this->endRow   = $config['endRow'] ? : $config['totalRows'];
+        $this->endRow   = isset($config['endRow']) ? $config['endRow'] : $config['totalRows'];
         $this->lastCol = $config['lastColumnLetter'];
         $this->columns = ['A', $this->lastCol];
     }
 
-    public function readCell($column, $row, $worksheetName = '') 
-    {        
-        if ($row >= $this->startRow && $row <= $this->endRow) {
-            if (in_array($column,range('A',$this->lastCol))) {
-                return true;
-            }
+    public function readCell($column, $row, $worksheetName = '')
+    {
+        if ($row >= $this->startRow && $row <= $this->endRow &&
+        in_array($column,range('A',$this->lastCol))
+        ) {
+            return true;
         }
         return false;
     }

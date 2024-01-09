@@ -135,7 +135,7 @@ class IFSEUProductEnrichmentListener
             
             $transitionConfig = $this->config[$transitionName];
             if (!empty($transitionConfig['action'])) {
-                \Pimcore\Model\Version::disable(); 
+                \Pimcore\Model\Version::disable();
                 foreach($transitionConfig['action'] as $key => $value) {
                     $setter = "set".ucfirst($key);
                     $product->$setter($value);
@@ -210,8 +210,8 @@ class IFSEUProductEnrichmentListener
                     foreach ($roleIds as $roleId) {
                         $conditionArr[] = '( `roles` = '.$list->quote($roleId).
                         ' OR `roles` like '.$list->quote("%,".$roleId).
-                        ' OR `roles` like '.$list->quote($roleId.",%").
-                        ' OR `roles` like '.$list->quote("%,".$roleId.",%"). ' )';
+                        'OR `roles` like'.$list->quote($roleId.",%").
+                        'OR `roles` like'.$list->quote("%,".$roleId.",%"). ' )';
                     }
                     if (!empty($conditionArr)) {
                         $list->setCondition(implode(" OR ", $conditionArr));
@@ -264,6 +264,3 @@ class IFSEUProductEnrichmentListener
     }
 }
 
-
-
-    

@@ -15,7 +15,7 @@ $cdnBaseUrl = CDN_HOST;
 
 define("PIMCORE_S3_BASEURL", $s3BaseUrl);
 define("PIMCORE_ASSET_DIRECTORY", $s3FileWrapperPrefix . "/assets");
-#define("PIMCORE_TEMPORARY_DIRECTORY", $s3FileWrapperPrefix . "/tmp");
+#define("PIMCORE_SYSTEM_TEMP_DIRECTORY", $s3FileWrapperPrefix . "/tmp");
 
 if((int)CDN_ENABLE) {
     define("PIMCORE_TRANSFORMED_ASSET_URL", $cdnBaseUrl . "/assets");

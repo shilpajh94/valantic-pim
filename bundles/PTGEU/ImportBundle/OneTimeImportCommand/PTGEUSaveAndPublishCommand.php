@@ -22,7 +22,7 @@ class PTGEUSaveAndPublishCommand extends AbstractCommand
     {
         $this->db = Db::get();
         $sql = "SELECT `oo_id` from ptgeu_product_left_to_save";
-        $record = $this->db->fetchAll($sql);
+        $record = $this->db->fetchAllAssociative($sql);
         p_r(count($record));
         foreach($record as $oo_id){
             $id = $oo_id['oo_id'];
@@ -36,10 +36,12 @@ class PTGEUSaveAndPublishCommand extends AbstractCommand
                         p_r($id);
                     } catch (\Exception $e) {
                         print_r($e);
-                    }    
+                    }
                 }
             }
             \Pimcore::collectGarbage();
         }
+        return 1;
     }
 }
+
