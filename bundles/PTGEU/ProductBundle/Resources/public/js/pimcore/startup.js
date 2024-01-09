@@ -9,9 +9,15 @@ pimcore.plugin.PTGEUProductBundle = Class.create(pimcore.plugin.admin, {
         pimcore.plugin.broker.registerPlugin(this);
     },
 
+    // pimcoreReady: function (params, broker) {
+    //     // alert("PTGEUProductBundle ready!");
+    // }
     pimcoreReady: function (params, broker) {
-        // alert("PTGEUProductBundle ready!");
+        document.dispatchEvent(new Event('pimcore.plugin.PTGEUProductBundle::pimcoreReady'));
     }
 });
 
-var PTGEUProductBundlePlugin = new pimcore.plugin.PTGEUProductBundle();
+//var PTGEUProductBundlePlugin = new pimcore.plugin.PTGEUProductBundle();
+document.addEventListener('pimcore.plugin.PTGEUProductBundle::pimcoreReady', function (event) {
+    // For instance: alert("PTGEUProductBundle ready!");
+});

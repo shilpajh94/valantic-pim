@@ -9,8 +9,11 @@ pimcore.plugin.CatalogUIApiBundle = Class.create(pimcore.plugin.admin, {
         pimcore.plugin.broker.registerPlugin(this);
     },
 
+    // pimcoreReady: function (params, broker) {
+    //     //alert("CatalogUIApiBundle ready!");
+    // },
     pimcoreReady: function (params, broker) {
-        //alert("CatalogUIApiBundle ready!");
+        document.dispatchEvent(new Event('pimcore.plugin.CatalogUIApiBundle::pimcoreReady'));
     },
     postOpenDocument: function(doc,type){
 
@@ -25,7 +28,10 @@ pimcore.plugin.CatalogUIApiBundle = Class.create(pimcore.plugin.admin, {
     }
 });
 
-var CatalogUIApiBundlePlugin = new pimcore.plugin.CatalogUIApiBundle();
+//var CatalogUIApiBundlePlugin = new pimcore.plugin.CatalogUIApiBundle();
+document.addEventListener('pimcore.plugin.CatalogUIApiBundle::pimcoreReady', function (event) {
+    // For instance: alert("ImportBundle ready!");
+});
 
 
 function getFolderPath()

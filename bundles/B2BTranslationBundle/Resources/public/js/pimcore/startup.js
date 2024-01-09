@@ -9,11 +9,14 @@ pimcore.plugin.B2BTranslationBundle = Class.create(pimcore.plugin.admin, {
         pimcore.plugin.broker.registerPlugin(this);
     },
 
+    // pimcoreReady: function (params, broker) {
+    //     let user = pimcore.globalmanager.get("user");
+    //     if (user.admin) {
+    //         this.leftNavigation();
+    //     }
+    // },
     pimcoreReady: function (params, broker) {
-        let user = pimcore.globalmanager.get("user");
-        if (user.admin) {
-            this.leftNavigation();
-        }
+        document.dispatchEvent(new Event('pimcore.plugin.B2BTranslationBundle::pimcoreReady'));
     },
     leftNavigation: function () {
         let navigation = Ext.get("pimcore_navigation");
@@ -40,4 +43,11 @@ pimcore.plugin.B2BTranslationBundle = Class.create(pimcore.plugin.admin, {
     }
 });
 
-var B2BTranslationBundlePlugin = new pimcore.plugin.B2BTranslationBundle();
+//var B2BTranslationBundlePlugin = new pimcore.plugin.B2BTranslationBundle();
+document.addEventListener('pimcore.plugin.B2BTranslationBundle::pimcoreReady', function (event) {
+    // For instance: alert("B2BTranslationBundle ready!");
+    let user = pimcore.globalmanager.get("user");
+        if (user.admin) {
+            this.leftNavigation();
+        }
+});

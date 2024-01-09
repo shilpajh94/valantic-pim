@@ -11,11 +11,14 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
         this.productName = productName;
     },
 
+    // pimcoreReady: function (params, broker) {
+    //     let user = pimcore.globalmanager.get("user");
+    //     if (user.admin || user.isAllowed("plugin_cs_add_product")) {
+    //         this.leftNavigation();
+    //     }
+    // },
     pimcoreReady: function (params, broker) {
-        let user = pimcore.globalmanager.get("user");
-        if (user.admin || user.isAllowed("plugin_cs_add_product")) {
-            this.leftNavigation();
-        }
+        document.dispatchEvent(new Event('pimcore.plugin.ContitechCSProductBundle::pimcoreReady'));
     },
 
     postOpenObject: function (object, type) {
@@ -449,4 +452,11 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
     },
 });
 
-var ContitechCSProductBundlePlugin = new pimcore.plugin.ContitechCSProductBundle();
+// var ContitechCSProductBundlePlugin = new pimcore.plugin.ContitechCSProductBundle();
+
+document.addEventListener('pimcore.plugin.ContitechCSProductBundle::pimcoreReady', function (event) {
+    let user = pimcore.globalmanager.get("user");
+    if (user.admin || user.isAllowed("plugin_cs_add_product")) {
+        this.leftNavigation();
+    }
+});
