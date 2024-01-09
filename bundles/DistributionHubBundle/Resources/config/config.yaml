@@ -1,0 +1,20 @@
+host_name: 'host.com'
+tmp_template_upload_pimcore_dir: var/tmp/
+asset_folder: 'Distribution Hub'
+folder_for_uploaded_template_in_asset_folder: 'Uploaded Templates'
+folder_for_exported_files_in_asset_folder: 'Exported Files'
+export_formats_for_schedule:
+    - Xlsx
+    - Csv
+export_locations_for_schedule:
+    - FTP
+    - Pimcore
+schedule_expiry_days: 365
+schedule_date_format: 'm/d/Y H:i'
+default_mapping_file_csv_delimiter: ;
+default_export_file_csv_delimiter: ;
+batch_size_of_records_for_export_file_generation: 2000
+in_progress_process_life: 360
+max_parallel_active_process_count: 2
+is_schedule_deleted_check_batch_interval: 3
+schedule_screen_refresh_time: 1
