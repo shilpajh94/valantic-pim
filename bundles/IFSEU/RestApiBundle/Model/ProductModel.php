@@ -227,7 +227,7 @@ class ProductModel
         $pTypeData  =   array();
         $pTypeConditionArray['ids'] =$id;
         $pTypeArray = false;
-        $pTypeArray   =   $this->fetchProduct('en',$pTypeConditionArray,$productType,$vCatalogMap);
+        $pTypeArray  =  $this->fetchProduct($pTypeConditionArray,$vCatalogMap,$productType,'en');
         if(!empty($pTypeArray)){
             $pTypeData    =   array_filter(array_pop($pTypeArray));
         }
@@ -271,6 +271,66 @@ class ProductModel
         WHERE `oo_id` IN ('.$oo_id.') AND language IN ('.$languages.')';
         $features = $this->db->fetchFirstColumn($query);
         return implode(", ",$features);
+    }
+
+    /**
+     * Method to get the Shipping Conditions from object_IFSEUProduct_en table based on PropertyID
+     *
+     * @param string $oo_id object Id
+     *
+     * @param string $classId object Id
+     */
+    public function getShippingConditions(string $oo_id, string $classId) : ?string {
+        $languages = "'" . implode ( "', '", $this->languages ) . "'";
+        //Removing comma from begining and end
+        $oo_id = trim($oo_id, ',');
+        if(!empty($oo_id)){
+            $query = 'SELECT ShippingConditions FROM object_localized_'.$classId.'_en
+            WHERE `oo_id` IN ('.$oo_id.') AND language IN ('.$languages.')';
+            $shippingConditions = $this->db->fetchFirstColumn($query);
+            return implode(", ",$shippingConditions);    
+        }
+        return '';
+    }
+
+    /**
+     * Method to get the Conditions from object_IFSEUProduct_en table based on PropertyID
+     *
+     * @param string $oo_id object Id
+     *
+     * @param string $classId object Id
+     */
+    public function getConditions(string $oo_id, string $classId) : ?string {
+        $languages = "'" . implode ( "', '", $this->languages ) . "'";
+        //Removing comma from begining and end
+        $oo_id = trim($oo_id, ',');
+        if(!empty($oo_id)){
+            $query = 'SELECT Conditions FROM object_localized_'.$classId.'_en
+            WHERE `oo_id` IN ('.$oo_id.') AND language IN ('.$languages.')';
+            $conditions = $this->db->fetchFirstColumn($query);
+            return implode(", ",$conditions);    
+        }
+        return '';
+    }
+
+    /**
+     * Method to get the Minimum Order from object_IFSEUProduct_en table based on PropertyID
+     *
+     * @param string $oo_id object Id
+     *
+     * @param string $classId object Id
+     */
+    public function getMinimumOrder(string $oo_id, string $classId) : ?string {
+        $languages = "'" . implode ( "', '", $this->languages ) . "'";
+        //Removing comma from begining and end
+        $oo_id = trim($oo_id, ',');
+        if(!empty($oo_id)){
+            $query = 'SELECT MinimumOrder FROM object_localized_'.$classId.'_en
+            WHERE `oo_id` IN ('.$oo_id.') AND language IN ('.$languages.')';
+            $minimumOrder = $this->db->fetchFirstColumn($query);
+            return implode(", ",$minimumOrder);
+        }
+        return '';
     }
 
       /**

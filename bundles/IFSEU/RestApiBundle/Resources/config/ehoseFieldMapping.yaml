@@ -94,6 +94,12 @@ ehoseAPI:
                 - numeric: 2
             o_published:
                 - string
+            shippingConditions:
+                - string
+            Conditions:
+                - string
+            minimumOrder:
+                - string
             mainImage:
                 - string
             frontView:
@@ -425,12 +431,6 @@ ehoseAPI:
                 - string
             sapDescription:
                 - string
-            shippingConditions:
-                - string
-            Conditions:
-                - string
-            minimumOrder:
-                - string
             CompletenessPercentage:
                 - string
             B2CCategory:
@@ -493,6 +493,6 @@ ehoseAPI:
         Object:
         Localizedfields:
             - sapDescription
-            - shippingConditions
-            - Conditions
-            - minimumOrder
+            # - shippingConditions
+            # - Conditions
+            # - minimumOrder
