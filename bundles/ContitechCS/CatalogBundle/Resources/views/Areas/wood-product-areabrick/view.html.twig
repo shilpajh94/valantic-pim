@@ -1,0 +1,54 @@
+{% if editmode %}
+    <table width="100%" style="border-bottom: 1px black dashed">
+        <tbody>
+            <tr>
+                <td><h3>Select number of Rows
+                    
+                    </h3>
+                </td>
+                <td>{{ pimcore_select('wp_row_dropdown',{
+                        'store':[[1,1],[2,2],[3,3],[4,4],[5,5],[6,6],[7,7],[8,8],[9,9],[10,10]],
+                        reload:true,
+                        defaultValue: 0
+                    })}}</td>
+                <td><h3>Select number of Columns
+                    
+                    </h3>
+                </td>
+                <td>{{ pimcore_select('wp_column_dropdown',{
+                        'store':[[1,1],[2,2],[3,3],[4,4],[5,5]],
+                        reload:true,
+                        defaultValue: 0
+                    })}}</td>
+            </tr>
+            
+            
+        </tbody>
+    </table>
+{% endif %}
+
+{% set rows = pimcore_select('wp_row_dropdown').getData() %}
+{% set columns = pimcore_select('wp_column_dropdown').getData() %}
+
+{% if( rows > 0 and columns > 0) %}
+    <table width="100%">
+        <thead>
+            <tr>
+
+                {% for i in 1..columns %}
+                    <th>{{pimcore_input("heading"~i, {'width': 200})}}</th>
+                {% endfor %}
+            </tr>
+        <thead>
+        <tbody>
+            {% for j in 1..rows %}
+                <tr>
+                        {% for k in 1..columns %}
+                            <td>{{pimcore_wysiwyg("data_"~j~"_"~k)}}</td>
+                        {% endfor %}
+                </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+{% endif %}

@@ -1616,3 +1616,12 @@ p.ml-10
 .cover_compounds_and_applications .x-grid-cell-inner, .x-grid-cell-inner-checkcolumn, .x-grid-cell-inner-action-col{
     padding: 0px !important;
 }
+
+.textile-table table td, .textile-table table th{
+  border-bottom:0.5px solid black;
+}
+
+.wpa-table  tbody td:before, .wpa-table  thead th::before,
+.textile-table tbody td:before, .textile-table thead th::before{
+  display: none !important;
+}

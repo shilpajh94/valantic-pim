@@ -2,7 +2,8 @@
 namespace ContitechCS\CatalogBundle\Document\Areabrick;
 
 use CatalogBundle\Helper\CatalogTemplatingHelper;
-use Pimcore\Model\Document\Tag\Area\Info;
+// use Pimcore\Model\Document\Tag\Area\Info;
+use Pimcore\Model\Document\Editable\Area\Info;
 use Pimcore\Extension\Document\Areabrick\AbstractTemplateAreabrick;
 
 class ParagraphAndDiagonalImage extends AbstractTemplateAreabrick
@@ -13,8 +14,8 @@ class ParagraphAndDiagonalImage extends AbstractTemplateAreabrick
     }
     
     public function action(Info $info) {
-        $info->getView()->helper = $this->catalogTemplatingHelper;
-        $info->getView()->imageWidth = $info->getParam('imageWidth');
+        // $info->getView()->helper = $this->catalogTemplatingHelper;
+        // $info->getView()->imageWidth = $info->getParam('imageWidth');
     }
     
     public function getName()

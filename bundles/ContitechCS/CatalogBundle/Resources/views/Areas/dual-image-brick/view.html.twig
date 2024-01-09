@@ -1,0 +1,17 @@
+{% if editmode %}
+    {{ pimcore_image('Conti_Roll_T_Image') }}
+{% else %}
+    {% set imgSrcObj = pimcore_image('Conti_Roll_T_Image') %}
+    {% if getImageThumbnail(imgSrcObj, imageWidth) %}
+        <img src="{{ getImageThumbnail(imgSrcObj, imageWidth) }}" alt="" />
+    {% endif %}
+{% endif %}
+
+{% if editmode %}
+    {{ pimcore_image('Conti_Roll_U_Image') }}
+{% else %}
+    {% set imgSrcObj = pimcore_image('Conti_Roll_U_Image') %}
+    {% if getImageThumbnail(imgSrcObj, imageWidth) %}
+        <img src="{{ getImageThumbnail(imgSrcObj, imageWidth) }}" alt="" />
+    {% endif %}
+{% endif %}
