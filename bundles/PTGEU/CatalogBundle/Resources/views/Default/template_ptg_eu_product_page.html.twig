@@ -177,7 +177,7 @@
                     <div class="col-4 d-flex flex-column">
                         {% if editmode %}
                             {% if pimcore_image("HHPP_Image_Left").isEmpty() %}
-                                {{ pimcore_image("HHPP_Image_Left", {"width" : 200, "height" : 200}).setImage(data['mainImageObj']) | raw }}
+                                {{ pimcore_image("HHPP_Image_Left", {"width" : 200, "height" : 200}).setImage(groupData['mainImageObj']) | raw }}
                             {% else %}
                                 {{ pimcore_image("HHPP_Image_Left", {"width" : 200, "height" : 200}) }}
                             {% endif %}
@@ -190,7 +190,7 @@
                                 
                         {% if editmode %}
                             {% if pimcore_image("Drawing_Picture").isEmpty() %}
-                                {{ pimcore_image("Drawing_Picture", {"width" : 200, "height" : 200}).setImage(data['technicalDrawing1Obj']) | raw }}
+                                {{ pimcore_image("Drawing_Picture", {"width" : 200, "height" : 200}).setImage(groupData['technicalDrawing1Obj']) | raw }}
                             {% else %}
                                 {{ pimcore_image("Drawing_Picture", {"width" : 200, "height" : 200}) }}
                             {% endif %}

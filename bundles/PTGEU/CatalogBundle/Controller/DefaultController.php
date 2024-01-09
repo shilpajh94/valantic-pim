@@ -1225,25 +1225,46 @@ class DefaultController extends FrontendController
                         default:
                             $result = array_diff($this->initialSortingAttributesName, $columnDataArr);
 
-                            $firstSortingColumn = array_column($articleData, $this->initialSortingAttributesName[0]);
-                            $secondSortingColumn = array_column($articleData, $this->initialSortingAttributesName[1]);
-                            $thirdSortingColumn = array_column($articleData, $this->initialSortingAttributesName[2]);
-                            $fourthSortingColumn = array_column($articleData, $this->initialSortingAttributesName[3]);
-                            $fifthSortingColumn = array_column($articleData, $this->initialSortingAttributesName[4]);
+                            $firstSortingColumn = isset($this->initialSortingAttributesName[0]) ? array_column($articleData, $this->initialSortingAttributesName[0]) : null;
+                            $secondSortingColumn = isset($this->initialSortingAttributesName[1]) ? array_column($articleData, $this->initialSortingAttributesName[1]) : null;
+                            $thirdSortingColumn = isset($this->initialSortingAttributesName[2]) ? array_column($articleData, $this->initialSortingAttributesName[2]) : null;
+                            $fourthSortingColumn = isset($this->initialSortingAttributesName[3]) ? array_column($articleData, $this->initialSortingAttributesName[3]) : null;
+                            $fifthSortingColumn = isset($this->initialSortingAttributesName[4]) ? array_column($articleData, $this->initialSortingAttributesName[4]) : null;
 
-                            $sixthSortingColumn = array_column($articleData, $this->initialSortingAttributesName[5]);
-                            $seventhSortingColumn = array_column($articleData, $this->initialSortingAttributesName[6]);
-                            $eighthSortingColumn = array_column($articleData, $this->initialSortingAttributesName[7]);
-                            $ninethSortingColumn = array_column($articleData, $this->initialSortingAttributesName[8]);
-                            $tenthSortingColumn = array_column($articleData, $this->initialSortingAttributesName[9]);
-                            $eleventhSortingColumn = array_column($articleData, $this->initialSortingAttributesName[10]);
-                            $twelthSortingColumn = array_column($articleData, $this->initialSortingAttributesName[11]);
-                            $thirteenthSortingColumn = array_column($articleData, $this->initialSortingAttributesName[12]);
+                            // $firstSortingColumn = array_column($articleData, $this->initialSortingAttributesName[0]);
+                            // $secondSortingColumn = array_column($articleData, $this->initialSortingAttributesName[1]);
+                            // $thirdSortingColumn = array_column($articleData, $this->initialSortingAttributesName[2]);
+                            // $fourthSortingColumn = array_column($articleData, $this->initialSortingAttributesName[3]);
+                            // $fifthSortingColumn = array_column($articleData, $this->initialSortingAttributesName[4]);
 
-                            $fourteenthSortingColumn = array_column($articleData, $this->initialSortingAttributesName[13]);
-                            $fifteenthSortingColumn = array_column($articleData, $this->initialSortingAttributesName[14]);
-                            $sixteenthSortingColumn = array_column($articleData, $this->initialSortingAttributesName[15]);
+                            $sixthSortingColumn = isset($this->initialSortingAttributesName[5]) ? array_column($articleData, $this->initialSortingAttributesName[5]) : null;
+                            $seventhSortingColumn = isset($this->initialSortingAttributesName[6]) ? array_column($articleData, $this->initialSortingAttributesName[6]) : null;
+                            $eighthSortingColumn = isset($this->initialSortingAttributesName[7]) ? array_column($articleData, $this->initialSortingAttributesName[7]) : null;
+                            $ninethSortingColumn = isset($this->initialSortingAttributesName[8]) ? array_column($articleData, $this->initialSortingAttributesName[8]) : null;
+                            $tenthSortingColumn = isset($this->initialSortingAttributesName[9]) ? array_column($articleData, $this->initialSortingAttributesName[9]) : null;
 
+
+                            // $sixthSortingColumn = array_column($articleData, $this->initialSortingAttributesName[5]);
+                            // $seventhSortingColumn = array_column($articleData, $this->initialSortingAttributesName[6]);
+                            // $eighthSortingColumn = array_column($articleData, $this->initialSortingAttributesName[7]);
+                            // $ninethSortingColumn = array_column($articleData, $this->initialSortingAttributesName[8]);
+                            // $tenthSortingColumn = array_column($articleData, $this->initialSortingAttributesName[9]);
+
+                            $eleventhSortingColumn = isset($this->initialSortingAttributesName[10]) ? array_column($articleData, $this->initialSortingAttributesName[10]) : null;
+                            $twelthSortingColumn = isset($this->initialSortingAttributesName[11]) ? array_column($articleData, $this->initialSortingAttributesName[11]) : null;
+                            $thirteenthSortingColumn = isset($this->initialSortingAttributesName[12]) ? array_column($articleData, $this->initialSortingAttributesName[12]) : null;
+                            
+                            // $eleventhSortingColumn = array_column($articleData, $this->initialSortingAttributesName[10]);
+                            // $twelthSortingColumn = array_column($articleData, $this->initialSortingAttributesName[11]);
+                            // $thirteenthSortingColumn = array_column($articleData, $this->initialSortingAttributesName[12]);
+
+                            $fourteenthSortingColumn = isset($this->initialSortingAttributesName[13]) ? array_column($articleData, $this->initialSortingAttributesName[13]) : null;
+                            $fifteenthSortingColumn = isset($this->initialSortingAttributesName[14]) ? array_column($articleData, $this->initialSortingAttributesName[14]) : null;
+                            $sixteenthSortingColumn = isset($this->initialSortingAttributesName[15]) ? array_column($articleData, $this->initialSortingAttributesName[15]) : null;
+                            
+                            // $fourteenthSortingColumn = array_column($articleData, $this->initialSortingAttributesName[13]);
+                            // $fifteenthSortingColumn = array_column($articleData, $this->initialSortingAttributesName[14]);
+                            // $sixteenthSortingColumn = array_column($articleData, $this->initialSortingAttributesName[15]);
 
                             if (count($result) == 0) {
                                 array_multisort(
@@ -1293,24 +1314,44 @@ class DefaultController extends FrontendController
                                     $remainingAttributeSortArr[] = $value;
                                 }
 
-                                $firstSortingColumn = array_column($articleData, $remainingAttributeSortArr[0]);
-                                $secondSortingColumn = array_column($articleData, $remainingAttributeSortArr[1]);
-                                $thirdSortingColumn = array_column($articleData, $remainingAttributeSortArr[2]);
-                                $fourthSortingColumn = array_column($articleData, $remainingAttributeSortArr[3]);
-                                $fifthSortingColumn = array_column($articleData, $remainingAttributeSortArr[4]);
+                                $firstSortingColumn = isset($remainingAttributeSortArr[0]) ? array_column($articleData, $remainingAttributeSortArr[0]) : null;
+                                $secondSortingColumn = isset($remainingAttributeSortArr[1]) ? array_column($articleData, $remainingAttributeSortArr[1]) : null;
+                                $thirdSortingColumn = isset($remainingAttributeSortArr[2]) ? array_column($articleData, $remainingAttributeSortArr[2]) : null;
+                                $fourthSortingColumn = isset($remainingAttributeSortArr[3]) ? array_column($articleData, $remainingAttributeSortArr[3]) : null;
+                                $fifthSortingColumn = isset($remainingAttributeSortArr[4]) ? array_column($articleData, $remainingAttributeSortArr[4]) : null;
 
-                                $sixthSortingColumn = array_column($articleData, $remainingAttributeSortArr[5]);
-                                $seventhSortingColumn = array_column($articleData, $remainingAttributeSortArr[6]);
-                                $eighthSortingColumn = array_column($articleData, $remainingAttributeSortArr[7]);
-                                $ninethSortingColumn = array_column($articleData, $remainingAttributeSortArr[8]);
-                                $tenthSortingColumn = array_column($articleData, $remainingAttributeSortArr[9]);
-                                $eleventhSortingColumn = array_column($articleData, $remainingAttributeSortArr[10]);
-                                $twelthSortingColumn = array_column($articleData, $remainingAttributeSortArr[11]);
-                                $thirteenthSortingColumn = array_column($articleData, $remainingAttributeSortArr[12]);
+                                // $firstSortingColumn = array_column($articleData, $remainingAttributeSortArr[0]);
+                                // $secondSortingColumn = array_column($articleData, $remainingAttributeSortArr[1]);
+                                // $thirdSortingColumn = array_column($articleData, $remainingAttributeSortArr[2]);
+                                // $fourthSortingColumn = array_column($articleData, $remainingAttributeSortArr[3]);
+                                // $fifthSortingColumn = array_column($articleData, $remainingAttributeSortArr[4]);
 
-                                $fourteenthSortingColumn = array_column($articleData, $remainingAttributeSortArr[13]);
-                                $fifteenthSortingColumn = array_column($articleData, $remainingAttributeSortArr[14]);
-                                $sixteenthSortingColumn = array_column($articleData, $remainingAttributeSortArr[15]);
+                                $sixthSortingColumn = isset($remainingAttributeSortArr[5]) ? array_column($articleData, $remainingAttributeSortArr[5]) : null;
+                                $seventhSortingColumn = isset($remainingAttributeSortArr[6]) ? array_column($articleData, $remainingAttributeSortArr[6]) : null;
+                                $eighthSortingColumn = isset($remainingAttributeSortArr[7]) ? array_column($articleData, $remainingAttributeSortArr[7]) : null;
+                                $ninethSortingColumn = isset($remainingAttributeSortArr[8]) ? array_column($articleData, $remainingAttributeSortArr[8]) : null;
+                                $tenthSortingColumn = isset($remainingAttributeSortArr[9]) ? array_column($articleData, $remainingAttributeSortArr[9]) : null;
+
+                                // $sixthSortingColumn = array_column($articleData, $remainingAttributeSortArr[5]);
+                                // $seventhSortingColumn = array_column($articleData, $remainingAttributeSortArr[6]);
+                                // $eighthSortingColumn = array_column($articleData, $remainingAttributeSortArr[7]);
+                                // $ninethSortingColumn = array_column($articleData, $remainingAttributeSortArr[8]);
+                                // $tenthSortingColumn = array_column($articleData, $remainingAttributeSortArr[9]);
+
+                                $eleventhSortingColumn = isset($remainingAttributeSortArr[10]) ? array_column($articleData, $remainingAttributeSortArr[10]) : null;
+                                $twelthSortingColumn = isset($remainingAttributeSortArr[11]) ? array_column($articleData, $remainingAttributeSortArr[11]) : null;
+                                $thirteenthSortingColumn = isset($remainingAttributeSortArr[12]) ? array_column($articleData, $remainingAttributeSortArr[12]) : null;
+                                // $eleventhSortingColumn = array_column($articleData, $remainingAttributeSortArr[10]);
+                                // $twelthSortingColumn = array_column($articleData, $remainingAttributeSortArr[11]);
+                                // $thirteenthSortingColumn = array_column($articleData, $remainingAttributeSortArr[12]);
+
+                                $fourteenthSortingColumn = isset($remainingAttributeSortArr[13]) ? array_column($articleData, $remainingAttributeSortArr[13]) : null;
+                                $fifteenthSortingColumn = isset($remainingAttributeSortArr[14]) ? array_column($articleData, $remainingAttributeSortArr[14]) : null;
+                                $sixteenthSortingColumn = isset($remainingAttributeSortArr[15]) ? array_column($articleData, $remainingAttributeSortArr[15]) : null;
+
+                                // $fourteenthSortingColumn = array_column($articleData, $remainingAttributeSortArr[13]);
+                                // $fifteenthSortingColumn = array_column($articleData, $remainingAttributeSortArr[14]);
+                                // $sixteenthSortingColumn = array_column($articleData, $remainingAttributeSortArr[15]);
 
                                     switch (count($remainingAttributeSortArr)) {
                                         case 1:
