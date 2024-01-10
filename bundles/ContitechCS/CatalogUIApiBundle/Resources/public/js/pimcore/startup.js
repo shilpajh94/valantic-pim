@@ -9,12 +9,10 @@ pimcore.plugin.CatalogUIApiBundle = Class.create(pimcore.plugin.admin, {
         pimcore.plugin.broker.registerPlugin(this);
     },
 
-    // pimcoreReady: function (params, broker) {
-    //     //alert("CatalogUIApiBundle ready!");
-    // },
     pimcoreReady: function (params, broker) {
-        document.dispatchEvent(new Event('pimcore.plugin.CatalogUIApiBundle::pimcoreReady'));
+        //alert("CatalogUIApiBundle ready!");
     },
+    
     postOpenDocument: function(doc,type){
 
         let parentFolderPath    = getFolderPath();
@@ -28,10 +26,7 @@ pimcore.plugin.CatalogUIApiBundle = Class.create(pimcore.plugin.admin, {
     }
 });
 
-//var CatalogUIApiBundlePlugin = new pimcore.plugin.CatalogUIApiBundle();
-document.addEventListener('pimcore.plugin.CatalogUIApiBundle::pimcoreReady', function (event) {
-    // For instance: alert("ImportBundle ready!");
-});
+var CatalogUIApiBundlePlugin = new pimcore.plugin.CatalogUIApiBundle();
 
 
 function getFolderPath()

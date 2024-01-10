@@ -9,16 +9,11 @@ pimcore.plugin.PTGEUImportBundle = Class.create(pimcore.plugin.admin, {
         pimcore.plugin.broker.registerPlugin(this);
     },
 
-    // pimcoreReady: function (params, broker) {
-    //     // alert("PTGEUImportBundle ready!");
-    // }
     pimcoreReady: function (params, broker) {
-        document.dispatchEvent(new Event('pimcore.plugin.PTGEUImportBundle::pimcoreReady'));
+        // alert("PTGEUImportBundle ready!");
     }
+    
 });
 
-//var PTGEUImportBundlePlugin = new pimcore.plugin.PTGEUImportBundle();
-document.addEventListener('pimcore.plugin.PTGEUImportBundle::pimcoreReady', function (event) {
-    // For instance: alert("PTGEUImportBundle ready!");
-});
+var PTGEUImportBundlePlugin = new pimcore.plugin.PTGEUImportBundle();
 

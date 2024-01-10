@@ -9,12 +9,10 @@ pimcore.plugin.RestApiBundle = Class.create(pimcore.plugin.admin, {
         pimcore.plugin.broker.registerPlugin(this);
     },
 
-    // pimcoreReady: function (params, broker) {
-    //     // alert("RestApiBundle ready!");
-    // },
     pimcoreReady: function (params, broker) {
-        document.dispatchEvent(new Event('pimcore.plugin.RestApiBundle::pimcoreReady'));
+        // alert("RestApiBundle ready!");
     },
+    
     postOpenObject: function (object, type) {
         let objectClassName = object.data.general.o_className;
         if (objectClassName == 'VirtualCatalogApiMapper') {
@@ -138,10 +136,7 @@ pimcore.plugin.RestApiBundle = Class.create(pimcore.plugin.admin, {
 });
 
 
-//var RestApiBundlePlugin = new pimcore.plugin.RestApiBundle();
-document.addEventListener('pimcore.plugin.RestApiBundle::pimcoreReady', function (event) {
-    // For instance: alert("RestApiBundle ready!");
-});
+var RestApiBundlePlugin = new pimcore.plugin.RestApiBundle();
 
 
 Ext.define('Conti.pimcore.object.tags.table', {

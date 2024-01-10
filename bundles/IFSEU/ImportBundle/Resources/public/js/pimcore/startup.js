@@ -9,15 +9,9 @@ pimcore.plugin.IFSEUImportBundle = Class.create(pimcore.plugin.admin, {
         pimcore.plugin.broker.registerPlugin(this);
     },
 
-    // pimcoreReady: function (params, broker) {
-    //     // alert("IFSEUImportBundle ready!");
-    // }
     pimcoreReady: function (params, broker) {
-        document.dispatchEvent(new Event('pimcore.plugin.IFSEUImportBundle::pimcoreReady'));
+        // alert("IFSEUImportBundle ready!");
     }
 });
 
-//var IFSEUImportBundlePlugin = new pimcore.plugin.IFSEUImportBundle();
-document.addEventListener('pimcore.plugin.IFSEUImportBundle::pimcoreReady', function (event) {
-    // For instance: alert("IFSEUImportBundle ready!");
-});
+var IFSEUImportBundlePlugin = new pimcore.plugin.IFSEUImportBundle();

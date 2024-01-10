@@ -9,16 +9,9 @@ pimcore.plugin.ImportBundle = Class.create(pimcore.plugin.admin, {
         pimcore.plugin.broker.registerPlugin(this);
     },
 
-    // pimcoreReady: function (params, broker) {
-    //     // alert("ImportBundle ready!");
-    // }
-    //Changes done by Piyush Start
     pimcoreReady: function (params, broker) {
-        document.dispatchEvent(new Event('pimcore.plugin.ImportBundle::pimcoreReady'));
+        // alert("ImportBundle ready!");
     }
+    
 });
-// var ImportBundlePlugin = new pimcore.plugin.ImportBundle();
-document.addEventListener('pimcore.plugin.ImportBundle::pimcoreReady', function (event) {
-    // For instance: alert("ImportBundle ready!");
-});
-//Changes done by Piyush End
+var ImportBundlePlugin = new pimcore.plugin.ImportBundle();

@@ -9,12 +9,10 @@ pimcore.plugin.IFSEUProductBundle = Class.create(pimcore.plugin.admin, {
         pimcore.plugin.broker.registerPlugin(this);
     },
 
-    // pimcoreReady: function (params, broker) {
-    //     // alert("IFSEUProductBundle ready!");
-    // },
     pimcoreReady: function (params, broker) {
-        document.dispatchEvent(new Event('pimcore.plugin.IFSEUProductBundle::pimcoreReady'));
+        // alert("IFSEUProductBundle ready!");
     },
+    
     postOpenObject: function (object, type) {
 
         // object.data.layout.childs[0].childs // all tab panel name
@@ -132,7 +130,4 @@ pimcore.plugin.IFSEUProductBundle = Class.create(pimcore.plugin.admin, {
     }
 });
 
-//var IFSEUProductBundlePlugin = new pimcore.plugin.IFSEUProductBundle();
-document.addEventListener('pimcore.plugin.IFSEUProductBundle::pimcoreReady', function (event) {
-    // For instance: alert("IFSEUProductBundle ready!");
-});
+var IFSEUProductBundlePlugin = new pimcore.plugin.IFSEUProductBundle();
