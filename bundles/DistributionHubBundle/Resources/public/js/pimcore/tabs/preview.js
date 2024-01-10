@@ -142,20 +142,22 @@ pimcore.plugin.distributionhub.tabs.preview = Class.create(pimcore.bundle.distri
 
         var itemsPerPage = this.gridPageSize;
 
-        if (Ext.decode(response.responseText)) {
-            response = Ext.decode(response.responseText);
+        if (response.responseText) {
+            if (Ext.decode(response.responseText)) {
+                response = Ext.decode(response.responseText);
 
-            if (response.pageSize) {
-                this.gridPageSize = response.pageSize;
-                itemsPerPage = response.pageSize;
+                if (response.pageSize) {
+                    this.gridPageSize = response.pageSize;
+                    itemsPerPage = response.pageSize;
+                }
+
+                fields = response.availableFields;
+                this.gridLanguage = response.language;
+
+                this.settings = response.settings || {};
+                this.availableConfigs = response.availableConfigs;
+                this.sharedConfigs = response.sharedConfigs;
             }
-
-            fields = response.availableFields;
-            this.gridLanguage = response.language;
-
-            this.settings = response.settings || {};
-            this.availableConfigs = response.availableConfigs;
-            this.sharedConfigs = response.sharedConfigs;
         }
 
         if (response.availableFields) {

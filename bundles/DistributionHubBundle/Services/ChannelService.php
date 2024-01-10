@@ -149,9 +149,9 @@ class ChannelService
             throw new \Exception('dHub_template_required');
         }
 	// for contitech
-//        $fullPath = PIMCORE_ASSET_DIRECTORY . $assetObject->getPath() . $assetObject->getFilename();
+        // $fullPath = PIMCORE_ASSET_DIRECTORY . $assetObject->getPath() . $assetObject->getFilename();
         // path with s3 protocol
-        $fullPath = $assetObject->getFileSystemPath();
+        $fullPath = PIMCORE_ASSET_DIRECTORY . $assetObject->getRealFullPath();
         if (strtolower($fileType) === 'csv') {
             $fp = fopen($fullPath, 'r');
             $header = fgetcsv($fp, 4096, $separator, '"');
@@ -197,10 +197,12 @@ class ChannelService
                 if (isset($selectedGridColumns[$tKey])) {
                     $pimMapped = [];
                     $mappedObject = $selectedGridColumns[$tKey] ?? [];
+                    // p_r($mappedObject);
                     if (is_array($mappedObject) && count($mappedObject)) {
                         $pimMapped = self::childWithInner($mappedObject, $pimMapped);
                     }
-                    $pimMapped['definition']['isLocalizedfield'] = $mappedObject['isLocalizedfield'] != "" ? $mappedObject['isLocalizedfield'] : false;
+                    // dd($pimMapped);
+                    $pimMapped['definition']['isLocalizedfield'] = array_key_exists('isLocalizedfield', $mappedObject) ? ($mappedObject['isLocalizedfield'] != "" ? $mappedObject['isLocalizedfield'] : false) : false;
                     $pimMapped['targetAttributeKey'] = $mappedObject['targetAttributeKey'] ?? '';
                     $pimMapped['sourceDataType'] =  isset($mappedObject['sourceDataType'])? $mappedObject['sourceDataType']: '';
                     $pimMapped['targetAttributeId'] = $mappedObject['targetAttributeId'] ?? '';
@@ -252,7 +254,7 @@ class ChannelService
     {
         $data = [];
         $data['dataType'] = $object['dataType'] ?? '';
-        $data['isLocalizedfield'] = $object['isLocalizedfield'] != "" ? $object['isLocalizedfield'] : false;
+        $data['isLocalizedfield'] = array_key_exists('isLocalizedfield', $object) ? ($object['isLocalizedfield'] != "" ? $object['isLocalizedfield'] : false) : false;
         $data['label'] = $object['label'] ?? '';
         $data['brickType'] = $object['brickType'] ?? '';
         $data['operator'] = $object['operator'] ?? '';

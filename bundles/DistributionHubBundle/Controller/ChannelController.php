@@ -8,6 +8,7 @@ use Doctrine\DBAL\Exception\NotNullConstraintViolationException;
 use Pimcore\Model\Element;
 use Pimcore\Model\DataObject;
 use DistributionHubBundle\Services;
+use DistributionHubBundle\Services\FilterService;
 use Exception;
 use Pimcore\Bundle\AdminBundle\Controller\AdminController;
 use Pimcore\Tool\Admin;
@@ -18,6 +19,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Pimcore\Tool;
 use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface;
 use DistributionHubBundle\Lib\DHubLogger;
+use Pimcore\Translation\Translator;
+use Psr\Container\ContainerInterface;
+use Psr\Log\LoggerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Pimcore\Bundle\AdminBundle\Security\User\TokenStorageUserResolver;
 
 /**
  * @package DistributionHubBundle\Controller
@@ -34,11 +40,28 @@ class ChannelController extends AdminController
 
     public $bundleService;
     public $basicConfigService;
+    public $logger;
+    public $userResolver;
+    public $filterLocator;
+    public $eventDispatcher;
+    public $translator;
 
-    public function __construct(Services\BundleService $bundleService, Services\BasicConfigService $basicConfigService)
-    {
+    public function __construct(
+        Services\BundleService $bundleService,
+        Services\BasicConfigService $basicConfigService,
+        LoggerInterface $logger,
+        TokenStorageUserResolver $userResolver,
+        ContainerInterface $filterLocator,
+        EventDispatcherInterface $eventDispatcher,
+        Translator $translator
+    ) {
         $this->bundleService = $bundleService;
         $this->basicConfigService = $basicConfigService;
+        $this->logger = $logger;
+        $this->userResolver = $userResolver;
+        $this->filterLocator = $filterLocator;
+        $this->eventDispatcher = $eventDispatcher;
+        $this->translator = $translator;
     }
 
     /**
@@ -64,9 +87,9 @@ class ChannelController extends AdminController
         $userIds = implode(',', $userIds);
         if (!empty($shared)) {
             $sharedObj = new ChannelConfigShare\Listing();
-            $sharedObj->setCondition("sharedWithUserId IN (".$userIds.")");
+            $sharedObj->setCondition("sharedWithUserId IN (" . $userIds . ")");
             $sharedChannel = array_column($sharedObj->load(), 'channelId');
-            $sharedChannel = (count($sharedChannel)>0)?"id IN (".implode(',', $sharedChannel).")":"id IN ('')";
+            $sharedChannel = (count($sharedChannel) > 0) ? "id IN (" . implode(',', $sharedChannel) . ")" : "id IN ('')";
             if (!empty($filter)) {
                 $obj->setCondition("( $sharedChannel OR shareGlobally = 1) AND (expiryDate=0 OR expiryDate=null OR expiryDate > CURRENT_DATE()) AND name LIKE ? ", ["%$filter%"]);
             } else {
@@ -112,7 +135,7 @@ class ChannelController extends AdminController
         $scheduleScreenRefreshTime = $bundleService->getConfig('schedule_screen_refresh_time');
 
         $userIds = ChannelConfigShare::getUserByChannelId($channel->getId());
-        $expiryDate = ($channel->getExpiryDate())?$channel->getExpiryDate()->format('m/d/y'):"";
+        $expiryDate = ($channel->getExpiryDate()) ? $channel->getExpiryDate()->format('m/d/y') : "";
         return [
             'id' => $channel->getId(),
             'text' => $channel->getName(),
@@ -122,13 +145,13 @@ class ChannelController extends AdminController
             'allowChildren' => false,
             'iconCls' => 'pimcore_icon_routes',
             'expandable' => false,
-            'parent_id'=>1,
+            'parent_id' => 1,
             'leaf' => true,
             'elementType' => 'channel',
             'qtipCfg' => [
                 'title' => 'ID: ' . $channel->getId()
             ],
-            'qtip'=> 'ID: ' . $channel->getId(),
+            'qtip' => 'ID: ' . $channel->getId(),
             'pimcoreClassId' => $channel->getPimcoreClassId(),
             'headerMappingFileAssetId' => $channel->getHeaderMappingFileAssetId(),
             'headerMappingFileType' => $channel->getHeaderMappingFileType(),
@@ -359,8 +382,8 @@ class ChannelController extends AdminController
             $data = $request->request->all();
             $data['mapping'] = json_encode(Services\ChannelService::gridConfigToPimConfig($data));
             $data['mappingJson'] = json_encode(Services\ChannelService::filterAttributeMappingConfig($data['mappingJson']));
-
-            $data['showInGrid'] = json_encode(\DistributionHubBundle\Services\FilterService::getShowInGridMapping($data));
+            $filter = new FilterService($this->logger, $this->userResolver, $this->filterLocator, $this->eventDispatcher, $this->translator);
+            $data['showInGrid'] = json_encode($filter->getShowInGridMapping($data));
 
             Services\ChannelService::updateChannelMapping($data, $objectId);
             return $this->json([self::SUCCESS => true, self::MESSAGE => "Mapping Save successfully"]);
@@ -436,17 +459,17 @@ class ChannelController extends AdminController
         return $this->adminJson($request);
     }
 
-     /**
-      * @Route("/get-brick-attributes", methods={"GET"})
-      *
-      *  Load Object Bricks layout
-      * @param $request
-      */
+    /**
+     * @Route("/get-brick-attributes", methods={"GET"})
+     *
+     *  Load Object Bricks layout
+     * @param $request
+     */
     public function getBrickAttributes(Request $request)
     {
-        if(is_numeric($request->get('id'))){
+        if (is_numeric($request->get('id'))) {
             $classId = intval($request->get('id'));
-        }else{
+        } else {
             $classId = $request->get('id');
         }
         $brickName = $request->get('brickName');

@@ -10,7 +10,7 @@ pimcore.plugin.distributionhub.configItem = Class.create(pimcore.element.abstrac
         this.getFiltersConfig = new pimcore.plugin.distributionhub.tabs.filtersConfig(this.data, this.parentType);
         this.tab = new Ext.TabPanel({
             activeTab: 0,
-            title: Ext.util.Format.htmlEncode(this.data.general.o_key),
+            title: this.data.general.o_key,
             closable: true,
             deferredRender: false,
             forceLayout: true,
@@ -20,14 +20,14 @@ pimcore.plugin.distributionhub.configItem = Class.create(pimcore.element.abstrac
                 itemId: 'footer'
             },
             items:
-                    [
-                        this.getBasicConfiguration(),
-                        // this.getColumnConfiguration(),
-                        // this.getFilters(this.getFiltersConfig),
-                        // this.getPreview(this.getFiltersConfig),
-                        // this.getScheduleConfiguration(),
-                        // this.getShare()
-                    ]
+                [
+                    this.getBasicConfiguration(),
+                    this.getColumnConfiguration(),
+                    this.getFilters(this.getFiltersConfig),
+                    this.getPreview(this.getFiltersConfig),
+                    this.getScheduleConfiguration(),
+                    this.getShare()
+                ]
         });
         if (typeof parentType != "undefined" && parentType == 'shared') {
             this.tab.remove(this.getShare());
