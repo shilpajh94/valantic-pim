@@ -12,6 +12,7 @@ pimcore.plugin.PTGEUProductBundle = Class.create(pimcore.plugin.admin, {
     pimcoreReady: function (params, broker) {
         // alert("PTGEUProductBundle ready!");
     }
+    
 });
 
 var PTGEUProductBundlePlugin = new pimcore.plugin.PTGEUProductBundle();

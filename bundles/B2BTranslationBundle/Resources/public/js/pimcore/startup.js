@@ -15,6 +15,7 @@ pimcore.plugin.B2BTranslationBundle = Class.create(pimcore.plugin.admin, {
             this.leftNavigation();
         }
     },
+   
     leftNavigation: function () {
         let navigation = Ext.get("pimcore_navigation");
         let ulElement = navigation.selectNode('ul');

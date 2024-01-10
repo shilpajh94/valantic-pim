@@ -256,7 +256,7 @@ class SalesMaterialService
         
 	    $dataCount = count($data);
         foreach ($data as $rowCount => $rowvalueRecord) {
-            $rowvalue = json_decode(utf8_encode($rowvalueRecord['record']));
+            $rowvalue = json_decode(mb_convert_encoding($rowvalueRecord['record'], 'UTF-8'));
             $rowvalue = array_combine($this->fileColumns, $rowvalue);
             
             $plantName = $rowvalue[$columnPlant];
@@ -418,7 +418,8 @@ class SalesMaterialService
                         }
                         $dependencyTableDataArray[] = ['sourceid' => $objId, 'targetid' => $salesOrgCode,
                          'sourcetype' => 'object', 'targettype' => 'object'];
-                        $dependencyTableDataArray[] = ['sourceid' => $objId, 'targetid' => $this->distributionChannelCode,
+                        $dependencyTableDataArray[] = ['sourceid' => $objId, 'targetid' =>
+                         $this->distributionChannelCode,
                          'sourcetype' => 'object', 'targettype' => 'object'];
                         $dependencyTableDataArray[] = ['sourceid' => $objId, 'targetid' => $this->countryOfOriginCode,
                          'sourcetype' => 'object', 'targettype' => 'object'];

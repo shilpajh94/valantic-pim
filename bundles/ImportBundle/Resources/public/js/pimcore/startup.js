@@ -12,6 +12,6 @@ pimcore.plugin.ImportBundle = Class.create(pimcore.plugin.admin, {
     pimcoreReady: function (params, broker) {
         // alert("ImportBundle ready!");
     }
+    
 });
-
 var ImportBundlePlugin = new pimcore.plugin.ImportBundle();

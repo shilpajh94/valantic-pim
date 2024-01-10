@@ -442,3 +442,6 @@ pimcore.plugin.RequiredAttributesBundle = Class.create(pimcore.plugin.admin, {
 });
 
 var RequiredAttributesBundlePlugin = new pimcore.plugin.RequiredAttributesBundle();
+
+
+ 

@@ -102,26 +102,29 @@ class ProductAssetMappingService
         $pimColumnName = $this->getPimColumnName($columnName);
         if($pimColumnName != '')
         {
-            echo $assetObject->getFilename()." is mapping with ".$productName."\n";
             $allProductObject = new PTGEUProduct\Listing();
             $allProductObject->setCondition(" ProductName   = :productName AND
-             productType = :productType ", ["productName" => $productName, "productType" => "base"]);
+            productType = :productType ", ["productName" => $productName, "productType" => "base"]);
             $allProductObject->load();
+            $i = 0;
+
             foreach($allProductObject as $productObject)
             {
                 try{
                     $fn = "set".$pimColumnName;
                     $productObject->$fn($assetObject);
                     $productObject->save();
-                    $this->insertLog($rowData, 'Mapping', 'Success', 'Mapped with productId
-                    '.$productObject->getId(), $assetObject->getFilename());
+                    $i++;
+                    $this->insertLog($rowData, 'Mapping', 'Success',
+                    'Mapped with productId'.$productObject->getId(), $assetObject->getFilename());
                 } catch (Exception $exception){
                     $this->insertLog($rowData, 'Mapping', 'Failed', $exception->getMessage().'||
-                     Unable to map with '.$productObject->oo_id, $assetObject->getFilename());
+                     Unable to map with '.$productObject->getId(), $assetObject->getFilename());
                     echo "Mapping failed - ".$assetObject->getFilename()." to ".$productName." due to "
                     .$exception->getMessage()."\n";
                 }
             }
+            echo "$i assests mapped " . $assetObject->getFilename(). " for ". $productName ."\n";
             
         } else {
             $this->insertLog($rowData, 'Mapping', 'Failed', 'Invalid Column Name', $assetObject->getFilename());

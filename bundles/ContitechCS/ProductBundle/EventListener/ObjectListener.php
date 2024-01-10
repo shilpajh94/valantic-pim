@@ -374,7 +374,7 @@ class ObjectListener
     public function beforeSearchListLoad(GenericEvent $event) {
         $list = $event->getArgument('list');
         $context = $event->getArgument('context');
-        $className = $context['class'];
+        $className = isset($context['class']) ? $context['class'] : null;
         $contextArray = $context['context'];
         if ($className == 'CSProducts' && !empty($contextArray)) {
             $contextArray = (array)json_decode($contextArray);

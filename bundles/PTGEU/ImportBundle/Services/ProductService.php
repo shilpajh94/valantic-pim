@@ -57,7 +57,8 @@ class ProductService
     const LOGGER_MODULE = 'SAP IMPORT SHEET';
     
     
-    public function __construct(CompletenessPercentageService $percentageCompletionService, ContainerInterface $container)
+    public function __construct(CompletenessPercentageService $percentageCompletionService,
+     ContainerInterface $container)
     {
         $this->container = $container;
         /* Initilize monitoring item and set the number of steps will take to complete the task */
@@ -980,19 +981,13 @@ class ProductService
     }
 
     public function saveProducts($updatedArticlesArray) {
-        // if(is_array($updatedArticlesArray))
-        // {
-        //     $counter = 1;
             foreach ($updatedArticlesArray as $objectId) {
                 if (!empty($objectId)) {
                     $object = DataObject\PTGEUProduct::getById($objectId, true);
                     if (!empty($object) && $object instanceof \Pimcore\Model\DataObject\PTGEUProduct) {
                         $object->save();
-                        // echo "Object saved == ".$counter." ==== ".$objectId.PHP_EOL;
                     }
                 }
-                // $counter++;
             }
-        // }
     }
 }
