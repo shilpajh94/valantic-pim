@@ -59,6 +59,11 @@ class TwigExtension extends AbstractExtension
         return explode(PHP_EOL, $string);
     }
 
+    public function implodePHP_EOL($array)
+    {
+        return implode(PHP_EOL, $array);
+    }
+
     public function implodeBR($array)
     {
         return implode('<br/>', $array);
