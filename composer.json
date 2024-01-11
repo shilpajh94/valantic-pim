@@ -11,11 +11,15 @@
   },
   "require": {
     "php": ">=8.0",
+    "coreshop/pimcore-bundle": "^3.2",
+    "coreshop/resource-bundle": "^3.2",
+    "coreshop/rule-bundle": "^3.2",
     "doctrine/doctrine-migrations-bundle": "^3.0.1",
     "elements/process-manager-bundle": "~3.0.0",
     "league/flysystem-aws-s3-v3": "^2.0",
     "php-http/guzzle7-adapter": "^0.1.1",
-    "pimcore/pimcore": "~10.6.0"
+    "pimcore/pimcore": "~10.6.0",
+    "w-vision/data-definitions": "^4.1"
   },
   "conflict": {
     "doctrine/doctrine-migrations-bundle": "3.1.0"
@@ -52,7 +56,8 @@
       "ContitechCS\\ImportBundle\\": "bundles/ContitechCS/ImportBundle",
       "ContitechCS\\ProductBundle\\": "bundles/ContitechCS/ProductBundle",
       "ContitechCS\\CatalogUIApiBundle\\": "bundles/ContitechCS/CatalogUIApiBundle",
-      "ContitechCS\\CatalogBundle\\": "bundles/ContitechCS/CatalogBundle"
+      "ContitechCS\\CatalogBundle\\": "bundles/ContitechCS/CatalogBundle",
+      "Wvision\\Bundle\\DataDefinitionsBundle\\": "bundles/w-vision/data-definitions/src/DataDefinitionsBundle"
     }
   },
   "scripts": {
