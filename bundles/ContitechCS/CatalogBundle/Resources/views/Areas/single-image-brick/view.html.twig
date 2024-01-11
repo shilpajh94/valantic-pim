@@ -1,0 +1,10 @@
+{% if editmode %}
+    {{ pimcore_image('QAE_Image') }}
+{% else %}
+    {% set imgSrcObj = pimcore_image('QAE_Image') %}
+    {% if getImageThumbnail(imgSrcObj, imageWidth) %}
+        <div class="full-image-sec">
+            <img src="{{ getImageThumbnail(imgSrcObj, imageWidth) }}" alt="" />
+        </div>
+    {% endif %}
+{% endif %}

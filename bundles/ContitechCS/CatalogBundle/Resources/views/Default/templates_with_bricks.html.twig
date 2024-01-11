@@ -1,0 +1,34 @@
+{% if parentContainer is not defined %}
+	{% extends "@ContitechCSCatalog/Layouts/layout.html.twig" %}
+{% endif %}
+
+{% block _content %}
+
+	<div class="wrapper">
+		<header id="header">
+			{% if editmode %}
+				{{ pimcore_input("CS_ProductName", {'placeholder' : 'Enter Page Title For Table of Content Page'}) | raw}}
+			{% endif %}
+			<div class="header-sec">
+				<div class="header-txt">
+					<span class="first-title">{{ ('CS_header_title') | trans }}</span>
+					<span class="second-title">
+						{{ pimcore_input("ESP_title", {"placeholder" : "Enter Your Title"}) }}
+					</span>
+				</div>
+				<div class="print-pg-no"></div>
+			</div>
+		</header>
+		<footer id="footer" class="footer">
+			<div class="footer-logo">
+				<img src="{{ footer_logo_src }}" alt="" width="150">
+			</div>
+		</footer>
+		<main id="content" role="main">
+			<section class="fortressxp-belts wood-product-applications">
+				{{ pimcore_areablock('myAreablock', {"globalParams" : {'imageWidth' : imageWidth}}) }}
+			</section>
+		</main>
+	</div>
+
+{% endblock %}

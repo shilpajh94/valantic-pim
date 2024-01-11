@@ -12,6 +12,7 @@ pimcore.plugin.RestApiBundle = Class.create(pimcore.plugin.admin, {
     pimcoreReady: function (params, broker) {
         // alert("RestApiBundle ready!");
     },
+    
     postOpenObject: function (object, type) {
         let objectClassName = object.data.general.o_className;
         if (objectClassName == 'VirtualCatalogApiMapper') {

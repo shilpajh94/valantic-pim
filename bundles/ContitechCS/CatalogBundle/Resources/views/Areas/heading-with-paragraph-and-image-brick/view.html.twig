@@ -1,0 +1,110 @@
+<div class="environment-quality-sec">
+    <div class="media">
+        {% set image_position = 'right' %}
+        {% if editmode %}
+            <div style="width:100%; display:block">
+                <h3>Select Image Position</h3>
+                    {{ pimcore_select('image_position',{
+                        'store':[['left','Left'],['right','Right']],
+                        'default': 'unlimited'
+                    }) }}
+        {% endif %}
+
+        {% if pimcore_select('image_position').getData() %}
+            {% set image_position = pimcore_select('image_position').getData() %}
+        {% endif %}
+
+        {% if image_position == 'left' %}
+            {% if not editmode and (pimcore_image('Image').getThumbnail('catalog_thumb') or pimcore_image('Environment_Image').getThumbnail('catalog_thumb')) %}
+                <div class="media-image-sec mr-4 ml-0">
+            {% endif %}
+
+            {% if editmode %}
+                {{ pimcore_image('Environment_Image') }}
+            {% else %}
+                {% set imgSrcObj = pimcore_image('Environment_Image') %}
+                {% if getImageThumbnail(imgSrcObj, imageWidth) %}
+                    <img src="{{ getImageThumbnail(imgSrcObj, imageWidth)}}" alt="" class="features-images" style="max-height:350px" />
+                {% endif %}
+            {% endif %}
+
+            {% if editmode %}
+                {{ pimcore_image('Image') }}
+            {% else %}
+                {% set imgSrcObj = pimcore_image('Image') %}
+                {% if getImageThumbnail(imgSrcObj, imageWidth) %}
+                    <img src="{{getImageThumbnail(imgSrcObj, imageWidth)}}" alt="" class="features-images" style="max-height:350px" />
+                {% endif %}
+            {% endif %}
+
+            {% if not editmode and (pimcore_image('Image').getThumbnail('catalog_thumb') or pimcore_image('Environment_Image').getThumbnail('catalog_thumb')) %}
+                </div>
+            {% endif %}
+            
+        {% endif %}
+
+        <div class="media-body">
+            {% if editmode %}
+                <h3>Select Heading Type</h3>
+                {{ pimcore_select('heading_type',{
+                    'store':[['h1','h1'],['h2','h2'],['h3','h3'],['h4','h4'],['h5','h5'],['h6','h6']]
+                })}}
+                <h3>Select Heading Color</h3>
+                {{ pimcore_select('heading_color',{
+                    'store':[['#000000','Black'],['#ffa500','Yellow']]
+                })}}
+            {% endif %}
+
+            <div class="p-medium">
+                {{ pimcore_wysiwyg("quality_description_above",{"placeholder": "Enter Your  Description"}) }}
+            </div>
+
+            {% set heading_type = 'h2' %}
+            {% set heading_color = '#000000' %}
+
+            {% if pimcore_select('heading_type').getData() %}
+                {% set heading_type = pimcore_select('heading_type').getData() %}
+            {% endif %}
+
+            {% if pimcore_select('heading_color').getData() %}
+                {% set heading_color = pimcore_select('heading_color').getData() %}
+            {% endif %}
+
+            <{{heading_type}} style='color:{{heading_color}}'>
+                {{ pimcore_input('Header_title',{'placeholder':'Enter Your  Heading'}) }}
+            </{{heading_type}}>
+
+            <div class="p-medium">
+                {{ pimcore_wysiwyg("Quality_Content",{"placeholder": "Enter Your  Description"}) }}
+            </div>
+        </div>
+
+        {% if image_position == 'right' %}
+            {% if not editmode and (pimcore_image('Image').getThumbnail('catalog_thumb') or pimcore_image('Environment_Image').getThumbnail('catalog_thumb')) %}
+                <div class="media-image-sec">
+            {% endif %}
+
+            {% if editmode %}
+                {{ pimcore_image('Environment_Image') }}
+            {% else %}
+                {% set imgSrcObj1 = pimcore_image('Environment_Image') %}
+                {% if getImageThumbnail(imgSrcObj1, imageWidth) %}
+                    <img src="{{ getImageThumbnail(imgSrcObj1, imageWidth)}}" alt="" class="features-images" style="max-height:350px" />
+                {% endif %}
+            {% endif %}
+
+            {% if editmode %}
+                {{ pimcore_image('Image') }}
+            {% else %}
+                {% set imgSrcObj = pimcore_image('Image') %}
+                {% if getImageThumbnail(imgSrcObj, imageWidth) %}
+                    <img src="{{getImageThumbnail(imgSrcObj, imageWidth)}}" alt="" class="features-images" style="max-height:350px" />
+                {% endif %}
+            {% endif %}
+            
+            {% if not editmode and (pimcore_image('Image').getThumbnail('catalog_thumb') or pimcore_image('Environment_Image').getThumbnail('catalog_thumb')) %}
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>

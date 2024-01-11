@@ -1,0 +1,32 @@
+{% set totalColumnCount = pimcore_block("columns").getCount() %}
+{% set rowsCount = pimcore_block("rows").getCount() %}
+
+{% if totalColumnCount|length > 0 and rowsCount|length > 0 %}
+
+    <table width="100%">
+        <thead>
+            <tr>
+                <th class="orange" colspan="{{totalColumnCount}}" align="center">{{pimcore_input("beltConstructionTitle").getData()}}</th>
+            </tr>
+            <tr>
+                {% for i in pimcore_block('columns').iterator %}
+                    <th>{{pimcore_input("heading").getData() }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for incr1 in pimcore_block('rows').iterator %}
+                <tr>
+                    {% for i in 0..(totalColumnCount) %}
+                    <td>
+                        {% for incr2 in pimcore_block('points_'~i).iterator %}
+                            <th>{{pimcore_input("pa_points_"~i).getData() }}</th>
+                        {% endfor %}
+                    </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}

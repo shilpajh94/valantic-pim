@@ -1,0 +1,34 @@
+{#
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+#}
+
+{% if editmode %}
+    {{ pimcore_input("beltConstructionTitle", {'placeholder': 'Belt Construction Title'}) }}
+
+    Select how many heading you want in table:
+
+    {% for i in pimcore_block('columns').iterator %}
+        <th>{{ pimcore_input("heading", {'placeholder': 'Enter Heading'}) }}</th>
+    {% endfor %}
+
+    {% set totalColumnCount =  pimcore_block("columns").getCount() %}
+
+    {% if totalColumnCount %}
+        Select how many rows you want in table: 
+
+        {% for incr in pimcore_block('rows').iterator %}
+            {% for i in 0..totalColumnCount %}
+                {% for incr2 in pimcore_block('points_'~i).iterator %}
+                    {{ pimcore_input("pa_points_"~i, {'placeholder': 'Enter Data'}) }}
+                {% endfor %}
+            {% endfor %}
+            
+        {% endfor %}
+
+    {% endif %}
+
+{% endif %}

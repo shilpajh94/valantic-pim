@@ -1,0 +1,25 @@
+{% if editmode %}
+	<h3>Select Heading Type</h3>
+	{{ pimcore_select('heading_type',{
+        'store':[['h1','h1'],['h2','h2'],['h3','h3'],['h4','h4'],['h5','h5'],['h6','h6']]
+    })}}
+	<h3>Select Heading Color</h3>
+	{{ pimcore_select('heading_color',{
+        'store':[['#000000','Black'],['#ffa500','Yellow']]
+    })}}
+{% endif %}
+
+{% set heading_type = 'h2' %}
+{% set heading_color = '#000000' %}
+
+{% if pimcore_select('heading_type').getData() %}
+	{% set heading_type = pimcore_select('heading_type').getData() %}
+{% endif %}
+
+{% if pimcore_select('heading_color').getData() %}
+	{% set heading_color = pimcore_select('heading_color').getData() %}
+{% endif %}
+
+<{{heading_type}} style='color:{{heading_color}}'>
+	{{ pimcore_input('Header_title',{'placeholder':'Enter Your  Heading'}) }}
+</{{heading_type}}>
