@@ -19,7 +19,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSAvailablePatternWidths',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1699596850,
+   'modificationDate' => 1704874867,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -43,8 +43,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'type' => NULL,
      'region' => NULL,
      'title' => NULL,
-     'width' => NULL,
-     'height' => NULL,
+     'width' => 0,
+     'height' => 0,
      'collapsible' => false,
      'collapsed' => false,
      'bodyStyle' => NULL,
@@ -277,7 +277,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValue' => NULL,
                      'columnLength' => 190,
                      'regex' => '',
@@ -308,7 +308,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValue' => NULL,
                      'columnLength' => 190,
                      'regex' => '',
@@ -370,7 +370,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'group' => 'Conveyor Solution',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
-   'previewGeneratorReference' => NULL,
+   'previewGeneratorReference' => '',
    'compositeIndices' => 
   array (
   ),
