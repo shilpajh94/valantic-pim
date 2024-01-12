@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Data Definitions.
  *
@@ -12,49 +13,84 @@
  * @license    https://github.com/w-vision/DataDefinitions/blob/master/gpl-3.0.txt GNU General Public License version 3 (GPLv3)
  */
 
-declare(strict_types=1);
-
 namespace Wvision\Bundle\DataDefinitionsBundle\Provider;
 
 use League\Csv\Reader;
 use League\Csv\Statement;
 use League\Csv\Writer;
-use Wvision\Bundle\DataDefinitionsBundle\Filter\FilterInterface;
 use Wvision\Bundle\DataDefinitionsBundle\Model\ExportDefinitionInterface;
-use Wvision\Bundle\DataDefinitionsBundle\Model\ImportDefinitionInterface;
 use Wvision\Bundle\DataDefinitionsBundle\Model\ImportMapping\FromColumn;
 use Wvision\Bundle\DataDefinitionsBundle\ProcessManager\ArtifactGenerationProviderInterface;
 use Wvision\Bundle\DataDefinitionsBundle\ProcessManager\ArtifactProviderTrait;
+use Wvision\Bundle\DataDefinitionsBundle\Helper\CommonHelper as commonHelper;
+use Pimcore\Model\Asset;
+use Wvision\Bundle\DataDefinitionsBundle\Filter\FilterInterface;
+use Wvision\Bundle\DataDefinitionsBundle\Model\ImportDefinitionInterface;
 use function chr;
 use function count;
+use Wvision\Bundle\DataDefinitionsBundle\Provider\ImportDataSetInterface;
+
+
+
 
 class CsvProvider extends AbstractFileProvider implements ImportProviderInterface, ExportProviderInterface, ArtifactGenerationProviderInterface
 {
     use ArtifactProviderTrait;
 
-    private array $exportData = [];
+    /**
+     * @var array
+     */
+    private $exportData = [];
 
+    /**
+     * {@inheritdoc}
+     */
     public function testData(array $configuration): bool
     {
         return true;
     }
 
-    public function getColumns(array $configuration): array
+    /**
+     * {@inheritdoc}
+     */
+    public function getColumns(array $configuration, $definitionName = ''): array
     {
-        $csvHeaders = (string)$configuration['csvHeaders'];
+        $commonHelperObject = new commonHelper();
+        $csvHeaders = $configuration['csvHeaders'];
         $csvExample = $configuration['csvExample'];
         $delimiter = $configuration['delimiter'];
         $enclosure = $configuration['enclosure'];
+        $csvFile = $definitionName . "-" . $configuration['csvFile'];
+        $path = $commonHelperObject->getDefaultAssetFolderForUploadedFiles() . "/" . $csvFile;
+        $asset = Asset::getByPath($path);
+
+        if ($asset) {
+            $fullPath = $asset->getFileSystemPath();
+
+            $fp = fopen($fullPath, 'r');
+            $header = fgetcsv($fp, 4096, $delimiter, '"');
+            //$headerRow = explode(',', $header[0]);
+            foreach ($header as $column) {
+                if (!is_null($column) && $column != "") {
+                    $columns[] = $column;
+                }
+            }
+            fclose($fp);
+
+            if (!empty($columns)) {
+                $csvExample = implode(",", array_map("trim", array_filter($columns)));
+            }
+        }
 
         $returnHeaders = [];
         $rows = str_getcsv($csvHeaders ?: $csvExample, "\n"); //parse the rows
 
-        if (count($rows) > 0) {
+        if (\count($rows) > 0) {
             $headerRow = $rows[0];
 
-            $headers = str_getcsv($headerRow, $delimiter, $enclosure ?: chr(8));
+            $headers = str_getcsv($headerRow, $delimiter, $enclosure ?: \chr(8));
 
-            if (count($headers) > 0) {
+            if (\count($headers) > 0) {
                 //First line are the headers
                 foreach ($headers as $header) {
                     if (!$header) {
@@ -78,7 +114,8 @@ class CsvProvider extends AbstractFileProvider implements ImportProviderInterfac
         ImportDefinitionInterface $definition,
         array $params,
         FilterInterface $filter = null
-    ): ImportDataSetInterface {
+    ): ImportDataSetInterface
+    {
         $csvHeaders = $configuration['csvHeaders'];
         $delimiter = $configuration['delimiter'];
         $enclosure = $configuration['enclosure'];
@@ -123,9 +160,11 @@ class CsvProvider extends AbstractFileProvider implements ImportProviderInterfac
 
         $records = $stmt->process($csv);
 
-        return new TraversableImportDataSet($records);
-    }
+        return new TraversableImportDataSet($records);    }
 
+    /**
+     * {@inheritdoc}
+     */
     public function exportData(array $configuration, ExportDefinitionInterface $definition, array $params): void
     {
         if (!array_key_exists('file', $params)) {
@@ -139,22 +178,26 @@ class CsvProvider extends AbstractFileProvider implements ImportProviderInterfac
         $writer = Writer::createFromPath($file, 'w+');
         $writer->setDelimiter($configuration['delimiter']);
         $writer->setEnclosure($configuration['enclosure']);
-        if (isset($configuration['escape'])) {
-            $writer->setEscape($configuration['escape']);
-        }
         $writer->insertOne($headers);
         $writer->insertAll($this->exportData);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function addExportData(
         array $data,
         array $configuration,
         ExportDefinitionInterface $definition,
         array $params
-    ): void {
+    ): void
+    {
         $this->exportData[] = $data;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function provideArtifactStream(array $configuration, ExportDefinitionInterface $definition, array $params)
     {
         $headers = count($this->exportData) > 0 ? array_keys($this->exportData[0]) : [];

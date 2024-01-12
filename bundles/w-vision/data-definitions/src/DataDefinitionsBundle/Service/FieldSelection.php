@@ -12,8 +12,6 @@
  * @license    https://github.com/w-vision/DataDefinitions/blob/master/gpl-3.0.txt GNU General Public License version 3 (GPLv3)
  */
 
-declare(strict_types=1);
-
 namespace Wvision\Bundle\DataDefinitionsBundle\Service;
 
 use Pimcore\Model\DataObject;
@@ -22,16 +20,21 @@ use Wvision\Bundle\DataDefinitionsBundle\Model\ImportMapping\ToColumn;
 
 class FieldSelection
 {
+    /**
+     * @param DataObject\ClassDefinition $class
+     * @return array
+     * @throws \Exception
+     */
     public function getClassDefinition(DataObject\ClassDefinition $class): array
     {
         $fields = $class->getFieldDefinitions();
 
         $systemColumns = [
-            'o_published',
-            'o_key',
-            'o_parentId',
-            'o_parent',
-            'o_type',
+            // 'o_published',
+            // 'o_key',
+            // 'o_parentId',
+            // 'o_parent',
+            // 'o_type',
         ];
 
         $result = [];
@@ -46,7 +49,7 @@ class FieldSelection
             $toColumn->setIdentifier($sysColumn);
             $toColumn->setType('systemColumn');
             $toColumn->setGroup('systemColumn');
-
+            $toColumn->setInterpreter('generic');
             $result[] = $toColumn;
         }
 
@@ -56,6 +59,10 @@ class FieldSelection
                     $localizedFields = $field->getFieldDefinitions();
 
                     foreach ($localizedFields as $localizedField) {
+                        if(!$this->isAllowFieldForMapping($localizedField))
+                        {
+                            continue;
+                        }
                         $localizedField = $this->getFieldConfiguration($localizedField);
 
                         $localizedField->setGroup('localizedfield.'.strtolower($language));
@@ -64,6 +71,7 @@ class FieldSelection
                         $localizedField->setSetter('localizedfield');
                         $localizedField->setConfig(['language' => $language]);
                         $localizedField->setSetterConfig(['language' => $language]);
+                        $localizedField->setInterpreter('generic');
                         $result[] = $localizedField;
                     }
                 }
@@ -82,21 +90,47 @@ class FieldSelection
                                 $fields = $brickDefinition->getFieldDefinitions();
 
                                 foreach ($fields as $brickField) {
-                                    $resultField = $this->getFieldConfiguration($brickField);
-
-                                    $resultField->setGroup('objectbrick.'.$key);
-                                    $resultField->setType('objectbrick');
-                                    $resultField->setIdentifier(
-                                        sprintf(
-                                            'objectbrick~%s~%s~%s',
-                                            $field->getName(),
-                                            $key,
-                                            $resultField->getIdentifier()
-                                        )
-                                    );
-                                    $resultField->setSetter('objectbrick');
-                                    $resultField->setConfig(['class' => $key]);
-                                    $result[] = $resultField;
+                                    if(!$this->isAllowFieldForMapping($brickField))
+                                    {
+                                        continue;
+                                    }
+                                    $resultField1 = $this->getFieldConfiguration($brickField);
+                                    // p_r($resultField1->getIdentifier());
+                                    if(stristr($resultField1->getIdentifier(),"unit")!==FALSE){
+                                        continue;
+                                    }
+                                    if($resultField1->getFieldtype() == 'localizedfields'){
+                                        $localizedFieldsBrick = $brickField->getFieldDefinitions();
+                                        foreach ($activatedLanguages as $language) {
+                                            foreach($localizedFieldsBrick as $bricks){
+                                                $resultField = $this->getFieldConfiguration($bricks);
+                                                $resultField->setGroup('objectbrick.'.$key.'~'.$language);
+                                                $resultField1->setType('objectbrick');
+                                                $resultField->setIdentifier(sprintf('%s~%s', $resultField->getIdentifier(), $language));
+                                                $resultField->setSetter('objectbrick');
+                                                $resultField->setConfig(['class' => $key]);
+                                                $resultField->setSetterConfig(['language' => $language]);
+                                                $resultField->setInterpreter('generic');
+                                                $result[] = $resultField;
+    
+                                            }
+                                        }
+                                    }else{
+                                        $resultField1->setGroup('objectbrick.'.$key);
+                                        $resultField1->setType('objectbrick');
+                                        $resultField1->setIdentifier(
+                                            sprintf(
+                                                'objectbrick~%s~%s~%s',
+                                                $field->getName(),
+                                                $key,
+                                                $resultField1->getIdentifier()
+                                            )
+                                        );
+                                        $resultField1->setSetter('objectbrick');
+                                        $resultField1->setInterpreter('generic');
+                                        $resultField1->setConfig(['class' => $key]);
+                                        $result[] = $resultField1;
+                                    }
                                 }
 
                                 break;
@@ -113,6 +147,10 @@ class FieldSelection
                     $fieldDefinition = $definition->getFieldDefinitions();
 
                     foreach ($fieldDefinition as $fieldcollectionField) {
+                        if(!$this->isAllowFieldForMapping($fieldcollectionField))
+                        {
+                            continue;
+                        }
                         $resultField = $this->getFieldConfiguration($fieldcollectionField);
 
                         $resultField->setGroup('fieldcollection.'.$type);
@@ -127,7 +165,7 @@ class FieldSelection
                         );
                         $resultField->setSetter('fieldcollection');
                         $resultField->setConfig(['class' => $type]);
-
+                        $resultField->setInterpreter('generic');
                         $result[] = $resultField;
                     }
                 }
@@ -137,10 +175,8 @@ class FieldSelection
                 $allowedGroupIds = $field->getAllowedGroupIds();
 
                 if ($allowedGroupIds) {
-                    $list->setCondition(
-                        'ID in ('.implode(',', $allowedGroupIds).') AND storeId = ?',
-                        [$field->getStoreId()]
-                    );
+                    $list->setCondition('ID in ('.implode(',', $allowedGroupIds).') AND storeId = ?',
+                        [$field->getStoreId()]);
                 } else {
                     $list->setCondition('storeId = ?', [$field->getStoreId()]);
                 }
@@ -180,12 +216,16 @@ class FieldSelection
                                 'groupId' => $config->getId(),
                             ]);
                             $toColumn->setLabel($keyConfig->getName());
-
+                            $toColumn->setInterpreter('generic');
                             $result[] = $toColumn;
                         }
                     }
                 }
             } else {
+                if(!$this->isAllowFieldForMapping($field))
+                {
+                    continue;
+                }
                 $result[] = $this->getFieldConfiguration($field);
             }
         }
@@ -193,15 +233,35 @@ class FieldSelection
         return $result;
     }
 
+    /**
+     * @param DataObject\ClassDefinition\Data $field
+     * @return ToColumn
+     */
     protected function getFieldConfiguration(DataObject\ClassDefinition\Data $field): ToColumn
     {
         $toColumn = new ToColumn();
-
-        $toColumn->setLabel($field->getName());
+        $toColumn->setLabel($field->getTitle() . ' ('. $field->getName().')');
         $toColumn->setFieldtype($field->getFieldtype());
         $toColumn->setIdentifier($field->getName());
+        $toColumn->setInterpreter('generic');
         $toColumn->setGroup('fields');
 
         return $toColumn;
     }
+
+    protected function isAllowFieldForMapping(DataObject\ClassDefinition\Data $field): bool
+    {
+        // ignore image, video and documents
+        if($field->getFieldType()=='image' || $field->getFieldType()=='imageGallery' || $field->getFieldType()=='video' || $field->getFieldType()=='manyToManyRelation')
+        {
+            return false;
+        }
+        elseif($field->getNoteditable() || $field->getName() == 'Document' || $field->getName() == 'CompletenessPercentage' || $field->getName() == 'EmptyFields') // ignore non-editable fields
+        {
+            return false;
+        }
+        return true;   
+    }
 }
+
+
