@@ -12,32 +12,52 @@
  * @license    https://github.com/w-vision/DataDefinitions/blob/master/gpl-3.0.txt GNU General Public License version 3 (GPLv3)
  */
 
-declare(strict_types=1);
-
 namespace Wvision\Bundle\DataDefinitionsBundle\Interpreter;
 
-use InvalidArgumentException;
-use Wvision\Bundle\DataDefinitionsBundle\Context\InterpreterContextInterface;
+use Pimcore\Model\DataObject\Concrete;
+use Wvision\Bundle\DataDefinitionsBundle\Model\DataSetAwareInterface;
+use Wvision\Bundle\DataDefinitionsBundle\Model\DataSetAwareTrait;
+use Wvision\Bundle\DataDefinitionsBundle\Model\DataDefinitionInterface;
+use Wvision\Bundle\DataDefinitionsBundle\Model\MappingInterface;
 
-class TypeCastingInterpreter implements InterpreterInterface
+class TypeCastingInterpreter implements InterpreterInterface, DataSetAwareInterface
 {
-    protected const TYPE_INT = 'int';
-    protected const TYPE_STRING = 'string';
-    protected const TYPE_BOOLEAN = 'boolean';
+    use DataSetAwareTrait;
 
-    public function interpret(InterpreterContextInterface $context): mixed
-    {
-        $type = $context->getConfiguration()['toType'];
+    const TYPE_INT = 'int';
+
+    const TYPE_STRING = 'string';
+
+    const TYPE_BOOLEAN = 'boolean';
+
+    /**
+     * {@inheritdoc}
+     */
+    public function interpret(
+        Concrete $object,
+        $value,
+        MappingInterface $map,
+        $data,
+        DataDefinitionInterface $definition,
+        $params,
+        $configuration
+    ) {
+        $type = $configuration['toType'];
 
         switch ($type) {
             case static::TYPE_INT:
-                return (int)$context->getValue();
+                return (int)$value;
+                break;
             case static::TYPE_STRING:
-                return (string)$context->getValue();
+                return (string)$value;
+                break;
             case static::TYPE_BOOLEAN:
-                return (boolean)$context->getValue();
+                return (boolean)$value;
+                break;
         }
 
-        throw new InvalidArgumentException(sprintf('Not valid type cast given, given %s', $type));
+        throw new \InvalidArgumentException(sprintf('Not valid type cast given, given %s', $type));
     }
 }
+
+

@@ -92,7 +92,8 @@ class Utils
     public static function getImageOrThumbnailPathForDownload(Image $asset, $thumbnail = null): string
     {
         //        $sourcePath = \S3CustomizationBundle\Lib\Utils::getAssetFullPathCompatibleToS3($asset);
-        $sourcePath = $asset->getFileSystemPath();
+        // $sourcePath = $asset->getFileSystemPath();
+        $sourcePath = PIMCORE_ASSET_DIRECTORY.$asset->getRealFullPath();
         if ($thumbnail) {
             $pimcoreFilePath = $asset->getPath() . $asset->getFilename();
             $s3Path = \Pimcore::getKernel()->getContainer()->get(\S3CustomizationBundle\Services\S3CustomizationService::class)->getS3PathForPimcorePath($pimcoreFilePath, true);

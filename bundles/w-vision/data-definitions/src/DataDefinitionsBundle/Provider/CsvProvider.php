@@ -44,7 +44,8 @@ class CsvProvider extends AbstractFileProvider implements ImportProviderInterfac
 
     /**
      * {@inheritdoc}
-     */
+    */
+
     public function testData(array $configuration): bool
     {
         return true;
@@ -63,12 +64,13 @@ class CsvProvider extends AbstractFileProvider implements ImportProviderInterfac
         $csvFile = $definitionName . "-" . $configuration['csvFile'];
         $path = $commonHelperObject->getDefaultAssetFolderForUploadedFiles() . "/" . $csvFile;
         $asset = Asset::getByPath($path);
-
         if ($asset) {
-            $fullPath = $asset->getFileSystemPath();
-
+            // $fullPath = $asset->getFileSystemPath();
+            $fullPath = PIMCORE_ASSET_DIRECTORY.$asset->getRealFullPath();
+            // p_r($fullPath);
             $fp = fopen($fullPath, 'r');
             $header = fgetcsv($fp, 4096, $delimiter, '"');
+            
             //$headerRow = explode(',', $header[0]);
             foreach ($header as $column) {
                 if (!is_null($column) && $column != "") {

@@ -54,6 +54,19 @@ use Wvision\Bundle\DataDefinitionsBundle\Runner\RunnerInterface;
 use Wvision\Bundle\DataDefinitionsBundle\Runner\SaveRunnerInterface;
 use Wvision\Bundle\DataDefinitionsBundle\Runner\SetterRunnerInterface;
 use Wvision\Bundle\DataDefinitionsBundle\Setter\SetterInterface;
+use AppBundle\Lib\UnitConversion\ConverterFactory;
+use AppBundle\Lib\UnitConversion\Unit;
+use AppBundle\Services\AppService;
+use Pimcore\Placeholder;
+use Wvision\Bundle\DataDefinitionsBundle\Model\DataSetAwareInterface;
+use Wvision\Bundle\DataDefinitionsBundle\Lib\DataImportLogger;
+use Wvision\Bundle\DataDefinitionsBundle\Model\DataDefinitionImport;
+use Wvision\Bundle\DataDefinitionsBundle\Lib\Constants;
+use Pimcore\Model\Element;
+use Pimcore\Model\DataObject;
+use Pimcore\Model\DataObject\Data\BlockElement;
+use Symfony\Component\Yaml\Yaml;
+
 
 final class Importer implements ImporterInterface, AsyncImporterInterface
 {
@@ -157,6 +170,7 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
 
     public function doImport(ImportDefinitionInterface $definition, $params): array
     {
+        DataImportLogger::log('cfvgbhnjm');
         $filter = null;
 
         if ($definition->getCreateVersion()) {

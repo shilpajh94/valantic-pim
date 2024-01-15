@@ -145,6 +145,7 @@ class ImportDefinitionController extends ResourceController
             // $customFromColumn->setIdentifier('custom');
             // $customFromColumn->setLabel('Custom');
             try {
+                // p_r($this->get('data_definitions.registry.provider')->get($definition->getProvider()));die;
                 $fromColumns = $this->get('data_definitions.registry.provider')->get($definition->getProvider())->getColumns($definition->getConfiguration(), $definition->name);
                 // $fromColumns[] = $customFromColumn;
             } catch (\Exception $e) {
@@ -592,7 +593,6 @@ class ImportDefinitionController extends ResourceController
             $this->manager->flush();
 
             $this->eventDispatcher->dispatchPostEvent('create', $this->metadata, $resource, $request);
-            p_r($resource);
             return $this->viewHandler->handle(['data' => $resource, 'success' => true], ['group' => 'Detailed']);
         }
     }
@@ -646,7 +646,8 @@ class ImportDefinitionController extends ResourceController
                 return $this->viewHandler->handle(['success' => false, 'msg' =>'Please map "To Column" with "From Column"']);
             }
         }
-        $fullPath           = $asset->getFileSystemPath();
+        // $fullPath           = $asset->getFileSystemPath();
+        $fullPath = PIMCORE_ASSET_DIRECTORY.$asset->getRealFullPath();
         $importFilePimcoreAssetId   = $asset->getId();
 
         $csvContent         = file_get_contents($fullPath);
@@ -816,12 +817,12 @@ class ImportDefinitionController extends ResourceController
      */
     public function listClassFieldAction(Request $request)
     {
+        $classFields = [];
         $className      = $request->get('className');
         if($className ) {
             $class = ClassDefinition::getByName($className);
             $fields = $class->getFielddefinitions();
         
-            $classFields = [];
             foreach($fields as $classFieldAttributes) {
                 $fieldAttributes = $classFieldAttributes->getName();
 

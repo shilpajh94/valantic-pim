@@ -177,7 +177,23 @@ return [
             "csvId" => "20679"
         ],
         "creationDate" => 1704995243,
-        "modificationDate" => 1705060497,
+        "modificationDate" => 1705315431,
+        "mapping" => [
+            [
+                "fromColumn" => "SAP Code / Material Number",
+                "toColumn" => "searchKeywords",
+                "interpreter" => "generic",
+                "interpreterConfig" => [
+                    "separator" => "|",
+                    "class" => NULL,
+                    "field" => NULL,
+                    "match_unpublished" => TRUE
+                ],
+                "primaryIdentifier" => FALSE,
+                "setter" => NULL,
+                "setterConfig" => NULL
+            ]
+        ],
         "runner" => NULL,
         "stopOnException" => FALSE,
         "failureNotificationDocument" => NULL,

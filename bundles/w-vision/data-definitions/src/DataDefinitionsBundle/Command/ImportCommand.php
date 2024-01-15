@@ -29,6 +29,8 @@ use Wvision\Bundle\DataDefinitionsBundle\Event\ImportDefinitionEvent;
 use Wvision\Bundle\DataDefinitionsBundle\Importer\ImporterInterface;
 use Wvision\Bundle\DataDefinitionsBundle\Model\ImportDefinitionInterface;
 use Wvision\Bundle\DataDefinitionsBundle\Repository\DefinitionRepository;
+use Wvision\Bundle\DataDefinitionsBundle\Lib\DataImportLogger;
+
 
 final class ImportCommand extends AbstractCommand
 {

@@ -34,6 +34,12 @@ class DataDefinitionImport extends AbstractModel
 
     public $processId;
 
+    public $importProcessStartTime;
+
+    public $importProcessEndTime;
+
+    public $totalRecords;
+
      /**
      * @return mixed
      */
