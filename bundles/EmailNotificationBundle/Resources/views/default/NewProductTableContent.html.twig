@@ -18,30 +18,34 @@
     {% for key1, siopData in siopArray %}
         {% for key2, newProduct in siopData['newProducts'] %}
             {% if newProduct['productId'] is defined %}
-                <tr style="padding: 6px;text-align: left;border-collapse: collapse;border: 2px solid black;font-family:Lucida Sans Unicode, Arial;">
-                    <td style="padding: 6px;text-align: left;border-collapse: collapse;border: 2px solid black;font-family:Lucida Sans Unicode, Arial;">
-                        {% set index = index + 0 %}
-                        {{ index }}
-                    </td>
-                    <td style="padding: 6px;text-align: left;border-collapse: collapse;border: 2px solid black;font-family:Lucida Sans Unicode, Arial;">
-                        {{ newProduct['articleNumber'] }}
-                    </td>
-                    <td style="padding: 6px;text-align: left;border-collapse: collapse;border: 2px solid black;font-family:Lucida Sans Unicode, Arial;">
-                        {{ newProduct['sapDescription'] }}
-                    </td>
-                    <td style="padding: 6px;text-align: left;border-collapse: collapse;border: 2px solid black;font-family:Lucida Sans Unicode, Arial;">
-                        {{ newProduct['SIOP3Description'] }}
-                    </td>
-                    <td style="padding: 6px;text-align: left;border-collapse: collapse;border: 2px solid black;font-family:Lucida Sans Unicode, Arial;">
-                        {{ newProduct['SIOP4Description'] }}
-                    </td>
-                    <td style="padding: 6px;text-align: left;border-collapse: collapse;border: 2px solid black;font-family:Lucida Sans Unicode, Arial;">
-                        {{ newProduct['brandName'] }}
-                    </td>
-                    <td style="padding: 6px;text-align: left;border-collapse: collapse;border: 2px solid black;font-family:Lucida Sans Unicode, Arial;">
-                        {{ newProduct['CompletenessPercentage'] }}
-                    </td>
-                </tr>
+                {% set productId = newProduct['productId'] %}
+                {% if productId not in addedProductsInTemplate %}
+                    {% set addedProductsInTemplate = addedProductsInTemplate|merge([productId]) %}
+                    <tr style="padding: 6px;text-align: left;border-collapse: collapse;border: 2px solid black;font-family:Lucida Sans Unicode, Arial;">
+                        <td style="padding: 6px;text-align: left;border-collapse: collapse;border: 2px solid black;font-family:Lucida Sans Unicode, Arial;">
+                            {% set index = index + 1 %}
+                            {{ index }}
+                        </td>
+                        <td style="padding: 6px;text-align: left;border-collapse: collapse;border: 2px solid black;font-family:Lucida Sans Unicode, Arial;">
+                            {{ newProduct['articleNumber'] }}
+                        </td>
+                        <td style="padding: 6px;text-align: left;border-collapse: collapse;border: 2px solid black;font-family:Lucida Sans Unicode, Arial;">
+                            {{ newProduct['sapDescription'] }}
+                        </td>
+                        <td style="padding: 6px;text-align: left;border-collapse: collapse;border: 2px solid black;font-family:Lucida Sans Unicode, Arial;">
+                            {{ newProduct['SIOP3Description'] }}
+                        </td>
+                        <td style="padding: 6px;text-align: left;border-collapse: collapse;border: 2px solid black;font-family:Lucida Sans Unicode, Arial;">
+                            {{ newProduct['SIOP4Description'] }}
+                        </td>
+                        <td style="padding: 6px;text-align: left;border-collapse: collapse;border: 2px solid black;font-family:Lucida Sans Unicode, Arial;">
+                            {{ newProduct['brandName'] }}
+                        </td>
+                        <td style="padding: 6px;text-align: left;border-collapse: collapse;border: 2px solid black;font-family:Lucida Sans Unicode, Arial;">
+                            {{ newProduct['CompletenessPercentage'] }}
+                        </td>
+                    </tr>
+                {% endif %}
             {% endif %}
         {% endfor %}
     {% endfor %}
