@@ -7,7 +7,6 @@ pimcore.plugin.distributionhub.mappingPanel = Class.create({
    /* Distribution Hub menu item panel*/
     getPanel : function() {
         const editor = new pimcore.plugin.distributionhub.mappingLeftPanel();
-        // console.log(editor.getTabPanel());
         if (!this.panel) {
             this.panel = new Ext.Panel({
                 id : "distribution_hub",

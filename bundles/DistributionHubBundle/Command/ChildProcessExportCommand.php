@@ -74,7 +74,7 @@ class ChildProcessExportCommand extends Command
             ->addArgument('tmpFilePath', InputArgument::REQUIRED, 'tmp export file path');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output):int
     {
         $scheduleId = $input->getArgument('scheduleId');
         $pimcoreClassId = $input->getArgument('pimcoreClassId');
@@ -91,8 +91,10 @@ class ChildProcessExportCommand extends Command
         try {
             $this->doExport($columnAttributeMapping,$tmpFilePath,$pimcoreClassId,$filterConfig,$offset,$limit);
         }catch (\Exception $exception){
+            p_r($exception->getMessage().' : '.$exception->getFile().' : '.$exception->getLine());
             $this->handleProcessFailure($exception->getMessage());
         }
+        return 1;
     }
 
     private function doExport($columnAttributeMapping,$tmpFilePath,$pimcoreClassId,$filterConfig,$offset,$limit)
@@ -104,10 +106,10 @@ class ChildProcessExportCommand extends Command
          */
         $this->exportService->prepareFieldsAndHelperDefinition($columnAttributeMapping);
         $fields = $this->exportService->getFieldsForExport();
-
         try {
             $writer = Factory::getWriter($this->channel, $this->schedule, $tmpFilePath);
         } catch (\Exception $exception) {
+            p_r($exception->getMessage().' : '.$exception->getFile().' : '.$exception->getLine());
             $this->handleProcessFailure($exception->getMessage());
             return;
         }
@@ -133,24 +135,25 @@ class ChildProcessExportCommand extends Command
         try {
             $resultListObj = $this->filterService->getFilteredList($dataForFilterService, $listObj);
         } catch (\Exception $exception) {
+            p_r($exception->getMessage().' : '.$exception->getFile().' : '.$exception->getLine());
             $this->handleProcessFailure($exception->getMessage());
             return;
         }
-
         $resultListObj->setOffset($offset);
         $resultListObj->setLimit($limit);
         try {
             $resultListObj->load();
             $exportData = $this->exportService->getCsvDataForExport($resultListObj, $fields, $this->channel->getLanguage(), false);
-
             if (empty($exportData)) {
                 $msg = "Prepared export data is empty";
+                p_r($msg);
                 $this->handleProcessFailure($msg);
                 return;
             }
 
             $writer->write($exportData);
         } catch (\Exception $exception) {
+            p_r($exception->getMessage().' : '.$exception->getFile().' : '.$exception->getLine());
             $this->handleProcessFailure($exception->getMessage());
             return;
         }
@@ -158,6 +161,7 @@ class ChildProcessExportCommand extends Command
         try {
             $writer->postWrite();
         } catch (\Exception $exception) {
+            p_r($exception->getMessage().' : '.$exception->getFile().' : '.$exception->getLine());
             $msg = "Error while writing to export file. msg: ".$exception->getMessage();
             $this->handleProcessFailure($msg);
         }
@@ -166,11 +170,13 @@ class ChildProcessExportCommand extends Command
 
     private function handleProcessFailure(string $msg)
     {
+        p_r("in process failure function: ".$msg);
         $this->helperService->updateScheduleStatusToFailure($this->schedule);
         $this->log($msg, DHubLogger::CRITICAL, true);
         try {
-            $this->mailNotificationService->sendNotification($this->schedule, $this->channel, Constants::SCHEDULE_STATUS_FAILED);
+            // $this->mailNotificationService->sendNotification($this->schedule, $this->channel, Constants::SCHEDULE_STATUS_FAILED);
         } catch (\Exception $exception) {
+            p_r($exception->getMessage().' : '.$exception->getFile().' : '.$exception->getLine());
             $this->log($exception->getMessage(), DHubLogger::CRITICAL);
         }
     }

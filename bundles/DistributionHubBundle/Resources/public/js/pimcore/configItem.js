@@ -14,20 +14,20 @@ pimcore.plugin.distributionhub.configItem = Class.create(pimcore.element.abstrac
             closable: true,
             deferredRender: false,
             forceLayout: true,
-            // iconCls: "pimcore_icon_routes",
+            iconCls: "pimcore_icon_routes",
             id: "distributionhub_mapping_panel_" + this.data.general.o_id,
             buttons: {
                 itemId: 'footer'
             },
             items:
-                [
-                    this.getBasicConfiguration(),
-                    this.getColumnConfiguration(),
-                    this.getFilters(this.getFiltersConfig),
-                    this.getPreview(this.getFiltersConfig),
-                    this.getScheduleConfiguration(),
-                    this.getShare()
-                ]
+                    [
+                        this.getBasicConfiguration(),
+                        this.getColumnConfiguration(),
+                        this.getFilters(this.getFiltersConfig),
+                        this.getPreview(this.getFiltersConfig),
+                        this.getScheduleConfiguration(),
+                        this.getShare()
+                    ]
         });
         if (typeof parentType != "undefined" && parentType == 'shared') {
             this.tab.remove(this.getShare());

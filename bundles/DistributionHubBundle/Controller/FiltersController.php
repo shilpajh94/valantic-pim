@@ -13,7 +13,7 @@ use DistributionHubBundle\Model\Filter;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
-use Pimcore\Event\AdminEvents;
+use Pimcore\Bundle\AdminBundle\Event\AdminEvents;
 use DistributionHubBundle\Lib\Utils;
 use DistributionHubBundle\Lib\DHubLogger;
 
@@ -37,11 +37,9 @@ class FiltersController extends AdminController
         try {
             $channelId = $request->get('channelId');
             $channel = Channel::getById($channelId);
-            // p_r($channel);die;
             if ($channel) {
                 $filterConfig = $this->getSavedFilters($channel);
             }
-            // p_r($filterConfig);die;
         } catch (Exception $ex) {
             $msg = $ex->getMessage();
             return $this->json(['result' => false, 'data' => [], "msg" => $msg]);
@@ -189,10 +187,10 @@ class FiltersController extends AdminController
     {
 
         $filter = $channelObject->getFilter();
-        // print_r($filter);die;
+
         if ($filter) {
             $config = json_decode($filter->getFilterConfig(), true);
-            // p_r($config);die;
+
             $classDefinition = DataObject\ClassDefinition::getById($channelObject->getPimcoreClassId());
 
             if (array_key_exists("gridConfig", $config) && !empty( $config["gridConfig"]["columns"])) {
@@ -322,7 +320,7 @@ class FiltersController extends AdminController
                 'list' => $results,
                 'context' => $allParams
             ]);
-            $eventDispatcher->dispatch(AdminEvents::OBJECT_LIST_BEFORE_LIST_LOAD, $beforeListLoadEvent);
+            $eventDispatcher->dispatch($beforeListLoadEvent, AdminEvents::OBJECT_LIST_BEFORE_LIST_LOAD);
             $results = $beforeListLoadEvent->getArgument('list');
 
             try {
@@ -346,7 +344,7 @@ class FiltersController extends AdminController
                 'list' => $result,
                 'context' => $allParams
             ]);
-            $eventDispatcher->dispatch(\Pimcore\Event\AdminEvents::OBJECT_LIST_AFTER_LIST_LOAD, $afterListLoadEvent);
+            $eventDispatcher->dispatch($afterListLoadEvent, AdminEvents::OBJECT_LIST_AFTER_LIST_LOAD);
             $result = $afterListLoadEvent->getArgument('list');
 
             return $this->adminJson($result);

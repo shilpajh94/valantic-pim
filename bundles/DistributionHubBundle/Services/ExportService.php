@@ -124,17 +124,22 @@ class ExportService
         $templateColumns = $columnAttributeMapping['templateAttribute'];
         $fields = [];
         $helperDefinition = [];
-        foreach ($selectedGridColumnAssoc as $key => $selectedGridColumn) {
-            foreach ($templateColumns as $index => $templateColumn) {
-                if ($key === $index) {
-                    $fields[trim($templateColumn)] = $selectedGridColumn['key'];
+        try {
+            foreach ($selectedGridColumnAssoc as $key => $selectedGridColumn) {
+                foreach ($templateColumns as $index => $templateColumn) {
+                    if (array_key_exists('key', $selectedGridColumn) && $key === $index) {
+                        $fields[trim($templateColumn)] =
+                        $selectedGridColumn['key'];
+                    }
+                }
+                if (array_key_exists('key', $selectedGridColumn) && array_key_exists('isOperator', $selectedGridColumn) && $selectedGridColumn['isOperator']) {
+                    $helperDefinition[$selectedGridColumn['key']] = json_decode(json_encode($selectedGridColumn));
                 }
             }
-
-            if ($selectedGridColumn['isOperator']) {
-                $helperDefinition[$selectedGridColumn['key']] = json_decode(json_encode($selectedGridColumn));
-            }
+        } catch (\Exception $e) {
+            p_r($e->getMessage() . " " . $e->getFile() . " " . $e->getLine());
         }
+
         $this->fields = $fields;
         $this->helperDefinition = $helperDefinition;
     }
@@ -251,7 +256,6 @@ class ExportService
      */
     public function sendExportFileToDesiredLocation(Channel $channel, Schedule $schedule, string $exportFilePath, bool $isZip)
     {
-
         $exportLocation = $schedule->getExportLocation();
         if (strtolower($exportLocation) == 'pimcore') {
             $asset = $this->addExportFileInAsset($channel, $exportFilePath);

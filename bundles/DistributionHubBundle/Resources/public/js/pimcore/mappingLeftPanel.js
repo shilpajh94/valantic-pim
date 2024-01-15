@@ -11,7 +11,7 @@ pimcore.plugin.distributionhub.mappingLeftPanel = Class.create({
             this.panel = new Ext.Panel({
                 border: false,
                 layout: "border",
-                // items: [this.getChannelTree(), this.getChannelEditContainer()]
+                //items: [this.getChannelTree(), this.getChannelEditContainer()]
                 items: [{
                     region: 'center',
                     layout: 'border',
@@ -189,11 +189,8 @@ pimcore.plugin.distributionhub.mappingLeftPanel = Class.create({
             },
             success: function (response) {
                 pimcore.helpers.loadingHide();
-                console.log(response);
                 let data = Ext.decode(response.responseText);
-                console.log(data);
                 data.columnAttributeMapping = Ext.decode(data.data.columnAttributeMapping);
-                console.log(data.columnAttributeMapping);
                 var fieldPanel = new pimcore.plugin.distributionhub.configItem(data, id, this, parentTypeId);
             }.bind(this)
         });

@@ -23,7 +23,6 @@ pimcore.plugin.distributionhub.tabs.filtersConfig = Class.create(pimcore.element
             },
             success: function (response) {
                 var resdata = Ext.decode(response.responseText);
-                console.log(resdata);
 
                 if (resdata.success) {
                     outerScope.savedfilterConfig = resdata.filterConfig;

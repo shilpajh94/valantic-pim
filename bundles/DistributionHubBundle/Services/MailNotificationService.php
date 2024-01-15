@@ -30,9 +30,9 @@ class MailNotificationService
         $userMail = $user->getEmail();
         $username = $user->getName();
 
-        if (!Mail::isValidEmailAddress($userMail)) {
-            throw new \Exception("Email address '$userMail' of user '$username' is not valid.");
-        }
+        // if (!Mail::isValidEmailAddress($userMail)) {
+        //     throw new \Exception("Email address '$userMail' of user '$username' is not valid.");
+        // }
 
         $userLang = $user->getLanguage();
 
@@ -43,7 +43,7 @@ class MailNotificationService
         $placeHolderReplacedBody = $this->replacePlaceHoldersInItem($schedule, $channel, $user, $body);
 
         $mailClient = new Mail();
-        $mailClient->setTo($userMail);
+        $mailClient->addTo($userMail);
         $mailClient->setSubject($placeHolderReplacedSubject);
         $mailClient->setBodyText($placeHolderReplacedBody);
         try {

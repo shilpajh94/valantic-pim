@@ -108,19 +108,21 @@ class ExportCommand extends Command
      * @return int|void
      * @throws \Exception
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $inProgressProcessesStatus = $this->helperService->getInProgressProcessesStatusAfterUpdatingDeadProcesses();
         if (!$inProgressProcessesStatus['canNewProcessStart']) {
             $msg = "Not starting new process.";
             $msg .= $inProgressProcessesStatus['inProgressProcessCount']." process/es is/are already running. ";
+            p_r($msg);
             $this->log($msg, DHubLogger::INFO);
         } else {
             $this->hostUrl = $this->bundleService->getConfig('host_name');
             if (empty($this->hostUrl)) {
                 $msg ="hostName empty in configuration";
                 $this->handleProcessFailure($msg);
-                return;
+                p_r($msg);
+                return 1;
             }
 
             $this->exportService->setHostURLInSession($this->hostUrl);
@@ -132,6 +134,8 @@ class ExportCommand extends Command
         }
 
         $this->helperService->updateStatusForExpiredProcesses();
+
+        return 1;
     }
 
     /**
@@ -217,7 +221,6 @@ class ExportCommand extends Command
 
     private function processOnlyDataFile($filterConfig, $columnAttributeMapping, $pimcoreClassId)
     {
-
         $msg = "STARTED DataFile Export Process.";
         $this->log($msg, DHubLogger::INFO);
 
@@ -286,7 +289,7 @@ class ExportCommand extends Command
             }
 
             if($this->schedule->getStatus() === Constants::SCHEDULE_STATUS_INPROGRESS){
-                $command = implode(' ',array(
+                $command = explode(",",implode(' ',array(
                     PIMCORE_PROJECT_ROOT."/bin/console ",
                     "distributionhub:child_process_export",
                     $offset,
@@ -294,14 +297,15 @@ class ExportCommand extends Command
                     $pimcoreClassId,
                     $this->schedule->getId(),
                     $tmpFilePath
-                ));
-
+                )));
+                p_r($command);
                 $process = new Process($command);
                 $process->setTimeout(3600);
                 $process->run();
-
                 $output = $process->getOutput();
+                p_r("output: ".$output);
                 $errorOutput = $process->getErrorOutput();
+                p_r('error: '.$errorOutput);
 
                 if($errorOutput !== null && trim($errorOutput) != ""){
                     $msg = "[Child Script Error Output] " . $errorOutput;
@@ -468,7 +472,7 @@ class ExportCommand extends Command
         $this->helperService->updateScheduleStatusToFailure($this->schedule);
         $this->log($msg, DHubLogger::CRITICAL, true);
         try {
-            $this->mailNotificationService->sendNotification($this->schedule, $this->channel, Constants::SCHEDULE_STATUS_FAILED);
+            // $this->mailNotificationService->sendNotification($this->schedule, $this->channel, Constants::SCHEDULE_STATUS_FAILED);
         } catch (\Exception $exception) {
             $this->log($exception->getMessage(), DHubLogger::CRITICAL);
         }
@@ -493,7 +497,7 @@ class ExportCommand extends Command
     private function sendNotification()
     {
         try {
-            $this->mailNotificationService->sendNotification($this->schedule, $this->channel, Constants::SCHEDULE_STATUS_COMPLETED);
+            // $this->mailNotificationService->sendNotification($this->schedule, $this->channel, Constants::SCHEDULE_STATUS_COMPLETED);
         } catch (\Exception $exception) {
             $this->log($exception->getMessage(), DHubLogger::CRITICAL);
         }

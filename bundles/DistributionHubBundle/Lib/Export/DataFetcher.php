@@ -99,7 +99,8 @@ class DataFetcher
             } else {
                 //check if field is standard object field
                 $fieldDefinition = $object->getClass()->getFieldDefinition($field);
-                $hostName = BundleService::getConfig('host_name');
+                $bundleService = new BundleService();
+                $hostName = $bundleService->getConfig('host_name');
 
 
                 if ($fieldDefinition) {

@@ -197,11 +197,9 @@ class ChannelService
                 if (isset($selectedGridColumns[$tKey])) {
                     $pimMapped = [];
                     $mappedObject = $selectedGridColumns[$tKey] ?? [];
-                    // p_r($mappedObject);
                     if (is_array($mappedObject) && count($mappedObject)) {
                         $pimMapped = self::childWithInner($mappedObject, $pimMapped);
                     }
-                    // dd($pimMapped);
                     $pimMapped['definition']['isLocalizedfield'] = array_key_exists('isLocalizedfield', $mappedObject) ? ($mappedObject['isLocalizedfield'] != "" ? $mappedObject['isLocalizedfield'] : false) : false;
                     $pimMapped['targetAttributeKey'] = $mappedObject['targetAttributeKey'] ?? '';
                     $pimMapped['sourceDataType'] =  isset($mappedObject['sourceDataType'])? $mappedObject['sourceDataType']: '';

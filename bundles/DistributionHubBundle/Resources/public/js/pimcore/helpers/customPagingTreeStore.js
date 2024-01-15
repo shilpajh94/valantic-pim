@@ -12,6 +12,7 @@ Ext.define('pimcore.plugin.distributionhub.helpers.customPagingTreeStore', {
             var proxy = me.getProxy();
             var extraParams = proxy.getExtraParams();
 
+
             var response = operation.getResponse();
             var data = response.responseJson;
 
@@ -57,12 +58,11 @@ Ext.define('pimcore.plugin.distributionhub.helpers.customPagingTreeStore', {
             } else {
                 node.needsPaging = false;
             }
-            // console.log(this);
+
             me.superclass.onProxyLoad.call(this, operation);
             var proxy = this.getProxy();
             proxy.setExtraParam("start", 0);
         } catch (e) {
-            
             console.log(e);
         }
     }
@@ -76,7 +76,6 @@ Ext.define('pimcore.tree.CustomView', {
             this.updatePaging();
         },
         beforeitemupdate: function(record) {
-          
             if(record.ptb) {
                 record.ptb.destroy();
                 delete record.ptb;
