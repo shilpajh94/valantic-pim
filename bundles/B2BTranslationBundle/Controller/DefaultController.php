@@ -12,6 +12,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use B2BTranslationBundle\B2BTranslationConstants;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Pimcore\Security\User\TokenStorageUserResolver;
+use Pimcore\Security\User\User as UserProxy;
+use Symfony\Contracts\Service\Attribute\Required;
 
 /**
  * @Route("/admin/b2b_translation")
@@ -356,6 +359,55 @@ class DefaultController extends FrontendController
             }
         } catch (Exception $ex) {
             return $this->json([self::SUCCESS => false, self::MESSAGE => $ex->getMessage()]);
+        }
+    }
+
+    /**
+     * @var TokenStorageUserResolver|TokenStorageUserResolver
+     */
+    protected $tokenResolver;
+
+    #[Required]
+    public function setTokenResolver(TokenStorageUserResolver $tokenResolver): void
+    {
+        $this->tokenResolver = $tokenResolver;
+    }
+
+    /**
+    * Get user from user proxy object which is registered on security component
+    *
+    * @param bool $proxyUser Return the proxy user (UserInterface) instead of the pimcore model
+    *
+    * @return UserProxy|User|null
+    */
+    protected function getPimcoreUser($proxyUser = false)
+    {
+        if ($proxyUser) {
+            return $this->tokenResolver->getUserProxy();
+        }
+
+        return $this->tokenResolver->getUser();
+    }
+
+    /**
+    * Check user permission
+    *
+    * @param string $permission
+    *
+    * @throws AccessDeniedHttpException
+    */
+    protected function checkPermission($permission)
+    {
+        if (!$this->getPimcoreUser() || !$this->getPimcoreUser()->isAllowed($permission)) {
+            Logger::error(
+                'User {user} attempted to access {permission}, but has no permission to do so',
+                [
+                    'user' => $this->getPimcoreUser()?->getName(),
+                    'permission' => $permission,
+                ]
+            );
+
+            throw $this->createAccessDeniedHttpException();
         }
     }
 
