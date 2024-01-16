@@ -1,0 +1,231 @@
+pimcore:
+    custom_report:
+        definitions:
+            IFSEU_MissingAssetsOnProducts:
+                name: IFSEU_MissingAssetsOnProducts
+                sql: ''
+                dataSourceConfig:
+                    -
+                        sql: "SELECT\no1.`o_id`,\nCONCAT(UCASE(LEFT(o1.`ProductType`,1)), SUBSTRING(o1.`ProductType`,2)) AS `Product Type`,\nIF(o1.`DrawingPictureForCatalog` IS NOT NULL, \"True\", \"False\") AS `Drawing Picture`,\no1.`o_key` as `Key`,\n o1.`materialNumber` AS `Material Number`, \nen.`sapDescription` AS `SAP Description`,\no1.`siopFullCode` AS `SIOP Full Code` ,\nIF(o1.`mainImage` IS NOT NULL, \"True\", \"False\") AS `Main Image`, \nIF(o1.`frontView` IS NOT NULL, \"True\", \"False\") AS `Front View Image`,\nIF(o1.`sideView` IS NOT NULL, \"True\", \"False\") AS `Side View Image`,\nIF(o1.`cutView` IS NOT NULL, \"True\", \"False\") AS `Cut View Image`,\nIF(o1.`epixImage` IS NOT NULL, \"True\", \"False\") AS `Epix Image`,\nIF(o1.`altImage1` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 1`,\nIF(o1.`altImage2` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 2`,\nIF(o1.`altImage3` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 3`,\nIF(o1.`altImage4` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 4`,\nIF(o1.`altImage5` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 5`,\nIF(o1.`altImage6` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 6`,\nIF(o1.`altImage7` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 7`,\nIF(o1.`altImage8` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 8`,\nIF(o1.`certificationImage` IS NOT NULL, \"True\", \"False\") AS `Certification Image`,\nIF(o1.`TeaserImage` IS NOT NULL, \"True\", \"False\") AS `Teaser Image`,\nIF(o1.`Images360__images` IS NOT NULL and o1.`Images360__images`!= '', \"True\", \"False\") AS `Images 360`,\nIF(o1.`LeftPrintCatalogImage` IS NOT NULL, \"True\", \"False\") AS `Left Image`,\nIF(o1.`RightPrintCatalogImage` IS NOT NULL, \"True\", \"False\") AS `Right Image`"
+                        from: "FROM object_IFSEUProduct o1 \nLEFT JOIN `object_localized_IFSEUProduct_en` en \n\tON `en`.`ooo_id` = `o1`.`o_id`\nLEFT JOIN object_localized_query_IFSEUCategory_en cat1 \n\tON cat1.ooo_id = SUBSTRING(o1.SIOPLevel1,2,(LENGTH(o1.SIOPLevel1) - 2))\nLEFT JOIN object_localized_query_IFSEUCategory_en cat2 \n\tON cat2.ooo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2))\nLEFT JOIN object_localized_query_IFSEUCategory_en cat3 \n\tON cat3.ooo_id = SUBSTRING(o1.SIOPLevel3,2,(LENGTH(o1.SIOPLevel3) - 2))\nLEFT JOIN object_localized_query_IFSEUCategory_en cat4 \n\tON cat4.ooo_id = SUBSTRING(o1.SIOPLevel4,2,(LENGTH(o1.SIOPLevel4) - 2))\nLEFT JOIN object_localized_query_IFSEUCategory_en cat5 \n\tON cat5.ooo_id = SUBSTRING(o1.SIOPLevel5,2,(LENGTH(o1.SIOPLevel5) - 2))\nLEFT JOIN object_localized_query_IFSEUCategory_en cat6 \n\tON cat6.ooo_id = SUBSTRING(o1.SIOPLevel6,2,(LENGTH(o1.SIOPLevel6) - 2))\nLEFT JOIN object_localized_query_IFSEUCategory_en cat7 \n\tON cat7.ooo_id = SUBSTRING(o1.SIOPLevel7,2,(LENGTH(o1.SIOPLevel7) - 2))"
+                        where: "WHERE (\n\to1.`mainImage` IS NULL OR \n\to1.`frontView` IS NULL OR \n\to1.`sideView` IS NULL OR \n\to1.`cutView` IS NULL OR \n\to1.`epixImage` IS NULL OR \n\to1.`altImage1` IS NULL OR \n\to1.`altImage2` IS NULL OR \n\to1.`altImage3` IS NULL OR \n\to1.`altImage4` IS NULL OR \n\to1.`altImage5` IS NULL OR \n\to1.`altImage6` IS NULL OR \n\to1.`altImage7` IS NULL OR \n\to1.`altImage8` IS NULL OR \n\to1.`certificationImage` IS NULL OR\n\to1.`TeaserImage` IS NULL OR\n\to1.`Images360__images` IS NULL OR\n\to1.`LeftPrintCatalogImage` IS NULL OR\n\to1.`RightPrintCatalogImage` IS NULL OR\n\to1.`DrawingPictureForCatalog` IS NULL ) AND \n\t(o1.`o_published` =1 and o1.`ProductType` ='base')\t"
+                        groupby: ''
+                        type: sql
+                columnConfiguration:
+                    -
+                        name: o_id
+                        display: false
+                        export: false
+                        order: true
+                        width: ''
+                        label: ''
+                        columnAction: openObject
+                        id: extModel469-1
+                    -
+                        name: 'Drawing Picture'
+                        display: true
+                        export: true
+                        order: true
+                        width: ''
+                        label: ''
+                        id: extModel469-25
+                    -
+                        name: Key
+                        display: true
+                        export: true
+                        order: true
+                        width: ''
+                        label: 'Brand Name'
+                        id: extModel469-4
+                    -
+                        name: 'SIOP Full Code'
+                        display: true
+                        export: true
+                        order: true
+                        width: ''
+                        label: ''
+                        id: extModel469-6
+                    -
+                        name: 'Main Image'
+                        display: true
+                        export: true
+                        order: true
+                        width: ''
+                        label: ''
+                        id: extModel469-7
+                    -
+                        name: 'Front View Image'
+                        display: true
+                        export: true
+                        order: true
+                        width: ''
+                        label: ''
+                        id: extModel469-8
+                    -
+                        name: 'Side View Image'
+                        display: true
+                        export: true
+                        order: true
+                        width: ''
+                        label: ''
+                        id: extModel469-9
+                    -
+                        name: 'Cut View Image'
+                        display: true
+                        export: true
+                        order: true
+                        width: ''
+                        label: ''
+                        id: extModel469-10
+                    -
+                        name: 'Epix Image'
+                        display: true
+                        export: true
+                        order: true
+                        width: ''
+                        label: ''
+                        id: extModel469-11
+                    -
+                        name: 'Product Type'
+                        display: false
+                        export: false
+                        order: true
+                        width: ''
+                        label: ''
+                        id: extModel469-2
+                    -
+                        name: 'Material Number'
+                        display: false
+                        export: false
+                        order: true
+                        width: ''
+                        label: ''
+                        id: extModel469-3
+                    -
+                        name: 'SAP Description'
+                        display: false
+                        export: false
+                        order: true
+                        width: ''
+                        label: ''
+                        id: extModel469-5
+                    -
+                        name: 'Alternate Image 1'
+                        display: true
+                        export: true
+                        order: true
+                        width: ''
+                        label: ''
+                        id: extModel469-12
+                    -
+                        name: 'Alternate Image 2'
+                        display: true
+                        export: true
+                        order: true
+                        width: ''
+                        label: ''
+                        id: extModel469-13
+                    -
+                        name: 'Alternate Image 3'
+                        display: true
+                        export: true
+                        order: true
+                        width: ''
+                        label: ''
+                        id: extModel469-14
+                    -
+                        name: 'Alternate Image 4'
+                        display: true
+                        export: true
+                        order: true
+                        width: ''
+                        label: ''
+                        id: extModel469-15
+                    -
+                        name: 'Alternate Image 5'
+                        display: true
+                        export: true
+                        order: true
+                        width: ''
+                        label: ''
+                        id: extModel469-16
+                    -
+                        name: 'Alternate Image 6'
+                        display: true
+                        export: true
+                        order: true
+                        width: ''
+                        label: ''
+                        id: extModel469-17
+                    -
+                        name: 'Alternate Image 7'
+                        display: true
+                        export: true
+                        order: true
+                        width: ''
+                        label: ''
+                        id: extModel469-18
+                    -
+                        name: 'Alternate Image 8'
+                        display: true
+                        export: true
+                        order: true
+                        width: ''
+                        label: ''
+                        id: extModel469-19
+                    -
+                        name: 'Certification Image'
+                        display: true
+                        export: true
+                        order: true
+                        width: ''
+                        label: ''
+                        id: extModel469-20
+                    -
+                        name: 'Teaser Image'
+                        display: true
+                        export: true
+                        order: true
+                        width: ''
+                        label: ''
+                        id: extModel469-21
+                    -
+                        name: 'Images 360'
+                        display: true
+                        export: true
+                        order: true
+                        width: ''
+                        label: ''
+                        id: extModel469-22
+                    -
+                        name: 'Left Image'
+                        display: true
+                        export: true
+                        order: true
+                        width: ''
+                        label: ''
+                        id: extModel469-23
+                    -
+                        name: 'Right Image'
+                        display: true
+                        export: true
+                        order: true
+                        width: ''
+                        label: ''
+                        id: extModel469-24
+                niceName: 'IFSEU - Missing Assets On Products'
+                group: IFS_EU
+                groupIconClass: ''
+                iconClass: ''
+                menuShortcut: false
+                reportClass: ''
+                chartType: ''
+                pieColumn: null
+                pieLabelColumn: null
+                xAxis: null
+                yAxis: {  }
+                modificationDate: 1705384495
+                creationDate: 1674647902
+                shareGlobally: true
+                sharedUserNames: {  }
+                sharedRoleNames: {  }

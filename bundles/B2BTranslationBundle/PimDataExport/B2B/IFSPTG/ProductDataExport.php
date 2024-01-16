@@ -597,7 +597,7 @@ class ProductDataExport implements IDataExport
                                         {
                                             $displayKeys = [];
                                             $staticHeaderMappingArr=['language'=>'Language','Product.B2B_External_Id__c'
-                                            =>'Product.B2B_External_Id__c'];
+                                            =>'Product.B2B_External_Id__c','catalog_id' =>'ContiTech_catalog'];
                                             $booleanFields=$this->getBooleanAttribute();
                                             foreach ($headerMapping as $headerIndex => $headerName) {
                                                 $displayKeys[$headerIndex] = $headerName;
@@ -636,6 +636,9 @@ class ProductDataExport implements IDataExport
                                                 }
                                                 elseif($keyHeaderValue == 'Product.B2B_External_Id__c'){
                                                     $mapping_record[$keyHeaderValue] = $record['externalID'];
+                                                }
+                                                elseif($keyHeaderValue == 'catalog_id'){
+                                                    $mapping_record[$keyHeaderValue] = 'ContiTech_catalog';
                                                 }
                                             }
                                             $record=array_merge($mapping_record,$record);
