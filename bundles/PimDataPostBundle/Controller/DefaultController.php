@@ -23,7 +23,15 @@ class DefaultController extends FrontendController
      */
     public function defaultEmailTemplateAction(Request $request)
     {
+        return $this->render("@PimDataPost/default/default_email_template.html.twig", $parameterBag);
+    }
 
+    /**
+     * @Route("/saleforce_integration_failure_email")
+     */
+    public function saleforceIntegrationFailureEmailAction(Request $request)
+    {
+        return $this->render("@PimDataPost/default/saleforce_integration_failure_email.html.twig", $parameterBag);
     }
 
     public function executeScriptAction(Request $request)
