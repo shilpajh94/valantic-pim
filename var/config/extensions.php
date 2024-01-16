@@ -13,7 +13,7 @@ return [
         "ContitechCS\\CatalogBundle\\ContitechCSCatalogBundle" => true,
         "ContitechCS\\CatalogUIApiBundle\\CatalogUIApiBundle" => true,
         // "Wvision\\Bundle\\DataDefinitionsBundle\\DataDefinitionsBundle" => TRUE,
-        // "DistributionHubBundle\\DistributionHubBundle" => TRUE,
+        "DistributionHubBundle\\DistributionHubBundle" => TRUE,
         "EmailNotificationBundle\\EmailNotificationBundle" => true,
         "PTGEU\\ProductBundle\\PTGEUProductBundle" => true,
         "PTGEU\\ImportBundle\\PTGEUImportBundle" => true,

@@ -122,7 +122,21 @@ class ChildProcessExportCommand extends Command
 
         $listClass = "\\Pimcore\\Model\\DataObject\\" . ucfirst($pimcoreClassName) . "\\Listing";
         $listObj = new $listClass();
-        $listObj->setUnpublished(true);
+        // $listObj->setUnpublished(false);
+        // Assuming $filterConfig['conditions'] is an array of conditions
+        foreach ($filterConfig['conditions']['filters'] as $condition) {
+        if ($condition['fieldname'] === 'o_published') {
+        $operator = $condition['filterEntryData'] ?? null;
+        if($operator == 'true'){
+            $listObj->setUnpublished(false);
+        }else{
+            $listObj->setUnpublished(true);
+        }
+        //Now $operator contains the operator value, e.g., "true" or "false"
+        break; // You can break out of the loop since you found the relevant condition
+        }
+        }
+        // Use $operator as needed in your code
 
         $dataForFilterService = array();
         $dataForFilterService['classId'] = $pimcoreClassId;

@@ -289,15 +289,15 @@ class ExportCommand extends Command
             }
 
             if($this->schedule->getStatus() === Constants::SCHEDULE_STATUS_INPROGRESS){
-                $command = explode(",",implode(' ',array(
-                    PIMCORE_PROJECT_ROOT."/bin/console ",
+                $command = explode(" ", implode(' ', [
+                    PIMCORE_PROJECT_ROOT . "/bin/console",
                     "distributionhub:child_process_export",
                     $offset,
                     $this->batchSize,
                     $pimcoreClassId,
                     $this->schedule->getId(),
-                    $tmpFilePath
-                )));
+                    $tmpFilePath,
+                 ]));
                 p_r($command);
                 $process = new Process($command);
                 $process->setTimeout(3600);

@@ -130,7 +130,7 @@ class AnyGetter extends AbstractOperator
                     }
                 } else {
                     $o = $value; // Concrete::getById($value->getId());
-                    if ($this->attribute && method_exists($o, $getter)) {
+                    if (!empty($o) && $this->attribute && method_exists($o, $getter)) {
                         $value = $o->$getter($this->getParam1());
                         $resultElementValue = $value;
                     }
