@@ -9,7 +9,8 @@ class ImportBundle extends AbstractPimcoreBundle
     public function getJsPaths()
     {
         return [
-            '/bundles/import/js/pimcore/startup.js'
+            '/bundles/import/js/pimcore/startup.js',
+            '/bundles/import/js/pimcore/csheaderSelection.js',
         ];
     }
 }

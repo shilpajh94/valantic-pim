@@ -869,6 +869,11 @@ font-family: 'Nunito Sans';
 
     font-weight: normal !important;
 }
+.grid .sshead{
+    background-color: #ffffff !important;
+    font-size: 9px;
+    font-weight: bold !important;
+}
 .grid .head td{
     border-bottom: 1px solid #737373;
 }
@@ -915,6 +920,10 @@ font-family: 'Nunito Sans';
 .grid td:first-child {
     text-align: left !important;
     /* min-width: 100px;*/
+}
+
+.grid .sshead td:first-child {
+    text-align: left !important;
 }
 
 
@@ -2294,6 +2303,15 @@ margin-right:20px;
     font-size: 12px;
     font-weight: bold;
 }
+.ssbrandingLaylineStyle{
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-size: 8px;
+    font-weight: bold;
+}
+.spaceRight{
+    text-align: left !important;
+}
 .hide{
     display: none;
 }
@@ -2327,5 +2345,3 @@ margin-right:20px;
     padding-right: 5px !important;
     font-weight: 600 !important;
 }
-
-
