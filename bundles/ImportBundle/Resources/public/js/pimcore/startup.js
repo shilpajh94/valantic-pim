@@ -1,17 +1,6 @@
-pimcore.registerNS("pimcore.plugin.ImportBundle");
-
-pimcore.plugin.ImportBundle = Class.create(pimcore.plugin.admin, {
-    getClassName: function () {
-        return "pimcore.plugin.ImportBundle";
-    },
-
-    initialize: function () {
-        pimcore.plugin.broker.registerPlugin(this);
-    },
-
-    pimcoreReady: function (params, broker) {
-        // alert("ImportBundle ready!");
-    }
-    
+document.addEventListener(pimcore.events.pimcoreReady, (e) => {
+    //print out the parameters of the event
+    console.log('pimcore.plugin.ImportBundle pimcoreReady')
+    e.preventDefault();
+    e.stopPropagation();
 });
-var ImportBundlePlugin = new pimcore.plugin.ImportBundle();

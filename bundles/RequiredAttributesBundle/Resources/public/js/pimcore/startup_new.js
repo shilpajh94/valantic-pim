@@ -1,0 +1,281 @@
+document.addEventListener(pimcore.events.initialize, (e) => {
+    //print out the parameters of the event
+    console.log('pimcore.plugin.RequiredAttributesBundle Initialized')
+    e.preventDefault();
+    e.stopPropagation();
+    let timeout = 300000;
+    Ext.Ajax.timeout= timeout;
+    Ext.override(Ext.form.Basic, { timeout: timeout / 1000 });
+    Ext.override(Ext.data.proxy.Server, { timeout: timeout });
+    Ext.override(Ext.data.Connection, { timeout: timeout });
+    Ext.override(Ext.data.proxy.Ajax, { timeout:timeout });
+
+    /**
+     * screen was moving up and down when setTitle was running to set dirty mark on the tab
+     */
+    Ext.override(pimcore.element.abstract,{
+        detectedChange: function () {
+            // this.tab.setTitle(this.tab.initialConfig.title + " *");
+            let titleDom = this.tab.tab.btnInnerEl.dom;
+            titleDom.innerHTML = titleDom.innerHTML + " *";
+
+            this.dirty = true;
+            this.stopChangeDetector();
+        },
+    });
+});
+
+document.addEventListener(pimcore.events.pimcoreReady, (e) => {
+    //print out the parameters of the event
+    console.log('pimcore.plugin.RequiredAttributesBundle pimcoreReady')
+    e.preventDefault();
+    e.stopPropagation();
+
+    new pimcore.plugin.RequiredAttributesBundle.overrides().quicksearchOverride();
+
+    // calling of overriden function for xliff filter
+    new pimcore.plugin.RequiredAttributesBundle.override_xliff().filterOnExportProducts();
+
+
+    /**
+     * screen was moving up and down when setTitle was running to set dirty mark on the tab
+     */
+    Ext.override(pimcore.element.abstract,{
+        detectedChange: function () {
+            // this.tab.setTitle(this.tab.initialConfig.title + " *");
+            let titleDom = this.tab.tab.btnInnerEl.dom;
+            titleDom.innerHTML = titleDom.innerHTML + " *";
+
+            this.dirty = true;
+            this.stopChangeDetector();
+        },
+    });
+
+    new pimcore.plugin.RequiredAttributesBundle.overrides().showNomenclatureCustomPanel();
+    new pimcore.plugin.RequiredAttributesBundle.pdf_preview_override().overrideGetLayout();
+    new pimcore.plugin.RequiredAttributesBundle.pdf_preview_override().overrideGeneratePdf();
+
+    new pimcore.plugin.RequiredAttributesBundle.overrides().overrideSelect();
+    new pimcore.plugin.RequiredAttributesBundle.overrides().overrideMultiselect();
+
+    new pimcore.plugin.RequiredAttributesBundle.overrides().dataObjectSearchOverride();
+    new pimcore.plugin.RequiredAttributesBundle.overrides().assetSearchOverride();
+    new pimcore.plugin.RequiredAttributesBundle.overrides().documentSearchOverride();
+
+    new pimcore.plugin.RequiredAttributesBundle.search_override().customizeCreateGrid();
+});
+
+document.addEventListener(pimcore.events.postOpenObject, (e) => {
+    console.log('pimcore.plugin.RequiredAttributesBundle postOpenObject')
+    new pimcore.plugin.RequiredAttributesBundle.overrides().allowSQLEditorOnObjectGrid(object,type);
+
+    self = this;
+    var configs = this.configdata;
+    Ext.override(pimcore.object.tags.objectbricks, {
+        getControls: function (blockElement) {
+
+            var menuData = this.objectbricks;
+            var menu = this.buildMenu(menuData, blockElement);
+            var items = [];
+            if (!this.fieldConfig.noteditable) {
+
+                if (menu.length == 1) {
+                    if (!menu[0].menu) {
+                        var handler = menu[0].menu ? menu[0].menu[0].handler : menu[0].handler;
+                        items.push({
+                            cls: "pimcore_block_button_plus",
+                            iconCls: "pimcore_icon_plus",
+                            handler: handler
+                        });
+                    } else {
+                        items.push({
+                            cls: "pimcore_block_button_plus",
+                            iconCls: "pimcore_icon_plus",
+                            menu: menu
+                        });
+
+                    }
+                } else if (menu.length > 1) {
+                    items.push({
+                        cls: "pimcore_block_button_plus",
+                        iconCls: "pimcore_icon_plus",
+                        menu: menu
+                    });
+                }
+            }
+
+            items.push({
+                xtype: "tbtext",
+                text: t(this.fieldConfig.title)
+            });
+            if (this.object.data.general.o_className == "Product" || this.object.data.general.o_className == "CSProducts" || this.object.data.general.o_className == "PTGEUProduct") {
+                var toolbar = new Ext.Toolbar({
+            //    items: items
+                });
+            } else {
+                var toolbar = new Ext.Toolbar({
+                    items: items
+                });
+            }
+            return toolbar;
+        },
+
+        addBlockElement: function (index, type, blockData, ignoreChange, title) {
+            if (!type) {
+                return;
+            }
+            if (!this.layoutDefinitions[type]) {
+                return;
+            }
+            if (this.fieldConfig.maxItems && this.getCurrentElementsCount() >= this.fieldConfig.maxItems) {
+                Ext.Msg.alert(t("error"), t("limit_reached"));
+                return;
+            }
+
+            var dataFields = [];
+            var currentData = {};
+            var currentMetaData = {};
+
+            if (blockData) {
+                currentData = blockData.data;
+                currentMetaData = blockData.metaData;
+            }
+
+            var dataProvider = {
+                getDataForField: function (fieldConfig) {
+                    var name = fieldConfig.name;
+                    return currentData[name];
+                },
+
+                getMetaDataForField: function (fieldConfig) {
+                    var name = fieldConfig.name;
+                    return currentMetaData[name];
+                },
+
+                addToDataFields: function (field, name) {
+                    dataFields.push(field);
+                }
+            };
+
+            var childConfig = this.layoutDefinitions[type];
+            var closable = !this.fieldConfig.noteditable;
+            if (this.object.data.general.o_className == "Product" || this.object.data.general.o_className == "CSProducts" || this.object.data.general.o_className == "PTGEUProduct") {
+                closable = false;
+            }
+
+
+
+            var blockElement = new Ext.Panel({
+                //bodyStyle: "padding:10px;",
+                style: "margin: 0 0 10px 0;",
+                cls: 'pimcore_objectbrick_item',
+                closable: closable,
+                autoHeight: true,
+                border: false,
+                title: title ? ts(title) : ts(type),
+                // items: items
+                items: [],
+                listeners: { 
+                    afterrender: function (childConfig, dataProvider, panel) {
+                        if (!panel.__tabpanel_initialized) {
+                            var copy = Ext.decode(Ext.encode(childConfig));
+                            var children = this.getRecursiveLayout(copy, null, {
+                                containerType: "objectbrick",
+                                containerKey: type,
+                                ownerName: this.fieldConfig.name
+                            }, false, true, dataProvider);
+                            if (this.fieldConfig.noteditable && children) {
+                                children.forEach(function (record) {
+                                    record.disabled = true;
+                                });
+                            }
+
+                            if (children) {
+                                panel.add(children);
+                            }
+
+                            panel.updateLayout();
+
+                            if (panel.setActiveTab) {
+                                var activeTab = panel.items.items[0];
+                                if (activeTab) {
+                                    activeTab.updateLayout();
+                                    panel.setActiveTab(activeTab);
+                                }
+                            }
+
+                            panel.__tabpanel_initialized = true;
+
+
+                        }
+                    }.bind(this, childConfig, dataProvider)
+
+                }
+            });
+
+            if (!this.fieldConfig.noteditable) {
+                blockElement.on("beforeclose", this.removeBlock.bind(this, blockElement));
+            }
+
+            this.component.remove(this.component.getComponent(0));
+
+            this.addedTypes[type] = true;
+
+            blockElement.key = type;
+            blockElement.fieldtype = type;
+            this.tabpanel.add(blockElement);
+            this.component.insert(0, this.getControls(null));
+
+            this.tabpanel.updateLayout();
+            this.component.updateLayout();
+
+            this.currentElements[type] = null;
+            this.currentElements[type] = {
+                container: blockElement,
+                fields: dataFields,
+                type: type
+            };
+
+            if (!ignoreChange) {
+                this.dirty = true;
+                this.tabpanel.setActiveTab(blockElement);
+            }
+        }
+    });
+});
+
+document.addEventListener(pimcore.events.preOpenObject, (e) => {
+    console.log('pimcore.plugin.RequiredAttributesBundle preOpenObject')
+    Ext.override(pimcore.object.tags.objectbricks, {
+        initData: function (response) {
+            var bricksData = Ext.decode(response.responseText);
+            this.objectbricks = bricksData.objectbricks;
+            this.layoutDefinitions = bricksData.layoutDefinitions;
+            this.component.insert(0, this.getControls());
+            if (this.data.length > 0) {
+                for (var i = 0; i < this.data.length; i++) {
+                    if (this.data[i] != null) {
+                        if (this.object.data.general.o_className == "Product" || this.object.data.general.o_className == "CSProducts" || this.object.data.general.o_className == "PTGEUProduct") {//class name Needs to be changed for different system
+                            this.preventDelete[this.data[i].type] = true;
+                        } else {
+                            this.preventDelete[this.data[i].type] = this.data[i].inherited;
+                        }
+                        this.addBlockElement(i, this.data[i].type, this.data[i], true, this.data[i].title);
+                    }
+                }
+            }
+            this.tabpanel.setActiveTab(0);
+            pimcore.layout.refresh();
+        },
+    });
+});
+
+document.addEventListener(pimcore.events.postSaveObject, (e) => {
+    console.log('pimcore.plugin.RequiredAttributesBundle postSaveObject')
+    if(object.data.general.o_className == "Product"){
+        setTimeout(function(){
+            object.reload();
+        },100);
+    }
+});
+ 
