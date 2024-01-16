@@ -12,16 +12,15 @@ use PTGEU\ImportBundle\Services\ImportConstants;
 
 use Pimcore\Model\DataObject\ClassDefinition\DynamicOptionsProvider\SelectOptionsProviderInterface;
 
-class PlantSalesDistributionOptionsProvider implements SelectOptionsProviderInterface {
-
+class PlantSalesDistributionOptionsProvider implements SelectOptionsProviderInterface
+{
     /**
      * @param $context array
      * @param $fieldDefinition Data
      * @return array
      */
-    public function getOptions($context, $fieldDefinition) {
-
-
+    public function getOptions($context, $fieldDefinition): ?array
+    {
         $allAvailablelArray = array();
         $displayFieldData = $fieldDefinition->getOptionsProviderData();
         if ($displayFieldData) {
@@ -32,12 +31,9 @@ class PlantSalesDistributionOptionsProvider implements SelectOptionsProviderInte
                 $displayFieldValue = $displayFieldData[2];
                 $displayFieldData = explode("+", $displayFieldArray);
 
-                if(count($displayFieldData) == 1)
-                {
+                if(count($displayFieldData) == 1){
                     $displayFieldName = $displayFieldData[0];
-                }
-                elseif(count($displayFieldData) == 2)
-                {
+                }elseif(count($displayFieldData) == 2){
                     $displayFieldName = $displayFieldData[0];
                     $displayFieldCode = $displayFieldData[1];
                 }
@@ -54,18 +50,11 @@ class PlantSalesDistributionOptionsProvider implements SelectOptionsProviderInte
                     $displayFieldValueGetter = "get" . ucfirst($displayFieldValue);
                     $value = $object->$displayFieldValueGetter();
                     
-                    if($displayFieldCode)
-                    {
+                    if($displayFieldCode){
                         $displayFieldCodeGetter = "get" . ucfirst($displayFieldCode);
                         $code = $object->$displayFieldCodeGetter();
-                    }
-
-                    if($displayFieldCode)
-                    {
                         $allAvailablelArray[] = array("key" => $name." (".$code.")", "value" => $value);
-                    }
-                    else
-                    {
+                    }else{
                         $allAvailablelArray[] = array("key" => $name, "value" => $value);
                     }
                 }
@@ -75,12 +64,13 @@ class PlantSalesDistributionOptionsProvider implements SelectOptionsProviderInte
     }
 
     /**
-     * Returns the value which is defined in the 'Default value' field  
+     * Returns the value which is defined in the 'Default value' field
      * @param $context array
      * @param $fieldDefinition Data
      * @return mixed
      */
-    public function getDefaultValue($context, $fieldDefinition) {
+    public function getDefaultValue($context, $fieldDefinition)
+    {
         return true;
     }
 
@@ -89,7 +79,8 @@ class PlantSalesDistributionOptionsProvider implements SelectOptionsProviderInte
      * @param $fieldDefinition Data
      * @return bool
      */
-    public function hasStaticOptions($context, $fieldDefinition) {
+    public function hasStaticOptions($context, $fieldDefinition)
+    {
         return true;
     }
 
