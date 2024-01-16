@@ -23,6 +23,7 @@ class DefaultController extends FrontendController
      */
     public function defaultEmailTemplateAction(Request $request)
     {
+        $parameterBag = [];
         return $this->render("@PimDataPost/default/default_email_template.html.twig", $parameterBag);
     }
 
@@ -31,6 +32,7 @@ class DefaultController extends FrontendController
      */
     public function saleforceIntegrationFailureEmailAction(Request $request)
     {
+        $parameterBag = [];
         return $this->render("@PimDataPost/default/saleforce_integration_failure_email.html.twig", $parameterBag);
     }
 
