@@ -38,6 +38,14 @@ class DefaultController extends FrontendController
     }
 
     /**
+     * @Route("/contitech_cs_product/emailTemplate")
+     */
+    public function emailTemplateAction(Request $request)
+    {
+        return $this->render("@ContitechCSProduct/CSWorkflowReportTemplate/emailTemplate.html.twig");
+    }
+
+    /**
      * @Route("/get_categories")
      *
      * @param Request $request
