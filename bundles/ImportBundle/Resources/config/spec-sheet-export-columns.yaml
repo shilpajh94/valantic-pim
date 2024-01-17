@@ -67,7 +67,6 @@ coverColor:
   columnName: coverColor
   fieldLabel: Cover Color
   fieldType: Relation
-  columnWidth: 100
   objectBrickName: HoseBase
   objectBrickLocation: Base
 coverCharacteristic:
