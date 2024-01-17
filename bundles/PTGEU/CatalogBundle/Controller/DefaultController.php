@@ -1,5 +1,6 @@
 <?php
-/**
+
+ /**
  * Pimcore
  *
  * This source file is available under two different licenses:
@@ -18,12 +19,14 @@ namespace PTGEU\CatalogBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Pimcore\Model\DataObject;
 use CatalogBundle\Helper\CatalogTemplatingHelper;
 use Pimcore\Db;
 use Pimcore\Controller\FrontendController;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class DefaultController extends FrontendController
 {
@@ -39,16 +42,21 @@ class DefaultController extends FrontendController
     private $db;
     private $imageWidth;
     private $translatorInterface;
+    private $containerInterface;
 
     const COMMON_HELPER = 'app.common_helper';
     const CATALOG_CONFIG_PROVIDER_SERVICE = 'catalog.config_provider_service';
     const PITCH_LENGTH = 'Pitch Length';
     const PTG_PRODUCT_PAGE= 'PTG Product Page';
 
-    public function __construct(CatalogTemplatingHelper $catalogTemplatingHelper, TranslatorInterface $translator) {
+    public function __construct(ContainerInterface $container,
+        CatalogTemplatingHelper $catalogTemplatingHelper,
+        TranslatorInterface $translator)
+    {
         $this->db = Db::get();
         $this->catalogTemplatingHelper = $catalogTemplatingHelper;
         $this->translatorInterface = $translator;
+        $this->containerInterface = $container;
         /* Initilize monitoring item and set the number of steps will take to complete the task */
     }
 
@@ -63,7 +71,7 @@ class DefaultController extends FrontendController
     /**
      * @Route("/ptgeu_catalog/get-available-six-level-categories")
      */
-    public function getAvailableSixLevelCategories(Request $request)
+    public function getAvailableSixLevelCategories(Request $request): JsonResponse
     {
         $parentCat = $request->get('catId');
         if($parentCat)
@@ -96,15 +104,15 @@ class DefaultController extends FrontendController
 
         $res['data'] = $optionData;
 
-        echo json_encode(['data' => $res['data']]);
-        die;
+        return $this->json(['data' => $res['data']]);
     }
 
     /**
      * @Route("/ptgeu_catalog/get-available-headers")
      */
-    public function getAvailableHeaders(Request $request) {
-        $commonHelper = \Pimcore::getContainer()->get(self::COMMON_HELPER);
+    public function getAvailableHeaders(Request $request): JsonResponse
+    {
+        $commonHelper = $this->containerInterface->get(self::COMMON_HELPER);
         $catalogConfig = $this->getContainerConfig('CatalogConfig');
         $ptgProductPageConfig = $commonHelper->getParameter($catalogConfig, self::PTG_PRODUCT_PAGE);
         
@@ -136,20 +144,20 @@ class DefaultController extends FrontendController
             $data = array('storeData' => [], 'completeData' => [], 'success' => true);
         }
 
-        echo json_encode($data);
-        die;
+        return $this->json($data);
     }
 
     /**
      * @Route("/ptgeu_catalog/get-available-sorters")
      */
-    public function getAvailableSorters(Request $request) {
-        $commonHelper = \Pimcore::getContainer()->get(self::COMMON_HELPER);
+    public function getAvailableSorters(Request $request): JsonResponse
+    {
+        $commonHelper = $this->containerInterface->get(self::COMMON_HELPER);
         $catalogConfig = $this->getContainerConfig('CatalogConfig');
         $ptgProductPageConfig = $commonHelper->getParameter($catalogConfig, self::PTG_PRODUCT_PAGE);
 
         $columns = array();
-        $arr = [];
+        $data = [];
         $defaultColumns = [];
         
         $tableColumns = $ptgProductPageConfig['PTG Sorting Attributes'];
@@ -164,7 +172,7 @@ class DefaultController extends FrontendController
                 }
             }
 
-            $arr = array(
+            $data = array(
                 'storeData' => $columns,
                 'completeData' => $tableColumns,
                 'defaultColumns'=> null,
@@ -172,14 +180,13 @@ class DefaultController extends FrontendController
             );
             
         } else {
-            $arr = array('storeData' => [], 'completeData' => [], 'success' => true);
+            $data = array('storeData' => [], 'completeData' => [], 'success' => true);
         }
-
-        echo json_encode($arr);
-        die;
+        
+        return $this->json($data);
     }
 
-    public function containerAction(Request $request)
+    public function containerAction(Request $request): Response
     {
         $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
 
@@ -197,7 +204,7 @@ class DefaultController extends FrontendController
         return $this->render('@PTGEUCatalog/Default/container.html.twig',$parameterBag);
     }
     
-    public function templatePtgEuProductProfileAction(Request $request)
+    public function templatePtgEuProductProfileAction(Request $request): Response
     {
         $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
         $language = $this->document->getProperty('language');
@@ -209,7 +216,7 @@ class DefaultController extends FrontendController
             $catalogCategoryTableObject = $catalogCategoryTableObjectEditable->getElement();
             if($catalogCategoryTableObject)
             {
-                $commonHelper = \Pimcore::getContainer()->get(self::COMMON_HELPER);
+                $commonHelper = $this->containerInterface->get(self::COMMON_HELPER);
                 $attributeImagesConfig = $this->getContainerConfig('AttributeImagesConfig');
                 $brandLogoSrc = $commonHelper->getParameter($attributeImagesConfig, 'BrandLogoSrc');
                 $fifthLevelCategoryObj = $catalogCategoryTableObject->getFifthLevelCategory();
@@ -230,9 +237,9 @@ class DefaultController extends FrontendController
                 {
                     $sql = "SELECT oo_id FROM `object_query_38` WHERE productType = 'base' ";
                     $sql .= "AND hierarchyLevel5 LIKE '%$fifthLevelCategoryObj%' LIMIT 1";
-                    $objectLevel5thId =  $this->db->fetchColumn($sql);
+                    $objectLevel5thId =  $this->db->fetchOne($sql);
                 }
-
+                
                 if($objectLevel5thId)
                 {
                     $seventhLevelProductList = [];
@@ -242,7 +249,7 @@ class DefaultController extends FrontendController
 
                             $sql = "SELECT oo_id FROM `object_query_38` WHERE productType = 'skeleton' ";
                             $sql .= "AND hierarchyLevel7 LIKE '%$categoryId%' LIMIT 1";
-                            $objectLevel7thId =  $this->db->fetchColumn($sql);
+                            $objectLevel7thId =  $this->db->fetchOne($sql);
 
                             if($objectLevel7thId)
                             {
@@ -253,8 +260,7 @@ class DefaultController extends FrontendController
                 }
 
                 $sql = "SELECT o_id FROM `object_38` WHERE `o_parentId` = '$objectLevel5thId' ORDER BY o_id ASC";
-                $row6ThLevelDetails =  $this->db->fetchCol($sql);
-                
+                $row6ThLevelDetails =  $this->db->fetchFirstColumn($sql);
                 $profile = [];
                 foreach ($row6ThLevelDetails as $objectLevel6thId) {
                     
@@ -267,24 +273,24 @@ class DefaultController extends FrontendController
                         $sql .= " `netWeight`,`minPulleyDia`, `minOutsidePulleyDia`,";
                         $sql .= " `heatAndOilResistant`, `rangeTemperatureC` ";
                         $sql .= "FROM `object_query_38` WHERE `oo_id` = '$objectLevel6thId'";
-                        $profileObjectDetails =  $this->db->fetchRow($sql);
+                        $profileObjectDetails =  $this->db->fetchAssociative($sql);
 
                         $sql = "SELECT staticConductive FROM `object_query_38` WHERE `oo_id` = '$objectLevel6thId'";
-                        $staticConductive =  $this->db->fetchColumn($sql);
+                        $staticConductive =  $this->db->fetchOne($sql);
                         
                         $sql = "SELECT o_id FROM `object_38` WHERE `o_parentId` = '$objectLevel6thId' ";
                         $sql .= "AND `PrintedCatalogFlag` = '1' ORDER BY o_id ASC LIMIT 1";
-                        $fertObjId =  $this->db->fetchColumn($sql);
+                        $fertObjId =  $this->db->fetchOne($sql);
 
                         if($fertObjId)
                         {
                             $sql = "SELECT heightMM FROM `object_brick_query_PTGEUCommonFert_38` ";
                             $sql .= "WHERE `o_id` = '$fertObjId'";
-                            $beltHeight =  $this->db->fetchColumn($sql);
+                            $beltHeight =  $this->db->fetchOne($sql);
 
                             $sql = "SELECT widthMM FROM `object_brick_query_PTGEUCommonFert_38` ";
                             $sql .= "WHERE `o_id` = '$fertObjId'";
-                            $upperRibWidth =  $this->db->fetchColumn($sql);
+                            $upperRibWidth =  $this->db->fetchOne($sql);
                         }
 
                         $groupData = [];
@@ -377,14 +383,13 @@ class DefaultController extends FrontendController
                         $profileData[$profile] = $groupData;
                     }
                 }
+                $parameterBag['BrandLogoSrc'] = $brandLogoSrc;
+                $parameterBag['profileData'] = $profileData;
             }
-
-            $parameterBag['BrandLogoSrc'] = $brandLogoSrc;
-            $parameterBag['profileData'] = $profileData;
         }
         return $this->render("@PTGEUCatalog/Default/template_ptg_eu_product_profile.html.twig", $parameterBag);
     }
-    public function templatePtgEuProductPageAction(Request $request)
+    public function templatePtgEuProductPageAction(Request $request): Response
     {
         $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
 
@@ -432,14 +437,13 @@ class DefaultController extends FrontendController
         $language = $language ? $language : 'en';
         $footerLogoSrc = '';
 
-        $containerRequest = $request->get('containerRequest') ? $request->get('containerRequest') : false;
         $catalogCategoryTableObjectEditable = $this->document->getEditable('ptg_eu_product_page');
         if($catalogCategoryTableObjectEditable)
         {
             $catalogCategoryTableObject = $catalogCategoryTableObjectEditable->getElement();
             if($catalogCategoryTableObject)
             {
-                $commonHelper = \Pimcore::getContainer()->get(self::COMMON_HELPER);
+                $commonHelper = $this->containerInterface->get(self::COMMON_HELPER);
                 $attributeImagesConfig = $this->getContainerConfig('AttributeImagesConfig');
                 $priceListTableConfig = $this->getContainerConfig('PriceListTableConfig');
                 
@@ -470,12 +474,12 @@ class DefaultController extends FrontendController
                 if(trim($deliveringPlant))
                 {
                     $sql = "SELECT o_id FROM `object_PTGEUPlant` WHERE Plant = '$deliveringPlant' AND o_published = 1 ";
-                    $deliveringPlantID =  $this->db->fetchColumn($sql);
+                    $deliveringPlantID =  $this->db->fetchOne($sql);
 
                     $sql = "SELECT TRIM(BOTH ',' FROM `Material`) AS `materialID` FROM `object_40` ";
                     $sql .= " WHERE plant__id = '$deliveringPlantID' AND o_published = 1 ";
                     
-                    $plantAssociatedMaterials =  $this->db->fetchCol($sql);
+                    $plantAssociatedMaterials =  $this->db->fetchFirstColumn($sql);
                 }
 
                 # get All SalesMaterialMaster of the selected Sales Organization
@@ -484,11 +488,11 @@ class DefaultController extends FrontendController
                     $sql = "SELECT o_id FROM `object_PTGEUSalesOrg` ";
                     $sql .= " WHERE salesOrgCode = '$salesOrganisation' AND o_published = 1 ";
 
-                    $salesOrganisationID =  $this->db->fetchColumn($sql);
+                    $salesOrganisationID =  $this->db->fetchOne($sql);
 
                     $sql = "SELECT TRIM(BOTH ',' FROM `Material`) AS `materialID` FROM `object_41` ";
                     $sql .= " WHERE salesOrganization__id = '$salesOrganisationID' AND o_published = 1 ";
-                    $salesAssociatedMaterials =  $this->db->fetchCol($sql);
+                    $salesAssociatedMaterials =  $this->db->fetchFirstColumn($sql);
                 }
 
 
@@ -496,7 +500,7 @@ class DefaultController extends FrontendController
                 {
                     $sql = "SELECT * FROM `object_query_38` WHERE productType = 'base' ";
                     $sql .= "AND hierarchyLevel5 LIKE '%$fifthLevelCategoryObj%' LIMIT 1";
-                    $objectLevel5thDetails =  $this->db->fetchRow($sql);
+                    $objectLevel5thDetails =  $this->db->fetchAssociative($sql);
 
                     if($objectLevel5thDetails)
                     {
@@ -516,7 +520,7 @@ class DefaultController extends FrontendController
 
                             $sql = "SELECT oo_id FROM `object_query_38` WHERE productType = 'skeleton' ";
                             $sql .= " AND hierarchyLevel7 LIKE '%$categoryId%' LIMIT 1";
-                            $objectLevel7thId =  $this->db->fetchColumn($sql);
+                            $objectLevel7thId =  $this->db->fetchOne($sql);
 
                             if($objectLevel7thId)
                             {
@@ -591,7 +595,7 @@ class DefaultController extends FrontendController
                     $groupData['performance'] = $objectLevel5thDetails['performance'];
 
                     $sql = "SELECT staticConductive FROM `object_query_38` WHERE `oo_id` = '$objectLevel5thId'";
-                    $staticConductive =  $this->db->fetchColumn($sql);
+                    $staticConductive =  $this->db->fetchOne($sql);
                     $groupData['staticConductive'] = $staticConductive;
                     $reinforcementSelected = trim($objectLevel5thDetails['reinforcement'], ",");
                     $groupData['reinforcement'] = $reinforcementSelected;
@@ -636,7 +640,7 @@ class DefaultController extends FrontendController
                     $groupData['technicalDrawing1Obj'] = $technicalDrawing1Obj;
 
                     $sql = "SELECT longDescription FROM `object_localized_data_38` WHERE ooo_id = '$objectLevel5thId' AND `language` = '{$language}' LIMIT 1";
-                    $longDescription =  $this->db->fetchColumn($sql);
+                    $longDescription =  $this->db->fetchOne($sql);
                     $groupData['longDescription'] = $longDescription;
 
                     if($objectLevel5thDetails['minimumTemperatureF'] && $objectLevel5thDetails['maximumTemperatureF'] && $objectLevel5thDetails['minimumTemperatureC'] && $objectLevel5thDetails['maximumTemperatureC'])
@@ -674,7 +678,7 @@ class DefaultController extends FrontendController
                     $groupData['brandName'] = $objectLevel5thDetails['ProductName'];
                     
                     $sql = "SELECT * FROM `object_38` WHERE `o_parentId` = '$objectLevel5thId' ORDER BY o_id ASC";
-                    $row6ThLevelDetails =  $this->db->fetchAll($sql);
+                    $row6ThLevelDetails =  $this->db->fetchAllAssociative($sql);
                     $notApplicableFields = [];
                     $articles = [];
                     $plantAssociatedMaterialsString = '';
@@ -710,7 +714,7 @@ class DefaultController extends FrontendController
 
                             $sql = "SELECT * FROM `object_38` ";
                             $sql .= " WHERE `o_parentId` = '$objectLevel6thId' $appendWhereClauseSQL ORDER BY o_id ASC";
-                            $productObjectLevel7List =  $this->db->fetchAll($sql);
+                            $productObjectLevel7List =  $this->db->fetchAllAssociative($sql);
 
                             foreach ($productObjectLevel7List as $article) {
                                 if($article['printedCatalogFlag'] == '1')
@@ -773,7 +777,7 @@ class DefaultController extends FrontendController
                                                 $o_id = $objectLevel6['oo_id'];
                                                 $objectBrickName = $fields['objectBrickName'];
                                                 $sql = "SELECT * FROM `object_brick_query_{$objectBrickName}_38` WHERE `o_id` = '$o_id'";
-                                                $rowData =  $this->db->fetchRow($sql);
+                                                $rowData =  $this->db->fetchAssociative($sql);
                                                 if($rowData)
                                                 {
                                                     if(isset($rowData[$fieldName]) && trim($rowData[$fieldName]) && $isNumericField){
@@ -817,7 +821,7 @@ class DefaultController extends FrontendController
                                                 $o_id = $article['o_id'];
                                                 $objectBrickName = $fields['objectBrickName'];
                                                 $sql = "SELECT * FROM `object_brick_query_{$objectBrickName}_38` WHERE `o_id` = '$o_id'";
-                                                $rowData =  $this->db->fetchRow($sql);
+                                                $rowData =  $this->db->fetchAssociative($sql);
                                                 if($rowData)
                                                 {
                                                     if($fieldName == 'datumLengthMM' || $fieldName == 'effectiveLengthMM' || $fieldName == 'pitchLengthLpLwMM' || $fieldName == 'insideLengthMM' || $fieldName == 'refLengthLrMM'){
@@ -1730,8 +1734,8 @@ class DefaultController extends FrontendController
                             }
                         
                     }
-                    $asasa['asas'] = $articles;
-                    $groupData['data'] = $asasa;
+                    $articlesData['articlesData'] = $articles;
+                    $groupData['data'] = $articlesData;
                     $groupData['columnsDataWithImages'] = $columnsDataWithImages;
                     $groupData['siop6siop7Category'] = $siop6siop7Category;
                     $groupData['siop5Category'] = $siop5Category;
@@ -1742,14 +1746,13 @@ class DefaultController extends FrontendController
             }
             $parameterBag['footer_class'] = '';
             $parameterBag['footer_logo_src'] = $footerLogoSrc;
-            $parameterBag['containerRequest'] = $containerRequest;
             $parameterBag['groupData'] = $groupData;
         }
         return $this->render("@PTGEUCatalog/Default/template_ptg_eu_product_page.html.twig", $parameterBag);
     }
 
-    public function getFiveSortedFeaturesWithIconList($safetyFeatures){
-        
+    public function getFiveSortedFeaturesWithIconList($safetyFeatures): ?array
+    {
         $safetyFeatures = array_unique($safetyFeatures);
 
         $safetyFeaturesList  = array();
@@ -1778,13 +1781,9 @@ class DefaultController extends FrontendController
 
         $safetyFeaturesList = array_merge_recursive($safetyFeaturesListWithImage,$safetyFeaturesListWithOutImage);
         
-        if($safetyFeaturesList)
-        {
-            $safetyFeaturesList = array_slice($safetyFeaturesList, 0, 5);
-        }
-	
 	    if($safetyFeaturesList)
         {
+            $safetyFeaturesList = array_slice($safetyFeaturesList, 0, 5);
             foreach ($safetyFeaturesList as $key => $value) {
 
                 if(isset($this->s3srcArr[$value['iconSrc']]))
@@ -1800,7 +1799,8 @@ class DefaultController extends FrontendController
         return $safetyFeaturesList;
     }
 
-    private function getFeaturesList($language){
+    private function getFeaturesList($language): ?array
+    {
         $entries = new DataObject\PTGEUFeaturesAndBenefits\Listing();
         $entries->load();
         $featureData = array();
@@ -1817,7 +1817,7 @@ class DefaultController extends FrontendController
         return $featureData;
     }
 
-    public function getS3ImageSrc($src)
+    public function getS3ImageSrc($src): ?string
     {
         $s3src = '';
         $imgObj = \Pimcore\Model\Asset::getByPath($src);
@@ -1829,8 +1829,8 @@ class DefaultController extends FrontendController
         return $s3src;
     }
 
-    public function getColumnHeadersForCatalog(){
-
+    public function getColumnHeadersForCatalog(): ?array
+    {
         $columnsDataWithImages = array();
 
         if($this->columnsData)
@@ -1899,10 +1899,11 @@ class DefaultController extends FrontendController
         return $columnsDataWithImages;
     }
 
-    public function getRequestedParameter(Request $request, $documentId): array
+    public function getRequestedParameter(Request $request, $documentId): ?array
     {
         $parameterBag = [];
         $parameterBag['printermarks'] = $request->get('printermarks');
+        $parameterBag['isParentContainerRequest'] = $request->get('isParentContainerRequest') ? $request->get('isParentContainerRequest') : false;
 
         $imageWidth = null;
         $imageRecompression = null;
@@ -1920,15 +1921,15 @@ class DefaultController extends FrontendController
         return $parameterBag;
     }
 
-    public function getContainerConfig(string $string)
+    public function getContainerConfig(string $string): ?array
     {
         $config = null;
         if ($string == 'AttributeImagesConfig') {
-            $config = \Pimcore::getContainer()->get(self::CATALOG_CONFIG_PROVIDER_SERVICE)->getAttributeImagesConfig();
+            $config = $this->containerInterface->get(self::CATALOG_CONFIG_PROVIDER_SERVICE)->getAttributeImagesConfig();
         } elseif ($string == 'PriceListTableConfig') {
-            $config = \Pimcore::getContainer()->get(self::CATALOG_CONFIG_PROVIDER_SERVICE)->getPriceListTableConfig();
+            $config = $this->containerInterface->get(self::CATALOG_CONFIG_PROVIDER_SERVICE)->getPriceListTableConfig();
         } elseif ($string == 'CatalogConfig') {
-            $config = \Pimcore::getContainer()->get(self::CATALOG_CONFIG_PROVIDER_SERVICE)->getCatalogConfig();
+            $config = $this->containerInterface->get(self::CATALOG_CONFIG_PROVIDER_SERVICE)->getCatalogConfig();
         }
         return $config;
     }

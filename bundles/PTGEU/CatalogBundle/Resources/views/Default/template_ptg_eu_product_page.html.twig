@@ -1,4 +1,4 @@
-{% if parentContainer is not defined %}
+{% if not isParentContainerRequest %}
 	{% extends "@PTGEUCatalog/Layouts/layout.html.twig" %}
 {% endif %}
 
@@ -353,9 +353,8 @@
             </section>
         </article>
 
-        {% if containerRequest is not defined %}
+        {% if not isParentContainerRequest %}
             <script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
         {% endif %}
     {% endif %}     
 {% endblock %}
-

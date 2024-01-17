@@ -38,7 +38,7 @@ class HierarchyOptionProvider implements SelectOptionsProviderInterface
      * @param Data $fieldDefinition
      * @return array
      */
-    public function getOptions($context, $fieldDefinition)
+    public function getOptions($context, $fieldDefinition): ?array
     {
         $categoryList = new DataObject\PTGEUProductHierarchy\Listing();
         $categoryList->setCondition("Level = ?", ["5"]);
@@ -46,8 +46,11 @@ class HierarchyOptionProvider implements SelectOptionsProviderInterface
         $categoryList->setOrder("ASC");
         $categoryList = $categoryList->load();
 
+        $result = [];
         foreach ($categoryList as $cat) {
-            $result[] = array('key' => $cat->getDescription('en') . '-' . $cat->getFullcode(), 'value' => $cat->getId());
+            $result[] = array(
+                'key' => $cat->getDescription('en') . '-' . $cat->getFullcode(),
+                'value' => $cat->getId());
         }
         return $result;
     }
