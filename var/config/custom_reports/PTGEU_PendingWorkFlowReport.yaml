@@ -1,0 +1,102 @@
+pimcore:
+    custom_report:
+        definitions:
+            PTGEU_PendingWorkFlowReport:
+                name: PTGEU_PendingWorkFlowReport
+                sql: ''
+                dataSourceConfig:
+                    -
+                        sql: " SELECT \no1.`o_key` as `Key`,\no1.`articleNumber` AS `Article Number`,\nen.`sapDescription` AS `SAP Description`,\no1.`siopFullCode` AS `SIOP Full Code`,\no1.`o_path` AS `Path`,\nen.`EmptyFields`as `Empty Fields`, \nen.CompletenessPercentage \"COMPLETED (%)\",\no1.`ProductType` AS `Product Type`,\n \no1.`o_id` as  `Id`\nFrom\nobject_38 o1 \nLEFT JOIN `object_localized_query_38_en` en \n\tON `en`.`ooo_id` = `o1`.`o_id`\nWHERE\n    (o1.`o_published` =1) AND (en.`CompletenessPercentage`  != \"\")"
+                        from: ''
+                        where: ''
+                        groupby: ''
+                        type: sql
+                columnConfiguration:
+                    -
+                        name: Key
+                        display: true
+                        export: true
+                        order: true
+                        width: ''
+                        label: ''
+                        id: extModel383-1
+                    -
+                        name: 'Article Number'
+                        display: true
+                        export: true
+                        order: true
+                        width: ''
+                        label: ''
+                        id: extModel383-2
+                    -
+                        name: 'SAP Description'
+                        display: true
+                        export: true
+                        order: true
+                        width: ''
+                        label: ''
+                        id: extModel383-3
+                    -
+                        name: 'SIOP Full Code'
+                        display: true
+                        export: true
+                        order: true
+                        width: ''
+                        label: ''
+                        id: extModel383-4
+                    -
+                        name: Path
+                        display: true
+                        export: true
+                        order: true
+                        width: ''
+                        label: ''
+                        id: extModel383-5
+                    -
+                        name: 'Product Type'
+                        display: true
+                        export: true
+                        order: true
+                        width: ''
+                        label: ''
+                        id: extModel383-6
+                    -
+                        name: 'Empty Fields'
+                        display: true
+                        export: true
+                        order: true
+                        width: ''
+                        label: ''
+                        id: extModel383-7
+                    -
+                        name: 'COMPLETED (%)'
+                        display: true
+                        export: true
+                        order: true
+                        width: ''
+                        label: ''
+                        id: extModel383-8
+                    -
+                        name: Id
+                        display: true
+                        export: true
+                        order: true
+                        width: ''
+                        label: ''
+                        id: extModel383-9
+                niceName: 'PTGEU - Pending Work Flow Report'
+                group: PTG_EU
+                groupIconClass: ''
+                iconClass: ''
+                menuShortcut: false
+                reportClass: ''
+                chartType: null
+                pieColumn: null
+                pieLabelColumn: null
+                xAxis: null
+                yAxis: {  }
+                modificationDate: 1705410023
+                creationDate: 1656506280
+                shareGlobally: false
+                sharedUserNames: {  }
+                sharedRoleNames: {  }
