@@ -10,6 +10,8 @@ namespace Wvision\Bundle\DataDefinitionsBundle\Helper;
 use Wvision\Bundle\DataDefinitionsBundle\Service\BundleService;
 use Wvision\Bundle\DataDefinitionsBundle\Model\DataDefinitionImport;
 use Wvision\Bundle\DataDefinitionsBundle\Lib\Constants;
+use Wvision\Bundle\DataDefinitionsBundle\Lib\DataImportLogger;
+
 
 /**
  * Description of CommonHelper
@@ -60,6 +62,7 @@ class ImportHelper
         {
             $processedRecords   = $dataImport->getProcessedRecords();
             $totalRecords       = $dataImport->getTotalRecords();
+
             $processedPercentage= $totalRecords > 0 ? ($processedRecords * 100) / $totalRecords : 0;
             $importStatus       = round($processedPercentage). '%';
 

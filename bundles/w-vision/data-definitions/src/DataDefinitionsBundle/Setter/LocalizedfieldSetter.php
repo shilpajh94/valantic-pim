@@ -12,39 +12,45 @@
  * @license    https://github.com/w-vision/DataDefinitions/blob/master/gpl-3.0.txt GNU General Public License version 3 (GPLv3)
  */
 
-declare(strict_types=1);
-
 namespace Wvision\Bundle\DataDefinitionsBundle\Setter;
 
-use Wvision\Bundle\DataDefinitionsBundle\Context\GetterContextInterface;
-use Wvision\Bundle\DataDefinitionsBundle\Context\SetterContextInterface;
+use Pimcore\Model\DataObject\Concrete;
 use Wvision\Bundle\DataDefinitionsBundle\Getter\GetterInterface;
+use Wvision\Bundle\DataDefinitionsBundle\Model\ExportMapping;
+use Wvision\Bundle\DataDefinitionsBundle\Model\ImportMapping;
+use Wvision\Bundle\DataDefinitionsBundle\Model\MappingInterface;
 
 class LocalizedfieldSetter implements SetterInterface, GetterInterface
 {
-    public function set(SetterContextInterface $context): void
+    /**
+     * {@inheritdoc}
+     * @throws \Exception
+     */
+    public function set(Concrete $object, $value, ImportMapping $map, $data)
     {
-        $config = $context->getMapping()->getSetterConfig();
+        $config = $map->getSetterConfig();
 
-        $setter = explode('~', $context->getMapping()->getToColumn());
+        $setter = explode('~', $map->getToColumn());
         $setter = sprintf('set%s', ucfirst($setter[0]));
 
-        if (method_exists($context->getObject(), $setter)) {
-            $context->getObject()->$setter($context->getValue(), $config['language']);
+        if (method_exists($object, $setter)) {
+            $object->$setter($value, $config['language']);
         }
     }
 
-    public function get(GetterContextInterface $context)
+    public function get(Concrete $object, ExportMapping $map, $data)
     {
-        $config = $context->getMapping()->getGetterConfig();
+        $config = $map->getGetterConfig();
 
-        $getter = explode('~', $context->getMapping()->getFromColumn());
+        $getter = explode('~', $map->getFromColumn());
         $getter = sprintf('get%s', ucfirst($getter[0]));
 
-        if (method_exists($context->getObject(), $getter)) {
-            return $context->getObject()->$getter($config['language']);
+        if (method_exists($object, $getter)) {
+            return $object->$getter($config['language']);
         }
 
         return null;
     }
 }
+
+

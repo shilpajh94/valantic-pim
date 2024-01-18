@@ -12,39 +12,108 @@
  * @license    https://github.com/w-vision/DataDefinitions/blob/master/gpl-3.0.txt GNU General Public License version 3 (GPLv3)
  */
 
-declare(strict_types=1);
-
 namespace Wvision\Bundle\DataDefinitionsBundle\Setter;
 
-use Pimcore\Model\DataObject\Objectbrick;
+use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\Objectbrick\Data\AbstractData;
-use Wvision\Bundle\DataDefinitionsBundle\Context\GetterContextInterface;
-use Wvision\Bundle\DataDefinitionsBundle\Context\SetterContextInterface;
 use Wvision\Bundle\DataDefinitionsBundle\Getter\GetterInterface;
+use Wvision\Bundle\DataDefinitionsBundle\Model\ExportMapping;
+use Wvision\Bundle\DataDefinitionsBundle\Model\ImportMapping;
+use Wvision\Bundle\DataDefinitionsBundle\Model\MappingInterface;
+use Wvision\Bundle\DataDefinitionsBundle\Lib\DataImportLogger;
 
 class ObjectbrickSetter implements SetterInterface, GetterInterface
 {
-    public function set(SetterContextInterface $context)
-    {
-        $keyParts = explode('~', $context->getMapping()->getToColumn());
+    /**
+     * {@inheritdoc}
+     */
 
-        $config = $context->getMapping()->getSetterConfig();
+    private $appService;
+    private $appServiceIFSEU;
+    public function __construct(){
+        $this->appService = \Pimcore::getKernel()->getContainer()->get(\AppBundle\Services\AppService::class);
+        $this->appServiceIFSEU = \Pimcore::getContainer()->get('ifs_eu_import.appServices');
+
+    }
+    public function set(Concrete $object, $value, ImportMapping $map, $data)
+    {
+        $keyParts = explode('~', $map->getToColumn());
+
+        if(sizeof($keyParts) == 2){
+            $brickField = $keyParts[0];
+        }else{
+            $brickField = $keyParts[3];
+        }
+
+        $config = $map->getSetterConfig();
+        // DataImportLogger::log(json_encode($map));
+
+        $fieldName = $config['brickField'];
+        $class = $config['class'];
+        $brickGetter = sprintf('get%s', ucfirst($fieldName));
+        $brickSetter = sprintf('set%s', ucfirst($fieldName));
+        
+        if (method_exists($object, $brickGetter)) {
+            $brick = $object->$brickGetter();
+            
+            if (!$brick instanceof \Pimcore\Model\DataObject\Objectbrick) {
+                $brick = new \Pimcore\Model\DataObject\Objectbrick($object, $fieldName);
+                $object->$brickSetter($brick);
+            }
+
+            if ($brick instanceof \Pimcore\Model\DataObject\Objectbrick) {
+                
+                $brickClassGetter = sprintf('get%s', ucfirst($class));
+                // $brickClassSetter = sprintf('set%s', ucfirst($class));
+                $brickFieldObject = $brick->$brickClassGetter();
+
+                if (!$brickFieldObject instanceof AbstractData) {
+                   
+                    // $brickFieldObjectClass = 'Pimcore\Model\DataObject\Objectbrick\Data\\'.$class;
+
+                    // $brickFieldObject = new $brickFieldObjectClass($object);
+
+                    // $brick->$brickClassSetter($brickFieldObject);
+                }
+
+                $setter = sprintf('set%s', ucfirst($brickField));
+
+                if (method_exists($brickFieldObject, $setter)) {
+                    if(sizeof($keyParts) == 2){
+                        $brickFieldObject->$setter($value,$keyParts[1]);
+                    }else{
+                        $brickFieldObject->$setter($value);
+                    }
+
+                    if($object->getClassName()=='IFSEUProduct'){
+                            $this->appServiceIFSEU->updateAttributeGroup($brickFieldObject, $brickField, $value); 
+                    }else{
+                        $this->appService->updateAttributeGroup($brickFieldObject, $brickField, $value);
+                    }
+                }
+            }
+        }
+    }
+
+    public function get(Concrete $object, ExportMapping $map, $data)
+    {
+        $keyParts = explode('~', $map->getFromColumn());
+
+        $config = $map->getGetterConfig();
         $fieldName = $config['brickField'];
         $class = $config['class'];
         $brickField = $keyParts[3];
 
         $brickGetter = sprintf('get%s', ucfirst($fieldName));
-        $brickSetter = sprintf('set%s', ucfirst($fieldName));
 
-        if (method_exists($context->getObject(), $brickGetter)) {
-            $brick = $context->getObject()->$brickGetter();
+        if (method_exists($object, $brickGetter)) {
+            $brick = $object->$brickGetter();
 
-            if (!$brick instanceof Objectbrick) {
-                $brick = new Objectbrick($context->getObject(), $fieldName);
-                $context->getObject()->$brickSetter($brick);
+            if (!$brick instanceof \Pimcore\Model\DataObject\Objectbrick) {
+                return;
             }
 
-            if ($brick instanceof Objectbrick) {
+            if ($brick instanceof \Pimcore\Model\DataObject\Objectbrick) {
                 $brickClassGetter = sprintf('get%s', ucfirst($class));
                 $brickClassSetter = sprintf('set%s', ucfirst($class));
 
@@ -53,58 +122,21 @@ class ObjectbrickSetter implements SetterInterface, GetterInterface
                 if (!$brickFieldObject instanceof AbstractData) {
                     $brickFieldObjectClass = 'Pimcore\Model\DataObject\Objectbrick\Data\\'.$class;
 
-                    $brickFieldObject = new $brickFieldObjectClass($context->getObject());
+                    $brickFieldObject = new $brickFieldObjectClass($object);
 
                     $brick->$brickClassSetter($brickFieldObject);
                 }
 
-                $setter = sprintf('set%s', ucfirst($brickField));
+                $getter = sprintf('get%s', ucfirst($brickField));
 
-                if (method_exists($brickFieldObject, $setter)) {
-                    $brickFieldObject->$setter($context->getValue());
+                if (method_exists($brickFieldObject, $getter)) {
+                    return $brickFieldObject->$getter();
                 }
-            }
-        }
-    }
-
-    public function get(GetterContextInterface $context)
-    {
-        $keyParts = explode('~', $context->getMapping()->getFromColumn());
-
-        $config = $context->getMapping()->getGetterConfig();
-        $fieldName = $config['brickField'];
-        $class = $config['class'];
-        $brickField = $keyParts[3];
-
-        $brickGetter = sprintf('get%s', ucfirst($fieldName));
-
-        if (method_exists($context->getObject(), $brickGetter)) {
-            $brick = $context->getObject()->$brickGetter();
-
-            if (!$brick instanceof Objectbrick) {
-                return;
-            }
-
-            $brickClassGetter = sprintf('get%s', ucfirst($class));
-            $brickClassSetter = sprintf('set%s', ucfirst($class));
-
-            $brickFieldObject = $brick->$brickClassGetter();
-
-            if (!$brickFieldObject instanceof AbstractData) {
-                $brickFieldObjectClass = 'Pimcore\Model\DataObject\Objectbrick\Data\\'.$class;
-
-                $brickFieldObject = new $brickFieldObjectClass($context->getObject());
-
-                $brick->$brickClassSetter($brickFieldObject);
-            }
-
-            $getter = sprintf('get%s', ucfirst($brickField));
-
-            if (method_exists($brickFieldObject, $getter)) {
-                return $brickFieldObject->$getter();
             }
         }
 
         return null;
     }
 }
+
+

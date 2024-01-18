@@ -57,6 +57,7 @@ use Wvision\Bundle\DataDefinitionsBundle\Setter\SetterInterface;
 use AppBundle\Lib\UnitConversion\ConverterFactory;
 use AppBundle\Lib\UnitConversion\Unit;
 use AppBundle\Services\AppService;
+use Pimcore\Model\Asset;
 use Pimcore\Placeholder;
 use Wvision\Bundle\DataDefinitionsBundle\Model\DataSetAwareInterface;
 use Wvision\Bundle\DataDefinitionsBundle\Lib\DataImportLogger;
@@ -169,9 +170,11 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
     }
 
     public function doImport(ImportDefinitionInterface $definition, $params): array
-    {
-        DataImportLogger::log('cfvgbhnjm');
+    {  
+
         $filter = null;
+        $objectIds = [];
+        $exceptions = [];
 
         if ($definition->getCreateVersion()) {
             Version::enable();
@@ -181,51 +184,39 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
 
         $filterType = $definition->getFilter();
         if ($filterType) {
-            /**
-             * @var FilterInterface $filter
-             */
             $filter = $this->filterRegistry->get($filterType);
         }
 
-
         /** @var ImportDataSetInterface|array $data */
         $data = $this->getData($definition, $params);
-
-        $runner = null;
-        $runnerContext = $this->contextFactory->createRunnerContext($definition, $params, null, $data, null);
-
-        if ($definition->getRunner()) {
-            /**
-             * @var RunnerInterface $runner
-             */
-            $runner = $this->runnerRegistry->get($definition->getRunner());
+        if ((is_array($data) || $data instanceof \Countable) && \count($data) > 0) {
+            $this->eventDispatcher->dispatch($definition, 'data_definitions.import.total', \count($data), $params);
         }
+        $totalRowsWithData = !empty($data) ? count($data) : null ;
 
-
-        if ((\is_countable($data) || $data instanceof Countable) && ($count = \count($data)) > 0) {
-            $this->eventDispatcher->dispatch($definition, 'data_definitions.import.total', $count, $params);
+        // update total rows for the respective data definition import id
+        $importDataId   = $params['importDataId'];
+        $dataImport     = DataDefinitionImport::getById($importDataId);
+        if($totalRowsWithData == null)
+        {
+            $dataImport->setStatus(Constants::SCHEDULE_STATUS_FAILED);
+            $dataImport->setImportProcessEndTime(new \DateTime());
         }
-
-        if ($runner instanceof ImportStartFinishRunnerInterface) {
-            $runner->startImport($runnerContext);
-        }
-
-        [$objectIds, $exceptions] = $this->runImport($definition, $params, $filter, $runner, $data);
-
-        if ($runner instanceof ImportStartFinishRunnerInterface) {
-            $runner->finishImport($runnerContext);
-        }
+        $dataImport->setTotalRecords($totalRowsWithData);
+        $dataImport->save();
+        list($objectIds, $exceptions, $logResult) = $this->runImport($definition, $params, $totalRowsWithData, $filter, $data);
 
         $cleanerType = $definition->getCleaner();
         if ($cleanerType) {
             $cleaner = $this->cleanerRegistry->get($cleanerType);
 
             $this->logger->info(sprintf('Running Cleaner "%s"', $cleanerType));
-            $this->eventDispatcher->dispatch(
-                $definition,
-                'data_definitions.import.status',
-                sprintf('Running Cleaner "%s"', $cleanerType)
-            );
+            $this->eventDispatcher->dispatch($definition, 'data_definitions.import.status',
+                sprintf('Running Cleaner "%s"', $cleanerType));
+
+            if ($cleaner instanceof DataSetAwareInterface) {
+                $cleaner->setDataSet($data);
+            }
 
             if ($cleaner instanceof ParamsAwareInterface) {
                 $cleaner->setParams($params);
@@ -235,20 +226,17 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
                 $cleaner->setLogger($this->logger);
             }
 
-            $cleaner->cleanup($definition, $objectIds);
+            $cleaner->cleanup($definition, $objectIds, $logResult);
 
             $this->logger->info(sprintf('Finished Cleaner "%s"', $cleanerType));
-            $this->eventDispatcher->dispatch(
-                $definition,
-                'data_definitions.import.status',
-                sprintf('Finished Cleaner "%s"', $cleanerType)
-            );
+            $this->eventDispatcher->dispatch($definition, 'data_definitions.import.status',
+                sprintf('Finished Cleaner "%s"', $cleanerType));
         }
 
-        if (count($exceptions) > 0) {
-            $this->processFailedImport($definition, $params, $objectIds, $exceptions);
+        if (\count($exceptions) > 0) {
+            $this->processFailedImport($definition, $params, $objectIds, $exceptions, $logResult);
         } else {
-            $this->processSuccessfullImport($definition, $params, $objectIds, $exceptions);
+            $this->processSuccessfullImport($definition, $params, $objectIds, $exceptions, $logResult);
         }
 
         $this->eventDispatcher->dispatch($definition, 'data_definitions.import.finished', '', $params);
@@ -500,9 +488,10 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
 
                 $logResult[] = [self::PRIMARY_KEY_HEADER => $primaryKey, self::NON_IMPORTED_ATTRIBUTES => $nonImportedAttributesString, self::STATUS_CODE => $status, self::FAILURE_REASON => $failedReason]; 
             }catch (\Throwable $ex) {
-                $mesage = $ex->getMessage();
-                preg_match_all("|\: field (.*)  in |imsU",$mesage,$match);
-                $failedReason = implode(PHP_EOL,$match[1]);
+                $mesage = $ex;
+                // $mesage = $ex->getMessage();
+                // preg_match_all("|\: field (.*)  in |imsU",$mesage,$match);
+                // $failedReason = implode(PHP_EOL,$match[1]);
                 if(empty($failedReason)){
                     $failedReason = $mesage;
                 }
@@ -569,7 +558,7 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
      * @return null|Concrete
      * @throws \Exception
      */
-    private function importRow(ImportDefinitionInterface $definition, $data, $dataSet, $params, $filter = null): ?Concrete
+    private function importRow(ImportDefinitionInterface $definition, $data, $dataSet, $params, $filter = null): ?array
     {
         $nonImportedAttributes = [];
         if (null === $data) {
@@ -826,13 +815,13 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
                     $setter->setLogger($this->logger);
                 }
                 if(!is_array($value) && empty(trim($value)) && (!is_numeric($value)) && (gettype($value) != 'boolean')){
-                    $value = NULL;
+                    $value = null;
                 }
                 $setter->set($object, $value, $map, $data);
             }
         } else {
-            if(!is_array($value) && empty(trim($value)) && (!is_numeric($value)) && (gettype($value) != 'boolean')){
-                $value = NULL;
+            if((gettype($value) != 'boolean') && (!is_array($value)) && empty(trim($value)) && (!is_numeric($value))){
+                $value = null;
             }
             if($definition->getClass()=='IFSEUProduct'){
                     $this->appServiceIFSEU->updateAttributeGroup($object, $map->getToColumn(), $value);
