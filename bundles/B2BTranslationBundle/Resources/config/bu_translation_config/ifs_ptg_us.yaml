@@ -70,6 +70,11 @@ parameters:
             fieldLocation: class
             className: Product
             isLocalized: true
+        productShortDescription:
+            fieldName: productShortDescription
+            fieldLocation: class
+            className: Product
+            isLocalized: true    
         reinforcement:
             fieldName: reinforcement
             fieldLocation: class
