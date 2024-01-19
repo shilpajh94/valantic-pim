@@ -6,6 +6,7 @@ use B2BTranslationBundle\Logger\LogLevel;
 use B2BTranslationBundle\PimDataExport\IDataExport;
 use B2BTranslationBundle\PimDataExport\PimDataExportHelper;
 use \Pimcore\Model\Asset;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class CategoryDataExport implements IDataExport
 {
@@ -14,11 +15,13 @@ class CategoryDataExport implements IDataExport
     private $languages;
     private $categoryAttributeConfig;
     private $headerMapping;
+    private $container;
     
-    public function __construct($bu)
+    public function __construct($bu, ContainerInterface $container)
     {
         $this->bu = $bu;
-        $this->helper = new PimDataExportHelper;
+        $this->container = $container;
+        $this->helper = new PimDataExportHelper($this->container);
     }
 
     public function exportData()
@@ -200,20 +203,20 @@ class CategoryDataExport implements IDataExport
                                             }
                                         }
                                         $record=array_merge($mapping_record,$record);
-                                        if($record['SalesForce_ID'])
-                                        {
-                                            unset($record['SalesForce_ID']);
-                                            fputcsv($file2, $record);
-                                        }
-                                        else{
-                                            unset($record['SalesForce_ID']);
+                                        // if($record['SalesForce_ID'])
+                                        // {
+                                        //     unset($record['SalesForce_ID']);
+                                        //     fputcsv($file2, $record);
+                                        // }
+                                        // else{
+                                        //     unset($record['SalesForce_ID']);
                                             fputcsv($file1, $record);
-                                        }
+                                        // }
                                     }
                                 }
                             }
                             fclose($file1);
-                            fclose($file2);
+                            // fclose($file2);
 
                             echo $message = "{$this->bu}: B2B category data csv file created";
                             echo PHP_EOL;

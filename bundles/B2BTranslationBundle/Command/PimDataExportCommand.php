@@ -8,12 +8,14 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use B2BTranslationBundle\PimDataExport\PimDataExportHelper;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class PimDataExportCommand extends AbstractCommand
 {
     private $businessUnits = ['1' => 'IFS_PTG_US', '2' => 'CS', '3' => 'PTG_EU', '4' => 'IFS_EMEA'];
     private $bu;
     private $helper;
+    private $container;
 
     protected function configure()
     {
@@ -24,9 +26,15 @@ class PimDataExportCommand extends AbstractCommand
             'PTG_EU' for 'PTG EU' and 'IFS_EMEA' for 'IFS EMEA'");
     }
 
+    public function __construct(ContainerInterface $container)
+    {
+        parent::__construct();
+        $this->container = $container;
+    }
+
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->helper = new PimDataExportHelper;
+        $this->helper = new PimDataExportHelper($this->container);
 
         echo $msg = "Script execution started.".PHP_EOL.PHP_EOL;
         $this->helper->logMessage($msg, LogLevel::INFO());
@@ -44,13 +52,14 @@ class PimDataExportCommand extends AbstractCommand
         echo PHP_EOL;
         echo $msg = "Script execution stopped.".PHP_EOL;
         $this->helper->logMessage($msg, LogLevel::INFO());
+        return 1;
     }
 
     private function exportDataForB2BShop()
     {
         echo $msg = "{$this->bu}: Product categories translation data export started.".PHP_EOL;
         $this->helper->logMessage($msg, LogLevel::INFO());
-        $executor = new IFSPTG\CategoryDataExport($this->bu);
+        $executor = new IFSPTG\CategoryDataExport($this->bu, $this->container);
         $executor->exportData();
         $executor->uploadFile();
         echo $msg = "{$this->bu}: Product categories translation data export stopped.".PHP_EOL;
@@ -59,7 +68,7 @@ class PimDataExportCommand extends AbstractCommand
 
         echo $msg = "{$this->bu}: Products translation data export started.".PHP_EOL;
         $this->helper->logMessage($msg, LogLevel::INFO());
-        $executor = new IFSPTG\ProductDataExport($this->bu);
+        $executor = new IFSPTG\ProductDataExport($this->bu, $this->container);
         $executor->exportData();
         $executor->uploadFile();
         echo $msg = "{$this->bu}: Products translation data export stopped.".PHP_EOL.PHP_EOL;
