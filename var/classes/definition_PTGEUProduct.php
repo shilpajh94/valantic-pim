@@ -119,7 +119,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PTGEUProduct',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1699596924,
+   'modificationDate' => 1705663988,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -143,8 +143,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'type' => NULL,
      'region' => NULL,
      'title' => NULL,
-     'width' => NULL,
-     'height' => NULL,
+     'width' => 0,
+     'height' => 0,
      'collapsible' => false,
      'collapsed' => false,
      'bodyStyle' => NULL,
@@ -203,8 +203,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'type' => NULL,
                      'region' => NULL,
                      'title' => 'Enriched in PIM​',
-                     'width' => NULL,
-                     'height' => NULL,
+                     'width' => '',
+                     'height' => '',
                      'collapsible' => false,
                      'collapsed' => false,
                      'bodyStyle' => '',
@@ -453,7 +453,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'blockedVarsForExport' => 
                                     array (
                                     ),
-                                     'options' => NULL,
                                      'width' => 250,
                                      'height' => '',
                                      'maxItems' => 10,
@@ -1193,6 +1192,16 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                     'key' => 'Standard',
                                     'value' => 'Standard',
                                   ),
+                                  4 => 
+                                  array (
+                                    'key' => 'Advance Pro',
+                                    'value' => 'Advance Pro',
+                                  ),
+                                  5 => 
+                                  array (
+                                    'key' => 'Supreme',
+                                    'value' => 'Supreme',
+                                  ),
                                 ),
                                  'width' => 250,
                                  'defaultValue' => '',
@@ -1509,6 +1518,16 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                     'key' => 'Steel',
                                     'value' => 'Steel',
                                   ),
+                                  6 => 
+                                  array (
+                                    'key' => 'Glass-Carbon',
+                                    'value' => 'Glass-Carbon',
+                                  ),
+                                  7 => 
+                                  array (
+                                    'key' => 'Polyester',
+                                    'value' => 'Polyester',
+                                  ),
                                 ),
                                  'width' => 250,
                                  'height' => '',
@@ -1737,9 +1756,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'blockedVarsForExport' => 
                                 array (
                                 ),
-                                 'options' => NULL,
                                  'width' => 250,
-                                 'defaultValue' => '',
+                                 'defaultValue' => true,
                                  'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
                                  'optionsProviderData' => 'PTGEUBeltType|beltType',
                                  'columnLength' => 30,
@@ -3336,9 +3354,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'blockedVarsForExport' => 
                                 array (
                                 ),
-                                 'options' => NULL,
                                  'width' => 220,
-                                 'defaultValue' => '',
+                                 'defaultValue' => true,
                                  'optionsProviderClass' => '\\PTGEU\\ProductBundle\\OptionProvider\\PTGEUVTLOptionProvider',
                                  'optionsProviderData' => 'Description|Id',
                                  'columnLength' => 190,
@@ -4006,9 +4023,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'blockedVarsForExport' => 
                                 array (
                                 ),
-                                 'options' => NULL,
                                  'width' => 220,
-                                 'defaultValue' => '',
+                                 'defaultValue' => true,
                                  'optionsProviderClass' => '\\PTGEU\\ProductBundle\\OptionProvider\\PTGEUSearchKeywordsOptionProvider',
                                  'optionsProviderData' => 'Search Keywords|Id',
                                  'columnLength' => 190,
@@ -5783,7 +5799,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'group' => 'PTGEU',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
-   'previewGeneratorReference' => NULL,
+   'previewGeneratorReference' => '',
    'compositeIndices' => 
   array (
   ),
