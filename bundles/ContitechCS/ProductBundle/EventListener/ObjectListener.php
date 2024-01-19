@@ -370,21 +370,23 @@ class ObjectListener
         }
         return $config;
     }
-    
+
     public function beforeSearchListLoad(GenericEvent $event) {
         $list = $event->getArgument('list');
         $context = $event->getArgument('context');
         $className = isset($context['class']) ? $context['class'] : null;
-        $contextArray = $context['context'];
-        if ($className == 'CSProducts' && !empty($contextArray)) {
-            $contextArray = (array)json_decode($contextArray);
-            if (!empty($contextArray['scope']) && $contextArray['scope']=='objectEditor'
-                && $contextArray["fieldname"] == "CoverCompounds") {
-                $coverOptionPath = '/Cover Options/';
-                $condition = $list->getCondition();
-                $condition .= " AND (`fullpath` like '%".$coverOptionPath."%' ) ";
-                $list->setCondition($condition);
-                $event->setArgument('list', $list);
+        if (array_key_exists('context', $context)) {
+            $contextArray = $context['context'];
+            if ($className == 'CSProducts' && !empty($contextArray)) {
+                $contextArray = (array)json_decode($contextArray);
+                if (!empty($contextArray['scope']) && $contextArray['scope']=='objectEditor'
+                    && $contextArray["fieldname"] == "CoverCompounds") {
+                    $coverOptionPath = '/Cover Options/';
+                    $condition = $list->getCondition();
+                    $condition .= " AND (`fullpath` like '%".$coverOptionPath."%' ) ";
+                    $list->setCondition($condition);
+                    $event->setArgument('list', $list);
+                }
             }
         }
     }
