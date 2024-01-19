@@ -1408,12 +1408,6 @@ parameters:
                 fieldLabel: Size (inches) Fraction
                 parent: 
                     name: INHFittingsFert
-            articleNumber:
-                fieldLevel: class
-                fieldLabel: 'SAP Number'
-                fieldType: Input
-                parent:
-                    name: Product
             DistanceChainLugExtendsfromBodyIN: 
                 fieldLevel: objectBrick
                 fieldType: Number
@@ -1543,4 +1537,320 @@ parameters:
                 fieldType: Number
                 fieldLabel: Gasket Thickness (inches)
                 parent: 
-                    name: INHFittingsFert          
+                    name: INHFittingsFert
+            # industryStandard:
+            #     fieldName: IndustryStandard
+            #     fieldLevel: class
+            #     fieldType: Input
+            #     fieldLabel: Part Number
+            articleNumber:
+                fieldName: articleNumber
+                fieldLevel: class
+                fieldLabel: SAP Number
+                fieldType: Input
+                parent:
+                    name: Product
+            id:
+                fieldName: id
+                fieldLevel: class
+                fieldLabel: ID
+                fieldType: Input
+            oldMaterialCode:
+                fieldName: oldMaterialCode
+                fieldLevel: class
+                fieldLabel: Old Material Code
+                fieldType: Input
+            sixDigitVirtualCatalogDescription:
+                fieldName: sixDigitVirtualCatalogDescription
+                fieldLevel: objectBrick
+                fieldLabel: Six Digit Virtual Catalog Description
+                fieldType: Number
+                objectBrickName: HoseBase
+                objectBrickLocation: Base
+            brandName:
+                fieldName: brandName
+                fieldLevel: class
+                fieldLabel: Brand ID
+                fieldType: Relation
+            temperatureRangeFAndC:
+                fieldName: temperatureRangeFAndC
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Temperature Range (°F & C°)
+            BrandingLayline:
+                fieldName: BrandingLayline
+                fieldLevel: class
+                fieldLabel: Branding
+                fieldType: Textarea
+            FeaturesBenefitsBulletPoint:
+                fieldName: FeaturesBenefitsBulletPoint
+                fieldLevel: class
+                fieldLabel: Features
+                fieldType: Relation
+            longDescription:
+                fieldName: longDescription
+                fieldLevel: class
+                fieldLabel: Application
+                fieldType: Input
+            FittingTableName:
+                fieldName: FittingTableName
+                fieldLevel: class
+                fieldLabel: Table Name
+                fieldType: Input
+            coverColor:
+                fieldName: coverColor
+                fieldLevel: objectBrick
+                fieldLabel: Cover Color
+                fieldType: Relation
+                columnWidth: 100
+                objectBrickName: HoseBase
+                objectBrickLocation: Base
+            coverCharacteristic:
+                fieldName: coverCharacteristic
+                fieldLevel: objectBrick
+                fieldLabel: Cover Characteristic
+                fieldType: Relation
+                objectBrickName: HoseBase
+                objectBrickLocation: Base
+            staticWireType:
+                fieldName: staticWireType
+                fieldLevel: objectBrick
+                fieldLabel: Static Wire Type
+                fieldType: Select
+                objectBrickName: HoseBase
+                objectBrickLocation: Base
+            staticWire:
+                fieldName: staticWire
+                fieldLevel: objectBrick
+                fieldLabel: Static Wire
+                fieldType: Select
+                objectBrickName: HoseBase
+                objectBrickLocation: Base
+            numberOfPlies:
+                fieldName: numberOfPlies
+                fieldLevel: objectBrick
+                fieldLabel: Number of Plies
+                fieldType: Number
+                objectBrickName: HoseBase
+                objectBrickLocation: Base
+            Packaging:
+                fieldName: Packaging
+                fieldLevel: objectBrick
+                fieldLabel: Packaging
+                fieldType: input
+                objectBrickName: HoseBase
+                objectBrickLocation: Base
+            coverMaterial:
+                fieldName: coverMaterial
+                fieldLevel: objectBrick
+                fieldLabel: Cover Material
+                fieldType: Relation
+                objectBrickName: HoseBase
+                objectBrickLocation: Base
+            VirtualCatalogCoverMaterial:
+                fieldName: VirtualCatalogCoverMaterial
+                fieldLevel: objectBrick
+                fieldLabel: Virtual Catalog Cover Material
+                fieldType: Textarea
+                objectBrickName: HoseBase
+                objectBrickLocation: Base
+            tubeMaterial:
+                fieldName: tubeMaterial
+                fieldLevel: objectBrick
+                fieldLabel: Tube Material
+                fieldType: Relation
+                objectBrickName: HoseBase
+                objectBrickLocation: Base
+            VirtualCatalogTubeMaterial:
+                fieldName: VirtualCatalogTubeMaterial
+                fieldLevel: objectBrick
+                fieldLabel: Virtual Catalog Tube Material
+                fieldType: Textarea
+                objectBrickName: HoseBase
+                objectBrickLocation: Base
+            Coupling:
+                fieldName: Coupling
+                fieldLevel: objectBrick
+                fieldLabel: Coupling
+                fieldType: input
+                objectBrickName: HoseBase
+                objectBrickLocation: Base
+            VirtualCatalogReinforcement:
+                fieldName: VirtualCatalogReinforcement
+                fieldLevel: class
+                fieldLabel: VirtualCatalogReinforcement
+                fieldType: Textarea
+            reinforcement:
+                fieldName: reinforcement
+                fieldLevel: class
+                fieldType: Relation
+                fieldLabel: Reinforcement
+            HoseIDNominalIDFrac:
+                fieldName: HoseIDNominalIDFrac
+                fieldLevel: objectBrick
+                fieldLabel: Hose ID (in Fract) Nominal ID'
+                groupName: HoseID
+                unitName: in
+                fieldType: Input
+                objectBrickName: HoseSkeleton
+                objectBrickLocation: Skeleton
+            hoseIdDec:
+                fieldName: hoseIdDec
+                fieldLevel: objectBrick
+                fieldLabel: 'Hose ID(in)'
+                groupName: HoseID
+                unitName: in
+                numberOfDecimalPoints: 2
+                fieldType: Input
+                objectBrickName: HoseSkeleton
+                objectBrickLocation: Skeleton
+            hoseIdMM:
+                fieldName: hoseIdMM
+                fieldLevel: objectBrick
+                fieldLabel: 'Hose ID (mm)'
+                groupName: HoseID
+                unitName: mm
+                numberOfDecimalPoints: 2
+                fieldType: Input
+                objectBrickName: HoseSkeleton
+                objectBrickLocation: Skeleton
+            hoseOdIn:
+                fieldName: hoseOdIn
+                fieldLevel: objectBrick
+                fieldLabel: 'OD (in)'
+                groupName: HoseOD
+                unitName: in
+                numberOfDecimalPoints: 2
+                fieldType: Input
+                objectBrickName: HoseSkeleton
+                objectBrickLocation: Skeleton
+            hoseOdmm:
+                fieldName: hoseOdmm
+                fieldLevel: objectBrick
+                fieldLabel: OD (mm)
+                groupName: HoseOD
+                unitName: mm
+                numberOfDecimalPoints: 2
+                fieldType: Input
+                objectBrickName: HoseSkeleton
+                objectBrickLocation: Skeleton
+            hoseLengthFT:
+                fieldName: hoseLengthFT
+                fieldLevel: objectBrick
+                fieldLabel: Hose Length (ft)
+                groupName: hoseLengthFT
+                unitName: ft
+                fieldType: Input
+                objectBrickName: HoseFert
+                objectBrickLocation: Fert
+            workingPressurePSI:
+                fieldName: workingPressurePSI
+                fieldLevel: objectBrick
+                fieldLabel: WP (psi)
+                groupName: workingPressure
+                unitName: psi
+                fieldType: Input
+                objectBrickName: HoseSkeleton
+                objectBrickLocation: Skeleton
+            workingPressureBAR:
+                fieldName: workingPressureBAR
+                fieldLevel: objectBrick
+                fieldLabel: WP (bar)
+                groupName: workingPressure
+                unitName: bar
+                fieldType: Input
+                objectBrickName: HoseSkeleton
+                objectBrickLocation: Skeleton
+            grossWeight:
+                fieldName: grossWeight
+                fieldLevel: class
+                fieldLabel: 'Weight (lbs per ft)'
+                groupName: weight
+                unitName: lbs per ft
+                numberOfDecimalPoints: 2
+                fieldType: Number
+            weightKg:
+                fieldName: weightKg
+                fieldLevel: class
+                fieldLabel: W (kg)
+                groupName: weight
+                unitName: kg
+                numberOfDecimalPoints: 2
+                fieldType: Number
+            BendRadiusIN:
+                fieldName: BendRadiusIN
+                fieldLevel: objectBrick
+                fieldLabel: BR (in)
+                groupName: bendRadius
+                unitName: in
+                numberOfDecimalPoints: 2
+                fieldType: Input
+                objectBrickName: HoseSkeleton
+                objectBrickLocation: Skeleton
+            BendRadiusMM:
+                fieldName: BendRadiusMM
+                fieldLevel: objectBrick
+                fieldLabel: Bend Radius(mm)
+                groupName: bendRadius
+                unitName: mm
+                numberOfDecimalPoints: 2
+                fieldType: Input
+                objectBrickName: HoseSkeleton
+                objectBrickLocation: Skeleton
+            VacuumIN:
+                fieldName: VacuumIN
+                fieldLevel: objectBrick
+                fieldLabel: Vacuum (in)
+                groupName: Vacuum
+                unitName: in
+                numberOfDecimalPoints: 2
+                fieldType: Input
+                objectBrickName: HoseSkeleton
+                objectBrickLocation: Skeleton
+            tubeGaugeIN:
+                fieldName: tubeGaugeIN
+                fieldLevel: objectBrick
+                fieldLabel: Tube Gauge (in)
+                groupName: tubeGauge
+                unitName: in
+                numberOfDecimalPoints: 2
+                fieldType: Input
+                objectBrickName: HoseSkeleton
+                objectBrickLocation: Skeleton
+            InnerHoseIDFractional:
+                fieldName: InnerHoseIDFractional
+                fieldLevel: objectBrick
+                fieldLabel: Inner Hose ID (in Fractional)
+                groupName: InnerHoseIDFractional
+                unitName: in
+                fieldType: Input
+                objectBrickName: HoseSkeleton
+                objectBrickLocation: Skeleton
+            InnerHoseOdInDec:
+                fieldName: InnerHoseOdInDec
+                fieldLevel: objectBrick
+                fieldLabel: Inner Hose OD (in Decimal)
+                groupName: InnerHoseOdInDec
+                unitName: in
+                numberOfDecimalPoints: 2
+                fieldType: Input
+                objectBrickName: HoseSkeleton
+                objectBrickLocation: Skeleton
+            InnerHoseWeightLbs: 
+                fieldName: InnerHoseWeightLbs
+                fieldLevel: objectBrick
+                fieldLabel: Inner Hose Weight (lbs/ft)
+                groupName: InnerHoseWeightLbs
+                unitName: lbs per ft
+                numberOfDecimalPoints: 2
+                fieldType: Input
+                objectBrickName: HoseFert
+                objectBrickLocation: Fert
+            WeightLbsPerFTUOM:
+                fieldName: WeightLbsPerFTUOM
+                fieldLevel: class
+                fieldLabel: 'Weight'
+                fieldType: Input
+                groupName: WeightLbsPerFTUOM
+                unitName: lbs per ft
+                numberOfDecimalPoints: 2
