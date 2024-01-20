@@ -1,0 +1,204 @@
+{% if parentContainer is not defined %}
+	{% extends "@ContitechCSCatalog/Layouts/layout.html.twig" %}
+{% endif %}
+
+{% block _content %}
+
+	{% if editmode %}
+		{{ pimcore_relation("cbs_conti_protect_systems", {
+                "types" : ["object"],
+                "subtypes" : {
+                "object" : ["object"]
+                },
+                "classes" : ["CSCatalogTables"],
+        }) }}
+
+    {% endif %}
+   
+   {% if data is defined and data %}
+        <div class="wrapper" id="contiprotectsystem">
+            <header id="header">
+                <div class="header-sec">
+                    <div class="header-txt"><span class="first-title">{{'CS_header_title'|trans}}</span>
+                        <span class="second-title">
+                            {% if pimcore_input("CPS_title").isEmpty() %}
+                                {{ pimcore_input("CPS_title", {'placeholder' : 'Enter your title'}).setDataFromResource(data['HierarchyNameLevel2']) | raw }}
+                            {% else %}
+                                {{ pimcore_input("CPS_title", {'placeholder' : 'Enter your title'}) }}
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </header>                      
+            <footer id="footer" class="footer" style="position: relative;">
+                <div class="footer-logo">
+                    <img src="{{footer_logo_src}}" alt="">
+                </div>
+            </footer>
+            <main id="content" role="main" class="content-layout">
+                <section class="fortressxp-belts conveyor-belt conveyor-belt-layout">
+                    <div id="top-block">
+                        {% if editmode %}
+                            <div class="attr-font">Attribute Name = Name</div>
+                        {% endif %}
+                        <h2 class="orange">  
+                            {% if editmode %}
+                                {% if pimcore_input("CS_ProductName").isEmpty() %}
+                                    {{ pimcore_input("CS_ProductName", {'placeholder' : 'Enter Product Name'}).setDataFromResource(data['Name']) | raw }}
+                                {% else %}
+                                    {{ pimcore_input("CS_ProductName", {'placeholder' : 'Enter Product Name'}) }}
+                                {% endif %}
+                            {% else %}
+                                {{ pimcore_input("CS_ProductName", {'placeholder' : 'Enter Product Name'}) }}
+                            {% endif %}
+                        </h2>
+                        <div class="environment-quality-sec">
+                            <div class="media pt-0 align-item-ends" id="conti-protect-system">
+                                <div class="media-body">
+                                {% if editmode %}
+                                    <div class="attr-font">Attribute Name = Short Text</div>
+                                {% endif %}
+
+                                    <div id="conti-protect-title-desc">
+                                        <p>
+                                            {% if editmode %}
+                                                {% if pimcore_input("CPS_ShortText").isEmpty() %}
+                                                    {{ pimcore_input("CPS_ShortText", {'placeholder' : 'Enter Short Text'}).setDataFromResource(data['ShortText']) | raw }}
+                                                {% else %}
+                                                    {{ pimcore_input("CPS_ShortText", {'placeholder' : 'Enter Short Text'}) }}
+                                                {% endif %}
+                                            {% else %}
+                                                {{ pimcore_input("CPS_ShortText", {'placeholder' : 'Enter Short Text'}) }}
+                                            {% endif %}
+                                        </p>
+                                        
+                                        {% if monitoring_system is defined and monitoring_system %}
+                                            <div class="feature-benefit-list mb-0">
+                                                <h3 class="f-12 conti-grey">
+                                                    {% if editmode %}
+                                                        {% if pimcore_input("CPS_BenefitLabel").isEmpty() %}
+                                                            {{ pimcore_input("CPS_BenefitLabel", {'placeholder' : 'THE RIGHT MONITORING SYSTEM FOR EVERY CONVEYOR SYSTEM.'}) }}
+                                                        {% else %}
+                                                            {{ pimcore_input("CPS_BenefitLabel", {'placeholder' : 'Enter Short Text'}) }}
+                                                        {% endif %}
+                                                    {% else %}
+                                                        {{ pimcore_input("CPS_BenefitLabel", {'placeholder' : 'Enter Short Text'}) }}
+                                                    {% endif %}
+                                                </h3>
+                                                {% if editmode %}
+                                                    <div class="attr-font">Attribute Name = Features</div>
+                                                {% endif %}
+
+                                                <ul>
+                                                    {% for key, val in monitoring_system %}
+                                                        <li>
+                                                            {{val}}
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+
+                                    <div id="productImageContainer">
+                                        {% if editmode %}
+                                            <div class="attr-font">Child Attribute Name = Product Image</div>
+                                        {% endif %}
+
+                                        {% if editmode %}
+                                            {% if pimcore_image("CPS_productImage").isEmpty() %}
+                                                {{ pimcore_image("CPS_productImage").setImage(data['ProductImage']) | raw }}
+                                            {% else %}
+                                                {{ pimcore_image("CPS_productImage") }}
+                                            {% endif %}
+                                        {% else %}
+                                            {% set CPS_productImageObj = pimcore_image("CPS_productImage") %}
+                                            {% if getImageThumbnail(CPS_productImageObj, imageWidth) %}
+                                                <img src="{{ getImageThumbnail(CPS_productImageObj, imageWidth) }}" alt=""  class="" style="">
+                                            {% endif %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="bottom-block">
+                        <div class="feature-benefit-list w-80 mb-4">
+                            {% if editmode %}
+                                <div class="attr-font">Attribute Name = Name</div>
+                            {% endif %}
+                            
+                            <h2 class="orange f-22">
+                                <strong>
+                                    {% if editmode %}
+                                        {% if pimcore_input("CPS_Protect_Systems").isEmpty() %}
+                                            {{ pimcore_input("CPS_Protect_Systems", {'placeholder' : 'Enter Name'}).setDataFromResource(data['Name']) }}
+                                        {% else %}
+                                            {{ pimcore_input("CPS_Protect_Systems", {'placeholder' : 'Enter Name'}) }}
+                                        {% endif %}
+                                    {% else %}
+                                        {{ pimcore_input("CPS_Protect_Systems", {'placeholder' : 'Enter Name'}) }}
+                                    {% endif %}
+                                </strong>
+                            </h2>
+
+                            {% if data['childrenData'] is defined and data['childrenData'] %}
+                                <div id="fblock"> 
+                                    {% set childrenData = data['childrenData'] %}
+                                    {% set rendoredProduct = [] %}
+                                    {% set count = 0 %}
+
+                                    {% for cValue in childrenData%}
+                                        {% set md5Key = md5Twig(cValue['Name']) %}
+                                    
+                                        {% if not (count >= 4) %}
+                                            {% set rendoredProduct = rendoredProduct | merge([md5Key]) %}
+                                            {% set count = count + 1 %}
+                                            <p>
+                                                <strong>{{cValue['Name']}}</strong> 
+                                                <span class="orange">»</span> 
+                                                {{cValue['ShortText']}}
+                                            </p>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+
+                                {% if childrenData|length > 3 %}
+                                    <div id="sblock">
+                                        {% for cKey, cValue in childrenData %}
+                                            {% set md5Key = md5Twig(cValue['Name']) %}
+                                            {% if md5Key not in rendoredProduct %}
+                                                <p>
+                                                    <strong>{{cValue['Name']}}</strong> 
+                                                    <span class="orange">»</span> 
+                                                    {{cValue['ShortText']}}
+                                                </p>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+
+                        {% if editmode %}
+                            <div class="attr-font">Child Attribute Name = Application Image</div>
+                        {% endif %}
+
+                        {% if editmode %}
+                            {% if pimcore_image("CPS_ApplicationImage").isEmpty() %}
+                                {{ pimcore_image("CPS_ApplicationImage", {"height" : 400}).setImage(data['ApplicationImage']) | raw }}
+                            {% else %}
+                                {{ pimcore_image("CPS_ApplicationImage", {"height" : 400}) }}
+                            {% endif %}
+                        {% else %}
+                            {% set CPS_ApplicationImageObj = pimcore_image("CPS_ApplicationImage") %}
+                            {% if getImageThumbnail(CPS_ApplicationImageObj, imageWidth) %}
+                                <img src="{{ getImageThumbnail(CPS_ApplicationImageObj, imageWidth) }}" alt="" style="">
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </section>
+            </main>
+        </div>
+    {% endif %}
+{% endblock %}

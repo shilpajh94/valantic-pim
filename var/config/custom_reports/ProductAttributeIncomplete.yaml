@@ -1,0 +1,139 @@
+pimcore:
+    custom_report:
+        definitions:
+            ProductAttributeIncomplete:
+                name: ProductAttributeIncomplete
+                sql: ''
+                dataSourceConfig:
+                    -
+                        sql: "SELECT\no1.`o_key` as `Key`,\no1.`articleNumber` AS `Article Number`, `en`.`sapDescription` AS `SAP Description`,\no1.`siopFullCode` AS `SIOP Full Code`,\no1.`ProductType` AS `Product Type`,\ncat1.`description` AS `SIOP Level 1`,\ncat2.`description` AS `SIOP Level 2`,\ncat3.`description` AS `SIOP Level 3`,\ncat4.`description` AS `SIOP Level 4`,\ncat5.`description` AS `SIOP Level 5`,\ncat6.`description` AS `SIOP Level 6`,\no1.`o_id` "
+                        from: "FROM object_1 o1 \nLEFT JOIN `object_localized_query_1_en` `en` \n\tON `en`.`ooo_id` = `o1`.`o_id`\nLEFT JOIN object_localized_query_2_en cat1 \n\tON cat1.ooo_id = SUBSTRING(o1.SIOPLevel1,2,(LENGTH(o1.SIOPLevel1) - 2))\nLEFT JOIN object_localized_query_2_en cat2 \n\tON cat2.ooo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2))\nLEFT JOIN object_localized_query_2_en cat3 \n\tON cat3.ooo_id = SUBSTRING(o1.SIOPLevel3,2,(LENGTH(o1.SIOPLevel3) - 2))\nLEFT JOIN object_localized_query_2_en cat4 \n\tON cat4.ooo_id = SUBSTRING(o1.SIOPLevel4,2,(LENGTH(o1.SIOPLevel4) - 2))\nLEFT JOIN object_localized_query_2_en cat5 \n\tON cat5.ooo_id = SUBSTRING(o1.SIOPLevel5,2,(LENGTH(o1.SIOPLevel5) - 2))\nLEFT JOIN object_localized_query_2_en cat6 \n\tON cat6.ooo_id = SUBSTRING(o1.SIOPLevel6,2,(LENGTH(o1.SIOPLevel6) - 2)) "
+                        where: "WHERE (o1.`o_published` =1) AND\n(o1.`SIOPLevel2` IS NULL\nOR o1.`SIOPLevel2` = \"\"\nOR o1.`SIOPLevel3` IS NULL\nOR o1.`SIOPLevel3` = \"\"\nOR o1.`SIOPLevel4` IS NULL\nOR o1.`SIOPLevel4` = \"\"\nOR o1.`eanUpc` IS NULL\nOR o1.`eanUpc` = \"\"\nOR `en`.`webDiscription` IS NULL\nOR `en`.`webDiscription` = \"\"\nOR o1.`searchKeywords` IS NULL\nOR o1.`searchKeywords` = \"\"\nOR `en`.`longDescription` IS NULL\nOR `en`.`longDescription` = \"\"\nOR `en`.`FeaturesBenefitsBulletPoint` = \"\"\nOR `en`.`FeaturesBenefitsBulletPoint` IS NULL\nOR o1.`proposition65WarningAttributesRequired` IS NULL\nOR o1.`proposition65WarningAttributesRequired` = \"\"\nOR o1.`packageLengthIN` IS NULL\nOR o1.`packageLengthIN` = \"\"\nOR o1.`packageWidthIN` IS NULL\nOR o1.`packageWidthIN` = \"\"\nOR o1.`packageHeightIN` IS NULL\nOR o1.`packageHeightIN` = \"\"\nOR o1.`packageWeightLBS` IS NULL\nOR o1.`packageWeightLBS` = \"\"\nOR o1.`caseLengthIN` IS NULL\nOR o1.`caseLengthIN` = \"\"\nOR o1.`caseHeightIN` IS NULL\nOR o1.`caseHeightIN` = \"\"\nOR o1.`caseWidthIN` IS NULL\nOR o1.`caseWidthIN` = \"\"\nOR o1.`caseWeightLBS` IS NULL\nOR o1.`caseWeightLBS` = \"\"\n)"
+                        groupby: ''
+                        type: sql
+                columnConfiguration:
+                    -
+                        name: Key
+                        display: true
+                        export: true
+                        order: true
+                        width: 300
+                        label: ''
+                        filter: string
+                        id: extModel403-1
+                    -
+                        name: 'Article Number'
+                        display: true
+                        export: true
+                        order: true
+                        width: 100
+                        label: ''
+                        filter: string
+                        id: extModel403-2
+                    -
+                        name: 'SAP Description'
+                        display: true
+                        export: true
+                        order: true
+                        width: 250
+                        label: ''
+                        filter: string
+                        id: extModel403-3
+                    -
+                        name: 'SIOP Full Code'
+                        display: true
+                        export: true
+                        order: true
+                        width: 130
+                        label: ''
+                        filter: string
+                        id: extModel403-4
+                    -
+                        name: 'Product Type'
+                        display: true
+                        export: true
+                        order: true
+                        width: 100
+                        label: ''
+                        filter: string
+                        id: extModel403-5
+                    -
+                        name: 'SIOP Level 1'
+                        display: true
+                        export: true
+                        order: true
+                        width: 180
+                        label: ''
+                        filter: string
+                        id: extModel403-6
+                    -
+                        name: 'SIOP Level 2'
+                        display: true
+                        export: true
+                        order: true
+                        width: 180
+                        label: ''
+                        filter: string
+                        id: extModel403-7
+                    -
+                        name: 'SIOP Level 3'
+                        display: true
+                        export: true
+                        order: true
+                        width: 180
+                        label: ''
+                        filter: string
+                        id: extModel403-8
+                    -
+                        name: 'SIOP Level 4'
+                        display: true
+                        export: true
+                        order: true
+                        width: 180
+                        label: ''
+                        filter: string
+                        id: extModel403-9
+                    -
+                        name: 'SIOP Level 5'
+                        display: true
+                        export: true
+                        order: true
+                        width: 180
+                        label: ''
+                        filter: string
+                        id: extModel403-10
+                    -
+                        name: 'SIOP Level 6'
+                        display: true
+                        export: true
+                        order: true
+                        width: 180
+                        label: ''
+                        filter: string
+                        id: extModel403-11
+                    -
+                        name: o_id
+                        display: true
+                        export: true
+                        order: true
+                        width: ''
+                        label: 'Object ID'
+                        filter: string
+                        columnAction: openObject
+                        id: extModel403-12
+                niceName: 'Product Attribute Incompleteness'
+                group: ''
+                groupIconClass: ''
+                iconClass: ''
+                menuShortcut: false
+                reportClass: ''
+                chartType: null
+                pieColumn: null
+                pieLabelColumn: null
+                xAxis: null
+                yAxis: {  }
+                modificationDate: 1704280103
+                creationDate: 1606824473
+                shareGlobally: true
+                sharedUserNames: {  }
+                sharedRoleNames: {  }

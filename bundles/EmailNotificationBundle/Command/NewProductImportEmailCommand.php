@@ -46,7 +46,7 @@ class NewProductImportEmailCommand extends AbstractCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->db = \Pimcore\Db::get();
-        $engine = \Pimcore::getContainer()->get('templating');
+        $engine = \Pimcore::getContainer()->get('pimcore.templating.engine.twig');
         $userRole =  \Pimcore\Model\User\Role::getByName("ProductManager");
         $users = new \Pimcore\Model\DataObject\Users\Listing();
         $users->setCondition("userType LIKE '%" . $userRole->getId() . "%'");
@@ -78,7 +78,7 @@ class NewProductImportEmailCommand extends AbstractCommand
                         // Render records to a template
                         $noofdays = SIOP_NEW_PRODUCT_IMPORT_NUMBER_OF_DAYS;
                         $content = $engine->render(
-                            'EmailNotificationBundle::default/NewProductTableContent.html.php',
+                            '@EmailNotification/default/NewProductTableContent.html.twig',
                             ['content' => $siopNewProducts]);
                         $params = array('firstName' => $firstName, 'lastName' => $lastName,
                             'tableContent' => $content, 'numberofdays' => $noofdays);
@@ -100,7 +100,7 @@ class NewProductImportEmailCommand extends AbstractCommand
                 }
             }
         }
-        return false;
+        return 1;
     }
 
     private function getNewProducts(string $siopLevelToQuery, int $siopId)

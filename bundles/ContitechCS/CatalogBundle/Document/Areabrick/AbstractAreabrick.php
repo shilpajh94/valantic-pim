@@ -16,7 +16,8 @@
 namespace ContitechCS\CatalogBundle\Document\Areabrick;
 
 use Pimcore\Extension\Document\Areabrick\AbstractTemplateAreabrick;
-use Pimcore\Model\Document\Tag\Area\Info;
+// use Pimcore\Model\Document\Tag\Area\Info;
+use Pimcore\Model\Document\Editable\Area\Info;
 
 abstract class AbstractAreabrick extends AbstractTemplateAreabrick
 {
@@ -33,7 +34,7 @@ abstract class AbstractAreabrick extends AbstractTemplateAreabrick
      */
     public function getTemplateSuffix()
     {
-        return static::TEMPLATE_SUFFIX_PHP;
+        return static::TEMPLATE_SUFFIX_TWIG;
     }
 
     /**

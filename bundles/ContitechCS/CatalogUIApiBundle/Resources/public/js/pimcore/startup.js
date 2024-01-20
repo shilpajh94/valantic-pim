@@ -12,6 +12,7 @@ pimcore.plugin.CatalogUIApiBundle = Class.create(pimcore.plugin.admin, {
     pimcoreReady: function (params, broker) {
         //alert("CatalogUIApiBundle ready!");
     },
+    
     postOpenDocument: function(doc,type){
 
         let parentFolderPath    = getFolderPath();

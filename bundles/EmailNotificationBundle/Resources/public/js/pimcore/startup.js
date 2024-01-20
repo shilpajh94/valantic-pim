@@ -1,17 +1,6 @@
-pimcore.registerNS("pimcore.plugin.EmailNotificationBundle");
-
-pimcore.plugin.EmailNotificationBundle = Class.create(pimcore.plugin.admin, {
-    getClassName: function () {
-        return "pimcore.plugin.EmailNotificationBundle";
-    },
-
-    initialize: function () {
-        pimcore.plugin.broker.registerPlugin(this);
-    },
-
-    pimcoreReady: function (params, broker) {
-        // alert("EmailNotificationBundle ready!");
-    }
+document.addEventListener(pimcore.events.pimcoreReady, (e) => {
+    //print out the parameters of the event
+    console.log('pimcore.plugin.EmailNotificationBundle pimcoreReady')
+    e.preventDefault();
+    e.stopPropagation();
 });
-
-var EmailNotificationBundlePlugin = new pimcore.plugin.EmailNotificationBundle();

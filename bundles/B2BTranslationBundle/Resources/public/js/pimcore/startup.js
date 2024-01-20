@@ -1,21 +1,8 @@
-pimcore.registerNS("pimcore.plugin.B2BTranslationBundle");
+document.addEventListener(pimcore.events.pimcoreReady, (e) => {
 
-pimcore.plugin.B2BTranslationBundle = Class.create(pimcore.plugin.admin, {
-    getClassName: function () {
-        return "pimcore.plugin.B2BTranslationBundle";
-    },
-
-    initialize: function () {
-        pimcore.plugin.broker.registerPlugin(this);
-    },
-
-    pimcoreReady: function (params, broker) {
-        let user = pimcore.globalmanager.get("user");
-        if (user.admin) {
-            this.leftNavigation();
-        }
-    },
-    leftNavigation: function () {
+    let user = pimcore.globalmanager.get("user");
+    if (user.admin) {
+        // this.leftNavigation();
         let navigation = Ext.get("pimcore_navigation");
         let ulElement = navigation.selectNode('ul');
         let li = document.createElement("li");
@@ -38,6 +25,9 @@ pimcore.plugin.B2BTranslationBundle = Class.create(pimcore.plugin.admin, {
             }
         });
     }
-});
 
-var B2BTranslationBundlePlugin = new pimcore.plugin.B2BTranslationBundle();
+    //print out the parameters of the event
+    console.log('pimcore.plugin.B2BTranslationBundle pimcoreReady')
+    e.preventDefault();
+    e.stopPropagation();
+});

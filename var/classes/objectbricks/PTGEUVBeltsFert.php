@@ -49,8 +49,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
      'type' => NULL,
      'region' => NULL,
      'title' => NULL,
-     'width' => NULL,
-     'height' => NULL,
+     'width' => 0,
+     'height' => 0,
      'collapsible' => false,
      'collapsed' => false,
      'bodyStyle' => NULL,
@@ -428,7 +428,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValue' => NULL,
                      'columnLength' => 190,
                      'regex' => '',
@@ -459,7 +459,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValue' => NULL,
                      'columnLength' => 190,
                      'regex' => '',
@@ -490,7 +490,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValue' => NULL,
                      'columnLength' => 190,
                      'regex' => '',
@@ -521,7 +521,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValue' => NULL,
                      'columnLength' => 190,
                      'regex' => '',
@@ -552,7 +552,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValue' => NULL,
                      'columnLength' => 190,
                      'regex' => '',
@@ -583,7 +583,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValue' => NULL,
                      'columnLength' => 190,
                      'regex' => '',
@@ -614,7 +614,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValue' => NULL,
                      'columnLength' => 190,
                      'regex' => '',
@@ -976,7 +976,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValue' => NULL,
                      'columnLength' => 190,
                      'regex' => '',
@@ -1007,7 +1007,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValue' => NULL,
                      'columnLength' => 190,
                      'regex' => '',
@@ -1038,7 +1038,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValue' => NULL,
                      'columnLength' => 190,
                      'regex' => '',
@@ -1069,7 +1069,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValue' => NULL,
                      'columnLength' => 190,
                      'regex' => '',
@@ -1100,7 +1100,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValue' => NULL,
                      'columnLength' => 190,
                      'regex' => '',
@@ -1131,7 +1131,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValue' => NULL,
                      'columnLength' => 190,
                      'regex' => '',
@@ -1162,7 +1162,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValue' => NULL,
                      'columnLength' => 190,
                      'regex' => '',

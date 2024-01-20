@@ -60,8 +60,8 @@ if (CUSTOM_ENV == "prod") {
     define("B2B_TRANSLATION_SFTP_USERNAME", "PIMServices");
     define("B2B_TRANSLATION_SFTP_PASSWORD", "Pr0duct2023");
     define("B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR",PIMCORE_PROJECT_ROOT."/var/tmp/");
-    define("B2B_TRANSLATION_SFTP_INBOUND_FOLDER_PATH", "/PIM/Inbound"); #location where PIM can send the data to our server.
-    define("B2B_TRANSLATION_SFTP_OUTBOUND_FOLDER_PATH", "/PIM/Outbound"); #location where PIM can find extract from salesforce.
+    define("B2B_TRANSLATION_SFTP_INBOUND_FOLDER_PATH", "/PIM/Translation/Inbound"); #location where PIM can send the data to our server.
+    define("B2B_TRANSLATION_SFTP_OUTBOUND_FOLDER_PATH", "/PIM/Translation/Outbound"); #location where PIM can find extract from salesforce.
 
 } elseif (CUSTOM_ENV == "stage") {
 
@@ -122,8 +122,8 @@ if (CUSTOM_ENV == "prod") {
     define("B2B_TRANSLATION_SFTP_USERNAME", "PIMServices");
     define("B2B_TRANSLATION_SFTP_PASSWORD", "Pr0duct2023");
     define("B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR",PIMCORE_PROJECT_ROOT."/var/tmp/");
-    define("B2B_TRANSLATION_SFTP_INBOUND_FOLDER_PATH", "/PIM/Inbound"); #location where PIM can send the data to our server.
-    define("B2B_TRANSLATION_SFTP_OUTBOUND_FOLDER_PATH", "/PIM/Outbound"); #location where PIM can find extract from salesforce.
+    define("B2B_TRANSLATION_SFTP_INBOUND_FOLDER_PATH", "/PIM/Translation/Inbound"); #location where PIM can send the data to our server.
+    define("B2B_TRANSLATION_SFTP_OUTBOUND_FOLDER_PATH", "/PIM/Translation/Outbound"); #location where PIM can find extract from salesforce.
 
 } elseif (CUSTOM_ENV == "dev" || CUSTOM_ENV == "qc") {
 
@@ -186,7 +186,7 @@ if (CUSTOM_ENV == "prod") {
     define("B2B_TRANSLATION_SFTP_USERNAME", "PIMServices");
     define("B2B_TRANSLATION_SFTP_PASSWORD", "Pr0duct2023");
     define("B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR",PIMCORE_PROJECT_ROOT."/var/tmp/");
-    define("B2B_TRANSLATION_SFTP_INBOUND_FOLDER_PATH", "/PIM/Inbound"); #location where PIM can send the data to our server.
-    define("B2B_TRANSLATION_SFTP_OUTBOUND_FOLDER_PATH", "/PIM/Outbound"); #location where PIM can find extract from salesforce.
+    define("B2B_TRANSLATION_SFTP_INBOUND_FOLDER_PATH", "/PIM/Translation/Inbound"); #location where PIM can send the data to our server.
+    define("B2B_TRANSLATION_SFTP_OUTBOUND_FOLDER_PATH", "/PIM/Translation/Outbound"); #location where PIM can find extract from salesforce.
 
 }

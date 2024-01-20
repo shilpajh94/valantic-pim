@@ -218,7 +218,7 @@ class PlantMaterialService
 	    $dataCount = count($data);
         foreach ($data as $rowCount => $rowvalueRecord)
         {
-            $rowvalue = json_decode(utf8_encode($rowvalueRecord['record']));
+            $rowvalue = json_decode(mb_convert_encoding($rowvalueRecord['record'], 'UTF-8'));
             $rowvalue = array_combine($this->fileColumns, $rowvalue);
 
             $plantName = $rowvalue[$columnPlant];

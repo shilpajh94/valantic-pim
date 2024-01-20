@@ -58,6 +58,7 @@ class PtgImportCommand extends AbstractCommand
 
     public function __construct(ContainerInterface $container)
     {
+        parent::__construct();
         $this->container = $container;
     }
 

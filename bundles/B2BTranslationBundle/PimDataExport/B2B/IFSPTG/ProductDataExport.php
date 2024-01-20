@@ -34,7 +34,7 @@ class ProductDataExport implements IDataExport
         $this->container = $container;
         $this->bu = $bu;
         $this->db = Db::get();
-        $this->helper = new PimDataExportHelper;
+        $this->helper = new PimDataExportHelper($this->container);
         $this->common = $this->container->get('b2b_translation.common_helper');
     }
 
@@ -880,8 +880,7 @@ class ProductDataExport implements IDataExport
                     $brickAttributesWithNullValueArray[$keys][$eachBrickAttributeName1] = null;
                 }
             }
-            $sql = "select o_id, {$columnsString} from object_brick_query_{$brickName}
-            _{$productClassId} where o_id IN ($ids)";
+            $sql = "select o_id, {$columnsString} from object_brick_query_{$brickName}_{$productClassId} where o_id IN ($ids)";
             $resultSet = $this->db->fetchAllAssociative($sql);
 
             if(!$resultSet){

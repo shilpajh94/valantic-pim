@@ -12,6 +12,8 @@ pimcore.plugin.PTGEUImportBundle = Class.create(pimcore.plugin.admin, {
     pimcoreReady: function (params, broker) {
         // alert("PTGEUImportBundle ready!");
     }
+    
 });
 
 var PTGEUImportBundlePlugin = new pimcore.plugin.PTGEUImportBundle();
+

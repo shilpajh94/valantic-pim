@@ -12,6 +12,7 @@ pimcore.plugin.IFSEUProductBundle = Class.create(pimcore.plugin.admin, {
     pimcoreReady: function (params, broker) {
         // alert("IFSEUProductBundle ready!");
     },
+    
     postOpenObject: function (object, type) {
 
         // object.data.layout.childs[0].childs // all tab panel name

@@ -25,7 +25,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Chemical',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1699596849,
+   'modificationDate' => 1704977057,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -49,8 +49,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'type' => NULL,
      'region' => NULL,
      'title' => NULL,
-     'width' => NULL,
-     'height' => NULL,
+     'width' => 0,
+     'height' => 0,
      'collapsible' => false,
      'collapsed' => false,
      'bodyStyle' => NULL,
@@ -124,9 +124,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'options' => NULL,
                      'width' => 350,
-                     'defaultValue' => '',
+                     'defaultValue' => true,
                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
                      'optionsProviderData' => 'Brand|Name',
                      'columnLength' => 190,
@@ -246,7 +245,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'width' => 350,
                      'height' => '',
                      'maxItems' => NULL,
-                     'renderType' => 'list',
+                     'renderType' => 'tags',
                      'optionsProviderClass' => '',
                      'optionsProviderData' => '',
                      'dynamicOptions' => false,
@@ -397,9 +396,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'blockedVarsForExport' => 
                 array (
                 ),
-                 'options' => NULL,
                  'width' => '',
-                 'defaultValue' => '',
+                 'defaultValue' => NULL,
                  'optionsProviderClass' => 'ImportBundle\\OptionProvider\\TubeMaterialOptionsProvider',
                  'optionsProviderData' => '',
                  'columnLength' => 190,
@@ -513,9 +511,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'blockedVarsForExport' => 
                 array (
                 ),
-                 'options' => NULL,
                  'width' => '',
-                 'defaultValue' => '',
+                 'defaultValue' => NULL,
                  'optionsProviderClass' => 'ImportBundle\\OptionProvider\\FittingMaterialOptionsProvider',
                  'optionsProviderData' => '',
                  'columnLength' => 190,
@@ -664,7 +661,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'group' => 'Masters',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
-   'previewGeneratorReference' => NULL,
+   'previewGeneratorReference' => '',
    'compositeIndices' => 
   array (
   ),

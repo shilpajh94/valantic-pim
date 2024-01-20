@@ -15,6 +15,7 @@ class IFSEU_EhoseProductLocalizationImportCommand extends AbstractCommand
 
     public function __construct(ContainerInterface $container)
     {
+        parent::__construct();
         $this->container = $container;
     }
     protected function configure()
