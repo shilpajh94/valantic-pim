@@ -279,7 +279,7 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
                         brickField: data[keys[i]].brickField
                     };
 
-                    text = ts(data[keys[i]].nodeLabel) + " " + t("columns");
+                    text = t(data[keys[i]].nodeLabel) + " " + t("columns");
 
                     var baseNode = {
                         type: "objectbricks",
@@ -287,7 +287,7 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
                         iconCls: "pimcore_icon_" + data[keys[i]].nodeType,
                         parentType: data[keys[i]].parentType ? data[keys[i]].parentType : '',
                         text: text,
-                        brickName: ts(data[keys[i]].nodeLabel)
+                        brickName: t(data[keys[i]].nodeLabel)
                     };
                     baseNode = tree.getRootNode().appendChild(baseNode);
                 }
@@ -451,7 +451,7 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
                 }
             }
 
-            var text = ts(initData.title);
+            var text = t(initData.title);
             if (showFieldname) {
                 text = t(text);
             }

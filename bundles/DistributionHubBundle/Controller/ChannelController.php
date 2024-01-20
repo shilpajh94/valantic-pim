@@ -24,6 +24,7 @@ use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Pimcore\Bundle\AdminBundle\Security\User\TokenStorageUserResolver;
+use Pimcore\Db;
 
 /**
  * @package DistributionHubBundle\Controller
@@ -135,6 +136,22 @@ class ChannelController extends AdminController
         $scheduleScreenRefreshTime = $bundleService->getConfig('schedule_screen_refresh_time');
 
         $userIds = ChannelConfigShare::getUserByChannelId($channel->getId());
+        $newUserIds = '';
+        $newRoleIds = '';
+        if($userIds)
+        {
+            $dataString = implode(',', $userIds);
+            $db = Db::get();
+            
+            $query = "SELECT id FROM `users` where id in ($dataString) and type ='user'";
+            $recordUserIds = $db->fetchFirstColumn($query);
+            $newUserIds = count($recordUserIds) ? $recordUserIds : '';
+
+            $query = "SELECT id FROM `users` where id in ($dataString) and type ='role'";
+            $recordRoleIds = $db->fetchFirstColumn($query);
+            $newRoleIds = count($recordRoleIds) ? $recordRoleIds : '';
+        }
+
         $expiryDate = ($channel->getExpiryDate()) ? $channel->getExpiryDate()->format('m/d/y') : "";
         return [
             'id' => $channel->getId(),
@@ -161,8 +178,8 @@ class ChannelController extends AdminController
             'exportFilePath' => $savedExportFilePath,
             'description' => $channel->getDescription(),
             'shareGlobally' => $channel->getShareGlobally(),
-            'sharedUserIds' => $userIds,
-            'sharedRolesIds' => $userIds,
+            'sharedUserIds' => $newUserIds,
+            'sharedRolesIds' => $newRoleIds,
             'expiryDate' => $expiryDate,
             'exportFileCSVDelimiter' => $channel->getExportFileCSVDelimiter(),
             'defaultMappingFileCSVDelimiter' => $defaultMappingFileCSVDelimiter,

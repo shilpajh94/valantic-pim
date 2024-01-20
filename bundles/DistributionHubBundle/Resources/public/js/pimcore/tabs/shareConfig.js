@@ -90,7 +90,7 @@ pimcore.plugin.distributionhub.tabs.shareConfig = Class.create(pimcore.element.a
             forceSelection: true,
             filterPickList: true,
             hidden:this.data.shareGlobally,
-            value: this.data.sharedUserIds ? this.data.sharedUserIds : ""
+            value: this.data.sharedRolesIds ? this.data.sharedRolesIds : ""
         });
         this.expiryDateField = Ext.create('Ext.form.field.Date', {
             name: "expiryDate",
