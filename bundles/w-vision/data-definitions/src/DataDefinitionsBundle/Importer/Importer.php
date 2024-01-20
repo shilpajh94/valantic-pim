@@ -204,7 +204,8 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
         }
         $dataImport->setTotalRecords($totalRowsWithData);
         $dataImport->save();
-        list($objectIds, $exceptions, $logResult) = $this->runImport($definition, $params, $totalRowsWithData, $filter, $data);
+        list($objectIds, $exceptions, $logResult) =
+                        $this->runImport($definition, $params, $totalRowsWithData, $filter, $data);
 
         $cleanerType = $definition->getCleaner();
         if ($cleanerType) {
@@ -251,7 +252,11 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
      * @param                           $exceptions
      * @throws \Exception
      */
-    public function processSuccessfullImport(ImportDefinitionInterface $definition, $params, $objectIds, $exceptions, $logResult)
+    public function processSuccessfullImport(ImportDefinitionInterface $definition,
+                                                $params,
+                                                $objectIds,
+                                                $exceptions,
+                                                $logResult)
     {
         $this->sendDocument($definition, Document::getById($definition->getSuccessNotificationDocument()),
             $objectIds, $exceptions, $params, $logResult);
@@ -265,7 +270,11 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
      * @param                           $exceptions
      * @throws \Exception
      */
-    public function processFailedImport(ImportDefinitionInterface $definition, $params, $objectIds, $exceptions, $logResult)
+    public function processFailedImport(ImportDefinitionInterface $definition,
+                                        $params,
+                                        $objectIds,
+                                        $exceptions,
+                                        $logResult)
     {
         $this->sendDocument($definition, Document::getById($definition->getFailureNotificationDocument()),
             $objectIds, $exceptions, $params, $logResult);
@@ -284,10 +293,15 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
      * @param array                     $exceptions
      * @throws \Exception
      */
-    private function sendDocument(ImportDefinitionInterface $definition, $document, $objectIds, $exceptions, $importDataParams =[], $logResult=[])
+    private function sendDocument(ImportDefinitionInterface $definition,
+                                  $document,
+                                  $objectIds,
+                                  $exceptions,
+                                  $importDataParams =[],
+                                  $logResult=[])
     {
         $params = [
-            'exceptions' => $exceptions,  
+            'exceptions' => $exceptions,
             'objectIds' => implode(',',$objectIds),
             'className' => $definition->getClass(),
             'countObjects' => \count($objectIds),
@@ -304,7 +318,7 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
             $mail = new Mail();
             $mail->setDocument($documentEmail);
             $mail->addto('admin@example.com');
-            $mail->setSubject("Import Log");
+            $mail->Subject("Import Log");
             $mail->setParams($templateParam);
 
             $mail->send();
@@ -314,14 +328,17 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
     }
 
     public function CreateLogsFilesForImport($params)
-    {  
+    {
         $rows = [];
         $rows = $params['logResult'];
 
         # If sheet provided is incorrect
         if(empty($rows)){
             $data[]  = [self::FAILURE_REASON];
-            $params['logResult'][0] = ["Import failed due to one or more reason(s)\n1. Duplicate column name exist\n2. Blank column exist\n3. Data incorrect"];
+            $params['logResult'][0] =
+                                ["Import failed due to one or more reason(s)\n
+                                1. Duplicate column name exist\n
+                                2. Blank column exist\n3. Data incorrect"];
             $rows = $params['logResult'];
         }else{
             $data[]  = [self::PRIMARY_KEY_HEADER,self::NON_IMPORTED_ATTRIBUTES,self::STATUS_CODE,self::FAILURE_REASON];
@@ -368,11 +385,12 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
 
             // update file name and asset id for the respective record into data definition import table
             $dataImport     = DataDefinitionImport::getById($importDataId);
-            $dataImport->setLogFilePimcoreAssetId($assetId); 
-            $dataImport->setLogFileName($fileName);  
+            $dataImport->setLogFilePimcoreAssetId($assetId);
+            $dataImport->setLogFileName($fileName);
             $dataImport->save();
 
         } catch (\Exception $ex) {
+            //exception
         }
     }
 
@@ -390,7 +408,7 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
             return $provider->getData($definition->getConfiguration(), $definition, $params);
             
         }catch(\Exception $ex){
-           $message = $ex->getMessage();
+           //exception
         }
     }
 

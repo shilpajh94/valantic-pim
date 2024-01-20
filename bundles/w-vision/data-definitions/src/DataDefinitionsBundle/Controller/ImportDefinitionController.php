@@ -40,10 +40,14 @@ use Pimcore\Model\Asset;
 use Pimcore\Model\DataObject\ClassDefinition;
 use Wvision\Bundle\DataDefinitionsBundle\Helper\ImportHelper as importHelper;
 use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\Process\Process;
 
 
 class ImportDefinitionController extends ResourceController
 {
+    private $data_definition_already_exists = 'Data definition already exits! Please provide a different name.';
+    private $data_definition_not_found_relaod_admin = 'Data definition could not be found. Please reload the admin interface.';
+    private $data_definitions_file_not_uploaded = "Upload csv file in Provider Settings Tab";
     /**
      * @return mixed|\Symfony\Component\HttpFoundation\JsonResponse
      */
@@ -80,13 +84,16 @@ class ImportDefinitionController extends ResourceController
      */
     public function readUploadedFileAction(Request $request): SymfonyJsonResponse
     {
+        $data_name_not_valid = "File name should not contain space or special characters.";
+        $data_error_saving = "An unexpected error occurred while saving.";
+        $data_file_not_valid = "Uploaded file not valid.";
         $commonHelperObject = new commonHelper();
         try {
             $result = $commonHelperObject->validateUploadedFile($_FILES['csvFile']);
             if ($result) {
                 $regex = preg_match('/[\s@!#$%^&*()<>?|}{~:]/', $result['fileName']);
                 if($regex){
-                    return $this->json(['success' => false, 'msg' => $this->trans('data_name_not_valid')]);
+                    return $this->json(['success' => false, 'msg' => $data_name_not_valid]);
                 }
                 $tmpUploadPathfolder = PIMCORE_PROJECT_ROOT . '/' . $commonHelperObject->getConfig('tmp_template_upload_pimcore_dir');
                 $uploadedFilePath = $tmpUploadPathfolder . $result['fileName'];
@@ -95,7 +102,7 @@ class ImportDefinitionController extends ResourceController
                     $fileId = $asset->getId();
                 } catch (\Exception $exception) {
                     DataImportLogger::log("Error creating asset for uploaded file in ImportDefinitionController save:" . $exception->getMessage(), DataImportLogger::CRITICAL);
-                    $msg = $this->trans("data_error_saving");
+                    $msg = $data_error_saving;
                     return $this->json(['success' => false, 'msg' => $msg]);
                 }
                 // if ($asset) {
@@ -104,7 +111,7 @@ class ImportDefinitionController extends ResourceController
             }
         } catch (\PhpOffice\PhpSpreadsheet\Reader\Exception $exception) {
             DataImportLogger::log("Error reading uploaded file in ImportDefinitionController readUploadedFile:" . $exception->getMessage(), DataImportLogger::INFO);
-            return $this->json(['success' => false, 'msg' => $this->trans('data_file_not_valid')]);
+            return $this->json(['success' => false, 'msg' => $data_file_not_valid]);
         } catch (\Exception $exception) {
             DataImportLogger::log("Error reading uploaded file ImportDefinitionController readUploadedFile:" . $exception->getMessage(), DataImportLogger::INFO);
             return $this->json(['success' => false, 'msg' => $exception->getMessage()]);
@@ -141,13 +148,8 @@ class ImportDefinitionController extends ResourceController
         $definition = $this->repository->find($id);
         $primaryKeyValue = $definition->getPrimaryKey();
         if ($definition instanceof ImportDefinitionInterface && $definition->getClass()) {
-            // $customFromColumn = new FromColumn();
-            // $customFromColumn->setIdentifier('custom');
-            // $customFromColumn->setLabel('Custom');
             try {
-                // p_r($this->get('data_definitions.registry.provider')->get($definition->getProvider()));die;
                 $fromColumns = $this->get('data_definitions.registry.provider')->get($definition->getProvider())->getColumns($definition->getConfiguration(), $definition->name);
-                // $fromColumns[] = $customFromColumn;
             } catch (\Exception $e) {
                 $fromColumns = [];
             }
@@ -265,7 +267,7 @@ class ImportDefinitionController extends ResourceController
             $uploadedFile = $request->files->get('Filedata');
             if ($uploadedFile instanceof UploadedFile) {
                 $jsonContent = file_get_contents($uploadedFile->getPathname());
-                $data = $this->decodeJson($jsonContent, false);
+                $data = json_decode($jsonContent, false);
                 $form = $this->resourceFormFactory->create($this->metadata, $definition);
                 $handledForm = $form->submit($data);
                 if ($handledForm->isValid()) {
@@ -531,7 +533,7 @@ class ImportDefinitionController extends ResourceController
         }
         $user = Admin::getCurrentUser();
         if (!$user->isAdmin()) {
-            $userRole = $this->getAdminUser()->getRoles();
+            $userRole = $this->getPimcoreUser()->getRoles();
             if ($userRole) {
                 foreach ($userRole  as $role_id) {
                     $role = Role::getById($role_id);
@@ -555,13 +557,17 @@ class ImportDefinitionController extends ResourceController
      */
     public function addAction(Request $request): SymfonyJsonResponse
     {
+        $config_name_not_valid = "Configuration name should not contain space or special characters.";
+        $data_definition_config_exists = 'Name already exists! Please provide a different name.';
+        $data_definition_name_required = 'Channel name cannot be empty';
+    
         $this->isGrantedOr403();
 
         $name = $request->get('name');
 
         if(preg_match('/[\s@!#$%^&*()<>?|}{~:]/', $name)) 
         {
-            return $this->viewHandler->handle(['success' => false, 'msg' => $this->trans('config_name_not_valid')]);
+            return $this->viewHandler->handle(['success' => false, 'msg' => $config_name_not_valid]);
         }
 
         $configArray = include PIMCORE_PROJECT_ROOT . '/var/config/importdefinitions.php';
@@ -573,9 +579,9 @@ class ImportDefinitionController extends ResourceController
         }
 
         if ($alreadyTakenName == true) {
-            return $this->viewHandler->handle(['success' => false, 'msg' => $this->trans('data_definition_config_exists')]);
+            return $this->viewHandler->handle(['success' => false, 'msg' => $data_definition_config_exists]);
         }elseif (strlen($name) == '') {
-            return $this->viewHandler->handle(['success' => false, 'msg' =>$this->trans('data_definition_name_required')]);
+            return $this->viewHandler->handle(['success' => false, 'msg' =>$data_definition_name_required]);
         } else {
             $resource = $this->factory->createNew();
 
@@ -600,6 +606,10 @@ class ImportDefinitionController extends ResourceController
     // fucntion to start data definition import
     public function saveDataDefinitionImportAction(Request $request)
     {
+        $data_definition_already_exists = 'Data definition already exits! Please provide a different name.';
+        $data_definition_not_found_relaod_admin = 'Data definition could not be found. Please reload the admin interface.';
+        $data_definitions_file_not_uploaded = "Upload csv file in Provider Settings Tab";
+        $data_definition_mandatory_field_check_failed = 'Could not get all the mandatory fields. Check application logger for more details.';
         $commonHelperObject = new commonHelper();
         $name               = $request->get('name');
         $importDefinitionId = $request->get('importDefinitionId');
@@ -611,7 +621,7 @@ class ImportDefinitionController extends ResourceController
 
         if ($existingDefinition && $existingDefinition->getImportDefinitionId()==$importDefinitionId) {
             DataImportLogger::log("Requested data definition ($name) already exitst into the database.", DataImportLogger::INFO);
-            $msg = $this->trans('data_definition_already_exists');
+            $msg = $data_definition_already_exists;
             return $this->json(['success' => false, 'msg' => $msg]);
         }
 
@@ -625,7 +635,7 @@ class ImportDefinitionController extends ResourceController
 
         if (!$importDefinition) {
             DataImportLogger::log("Requested import definition ($importDefinitionId) not found in ImportDefinitionController saveDataDefinitionImportAction .", DataImportLogger::INFO);
-            $msg = $this->trans('data_definition_not_found_relaod_admin');
+            $msg = $data_definition_not_found_relaod_admin;
             return $this->json(['success' => false, 'msg' => $msg]);
         }
 
@@ -637,7 +647,7 @@ class ImportDefinitionController extends ResourceController
         $filePath           = $commonHelperObject->getDefaultAssetFolderForUploadedFiles() . "/" . $fileName;
         $asset              = Asset::getByPath($filePath);
         if(!$asset){
-            return $this->viewHandler->handle(['success' => false, 'msg' => $this->trans('data_definitions_file_not_uploaded')]);
+            return $this->viewHandler->handle(['success' => false, 'msg' => $data_definitions_file_not_uploaded]);
         }
         $id = $request->get('importDefinitionId');
         $definition = $this->repository->find($id);
@@ -680,7 +690,7 @@ class ImportDefinitionController extends ResourceController
             DataImportLogger::log($cmd);
             $processId      = \Pimcore\Tool\Console::execInBackground($cmd);
 
-            // update process id of respective data definition import 
+            // update process id of respective data definition import
             $dataImport     = DataDefinitionImport::getById($importDataId);
             $dataImport->setProcessId($processId);
             $dataImport->save();
@@ -688,7 +698,7 @@ class ImportDefinitionController extends ResourceController
         } catch (NotNullConstraintViolationException $exception) {
             DataImportLogger::log("Error saving schedule: " . $exception->getMessage(), DataImportLogger::CRITICAL);
 
-            $msg = $this->trans('data_definition_mandatory_field_check_failed');
+            $msg = $data_definition_mandatory_field_check_failed;
             return $this->json(['success' => false, 'msg' => $msg]);
         } catch (\Exception $exception) {
             DataImportLogger::log("Error saving schedule: " . $exception->getMessage(), DataImportLogger::CRITICAL);
@@ -755,7 +765,7 @@ class ImportDefinitionController extends ResourceController
             if(!empty($importResult))
             {
                 foreach ($importResult->getItems() as $data)
-                {   
+                {
                     // check and delete the log file
                     $importFilePimcoreAssetId   = $data->importFilePimcoreAssetId;
                     if(!empty($importFilePimcoreAssetId))
@@ -800,10 +810,6 @@ class ImportDefinitionController extends ResourceController
 
         $fieldArray = array();
         foreach ($classes as $classDef) {
-            //p_r($classDef);
-           // $data['text'][] = ['name'=>$classDef->getName()];
-            //$classFields = $classDef->getFieldDefinitions();
-
             $fieldArrayTemp = array();
                 $fieldArrayTemp['name'] = $classDef->getName();
                 $fieldArray[] = $fieldArrayTemp;
