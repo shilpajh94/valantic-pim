@@ -9,7 +9,8 @@
  * files that are distributed with this source code.
  *
  * @copyright  Copyright (c) 2016-2019 w-vision AG (https://www.w-vision.ch)
- * @license    https://github.com/w-vision/DataDefinitions/blob/master/gpl-3.0.txt GNU General Public License version 3 (GPLv3)
+ * @license
+ * https://github.com/w-vision/DataDefinitions/blob/master/gpl-3.0.txt GNU General Public License version 3 (GPLv3)
  */
 
 declare(strict_types=1);
@@ -143,7 +144,7 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
         }
 
 
-        $object = $this->importRow(
+        $this->importRow(
             $definition,
             $row,
             $dataSet,
@@ -170,7 +171,7 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
     }
 
     public function doImport(ImportDefinitionInterface $definition, $params): array
-    {  
+    {
 
         $filter = null;
         $objectIds = [];
@@ -373,13 +374,13 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
             throw new \Exception('The filename of the asset is empty');
         }
 
-        try 
+        try
         {
             $newAsset = new Asset();
             $newAsset->setFilename($fileName);
             $newAsset->setData(@file_get_contents($filePath));
             $newAsset->setParent(\Pimcore\Model\Asset::getByPath($parentAsset));
-            $newAsset->save(); 
+            $newAsset->save();
 
             $assetId =  $newAsset->getId();
 
@@ -421,8 +422,11 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
      * @return array
      * @throws \Exception
      */
-    private function runImport(ImportDefinitionInterface $definition, $params, $totalRowsWithData, $filter = null, $dataSet = null): array
-    {   
+    private function runImport(ImportDefinitionInterface $definition,
+                                $params, $totalRowsWithData,
+                                $filter = null,
+                                $dataSet = null): array
+    {
         if (null === $dataSet) {
             $dataSet = [];
         }
@@ -449,18 +453,20 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
             }
             elseif($definition->getClass() == 'IFSEUProduct'){
                 $primaryKey = $row['Material'];
-            }    
+            }
             elseif($definition->getClass() == 'CSProducts'){
                 $region = '';
                 if($row['Region']){
                     $regionArray = explode("|",$row['Region']);
                     foreach($regionArray as $eachRegion){
-                        $regionObj = DataObject\CSRegion::getByPath('/Contitech_ConveyorSolution/Master Data/Region/'.trim($eachRegion));
+                        $regionObj = DataObject\CSRegion::getByPath(
+                                                            '/Contitech_ConveyorSolution/Master Data/Region/'.
+                                                            trim($eachRegion));
                         if($regionObj){
                             $region = trim($eachRegion);
                             break;
                         }
-                    }    
+                    }
                 }
                 $primaryKey = trim($row['Product Hierarchy']);
                 if($row['Product Flag'] == "0" || ($row['Product Flag'] == "1" && !$row['Region'])){
@@ -474,7 +480,11 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
             }
             
             try {
-                list($object, $nonImportedAttributes) = $this->importRow($definition, $row, $dataSet, array_merge($params, ['row' => $count]), $filter);
+                list($object, $nonImportedAttributes) = $this->importRow($definition,
+                                                                        $row,
+                                                                        $dataSet,
+                                                                        array_merge($params, ['row' => $count]),
+                                                                        $filter);
                 $nonImportedAttributesString =  implode(", ",$nonImportedAttributes);
                 if ($object instanceof Concrete) {
                     $objectIds[] = $object->getId();
@@ -493,9 +503,7 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
                         $failedReason  = 'Material Number does not exist';
                         $status = 'Failure';
                     }
-
                 }
-
                 if (($count + 1) % $countToClean === 0) {
                     \Pimcore::collectGarbage();
                     $this->logger->info('Clean Garbage');
@@ -504,7 +512,10 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
                 }
                 $count++;
 
-                $logResult[] = [self::PRIMARY_KEY_HEADER => $primaryKey, self::NON_IMPORTED_ATTRIBUTES => $nonImportedAttributesString, self::STATUS_CODE => $status, self::FAILURE_REASON => $failedReason]; 
+                $logResult[] = [self::PRIMARY_KEY_HEADER => $primaryKey,
+                                self::NON_IMPORTED_ATTRIBUTES => $nonImportedAttributesString,
+                                self::STATUS_CODE => $status,
+                                self::FAILURE_REASON => $failedReason];
             }catch (\Throwable $ex) {
                 $mesage = $ex;
                 // $mesage = $ex->getMessage();
@@ -513,7 +524,10 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
                 if(empty($failedReason)){
                     $failedReason = $mesage;
                 }
-                $logResult[] = [self::PRIMARY_KEY_HEADER => $primaryKey, self::NON_IMPORTED_ATTRIBUTES => '', self::STATUS_CODE => 'Failure', self::FAILURE_REASON => $failedReason]; 
+                $logResult[] = [self::PRIMARY_KEY_HEADER => $primaryKey,
+                                self::NON_IMPORTED_ATTRIBUTES => '',
+                                self::STATUS_CODE => 'Failure',
+                                self::FAILURE_REASON => $failedReason];
 
                 $this->logger->error($ex);
 
@@ -535,9 +549,9 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
                 return [$objectIds, $exceptions];
             }
 
-            // set status and process end time 
+            // set status and process end time
             if($totalRowsWithData === $i)
-            {                  
+            {
                 $dataImport     = DataDefinitionImport::getById($importDataId);
                 $dataImport->setStatus(Constants::SCHEDULE_STATUS_COMPLETED);
                 $dataImport->setImportProcessEndTime(new \DateTime());
@@ -596,9 +610,10 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
             }
         } else {
             if ($definition->getSkipExistingObjects()) {
-                $this->eventDispatcher->dispatch($definition, 'data_definitions.import.status', 'Ignoring existing Object',
-                    $params);
-
+                $this->eventDispatcher->dispatch($definition,
+                                                'data_definitions.import.status',
+                                                'Ignoring existing Object',
+                                                $params);
                     return [null, $nonImportedAttributes];
             }
         }
@@ -613,7 +628,10 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
             }
 
             if (!$filter->filter($definition, $data, $object)) {
-                $this->eventDispatcher->dispatch($definition, 'data_definitions.import.status', 'Filtered Object', $params);
+                $this->eventDispatcher->dispatch($definition,
+                                                'data_definitions.import.status',
+                                                'Filtered Object',
+                                                $params);
 
                 return [null, $nonImportedAttributes];
             }
@@ -647,7 +665,9 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
          */
         foreach ($definition->getMapping() as $mapItem) {
             $value = null;
-            if ((array_key_exists($mapItem->getFromColumn(), $data) && $mapItem->getToColumn() != $definition->primaryKey) || $mapItem->getFromColumn() === "custom") {
+            if ((array_key_exists($mapItem->getFromColumn(), $data) &&
+                                    $mapItem->getToColumn() != $definition->primaryKey) ||
+                                    $mapItem->getFromColumn() === "custom") {
                 $value = $data[$mapItem->getFromColumn()];
                 if (strpos($mapItem->getToColumn(), 'objectbrick') !== false) {
                     $list = new DataObject\Objectbrick\Definition\Listing();
@@ -657,18 +677,21 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
                     foreach($list as $brickDef){
                         $fieldDefs = $brickDef->getFieldDefinitions();
                         foreach($fieldDefs as $fieldName => $field){
-                            if($value && $fieldName == $objectBrickFieldName && $field->getFieldtype() == 'numeric' && !is_numeric($value) && !empty($value)){
-                                array_push($nonImportedAttributes,$mapItem->getFromColumn());
+                            if($value && $fieldName == $objectBrickFieldName &&
+                                $field->getFieldtype() == 'numeric' && !is_numeric($value) &&
+                                !empty($value)){
+                                    array_push($nonImportedAttributes,$mapItem->getFromColumn());
                             }
                         }
-
                     }
                 }else{
 
                     $classDefinition = ClassDefinition::getByName($definition->getClass());
                     foreach($classDefinition->getFieldDefinitions() as $field){
-                        if($field->getName() == $mapItem->getToColumn() && $field->fieldtype == 'numeric' && !is_numeric($value) && !empty($value)){
-                            array_push($nonImportedAttributes,$mapItem->getFromColumn());
+                        if($field->getName() == $mapItem->getToColumn() &&
+                            $field->fieldtype == 'numeric' && !is_numeric($value) &&
+                            !empty($value)){
+                                array_push($nonImportedAttributes,$mapItem->getFromColumn());
                         }
                     }
                 }
@@ -676,7 +699,6 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
                  
             }
         }
-
         $shouldSave = true;
         if ($runner instanceof SaveRunnerInterface) {
             if ($runner instanceof DataSetAwareInterface) {
@@ -693,7 +715,6 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
         if ($shouldSave) {
             $object->setUserModification($params['userId'] ?? 0);
             $object->setOmitMandatoryCheck($definition->getOmitMandatoryCheck());
-            // $object->save();
             $this->saveObject($object, $definition, $params);
 
             $this->eventDispatcher->dispatch($definition, 'data_definitions.import.status',
@@ -702,7 +723,6 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
             $this->eventDispatcher->dispatch($definition, 'data_definitions.import.status',
                 sprintf('Skipped Object %s', $object->getFullPath()), $params);
         }
-
         $this->eventDispatcher->dispatch($definition, 'data_definitions.import.status',
             sprintf('Imported Object %s', $object->getFullPath()), $params);
         $this->eventDispatcher->dispatch($definition, 'data_definitions.import.object.finished', $object, $params);
@@ -767,7 +787,10 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
                     );
                 }
                 catch (UnexpectedValueException $ex) {
-                    $this->logger->info(sprintf('Unexpected Value from Interpreter "%s" with message "%s"', $map->getInterpreter(), $ex->getMessage()));
+                    $this->logger->info(
+                            sprintf('Unexpected Value from Interpreter "%s" with message "%s"',
+                            $map->getInterpreter(),
+                            $ex->getMessage()));
                 }
 
             } catch (DoNotSetException $ex) {
@@ -832,18 +855,18 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
                 if ($setter instanceof LoggerAwareInterface) {
                     $setter->setLogger($this->logger);
                 }
-                if(!is_array($value) && empty(trim($value)) && (!is_numeric($value)) && (gettype($value) != 'boolean')){
+                if(!is_array($value) && (!is_numeric($value)) && empty(trim($value)) && (gettype($value) != 'boolean')){
                     $value = null;
                 }
                 $setter->set($object, $value, $map, $data);
             }
         } else {
-            if((gettype($value) != 'boolean') && (!is_array($value)) && empty(trim($value)) && (!is_numeric($value))){
+            if((gettype($value) != 'boolean') && (!is_array($value)) && (!is_numeric($value) && empty(trim($value)))){
                 $value = null;
             }
             if($definition->getClass()=='IFSEUProduct'){
                     $this->appServiceIFSEU->updateAttributeGroup($object, $map->getToColumn(), $value);
-                    $object->setValue($map->getToColumn(), $value);   
+                    $object->setValue($map->getToColumn(), $value);
             }else{
                 $this->appService->updateAttributeGroup($object, $map->getToColumn(), $value);
                 $object->setValue($map->getToColumn(), $value);
@@ -879,8 +902,14 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
         }
 
         $obj = $loader->load($class, $data, $definition, $params);
-        if(($class == 'Product' || $class == 'PTGEUProduct' || $class == 'IFSEUProduct')&& $definition->importLevel !== 'Fert' && $obj->getParent()->getType() != 'object'){
-            throw new \InvalidArgumentException($definition->importLevel.' does not exist for the particular object');
+        if(($class == 'Product' ||
+            $class == 'PTGEUProduct' ||
+            $class == 'IFSEUProduct')&&
+            $definition->importLevel !== 'Fert' &&
+            $obj->getParent()->getType() != 'object')
+        {
+                throw new \InvalidArgumentException(
+                    $definition->importLevel.' does not exist for the particular object');
         }else{
             if($definition->importLevel == 'Skeleton'){
                 $obj = $obj->getParent();
