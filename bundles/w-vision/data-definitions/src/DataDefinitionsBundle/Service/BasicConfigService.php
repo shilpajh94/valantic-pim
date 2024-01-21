@@ -2,7 +2,6 @@
 
 namespace Wvision\Bundle\DataDefinitionsBundle\Service;
 
-//use DistributionHubBundle\Model\Channel;
 use Wvision\Bundle\DataDefinitionsBundle\Lib\Constants;
 use Pimcore\Model\Asset;
 use Pimcore\Model\Element;
@@ -35,8 +34,6 @@ class BasicConfigService
     public function validateUploadedFile($requestBinaryFile)
     {
         $fileType = null;
-        //$sheetNames = array();
-
         // file extension checks
         $info = pathinfo($requestBinaryFile['name']);
         $fileExtension = ucfirst(strtolower($info['extension']));
@@ -63,13 +60,6 @@ class BasicConfigService
             if (!in_array($inputFileType, $validTypes)) {
                 throw new \Exception('data_file_not_valid');
             }
-
-            // if ($inputFileType == Constants::FILE_TYPE_XLS || $inputFileType == Constants::FILE_TYPE_XLSX) {
-            //     $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
-            //     $spreadsheet = $reader->load($tmpUploadPath);
-            //     $sheetNames = $spreadsheet->getSheetNames();
-            // }
-            // return ["fileType" => $fileType, 'sheetNames' => $sheetNames, 'fileName' => $fileName];
         } else {
             DataImportLogger::log("Uploaded file extension (" . $info['extension'] . ") type not valid.", DataImportLogger::INFO);
             throw new \Exception('dHub_file_not_valid');

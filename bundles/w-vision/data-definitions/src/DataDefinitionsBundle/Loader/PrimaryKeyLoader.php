@@ -47,7 +47,7 @@ class PrimaryKeyLoader implements LoaderInterface
             }
             elseif($class == 'IFSEUProduct'){
                 $conditionValues[] = $data['Material'];
-                $condition[] = '`materialNumber` = ?';    
+                $condition[] = '`materialNumber` = ?';
             }
             if (\count($condition) === 0) {
                 throw new \InvalidArgumentException('No primary identifier defined!');
@@ -75,7 +75,7 @@ class PrimaryKeyLoader implements LoaderInterface
                         $obj = new $classObject();
                     }
                 }
-                return $obj; 
+                return $obj;
             }
         }elseif($class == 'CSProducts'){
 
@@ -91,7 +91,7 @@ class PrimaryKeyLoader implements LoaderInterface
                         $region = trim($eachRegion);
                         break;
                     }
-                }    
+                }
             }
             // If only Product Hierarchy has data for product
             $path = trim($data['Product Hierarchy']);
@@ -107,8 +107,7 @@ class PrimaryKeyLoader implements LoaderInterface
                 // When there is no updation of region folder for products
                 $productName = str_replace("/", "-", $data['Product Name']);
                 $completepath = trim($data['Product Hierarchy']).'/'.$region.'/'.trim($productName);
-                $obj = DataObject\CSProducts::getByPath($productFolderPath.$completepath);
-
+                $obj = DataObject\CSProducts::getByPath($completepath);
                 // Condition is region is updated for products to be moved to new folder
                 if(!$obj){
                     $hierarchyobjPath = '/Contitech_ConveyorSolution/Master Data/Product Hierarchy/';
@@ -133,8 +132,7 @@ class PrimaryKeyLoader implements LoaderInterface
                 }
                 return $obj;
             }
-            $obj = DataObject\CSProducts::getByPath($productFolderPath.$path);
-            return $obj;
+            return DataObject\CSProducts::getByPath($path);
         }
         return null;
     }

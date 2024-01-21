@@ -46,7 +46,6 @@ class ObjectbrickSetter implements SetterInterface, GetterInterface
         }
 
         $config = $map->getSetterConfig();
-        // DataImportLogger::log(json_encode($map));
 
         $fieldName = $config['brickField'];
         $class = $config['class'];
@@ -55,7 +54,6 @@ class ObjectbrickSetter implements SetterInterface, GetterInterface
         
         if (method_exists($object, $brickGetter)) {
             $brick = $object->$brickGetter();
-            
             if (!$brick instanceof \Pimcore\Model\DataObject\Objectbrick) {
                 $brick = new \Pimcore\Model\DataObject\Objectbrick($object, $fieldName);
                 $object->$brickSetter($brick);
@@ -64,29 +62,20 @@ class ObjectbrickSetter implements SetterInterface, GetterInterface
             if ($brick instanceof \Pimcore\Model\DataObject\Objectbrick) {
                 
                 $brickClassGetter = sprintf('get%s', ucfirst($class));
-                // $brickClassSetter = sprintf('set%s', ucfirst($class));
                 $brickFieldObject = $brick->$brickClassGetter();
-
                 if (!$brickFieldObject instanceof AbstractData) {
-                   
-                    // $brickFieldObjectClass = 'Pimcore\Model\DataObject\Objectbrick\Data\\'.$class;
-
-                    // $brickFieldObject = new $brickFieldObjectClass($object);
-
-                    // $brick->$brickClassSetter($brickFieldObject);
+                   // later to add
                 }
 
                 $setter = sprintf('set%s', ucfirst($brickField));
-
-                if (method_exists($brickFieldObject, $setter)) {
+                if($brickFieldObject && method_exists($brickFieldObject, $setter)){
                     if(sizeof($keyParts) == 2){
                         $brickFieldObject->$setter($value,$keyParts[1]);
                     }else{
                         $brickFieldObject->$setter($value);
                     }
-
                     if($object->getClassName()=='IFSEUProduct'){
-                            $this->appServiceIFSEU->updateAttributeGroup($brickFieldObject, $brickField, $value); 
+                            $this->appServiceIFSEU->updateAttributeGroup($brickFieldObject, $brickField, $value);
                     }else{
                         $this->appService->updateAttributeGroup($brickFieldObject, $brickField, $value);
                     }
