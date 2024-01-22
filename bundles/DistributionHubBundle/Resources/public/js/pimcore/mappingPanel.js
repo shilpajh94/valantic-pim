@@ -11,7 +11,7 @@ pimcore.plugin.distributionhub.mappingPanel = Class.create({
             this.panel = new Ext.Panel({
                 id : "distribution_hub",
                 title : t("dHub_toolbar"),
-                iconCls : "pimcore_icon_routes",
+                iconCls : "pimcore_icon_gridconfig_class_attributes",
                 //bodyStyle : "padding: 10px;",
                 layout : "fit",
                 closable : true,

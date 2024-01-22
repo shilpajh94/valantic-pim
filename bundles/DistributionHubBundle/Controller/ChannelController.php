@@ -160,7 +160,7 @@ class ChannelController extends AdminController
             'language' => $channel->getLanguage(),
             'type' => 'channel',
             'allowChildren' => false,
-            'iconCls' => 'pimcore_icon_routes',
+            'iconCls' => 'pimcore_icon_gridconfig_class_attributes',
             'expandable' => false,
             'parent_id' => 1,
             'leaf' => true,

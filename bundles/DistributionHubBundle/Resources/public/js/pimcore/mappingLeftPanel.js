@@ -151,7 +151,7 @@ pimcore.plugin.distributionhub.mappingLeftPanel = Class.create({
                                           index, eOpts) {
                 newChildNode.data.leaf = true;
                 newChildNode.data.expaned = true;
-                newChildNode.data.iconCls = "pimcore_icon_routes";
+                newChildNode.data.iconCls = "pimcore_icon_gridconfig_class_attributes";
             }
         };
         }else{
@@ -162,7 +162,7 @@ pimcore.plugin.distributionhub.mappingLeftPanel = Class.create({
                                               index, eOpts) {
                     newChildNode.data.leaf = true;
                     newChildNode.data.expaned = true;
-                    newChildNode.data.iconCls = "pimcore_icon_routes";
+                    newChildNode.data.iconCls = "pimcore_icon_gridconfig_class_attributes";
                 }
             };
         }
