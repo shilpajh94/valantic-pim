@@ -14,12 +14,11 @@ return [
     ContitechCS\ImportBundle\ContitechCSImportBundle::class => ['all' => true],
     ContitechCS\CatalogBundle\ContitechCSCatalogBundle::class => ['all' => true],
     ContitechCS\CatalogUIApiBundle\CatalogUIApiBundle::class => ['all' => true],
-    // Wvision\Bundle\DataDefinitionsBundle\DataDefinitionsBundle::class => ['all' => true],
+    Wvision\Bundle\DataDefinitionsBundle\DataDefinitionsBundle::class => ['all' => true],
     DistributionHubBundle\DistributionHubBundle::class => ['all' => true],
     EmailNotificationBundle\EmailNotificationBundle::class => ['all' => true],
     PTGEU\ProductBundle\PTGEUProductBundle::class => ['all' => true],
     PTGEU\ImportBundle\PTGEUImportBundle::class => ['all' => true],
-    
     IFSEU\RestApiBundle\IFSEURestApiBundle::class => ['all' => true],
     RestApiBundle\RestApiBundle::class => ['all' => true],
     IFSEU\ProductBundle\IFSEUProductBundle::class => ['all' => true],
