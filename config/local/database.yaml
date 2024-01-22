@@ -1,2 +1,2 @@
 doctrine:
-    dbal: { connections: { default: { host: localhost, port: 3306, user: conti, password: password, dbname: conti_db, mapping_types: { enum: string, bit: boolean } } } }
+    dbal: { connections: { default: { host: localhost, port: 3306, user: root, password: Password123#@!, dbname: project_db, mapping_types: { enum: string, bit: boolean } } } }

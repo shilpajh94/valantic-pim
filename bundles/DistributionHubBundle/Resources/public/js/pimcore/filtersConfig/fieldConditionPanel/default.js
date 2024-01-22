@@ -1,0 +1,112 @@
+/**
+ * Pimcore
+ *
+ * This source file is available under two different licenses:
+ * - GNU General Public License version 3 (GPLv3)
+ * - Pimcore Enterprise License (PEL)
+ * Full copyright and license information is available in
+ * LICENSE.md which is distributed with this source code.
+ *
+ * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
+ * @license    http://www.pimcore.org/license     GPLv3 and PEL
+ */
+
+
+pimcore.registerNS("pimcore.bundle.distributionhub.filtersConfig.fieldConditionPanel.default");
+pimcore.bundle.distributionhub.filtersConfig.fieldConditionPanel.default = Class.create({
+
+    fieldSelectionInformation: null,
+    data: {},
+    termField: null,
+    operatorField: null,
+    inheritanceField: null,
+    classId: null,
+
+    initialize: function(fieldSelectionInformation, data, classId) {
+        this.fieldSelectionInformation = fieldSelectionInformation;
+        this.classId = classId;
+        if(data) {
+            this.data = data;
+        }
+    },
+
+    getConditionPanel: function() {
+
+        this.termField = Ext.create('Ext.form.field.Text',
+            {
+                fieldLabel:  t("dHub_term"),
+                width: 250,
+                style: "margin-left: 40px",
+                labelWidth: 40,
+                value: this.data.filterEntryData
+            }
+        );
+
+        if(this.data.operator === "exists" || this.data.operator == "not_exists"){
+            this.termField.setDisabled(true);
+        }
+        
+        return Ext.create('Ext.panel.Panel', {
+            layout: 'hbox',
+            items: [
+                this.getOperatorCombobox(this.data.operator),
+                this.termField
+            ]
+        });
+    },
+
+    getOperatorCombobox: function(value) {
+        var operators = Ext.create('Ext.data.Store', {
+            fields: ['fieldName', 'fieldLabel'],
+            data: this.fieldSelectionInformation.context.operators.map(function (operator) {
+                return {
+                    fieldName: operator,
+                    fieldLabel: t('dHub_operator_' + operator)
+                };
+            })
+        });
+
+        this.operatorField = Ext.create('Ext.form.ComboBox',
+            {
+                fieldLabel:  t("dHub_operator"),
+                store: operators,
+                value: value,
+                queryMode: 'local',
+                width: 200,
+                labelWidth: 70,
+                valueField: 'fieldName',
+                displayField: 'fieldLabel',
+                listeners: {
+                    change: function( item, newValue, oldValue, eOpts ) {
+
+                        if(this.termField) { 
+                            this.termField.setDisabled(newValue == "exists" || newValue == "not_exists");
+                            this.termField.reset();
+                        }
+                        if(this.unitField) {
+                            if(newValue == "exists" || newValue == "not_exists"){
+                                this.unitField.reset();
+                                this.unitField.setDisabled(true);
+                            } 
+                        }
+
+                    }.bind(this)
+                }
+            }
+        );
+
+        return this.operatorField;
+    },
+
+    getFilterValues: function() {
+
+       return {
+            fieldname: this.fieldSelectionInformation.fieldName,
+            filterEntryData: this.termField.getValue(),
+            operator: this.operatorField.getValue()
+        };
+
+    }
+
+
+});
