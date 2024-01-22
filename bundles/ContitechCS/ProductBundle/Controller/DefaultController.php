@@ -22,11 +22,11 @@ class DefaultController extends FrontendController
 {
     private $configProviderService;
     const ROLES_LIKE = ' OR `roles` like ';
-    protected $container;
+    protected $containerInterface;
 
     public function __construct(ContainerInterface $container)
     {
-        $this->container = $container;
+        $this->containerInterface = $container;
     }
 
     /**
@@ -363,8 +363,9 @@ class DefaultController extends FrontendController
                         /** code added below to change workflow state on creation of product **/
 
                         /** code added above to change workflow state on creation of product **/
-                        $this->container->get('ContitechCS\ProductBundle\Services\AppService')
+                        $this->containerInterface->get('ContitechCS\ProductBundle\Services\AppService')
                             ->createAssetsHierarch($prd);
+                        $success = true;
                         $msg =  "Product added successfully";
                     } catch (\Throwable $th) {
                         $success = false;

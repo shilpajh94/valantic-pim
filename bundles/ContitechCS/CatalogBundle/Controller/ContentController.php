@@ -1,35 +1,46 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ /**
+ * Pimcore
+ *
+ * This source file is available under two different licenses:
+ * - GNU General Public License version 3 (GPLv3)
+ * - Pimcore Enterprise License (PEL)
+ * Full copyright and license information is available in
+ * LICENSE.md which is distributed with this source code.
+ *
+ * @package    ContitechCSCatalogBundle
+ *
+ * @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
+ * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
 namespace ContitechCS\CatalogBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Pimcore\Controller\FrontendController;
-
 
 /**
  * Description of ContentController
  *
  * @author rohitsrivastava
  */
-class ContentController extends FrontendController {
-    
-    public function pdfAction(Request $request) {
+class ContentController extends FrontendController
+{
+    /**
+     * @param Request $request
+     * @param Response
+     */
+    public function pdfAction(Request $request): Response
+    {
 
         $documentId = $this->document->getId();
         $parameterBag = $this->getRequestedParameter($request, $documentId);
 
         $showPDFInput = false;
 
-        if(isset($_SERVER['REQUEST_URI']))
-        {
+        if (isset($_SERVER['REQUEST_URI'])) {
             $requestUrl = $_SERVER['REQUEST_URI'];
             $previewUrl = "pimcore_preview=true";
             $showPDFInput = (strpos($requestUrl, $previewUrl) !== false) ? true : false;
@@ -37,21 +48,16 @@ class ContentController extends FrontendController {
 
         $parameterBag['showPDFInput'] = $showPDFInput;
         return $this->render("@ContitechCSCatalog/Content/pdf.html.twig", $parameterBag);
-
-
-        //return new Response('Hello world from web2_print');
-    }
-    
-    public function coverPageAction(Request $request) {
-
-    }
-    
-    public function backCoverAction(Request $request) {
-
     }
 
+    /**
+     * @param Request $request
+     * @param int $documentId
+     * @return array $parameterBag
+     */
     public function getRequestedParameter(Request $request, $documentId): array
     {
+        $parameterBag = [];
         foreach ($request->attributes as $key => $value) {
             $parameterBag[$key] = $value;
         }
@@ -59,9 +65,9 @@ class ContentController extends FrontendController {
         $imageWidth = null;
         $imageRecompression = null;
         $printConfigFile = \Pimcore\Web2Print\Processor::getJobConfigFile($documentId);
-        if(file_exists($printConfigFile)){
+        if (file_exists($printConfigFile)) {
             $printConfigFileContent = file_get_contents($printConfigFile);
-            $printConfig = json_decode( $printConfigFileContent,true);
+            $printConfig = json_decode($printConfigFileContent, true);
             $imageRecompression = $printConfig['config']['Image Quality'];
             $imageWidth = $printConfig['config']['Image Width'];
         }

@@ -194,7 +194,7 @@ Ext.override(pimcore.object.tags.objectbricks, {
 
         items.push({
             xtype: "tbtext",
-            text: ts(this.fieldConfig.title)
+            text: t(this.fieldConfig.title)
         });
         /** following condition added to remove controls of objectbricks. **/
         if (this.object.data.general.o_className == 'CSProducts') {//class name Needs to be changed for different system
