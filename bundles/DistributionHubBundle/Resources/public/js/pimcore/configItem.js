@@ -14,7 +14,7 @@ pimcore.plugin.distributionhub.configItem = Class.create(pimcore.element.abstrac
             closable: true,
             deferredRender: false,
             forceLayout: true,
-            iconCls: "pimcore_icon_routes",
+            iconCls: "pimcore_icon_gridconfig_class_attributes",
             id: "distributionhub_mapping_panel_" + this.data.general.o_id,
             buttons: {
                 itemId: 'footer'

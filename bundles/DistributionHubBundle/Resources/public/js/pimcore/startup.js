@@ -25,7 +25,7 @@ pimcore.plugin.DistributionHubBundle = Class.create(pimcore.plugin.admin, {
         li.setAttribute("data-menu-tooltip", t("dHub_toolbar"));
         ulElement.appendChild(li);
         let svg = document.createElement("svg");
-        svg.setAttribute("class", "pimcore_nav_icon_routes");
+        svg.setAttribute("class", "pimcore_icon_gridconfig_class_attributes");
         li.appendChild(svg);
         ulElement.appendChild(li);
         pimcore.helpers.initMenuTooltips();
