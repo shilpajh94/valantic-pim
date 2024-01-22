@@ -20,12 +20,10 @@ use ContitechCS\ProductBundle\Services\UnitConverterService;
 use Pimcore\Event\Model\DataObjectEvent;
 use Pimcore\Model\DataObject;
 use Symfony\Component\EventDispatcher\GenericEvent;
-use ContitechCS\ImportBundle\Services\ImportConstants;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use ContitechCS\ProductBundle\Tool\Utils;
 use Pimcore\Cache;
-use Pimcore\Model\DataObject\ClassDefinition;
 use ContitechCS\ProductBundle\Services\PercentageCompletionService;
 
 class ObjectListener
@@ -35,8 +33,6 @@ class ObjectListener
 
     private $appService;
 
-    private $unitConversionService;
-
     private $percentageCompletionService;
 
     const INTERNAL_ASSETS_PATH = '/Contitech_ConveyorSolution/Internal Assets/';
@@ -44,12 +40,10 @@ class ObjectListener
     public function __construct(
         RequestStack $requestStack,
         AppService $appService,
-        UnitConverterService $unitConverterService,
         PercentageCompletionService $percentageCompletionService
     ) {
         $this->requestStack = $requestStack;
         $this->appService = $appService;
-        $this->unitConversionService = $unitConverterService;
         $this->percentageCompletionService = $percentageCompletionService;
     }
 
@@ -71,7 +65,6 @@ class ObjectListener
             $className = $object->getClassName();
 
             if ($className == 'CSProducts') {
-                //$this->checkUniqueProduct($object);
                 $argument = $event->getArguments();
 
                 $applyvalidation = false;
@@ -80,24 +73,10 @@ class ObjectListener
                     //custom brick validation
 
                     $product_name = trim($object->getName());
-                    $parent = $object->getParent();
                     $config = $this->getConfigFromYmlFile(CS_PRODUCT_ATTRIBUTE_VALIDATION_FILE_PATH);
 
                     if (isset($config[$product_name])) {
                         $applyvalidation = true;
-                    } else {
-                        // if ($parent != "/Contitech_ConveyorSolution/Products") {
-                        //     if ($parent->getType() == 'folder') {
-                        //         $parent_name = $parent->getParent()->getName();
-                        //     } else {
-                        //         $parent_name = trim($parent->getName());
-                        //     }
-
-                        //     if (isset($config[$parent_name])) {
-                        //         $applyvalidation = true;
-                        //         $product_name = $parent_name;
-                        //     }
-                        // }
                     }
                 }
                 $applyvalidation = false;
@@ -144,29 +123,10 @@ class ObjectListener
                         'Archived asset can not be mapped with Product.'
                     );
                 }
-                //if (php_sapi_name() != "cli") {
                 $object->setGetInheritedValues(true);
-                //}
                 $this->percentageCompletionService->completenessPercentage($object);
             }
         }
-        /**
-         * if object save is run through cli then do not perform the brick addition or deletion
-         * because in this case the import script is already handling this.
-         */
-        //        if (php_sapi_name() != "cli") {
-        // to also get the inherited values
-
-
-
-        //$this->checkUniqueProduct($object);
-
-        /**
-         * update the unit conversion attributes
-         */
-        //$this->updateUnitConversionAttributes($object);
-
-        //        }
     }
 
     /**
@@ -182,9 +142,6 @@ class ObjectListener
             $className = $object->getClassName();
 
             if ($className == 'CSProducts' && php_sapi_name() != "cli" && !$object->hasChildren()) {
-                //$argument = $event->getArguments();
-                //if ($object->isPublished() &&
-                // (!isset($argument['saveVersionOnly']) || empty($argument['saveVersionOnly']))) {
                 $regionArray = $object->getCSRegion();
                 if (is_array($regionArray) && !empty($regionArray)) {
                     $folderCreationPath = '';
@@ -209,11 +166,9 @@ class ObjectListener
                     }
                     $parentId = DataObject\Service::createFolderByPath($folderCreationPath)->getId();
                     $object->setParentId($parentId);
-                }
-                else{
+                } else {
                     $parentFOlder = $object->getParent();
-                    if(strtolower($parentFOlder->getType()) == 'folder')
-                    {
+                    if (strtolower($parentFOlder->getType()) == 'folder') {
                         $parentObjectID = $parentFOlder->getParentId();
                         $object->setParentId($parentObjectID);
                     }
@@ -254,8 +209,10 @@ class ObjectListener
             $getter = "get" . ucfirst($field->getName());
             if ($fieldType == 'image') {
                 $asset = $product->$getter();
-                if (!empty($asset) && (strpos($asset->getRealFullPath(),
-                    self::INTERNAL_ASSETS_PATH) !== false)) {
+                if (!empty($asset) && (strpos(
+                    $asset->getRealFullPath(),
+                    self::INTERNAL_ASSETS_PATH
+                ) !== false)) {
                     return ['success' => false, 'fieldName' => $field->getTitle()];
                 }
             } elseif ($fieldType == 'imageGallery') {
@@ -265,8 +222,10 @@ class ObjectListener
                     foreach ($items as $item) {
                         if (!empty($item)) {
                             $asset = $item->getImage();
-                            if (!empty($asset) && (strpos($asset->getRealFullPath(),
-                                self::INTERNAL_ASSETS_PATH) !== false)) {
+                            if (!empty($asset) && (strpos(
+                                $asset->getRealFullPath(),
+                                self::INTERNAL_ASSETS_PATH
+                            ) !== false)) {
                                 return ['success' => false, 'fieldName' => $field->getTitle()];
                             }
                         }
@@ -309,43 +268,6 @@ class ObjectListener
         }
     }
 
-
-
-    /**
-     * to update the unit conversion attributes
-     *
-     * @param DataObject\Product $product
-     * @throws \Exception
-     */
-    private function updateUnitConversionAttributes(DataObject\CSProducts $product)
-    {
-        $updatedData = $this->getEditedDataFromRequest();
-        if (is_array($updatedData)) {
-            $this->appService->updateUnitConversionAttributes($product, $updatedData);
-        }
-    }
-
-    /**
-     * get the edited data from the current request
-     *product
-     * @return mixed|null
-     */
-    private function getEditedDataFromRequest()
-    {
-        $updatedData = null;
-        // get the current http request
-        $currRequest = $this->requestStack->getCurrentRequest();
-
-        if ($currRequest instanceof Request) {
-            $updatedData = $currRequest->get('data');
-            if ($updatedData) {
-                $updatedData = json_decode($updatedData, true);
-            }
-        }
-
-        return $updatedData;
-    }
-
     /**
      * get yml config for the given file
      * caching the file data if environment is not dev
@@ -371,7 +293,8 @@ class ObjectListener
         return $config;
     }
 
-    public function beforeSearchListLoad(GenericEvent $event) {
+    public function beforeSearchListLoad(GenericEvent $event)
+    {
         $list = $event->getArgument('list');
         $context = $event->getArgument('context');
         $className = isset($context['class']) ? $context['class'] : null;
@@ -379,11 +302,13 @@ class ObjectListener
             $contextArray = $context['context'];
             if ($className == 'CSProducts' && !empty($contextArray)) {
                 $contextArray = (array)json_decode($contextArray);
-                if (!empty($contextArray['scope']) && $contextArray['scope']=='objectEditor'
-                    && $contextArray["fieldname"] == "CoverCompounds") {
+                if (
+                    !empty($contextArray['scope']) && $contextArray['scope'] == 'objectEditor'
+                    && $contextArray["fieldname"] == "CoverCompounds"
+                ) {
                     $coverOptionPath = '/Cover Options/';
                     $condition = $list->getCondition();
-                    $condition .= " AND (`fullpath` like '%".$coverOptionPath."%' ) ";
+                    $condition .= " AND (`fullpath` like '%" . $coverOptionPath . "%' ) ";
                     $list->setCondition($condition);
                     $event->setArgument('list', $list);
                 }

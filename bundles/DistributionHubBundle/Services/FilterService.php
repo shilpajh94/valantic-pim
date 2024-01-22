@@ -80,7 +80,7 @@ class FilterService
      * @param ClassDefinition|Definition $definition
      * @return FieldSelectionInformation[]
      */
-    public function getFieldSelectionInformationForClassDefinition($definition, $allowInheritance = false, $fieldTypes)
+    public function getFieldSelectionInformationForClassDefinition($definition, $fieldTypes, $allowInheritance = false)
     {
 
         $fieldSelectionInformationEntries = [];

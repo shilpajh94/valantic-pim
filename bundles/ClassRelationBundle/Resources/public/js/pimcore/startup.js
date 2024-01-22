@@ -162,7 +162,7 @@ pimcore.plugin.ClassRelationBundle = Class.create(pimcore.plugin.admin, {
 
                 items.push({
                     xtype: "tbtext",
-                    text: ts(this.fieldConfig.title)
+                    text: t(this.fieldConfig.title)
                 });
                 if (this.object.data.general.o_className == pimcore.custom.classname) {//class name Needs to be changed for different system
                     var toolbar = new Ext.Toolbar({
@@ -227,7 +227,7 @@ pimcore.plugin.ClassRelationBundle = Class.create(pimcore.plugin.admin, {
                     closable: closable,
                     autoHeight: true,
                     border: false,
-                    title: title ? ts(title) : ts(type),
+                    title: title ? t(title) : t(type),
                     // items: items
                     items: [],
                     listeners: {

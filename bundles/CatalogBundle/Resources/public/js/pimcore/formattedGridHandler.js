@@ -146,7 +146,7 @@ pimcore.plugin.formattedGridHandler = Class.create(pimcore.plugin.admin, {
                                  //   console.log(this.object.data);
                                 let headerJson = [];
                                 
-                                var table = new Conti.pimcore.object.tags.table([["1","1"],['2','2']],this.object.edit.dataFields.ProductsData.fieldConfig);
+                                var table = new Catalog.pimcore.object.tags.table([["1","1"],['2','2']],this.object.edit.dataFields.ProductsData.fieldConfig);
                               //  table.getLayoutEdit();
                                // console.log(this.object.edit.dataFields.ProductsData.component.id);
                                 var comp = Ext.getCmp(this.object.edit.dataFields.ProductsData.component.id);

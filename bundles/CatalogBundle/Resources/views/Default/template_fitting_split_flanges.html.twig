@@ -1,4 +1,4 @@
-{% if parentContainer is not defined %}
+{% if not isParentContainerRequest %}
 	{% extends "@Catalog/Layouts/layout.html.twig" %}
 {% endif %}
 
@@ -26,7 +26,7 @@
 				<span class="pageName">Hydraulic Hose</span>
 
 				<div class="footer">
-					<footer class="flex-center <?php echo $footer_class; ?>">
+					<footer class="flex-center {{footer_class}}">
 						<span class="logo">
 							<b>
 								{% if editmode %}
@@ -111,7 +111,7 @@
 									{{ pimcore_input("HHAFC_Logo_Text2") }}
 								{% endif %}
 							</b>
-							<img src="<?= $footer_logo_src; ?>">
+							<img src="{{footer_logo_src}}">
 						</span>
 					</footer>
 				</div>

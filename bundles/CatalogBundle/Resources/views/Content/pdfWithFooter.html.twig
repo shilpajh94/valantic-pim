@@ -1,4 +1,4 @@
-{% if parentContainer is not defined %}
+{% if not isParentContainerRequest %}
         {% extends "@Catalog/Layouts/layout.html.twig" %}
 {% endif %}
 
@@ -56,7 +56,7 @@
             </div>
             <div class="without-header areaPdf">
                 {% if editmode %}
-                    <?= $this->pdf("pdfwithfooter", ["placeholder" => 'PDF drop' ]); ?>
+                    {{ pimcore_pdf("pdfwithfooter", {'placeholder': 'PDF drop'})}}
                 {% else %}
                     {% showPDFInput %}
                         {{ pimcore_pdf("pdfwithfooter", {'placeholder': 'PDF drop'})}}

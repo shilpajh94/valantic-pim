@@ -44,7 +44,7 @@ class DefaultController extends FrontendController
      * @return Response
      * @access public
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request): Response
     {
         try {
             return new Response('Hello world from contitech_cs_catalog');
