@@ -17,12 +17,16 @@ services:
     AppBundle\EventListener\AdminAssetsListener:
         tags:
                 - { name: kernel.event_subscriber }
+    AppBundle\EventListener\AdminStyleListener:
+        tags:
+                - { name: kernel.event_listener, event: pimcore.admin.resolve.elementAdminStyle, method: onResolveElementAdminStyle }
+
     AppBundle\Workflow\ProductPublishingListener:
         tags:
                 - { name: kernel.event_product_workflow}         
     ADAuthBundle\EventListener\AuthenticateListener:
         tags:
-                - { name: kernal.event_user_login, event: pimcore.admin.login.credentials, method: onLoginCredentials}
+                - { name: kernal.event_user_login, event: pimcore.admin.login.credentials, method: onLoginCredentials}    
     #
     # CONTROLLERS
     #
