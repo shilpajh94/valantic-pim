@@ -1,33 +1,17 @@
-pimcore.registerNS("pimcore.plugin.CatalogUIApiBundle");
+document.addEventListener(pimcore.events.postOpenDocument, (e) => {
+    console.log('pimcore.plugin.CatalogUIApiBundle postOpenDocument')
+    let parentFolderPath    = getFolderPath();
+    let docPath             = e.detail.document.data.path;
+    let docType             = e.detail.document.data.type;
 
-pimcore.plugin.CatalogUIApiBundle = Class.create(pimcore.plugin.admin, {
-    getClassName: function () {
-        return "pimcore.plugin.CatalogUIApiBundle";
-    },
-
-    initialize: function () {
-        pimcore.plugin.broker.registerPlugin(this);
-    },
-
-    pimcoreReady: function (params, broker) {
-        //alert("CatalogUIApiBundle ready!");
-    },
-    
-    postOpenDocument: function(doc,type){
-
-        let parentFolderPath    = getFolderPath();
-        let docPath             = doc.data.path;
-        let docType             = doc.data.type;
-
-        if(docType == "printcontainer" && docPath.startsWith(parentFolderPath)){
-            let printPageObject = new pimcore.plugin.lpe.printPage(doc);
-            printPageObject.addPublishPdfButton();
-        }
+    if(docType == "printcontainer" && docPath.startsWith(parentFolderPath)){
+        let printPageObject = new pimcore.plugin.lpe.printPage(e.detail.document);
+        printPageObject.addPublishPdfButton();
     }
+
+    e.preventDefault();
+    e.stopPropagation();
 });
-
-var CatalogUIApiBundlePlugin = new pimcore.plugin.CatalogUIApiBundle();
-
 
 function getFolderPath()
 {

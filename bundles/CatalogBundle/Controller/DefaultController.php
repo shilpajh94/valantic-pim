@@ -7,6 +7,7 @@ use Pimcore\Db;
 use Pimcore\Model\DataObject;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -15,7 +16,6 @@ use Pimcore\Controller\FrontendController;
 
 class DefaultController extends FrontendController
 {
-
     private $tableColumns;
     private $s3srcArr = [];
     private $db;
@@ -42,7 +42,7 @@ class DefaultController extends FrontendController
     /**
      * @Route("/catalog")
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request): Response
     {
         return new Response('Hello world from catalog');
     }
@@ -50,7 +50,7 @@ class DefaultController extends FrontendController
     /**
      * @Route("/catalog/get-category")
      */
-    public function getCategory(Request $request)
+    public function getCategory(Request $request): JsonResponse
     {
         $parentCat = $request->get('catId');
         $catalogObj = DataObject\Catalog::getById($parentCat);
@@ -85,17 +85,16 @@ class DefaultController extends FrontendController
             $i++;
         }
 
+        $result = [];
+        $result['data'] = $optionData;
 
-        $res['data'] = $optionData;
-
-        echo json_encode(['data' => $res['data']]);
-        die;
+        return $this->json(['data' => $result['data']]);
     }
 
     /**
      * @Route("/catalog/get-tables")
      */
-    public function getTablesAction(Request $request)
+    public function getTablesAction(Request $request): JsonResponse
     {
         $parentCat = $request->get('catId');
         $parentObj = DataObject\CatalogCategory::getById($parentCat);
@@ -113,14 +112,13 @@ class DefaultController extends FrontendController
             $options[] = array('key' => $key, 'value' => $value);
         }
 
-        echo json_encode(['data' => $options]);
-        die;
+        return $this->json(['data' => $options]);
     }
 
     /**
      * @Route("/catalog/get-base-products")
      */
-    public function getBaseProductsAction(Request $request)
+    public function getBaseProductsAction(Request $request): JsonResponse
     {
         $parentCat = $request->get('catId');
         $categoryObj = DataObject\CatalogCategory::getById($parentCat);
@@ -139,13 +137,12 @@ class DefaultController extends FrontendController
             $options[] = array('text' => $item->getSapDescription('en'), 'id' => $item->getId());
         }
 
-        echo json_encode(['data' => $options]);
-        die;
+        return $this->json(['data' => $options]);
     }
     /**
      * @Route("/catalog/get-siop-data")
      */
-    public function getSiopDataAction(Request $request)
+    public function getSiopDataAction(Request $request): JsonResponse
     {
         $parentCat = $request->get('catId');
         $categoryObj = DataObject\CatalogCategory::getById($parentCat);
@@ -162,41 +159,40 @@ class DefaultController extends FrontendController
             $siopList->setCondition('o_parentId IN (?)', [$category]);
 
             foreach ($siopList as $cat) {
-                $options[] = array('text' =>  $cat->getDescription('en') . '-' . $cat->getFullcode(), 'id' => $cat->getId());
+                $options[] = array(
+                    'text' =>  $cat->getDescription('en') . '-' . $cat->getFullcode(),
+                    'id' => $cat->getId()
+                );
             }
         }
 
-        echo json_encode(['data' => $options, 'length' => count($options)]);
-        die;
+        return $this->json(['data' => $options, 'length' => count($options)]);
     }
 
     /**
      * @Route("/catalog/get-skeleton-products")
      */
-    public function getSkeletonProductsAction(Request $request)
+    public function getSkeletonProductsAction(Request $request): JsonResponse
     {
         $baseProducts = json_decode($request->get('products'), 1);
-        //  p_r($baseProducts);
         $productList = new DataObject\Product\Listing();
 
         $productList->addConditionParam('o_parentId IN (?)', [$baseProducts], 'AND');
         $productList->setCondition('ProductType = "skeleton"');
-        //   p_r($productList); die;
+
         $options = [];
         foreach ($productList as $item) {
             $options[] = array('text' => $item->getSapDescription('en'), 'id' => $item->getId());
         }
 
-        echo json_encode(['data' => $options]);
-        die;
+        return $this->json(['data' => $options]);
     }
 
     /**
      * @Route("/catalog/get-available-headers")
      */
-    public function getAvailableHeaders(Request $request)
+    public function getAvailableHeaders(Request $request): JsonResponse
     {
-
         $objectId = $request->get('o_id');
         $table = $request->get('table');
         $template = $request->get('template');
@@ -205,46 +201,24 @@ class DefaultController extends FrontendController
         if ($template == null) {
             $template = $obj->getTemplate();
         }
-
-
         $commonHelper = $this->containerInterface->get('app.common_helper');
-
         $tableColumnsConfig = $this->containerInterface->get('app.config_provider_service')->getCatalogTableColumnConfig();
         $this->tableColumns = $commonHelper->getParameter($tableColumnsConfig, 'tableColumns');
 
-        /* if($this->tableColumns)
-          {
-          foreach ($this->tableColumns as $key => $value) {
-          $this->tableColumns[$key] = $this->get('translator')->trans($value['fieldLabel']);
-          }
-          } */
-
-        $columnData = json_decode($obj->getColumns(), 1);
-
         $columns = array();
-        $store = [];
         $arr = [];
 
         if ($template && $table) {
 
-            $tableColumns = isset($this->tableColumns[$template][$table])? $this->tableColumns[$template][$table]: null;
+            $tableColumns = isset($this->tableColumns[$template][$table]) ? $this->tableColumns[$template][$table] : null;
 
             if ($tableColumns !== null) {
                 if (!empty($tableColumns) && count($tableColumns) > 0) {
                     foreach ($tableColumns as $key => $column) {
                         $fieldLabel = $column['fieldLabel'];
                         $columns[] = array($key, $fieldLabel);
-                        //  $store[] = array($key=> $t);
                     }
                 }
-                /*  if(!empty($columnData))
-                  {
-                  foreach($columnData as $columnKey => $columnValue)
-                  {
-                  $store[] = array($columnValue['columnName'],$columnValue['columnLabel']);
-                  }
-                  }
-                 */
                 $arr = array('storeData' => $columns, 'completeData' => $tableColumns, 'success' => true);
             } else {
                 $arr = array('storeData' => [], 'completeData' => [], 'success' => true);
@@ -253,24 +227,14 @@ class DefaultController extends FrontendController
             $arr = array('storeData' => [], 'completeData' => [], 'success' => false);
         }
 
-        // $arr = array (
-        //     'storeData' => array (
-        //         0 => array ('StatisticalDimension', 'Statistical Dimension'),
-        //         1 => array ('ServiceDescription', 'Service Description'),
-        //         2 => array ('PR','PR'),
-        //         3 => array ('GSI','GSI')
-        //     )
-        // );
-        echo json_encode($arr);
-        die;
+        return $this->json($arr);
     }
 
     /**
      * @Route("/catalog/get-table-data")
      */
-    public function getTableData(Request $request)
+    public function getTableData(Request $request): JsonResponse
     {
-
         $this->getTableColumns();
         $dynamicColumnsData = $this->getDynamicColumns();
         $objId = $request->get('objId');
@@ -285,8 +249,6 @@ class DefaultController extends FrontendController
         $skeletonProduct = $tableObj->getSkeletonProduct();
         $skeletonIds = [];
         $tableColumns = json_decode($tableData, 1);
-        // p_r($dynamicColumnsData);
-        // p_r($tableColumns);
         if ($tableColumns !== null) {
             $columns = array_keys($tableColumns);
         } else {
@@ -309,7 +271,7 @@ class DefaultController extends FrontendController
 
         if ($catalogObj->getCatalogType() == '041000') {
             $productList->addConditionParam("SIOPLevel3 IN (:category)", ["category" => $x], 'AND');
-            if ($siop4 != null && count($siop4) > 0) {
+            if ($siop4 != null && !empty($siop4)) {
                 $catx = array();
                 for ($i = 0; $i < count($siop4); $i++) {
                     $caty = "," . $siop4[$i] . ",";
@@ -322,43 +284,25 @@ class DefaultController extends FrontendController
             $productList->addConditionParam("SIOPLevel4 IN (:category)", ["category" => $x], 'AND');
         }
         $conditionArray[] = "ProductType = 'fert' ";
-//        $productList->addConditionParam('ProductType = :type', ['type' => 'fert'], 'AND');
 
         if ($brand != null && count($brand) > 0) {
-
-            /* for($i = 0; $i< count($brand); $i++)
-              {
-              if($i == $count - 1)
-              {
-              $productList->addConditionParam('brandName = ?',$brand[$i],'AND');
-              }
-              else
-              {
-              $productList->addConditionParam('brandName = ?',$brand[$i],'OR');
-              }
-
-              } */
             $productList->addConditionParam('brandName IN (:brand)', ['brand' => $brand], 'AND');
         }
 
-        if (is_array($fitting) && count($fitting) ) {
+        if (is_array($fitting) && count($fitting)) {
             $productList->setObjectbricks(['HoseSkeleton', 'HydFittingsFert']);
             $fittingConditonArray = [];
-            foreach ($fitting as $key => $fittingValue) {
+            foreach ($fitting as $fittingValue) {
                 $fittingValue = trim($fittingValue, ',');
-                if(($fittingValue != null) && ($fittingValue != '1'))
-                {
-                    $fittingConditonArray[] = "(HydFittingsFert.HydFittingFamily LIKE ".$productList->quote('%,' . $fittingValue . ',%'). ")";
-                    $fittingConditonArray[] = "(HoseSkeleton.HoseFittingFamily LIKE ".$productList->quote('%,' . $fittingValue . ',%'). ")";
+                if (($fittingValue != null) && ($fittingValue != '1')) {
+                    $fittingConditonArray[] = "(HydFittingsFert.HydFittingFamily LIKE " . $productList->quote('%,' . $fittingValue . ',%') . ")";
+                    $fittingConditonArray[] = "(HoseSkeleton.HoseFittingFamily LIKE " . $productList->quote('%,' . $fittingValue . ',%') . ")";
                 }
             }
-            if(count($fittingConditonArray))
-            {
-                $fittingString = " ( " .implode(' OR ', $fittingConditonArray) . " ) ";
+            if (count($fittingConditonArray)) {
+                $fittingString = " ( " . implode(' OR ', $fittingConditonArray) . " ) ";
                 $conditionArray[] = $fittingString;
             }
-            // $conditionArray[] = " ((HydFittingsFert.HydFittingFamily LIKE ".$productList->quote('%,' . $fitting . ',%'). ") OR (HoseSkeleton.HoseFittingFamily LIKE ".$productList->quote('%,' . $fitting . ',%'). ")) ";
-            //$productList->addConditionParam('fittingFamily LIKE :fitting', ['fitting' => '%,' . $fitting . ',%'], 'AND');
         }
 
         if ($baseProduct !== null && count($baseProduct) > 0) {
@@ -366,11 +310,10 @@ class DefaultController extends FrontendController
             $query = "select o_id from object_1 where o_parentId IN (" . $baseIds . ")";
 
             $skeletonIds = $this->db->fetchAll($query);
-
         }
         if ($skeletonProduct !== null && count($skeletonProduct) > 0) {
             $productList->addConditionParam('o_parentId IN (:parent)', ['parent' => $skeletonProduct], 'AND');
-        } else if (count($skeletonIds) > 0 && count($baseProduct) > 0) {
+        } elseif (!empty($skeletonIds) && count($baseProduct) > 0) {
             $skeletonProductId = [];
             for ($i = 0; $i < count($skeletonIds); $i++) {
                 $skeletonProductId[] = $skeletonIds[$i]['o_id'];
@@ -378,19 +321,13 @@ class DefaultController extends FrontendController
             $productList->addConditionParam('o_parentId IN (:parent)', ['parent' => $skeletonProductId], 'AND');
         }
         $conditionArray[] = "printedCatalogFlag = '1' ";
-        // p_r($conditionArray);
-        // die;
-        $productList->setCondition(implode(' AND ', $conditionArray));
-//        $productList->setCondition('printedCatalogFlag = :print', ['print' => '1']);
 
-        //$productData = $productList->load();
-        // $classFields = array_keys($productData[0]->getClass()->getFieldDefinitions());
+        $productList->setCondition(implode(' AND ', $conditionArray));
+
         $bricksList['fert'] = [];
         $bricksList['skeleton'] = [];
         $bricksList['base'] = [];
         foreach ($siopCategory as $cat) {
-            // echo $cat."\n";
-
             $siopData = DataObject\ProductCategory::getById($cat);
 
             $allowedBricks = $siopData->getRelatedObjectBrick();
@@ -410,24 +347,13 @@ class DefaultController extends FrontendController
                     array_push($bricksList['base'], $baseBricks[$k]);
                 }
             }
-            // $bricksList['skeleton'] = $brickMappingService->getMappedBrickKeys($allowedBricks, 'skeleton');
-            //$bricksList['base'] = $brickMappingService->getMappedBrickKeys($allowedBricks, 'base');
         }
-
-
-        $brickFields = [];
-        /* foreach($bricksList as $brick)
-          {
-          $brickDefinition = DataObject\Objectbrick\Definition::getByKey($brick)->getFieldDefinitions();
-          $brickFields[$brick] = array_keys($brickDefinition);
-          } */
 
         $pData = [];
         $headers = [];
-        
+
         $printColumns = null;
-        if(isset($this->tableColumns[$template][$table]))
-        {
+        if (isset($this->tableColumns[$template][$table])) {
             $printColumns = $this->tableColumns[$template][$table];
         }
 
@@ -439,44 +365,37 @@ class DefaultController extends FrontendController
 
                     $numberOfDecimalPoints = "";
 
-                    if(isset($printColumns[$fieldName]['numberOfDecimalPoints']) && $printColumns[$fieldName]['numberOfDecimalPoints'])
-                    {
+                    if (isset($printColumns[$fieldName]['numberOfDecimalPoints']) && $printColumns[$fieldName]['numberOfDecimalPoints']) {
                         $numberOfDecimalPoints = $printColumns[$fieldName]['numberOfDecimalPoints'];
-                        $needUpdateValue = TRUE;
-                    }
-                    else{
-                        $needUpdateValue = FALSE;
+                        $needUpdateValue = true;
+                    } else {
+                        $needUpdateValue = false;
                     }
 
                     if ($printColumns[$fieldName]['fieldLevel'] == 'class' && strtolower($printColumns[$fieldName]['fieldType']) !== 'relation') {
                         $getter = 'get' . ucfirst($fieldName);
-                        if($item->$getter() !== null && !empty($item->$getter()))
-                        {
+                        if ($item->$getter() !== null && !empty($item->$getter())) {
                             $pData[$item->getId()][$fieldName] = $this->convertValueToDecimal($needUpdateValue, $item->$getter(), $numberOfDecimalPoints);
-                        }
-                        else
-                        {
+                        } else {
                             $pData[$item->getId()][$fieldName] = '';
                         }
-                    } else if ($printColumns[$fieldName]['fieldLevel'] == 'class' && strtolower($printColumns[$fieldName]['fieldType']) == 'relation') {
+                    } elseif ($printColumns[$fieldName]['fieldLevel'] == 'class' && strtolower($printColumns[$fieldName]['fieldType']) == 'relation') {
                         $dataValues = [];
                         $getter = 'get' . ucfirst($fieldName);
                         $value = $item->$getter();
-                        if($item->$getter() !== null)
-                        {
-                        $class = 'Pimcore\Model\DataObject\\' . $printColumns[$fieldName]['parent']['class']['name'] . '\\Listing';
-                        $classObj = new $class();
-                        $classObj->setCondition('o_id IN (?)', [$value]);
-                        $fieldGetter = 'get' . $printColumns[$fieldName]['parent']['class']['fieldName'];
+                        if ($item->$getter() !== null) {
+                            $class = 'Pimcore\Model\DataObject\\' . $printColumns[$fieldName]['parent']['class']['name'] . '\\Listing';
+                            $classObj = new $class();
+                            $classObj->setCondition('o_id IN (?)', [$value]);
+                            $fieldGetter = 'get' . $printColumns[$fieldName]['parent']['class']['fieldName'];
 
-                        foreach ($classObj as $obj) {
-                            array_push($dataValues, $obj->$fieldGetter());
-                        }
+                            foreach ($classObj as $obj) {
+                                array_push($dataValues, $obj->$fieldGetter());
+                            }
                         }
 
                         $pData[$item->getId()][$fieldName] = $this->convertValueToDecimal($needUpdateValue, $dataValues, $numberOfDecimalPoints);
-
-                    } else if ($printColumns[$fieldName]['fieldLevel'] == 'objectBrick' && in_array($printColumns[$fieldName]['parent']['name'], $bricksList['fert']) && strtolower($printColumns[$fieldName]['fieldType']) !== 'relation') {
+                    } elseif ($printColumns[$fieldName]['fieldLevel'] == 'objectBrick' && in_array($printColumns[$fieldName]['parent']['name'], $bricksList['fert']) && strtolower($printColumns[$fieldName]['fieldType']) !== 'relation') {
                         $brickGetter = 'get' . ucfirst($printColumns[$fieldName]['parent']['name']);
                         $getter = 'get' . ucfirst($fieldName);
                         if ($item->getFert()->$brickGetter() !== null) {
@@ -484,7 +403,7 @@ class DefaultController extends FrontendController
                         } else {
                             $pData[$item->getId()][$fieldName] = "";
                         }
-                    } else if ($printColumns[$fieldName]['fieldLevel'] == 'objectBrick' && in_array($printColumns[$fieldName]['parent']['name'], $bricksList['skeleton']) && strtolower($printColumns[$fieldName]['fieldType']) !== 'relation') {
+                    } elseif ($printColumns[$fieldName]['fieldLevel'] == 'objectBrick' && in_array($printColumns[$fieldName]['parent']['name'], $bricksList['skeleton']) && strtolower($printColumns[$fieldName]['fieldType']) !== 'relation') {
                         $brickGetter = 'get' . ucfirst($printColumns[$fieldName]['parent']['name']);
                         $getter = 'get' . ucfirst($fieldName);
                         if ($item->getSkeleton()->$brickGetter() != null) {
@@ -492,7 +411,7 @@ class DefaultController extends FrontendController
                         } else {
                             $pData[$item->getId()][$fieldName] = "";
                         }
-                    } else if ($printColumns[$fieldName]['fieldLevel'] == 'objectBrick' && in_array($printColumns[$fieldName]['parent']['name'], $bricksList['base']) && strtolower($printColumns[$fieldName]['fieldType']) !== 'relation') {
+                    } elseif ($printColumns[$fieldName]['fieldLevel'] == 'objectBrick' && in_array($printColumns[$fieldName]['parent']['name'], $bricksList['base']) && strtolower($printColumns[$fieldName]['fieldType']) !== 'relation') {
 
                         $brickGetter = 'get' . ucfirst($printColumns[$fieldName]['parent']['name']);
                         $getter = 'get' . ucfirst($fieldName);
@@ -501,7 +420,7 @@ class DefaultController extends FrontendController
                         } else {
                             $pData[$item->getId()][$fieldName] = '';
                         }
-                    } else if ($printColumns[$fieldName]['fieldLevel'] == 'objectBrick' && in_array($printColumns[$fieldName]['parent']['name'], $bricksList['fert']) && strtolower($printColumns[$fieldName]['fieldType']) == 'relation') {
+                    } elseif ($printColumns[$fieldName]['fieldLevel'] == 'objectBrick' && in_array($printColumns[$fieldName]['parent']['name'], $bricksList['fert']) && strtolower($printColumns[$fieldName]['fieldType']) == 'relation') {
                         $dataValues = [];
                         $brickGetter = 'get' . ucfirst($printColumns[$fieldName]['parent']['name']);
                         $getter = 'get' . ucfirst($fieldName);
@@ -517,11 +436,10 @@ class DefaultController extends FrontendController
                                 array_push($dataValues, $obj->$fieldGetter());
                             }
                             $pData[$item->getId()][$fieldName] = $this->convertValueToDecimal($needUpdateValue, $dataValues, $numberOfDecimalPoints);
-
                         } else {
                             $pData[$item->getId()][$fieldName] = '';
                         }
-                    } else if ($printColumns[$fieldName]['fieldLevel'] == 'objectBrick' && in_array($printColumns[$fieldName]['parent']['name'], $bricksList['skeleton']) && strtolower($printColumns[$fieldName]['fieldType']) == 'relation') {
+                    } elseif ($printColumns[$fieldName]['fieldLevel'] == 'objectBrick' && in_array($printColumns[$fieldName]['parent']['name'], $bricksList['skeleton']) && strtolower($printColumns[$fieldName]['fieldType']) == 'relation') {
                         $dataValues = [];
                         $brickGetter = 'get' . ucfirst($printColumns[$fieldName]['parent']['name']);
                         $getter = 'get' . ucfirst($fieldName);
@@ -540,7 +458,7 @@ class DefaultController extends FrontendController
                         } else {
                             $pData[$item->getId()][$fieldName] = '';
                         }
-                    } else if ($printColumns[$fieldName]['fieldLevel'] == 'objectBrick' && in_array($printColumns[$fieldName]['parent']['name'], $bricksList['base']) && strtolower($printColumns[$fieldName]['fieldType']) == 'relation') {
+                    } elseif ($printColumns[$fieldName]['fieldLevel'] == 'objectBrick' && in_array($printColumns[$fieldName]['parent']['name'], $bricksList['base']) && strtolower($printColumns[$fieldName]['fieldType']) == 'relation') {
                         $dataValues = [];
                         $brickGetter = 'get' . ucfirst($printColumns[$fieldName]['parent']['name']);
                         $getter = 'get' . ucfirst($fieldName);
@@ -564,70 +482,54 @@ class DefaultController extends FrontendController
                     }
                 }
             }
-            if($dynamicColumnsData && array_key_exists($template,$dynamicColumnsData))
-            {
+            if ($dynamicColumnsData && array_key_exists($template, $dynamicColumnsData)) {
                 foreach ($dynamicColumnsData[$template] as $dFieldKey => $dFieldName) {
 
                     $headers[$dFieldKey] = $dFieldName['fieldLabel'];
 
                     $numberOfDecimalPoints = "";
 
-                    if(isset($dFieldName['numberOfDecimalPoints']) && $dFieldName['numberOfDecimalPoints'])
-                    {
+                    if (isset($dFieldName['numberOfDecimalPoints']) && $dFieldName['numberOfDecimalPoints']) {
                         $numberOfDecimalPoints = $dFieldName['numberOfDecimalPoints'];
-                        $needUpdateValue = TRUE;
-                    }
-                    else{
-                        $needUpdateValue = FALSE;
+                        $needUpdateValue = true;
+                    } else {
+                        $needUpdateValue = false;
                     }
 
 
                     if ($dFieldName['fieldLevel'] == 'class' && strtolower($dFieldName['fieldType']) != 'relation' && $dFieldName['fieldType'] != 'Media') {
                         $getter = 'get' . ucfirst($dFieldKey);
-                        if($item->$getter() !== null && !empty($item->$getter()))
-                        {
-                        $pData[$item->getId()][$dFieldKey] = $this->convertValueToDecimal($needUpdateValue, $item->$getter(), $numberOfDecimalPoints);
+                        if ($item->$getter() !== null && !empty($item->$getter())) {
+                            $pData[$item->getId()][$dFieldKey] = $this->convertValueToDecimal($needUpdateValue, $item->$getter(), $numberOfDecimalPoints);
+                        } else {
+                            $pData[$item->getId()][$dFieldKey] = '';
                         }
-                        else
-                        {
-                        $pData[$item->getId()][$dFieldKey] = '';
-                        }
-                    } else if ($dFieldName['fieldLevel'] == 'class' && $dFieldName['fieldType'] == 'Media') {
+                    } elseif ($dFieldName['fieldLevel'] == 'class' && $dFieldName['fieldType'] == 'Media') {
                         $getter = 'get' . ucfirst($dFieldKey);
-                    // p_r($item->$getter());
+
                         if ($item->$getter() !== null) {
                             $pData[$item->getId()][$dFieldKey] = $item->$getter()->getPath() . $item->$getter()->getFileName();
                         } else {
                             $pData[$item->getId()][$dFieldKey] = '';
                         }
-                    } else if ($dFieldName['fieldLevel'] == 'class' && strtolower($dFieldName['fieldType']) == 'relation') {
+                    } elseif ($dFieldName['fieldLevel'] == 'class' && strtolower($dFieldName['fieldType']) == 'relation') {
 
                         $dataValues = [];
                         $getter = 'get' . ucfirst($dFieldKey);
-                        if($item->$getter() !== null)
-                        {
-                        $value = $item->$getter();
+                        if ($item->$getter() !== null) {
+                            $value = $item->$getter();
 
-                        $class = 'Pimcore\Model\DataObject\\' . $dFieldName['parent']['class']['name'] . '\\Listing';
-                        $classObj = new $class();
-                        $classObj->setCondition('o_id IN (?)', [$value]);
-                        $fieldGetter = 'get' . $dFieldName['parent']['class']['fieldName'];
-                        // p_r($dFieldKey);
-                        foreach ($classObj as $obj) {
-                            array_push($dataValues, $obj->$fieldGetter());
-                        }
+                            $class = 'Pimcore\Model\DataObject\\' . $dFieldName['parent']['class']['name'] . '\\Listing';
+                            $classObj = new $class();
+                            $classObj->setCondition('o_id IN (?)', [$value]);
+                            $fieldGetter = 'get' . $dFieldName['parent']['class']['fieldName'];
+                            foreach ($classObj as $obj) {
+                                array_push($dataValues, $obj->$fieldGetter());
+                            }
                         }
 
-                        // if(in_array($dFieldKey,['brandName', 'FeaturesBenefitsBulletPoint', 'Color']))
-                        // {
-                        //     $pData[$item->getId()][$dFieldKey] = implode('||',$dataValues);
-                        // }
-                        // else
-                        // {
                         $pData[$item->getId()][$dFieldKey] = $this->convertValueToDecimal($needUpdateValue, $dataValues, $numberOfDecimalPoints);
-                        // }
-
-                    } else if ($dFieldName['fieldLevel'] == 'objectBrick' && in_array($dFieldName['parent']['name'], $bricksList['fert']) && strtolower($dFieldName['fieldType']) != 'relation') {
+                    } elseif ($dFieldName['fieldLevel'] == 'objectBrick' && in_array($dFieldName['parent']['name'], $bricksList['fert']) && strtolower($dFieldName['fieldType']) != 'relation') {
                         $brickGetter = 'get' . ucfirst($dFieldName['parent']['name']);
                         $getter = 'get' . ucfirst($dFieldKey);
                         if ($item->getFert()->$brickGetter() !== null) {
@@ -635,7 +537,7 @@ class DefaultController extends FrontendController
                         } else {
                             $pData[$item->getId()][$dFieldKey] = '';
                         }
-                    } else if ($dFieldName['fieldLevel'] == 'objectBrick' && in_array($dFieldName['parent']['name'], $bricksList['skeleton']) && strtolower($dFieldName['fieldType']) != 'relation') {
+                    } elseif ($dFieldName['fieldLevel'] == 'objectBrick' && in_array($dFieldName['parent']['name'], $bricksList['skeleton']) && strtolower($dFieldName['fieldType']) != 'relation') {
                         $brickGetter = 'get' . ucfirst($dFieldName['parent']['name']);
                         $getter = 'get' . ucfirst($dFieldKey);
                         if ($item->getSkeleton()->$brickGetter() !== null) {
@@ -643,7 +545,7 @@ class DefaultController extends FrontendController
                         } else {
                             $pData[$item->getId()][$dFieldKey] = '';
                         }
-                    } else if ($dFieldName['fieldLevel'] == 'objectBrick' && in_array($dFieldName['parent']['name'], $bricksList['base']) && strtolower($dFieldName['fieldType']) != 'relation') {
+                    } elseif ($dFieldName['fieldLevel'] == 'objectBrick' && in_array($dFieldName['parent']['name'], $bricksList['base']) && strtolower($dFieldName['fieldType']) != 'relation') {
                         $brickGetter = 'get' . ucfirst($dFieldName['parent']['name']);
                         $getter = 'get' . ucfirst($dFieldKey);
                         if ($item->getBase()->$brickGetter()) {
@@ -651,7 +553,7 @@ class DefaultController extends FrontendController
                         } else {
                             $pData[$item->getId()][$dFieldKey] = '';
                         }
-                    } else if ($dFieldName['fieldLevel'] == 'objectBrick' && in_array($dFieldName['parent']['name'], $bricksList['fert']) && strtolower($dFieldName['fieldType']) == 'relation') {
+                    } elseif ($dFieldName['fieldLevel'] == 'objectBrick' && in_array($dFieldName['parent']['name'], $bricksList['fert']) && strtolower($dFieldName['fieldType']) == 'relation') {
                         $dataValues = [];
                         $brickGetter = 'get' . ucfirst($dFieldName['parent']['name']);
                         $getter = 'get' . ucfirst($dFieldKey);
@@ -670,7 +572,7 @@ class DefaultController extends FrontendController
                         } else {
                             $pData[$item->getId()][$dFieldKey] = '';
                         }
-                    } else if ($dFieldName['fieldLevel'] == 'objectBrick' && in_array($dFieldName['parent']['name'], $bricksList['skeleton']) && strtolower($dFieldName['fieldType']) == 'relation') {
+                    } elseif ($dFieldName['fieldLevel'] == 'objectBrick' && in_array($dFieldName['parent']['name'], $bricksList['skeleton']) && strtolower($dFieldName['fieldType']) == 'relation') {
                         $dataValues = [];
                         $brickGetter = 'get' . ucfirst($dFieldName['parent']['name']);
                         $getter = 'get' . ucfirst($dFieldKey);
@@ -689,7 +591,7 @@ class DefaultController extends FrontendController
                         } else {
                             $pData[$item->getId()][$dFieldKey] = '';
                         }
-                    } else if ($dFieldName['fieldLevel'] == 'objectBrick' && in_array($dFieldName['parent']['name'], $bricksList['base']) && strtolower($dFieldName['fieldType']) == 'relation') {
+                    } elseif ($dFieldName['fieldLevel'] == 'objectBrick' && in_array($dFieldName['parent']['name'], $bricksList['base']) && strtolower($dFieldName['fieldType']) == 'relation') {
                         $dataValues = [];
                         $brickGetter = 'get' . ucfirst($dFieldName['parent']['name']);
                         $getter = 'get' . ucfirst($dFieldKey);
@@ -717,36 +619,49 @@ class DefaultController extends FrontendController
 
         $columnData = array();
 
-        foreach ($headers as $key => $value) {
-            $columnData[] = array('xtype' => 'gridcolumn', 'name' => $value, 'Text' => $value, 'header' => $value, 'dataIndex' => $value, 'flex' => 1);
+        foreach ($headers as $value) {
+            $columnData[] = array(
+                'xtype' => 'gridcolumn',
+                'name' => $value,
+                'Text' => $value,
+                'header' => $value,
+                'dataIndex' => $value,
+                'flex' => 1
+            );
         }
-
 
         $articleData = [];
         $i = 0;
 
-        foreach ($pData as $id => $value) {
+        foreach ($pData as $value) {
             $array = [];
-            foreach ($value as $key => $data) {
+            foreach ($value as $data) {
                 array_push($array, $data);
             }
             array_push($articleData, $array);
         }
 
+        $arr = array(
+            'brandData' => [],
+            'columnData' => $columnData,
+            'fieldData' => $headers,
+            'articlesData' => $pData,
+            'data' => $articleData,
+            'headerData' => json_encode($headers)
+        );
 
-        $arr = array('brandData' => [], 'columnData' => $columnData, 'fieldData' => $headers, 'articlesData' => $pData, 'data' => $articleData, 'headerData' => json_encode($headers));
-        echo json_encode($arr);
-        die;
+        return $this->json($arr);
     }
 
-    public function convertValueToDecimal($needUpdateValue, $value, $numberOfDecimalPoints)
+    public function convertValueToDecimal($needUpdateValue, $value, $numberOfDecimalPoints): mixed
     {
-        if(is_array($value))
-            $fieldValue = implode('||',$value);
-        else if($needUpdateValue && $value && is_numeric($value))
+        if (is_array($value)) {
+            $fieldValue = implode('||', $value);
+        } elseif ($needUpdateValue && $value && is_numeric($value)) {
             $fieldValue = number_format($value, $numberOfDecimalPoints);
-        else
+        } else {
             $fieldValue = $value;
+        }
 
         return $fieldValue;
     }
@@ -755,45 +670,58 @@ class DefaultController extends FrontendController
     /**
      * @Route("/catalog/get-initial-data")
      */
-    public function getInitialData(Request $request) {
-
+    public function getInitialData(Request $request): Response
+    {
         $objId = $request->get('objId');
         $data = DataObject\CatalogTables::getById($objId);
         $tableData = $data->getProductsData();
         $fieldData = json_decode($data->getHeaderData(), 1);
 
         $columnData = array();
-        if($fieldData !== null)
-        {
-        foreach ($fieldData as $key => $value) {
-            $columnData[] = array('xtype' => 'gridcolumn', 'name' => $value, 'Text' => $value, 'header' => $value, 'dataIndex' => $value, 'flex' => 1);
+        if ($fieldData !== null) {
+            foreach ($fieldData as $value) {
+                $columnData[] = array(
+                    'xtype' => 'gridcolumn',
+                    'name' => $value,
+                    'Text' => $value,
+                    'header' => $value,
+                    'dataIndex' => $value,
+                    'flex' => 1
+                );
+            }
         }
 
-        }
-        $arr = array('brandData' => [], 'columnData' => $columnData, 'fieldData' => $fieldData, 'data' => $tableData);
-        echo json_encode($arr);
-        die;
+        $data = array(
+            'brandData' => [],
+            'columnData' => $columnData,
+            'fieldData' => $fieldData,
+            'data' => $tableData
+        );
+
+        return $this->json($data);
     }
 
-    public function getTableColumns() {
+    public function getTableColumns(): void
+    {
         $commonHelper = $this->containerInterface->get('app.common_helper');
 
         $tableColumnsConfig = $this->containerInterface->get('app.config_provider_service')->getCatalogTableColumnConfig();
         $this->tableColumns = $commonHelper->getParameter($tableColumnsConfig, 'tableColumns');
     }
 
-    public function getDynamicColumns() {
+    public function getDynamicColumns(): ?array
+    {
         $commonHelper = $this->containerInterface->get('app.common_helper');
 
         $tableColumnsConfig = $this->containerInterface->get('app.config_provider_service')->getCatalogTableDynamicColumnConfig();
         return $commonHelper->getParameter($tableColumnsConfig, 'headers');
     }
 
-    public function templateHoseLineTileTemplateAction(Request $request)
+    public function templateHoseLineTileTemplateAction(Request $request): Response
     {
         $commonHelper = $this->containerInterface->get('app.common_helper');
         $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
-        $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
+        $catalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
         $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
         if ($this->document->getEditable('tiletemplate')->getElement()) {
             $id = $this->document->getEditable('tiletemplate')->getId();
@@ -802,16 +730,11 @@ class DefaultController extends FrontendController
             $footerBgColor = $obj->getColor();
             $data = array();
             $blockDes = "";
-            $blockDesId = "";
             $headers = (array)json_decode($obj->getHeaderData());
             $headerKeys = array_keys($headers);
             $productsData = array();
-            $baseIdArr = array();
             $fertId = array();
             $images = array();
-
-            $onlyOnce = true;
-            
 
             $brandsList = $this->getBrandsList();
 
@@ -821,24 +744,17 @@ class DefaultController extends FrontendController
                 }
                 foreach ($productsData as $k => $row) {
                     $oldMaterialCode = $row['oldMaterialCode'];
-                    if(empty($oldMaterialCode) || $oldMaterialCode=="N/A" || strlen($oldMaterialCode)<14 || (is_array($row['brandName']) && empty($row['brandName']))) {
+                    if (empty($oldMaterialCode) || $oldMaterialCode == "N/A" || strlen($oldMaterialCode) < 14 || (is_array($row['brandName']) && empty($row['brandName']))) {
                         continue;
                     }
-
 
                     $baseId = substr($oldMaterialCode, 0, 6);
                     if (!isset($data[$baseId])) {
                         $data[$baseId] = array();
                         $fertId[$baseId] = $row['id'];
                         $images[$baseId] = $row['mainImage'];
-
-                        if($onlyOnce)
-                        {   
-                            $blockDesId = $row['id'];
-                            $onlyOnce = false;
-                        }    
-
                     }
+
                     if (isset($data[$baseId]) && empty($data[$baseId])) {
                         $data[$baseId]['brandName'] = isset($data[$baseId]['brandName']) && !empty($data[$baseId]['brandName']) ? $data[$baseId]['brandName'] : $row['brandName'];
                         $data[$baseId]['industryStandard'] = isset($data[$baseId]['industryStandard']) && !empty($data[$baseId]['industryStandard']) ? $data[$baseId]['industryStandard'] : $row['industryStandard'];
@@ -847,17 +763,16 @@ class DefaultController extends FrontendController
                         $data[$baseId]['BrandShortText'][2] = isset($data[$baseId]['BrandShortText3'][2]) && !empty($data[$baseId]['BrandShortText3'][2]) ? $data[$baseId]['BrandShortText3'][2] : $row['BrandShortText3'];
                         $data[$baseId]['BrandShortText'][3] = isset($data[$baseId]['BrandShortText4'][3]) && !empty($data[$baseId]['BrandShortText4'][3]) ? $data[$baseId]['BrandShortText4'][3] : $row['BrandShortText4'];
                         $data[$baseId]['BrandShortText'][4] = isset($data[$baseId]['BrandShortText5'][4]) && !empty($data[$baseId]['BrandShortText5'][4]) ? $data[$baseId]['BrandShortText5'][4] : $row['BrandShortText5'];
-                        $data[$baseId]['mainImage'] = isset($row['mainImage'])&&!empty($row['mainImage']) ? \Pimcore\Model\Asset::getByPath($row['mainImage']) : null;
+                        $data[$baseId]['mainImage'] = isset($row['mainImage']) && !empty($row['mainImage']) ? \Pimcore\Model\Asset::getByPath($row['mainImage']) : null;
                         $data[$baseId]['SortOrder'] = $brandsList[$data[$baseId]['brandName']];
 
                         if (!isset($data[$baseId]['featureIcon']) && !empty($row['FeaturesBenefitsBulletPoint'])) {
-                            
+
                             $features = null;
-                            if(!is_array($row['FeaturesBenefitsBulletPoint']))
-                            {
+                            if (!is_array($row['FeaturesBenefitsBulletPoint'])) {
                                 $features = explode('||', $row['FeaturesBenefitsBulletPoint']);
                             }
-                            
+
                             $featureObj = null;
 
                             if (is_array($features) && !empty($features)) {
@@ -869,14 +784,15 @@ class DefaultController extends FrontendController
                                     );
                                 }
                             }
-                            unset($baseObj,
-                            $features,
-                            $featureObj);
+                            unset(
+                                $baseObj,
+                                $features,
+                                $featureObj
+                            );
                         }
                     }
 
-                    if(isset($data[$baseId])) 
-                    { 
+                    if (isset($data[$baseId])) {
                         $data[$baseId]['HoseIDNominalIDFrac'][] = isset($data[$baseId]['HoseIDNominalIDFrac'][$k]) && !empty($data[$baseId]['HoseIDNominalIDFrac'][$k]) ? $data[$baseId]['HoseIDNominalIDFrac'][$k] : $row['HoseIDNominalIDFrac'];
                         $data[$baseId]['hoseIdDec'][] = isset($data[$baseId]['hoseIdDec'][$k]) && !empty($data[$baseId]['hoseIdDec'][$k]) ? $data[$baseId]['hoseIdDec'][$k] : $row['hoseIdDec'];
                     }
@@ -901,72 +817,49 @@ class DefaultController extends FrontendController
                         }
 
                         $data[$baseId]['range'] = $range;
-
                     }
-                    /* if($k < 10) {
-                        p_r($data);
-                        $k++;
-                        continue;
-                    }
-                    die; */
                 }
-                // p_r($data);
-                // p_r($images);die;
 
-                if($data)
-                    array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
+                if ($data) {
+                    array_multisort(array_column($data, 'SortOrder'), SORT_ASC, $data);
+                }
 
-                // p_r($data);die;
-
-                $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
+                $footer_logo_src = (strtolower($footerBgColor) == 'orange') ? $catalogImagesHYDFooter['Black'] : $catalogImagesHYDFooter['Orange'];
                 $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
                 $parameterBag['info'] = array(
-                    // 'brandsInfo' => [$data[0],$data[1], $data[13], $data[28]],
                     'brandsInfo' => $data,
                     'blockDes' => $blockDes,
-                    'footer_class' => (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'',
-                    'footer_logo_src' => (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange']
-
-                    /* 'headerTitle' => $obj->getProperty('headerTitle'),
-                    'footer' => array(
-                        'footerTitle' => $obj->getProperty('footerTitle'),
-                        'footerContent' => $obj->getProperty('footerContent'),
-                        'footerLogo' => $obj->getProperty('footerLogo')
-                    ) */
+                    'footer_class' => (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '',
+                    'footer_logo_src' => (strtolower($footerBgColor) == 'orange') ? $catalogImagesHYDFooter['Black'] : $catalogImagesHYDFooter['Orange']
                 );
             }
         }
-        // p_r($parameterBag);
         return $this->render("@Catalog/Default/template_hose_line_tile_template.html.twig", $parameterBag);
     }
 
-
-    public function templateHoseProductPageAction(Request $request)
+    public function templateHoseProductPageAction(Request $request): Response
     {
-        $containerRequest = $request->get('containerRequest') ? $request->get('containerRequest') : FALSE;
         $template = $this->document->getEditable('inh_template_hose_product_page')->getElement();
         $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
 
-        if($template)
-        {
+        if ($template) {
             $commonHelper = $this->containerInterface->get('app.common_helper');
 
             $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
             $this->attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
-            $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
-            $CatalogImagesHYDProduct = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDProduct');
+            $catalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
+            $catalogImagesHYDProduct = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDProduct');
 
             $catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());
             $catalogObj = DataObject\Catalog::getById($catalogCategoryObj->getParentId());
-            $CatalogLanguage = $catalogObj->getCatalogLanguage();
+            $catalogLanguage = $catalogObj->getCatalogLanguage();
 
             $footerBgColor = $template->getColor();
             $productsData = $template->getProductsData();
             $headerData = json_decode($template->getHeaderData(), true);
 
-            if($productsData && $headerData)
-            {
+            if ($productsData && $headerData) {
                 $headerKeys = array_keys($headerData);
                 $headerKeysIndex = array_flip($headerKeys);
                 $objColumnsData = $template->getColumns();
@@ -974,59 +867,49 @@ class DefaultController extends FrontendController
                 $this->subHeaderRequired = 'NO';
                 $this->columnsData = json_decode($objColumnsData, true);
 
-                // $this->translatorInterface->setLocale($CatalogLanguage);
-
-                $columnsDataWithImages = $this->getColumnHeadersForCatalog(FALSE, []);
+                $columnsDataWithImages = $this->getColumnHeadersForCatalog(false, []);
 
                 unset($objColumnsData);
-                //unset($this->columnsData);
-                //unset($this->attributeImages);
 
                 // Getting order of the keys
                 $orderKeys = array();
-                foreach ($columnsDataWithImages as $skey => $svalue) {
-                    foreach ($svalue as $vkey => $vvalue) {
-                        if($vvalue['columnName'] && isset($headerKeysIndex[$vvalue['columnName']]))
-                        {
+                foreach ($columnsDataWithImages as $svalue) {
+                    foreach ($svalue as $vvalue) {
+                        if ($vvalue['columnName'] && isset($headerKeysIndex[$vvalue['columnName']])) {
                             $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
                         }
                     }
                 }
 
                 $brandsList = $this->getBrandsList();
-                $this->featuresList = $this->getFeaturesList('', $CatalogLanguage);
+                $this->featuresList = $this->getFeaturesList($catalogLanguage);
 
-                $standardMetHoseList = $this->getStandardMetHoseList('INH-HYD-HOSE~standardMetHose', $CatalogLanguage);
+                $standardMetHoseList = $this->getStandardMetHoseList('INH-HYD-HOSE~standardMetHose', $catalogLanguage);
 
                 $catalogGrouping = array();
 
                 foreach ($productsData as $key => $item) {
-                    // $productsDataWithHeaders = array_combine($headerKeys, $item);
-
-                    if(!empty(trim($item[$headerKeysIndex['CatalogGrouping']])) && !empty(trim($item[$headerKeysIndex['brandName']])))
-                    {
+                    if (!empty(trim($item[$headerKeysIndex['CatalogGrouping']])) && !empty(trim($item[$headerKeysIndex['brandName']]))) {
                         $catalogGrouping[$item[$headerKeysIndex['CatalogGrouping']]][$item[$headerKeysIndex['brandName']]][] = $item;
                     }
                 }
 
-                foreach($catalogGrouping as $catalogKey => $brandsData)
-                {
-                    foreach ($brandsData as $brandKey => $brandArray)
-                    {
+                foreach ($catalogGrouping as $catalogKey => $brandsData) {
+                    foreach ($brandsData as $brandKey => $brandArray) {
                         $uniqueId = md5($brandKey);
                         $reinforcementStr = '';
-                        $VirtualCatalogCoverMaterialStr = '';
-                        $VirtualCatalogTubeMaterialStr = '';
+                        $virtualCatalogCoverMaterialStr = '';
+                        $virtualCatalogTubeMaterialStr = '';
                         $tubeMaterialAtrributeString = '';
                         $coverMaterialattributeString = '';
-                        $LeftPrintCatalogImageObj = '';
-                        $RightPrintCatalogImageObj = '';
+                        $leftPrintCatalogImageObj = '';
+                        $rightPrintCatalogImageObj = '';
                         $longDescription = '';
-                        $BrandingLayline = '';
+                        $brandingLayline = '';
                         $temperatureRangeFAndC = '';
-                        $VirtualCatalogTubeMaterial = '';
-                        $VirtualCatalogCoverMaterial = '';
-                        $VirtualCatalogReinforcement = '';
+                        $virtualCatalogTubeMaterial = '';
+                        $virtualCatalogCoverMaterial = '';
+                        $virtualCatalogReinforcement = '';
                         $brandName = '';
 
                         $standardsMetHose = array();
@@ -1038,128 +921,116 @@ class DefaultController extends FrontendController
                         $safetyFeatures = array();
                         $articlesData = array();
 
-                        foreach($brandArray as $key => $element):
+                        foreach ($brandArray as $key => $element) :
 
                             $brandName = $element[$headerKeysIndex['brandName']];
 
-                            if(empty($VirtualCatalogTubeMaterial) && $element[$headerKeysIndex['VirtualCatalogTubeMaterial']])
-                                $VirtualCatalogTubeMaterial = $element[$headerKeysIndex['VirtualCatalogTubeMaterial']];
+                            if (empty($virtualCatalogTubeMaterial) && $element[$headerKeysIndex['VirtualCatalogTubeMaterial']]) {
+                                $virtualCatalogTubeMaterial = $element[$headerKeysIndex['VirtualCatalogTubeMaterial']];
+                            }
 
-                            if(empty($VirtualCatalogCoverMaterial) && $element[$headerKeysIndex['VirtualCatalogCoverMaterial']])
-                                $VirtualCatalogCoverMaterial = $element[$headerKeysIndex['VirtualCatalogCoverMaterial']];
+                            if (empty($virtualCatalogCoverMaterial) && $element[$headerKeysIndex['VirtualCatalogCoverMaterial']]) {
+                                $virtualCatalogCoverMaterial = $element[$headerKeysIndex['VirtualCatalogCoverMaterial']];
+                            }
 
-                            if(empty($VirtualCatalogReinforcement) && $element[$headerKeysIndex['VirtualCatalogReinforcement']])
-                                $VirtualCatalogReinforcement = $element[$headerKeysIndex['VirtualCatalogReinforcement']];
+                            if (empty($virtualCatalogReinforcement) && $element[$headerKeysIndex['VirtualCatalogReinforcement']]) {
+                                $virtualCatalogReinforcement = $element[$headerKeysIndex['VirtualCatalogReinforcement']];
+                            }
 
-                            if(empty($temperatureRangeFAndC) && $element[$headerKeysIndex['temperatureRangeFAndC']])
+                            if (empty($temperatureRangeFAndC) && $element[$headerKeysIndex['temperatureRangeFAndC']]) {
                                 $temperatureRangeFAndC = $element[$headerKeysIndex['temperatureRangeFAndC']];
+                            }
 
-                            if(empty($longDescription) && $element[$headerKeysIndex['longDescription']])
+                            if (empty($longDescription) && $element[$headerKeysIndex['longDescription']]) {
                                 $longDescription = $element[$headerKeysIndex['longDescription']];
+                            }
 
-                            if(empty($BrandingLayline) && $element[$headerKeysIndex['BrandingLayline']])
-                                $BrandingLayline = $element[$headerKeysIndex['BrandingLayline']];
+                            if (empty($brandingLayline) && $element[$headerKeysIndex['BrandingLayline']]) {
+                                $brandingLayline = $element[$headerKeysIndex['BrandingLayline']];
+                            }
 
-                            $LeftPrintCatalogImage = $element[$headerKeysIndex['LeftPrintCatalogImage']];
-                            if(empty($LeftPrintCatalogImageObj) && $LeftPrintCatalogImage)
-                                $LeftPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($LeftPrintCatalogImage);
+                            $leftPrintCatalogImage = $element[$headerKeysIndex['LeftPrintCatalogImage']];
+                            if (empty($leftPrintCatalogImageObj) && $leftPrintCatalogImage) {
+                                $leftPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($leftPrintCatalogImage);
+                            }
 
-                            $RightPrintCatalogImage = $element[$headerKeysIndex['RightPrintCatalogImage']];
-                            if(empty($RightPrintCatalogImageObj) && $RightPrintCatalogImage)
-                                $RightPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($RightPrintCatalogImage);
+                            $rightPrintCatalogImage = $element[$headerKeysIndex['RightPrintCatalogImage']];
+                            if (empty($rightPrintCatalogImageObj) && $rightPrintCatalogImage) {
+                                $rightPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($rightPrintCatalogImage);
+                            }
 
-                            foreach($element as $bkey => $value):
+                            foreach ($element as $bkey => $value) :
 
-                                    if($bkey == $headerKeysIndex['standardMetHose'])
-                                    {
-                                        if(!is_array($value))
-                                        {
-                                            $value = explode('||', $value);
-                                        }
-
-                                        if($value && count($value)>0)
-                                        {
-                                            foreach ($value as $standardMetHosekey => $standardMetHoseValue) {
-                                                array_push($standardsMetHose,$standardMetHoseValue);
-                                            }
-                                        }
-                                    }
-                                    if($bkey == $headerKeysIndex['tubeMaterial'])
-                                    {
-                                        if(!is_array($value))
-                                        {
-                                            $value = explode('||', $value);
-                                        }
-                                        $tubeMaterial = array_merge($tubeMaterial, $value);
+                                if ($bkey == $headerKeysIndex['standardMetHose']) {
+                                    if (!is_array($value)) {
+                                        $value = explode('||', $value);
                                     }
 
-                                    if($bkey == $headerKeysIndex['tubeColor'])
-                                    {
-                                        if(!is_array($value))
-                                        {
-                                            $value = explode('||', $value);
-                                        }
-                                        $tubeAttribute = array_merge($tubeAttribute, $value);
-                                    }
-
-                                    if($bkey == $headerKeysIndex['reinforcement'])
-                                    {
-                                        if(!is_array($value))
-                                        {
-                                            $value = explode('||', $value);
-                                        }
-                                        $reinforcement = array_merge($reinforcement, $value);
-                                    }
-
-                                    if($bkey == $headerKeysIndex['coverColor'])
-                                    {
-                                        if(!is_array($value))
-                                        {
-                                            $value = explode('||', $value);
-                                        }
-                                        $coverAttribute = array_merge($coverAttribute, $value);
-                                    }
-
-                                    if($bkey == $headerKeysIndex['coverMaterial'])
-                                    {
-                                        if(!is_array($value))
-                                        {
-                                            $value = explode('||', $value);
-                                        }
-                                        $coverMaterial = array_merge($coverMaterial, $value);
-                                    }
-
-                                    if($bkey == $headerKeysIndex['FeaturesBenefitsBulletPoint'])
-                                    {
-                                        if(!is_array($value))
-                                        {
-                                            $value = explode('||', $value);
-                                        }
-
-                                        if(count($value)>0)
-                                        {
-                                            foreach ($value as $fkey => $feature) {
-                                                array_push($safetyFeatures,$feature);
-                                            }
+                                    if ($value && count($value) > 0) {
+                                        foreach ($value as $standardMetHoseValue) {
+                                            array_push($standardsMetHose, $standardMetHoseValue);
                                         }
                                     }
+                                }
+                                if ($bkey == $headerKeysIndex['tubeMaterial']) {
+                                    if (!is_array($value)) {
+                                        $value = explode('||', $value);
+                                    }
+                                    $tubeMaterial = array_merge($tubeMaterial, $value);
+                                }
+
+                                if ($bkey == $headerKeysIndex['tubeColor']) {
+                                    if (!is_array($value)) {
+                                        $value = explode('||', $value);
+                                    }
+                                    $tubeAttribute = array_merge($tubeAttribute, $value);
+                                }
+
+                                if ($bkey == $headerKeysIndex['reinforcement']) {
+                                    if (!is_array($value)) {
+                                        $value = explode('||', $value);
+                                    }
+                                    $reinforcement = array_merge($reinforcement, $value);
+                                }
+
+                                if ($bkey == $headerKeysIndex['coverColor']) {
+                                    if (!is_array($value)) {
+                                        $value = explode('||', $value);
+                                    }
+                                    $coverAttribute = array_merge($coverAttribute, $value);
+                                }
+
+                                if ($bkey == $headerKeysIndex['coverMaterial']) {
+                                    if (!is_array($value)) {
+                                        $value = explode('||', $value);
+                                    }
+                                    $coverMaterial = array_merge($coverMaterial, $value);
+                                }
+
+                                if ($bkey == $headerKeysIndex['FeaturesBenefitsBulletPoint']) {
+                                    if (!is_array($value)) {
+                                        $value = explode('||', $value);
+                                    }
+
+                                    if (count($value) > 0) {
+                                        foreach ($value as $feature) {
+                                            array_push($safetyFeatures, $feature);
+                                        }
+                                    }
+                                }
 
                             endforeach;
 
                             foreach ($orderKeys as $ckey => $cvalue) {
-                                if($ckey == 'HoseFittingFamily')
-                                {
-                                    $HoseFittingFamilyArr = [];
-                                    if(!is_array($element[$headerKeysIndex[$ckey]]))
-                                    {
-                                        $HoseFittingFamilyArr = explode('||', $element[$headerKeysIndex[$ckey]]);
+                                if ($ckey == 'HoseFittingFamily') {
+                                    $hoseFittingFamilyArr = [];
+                                    if (!is_array($element[$headerKeysIndex[$ckey]])) {
+                                        $hoseFittingFamilyArr = explode('||', $element[$headerKeysIndex[$ckey]]);
                                     }
-                                    $articlesData[$key][] = ($HoseFittingFamilyArr)? implode(',',($HoseFittingFamilyArr)): '';
-                                }
-                                else
-                                {
-                                    if($ckey == 'workingPressurePSI'){
-                                        $workingPressureValueArray = explode('.',$element[$headerKeysIndex[$ckey]]);
+                                    $articlesData[$key][] = ($hoseFittingFamilyArr) ? implode(',', ($hoseFittingFamilyArr)) : '';
+                                } else {
+                                    if ($ckey == 'workingPressurePSI') {
+                                        $workingPressureValueArray = explode('.', $element[$headerKeysIndex[$ckey]]);
                                         $element[$headerKeysIndex[$ckey]] = $workingPressureValueArray[0];
                                     }
                                     $articlesData[$key][] = $element[$headerKeysIndex[$ckey]];
@@ -1179,29 +1050,22 @@ class DefaultController extends FrontendController
 
                         $standardMetHoseListData = array();
                         $standardMetHoseMeetFlameResistence = array();
-                        if($standardsMetHose)
-                        {
-                            foreach ($standardsMetHose as $fkey => $fvalue) {
-                                if(isset($standardMetHoseList[$fvalue]))
-                                {
+                        if ($standardsMetHose) {
+                            foreach ($standardsMetHose as $fvalue) {
+                                if (isset($standardMetHoseList[$fvalue])) {
                                     $hoseMetKey = $standardMetHoseList[$fvalue]['key'];
                                     $lowercaseHoseMetKey = strtolower($hoseMetKey);
 
-                                    if ((strpos($lowercaseHoseMetKey, 'flame') !== false) || (strpos($lowercaseHoseMetKey, 'usmsha') !== false) || (strpos($lowercaseHoseMetKey, 'msha') !== false))
-                                    {
+                                    if ((strpos($lowercaseHoseMetKey, 'flame') !== false) || (strpos($lowercaseHoseMetKey, 'usmsha') !== false) || (strpos($lowercaseHoseMetKey, 'msha') !== false)) {
                                         $standardMetHoseMeetFlameResistence[$hoseMetKey]['name'] = $standardMetHoseList[$fvalue]['name'];
                                         $standardMetHoseMeetFlameResistence[$hoseMetKey]['CustomerFacingVersion'] = 'Meets Flame Resistance';
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         $standardMetHoseListData[$hoseMetKey]['name'] = $standardMetHoseList[$fvalue]['name'];
                                         $standardMetHoseListData[$hoseMetKey]['CustomerFacingVersion'] = $standardMetHoseList[$fvalue]['CustomerFacingVersion'];
                                     }
                                 }
                             }
                         }
-
-
 
                         $tubeMaterialAtrributeArr = array_merge($tubeMaterial, $tubeAttribute);
                         $coverMaterialattributeArr = array_merge($coverAttribute, $coverMaterial);
@@ -1211,17 +1075,21 @@ class DefaultController extends FrontendController
 
                         $reinforcement = implode(', ', $reinforcement);
 
-                        $VirtualCatalogTubeMaterialStr = strip_tags($VirtualCatalogTubeMaterial, "<ul><li><span><strong>");
-                        if(empty($VirtualCatalogTubeMaterialStr))
-                            $VirtualCatalogTubeMaterialStr = $tubeMaterialAtrributeString;
+                        $virtualCatalogTubeMaterialStr = strip_tags($virtualCatalogTubeMaterial, "<ul><li><span><strong>");
+                        if (empty($virtualCatalogTubeMaterialStr)) {
+                            $virtualCatalogTubeMaterialStr = $tubeMaterialAtrributeString;
+                        }
 
-                        $VirtualCatalogCoverMaterialStr = strip_tags($VirtualCatalogCoverMaterial, "<ul><li><span><strong>");
-                            if(empty($VirtualCatalogCoverMaterialStr))
-                                $VirtualCatalogCoverMaterialStr = $coverMaterialattributeString;
+                        $virtualCatalogCoverMaterialStr = strip_tags($virtualCatalogCoverMaterial, "<ul><li><span><strong>");
+                        if (empty($virtualCatalogCoverMaterialStr)) {
+                            $virtualCatalogCoverMaterialStr = $coverMaterialattributeString;
+                        }
 
-                        $reinforcementStr = strip_tags($VirtualCatalogReinforcement, "<ul><li><span><strong>");
-                        if(empty($reinforcementStr))
+                        $reinforcementStr = strip_tags($virtualCatalogReinforcement, "<ul><li><span><strong>");
+                        if (empty($reinforcementStr)) {
                             $reinforcementStr = $reinforcement;
+                        }
+                            
 
                         unset($tubeMaterial);
                         unset($tubeAttribute);
@@ -1232,14 +1100,14 @@ class DefaultController extends FrontendController
                         unset($coverMaterialattributeArr);
 
                         $data[$uniqueId]['brandName'] = $brandName;
-                        $data[$uniqueId]['LeftPrintCatalogImageObj'] = $LeftPrintCatalogImageObj;
-                        $data[$uniqueId]['RightPrintCatalogImageObj'] = $RightPrintCatalogImageObj;
+                        $data[$uniqueId]['LeftPrintCatalogImageObj'] = $leftPrintCatalogImageObj;
+                        $data[$uniqueId]['RightPrintCatalogImageObj'] = $rightPrintCatalogImageObj;
                         $data[$uniqueId]['longDescription'] = $longDescription;
-                        $data[$uniqueId]['BrandingLayline'] = $BrandingLayline;
+                        $data[$uniqueId]['BrandingLayline'] = $brandingLayline;
                         $data[$uniqueId]['temperatureRangeFAndC'] = $temperatureRangeFAndC;
                         $data[$uniqueId]['reinforcement'] = $reinforcementStr;
-                        $data[$uniqueId]['tubeMaterialAtrributeString'] = $VirtualCatalogTubeMaterialStr;
-                        $data[$uniqueId]['coverMaterialattributeString'] = $VirtualCatalogCoverMaterialStr;
+                        $data[$uniqueId]['tubeMaterialAtrributeString'] = $virtualCatalogTubeMaterialStr;
+                        $data[$uniqueId]['coverMaterialattributeString'] = $virtualCatalogCoverMaterialStr;
                         $data[$uniqueId]['standardMetHoseListData'] = $standardMetHoseListData;
                         $data[$uniqueId]['standardMetHoseMeetFlameResistence'] = $standardMetHoseMeetFlameResistence;
                         $data[$uniqueId]['safetyFeatures'] = $safetyFeaturesList;
@@ -1247,54 +1115,50 @@ class DefaultController extends FrontendController
                         $data[$uniqueId]['subHeaderRequired'] = $this->subHeaderRequired;
                         $data[$uniqueId]['columnsDataWithImages'] = $columnsDataWithImages;
 
-                        if($articlesData)
-                            array_multisort (array_column($articlesData, $headerKeysIndex['hoseOdIn']), SORT_ASC, $articlesData);
+                        if ($articlesData) {
+                            array_multisort(array_column($articlesData, $headerKeysIndex['hoseOdIn']), SORT_ASC, $articlesData);
+                        }
 
                         $data[$uniqueId]['articlesData'] = $articlesData;
                         $data[$uniqueId]['SortOrder'] = $brandsList[$brandName];
-
                     }
-                    if($data){
-                        array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
+                    if ($data) {
+                        array_multisort(array_column($data, 'SortOrder'), SORT_ASC, $data);
                     }
 
                     $catalogGroupData[$catalogKey] = $data;
                     unset($data);
                 }
 
-                //unset($this->featuresList);
-
-                $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
+                $footer_logo_src = (strtolower($footerBgColor) == 'orange') ? $catalogImagesHYDFooter['Black'] : $catalogImagesHYDFooter['Orange'];
                 $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
-                $branding_image_src = $this->getS3ImageSrc($CatalogImagesHYDProduct['BrandingImage']);
+                $branding_image_src = $this->getS3ImageSrc($catalogImagesHYDProduct['BrandingImage']);
 
                 $parameterBag['data'] = $catalogGroupData;
                 $parameterBag['branding_image_src'] = $branding_image_src;
-                $parameterBag['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
+                $parameterBag['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
                 $parameterBag['footer_logo_src'] = $footer_logo_src;
-                $parameterBag['containerRequest'] = $containerRequest;
             }
         }
         return $this->render("@Catalog/Default/template_hose_product_page.html.twig", $parameterBag);
     }
 
-    public function templateHoseAccessoriesSleevingAction(Request $request)
+    public function templateHoseAccessoriesSleevingAction(Request $request): Response
     {
         $template = $this->document->getEditable('template_hose_accessories_sleeving')->getElement();
         $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
 
-        if($template)
-        {
+        if ($template) {
             $commonHelper = $this->containerInterface->get('app.common_helper');
 
             $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
             $this->attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
-            $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
+            $catalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
 
             $catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());
             $catalogObj = DataObject\Catalog::getById($catalogCategoryObj->getParentId());
-            $CatalogLanguage = $catalogObj->getCatalogLanguage();
+            $catalogLanguage = $catalogObj->getCatalogLanguage();
 
             $footerBgColor = $template->getColor();
             $productsData = $template->getProductsData();
@@ -1307,33 +1171,27 @@ class DefaultController extends FrontendController
             $this->iconRequired = 'NO';
             $this->subHeaderRequired = 'NO';
             $this->columnsData = json_decode($objColumnsData, true);
-            // $columnsDataWithImages = array();
+            $this->featuresList = $this->getFeaturesList($catalogLanguage);
 
-            $this->featuresList = $this->getFeaturesList('', $CatalogLanguage);
-
-            // $this->translatorInterface->setLocale($CatalogLanguage);
-
-            $columnsDataWithImages = $this->getColumnHeadersForCatalog(FALSE, []);
+            $columnsDataWithImages = $this->getColumnHeadersForCatalog(false, []);
 
             unset($objColumnsData);
-            //unset($this->columnsData);
-            //unset($this->attributeImages);
 
             $orderKeys = array();
-            foreach ($columnsDataWithImages as $skey => $svalue) {
-                foreach ($svalue as $vkey => $vvalue) {
-                        $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
+            foreach ($columnsDataWithImages as $svalue) {
+                foreach ($svalue as $vvalue) {
+                    $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
                 }
             }
 
             $brandsList = $this->getBrandsList();
 
             $brandsData = array();
-            if($productsData)
-            {
+            if ($productsData) {
                 foreach ($productsData as $key => $item) {
-                    if(!empty(trim($item[$headerKeysIndex['brandName']])))
+                    if (!empty(trim($item[$headerKeysIndex['brandName']]))) {
                         $brandsData[$item[$headerKeysIndex['brandName']]][] = $item;
+                    }
                 }
 
                 foreach ($brandsData as $brandKey => $brandArray) {
@@ -1351,42 +1209,47 @@ class DefaultController extends FrontendController
                     $availableLength = array();
                     $safetyFeatures = array();
 
-                    foreach($brandArray as $key => $element):
+                    foreach ($brandArray as $key => $element) :
 
-                            $brandName = $element[$headerKeysIndex['brandName']];
+                        $brandName = $element[$headerKeysIndex['brandName']];
 
-                            if(empty($imageObj) && $element[$headerKeysIndex['mainImage']])
-                                $imageObj = \Pimcore\Model\Asset::getByPath($element[$headerKeysIndex['mainImage']]);
+                        if (empty($imageObj) && $element[$headerKeysIndex['mainImage']]) {
+                            $imageObj = \Pimcore\Model\Asset::getByPath($element[$headerKeysIndex['mainImage']]);
+                        }
 
-                            if(empty($longDescription) && $element[$headerKeysIndex['longDescription']])
-                                $longDescription = $element[$headerKeysIndex['longDescription']];
+                        if (empty($longDescription) && $element[$headerKeysIndex['longDescription']]) {
+                            $longDescription = $element[$headerKeysIndex['longDescription']];
+                        }
 
-                            if(empty($temperatureRangeFAndC) && $element[$headerKeysIndex['temperatureRangeFAndC']])
-                                $temperatureRangeFAndC = $element[$headerKeysIndex['temperatureRangeFAndC']];
+                        if (empty($temperatureRangeFAndC) && $element[$headerKeysIndex['temperatureRangeFAndC']]) {
+                            $temperatureRangeFAndC = $element[$headerKeysIndex['temperatureRangeFAndC']];
+                        }
 
-                            foreach($element as $bkey => $value):
-                                    if($bkey == $headerKeysIndex['FeaturesBenefitsBulletPoint'])
-                                    {
-                                        $fbvalue = explode('||', $value);
-                                        if(count($fbvalue)>0)
-                                        {
-                                            foreach ($fbvalue as $fkey => $feature) {
-                                                if($feature)
-                                                    array_push($safetyFeatures,$feature);
-                                            }
+                        foreach ($element as $bkey => $value) :
+                            if ($bkey == $headerKeysIndex['FeaturesBenefitsBulletPoint']) {
+                                $fbvalue = explode('||', $value);
+                                if (count($fbvalue) > 0) {
+                                    foreach ($fbvalue as $feature) {
+                                        if ($feature) {
+                                            array_push($safetyFeatures, $feature);
                                         }
                                     }
-                                    if(($bkey == $headerKeysIndex['MaterialType']) && is_array($value))
-                                        $material = array_merge($material, $value);
-                                    if(($bkey == $headerKeysIndex['Color']) && is_array($value))
-                                        $color = array_merge($color, $value);
-                                    if($bkey == $headerKeysIndex['LengthIN'])
-                                        $availableLength[] = $value;
-                            endforeach;
-
-                            foreach ($orderKeys as $ckey => $cvalue) {
-                                $articlesData[$key][$ckey] = $element[$headerKeysIndex[$ckey]];
+                                }
                             }
+                            if (($bkey == $headerKeysIndex['MaterialType']) && is_array($value)) {
+                                $material = array_merge($material, $value);
+                            }
+                            if (($bkey == $headerKeysIndex['Color']) && is_array($value)) {
+                                $color = array_merge($color, $value);
+                            }
+                            if ($bkey == $headerKeysIndex['LengthIN']) {
+                                $availableLength[] = $value;
+                            }
+                        endforeach;
+
+                        foreach ($orderKeys as $ckey => $cvalue) {
+                            $articlesData[$key][$ckey] = $element[$headerKeysIndex[$ckey]];
+                        }
 
                     endforeach;
 
@@ -1416,27 +1279,24 @@ class DefaultController extends FrontendController
                     $data[$uniqueId]['subHeaderRequired'] = $this->subHeaderRequired;
                     $data[$uniqueId]['safetyFeatures'] = $safetyFeaturesList;
 
-                    if($articlesData)
-                        array_multisort (array_column($articlesData, 'SleevingIDInDecimal'), SORT_ASC, $articlesData);
+                    if ($articlesData) {
+                        array_multisort(array_column($articlesData, 'SleevingIDInDecimal'), SORT_ASC, $articlesData);
+                    }
 
                     $data[$uniqueId]['articlesData'] = $articlesData;
                     $data[$uniqueId]['SortOrder'] = $brandsList[$brandName];
-
                 }
 
-                if($data)
-                    array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
-
+                if ($data) {
+                    array_multisort(array_column($data, 'SortOrder'), SORT_ASC, $data);
+                }
             }
 
-            //unset($this->featuresList);
-
-            $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
+            $footer_logo_src = (strtolower($footerBgColor) == 'orange') ? $catalogImagesHYDFooter['Black'] : $catalogImagesHYDFooter['Orange'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
-            // $parameterBag = [];
             $parameterBag['data'] = $data;
-            $parameterBag['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
+            $parameterBag['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
             $parameterBag['footer_logo_src'] = $footer_logo_src;
         }
         return $this->render("@Catalog/Default/template_hose_accessories_sleeving.html.twig", $parameterBag);
@@ -1447,17 +1307,12 @@ class DefaultController extends FrontendController
         $template = $this->document->getEditable('template_hose_accessories_clamps')->getElement();
         $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
 
-        if($template)
-        {
+        if ($template) {
             $commonHelper = $this->containerInterface->get('app.common_helper');
 
             $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
             $this->attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
-            $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
-
-            $catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());
-            $catalogObj = DataObject\Catalog::getById($catalogCategoryObj->getParentId());
-            $CatalogLanguage = $catalogObj->getCatalogLanguage();
+            $catalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
 
             $footerBgColor = $template->getColor();
             $productsData = $template->getProductsData();
@@ -1471,19 +1326,14 @@ class DefaultController extends FrontendController
             $this->subHeaderRequired = 'NO';
             $this->columnsData = json_decode($objColumnsData, true);
 
-            // $this->translatorInterface->setLocale($CatalogLanguage);
-
-            $columnsDataWithImages = $this->getColumnHeadersForCatalog(FALSE, []);
+            $columnsDataWithImages = $this->getColumnHeadersForCatalog(false, []);
 
             unset($objColumnsData);
-            //unset($this->columnsData);
-            //unset($this->attributeImages);
 
             $orderKeys = array();
-            foreach ($columnsDataWithImages as $skey => $svalue) {
-                foreach ($svalue as $vkey => $vvalue) {
-                    if(isset($headerKeysIndex[$vvalue['columnName']]))
-                    {
+            foreach ($columnsDataWithImages as $svalue) {
+                foreach ($svalue as $vvalue) {
+                    if (isset($headerKeysIndex[$vvalue['columnName']])) {
                         $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
                     }
                 }
@@ -1492,12 +1342,12 @@ class DefaultController extends FrontendController
             $brandsData = array();
 
             foreach ($productsData as $key => $item) {
-                if(!empty(trim($item[$headerKeysIndex['brandName']])))
+                if (!empty(trim($item[$headerKeysIndex['brandName']]))) {
                     $brandsData[$item[$headerKeysIndex['brandName']]][] = $item;
+                }
             }
 
-            foreach ($brandsData as $brandKey => $brandArray)
-            {
+            foreach ($brandsData as $brandKey => $brandArray) {
 
                 $brandName = '';
                 $imageObj = '';
@@ -1505,20 +1355,23 @@ class DefaultController extends FrontendController
                 $material = array();
                 $articlesData = array();
 
-                foreach($brandArray as $key => $element):
+                foreach ($brandArray as $key => $element) :
 
                     $brandName = $element[$headerKeysIndex['brandName']];
 
-                    if(empty($imageObj) && $element[$headerKeysIndex['mainImage']])
+                    if (empty($imageObj) && $element[$headerKeysIndex['mainImage']]) {
                         $imageObj = \Pimcore\Model\Asset::getByPath($element[$headerKeysIndex['mainImage']]);
+                    }
 
-                    if(empty($longDescription) && $element[$headerKeysIndex['longDescription']])
+                    if (empty($longDescription) && $element[$headerKeysIndex['longDescription']]) {
                         $longDescription = $element[$headerKeysIndex['longDescription']];
+                    }
 
-                    foreach($element as $bkey => $value):
+                    foreach ($element as $bkey => $value) :
 
-                        if(($bkey == $headerKeysIndex['MaterialType']) && is_array($value))
+                        if (($bkey == $headerKeysIndex['MaterialType']) && is_array($value)) {
                             $material = array_merge($material, $value);
+                        }
 
                     endforeach;
 
@@ -1538,14 +1391,13 @@ class DefaultController extends FrontendController
                 $data[$uniqueId]['columnsDataWithImages'] = $columnsDataWithImages;
                 $data[$uniqueId]['subHeaderRequired'] = $this->subHeaderRequired;
                 $data[$uniqueId]['articlesData'] = $articlesData;
-
             }
 
-            $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
+            $footer_logo_src = (strtolower($footerBgColor) == 'orange') ? $catalogImagesHYDFooter['Black'] : $catalogImagesHYDFooter['Orange'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
             $parameterBag['data'] = $data;
-            $parameterBag['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
+            $parameterBag['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
             $parameterBag['footer_logo_src'] = $footer_logo_src;
         }
         return $this->render("@Catalog/Default/template_hose_accessories_clamps.html.twig", $parameterBag);
@@ -1556,19 +1408,18 @@ class DefaultController extends FrontendController
         $template = $this->document->getEditable('template_hose_accessories_oring');
         $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
 
-        if($template)
-        {
+        if ($template) {
             $template = $this->document->getEditable('template_hose_accessories_oring')->getElement();
 
             $commonHelper = $this->containerInterface->get('app.common_helper');
 
             $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
             $this->attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
-            $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
+            $catalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
 
             $catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());
             $catalogObj = DataObject\Catalog::getById($catalogCategoryObj->getParentId());
-            $CatalogLanguage = $catalogObj->getCatalogLanguage();
+            $catalogLanguage = $catalogObj->getCatalogLanguage();
 
             $footerBgColor = $template->getColor();
             $productsData = $template->getProductsData();
@@ -1580,48 +1431,47 @@ class DefaultController extends FrontendController
             $this->iconRequired = 'NO';
             $this->subHeaderRequired = 'NO';
             $this->columnsData = json_decode($objColumnsData, true);
-            // $this->translatorInterface->setLocale($CatalogLanguage);
 
-            $columnsDataWithImages = $this->getColumnHeadersForCatalog(FALSE, []);
+            $columnsDataWithImages = $this->getColumnHeadersForCatalog(false, []);
 
             unset($objColumnsData);
-            //unset($this->columnsData);
-            //unset($this->attributeImages);
 
             // Getting order of the keys
             $orderKeys = array();
-            foreach ($columnsDataWithImages as $skey => $svalue) {
-                foreach ($svalue as $vkey => $vvalue) {
-                        $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
+            foreach ($columnsDataWithImages as $svalue) {
+                foreach ($svalue as $vvalue) {
+                    $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
                 }
             }
 
-            $brandsData = array();
             $material = array();
             $brandData = array();
             $hardness = array();
             $imageObj = '';
             $temperatureRangeFAndC = '';
 
-            $materialList = $this->getMaterialList('HYD_ACCESSORIES~MaterialType', $CatalogLanguage);
+            $materialList = $this->getStandardMetHoseList('HYD_ACCESSORIES~MaterialType', $catalogLanguage);
 
-            if($productsData){
-                foreach ($productsData as $key => $item) {
-                    if(!empty(trim($item[$headerKeysIndex['brandName']])))
-                    {
+            if ($productsData) {
+                foreach ($productsData as $item) {
+                    if (!empty(trim($item[$headerKeysIndex['brandName']]))) {
                         $brandName = $item[$headerKeysIndex['brandName']];
 
-                        if($item[$headerKeysIndex['MaterialType']] && is_array($item[$headerKeysIndex['MaterialType']]))
+                        if ($item[$headerKeysIndex['MaterialType']] && is_array($item[$headerKeysIndex['MaterialType']])) {
                             $material = array_merge($material, $item[$headerKeysIndex['MaterialType']]);
+                        }
 
-                        if($item[$headerKeysIndex['Hardness']])
+                        if ($item[$headerKeysIndex['Hardness']]) {
                             $hardness[] = $item[$headerKeysIndex['Hardness']];
+                        }
 
-                        if($item[$headerKeysIndex['temperatureRangeFAndC']] && empty($temperatureRangeFAndC))
+                        if ($item[$headerKeysIndex['temperatureRangeFAndC']] && empty($temperatureRangeFAndC)) {
                             $temperatureRangeFAndC = $item[$headerKeysIndex['temperatureRangeFAndC']];
+                        }
 
-                        if(!$imageObj && $item[$headerKeysIndex['mainImage']])
+                        if (!$imageObj && $item[$headerKeysIndex['mainImage']]) {
                             $imageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['mainImage']]);
+                        }
 
                         $uniqueId = md5($brandName);
                         $brandData[$uniqueId]['brandName'] = $brandName;
@@ -1631,7 +1481,7 @@ class DefaultController extends FrontendController
 
                         $articlesData = array();
 
-                        foreach ($orderKeys as $ckey => $cvalue) {
+                        foreach ($orderKeys as $cvalue) {
                             $articlesData[] = $item[$cvalue];
                         }
 
@@ -1648,10 +1498,10 @@ class DefaultController extends FrontendController
 
             $material = array_unique($material);
             $materialArray = array();
-            foreach($material as $key => $value)
-            {
-                if(isset($materialList[$value]))
+            foreach ($material as $value) {
+                if (isset($materialList[$value])) {
                     $materialArray[] = $materialList[$value]['name'];
+                }
             }
 
             $materialString = implode(', ', $materialArray);
@@ -1667,28 +1517,27 @@ class DefaultController extends FrontendController
 
             unset($brandData);
 
-            $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
+            $footer_logo_src = (strtolower($footerBgColor) == 'orange') ? $catalogImagesHYDFooter['Black'] : $catalogImagesHYDFooter['Orange'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
             $parameterBag['data'] = $data;
-            $parameterBag['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
+            $parameterBag['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
             $parameterBag['footer_logo_src'] = $footer_logo_src;
         }
         return $this->render("@Catalog/Default/template_hose_accessories_oring.html.twig", $parameterBag);
     }
 
-    public function templateTableOfContentsAction(Request $request)
+    public function templateTableOfContentsAction(Request $request): Response
     {
         $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
-        return $this->render('@Catalog/Default/template_table_of_contents.html.twig',$parameterBag);
+        return $this->render('@Catalog/Default/template_table_of_contents.html.twig', $parameterBag);
     }
 
     public function templateHydraulicTableOfContentsDynamicAction(Request $request)
     {
         $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
-        try
-        {
-            $folderId =$this->document->getParent()->getId();
+        try {
+            $folderId = $this->document->getParent()->getId();
             $listing = new \Pimcore\Model\Document\Listing();
             $listing->setCondition("parentId = $folderId");
             $listing->load();
@@ -1703,33 +1552,27 @@ class DefaultController extends FrontendController
             $hydraulicFitting[] = 'HYDRAULIC FITTINGS';
             $allFittingData = [];
 
-            foreach($listing as $doc)
-            {
-                if($doc->getChildren())
-                {
+            foreach ($listing as $doc) {
+                if ($doc->getChildren()) {
 
-                    foreach ($doc->getChildren() as $key => $childDoc) {
+                    foreach ($doc->getChildren() as $childDoc) {
 
-                        if($childDoc->getChildren())
-                        {
-                            foreach ($childDoc->getChildren() as $key => $child2Doc)
-                            {
+                        if ($childDoc->getChildren()) {
+                            foreach ($childDoc->getChildren() as $child2Doc) {
                                 if (in_array($child2Doc->getTemplate(), $templateArray)) {
 
-                                    if($child2Doc->getTemplate() == '@Catalog/Default/template_part_number_designations.html.twig')
-                                    {
+                                    if ($child2Doc->getTemplate() == '@Catalog/Default/template_part_number_designations.html.twig') {
                                         $obj = $child2Doc->getEditable('hydraulic_hose_details');
                                         if (!empty($obj) && !empty($obj->getData())) {
 
                                             $hydraulicHoseData = explode(PHP_EOL, $obj->getData());
                                             $hydraulicHoseInnerData = [];
-                                            if($hydraulicHoseData)
-                                            {
-                                                foreach ($hydraulicHoseData as $key => $value) {
+                                            if ($hydraulicHoseData) {
+                                                foreach ($hydraulicHoseData as $value) {
                                                     $data = [];
-                                                    $hydraulicHostList = explode('$$',$value);
+                                                    $hydraulicHostList = explode('$$', $value);
                                                     $hydraulicHostKey = $hydraulicHostList[0];
-                                                    $hydraulicHostValue = explode(',',$hydraulicHostList[1]);
+                                                    $hydraulicHostValue = explode(',', $hydraulicHostList[1]);
                                                     $data[] = $hydraulicHostKey;
                                                     $data[] = $hydraulicHostValue;
                                                     $hydraulicHoseInnerData[] = $data;
@@ -1737,9 +1580,7 @@ class DefaultController extends FrontendController
                                                 $hydraulicHose[] = $hydraulicHoseInnerData;
                                             }
                                         }
-                                    }
-                                    else if($child2Doc->getTemplate() == '@Catalog/Fitting/hydraulic_fitting.html.twig')
-                                    {
+                                    } elseif ($child2Doc->getTemplate() == '@Catalog/Fitting/hydraulic_fitting.html.twig') {
                                         $obj = $child2Doc->getEditable('hydraulic_fitting_brand');
                                         if (!empty($obj) && !empty($obj->getData())) {
                                             $fittingBrandNames = explode('$$', $obj->getData());
@@ -1751,25 +1592,21 @@ class DefaultController extends FrontendController
                                     }
                                 }
                             }
-                        }
-                        else
-                        {
+                        } else {
                             if (in_array($childDoc->getTemplate(), $templateArray)) {
 
-                                if($childDoc->getTemplate() == '@Catalog/Default/template_part_number_designations.html.twig')
-                                {
+                                if ($childDoc->getTemplate() == '@Catalog/Default/template_part_number_designations.html.twig') {
                                     $obj = $childDoc->getEditable('hydraulic_hose_details');
                                     if (!empty($obj) && !empty($obj->getData())) {
 
                                         $hydraulicHoseData = explode(PHP_EOL, $obj->getData());
                                         $hydraulicHoseInnerData = [];
-                                        if($hydraulicHoseData)
-                                        {
-                                            foreach ($hydraulicHoseData as $key => $value) {
+                                        if ($hydraulicHoseData) {
+                                            foreach ($hydraulicHoseData as $value) {
                                                 $data = [];
-                                                $hydraulicHostList = explode('$$',$value);
+                                                $hydraulicHostList = explode('$$', $value);
                                                 $hydraulicHostKey = $hydraulicHostList[0];
-                                                $hydraulicHostValue = explode(',',$hydraulicHostList[1]);
+                                                $hydraulicHostValue = explode(',', $hydraulicHostList[1]);
                                                 $data[] = $hydraulicHostKey;
                                                 $data[] = $hydraulicHostValue;
                                                 $hydraulicHoseInnerData[] = $data;
@@ -1777,9 +1614,7 @@ class DefaultController extends FrontendController
                                             $hydraulicHose[] = $hydraulicHoseInnerData;
                                         }
                                     }
-                                }
-                                else if($childDoc->getTemplate() == '@Catalog/Fitting/hydraulic_fitting.html.twig')
-                                {
+                                } elseif ($childDoc->getTemplate() == '@Catalog/Fitting/hydraulic_fitting.html.twig') {
                                     $obj = $childDoc->getEditable('hydraulic_fitting_brand');
                                     if (!empty($obj) && !empty($obj->getData())) {
                                         $fittingBrandNames = explode('$$', $obj->getData());
@@ -1791,29 +1626,22 @@ class DefaultController extends FrontendController
                                 }
                             }
                         }
-
                     }
-
-
-                }
-                else
-                {
+                } else {
 
                     if (in_array($doc->getTemplate(), $templateArray)) {
-                        if($doc->getTemplate() == '@Catalog/Default/template_part_number_designations.html.twig')
-                        {
+                        if ($doc->getTemplate() == '@Catalog/Default/template_part_number_designations.html.twig') {
                             $obj = $doc->getEditable('hydraulic_hose_details');
                             if (!empty($obj) && !empty($obj->getData())) {
 
                                 $hydraulicHoseData = explode(PHP_EOL, $obj->getData());
                                 $hydraulicHoseInnerData = [];
-                                if($hydraulicHoseData)
-                                {
-                                    foreach ($hydraulicHoseData as $key => $value) {
+                                if ($hydraulicHoseData) {
+                                    foreach ($hydraulicHoseData as $value) {
                                         $data = [];
-                                        $hydraulicHostList = explode('$$',$value);
+                                        $hydraulicHostList = explode('$$', $value);
                                         $hydraulicHostKey = $hydraulicHostList[0];
-                                        $hydraulicHostValue = explode(',',$hydraulicHostList[1]);
+                                        $hydraulicHostValue = explode(',', $hydraulicHostList[1]);
                                         $data[] = $hydraulicHostKey;
                                         $data[] = $hydraulicHostValue;
                                         $hydraulicHoseInnerData[] = $data;
@@ -1821,9 +1649,7 @@ class DefaultController extends FrontendController
                                     $hydraulicHose[] = $hydraulicHoseInnerData;
                                 }
                             }
-                        }
-                        else if($doc->getTemplate() == '@Catalog/Fitting/hydraulic_fitting.html.twig')
-                        {
+                        } elseif ($doc->getTemplate() == '@Catalog/Fitting/hydraulic_fitting.html.twig') {
                             $obj = $doc->getEditable('hydraulic_fitting_brand');
                             if (!empty($obj) && !empty($obj->getData())) {
                                 $fittingBrandNames = explode('$$', $obj->getData());
@@ -1837,26 +1663,22 @@ class DefaultController extends FrontendController
                 }
             }
 
-            if(count($allFittingData)>0)
-            {
+            if (!empty($allFittingData)) {
                 $hydraulicFitting[] = $allFittingData;
             }
 
-            if($hydraulicHose)
-            {
-                $DynamicPageData[] = $hydraulicHose;
+            $dynamicPageData = [];
+            if ($hydraulicHose) {
+                $dynamicPageData[] = $hydraulicHose;
             }
-            if($hydraulicFitting)
-            {
-                $DynamicPageData[] = $hydraulicFitting;
+            if ($hydraulicFitting) {
+                $dynamicPageData[] = $hydraulicFitting;
             }
-        }
-        catch(Exception $e)
-        {
+        } catch (Exception $e) {
             return new Response($e->getMessage());
         }
 
-        $parameterBag['data'] = $DynamicPageData;
+        $parameterBag['data'] = $dynamicPageData;
         return $this->render("@Catalog/Default/template_hydraulic_table_of_contents_dynamic.html.twig", $parameterBag);
     }
 
@@ -1867,29 +1689,26 @@ class DefaultController extends FrontendController
 
         $hydraulic_hose_data = [];
         $footerBgColor = '';
-        if($templates)
-        {
+        if ($templates) {
             $commonHelper = $this->containerInterface->get('app.common_helper');
 
             $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
-            $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
+            $catalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
 
             $catalogGrouping = array();
-            foreach ($templates as $key => $template)
-            {
-                if(empty(trim($footerBgColor)))
+            foreach ($templates as $key => $template) {
+                if (empty(trim($footerBgColor))) {
                     $footerBgColor = $template->getColor();
+                }
 
                 $productsData = $template->getProductsData();
                 $headerData = json_decode($template->getHeaderData(), true);
 
-                if($headerData && $productsData)
-                {
+                if ($headerData && $productsData) {
                     $headerKeys = array_keys($headerData);
                     foreach ($productsData as $key => $item) {
                         $productsDataWithHeaders = array_combine($headerKeys, $item);
-                        if(!empty(trim($productsDataWithHeaders['CatalogGrouping'])) && !empty(trim($productsDataWithHeaders['brandName'][0])))
-                        {
+                        if (!empty(trim($productsDataWithHeaders['CatalogGrouping'])) && !empty(trim($productsDataWithHeaders['brandName'][0]))) {
                             $hydraulic_hose_data[$productsDataWithHeaders['CatalogGrouping']][$productsDataWithHeaders['brandName'][0]] = $productsDataWithHeaders['brandName'][0];
                             $catalogGrouping[$productsDataWithHeaders['CatalogGrouping']][$productsDataWithHeaders['brandName'][0]][] = $productsDataWithHeaders['industryStandard'];
                         }
@@ -1898,21 +1717,20 @@ class DefaultController extends FrontendController
             }
         }
 
-        $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
+        $footer_logo_src = (strtolower($footerBgColor) == 'orange') ? $catalogImagesHYDFooter['Black'] : $catalogImagesHYDFooter['Orange'];
         $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
         $parameterBag['data'] = $catalogGrouping;
-        $parameterBag['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
+        $parameterBag['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
         $parameterBag['footer_logo_src'] = $footer_logo_src;
 
         $hydraulic_hose_data_list = [];
         foreach ($hydraulic_hose_data as $key => $value) {
-            $hydraulic_hose_data_list[] = $key."$$".implode(',', $value);
+            $hydraulic_hose_data_list[] = $key . "$$" . implode(',', $value);
         }
 
         $hydraulic_hose_details_text = '';
-        if($hydraulic_hose_data_list)
-        {
+        if ($hydraulic_hose_data_list) {
             $hydraulic_hose_details_text = implode(PHP_EOL, $hydraulic_hose_data_list);
         }
 
@@ -1921,57 +1739,49 @@ class DefaultController extends FrontendController
         return $this->render("@Catalog/Default/template_part_number_designations.html.twig", $parameterBag);
     }
 
-    public function templateHoseSubCoverAction(Request $request)
+    public function templateHoseSubCoverAction(Request $request): Response
     {
         $template = $this->document->getEditable('template_hose_product_page')->getElement();
         $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
 
-        if($template)
-        {
+        if ($template) {
             $commonHelper = $this->containerInterface->get('app.common_helper');
 
             $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
-            $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
+            $catalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
 
             $catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());
             $catalogObj = DataObject\Catalog::getById($catalogCategoryObj->getParentId());
-            $CatalogLanguage = $catalogObj->getCatalogLanguage();
-            $standardMetHoseList = $this->getStandardMetHoseList('INH-HYD-HOSE~standardMetHose', $CatalogLanguage);
+            $catalogLanguage = $catalogObj->getCatalogLanguage();
+            $standardMetHoseList = $this->getStandardMetHoseList('INH-HYD-HOSE~standardMetHose', $catalogLanguage);
 
             $footerBgColor = $template->getColor();
             $productsData = $template->getProductsData();
             $headerData = json_decode($template->getHeaderData(), true);
-            // $this->translatorInterface->setLocale($CatalogLanguage);
 
             $brandsList = $this->getBrandsList();
             $catalogGrouping = array();
 
-            if($headerData && $productsData)
-            {
+            if ($headerData && $productsData) {
                 $headerKeys = array_keys($headerData);
                 $headerKeysIndex = array_flip($headerKeys);
 
-                foreach ($productsData as $key => $item) {
-                    if(!empty(trim($item[$headerKeysIndex['CatalogGrouping']])) && !empty(trim($item[$headerKeysIndex['brandName']])))
-                    {
+                foreach ($productsData as $item) {
+                    if (!empty(trim($item[$headerKeysIndex['CatalogGrouping']])) && !empty(trim($item[$headerKeysIndex['brandName']]))) {
                         $catalogGrouping[$item[$headerKeysIndex['CatalogGrouping']]][$item[$headerKeysIndex['brandName']]][] = $item;
                     }
                 }
 
                 $catalogGroupData = array();
-                foreach($catalogGrouping as $catalogKey => $brandsData)
-                {
-                    foreach ($brandsData as $brandKey => $brandArray)
-                    {
+                foreach ($catalogGrouping as $catalogKey => $brandsData) {
+                    foreach ($brandsData as $brandKey => $brandArray) {
                         $uniqueId = md5($brandKey);
-                        $VirtualCatalogTubeMaterialStr = '';
-                        // $VirtualCatalogCoverMaterialStr = '';
+                        $virtualCatalogTubeMaterialStr = '';
                         $reinforcementStr = '';
-                        $VirtualCatalogTubeMaterial = '';
-                        // $VirtualCatalogCoverMaterial = '';
-                        $VirtualCatalogReinforcement = '';
-                        $CatalogGrouping = '';
-                        $CatalogPackaging = '';
+                        $virtualCatalogTubeMaterial = '';
+                        $virtualCatalogReinforcement = '';
+                        $catalogGrouping = '';
+                        $catalogPackaging = '';
                         $rangeTemperatureF = '';
                         $constructionType = '';
 
@@ -1982,82 +1792,72 @@ class DefaultController extends FrontendController
                         $industryStandardKey = array();
                         $industryStandard = array();
 
-                        foreach($brandArray as $key => $element):
+                        foreach ($brandArray as $element) :
 
                             $brandName = $element[$headerKeysIndex['brandName']];
 
-                            if(empty($CatalogPackaging) && $element[$headerKeysIndex['Packaging']])
-                                    $CatalogPackaging = $element[$headerKeysIndex['Packaging']];
+                            if (empty($catalogPackaging) && $element[$headerKeysIndex['Packaging']]) {
+                                $catalogPackaging = $element[$headerKeysIndex['Packaging']];
+                            }
 
-                            if(empty($VirtualCatalogTubeMaterial) && $element[$headerKeysIndex['VirtualCatalogTubeMaterial']])
-                                    $VirtualCatalogTubeMaterial = $element[$headerKeysIndex['VirtualCatalogTubeMaterial']];
+                            if (empty($virtualCatalogTubeMaterial) && $element[$headerKeysIndex['VirtualCatalogTubeMaterial']]) {
+                                $virtualCatalogTubeMaterial = $element[$headerKeysIndex['VirtualCatalogTubeMaterial']];
+                            }
 
-                            // if(empty($VirtualCatalogCoverMaterial) && $element[$headerKeysIndex['VirtualCatalogCoverMaterial']])
-                            //     $VirtualCatalogCoverMaterial = $element[$headerKeysIndex['VirtualCatalogCoverMaterial']];
+                            if (empty($virtualCatalogReinforcement) && $element[$headerKeysIndex['VirtualCatalogReinforcement']]) {
+                                $virtualCatalogReinforcement = $element[$headerKeysIndex['VirtualCatalogReinforcement']];
+                            }
 
-                            if(empty($VirtualCatalogReinforcement) && $element[$headerKeysIndex['VirtualCatalogReinforcement']])
-                                $VirtualCatalogReinforcement = $element[$headerKeysIndex['VirtualCatalogReinforcement']];
+                            if (empty($catalogGrouping) && $element[$headerKeysIndex['CatalogGrouping']]) {
+                                $catalogGrouping = $element[$headerKeysIndex['CatalogGrouping']];
+                            }
 
-                            if(empty($CatalogGrouping) && $element[$headerKeysIndex['CatalogGrouping']])
-                                $CatalogGrouping = $element[$headerKeysIndex['CatalogGrouping']];
-
-                            if(empty($rangeTemperatureF) && $element[$headerKeysIndex['rangeTemperatureF']])
+                            if (empty($rangeTemperatureF) && $element[$headerKeysIndex['rangeTemperatureF']]) {
                                 $rangeTemperatureF = $element[$headerKeysIndex['rangeTemperatureF']];
+                            }
 
-                            if(empty($constructionType) && $element[$headerKeysIndex['siopFullCode']]){
+                            if (empty($constructionType) && $element[$headerKeysIndex['siopFullCode']]) {
                                 $entries = new DataObject\ProductCategory\Listing();
                                 $entries->setCondition("fullCode LIKE ?", $element[$headerKeysIndex['siopFullCode']]);
                                 $entries->load();
-                                foreach($entries as $entry) {
+                                foreach ($entries as $entry) {
                                     $constructionType = $entry->getConstructionType();
                                 }
                             }
 
-                            foreach($element as $bkey => $value):
+                            foreach ($element as $bkey => $value) :
 
-                                    if($bkey == $headerKeysIndex['tubeMaterial'])
-                                    {
-                                        if(!is_array($value))
-                                        {
-                                            $value = explode('||', $value);
-                                        }
-                                        $tubeMaterial = array_merge($tubeMaterial, $value);
+                                if ($bkey == $headerKeysIndex['tubeMaterial']) {
+                                    if (!is_array($value)) {
+                                        $value = explode('||', $value);
                                     }
+                                    $tubeMaterial = array_merge($tubeMaterial, $value);
+                                }
 
-                                    if($bkey == $headerKeysIndex['reinforcement'])
-                                    {
-                                        if(!is_array($value))
-                                        {
-                                            $value = explode('||', $value);
-                                        }
-                                        $reinforcement = array_merge($reinforcement, $value);
+                                if ($bkey == $headerKeysIndex['reinforcement']) {
+                                    if (!is_array($value)) {
+                                        $value = explode('||', $value);
                                     }
+                                    $reinforcement = array_merge($reinforcement, $value);
+                                }
 
-                                    if(isset($headerKeysIndex['workingPressurePSI']) && ($bkey == $headerKeysIndex['workingPressurePSI']))
-                                    {
-                                        if($value){
-                                            $workingPressureValueArray = explode('.',$value);
-                                            $workingPressurePSI[] = $workingPressureValueArray[0];
-                                            // $workingPressurePSI[] = $value;
-                                        }
+                                if ($value && isset($headerKeysIndex['workingPressurePSI']) && ($bkey == $headerKeysIndex['workingPressurePSI'])) {
+                                    $workingPressureValueArray = explode('.', $value);
+                                    $workingPressurePSI[] = $workingPressureValueArray[0];
+                                }
+                                if (isset($headerKeysIndex['HoseFittingFamily']) && ($bkey == $headerKeysIndex['HoseFittingFamily']) && $value) {
+                                    if (!is_array($value)) {
+                                        $value = explode('||', $value);
                                     }
-                                    if(isset($headerKeysIndex['HoseFittingFamily']) && ($bkey == $headerKeysIndex['HoseFittingFamily']) && $value)
-                                    {
-                                        if(!is_array($value))
-                                        {
-                                            $value = explode('||', $value);
-                                        }
-                                        $fittingFamily = array_merge($fittingFamily, $value);
-                                    }
+                                    $fittingFamily = array_merge($fittingFamily, $value);
+                                }
 
-                                    if($bkey == $headerKeysIndex['standardMetHose'])
-                                    {
-                                        if(!is_array($value))
-                                        {
-                                            $value = explode('||', $value);
-                                        }
-                                        $industryStandardKey = array_merge($industryStandardKey, $value);
+                                if ($bkey == $headerKeysIndex['standardMetHose']) {
+                                    if (!is_array($value)) {
+                                        $value = explode('||', $value);
                                     }
+                                    $industryStandardKey = array_merge($industryStandardKey, $value);
+                                }
 
 
                             endforeach;
@@ -2070,22 +1870,21 @@ class DefaultController extends FrontendController
                         $fittingFamily = array_unique($fittingFamily);
                         $industryStandardKey = array_unique($industryStandardKey);
 
-                        foreach($industryStandardKey as $industryStandardName){
-                            if($industryStandardName && isset($standardMetHoseList[$industryStandardName]))
-                            {
+                        foreach ($industryStandardKey as $industryStandardName) {
+                            if ($industryStandardName && isset($standardMetHoseList[$industryStandardName])) {
                                 $industryStandard[] = $standardMetHoseList[$industryStandardName]['name'];
                             }
                         }
 
                         $workingPressurePSIString = "";
-                        if($workingPressurePSI)
-                        {
+                        if ($workingPressurePSI) {
                             $minWorkingPressurePSI = min($workingPressurePSI);
                             $maxWorkingPressurePSI = max($workingPressurePSI);
-                            if($minWorkingPressurePSI == $maxWorkingPressurePSI)
+                            if ($minWorkingPressurePSI == $maxWorkingPressurePSI) {
                                 $workingPressurePSIString = $minWorkingPressurePSI;
-                            else
-                                $workingPressurePSIString = $minWorkingPressurePSI."-".$maxWorkingPressurePSI;
+                            } else {
+                                $workingPressurePSIString = $minWorkingPressurePSI . "-" . $maxWorkingPressurePSI;
+                            }
                         }
 
                         $tubeMaterialAtrributeString = implode(', ', $tubeMaterial);
@@ -2093,58 +1892,51 @@ class DefaultController extends FrontendController
                         $fittingFamily = implode(', ', $fittingFamily);
                         $industryStandard = implode(', ', $industryStandard);
 
-                        $VirtualCatalogTubeMaterialStr = strip_tags($VirtualCatalogTubeMaterial, "<ul><li><span><strong>");
-                        if(empty($VirtualCatalogTubeMaterialStr))
-                            $VirtualCatalogTubeMaterialStr = $tubeMaterialAtrributeString;
+                        $virtualCatalogTubeMaterialStr = strip_tags($virtualCatalogTubeMaterial, "<ul><li><span><strong>");
+                        if (empty($virtualCatalogTubeMaterialStr)) {
+                            $virtualCatalogTubeMaterialStr = $tubeMaterialAtrributeString;
+                        }
 
-                        // $VirtualCatalogCoverMaterialStr = strip_tags($VirtualCatalogCoverMaterial, "<ul><li><span><strong>");
-                        //     if(empty($VirtualCatalogCoverMaterialStr))
-                        //         $VirtualCatalogCoverMaterialStr = $coverMaterialattributeString;
-
-                        $reinforcementStr = strip_tags($VirtualCatalogReinforcement, "<ul><li><span><strong>");
-                                if(empty($reinforcementStr))
-                                    $reinforcementStr = $reinforcement;
-
+                        $reinforcementStr = strip_tags($virtualCatalogReinforcement, "<ul><li><span><strong>");
+                        if (empty($reinforcementStr)) {
+                            $reinforcementStr = $reinforcement;
+                        }
 
                         $data[$uniqueId]['brandName'] = $brandName;
                         $data[$uniqueId]['rangeTemperatureF'] = $rangeTemperatureF;
                         $data[$uniqueId]['reinforcement'] = $constructionType;
                         $data[$uniqueId]['fittingFamily'] = $fittingFamily;
                         $data[$uniqueId]['industryStandard'] = $industryStandard;
-                        $data[$uniqueId]['CatalogGrouping'] = $CatalogGrouping;
+                        $data[$uniqueId]['CatalogGrouping'] = $catalogGrouping;
                         $data[$uniqueId]['workingPressurePSIString'] = $workingPressurePSIString;
-                        $data[$uniqueId]['tubeMaterialAtrributeString'] = $VirtualCatalogTubeMaterialStr;
-                        $data[$uniqueId]['CatalogPackaging'] = $CatalogPackaging;
+                        $data[$uniqueId]['tubeMaterialAtrributeString'] = $virtualCatalogTubeMaterialStr;
+                        $data[$uniqueId]['CatalogPackaging'] = $catalogPackaging;
                         $data[$uniqueId]['SortOrder'] = $brandsList[$brandName];
-
                     }
 
-                    if($data)
-                        array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
+                    if ($data) {
+                        array_multisort(array_column($data, 'SortOrder'), SORT_ASC, $data);
+                    }
 
                     $catalogGroupData[$catalogKey] = $data;
                     unset($data);
                 }
-
             }
 
-            $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
+            $footer_logo_src = (strtolower($footerBgColor) == 'orange') ? $catalogImagesHYDFooter['Black'] : $catalogImagesHYDFooter['Orange'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
             $parameterBag['data'] = $catalogGroupData;
-            $parameterBag['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
+            $parameterBag['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
             $parameterBag['footer_logo_src'] = $footer_logo_src;
         }
         return $this->render("@Catalog/Default/template_hose_sub_cover.html.twig", $parameterBag);
     }
 
-    public function templateFittingSplitFlangesAction(Request $request)
+    public function templateFittingSplitFlangesAction(Request $request): Response
     {
         $catalogTableObject = $this->document->getEditable('template_hose_accessories_flanges');
-
-        // getEditable
-        // $template = $this->getDocumentTag('relation', 'template_hose_accessories_flanges')->getElement();
-        $catalogData = [];
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
         $footer_logo_src = '';
         $footerBgColor = '';
         $data = '';
@@ -2155,11 +1947,7 @@ class DefaultController extends FrontendController
 
             $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
             $this->attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
-            $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
-
-            $catalogCategoryObj = DataObject\CatalogCategory::getById($catalogTableObjectElement->getParentId());
-            $catalogObj = DataObject\Catalog::getById($catalogCategoryObj->getParentId());
-            $CatalogLanguage = $catalogObj->getCatalogLanguage();
+            $catalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
 
             $footerBgColor = $catalogTableObjectElement->getColor();
             $productsData = $catalogTableObjectElement->getProductsData();
@@ -2173,19 +1961,12 @@ class DefaultController extends FrontendController
             $this->subHeaderRequired = 'NO';
             $this->columnsData = json_decode($objColumnsData, true);
 
-            // p_r($this->columnsData);
-            // $columnsDataWithImages = array();
-            $columnsDataWithImages = $this->getColumnHeadersForCatalog(FALSE, []);
-
-            // $this->translatorInterface->setLocale($CatalogLanguage);
-
+            $columnsDataWithImages = $this->getColumnHeadersForCatalog(false, []);
             unset($objColumnsData);
-            //unset($this->columnsData);
-            //unset($this->attributeImages);
 
             $orderKeys = array();
-            foreach ($columnsDataWithImages as $skey => $svalue) {
-                foreach ($svalue as $vkey => $vvalue) {
+            foreach ($columnsDataWithImages as $svalue) {
+                foreach ($svalue as $vvalue) {
                     if (isset($headerKeysIndex[$vvalue['columnName']])) {
                         $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
                     }
@@ -2198,8 +1979,9 @@ class DefaultController extends FrontendController
             $data = [];
             if ($productsData) {
                 foreach ($productsData as $key => $item) {
-                    if (!empty(trim($item[$headerKeysIndex['brandName']])))
+                    if (!empty(trim($item[$headerKeysIndex['brandName']]))) {
                         $brandsData[$item[$headerKeysIndex['brandName']]][] = $item;
+                    }
                 }
 
                 foreach ($brandsData as $brandKey => $brandArray) {
@@ -2212,11 +1994,13 @@ class DefaultController extends FrontendController
 
                         $brandName = $element[$headerKeysIndex['brandName']];
 
-                        if (empty($imageObj) && isset($headerKeysIndex['mainImage']) && $element[$headerKeysIndex['mainImage']])
+                        if (empty($imageObj) && isset($headerKeysIndex['mainImage']) && $element[$headerKeysIndex['mainImage']]) {
                             $imageObj = \Pimcore\Model\Asset::getByPath($element[$headerKeysIndex['mainImage']]);
+                        }
 
-                        if (empty($shortDescription) && $element[$headerKeysIndex['shortDescription']])
+                        if (empty($shortDescription) && $element[$headerKeysIndex['shortDescription']]) {
                             $shortDescription = $element[$headerKeysIndex['shortDescription']];
+                        }
 
                         foreach ($orderKeys as $ckey => $cvalue) {
                             $articlesData[$key][$ckey] = $element[$headerKeysIndex[$ckey]];
@@ -2228,41 +2012,31 @@ class DefaultController extends FrontendController
                     $data[$uniqueId]['imageObj'] = $imageObj;
                     $data[$uniqueId]['shortDescription'] = $shortDescription;
                     $data[$uniqueId]['columnsDataWithImages'] = $columnsDataWithImages;
-
-                    // array_multisort (array_column($articlesData, $headerKeysIndex['FlangePatternDimensionAInAndMMDecimal']), SORT_ASC, $articlesData);
-
                     $data[$uniqueId]['articlesData'] = $articlesData;
                     $data[$uniqueId]['SortOrder'] = $brandsList[$brandName];
                 }
 
-                if ($data)
+                if ($data) {
                     array_multisort(array_column($data, 'SortOrder'), SORT_ASC, $data);
+                }
             }
 
-            $footer_logo_src = (strtolower($footerBgColor) == 'orange') ? $CatalogImagesHYDFooter['Black'] : $CatalogImagesHYDFooter['Orange'];
+            $footer_logo_src = (strtolower($footerBgColor) == 'orange') ? $catalogImagesHYDFooter['Black'] : $catalogImagesHYDFooter['Orange'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
-            $catalogData['iconRequired'] = $this->iconRequired;
-            $catalogData['subHeaderRequired'] = $this->subHeaderRequired;
+            $parameterBag['iconRequired'] = $this->iconRequired;
+            $parameterBag['subHeaderRequired'] = $this->subHeaderRequired;
         }
-        $catalogData['data'] = $data;
-        $catalogData['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
-        $catalogData['footer_logo_src'] = $footer_logo_src;
-        $catalogData['imageWidth'] = 300; // for safe purpose only. we need to remove once solution done
+        $parameterBag['data'] = $data;
+        $parameterBag['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
+        $parameterBag['footer_logo_src'] = $footer_logo_src;
 
-        // p_r($catalogData);die;
-        return $this->render("@Catalog/Default/template_fitting_split_flanges.html.twig", $catalogData);
+        return $this->render("@Catalog/Default/template_fitting_split_flanges.html.twig", $parameterBag);
     }
 
-    public function containerAction(Request $request)
+    public function containerAction(Request $request): Response
     {
-        $parameterBag = [
-            'document' => $this->document
-        ];
-
-        foreach ($request->attributes as $key => $value) {
-            $parameterBag[$key] = $value;
-        }
+        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
 
         $allChildren = [];
 
@@ -2271,29 +2045,22 @@ class DefaultController extends FrontendController
             if ($child instanceof \Pimcore\Model\Document\Hardlink) {
                 $child = \Pimcore\Model\Document\Hardlink\Service::wrap($child);
             }
-
-            $child->setProperty('hide-layout', 'bool', true, false, true);
-
             $allChildren[] = $child;
         }
 
         $parameterBag['allChildren'] = $allChildren;
-        // $parameterBag['printermarks'] = $this->printermarks;
-        // $allChildren = $this->document->getAllChildren();
-        // $this->view->allChildren = $allChildren;
-        // p_r("MMMAMA"); die;
-        // $allChildren = [1,2];
-        return $this->render('@Catalog/Default/container.html.twig',$parameterBag);
+        return $this->render('@Catalog/Default/container.html.twig', $parameterBag);
     }
 
-    public function getFeaturesList($catalog_type, $language){
+    public function getFeaturesList($language): array
+    {
         $entries = new DataObject\Features\Listing();
-        // $entries->setCondition("FeatureType = ?", "{$catalog_type}");
         $entries->load();
         $featureData = array();
-        foreach($entries as $entry) {
-            if($entry->getIcon())
-                $featureData[$entry->getId()]['icon'] = $entry->getIcon()->getPath().$entry->getIcon()->getFilename();
+        foreach ($entries as $entry) {
+            if ($entry->getIcon()) {
+                $featureData[$entry->getId()]['icon'] = $entry->getIcon()->getPath() . $entry->getIcon()->getFilename();
+            }
 
             $featureData[$entry->getId()]['name'] = $entry->getName($language);
             $featureData[$entry->getId()]['key'] = $entry->getKey();
@@ -2302,50 +2069,33 @@ class DefaultController extends FrontendController
         return $featureData;
     }
 
-    public function getStandardMetHoseList($catalog_type, $language){
-        $entries = new DataObject\MultiselectMaster\Listing();
-        $entries->setCondition("masterType = ?", "{$catalog_type}");
-        $entries->load();
-        $featureData = array();
-        foreach($entries as $entry) {
-            $featureData[$entry->getId()]['key'] = $entry->getKey();
-            $featureData[$entry->getId()]['name'] = $entry->getName($language);
-            $featureData[$entry->getId()]['Description'] = $entry->getDescription($language);
-            $featureData[$entry->getId()]['CustomerFacingVersion'] = $entry->getCustomerFacingVersion($language);
-        }
-        return $featureData;
-    }
-
-    public function getMaterialList($catalog_type, $language){
-        $entries = new DataObject\MultiselectMaster\Listing();
-        $entries->setCondition("masterType = ?", "{$catalog_type}");
-        $entries->load();
-        $featureData = array();
-        foreach($entries as $entry) {
-            $featureData[$entry->getId()]['key'] = $entry->getKey();
-            $featureData[$entry->getId()]['name'] = $entry->getName($language);
-            $featureData[$entry->getId()]['Description'] = $entry->getDescription($language);
-            $featureData[$entry->getId()]['CustomerFacingVersion'] = $entry->getCustomerFacingVersion($language);
-        }
-        return $featureData;
-    }
-
-    public function getBrandsList(){
-        $query = "select name, SortOrder from object_query_3";
-        $brandslist = $this->db->fetchPairs($query);
-        return $brandslist;
-    }
-
-    public function templatePtgProductPageAction(Request $request)
+    public function getStandardMetHoseList($catalog_type, $language): array
     {
-        $containerRequest = $request->get('containerRequest') ? $request->get('containerRequest') : FALSE;
+        $entries = new DataObject\MultiselectMaster\Listing();
+        $entries->setCondition("masterType = ?", "{$catalog_type}");
+        $entries->load();
+        $featureData = array();
+        foreach ($entries as $entry) {
+            $featureData[$entry->getId()]['key'] = $entry->getKey();
+            $featureData[$entry->getId()]['name'] = $entry->getName($language);
+            $featureData[$entry->getId()]['Description'] = $entry->getDescription($language);
+            $featureData[$entry->getId()]['CustomerFacingVersion'] = $entry->getCustomerFacingVersion($language);
+        }
+        return $featureData;
+    }
 
+    public function getBrandsList(): ?array
+    {
+        $query = "select name, SortOrder from object_query_3";
+        return \Pimcore\Db\Helper::fetchPairs($this->db, $query);
+    }
+
+    public function templatePtgProductPageAction(Request $request): Response
+    {
         $template = $this->document->getEditable('ptg_product_page')->getElement();
-        // $template = $this->getDocumentTag('relation', 'ptg_product_page')->getElement();
         $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
 
-        if($template)
-        {
+        if ($template) {
             $commonHelper = $this->containerInterface->get('app.common_helper');
             $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
             $priceListTableConfig = $this->containerInterface->get('app.config_provider_service')->getPriceListTableConfig();
@@ -2353,17 +2103,17 @@ class DefaultController extends FrontendController
             $priceListTableColumn = $commonHelper->getParameter($priceListTableConfig, 'priceListTableColumn');
             $priceListCurrency = $commonHelper->getParameter($priceListTableConfig, 'priceListCurrency');
             $this->attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
-            $CatalogImagesPTGFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesPTGFooter');
+            $catalogImagesPTGFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesPTGFooter');
 
             $catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());
             $catalogObj = DataObject\Catalog::getById($catalogCategoryObj->getParentId());
 
-            $IsPriceCatalog = $catalogObj->getIsPriceCatalog();
-            $CatalogLanguage = $catalogObj->getCatalogLanguage();
+            $isPriceCatalog = $catalogObj->getIsPriceCatalog();
+            $catalogLanguage = $catalogObj->getCatalogLanguage();
             $distributionChannel = $catalogObj->getDistributionChannel();
             $salesOrganisation = $catalogObj->getSalesOrganisation();
-            $Currency = $catalogObj->getCurrency();
-            $ValidFromDate = $catalogObj->getValidFromDate();
+            $currency = $catalogObj->getCurrency();
+            $validFromDate = $catalogObj->getValidFromDate();
 
             $footerBgColor = $template->getColor();
             $productsData = $template->getProductsData();
@@ -2378,109 +2128,96 @@ class DefaultController extends FrontendController
             $this->iconRequired = 'YES';
             $this->columnsData = json_decode($objColumnsData, true);
 
-            if($IsPriceCatalog)
-            {
+            if ($isPriceCatalog) {
                 $this->columnsData['listPrice']['columnName'] = 'listPrice';
                 $this->columnsData['listPrice']['columnLabel'] = 'listPrice';
-                $this->columnsData['listPrice']['unitName'] = $priceListCurrency[$Currency];
+                $this->columnsData['listPrice']['unitName'] = $priceListCurrency[$currency];
             }
-
-            // $this->translatorInterface->setLocale($CatalogLanguage);
 
             $this->subHeaderRequired = 'NO';
 
-            $columnsDataWithImages = $this->getColumnHeadersForCatalog(FALSE, []);
+            $columnsDataWithImages = $this->getColumnHeadersForCatalog(false, []);
 
             unset($objColumnsData);
-            //unset($this->columnsData);
-            //unset($this->attributeImages);
 
             // Getting order of the keys
             $orderKeys = array();
-            foreach ($columnsDataWithImages as $skey => $svalue) {
-                foreach ($svalue as $vkey => $vvalue) {
-                    if($vvalue['columnName'] == 'listPrice')
+            foreach ($columnsDataWithImages as $svalue) {
+                foreach ($svalue as $vvalue) {
+                    if ($vvalue['columnName'] == 'listPrice'){
                         $orderKeys[$vvalue['columnName']] = count($headerKeysIndex);
-                    else
+                    }else{
                         $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
+                    }
                 }
             }
 
-            $this->featuresList = $this->getFeaturesList('', $CatalogLanguage);
-            $materialList = $this->getMaterialList('PTG~material', $CatalogLanguage);
+            $this->featuresList = $this->getFeaturesList($catalogLanguage);
+            
+            $materialList = $this->getStandardMetHoseList('PTG~material', $catalogLanguage);
 
-            $query = "select oo_id, Level, description, PrintedCatalogDescription from object_localized_2_{$CatalogLanguage} where level IN (3,4,5,6) ";
+            $query = "select oo_id, Level, description, PrintedCatalogDescription ";
+            $query .= "from object_localized_2_{$catalogLanguage} where level IN (3,4,5,6) ";
 
-            $categories = $this->db->fetchAll($query);
+            $categories = $this->db->fetchAllAssociative($query);
 
             $categoriesList = array();
 
-            foreach ($categories as $key => $value) {
+            foreach ($categories as $value) {
                 $categoriesList[$value['oo_id']] = $value;
             }
             unset($categories);
 
             $catagoryDescription = array();
             $mainImageObj = '';
-            $LeftPrintCatalogImageObj = '';
-            $RightPrintCatalogImageObj = '';
-            $ProfileDimensionImageObj = '';
+            $profileDimensionImageObj = '';
             $material = array();
             $reinforcement = array();
             $longDescription = '';
             $temperatureRangeFAndC = '';
-            $VirtualCatalogReinforcement = '';
+            $virtualCatalogReinforcement = '';
             $safetyFeatures = array();
 
-            if($productsData)
-            {
-                foreach ($productsData as $key => $item)
-                {
-                    $query = "select SIOPLevel3, SIOPLevel4, SIOPLevel5, SIOPLevel6, priceData from object_query_1 where oo_id = '".$item[$headerKeysIndex['id']]."'";
+            if ($productsData) {
+                foreach ($productsData as $item) {
+                    $query = "select SIOPLevel3, SIOPLevel4, SIOPLevel5, SIOPLevel6, priceData from object_query_1 where oo_id = '" . $item[$headerKeysIndex['id']] . "'";
 
-                    $record = $this->db->fetchRow($query);
-                    $SIOPLevel3 = trim($record['SIOPLevel3'], ',');
-                    $SIOPLevel4 = trim($record['SIOPLevel4'], ',');
-                    $SIOPLevel5 = trim($record['SIOPLevel5'], ',');
-                    $SIOPLevel6 = trim($record['SIOPLevel6'], ',');
+                    $record = $this->db->fetchOne($query);
+                    $siopLevel3 = trim($record['SIOPLevel3'], ',');
+                    $siopLevel4 = trim($record['SIOPLevel4'], ',');
+                    $siopLevel5 = trim($record['SIOPLevel5'], ',');
+                    $siopLevel6 = trim($record['SIOPLevel6'], ',');
 
-                    $siop6Category = !empty($categoriesList[$SIOPLevel6]['PrintedCatalogDescription']) ? $categoriesList[$SIOPLevel6]['PrintedCatalogDescription'] : $categoriesList[$SIOPLevel6]['description'];
+                    $siop6Category = !empty($categoriesList[$siopLevel6]['PrintedCatalogDescription']) ? $categoriesList[$siopLevel6]['PrintedCatalogDescription'] : $categoriesList[$siopLevel6]['description'];
                     $siop6Category = trim($siop6Category);
 
-                    if($siop6Category)
-                    {
-                        if(!isset($catagoryDescription['SIOP3Description']) && $SIOPLevel3)
-                        {
-                            $catagoryDescription['SIOP3Description'] = !empty($categoriesList[$SIOPLevel3]['PrintedCatalogDescription']) ? $categoriesList[$SIOPLevel3]['PrintedCatalogDescription'] : $categoriesList[$SIOPLevel3]['description'];
+                    if ($siop6Category) {
+                        if (!isset($catagoryDescription['SIOP3Description']) && $siopLevel3) {
+                            $catagoryDescription['SIOP3Description'] = !empty($categoriesList[$siopLevel3]['PrintedCatalogDescription']) ? $categoriesList[$siopLevel3]['PrintedCatalogDescription'] : $categoriesList[$siopLevel3]['description'];
                         }
 
-                        if(!isset($catagoryDescription['SIOP4Description']) && $record['SIOPLevel4'])
-                        {
-                            $catagoryDescription['SIOP4Description'] = !empty($categoriesList[$SIOPLevel4]['PrintedCatalogDescription']) ? $categoriesList[$SIOPLevel4]['PrintedCatalogDescription'] : $categoriesList[$SIOPLevel4]['description'];
+                        if (!isset($catagoryDescription['SIOP4Description']) && $record['SIOPLevel4']) {
+                            $catagoryDescription['SIOP4Description'] = !empty($categoriesList[$siopLevel4]['PrintedCatalogDescription']) ? $categoriesList[$siopLevel4]['PrintedCatalogDescription'] : $categoriesList[$siopLevel4]['description'];
                         }
 
-                        if(!isset($catagoryDescription['SIOP5Description']) && $record['SIOPLevel5'])
-                        {
-                            $catagoryDescription['SIOP5Description'] = !empty($categoriesList[$SIOPLevel5]['PrintedCatalogDescription']) ? $categoriesList[$SIOPLevel5]['PrintedCatalogDescription'] : $categoriesList[$SIOPLevel5]['description'];
+                        if (!isset($catagoryDescription['SIOP5Description']) && $record['SIOPLevel5']) {
+                            $catagoryDescription['SIOP5Description'] = !empty($categoriesList[$siopLevel5]['PrintedCatalogDescription']) ? $categoriesList[$siopLevel5]['PrintedCatalogDescription'] : $categoriesList[$siopLevel5]['description'];
                         }
 
                         $listPrice = '';
 
-                        if($record['priceData'])
-                        {
+                        if ($record['priceData']) {
                             $recordArray = explode(PHP_EOL, $record['priceData']);
 
-                            if(count($recordArray))
-                            {
+                            if (count($recordArray)) {
 
-                                foreach ($recordArray as $rkey => $rvalue) {
+                                foreach ($recordArray as $rvalue) {
                                     $pvalue = explode('|', $rvalue);
-                                    if(($pvalue[$priceListTableColumn['Rate Unit']] == $Currency) && ($pvalue[$priceListTableColumn['Distribution Channel']] == $distributionChannel) && ($pvalue[$priceListTableColumn['Sales Organization']] == $salesOrganisation))
-                                    {
-                                        $ValidityStartDate = \Carbon\Carbon::createFromFormat('Y-m-d',$pvalue[$priceListTableColumn['Validity Start Date']]);
-                                        $ValidityEndDate = \Carbon\Carbon::createFromFormat('Y-m-d',$pvalue[$priceListTableColumn['Validity End Date']]);
+                                    if (($pvalue[$priceListTableColumn['Rate Unit']] == $currency) && ($pvalue[$priceListTableColumn['Distribution Channel']] == $distributionChannel) && ($pvalue[$priceListTableColumn['Sales Organization']] == $salesOrganisation)) {
+                                        $validityStartDate = \Carbon\Carbon::createFromFormat('Y-m-d', $pvalue[$priceListTableColumn['Validity Start Date']]);
+                                        $validityEndDate = \Carbon\Carbon::createFromFormat('Y-m-d', $pvalue[$priceListTableColumn['Validity End Date']]);
 
-                                        if($ValidFromDate->between($ValidityStartDate, $ValidityEndDate)) {
+                                        if ($validFromDate->between($validityStartDate, $validityEndDate)) {
                                             $listPrice = $pvalue[$priceListTableColumn['Rate']];
                                             break;
                                         }
@@ -2489,55 +2226,56 @@ class DefaultController extends FrontendController
                             }
                         }
 
-                        if(!$mainImageObj && $item[$headerKeysIndex['mainImage']])
+                        if (!$mainImageObj && $item[$headerKeysIndex['mainImage']]) {
                             $mainImageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['mainImage']]);
+                        }
 
-                        if(!$ProfileDimensionImageObj && $item[$headerKeysIndex['ProfileDimensionImage']])
-                            $ProfileDimensionImageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['ProfileDimensionImage']]);
-                        if($item[$headerKeysIndex['material']])
-                        {
+                        if (!$profileDimensionImageObj && $item[$headerKeysIndex['ProfileDimensionImage']]) {
+                            $profileDimensionImageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['ProfileDimensionImage']]);
+                        }
+
+                        if ($item[$headerKeysIndex['material']]) {
                             $arr_material = [];
 
-                            if(!is_array($item[$headerKeysIndex['material']]))
-                            {
+                            if (!is_array($item[$headerKeysIndex['material']])) {
                                 $arr_material = explode('||', $item[$headerKeysIndex['material']]);
                             }
                             $material = array_merge($material, $arr_material);
                         }
-                        if($item[$headerKeysIndex['reinforcement']])
-                        {
+                        if ($item[$headerKeysIndex['reinforcement']]) {
                             $arr_reinforcement = [];
-                            if(!is_array($item[$headerKeysIndex['reinforcement']]))
-                            {
+                            if (!is_array($item[$headerKeysIndex['reinforcement']])) {
                                 $arr_reinforcement = explode('||', $item[$headerKeysIndex['reinforcement']]);
                             }
                             $reinforcement = array_merge($reinforcement, $arr_reinforcement);
                         }
-                        if($item[$headerKeysIndex['VirtualCatalogReinforcement']] && empty($VirtualCatalogReinforcement))
-                            $VirtualCatalogReinforcement = $item[$headerKeysIndex['VirtualCatalogReinforcement']];
 
-                        if($item[$headerKeysIndex['longDescription']] && empty($longDescription))
+                        if ($item[$headerKeysIndex['VirtualCatalogReinforcement']] && empty($virtualCatalogReinforcement)) {
+                            $virtualCatalogReinforcement = $item[$headerKeysIndex['VirtualCatalogReinforcement']];
+                        }
+
+                        if ($item[$headerKeysIndex['longDescription']] && empty($longDescription)) {
                             $longDescription = $item[$headerKeysIndex['longDescription']];
+                        }
 
-                        if($item[$headerKeysIndex['temperatureRangeFAndC']] && empty($temperatureRangeFAndC))
+                        if ($item[$headerKeysIndex['temperatureRangeFAndC']] && empty($temperatureRangeFAndC)) {
                             $temperatureRangeFAndC = $item[$headerKeysIndex['temperatureRangeFAndC']];
+                        }
 
-                        if($item[$headerKeysIndex['FeaturesBenefitsBulletPoint']])
-                        {
+                        if ($item[$headerKeysIndex['FeaturesBenefitsBulletPoint']]) {
                             $arr_FeaturesBenefitsBulletPoint = [];
-                            if(!is_array($item[$headerKeysIndex['FeaturesBenefitsBulletPoint']]))
-                            {
+                            if (!is_array($item[$headerKeysIndex['FeaturesBenefitsBulletPoint']])) {
                                 $arr_FeaturesBenefitsBulletPoint = explode('||', $item[$headerKeysIndex['FeaturesBenefitsBulletPoint']]);
                             }
 
-                            foreach ($arr_FeaturesBenefitsBulletPoint as $fkey => $feature) {
-                                array_push($safetyFeatures,$feature);
+                            foreach ($arr_FeaturesBenefitsBulletPoint as $feature) {
+                                array_push($safetyFeatures, $feature);
                             }
                         }
 
                         $item[] = $listPrice;
 
-                        foreach ($orderKeys as $ckey => $cvalue) {
+                        foreach ($orderKeys as $cvalue) {
                             $articlesData[] = $item[$cvalue];
                         }
 
@@ -2547,24 +2285,22 @@ class DefaultController extends FrontendController
                 }
 
                 $brandsDataArr = array();
-                if($brandsData)
-                {
+                if ($brandsData) {
                     foreach ($brandsData as $bkey => $bvalue) {
 
-                        if(isset($headerKeysIndex['pitchMM']) && isset($headerKeysIndex['widthmm']))
+                        if (isset($headerKeysIndex['pitchMM']) && isset($headerKeysIndex['widthmm'])) {
                             array_multisort(array_column($bvalue, $headerKeysIndex['pitchMM']), SORT_ASC, array_column($bvalue, $headerKeysIndex['widthmm']), SORT_ASC, $bvalue);
-                        else if(isset($headerKeysIndex['outsideLengthIN']) && isset($headerKeysIndex['netWeight']))
+                        } elseif (isset($headerKeysIndex['outsideLengthIN']) && isset($headerKeysIndex['netWeight'])) {
                             array_multisort(array_column($bvalue, $headerKeysIndex['outsideLengthIN']), SORT_ASC, array_column($bvalue, $headerKeysIndex['netWeight']), SORT_ASC, $bvalue);
-                        else if(isset($headerKeysIndex['insideLengthIN']))
+                        } elseif (isset($headerKeysIndex['insideLengthIN'])) {
                             array_multisort(array_column($bvalue, $headerKeysIndex['insideLengthIN']), SORT_ASC, $bvalue);
-                        else if(isset($headerKeysIndex['pulleyDiameterIN']) && isset($headerKeysIndex['GroovesPerTooth']))
+                        } elseif (isset($headerKeysIndex['pulleyDiameterIN']) && isset($headerKeysIndex['GroovesPerTooth'])) {
                             array_multisort(array_column($bvalue, $headerKeysIndex['pulleyDiameterIN']), SORT_ASC, array_column($bvalue, $headerKeysIndex['GroovesPerTooth']), SORT_ASC, $bvalue);
-                        else if(isset($headerKeysIndex['numberOfTeeth']) && isset($headerKeysIndex['netWeight']))
+                        } elseif (isset($headerKeysIndex['numberOfTeeth']) && isset($headerKeysIndex['netWeight'])) {
                             array_multisort(array_column($bvalue, $headerKeysIndex['numberOfTeeth']), SORT_ASC, array_column($bvalue, $headerKeysIndex['netWeight']), SORT_ASC, $bvalue);
-
+                        }
                         $brandsDataArr[$bkey] = $bvalue;
                     }
-
                 }
                 unset($brandsData);
 
@@ -2575,10 +2311,10 @@ class DefaultController extends FrontendController
 
                 $material = array_unique($material);
                 $materialArray = array();
-                foreach($material as $key => $value)
-                {
-                    if(isset($materialList[$value]))
+                foreach ($material as $value) {
+                    if (isset($materialList[$value])) {
                         $materialArray[] = $materialList[$value]['name'];
+                    }
                 }
 
                 $materialStr = implode(', ', $materialArray);
@@ -2587,9 +2323,10 @@ class DefaultController extends FrontendController
                 unset($safetyFeatures);
                 unset($materialArray);
 
-                $reinforcementStr = strip_tags($VirtualCatalogReinforcement, "<ul><li><span><strong>");
-                if(empty($reinforcementStr))
+                $reinforcementStr = strip_tags($virtualCatalogReinforcement, "<ul><li><span><strong>");
+                if (empty($reinforcementStr)) {
                     $reinforcementStr = $reinforcement;
+                }
 
                 $groupData = array();
                 $groupData['subHeaderRequired'] = $this->subHeaderRequired;
@@ -2599,73 +2336,67 @@ class DefaultController extends FrontendController
                 $groupData['safetyFeatures'] = $safetyFeaturesList;
                 $groupData['mainImageObj'] = $mainImageObj;
                 $groupData['columnsDataWithImages'] = $columnsDataWithImages;
-                $groupData['ProfileDimensionImageObj'] = $ProfileDimensionImageObj;
+                $groupData['ProfileDimensionImageObj'] = $profileDimensionImageObj;
                 $groupData['longDescription'] = $longDescription;
                 $groupData['temperatureRange'] = $temperatureRangeFAndC;
                 $groupData['data'] = $brandsDataArr;
-                $groupData['columnsDataWithImages'] = $columnsDataWithImages;
                 $groupData['brandName'] = $catagoryDescription['SIOP5Description'];
                 $groupData['siop4Category'] = $catagoryDescription['SIOP4Description'];
                 $groupData['siop3Category'] = $catagoryDescription['SIOP3Description'];
-                $groupData['IsPriceCatalog'] = $IsPriceCatalog;
+                $groupData['IsPriceCatalog'] = $isPriceCatalog;
                 unset($brandsData);
                 unset($mainImageObj);
-                unset($ProfileDimensionImageObj);
-                //unset($this->featuresList);
+                unset($profileDimensionImageObj);
 
-                $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesPTGFooter['Black']:$CatalogImagesPTGFooter['Orange'];
+                $footer_logo_src = (strtolower($footerBgColor) == 'orange') ? $catalogImagesPTGFooter['Black'] : $catalogImagesPTGFooter['Orange'];
                 $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
                 $parameterBag['groupData'] = $groupData;
-                $parameterBag['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
+                $parameterBag['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
                 $parameterBag['footer_logo_src'] = $footer_logo_src;
-                $parameterBag['containerRequest'] = $containerRequest;
             }
         }
         return $this->render("@Catalog/Default/template_ptg_product_page.html.twig", $parameterBag);
     }
 
-    public function getFiveSortedFeaturesWithIconList($safetyFeatures){
-
+    public function getFiveSortedFeaturesWithIconList($safetyFeatures): ?array
+    {
         $safetyFeatures = array_unique($safetyFeatures);
-
         $safetyFeaturesList  = array();
         $safetyFeaturesListWithImage = array();
         $safetyFeaturesListWithOutImage = array();
 
-        if($safetyFeatures)
-        {
-            foreach ($safetyFeatures as $fkey => $fvalue) {
+        if ($safetyFeatures) {
+            foreach ($safetyFeatures as $fvalue) {
                 $fIcon = isset($this->featuresList[$fvalue]['icon']) ? $this->featuresList[$fvalue]['icon'] : null;
-                if($fIcon)
-                {
-                    if(!isset($this->s3srcArr[$fvalue]))
+                if ($fIcon) {
+                    if (!isset($this->s3srcArr[$fvalue])) {
                         $this->s3srcArr[$fvalue] = $this->getS3ImageSrc($fIcon);
+                    }
 
-                    $safetyFeaturesListWithImage[] = array('name'=>$this->featuresList[$fvalue]['name'], 'iconSrc' => $fvalue, 'SortOrder' =>$this->featuresList[$fvalue]['SortOrder']);
+                    $safetyFeaturesListWithImage[] = array('name' => $this->featuresList[$fvalue]['name'], 'iconSrc' => $fvalue, 'SortOrder' => $this->featuresList[$fvalue]['SortOrder']);
+                } else {
+                    $safetyFeaturesListWithOutImage[] = array('name' => $this->featuresList[$fvalue]['name'], 'iconSrc' => $fIcon, 'SortOrder' => $this->featuresList[$fvalue]['SortOrder']);
                 }
-                else
-                    $safetyFeaturesListWithOutImage[] = array('name'=>$this->featuresList[$fvalue]['name'], 'iconSrc' => $fIcon, 'SortOrder' =>$this->featuresList[$fvalue]['SortOrder']);
             }
         }
 
-        if($safetyFeaturesListWithImage)
-            array_multisort (array_column($safetyFeaturesListWithImage, 'SortOrder'), SORT_ASC, $safetyFeaturesListWithImage);
+        if ($safetyFeaturesListWithImage) {
+            array_multisort(array_column($safetyFeaturesListWithImage, 'SortOrder'), SORT_ASC, $safetyFeaturesListWithImage);
+        }
 
-        if($safetyFeaturesListWithOutImage)
-            array_multisort (array_column($safetyFeaturesListWithOutImage, 'SortOrder'), SORT_ASC, $safetyFeaturesListWithOutImage);
+        if ($safetyFeaturesListWithOutImage) {
+            array_multisort(array_column($safetyFeaturesListWithOutImage, 'SortOrder'), SORT_ASC, $safetyFeaturesListWithOutImage);
+        }
 
-        $safetyFeaturesList = array_merge_recursive($safetyFeaturesListWithImage,$safetyFeaturesListWithOutImage);
+        $safetyFeaturesList = array_merge_recursive($safetyFeaturesListWithImage, $safetyFeaturesListWithOutImage);
 
-        if($safetyFeaturesList)
+        if ($safetyFeaturesList) {
             $safetyFeaturesList = array_slice($safetyFeaturesList, 0, 5);
 
-        if($safetyFeaturesList)
-        {
             foreach ($safetyFeaturesList as $key => $value) {
 
-                if(isset($this->s3srcArr[$value['iconSrc']]))
-                {
+                if (isset($this->s3srcArr[$value['iconSrc']])) {
                     $safetyFeaturesList[$key]['iconSrc'] = $this->s3srcArr[$value['iconSrc']];
                 }
             }
@@ -2682,46 +2413,34 @@ class DefaultController extends FrontendController
         $s3src = '';
         $imgObj = \Pimcore\Model\Asset::getByPath($src);
 
-        if($imgObj){
-            // $s3src = $imgObj->getThumbnail('catalog_thumb');
-            // $s3src = $this->catalogTemplatingHelper->getImageThumbnail($imgObj,1000);
-
+        if ($imgObj) {
             // uncomment below once imageWidth resolved in view
-            $s3src = $this->catalogTemplatingHelper->getImageThumbnail($imgObj,$this->imageWidth);
-//            $s3src = Utils::getAssetFullPathCompatibleToS3($imgObj);
+            $s3src = $this->catalogTemplatingHelper->getImageThumbnail($imgObj, $this->imageWidth);
         }
-
-
         return $s3src;
     }
 
-    public function getColumnHeadersForCatalog($isTableNameColumnRequired = FALSE, $tableNameColumns = []){
-
+    public function getColumnHeadersForCatalog($isTableNameColumnRequired = false, $tableNameColumns = []): array
+    {
         $columnsDataWithImages = array();
 
-        if($isTableNameColumnRequired)
-        {
-            foreach ($this->columnsData as $dkey => $value)
-            {
-                if(in_array($dkey,$tableNameColumns))
-                {
+        if ($isTableNameColumnRequired) {
+            foreach ($this->columnsData as $dkey => $value) {
+                if (in_array($dkey, $tableNameColumns)) {
                     $groupColumnName = $value['columnName'];
                     $groupName = '';
                     $columnWidth = '';
                     $unitName = '';
 
-                    if(isset($value['columnWidth']) && $value['columnWidth'])
-                    {
+                    if (isset($value['columnWidth']) && $value['columnWidth']) {
                         $columnWidth = $value['columnWidth'];
                     }
 
-                    if(isset($value['unitName']) && $value['unitName'])
-                    {
+                    if (isset($value['unitName']) && $value['unitName']) {
                         $unitName = $value['unitName'];
                     }
 
-                    if(isset($value['groupName']) && $value['groupName'])
-                    {
+                    if (isset($value['groupName']) && $value['groupName']) {
                         $groupColumnName = $value['groupName'];
                         $groupName = $value['groupName'];
                         $this->subHeaderRequired = 'YES';
@@ -2733,28 +2452,21 @@ class DefaultController extends FrontendController
                     $columnsDataWithImages[$groupColumnName][$dkey]['columnName'] = $value['columnName'];
                     $columnsDataWithImages[$groupColumnName][$dkey]['columnLabel'] = $this->replaceYellowCode($this->translatorInterface->trans($groupColumnName));
 
-                    if ($this->iconRequired == 'YES')
-                    {
-                        if(!isset($this->attrbuteImgS3Arr[$groupColumnName]))
-                        {
-                            if(isset($this->attributeImages[$groupColumnName]))
-                            {
+                    if ($this->iconRequired == 'YES') {
+                        if (!isset($this->attrbuteImgS3Arr[$groupColumnName])) {
+                            if (isset($this->attributeImages[$groupColumnName])) {
                                 $attributeImagesSrc = $this->attributeImages[$groupColumnName];
                                 $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
                                 $this->attrbuteImgS3Arr[$groupColumnName] = $attributeImagesSrc;
                                 $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $attributeImagesSrc;
                             }
-                        }
-                        else
-                        {
+                        } else {
                             $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $this->attrbuteImgS3Arr[$groupColumnName];
                         }
                     }
                 }
             }
-        }
-        else
-        {
+        } else {
             foreach ($this->columnsData as $key => $value) {
 
                 $groupColumnName = $value['columnName'];
@@ -2763,18 +2475,15 @@ class DefaultController extends FrontendController
                 $columnWidth = '';
                 $unitName = '';
 
-                if(isset($value['columnWidth']) && $value['columnWidth'])
-                {
+                if (isset($value['columnWidth']) && $value['columnWidth']) {
                     $columnWidth = $value['columnWidth'];
                 }
 
-                if(isset($value['unitName']) && $value['unitName'])
-                {
+                if (isset($value['unitName']) && $value['unitName']) {
                     $unitName = $value['unitName'];
                 }
 
-                if(isset($value['groupName']) && $value['groupName'])
-                {
+                if (isset($value['groupName']) && $value['groupName']) {
                     $groupColumnName = $value['groupName'];
                     $groupName = $value['groupName'];
                     $this->subHeaderRequired = 'YES';
@@ -2783,28 +2492,23 @@ class DefaultController extends FrontendController
                 $columnsDataWithImages[$groupColumnName][$key]['groupName'] = $groupName;
                 $columnsDataWithImages[$groupColumnName][$key]['columnWidth'] = $columnWidth;
 
-                if($value['columnName'] == 'listPrice')
+                if ($value['columnName'] == 'listPrice') {
                     $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $unitName;
-                else
+                }else{
                     $columnsDataWithImages[$groupColumnName][$key]['unitName'] = ($unitName) ? $this->replaceYellowCode($this->translatorInterface->trans($unitName)) : '';
-
+                }
                 $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
                 $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->replaceYellowCode($this->translatorInterface->trans($groupColumnName));
 
-                if ($this->iconRequired == 'YES')
-                {
-                    if(!isset($this->attrbuteImgS3Arr[$groupColumnName]))
-                    {
-                        if(isset($this->attributeImages[$groupColumnName]))
-                        {
+                if ($this->iconRequired == 'YES') {
+                    if (!isset($this->attrbuteImgS3Arr[$groupColumnName])) {
+                        if (isset($this->attributeImages[$groupColumnName])) {
                             $attributeImagesSrc = $this->attributeImages[$groupColumnName];
                             $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
                             $this->attrbuteImgS3Arr[$groupColumnName] = $attributeImagesSrc;
                             $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImagesSrc;
                         }
-                    }
-                    else
-                    {
+                    } else {
                         $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $this->attrbuteImgS3Arr[$groupColumnName];
                     }
                 }
@@ -2814,18 +2518,17 @@ class DefaultController extends FrontendController
         return $columnsDataWithImages;
     }
 
-    public function templateIndexDescriptiveNumberAction(Request $request)
+    public function templateIndexDescriptiveNumberAction(Request $request): Response
     {
         $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
         return $this->render("@Catalog/Default/template_index_descriptive_number.html.twig", $parameterBag);
     }
 
-    public function templateHydraulicAlphanumericIndexByDescriptiveNumberDynamicAction(Request $request)
+    public function templateHydraulicAlphanumericIndexByDescriptiveNumberDynamicAction(Request $request): Response
     {
         $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
-        try
-        {
-            $folderId =$this->document->getParent()->getId();
+        try {
+            $folderId = $this->document->getParent()->getId();
             $listing = new \Pimcore\Model\Document\Listing();
             $listing->setCondition("parentId = $folderId");
             $listing->load();
@@ -2841,16 +2544,12 @@ class DefaultController extends FrontendController
             ];
 
             $all_doc_arr = [];
-            foreach($listing as $doc)
-            {
-                if($doc->getChildren())
-                {
-                    foreach ($doc->getChildren() as $key => $childDoc) {
+            foreach ($listing as $doc) {
+                if ($doc->getChildren()) {
+                    foreach ($doc->getChildren() as $childDoc) {
 
-                        if($childDoc->getChildren())
-                        {
-                            foreach ($childDoc->getChildren() as $key => $child2Doc)
-                            {
+                        if ($childDoc->getChildren()) {
+                            foreach ($childDoc->getChildren() as $child2Doc) {
                                 if (in_array($child2Doc->getTemplate(), $templateArray)) {
                                     $obj = $child2Doc->getEditable('product_page_part_number');
                                     if (!empty($obj) && !empty($obj->getData())) {
@@ -2859,9 +2558,7 @@ class DefaultController extends FrontendController
                                     }
                                 }
                             }
-                        }
-                        else
-                        {
+                        } else {
                             if (in_array($childDoc->getTemplate(), $templateArray)) {
                                 $obj = $childDoc->getEditable('product_page_part_number');
                                 if (!empty($obj) && !empty($obj->getData())) {
@@ -2871,9 +2568,7 @@ class DefaultController extends FrontendController
                             }
                         }
                     }
-                }
-                else
-                {
+                } else {
                     if (in_array($doc->getTemplate(), $templateArray)) {
                         $obj = $doc->getEditable('product_page_part_number');
                         if (!empty($obj) && !empty($obj->getData())) {
@@ -2889,9 +2584,7 @@ class DefaultController extends FrontendController
 
             $parameterBag['data'] = $all_doc_arr;
             return $this->render("@Catalog/Default/template_hydraulic_alphanumeric_index_by_descriptive_number_dynamic.html.twig", $parameterBag);
-        }
-        catch(Exception $e)
-        {
+        } catch (Exception $e) {
             return new Response($e->getMessage());
         }
     }
@@ -2899,9 +2592,8 @@ class DefaultController extends FrontendController
     public function templateHydraulicAlphanumericIndexByProductNumberDynamicAction(Request $request)
     {
         $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
-        try
-        {
-            $folderId =$this->document->getParent()->getId();
+        try {
+            $folderId = $this->document->getParent()->getId();
             $listing = new \Pimcore\Model\Document\Listing();
             $listing->setCondition("parentId = $folderId");
             $listing->load();
@@ -2914,17 +2606,14 @@ class DefaultController extends FrontendController
                 '@Catalog/Default/template_hose_accessories_sleeving.html.twig',
                 '@Catalog/Fitting/hydraulic_fitting.html.twig'
             ];
-            
-            $all_doc_arr = [];
-            foreach($listing as $doc)
-            {
-                if($doc->getChildren())
-                {
-                    foreach ($doc->getChildren() as $key => $childDoc) {
 
-                        if($childDoc->getChildren())
-                        {
-                            foreach ($childDoc->getChildren() as $key => $child2Doc) {
+            $all_doc_arr = [];
+            foreach ($listing as $doc) {
+                if ($doc->getChildren()) {
+                    foreach ($doc->getChildren() as $childDoc) {
+
+                        if ($childDoc->getChildren()) {
+                            foreach ($childDoc->getChildren() as $child2Doc) {
                                 if (in_array($child2Doc->getTemplate(), $templateArray)) {
                                     $obj = $child2Doc->getEditable('product_page_product_number');
                                     if (!empty($obj) && !empty($obj->getData())) {
@@ -2933,9 +2622,7 @@ class DefaultController extends FrontendController
                                     }
                                 }
                             }
-                        }
-                        else
-                        {
+                        } else {
                             if (in_array($childDoc->getTemplate(), $templateArray)) {
                                 $obj = $childDoc->getEditable('product_page_product_number');
                                 if (!empty($obj) && !empty($obj->getData())) {
@@ -2945,9 +2632,7 @@ class DefaultController extends FrontendController
                             }
                         }
                     }
-                }
-                else
-                {
+                } else {
                     if (in_array($doc->getTemplate(), $templateArray)) {
                         $obj = $doc->getEditable('product_page_product_number');
                         if (!empty($obj) && !empty($obj->getData())) {
@@ -2963,23 +2648,21 @@ class DefaultController extends FrontendController
 
             $parameterBag['data'] = $all_doc_arr;
             return $this->render("@Catalog/Default/template_hydraulic_alphanumeric_index_by_product_number_dynamic.html.twig", $parameterBag);
-        }
-        catch(Exception $e)
-        {
+        } catch (Exception $e) {
             return new Response($e->getMessage());
         }
     }
 
-    public function templateIndexProductNumberAction(Request $request)
+    public function templateIndexProductNumberAction(Request $request): Response
     {
         $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
         return $this->render("@Catalog/Default/template_index_product_number.html.twig", $parameterBag);
     }
 
-    public function replaceYellowCode($string)
+    public function replaceYellowCode($string): string
     {
-        $string = str_replace('%*','<span style="color: #ffa500;">', $string);
-        $string = str_replace('*%','</span>', $string);
+        $string = str_replace('%*', '<span style="color: #ffa500;">', $string);
+        $string = str_replace('*%', '</span>', $string);
         return $string;
     }
     /**
@@ -2987,36 +2670,30 @@ class DefaultController extends FrontendController
      * @Route("/reset-table-of-content")
      * @return json
      */
-    public function resetTableOfContentPageData(Request $request)
+    public function resetTableOfContentPageData(Request $request): JsonResponse
     {
-        try
-        {
+        try {
             $docId  = $request->get('docId');
-            $sql    = "DELETE FROM documents_elements where documentId = '$docId'";
-            $resp   = $this->db->query($sql);
-
-            return $this->json(array("success" => true,"msg" => 'Content Reset Successfully.'));
-        }
-        catch(Exception $e)
-        {
-            return $this->json(array("success" => false,"msg" => $e->getMessage()));
+            $sql    = "DELETE FROM documents_editables where documentId = '$docId'";
+            $this->db->query($sql);
+            return $this->json(array("success" => true, "msg" => 'Content Reset Successfully.'));
+        } catch (Exception $e) {
+            return $this->json(array("success" => false, "msg" => $e->getMessage()));
         }
     }
 
     public function getRequestedParameter(Request $request, $documentId): array
     {
         $parameterBag = [];
-        // foreach ($request->attributes as $key => $value) {
-        //     $parameterBag[$key] = $value;
-        // }
         $parameterBag['printermarks'] = $request->get('printermarks');
+        $parameterBag['isParentContainerRequest'] = $request->get('isParentContainerRequest') ? $request->get('isParentContainerRequest') : false;
 
         $imageWidth = null;
         $imageRecompression = null;
         $printConfigFile = \Pimcore\Web2Print\Processor::getJobConfigFile($documentId);
-        if(file_exists($printConfigFile)){
+        if (file_exists($printConfigFile)) {
             $printConfigFileContent = file_get_contents($printConfigFile);
-            $printConfig = json_decode( $printConfigFileContent,true);
+            $printConfig = json_decode($printConfigFileContent, true);
             $imageRecompression = $printConfig['config']['Image Quality'];
             $imageWidth = $printConfig['config']['Image Width'];
         }
@@ -3026,5 +2703,4 @@ class DefaultController extends FrontendController
 
         return $parameterBag;
     }
-
 }

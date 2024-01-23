@@ -1,18 +1,6 @@
-pimcore.registerNS("pimcore.plugin.PTGEUProductBundle");
-
-pimcore.plugin.PTGEUProductBundle = Class.create(pimcore.plugin.admin, {
-    getClassName: function () {
-        return "pimcore.plugin.PTGEUProductBundle";
-    },
-
-    initialize: function () {
-        pimcore.plugin.broker.registerPlugin(this);
-    },
-
-    pimcoreReady: function (params, broker) {
-        // alert("PTGEUProductBundle ready!");
-    }
-    
+document.addEventListener(pimcore.events.pimcoreReady, (e) => {
+    //print out the parameters of the event
+    console.log('pimcore.plugin.PTGEUProductBundle pimcoreReady')
+    e.preventDefault();
+    e.stopPropagation();
 });
-
-var PTGEUProductBundlePlugin = new pimcore.plugin.PTGEUProductBundle();

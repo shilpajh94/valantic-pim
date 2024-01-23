@@ -1,17 +1,6 @@
-pimcore.registerNS("pimcore.plugin.IFSEUImportBundle");
-
-pimcore.plugin.IFSEUImportBundle = Class.create(pimcore.plugin.admin, {
-    getClassName: function () {
-        return "pimcore.plugin.IFSEUImportBundle";
-    },
-
-    initialize: function () {
-        pimcore.plugin.broker.registerPlugin(this);
-    },
-
-    pimcoreReady: function (params, broker) {
-        // alert("IFSEUImportBundle ready!");
-    }
+document.addEventListener(pimcore.events.pimcoreReady, (e) => {
+    //print out the parameters of the event
+    console.log('pimcore.plugin.IFSEUImportBundle pimcoreReady')
+    e.preventDefault();
+    e.stopPropagation();
 });
-
-var IFSEUImportBundlePlugin = new pimcore.plugin.IFSEUImportBundle();

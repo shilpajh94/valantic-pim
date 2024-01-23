@@ -1,4 +1,4 @@
-{% if not parentContainer is defined %}
+{% if not isParentContainerRequest %}
 	{% extends "@Catalog/Layouts/layout.html.twig" %}
 {% endif %}
 
@@ -238,8 +238,6 @@
 												</div>
 											</figcaption>
 										</figure>
-
-
 										{% set key= '' %}
 									{% endfor %}
 								{% endif %}

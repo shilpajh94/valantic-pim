@@ -9,6 +9,7 @@
 namespace CatalogBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Pimcore\Controller\FrontendController;
 
@@ -22,7 +23,7 @@ class ContentController extends FrontendController {
     /**
      * @Route("/print_page")
      */
-    public function pdfAction(Request $request) {
+    public function pdfAction(Request $request): Response {
         $documentId = $this->document->getId();
         $parameterBag = $this->getRequestedParameter($request, $documentId);
 
@@ -39,7 +40,7 @@ class ContentController extends FrontendController {
         return $this->render("@Catalog/Content/pdf.html.twig", $parameterBag);
     }
 
-    public function pdfWithFooterAction(Request $request) {
+    public function pdfWithFooterAction(Request $request): Response {
         $documentId = $this->document->getId();
         $parameterBag = $this->getRequestedParameter($request, $documentId);
 
@@ -58,6 +59,7 @@ class ContentController extends FrontendController {
 
     public function getRequestedParameter(Request $request, $documentId): array
     {
+        $parameterBag = [];
         foreach ($request->attributes as $key => $value) {
             $parameterBag[$key] = $value;
         }

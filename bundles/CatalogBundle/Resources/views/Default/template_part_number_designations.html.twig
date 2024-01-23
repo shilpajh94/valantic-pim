@@ -1,4 +1,4 @@
-{% if parentContainer is not defined %}
+{% if not isParentContainerRequest %}
 	{% extends "@Catalog/Layouts/layout.html.twig" %}
 {% endif %}
 
@@ -20,7 +20,7 @@
 			<div id="pageHeader"></div>
 			<span class="pageName">Hydraulic Hose</span>
 			<div class="footer">
-				<footer class="flex-center <?php echo $footer_class; ?>">
+				<footer class="flex-center {{footer_class}}">
 					<span class="logo">
 						<b>
 							{% if editmode %}
@@ -62,7 +62,7 @@
 				</footer>
 			</div>
 			<div class="footer1">
-				<footer class="flex-center <?php echo $footer_class; ?>">
+				<footer class="flex-center {{footer_class}}">
 					<div class="flex aligned ">
 						<h5>
 							{% if editmode %}

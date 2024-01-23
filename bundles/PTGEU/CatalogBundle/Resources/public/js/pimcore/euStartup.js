@@ -1,32 +1,32 @@
-pimcore.registerNS("pimcore.plugin.PTGEUCatalogBundle");
+document.addEventListener(pimcore.events.postOpenObject, (e) => {
+    console.log('pimcore.plugin.PTGEUCatalogBundle postOpenObject')
+    let objectClassName = e.detail.object.data.general.o_className;
 
-pimcore.plugin.PTGEUCatalogBundle = Class.create(pimcore.plugin.admin, {
-    getClassName: function () {
-        return "pimcore.plugin.PTGEUCatalogBundle";
-    },
+    if (objectClassName == 'PTGEUCatalog') {
+        var DistributionChannelCompObj = e.detail.object.edit.dataFields.DistributionChannel.component;
+        var IsPriceCatalogCompObj = e.detail.object.edit.dataFields.IsPriceCatalog.component;
+        var CurrencyCompObj = e.detail.object.edit.dataFields.Currency.component;
+        var ValidFromDateCompObj = e.detail.object.edit.dataFields.ValidFromDate.component;
+        if (IsPriceCatalogCompObj.value == '1') {
+            DistributionChannelCompObj.show();
+            DistributionChannelCompObj.enable();
+            CurrencyCompObj.show();
+            CurrencyCompObj.enable();
+            ValidFromDateCompObj.show();
+            ValidFromDateCompObj.enable();
+        }
+        else {
+            DistributionChannelCompObj.hide();
+            DistributionChannelCompObj.disable();
+            CurrencyCompObj.hide();
+            CurrencyCompObj.disable();
+            ValidFromDateCompObj.hide();
+            ValidFromDateCompObj.disable();
+        }
 
-    initialize: function () {
-        pimcore.plugin.broker.registerPlugin(this);
-    },
+        IsPriceCatalogCompObj.addListener('change', function (prVal, chVal) {
 
-    pimcoreReady: function (params, broker) {
-        // alert("PTGEUCatalogBundle ready!");
-    },
-
-    postOpenObject: function (object, type) {
-       
-        let objectClassName = object.data.general.o_className;
-
-        if (object.data.general.o_className == 'PTGEUCatalog') {
-            // var SalesOrganisationCompObj = object.edit.dataFields.SalesOrganisation.component;
-            var DistributionChannelCompObj = object.edit.dataFields.DistributionChannel.component;
-            var IsPriceCatalogCompObj = object.edit.dataFields.IsPriceCatalog.component;
-            var CurrencyCompObj = object.edit.dataFields.Currency.component;
-            var ValidFromDateCompObj = object.edit.dataFields.ValidFromDate.component;
-            if(IsPriceCatalogCompObj.value == '1')
-            {
-                // SalesOrganisationCompObj.show();
-                // SalesOrganisationCompObj.enable();
+            if (chVal == '1') {
                 DistributionChannelCompObj.show();
                 DistributionChannelCompObj.enable();
                 CurrencyCompObj.show();
@@ -34,9 +34,7 @@ pimcore.plugin.PTGEUCatalogBundle = Class.create(pimcore.plugin.admin, {
                 ValidFromDateCompObj.show();
                 ValidFromDateCompObj.enable();
             }
-            else{
-                // SalesOrganisationCompObj.hide();
-                // SalesOrganisationCompObj.disable();
+            else {
                 DistributionChannelCompObj.hide();
                 DistributionChannelCompObj.disable();
                 CurrencyCompObj.hide();
@@ -45,81 +43,53 @@ pimcore.plugin.PTGEUCatalogBundle = Class.create(pimcore.plugin.admin, {
                 ValidFromDateCompObj.disable();
             }
 
-            IsPriceCatalogCompObj.addListener('change', function (prVal, chVal) {
-                
-                if(chVal == '1')
-                {
-                    // SalesOrganisationCompObj.show();
-                    // SalesOrganisationCompObj.enable();
-                    DistributionChannelCompObj.show();
-                    DistributionChannelCompObj.enable();
-                    CurrencyCompObj.show();
-                    CurrencyCompObj.enable();
-                    ValidFromDateCompObj.show();
-                    ValidFromDateCompObj.enable();
-                }
-                else{
-                    // SalesOrganisationCompObj.hide();
-                    // SalesOrganisationCompObj.disable();
-                    DistributionChannelCompObj.hide();
-                    DistributionChannelCompObj.disable();
-                    CurrencyCompObj.hide();
-                    CurrencyCompObj.disable();
-                    ValidFromDateCompObj.hide();
-                    ValidFromDateCompObj.disable();
-                }
-
-            });
-        }
-
-        if (objectClassName == 'PTGEUCatalogCategory') {
-            var colComp = Ext.getCmp(object.edit.dataFields.Columns.component.id);
-            colComp.hide();
-
-            var colSortingColumns = Ext.getCmp(object.edit.dataFields.SortingColumns.component.id);
-            colSortingColumns.hide();
-            
-            let fifthLevelCategory = object.edit.dataFields.fifthLevelCategory.component.getValue();
-            this.listProductTable(object, fifthLevelCategory);
-
-             object.edit.dataFields.fifthLevelCategory.component.on('select', function(eve){
-                this.listProductTable(object, eve.value);
-             }.bind(this));
-
-            let euHeaderSelection = new pimcore.plugin.euHeaderSelection();
-            euHeaderSelection.attachEUHeaders(object);
-        }
-    },
-
-    listProductTable: function (object, category) {
-
-        // Code for populating products
-        var sixSevenLevelCategoryOptionStore = Ext.create('Ext.data.Store', {
-            fields: ['id', 'text'],
-            proxy: {
-                type: 'ajax',
-                url: '/ptgeu_catalog/get-available-six-level-categories',
-                method:'POST',
-                extraParams: {
-                    catId: category,
-                },
-                reader: {
-                    type: 'json',
-                    rootProperty: 'data'
-                }
-            },
-
         });
+    }
 
-        sixSevenLevelCategoryOptionStore.load();
+    if (objectClassName == 'PTGEUCatalogCategory') {
+        var colComp = Ext.getCmp(e.detail.object.edit.dataFields.Columns.component.id);
+        colComp.hide();
 
-        object.edit.dataFields.sixSevenLevelCategory.component.setStore(sixSevenLevelCategoryOptionStore);
-        if (object.data.data.sixSevenLevelCategory !== null)
-        {
-            object.edit.dataFields.sixSevenLevelCategory.component.setValue(object.data.data.sixSevenLevelCategory);
-        }
-        sixSevenLevelCategoryOptionStore.load();
-    },
+        var colSortingColumns = Ext.getCmp(e.detail.object.edit.dataFields.SortingColumns.component.id);
+        colSortingColumns.hide();
+
+        let fifthLevelCategory = e.detail.object.edit.dataFields.fifthLevelCategory.component.getValue();
+        this.ptgEulistProductTable(e, fifthLevelCategory);
+
+        e.detail.object.edit.dataFields.fifthLevelCategory.component.on('select', function (eve) {
+            this.ptgEulistProductTable(e, eve.value);
+        }.bind(this));
+
+        let euHeaderSelection = new pimcore.plugin.euHeaderSelection();
+        euHeaderSelection.attachEUHeaders(e.detail.object);
+    }
 });
 
-var PTGEUCatalogBundlePlugin = new pimcore.plugin.PTGEUCatalogBundle();
+function ptgEulistProductTable(e, category) {
+
+    // Code for populating products
+    var sixSevenLevelCategoryOptionStore = Ext.create('Ext.data.Store', {
+        fields: ['id', 'text'],
+        proxy: {
+            type: 'ajax',
+            url: '/ptgeu_catalog/get-available-six-level-categories',
+            method: 'POST',
+            extraParams: {
+                catId: category,
+            },
+            reader: {
+                type: 'json',
+                rootProperty: 'data'
+            }
+        },
+
+    });
+
+    sixSevenLevelCategoryOptionStore.load();
+
+    e.detail.object.edit.dataFields.sixSevenLevelCategory.component.setStore(sixSevenLevelCategoryOptionStore);
+    if (e.detail.object.data.data.sixSevenLevelCategory !== null) {
+        e.detail.object.edit.dataFields.sixSevenLevelCategory.component.setValue(e.detail.object.data.data.sixSevenLevelCategory);
+    }
+    sixSevenLevelCategoryOptionStore.load();
+}

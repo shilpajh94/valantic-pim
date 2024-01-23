@@ -1,4 +1,4 @@
-{% if not parentContainer is defined %}
+{% if not isParentContainerRequest %}
 	{% extends "@Catalog/Layouts/layout.html.twig" %}
 {% endif %}
 
@@ -328,7 +328,7 @@
 
 			</div>
 		</div>
-		{% if not containerRequest %}
+		{% if not isParentContainerRequest %}
 			<script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
 		{% endif %}
 	{% endif %}

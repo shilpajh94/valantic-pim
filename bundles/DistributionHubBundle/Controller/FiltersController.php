@@ -99,7 +99,7 @@ class FiltersController extends AdminController
             return $this->adminJson(['success' => 'false']);
         }
 
-        $fieldSelectionInformationEntries = $service->getFieldSelectionInformationForClassDefinition($definition, $allowInheritance, $fieldTypes);
+        $fieldSelectionInformationEntries = $service->getFieldSelectionInformationForClassDefinition($definition, $fieldTypes, $allowInheritance);
 
         $fields = [];
 

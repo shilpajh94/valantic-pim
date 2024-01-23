@@ -1,85 +1,30 @@
-pimcore.registerNS("pimcore.plugin.ContitechCSCatalogBundle");
+document.addEventListener(pimcore.events.postOpenObject, (e) => {
+    //print out the parameters of the event
+    console.log('pimcore.plugin.ContitechCSCatalogBundle postOpenObject')
 
-pimcore.plugin.ContitechCSCatalogBundle = Class.create(pimcore.plugin.admin, {
-    getClassName: function () {
-        return "pimcore.plugin.ContitechCSCatalogBundle";
-    },
+    let objectClassName = e.detail.object.data.general.o_className;
 
-    initialize: function () {
-        pimcore.plugin.broker.registerPlugin(this);
-    },
+    if (objectClassName == 'CSCatalogCategory') {
+        let firstLevelCategory = e.detail.object.edit.dataFields.FirstLevelCategory.component.getValue();
 
-    pimcoreReady: function (params, broker) {
-        // alert("ContitechCSCatalogBundle ready!");
-    },
-    postOpenObject: function (object, type) {
-       
-        let objectClassName = object.data.general.o_className;
+        this.listProductTable(e, firstLevelCategory);
 
-        if (objectClassName == 'CSCatalogCategory') {
-            let firstLevelCategory = object.edit.dataFields.FirstLevelCategory.component.getValue();
+        e.detail.object.edit.dataFields.FirstLevelCategory.component.on('select', function (eve) {
+            this.listProductTable(e, eve.value);
+        }.bind(this));
+    }
 
-            this.listProductTable(object, firstLevelCategory);
-
-             object.edit.dataFields.FirstLevelCategory.component.on('select', function(eve){
-                this.listProductTable(object, eve.value);
-             }.bind(this));
-        }
-
-        if (objectClassName == 'CSCatalogTables') {
-
-            // Code for populating products
-            var productsOptionStore = Ext.create('Ext.data.Store', {
-                fields: ['id', 'text'],
-                proxy: {
-                    type: 'ajax',
-                    url: '/contitech_cs_catalog/get-products',
-                    method:'POST',
-                    extraParams: {
-                        catId: object.data.general.o_parentId,
-
-                    },
-                    reader: {
-                        type: 'json',
-                        rootProperty: 'data'
-                    }
-                },
-
-            });
-
-            productsOptionStore.load();
-
-            object.edit.dataFields.Products.component.setStore(productsOptionStore);
-            if (object.data.data.Products !== null)
-            {
-                object.edit.dataFields.Products.component.setValue(object.data.data.Products);
-            }
-            productsOptionStore.load();
-        }
-    },
-    postOpenDocument: function(doc,type){
-
-        let docPath             = doc.data.path;
-        let docType             = doc.data.type;
-        let template             = doc.data.template;
-
-        if(template ==  'ContitechCSCatalogBundle:Default:template_dynamic_table_of_contents.html.php')
-        {
-            let resetTableOfContent = new pimcore.plugin.lpe.resetTableOfContent(doc);
-            resetTableOfContent.addResetContentButton();
-        }
-    },
-    listProductTable: function (object, category) {
+    if (objectClassName == 'CSCatalogTables') {
 
         // Code for populating products
-        var SecondLevelCategoryOptionStore = Ext.create('Ext.data.Store', {
+        var productsOptionStore = Ext.create('Ext.data.Store', {
             fields: ['id', 'text'],
             proxy: {
                 type: 'ajax',
-                url: '/contitech_cs_catalog/get-hierarchy',
-                method:'POST',
+                url: '/contitech_cs_catalog/get-products',
+                method: 'POST',
                 extraParams: {
-                    catId: category,
+                    catId: e.detail.object.data.general.o_parentId,
 
                 },
                 reader: {
@@ -90,15 +35,60 @@ pimcore.plugin.ContitechCSCatalogBundle = Class.create(pimcore.plugin.admin, {
 
         });
 
-        SecondLevelCategoryOptionStore.load();
+        productsOptionStore.load();
 
-        object.edit.dataFields.SecondLevelCategory.component.setStore(SecondLevelCategoryOptionStore);
-        if (object.data.data.SecondLevelCategory !== null)
-        {
-            object.edit.dataFields.SecondLevelCategory.component.setValue(object.data.data.SecondLevelCategory);
+        e.detail.object.edit.dataFields.Products.component.setStore(productsOptionStore);
+        if (e.detail.object.data.data.Products !== null) {
+            e.detail.object.edit.dataFields.Products.component.setValue(e.detail.object.data.data.Products);
         }
-        SecondLevelCategoryOptionStore.load();
-    },
+        productsOptionStore.load();
+    }
+
+    e.preventDefault();
+    e.stopPropagation();
 });
 
-var ContitechCSCatalogBundlePlugin = new pimcore.plugin.ContitechCSCatalogBundle();
+document.addEventListener(pimcore.events.postOpenDocument, (e) => {
+
+    console.log('pimcore.plugin.ContitechCSCatalogBundle postOpenDocument')
+
+    let template = e.detail.document.data.template;
+
+    if (template == '@ContitechCSCatalog\Default\template_dynamic_table_of_contents.html.twig') {
+        let resetTableOfContent = new pimcore.plugin.lpe.resetTableOfContent(e.detail.document);
+        resetTableOfContent.addResetContentButton();
+    }
+
+    e.preventDefault();
+    e.stopPropagation();
+});
+
+function listProductTable(e, category) {
+
+    // Code for populating products
+    var SecondLevelCategoryOptionStore = Ext.create('Ext.data.Store', {
+        fields: ['id', 'text'],
+        proxy: {
+            type: 'ajax',
+            url: '/contitech_cs_catalog/get-hierarchy',
+            method: 'POST',
+            extraParams: {
+                catId: category,
+
+            },
+            reader: {
+                type: 'json',
+                rootProperty: 'data'
+            }
+        },
+
+    });
+
+    SecondLevelCategoryOptionStore.load();
+
+    e.detail.object.edit.dataFields.SecondLevelCategory.component.setStore(SecondLevelCategoryOptionStore);
+    if (e.detail.object.data.data.SecondLevelCategory !== null) {
+        e.detail.object.edit.dataFields.SecondLevelCategory.component.setValue(e.detail.object.data.data.SecondLevelCategory);
+    }
+    SecondLevelCategoryOptionStore.load();
+}

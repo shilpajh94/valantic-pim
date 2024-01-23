@@ -1,22 +1,7 @@
-pimcore.registerNS("pimcore.plugin.DistributionHubBundle");
+document.addEventListener(pimcore.events.pimcoreReady, (e) => {
 
-pimcore.plugin.DistributionHubBundle = Class.create(pimcore.plugin.admin, {
-    getClassName: function () {
-        return "pimcore.plugin.DistributionHubBundle";
-    },
-
-    initialize: function () {
-        pimcore.plugin.broker.registerPlugin(this);
-    },
-
-    pimcoreReady: function (params, broker) {
-        let user = pimcore.globalmanager.get("user");
-        if (user.admin || user.isAllowed("plugin_distribution_hub")) {
-            this.leftNavigation();
-        }
-        new pimcore.plugin.DistributionHubBundle.PhpCodeOperator().phpCodeOperatorPath_Label_Modification();
-    },
-    leftNavigation: function () {
+    let user = pimcore.globalmanager.get("user");
+    if (user.admin || user.isAllowed("plugin_distribution_hub")) {
         let navigation = Ext.get("pimcore_navigation");
         let ulElement = navigation.selectNode('ul');
         let li = document.createElement("li");
@@ -39,6 +24,10 @@ pimcore.plugin.DistributionHubBundle = Class.create(pimcore.plugin.admin, {
             }
         });
     }
-});
+    new pimcore.plugin.DistributionHubBundle.PhpCodeOperator().phpCodeOperatorPath_Label_Modification();
 
-var DistributionHubBundlePlugin = new pimcore.plugin.DistributionHubBundle();
+    //print out the parameters of the event
+    console.log('pimcore.plugin.DistributionHubBundle pimcoreReady')
+    e.preventDefault();
+    e.stopPropagation();
+});

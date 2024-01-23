@@ -1,4 +1,4 @@
-{% if parentContainer is not defined %}
+{% if not isParentContainerRequest %}
 	{% extends "@Catalog/Layouts/layout.html.twig" %}
 {% endif %}
 
@@ -181,7 +181,7 @@
 
 											{% if editmode %}
 												{% if pimcore_image('INH_MAIN_IMAGE_'~uniqueId).isEmpty() %}
-													{{ pimcore_image('INH_MAIN_IMAGE_'~uniqueId, {'width': 1067, 'height': 128}).setImage(brand['brandData']['mainImage']) }}
+													{{ pimcore_image('INH_MAIN_IMAGE_'~uniqueId, {'width': 1067, 'height': 128}).setImage(brand['brandData']['mainImage']) | raw }}
 												{% else %}
 													{{ pimcore_image('INH_MAIN_IMAGE_'~uniqueId, {'width': 1067, 'height': 128}) }}
 												{% endif %}
@@ -454,7 +454,7 @@
 			}
 		</style>
 
-		{% if info['containerRequest'] is not defined %}
+		{% if info['isParentContainerRequest'] is not defined %}
 			<script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
 		{% endif %}
 
