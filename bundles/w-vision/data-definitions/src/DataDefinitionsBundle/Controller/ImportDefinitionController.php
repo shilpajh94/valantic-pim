@@ -557,6 +557,7 @@ class ImportDefinitionController extends ResourceController
      */
     public function addAction(Request $request): SymfonyJsonResponse
     {
+        $existname = $alreadyTakenName = [];
         $config_name_not_valid = "Configuration name should not contain space or special characters.";
         $data_definition_config_exists = 'Name already exists! Please provide a different name.';
         $data_definition_name_required = 'Channel name cannot be empty';
@@ -564,8 +565,7 @@ class ImportDefinitionController extends ResourceController
         $this->isGrantedOr403();
 
         $name = $request->get('name');
-
-        if(preg_match('/[\s@!#$%^&*()<>?|}{~:]/', $name)) 
+        if(preg_match('/[\s@!#$%^&*()<>?|}{~:]/', $name))
         {
             return $this->viewHandler->handle(['success' => false, 'msg' => $config_name_not_valid]);
         }
@@ -580,7 +580,7 @@ class ImportDefinitionController extends ResourceController
 
         if ($alreadyTakenName == true) {
             return $this->viewHandler->handle(['success' => false, 'msg' => $data_definition_config_exists]);
-        }elseif (strlen($name) == '') {
+        }elseif (strlen($name) == 0) {
             return $this->viewHandler->handle(['success' => false, 'msg' =>$data_definition_name_required]);
         } else {
             $resource = $this->factory->createNew();
