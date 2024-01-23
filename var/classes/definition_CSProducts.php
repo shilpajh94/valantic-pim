@@ -70,7 +70,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSProducts',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1699596855,
+   'modificationDate' => 1705904567,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -94,8 +94,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'type' => NULL,
      'region' => NULL,
      'title' => NULL,
-     'width' => NULL,
-     'height' => NULL,
+     'width' => 0,
+     'height' => 0,
      'collapsible' => false,
      'collapsed' => false,
      'bodyStyle' => NULL,
@@ -1405,7 +1405,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'options' => NULL,
                          'width' => 300,
                          'height' => '',
                          'maxItems' => NULL,
@@ -1434,7 +1433,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'options' => NULL,
                          'width' => 300,
                          'height' => '',
                          'maxItems' => NULL,
@@ -1520,7 +1518,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'options' => NULL,
                          'width' => 300,
                          'height' => '',
                          'maxItems' => NULL,
@@ -3281,7 +3278,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'fieldtype' => 'panel',
              'layout' => NULL,
              'border' => false,
-             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/accept_database.svg',
+             'icon' => '/bundles/pimcoreadmin/img/icon/tag_green.png',
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
@@ -3306,12 +3303,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'labelWidth' => 100,
      'labelAlign' => 'left',
   )),
-   'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/database.svg',
+   'icon' => '/bundles/pimcoreadmin/img/icon/tag_green.png',
    'previewUrl' => '',
    'group' => 'Conveyor Solution',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
-   'previewGeneratorReference' => NULL,
+   'previewGeneratorReference' => '',
    'compositeIndices' => 
   array (
   ),
