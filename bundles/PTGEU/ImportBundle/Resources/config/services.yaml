@@ -117,6 +117,12 @@ services:
         tags:
             - { name: 'console.command', command: 'contitech:ptg:eu:copy-sapDescription-into-productShortDescription' }
 
+    # this command will execute to map ptgeu dropdown brick data
+    PTGEU\ImportBundle\OneTimeImportCommand\ImportDropDownDataCommand:
+        tags:
+            - { name: 'console.command', command: 'ptgeu:dropdown-data-import' }
+
+
     # Services
     import.sap_file_feeder_service:
         class: PTGEU\ImportBundle\Services\SAPFileFeederService
