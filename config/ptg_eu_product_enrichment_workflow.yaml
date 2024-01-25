@@ -211,7 +211,7 @@ pimcore:
                     from:
                         - in_marcom_edit_after_publish
                     to: in_pm_review_after_publish
-                    guard: (("ROLE_PIMCORE_ADMIN") in role_names or ("ROLE_APPLICATIONADMINPTGEMEAAPAC") or ("ROLE_MARCOMPTGEMEAAPAC") in role_names)
+                    guard: (("ROLE_PIMCORE_ADMIN") in role_names or ("ROLE_APPLICATIONADMINPTGEMEAAPAC") or ("ROLE_MARCOMPTGEMEAAPAC") in role_names) and !(("ROLE_EDITORPTGEMEAAPAC") in role_names)
                     options:
                         label: 'Send to PM for Review'
                         notes:
