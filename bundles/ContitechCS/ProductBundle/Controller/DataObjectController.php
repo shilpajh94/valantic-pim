@@ -48,9 +48,9 @@ class DataObjectController extends \Pimcore\Bundle\AdminBundle\Controller\Admin\
      *
      * @throws \Exception
      *
-     * @return array
+     * @return Response
      */
-    public function previewVersionAction(Request $request)
+    public function previewVersionAction(Request $request): Response
     {
         DataObject\AbstractObject::setDoNotRestoreKeyAndPath(true);
 
@@ -87,11 +87,11 @@ class DataObjectController extends \Pimcore\Bundle\AdminBundle\Controller\Admin\
      * @param int $from
      * @param int $to
      *
-     * @return array
+     * @return Response
      *
      * @throws \Exception
      */
-    public function diffVersionsAction(Request $request, $from, $to)
+    public function diffVersionsAction(Request $request, int $from, int $to): Response
     {
         $timezone = $request->get('dtz');
         $timeZoneObj = null;

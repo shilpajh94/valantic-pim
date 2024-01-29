@@ -10,7 +10,8 @@ namespace ContitechCS\ProductBundle\Controller;
 
 use Pimcore\Bundle\AdminBundle\Controller\Admin\UserController as ParentUserController;
 use Pimcore\Bundle\AdminBundle\Controller\AdminController;
-use Pimcore\Bundle\AdminBundle\HttpFoundation\JsonResponse;
+// use Pimcore\Bundle\AdminBundle\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Pimcore\Config;
 use Pimcore\Controller\EventedControllerInterface;
 use Pimcore\Logger;
@@ -45,7 +46,7 @@ class UserController extends ParentUserController {
      *
      * @return JsonResponse
      */
-    public function treeGetChildsByIdAction(Request $request)
+    public function treeGetChildsByIdAction(Request $request):JsonResponse
     {
         $list = new User\Listing();
         $list->setCondition('parentId = ?', intval($request->get('node')));
@@ -72,7 +73,7 @@ class UserController extends ParentUserController {
      *
      * @Route("/get-users-for-sharing", methods={"GET"})
      */
-    public function getUsersForSharingAction(Request $request)
+    public function getUsersForSharingAction(Request $request):JsonResponse
     {
         $this->checkPermission('share_configurations');
 
@@ -86,7 +87,7 @@ class UserController extends ParentUserController {
      *
      * @Route("/get-roles-for-sharing", methods={"GET"}))
      */
-    public function getRolesForSharingAction(Request $request)
+    public function getRolesForSharingAction(Request $request):JsonResponse
     {
         $this->checkPermission('share_configurations');
 
@@ -100,7 +101,7 @@ class UserController extends ParentUserController {
      *
      * @return JsonResponse
      */
-    public function roleTreeGetChildsByIdAction(Request $request)
+    public function roleTreeGetChildsByIdAction(Request $request):JsonResponse
     {
         $list = new User\Role\Listing();
         $list->setCondition('parentId = ?', (int)$request->get('node'));
@@ -123,7 +124,7 @@ class UserController extends ParentUserController {
      *
      * @return JsonResponse
      */
-    public function addAction(Request $request)
+    public function addAction(Request $request):JsonResponse
     {
         try {
             $type = $request->get('type');
@@ -217,7 +218,7 @@ class UserController extends ParentUserController {
      *
      * @throws \Exception
      */
-    public function deleteAction(Request $request)
+    public function deleteAction(Request $request):JsonResponse
     {
         $user = User\AbstractUser::getById((int)$request->get('id'));
 
@@ -252,7 +253,7 @@ class UserController extends ParentUserController {
      *
      * @return JsonResponse
      */
-    public function roleGetAction(Request $request)
+    public function roleGetAction(Request $request):JsonResponse
     {
         $role = User\Role::getById((int)$request->get('id'));
 
@@ -303,7 +304,7 @@ class UserController extends ParentUserController {
      *
      * @return array
      */
-    protected function getTreeNodeConfig($user)
+    protected function getTreeNodeConfig($user):array
     {
         $name = $user->getName();
         if (!($user instanceof \Pimcore\Model\User\Folder )) {
@@ -362,7 +363,7 @@ class UserController extends ParentUserController {
      *
      * @throws \Exception
      */
-    public function getAction(Request $request)
+    public function getAction(Request $request):JsonResponse
     {
         $userId = (int)$request->get('id');
         if ($userId < 1) {
@@ -469,7 +470,7 @@ class UserController extends ParentUserController {
      *
      * @return StreamedResponse
      */
-    public function getImageAction(Request $request)
+    public function getImageAction(Request $request):StreamedResponse
     {
         $userObj = User::getById($this->getUserId($request));
         if (!$userObj) {
@@ -491,7 +492,7 @@ class UserController extends ParentUserController {
      *
      * @return JsonResponse
      */
-    public function searchAction(Request $request)
+    public function searchAction(Request $request):JsonResponse
     {
         $q = '%' . $request->get('query') . '%';
 
@@ -532,7 +533,7 @@ class UserController extends ParentUserController {
      *
      * @throws \Exception
      */
-    public function getTokenLoginLinkAction(Request $request, TranslatorInterface $translator)
+    public function getTokenLoginLinkAction(Request $request, TranslatorInterface $translator):JsonResponse
     {
         $user = User::getById((int) $request->get('id'));
 
@@ -578,7 +579,7 @@ class UserController extends ParentUserController {
      *
      * @throws \Exception
      */
-    public function updateAction(Request $request, TranslatorInterface $translator)
+    public function updateAction(Request $request, TranslatorInterface $translator):JsonResponse
     {
         $user = User\UserRole::getById((int)$request->get('id'));
         $currentUserIsAdmin = $this->getAdminUser()->isAdmin();

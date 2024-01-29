@@ -41,7 +41,7 @@ class Service extends \Pimcore\Model\DataObject\Service {
      * @param Concrete $object
      * @param array $context additional contextual data
      */
-    public static function enrichLayoutDefinition(&$layout, $object = null, $context = [])
+    public static function enrichLayoutDefinition(&$layout, $object = null, $context = []): void
     {
         $user = AdminTool::getCurrentUser();
         $editableFields = [];

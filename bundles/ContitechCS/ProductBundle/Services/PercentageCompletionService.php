@@ -81,10 +81,10 @@ class PercentageCompletionService
         //$emptyAttributesLocalized  .= "\n\n [ LOCALIZED ATTRIBUTES ]";
         $localizedHeading = "\n\n [ LOCALIZED ATTRIBUTES ]";
         $emptyFieldLabels = '';
-        foreach ($classDefinition->getFieldDefinition( $fieldName)->getChilds() as $localizedField) {
+        foreach ($classDefinition->getFieldDefinition( $fieldName)->getChildren() as $localizedField) {
             $totalFields++;
             $localizedFieldName = $localizedField->getName(); //all childs of localizedfieldName
-            $localizedFieldTitle = $localizedField->getTitle(); 
+            $localizedFieldTitle = $localizedField->getTitle();
             $localizedFieldValue = $object->{'get' .
                 ucfirst($localizedFieldName)}($lang); //values in child of localizedfield
             if (!empty($localizedFieldValue)) {   // if value present so count
