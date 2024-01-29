@@ -253,7 +253,7 @@ class PTGEUProductEnrichmentListener
                 $setter = "set" . ucfirst($key);
                 $product->$setter($value);
             }
-            $product->save(false);
+            $product->save();
             \Pimcore\Model\Version::enable();
         }
     }
