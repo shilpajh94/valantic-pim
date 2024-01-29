@@ -86,7 +86,7 @@ class VirtualCatalogImportCommand extends AbstractCommand
     private function update()
     {
         $sql = "SELECT * FROM `virtual_catalog_temp`";
-        $results = $this->db->fetchAll($sql);
+        $results = $this->db->fetchAllAssociative($sql);
         $logs = array();
         $arr6Digit = array();
         $digitFound = false;
@@ -98,9 +98,9 @@ class VirtualCatalogImportCommand extends AbstractCommand
                 $logs[$i] = array(
                     'data' => $result
                 );
-                if (!empty($result['Brand_Name'])) { 
+                if (!empty($result['Brand_Name'])) {
                     $brandName = strtolower($result['Brand_Name']);
-                    $clrInfo = $this->getBrands($brandName);   
+                    $clrInfo = $this->getBrands($brandName);
                     if (!empty($clrInfo['itemNotFound'])) {
                         $error[] = "Brands(s) '" . $clrInfo['itemNotFound'] . "' not found in master";
                     } else {
@@ -131,7 +131,7 @@ class VirtualCatalogImportCommand extends AbstractCommand
                 } else {
                     $error[] = "Code {$result['6_Digit']} could not processed due to wrong length ";
                 }
-                
+
                 /* if(!empty($result['6_Digit']) && is_numeric($result['6_Digit']) && strlen($result['6_Digit'])>=9) {
                     $digitFound = true;
                     $skeletonLevel = substr($result['6_Digit'], 0, 9);
@@ -189,7 +189,7 @@ class VirtualCatalogImportCommand extends AbstractCommand
                     if (!empty($result['Reinforcement_Virtual_Catalog_Description'])) {
                         $o->setVirtualCatalogReinforcement($result['Reinforcement_Virtual_Catalog_Description']);
                     }
-                    if (!empty($result['Brand_Name'])) { 
+                    if (!empty($result['Brand_Name'])) {
                         $o->setBrandName($result['Brand_Name']);
                     }
 
@@ -210,7 +210,7 @@ class VirtualCatalogImportCommand extends AbstractCommand
 
 //                    $o->setPrintedCatalogFlag(null);
 //                    $o->setVirtualCatalogFlag(null);
-                    
+
                     $o->save();
                 }
             }
@@ -227,7 +227,7 @@ class VirtualCatalogImportCommand extends AbstractCommand
     {
         /* Loading Brands */
         $sql = "SELECT o_id, `name` FROM object_3 ";
-        $results = $this->db->query($sql);
+        $results = $this->db->executeQuery($sql);
         foreach ($results as $result) {
             $this->brands[$result['o_id']] = strtolower($result['name']);
             unset($type);
@@ -251,7 +251,7 @@ class VirtualCatalogImportCommand extends AbstractCommand
     private function mapBaseLevelId(&$arr, $keys)
     {
         $sql = "SELECT o_id, o_key FROM object_1 WHERE o_key IN (" . implode(",", $keys) . ")";
-        $results = $this->db->fetchAll($sql);
+        $results = $this->db->fetchAllAssociative($sql);
         foreach ($results as $result) {
             if (array_key_exists($result['o_key'], $arr)) {
                 $arr[$result['o_key']]['level6n9digit_id'] = $result['o_id'];
@@ -261,7 +261,7 @@ class VirtualCatalogImportCommand extends AbstractCommand
     private function updateObject()
     {
         $sql = "SELECT * FROM `virtual_catalog_temp`";
-        $results = $this->db->fetchAll($sql);
+        $results = $this->db->fetchAllAssociative($sql);
         $logs = array();
         if (is_array($results) && !empty($results)) {
             foreach ($results as $i => $result) {
@@ -371,7 +371,7 @@ class VirtualCatalogImportCommand extends AbstractCommand
                 }
                 $wh = " WHERE o_id IN (SELECT o_id FROM object_1 WHERE o_key='" . $result['o_key'] . "')";
                 // echo $sql . $cond . $wh;die;
-                $this->db->query($sql . $cond . $wh);
+                $this->db->executeQuery($sql . $cond . $wh);
             }
         }
     }
@@ -405,7 +405,7 @@ class VirtualCatalogImportCommand extends AbstractCommand
                 }
                 $wh = " WHERE $pk IN (SELECT o_id FROM objects WHERE o_key='" . $result['o_key'] . "')";
                 // echo $sql . $cond . $wh;die;
-                $this->db->query($sql . $cond . $wh);
+                $this->db->executeQuery($sql . $cond . $wh);
 
                 p_r('Processed Key: ' . $result['o_key']);
             }
@@ -438,7 +438,7 @@ class VirtualCatalogImportCommand extends AbstractCommand
     private function getObjectIdByKey($key)
     {
         $sql = "SELECT o_id FROM objects WHERE o_key='" . $key . "'";
-        $results = $this->db->fetchAll($sql);
+        $results = $this->db->fetchAllAssociative($sql);
         if (is_array($results)) {
             foreach ($results as $result) {
                 return $result['o_id'];
@@ -451,7 +451,7 @@ class VirtualCatalogImportCommand extends AbstractCommand
     {
         p_r('Updating Log..');
         $sql = "SELECT oht.* FROM oti_hosedata_temp oht LEFT JOIN object_1 o ON(o.articleNumber=oht.`Object`) WHERE o.o_id is null";
-        $data = $this->db->query($sql);
+        $data = $this->db->executeQuery($sql);
         $this->insertDataToLogTable($data, "", "Object does not match in material mara");
     }
 
@@ -536,14 +536,14 @@ class VirtualCatalogImportCommand extends AbstractCommand
                         if ($table == 'object_brick_query_HoseSkeleton_1') {
                             p_r($query);
                         }
-                        $this->db->query($query);
+                        $this->db->executeQuery($query);
                         $values = '';
                     }
                     $rowCount++;
                 }
                 if (!empty($values)) {
                     $query = $sql . rtrim($values, ',') . $update;
-                    $this->db->query($query);
+                    $this->db->executeQuery($query);
                 }
             }
         } catch (\Throwable $th) {
@@ -604,7 +604,7 @@ class VirtualCatalogImportCommand extends AbstractCommand
     private function truncateTemp()
     {
         $sql = "TRUNCATE virtual_catalog_temp;";
-        $this->db->query($sql);
+        $this->db->executeQuery($sql);
     }
 
     public function insertDataToLogTable($data)
@@ -620,14 +620,14 @@ class VirtualCatalogImportCommand extends AbstractCommand
                 // inserting records in batch
                 if ($rowCount % self::BATCH_SIZE == 0) {
                     $query = $sql . rtrim($values, ',');
-                    $this->db->query($query);
+                    $this->db->executeQuery($query);
                     $values = '';
                 }
                 $rowCount++;
             }
             if ($values) {
                 $query = $sql . rtrim($values, ',');
-                $this->db->query($query);
+                $this->db->executeQuery($query);
             }
         } catch (\Exception $ex) {
             echo $ex->getMessage();
@@ -653,7 +653,7 @@ class VirtualCatalogImportCommand extends AbstractCommand
             `Non_Stock_Sizes` varchar(190) NOT NULL,
             PRIMARY KEY (`id`)
           ) ENGINE=InnoDB AUTO_INCREMENT=411 DEFAULT CHARSET=utf8mb4;";
-        //   $this->db->query($sql);
+        //   $this->db->executeQuery($sql);
 
         $sql2 = "CREATE TABLE IF NOT EXISTS `virtual_catalog_log` (
             `logId` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -665,6 +665,6 @@ class VirtualCatalogImportCommand extends AbstractCommand
           ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
         $sql = $sql1 . $sql2;
         //   echo $sql1;
-        $this->db->query($sql);
+        $this->db->executeQuery($sql);
     }
 }

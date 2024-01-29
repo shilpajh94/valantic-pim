@@ -43,13 +43,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
      'type' => NULL,
      'region' => NULL,
      'title' => NULL,
-     'width' => NULL,
-     'height' => NULL,
+     'width' => 0,
+     'height' => 0,
      'collapsible' => false,
      'collapsed' => false,
      'bodyStyle' => NULL,
      'datatype' => 'layout',
-     'permissions' => NULL,
      'children' => 
     array (
       0 => 
@@ -58,13 +57,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'type' => NULL,
          'region' => NULL,
          'title' => '',
-         'width' => NULL,
-         'height' => NULL,
+         'width' => 0,
+         'height' => 0,
          'collapsible' => false,
          'collapsed' => false,
          'bodyStyle' => '',
          'datatype' => 'layout',
-         'permissions' => NULL,
          'children' => 
         array (
           0 => 
@@ -73,13 +71,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'type' => NULL,
              'region' => NULL,
              'title' => '',
-             'width' => NULL,
-             'height' => NULL,
+             'width' => 0,
+             'height' => 0,
              'collapsible' => false,
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'permissions' => NULL,
              'children' => 
             array (
               0 => 
@@ -88,13 +85,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'type' => NULL,
                  'region' => NULL,
                  'title' => '',
-                 'width' => NULL,
-                 'height' => NULL,
+                 'width' => 0,
+                 'height' => 0,
                  'collapsible' => false,
                  'collapsed' => false,
                  'bodyStyle' => '',
                  'datatype' => 'layout',
-                 'permissions' => NULL,
                  'children' => 
                 array (
                   0 => 
@@ -109,8 +105,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'booleanSelect',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -152,8 +147,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'select',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -174,13 +168,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                         'value' => 'Copper',
                       ),
                     ),
-                     'width' => 300,
                      'defaultValue' => '',
-                     'optionsProviderClass' => '',
-                     'optionsProviderData' => '',
                      'columnLength' => 190,
                      'dynamicOptions' => false,
                      'defaultValueGenerator' => '',
+                     'width' => 300,
+                     'optionsProviderType' => NULL,
+                     'optionsProviderClass' => '',
+                     'optionsProviderData' => '',
                   )),
                   2 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
@@ -193,8 +188,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'multiselect',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -203,13 +197,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     array (
                     ),
                      'options' => NULL,
-                     'width' => 300,
-                     'height' => '',
                      'maxItems' => 1,
                      'renderType' => 'tags',
+                     'dynamicOptions' => false,
+                     'height' => '',
+                     'width' => 300,
+                     'optionsProviderType' => NULL,
                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
                      'optionsProviderData' => 'INH-HYD-HOSE',
-                     'dynamicOptions' => false,
                   )),
                   3 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
@@ -223,8 +218,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'multiselect',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -233,13 +227,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     array (
                     ),
                      'options' => NULL,
-                     'width' => 300,
-                     'height' => '',
                      'maxItems' => 1,
                      'renderType' => 'tags',
+                     'dynamicOptions' => false,
+                     'height' => '',
+                     'width' => 300,
+                     'optionsProviderType' => NULL,
                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
                      'optionsProviderData' => 'INH-HYD-HOSE',
-                     'dynamicOptions' => false,
                   )),
                   4 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
@@ -252,8 +247,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'multiselect',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -262,13 +256,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     array (
                     ),
                      'options' => NULL,
-                     'width' => 300,
-                     'height' => '',
                      'maxItems' => 1,
                      'renderType' => 'tags',
+                     'dynamicOptions' => false,
+                     'height' => '',
+                     'width' => 300,
+                     'optionsProviderType' => NULL,
                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
                      'optionsProviderData' => 'INH-HYD-HOSE',
-                     'dynamicOptions' => false,
                   )),
                   5 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
@@ -281,8 +276,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'multiselect',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -291,13 +285,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     array (
                     ),
                      'options' => NULL,
-                     'width' => 300,
-                     'height' => 180,
                      'maxItems' => NULL,
                      'renderType' => 'tags',
+                     'dynamicOptions' => false,
+                     'height' => 180,
+                     'width' => 300,
+                     'optionsProviderType' => NULL,
                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
                      'optionsProviderData' => 'INH-HYD-HOSE',
-                     'dynamicOptions' => false,
                   )),
                   6 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
@@ -310,8 +305,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => 'margin-left:205px;',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'wysiwyg',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -319,11 +313,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 295,
-                     'height' => 150,
                      'toolbarConfig' => '',
                      'excludeFromSearchIndex' => false,
                      'maxCharacters' => 0,
+                     'height' => 150,
+                     'width' => 295,
                   )),
                   7 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
@@ -336,8 +330,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'input',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -345,7 +338,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 300,
                      'defaultValue' => NULL,
                      'columnLength' => 190,
                      'regex' => '',
@@ -354,6 +346,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
+                     'width' => 300,
                      'defaultValueGenerator' => '',
                   )),
                   8 => 
@@ -367,8 +360,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'input',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -376,7 +368,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 300,
                      'defaultValue' => NULL,
                      'columnLength' => 150,
                      'regex' => '',
@@ -385,6 +376,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
+                     'width' => 300,
                      'defaultValueGenerator' => '',
                   )),
                   9 => 
@@ -398,8 +390,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'numeric',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -407,7 +398,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 300,
                      'defaultValue' => NULL,
                      'integer' => false,
                      'unsigned' => true,
@@ -416,6 +406,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => 0,
+                     'width' => 300,
                      'defaultValueGenerator' => '',
                   )),
                   10 => 
@@ -429,8 +420,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => 'margin-left:205px;',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'wysiwyg',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -438,11 +428,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 295,
-                     'height' => 150,
                      'toolbarConfig' => '',
                      'excludeFromSearchIndex' => false,
                      'maxCharacters' => 0,
+                     'height' => 150,
+                     'width' => 295,
                   )),
                   11 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
@@ -455,8 +445,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'multiselect',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -465,13 +454,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     array (
                     ),
                      'options' => NULL,
-                     'width' => 300,
-                     'height' => 180,
                      'maxItems' => NULL,
                      'renderType' => 'tags',
+                     'dynamicOptions' => false,
+                     'height' => 180,
+                     'width' => 300,
+                     'optionsProviderType' => NULL,
                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
                      'optionsProviderData' => 'INH-HYD-HOSE',
-                     'dynamicOptions' => false,
                   )),
                   12 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
@@ -484,8 +474,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'multiselect',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -494,13 +483,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     array (
                     ),
                      'options' => NULL,
-                     'width' => 300,
-                     'height' => 250,
                      'maxItems' => 20,
                      'renderType' => 'tags',
+                     'dynamicOptions' => false,
+                     'height' => 250,
+                     'width' => 300,
+                     'optionsProviderType' => NULL,
                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\ApplicationOptionsProvider',
                      'optionsProviderData' => 'IFS',
-                     'dynamicOptions' => false,
                   )),
                 ),
                  'locked' => false,
@@ -519,13 +509,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'type' => NULL,
                  'region' => NULL,
                  'title' => '',
-                 'width' => NULL,
-                 'height' => NULL,
+                 'width' => 0,
+                 'height' => 0,
                  'collapsible' => false,
                  'collapsed' => false,
                  'bodyStyle' => '',
                  'datatype' => 'layout',
-                 'permissions' => NULL,
                  'children' => 
                 array (
                   0 => 
@@ -539,8 +528,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => 'margin-left: 20px;',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'numeric',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -548,7 +536,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 300,
                      'defaultValue' => NULL,
                      'integer' => false,
                      'unsigned' => true,
@@ -557,6 +544,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
+                     'width' => 300,
                      'defaultValueGenerator' => '',
                   )),
                   1 => 
@@ -570,8 +558,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => 'margin-left: 20px;',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'booleanSelect',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -613,8 +600,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => 'margin-left: 20px;',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'multiselect',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -623,13 +609,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     array (
                     ),
                      'options' => NULL,
-                     'width' => 300,
-                     'height' => '',
                      'maxItems' => 1,
                      'renderType' => 'tags',
+                     'dynamicOptions' => false,
+                     'height' => '',
+                     'width' => 300,
+                     'optionsProviderType' => NULL,
                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
                      'optionsProviderData' => 'INH-HYD-HOSE',
-                     'dynamicOptions' => false,
                   )),
                   3 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
@@ -643,8 +630,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => 'margin-left: 20px;',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'multiselect',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -653,13 +639,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     array (
                     ),
                      'options' => NULL,
-                     'width' => 300,
-                     'height' => '',
                      'maxItems' => 1,
                      'renderType' => 'tags',
+                     'dynamicOptions' => false,
+                     'height' => '',
+                     'width' => 300,
+                     'optionsProviderType' => NULL,
                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
                      'optionsProviderData' => 'INH-HYD-HOSE',
-                     'dynamicOptions' => false,
                   )),
                   4 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
@@ -672,8 +659,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => 'margin-left: 20px;',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'multiselect',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -682,13 +668,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     array (
                     ),
                      'options' => NULL,
-                     'width' => 300,
-                     'height' => '',
                      'maxItems' => 1,
                      'renderType' => 'tags',
+                     'dynamicOptions' => false,
+                     'height' => '',
+                     'width' => 300,
+                     'optionsProviderType' => NULL,
                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
                      'optionsProviderData' => 'INH-HYD-HOSE',
-                     'dynamicOptions' => false,
                   )),
                   5 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
@@ -701,8 +688,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => 'margin-left: 20px;',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'multiselect',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -711,13 +697,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     array (
                     ),
                      'options' => NULL,
-                     'width' => 300,
-                     'height' => 180,
                      'maxItems' => NULL,
                      'renderType' => 'tags',
+                     'dynamicOptions' => false,
+                     'height' => 180,
+                     'width' => 300,
+                     'optionsProviderType' => NULL,
                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
                      'optionsProviderData' => 'INH-HYD-HOSE',
-                     'dynamicOptions' => false,
                   )),
                   6 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
@@ -730,8 +717,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => 'margin-left:225px;',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'wysiwyg',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -739,11 +725,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 295,
-                     'height' => 150,
                      'toolbarConfig' => '',
                      'excludeFromSearchIndex' => false,
                      'maxCharacters' => 0,
+                     'height' => 150,
+                     'width' => 295,
                   )),
                   7 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
@@ -756,8 +742,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => 'margin-left: 20px;',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'textarea',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -765,11 +750,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 300,
-                     'height' => 150,
                      'maxLength' => NULL,
                      'showCharCount' => false,
                      'excludeFromSearchIndex' => false,
+                     'height' => 150,
+                     'width' => 300,
                   )),
                   8 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
@@ -782,8 +767,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => 'margin-left: 20px;',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'booleanSelect',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -825,8 +809,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => 'margin-left: 20px;',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'multiselect',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -835,13 +818,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     array (
                     ),
                      'options' => NULL,
-                     'width' => 300,
-                     'height' => '',
                      'maxItems' => 1,
                      'renderType' => 'tags',
+                     'dynamicOptions' => false,
+                     'height' => '',
+                     'width' => 300,
+                     'optionsProviderType' => NULL,
                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
                      'optionsProviderData' => 'INH-HYD-HOSE',
-                     'dynamicOptions' => false,
                   )),
                   10 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
@@ -854,8 +838,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => 'margin-left: 20px;',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'input',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -863,7 +846,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 300,
                      'defaultValue' => NULL,
                      'columnLength' => 190,
                      'regex' => '',
@@ -872,6 +854,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
+                     'width' => 300,
                      'defaultValueGenerator' => '',
                   )),
                   11 => 
@@ -885,8 +868,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => 'margin-left: 20px;',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'multiselect',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -895,13 +877,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     array (
                     ),
                      'options' => NULL,
-                     'width' => 300,
-                     'height' => 180,
                      'maxItems' => NULL,
                      'renderType' => 'tags',
+                     'dynamicOptions' => false,
+                     'height' => 180,
+                     'width' => 300,
+                     'optionsProviderType' => NULL,
                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
                      'optionsProviderData' => 'INH-HYD-HOSE',
-                     'dynamicOptions' => false,
                   )),
                   12 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
@@ -914,8 +897,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => 'margin-left: 20px;',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'multiselect',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -924,13 +906,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     array (
                     ),
                      'options' => NULL,
-                     'width' => 300,
-                     'height' => 260,
                      'maxItems' => NULL,
                      'renderType' => 'tags',
+                     'dynamicOptions' => false,
+                     'height' => 260,
+                     'width' => 300,
+                     'optionsProviderType' => NULL,
                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
                      'optionsProviderData' => 'INH-HYD-HOSE',
-                     'dynamicOptions' => false,
                   )),
                 ),
                  'locked' => false,
@@ -978,7 +961,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
      'labelWidth' => 100,
      'labelAlign' => 'left',
   )),
-   'generateTypeDeclarations' => false,
+   'fieldDefinitionsCache' => NULL,
    'blockedVarsForExport' => 
   array (
   ),
@@ -989,5 +972,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
       'classname' => 'Product',
       'fieldname' => 'Base',
     ),
+  ),
+   'activeDispatchingEvents' => 
+  array (
   ),
 ));

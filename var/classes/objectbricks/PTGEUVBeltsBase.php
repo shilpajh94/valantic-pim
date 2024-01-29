@@ -17,13 +17,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
      'type' => NULL,
      'region' => NULL,
      'title' => NULL,
-     'width' => NULL,
-     'height' => NULL,
+     'width' => 0,
+     'height' => 0,
      'collapsible' => false,
      'collapsed' => false,
      'bodyStyle' => NULL,
      'datatype' => 'layout',
-     'permissions' => NULL,
      'children' => 
     array (
       0 => 
@@ -32,13 +31,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'type' => NULL,
          'region' => NULL,
          'title' => '',
-         'width' => NULL,
-         'height' => NULL,
+         'width' => 0,
+         'height' => 0,
          'collapsible' => false,
          'collapsed' => false,
          'bodyStyle' => '',
          'datatype' => 'layout',
-         'permissions' => NULL,
          'children' => 
         array (
         ),
@@ -65,7 +63,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
      'labelWidth' => 100,
      'labelAlign' => 'left',
   )),
-   'generateTypeDeclarations' => false,
+   'fieldDefinitionsCache' => NULL,
    'blockedVarsForExport' => 
   array (
   ),
@@ -76,5 +74,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
       'classname' => 'PTGEUProduct',
       'fieldname' => 'base',
     ),
+  ),
+   'activeDispatchingEvents' => 
+  array (
   ),
 ));

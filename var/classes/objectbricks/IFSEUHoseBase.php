@@ -31,13 +31,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
      'type' => NULL,
      'region' => NULL,
      'title' => NULL,
-     'width' => NULL,
-     'height' => NULL,
+     'width' => 0,
+     'height' => 0,
      'collapsible' => false,
      'collapsed' => false,
      'bodyStyle' => NULL,
      'datatype' => 'layout',
-     'permissions' => NULL,
      'children' => 
     array (
       0 => 
@@ -46,13 +45,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'type' => NULL,
          'region' => NULL,
          'title' => '',
-         'width' => NULL,
-         'height' => NULL,
+         'width' => 0,
+         'height' => 0,
          'collapsible' => false,
          'collapsed' => false,
          'bodyStyle' => '',
          'datatype' => 'layout',
-         'permissions' => NULL,
          'children' => 
         array (
           0 => 
@@ -61,13 +59,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'type' => NULL,
              'region' => NULL,
              'title' => '',
-             'width' => NULL,
-             'height' => NULL,
+             'width' => 0,
+             'height' => 0,
              'collapsible' => false,
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'permissions' => NULL,
              'children' => 
             array (
               0 => 
@@ -76,13 +73,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'type' => NULL,
                  'region' => NULL,
                  'title' => '',
-                 'width' => NULL,
-                 'height' => NULL,
+                 'width' => 0,
+                 'height' => 0,
                  'collapsible' => false,
                  'collapsed' => false,
                  'bodyStyle' => '',
                  'datatype' => 'layout',
-                 'permissions' => NULL,
                  'children' => 
                 array (
                   0 => 
@@ -96,8 +92,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'input',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => true,
                      'visibleGridView' => false,
@@ -105,7 +100,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => NULL,
                      'defaultValue' => NULL,
                      'columnLength' => 190,
                      'regex' => '',
@@ -114,6 +108,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
+                     'width' => NULL,
                      'defaultValueGenerator' => '',
                   )),
                   1 => 
@@ -122,13 +117,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'type' => NULL,
                      'region' => '',
                      'title' => '',
-                     'width' => NULL,
-                     'height' => NULL,
+                     'width' => 0,
+                     'height' => 0,
                      'collapsible' => false,
                      'collapsed' => false,
                      'bodyStyle' => '',
                      'datatype' => 'layout',
-                     'permissions' => NULL,
                      'children' => 
                     array (
                       0 => 
@@ -142,8 +136,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
-                         'datatype' => 'data',
-                         'fieldtype' => 'multiselect',
+                         'fieldtype' => '',
                          'relationType' => false,
                          'invisible' => false,
                          'visibleGridView' => false,
@@ -152,13 +145,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                         array (
                         ),
                          'options' => NULL,
-                         'width' => 850,
-                         'height' => 60,
                          'maxItems' => 10,
                          'renderType' => 'tags',
+                         'dynamicOptions' => false,
+                         'height' => 60,
+                         'width' => 850,
+                         'optionsProviderType' => NULL,
                          'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\StandardsOptionsProvider',
                          'optionsProviderData' => '',
-                         'dynamicOptions' => false,
                       )),
                     ),
                      'locked' => false,
@@ -200,13 +194,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'type' => NULL,
              'region' => NULL,
              'title' => '',
-             'width' => NULL,
-             'height' => NULL,
+             'width' => 0,
+             'height' => 0,
              'collapsible' => false,
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'permissions' => NULL,
              'children' => 
             array (
               0 => 
@@ -215,13 +208,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'type' => NULL,
                  'region' => NULL,
                  'title' => '',
-                 'width' => NULL,
-                 'height' => NULL,
+                 'width' => 0,
+                 'height' => 0,
                  'collapsible' => false,
                  'collapsed' => false,
                  'bodyStyle' => '',
                  'datatype' => 'layout',
-                 'permissions' => NULL,
                  'children' => 
                 array (
                   0 => 
@@ -230,13 +222,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'type' => NULL,
                      'region' => NULL,
                      'title' => '',
-                     'width' => NULL,
-                     'height' => NULL,
+                     'width' => 0,
+                     'height' => 0,
                      'collapsible' => false,
                      'collapsed' => false,
                      'bodyStyle' => 'color:black;padding: 10px !important; background-color: #d4d1c9 !important;border-color: #bce8f1 !important',
                      'datatype' => 'layout',
-                     'permissions' => NULL,
                      'children' => 
                     array (
                     ),
@@ -256,13 +247,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'type' => NULL,
                      'region' => '',
                      'title' => '',
-                     'width' => NULL,
-                     'height' => NULL,
+                     'width' => 0,
+                     'height' => 0,
                      'collapsible' => false,
                      'collapsed' => false,
                      'bodyStyle' => '',
                      'datatype' => 'layout',
-                     'permissions' => NULL,
                      'children' => 
                     array (
                       0 => 
@@ -276,8 +266,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
-                         'datatype' => 'data',
-                         'fieldtype' => 'select',
+                         'fieldtype' => '',
                          'relationType' => false,
                          'invisible' => false,
                          'visibleGridView' => false,
@@ -286,13 +275,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                         array (
                         ),
                          'options' => NULL,
-                         'width' => 300,
                          'defaultValue' => '',
-                         'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
-                         'optionsProviderData' => 'innerlining',
                          'columnLength' => 190,
                          'dynamicOptions' => false,
                          'defaultValueGenerator' => '',
+                         'width' => 300,
+                         'optionsProviderType' => NULL,
+                         'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
+                         'optionsProviderData' => 'innerlining',
                       )),
                       1 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
@@ -305,8 +295,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
-                         'datatype' => 'data',
-                         'fieldtype' => 'select',
+                         'fieldtype' => '',
                          'relationType' => false,
                          'invisible' => false,
                          'visibleGridView' => false,
@@ -315,13 +304,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                         array (
                         ),
                          'options' => NULL,
-                         'width' => 300,
                          'defaultValue' => '',
-                         'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
-                         'optionsProviderData' => 'colorInn',
                          'columnLength' => 190,
                          'dynamicOptions' => false,
                          'defaultValueGenerator' => '',
+                         'width' => 300,
+                         'optionsProviderType' => NULL,
+                         'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
+                         'optionsProviderData' => 'colorInn',
                       )),
                       2 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
@@ -334,8 +324,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
-                         'datatype' => 'data',
-                         'fieldtype' => 'select',
+                         'fieldtype' => '',
                          'relationType' => false,
                          'invisible' => false,
                          'visibleGridView' => false,
@@ -344,13 +333,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                         array (
                         ),
                          'options' => NULL,
-                         'width' => 300,
                          'defaultValue' => '',
-                         'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
-                         'optionsProviderData' => 'reinforcements',
                          'columnLength' => 190,
                          'dynamicOptions' => false,
                          'defaultValueGenerator' => '',
+                         'width' => 300,
+                         'optionsProviderType' => NULL,
+                         'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
+                         'optionsProviderData' => 'reinforcements',
                       )),
                       3 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
@@ -363,8 +353,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
-                         'datatype' => 'data',
-                         'fieldtype' => 'select',
+                         'fieldtype' => '',
                          'relationType' => false,
                          'invisible' => false,
                          'visibleGridView' => false,
@@ -373,13 +362,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                         array (
                         ),
                          'options' => NULL,
-                         'width' => 300,
                          'defaultValue' => '',
-                         'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
-                         'optionsProviderData' => 'helix',
                          'columnLength' => 190,
                          'dynamicOptions' => false,
                          'defaultValueGenerator' => '',
+                         'width' => 300,
+                         'optionsProviderType' => NULL,
+                         'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
+                         'optionsProviderData' => 'helix',
                       )),
                       4 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -392,8 +382,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
-                         'datatype' => 'data',
-                         'fieldtype' => 'numeric',
+                         'fieldtype' => '',
                          'relationType' => false,
                          'invisible' => false,
                          'visibleGridView' => false,
@@ -401,7 +390,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'width' => 300,
                          'defaultValue' => NULL,
                          'integer' => false,
                          'unsigned' => false,
@@ -410,6 +398,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'unique' => false,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
+                         'width' => 300,
                          'defaultValueGenerator' => '',
                       )),
                       5 => 
@@ -423,8 +412,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
-                         'datatype' => 'data',
-                         'fieldtype' => 'multiselect',
+                         'fieldtype' => '',
                          'relationType' => false,
                          'invisible' => false,
                          'visibleGridView' => false,
@@ -433,13 +421,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                         array (
                         ),
                          'options' => NULL,
-                         'width' => 300,
-                         'height' => 10,
                          'maxItems' => NULL,
                          'renderType' => 'tags',
+                         'dynamicOptions' => false,
+                         'height' => 10,
+                         'width' => 300,
+                         'optionsProviderType' => NULL,
                          'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
                          'optionsProviderData' => 'propertiesInn',
-                         'dynamicOptions' => false,
                       )),
                     ),
                      'locked' => false,
@@ -471,12 +460,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'region' => NULL,
                  'title' => '',
                  'width' => 20,
-                 'height' => NULL,
+                 'height' => 0,
                  'collapsible' => false,
                  'collapsed' => false,
                  'bodyStyle' => '',
                  'datatype' => 'layout',
-                 'permissions' => NULL,
                  'children' => 
                 array (
                 ),
@@ -496,13 +484,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'type' => NULL,
                  'region' => NULL,
                  'title' => '',
-                 'width' => NULL,
-                 'height' => NULL,
+                 'width' => 0,
+                 'height' => 0,
                  'collapsible' => false,
                  'collapsed' => false,
                  'bodyStyle' => '',
                  'datatype' => 'layout',
-                 'permissions' => NULL,
                  'children' => 
                 array (
                   0 => 
@@ -511,13 +498,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'type' => NULL,
                      'region' => NULL,
                      'title' => '',
-                     'width' => NULL,
-                     'height' => NULL,
+                     'width' => 0,
+                     'height' => 0,
                      'collapsible' => false,
                      'collapsed' => false,
                      'bodyStyle' => 'color:black;padding: 10px !important; background-color: #d4d1c9 !important;border-color: #bce8f1 !important',
                      'datatype' => 'layout',
-                     'permissions' => NULL,
                      'children' => 
                     array (
                     ),
@@ -537,13 +523,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'type' => NULL,
                      'region' => '',
                      'title' => '',
-                     'width' => NULL,
-                     'height' => NULL,
+                     'width' => 0,
+                     'height' => 0,
                      'collapsible' => false,
                      'collapsed' => false,
                      'bodyStyle' => '',
                      'datatype' => 'layout',
-                     'permissions' => NULL,
                      'children' => 
                     array (
                       0 => 
@@ -557,8 +542,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
-                         'datatype' => 'data',
-                         'fieldtype' => 'select',
+                         'fieldtype' => '',
                          'relationType' => false,
                          'invisible' => false,
                          'visibleGridView' => false,
@@ -567,13 +551,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                         array (
                         ),
                          'options' => NULL,
-                         'width' => 300,
                          'defaultValue' => '',
-                         'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
-                         'optionsProviderData' => 'cover',
                          'columnLength' => 190,
                          'dynamicOptions' => false,
                          'defaultValueGenerator' => '',
+                         'width' => 300,
+                         'optionsProviderType' => NULL,
+                         'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
+                         'optionsProviderData' => 'cover',
                       )),
                       1 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
@@ -586,8 +571,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
-                         'datatype' => 'data',
-                         'fieldtype' => 'select',
+                         'fieldtype' => '',
                          'relationType' => false,
                          'invisible' => false,
                          'visibleGridView' => false,
@@ -596,13 +580,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                         array (
                         ),
                          'options' => NULL,
-                         'width' => 300,
                          'defaultValue' => '',
-                         'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
-                         'optionsProviderData' => 'colorOut',
                          'columnLength' => 190,
                          'dynamicOptions' => false,
                          'defaultValueGenerator' => '',
+                         'width' => 300,
+                         'optionsProviderType' => NULL,
+                         'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
+                         'optionsProviderData' => 'colorOut',
                       )),
                       2 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
@@ -615,8 +600,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
-                         'datatype' => 'data',
-                         'fieldtype' => 'select',
+                         'fieldtype' => '',
                          'relationType' => false,
                          'invisible' => false,
                          'visibleGridView' => false,
@@ -625,13 +609,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                         array (
                         ),
                          'options' => NULL,
-                         'width' => 300,
                          'defaultValue' => '',
-                         'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
-                         'optionsProviderData' => 'haptic',
                          'columnLength' => 190,
                          'dynamicOptions' => false,
                          'defaultValueGenerator' => '',
+                         'width' => 300,
+                         'optionsProviderType' => NULL,
+                         'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
+                         'optionsProviderData' => 'haptic',
                       )),
                       3 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
@@ -644,8 +629,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
-                         'datatype' => 'data',
-                         'fieldtype' => 'multiselect',
+                         'fieldtype' => '',
                          'relationType' => false,
                          'invisible' => false,
                          'visibleGridView' => false,
@@ -654,13 +638,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                         array (
                         ),
                          'options' => NULL,
-                         'width' => 300,
-                         'height' => 10,
                          'maxItems' => NULL,
                          'renderType' => 'tags',
+                         'dynamicOptions' => false,
+                         'height' => 10,
+                         'width' => 300,
+                         'optionsProviderType' => NULL,
                          'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
                          'optionsProviderData' => 'propertiesOut',
-                         'dynamicOptions' => false,
                       )),
                     ),
                      'locked' => false,
@@ -702,13 +687,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'type' => NULL,
              'region' => NULL,
              'title' => '',
-             'width' => NULL,
-             'height' => NULL,
+             'width' => 0,
+             'height' => 0,
              'collapsible' => false,
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'permissions' => NULL,
              'children' => 
             array (
               0 => 
@@ -717,13 +701,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'type' => NULL,
                  'region' => NULL,
                  'title' => '',
-                 'width' => NULL,
-                 'height' => NULL,
+                 'width' => 0,
+                 'height' => 0,
                  'collapsible' => false,
                  'collapsed' => false,
                  'bodyStyle' => '',
                  'datatype' => 'layout',
-                 'permissions' => NULL,
                  'children' => 
                 array (
                   0 => 
@@ -732,13 +715,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'type' => NULL,
                      'region' => NULL,
                      'title' => '',
-                     'width' => NULL,
-                     'height' => NULL,
+                     'width' => 0,
+                     'height' => 0,
                      'collapsible' => false,
                      'collapsed' => false,
                      'bodyStyle' => 'color:black;padding: 10px !important; background-color: #d4d1c9 !important;border-color: #bce8f1 !important',
                      'datatype' => 'layout',
-                     'permissions' => NULL,
                      'children' => 
                     array (
                     ),
@@ -758,13 +740,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'type' => NULL,
                      'region' => '',
                      'title' => '',
-                     'width' => NULL,
-                     'height' => NULL,
+                     'width' => 0,
+                     'height' => 0,
                      'collapsible' => false,
                      'collapsed' => false,
                      'bodyStyle' => '',
                      'datatype' => 'layout',
-                     'permissions' => NULL,
                      'children' => 
                     array (
                       0 => 
@@ -778,8 +759,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
-                         'datatype' => 'data',
-                         'fieldtype' => 'multiselect',
+                         'fieldtype' => '',
                          'relationType' => false,
                          'invisible' => false,
                          'visibleGridView' => false,
@@ -788,13 +768,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                         array (
                         ),
                          'options' => NULL,
-                         'width' => 300,
-                         'height' => 10,
                          'maxItems' => 10,
                          'renderType' => 'tags',
+                         'dynamicOptions' => false,
+                         'height' => 10,
+                         'width' => 300,
+                         'optionsProviderType' => NULL,
                          'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\ApplicationsOptionsProvider',
                          'optionsProviderData' => '',
-                         'dynamicOptions' => false,
                       )),
                     ),
                      'locked' => false,
@@ -826,12 +807,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'region' => NULL,
                  'title' => '',
                  'width' => 20,
-                 'height' => NULL,
+                 'height' => 0,
                  'collapsible' => false,
                  'collapsed' => false,
                  'bodyStyle' => '',
                  'datatype' => 'layout',
-                 'permissions' => NULL,
                  'children' => 
                 array (
                 ),
@@ -851,13 +831,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'type' => NULL,
                  'region' => NULL,
                  'title' => '',
-                 'width' => NULL,
-                 'height' => NULL,
+                 'width' => 0,
+                 'height' => 0,
                  'collapsible' => false,
                  'collapsed' => false,
                  'bodyStyle' => '',
                  'datatype' => 'layout',
-                 'permissions' => NULL,
                  'children' => 
                 array (
                   0 => 
@@ -866,13 +845,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'type' => NULL,
                      'region' => NULL,
                      'title' => '',
-                     'width' => NULL,
-                     'height' => NULL,
+                     'width' => 0,
+                     'height' => 0,
                      'collapsible' => false,
                      'collapsed' => false,
                      'bodyStyle' => 'color:black;padding: 10px !important; background-color: #d4d1c9 !important;border-color: #bce8f1 !important',
                      'datatype' => 'layout',
-                     'permissions' => NULL,
                      'children' => 
                     array (
                     ),
@@ -892,13 +870,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'type' => NULL,
                      'region' => '',
                      'title' => '',
-                     'width' => NULL,
-                     'height' => NULL,
+                     'width' => 0,
+                     'height' => 0,
                      'collapsible' => false,
                      'collapsed' => false,
                      'bodyStyle' => '',
                      'datatype' => 'layout',
-                     'permissions' => NULL,
                      'children' => 
                     array (
                       0 => 
@@ -912,8 +889,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
-                         'datatype' => 'data',
-                         'fieldtype' => 'multiselect',
+                         'fieldtype' => '',
                          'relationType' => false,
                          'invisible' => false,
                          'visibleGridView' => false,
@@ -922,13 +898,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                         array (
                         ),
                          'options' => NULL,
-                         'width' => 300,
-                         'height' => 10,
                          'maxItems' => NULL,
                          'renderType' => 'tags',
+                         'dynamicOptions' => false,
+                         'height' => 10,
+                         'width' => 300,
+                         'optionsProviderType' => NULL,
                          'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\FlowMediumOptionsProvider',
                          'optionsProviderData' => '',
-                         'dynamicOptions' => false,
                       )),
                     ),
                      'locked' => false,
@@ -988,7 +965,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
      'labelWidth' => 100,
      'labelAlign' => 'left',
   )),
-   'generateTypeDeclarations' => false,
+   'fieldDefinitionsCache' => NULL,
    'blockedVarsForExport' => 
   array (
   ),
@@ -999,5 +976,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
       'classname' => 'IFSEUProduct',
       'fieldname' => 'Base',
     ),
+  ),
+   'activeDispatchingEvents' => 
+  array (
   ),
 ));

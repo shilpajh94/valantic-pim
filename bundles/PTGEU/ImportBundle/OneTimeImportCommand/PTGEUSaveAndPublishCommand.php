@@ -32,7 +32,7 @@ class PTGEUSaveAndPublishCommand extends AbstractCommand
                 if($obj->save()){
                     $deleteQuery = "DELETE FROM ptgeu_product_left_to_save WHERE oo_id = '$id'";
                     try {
-                        $this->db->query($deleteQuery);
+                        $this->db->executeQuery($deleteQuery);
                         p_r($id);
                     } catch (\Exception $e) {
                         print_r($e);
@@ -44,4 +44,3 @@ class PTGEUSaveAndPublishCommand extends AbstractCommand
         return 1;
     }
 }
-

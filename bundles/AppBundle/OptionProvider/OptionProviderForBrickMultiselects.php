@@ -9,6 +9,7 @@
 namespace AppBundle\OptionProvider;
 
 use AppBundle\Services\OptionProviderCacheService;
+use Pimcore\Model\DataObject\ClassDefinition\Data;
 use Pimcore\Model\DataObject\ClassDefinition\DynamicOptionsProvider\MultiSelectOptionsProviderInterface;
 
 class OptionProviderForBrickMultiselects implements MultiSelectOptionsProviderInterface
@@ -16,15 +17,13 @@ class OptionProviderForBrickMultiselects implements MultiSelectOptionsProviderIn
     private $optionProvider;
 
     /**
-     *
      * return the multiselect master of a type
-     *
      * @param array $context
-     * @param \Pimcore\Model\DataObject\ClassDefinition\Data $fieldDefinition
+     * @param Data $fieldDefinition
      * @return array
      * @throws \Exception
      */
-    public function getOptions($context, $fieldDefinition)
+    public function getOptions(array $context, Data $fieldDefinition): array
     {
         $this->optionProvider = \Pimcore::getKernel()->getContainer()->get('AppBundle\Services\OptionProviderCacheService');
         $returnValue = array();
@@ -34,7 +33,7 @@ class OptionProviderForBrickMultiselects implements MultiSelectOptionsProviderIn
         if($brickGroupName){
             $fieldName = $fieldDefinition->getName();
             $masterType = $this->getMasterType($brickGroupName,$fieldName);
-            
+
             $cacheMasterType = $masterType;
             if($brickGroupName == 'Product Class')
                 $cacheMasterType = 'ProductClass~'.$fieldName;
@@ -71,28 +70,26 @@ class OptionProviderForBrickMultiselects implements MultiSelectOptionsProviderIn
     }
 
     public function getMasterType($brickGroupName, $fieldName){
-        //TODO: place this separator in a config file
         return $brickGroupName."~".$fieldName;
     }
 
     /**
+     * Returns the value which is defined in the 'Default value' field
      * @param array $context
      * @param Data $fieldDefinition
-     *
-     * @return bool
+     * @return mixed
      */
-    public function hasStaticOptions($context, $fieldDefinition)
+    public function getDefaultValue(array $context, Data $fieldDefinition): ?string
     {
-        return true; //return $fieldDefinition->getDefaultValue();
+        return true;
     }
-
+    
     /**
      * @param array $context
      * @param Data $fieldDefinition
-     *
-     * @return mixed
+     * @return bool
      */
-    public function getDefaultValue($context, $fieldDefinition)
+    public function hasStaticOptions(array $context, Data $fieldDefinition): bool
     {
         return true;
     }

@@ -25,7 +25,7 @@ class B2BProductTempTablePopulatorDao extends TempTablePopulatorDao
         $endTime = $this->updateWindow->getEndTimestamp();
 
         $query = "SELECT TRIM(BOTH ',' FROM  object_10.Material) AS o_id FROM object_10 WHERE (`o_modificationDate` >= {$startTime} AND `o_modificationDate` <= {$endTime})";
-        return $this->db->fetchCol($query);
+        return $this->db->fetchFirstColumn($query);
     }
 
     public function getEpixFlagValueForProductIds($pimIds)
@@ -33,9 +33,9 @@ class B2BProductTempTablePopulatorDao extends TempTablePopulatorDao
         $resultSet = [];
         if($pimIds)
         {
-            $productIds = implode(",",$pimIds); 
+            $productIds = implode(",",$pimIds);
             $query = "SELECT TRIM(BOTH ',' FROM  object_10.Material) AS pim_id, count(object_10.oo_id) AS b2b_epixFlag FROM  object_10 WHERE  (TRIM(BOTH ',' FROM  object_10.Material)) IN ($productIds) AND (object_10.epixFlag = '001' AND object_10.o_published = 1)  GROUP BY pim_id;";
-            $resultSet = $this->db->fetchPairs($query);
+            $resultSet = \Pimcore\Db\Helper::fetchPairs($this->db, $query);
         }
         return $resultSet;
     }
@@ -46,9 +46,9 @@ class B2BProductTempTablePopulatorDao extends TempTablePopulatorDao
         if($object_id)
         {
             $query = "SELECT * FROM ".Constants::B2B_PRODUCT_TEMP_TABLE_NAME. " WHERE o_id = {$object_id}";
-            $resultSet = $this->db->fetchRow($query);
+            $resultSet = $this->db->fetchAssociative($query);
         }
         return $resultSet;
     }
-    
+
 }

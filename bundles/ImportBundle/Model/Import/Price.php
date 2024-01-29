@@ -24,11 +24,11 @@ class Price {
         $this->tempTable = "material_list_price_import_temp";
         $this->masterTable = "material_list_price_import_master";
     }
-    
+
     public function truncateTempTable() {
         try {
             $sql = "TRUNCATE TABLE $this->tempTable";
-            $this->db->query($sql);
+            $this->db->executeQuery($sql);
         } catch (Exception $ex) {
             //$this->logger->error($ex->getMessage());
             return ([
@@ -37,8 +37,8 @@ class Price {
             ]);
         }
     }
-    
-    
+
+
     public function insertDataInTemp($dataArray)
     {
         $consolidatedArray = [];
@@ -61,17 +61,17 @@ class Price {
             // inserting records in batch
             if ($rowCount % 500 == 0) {
                 $query = $sql.rtrim($values, ',').$update;
-                $this->db->query($query);
+                $this->db->executeQuery($query);
                 $values = '';
             }
             $rowCount++;
         }
         if ($values) {
             $query = $sql.rtrim($values, ',').$update ;
-            $this->db->query($query);
+            $this->db->executeQuery($query);
         }
     }
-    
+
     /**
      * Function to find the Delta record(s)
      *
@@ -88,13 +88,13 @@ class Price {
             echo $ex->getMessage();
         }
     }
-    
-    
+
+
     public function getDeletedPriceDataProducts() {
         $sql   = "SELECT m.id FROM {$this->masterTable} m LEFT JOIN {$this->tempTable} t ON t.id = m.id WHERE t.id is null";
         return $this->db->fetchAllAssociative($sql);
     }
-    
+
     public function fetchArticles() {
         $sql   = "select oo_id, articleNumber, priceData from `object_query_1` where articleNumber is not null";
         $queryData = $this->db->fetchAllAssociative($sql);
@@ -104,7 +104,7 @@ class Price {
             //'storeTableData' => $storeData
         ];
     }
-    
+
     public function insertDataIntoTable($dataArray, $tableName) {
         try {
             $rowCount = 1;
@@ -133,20 +133,20 @@ class Price {
                 // inserting records in batch
                 if ($rowCount % 500 == 0) {
                     $query = $sql.rtrim($values, ',').$update;
-                    $this->db->query($query);
+                    $this->db->executeQuery($query);
                     $values = '';
                 }
                 $rowCount++;
             }
             if (!empty($values)) {
                 $query = $sql.rtrim($values, ',').$update ;
-                $this->db->query($query);
+                $this->db->executeQuery($query);
             }
         } catch (\Exception $e) {
             echo $e->getMessage(); die;
         }
     }
-    
+
     /**
      * Function to truncate article temp table
      */
@@ -154,7 +154,7 @@ class Price {
     {
         try {
             $sql = "TRUNCATE TABLE {$this->masterTable}";
-            $this->db->query($sql);
+            $this->db->executeQuery($sql);
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
@@ -164,11 +164,11 @@ class Price {
      * Function to update master table
      */
     public function updateMasterTable()
-    {        
+    {
         try {
             $this->truncateMasterTable();
             $sql = "REPLACE INTO {$this->masterTable} (id, record, hash) SELECT t.id, t.record, t.hash FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE t.hash != m.hash OR m.id IS NULL";
-            $this->db->query($sql);
+            $this->db->executeQuery($sql);
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }

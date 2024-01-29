@@ -1,27 +1,35 @@
 <?php
 
-namespace AppBundle\OptionProvider;
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Pimcore
+ *
+ * This source file is available under two different licenses:
+ * - GNU General Public License version 3 (GPLv3)
+ * - Pimcore Commercial License (PCL)
+ * Full copyright and license information is available in
+ * LICENSE.md which is distributed with this source code.
+ *
+ *  @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
+ *  @license    http://www.pimcore.org/license     GPLv3 and PCL
  */
 
-use Pimcore\Model\DataObject;
+namespace AppBundle\OptionProvider;
+
 use Pimcore\Model\DataObject\ClassDefinition\DynamicOptionsProvider\SelectOptionsProviderInterface;
 use AppBundle\Services\OptionProviderCacheService;
+use Pimcore\Model\DataObject\ClassDefinition\Data;
 
 class GenericOptionsProvider implements SelectOptionsProviderInterface {
 
     private $optionProvider;
 
     /**
-     * @param $context array
-     * @param $fieldDefinition Data
+     * @param array $context
+     * @param Data $fieldDefinition
      * @return array
      */
-    public function getOptions($context, $fieldDefinition) {
+    public function getOptions(array $context, Data $fieldDefinition): array
+    {
 
         $this->optionProvider = \Pimcore::getKernel()->getContainer()->get('AppBundle\Services\OptionProviderCacheService');
         $allAvailablelArray = array();
@@ -31,7 +39,7 @@ class GenericOptionsProvider implements SelectOptionsProviderInterface {
             if (is_array($displayFieldData) && count($displayFieldData) > 1) {
                 $className = $displayFieldData[0];
                 $displayFieldName = $displayFieldData[1];
-                
+
                 $allAvailablelArrayCache = $this->optionProvider->getCachedKeyData($className);
                 if($allAvailablelArrayCache && !empty($allAvailablelArrayCache))
                 {
@@ -64,21 +72,23 @@ class GenericOptionsProvider implements SelectOptionsProviderInterface {
     }
 
     /**
-     * Returns the value which is defined in the 'Default value' field  
-     * @param $context array
-     * @param $fieldDefinition Data
+     * Returns the value which is defined in the 'Default value' field
+     * @param array $context
+     * @param Data $fieldDefinition
      * @return mixed
      */
-    public function getDefaultValue($context, $fieldDefinition) {
-        return true; //return $fieldDefinition->getDefaultValue();
+    public function getDefaultValue(array $context, Data $fieldDefinition): ?string
+    {
+        return true;
     }
 
     /**
-     * @param $context array
-     * @param $fieldDefinition Data
+     * @param array $context
+     * @param Data $fieldDefinition
      * @return bool
      */
-    public function hasStaticOptions($context, $fieldDefinition) {
+    public function hasStaticOptions(array $context, Data $fieldDefinition): bool
+    {
         return true;
     }
 

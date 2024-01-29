@@ -22,7 +22,7 @@ use Symfony\Component\HttpFoundation\Request;
 class ClassificationStoreService
 {
     /**
-     * @var \Pimcore\Db\Connection|\Pimcore\Db\ConnectionInterface
+     * @var \Doctrine\DBAL\Connection|\Doctrine\DBAL\Driver\Connection
      */
     private $db='';
 
@@ -166,7 +166,7 @@ class ClassificationStoreService
         try {
             $stmt = $this->db->prepare($sql);
             $stmt->execute($param);
-            return $stmt->fetchAll() ?? [];
+            return $stmt->fetchAllAssociative() ?? [];
         } catch (DBALException $ex) {
             DHubLogger::log("Classifications store keys error:".$ex->getMessage(), DHubLogger::CRITICAL);
             return [];

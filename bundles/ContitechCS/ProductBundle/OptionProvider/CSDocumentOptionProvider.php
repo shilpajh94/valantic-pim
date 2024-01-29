@@ -15,27 +15,27 @@
 
 namespace ContitechCS\ProductBundle\OptionProvider;
 
-use Pimcore\Model\DataObject;
 use Pimcore\Model\Document;
 use Pimcore\Model\DataObject\ClassDefinition\DynamicOptionsProvider\SelectOptionsProviderInterface;
+use Pimcore\Model\DataObject\ClassDefinition\Data;
 
 class CSDocumentOptionProvider implements SelectOptionsProviderInterface
 {
-
     /**
-     * @param $context array
-     * @param $fieldDefinition Data
+     * @param array $context
+     * @param Data $fieldDefinition
      * @return array
      */
-    public function getOptions($context, $fieldDefinition) {
+    public function getOptions(array $context, Data $fieldDefinition): array
+    {
         $optionsData = [];
-             
+
         $documentTypeList = new Document\DocType\Listing();
         $docList = $documentTypeList->load();
-       
+
         foreach($docList as $doc)
         {
-           
+
             if($doc instanceof Document\DocType && $doc->getGroup() == 'Contitech CS' && $doc->getType() == 'printpage')
             {
             $optionsData[] = array ('key' => $doc->getName(),'value' => $doc->getName());
@@ -47,20 +47,22 @@ class CSDocumentOptionProvider implements SelectOptionsProviderInterface
 
     /**
      * Returns the value which is defined in the 'Default value' field
-     * @param $context array
-     * @param $fieldDefinition Data
+     * @param array $context
+     * @param Data $fieldDefinition
      * @return mixed
      */
-    public function getDefaultValue($context, $fieldDefinition) {
+    public function getDefaultValue(array $context, Data $fieldDefinition): ?string
+    {
         return true;
     }
 
     /**
-     * @param $context array
-     * @param $fieldDefinition Data
+     * @param array $context
+     * @param Data $fieldDefinition
      * @return bool
      */
-    public function hasStaticOptions($context, $fieldDefinition) {
+    public function hasStaticOptions(array $context, Data $fieldDefinition): bool
+    {
         return true;
     }
 

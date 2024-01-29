@@ -707,7 +707,7 @@ class Export {
             foreach ($productsMaster as $productID) {
 
 				// Querying Product Data WITH Product Brick Data
-				$productData = Db::get()->fetchAll('SELECT
+				$productData = Db::get()->fetchAllAssociative('SELECT
 					*
 					FROM object_1 o1
 					LEFT JOIN object_localized_query_1_en old1
@@ -851,7 +851,7 @@ class Export {
 		if($optionsProviderData){
 			$fieldName = $fieldDefinition->getName();
 			$masterType = $this->getMasterType($optionsProviderClass, $optionsProviderData,$fieldName);
-			$list = Db::get()->fetchAll('SELECT
+			$list = Db::get()->fetchAllAssociative('SELECT
 				old22.name AS NAME,
 				old22.language AS LANG,
 				old22.ooo_id AS ID

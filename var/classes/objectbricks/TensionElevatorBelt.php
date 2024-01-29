@@ -37,13 +37,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
      'type' => NULL,
      'region' => NULL,
      'title' => NULL,
-     'width' => NULL,
-     'height' => NULL,
+     'width' => 0,
+     'height' => 0,
      'collapsible' => false,
      'collapsed' => false,
      'bodyStyle' => NULL,
      'datatype' => 'layout',
-     'permissions' => NULL,
      'children' => 
     array (
       0 => 
@@ -52,13 +51,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'type' => NULL,
          'region' => NULL,
          'title' => '',
-         'width' => NULL,
-         'height' => NULL,
+         'width' => 0,
+         'height' => 0,
          'collapsible' => false,
          'collapsed' => false,
          'bodyStyle' => '',
          'datatype' => 'layout',
-         'permissions' => NULL,
          'children' => 
         array (
           0 => 
@@ -67,13 +65,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'type' => NULL,
              'region' => NULL,
              'title' => '',
-             'width' => NULL,
-             'height' => NULL,
+             'width' => 0,
+             'height' => 0,
              'collapsible' => false,
              'collapsed' => false,
              'bodyStyle' => '',
              'datatype' => 'layout',
-             'permissions' => NULL,
              'children' => 
             array (
               0 => 
@@ -82,13 +79,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'type' => NULL,
                  'region' => NULL,
                  'title' => '',
-                 'width' => NULL,
-                 'height' => NULL,
+                 'width' => 0,
+                 'height' => 0,
                  'collapsible' => false,
                  'collapsed' => false,
                  'bodyStyle' => '',
                  'datatype' => 'layout',
-                 'permissions' => NULL,
                  'children' => 
                 array (
                   0 => 
@@ -102,8 +98,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'numeric',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -111,7 +106,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 200,
                      'defaultValue' => NULL,
                      'integer' => false,
                      'unsigned' => false,
@@ -120,6 +114,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
+                     'width' => 200,
                      'defaultValueGenerator' => '',
                   )),
                   1 => 
@@ -133,8 +128,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'numeric',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -142,7 +136,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 200,
                      'defaultValue' => NULL,
                      'integer' => false,
                      'unsigned' => false,
@@ -151,6 +144,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
+                     'width' => 200,
                      'defaultValueGenerator' => '',
                   )),
                   2 => 
@@ -164,8 +158,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'numeric',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -173,7 +166,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 200,
                      'defaultValue' => NULL,
                      'integer' => false,
                      'unsigned' => false,
@@ -182,6 +174,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
+                     'width' => 200,
                      'defaultValueGenerator' => '',
                   )),
                   3 => 
@@ -195,8 +188,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'numeric',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -204,7 +196,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 200,
                      'defaultValue' => NULL,
                      'integer' => false,
                      'unsigned' => false,
@@ -213,6 +204,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
+                     'width' => 200,
                      'defaultValueGenerator' => '',
                   )),
                   4 => 
@@ -226,8 +218,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'numeric',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -235,7 +226,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 200,
                      'defaultValue' => NULL,
                      'integer' => false,
                      'unsigned' => false,
@@ -244,6 +234,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
+                     'width' => 200,
                      'defaultValueGenerator' => '',
                   )),
                 ),
@@ -263,13 +254,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'type' => NULL,
                  'region' => NULL,
                  'title' => '',
-                 'width' => NULL,
-                 'height' => NULL,
+                 'width' => 0,
+                 'height' => 0,
                  'collapsible' => false,
                  'collapsed' => false,
                  'bodyStyle' => '',
                  'datatype' => 'layout',
-                 'permissions' => NULL,
                  'children' => 
                 array (
                   0 => 
@@ -283,8 +273,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => 'padding-left:10px;margin-top:7px;',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'input',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -292,7 +281,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 40,
                      'defaultValue' => NULL,
                      'columnLength' => 190,
                      'regex' => '',
@@ -301,6 +289,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
+                     'width' => 40,
                      'defaultValueGenerator' => '',
                   )),
                   1 => 
@@ -314,8 +303,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => 'padding-left:10px;margin-top:8px;',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'input',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -323,7 +311,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 40,
                      'defaultValue' => NULL,
                      'columnLength' => 190,
                      'regex' => '',
@@ -332,6 +319,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
+                     'width' => 40,
                      'defaultValueGenerator' => '',
                   )),
                   2 => 
@@ -345,8 +333,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => 'padding-left:10px;margin-top:9px;',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'input',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -354,7 +341,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 40,
                      'defaultValue' => NULL,
                      'columnLength' => 190,
                      'regex' => '',
@@ -363,6 +349,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
+                     'width' => 40,
                      'defaultValueGenerator' => '',
                   )),
                   3 => 
@@ -376,8 +363,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => 'padding-left:10px;margin-top:8px;',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'input',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -385,7 +371,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 40,
                      'defaultValue' => NULL,
                      'columnLength' => 190,
                      'regex' => '',
@@ -394,6 +379,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
+                     'width' => 40,
                      'defaultValueGenerator' => '',
                   )),
                   4 => 
@@ -407,8 +393,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => 'padding-left:10px;',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'input',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -416,7 +401,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 40,
                      'defaultValue' => NULL,
                      'columnLength' => 190,
                      'regex' => '',
@@ -425,6 +409,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
+                     'width' => 40,
                      'defaultValueGenerator' => '',
                   )),
                 ),
@@ -444,13 +429,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'type' => NULL,
                  'region' => NULL,
                  'title' => '',
-                 'width' => NULL,
-                 'height' => NULL,
+                 'width' => 0,
+                 'height' => 0,
                  'collapsible' => false,
                  'collapsed' => false,
                  'bodyStyle' => '',
                  'datatype' => 'layout',
-                 'permissions' => NULL,
                  'children' => 
                 array (
                   0 => 
@@ -464,8 +448,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => 'margin-left:50px;',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'numeric',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -473,7 +456,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 200,
                      'defaultValue' => NULL,
                      'integer' => false,
                      'unsigned' => false,
@@ -482,6 +464,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
+                     'width' => 200,
                      'defaultValueGenerator' => '',
                   )),
                   1 => 
@@ -495,8 +478,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => 'margin-left:50px;',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'numeric',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -504,7 +486,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 200,
                      'defaultValue' => NULL,
                      'integer' => false,
                      'unsigned' => false,
@@ -513,6 +494,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
+                     'width' => 200,
                      'defaultValueGenerator' => '',
                   )),
                   2 => 
@@ -526,8 +508,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => 'margin-left:50px;',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'numeric',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -535,7 +516,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 200,
                      'defaultValue' => NULL,
                      'integer' => false,
                      'unsigned' => false,
@@ -544,6 +524,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
+                     'width' => 200,
                      'defaultValueGenerator' => '',
                   )),
                   3 => 
@@ -557,8 +538,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => 'margin-left:50px;',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'numeric',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -566,7 +546,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 200,
                      'defaultValue' => NULL,
                      'integer' => false,
                      'unsigned' => false,
@@ -575,6 +554,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
+                     'width' => 200,
                      'defaultValueGenerator' => '',
                   )),
                   4 => 
@@ -588,8 +568,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => 'margin-left:50px;',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'numeric',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -597,7 +576,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 200,
                      'defaultValue' => NULL,
                      'integer' => false,
                      'unsigned' => false,
@@ -606,6 +584,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
+                     'width' => 200,
                      'defaultValueGenerator' => '',
                   )),
                 ),
@@ -625,13 +604,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'type' => NULL,
                  'region' => NULL,
                  'title' => '',
-                 'width' => NULL,
-                 'height' => NULL,
+                 'width' => 0,
+                 'height' => 0,
                  'collapsible' => false,
                  'collapsed' => false,
                  'bodyStyle' => '',
                  'datatype' => 'layout',
-                 'permissions' => NULL,
                  'children' => 
                 array (
                   0 => 
@@ -645,8 +623,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => 'padding-left:10px;margin-top:7px;',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'input',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -654,7 +631,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 40,
                      'defaultValue' => NULL,
                      'columnLength' => 190,
                      'regex' => '',
@@ -663,6 +639,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
+                     'width' => 40,
                      'defaultValueGenerator' => '',
                   )),
                   1 => 
@@ -676,8 +653,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => 'padding-left:10px;margin-top:8px;',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'input',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -685,7 +661,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 40,
                      'defaultValue' => NULL,
                      'columnLength' => 190,
                      'regex' => '',
@@ -694,6 +669,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
+                     'width' => 40,
                      'defaultValueGenerator' => '',
                   )),
                   2 => 
@@ -707,8 +683,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => 'padding-left:10px;margin-top:9px;',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'input',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -716,7 +691,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 40,
                      'defaultValue' => NULL,
                      'columnLength' => 190,
                      'regex' => '',
@@ -725,6 +699,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
+                     'width' => 40,
                      'defaultValueGenerator' => '',
                   )),
                   3 => 
@@ -738,8 +713,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => 'padding-left:10px;margin-top:8px;',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'input',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -747,7 +721,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 40,
                      'defaultValue' => NULL,
                      'columnLength' => 190,
                      'regex' => '',
@@ -756,6 +729,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
+                     'width' => 40,
                      'defaultValueGenerator' => '',
                   )),
                   4 => 
@@ -769,8 +743,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'locked' => false,
                      'style' => 'padding-left:10px;',
                      'permissions' => NULL,
-                     'datatype' => 'data',
-                     'fieldtype' => 'input',
+                     'fieldtype' => '',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
@@ -778,7 +751,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'width' => 40,
                      'defaultValue' => NULL,
                      'columnLength' => 190,
                      'regex' => '',
@@ -787,6 +759,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
+                     'width' => 40,
                      'defaultValueGenerator' => '',
                   )),
                 ),
@@ -835,7 +808,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
      'labelWidth' => 100,
      'labelAlign' => 'left',
   )),
-   'generateTypeDeclarations' => false,
+   'fieldDefinitionsCache' => NULL,
    'blockedVarsForExport' => 
   array (
   ),
@@ -846,5 +819,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
       'classname' => 'CSProducts',
       'fieldname' => 'ProductAttributes',
     ),
+  ),
+   'activeDispatchingEvents' => 
+  array (
   ),
 ));

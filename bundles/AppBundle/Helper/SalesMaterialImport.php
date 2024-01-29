@@ -63,14 +63,14 @@ class SalesMaterialImport
             // inserting records in batch
             if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
                 $query = $sql.rtrim($values, ',').$update;
-                $this->db->query($query);
+                $this->db->executeQuery($query);
                 $values = '';
             }
             $rowCount++;
         }
         if (!empty($values)) {
             $query = $sql.rtrim($values, ',').$update ;
-            $this->db->query($query);
+            $this->db->executeQuery($query);
         }
     }
 
@@ -98,7 +98,7 @@ class SalesMaterialImport
 	        $valuesArr[] = $this->db->quote(time());
 	        $values = " (".implode(', ', $valuesArr).") ";
 	        $query = $sql.$values.$update;
-	        $this->db->query($query);
+	        $this->db->executeQuery($query);
 	        $lastId = $this->db->lastInsertId();
 	        $data = $values = $query = null;
     	} catch(\Exception $e) {
@@ -107,7 +107,7 @@ class SalesMaterialImport
         return $lastId;
     }
 
-    
+
     private function createId($data)
     {
         $keyColumnValues = array();
@@ -120,7 +120,7 @@ class SalesMaterialImport
         $id = implode(ImportConstants::IMPORT_TABLE_ID_SEPARATOR, $keyColumnValues);
         return $id;
     }
-    
+
     public function updateProductPath($dataArray) {
         $rowCount = 1;
         $firstRec = $dataArray[0];
@@ -148,14 +148,14 @@ class SalesMaterialImport
             // inserting records in batch
             if ($rowCount % 500 == 0) {
                 $query = $sql.rtrim($values, ',').$update;
-                $this->db->query($query);
+                $this->db->executeQuery($query);
                 $values = '';
             }
             $rowCount++;
         }
         if (!empty($values)) {
             $query = $sql.rtrim($values, ',').$update ;
-            $this->db->query($query);
+            $this->db->executeQuery($query);
         }
     }
 
@@ -178,7 +178,7 @@ class SalesMaterialImport
                 // inserting records in batch
                 if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
                     $query = $sql.rtrim($values, ',').$update;
-                    $this->db->query($query);
+                    $this->db->executeQuery($query);
                     $values = '';
                 }
                 $rowCount++;
@@ -187,7 +187,7 @@ class SalesMaterialImport
 
             if ($values) {
                 $query = $sql.rtrim($values, ',').$update ;
-                $this->db->query($query);
+                $this->db->executeQuery($query);
             }
         } catch (\Exception $ex) {
             echo $ex->getMessage();
@@ -210,19 +210,19 @@ class SalesMaterialImport
             echo $ex->getMessage();
         }
     }
-    
+
     public function deleteFailedRecordsFromMaster($failedRecords) {
         try {
             if (!empty($failedRecords) && count($failedRecords)>0) {
-                $sql = "DELETE FROM {$this->masterTable} WHERE `id` IN (";                
+                $sql = "DELETE FROM {$this->masterTable} WHERE `id` IN (";
                 if (count($failedRecords)>0) {
                     $str = "'" . implode ( "', '", $failedRecords ) . "'";
                     $query = $sql.$str." )";
-                    $this->db->query($query);
+                    $this->db->executeQuery($query);
                 }
             }
         }  catch (\Exception $ex) {
-            
+
         }
     }
     /**
@@ -241,7 +241,7 @@ class SalesMaterialImport
             echo $ex->getMessage();
         }
     }
-    
+
     public function getSalesMaterialRecordsByMaterial($materialObjId) {
         $sql = "SELECT * from object_query_10 where `Material` = ".$this->db->quote(",".$materialObjId.","); //." AND deletedFlagAtDistributionChainLevel != 0 AND deletedFlagAtDistributionChainLevel != '' AND deletedFlagAtDistributionChainLevel IS NOT NULL";
         $salesData = $this->db->fetchAllAssociative($sql);
@@ -259,11 +259,11 @@ class SalesMaterialImport
      * Function to update master table
      */
     public function updateMaster()
-    {        
+    {
         try {
-            $this->db->query("TRUNCATE {$this->masterTable}");
+            $this->db->executeQuery("TRUNCATE {$this->masterTable}");
             $sql = "REPLACE INTO {$this->masterTable} (id, record, hash) SELECT t.id, t.record, t.hash FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE t.hash != m.hash OR m.id IS NULL";
-            $this->db->query($sql);
+            $this->db->executeQuery($sql);
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
@@ -275,7 +275,7 @@ class SalesMaterialImport
     public function truncateTempTable()
     {
         try {
-            $this->db->query("TRUNCATE {$this->tempTable}");
+            $this->db->executeQuery("TRUNCATE {$this->tempTable}");
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
@@ -295,7 +295,7 @@ class SalesMaterialImport
                 // inserting records in batch
                 if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
                     $query = $sql.rtrim($values, ',');
-                    $this->db->query($query);
+                    $this->db->executeQuery($query);
                     $values = '';
                 }
                 $rowCount++;
@@ -304,19 +304,19 @@ class SalesMaterialImport
             if($values)
             {
                 $query = $sql.rtrim($values, ',') ;
-                $this->db->query($query);
+                $this->db->executeQuery($query);
             }
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
     }
-    
+
     public function getSalessOrganization() {
         $query = "SELECT code, oo_id FROM `object_6` ";
-        return $this->db->fetchPairs($query, ['code','oo_id']);
+        return \Pimcore\Db\Helper::fetchPairs($this->db, $query, ['code','oo_id']);
     }
     public function getDistributionChannel() {
         $query = "SELECT code, oo_id FROM `object_8` ";
-        return $this->db->fetchPairs($query, ['code','oo_id']);
+        return \Pimcore\Db\Helper::fetchPairs($this->db, $query, ['code','oo_id']);
     }
 }

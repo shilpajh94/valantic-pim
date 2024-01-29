@@ -1,7 +1,7 @@
 <?php
 
 namespace PimDataPostBundle\Lib\SalesForceEntityHelper\B2C;
-use PimDataPostBundle\Lib\Constants; 
+use PimDataPostBundle\Lib\Constants;
 
 class B2CProductDao
 {
@@ -16,7 +16,7 @@ class B2CProductDao
         $this->db = \Pimcore\Db::get();
         $sql="SELECT articleNumber
         FROM ".Constants::B2C_PRODUCT_OBJECT_TABLE_NAME." where oo_id = ".$pimId;
-        $rowData = $this->db->fetchCol($sql);
+        $rowData = $this->db->fetchFirstColumn($sql);
         if(!empty($rowData))
         {
             return $rowData[0];

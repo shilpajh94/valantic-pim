@@ -114,7 +114,7 @@ class PtgImportCommand extends AbstractCommand
         p_r('Filtering Siop Level 5(Base Level) Data');
         $sql = "INSERT INTO siopLvl5_objects SELECT o1_2.o_id as siopLvl5_object_id, o1_2.siopFullCode, pi.* FROM ptg_import pi JOIN object_1 o1_1 ON(o1_1.articleNumber=pi.SAPMaterialCode)
         JOIN object_1 o1_2 ON(o1_2.siopFullCode=SUBSTR(o1_1.siopFullCode, 1, 16)) ON DUPLICATE KEY UPDATE siopLvl5_objects.Width_in=siopLvl5_objects.Width_in;";
-        $this->db->query($sql);
+        $this->db->executeQuery($sql);
     }
 
     /**
@@ -126,19 +126,19 @@ class PtgImportCommand extends AbstractCommand
         $sql = "INSERT INTO siopLvl6_objects SELECT o1_2.o_id as siopLvl6_object_id, o1_2.siopFullCode, pi.* FROM ptg_import pi JOIN object_1 o1_1 ON(o1_1.articleNumber=pi.SAPMaterialCode)
         JOIN object_1 o1_2 ON(o1_2.siopFullCode=o1_1.siopFullCode) JOIN object_2 ctgry ON(ctgry.fullCode=o1_2.siopFullCode)
         WHERE o1_2.o_key=ctgry.o_key ON DUPLICATE KEY UPDATE siopLvl6_objects.Width_in=siopLvl6_objects.Width_in;";
-        $this->db->query($sql);
+        $this->db->executeQuery($sql);
     }
 
     /**
      * Updating siop level 5 data (PTG base level)
      * Getting list of base leve data through query
-     * 
+     *
      */
     private function updateBase()
     {
         $sql = "SELECT siopLvl5_object_id o_id, 'Base' as fieldname, Material material, Min_Temperature_F minimumTemperatureF, Min_Temperature_C minimumTemperatureC, Reinforcement reinforcement, Max_Temperature_F maximumTemperatureF, Max_Temperature_C maximumTemperatureC, LongDescriptionHTML, CharacteristicDescription, Bullet_Point_1, Bullet_Point_2, Bullet_Point_3, Bullet_Point_4, Bullet_Point_5, Brand FROM siopLvl5_objects ";
-        $results = $this->db->fetchAll($sql);
-        
+        $results = $this->db->fetchAllAssociative($sql);
+
         // Update Query Table
 
         $records = $this->getMainClassData($results);
@@ -173,7 +173,7 @@ class PtgImportCommand extends AbstractCommand
     /**
      * Updating siop level 5 data (PTG base level)
      * Getting list of skeleton leve data through query
-     * 
+     *
      */
     private function updateSkeleton()
     {
@@ -181,9 +181,9 @@ class PtgImportCommand extends AbstractCommand
         /**
          * beltAngle, height
          */
-        $sql = "SELECT siopLvl6_object_id o_id, 'Skeleton' as fieldname, `Profile`, Static_Conductive staticConductive, 
+        $sql = "SELECT siopLvl6_object_id o_id, 'Skeleton' as fieldname, `Profile`, Static_Conductive staticConductive,
         Heat_and_Oil_Resistant heatOilResistant FROM siopLvl6_objects";
-        $results = $this->db->fetchAll($sql);
+        $results = $this->db->fetchAllAssociative($sql);
         $records = $this->getSkeletonBricks($results);
         p_r('Processing ' . count($results) . ' records at skeleton level');
         p_r('Updating skeleton');
@@ -197,27 +197,27 @@ class PtgImportCommand extends AbstractCommand
      * Getting all available records for updating through query
      * Received result will have all filtered data by matching sap code in object_1 table with articleNumber
      * Getting mapped bricks object id by looking it into brick tables
-     * If brick id will not null then it will update the record 
+     * If brick id will not null then it will update the record
      */
 
     private function updateFert()
     {
         // $sql = "SELECT o.o_id, pi.*, 'Digit14' as fieldname FROM ptg_import pi JOIN object_1 o ON(o.articleNumber=pi.SAPMaterialCode)";
-        $sql = "SELECT o.o_id, ptgf.o_id ptg_fert_oid, ptgblts.o_id ptg_belt_oid, ptgsync.o_id ptg_sync_oid, 
-        ptgmtl.o_id ptg_metal_oid, pi.*, 'Fert' as fieldname FROM ptg_import pi 
-        JOIN object_1 o ON(o.articleNumber=pi.SAPMaterialCode) 
-        LEFT JOIN object_brick_query_PTGFert_1 ptgf ON(ptgf.o_id=o.o_id) 
-        LEFT JOIN object_brick_query_BeltsFert_1 ptgblts ON(ptgblts.o_id=o.o_id) 
-        LEFT JOIN object_brick_query_SynchronousFert_1 ptgsync ON(ptgsync.o_id=o.o_id) 
+        $sql = "SELECT o.o_id, ptgf.o_id ptg_fert_oid, ptgblts.o_id ptg_belt_oid, ptgsync.o_id ptg_sync_oid,
+        ptgmtl.o_id ptg_metal_oid, pi.*, 'Fert' as fieldname FROM ptg_import pi
+        JOIN object_1 o ON(o.articleNumber=pi.SAPMaterialCode)
+        LEFT JOIN object_brick_query_PTGFert_1 ptgf ON(ptgf.o_id=o.o_id)
+        LEFT JOIN object_brick_query_BeltsFert_1 ptgblts ON(ptgblts.o_id=o.o_id)
+        LEFT JOIN object_brick_query_SynchronousFert_1 ptgsync ON(ptgsync.o_id=o.o_id)
         LEFT JOIN object_brick_query_MetalFert_1 ptgmtl ON(ptgmtl.o_id=o.o_id)";
-        $results = $this->db->fetchAll($sql);
+        $results = $this->db->fetchAllAssociative($sql);
 
 
         // p_r('Main Class Updation - Done');
 
         p_r('Processing ' . count($results) . ' records at fert level');
         $records = $this->getFertData($results);
-        
+
 
 
 
@@ -314,7 +314,7 @@ class PtgImportCommand extends AbstractCommand
         $metalFertStore = array();
         foreach ($results as $k => $r) {
             // Product Level Data
-            
+
 
 
             // PTG Fert
@@ -526,7 +526,7 @@ class PtgImportCommand extends AbstractCommand
                 $d[$k]['maximumTemperatureF'] = null;
                 $d[$k]['maximumTemperatureC'] = null;
             }
-            
+
             $d[$k]['reinforcement'] = !empty($reinforcement) ? implode(",", $reinforcement) : NULL;
         }
         return $d;
@@ -605,14 +605,14 @@ class PtgImportCommand extends AbstractCommand
 
                     if ($rowCount % self::BATCH_SIZE == 0) {
                         $query = $sql . rtrim($values, ',') . $update;
-                        $this->db->query($query);
+                        $this->db->executeQuery($query);
                         $values = '';
                     }
                     $rowCount++;
                 }
                 if (!empty($values)) {
                     $query = $sql . rtrim($values, ',') . $update;
-                    $this->db->query($query);
+                    $this->db->executeQuery($query);
                 }
                 // p_r($query);
             }
@@ -627,7 +627,7 @@ class PtgImportCommand extends AbstractCommand
     private function truncateTemp()
     {
         $sql = "TRUNCATE siopLvl5_objects; TRUNCATE siopLvl6_objects; TRUNCATE ptg_import;";
-        $this->db->query($sql);
+        $this->db->executeQuery($sql);
     }
 
     public function insertDataToLogTable($data, $flag = true)
@@ -648,21 +648,21 @@ class PtgImportCommand extends AbstractCommand
                 // inserting records in batch
                 if ($rowCount % self::BATCH_SIZE == 0) {
                     $query = $sql . rtrim($values, ',');
-                    $this->db->query($query);
+                    $this->db->executeQuery($query);
                     $values = '';
                 }
                 $rowCount++;
             }
             if ($values) {
                 $query = $sql . rtrim($values, ',');
-                $this->db->query($query);
+                $this->db->executeQuery($query);
             }
             $data = null;
             if ($flag) {
                 p_r('Updating rest log');
                 $flag = false;
                 $sql = "SELECT pi.* FROM ptg_import pi LEFT JOIN object_1 o ON(o.articleNumber=pi.SAPMaterialCode) WHERE o.o_id is null";
-                $data = $this->db->fetchAll($sql);
+                $data = $this->db->fetchAllAssociative($sql);
                 $this->insertDataToLogTable($data, false);
             }
         } catch (\Exception $ex) {
@@ -673,7 +673,7 @@ class PtgImportCommand extends AbstractCommand
     private function loadFeatures()
     {
         $sql = "SELECT f.o_id, fl.Name feature FROM object_29 f JOIN object_localized_data_29 fl ON(f.o_id=fl.ooo_id) WHERE f.FeatureType='PTG'";
-        $this->featureList = $this->db->fetchAll($sql);
+        $this->featureList = $this->db->fetchAllAssociative($sql);
     }
 
     private function getFeatureIds($features)
@@ -752,7 +752,7 @@ class PtgImportCommand extends AbstractCommand
                 $where .= " OR o.masterType LIKE '%$type%'";
             }
         }
-        $results = $this->db->query($sql . $where);
+        $results = $this->db->executeQuery($sql . $where);
 
         foreach ($results as $result) {
             $type = array_search($result['masterType'], $this->masterTypes);
@@ -763,7 +763,7 @@ class PtgImportCommand extends AbstractCommand
         unset($results);
         /* Loading Brands */
         $sql = "SELECT o_id, `name` FROM object_3";
-        $results = $this->db->query($sql);
+        $results = $this->db->executeQuery($sql);
         foreach ($results as $result) {
             $type = array_search($result['masterType'], $this->masterTypes);
             $this->brands[$result['o_id']] = strtolower($result['name']);
@@ -778,7 +778,7 @@ class PtgImportCommand extends AbstractCommand
      * array elements
      * * items: list of matched value
      * * itemNotFound: list of searched item which not found in master
-     * 
+     *
      */
     private function getMultiselectInfo($masterKey, $items)
     {
@@ -894,7 +894,7 @@ class PtgImportCommand extends AbstractCommand
             `Width_mm` varchar(50) NOT NULL,
             PRIMARY KEY (`SAPMaterialCode`)
           ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
-        //   $this->db->query($sql);
+        //   $this->db->executeQuery($sql);
 
         $sql2 = "CREATE TABLE IF NOT EXISTS `siopLvl5_objects` (
             `siopLvl5_object_id` varchar(10) NOT NULL,
@@ -961,7 +961,7 @@ class PtgImportCommand extends AbstractCommand
   `Width_mm` varchar(50) NOT NULL,
   PRIMARY KEY (`siopLvl5_object_id`)
           ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
-        //   $this->db->query($sql);
+        //   $this->db->executeQuery($sql);
 
         $sql3 = "CREATE TABLE IF NOT EXISTS `siopLvl6_objects` (
             `siopLvl6_object_id` varchar(10) NOT NULL,
@@ -1039,6 +1039,6 @@ class PtgImportCommand extends AbstractCommand
             PRIMARY KEY (`logId`)
           ) ENGINE=InnoDB AUTO_INCREMENT=15440 DEFAULT CHARSET=utf8mb4;";
         $sql = $sql1 . $sql2 . $sql3 . $sql4;
-        $this->db->query($sql);
+        $this->db->executeQuery($sql);
     }
 }

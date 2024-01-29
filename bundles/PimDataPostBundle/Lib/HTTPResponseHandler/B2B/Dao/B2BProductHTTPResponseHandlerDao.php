@@ -21,12 +21,12 @@ class B2BProductHTTPResponseHandlerDao
     public function moveTempToMaster(int $pimId): bool
     {
         $sql = "select * from ".$this->tempTable." where o_id = ".$pimId;
-        $resultTemp = $this->db->fetchAll($sql); 
+        $resultTemp = $this->db->fetchAllAssociative($sql);
         foreach($resultTemp as $resultArr)
         {
             unset($resultArr['id']);
             return $this->replaceMasterRow($this->masterTable,$resultArr);
-        } 
+        }
         return false;
     }
 
@@ -41,7 +41,7 @@ class B2BProductHTTPResponseHandlerDao
         $fields = implode(",", $fields);
         $values = implode(",", $values);
         $sql = "REPLACE INTO `$table` ($fields) VALUES ($values)";
-        if($this->db->query($sql)) {
+        if($this->db->executeQuery($sql)) {
             return true;
         }
         return false;
@@ -49,4 +49,3 @@ class B2BProductHTTPResponseHandlerDao
     }
 
 }
-

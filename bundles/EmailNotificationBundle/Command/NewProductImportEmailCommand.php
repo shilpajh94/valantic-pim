@@ -135,7 +135,7 @@ class NewProductImportEmailCommand extends AbstractCommand
         ";
 
         try{
-            $records = $this->db->fetchAll($queryString);
+            $records = $this->db->fetchAllAssociative($queryString);
         }catch(\Exception $exception){
             \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->
                 error("Exception fetching data for mail: " . $exception->getMessage());

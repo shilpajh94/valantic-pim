@@ -37,7 +37,7 @@ class PTGEUWorkflowPublishCommand extends AbstractCommand
                 }else{
                     $insertQuery = "INSERT into element_workflow_state (`cid`,`ctype`,`place`,
                     `workflow`) VALUES('$objectId', 'object', 'published', 'ptg_eu_product_enrichment')";
-                    $this->db->query($insertQuery);
+                    $this->db->executeQuery($insertQuery);
                     print_r('Inserted for  ----- '.$objectId);
                     echo PHP_EOL;
                 }

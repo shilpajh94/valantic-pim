@@ -2,7 +2,7 @@
 
 namespace PimDataPostBundle\InitialDataLoad;
 
-class B2BProductInitialLoadProvider 
+class B2BProductInitialLoadProvider
 {
     private $db;
 
@@ -31,6 +31,6 @@ class B2BProductInitialLoadProvider
                 ORDER BY product.o_id ASC
                 LIMIT $offSet, $limit;";
 
-        return $this->db->fetchCol($sql);
+        return $this->db->fetchFirstColumn($sql);
     }
 }

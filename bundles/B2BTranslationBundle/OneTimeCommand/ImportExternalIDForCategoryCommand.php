@@ -49,7 +49,7 @@ class ImportExternalIDForCategoryCommand extends AbstractCommand
 
             $classID = $this->bUProductClassTableID[$this->bu];
             $validationTrue = $this->helper->checkFieldValidation($classID);
-            
+
             if($validationTrue)
             {
                 $categoryIds = $this->getAllCategoryIds($classID);
@@ -70,14 +70,14 @@ class ImportExternalIDForCategoryCommand extends AbstractCommand
     public function getAllCategoryIds($classID)
     {
         $query = "SELECT o_id FROM object_{$classID}";
-        return $this->db->fetchCol($query);
+        return $this->db->fetchFirstColumn($query);
     }
 
     public function updateExternalIdByCategoryId($classID, $externalID, $o_id)
     {
         $query = "UPDATE object_query_{$classID} SET externalID ='{$externalID}' WHERE oo_id ='{$o_id}'";
-        $this->db->query($query);
+        $this->db->executeQuery($query);
         $query = "UPDATE object_store_{$classID} SET externalID ='{$externalID}' WHERE oo_id ='{$o_id}'";
-        $this->db->query($query);
+        $this->db->executeQuery($query);
     }
 }

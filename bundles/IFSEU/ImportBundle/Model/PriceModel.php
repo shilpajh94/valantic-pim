@@ -6,7 +6,7 @@ use Pimcore\Db;
 use IFSEU\ImportBundle\Services\ImportConstants;
 use Exception;
 
-class PriceModel 
+class PriceModel
 {
     private $tempTable;
     private $masterTable;
@@ -24,14 +24,14 @@ class PriceModel
         $this->logTable     = 'ifseu_material_list_price_import_log';
         $this->createImportTables();
     }
-    
+
     /**
      * Function to truncate temp table
      */
     public function truncateTempTable() {
         try {
             $sql = "TRUNCATE TABLE $this->tempTable";
-            $this->db->query($sql);
+            $this->db->executeQuery($sql);
         } catch (Exception $ex) {
             return ([
                 "success" => false,
@@ -39,7 +39,7 @@ class PriceModel
             ]);
         }
     }
-    
+
     /**
      * Function to insert data in temp table
      */
@@ -66,17 +66,17 @@ class PriceModel
             // inserting records in batch
             if ($rowCount % 500 == 0) {
                 $query = $sql.rtrim($values, ',').$update;
-                $this->db->query($query);
+                $this->db->executeQuery($query);
                 $values = '';
             }
             $rowCount++;
         }
         if ($values) {
             $query = $sql.rtrim($values, ',').$update ;
-            $this->db->query($query);
+            $this->db->executeQuery($query);
         }
     }
-    
+
     /**
      * Function to find the Delta record(s)
      *
@@ -91,7 +91,7 @@ class PriceModel
             echo $ex->getMessage();
         }
     }
-    
+
     /**
      * Function to get deleted records
      */
@@ -99,7 +99,7 @@ class PriceModel
         $sql   = "SELECT m.id FROM {$this->masterTable} m LEFT JOIN {$this->tempTable} t ON t.id = m.id WHERE t.id IS NULL";
         return $this->db->fetchAllAssociative($sql);
     }
-    
+
     /**
      * Function to get all products
      */
@@ -111,7 +111,7 @@ class PriceModel
             'queryTableData' => $queryData
         ];
     }
-    
+
     /**
      * Function to insert data into product query and store tables
      */
@@ -143,20 +143,20 @@ class PriceModel
                 // inserting records in batch
                 if ($rowCount % 500 == 0) {
                     $query = $sql.rtrim($values, ',').$update;
-                    $this->db->query($query);
+                    $this->db->executeQuery($query);
                     $values = '';
                 }
                 $rowCount++;
             }
             if (!empty($values)) {
                 $query = $sql.rtrim($values, ',').$update ;
-                $this->db->query($query);
+                $this->db->executeQuery($query);
             }
         } catch (\Exception $e) {
             echo $e->getMessage(); die;
         }
     }
-    
+
     /**
      * Function to truncate master table
      */
@@ -164,7 +164,7 @@ class PriceModel
     {
         try {
             $sql = "TRUNCATE TABLE {$this->masterTable}";
-            $this->db->query($sql);
+            $this->db->executeQuery($sql);
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
@@ -174,11 +174,11 @@ class PriceModel
      * Function to update master table
      */
     public function updateMasterTable()
-    {        
+    {
         try {
             $this->truncateMasterTable();
             $sql = "REPLACE INTO {$this->masterTable} (id, record, hash) SELECT t.id, t.record, t.hash FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE t.hash != m.hash OR m.id IS NULL";
-            $this->db->query($sql);
+            $this->db->executeQuery($sql);
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
@@ -196,23 +196,23 @@ class PriceModel
             PRIMARY KEY (`logId`),
             UNIQUE KEY `logId` (`logId`)
           ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-        
-        
+
+
           CREATE TABLE  IF NOT EXISTS `$this->masterTable` (
             `id` varchar(30) NOT NULL,
             `record` longtext,
             `hash` char(32) DEFAULT NULL,
             PRIMARY KEY (`id`)
           ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-        
-        
+
+
           CREATE TABLE  IF NOT EXISTS `$this->tempTable` (
             `id` varchar(30) NOT NULL,
             `record` longtext,
             `hash` char(32) DEFAULT NULL,
             PRIMARY KEY (`id`)
           ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
-        $this->db->query($query);
+        $this->db->executeQuery($query);
 
     }
 }

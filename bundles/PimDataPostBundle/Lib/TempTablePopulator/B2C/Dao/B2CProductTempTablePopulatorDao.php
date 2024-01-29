@@ -23,7 +23,7 @@ class B2CProductTempTablePopulatorDao extends TempTablePopulatorDao
         if($object_id)
         {
             $query = "SELECT * FROM ".Constants::B2C_PRODUCT_TEMP_TABLE_NAME. " WHERE o_id = {$object_id}";
-            $resultSet = $this->db->fetchRow($query);
+            $resultSet = $this->db->fetchAssociative($query);
         }
         return $resultSet;
     }

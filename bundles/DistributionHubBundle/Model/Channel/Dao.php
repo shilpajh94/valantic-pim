@@ -25,7 +25,7 @@ class Dao extends AbstractDao
      */
     public function getById($id)
     {
-        $data = $this->db->fetchRow("SELECT * FROM " . $this->db->quoteIdentifier(static::TABLE_NAME) . " WHERE id = ?", $id);
+        $data = $this->db->fetchAssociative("SELECT * FROM " . $this->db->quoteIdentifier(static::TABLE_NAME) . " WHERE id = ?", $id);
         if (!$data["id"]) {
             throw new \Exception("record with id " . $id . " not found");
         }
@@ -39,7 +39,7 @@ class Dao extends AbstractDao
 
     public function getByName($name)
     {
-        $data = $this->db->fetchRow("SELECT * FROM " . $this->db->quoteIdentifier(self::TABLE_NAME) . " WHERE name = ?", $name);
+        $data = $this->db->fetchAssociative("SELECT * FROM " . $this->db->quoteIdentifier(self::TABLE_NAME) . " WHERE name = ?", $name);
         if (!$data["id"]) {
             throw new \Exception("channel with id " . $name . " not found");
         }
@@ -105,7 +105,7 @@ class Dao extends AbstractDao
     public function getFTPDetails()
     {
         try {
-            $data = $this->db->fetchCol("SELECT ftpDetailId FROM " . $this->db->quoteIdentifier(self::CHANNEL_FTP_MAP_TABLE_NAME) . " WHERE channelId = ?", [$this->model->getId()]);
+            $data = $this->db->fetchFirstColumn("SELECT ftpDetailId FROM " . $this->db->quoteIdentifier(self::CHANNEL_FTP_MAP_TABLE_NAME) . " WHERE channelId = ?", [$this->model->getId()]);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -154,7 +154,7 @@ class Dao extends AbstractDao
     public function getScheduleIds()
     {
         try {
-            $data = $this->db->fetchCol("SELECT id FROM " . $this->db->quoteIdentifier(self::SCHEDULE_TABLE_NAME) . " WHERE channelId = ?", [$this->model->getId()]);
+            $data = $this->db->fetchFirstColumn("SELECT id FROM " . $this->db->quoteIdentifier(self::SCHEDULE_TABLE_NAME) . " WHERE channelId = ?", [$this->model->getId()]);
         } catch (Exception $ex) {
             throw $ex;
         }
@@ -171,7 +171,7 @@ class Dao extends AbstractDao
 //    public function getFilter()
 //    {
 //        try{
-//            $data = $this->db->fetchCol("SELECT `id` FROM " . $this->db->quoteIdentifier(self::FILTER_TABLE_NAME) . " WHERE `srcId` = ?",[$this->model->getId()]);
+//            $data = $this->db->fetchFirstColumn("SELECT `id` FROM " . $this->db->quoteIdentifier(self::FILTER_TABLE_NAME) . " WHERE `srcId` = ?",[$this->model->getId()]);
 //        }catch (\Exception $e){
 //            throw $e;
 //        }

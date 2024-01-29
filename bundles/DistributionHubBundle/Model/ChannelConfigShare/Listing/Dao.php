@@ -20,7 +20,7 @@ class Dao extends AbstractDao
     public function load()
     {
         $channelConfigs = [];
-        $data = $this->db->fetchAll("SELECT * FROM ". $this->db->quoteIdentifier(self::TABLE_NAME) . $this->getCondition() . $this->getOrder() . $this->getOffsetLimit(), $this->model->getConditionVariables());
+        $data = $this->db->fetchAllAssociative("SELECT * FROM ". $this->db->quoteIdentifier(self::TABLE_NAME) . $this->getCondition() . $this->getOrder() . $this->getOffsetLimit(), $this->model->getConditionVariables());
 
         foreach ($data as $configData) {
             $channelConfig = new \DistributionHubBundle\Model\ChannelConfigShare();

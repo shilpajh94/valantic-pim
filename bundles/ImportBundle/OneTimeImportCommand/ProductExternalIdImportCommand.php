@@ -39,7 +39,7 @@ class ProductExternalIdImportCommand extends AbstractCommand
         $fileNameWithExt = end(explode('/',$filePath));
         $fileNameInfo = explode('.',$fileNameWithExt);
         $fileName = $fileNameInfo[0];
-        
+
         $this->consoleLog("log file created to store the product's updation status.");
 
         $csvLogFilePath = PIMCORE_LOG_DIRECTORY . "/{$fileName}_" . time() . "_log.csv";
@@ -50,7 +50,7 @@ class ProductExternalIdImportCommand extends AbstractCommand
             "Status",
             "Comment"
         ));
-        
+
         $scriptStartTime = time();
         $this->processRecords($csvLogFileHandle, $data);
         $scriptEndTime = time();
@@ -109,7 +109,7 @@ class ProductExternalIdImportCommand extends AbstractCommand
     private function fetchRecordFromQueryTable($artcleNumber): bool
     {
         $sql = "SELECT oo_id FROM object_query_1 WHERE articleNumber = '{$artcleNumber}'";
-        return ($this->db->fetchCol($sql)) ? true : false;
+        return ($this->db->fetchFirstColumn($sql)) ? true : false;
     }
 
     private function insertDataIntoTable($articleNumber, $externalID): array
@@ -117,13 +117,13 @@ class ProductExternalIdImportCommand extends AbstractCommand
         $this->db->beginTransaction();
         try {
             $sql = "UPDATE object_query_1 SET externalID = '$externalID' WHERE articleNumber = '{$articleNumber}'";
-            $this->db->query($sql);
+            $this->db->executeQuery($sql);
 
             $sql = "UPDATE object_store_1 SET externalID = '$externalID' WHERE articleNumber = '{$articleNumber}'";
-            $this->db->query($sql);
+            $this->db->executeQuery($sql);
 
             $sql = "select * FROM material_import_master WHERE id = '{$articleNumber}'";
-            $recordData = $this->db->fetchRow($sql);
+            $recordData = $this->db->fetchAssociative($sql);
 
             if($recordData)
             {
@@ -135,7 +135,7 @@ class ProductExternalIdImportCommand extends AbstractCommand
                     $hash = md5($record);
 
                     $sql = "UPDATE material_import_master SET record = '$record', `hash`= '$hash' WHERE id = '{$articleNumber}'";
-                    $this->db->query($sql);
+                    $this->db->executeQuery($sql);
                 }
             }
 
@@ -146,7 +146,7 @@ class ProductExternalIdImportCommand extends AbstractCommand
             $status = "FAILURE";
             $msg = $exception->getMessage();
         }
-        
+
         return array('status'=>$status,'msg'=>$msg);
     }
 

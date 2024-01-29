@@ -19,7 +19,7 @@ class ProductModel
 
     private $db;
     private $common;
-    
+
     /**
      * Getting DB connection object
      */
@@ -29,7 +29,7 @@ class ProductModel
         $this->db = Db::get();
         $this->common = $this->container->get('import.common_helper');
     }
-    
+
     /**
      * Initilize table name
      */
@@ -43,7 +43,7 @@ class ProductModel
         $this->keyColumns   = $table['keyColumns'];
         $this->mappingCsvColumn = $table['mappingCsvColumn'];
     }
-    
+
     public function checkIfArticleExists($articleNumber) {
         $sql = " SELECT `oo_id`, `o_parentId`, `o_path`, `articleNumber`, `oldMaterialCode`
           FROM `object_38` WHERE `articleNumber` = ".$this->db->quote(trim($articleNumber))
@@ -89,7 +89,7 @@ class ProductModel
             $valuesArr[] = $this->db->quote(time());
             $values = " (".implode(', ', $valuesArr).") ";
             $query = $sql.$values.$update;
-            $this->db->query($query);
+            $this->db->executeQuery($query);
             $lastId = $this->db->lastInsertId();
             if (!empty($data['o_id'])) {
                 $lastId = $data['o_id'];
@@ -133,15 +133,15 @@ class ProductModel
                 // inserting records in batch
                 if ($rowCount % 1000 == 0) {
                     $query = $sql.rtrim($values, ',').$update;
-                    $this->db->query($query);
+                    $this->db->executeQuery($query);
                     $values = '';
                 }
                 $rowCount++;
             }
             if (!empty($values)) {
                 $query = $sql.rtrim($values, ',').$update ;
-             
-                $this->db->query($query);
+
+                $this->db->executeQuery($query);
             }
         } catch (\Exception $e) {
             echo $e->getMessage(); die;
@@ -165,7 +165,7 @@ class ProductModel
             // inserting records in batch
             if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
                 $query = $sql.rtrim($values, ',').$update;
-                $this->db->query($query);
+                $this->db->executeQuery($query);
                 $values = '';
             }
             $rowCount++;
@@ -173,10 +173,10 @@ class ProductModel
         }
         if ($values) {
             $query = $sql.rtrim($values, ',').$update ;
-            $this->db->query($query);
+            $this->db->executeQuery($query);
         }
     }
-    
+
     /**
      * Function to find the Delta record(s)
      *
@@ -194,7 +194,7 @@ class ProductModel
             echo $ex->getMessage();
         }
     }
-    
+
     public function deleteRelationTableRecords($dataArray) {
         if (count($dataArray)>0) {
             foreach ($dataArray as $fieldName => $objectIds) {
@@ -202,20 +202,20 @@ class ProductModel
                 $sql = "Delete from `object_relations_38` where `fieldname` = ".
                 $this->db->quote($fieldName)." AND `src_id` IN (".$ids.")";
                 try {
-                    $this->db->query($sql);
+                    $this->db->executeQuery($sql);
                 } catch (\Exception $e) {
                     echo $e->getMessage();
                 }
             }
         }
     }
-    
+
     public function getDeletedProducts() {
         $sql   = "SELECT m.id FROM {$this->masterTable} m
         LEFT JOIN {$this->tempTable} t ON t.id = m.id WHERE t.id is null";
         return $this->db->fetchAllAssociative($sql);
     }
-        
+
     /**
      * Function to truncate article temp table
      */
@@ -223,7 +223,7 @@ class ProductModel
     {
         try {
             $sql = "TRUNCATE TABLE {$this->tempTable}";
-            $this->db->query($sql);
+            $this->db->executeQuery($sql);
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
@@ -236,12 +236,12 @@ class ProductModel
     {
         try {
             $sql = "TRUNCATE TABLE {$this->masterTable}";
-            $this->db->query($sql);
+            $this->db->executeQuery($sql);
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
     }
-    
+
     public function removeArticlesFromMaster($articles) {
         try {
             if (!empty($articles) && count($articles)>0) {
@@ -249,7 +249,7 @@ class ProductModel
                 $artNoArray = array_keys($articles);
                 if (count($artNoArray)>0) {
                     $query = $sql.implode("', '", $artNoArray)."')";
-                    $this->db->query($query);
+                    $this->db->executeQuery($query);
                 }
             }
         }  catch (\Exception $ex) {
@@ -267,7 +267,7 @@ class ProductModel
             $sql = "REPLACE INTO {$this->masterTable} (id, siopfullcode, record, hash)
              SELECT t.id, t.siopfullcode, t.record, t.hash FROM {$this->tempTable} t
               LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE t.hash != m.hash OR m.id IS NULL";
-            $this->db->query($sql);
+            $this->db->executeQuery($sql);
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
@@ -289,7 +289,7 @@ class ProductModel
                 // inserting records in batch
                 if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
                     $query = $sql.rtrim($values, ',');
-                    $this->db->query($query);
+                    $this->db->executeQuery($query);
                     $values = '';
                 }
                 $rowCount++;
@@ -298,7 +298,7 @@ class ProductModel
             if($values)
             {
                 $query = $sql.rtrim($values, ',') ;
-                $this->db->query($query);
+                $this->db->executeQuery($query);
             }
         } catch (\Exception $ex) {
             echo $ex->getMessage();
@@ -315,12 +315,12 @@ class ProductModel
         $query = "SELECT oo_id, code FROM `object_PTGEUMaterialGroup` ";
         return $this->db->fetchAllAssociative($query);
     }
-    
+
     public function getProducts() {
         $query = "SELECT oo_id, o_key, o_path FROM `object_38` ";
         return $this->db->fetchAllAssociative($query);
     }
-    
+
     public function getObjectsTableData() {
         $query = "SELECT o_id, o_key, o_path FROM `objects` where o_type = 'object' AND o_classId = '38'";
         return $this->db->fetchAllAssociative($query);
@@ -344,7 +344,7 @@ class ProductModel
             }
         }
     }
-    
+
     public function checkHierarchyExistAtLevel($fullCode, $level=5) : bool
     {
         $sql = "SELECT `fullCode` FROM object_39 WHERE Level='".$level."' AND  fullCode = '".$fullCode."'";

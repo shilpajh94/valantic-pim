@@ -52,7 +52,7 @@ class TableImport
             $column = $this->mappingCsvColumn[$keyColumn];
             $columnValue = $this->common->getFieldValue($this->fileColumns,$data,$column);
             $keyColumnValues[] = $columnValue;
-            
+
         }
 
         $id = implode(ImportConstants::IMPORT_TABLE_ID_SEPARATOR, $keyColumnValues);
@@ -75,17 +75,17 @@ class TableImport
             // inserting records in batch
             if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
                 $query = $sql.rtrim($values, ',').$update;
-                $this->db->query($query);
+                $this->db->executeQuery($query);
                 $values = '';
             }
             $rowCount++;
         }
         if ($values) {
             $query = $sql.rtrim($values, ',').$update ;
-            $this->db->query($query);
+            $this->db->executeQuery($query);
         }
     }
-    
+
     public function insertDataInSalesTemp($arrData)
     {
         $rowCount = 1;
@@ -93,7 +93,7 @@ class TableImport
         $values   = '';
         $update = " ON DUPLICATE KEY UPDATE `id` = `id`, `record` = `record`, `hash` = `hash` ";
         foreach ($arrData as $data) {
-            
+
             $id = $data[4].'$'.$data[0].'$'.$data[2];
             $record = addslashes(json_encode($data, true));
             $hash   = md5($record);
@@ -101,17 +101,17 @@ class TableImport
             // inserting records in batch
             if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
                 $query = $sql.rtrim($values, ',').$update;
-                $this->db->query($query);
+                $this->db->executeQuery($query);
                 $values = '';
             }
             $rowCount++;
         }
         if ($values) {
             $query = $sql.rtrim($values, ',').$update ;
-            $this->db->query($query);
+            $this->db->executeQuery($query);
         }
     }
-    
+
     public function insertDataInPlantTemp($arrData)
     {
         $rowCount = 1;
@@ -119,7 +119,7 @@ class TableImport
         $values   = '';
         $update = " ON DUPLICATE KEY UPDATE `id` = `id`, `record` = `record`, `hash` = `hash` ";
         foreach ($arrData as $data) {
-            
+
             $id = $this->createId($data); //$data[4].'$'.$data[0].'$'.$data[2];
             $record = addslashes(json_encode($data, true));
             $hash   = md5($record);
@@ -127,14 +127,14 @@ class TableImport
             // inserting records in batch
             if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
                 $query = $sql.rtrim($values, ',').$update;
-                $this->db->query($query);
+                $this->db->executeQuery($query);
                 $values = '';
             }
             $rowCount++;
         }
         if ($values) {
             $query = $sql.rtrim($values, ',').$update ;
-            $this->db->query($query);
+            $this->db->executeQuery($query);
         }
     }
     /**
@@ -153,7 +153,7 @@ class TableImport
             echo $ex->getMessage();
         }
     }
-    
+
     /**
      * Function to find the Delta record(s)
      *
@@ -191,10 +191,10 @@ class TableImport
      * Function to update master table
      */
     public function updateMaster()
-    {        
+    {
         try {
             $sql = "REPLACE INTO {$this->masterTable} (id, record, hash) SELECT t.id, t.record, t.hash FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE t.hash != m.hash OR m.id IS NULL";
-            $this->db->query($sql);
+            $this->db->executeQuery($sql);
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
@@ -207,7 +207,7 @@ class TableImport
     {
         try {
             $sql = "TRUNCATE TABLE {$this->tempTable}";
-            $this->db->query($sql);
+            $this->db->executeQuery($sql);
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
@@ -227,7 +227,7 @@ class TableImport
                 // inserting records in batch
                 if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
                     $query = $sql.rtrim($values, ',');
-                    $this->db->query($query);
+                    $this->db->executeQuery($query);
                     $values = '';
                 }
                 $rowCount++;
@@ -236,7 +236,7 @@ class TableImport
             if($values)
             {
                 $query = $sql.rtrim($values, ',') ;
-                $this->db->query($query);
+                $this->db->executeQuery($query);
             }
         } catch (\Exception $ex) {
             echo $ex->getMessage();

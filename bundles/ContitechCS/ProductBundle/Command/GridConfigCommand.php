@@ -39,7 +39,7 @@ class GridConfigCommand extends AbstractCommand {
             $sql = "SELECT `g`.`id`, GROUP_CONCAT(`s`.`sharedWithUserId`) as usersIds FROM gridconfigs g
              JOIN gridconfig_shares s ON g.id = s.gridConfigId WHERE `g`.`name` = '".$gridConfigName."'
              AND `g`.`searchType` = 'search' AND `g`.`classId` = '".$classId."' group by g.id ";
-            $result = $db->fetchAll($sql);
+            $result = $db->fetchAllAssociative($sql);
             if (!empty($result) && count($result)>0) {
                 $userRoleIds = explode(",", $result[0]['usersIds']);
                 $gridConfigId = $result[0]['id'];
@@ -51,7 +51,7 @@ class GridConfigCommand extends AbstractCommand {
                     $condition = implode(" OR ", $conditionArr);
                 }
                 $sql = "SELECT `id` FROM `users` WHERE `type` = 'user' AND (".$condition.") ";
-                $usersData = $db->fetchAll($sql);
+                $usersData = $db->fetchAllAssociative($sql);
                 if (!empty($usersData) && count($usersData)>0) {
                     $sql = " INSERT INTO `gridconfig_favourites` (
                         `ownerId`,`classId`,`objectId`,`gridConfigId`,`searchType`,`type`
@@ -66,7 +66,7 @@ class GridConfigCommand extends AbstractCommand {
                         $valueArray[] =  "'search'";
                         $valueArray[] =  "'object'";
                         $values .=  '('.implode(",", $valueArray).'),';
-                        
+
                     }
                     if (!empty($values)) {
                         $updateColumns = "`ownerId`= VALUES(`ownerId`), `classId`= VALUES(`classId`),
@@ -74,13 +74,13 @@ class GridConfigCommand extends AbstractCommand {
                          `searchType`= VALUES(`searchType`), `type`= VALUES(`type`)";
                         $update = " ON DUPLICATE KEY UPDATE ".$updateColumns;
                         $query = $sql.rtrim($values, ',') .$update;
-                        $db->query($query);
+                        $db->executeQuery($query);
                     }
                 }
             }
-            
+
         }
-        
+
     }
     //put your code here
 }

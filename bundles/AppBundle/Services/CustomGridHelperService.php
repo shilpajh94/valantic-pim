@@ -219,7 +219,7 @@ class CustomGridHelperService extends GridHelperService
         $pathsForCustomizedWorkspaceQuery = ["/MaterialMaster","/MaterialMaster/PlantMaterialMaster","/MaterialMaster/SalesMaterialMaster"];
         $classesForCustomizedWorkspaceQuery = ["PlantMaterialMaster","SalesMaterialMaster"];
 
-        $requestedPath = $requestedRootObject->getFullPath(); 
+        $requestedPath = $requestedRootObject->getFullPath();
         if(in_array($requestedPath,$pathsForCustomizedWorkspaceQuery) && in_array($requestedClass,$classesForCustomizedWorkspaceQuery) ){
             $db = \Pimcore\Db::get();
             $userIds = $user->getRoles();
@@ -235,10 +235,10 @@ class CustomGridHelperService extends GridHelperService
     /**
      * check if current folder exist in user workspace for this user/role
      * if it exist then check whether it has the permission to list and return accordingly
-     * 
-     * if current folder does not exist in user workspace then get this folder's parent and 
+     *
+     * if current folder does not exist in user workspace then get this folder's parent and
      * repeat the above step
-     * 
+     *
      */
     private function isListAllowedOnPath(string $path,array $userIds,$db) : bool
     {
@@ -246,7 +246,7 @@ class CustomGridHelperService extends GridHelperService
             return false;
         }
         $query = 'SELECT list FROM users_workspaces_object WHERE cpath = \''. $path .'\' AND userId IN (' . implode(',', $userIds) . ')';
-        $result = $db->fetchCol($query);
+        $result = $db->fetchFirstColumn($query);
 
         if(count($result) == 0){
             // there is no entry for this path for this user/role, need to check for immidiate parent

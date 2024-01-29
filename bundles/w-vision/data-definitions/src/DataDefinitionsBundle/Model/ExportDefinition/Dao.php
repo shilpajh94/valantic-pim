@@ -91,7 +91,7 @@ class Dao extends Model\Dao\PhpArrayTable
 
         $name = $this->model->getName();
 
-        $data = $this->db->fetchAll(function ($row) use ($name) {
+        $data = $this->db->fetchAllAssociative(function ($row) use ($name) {
             return $row['name'] === $name;
         });
 
@@ -177,5 +177,4 @@ class Dao extends Model\Dao\PhpArrayTable
         $this->db->delete($this->model->getId());
     }
 }
-
 

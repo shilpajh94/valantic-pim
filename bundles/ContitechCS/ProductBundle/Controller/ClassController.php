@@ -9,7 +9,7 @@
 namespace ContitechCS\ProductBundle\Controller;
 
 use Pimcore\Bundle\AdminBundle\Controller\AdminController;
-use Pimcore\Bundle\AdminBundle\HttpFoundation\JsonResponse;
+// use Pimcore\Bundle\AdminBundle\HttpFoundation\JsonResponse;
 use Pimcore\Controller\EventedControllerInterface;
 use Pimcore\Db;
 use Pimcore\Event\AdminEvents;
@@ -23,6 +23,7 @@ use Pimcore\Tool\Session;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
@@ -38,10 +39,10 @@ class ClassController extends \Pimcore\Bundle\AdminBundle\Controller\Admin\DataO
      * @Route("/objectbrick-tree", methods={"GET", "POST"})
      *
      * @param Request $request
-     *
+     * @param EventDispatcherInterface $eventDispatcher
      * @return JsonResponse
      */
-    public function objectbrickTreeAction(Request $request, EventDispatcherInterface $eventDispatcher)
+    public function objectbrickTreeAction(Request $request, EventDispatcherInterface $eventDispatcher): JsonResponse
     {
         $list = new DataObject\Objectbrick\Definition\Listing();
         $list = $list->load();
@@ -150,7 +151,7 @@ class ClassController extends \Pimcore\Bundle\AdminBundle\Controller\Admin\DataO
             'list' => $definitions,
             'objectId' => $request->get('object_id')
         ]);
-        \Pimcore::getEventDispatcher()->dispatch($event, AdminEvents::CLASS_OBJECTBRICK_LIST_PRE_SEND_DATA);
+        // \Pimcore::getEventDispatcher()->dispatch($event, AdminEvents::CLASS_OBJECTBRICK_LIST_PRE_SEND_DATA);
         $definitions = $event->getArgument('list');
 
         if ($forObjectEditor) {
@@ -164,10 +165,10 @@ class ClassController extends \Pimcore\Bundle\AdminBundle\Controller\Admin\DataO
      * @Route("/objectbrick-list", methods={"GET"})
      *
      * @param Request $request
-     *
+     * @param EventDispatcherInterface $eventDispatcher
      * @return JsonResponse
      */
-    public function objectbrickListAction(Request $request, EventDispatcherInterface $eventDispatcher)
+    public function objectbrickListAction(Request $request, EventDispatcherInterface $eventDispatcher): JsonResponse
     {
         $list = new DataObject\Objectbrick\Definition\Listing();
         $list = $list->load();
@@ -219,7 +220,7 @@ class ClassController extends \Pimcore\Bundle\AdminBundle\Controller\Admin\DataO
             'list' => $list,
             'objectId' => $request->get('object_id')
         ]);
-        \Pimcore::getEventDispatcher()->dispatch($event, AdminEvents::CLASS_OBJECTBRICK_LIST_PRE_SEND_DATA);
+        // \Pimcore::getEventDispatcher()->dispatch($event, AdminEvents::CLASS_OBJECTBRICK_LIST_PRE_SEND_DATA);
         $list = $event->getArgument('list');
 
         return $this->adminJson(['objectbricks' => $list]);

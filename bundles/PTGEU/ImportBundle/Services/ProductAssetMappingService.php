@@ -19,7 +19,7 @@ class ProductAssetMappingService
 
     private $productModel;
     private $container;
-   
+
     public function __construct(ContainerInterface $container)
     {
         $this->db = Db::get();
@@ -125,7 +125,7 @@ class ProductAssetMappingService
                 }
             }
             echo "$i assests mapped " . $assetObject->getFilename(). " for ". $productName ."\n";
-            
+
         } else {
             $this->insertLog($rowData, 'Mapping', 'Failed', 'Invalid Column Name', $assetObject->getFilename());
         }
@@ -222,7 +222,7 @@ class ProductAssetMappingService
             return false;
         }
         return true;
-   
+
     }
 
     private function getImagesDataByPath(string $assetHierarchyFilePath): ? array
@@ -274,8 +274,6 @@ class ProductAssetMappingService
         $sql .= "(`productName`, `statusCode`, `statusMessage`, `type`, `folderPath`, `hierarchyPath`, `imageName`)";
         $sql .= " VALUES ('".$rowData[1]."', '".$statusCode."', '".$statusMessage."',
          '".$type."', '".$rowData[0]."', '".$rowData[2]."', '".$imageName."' )";
-        $this->db->query($sql);
+        $this->db->executeQuery($sql);
     }
-
-
 }

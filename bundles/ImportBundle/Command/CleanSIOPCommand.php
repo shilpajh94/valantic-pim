@@ -19,7 +19,7 @@ use Pimcore\Db;
 class CleanSIOPCommand extends AbstractCommand
 {
     private $db;
-    
+
     protected function configure()
     {
         $this->setName('conti:product-siop-cleaning')
@@ -56,7 +56,7 @@ class CleanSIOPCommand extends AbstractCommand
                     $siopLevel4Arr = explode(',', $siopLevel4);
                     $siopLevel4 = ",".$siopLevel4Arr[1].",";
                 }
-                
+
                 $siopLevel5 = $qData['SIOPLevel5'];
                 if (!empty($siopLevel5)) {
                     $siopLevel5Arr = explode(',', $siopLevel5);
@@ -71,12 +71,12 @@ class CleanSIOPCommand extends AbstractCommand
                 } else {
                     $siopLevel5 = null;
                 }
-                $updateQuery = "Update object_query_1 set `SIOPLevel1` = '".$siopLevel1."', `SIOPLevel2` = '".$siopLevel2."', `SIOPLevel3` = '".$siopLevel3."', `SIOPLevel4` = '".$siopLevel4."', `SIOPLevel5` = '".$siopLevel5."', `SIOPLevel6` = '".$siopLevel6."' WHERE `oo_id` = '".$rec['src_id']."' "; 
+                $updateQuery = "Update object_query_1 set `SIOPLevel1` = '".$siopLevel1."', `SIOPLevel2` = '".$siopLevel2."', `SIOPLevel3` = '".$siopLevel3."', `SIOPLevel4` = '".$siopLevel4."', `SIOPLevel5` = '".$siopLevel5."', `SIOPLevel6` = '".$siopLevel6."' WHERE `oo_id` = '".$rec['src_id']."' ";
                 echo $updateQuery.PHP_EOL;
-                $this->db->query($updateQuery);
+                $this->db->executeQuery($updateQuery);
             }
             $query = "delete from `object_relations_1` where `src_id` = '".$rec['src_id']."' and (`index` = 0 OR `index` = 2) and `fieldname` like 'SIOPLevel%'";
-            $this->db->query($query);
+            $this->db->executeQuery($query);
         }
     }
 }

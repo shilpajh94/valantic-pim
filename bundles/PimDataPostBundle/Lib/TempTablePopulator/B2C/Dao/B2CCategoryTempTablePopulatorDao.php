@@ -18,26 +18,26 @@ class B2CCategoryTempTablePopulatorDao extends TempTablePopulatorDao
     public function iterateMasterTableCategories($tableName)
     {
         $query = "SELECT `o_id` FROM {$tableName}";
-        return $this->db->fetchCol($query);
+        return $this->db->fetchFirstColumn($query);
     }
 
     public function productCategoryArrayFromProductMaster()
     {
         $query = "SELECT `o_id`, `B2CCategory` FROM ".Constants::B2C_PRODUCT_MASTER_TABLE_NAME." WHERE B2CStoreFlag = 1 AND o_published = 1";
-        return $this->db->fetchAll($query);
+        return $this->db->fetchAllAssociative($query);
     }
 
     public function productCategoryArrayFromRelation()
     {
         $query = "SELECT `productId`, `newValue` FROM salesforce_integration_b2c_product_relation_change WHERE attributeName = 'B2CCategory'";
-        return $this->db->fetchAll($query);
+        return $this->db->fetchAllAssociative($query);
     }
 
     public function isCategoryPresentInMasterTable($tableName, $categoryId)
     {
         $categoryId = trim($categoryId,',');
         $query = "SELECT o_id FROM {$tableName} where o_id = {$categoryId}";
-        $resultSet =  $this->db->fetchCol($query);
+        $resultSet =  $this->db->fetchFirstColumn($query);
         return ($resultSet) ? true : false;
     }
 
@@ -45,7 +45,7 @@ class B2CCategoryTempTablePopulatorDao extends TempTablePopulatorDao
     {
         $categoryId = trim($categoryId,',');
         $query = "SELECT o_id FROM {$tableName} where o_id = {$categoryId} AND onlineFlag = 1";
-        $resultSet =  $this->db->fetchCol($query);
+        $resultSet =  $this->db->fetchFirstColumn($query);
         return ($resultSet) ? true : false;
     }
 
@@ -73,6 +73,6 @@ class B2CCategoryTempTablePopulatorDao extends TempTablePopulatorDao
 
         $sql = "SELECT o_id, o_parentId, o_type, o_className";
         $sql .= " FROM objects where o_id IN " . "(" . implode(",", $objectIds) . ")";
-        return $this->db->fetchAll($sql);
+        return $this->db->fetchAssociative($sql);
     }
 }

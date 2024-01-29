@@ -194,7 +194,7 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
                 $query = "SELECT `src_id` FROM `" . $tableName . "` WHERE " . $mergedConditions;
 
                 try {
-                    $results = $db->fetchAll($query);
+                    $results = $db->fetchAllAssociative($query);
                 } catch (Exception $ex) {
                     DHubLogger::log("Issue in " . __METHOD__ . " Exception - " . $ex->getMessage(), DHubLogger::ERROR);
                 }
@@ -267,7 +267,7 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
 
                         $query = "SELECT `src_id` FROM `" . $tableName . "` WHERE " . $mergedConditions;
                         try {
-                            $results = $db->fetchAll($query);
+                            $results = $db->fetchAssociative($query);
                         } catch (Exception $ex) {
                             DHubLogger::log("Issue in " . __METHOD__ . " Exception - " . $ex->getMessage(), DHubLogger::ERROR);
                         }
@@ -365,7 +365,7 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
                     $query = "SELECT `src_id` FROM `" . $tableName . "` WHERE " . $mergedConditions;
                 }
 
-                $results = $db->fetchAll($query);
+                $results = $db->fetchAssociative($query);
                 $resultsIds = array();
 
                 if (!empty($results)) {
@@ -419,7 +419,7 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
                             $query = "SELECT `src_id` FROM `" . $tableName . "` WHERE " . $mergedConditions;
                         }
 
-                        $results = $db->fetchAll($query);
+                        $results = $db->fetchAssociative($query);
                     }
                     if (!empty($results)) {
                         return $results;

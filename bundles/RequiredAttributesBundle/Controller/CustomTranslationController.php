@@ -823,6 +823,3 @@ class CustomTranslationController extends \Pimcore\Bundle\AdminBundle\Controller
     }
     
 }
-
-
-

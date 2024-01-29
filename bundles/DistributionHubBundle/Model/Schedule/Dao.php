@@ -16,7 +16,7 @@ class Dao extends AbstractDao
      */
     public function getById($id)
     {
-        $data = $this->db->fetchRow("SELECT * FROM " . $this->db->quoteIdentifier(static::TABLE_NAME) . " WHERE id = ?", $id);
+        $data = $this->db->fetchAssociative("SELECT * FROM " . $this->db->quoteIdentifier(static::TABLE_NAME) . " WHERE id = ?", $id);
         if (!$data["id"]) {
             throw new \Exception("record with id " . $id . " not found");
         }

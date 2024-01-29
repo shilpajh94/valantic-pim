@@ -172,7 +172,7 @@ class OptimizedObjectSearchBackendReindexCommand extends AbstractCommand
                 }
 
                 // remove the existing entries of this class
-                $this->db->query($deleteQuery);
+                $this->db->executeQuery($deleteQuery);
                 $this->log("Existing indexes removed for class ".$className);
 
                 // get the objects listing
@@ -245,7 +245,7 @@ class OptimizedObjectSearchBackendReindexCommand extends AbstractCommand
 
         }
 
-        $this->db->query('OPTIMIZE TABLE search_backend_data;');
+        $this->db->executeQuery('OPTIMIZE TABLE search_backend_data;');
         $msg = "Search backend re-index job completed.";
         $this->log($msg);
         $this->monitoringItem->setMessage($msg)->setCompleted();
@@ -281,7 +281,7 @@ class OptimizedObjectSearchBackendReindexCommand extends AbstractCommand
     {
         $query = $this->createQueryForInsert($dataArray);
 
-        $this->db->query($query);
+        $this->db->executeQuery($query);
     }
 
     /**

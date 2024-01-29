@@ -12,10 +12,10 @@ class B2CProductRelationChangeRegistrarDao
     private $tempMasterTablesMeta;
 
     private $db;
-    
+
     public function __construct(TempMasterTablesMeta $tempMasterTablesMeta) {
         $this->tempMasterTablesMeta = $tempMasterTablesMeta;
-        $this->db = \Pimcore\Db::get();        
+        $this->db = \Pimcore\Db::get();
     }
 
 
@@ -25,8 +25,8 @@ class B2CProductRelationChangeRegistrarDao
         $sql .= "JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.o_id = t1.o_id ";
         $sql .= "WHERE t1.".$this->tempMasterTablesMeta->getRelationalhashColumnName();
         $sql .= " != t2.".$this->tempMasterTablesMeta->getRelationalhashColumnName();
-        
-        return $this->db->fetchCol($sql);
+
+        return $this->db->fetchFirstColumn($sql);
     }
 
     public function fetchNewActiveRecordsInTempTable()
@@ -34,8 +34,8 @@ class B2CProductRelationChangeRegistrarDao
         $sql = "SELECT t1.o_id FROM ".$this->tempMasterTablesMeta->getTempTableName()." t1 ";
         $sql .= "LEFT JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.o_id = t1.o_id ";
         $sql .=  "WHERE t2.id IS NULL AND t1.B2CStoreFlag=1 AND t1.o_published=1";
-       
-        return $this->db->fetchCol($sql);
+
+        return $this->db->fetchFirstColumn($sql);
     }
 
     public function fetchRelationalAttributeData($config, $products)
@@ -59,17 +59,17 @@ class B2CProductRelationChangeRegistrarDao
             {
                 $selectFieldsString = implode(", ", $selectFields);
             }
-            
+
             $productIds = implode(', ', $products);
-            
+
             $sql = "SELECT {$selectFieldsString} FROM ".$this->tempMasterTablesMeta->getTempTableName()." t1 ";
             $sql .= "LEFT JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.o_id = t1.o_id ";
             $sql .=  "WHERE t1.o_id IN ({$productIds})";
-            $result = $this->db->fetchAll($sql);
+            $result = $this->db->fetchAllAssociative($sql);
 
             $fieldKeys[] = "BusinessUnit";
             $rowsToInsertInRelationalDb = $this->prepareRelationalRecords($fieldKeys, $result);
-            
+
         }
         return $rowsToInsertInRelationalDb;
     }
@@ -98,11 +98,11 @@ class B2CProductRelationChangeRegistrarDao
                             $data['attributeName'] = $key;
                             $data['oldValue'] = $resultValue['t2_'.$key];
                             $data['newValue'] = $resultValue['t1_'.$key];
-    
+
                             $rowsToInsertInRelationalDb[] = $data;
                         }
-                        
-                        
+
+
                     }
                 }
             }
@@ -111,4 +111,3 @@ class B2CProductRelationChangeRegistrarDao
         return $rowsToInsertInRelationalDb;
     }
 }
-

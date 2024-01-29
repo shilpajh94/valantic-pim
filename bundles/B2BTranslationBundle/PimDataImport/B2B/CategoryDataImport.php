@@ -39,7 +39,7 @@ class CategoryDataImport implements IDataImport
 
             $classID = $this->bUProductClassTableID[$this->bu];
             $validationTrue = $this->helper->checkFieldValidation($classID);
-            
+
             if($validationTrue)
             {
                 if(file_exists($this->filePath))
@@ -49,7 +49,7 @@ class CategoryDataImport implements IDataImport
                     $data  = $csvInfo['data'];
 
                     echo 'Importing File: ' . $this->filePath.PHP_EOL;
-                    
+
                     foreach($data as $row){
                         $record = array_combine($header, $row);
                         $externalIDStr = $record['B2B_EXTERNAL_ID__C'];
@@ -75,7 +75,7 @@ class CategoryDataImport implements IDataImport
         catch (\Exception $e) {
             echo $e->getMessage();
         }
-           
+
     }
 
     public function updateSalesForceIdByExternalId($salesforceID, $externalID, $o_id)
@@ -84,9 +84,9 @@ class CategoryDataImport implements IDataImport
 
         $query = "UPDATE object_query_{$classID} SET SalesForce_ID = '{$salesforceID}',
          externalID ='{$externalID}' WHERE oo_id ='{$o_id}'";
-        $this->db->query($query);
+        $this->db->executeQuery($query);
         $query = "UPDATE object_store_{$classID} SET SalesForce_ID = '{$salesforceID}',
          externalID ='{$externalID}' WHERE oo_id ='{$o_id}'";
-        $this->db->query($query);
+        $this->db->executeQuery($query);
     }
 }

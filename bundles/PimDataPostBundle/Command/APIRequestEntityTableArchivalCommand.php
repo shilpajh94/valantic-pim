@@ -22,7 +22,7 @@ class APIRequestEntityTableArchivalCommand extends AbstractCommand
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->db = Db::get(); 
+        $this->db = Db::get();
 
         $numberOfDays = trim($input->getArgument('numberOfDays'));
 
@@ -35,7 +35,7 @@ class APIRequestEntityTableArchivalCommand extends AbstractCommand
     }
 
     private function proceesAPIRequestEntityTableArchival(ShopType $shopType, int $numberOfDays): void
-    {   
+    {
         echo "\n processing {$shopType} records. \n";
 
         if($shopType == ShopType::B2B()){
@@ -60,7 +60,7 @@ class APIRequestEntityTableArchivalCommand extends AbstractCommand
             }
             $archiveRecords[] = $data;
         }
-        
+
         if(count($archiveRecords)> 1)
         {
             $fileName = date("M")."_archive_".time().".csv";
@@ -71,7 +71,7 @@ class APIRequestEntityTableArchivalCommand extends AbstractCommand
             if($isFileCreated)
             {
                 $asset = Util::createAsset($fileName, $filePath, $b2bAPIRequestArchiveFolder);
-                
+
                 if($asset)
                 {
                     $ids = array_column($archiveRecords, 'id');
@@ -81,19 +81,18 @@ class APIRequestEntityTableArchivalCommand extends AbstractCommand
         }
     }
 
-    private function fetchTableRecords(string $tableName, int $numberOfDays): array 
+    private function fetchTableRecords(string $tableName, int $numberOfDays): array
     {
         $sql = "SELECT * FROM {$tableName} WHERE creationDate <= UNIX_TIMESTAMP(CURTIME() - INTERVAL {$numberOfDays} DAY);";
-        return $this->db->fetchAll($sql);
+        return $this->db->fetchAllAssociative($sql);
     }
 
-    private function deleteTableRecords(string $tableName, array $ids): void 
+    private function deleteTableRecords(string $tableName, array $ids): void
     {
         if($ids){
             $recordIds = implode(',', $ids);
             $sql = "DELETE FROM {$tableName} WHERE id IN ({$recordIds})";
-            $this->db->query($sql);
+            $this->db->executeQuery($sql);
         }
     }
 }
-

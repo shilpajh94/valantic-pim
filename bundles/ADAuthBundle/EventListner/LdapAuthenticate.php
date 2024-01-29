@@ -66,7 +66,7 @@ class LdapAuthenticate
     /**
      * @Functional Description: This function is used to log the error message in log file.
      * @param: $logMessage, $logLevel
-     * 
+     *
      */
     public function customErrorLog ($logMessage, $logLevel) {
         Utils::log('LDAP_AUTHENTICATE_LOG_FILE', $logMessage, $logLevel);
@@ -272,7 +272,7 @@ class LdapAuthenticate
     public function ldapQuery($rdns, $filter)
     {
         try {
-            $query = $this->ldapObj->query($rdns, $filter);
+            $query = $this->ldapObj->executeQuery($rdns, $filter);
             return($query->execute()->toArray());
         } catch (\Exception $e) {
             throw new \Exception("Failed to excute query: ".$e->getMessage());

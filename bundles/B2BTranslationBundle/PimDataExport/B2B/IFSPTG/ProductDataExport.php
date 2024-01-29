@@ -69,7 +69,7 @@ class ProductDataExport implements IDataExport
                             }
                         }
                     }
-                    
+
                     if($headerMapping)
                     {
                         $this->headerMapping = $headerMapping;
@@ -77,7 +77,7 @@ class ProductDataExport implements IDataExport
                         # Fetch all products satisfying condition "salesMaster.epixFlag = '001' AND
                         # salesMaster.o_published = 1 AND product.o_published = 1"
                         $b2bProducts = $this->helper->getAllB2BProduct($this->bu);
-                        
+
                         if($b2bProducts)
                         {
                             $fitingFamilyMasters = $this->getFittingFamilyMasterList();
@@ -88,7 +88,7 @@ class ProductDataExport implements IDataExport
                             $threadMastersList = $this->getThreadList();
                             $fittingFamilyMastersList = $this->getFittingFamilyList();
                             $brandMastersList = $this->getBrandMasterList();
-                            
+
                             $multiSelectMastersGroupList = [];
                             $fitingFamilyMastersGroupList = [];
                             $fittingEndFamilyTypeGroupList = [];
@@ -140,10 +140,10 @@ class ProductDataExport implements IDataExport
                             # Product's non localized field
                             $productNonLocalisedSelectFilteredAttribute =
                             $this->getFilteredAttribute('class', 'Product', false);
-                            
+
                             # Product's localized field
                             $productFilteredAttribute = $this->getFilteredAttribute('class', 'Product');
-                            
+
                             # Product's localized multiselect localized field
                             $productMultiSelectFilteredAttribute =
                             $this->getFilteredAttribute('class', 'MultiselectMaster');
@@ -151,7 +151,7 @@ class ProductDataExport implements IDataExport
                             # Products attached objectbrick's localized multiselect localized field
                             $productNonLocalizedFilteredOjbectbrickAttribute =
                             $this->getFilteredAttribute('objectbrick', '', false);
-                            
+
                             # Products attached objectbrick's localized multiselect localized field
                             $productNomenClatureRelationalNonLocalizedAttribute =
                             $this->getFilteredAttribute('relational', '', false);
@@ -170,8 +170,8 @@ class ProductDataExport implements IDataExport
 
                             $fittingAttributeList = array_merge($productFittingFamilyFilteredOjbectbrickAttribute,
                              $productFittingEndFamilyTypeFilteredOjbectbrickAttribute);
-                            
-                            
+
+
                             $areHeadersAlreadyAdded = false;
                             $b2bProductsChucks = array_chunk($b2bProducts,1000);
                             $filePath1 = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR."SFPIM_PRODUCT_TRANSLATION_INSERT".
@@ -182,7 +182,7 @@ class ProductDataExport implements IDataExport
                             {
                                 echo "Processing Batch - ".($batchNum+1). ", It holds ".count($productIds).
                                 " products ".PHP_EOL;
-                                
+
                                 if($this->headerMapping)
                                 {
                                     # Product's non localized field
@@ -200,7 +200,7 @@ class ProductDataExport implements IDataExport
                                             }
                                         }
                                     }
-                                    
+
                                     # Product's localized field data
                                     $localizeData1 = [];
                                     $productFilteredAttributeField = array_keys($productFilteredAttribute);
@@ -217,7 +217,7 @@ class ProductDataExport implements IDataExport
                                                     if($field)
                                                     {
                                                         $featureFields = explode(',', $field);
-                                                        
+
                                                         foreach ($featureFields as $key => $featureId) {
                                                             if(isset($featuresMastersGroupList[$featureId]))
                                                             {
@@ -242,11 +242,11 @@ class ProductDataExport implements IDataExport
                                                     $localizeData1[$fields['oo_id']][$fkey][$fields['language']] =
                                                      $field;
                                                 }
-                                                
+
                                             }
                                         }
                                     }
-                                    
+
                                     # Product's localized multiselect localized field data
                                     $localizeData2 = [];
                                     $objectBricksLocalisedFields = [];
@@ -258,7 +258,7 @@ class ProductDataExport implements IDataExport
                                     {
                                         $result2 = $this->getRecordsWithFilteredMasterFields(
                                             $objectBricksLocalisedFields, $productIds);
-                                        
+
                                         if($result2)
                                         {
                                             foreach ($result2 as $key => $fields) {
@@ -277,7 +277,7 @@ class ProductDataExport implements IDataExport
                                             }
                                         }
                                     }
-                                    
+
                                     $localizeDataNonLocalized = [];
                                     $objectBricksNonLocalisedFields = [];
                                     foreach ($productNonLocalizedFilteredOjbectbrickAttribute as $key => $columm) {
@@ -286,7 +286,7 @@ class ProductDataExport implements IDataExport
                                         $objectBricksNonLocalisedFields[$columm['objectBrickClassName']][] =
                                          "TRIM(BOTH ',' FROM $fkey) AS $key";
                                     }
-                                    
+
                                     if($objectBricksNonLocalisedFields)
                                     {
                                         $resultNonLocalized = $this->getRecordsWithFilteredObjectbrickMasterFields(
@@ -320,7 +320,7 @@ class ProductDataExport implements IDataExport
                                             }
                                         }
                                     }
-                                    
+
                                     if($productNomenClatureRelationalNonLocalizedAttribute)
                                     {
                                         $localizeDataNonLocalized = [];
@@ -329,7 +329,7 @@ class ProductDataExport implements IDataExport
                                          => $columm) {
                                             $localizeDataNonLocalized[$key] = '';
                                         }
-                                        
+
                                         $objectBricksNonLocalisedFields[$columm['objectBrickClassName']][] =
                                         "TRIM(BOTH ',' FROM nomenclatureDetails) AS nomenclatureDetails";
                                         $nomenClature = $this->getRecordsWithFilteredObjectbrickMasterFields(
@@ -428,7 +428,7 @@ class ProductDataExport implements IDataExport
                                             }
                                         }
                                     }
-                                    
+
                                     # Products attached objectbrick's FittingFamily and FittingEndFamilyType
                                     # class localized field
                                     $localizeData4 = [];
@@ -542,7 +542,7 @@ class ProductDataExport implements IDataExport
                                                  $localizeData3Keys);
                                                 if($localizeData3)
                                                 {
-                                                    
+
                                                     foreach ($common_header_list3 as $key => $field) {
                                                         if(isset($localizeData3[$id][$field][$language]))
                                                         {
@@ -630,7 +630,7 @@ class ProductDataExport implements IDataExport
                                                     if($keyHeader!='SalesForce_ID'){
                                                         unset($record[$keyHeader]);
                                                     }
-                                                    
+
                                                 }elseif($keyHeaderValue=='Language'){
                                                     $mapping_record[$keyHeaderValue]='';
                                                 }
@@ -682,16 +682,16 @@ class ProductDataExport implements IDataExport
                 echo PHP_EOL;
                 $this->helper->logMessage($message, LogLevel::ERROR());
             }
-            
+
         } catch(\Throwable $e) {
             $message = $e->getMessage();
             $message = "Exception while trying to export the data"." ".$message;
             $this->logMessage($message, LogLevel::CRITICAL());
             return;
         }
-           
+
     }
-    
+
     public function getProductShortDescriptionValueInEnglish($fields, $id){
 
         foreach($fields as $eachField){
@@ -754,19 +754,19 @@ class ProductDataExport implements IDataExport
     public function getThreadList()
     {
         $sqlMapping = "select oo_id, Name from object_query_32";
-        return $this->db->fetchPairs($sqlMapping);
+        return \Pimcore\Db\Helper::fetchPairs($this->db, $sqlMapping);
     }
 
     public function getFittingFamilyList()
     {
         $sqlMapping = "select oo_id, Name from object_query_30";
-        return $this->db->fetchPairs($sqlMapping);
+        return \Pimcore\Db\Helper::fetchPairs($this->db, $sqlMapping);
     }
 
     public function getBrandMasterList()
     {
         $sqlMapping = "select oo_id, name from object_query_3";
-        return $this->db->fetchPairs($sqlMapping);
+        return \Pimcore\Db\Helper::fetchPairs($this->db, $sqlMapping);
     }
 
     public function getLocalizedAttribute($className)
@@ -848,7 +848,7 @@ class ProductDataExport implements IDataExport
         {
             $columnsString .= ",". implode(',', $fields);
         }
-        
+
         $ids = implode(',', $b2bProducts);
         $sql = "select {$columnsString} from object_query_{$productClassId} where oo_id IN ($ids)";
         return $this->db->fetchAllAssociative($sql);
@@ -856,7 +856,7 @@ class ProductDataExport implements IDataExport
 
     public function getRecordsWithFilteredObjectbrickMasterFields($multiObjectbrickColumnsList, $b2bProducts)
     {
-        
+
         $allObjectBrickData = [];
         $config = $this->bUProductClassTableID[$this->bu];
         $productClassId = $config['productClassId'];
@@ -886,7 +886,7 @@ class ProductDataExport implements IDataExport
             if(!$resultSet){
                 $allObjectBrickData = array_merge($allObjectBrickData, $brickAttributesWithNullValueArray);
             }else{
-                
+
                 $resultSet_oid_Array = [];
                 $resultSetDataArray = [];
 
@@ -913,7 +913,7 @@ class ProductDataExport implements IDataExport
         $sql = "SELECT o_id FROM salesforce_integration_b2b_product_master";
         return $this->db->fetchFirstColumn($sql);
     }
-    
+
     public function logMessage(String $msg, LogLevel $logLevel)
     {
         Utils::log(PRODUCT_LOCALIZATION_EXPORT_LOG_FILE, $msg, $logLevel);

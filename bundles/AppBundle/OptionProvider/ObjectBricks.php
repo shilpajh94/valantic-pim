@@ -21,36 +21,17 @@ use Pimcore\Model\DataObject;
 
 class ObjectBricks implements SelectOptionsProviderInterface
 {
-
     /**
-     * @var SalesOrg
-     */
-    private $salesOrg;
-
-    /**
-     * Initialize status
-     *
-     * @param Locale $localeService
-     */
-    public function __construct()
-    {
-        //$this->salesOrg = $salesOrg;
-    }
-
-    /**
-     * To get the system languages (Localization & Internationalization)
-     *
      * @param array $context
      * @param Data $fieldDefinition
      * @return array
      */
-    public function getOptions($context, $fieldDefinition)
+    public function getOptions(array $context, Data $fieldDefinition): array
     {
 
         $result = [];
         $list = new DataObject\Objectbrick\Definition\Listing();
         $list = $list->load();
-//
         $array = [];
         foreach ($list as $object) {
             if (!empty($object->getGroup()) && !in_array($object->getGroup(), $array)) {
@@ -63,13 +44,14 @@ class ObjectBricks implements SelectOptionsProviderInterface
     }
 
     /**
+     * Returns the value which is defined in the 'Default value' field
      * @param array $context
      * @param Data $fieldDefinition
      * @return mixed
      */
-    public function getDefaultValue($context, $fieldDefinition)
+    public function getDefaultValue(array $context, Data $fieldDefinition): ?string
     {
-        return true; //return $fieldDefinition->getDefaultValue();
+        return true;
     }
     
     /**
@@ -77,7 +59,7 @@ class ObjectBricks implements SelectOptionsProviderInterface
      * @param Data $fieldDefinition
      * @return bool
      */
-    public function hasStaticOptions($context, $fieldDefinition)
+    public function hasStaticOptions(array $context, Data $fieldDefinition): bool
     {
         return true;
     }

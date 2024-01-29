@@ -18,9 +18,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
    'id' => 'PTGEUCatalog',
    'name' => 'PTGEUCatalog',
+   'title' => '',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1699596922,
+   'modificationDate' => 1706469178,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -35,22 +36,18 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'allowInherit' => false,
    'allowVariants' => false,
    'showVariants' => false,
-   'fieldDefinitions' => 
-  array (
-  ),
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'name' => 'pimcore_root',
      'type' => NULL,
      'region' => NULL,
      'title' => NULL,
-     'width' => NULL,
-     'height' => NULL,
+     'width' => 0,
+     'height' => 0,
      'collapsible' => false,
      'collapsed' => false,
      'bodyStyle' => NULL,
      'datatype' => 'layout',
-     'permissions' => NULL,
      'children' => 
     array (
       0 => 
@@ -59,13 +56,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'type' => NULL,
          'region' => NULL,
          'title' => '',
-         'width' => NULL,
-         'height' => NULL,
+         'width' => 0,
+         'height' => 0,
          'collapsible' => false,
          'collapsed' => false,
          'bodyStyle' => '',
          'datatype' => 'layout',
-         'permissions' => NULL,
          'children' => 
         array (
           0 => 
@@ -79,8 +75,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'locked' => false,
              'style' => 'width:500px;',
              'permissions' => NULL,
-             'datatype' => 'data',
-             'fieldtype' => 'language',
+             'fieldtype' => '',
              'relationType' => false,
              'invisible' => false,
              'visibleGridView' => false,
@@ -88,13 +83,14 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'blockedVarsForExport' => 
             array (
             ),
-             'width' => '',
              'defaultValue' => NULL,
-             'optionsProviderClass' => NULL,
-             'optionsProviderData' => NULL,
              'columnLength' => 190,
              'dynamicOptions' => false,
              'defaultValueGenerator' => '',
+             'width' => '',
+             'optionsProviderType' => NULL,
+             'optionsProviderClass' => NULL,
+             'optionsProviderData' => NULL,
              'onlySystemLanguages' => true,
           )),
           1 => 
@@ -108,8 +104,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'locked' => false,
              'style' => 'width:500px;',
              'permissions' => NULL,
-             'datatype' => 'data',
-             'fieldtype' => 'select',
+             'fieldtype' => '',
              'relationType' => false,
              'invisible' => false,
              'visibleGridView' => false,
@@ -118,13 +113,14 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             array (
             ),
              'options' => NULL,
-             'width' => '',
              'defaultValue' => '',
-             'optionsProviderClass' => 'PTGEU\\CatalogBundle\\OptionProvider\\PlantSalesDistributionOptionsProvider',
-             'optionsProviderData' => 'PTGEUPlant|name+Plant|Plant',
              'columnLength' => 190,
              'dynamicOptions' => false,
              'defaultValueGenerator' => '',
+             'width' => '',
+             'optionsProviderType' => NULL,
+             'optionsProviderClass' => 'PTGEU\\CatalogBundle\\OptionProvider\\PlantSalesDistributionOptionsProvider',
+             'optionsProviderData' => 'PTGEUPlant|name+Plant|Plant',
           )),
           2 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
@@ -137,8 +133,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'locked' => false,
              'style' => 'width:500px;',
              'permissions' => NULL,
-             'datatype' => 'data',
-             'fieldtype' => 'select',
+             'fieldtype' => '',
              'relationType' => false,
              'invisible' => false,
              'visibleGridView' => false,
@@ -147,13 +142,14 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             array (
             ),
              'options' => NULL,
-             'width' => '',
              'defaultValue' => '',
-             'optionsProviderClass' => 'PTGEU\\CatalogBundle\\OptionProvider\\PlantSalesDistributionOptionsProvider',
-             'optionsProviderData' => 'PTGEUSalesOrg|salesOrgName+salesOrgCode|salesOrgCode',
              'columnLength' => 190,
              'dynamicOptions' => false,
              'defaultValueGenerator' => '',
+             'width' => '',
+             'optionsProviderType' => NULL,
+             'optionsProviderClass' => 'PTGEU\\CatalogBundle\\OptionProvider\\PlantSalesDistributionOptionsProvider',
+             'optionsProviderData' => 'PTGEUSalesOrg|salesOrgName+salesOrgCode|salesOrgCode',
           )),
           3 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
@@ -166,8 +162,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'locked' => false,
              'style' => 'width:500px;',
              'permissions' => NULL,
-             'datatype' => 'data',
-             'fieldtype' => 'booleanSelect',
+             'fieldtype' => '',
              'relationType' => false,
              'invisible' => false,
              'visibleGridView' => false,
@@ -209,8 +204,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'locked' => false,
              'style' => 'width:500px;',
              'permissions' => NULL,
-             'datatype' => 'data',
-             'fieldtype' => 'date',
+             'fieldtype' => '',
              'relationType' => false,
              'invisible' => false,
              'visibleGridView' => false,
@@ -218,10 +212,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'blockedVarsForExport' => 
             array (
             ),
-             'queryColumnType' => 'bigint(20)',
-             'columnType' => 'bigint(20)',
              'defaultValue' => NULL,
              'useCurrentDate' => false,
+             'columnType' => 'bigint(20)',
              'defaultValueGenerator' => '',
           )),
           5 => 
@@ -235,8 +228,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'locked' => false,
              'style' => 'width:500px;',
              'permissions' => NULL,
-             'datatype' => 'data',
-             'fieldtype' => 'select',
+             'fieldtype' => '',
              'relationType' => false,
              'invisible' => false,
              'visibleGridView' => false,
@@ -257,13 +249,14 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 'value' => 'EUR',
               ),
             ),
-             'width' => '',
              'defaultValue' => '',
-             'optionsProviderClass' => '',
-             'optionsProviderData' => '',
              'columnLength' => 190,
              'dynamicOptions' => false,
              'defaultValueGenerator' => '',
+             'width' => '',
+             'optionsProviderType' => NULL,
+             'optionsProviderClass' => '',
+             'optionsProviderData' => '',
           )),
           6 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
@@ -276,8 +269,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'locked' => false,
              'style' => 'width:500px;',
              'permissions' => NULL,
-             'datatype' => 'data',
-             'fieldtype' => 'select',
+             'fieldtype' => '',
              'relationType' => false,
              'invisible' => false,
              'visibleGridView' => false,
@@ -286,13 +278,14 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             array (
             ),
              'options' => NULL,
-             'width' => '',
              'defaultValue' => '',
-             'optionsProviderClass' => 'PTGEU\\CatalogBundle\\OptionProvider\\PlantSalesDistributionOptionsProvider',
-             'optionsProviderData' => 'PTGEUDistributionChannel|name+distributionCode|distributionCode',
              'columnLength' => 190,
              'dynamicOptions' => false,
              'defaultValueGenerator' => '',
+             'width' => '',
+             'optionsProviderType' => NULL,
+             'optionsProviderClass' => 'PTGEU\\CatalogBundle\\OptionProvider\\PlantSalesDistributionOptionsProvider',
+             'optionsProviderData' => 'PTGEUDistributionChannel|name+distributionCode|distributionCode',
           )),
         ),
          'locked' => false,
@@ -319,7 +312,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'labelAlign' => 'left',
   )),
    'icon' => '',
-   'previewUrl' => '',
    'group' => 'PTGEU',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
@@ -327,7 +319,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'compositeIndices' => 
   array (
   ),
-   'generateTypeDeclarations' => false,
    'showFieldLookup' => false,
    'propertyVisibility' => 
   array (
@@ -355,6 +346,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
   array (
   ),
    'blockedVarsForExport' => 
+  array (
+  ),
+   'fieldDefinitionsCache' => 
   array (
   ),
    'activeDispatchingEvents' => 

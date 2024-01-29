@@ -13,6 +13,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use \Exception;
 use Pimcore\Controller\FrontendController;
+use Pimcore\Bundle\WebToPrintBundle\Processor;
 
 class DefaultController extends FrontendController
 {
@@ -309,7 +310,7 @@ class DefaultController extends FrontendController
             $baseIds = implode(',', $baseProduct);
             $query = "select o_id from object_1 where o_parentId IN (" . $baseIds . ")";
 
-            $skeletonIds = $this->db->fetchAll($query);
+            $skeletonIds = $this->db->fetchAllAssociative($query);
         }
         if ($skeletonProduct !== null && count($skeletonProduct) > 0) {
             $productList->addConditionParam('o_parentId IN (:parent)', ['parent' => $skeletonProduct], 'AND');
@@ -1089,7 +1090,7 @@ class DefaultController extends FrontendController
                         if (empty($reinforcementStr)) {
                             $reinforcementStr = $reinforcement;
                         }
-                            
+
 
                         unset($tubeMaterial);
                         unset($tubeAttribute);
@@ -2153,7 +2154,7 @@ class DefaultController extends FrontendController
             }
 
             $this->featuresList = $this->getFeaturesList($catalogLanguage);
-            
+
             $materialList = $this->getStandardMetHoseList('PTG~material', $catalogLanguage);
 
             $query = "select oo_id, Level, description, PrintedCatalogDescription ";
@@ -2690,7 +2691,7 @@ class DefaultController extends FrontendController
 
         $imageWidth = null;
         $imageRecompression = null;
-        $printConfigFile = \Pimcore\Web2Print\Processor::getJobConfigFile($documentId);
+        $printConfigFile = Processor::getJobConfigFile($documentId);
         if (file_exists($printConfigFile)) {
             $printConfigFileContent = file_get_contents($printConfigFile);
             $printConfig = json_decode($printConfigFileContent, true);

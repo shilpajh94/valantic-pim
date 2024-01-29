@@ -40,7 +40,7 @@ class Dao extends Pimcore\Model\Dao\PhpArrayTable
      */
     public function load()
     {
-        $routesData = $this->db->fetchAll($this->model->getFilter(), $this->model->getOrder());
+        $routesData = $this->db->fetchAllAssociative($this->model->getFilter(), $this->model->getOrder());
 
         $routes = array();
         foreach ($routesData as $routeData) {
@@ -60,7 +60,7 @@ class Dao extends Pimcore\Model\Dao\PhpArrayTable
      */
     public function getTotalCount()
     {
-        $data = $this->db->fetchAll($this->model->getFilter(), $this->model->getOrder());
+        $data = $this->db->fetchAllAssociative($this->model->getFilter(), $this->model->getOrder());
 
         return count($data);
     }

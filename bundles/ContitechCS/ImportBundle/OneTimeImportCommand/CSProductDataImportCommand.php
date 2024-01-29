@@ -248,18 +248,18 @@ class CSProductDataImportCommand extends AbstractCommand
 
                                     $product = $CSProductObj;
                                     $parentId = $product->getParentId();
-                                } 
+                                }
                                 // else {
                                 //     if($productName){
                                 //         if (strpos($pathWithoutRegion, $productName) !== false) {
                                 //             $pathWithoutRegion = str_replace("/" . $productName, "", $pathWithoutRegion);
                                 //         }
-    
+
                                 //     }
                                 //     // /Contitech_ConveyorSolution/Products/Material Handling/Textile Conveyor Belts/ContiFlex/EMEA/400-3  --> for example
-                                //     $query = "SELECT o_id from objects where concat(o_path,o_key) 
+                                //     $query = "SELECT o_id from objects where concat(o_path,o_key)
                                 //     LIKE '%$pathWithoutRegion/%/$productName' and o_type='object'";
-                                //     $result = $this->db->fetchCol($query);
+                                //     $result = $this->db->fetchFirstColumn($query);
                                 //     $count = count($result);
                                 //     if ($count > 0) {
                                 //         echo "\n Changing Region Folder";
@@ -267,15 +267,15 @@ class CSProductDataImportCommand extends AbstractCommand
                                 //         $product->setParentId($parentId);
                                 //     } else {
                                 //         // /Contitech_ConveyorSolution/Products/Material Handling/Textile Conveyor Belts/ContiFlex/1000-5  -->for example
-                                //         $query = "SELECT o_id from objects where concat(o_path,o_key) 
+                                //         $query = "SELECT o_id from objects where concat(o_path,o_key)
                                 //         LIKE '%$pathWithoutRegion%$productName' and o_type='object'";
-                                //         $result = $this->db->fetchCol($query);
+                                //         $result = $this->db->fetchFirstColumn($query);
                                 //         $count = count($result);
                                 //         if ($count > 0) {
                                 //             echo "\n Changing Region Folder";
                                 //             $product = DataObject\CSProducts::getById($result[0], true);
                                 //             $product->setParentId($parentId);
-                                //         } 
+                                //         }
                                 else {
                                             $product = new DataObject\CSProducts();
                                             $hierarchyKey = DataObject\Service::getValidKey($hierarchy, "object");

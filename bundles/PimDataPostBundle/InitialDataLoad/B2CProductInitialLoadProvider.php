@@ -2,7 +2,7 @@
 
 namespace PimDataPostBundle\InitialDataLoad;
 
-class B2CProductInitialLoadProvider 
+class B2CProductInitialLoadProvider
 {
     private $db;
 
@@ -19,13 +19,13 @@ class B2CProductInitialLoadProvider
         $sql = "SELECT DISTINCT
                     product.o_id
                 FROM
-                    object_1 product 
+                    object_1 product
                 WHERE
                     product.B2CStoreFlag = 1
                         AND product.o_published = 1
                 ORDER BY product.o_id ASC
                 LIMIT $offSet, $limit;";
 
-        return $this->db->fetchCol($sql);
+        return $this->db->fetchFirstColumn($sql);
     }
 }

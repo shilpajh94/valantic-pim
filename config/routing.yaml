@@ -4,4 +4,4 @@
 #     prefix:   /
 
 _pimcore:
-    resource: "@PimcoreCoreBundle/Resources/config/routing.yaml"
+    resource: "@PimcoreCoreBundle/config/routing.yaml"

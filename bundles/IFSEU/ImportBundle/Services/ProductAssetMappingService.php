@@ -11,14 +11,14 @@ use Pimcore\Db;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ProductAssetMappingService
-{   
+{
     private $db;
 
     private $assetConfigData;
 
     private $productModel;
     private $container;
-   
+
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
@@ -36,7 +36,7 @@ class ProductAssetMappingService
             if ($downloadOrMapping == 'D') {
                 foreach($csvInfo['data'] as $rowData)
                 {
-                    
+
                     //if($rowData[0]!='' && is_dir($rowData[0]) && $rowData[1]!= '')
                     if($rowData[0]!='' && $rowData[1]!= '')
                     {
@@ -47,7 +47,7 @@ class ProductAssetMappingService
                         //     $rowData[0] = $rowData[0]."/".$folder;
                         //     $assetHierarchyPath = $this->resetPathSlash($rowData[1]).$folder;
                         //     $this->createAsset($rowData, $assetHierarchyPath);
-                        // }   
+                        // }
                     } else {
                         $this->createAssetLog($rowData, 'Download');
                     }
@@ -60,20 +60,20 @@ class ProductAssetMappingService
                     if($rowData[0]!= '')
                     {
                         $getImagesDataByPath = $this->getImagesDataByPath($rowData[0]);
-                       
+
                         if(count($getImagesDataByPath) == 0)
                         {
                             $this->insertLog($rowData, 'Mapping', 'Failed', 'Hierarchy path doesn`t exist or haven`t assets in pimcore !!', '');
                         }
                         foreach($getImagesDataByPath as $assetObject)
                         {
-                            
+
                             $assetColumnName = $this->getColumnNameByFileName($assetObject->getFilename());
-                           
+
                             $this->saveIFSEUProductColumn($rowData, $assetObject, $assetColumnName);
                         }
                         // $getFolderDataByPath = $this->getFolderDataByPath($rowData[0]);
-                       
+
                         // foreach($getFolderDataByPath as $assetFolderObject)
                         // {
                         //     $getImagesDataByPath = $this->getImagesDataByPath($rowData[1].$assetFolderObject->getFilename()."/");
@@ -82,7 +82,7 @@ class ProductAssetMappingService
                         //         $assetColumnName = $this->getColumnNameByFileName($assetObject->getFilename());
                         //         $this->saveIFSEUProductColumn($rowData, $assetObject, $assetColumnName);
                         //     }
-                        // }   
+                        // }
                     }
                 }
 
@@ -92,10 +92,10 @@ class ProductAssetMappingService
 
     private function getColumnNameByFileName(string $fileName): string
     {
-        $fileNameArr = explode("_", $fileName); 
+        $fileNameArr = explode("_", $fileName);
         $columnName = $fileNameArr[count($fileNameArr)-1];
         $columnName = explode(".", $columnName);
-        return $columnName[0]; 
+        return $columnName[0];
     }
 
     private function saveIFSEUProductColumn(array $rowData, Asset $assetObject, string $columnName): void
@@ -103,18 +103,18 @@ class ProductAssetMappingService
         $productName = $rowData[1];
         $columnName = str_replace(" ","",$columnName);
         $pimColumnName = $this->getPimColumnName($rowData[2]);
-        
+
         if($pimColumnName != '')
         {
             echo $assetObject->getFilename()." is mapping with ".$productName."\n";
             $allProductObject = new IFSEUProduct\Listing();
             $allProductObject->setCondition("o_key = ?", [$productName]);
             $allProductObject->load();
-            
+
             foreach($allProductObject as $productObject)
-            { 
+            {
                 try{
-                    
+
                     $fn = "set".$pimColumnName;
                     $productObject->$fn($assetObject);
                     $productObject->save();
@@ -124,7 +124,7 @@ class ProductAssetMappingService
                     echo "Mapping failed - ".$assetObject->getFilename()." to ".$productName." due to ".$exception->getMessage()."\n";
                 }
             }
-            
+
         } else {
             $this->insertLog($rowData, 'Mapping', 'Failed', 'Invalid Column Name', $assetObject->getFilename());
         }
@@ -159,19 +159,19 @@ class ProductAssetMappingService
         $assetDirectoryPath = $rowData[0];
         $assetFolderId = $this->getFolderByPath($assetHierarchyPath);
         $fileName = end(explode('/',$rowData[0]));
-       
+
         // $folderData = scanDir($assetDirectoryPath);
         // foreach($folderData as $fileName)
         // {
             if($fileName != '. ' && $fileName != '..' && $fileName[0] != '.' && pathinfo($assetDirectoryPath.'/'.$fileName, PATHINFO_EXTENSION))
             {
-              
+
                 //  $asset = explode('.', $fileName);
                 //  $end = preg_replace('/[^A-Za-z0-9 ]/','',(end(explode('/',$assetHierarchyPath))));
                 //  $asset = preg_replace('/[^A-Za-z0-9 ]/','',$asset[0]);
                 //  if(strpos($end, $asset) !== false)
                 //  {
-                    $assetObject = $this->checkIfAssetFileExists($fileName, $assetHierarchyPath); 
+                    $assetObject = $this->checkIfAssetFileExists($fileName, $assetHierarchyPath);
                     echo "Downloading ".$fileName." from ".$rowData[0]."\n";
                     if(!$assetObject)
                     {
@@ -190,7 +190,7 @@ class ProductAssetMappingService
                         $this->insertLog($rowData, 'Download', 'Failed', 'Duplicate !! Already exist in pimcore', $fileName);
                     }
                  //}
-                
+
             }
         // }
     }
@@ -226,9 +226,9 @@ class ProductAssetMappingService
         if(empty($getAsset->load()))
         {
             return false;
-        } 
+        }
         return true;
-   
+
     }
 
     private function getImagesDataByPath(string $assetHierarchyFilePath): ? array
@@ -260,7 +260,7 @@ class ProductAssetMappingService
         $assetObj->addMetadata("description", "input", "", "");
         $assetObj->addMetadata("copyright", "input", "", "");
         $assetObj->addMetadata("tags", "input", "", "");
-        $assetObj->save();  
+        $assetObj->save();
     }
 
     private function createAssetLog(array $rowData, string $type): void
@@ -271,7 +271,7 @@ class ProductAssetMappingService
         }  else if($rowData[0]!='' && is_dir($rowData[0]) && $rowData[4] == '')
         {
             $this->insertLog($rowData, $type, 'Failed', 'Hierarchy path doesn`t defined !!', '');
-        } 
+        }
     }
 
     private function insertLog(array $rowData, string $type, string $statusCode, string $statusMessage, string $imageName): void
@@ -279,7 +279,7 @@ class ProductAssetMappingService
         $sql = "INSERT INTO `ifseu_asset_import_log` ";
         $sql .= "(`productName`, `statusCode`, `statusMessage`, `type`, `folderPath`, `hierarchyPath`, `imageName`)";
         $sql .= " VALUES ('".$rowData[1]."', '".$statusCode."', '".$statusMessage."', '".$type."', '".$rowData[0]."', '".$rowData[4]."', '".$imageName."' )";
-        $this->db->query($sql);
+        $this->db->executeQuery($sql);
     }
 
 

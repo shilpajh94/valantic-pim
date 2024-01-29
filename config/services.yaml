@@ -1,5 +1,6 @@
 parameters:
     secret: f0HZZK1xU9QqyY8wXe/yp/VldtIVsKWH
+
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -11,6 +12,8 @@ services:
         # if you need to do this, you can override this setting on individual services
         public: false
 
+    Symfony\Component\DependencyInjection\ContainerInterface: '@service_container'
+    
     # Example custom templating helper
     # AppBundle\Templating\Helper\Example:
     #     # templating helpers need to be public as they
@@ -23,5 +26,4 @@ services:
     # AppBundle\EventListener\TestListener:
     #     tags:
     #         - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: onObjectPreUpdate }
-
 

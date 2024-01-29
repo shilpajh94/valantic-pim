@@ -52,4 +52,3 @@ if(class_exists('\S3CustomizationBundle\Lib\CustomStreamWrapper')){
     'ssl' => ['verify_peer' => false, 'verify_peer_name' => false]
 ]));
 
-

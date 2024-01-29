@@ -17,32 +17,20 @@ namespace PTGEU\ProductBundle\OptionProvider;
 
 use Pimcore\Model\DataObject\ClassDefinition\DynamicOptionsProvider\SelectOptionsProviderInterface;
 use Pimcore\Model\DataObject;
+use Pimcore\Model\DataObject\ClassDefinition\Data;
 
 class PTGEUBrandOptionProvider implements SelectOptionsProviderInterface
 {
-
     /**
-     * Initialize status
-     *
-     * @param Locale $localeService
-     */
-    public function __construct()
-    {
-        
-    }
-
-    /**
-     * To get the system languages (Localization & Internationalization)
-     *
      * @param array $context
      * @param Data $fieldDefinition
      * @return array
      */
-    public function getOptions($context, $fieldDefinition)
+    public function getOptions(array $context, Data $fieldDefinition): array
     {
         $result = [];
         $brandListPTGEU = new DataObject\PTGEUBrand\Listing();
-        $brandListPTGEU->setCondition("o_path = ?", "/Contitech_PTGEU/Master List/Brands/" );
+        $brandListPTGEU->setCondition("path = ?", "/Contitech_PTGEU/Master List/Brands/" );
         $brandListPTGEU = $brandListPTGEU->load();
 
         foreach ($brandListPTGEU as $brand) {
@@ -52,11 +40,12 @@ class PTGEUBrandOptionProvider implements SelectOptionsProviderInterface
     }
 
     /**
+     * Returns the value which is defined in the 'Default value' field
      * @param array $context
      * @param Data $fieldDefinition
      * @return mixed
      */
-    public function getDefaultValue($context, $fieldDefinition)
+    public function getDefaultValue(array $context, Data $fieldDefinition): ?string
     {
         return true;
     }
@@ -66,9 +55,8 @@ class PTGEUBrandOptionProvider implements SelectOptionsProviderInterface
      * @param Data $fieldDefinition
      * @return bool
      */
-    public function hasStaticOptions($context, $fieldDefinition)
+    public function hasStaticOptions(array $context, Data $fieldDefinition): bool
     {
         return true;
     }
-
 }

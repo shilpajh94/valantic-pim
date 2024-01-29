@@ -13,7 +13,7 @@ class CSWorkflowPublishCommand extends AbstractCommand
     protected function configure()
     {
         $this->setName('cs-workflow-publish')
-            ->setDescription('This command will publish workflow state for all Cover Options children');        
+            ->setDescription('This command will publish workflow state for all Cover Options children');
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
@@ -40,11 +40,11 @@ class CSWorkflowPublishCommand extends AbstractCommand
                     echo PHP_EOL;
                 }else{
                     $insertQuery = "INSERT into element_workflow_state (`cid`,`ctype`,`place`,`workflow`) VALUES('$objectId', 'object', 'published', 'product_enrichment')";
-                    $this->db->query($insertQuery);
+                    $this->db->executeQuery($insertQuery);
                     print_r('Inserted for  ----- '.$objectId);
                     echo PHP_EOL;
                 }
-            }            
+            }
         }
     }
 }

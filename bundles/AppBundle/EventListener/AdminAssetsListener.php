@@ -16,8 +16,8 @@ class AdminAssetsListener implements EventSubscriberInterface
     {
         return [
             BundleManagerEvents::CSS_PATHS => 'onCSSPaths',
-            AdminEvents::ASSET_GET_PRE_SEND_DATA => 'onAssetPreSendData',
-            AdminEvents::ASSET_LIST_BEFORE_LIST_LOAD => 'beforeListLoad'
+            // AdminEvents::ASSET_GET_PRE_SEND_DATA => 'onAssetPreSendData',
+            // AdminEvents::ASSET_LIST_BEFORE_LIST_LOAD => 'beforeListLoad'
         ];
     }
 
@@ -45,7 +45,7 @@ class AdminAssetsListener implements EventSubscriberInterface
         }
 
     }
-    
+
     public function beforeListLoad(GenericEvent $event) {
         $list = $event->getArgument('list');
         $context = $event->getArgument('context');
@@ -61,13 +61,13 @@ class AdminAssetsListener implements EventSubscriberInterface
                         OR
                         (select list from users_workspaces_asset where userId in (' . implode(',', $userIds) . ') and LOCATE(cpath, fullpath)=1  ORDER BY LENGTH(cpath) DESC LIMIT 1)=1
                      )';
-                    $condition = $list->getCondition(); 
-                    $condition = $condition." AND ".$conditionFilters; 
+                    $condition = $list->getCondition();
+                    $condition = $condition." AND ".$conditionFilters;
                     $list->setCondition($condition);
                     $event->setArgument('list',$list);
                 }
             }
         }
-        
+
     }
 }

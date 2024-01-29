@@ -17,28 +17,16 @@ namespace ContitechCS\ProductBundle\OptionProvider;
 
 use Pimcore\Model\DataObject\ClassDefinition\DynamicOptionsProvider\SelectOptionsProviderInterface;
 use Pimcore\Model\DataObject;
+use Pimcore\Model\DataObject\ClassDefinition\Data;
 
 class AvailableBeltWidthOptionProvider implements SelectOptionsProviderInterface
 {
-
     /**
-     * Initialize status
-     *
-     * @param Locale $localeService
-     */
-    public function __construct()
-    {
-        
-    }
-
-    /**
-     * To get the system languages (Localization & Internationalization)
-     *
      * @param array $context
      * @param Data $fieldDefinition
      * @return array
      */
-    public function getOptions($context, $fieldDefinition)
+    public function getOptions(array $context, Data $fieldDefinition): array
     {
         $availableBeltWidthList = new DataObject\CSAvailableBeltWidths\Listing();
         $availableBeltWidthList = $availableBeltWidthList->load();
@@ -57,21 +45,22 @@ class AvailableBeltWidthOptionProvider implements SelectOptionsProviderInterface
     }
 
     /**
+     * Returns the value which is defined in the 'Default value' field
      * @param array $context
      * @param Data $fieldDefinition
      * @return mixed
      */
-    public function getDefaultValue($context, $fieldDefinition)
+    public function getDefaultValue(array $context, Data $fieldDefinition): ?string
     {
         return true;
     }
-    
+
     /**
      * @param array $context
      * @param Data $fieldDefinition
      * @return bool
      */
-    public function hasStaticOptions($context, $fieldDefinition)
+    public function hasStaticOptions(array $context, Data $fieldDefinition): bool
     {
         return true;
     }

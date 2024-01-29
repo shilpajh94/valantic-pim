@@ -26,7 +26,7 @@ class Attribute
     public static function getValues() {
         try {
             // Querying data from Sales Material Master Database
-            $salesMaterialMaster = Db::get()->fetchAll("SELECT DISTINCT
+            $salesMaterialMaster = Db::get()->fetchAllAssociative("SELECT DISTINCT
               CONCAT(o6.code, '/', o8.code, '/', o5.Plant) as Identifier
               FROM object_10 o10
               JOIN object_6  o6
@@ -43,7 +43,7 @@ class Attribute
             ");
 
             // Querying data from Plant Material Master Database
-            $plantMaterialMaster = Db::get()->fetchAll('SELECT
+            $plantMaterialMaster = Db::get()->fetchAllAssociative('SELECT
               DISTINCT CONCAT(o6.code, "/", o8.code, "/", o5.Plant) as Identifier
               FROM object_12 o12
               JOIN object_6  o6
@@ -58,7 +58,7 @@ class Attribute
               o5.o_published = 1
               ');
             // Querying ProductLine data from Database
-            $productLineMaster = Db::get()->fetchAll('SELECT
+            $productLineMaster = Db::get()->fetchAllAssociative('SELECT
               DISTINCT
               (o2.Level - 1) AS level,
               RIGHT(`fullCode`, LENGTH(`fullCode`) - 2) AS code
@@ -140,7 +140,7 @@ class Attribute
                     plant.o_published = 1;
             ";
 
-            $salesMaterialMaster = Db::get()->fetchAll($newSql);
+            $salesMaterialMaster = Db::get()->fetchAllAssociative($newSql);
             // Querying Product Line Master data from Database
 //            $oldSql1 = "SELECT DISTINCT
 //                o1.articleNumber as partNo,
@@ -169,15 +169,15 @@ class Attribute
                     object_6 salesOrg ON salesOrg.oo_id = salesMaster.SalesOrganization__id
                         JOIN
                     object_1 product ON product.oo_id = SUBSTRING(salesMaster.Material, 2, (length(salesMaster.Material) - 2 ) )
-                WHERE 
-                    salesMaster.o_published = 1 AND 
-                    product.o_published = 1 AND 
-                    salesMaster.deletedFlagAtSalesLevel <> 1 AND 
-                    salesMaster.epixFlag = '001' AND 
+                WHERE
+                    salesMaster.o_published = 1 AND
+                    product.o_published = 1 AND
+                    salesMaster.deletedFlagAtSalesLevel <> 1 AND
+                    salesMaster.epixFlag = '001' AND
                     salesOrg.code <> '0450'
             ";
 
-            $productLineMaster = Db::get()->fetchAll($newSql1);
+            $productLineMaster = Db::get()->fetchAllAssociative($newSql1);
             // Returning Sales material & product line master Array
             return ['salesMaterialMaster' => $salesMaterialMaster, 'productLineMaster' => $productLineMaster];
         } catch (\Exception $ex) {
@@ -272,15 +272,15 @@ class Attribute
                 object_6 salesOrg ON salesOrg.oo_id = salesMaster.SalesOrganization__id
                     JOIN
                 object_1 product ON product.oo_id = SUBSTRING(salesMaster.Material, 2, (length(salesMaster.Material) - 2 ) )
-            WHERE 
-                salesMaster.o_published = 1 AND 
-                product.o_published = 1 AND 
-                salesMaster.deletedFlagAtSalesLevel <> 1 AND 
-                salesMaster.epixFlag = '001' AND 
+            WHERE
+                salesMaster.o_published = 1 AND
+                product.o_published = 1 AND
+                salesMaster.deletedFlagAtSalesLevel <> 1 AND
+                salesMaster.epixFlag = '001' AND
                 salesOrg.code <> '0450'
 		    ";
 
-            $productsMaster = Db::get()->fetchAll($newSql);
+            $productsMaster = Db::get()->fetchAllAssociative($newSql);
             // Querying B2B attributes from Database
 			$b2bObjectPath = Db::get()->fetchOne('SELECT
                 CONCAT(`o_path`, `o_key`) AS `path`
@@ -327,14 +327,14 @@ class Attribute
 	protected function languageMaster() {
 		$languageMasterKeys = array_map(function($e){
 				return $e['SystemCode'];
-			}, Db::get()->fetchAll('
+			}, Db::get()->fetchAllAssociative('
 				SELECT SystemCode
 				FROM object_27
 			')
 		);
 		$languageMasterValues = array_map(function($e){
 				return $e['Code'];
-			}, Db::get()->fetchAll('
+			}, Db::get()->fetchAllAssociative('
 				SELECT Code
 				FROM object_27
 			')

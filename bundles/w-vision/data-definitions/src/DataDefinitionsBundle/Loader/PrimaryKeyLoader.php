@@ -119,15 +119,15 @@ class PrimaryKeyLoader implements LoaderInterface
                         $productName = trim(str_replace("/", "-", trim($data['Product Name'])));
                         $parentId = DataObject\Service::createFolderByPath($pathWithoutRegion.'/'.$region)->getId();
                         $query = "SELECT o_id from objects where concat(o_path,o_key) LIKE '%$pathWithoutRegion%$productName' and o_type='object'";
-                        $result = $this->db->fetchCol($query);
+                        $result = $this->db->fetchFirstColumn($query);
                         $count = count($result);
-    
+
                         if ($count > 0) {
                             $obj = DataObject\CSProducts::getById($result[0], true);
                             $obj->setParentId($parentId);
                             return $obj;
                         }
-    
+
                     }
                 }
                 return $obj;
@@ -137,4 +137,3 @@ class PrimaryKeyLoader implements LoaderInterface
         return null;
     }
 }
-

@@ -62,7 +62,7 @@ class HosesFlagSetCommand extends AbstractCommand
                 foreach ($data as $result) {
                     if (array_key_exists($result['Material'], $productsData)) {
                         $objectId = $productsData[$result['Material']];
-                        echo $objectId.PHP_EOL; 
+                        echo $objectId.PHP_EOL;
                         $printedFlag = null;
                         $virtualFlag = null;
                         if (!empty($result['Printed Catalog Y/N']) && strtolower($result['Printed Catalog Y/N']) == 'y') {
@@ -111,7 +111,7 @@ class HosesFlagSetCommand extends AbstractCommand
         }
     }
 
-    
+
     public function updateTable($dataArray, $tableName) {
         try {
             $this->db = \Pimcore\Db::get();
@@ -141,20 +141,20 @@ class HosesFlagSetCommand extends AbstractCommand
                 // inserting records in batch
                 if ($rowCount % 1000 == 0) {
                     $query = $sql.rtrim($values, ',').$update;
-                    $this->db->query($query);
+                    $this->db->executeQuery($query);
                     $values = '';
                 }
                 $rowCount++;
             }
             if (!empty($values)) {
                 $query = $sql.rtrim($values, ',').$update ;
-                $this->db->query($query);
+                $this->db->executeQuery($query);
             }
         } catch (\Exception $e) {
             echo $e->getMessage(); die;
         }
     }
-    
+
     private function getProductsData() {
         $db = \Pimcore\Db::get();
         $sql = "SELECT `oo_id`, `articleNumber` From `object_query_1` where `ProductType` = 'fert' ";
@@ -176,7 +176,7 @@ class HosesFlagSetCommand extends AbstractCommand
                 return $entry;
             }
         }
-        
+
         return false;
     }
     public function getCSVData($fileName)

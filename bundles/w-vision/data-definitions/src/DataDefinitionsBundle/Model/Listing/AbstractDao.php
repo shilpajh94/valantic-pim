@@ -22,7 +22,7 @@ abstract class AbstractDao extends \Pimcore\Model\Listing\Dao\AbstractDao
 
     public function loadIdList()
     {
-        $searchIds = $this->db->fetchCol("SELECT id FROM " . $this->db->quoteIdentifier(static::TABLE_NAME) . " " . $this->getCondition() . $this->getGroupBy() . $this->getOrder() . $this->getOffsetLimit(), $this->model->getConditionVariables());
+        $searchIds = $this->db->fetchFirstColumn("SELECT id FROM " . $this->db->quoteIdentifier(static::TABLE_NAME) . " " . $this->getCondition() . $this->getGroupBy() . $this->getOrder() . $this->getOffsetLimit(), $this->model->getConditionVariables());
         return $searchIds;
     }
 

@@ -77,13 +77,13 @@ class CreateB2CTableCommand extends AbstractCommand
             }
 
             $fieldsString = implode(', ', $fieldsArray);
-            
+
             $sql = "CREATE TABLE IF NOT EXISTS {$tableName} (
                 id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
                 {$fieldsString}
                 )";
 
-            $this->db->query($sql);
+            $this->db->executeQuery($sql);
 
             echo "\n {$tableName} - table created.";
         }
@@ -108,7 +108,7 @@ class CreateB2CTableCommand extends AbstractCommand
              INDEX (`externalID`),
              PRIMARY KEY (`id`)
             ) ENGINE=InnoDB";
-        $this->db->query($sql);
+        $this->db->executeQuery($sql);
         echo "\n ".\PimDataPostBundle\Model\PersistantModel\B2CAPIRequestEntity\Dao::TABLE_NAME." - table created.";
     }
 
@@ -121,7 +121,7 @@ class CreateB2CTableCommand extends AbstractCommand
             `SFObjectType` varchar(151) NOT NULL,
             PRIMARY KEY (`id`)
             ) ENGINE=InnoDB";
-        $this->db->query($sql);
+        $this->db->executeQuery($sql);
         echo "\n ".\PimDataPostBundle\Model\PersistantModel\B2CEntityEnforcedToPush\Dao::TABLE_NAME." - table created.";
     }
 
@@ -136,7 +136,7 @@ class CreateB2CTableCommand extends AbstractCommand
             `businessUnit` varchar(55) DEFAULT NULL,
              PRIMARY KEY (`id`)
             ) ENGINE=InnoDB";
-        $this->db->query($sql);
+        $this->db->executeQuery($sql);
         echo "\n ".\PimDataPostBundle\Model\PersistantModel\B2CProductRelationChange\Dao::TABLE_NAME." - table created.";
     }
 
@@ -151,7 +151,7 @@ class CreateB2CTableCommand extends AbstractCommand
             `timestamp` int DEFAULT NULL,
             PRIMARY KEY (`id`)
             ) ENGINE=InnoDB";
-        $this->db->query($sql);
+        $this->db->executeQuery($sql);
         echo "\n ".\PimDataPostBundle\Model\PersistantModel\B2CPimFailureRecord\Dao::TABLE_NAME." - table created.";
     }
 }

@@ -21,14 +21,14 @@ class PriceModel
         $this->masterTable  = "ptgeu_material_list_price_import_master";
         $this->logTable     = 'ptgeu_material_list_price_import_log';
     }
-    
+
     /**
      * Function to truncate temp table
      */
     public function truncateTempTable() {
         try {
             $sql = "TRUNCATE TABLE $this->tempTable";
-            $this->db->query($sql);
+            $this->db->executeQuery($sql);
         } catch (Exception $ex) {
             return [
                 "success" => false,
@@ -36,7 +36,7 @@ class PriceModel
             ];
         }
     }
-    
+
     /**
      * Function to insert data in temp table
      */
@@ -63,17 +63,17 @@ class PriceModel
             // inserting records in batch
             if ($rowCount % 500 == 0) {
                 $query = $sql.rtrim($values, ',').$update;
-                $this->db->query($query);
+                $this->db->executeQuery($query);
                 $values = '';
             }
             $rowCount++;
         }
         if ($values) {
             $query = $sql.rtrim($values, ',').$update ;
-            $this->db->query($query);
+            $this->db->executeQuery($query);
         }
     }
-    
+
     /**
      * Function to find the Delta record(s)
      *
@@ -89,7 +89,7 @@ class PriceModel
             echo $ex->getMessage();
         }
     }
-    
+
     /**
      * Function to get deleted records
      */
@@ -98,7 +98,7 @@ class PriceModel
          {$this->tempTable} t ON t.id = m.id WHERE t.id IS NULL";
         return $this->db->fetchAllAssociative($sql);
     }
-    
+
     /**
      * Function to get all products
      */
@@ -110,7 +110,7 @@ class PriceModel
             'queryTableData' => $queryData
         ];
     }
-    
+
     /**
      * Function to insert data into product query and store tables
      */
@@ -142,20 +142,20 @@ class PriceModel
                 // inserting records in batch
                 if ($rowCount % 500 == 0) {
                     $query = $sql.rtrim($values, ',').$update;
-                    $this->db->query($query);
+                    $this->db->executeQuery($query);
                     $values = '';
                 }
                 $rowCount++;
             }
             if (!empty($values)) {
                 $query = $sql.rtrim($values, ',').$update ;
-                $this->db->query($query);
+                $this->db->executeQuery($query);
             }
         } catch (\Exception $e) {
             echo $e->getMessage(); die;
         }
     }
-    
+
     /**
      * Function to truncate master table
      */
@@ -163,7 +163,7 @@ class PriceModel
     {
         try {
             $sql = "TRUNCATE TABLE {$this->masterTable}";
-            $this->db->query($sql);
+            $this->db->executeQuery($sql);
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
@@ -179,7 +179,7 @@ class PriceModel
             $sql = "REPLACE INTO {$this->masterTable} (id, record, hash)
             SELECT t.id, t.record, t.hash FROM {$this->tempTable} t LEFT JOIN
              {$this->masterTable} m ON t.id = m.id WHERE t.hash != m.hash OR m.id IS NULL";
-            $this->db->query($sql);
+            $this->db->executeQuery($sql);
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }

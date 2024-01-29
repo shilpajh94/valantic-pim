@@ -51,7 +51,7 @@ class PlantMaterialModel
             // inserting records in batch
             if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
                 $query = $sql.rtrim($values, ',').$update;
-                $this->db->query($query);
+                $this->db->executeQuery($query);
                 $values = '';
             }
             $rowCount++;
@@ -59,7 +59,7 @@ class PlantMaterialModel
 
         if (!empty($values)) {
             $query = $sql.rtrim($values, ',').$update ;
-            $this->db->query($query);
+            $this->db->executeQuery($query);
         }
     }
 
@@ -88,7 +88,7 @@ class PlantMaterialModel
 	        $valuesArr[] = $this->db->quote(time());
 	        $values = " (".implode(', ', $valuesArr).") ";
 	        $query = $sql.$values.$update;
-	        $this->db->query($query);
+	        $this->db->executeQuery($query);
 	        $lastId = $this->db->lastInsertId();
 	        $data = $values = $query = null;
     	} catch(\Exception $e) {
@@ -104,14 +104,14 @@ class PlantMaterialModel
                 if (count($failedRecords)>0) {
                     $str = "'" . implode ( "', '", $failedRecords ) . "'";
                     $query = $sql.$str." )";
-                    $this->db->query($query);
+                    $this->db->executeQuery($query);
                 }
             }
         }  catch (\Exception $ex) {
             echo $ex->getMessage();
         }
     }
-    
+
     public function insertDataInTemp($arrData, $fileColumns)
     {
         try {
@@ -130,7 +130,7 @@ class PlantMaterialModel
                 // inserting records in batch
                 if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
                     $query = $sql.rtrim($values, ',').$update;
-                    $this->db->query($query);
+                    $this->db->executeQuery($query);
                     $values = '';
                 }
                 $rowCount++;
@@ -138,7 +138,7 @@ class PlantMaterialModel
             }
             if ($values) {
                 $query = $sql.rtrim($values, ',').$update ;
-                $this->db->query($query);
+                $this->db->executeQuery($query);
             }
         } catch (\Exception $ex) {
             echo $ex->getMessage();
@@ -183,9 +183,9 @@ class PlantMaterialModel
     public function updateMaster()
     {
         try {
-            $this->db->query("TRUNCATE {$this->masterTable}");
+            $this->db->executeQuery("TRUNCATE {$this->masterTable}");
             $sql = "INSERT INTO {$this->masterTable} SELECT * FROM {$this->tempTable};";
-            $this->db->query($sql);
+            $this->db->executeQuery($sql);
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
@@ -197,7 +197,7 @@ class PlantMaterialModel
     public function truncateTempTable()
     {
         try {
-            $this->db->query("TRUNCATE {$this->tempTable}");
+            $this->db->executeQuery("TRUNCATE {$this->tempTable}");
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
@@ -218,7 +218,7 @@ class PlantMaterialModel
                 // inserting records in batch
                 if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
                     $query = $sql.rtrim($values, ',');
-                    $this->db->query($query);
+                    $this->db->executeQuery($query);
                     $values = '';
                 }
                 $rowCount++;
@@ -227,7 +227,7 @@ class PlantMaterialModel
             if($values)
             {
                 $query = $sql.rtrim($values, ',') ;
-                $this->db->query($query);
+                $this->db->executeQuery($query);
             }
         } catch (\Exception $ex) {
             echo $ex->getMessage();
@@ -235,14 +235,14 @@ class PlantMaterialModel
     }
     public function getCountries() {
         $query = "SELECT code, oo_id FROM `object_9` ";
-        return $this->db->fetchPairs($query, ['code','oo_id']);
+        return \Pimcore\Db\Helper::fetchPairs($this->db, $query, ['code','oo_id']);
     }
     public function getSalessOrganization() {
         $query = "SELECT code, oo_id FROM `object_6` ";
-        return $this->db->fetchPairs($query, ['code','oo_id']);
+        return \Pimcore\Db\Helper::fetchPairs($this->db, $query, ['code','oo_id']);
     }
     public function getDistributionChannel() {
         $query = "SELECT code, oo_id FROM `object_8` ";
-        return $this->db->fetchPairs($query, ['code','oo_id']);
+        return \Pimcore\Db\Helper::fetchPairs($this->db, $query, ['code','oo_id']);
     }
 }

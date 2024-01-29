@@ -229,7 +229,7 @@ class Category
         }
         /* $stmt = \Pimcore\Db::get()->prepare("call getCategories()");
         $stmt->execute();
-        $this->siopCodes = $stmt->fetchAll(); */
+        $this->siopCodes = $stmt->fetchAllAssociative(); */
         if ($this->siopCodes)
             return $this->siopCodes;
         return false;
@@ -248,7 +248,7 @@ class Category
 
     public function getCategoryFullPathByFullCode($fullCode)
     {
-        $fcIndex = false;        
+        $fcIndex = false;
         if ($this->siopCodes) {
             if(array_key_exists($fullCode, $this->siopCodes)) {
                 return $this->siopCodes[$fullCode]['fullPath'];

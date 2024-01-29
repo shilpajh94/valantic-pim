@@ -74,7 +74,7 @@ class Fieldcollections extends DefaultAdapter implements FieldDefinitionAdapterI
 
                 $query = "SELECT `o_id` FROM `" . $tableName . "` WHERE     " . $filteredResults;
 
-                $results = $db->fetchAll($query);
+                $results = $db->fetchAllAssociative($query);
 
                 if (!empty($results)) {
                     $resultsIds = array();

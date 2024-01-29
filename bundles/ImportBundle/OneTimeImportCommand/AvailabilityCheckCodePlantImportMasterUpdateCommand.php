@@ -48,7 +48,7 @@ class AvailabilityCheckCodePlantImportMasterUpdateCommand extends AbstractComman
             $results = $this->getCSVData($filePath);
 
             $data = $results['data'];
-            
+
             $plantMaterialData = $this->getPlantMaterialData();
 
             $updateArray = [];
@@ -70,7 +70,7 @@ class AvailabilityCheckCodePlantImportMasterUpdateCommand extends AbstractComman
                             'record' => $record,
                             'hash' => ''
                         ];
-                        
+
                         if ($i == 1000) {
                             p_r('------------Updating '.count($updateArray).'---------------');
                             $totalUpdateCount += count($updateArray);
@@ -95,7 +95,7 @@ class AvailabilityCheckCodePlantImportMasterUpdateCommand extends AbstractComman
         }
     }
 
-    
+
     public function updateTable($dataArray, $tableName) {
         try {
             $rowCount = 1;
@@ -124,30 +124,30 @@ class AvailabilityCheckCodePlantImportMasterUpdateCommand extends AbstractComman
                 // inserting records in batch
                 if ($rowCount % 1000 == 0) {
                     $query = $sql.rtrim($values, ',').$update;
-                    $this->db->query($query);
+                    $this->db->executeQuery($query);
                     $values = '';
                 }
                 $rowCount++;
             }
             if (!empty($values)) {
                 $query = $sql.rtrim($values, ',').$update ;
-                $this->db->query($query);
+                $this->db->executeQuery($query);
             }
         } catch (\Exception $e) {
             echo $e->getMessage(); die;
         }
     }
-    
+
     private function getPlantMaterialData() {
         $sql = "SELECT `id`, `record`, `hash` From `material_plant_import_master`";
-        $results = $this->db->fetchAll($sql);
+        $results = $this->db->fetchAllAssociative($sql);
         $plantMaterialArray = [];
         foreach ($results as $plantMaterial) {
             $plantMaterialArray[$plantMaterial['id']] = $plantMaterial;
         }
         return $plantMaterialArray;
     }
-    
+
     public function getCSVData($fileName)
     {
         try {

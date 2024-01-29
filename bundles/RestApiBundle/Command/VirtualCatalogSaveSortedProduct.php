@@ -33,10 +33,10 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
     {
         try {
             $this->t = time();
-            
+
             p_r('Script started at: ' . date('h:i:s', $this->t));
             p_r('------------------------------------------------');
-            
+
             $this->db = Db::get();
 
             $this->createTable();
@@ -66,7 +66,7 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
             (`oo_id`, `brand_name`, `selectedSortFieldName`, `selectedSortFieldValues`,
             `sortFieldValue`, `sapCode`, `siopFullcode`, `updatedAt`) VALUES ";
             foreach ($allBrandProducts as $brandProducts) {
-                
+
                 $oo_id = $brandProducts["oo_id"];
 
                 if($customArrayFlag)
@@ -83,7 +83,7 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
                     $selectedSortFieldValues = $brandProducts['sorting'];
                     $selectedSortFieldValues = str_replace("'","",$selectedSortFieldValues);
                 }
-                
+
                 $sapCode = $brandProducts["articleNumber"];
                 $siopFullcode = $brandProducts["siopFullCode"];
                 $sortFieldValue = isset($brandProducts["sortFieldValue"]) ? $brandProducts["sortFieldValue"] : null;
@@ -103,7 +103,7 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
                 unset($insertValues);
             }
         }
-        
+
     }
 
     private function getBrandProducts($brandsArray)
@@ -144,7 +144,7 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
 
                             if(strtolower($sorting) == 'ascending' || strtolower($sorting) == 'descending'){
                                 $sortingData = strtolower($sorting) == 'ascending' ? 'ASC' : 'DESC';
-                                
+
                             } elseif(strtolower($sorting) == 'yes' || strtolower($sorting) == 'no'){
                                 $sortingData[] = strtolower($sorting) == 'yes' ? 1 : -1;
                             }
@@ -154,7 +154,7 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
                             }
                             $brickName = $this->getSortingFieldDataFromConfig($fieldForSort);
                             $arr = $this->getProductsInSortedFormat($brandKey,$fieldForSort,$sortingData, $brickName);
-                            
+
                             $customArray = [];
                             $customArray['brandNameText'] = $brandNameText;
                             $customArray['sorting_GroupingField'] = $fieldForSort;
@@ -213,7 +213,7 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
         }
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
-        return $stmt->fetchAll();
+        return $stmt->fetchAllAssociative();
     }
 
     private function getSortingFieldDataFromConfig($groupingFieldNameForSorting){
@@ -267,7 +267,7 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
     //  p.brandName is not null and p.brandName <> '' and p.brandName IN (1649, 1646, 1660, 1722)
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
-        return $stmt->fetchAll();
+        return $stmt->fetchAllAssociative();
     }
 
 }

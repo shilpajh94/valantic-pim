@@ -151,7 +151,7 @@ class Select extends DefaultAdapter implements FieldDefinitionAdapterInterface
             }
 
 
-            return $queryBuilder->execute()->fetchAll();
+            return $queryBuilder->execute()->fetchAllAssociative();
         } catch (\Exception $ex) {
             DHubLogger::log("Issue in " . __METHOD__ . " Exception - " . $ex->getMessage(), DHubLogger::ERROR);
             throw new \Exception("Applied Filter for - Select is currently not supported. Please contact the administrator");

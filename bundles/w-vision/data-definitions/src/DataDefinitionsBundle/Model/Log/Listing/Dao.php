@@ -103,7 +103,7 @@ class Dao extends Listing\Dao\AbstractDao
     {
         try {
             $query = $this->getQuery();
-            $objectIds = $this->db->fetchCol($query, $this->model->getConditionVariables());
+            $objectIds = $this->db->fetchFirstColumn($query, $this->model->getConditionVariables());
             $this->totalCount = (int)$this->db->fetchOne('SELECT FOUND_ROWS()');
 
             return $objectIds;
@@ -140,5 +140,4 @@ class Dao extends Listing\Dao\AbstractDao
         return $amount;
     }
 }
-
 

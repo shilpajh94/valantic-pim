@@ -26,10 +26,10 @@ class TempTablePopulatorDao
         if(trim($tableName))
         {
             $sql = "TRUNCATE TABLE {$tableName}";
-            $this->db->query($sql);
+            $this->db->executeQuery($sql);
         }
     }
-    
+
     public function getPimModifiedRecordIds($tableName)
     {
         if(trim($tableName))
@@ -38,9 +38,9 @@ class TempTablePopulatorDao
             $endTime = $this->updateWindow->getEndTimestamp();
 
             $query = "SELECT `o_id` FROM {$tableName} WHERE (`o_modificationDate` >= {$startTime} AND `o_modificationDate` <= {$endTime})";
-            $resultSet = $this->db->fetchCol($query);
+            $resultSet = $this->db->fetchFirstColumn($query);
         }
-        
+
         return ($resultSet) ? $resultSet : [];
     }
 
@@ -53,9 +53,9 @@ class TempTablePopulatorDao
         $query = "SELECT {$objectTableName}.`o_id` FROM {$objectTableName}" ;
         $query .= " JOIN {$masterTableName} ON {$objectTableName}.`o_id` = {$masterTableName}.`o_id`";
         $query .= " WHERE (`o_modificationDate` >= {$startTime} AND `o_modificationDate` <= {$endTime})";
-        return $this->db->fetchCol($query);
+        return $this->db->fetchFirstColumn($query);
     }
-    
+
     public function getTempTableDataForIds(Array $attribute, Array $pimIDs, String $tableName): Array
     {
         if($pimIDs && $attribute && $tableName)
@@ -63,8 +63,8 @@ class TempTablePopulatorDao
             array_walk($pimIDs, create_function('&$val','$val = trim($val,",");'));
 
             $productIds = implode(",",$pimIDs);
-            $selectArray = []; 
-            $selectString = "";           
+            $selectArray = [];
+            $selectString = "";
             $secondJoinOnArray = [];
             $joinOnArray = [];
             $joinOnString = "";
@@ -87,8 +87,8 @@ class TempTablePopulatorDao
                 else{
                     $selectArray[] = $value['pim_table_name'].".".$value['pim_attribute_name']. " AS {$tableKey}";
                 }
-                
-                
+
+
                 if($value['joinOn'] && !in_array($value['joinOn'], $joinOnArray))
                 {
                     $joinOnArray[] = $value['joinOn'];
@@ -106,7 +106,7 @@ class TempTablePopulatorDao
             $joinOnString = implode(' ', $joinOnArray);
 
             $query = "SELECT {$selectString} FROM {$tableName} {$joinOnString} WHERE {$tableName}.o_id IN (".$productIds.")";
-            $resultSet = $this->db->fetchAll($query);
+            $resultSet = $this->db->fetchAllAssociative($query);
         }
         return ($resultSet) ? $resultSet : [];
     }
@@ -120,7 +120,7 @@ class TempTablePopulatorDao
 
         if($resultSet)
         {
-            foreach ($resultSet as $productArray) 
+            foreach ($resultSet as $productArray)
             {
                 foreach ($productArray as $key => $value) {
                     if(array_key_exists($key,$relationalFields))
@@ -132,10 +132,10 @@ class TempTablePopulatorDao
                         $basicData[$key] = $value;
                     }
                 }
-                
+
                 $basicHash = md5(json_encode($basicData, true));
                 $relationalHash = md5(json_encode($relationalData, true));
-        
+
                 $data = array_merge($basicData,$relationalData);
                 $data['basicHash'] = $basicHash;
                 $data['relationalHash'] = $relationalHash;
@@ -148,7 +148,7 @@ class TempTablePopulatorDao
 
     public function quoteString(?string $str)
     {
-        return $str === null ? 'NULL' : $this->db->quote($str);   
+        return $str === null ? 'NULL' : $this->db->quote($str);
     }
 
     public function insertDataInTempTable($arrData, $tempTable)
@@ -173,13 +173,13 @@ class TempTablePopulatorDao
                 $data = array_map([$this,"quoteString"],$data);
 
                 $strData = implode(",",$data);
-                
+
                 $values .= "({$strData}),";
 
                 // inserting records in batch
                 if ($rowCount % Constants::INSERT_BATCH_SIZE == 0) {
                     $query = $sql.rtrim($values, ',');
-                    $this->db->query($query);
+                    $this->db->executeQuery($query);
                     $values = '';
                 }
                 $rowCount++;
@@ -188,7 +188,7 @@ class TempTablePopulatorDao
             if ($values) {
                 $query = $sql.rtrim($values, ',');
                 $query;
-                $this->db->query($query);
+                $this->db->executeQuery($query);
             }
         }
     }
@@ -201,19 +201,19 @@ class TempTablePopulatorDao
             $ptgCategoriesFullSIOPCode = array_values(Constants::PTG_CATEGORIES);
             $allCategoriesFullSIOPCode = array_merge($ifsCategoriesFullSIOPCode, $ptgCategoriesFullSIOPCode);
             $allCategoriesFullSIOPCodeString = implode(',', $allCategoriesFullSIOPCode);
-            
+
             // Get all the categories id on the basis of SIOP full code
             $query = "SELECT o_id FROM object_2 WHERE fullCode IN ($allCategoriesFullSIOPCodeString)";
-            $categoryIds = $this->db->fetchCol($query);
+            $categoryIds = $this->db->fetchFirstColumn($query);
 
             $categoryIdsString = implode(',', $categoryIds);
             $productIdsString = implode(',', $productIds);
-            
+
             // Get all the product ids that are belongs to SIOPLevel2
             $query = "SELECT o_id FROM object_1 WHERE TRIM(BOTH ',' FROM SIOPLevel2) IN ($categoryIdsString) and o_id IN ($productIdsString)";
-            $resultSet = $this->db->fetchCol($query);
+            $resultSet = $this->db->fetchFirstColumn($query);
         }
-        
+
         return ($resultSet) ? $resultSet : [];
     }
 
@@ -222,17 +222,17 @@ class TempTablePopulatorDao
         $query = "SELECT o_id FROM objects";
         $query .= " WHERE o_parentId = :parentId and o_type = 'object' ";
 
-        return $this->db->fetchCol($query,["parentId" => $parentId]);
+        return $this->db->fetchFirstColumn($query,["parentId" => $parentId]);
     }
 
     public function getPimModifiedProductIdsWithProductType(string $productTableName): array
     {
         $startTime = $this->updateWindow->getStartTimestamp();
         $endTime = $this->updateWindow->getEndTimestamp();
-        
+
         $query = "SELECT `o_id`,`productType` FROM {$productTableName} WHERE (`o_modificationDate` >= {$startTime} AND `o_modificationDate` <= {$endTime})";
-        $resultSet = $this->db->fetchAll($query);
-    
+        $resultSet = $this->db->fetchAllAssociative($query);
+
         return ($resultSet) ? $resultSet : [];
     }
 
@@ -244,7 +244,7 @@ class TempTablePopulatorDao
         $query = "SELECT o_id, o_type, o_className FROM objects";
         $query .= " WHERE o_parentId IN (" . implode(",", $parentIds) . ")";
 
-        return $this->db->fetchAll($query);
+        return $this->db->fetchAllAssociative($query);
     }
 
 }

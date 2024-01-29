@@ -8,23 +8,18 @@
 
 namespace AppBundle\OptionProvider;
 
-
+use Pimcore\Model\DataObject\ClassDefinition\Data;
 use Pimcore\Model\DataObject\ClassDefinition\DynamicOptionsProvider\MultiSelectOptionsProviderInterface;
 
 class ProductAttributesProvider implements MultiSelectOptionsProviderInterface
 {
-
     /**
      * @param array $context
      * @param Data $fieldDefinition
-     *
      * @return array
      */
-    public function getOptions($context, $fieldDefinition){
-
-        /**
-         * @TODO: this is to be mentioned in the config file
-         */
+    public function getOptions(array $context, Data $fieldDefinition): array
+    {
         $attributesToSkip = array("SIOPLevel1","SIOPLevel2","SIOPLevel3","SIOPLevel4","SIOPLevel5","SIOPLevel6","SalesOrgData","Plants","Specification","BrandData","Digit14","Document");
 
         $classDef = \Pimcore\Model\DataObject\ClassDefinition::getByName("Product");
@@ -50,7 +45,7 @@ class ProductAttributesProvider implements MultiSelectOptionsProviderInterface
      * @param $localizedFieldDef
      * @return array
      */
-    public function getLocalizedFieldsOptions($localizedFieldDef){
+    public function getLocalizedFieldsOptions($localizedFieldDef): array{
         $options = array();
         $children = $localizedFieldDef->getChildren();
 
@@ -80,12 +75,23 @@ class ProductAttributesProvider implements MultiSelectOptionsProviderInterface
     }
 
     /**
+     * Returns the value which is defined in the 'Default value' field
      * @param array $context
      * @param Data $fieldDefinition
-     *
+     * @return mixed
+     */
+    public function getDefaultValue(array $context, Data $fieldDefinition): ?string
+    {
+        return true;
+    }
+    
+    /**
+     * @param array $context
+     * @param Data $fieldDefinition
      * @return bool
      */
-    public function hasStaticOptions($context, $fieldDefinition){
+    public function hasStaticOptions(array $context, Data $fieldDefinition): bool
+    {
         return true;
     }
 

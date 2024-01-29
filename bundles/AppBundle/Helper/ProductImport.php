@@ -30,7 +30,7 @@ class ProductImport
         $this->db = Db::get();
         $this->common = $this->container->get('app.common_helper');
     }
-    
+
     /**
      * Initilize table name
      */
@@ -44,7 +44,7 @@ class ProductImport
         $this->keyColumns = $table['keyColumns'];
         $this->mappingCsvColumn = $table['mappingCsvColumn'];
     }
-    
+
     public function getDistributionChainFlagByMaterial($materialObjId) {
         $sql = "SELECT * from object_query_10 where `Material` = ".$this->db->quote(",".$materialObjId.","); //." AND deletedFlagAtDistributionChainLevel != 0 AND deletedFlagAtDistributionChainLevel != '' AND deletedFlagAtDistributionChainLevel IS NOT NULL";
         $salesData = $this->db->fetchAllAssociative($sql);
@@ -61,9 +61,9 @@ class ProductImport
         }
         return $flag;
     }
-    
+
     public function getFittingFamilyFlagByMaterial($materialObjId) {
-        $sql = "SELECT * from object_brick_query_HydFittingsFert_1 where `o_id` = ".$this->db->quote($materialObjId)." AND (`HydFittingFamily` is not null OR `HydFittingFamily` != '') "; 
+        $sql = "SELECT * from object_brick_query_HydFittingsFert_1 where `o_id` = ".$this->db->quote($materialObjId)." AND (`HydFittingFamily` is not null OR `HydFittingFamily` != '') ";
         $data = $this->db->fetchAllAssociative($sql);
 	$flag = false;
         if (count($data)>0) {
@@ -71,7 +71,7 @@ class ProductImport
         }
         return $flag;
     }
-    
+
     public function checkIfArticleExists($articleNumber) {
         $sql = " SELECT `oo_id`, `o_parentId`, `o_path`, `articleNumber`, `oldMaterialCode`  FROM `object_1` WHERE `articleNumber` = ".$this->db->quote(trim($articleNumber)) ." AND `ProductType` = 'fert'";
         return $this->db->fetchAllAssociative($sql);
@@ -89,10 +89,10 @@ class ProductImport
             $insertColumns[] = "`o_type`";
             $insertColumns[] = "`o_key`";
             $insertColumns[] = "`o_path`";
-            $insertColumns[] = "`o_published`"; 
-            $insertColumns[] = "`o_classId`"; 
-            $insertColumns[] = "`o_className`"; 
-            $insertColumns[] = "`o_creationDate`"; 
+            $insertColumns[] = "`o_published`";
+            $insertColumns[] = "`o_classId`";
+            $insertColumns[] = "`o_className`";
+            $insertColumns[] = "`o_creationDate`";
             $insertColumns[] = "`o_modificationDate`";
             $sql      = "INSERT INTO `objects` (".implode(", ", $insertColumns).") VALUES";
             $update[] = " `o_parentId` = VALUES(`o_parentId`) ";
@@ -115,7 +115,7 @@ class ProductImport
             $valuesArr[] = $this->db->quote(time());
             $values = " (".implode(', ', $valuesArr).") ";
             $query = $sql.$values.$update;
-            $this->db->query($query);
+            $this->db->executeQuery($query);
             $lastId = $this->db->lastInsertId();
             if (!empty($data['o_id'])) {
                 $lastId = $data['o_id'];
@@ -155,14 +155,14 @@ class ProductImport
                 // inserting records in batch
                 if ($rowCount % 1000 == 0) {
                     $query = $sql.rtrim($values, ',').$update;
-                    $this->db->query($query);
+                    $this->db->executeQuery($query);
                     $values = '';
                 }
                 $rowCount++;
             }
             if (!empty($values)) {
                 $query = $sql.rtrim($values, ',').$update ;
-                $this->db->query($query);
+                $this->db->executeQuery($query);
             }
         } catch (\Exception $e) {
             echo $e->getMessage(); die;
@@ -195,7 +195,7 @@ class ProductImport
             // inserting records in batch
             if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
                 $query = $sql.rtrim($values, ',').$update;
-                $this->db->query($query);
+                $this->db->executeQuery($query);
                 $values = '';
             }
             $rowCount++;
@@ -203,10 +203,10 @@ class ProductImport
         }
         if ($values) {
             $query = $sql.rtrim($values, ',').$update ;
-            $this->db->query($query);
+            $this->db->executeQuery($query);
         }
     }
-    
+
     /**
      * Function to find the Delta record(s)
      *
@@ -227,16 +227,16 @@ class ProductImport
             echo $ex->getMessage();
         }
     }
-    
+
     public function deleteRelationTableRecords($dataArray) {
         if (count($dataArray)>0) {
             foreach ($dataArray as $fieldName => $objectIds) {
                 $ids = implode(", ", $objectIds);
                 $sql = "Delete from `object_relations_1` where `fieldname` = ".$this->db->quote($fieldName)." AND `src_id` IN (".$ids.")";
                 try {
-                    $this->db->query($sql);
+                    $this->db->executeQuery($sql);
                 } catch (\Exception $e) {
-                    
+
                 }
             }
         }
@@ -256,7 +256,7 @@ class ProductImport
             echo $ex->getMessage();
         }
     }
-    
+
     public function getBaseSiopMapping() {
         $sql = "SELECT Substring(`oldMaterialCode`,1,6) as materialCode, siopFullCode from object_query_1 where oldMaterialCode != '' AND oldMaterialCode != 'NA' AND oldMaterialCode != 'N/A' AND (siopFullCode like '041000%' OR siopFullCode like '041500%')";
         $mappingData = $this->db->fetchAllAssociative($sql);
@@ -269,12 +269,12 @@ class ProductImport
         }
         return $mappingArray;
     }
-    
+
     public function getDeletedProducts() {
         $sql   = "SELECT m.id FROM {$this->masterTable} m LEFT JOIN {$this->tempTable} t ON t.id = m.id WHERE t.id is null";
         return $this->db->fetchAllAssociative($sql);
     }
-    
+
     /**
      * Function to find the Delta record(s)
      *
@@ -283,14 +283,14 @@ class ProductImport
 //    public function getPTGBaseDataDelta() {
 //        try {
 //            $sql   = "SELECT DISTINCT(t.siopfullcode) FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE LENGTH(t.siopfullcode) = 18 AND (t.hash != m.hash OR m.id is null) ";
-//            $delta = $this->db->fetchAll($sql);
+//            $delta = $this->db->fetchAllAssociative($sql);
 //
 //            return $delta;
 //        } catch (\Exception $ex) {
 //            echo $ex->getMessage();
 //        }
 //    }
-        
+
     /**
      * Function to truncate article temp table
      */
@@ -298,7 +298,7 @@ class ProductImport
     {
         try {
             $sql = "TRUNCATE TABLE {$this->tempTable}";
-            $this->db->query($sql);
+            $this->db->executeQuery($sql);
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
@@ -311,12 +311,12 @@ class ProductImport
     {
         try {
             $sql = "TRUNCATE TABLE {$this->masterTable}";
-            $this->db->query($sql);
+            $this->db->executeQuery($sql);
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
     }
-    
+
     public function removeArticlesFromMaster($articles) {
         try {
             if (!empty($articles) && count($articles)>0) {
@@ -324,14 +324,14 @@ class ProductImport
                 $artNoArray = array_keys($articles);
                 if (count($artNoArray)>0) {
                     $query = $sql.implode(", ", $artNoArray)." )";
-                    $this->db->query($query);
+                    $this->db->executeQuery($query);
                 }
             }
         }  catch (\Exception $ex) {
-            
+
         }
     }
-    
+
     public function getAllBaseProducts() {
         try {
             $sql   = "SELECT * FROM `object_1` WHERE `BusinessUnit` = 'IFS' AND  (`ProductType` = 'base' OR `ProductType` = 'skeleton') AND (`siopfullcode` like '041000%' OR `siopfullcode` like '041500%') ";
@@ -344,16 +344,16 @@ class ProductImport
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
-        
+
     }
-    
+
    public function getRecordsSiopCodeDigitsNot13And18()
    {
     $sql = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t WHERE  LENGTH(t.siopfullcode) NOT IN (13,18)";
     $record = $this->db->fetchAllAssociative($sql);
     $this->insertSiopDigitsNot13And18DataToLogTable($record);
     $this->deleteSiopCodeDigitsNot13And18FromTemp($record);
-   } 
+   }
 
    public function insertSiopDigitsNot13And18DataToLogTable($data)
    {
@@ -366,7 +366,7 @@ class ProductImport
           // inserting records in batch
                 if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
                     $query = $sql.rtrim($value, ',');
-                    $this->db->query($query);
+                    $this->db->executeQuery($query);
                     $values = '';
                 }
                 $rowCount++;
@@ -374,7 +374,7 @@ class ProductImport
             if($value)
             {
                 $query = $sql.rtrim($value, ',') ;
-                $this->db->query($query);
+                $this->db->executeQuery($query);
             }
         } catch (\Exception $ex) {
             echo $ex->getMessage();
@@ -388,16 +388,16 @@ class ProductImport
             $sql = "DELETE FROM {$this->tempTable} WHERE id = '$deletedRecordsId'";
             $this->db->executeQuery($sql);
         }
-    } 
+    }
     /**
      * Function to update master table
      */
     public function updateMaster()
-    {        
+    {
         try {
            $this->truncateMasterTable();
             $sql = "REPLACE INTO {$this->masterTable} (id, siopfullcode, record, hash) SELECT t.id, t.siopfullcode, t.record, t.hash FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE t.hash != m.hash OR m.id IS NULL";
-            $this->db->query($sql);
+            $this->db->executeQuery($sql);
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
@@ -416,7 +416,7 @@ class ProductImport
                 // inserting records in batch
                 if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
                     $query = $sql.rtrim($values, ',');
-                    $this->db->query($query);
+                    $this->db->executeQuery($query);
                     $values = '';
                 }
                 $rowCount++;
@@ -425,7 +425,7 @@ class ProductImport
             if($values)
             {
                 $query = $sql.rtrim($values, ',') ;
-                $this->db->query($query);
+                $this->db->executeQuery($query);
             }
         } catch (\Exception $ex) {
             echo $ex->getMessage();
@@ -441,12 +441,12 @@ class ProductImport
         $query = "SELECT oo_id, code FROM `object_21` ";
         return $this->db->fetchAllAssociative($query);
     }
-    
+
     public function getProducts() {
         $query = "SELECT oo_id, o_key, o_path FROM `object_1` ";
         return $this->db->fetchAllAssociative($query);
     }
-    
+
     public function getObjectsTableData() {
         $query = "SELECT o_id, o_key, o_path FROM `objects` where o_type = 'object' AND o_classId = '1'";
         return $this->db->fetchAllAssociative($query);

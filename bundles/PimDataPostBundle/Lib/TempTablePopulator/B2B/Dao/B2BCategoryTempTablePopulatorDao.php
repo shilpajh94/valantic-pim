@@ -18,7 +18,7 @@ class B2BCategoryTempTablePopulatorDao extends TempTablePopulatorDao
     public function iterateMasterTableCategories($tableName)
     {
         $query = "SELECT `o_id` FROM {$tableName}";
-        return $this->db->fetchCol($query);
+        return $this->db->fetchFirstColumn($query);
     }
 
     public function getCategoryIdToCategoryLevelMapping(array $categoryIds): array
@@ -35,7 +35,7 @@ class B2BCategoryTempTablePopulatorDao extends TempTablePopulatorDao
         $query = "SELECT `o_id`,`Level` FROM " . Constants::B2B_CATEGORY_OBJECT_TABLE_NAME;
         $query .= " WHERE `o_id` IN " . "(" . implode(",",$categoryIds) . ")";
 
-        $resultSet =  $this->db->fetchAll($query);
+        $resultSet =  $this->db->fetchAllAssociative($query);
         foreach($resultSet as $index){
             $returnValue[$index["o_id"]] = $index["Level"];
         }
@@ -46,7 +46,7 @@ class B2BCategoryTempTablePopulatorDao extends TempTablePopulatorDao
     {
         $categoryId = trim($categoryId,',');
         $query = "SELECT o_id FROM {$tableName} where o_id = {$categoryId}";
-        $resultSet =  $this->db->fetchCol($query);
+        $resultSet =  $this->db->fetchFirstColumn($query);
         return ($resultSet) ? true : false;
     }
 
@@ -54,7 +54,7 @@ class B2BCategoryTempTablePopulatorDao extends TempTablePopulatorDao
     {
         $categoryId = trim($categoryId,',');
         $query = "SELECT o_id FROM {$tableName} where o_id = {$categoryId} AND ShowInMenu = 1";
-        $resultSet =  $this->db->fetchCol($query);
+        $resultSet =  $this->db->fetchFirstColumn($query);
         return ($resultSet) ? true : false;
     }
 

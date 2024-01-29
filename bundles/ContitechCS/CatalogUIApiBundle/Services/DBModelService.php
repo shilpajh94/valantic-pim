@@ -35,7 +35,7 @@ class DBModelService implements ConstantsInterface
             $language       = $language ? $language : 'null';
             $region         = $region ? $region : 'null';
 
-            $result = $this->db->fetchAll("select id from product_group_catalogs where ContainerId = $containerId");
+            $result = $this->db->fetchAllAssociative("select id from product_group_catalogs where ContainerId = $containerId");
 
             if ($result) {
                 $sql = "UPDATE product_group_catalogs SET ProductgGroupId = $productGroupId,
@@ -46,7 +46,7 @@ class DBModelService implements ConstantsInterface
           ContainerId = $containerId,PdfLink = '$fileLink',CreatedAt = now(),language = '$language',region = '$region'";
             }
 
-            $this->db->query($sql);
+            $this->db->executeQuery($sql);
 
             return true;
         } catch (Exception $e) {
@@ -85,7 +85,7 @@ class DBModelService implements ConstantsInterface
 
             $sql .= $where ? " AND " . implode(' AND ', $where) : '';
 
-            return $this->db->fetchAll($sql);
+            return $this->db->fetchAllAssociative($sql);
 
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
@@ -103,7 +103,7 @@ class DBModelService implements ConstantsInterface
 
             $sql = "SELECT ProductgGroupId FROM product_group_catalogs";
 
-            $result = $this->db->fetchAll($sql);
+            $result = $this->db->fetchAllAssociative($sql);
 
             if (!$result) {
                 throw new Exception(self::RECORDS_NOT_FOUND);

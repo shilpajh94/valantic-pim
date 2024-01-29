@@ -17,22 +17,17 @@
 
 namespace PTGEU\CatalogBundle\OptionProvider;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 use Pimcore\Model\DataObject\ClassDefinition\DynamicOptionsProvider\SelectOptionsProviderInterface;
+use Pimcore\Model\DataObject\ClassDefinition\Data;
 
 class PlantSalesDistributionOptionsProvider implements SelectOptionsProviderInterface
 {
     /**
-     * @param $context array
-     * @param $fieldDefinition Data
+     * @param array $context
+     * @param Data $fieldDefinition
      * @return array
      */
-    public function getOptions($context, $fieldDefinition): ?array
+    public function getOptions(array $context, Data $fieldDefinition): array
     {
         $allAvailablelArray = array();
         $displayFieldData = $fieldDefinition->getOptionsProviderData();
@@ -78,23 +73,22 @@ class PlantSalesDistributionOptionsProvider implements SelectOptionsProviderInte
 
     /**
      * Returns the value which is defined in the 'Default value' field
-     * @param $context array
-     * @param $fieldDefinition Data
+     * @param array $context
+     * @param Data $fieldDefinition
      * @return mixed
      */
-    public function getDefaultValue($context, $fieldDefinition)
+    public function getDefaultValue(array $context, Data $fieldDefinition): ?string
     {
         return true;
     }
 
     /**
-     * @param $context array
-     * @param $fieldDefinition Data
+     * @param array $context
+     * @param Data $fieldDefinition
      * @return bool
      */
-    public function hasStaticOptions($context, $fieldDefinition)
+    public function hasStaticOptions(array $context, Data $fieldDefinition): bool
     {
         return true;
     }
-
 }

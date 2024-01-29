@@ -23,7 +23,7 @@ class WorkflowReminderCommand extends AbstractCommand
     protected function configure()
     {
         $this->setName('contitech:workflow:reminder')
-            ->setDescription('This command will send reminder to process the peding actions');        
+            ->setDescription('This command will send reminder to process the peding actions');
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
@@ -74,7 +74,7 @@ class WorkflowReminderCommand extends AbstractCommand
             $buadmin_reminder_interval = $wfHelper->getBUAdminReminderInterval($data['place']);
 
             /**
-             * Send a reminder email to BU Admin if no action taken by [Editor/Product Manager] 
+             * Send a reminder email to BU Admin if no action taken by [Editor/Product Manager]
              * after sending maximum time of reminder email
              */
             if (in_array($data['action_pending_day'], $buadmin_reminder_interval)) {
@@ -91,8 +91,8 @@ class WorkflowReminderCommand extends AbstractCommand
                     // p_r(array($userInfo->getUserType()));die;
                     $product = \Pimcore\Model\DataObject::getById($data['subjectId']);
                     $receiver = $wfHelper->getUserByRoleAndGroup($userInfo->getUserType(), $this->getProductSIOP($product));
-                    
-                    
+
+
                     $productId = $product->getId();
                     $deepLink = $wfHelper->getDeepLinkByCommandLine($productId);
                     $articleNumber = $product->getArticleNumber();
@@ -125,7 +125,7 @@ class WorkflowReminderCommand extends AbstractCommand
             echo "No Matching interval";
         }
     }
-    
+
     public function getProductSIOP($product) {
         $siopArray = [];
         if (!empty($product->getSIOPLevel4())) {
@@ -133,11 +133,11 @@ class WorkflowReminderCommand extends AbstractCommand
         }
         return $siopArray;
     }
-    
+
     public function sendReminderToBUAdmin($data)
     {
         p_r('Sending email to BU Admin');
-        
+
         $receiver = '';
         $product = null;
         $productId = null;
@@ -171,7 +171,7 @@ class WorkflowReminderCommand extends AbstractCommand
             $actionRemark = $actionRemarkInfo['description'];
             $actionTitle = $data['title'];
             $actionDate = $data['action_date'];
-            
+
             if ($receiver) {
                 foreach ($receiver as $k => $user) {
                     $array = array(
@@ -188,7 +188,7 @@ class WorkflowReminderCommand extends AbstractCommand
                             'actionDate'    =>  $actionDate
                         )
                     );
-                    
+
                     $email = $this->container->get('email.email_notification_service');
                     $email->sendNotificationsEmail($array);
                     unset($array);
@@ -198,12 +198,12 @@ class WorkflowReminderCommand extends AbstractCommand
     }
     public function getPendingAction()
     {
-        $sql = "SELECT n.*, e.place, FROM_UNIXTIME(n.`date`) action_date, DATEDIFF(NOW(), FROM_UNIXTIME(n.`date`)) action_pending_day FROM notes n 
+        $sql = "SELECT n.*, e.place, FROM_UNIXTIME(n.`date`) action_date, DATEDIFF(NOW(), FROM_UNIXTIME(n.`date`)) action_pending_day FROM notes n
         JOIN element_workflow_state e ON(e.cid=n.cid)
         WHERE e.place IN('enrich', 'review_content') AND DATEDIFF(NOW(), FROM_UNIXTIME(n.`date`)) < 10;
         ORDER BY n.id DESC";
-        $results = $this->db->fetchAll($sql);
-        
+        $results = $this->db->fetchAllAssociative($sql);
+
         $data = array();
         if (is_array($results) && !empty($results)) {
             /**
@@ -211,10 +211,10 @@ class WorkflowReminderCommand extends AbstractCommand
             */
             $notes = array();
             foreach ($results as $result) {
-                $notes[$result['id']] = $result;                
+                $notes[$result['id']] = $result;
             }
             krsort($notes, 1); // SORT_NUMERIC
-            
+
             foreach ($notes as $row) {
                 if (!array_key_exists($row['cid'], $data)) {
                     $data[$row['cid']] = $row;

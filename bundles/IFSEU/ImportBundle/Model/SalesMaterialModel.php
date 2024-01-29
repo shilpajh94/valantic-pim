@@ -58,20 +58,20 @@ class SalesMaterialModel
     		foreach ($valColumns as $key) {
     			$valueArray[] = $data[$key] == '' ? 'null' : $this->db->quote($data[$key]);
     		}
-            
+
 
             $values .= '('.implode(",", $valueArray).'),';
             // inserting records in batch
             if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
                 $query = $sql.rtrim($values, ',').$update;
-                $this->db->query($query);
+                $this->db->executeQuery($query);
                 $values = '';
             }
             $rowCount++;
         }
         if (!empty($values)) {
             $query = $sql.rtrim($values, ',').$update ;
-            $this->db->query($query);
+            $this->db->executeQuery($query);
         }
     }
 
@@ -99,7 +99,7 @@ class SalesMaterialModel
 	        $valuesArr[] = $this->db->quote(time());
 	        $values = " (".implode(', ', $valuesArr).") ";
 	        $query = $sql.$values.$update;
-	        $this->db->query($query);
+	        $this->db->executeQuery($query);
 	        $lastId = $this->db->lastInsertId();
 
 	        $data = $values = $query = null;
@@ -136,14 +136,14 @@ class SalesMaterialModel
             // inserting records in batch
             if ($rowCount % 500 == 0) {
                 $query = $sql.rtrim($values, ',').$update;
-                $this->db->query($query);
+                $this->db->executeQuery($query);
                 $values = '';
             }
             $rowCount++;
         }
         if (!empty($values)) {
             $query = $sql.rtrim($values, ',').$update ;
-            $this->db->query($query);
+            $this->db->executeQuery($query);
         }
     }
 
@@ -165,7 +165,7 @@ class SalesMaterialModel
                 // inserting records in batch
                 if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
                     $query = $sql.rtrim($values, ',').$update;
-                    $this->db->query($query);
+                    $this->db->executeQuery($query);
                     $values = '';
                 }
                 $rowCount++;
@@ -173,7 +173,7 @@ class SalesMaterialModel
             }
             if ($values) {
                 $query = $sql.rtrim($values, ',').$update ;
-                $this->db->query($query);
+                $this->db->executeQuery($query);
             }
         } catch (\Exception $ex) {
             echo $ex->getMessage();
@@ -194,15 +194,15 @@ class SalesMaterialModel
             echo $ex->getMessage();
         }
     }
-    
+
     public function deleteFailedRecordsFromMaster($failedRecords) {
         try {
             if (!empty($failedRecords) && count($failedRecords)>0) {
-                $sql = "DELETE FROM {$this->masterTable} WHERE `id` IN (";                
+                $sql = "DELETE FROM {$this->masterTable} WHERE `id` IN (";
                 if (count($failedRecords)>0) {
                     $str = "'" . implode ( "', '", $failedRecords ) . "'";
                     $query = $sql.$str." )";
-                    $this->db->query($query);
+                    $this->db->executeQuery($query);
                 }
             }
         }  catch (\Exception $ex) {
@@ -223,16 +223,16 @@ class SalesMaterialModel
             echo $ex->getMessage();
         }
     }
-    
+
     /**
      * Function to update master table
      */
     public function updateMaster()
-    {        
+    {
         try {
-            $this->db->query("TRUNCATE {$this->masterTable}");
+            $this->db->executeQuery("TRUNCATE {$this->masterTable}");
             $sql = "REPLACE INTO {$this->masterTable} (id, record, hash) SELECT t.id, t.record, t.hash FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE t.hash != m.hash OR m.id IS NULL";
-            $this->db->query($sql);
+            $this->db->executeQuery($sql);
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
@@ -244,7 +244,7 @@ class SalesMaterialModel
     public function truncateTempTable()
     {
         try {
-            $this->db->query("TRUNCATE {$this->tempTable}");
+            $this->db->executeQuery("TRUNCATE {$this->tempTable}");
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
@@ -264,7 +264,7 @@ class SalesMaterialModel
                 // inserting records in batch
                 if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
                     $query = $sql.rtrim($values, ',');
-                    $this->db->query($query);
+                    $this->db->executeQuery($query);
                     $values = '';
                 }
                 $rowCount++;
@@ -273,7 +273,7 @@ class SalesMaterialModel
             if($values)
             {
                 $query = $sql.rtrim($values, ',') ;
-                $this->db->query($query);
+                $this->db->executeQuery($query);
             }
         } catch (\Exception $ex) {
             echo $ex->getMessage();
@@ -293,22 +293,22 @@ class SalesMaterialModel
           `createdAt` int(11) DEFAULT NULL,
           PRIMARY KEY (`logId`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-        
-        
+
+
         CREATE TABLE IF NOT EXISTS `ifseu_material_sales_import_master` (
           `id` varchar(30) NOT NULL,
           `record` longtext,
           `hash` char(32) DEFAULT NULL,
           PRIMARY KEY (`id`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-        
-        
+
+
         CREATE TABLE IF NOT EXISTS `ifseu_material_sales_import_temp` (
           `id` varchar(30) NOT NULL,
           `record` longtext,
           `hash` char(32) DEFAULT NULL,
           PRIMARY KEY (`id`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
-        $this->db->query($query);
+        $this->db->executeQuery($query);
     }
 }

@@ -24,11 +24,11 @@ class IFSEUSaveAndPublishCommand extends AbstractCommand
 		$getIfseuProductIdsSQL = "SELECT oo_id from object_IFSEUProduct";
 		$productIds = $this->db->fetchAllAssociative($getIfseuProductIdsSQL);
 		$trucateSql = "TRUNCATE TABLE ifseu_product_left_to_save";
-		$this->db->query($trucateSql);
+		$this->db->executeQuery($trucateSql);
 		foreach($productIds as $productId)
 		{
 			$insertSql = "INSERT INTO ifseu_product_left_to_save VALUES(".$productId['oo_id'].")";
-			$this->db->query($insertSql);
+			$this->db->executeQuery($insertSql);
 		}
 		$sql = "SELECT `oo_id` from ifseu_product_left_to_save";
 		$record = $this->db->fetchAllAssociative($sql);
@@ -41,7 +41,7 @@ class IFSEUSaveAndPublishCommand extends AbstractCommand
 				if($obj->save()){
 					$deleteQuery = "DELETE FROM ifseu_product_left_to_save WHERE oo_id = '$id'";
 					try {
-							$this->db->query($deleteQuery);
+							$this->db->executeQuery($deleteQuery);
 							p_r($id);
 					} catch (\Exception $e) {
 							print_r($e);

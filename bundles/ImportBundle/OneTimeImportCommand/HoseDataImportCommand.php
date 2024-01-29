@@ -108,7 +108,7 @@ class HoseDataImportCommand extends AbstractCommand
     private function updateFert()
     {
         $sql = "SELECT o.o_id, SUBSTR(o.oldMaterialCode,1,6) baseLevel, SUBSTR(o.oldMaterialCode,1,9) skeleLevel, SUBSTR(o.siopFullCode,1,6) sfCode, oht.*, 'Fert' as fieldname FROM oti_hosedata_temp oht JOIN object_1 o ON(o.articleNumber=oht.Object)";
-        $results = $this->db->fetchAll($sql);
+        $results = $this->db->fetchAllAssociative($sql);
         $records = $this->getFertData($results);
         /**
          * Updating Base
@@ -136,14 +136,14 @@ class HoseDataImportCommand extends AbstractCommand
 
     /**
      * Updating Base Level Data
-     * 
+     *
      */
     private function updateBase()
     {
-        
+
         if (!empty($this->baseLevelRecords)) {
             $this->mapBaseLevelId($this->baseLevelRecords, $this->baseLevel);
-            
+
             /**
              * Getting base data
              */
@@ -178,7 +178,7 @@ class HoseDataImportCommand extends AbstractCommand
     /**
      * Updating siop level 5 data (PTG base level)
      * Getting list of skeleton leve data through query
-     * 
+     *
      */
     private function updateSkeleton()
     {
@@ -232,13 +232,13 @@ class HoseDataImportCommand extends AbstractCommand
                 unset($clrInfo);
             }
 
-            
+
             $brnds = null;
-            if (!empty($r['Brand_Name'])) {                
+            if (!empty($r['Brand_Name'])) {
                 $clrArr = "";
                 $clrArr = strtolower($r['Brand_Name']);
-		$clrInfo = $this->getBrands($clrArr);   
-		
+		$clrInfo = $this->getBrands($clrArr);
+
                 if (!empty($clrInfo['itemNotFound'])) {
                     $error[] = "Brands(s) '" . $clrInfo['itemNotFound'] . "' not found in master";
                 } else {
@@ -256,7 +256,7 @@ class HoseDataImportCommand extends AbstractCommand
                 $results[$k]['failedReason'] = "";
             }
 
-            
+
             $d[$i] = array(
                 'oo_id'  =>  $r['level6n9digit_id'],
 //                'grossWeight' => !empty($r['Weight_lb_ft']) ? $r['Weight_lb_ft'] : NULL,
@@ -301,9 +301,9 @@ class HoseDataImportCommand extends AbstractCommand
     {
         $d = array();
         $i = 0;
-        
-        
-        
+
+
+
         foreach ($results as $k => $r) {
             $tbCols = array();
             $cvMatrls = array();
@@ -314,7 +314,7 @@ class HoseDataImportCommand extends AbstractCommand
             $tbChrct = array();
             $error = array();
 
-            
+
 
             if (!empty($r['Tube_Material'])) {
                 $clrArr = array();
@@ -389,7 +389,7 @@ class HoseDataImportCommand extends AbstractCommand
             }
             if (!empty($r['Standard_Met_Tube'])) {
                 $clrArr = array();
-                $clrArr = $r['Standard_Met_Tube']; 
+                $clrArr = $r['Standard_Met_Tube'];
                 $clrInfo = $this->getMultiselectInfo('StandardMetTube', $clrArr);
                 if (!empty($clrInfo['itemNotFound'])) {
                     $error[] = "Standard_Met_Tube '" . $clrInfo['itemNotFound'] . "' not found in master";
@@ -398,10 +398,10 @@ class HoseDataImportCommand extends AbstractCommand
                 }
                 unset($clrInfo);
             }
-            
+
             if (!empty($r['Standard_Met_Cover'])) {
                 $clrArr = array();
-                $clrArr = $r['Standard_Met_Cover']; 
+                $clrArr = $r['Standard_Met_Cover'];
                 $clrInfo = $this->getMultiselectInfo('StandardMetCover', $clrArr);
                 if (!empty($clrInfo['itemNotFound'])) {
                     $error[] = "Standard_Met_Cover '" . $clrInfo['itemNotFound'] . "' not found in master";
@@ -410,10 +410,10 @@ class HoseDataImportCommand extends AbstractCommand
                 }
                 unset($clrInfo);
             }
-            
+
             if (!empty($r['Standard_Met_Hose'])) {
                 $clrArr = array();
-                $clrArr = $r['Standard_Met_Hose']; 
+                $clrArr = $r['Standard_Met_Hose'];
                 $clrInfo = $this->getMultiselectInfo('standardMetHose', $clrArr);
                 if (!empty($clrInfo['itemNotFound'])) {
                     $error[] = "Standard_Met_Hose '" . $clrInfo['itemNotFound'] . "' not found in master";
@@ -456,7 +456,7 @@ class HoseDataImportCommand extends AbstractCommand
             } else {
                 $d[$i]['staticWire'] = NULL;
             }
-            
+
 
             $i++;
         }
@@ -464,7 +464,7 @@ class HoseDataImportCommand extends AbstractCommand
         return $d;
     }
 
-    
+
 
     private function getHoseSkeletonData($results)
     {
@@ -472,7 +472,7 @@ class HoseDataImportCommand extends AbstractCommand
 
         $i = 0;
         foreach ($results as $k => $r) {
-            
+
             $error = array();
 
             if (!empty($error)) {
@@ -484,7 +484,7 @@ class HoseDataImportCommand extends AbstractCommand
             }
 
             // p_r($weightLbFt.' - '.$weightGM);
-            
+
             $d[$i] = array(
                 'o_id'  =>  $r['level6n9digit_id'],
                 'fieldname'  =>  'Skeleton',
@@ -502,7 +502,7 @@ class HoseDataImportCommand extends AbstractCommand
                 'hoseOdIn' =>  !empty($r['Hose_OD_in']) ? $r['Hose_OD_in'] : NULL,
                 'hoseOdmm' =>  !empty($r['Hose_OD_mm']) ? $r['Hose_OD_mm'] : NULL
             );
-            
+
             $i++;
         }
         $this->insertDataToLogTable($results);
@@ -521,7 +521,7 @@ class HoseDataImportCommand extends AbstractCommand
 
 
         foreach ($results as $k => $r) {
-            
+
             /* Extracting Base */
             if (!empty($r['baseLevel']) && is_numeric($r['baseLevel']) && !in_array($r['baseLevel'], $this->baseLevel)) {
                 array_push($this->baseLevel, $r['baseLevel']);
@@ -578,7 +578,7 @@ class HoseDataImportCommand extends AbstractCommand
         $d = array();
         $rows = array();
         $i = 0;
-        
+
         foreach ($this->baseLevelRecords as $baseLevelCode => $results) {
             if (!isset($d[$baseLevelCode])) {
                 $d[$baseLevelCode] = array();
@@ -672,7 +672,7 @@ class HoseDataImportCommand extends AbstractCommand
                         $d[$baseLevelCode]['MaxTemperature_Rating_C'] = $unit['maximumTemperatureC'];
                         unset($unit);
                     }
-                    
+
                 }
                 if (empty($d[$baseLevelCode]['Reinforcement'])) {
                     $arr = explode("/", $result['Reinforcement']);
@@ -692,7 +692,7 @@ class HoseDataImportCommand extends AbstractCommand
                 if(empty($d[$baseLevelCode]['Number_of_Plies'])) {
                     $d[$baseLevelCode]['Number_of_Plies'] = $result['Number_of_Plies'];
                 }
-                
+
                 if (!empty($result['Standard_Met_Tube'])) {
                     $arr = explode("/", $result['Standard_Met_Tube']);
                     foreach ($arr as $tm) {
@@ -714,7 +714,7 @@ class HoseDataImportCommand extends AbstractCommand
                     }
                     unset($arr);
                 }
-                
+
                 if (!empty($result['Tube_Material'])) {
                     $arr = explode("/", $result['Tube_Material']);
                     foreach ($arr as $tm) {
@@ -736,7 +736,7 @@ class HoseDataImportCommand extends AbstractCommand
                     }
                     unset($arr);
                 }
-                
+
                 if (!empty($result['Cover_Material'])) {
                     $arr = explode("/", $result['Cover_Material']);
                     foreach ($arr as $cm) {
@@ -821,10 +821,10 @@ class HoseDataImportCommand extends AbstractCommand
                 if (!isset($d[$baseLevelCode]['Hose_OD_mm'])) {
                     $d[$baseLevelCode]['Hose_OD_mm'] = '';
                 }
-               
+
                 if(empty($d[$baseLevelCode]['Bend_Radius_in'])) {
                     $unit = $unitConverter->getGroupWithValues('BendRadiusIN', floatval($result['Bend_Radius_in']));
-                    
+
                     $d[$baseLevelCode]['Bend_Radius_in'] = $unit['BendRadiusIN'];
                     $d[$baseLevelCode]['Bend_Radius_mm'] = $unit['BendRadiusMM'];
                     unset($unit);
@@ -832,7 +832,7 @@ class HoseDataImportCommand extends AbstractCommand
 
                 if(empty($d[$baseLevelCode]['Vacuum_Rating_in'])) {
                     $unit = $unitConverter->getGroupWithValues('VacuumIN', floatval($result['Vacuum_Rating_in']));
-                    
+
                     $d[$baseLevelCode]['Vacuum_Rating_in'] = $unit['VacuumIN'];//$result['Vacuum_Rating_in'];
                     $d[$baseLevelCode]['Vacuum_Rating_mm'] = $unit['VacuumMM'];
                     unset($unit);
@@ -858,7 +858,7 @@ class HoseDataImportCommand extends AbstractCommand
                 if(empty($d[$baseLevelCode]['Hose_ID_in_Dec_Actual_ID'])) {
                     $d[$baseLevelCode]['Hose_ID_in_Dec_Actual_ID'] = $result['Hose_ID_in_Dec_Actual_ID'];
                 }
-                
+
                 if(empty($d[$baseLevelCode]['Hose_ID_mm_Actual_ID'])) {
                     $d[$baseLevelCode]['Hose_ID_mm_Actual_ID'] = $result['Hose_ID_mm_Actual_ID'];
                 }
@@ -868,11 +868,11 @@ class HoseDataImportCommand extends AbstractCommand
                     $d[$baseLevelCode]['Hose_OD_in'] = $unit['hoseOdIn'];//$result['Working_Pressure_Mpa'];
                     $d[$baseLevelCode]['Hose_OD_mm'] = $unit['hoseOdmm'];
                 }
-                       
+
             }
-            
+
             $this->skeleLevelRecords[$baseLevelCode] = $d[$baseLevelCode];
-          
+
             $i++;
         }
     }
@@ -880,7 +880,7 @@ class HoseDataImportCommand extends AbstractCommand
     private function mapBaseLevelId(&$arr, $keys)
     {
         $sql = "SELECT o_id, o_key FROM object_1 WHERE o_key IN (" . implode(",", $keys) . ")";
-        $results = $this->db->fetchAll($sql);
+        $results = $this->db->fetchAllAssociative($sql);
         foreach ($results as $result) {
             if (array_key_exists($result['o_key'], $arr)) {
                 $arr[$result['o_key']]['level6n9digit_id'] = $result['o_id'];
@@ -922,7 +922,7 @@ class HoseDataImportCommand extends AbstractCommand
                 }
                 $wh = " WHERE o_id IN (SELECT o_id FROM object_1 WHERE o_key='" . $result['o_key'] . "')";
                 // echo $sql . $cond . $wh;die;
-                $this->db->query($sql . $cond . $wh);
+                $this->db->executeQuery($sql . $cond . $wh);
             }
         }
     }
@@ -944,17 +944,17 @@ class HoseDataImportCommand extends AbstractCommand
                 $where .= " OR o.masterType LIKE '%$type%'";
             }
         }
-        $results = $this->db->query($sql . $where);
+        $results = $this->db->executeQuery($sql . $where);
         foreach ($results as $result) {
             $type = array_search($result['masterType'], $this->masterTypes);
             $this->masters[$type][$result['o_id']] = strtolower($result['name']);
             unset($type);
         }
-        
+
         unset($results);
         /* Loading Brands */
         $sql = "SELECT o_id, `name` FROM object_3 WHERE o_published=1";
-        $results = $this->db->query($sql);
+        $results = $this->db->executeQuery($sql);
         foreach ($results as $result) {
             $this->brands[$result['o_id']] = strtolower(trim($result['name']));
             unset($type);
@@ -968,10 +968,10 @@ class HoseDataImportCommand extends AbstractCommand
      * array elements
      * * items: list of matched value
      * * itemNotFound: list of searched item which not found in master
-     * 
+     *
      */
     private function getMultiselectInfo($masterKey, $items)
-    {   
+    {
         $res = array();
         $itemNotFound = array();
         $hayStackArr = isset($this->masters[$masterKey]) && is_array($this->masters[$masterKey]) ? $this->masters[$masterKey] : array();
@@ -998,7 +998,7 @@ class HoseDataImportCommand extends AbstractCommand
     private function getBrands($items)
     {
         $item = array_search(trim($items), $this->brands) ?: false;
-	
+
 	return array(
             'items' =>  $item,
             'itemNotFound' => empty($item) ? $item : false
@@ -1038,14 +1038,14 @@ class HoseDataImportCommand extends AbstractCommand
 
                     if ($rowCount % self::BATCH_SIZE == 0) {
                         $query = $sql . rtrim($values, ',') . $update;
-                        $this->db->query($query);
+                        $this->db->executeQuery($query);
                         $values = '';
                     }
                     $rowCount++;
                 }
                 if (!empty($values)) {
                     $query = $sql . rtrim($values, ',') . $update;
-                    $this->db->query($query);
+                    $this->db->executeQuery($query);
                 }
             }
         } catch (\Throwable $th) {
@@ -1080,7 +1080,7 @@ class HoseDataImportCommand extends AbstractCommand
     {
         p_r('Updating Log..');
         $sql = "SELECT oht.* FROM oti_hosedata_temp oht LEFT JOIN object_1 o ON(o.articleNumber=oht.`Object`) WHERE o.o_id is null";
-        $data = $this->db->query($sql);
+        $data = $this->db->executeQuery($sql);
         $this->insertDataToLogTable($data, "Failed", "Object does not match in material mara");
     }
 
@@ -1135,7 +1135,7 @@ class HoseDataImportCommand extends AbstractCommand
     private function truncateTemp()
     {
         $sql = "TRUNCATE oti_hosedata_temp;";
-        $this->db->query($sql);
+        $this->db->executeQuery($sql);
     }
 
     public function insertDataToLogTable($data, $success = "", $failedReason = "")
@@ -1157,14 +1157,14 @@ class HoseDataImportCommand extends AbstractCommand
                 // inserting records in batch
                 if ($rowCount % self::BATCH_SIZE == 0) {
                     $query = $sql . rtrim($values, ',');
-                    $this->db->query($query);
+                    $this->db->executeQuery($query);
                     $values = '';
                 }
                 $rowCount++;
             }
             if ($values) {
                 $query = $sql . rtrim($values, ',');
-                $this->db->query($query);
+                $this->db->executeQuery($query);
             }
         } catch (\Exception $ex) {
             echo $ex->getMessage();
@@ -1238,6 +1238,6 @@ class HoseDataImportCommand extends AbstractCommand
           ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
         $sql = $sql1 . $sql2;
         //   echo $sql1;
-        $this->db->query($sql);
+        $this->db->executeQuery($sql);
     }
 }

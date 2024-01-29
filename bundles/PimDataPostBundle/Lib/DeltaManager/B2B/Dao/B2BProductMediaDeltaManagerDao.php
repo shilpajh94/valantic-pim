@@ -11,7 +11,7 @@ class B2BProductMediaDeltaManagerDao extends DeltaManagerDao
     private $db;    //database
 
     private $attributeConfigProvider;
-    
+
     public function __construct()
     {
         $this->db = \Pimcore\Db::get();
@@ -22,7 +22,7 @@ class B2BProductMediaDeltaManagerDao extends DeltaManagerDao
     {
         $sql = "SELECT o_id FROM ".Constants::B2B_PRODUCT_MASTER_TABLE_NAME;
         $sql .= " WHERE Document LIKE '%|".$assetId.",%'";
-        $result = $this->db->fetchAll($sql);
+        $result = $this->db->fetchAllAssociative($sql);
         $returnArray = [];
         if( count($result) > 0 ){
             $returnArray['Document'] = array_column($result , 'o_id');
@@ -45,13 +45,11 @@ class B2BProductMediaDeltaManagerDao extends DeltaManagerDao
             {
                 $sql .= " WHERE ".$key." = '".$assetId."'";
             }
-            $result = $this->db->fetchAll($sql);
+            $result = $this->db->fetchAllAssociative($sql);
             if( count($result) >0 ){
                 $returnArray[$key] = array_column($result , 'o_id');
             }
         }
         return $returnArray;
     }
-
 }
-

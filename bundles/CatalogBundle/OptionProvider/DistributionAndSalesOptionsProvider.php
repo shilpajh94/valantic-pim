@@ -1,26 +1,32 @@
 <?php
 
-namespace CatalogBundle\OptionProvider;
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Pimcore
+ *
+ * This source file is available under two different licenses:
+ * - GNU General Public License version 3 (GPLv3)
+ * - Pimcore Commercial License (PCL)
+ * Full copyright and license information is available in
+ * LICENSE.md which is distributed with this source code.
+ *
+ *  @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
+ *  @license    http://www.pimcore.org/license     GPLv3 and PCL
  */
 
-use Pimcore\Model\DataObject;
+namespace CatalogBundle\OptionProvider;
+
 use Pimcore\Model\DataObject\ClassDefinition\DynamicOptionsProvider\SelectOptionsProviderInterface;
+use Pimcore\Model\DataObject\ClassDefinition\Data;
 
-class DistributionAndSalesOptionsProvider implements SelectOptionsProviderInterface {
-
+class DistributionAndSalesOptionsProvider implements SelectOptionsProviderInterface
+{
     /**
-     * @param $context array
-     * @param $fieldDefinition Data
+     * @param array $context
+     * @param Data $fieldDefinition
      * @return array
      */
-    public function getOptions($context, $fieldDefinition) {
-
-
+    public function getOptions(array $context, Data $fieldDefinition): array
+    {
         $allAvailablelArray = array();
         $displayFieldData = $fieldDefinition->getOptionsProviderData();
         if ($displayFieldData) {
@@ -31,16 +37,13 @@ class DistributionAndSalesOptionsProvider implements SelectOptionsProviderInterf
                 $displayFieldValue = $displayFieldData[2];
                 $displayFieldData = explode("+", $displayFieldArray);
 
-                if(count($displayFieldData) == 1)
-                {
+                if (count($displayFieldData) == 1) {
                     $displayFieldName = $displayFieldData[0];
-                }
-                elseif(count($displayFieldData) == 2)
-                {
+                } elseif (count($displayFieldData) == 2) {
                     $displayFieldName = $displayFieldData[0];
                     $displayFieldCode = $displayFieldData[1];
                 }
-                
+
                 $listingClassName = "\\Pimcore\\Model\\DataObject\\" . $className . "\\Listing";
                 $listingObject = new $listingClassName();
                 $listingObject->setOrderKey($displayFieldName);
@@ -51,17 +54,17 @@ class DistributionAndSalesOptionsProvider implements SelectOptionsProviderInterf
 
                     $displayFieldValueGetter = "get" . ucfirst($displayFieldValue);
                     $value = $object->$displayFieldValueGetter();
-                    
-                    if($displayFieldCode)
-                    {
+
+                    if ($displayFieldCode) {
                         $displayFieldCodeGetter = "get" . ucfirst($displayFieldCode);
                         $code = $object->$displayFieldCodeGetter();
                     }
 
-                    if($displayFieldCode)
-                        $allAvailablelArray[] = array("key" => $name." (".$code.")", "value" => $value);
-                    else
+                    if ($displayFieldCode) {
+                        $allAvailablelArray[] = array("key" => $name . " (" . $code . ")", "value" => $value);
+                    } else {
                         $allAvailablelArray[] = array("key" => $name, "value" => $value);
+                    }
                 }
             }
         }
@@ -69,21 +72,23 @@ class DistributionAndSalesOptionsProvider implements SelectOptionsProviderInterf
     }
 
     /**
-     * Returns the value which is defined in the 'Default value' field  
-     * @param $context array
-     * @param $fieldDefinition Data
+     * Returns the value which is defined in the 'Default value' field
+     * @param array $context
+     * @param Data $fieldDefinition
      * @return mixed
      */
-    public function getDefaultValue($context, $fieldDefinition) {
-        return true; //return $fieldDefinition->getDefaultValue();
+    public function getDefaultValue(array $context, Data $fieldDefinition): ?string
+    {
+        return true;
     }
 
     /**
-     * @param $context array
-     * @param $fieldDefinition Data
+     * @param array $context
+     * @param Data $fieldDefinition
      * @return bool
      */
-    public function hasStaticOptions($context, $fieldDefinition) {
+    public function hasStaticOptions(array $context, Data $fieldDefinition): bool
+    {
         return true;
     }
 

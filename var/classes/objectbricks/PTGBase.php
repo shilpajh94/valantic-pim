@@ -19,13 +19,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
      'type' => NULL,
      'region' => NULL,
      'title' => NULL,
-     'width' => NULL,
-     'height' => NULL,
+     'width' => 0,
+     'height' => 0,
      'collapsible' => false,
      'collapsed' => false,
      'bodyStyle' => NULL,
      'datatype' => 'layout',
-     'permissions' => NULL,
      'children' => 
     array (
       0 => 
@@ -34,13 +33,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'type' => NULL,
          'region' => NULL,
          'title' => '',
-         'width' => NULL,
-         'height' => NULL,
+         'width' => 0,
+         'height' => 0,
          'collapsible' => false,
          'collapsed' => false,
          'bodyStyle' => '',
          'datatype' => 'layout',
-         'permissions' => NULL,
          'children' => 
         array (
           0 => 
@@ -55,8 +53,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'locked' => false,
              'style' => '',
              'permissions' => NULL,
-             'datatype' => 'data',
-             'fieldtype' => 'multiselect',
+             'fieldtype' => '',
              'relationType' => false,
              'invisible' => false,
              'visibleGridView' => false,
@@ -65,13 +62,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
             array (
             ),
              'options' => NULL,
-             'width' => 300,
-             'height' => '',
              'maxItems' => 1,
              'renderType' => 'tags',
+             'dynamicOptions' => false,
+             'height' => '',
+             'width' => 300,
+             'optionsProviderType' => NULL,
              'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
              'optionsProviderData' => 'PTG',
-             'dynamicOptions' => false,
           )),
           1 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
@@ -85,8 +83,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'locked' => false,
              'style' => '',
              'permissions' => NULL,
-             'datatype' => 'data',
-             'fieldtype' => 'multiselect',
+             'fieldtype' => '',
              'relationType' => false,
              'invisible' => false,
              'visibleGridView' => false,
@@ -95,13 +92,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
             array (
             ),
              'options' => NULL,
-             'width' => 300,
-             'height' => '',
              'maxItems' => 20,
              'renderType' => 'tags',
+             'dynamicOptions' => false,
+             'height' => '',
+             'width' => 300,
+             'optionsProviderType' => NULL,
              'optionsProviderClass' => 'AppBundle\\OptionProvider\\ApplicationOptionsProvider',
              'optionsProviderData' => 'PTG',
-             'dynamicOptions' => false,
           )),
         ),
          'locked' => false,
@@ -127,7 +125,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
      'labelWidth' => 100,
      'labelAlign' => 'left',
   )),
-   'generateTypeDeclarations' => false,
+   'fieldDefinitionsCache' => NULL,
    'blockedVarsForExport' => 
   array (
   ),
@@ -138,5 +136,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
       'classname' => 'Product',
       'fieldname' => 'Base',
     ),
+  ),
+   'activeDispatchingEvents' => 
+  array (
   ),
 ));

@@ -26,7 +26,7 @@ class Catalog {
 	public static function getGroups(){
 		try {
 			// Querying product category from database
-			$productCategories = Db::get()->fetchAll('SELECT
+			$productCategories = Db::get()->fetchAllAssociative('SELECT
 				*	from object_localized_2_en where o_published = 1
 			');
 			return $productCategories;
@@ -45,7 +45,7 @@ class Catalog {
 	public static function getGroupsDescription(){
 		try {
             // Querying data from Sales Material Master Database
-	    	$siopMasterList = Db::get()->fetchAll('SELECT object_2.o_id as id,
+	    	$siopMasterList = Db::get()->fetchAllAssociative('SELECT object_2.o_id as id,
 				Level,
 				code,
 				fullCode,
@@ -87,7 +87,7 @@ class Catalog {
                 SELECT oo_id,Name FROM object_". $fittingSubCategoryClassId ." where o_published = 1
 		    ";
 
-            $result = Db::get()->fetchAll($categorySql);
+            $result = Db::get()->fetchAllAssociative($categorySql);
             return $result;
         }catch (\Exception $e) {
             \B2BExportBundle\Lib\Utils::log("Catalog Model Exception :: " .$e->getMessage(),LogLevel::CRITICAL());
@@ -106,10 +106,10 @@ class Catalog {
                 SELECT oo_id,Name,'TRUE' as top_group,'1' as sequence,'0' as parent_group_identifier FROM object_". $categoryClassId ." where o_published = 1
 		    ";
 
-            $categoryData = Db::get()->fetchAll($categorySql);
+            $categoryData = Db::get()->fetchAllAssociative($categorySql);
 
             $subCategoriesSQL = "SELECT oo_id,Name, 'FALSE' as top_group,'2' as sequence,category FROM object_". $subCategoryClassId . " where o_published = 1";
-            $subCategories = Db::get()->fetchAll($subCategoriesSQL);
+            $subCategories = Db::get()->fetchAllAssociative($subCategoriesSQL);
             $subCategoryData = [];
             foreach($subCategories as $subCategory){
 
@@ -132,7 +132,7 @@ class Catalog {
                 SELECT oo_id,Name,'TRUE' as top_group,'1' as sequence,'0' as parent_group_identifier FROM object_". $fittingSubCategoryClassId ." where o_published = 1
 		    ";
 
-            $fittingCategoryData = Db::get()->fetchAll($fittingCategorySql);
+            $fittingCategoryData = Db::get()->fetchAllAssociative($fittingCategorySql);
 
             return array_merge($categoryData,$subCategoryData, $fittingCategoryData);
         }catch (\Exception $e) {
@@ -164,7 +164,7 @@ class Catalog {
 //                        AND material != ''
 //		    ";
 //
-//		    $productIds = Db::get()->fetchCol($sql1);
+//		    $productIds = Db::get()->fetchFirstColumn($sql1);
 
 //		    $oldSql = "SELECT
 //				DISTINCT
@@ -246,7 +246,7 @@ class Catalog {
 
 
             // Querying data from product Master data from Database
-            $productMaster = Db::get()->fetchAll($newSQL);
+            $productMaster = Db::get()->fetchAllAssociative($newSQL);
 
 	    	return $productMaster;
 		} catch (\Exception $e) {
@@ -277,7 +277,7 @@ class Catalog {
 //                        AND material != ''
 //		    ";
 //
-//            $productIds = Db::get()->fetchCol($sql1);
+//            $productIds = Db::get()->fetchFirstColumn($sql1);
 
 //            $oldSql = "SELECT
 //				DISTINCT
@@ -354,7 +354,7 @@ class Catalog {
                                         AND material != '')
 			";
 
-            $productMaster = Db::get()->fetchAll($newSql);
+            $productMaster = Db::get()->fetchAllAssociative($newSql);
 
 	    	// returning product master and language master data
 	    	return ['productMaster' => $productMaster, 'languageMaster' => self::languageMaster()];
@@ -370,14 +370,14 @@ class Catalog {
 	protected function languageMaster() {
 		$languageMasterKeys = array_map(function($e){
 				return $e['SystemCode'];
-			}, Db::get()->fetchAll('
+			}, Db::get()->fetchAllAssociative('
 				SELECT SystemCode
 				FROM object_27
 			')
 		);
 		$languageMasterValues = array_map(function($e){
 				return $e['Code'];
-			}, Db::get()->fetchAll('
+			}, Db::get()->fetchAllAssociative('
 				SELECT Code
 				FROM object_27
 			')

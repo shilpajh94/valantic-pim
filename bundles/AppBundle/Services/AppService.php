@@ -186,7 +186,7 @@ class AppService
 
             /**
              * setting 'Thrust Wire Nut (Y/N)' in hyd fittings fert
-             * 
+             *
              * Commented this code because we removed thrustwirenut attribute as per client
              */
             // if( $hydFittingFert = $product->getFert()->getHydFittingsFert() ){
@@ -445,7 +445,7 @@ class AppService
             $sql .= " ORDER BY FIELD(ooo_id," . implode(",",$masterIds) . ")";
 
             try{
-                $names = $this->db->fetchCol($sql);
+                $names = $this->db->fetchFirstColumn($sql);
             }catch (\Exception $exception){
                 Logger::error("Exception: " . $exception->getMessage());
                 throw new \Exception("An unexpected error occurred.");
@@ -562,16 +562,16 @@ class AppService
     private function skeletonProductUpdate($currentDate){
         $batchSize = $this->batchSize;
         $baseSql = " SELECT * FROM object_".$this->productClassId ." WHERE productType='base' AND o_modificationDate >= ". $this->db->quote($currentDate);
-        $totalCount = count($this->db->fetchCol($baseSql));
+        $totalCount = count($this->db->fetchFirstColumn($baseSql));
         echo "total base products- (".$totalCount. ") ".date('m/d/Y h:i:s') . PHP_EOL;
         $offset = 0;
         while($offset <= ( $totalCount - 1) ) {
             $limit = " LIMIT " . $offset . ", " . $batchSize;
             $baseProductSql = $baseSql . $limit;
-            $baseProducts = $this->db->fetchCol($baseProductSql);
+            $baseProducts = $this->db->fetchFirstColumn($baseProductSql);
             $skeletonSql = " SELECT oo_id as id FROM object_" . $this->productClassId . " WHERE productType='skeleton' AND o_parentId IN (" . implode(",", $baseProducts) . ")";
             if (count($baseProducts)) {
-                $skeletonProducts = $this->db->fetchCol($skeletonSql);
+                $skeletonProducts = $this->db->fetchFirstColumn($skeletonSql);
                 echo "total skeleton products in this batch- (" . count($skeletonProducts) . ") " . date('m/d/Y h:i:s') . PHP_EOL;
                 $this->saveProducts($baseProducts, $skeletonProducts, 'skeleton');
             }
@@ -587,16 +587,16 @@ class AppService
     private function fertProductUpdate($currentDate){
         $batchSize = $this->batchSize;
         $skeletonSql = " SELECT * FROM object_".$this->productClassId ." WHERE productType='skeleton' AND o_modificationDate >= ". $this->db->quote($currentDate);
-        $totalCount = count($this->db->fetchCol($skeletonSql));
+        $totalCount = count($this->db->fetchFirstColumn($skeletonSql));
         echo "Total skeleton products- (".$totalCount. ") ".date('m/d/Y h:i:s') . PHP_EOL;
         $offset = 0;
         while($offset <= ( $totalCount - 1) ) {
             $limit = " LIMIT " . $offset . ", " . $batchSize;
             $skeletonProductSql = $skeletonSql . $limit;
-            $skeletonProducts = $this->db->fetchCol($skeletonProductSql);
+            $skeletonProducts = $this->db->fetchFirstColumn($skeletonProductSql);
             if (count($skeletonProducts)) {
                 $fertSql = " SELECT oo_id as id FROM object_" . $this->productClassId . " WHERE productType='fert' AND o_parentId IN (" . implode(",", $skeletonProducts) . ")";
-                $fertProducts = $this->db->fetchCol($fertSql);
+                $fertProducts = $this->db->fetchFirstColumn($fertSql);
                 echo "total fert products in this batch- (" . count($fertProducts) . ") " . date('m/d/Y h:i:s') . PHP_EOL;
                 $this->saveProducts($skeletonProducts, $fertProducts, 'fert');
             }
@@ -617,7 +617,7 @@ class AppService
         $totalCount = count($products);
         while($offset <= ( $totalCount - 1) ){
             $sql = " SELECT oo_id as id FROM object_" . $this->productClassId ." WHERE productType=".$this->db->quote($type)." AND o_parentId IN (" . implode(",",$parentProducts) . ") LIMIT ".$offset.", ".$batchSize;
-            $results = $this->db->fetchCol($sql);
+            $results = $this->db->fetchFirstColumn($sql);
             foreach ($results as $product){
                 $cp =  Product::getById($product);
                 try {

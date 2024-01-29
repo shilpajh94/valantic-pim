@@ -37,7 +37,7 @@ class Material
             // Inserting Data in both tables
             Material::insertDataInCustomTables();
             // Querying data from Sales Material Master Database
-            $salesMaterialMaster = Db::get()->fetchAll("
+            $salesMaterialMaster = Db::get()->fetchAllAssociative("
                 SELECT
                     product.articleNumber as partNo,
                     salesOrg.code AS salesOrgCode,
@@ -74,7 +74,7 @@ class Material
         return $salesMaterialMaster;
         } catch (\Exception $ex) {
             \B2BExportBundle\Lib\Utils::log("Material Model Exception :: " .$ex->getMessage(),LogLevel::CRITICAL());
-        } 
+        }
     }
 
 
@@ -84,7 +84,7 @@ class Material
     public static function truncateCustomTables() {
         Db::get()->executeQuery("TRUNCATE TABLE ".self::OBJECT_10_CUSTOM_FOR_B2BEXPORT);
 
-        Db::get()->executeQuery("TRUNCATE TABLE ".self::OBJECT_12_CUSTOM_FOR_B2BEXPORT); 
+        Db::get()->executeQuery("TRUNCATE TABLE ".self::OBJECT_12_CUSTOM_FOR_B2BEXPORT);
     }
 
 
@@ -138,7 +138,7 @@ class Material
      */
     public static function insertDataInCustomTables() {
         Db::get()->executeQuery("INSERT INTO ".self::OBJECT_12_CUSTOM_FOR_B2BEXPORT."
-            ( SELECT 
+            ( SELECT
                 oo_id,
                 o_published,
                 o_key,
@@ -160,7 +160,7 @@ class Material
             )");
 
         Db::get()->executeQuery("INSERT INTO ".self::OBJECT_10_CUSTOM_FOR_B2BEXPORT."
-            ( SELECT 
+            ( SELECT
                 salesMaster.oo_id,
                 salesMaster.o_published,
                 CONCAT(product.articleNumber,'-',plant.Plant,'-',salesOrg.code,'-',distChannel.code),
@@ -171,7 +171,7 @@ class Material
                 salesMaster.DistributionChannel__id,
                 salesMaster.DeliveringPlant__id,
                 salesMaster.epixFlag
-                FROM 
+                FROM
                 object_10 salesMaster JOIN object_1 product ON product.oo_id = SUBSTRING(salesMaster.Material, 2, (length(salesMaster.Material) - 2 ) )
                 JOIN
                 object_6 salesOrg ON salesOrg.oo_id = salesMaster.SalesOrganization__id

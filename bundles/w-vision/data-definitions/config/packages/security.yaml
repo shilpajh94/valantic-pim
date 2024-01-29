@@ -1,7 +1,7 @@
 security:
     providers:
         pimcore_admin:
-            id: Pimcore\Bundle\AdminBundle\Security\User\UserProvider
+            # id: Pimcore\Bundle\AdminBundle\Security\User\UserProvider
 
     firewalls:
         dev:
@@ -16,20 +16,20 @@ security:
 
         # Pimcore admin form login // DO NOT CHANGE!
         pimcore_admin:
-            anonymous: ~
-            pattern: ^/admin(/.*)?$
-            # admin firewall is stateless as we open the admin
-            # session on demand for non-blocking parallel requests
-            stateless: true
-            provider: pimcore_admin
-            logout:
-                path:   /admin/logout
-                target: /admin/login
-                success_handler: Pimcore\Bundle\AdminBundle\Security\LogoutSuccessHandler
-            guard:
-                entry_point: Pimcore\Bundle\AdminBundle\Security\Guard\AdminAuthenticator
-                authenticators:
-                    - Pimcore\Bundle\AdminBundle\Security\Guard\AdminAuthenticator
+            # anonymous: ~
+            # pattern: ^/admin(/.*)?$
+            # # admin firewall is stateless as we open the admin
+            # # session on demand for non-blocking parallel requests
+            # stateless: true
+            # provider: pimcore_admin
+            # logout:
+            #     path:   /admin/logout
+            #     target: /admin/login
+            #     success_handler: Pimcore\Bundle\AdminBundle\Security\LogoutSuccessHandler
+            # guard:
+            #     entry_point: Pimcore\Bundle\AdminBundle\Security\Guard\AdminAuthenticator
+            #     authenticators:
+            #         - Pimcore\Bundle\AdminBundle\Security\Guard\AdminAuthenticator
             two_factor:
                 auth_form_path: /admin/login/2fa                   # Path or route name of the two-factor form
                 check_path: /admin/login/2fa-verify                # Path or route name of the two-factor code check

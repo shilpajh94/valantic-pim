@@ -37,14 +37,14 @@ class PimcoreDeletedAssetsDao
         $sql = " DELETE FROM " . self::TABLE_NAME;
         $sql .= " WHERE pimcore_object_id = " . $id;
 
-        return $this->db->executeUpdate($sql);
+        return $this->db->executeStatement($sql);
     }
 
     public function getAllEntries()
     {
         $sql = "SELECT * from " . self::TABLE_NAME;
 
-        return $this->db->fetchAll($sql);
+        return $this->db->fetchAllAssociative($sql);
     }
 
     public function doesS3PathExist($s3Path){

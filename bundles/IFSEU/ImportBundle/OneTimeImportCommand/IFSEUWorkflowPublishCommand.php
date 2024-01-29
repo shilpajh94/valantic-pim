@@ -14,7 +14,7 @@ class IFSEUWorkflowPublishCommand extends AbstractCommand
     protected function configure()
     {
         $this->setName('ifseu-workflow-publish')
-            ->setDescription('This command will publish workflow state for all IFSEU Products');        
+            ->setDescription('This command will publish workflow state for all IFSEU Products');
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
@@ -36,13 +36,13 @@ class IFSEUWorkflowPublishCommand extends AbstractCommand
                     echo PHP_EOL;
                 }else{
                     $insertQuery = "INSERT into element_workflow_state (`cid`,`ctype`,`place`,`workflow`) VALUES('$objectId', 'object', 'published', 'ifs_eu_product_enrichment')";
-                    $this->db->query($insertQuery);
+                    $this->db->executeQuery($insertQuery);
                     print_r('Inserted for  ----- '.$objectId);
                     echo PHP_EOL;
                 }
             }
-    
-            
+
+
         }
         return 1;
     }
