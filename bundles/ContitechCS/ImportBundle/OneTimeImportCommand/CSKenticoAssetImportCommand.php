@@ -156,7 +156,7 @@ class CSKenticoAssetImportCommand extends AbstractCommand
         }
 
         $items = [];
-        if (CUSTOM_ENV == "prod" || CUSTOM_ENV == "stage") {
+        if (CUSTOM_ENV == "prod" || CUSTOM_ENV == "stage" || CUSTOM_ENV == "stage_new") {
             $aContext = array(
                 'http' => array(
                     'proxy'           => 'tcp://cias.geoaws.com:8080',
@@ -176,7 +176,7 @@ class CSKenticoAssetImportCommand extends AbstractCommand
                 if (!$assetObj && $folderId && $downloadOrMapping == 'D') {
                     $assetObj = new Asset();
                     $assetObj->setFilename($imageName);
-                    if (CUSTOM_ENV == "prod" || CUSTOM_ENV == "stage") {
+                    if (CUSTOM_ENV == "prod" || CUSTOM_ENV == "stage" || CUSTOM_ENV == "stage_new") {
                         $assetObj->setData(file_get_contents($imageUrl, False, $cxContext));
                     } else {
                         $assetObj->setData(file_get_contents($imageUrl));

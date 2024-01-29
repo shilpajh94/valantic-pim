@@ -138,7 +138,7 @@ class RestoreDeletedS3ObjectsCommand extends Command
 
     public function getS3Client()
     {
-        if (CUSTOM_ENV == "stage" || CUSTOM_ENV == "prod"){
+        if (CUSTOM_ENV == "stage" || CUSTOM_ENV == "prod" || CUSTOM_ENV == "stage_new"){
 
             $s3ConfigSettings = [
                 'version' => 'latest',

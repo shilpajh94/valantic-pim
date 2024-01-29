@@ -153,7 +153,7 @@ class MoveSAPFileToS3Command extends Command
 
     public function getS3ArchiveClient(): S3Client
     {
-        if (CUSTOM_ENV == "stage" || CUSTOM_ENV == "prod"){
+        if (CUSTOM_ENV == "stage" || CUSTOM_ENV == "prod" || CUSTOM_ENV == "stage_new"){
 
             $s3ArchiveConfigSettings = [
                 'version' => 'latest',
