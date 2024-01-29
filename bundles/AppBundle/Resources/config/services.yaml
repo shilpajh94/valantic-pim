@@ -49,9 +49,9 @@ services:
         
     # Services
     # this service will be common throughout the project
-    # app.common_helper:
-    #     class: AppBundle\Helper\Common
-    #     public: true
+    app.common_helper:
+        class: AppBundle\Helper\Common
+        public: true
 
     # Global helper
     # app.category_helper:

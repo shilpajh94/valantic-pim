@@ -12,6 +12,7 @@ use \Exception;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Pimcore\Controller\FrontendController;
+use Pimcore\Bundle\WebToPrintBundle\Processor;
 
 class IndustrialHoseController extends FrontendController
 {
@@ -1366,7 +1367,7 @@ class IndustrialHoseController extends FrontendController
 
         $imageWidth = null;
         $imageRecompression = null;
-        $printConfigFile = \Pimcore\Web2Print\Processor::getJobConfigFile($documentId);
+        $printConfigFile = Processor::getJobConfigFile($documentId);
         if (file_exists($printConfigFile)) {
             $printConfigFileContent = file_get_contents($printConfigFile);
             $printConfig = json_decode($printConfigFileContent, true);

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Pimcore global services
  *
@@ -15,66 +16,50 @@
 namespace AppBundle\EventListener;
 
 use AppBundle\Services\AppService;
-use AppBundle\Services\CategoryBrickMappingService;
-use AppBundle\Services\ConfigProviderService;
-use AppBundle\Services\UnitConverterService;
-use Pimcore\Bundle\AdminBundle\Helper\GridHelperService;
 use Pimcore\Event\Model\DataObjectEvent;
-use Pimcore\Model\DataObject\ProductLine;
 use Pimcore\Model\DataObject;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Pimcore\Event\Model\DocumentEvent;
-
+use Pimcore\Bundle\WebToPrintBundle\Event\Model\PrintConfigEvent;
+use Pimcore\Bundle\WebToPrintBundle\Processor\PdfReactor;
+use Pimcore\Model;
 
 class ObjectListener
 {
-
     private $requestStack;
-
-    private $categoryBrickMappingService;
-
-    private $unitConversionService;
-
     private $appService;
 
-    private $customGridHelperService;
-
-    public function __construct(RequestStack $requestStack,
-                                CategoryBrickMappingService $categoryBrickMappingService,
-                                UnitConverterService $unitConverterService,
-                                AppService $appService,
-                                GridHelperService $customGridHelperService
-                                )
-    {
+    public function __construct(
+        RequestStack $requestStack,
+        AppService $appService,
+    ) {
         $this->requestStack = $requestStack;
-        $this->categoryBrickMappingService = $categoryBrickMappingService;
-        $this->unitConversionService = $unitConverterService;
         $this->appService = $appService;
-        $this->customGridHelperService = $customGridHelperService;
     }
 
-    public function modifyProcessingOptions(\Pimcore\Event\Model\PrintConfigEvent $event) {
+    public function modifyProcessingOptions(PrintConfigEvent $event)
+    {
 
         $arguments = $event->getArguments();
         $options = $arguments['options'];
 
         $processor = $event->getProcessor();
-        if($processor instanceof \Pimcore\Web2Print\Processor\PdfReactor) {
+        if ($processor instanceof PdfReactor) {
 
             //add option disableBackgroundExecution into pdf generation process (pdf reactor functionality)
             $options[] = ['name' => 'disableBackgroundExecution', 'type' => 'bool', 'default' => true];
             $options[] = [
                 'name' => 'Image Quality',
                 'type' => 'select',
-                'values' => [ 'Original','90%', '80%', '70%', '60%', '50%','40%','30%','20%','10%'],
+                'values' => ['Original', '90%', '80%', '70%', '60%', '50%', '40%', '30%', '20%', '10%'],
                 'default' => 'Original'
             ];
             $options[] = [
                 'name' => 'Image Width',
                 'type' => 'select',
-                'values' => [ 'Original','2500', '2000', '1500', '1000', '500'],
+                'values' => ['Original', '2500', '2000', '1500', '1000', '500'],
                 'default' => 'Original'
             ];
         }
@@ -104,13 +89,10 @@ class ObjectListener
         $data = $event->getArgument('data');
         if ($currentObject instanceof \Pimcore\Model\DataObject\Product) {
             $validLayouts = $data['validLayouts'];
-            $productType = $currentObject->getProductType();
             $layoutName = '';
-            if (!empty($productType)) {
-                $layoutName = $layoutName;
-            }
+
             if (!empty($layoutName)) {
-                $customLayout = DataObject\ClassDefinition\CustomLayout::getByName($layoutName); //Id($data['currentLayoutId']);
+                $customLayout = DataObject\ClassDefinition\CustomLayout::getByName($layoutName);
                 $customLayoutDefinition = $customLayout->getLayoutDefinitions();
                 $data['currentLayoutId'] = $customLayout->getId();
                 $data['layout'] = $customLayoutDefinition;
@@ -122,7 +104,6 @@ class ObjectListener
                 }
                 $event->setArgument('data', $data);
             }
-
         }
     }
 
@@ -139,7 +120,7 @@ class ObjectListener
     {
         $object = $event->getObject();
 
-    
+
         /**
          * if object save is run through cli then do not perform the brick addition or deletion
          * because in this case the import script is already handling this.
@@ -151,37 +132,12 @@ class ObjectListener
 
             if ($object instanceof DataObject\Product) {
 
-//                $categoryBrickMappingService = $this->categoryBrickMappingService;
-//                $requestStack = $this->requestStack;
-//
-//                $currRequest = $requestStack->getCurrentRequest();
-//                $siopRelationChanged = false;
-//                $siopFullCodeChanged = false;
-//
-//                /**
-//                 * check if any of the SIOP relational field data is changed in the product
-//                 * this is being done using the http request so that the performance is not hampered
-//                 */
-//                if ($currRequest instanceof Request) {
-//                    $siopRelationChanged = $categoryBrickMappingService->isSIOPRelationChangedInSaveRequest($currRequest);
-//                    $siopFullCodeChanged = $categoryBrickMappingService->isSIOPFullCodeChangedInSaveRequest($currRequest);
-//                }
-//
-//                /**
-//                 * run the logic for brick change management for the product
-//                 * if any of the SIOP relation data or SIOP full code in product is changed
-//                 */
-//                if ($siopRelationChanged || $siopFullCodeChanged) {
-//                    $categoryBrickMappingService->manageBricksForSIOPRelationChange($object);
-//                }
-
                 /**
                  * update the unit conversion attributes
                  */
                 $this->updateUnitConversionAttributes($object);
-
             }
-            if($object instanceof DataObject\Users) {
+            if ($object instanceof DataObject\Users) {
                 $this->updatePIMUser($object);
             }
         }
@@ -207,11 +163,9 @@ class ObjectListener
              */
             $requestStack = $this->requestStack;
             $currRequest = $requestStack->getCurrentRequest();
-            if($currRequest instanceof Request){
-                $this->appService->updateVirtualCatalogReinforcementForUpdateInReinforcement($object,$currRequest);
+            if ($currRequest instanceof Request) {
+                $this->appService->updateVirtualCatalogReinforcementForUpdateInReinforcement($object, $currRequest);
             }
-
-
         }
     }
 
@@ -225,7 +179,7 @@ class ObjectListener
     private function updateUnitConversionAttributes(DataObject\Product $product)
     {
         $updatedData = $this->getEditedDataFromRequest();
-        if(is_array($updatedData)){
+        if (is_array($updatedData)) {
             $this->appService->updateUnitConversionAttributes($product, $updatedData);
         }
     }
@@ -244,20 +198,17 @@ class ObjectListener
 
         if ($currRequest instanceof Request) {
             $updatedData = $currRequest->get('data');
-            
-            if ($updatedData) {
-                $arr=['Skeleton','Base','Fert'];
-                $updatedData = json_decode($updatedData, true);
-                foreach($arr as $valuesBrick){
-                    foreach($updatedData as $key =>$value){
-                        if (strpos($key, $valuesBrick) !== false) {
 
-                            if (strpos($key, '~') !== false) { 
-                                $str_arr=explode('~',$key);
-                                $tempArr = ["type"=>$str_arr[0],"data"=>[$str_arr[1]=>$value]];
-                                $updatedData[$valuesBrick][]=$tempArr;
-                                unset($updatedData[$key]);
-                            }
+            if ($updatedData) {
+                $arr = ['Skeleton', 'Base', 'Fert'];
+                $updatedData = json_decode($updatedData, true);
+                foreach ($arr as $valuesBrick) {
+                    foreach ($updatedData as $key => $value) {
+                        if ((strpos($key, $valuesBrick) !== false) && (strpos($key, '~') !== false)) {
+                            $str_arr = explode('~', $key);
+                            $tempArr = ["type" => $str_arr[0], "data" => [$str_arr[1] => $value]];
+                            $updatedData[$valuesBrick][] = $tempArr;
+                            unset($updatedData[$key]);
                         }
                     }
                 }
@@ -272,10 +223,11 @@ class ObjectListener
     /**
      * update PIM user when user object get updated
      * @param \Pimcore\Model\DataObject\Users $object
-    */
-    private function updatePIMUser(\Pimcore\Model\DataObject\Users $object) {
+     */
+    private function updatePIMUser(\Pimcore\Model\DataObject\Users $object)
+    {
         $userObj = \Pimcore\Model\User::getById($object->getAdminReference());
-        if(!empty($userObj)) {
+        if (!empty($userObj)) {
             $userData = array(
                 'firstname' =>  $object->getFirstname(),
                 'lastname'  =>  $object->getLastname(),
@@ -296,14 +248,13 @@ class ObjectListener
     {
         $object = $event->getObject();
 
-        if($object instanceof  DataObject\PlantMaterialMaster){
+        if ($object instanceof  DataObject\PlantMaterialMaster) {
             $materials = $object->getMaterial();
             $product = $materials[0];
-            if($product){
+            if ($product) {
                 $this->appService->updateProductReturnFlag($product->getId());
             }
         }
-
     }
 
     public function preSendData(GenericEvent $event)
@@ -311,15 +262,32 @@ class ObjectListener
         $data = $event->getArgument('data');
         $object = $event->getArgument('object');
 
-        if($object->getType() === 'folder'){
+        if ($object->getType() === 'folder') {
             $data['isAllowedSQLEditor'] = 0;
             $currentUser = \Pimcore\Tool\Admin::getCurrentUser();
-            if($this->customGridHelperService->isAllowSQLEditor($currentUser)){
+            if ($this->isAllowSQLEditor($currentUser)) {
                 $data['isAllowedSQLEditor'] = 1;
             }
-                $event->setArgument('data',$data);
+            $event->setArgument('data', $data);
         }
     }
 
+    /**
+     * sql editor should be visible to admin or ApplicationAdmin only
+     *
+     * @param $adminUser
+     * @return bool
+     */
+    public function isAllowSQLEditor($adminUser) : bool
+    {
+        foreach(GRID_SQL_EDITOR_ALLOWED_ROLES as $roleName){
+            $appliicationAdminRole = Model\User\Role::getByName($roleName);
 
+            $adminRoles = $adminUser->getRoles();
+            if(in_array($appliicationAdminRole->getId(), $adminRoles) || $adminUser->isAdmin()){
+                return true;
+            }
+        }
+        return false;
+    }
 }

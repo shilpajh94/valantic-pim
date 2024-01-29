@@ -27,6 +27,7 @@ use Pimcore\Db;
 use Pimcore\Controller\FrontendController;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Pimcore\Bundle\WebToPrintBundle\Processor;
 
 class DefaultController extends FrontendController
 {
@@ -1907,7 +1908,7 @@ class DefaultController extends FrontendController
 
         $imageWidth = null;
         $imageRecompression = null;
-        $printConfigFile = \Pimcore\Web2Print\Processor::getJobConfigFile($documentId);
+        $printConfigFile = Processor::getJobConfigFile($documentId);
         if(file_exists($printConfigFile)){
             $printConfigFileContent = file_get_contents($printConfigFile);
             $printConfig = json_decode( $printConfigFileContent,true);

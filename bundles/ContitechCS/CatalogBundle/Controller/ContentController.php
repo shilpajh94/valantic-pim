@@ -20,6 +20,7 @@ namespace ContitechCS\CatalogBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Pimcore\Controller\FrontendController;
+use Pimcore\Bundle\WebToPrintBundle\Processor;
 
 /**
  * Description of ContentController
@@ -64,7 +65,7 @@ class ContentController extends FrontendController
 
         $imageWidth = null;
         $imageRecompression = null;
-        $printConfigFile = \Pimcore\Web2Print\Processor::getJobConfigFile($documentId);
+        $printConfigFile = Processor::getJobConfigFile($documentId);
         if (file_exists($printConfigFile)) {
             $printConfigFileContent = file_get_contents($printConfigFile);
             $printConfig = json_decode($printConfigFileContent, true);
