@@ -183,7 +183,13 @@
 							{% if not pimcore_image("HHPP_Image_Left").isEmpty() %}
 								{{ pimcore_image("HHPP_Image_Left", {"width": 400, "height": 200}) }}
 							{% else %}
-								{{ pimcore_image("HHPP_Image_Left", {"width": 400, "height": 200}).setImage(groupData['mainImageObj']) | raw}}
+
+								{% if groupData['mainImageObj'] %}
+									{{ pimcore_image("HHPP_Image_Left", {"width": 400, "height": 200}).setImage(groupData['mainImageObj']) | raw}}
+								{% else %}
+									{{ pimcore_image("HHPP_Image_Left", {"width": 400, "height": 200}) }}
+								{% endif %}
+
 							{% endif %}
 						{% else %}
 							{% set imgSrcObj1 = pimcore_image("HHPP_Image_Left") %}
@@ -197,7 +203,13 @@
 							{% if not pimcore_image("Drawing_Picture").isEmpty() %}
 								{{ pimcore_image("Drawing_Picture", {"width": 400, "height": 200}) }}
 							{% else %}
-								{{ pimcore_image("Drawing_Picture", {"width": 400, "height": 200}).setImage(groupData['ProfileDimensionImageObj']) | raw}}
+
+								{% if groupData['ProfileDimensionImageObj'] %}
+									{{ pimcore_image("Drawing_Picture", {"width": 400, "height": 200}).setImage(groupData['ProfileDimensionImageObj']) | raw}}
+								{% else %}
+									{{ pimcore_image("Drawing_Picture", {"width": 400, "height": 200}) }}
+								{% endif %}
+
 							{% endif %}
 						{% else %}
 							{% set imgSrcObj2 = pimcore_image("Drawing_Picture") %}

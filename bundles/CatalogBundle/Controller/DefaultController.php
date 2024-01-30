@@ -2183,7 +2183,7 @@ class DefaultController extends FrontendController
                 foreach ($productsData as $item) {
                     $query = "select SIOPLevel3, SIOPLevel4, SIOPLevel5, SIOPLevel6, priceData from object_query_1 where oo_id = '" . $item[$headerKeysIndex['id']] . "'";
 
-                    $record = $this->db->fetchOne($query);
+                    $record = $this->db->fetchAssociative($query);
                     $siopLevel3 = trim($record['SIOPLevel3'], ',');
                     $siopLevel4 = trim($record['SIOPLevel4'], ',');
                     $siopLevel5 = trim($record['SIOPLevel5'], ',');

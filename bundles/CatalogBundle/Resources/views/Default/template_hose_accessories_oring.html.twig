@@ -130,7 +130,11 @@
                                                     {% if pimcore_image("HHAO_Image").isEmpty() %}
                                                             {{ pimcore_image("HHAO_Image",{"width":200}) }}
                                                     {% else %}
-                                                            {{ pimcore_image("HHAO_Image",{"width":200}).setImage(data['imageObj']) | raw}}
+                                                        {% if data['imageObj'] %}
+                                                                {{ pimcore_image("HHAO_Image",{"width":200}).setImage(data['imageObj']) | raw}}
+                                                        {% else %}
+                                                                {{ pimcore_image("HHAO_Image",{"width":200}) }}
+                                                        {% endif %}
                                                     {% endif %}
                                             {% else %}
                                                     {% set imgSrcObj =  pimcore_image("HHAO_Image") %}

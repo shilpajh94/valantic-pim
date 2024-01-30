@@ -152,7 +152,11 @@
 														{% if not pimcore_image('catLeftImage' ~ uniqueIdDG).isEmpty() %}
 															{{ pimcore_image('catLeftImage' ~ uniqueIdDG, {'class': 'leftImg', 'width': 226, 'height': 150}) }}
 														{% else %}
-															{{ pimcore_image('catLeftImage' ~ uniqueIdDG, {'class': 'leftImg', 'width': 226, 'height': 150}).setImage(tableRowsSkiveType['DG']['brandData']['LeftPrintCatalogImageObj']) | raw }}
+															{% if tableRowsSkiveType['DG']['brandData']['LeftPrintCatalogImageObj'] %}
+																{{ pimcore_image('catLeftImage' ~ uniqueIdDG, {'class': 'leftImg', 'width': 226, 'height': 150}).setImage(tableRowsSkiveType['DG']['brandData']['LeftPrintCatalogImageObj']) | raw }}
+															{% else %}
+																{{ pimcore_image('catLeftImage' ~ uniqueIdDG, {'class': 'leftImg', 'width': 226, 'height': 150}) }}
+															{% endif %}
 														{% endif %}
 													{% else %}
 														{% set imgSrcObj1 = pimcore_image('catLeftImage' ~ uniqueIdDG) %}
@@ -164,7 +168,11 @@
 														{% if not pimcore_image('catRightImage' ~ uniqueIdDG).isEmpty() %}
 															{{ pimcore_image('catRightImage' ~ uniqueIdDG, {'class': 'rightImg', 'width': 226, 'height': 150}) }}
 														{% else %}
-															{{ pimcore_image('catRightImage' ~ uniqueIdDG, {'class': 'rightImg', 'width': 226, 'height': 150}).setImage(tableRowsSkiveType['DG']['brandData']['RightPrintCatalogImageObj']) | raw }}
+															{% if tableRowsSkiveType['DG']['brandData']['RightPrintCatalogImageObj'] %}
+																{{ pimcore_image('catRightImage' ~ uniqueIdDG, {'class': 'rightImg', 'width': 226, 'height': 150}).setImage(tableRowsSkiveType['DG']['brandData']['RightPrintCatalogImageObj']) | raw }}
+															{% else %}
+																{{ pimcore_image('catRightImage' ~ uniqueIdDG, {'class': 'rightImg', 'width': 226, 'height': 150}) }}
+															{% endif %}
 														{% endif %}
 													{% else %}
 														{% set imgSrcObj2 = pimcore_image('catRightImage' ~ uniqueIdDG) %}
@@ -197,7 +205,11 @@
 														{% if not pimcore_image('catLeftImage' ~ uniqueIdNS).isEmpty() %}
 															{{ pimcore_image('catLeftImage' ~ uniqueIdNS, {"class" : "leftImg", "width" : 226, "height" : 150}) }}
 														{% else %}
-															{{ pimcore_image('catLeftImage' ~ uniqueIdNS, {"class" : "leftImg", "width" : 226, "height" : 150}).setImage(tableRowsSkiveType['NS']['brandData']['LeftPrintCatalogImageObj']) | raw }}
+															{% if tableRowsSkiveType['NS']['brandData']['LeftPrintCatalogImageObj'] %}
+																{{ pimcore_image('catLeftImage' ~ uniqueIdNS, {"class" : "leftImg", "width" : 226, "height" : 150}).setImage(tableRowsSkiveType['NS']['brandData']['LeftPrintCatalogImageObj']) | raw }}
+															{% else %}
+																{{ pimcore_image('catLeftImage' ~ uniqueIdNS, {"class" : "leftImg", "width" : 226, "height" : 150}) }}
+															{% endif %}
 														{% endif %}
 													{% else %}
 														{% set imgSrcObj1 =  pimcore_image('catLeftImage' ~ uniqueIdNS) %}
@@ -209,7 +221,11 @@
 														{% if not pimcore_image('catRightImage' ~ uniqueIdNS).isEmpty() %}
 															{{ pimcore_image('catRightImage' ~ uniqueIdNS, {"class" : "rightImg", "width" : 226, "height" : 150}) }}
 														{% else %}
-															{{ pimcore_image('catRightImage' ~ uniqueIdNS, {"class" : "rightImg", "width" : 226, "height" : 150}).setImage(tableRowsSkiveType['NS']['brandData']['RightPrintCatalogImageObj']) | raw }}
+															{% if tableRowsSkiveType['NS']['brandData']['RightPrintCatalogImageObj'] %}
+																{{ pimcore_image('catRightImage' ~ uniqueIdNS, {"class" : "rightImg", "width" : 226, "height" : 150}).setImage(tableRowsSkiveType['NS']['brandData']['RightPrintCatalogImageObj']) | raw }}
+															{% else %}
+																{{ pimcore_image('catRightImage' ~ uniqueIdNS, {"class" : "rightImg", "width" : 226, "height" : 150}) }}
+															{% endif %}
 														{% endif %}
 													{% else %}
 														{% set imgSrcObj2 = pimcore_image('catRightImage' ~ uniqueIdNS) %}
@@ -241,7 +257,11 @@
 														{% if not pimcore_image('catLeftImage' ~ uniqueId).isEmpty() %}
 															{{ pimcore_image('catLeftImage' ~ uniqueId, {'class': 'leftImg', 'width': 226, 'height': 150}) }}
 														{% else %}
-															{{ pimcore_image('catLeftImage' ~ uniqueId, {'class': 'leftImg', 'width': 226, 'height': 150}).setImage(tableRowsSkiveType[firstKey]['brandData']['LeftPrintCatalogImageObj']) | raw }}
+															{% if tableRowsSkiveType[firstKey]['brandData']['LeftPrintCatalogImageObj'] %}
+																{{ pimcore_image('catLeftImage' ~ uniqueId, {'class': 'leftImg', 'width': 226, 'height': 150}).setImage(tableRowsSkiveType[firstKey]['brandData']['LeftPrintCatalogImageObj']) | raw }}
+															{% else %}
+																{{ pimcore_image('catLeftImage' ~ uniqueId, {'class': 'leftImg', 'width': 226, 'height': 150}) }}
+															{% endif %}
 														{% endif %}
 													{% else %}
 														{% set imgSrcObj1 = pimcore_image('catLeftImage' ~ uniqueId) %}
@@ -254,7 +274,11 @@
 														{% if not pimcore_image('catRightImage' ~ uniqueId).isEmpty() %}
 															{{ pimcore_image('catRightImage' ~ uniqueId, {'class': 'rightImg', 'width': 226, 'height': 150}) }}
 														{% else %}
-															{{ pimcore_image('catRightImage' ~ uniqueId, {'class': 'rightImg', 'width': 226, 'height': 150}).setImage(tableRowsSkiveType[firstKey]['brandData']['RightPrintCatalogImageObj']) | raw }}
+															{% if tableRowsSkiveType[firstKey]['brandData']['RightPrintCatalogImageObj'] %}
+																{{ pimcore_image('catRightImage' ~ uniqueId, {'class': 'rightImg', 'width': 226, 'height': 150}).setImage(tableRowsSkiveType[firstKey]['brandData']['RightPrintCatalogImageObj']) | raw }}
+															{% else %}
+																{{ pimcore_image('catRightImage' ~ uniqueId, {'class': 'rightImg', 'width': 226, 'height': 150}) }}
+															{% endif %}
 														{% endif %}
 													{% else %}
 														{% set imgSrcObj2 = pimcore_image('catRightImage' ~ uniqueId) %}

@@ -223,7 +223,11 @@
                                                                             {% if pimcore_image("HHAS_Image_"~md5key).isEmpty() %}
                                                                                     {{ pimcore_image("HHAS_Image_"~md5key,{"width":200, "height":200}) }}
                                                                             {% else %}
-                                                                                    {{ pimcore_image("HHAS_Image_"~md5key,{"width":200, "height":200}).setImage(brand['imageObj']) | raw }}
+                                                                                {% if brand['imageObj'] %}
+                                                                                        {{ pimcore_image("HHAS_Image_"~md5key,{"width":200, "height":200}).setImage(brand['imageObj']) | raw }}
+                                                                                {% else %}
+                                                                                        {{ pimcore_image("HHAS_Image_"~md5key,{"width":200, "height":200}) }}
+                                                                                {% endif %}
                                                                             {% endif %}
                                                                     {% else %}
                                                                             {% set imgSrcObj =  pimcore_image("HHAS_Image_"~md5key) %}

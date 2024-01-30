@@ -181,7 +181,11 @@
 
 											{% if editmode %}
 												{% if pimcore_image('INH_MAIN_IMAGE_'~uniqueId).isEmpty() %}
-													{{ pimcore_image('INH_MAIN_IMAGE_'~uniqueId, {'width': 1067, 'height': 128}).setImage(brand['brandData']['mainImage']) | raw }}
+													{% if brand['brandData']['mainImage'] %}
+														{{ pimcore_image('INH_MAIN_IMAGE_'~uniqueId, {'width': 1067, 'height': 128}).setImage(brand['brandData']['mainImage']) | raw }}
+													{% else %}
+														{{ pimcore_image('INH_MAIN_IMAGE_'~uniqueId, {'width': 1067, 'height': 128}) }}
+													{% endif %}
 												{% else %}
 													{{ pimcore_image('INH_MAIN_IMAGE_'~uniqueId, {'width': 1067, 'height': 128}) }}
 												{% endif %}
