@@ -119,7 +119,7 @@ class IFSEUProductEnrichmentListener
                     $setter = "set".ucfirst($key);
                     $product->$setter($value);
                 }
-                $product->save(false);
+                $product->save();
             \Pimcore\Model\Version::enable();
         }
     }
@@ -140,7 +140,7 @@ class IFSEUProductEnrichmentListener
                     $setter = "set".ucfirst($key);
                     $product->$setter($value);
                 }
-                $product->save(false);
+                $product->save();
                 \Pimcore\Model\Version::enable();
             }
             $template = $transitionConfig['templatePath'];
