@@ -23,7 +23,7 @@ services:
 #            - "plain_value"
 #            - "%parameter%"
 
-    # this service will hook the rest services defined in commands.yaml
+    # this service will hook the rest services defined in commands.yml
     import.lookup_service:
         class: ImportBundle\Services\Lookup
         public: true
@@ -143,6 +143,10 @@ services:
         tags:
             - { name: 'console.command', command: 'conti:onetimeimport:availability-check-code-plant-import-master-update' }
 
+ 
+    ImportBundle\OneTimeImportCommand\AssetMappingCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:import:IFSPTG-US_Asset-Mapping' }
 
     ImportBundle\OneTimeImportCommand\ChildProcessSaveAllProducts:
         tags:

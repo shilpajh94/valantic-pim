@@ -179,7 +179,7 @@ class InvokeLambdaCommand extends Command
     private function getLambdaClient()
     {
         $s3ConfigSettings = [];
-        if (CUSTOM_ENV == "stage" || CUSTOM_ENV == "prod"){
+        if (CUSTOM_ENV == "stage" || CUSTOM_ENV == "prod" || CUSTOM_ENV == "stage_new"){
 
             $s3ConfigSettings = [
                 'version' => 'latest',

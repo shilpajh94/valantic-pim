@@ -95,7 +95,7 @@ class ExportDefinitionController extends ResourceController
 
             if ($uploadedFile instanceof UploadedFile) {
                 $jsonContent = file_get_contents($uploadedFile->getPathname());
-                $data = $this->decodeJson($jsonContent, false);
+                $data = json_decode($jsonContent, false);
 
                 $form = $this->resourceFormFactory->create($this->metadata, $definition);
                 $handledForm = $form->submit($data);

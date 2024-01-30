@@ -16,7 +16,7 @@ declare(strict_types=1);
 
 namespace Wvision\Bundle\DataDefinitionsBundle\Controller;
 
-use Pimcore\Bundle\AdminBundle\Controller\AdminController;
+use Pimcore\Controller\UserAwareController;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -24,7 +24,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Wvision\Bundle\DataDefinitionsBundle\Form\Type\ImportRulesImportType;
 
-class ImportRuleController extends AdminController
+class ImportRuleController extends UserAwareController
 {
     protected bool $useSpoutLegacy = false;
 
