@@ -62,15 +62,15 @@ class DefaultController extends FrontendController
     }
 
     /**
-     * @Route("/ptgeu_catalog")
+     * @Route("/ptgeucatalog")
      */
     public function indexAction(Request $request)
     {
-        return new Response('Hello world from ptgeu_catalog');
+        return new Response('Hello world from ptgeucatalog');
     }
 
     /**
-     * @Route("/ptgeu_catalog/get-available-six-level-categories")
+     * @Route("/ptgeucatalog/get-available-six-level-categories")
      */
     public function getAvailableSixLevelCategories(Request $request): JsonResponse
     {
@@ -109,7 +109,7 @@ class DefaultController extends FrontendController
     }
 
     /**
-     * @Route("/ptgeu_catalog/get-available-headers")
+     * @Route("/ptgeucatalog/get-available-headers")
      */
     public function getAvailableHeaders(Request $request): JsonResponse
     {
@@ -149,7 +149,7 @@ class DefaultController extends FrontendController
     }
 
     /**
-     * @Route("/ptgeu_catalog/get-available-sorters")
+     * @Route("/ptgeucatalog/get-available-sorters")
      */
     public function getAvailableSorters(Request $request): JsonResponse
     {
