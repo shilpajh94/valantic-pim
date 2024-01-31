@@ -188,7 +188,11 @@ class ProductModel
 
 
         $selectStatementAttributeArray = $this->createSelectStatementAttributeArray($conArray);
-
+        if(in_array('key', $selectStatementAttributeArray)){
+            $selectStatementAttributeArray = array_map(function ($value) {
+                return $value == 'key' ? "`key`" : $value;
+            }, $selectStatementAttributeArray);
+        }
         $this->sqlArr [$this->fallbackLangCode] = '
             SELECT  '.implode(",",$selectStatementAttributeArray).'
             FROM object_localized_' . $this->classId. '_' . $this->langCode . '
@@ -252,7 +256,7 @@ class ProductModel
      */
     public function getDocumentId(int $oo_id) : ?int {
         $query = 'SELECT dest_id FROM object_metadata_1 WHERE `column` = "CertificationDocument"
-        and `data` = 1 and `o_id` = '.$oo_id;
+        and `data` = 1 and `id` = '.$oo_id;
         return $this->db->fetchOne($query);
     }
 
@@ -379,7 +383,7 @@ class ProductModel
      */
     public function getCategoryName(int $oo_id) : ?string
     {
-        $query = 'SELECT key FROM object_IFSEUCategory WHERE `oo_id` = '.$oo_id;
+        $query = 'SELECT `key` FROM object_IFSEUCategory WHERE `oo_id` = '.$oo_id;
         return $this->db->fetchOne($query);
     }
 
@@ -391,7 +395,7 @@ class ProductModel
      */
     public function getSubCategoryName(int $oo_id) : ?string
     {
-        $query = 'SELECT key FROM object_IFSEUSubCategory WHERE `oo_id` = '.$oo_id;
+        $query = 'SELECT `key` FROM object_IFSEUSubCategory WHERE `oo_id` = '.$oo_id;
         return $this->db->fetchOne($query);
     }
 
