@@ -7,6 +7,7 @@ use Symfony\Component\Security\Core\User\User;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Pimcore\Model\User as PimUser;
 use Pimcore\Db;
+use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 
 class ApiKeyUserProvider implements UserProviderInterface
 {
@@ -19,18 +20,22 @@ class ApiKeyUserProvider implements UserProviderInterface
         return $this->db->fetchAllAssociative($sql);
     }
 
-    public function loadUserByUsername($username)
-    {
-        return new User(
-            $username,
-            null,
-            ['ROLE_API']
-        );
-    }
-
     public function refreshUser(UserInterface $user)
     {
         throw new UnsupportedUserException();
+    }
+
+    /**
+     * Loads the user for the given user identifier (e.g. username or email).
+     *
+     * This method must throw UserNotFoundException if the user is not found.
+     *
+     * @return TUser
+     *
+     * @throws UserNotFoundException
+     */
+    public function loadUserByIdentifier(string $identifier): UserInterface{
+        throw new UserNotFoundException();
     }
 
     public function supportsClass($class)

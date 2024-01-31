@@ -20,7 +20,7 @@ return [
     PTGEU\ProductBundle\PTGEUProductBundle::class => ['all' => true],
     PTGEU\ImportBundle\PTGEUImportBundle::class => ['all' => true],
     // IFSEU\RestApiBundle\IFSEURestApiBundle::class => ['all' => true],
-    // RestApiBundle\RestApiBundle::class => ['all' => true],
+    RestApiBundle\RestApiBundle::class => ['all' => true],
     IFSEU\ProductBundle\IFSEUProductBundle::class => ['all' => true],
     IFSEU\ImportBundle\IFSEUImportBundle::class => ['all' => true],
     // PTGEU\CatalogBundle\PTGEUCatalogBundle::class => ['all' => true],
