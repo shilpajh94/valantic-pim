@@ -60,7 +60,7 @@ class ProductModelService
 
         $productDetail = array();
         $this->ehose = $this->getEHoseFieldMapping();
-        
+
         $conditionString = $this->model->getConditionString($parameterArray,'fert');
         $conArray['condition']= $conditionString;
         $conArray['fields']   = ['oo_id'=> ['string']];
@@ -98,10 +98,10 @@ class ProductModelService
             // Using strlen as callback to preserve 0 Zero for unpublished records
             // Removing Null, Empty and False value
             $value  =   array_filter($value, 'strlen');
-            $nineDigitData  =   $this->getSkeletonData($value['o_parentId']);
+            $nineDigitData  =   $this->getSkeletonData($value['parentId']);
             $sixDigitData = [];
             if (!empty($nineDigitData)) {
-                $sixDigitData   =   $this->getBaseData($nineDigitData['o_parentId']);
+                $sixDigitData   =   $this->getBaseData($nineDigitData['parentId']);
             }
             $sixDigit       =   $sixDigitData['oo_id'];
             $nineDigit      =   $nineDigitData['oo_id'];
@@ -120,7 +120,7 @@ class ProductModelService
                 // Get Base Object Bricks Data.
                 $baseObjectBrickData = array();
                 if(!empty($nineDigitData)){
-                    $baseObjectBrickData = $this->getProductObjectBrickData($nineDigitData['o_parentId'],'base');
+                    $baseObjectBrickData = $this->getProductObjectBrickData($nineDigitData['parentId'],'base');
                 }
                 if(!empty($baseObjectBrickData)){
                     $resultArrBase = array_merge($sixDigitData,$baseObjectBrickData);
@@ -196,7 +196,7 @@ class ProductModelService
                         else{
                             $propertySelectType[] = $resultArrBase[$propkey];
                         }
-                        
+
                         unset($localizedData);
                         $localizedData = $this->model->getMastersLocalizedData('IFSEUProperties', 'PropertyName',
                         $propkey, $propertySelectType);
@@ -235,7 +235,7 @@ class ProductModelService
                     $resultArrBase['pricelistPublishedInTheDealerPortal'] =
                     ($resultArrBase['pricelistPublishedInTheDealerPortal'] == 1) ? 'Yes' : 'No';
                 }
-                
+
                 // We need these 2 ids to get the path of assets
                 // Then we are unseting it to hide the ids
                 $documentId = isset($resultArrBase['Document']) ? $resultArrBase['Document'] : null;
@@ -245,7 +245,7 @@ class ProductModelService
                 $video1 = isset($resultArrBase['video1']) ? $resultArrBase['video1'] : null;
                 $video2 = isset($resultArrBase['video2']) ? $resultArrBase['video2'] : null;
                 $video3 = isset($resultArrBase['video3']) ? $resultArrBase['video3'] : null;
-                
+
                 unset($resultArrBase['SIOPLevel1']);
                 unset($resultArrBase['SIOPLevel2']);
                 unset($resultArrBase['SIOPLevel3']);
@@ -356,7 +356,7 @@ class ProductModelService
                 // Get Skeleton Object Bricks Data.
                 $skeletonObjectBrickData    =   array();
                 if(!empty($nineDigitData)){
-                    $skeletonObjectBrickData = $this->getProductObjectBrickData($value['o_parentId'],'skeleton');
+                    $skeletonObjectBrickData = $this->getProductObjectBrickData($value['parentId'],'skeleton');
                 }
                 $resultArrSkeleton1['id'] = $nineDigit;
                 if(!empty($skeletonObjectBrickData)){
@@ -383,7 +383,7 @@ class ProductModelService
                     }
                     unset($resultArrSkeleton['FittingFamily']);
                 }
-                
+
 
                 unset($resultArrSkeleton['SIOPLevel1']);
                 unset($resultArrSkeleton['SIOPLevel2']);
@@ -425,7 +425,7 @@ class ProductModelService
                 // p_r($value['oo_id']); die;
                 // Get Fert Object Bricks Data.
                 // $fertObjectBrickData = $this->getProductObjectBrickData($value['oo_id'],'fert');
-               
+
                 $resultArrFert1['sap_id']    =   $value['materialNumber'];
                 if(!empty($fertObjectBrickData)){
                     $resultArrFert = array_merge($resultArrFert1,$fertObjectBrickData, $value);
@@ -531,7 +531,7 @@ class ProductModelService
                     unset($resultArrFert['materialGroup__id']);
                 }
 
-                
+
                 $localizedData = $this->getProductLocalizedData($value['oo_id'], 'fert');
                 if($localizedData)
                 {
@@ -556,7 +556,7 @@ class ProductModelService
                             $propWithoutStartEndComma = explode(',', $propWithoutStartEndComma);
                             $propertySelectType = $propWithoutStartEndComma;
                         }
-                        
+
                         unset($localizedData);
                         $localizedData = $this->model->getMastersLocalizedData('IFSEUProperties', 'PropertyName',
                         $propkey, $propertySelectType);
@@ -570,7 +570,7 @@ class ProductModelService
                         unset($resultArrFert[$propkey]);
                     }
                 }
-                
+
                 unset($resultArrFert['SIOPLevel1']);
                 unset($resultArrFert['SIOPLevel2']);
                 unset($resultArrFert['SIOPLevel3']);
@@ -611,7 +611,7 @@ class ProductModelService
             // Set Images.
             // $imageDataArray['fert'] = $value;
             // $imageDataArray['skeleton'] = $nineDigitData;
-            
+
         }
         return $finalProductArray;
     }
@@ -739,7 +739,7 @@ class ProductModelService
                 unset($baseDetail['brandConstruction']);
             }
         }
-        
+
         if(isset($baseDetail['Category']) && !empty($baseDetail['Category'])) {
             $category  =   $this->model->getCategoryName($baseDetail['Category']);
             if(!empty($category)){
@@ -794,7 +794,7 @@ class ProductModelService
                 if(isset($value[$ivalue]) && !empty($value[$ivalue])){
                     if(!isset($imageDetail[$value[$ivalue]]) || empty($imageDetail[$value[$ivalue]])){
                         if( $propertyAssetData = $this->getPropertyAssetData($value[$ivalue])){
-                            $imageDetail[$ivalue] = $propertyAssetData;  
+                            $imageDetail[$ivalue] = $propertyAssetData;
                         }
                     }
                 }
@@ -851,7 +851,7 @@ class ProductModelService
                     $bData  =   '';
                     // Get Field Definition.
                     if($product->$productBrickField()->$brickText()){
-                    
+
                         $fieldDef = $product->$productBrickField()->$brickText()->getDefinition()->
                         getFieldDefinition($fieldName);
                         if(!empty($fieldDef) && $fieldDef->getFieldtype()==="multiselect"){
@@ -926,7 +926,7 @@ class ProductModelService
                 $asset = Asset::getById($assetIdPath);
                 $assetId= $assetIdPath;
             }
-            
+
             if(!$asset){
                 return null;
             }
