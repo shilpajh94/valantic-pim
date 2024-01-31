@@ -3,7 +3,7 @@ framework:
         transports:
             ast: "doctrine://default"
             sync: 'sync://'
-        # routing:
+        routing:
             # async is whatever name you gave your transport above
-            # 'Pimcore\Messenger\GenerateWeb2PrintPdfMessage': ast
+            'Pimcore\Messenger\GeneratePagePreviewMessage': ast
             # 'Pimcore\Messenger\SearchBackendMessage': sync

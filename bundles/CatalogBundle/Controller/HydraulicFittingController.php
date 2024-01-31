@@ -50,7 +50,10 @@ class HydraulicFittingController extends FrontendController
         $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
         $this->attributeImages = $common->getParameter($attributeImagesConfig, 'attributeImages');
         $catalogImagesHYDFooter = $common->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
-        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+
+        $documentPath = $this->document->getFullPath();
+        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+        $parameterBag = $this->getRequestedParameter($request, $documentId);
 
         if ($this->document->getEditable('fitting-straight')->getElement() instanceof  \Pimcore\Model\DataObject) {
             $id = $this->document->getEditable('fitting-straight')->getId();

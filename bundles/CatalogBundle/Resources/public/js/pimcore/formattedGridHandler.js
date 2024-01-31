@@ -10,7 +10,7 @@
  * @copyright Copyright (c) Pimcore global services
  * @license Pimcore global services GPLv3 and PEL
  */
-// alert('ZZZ')
+
 pimcore.registerNS("pimcore.plugin.formattedGridHandler");
 pimcore.plugin.formattedGridHandler = Class.create(pimcore.plugin.admin, {
 
@@ -25,7 +25,7 @@ pimcore.plugin.formattedGridHandler = Class.create(pimcore.plugin.admin, {
 
     setUpFormattedGrid: function () {
         // alert('yes');
-        var objectClassName = this.object.data.general.o_className;
+        var objectClassName = this.object.data.general.className;
         let dataFields = this.object.edit.dataFields;
         if (objectClassName == 'CatalogTables') {
             var objectId = this.object.id;
@@ -214,3 +214,7 @@ pimcore.plugin.formattedGridHandler = Class.create(pimcore.plugin.admin, {
 
 var formattedGridHandler = new pimcore.plugin.formattedGridHandler();
 
+function ddd()
+{
+    alert('yes');
+}

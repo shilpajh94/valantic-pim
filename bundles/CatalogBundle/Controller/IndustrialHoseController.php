@@ -40,7 +40,9 @@ class IndustrialHoseController extends FrontendController
 
     public function templateIndustrialHoseIndexByApplicationDynamicAction(Request $request)
     {
-        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        $documentPath = $this->document->getFullPath();
+        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+        $parameterBag = $this->getRequestedParameter($request, $documentId);
         try {
             $folderId = $this->document->getParent()->getId();
             $listing = new \Pimcore\Model\Document\Listing();
@@ -163,7 +165,9 @@ class IndustrialHoseController extends FrontendController
 
     public function templateIndustrialHoseIndexByAlphabetDynamicAction(Request $request)
     {
-        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        $documentPath = $this->document->getFullPath();
+        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+        $parameterBag = $this->getRequestedParameter($request, $documentId);
         try {
             $folderId = $this->document->getParent()->getId();
             $listing = new \Pimcore\Model\Document\Listing();
@@ -283,7 +287,10 @@ class IndustrialHoseController extends FrontendController
 
     public function templateIndustrialHoseTableOfContentsDynamicAction(Request $request)
     {
-        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        $documentPath = $this->document->getFullPath();
+        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+        $parameterBag = $this->getRequestedParameter($request, $documentId);
+        
         try {
             $folderId = $this->document->getParent()->getId();
             $listing = new \Pimcore\Model\Document\Listing();
@@ -379,11 +386,14 @@ class IndustrialHoseController extends FrontendController
         $inhSectionPageConfig = $this->containerInterface->get('app.config_provider_service')->getINHSectionPageConfig()['parameters'];
         $catalogImagesINHFooter = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHFooter'];
 
-        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        $documentPath = $this->document->getFullPath();
+        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+        $parameterBag = $this->getRequestedParameter($request, $documentId);
+        
+        $templateEditable = $this->document->getEditable('inh-printcatalog');
 
-        $template = $this->document->getEditable('inh-printcatalog')->getElement();
-
-        if ($template instanceof  \Pimcore\Model\DataObject) {
+        if ($templateEditable) {
+            $template = $templateEditable->getElement();
 
             $catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());
             $catalogObj = DataObject\Catalog::getById($catalogCategoryObj->getParentId());
@@ -505,11 +515,14 @@ class IndustrialHoseController extends FrontendController
         $catalogImagesINHFooter = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHFooter'];
         $catalogImagesINHProduct = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHProduct'];
 
-        $template = $this->document->getEditable('inh-printcatalogproduct')->getElement();
-        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        $documentPath = $this->document->getFullPath();
+        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+        $parameterBag = $this->getRequestedParameter($request, $documentId);
 
-        if ($template instanceof  \Pimcore\Model\DataObject) {
+        $templateEditable = $this->document->getEditable('inh-printcatalogproduct');
 
+        if ($templateEditable) {
+            $template = $templateEditable->getElement();
             $catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());
             $catalogObj = DataObject\Catalog::getById($catalogCategoryObj->getParentId());
             $catalogLanguage = $catalogObj->getCatalogLanguage();
@@ -832,9 +845,13 @@ class IndustrialHoseController extends FrontendController
      */
     public function inhFittingPageAction(Request $request)
     {
-        $template = $this->document->getEditable('inh_fitting_page')->getElement();
-        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
-        if ($template) {
+        $documentPath = $this->document->getFullPath();
+        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+        $parameterBag = $this->getRequestedParameter($request, $documentId);
+
+        $templateEditable = $this->document->getEditable('inh_fitting_page');
+        if ($templateEditable) {
+            $template = $templateEditable->getElement();
             $commonHelper = $this->containerInterface->get('app.common_helper');
             $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
 
@@ -1015,11 +1032,13 @@ class IndustrialHoseController extends FrontendController
 
     public function inhFittingCoverAction(Request $request)
     {
-        $templates = $this->document->getEditable('inh_fitting_cover_page')->getElements();
+        $templatesEditable = $this->document->getEditable('inh_fitting_cover_page');
+        $documentPath = $this->document->getFullPath();
+        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+        $parameterBag = $this->getRequestedParameter($request, $documentId);
 
-        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
-
-        if ($templates) {
+        if ($templatesEditable) {
+            $templates = $templatesEditable->getElements();
             $commonHelper = $this->containerInterface->get('app.common_helper');
 
             $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();

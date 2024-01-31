@@ -2,7 +2,7 @@ document.addEventListener(pimcore.events.postOpenObject, (e) => {
 
     console.log('pimcore.plugin.CatalogBundle postOpenObject')
 
-    let objectClassName = e.detail.object.data.general.o_className;
+    let objectClassName = e.detail.object.data.general.className;
 
     if (objectClassName == 'Catalog') {
         var SalesOrganisationCompObj = e.detail.object.edit.dataFields.SalesOrganisation.component;
@@ -48,7 +48,7 @@ document.addEventListener(pimcore.events.postOpenObject, (e) => {
                 url: '/catalog/get-category',
                 //  method:'POST',
                 extraParams: {
-                    catId: e.detail.object.data.general.o_parentId,
+                    catId: e.detail.object.data.general.parentId,
 
                 },
                 reader: {
@@ -86,7 +86,7 @@ document.addEventListener(pimcore.events.postOpenObject, (e) => {
                 // autoLoad: true,
                 //  method:'POST',
                 extraParams: {
-                    catId: e.detail.object.data.general.o_parentId,
+                    catId: e.detail.object.data.general.parentId,
 
                 },
                 reader: {
@@ -131,7 +131,7 @@ document.addEventListener(pimcore.events.postOpenObject, (e) => {
                 url: '/catalog/get-base-products',
                 //  method:'POST',
                 extraParams: {
-                    catId: e.detail.object.data.general.o_parentId,
+                    catId: e.detail.object.data.general.parentId,
 
                 },
                 reader: {
@@ -191,7 +191,7 @@ document.addEventListener(pimcore.events.postOpenObject, (e) => {
                 url: '/catalog/get-siop-data',
                 //  method:'POST',
                 extraParams: {
-                    catId: e.detail.object.data.general.o_parentId,
+                    catId: e.detail.object.data.general.parentId,
 
                 },
                 reader: {

@@ -69,9 +69,9 @@ class ApiKeyUserProvider implements ConstantsInterface
                 throw new \Exception(self::API_KEY_REQUIRED_MSG);
             }
 
-            $usersObj = new PimUser\Listing();
-            $usersObj->setCondition('apiKey="' . $apiKey . '"');
-            $users = $usersObj->load();
+            $db = \Pimcore\Db::get();
+            $sql = "SELECT user_id FROM user_api_key WHERE api_key = '{$apiKey}'";
+            $users = $db->fetchAllAssociative($sql);
 
             if (count($users)) {
                 $status = true;
