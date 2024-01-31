@@ -161,7 +161,7 @@ class ProductModelService {
         foreach ($products as $key => $value) {
             $finalProductArrayTemp = $value;
             $finalProductArrayTemp["id"] = $finalProductArrayTemp["oo_id"];
-            $baseObjectBrickData = $this->getProductObjectBrickData($value["o_parentId"], "base");
+            $baseObjectBrickData = $this->getProductObjectBrickData($value["parentId"], "base");
             $skeletonObjectBrickData = $this->getProductObjectBrickData($value["oo_id"], "skeleton");
             $fertObjectBrickData = $this->getProductObjectBrickData($value["oo_id"], "fert");
             $sixDigit = substr($value["oldMaterialCode"], 0, 6);
@@ -205,7 +205,7 @@ class ProductModelService {
                 }
             }
             unset($finalProductArrayTemp["oo_id"]);
-            unset($finalProductArrayTemp["o_parentId"]);
+            unset($finalProductArrayTemp["parentId"]);
             unset($finalProductArrayTemp["mainImage"]);
             unset($finalProductArrayTemp["frontView"]);
             unset($finalProductArrayTemp["sideView"]);
@@ -394,7 +394,7 @@ class ProductModelService {
                 }
             }
             unset($finalProductArrayTemp["oo_id"]);
-            unset($finalProductArrayTemp["o_parentId"]);
+            unset($finalProductArrayTemp["parentId"]);
             unset($finalProductArrayTemp["mainImage"]);
             unset($finalProductArrayTemp["frontView"]);
             unset($finalProductArrayTemp["sideView"]);

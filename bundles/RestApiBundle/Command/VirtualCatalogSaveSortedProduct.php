@@ -180,7 +180,7 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
         $select = "SELECT `oo_id`, `objbrickquery1`.{$fieldForSort} AS
         `sortFieldValue` ,`articleNumber`, `siopFullCode`, `o_modificationDate`
         from `object_1` INNER JOIN `object_brick_query_".$brickName."_1`
-        AS `objbrickquery1` ON object_1.oo_id = objbrickquery1.o_id
+        AS `objbrickquery1` ON object_1.oo_id = objbrickquery1.id
         where `VirtualCatalogFlag` = 1 AND `object_1`.`brandName` = ".$brandId."
         and `ProductType` = 'fert' "." ORDER BY ";
         if(is_array($sortingData)){

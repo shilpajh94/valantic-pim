@@ -9,7 +9,7 @@ VirtualCatalog:
     Fields:
             oo_id:
                 - string
-            o_parentId:
+            parentId:
                 - string
             SIOPLevel2:
                 - string
@@ -49,7 +49,7 @@ VirtualCatalog:
                 - string
             VirtualCatalogReinforcement:
                 - string
-            o_published:
+            published:
                 - string
             FeaturesBenefitsBulletPoint:
                 - string

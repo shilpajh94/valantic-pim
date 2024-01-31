@@ -17,13 +17,13 @@
 namespace RestApiBundle\Controller;
 
 use Pimcore\Controller\FrontendController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use RestApiBundle\RestTrait\RestResponce;
 use RestApiBundle\RestTrait\LanguageCode;
 use RestApiBundle\Security\ApiKeyUserProvider;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Pimcore\Db;
+use Symfony\Component\Routing\Annotation\Route;
 
 class ProductController extends FrontendController
 {
@@ -95,19 +95,19 @@ class ProductController extends FrontendController
             // $productDetail  =   $this->service->getBrandSorter('en',$conditionArray);
             $productDetail  =   $this->service->getProduct('en',$conditionArray);
             // Log Data.
-            \Pimcore\Log\Simple::log($this->vcRestAPILogFileName, "Request:-".json_encode($conditionArray));
+            \AppBundle\Logger\Simple::log($this->vcRestAPILogFileName, "Request:-".json_encode($conditionArray));
             // If Virtual catalog data not exist return error.
             
             if (empty($productDetail)) {
-                \Pimcore\Log\Simple::log($this->vcRestAPILogFileName, self::RESPONSE.json_encode
+                \AppBundle\Logger\Simple::log($this->vcRestAPILogFileName, self::RESPONSE.json_encode
                 ($this->responseCode('ObjectNotFound', self::VIRTUAL_CATALOG_DATA_NOT_FOUND)));
                 return $this->jsonResponce($this->responseCode('ObjectNotFound',
                 self::VIRTUAL_CATALOG_DATA_NOT_FOUND), 404);
             }
-            \Pimcore\Log\Simple::log($this->vcRestAPILogFileName, self::RESPONSE.json_encode($productDetail));
+            \AppBundle\Logger\Simple::log($this->vcRestAPILogFileName, self::RESPONSE.json_encode($productDetail));
             return $this->jsonResponce($productDetail);
         }else{
-            \Pimcore\Log\Simple::log($this->vcRestAPILogFileName, self::RESPONSE.json_encode
+            \AppBundle\Logger\Simple::log($this->vcRestAPILogFileName, self::RESPONSE.json_encode
             ($this->responseCode('ObjectNotFound', self::VIRTUAL_CATALOG_DATA_NOT_FOUND)));
             return $this->jsonResponce($this->responseCode('InvalidApiKey', 'Api key is not valid!'), 404);
         }
@@ -139,18 +139,18 @@ class ProductController extends FrontendController
              // $productDetail  =   $this->service->getBrandSorter('en',$conditionArray);
              $productDetail  =   $this->service->getProductNewAPI('en',$conditionArray);
              // Log Data.
-             \Pimcore\Log\Simple::log($this->vcRestAPILogFileName, "Request:-".json_encode($conditionArray));
+             \AppBundle\Logger\Simple::log($this->vcRestAPILogFileName, "Request:-".json_encode($conditionArray));
              // If Virtual catalog data not exist return error.
              if (empty($productDetail)) {
-                 \Pimcore\Log\Simple::log($this->vcRestAPILogFileName, self::RESPONSE.json_encode
+                \AppBundle\Logger\Simple::log($this->vcRestAPILogFileName, self::RESPONSE.json_encode
                  ($this->responseCode('ObjectNotFound', self::VIRTUAL_CATALOG_DATA_NOT_FOUND)));
                  return $this->jsonResponce($this->responseCode('ObjectNotFound',
                  self::VIRTUAL_CATALOG_DATA_NOT_FOUND), 404);
              }
-             \Pimcore\Log\Simple::log($this->vcRestAPILogFileName, self::RESPONSE.json_encode($productDetail));
+             \AppBundle\Logger\Simple::log($this->vcRestAPILogFileName, self::RESPONSE.json_encode($productDetail));
              return $this->jsonResponce($productDetail);
          }else{
-             \Pimcore\Log\Simple::log($this->vcRestAPILogFileName, self::RESPONSE.json_encode
+            \AppBundle\Logger\Simple::log($this->vcRestAPILogFileName, self::RESPONSE.json_encode
              ($this->responseCode('ObjectNotFound', self::VIRTUAL_CATALOG_DATA_NOT_FOUND)));
              return $this->jsonResponce($this->responseCode('InvalidApiKey', 'Api key is not valid!'), 404);
          }

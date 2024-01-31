@@ -296,7 +296,7 @@ class ProductModel
     public function getProductsInSortedFormat($brandId, $groupingFieldNameForSorting, $sortingData, $brickName)
     {
         $select = "SELECT * from `object_1` INNER JOIN `object_brick_query_" . $brickName .
-        "_1` ON object_1.oo_id = object_brick_query_" . $brickName . "_1.o_id
+        "_1` ON object_1.oo_id = object_brick_query_" . $brickName . "_1.id
         where `object_1`.`brandName` = " . $brandId . " and `ProductType` = 'fert' " . " ORDER BY ";
         if (is_array($sortingData)) {
             $condition = '';
@@ -354,7 +354,7 @@ class ProductModel
             SELECT  ' . implode(",", $selectStatementAttributeArray) . '
             FROM object_localized_' . $this->classId . '_' . $this->langCode . '
             WHERE ' . $conArray['condition'] . ' ' . $limitText . "\n\n";
-        \Pimcore\Log\Simple::log('virtualcatalogquery', print_r($this->sqlArr[$this->fallbackLangCode], true));
+        \AppBundle\Logger\Simple::log('virtualcatalogquery', print_r($this->sqlArr[$this->fallbackLangCode], true));
 
         return true;
     }
@@ -392,7 +392,7 @@ class ProductModel
                 LEFT JOIN object_localized_' . $this->classId . '_' . $this->langCode . ' AS `objlocal`
                 ON `vc`.`oo_id` = `objlocal`.`oo_id` ' . $whereClause . ' ' . $limitText . "\n\n";
 
-        \Pimcore\Log\Simple::log('virtualcatalogquery', print_r($this->sqlArr[$this->fallbackLangCode], true));
+        \AppBundle\Logger\Simple::log('virtualcatalogquery', print_r($this->sqlArr[$this->fallbackLangCode], true));
 
         return true;
     }
@@ -504,7 +504,7 @@ class ProductModel
     public function getDocumentId(int $oo_id): ?int
     {
         $query = 'SELECT dest_id FROM object_metadata_1 WHERE `column` = "CertificationDocument"
-        and `data` = 1 and `o_id` = ' . $oo_id;
+        and `data` = 1 and `id` = ' . $oo_id;
         return $this->db->fetchOne($query);
     }
 
@@ -519,7 +519,7 @@ class ProductModel
     {
         //Removing comma from begining and end
         $oo_id = substr($oo_id, 1, -1);
-        $query = 'SELECT o_key FROM object_localized_' . $classId . '_en WHERE `oo_id` IN (' . $oo_id . ')';
+        $query = 'SELECT `key` FROM object_localized_' . $classId . '_en WHERE `oo_id` IN (' . $oo_id . ')';
         $features = $this->db->fetchFirstColumn($query);
         return implode(", ", $features);
     }
