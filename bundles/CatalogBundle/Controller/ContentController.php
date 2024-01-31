@@ -25,7 +25,8 @@ class ContentController extends FrontendController {
      * @Route("/print_page")
      */
     public function pdfAction(Request $request): Response {
-        $documentId = $this->document->getId();
+        $documentPath = $this->document->getFullPath();
+        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
         $parameterBag = $this->getRequestedParameter($request, $documentId);
 
         $showPDFInput = false;
@@ -42,7 +43,8 @@ class ContentController extends FrontendController {
     }
 
     public function pdfWithFooterAction(Request $request): Response {
-        $documentId = $this->document->getId();
+        $documentPath = $this->document->getFullPath();
+        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
         $parameterBag = $this->getRequestedParameter($request, $documentId);
 
         $showPDFInput = false;

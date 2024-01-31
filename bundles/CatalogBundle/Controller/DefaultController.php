@@ -14,6 +14,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use \Exception;
 use Pimcore\Controller\FrontendController;
 use Pimcore\Bundle\WebToPrintBundle\Processor;
+use Pimcore\Model\Asset;
 
 class DefaultController extends FrontendController
 {
@@ -157,7 +158,7 @@ class DefaultController extends FrontendController
             $category = $categoryObj->getCategory();
             $siopList = new DataObject\ProductCategory\Listing();
             $siopList->addConditionParam('Level = ?', ['4'], 'AND');
-            $siopList->setCondition('o_parentId IN (?)', [$category]);
+            $siopList->setCondition('parentId IN (?)', [$category]);
 
             foreach ($siopList as $cat) {
                 $options[] = array(
@@ -178,7 +179,7 @@ class DefaultController extends FrontendController
         $baseProducts = json_decode($request->get('products'), 1);
         $productList = new DataObject\Product\Listing();
 
-        $productList->addConditionParam('o_parentId IN (?)', [$baseProducts], 'AND');
+        $productList->addConditionParam('parentId IN (?)', [$baseProducts], 'AND');
         $productList->setCondition('ProductType = "skeleton"');
 
         $options = [];
@@ -194,7 +195,7 @@ class DefaultController extends FrontendController
      */
     public function getAvailableHeaders(Request $request): JsonResponse
     {
-        $objectId = $request->get('o_id');
+        $objectId = $request->get('id');
         $table = $request->get('table');
         $template = $request->get('template');
         $obj = DataObject\CatalogTables::getById($objectId);
@@ -308,18 +309,18 @@ class DefaultController extends FrontendController
 
         if ($baseProduct !== null && count($baseProduct) > 0) {
             $baseIds = implode(',', $baseProduct);
-            $query = "select o_id from object_1 where o_parentId IN (" . $baseIds . ")";
+            $query = "select id from object_1 where parentId IN (" . $baseIds . ")";
 
             $skeletonIds = $this->db->fetchAllAssociative($query);
         }
         if ($skeletonProduct !== null && count($skeletonProduct) > 0) {
-            $productList->addConditionParam('o_parentId IN (:parent)', ['parent' => $skeletonProduct], 'AND');
+            $productList->addConditionParam('parentId IN (:parent)', ['parent' => $skeletonProduct], 'AND');
         } elseif (!empty($skeletonIds) && count($baseProduct) > 0) {
             $skeletonProductId = [];
             for ($i = 0; $i < count($skeletonIds); $i++) {
-                $skeletonProductId[] = $skeletonIds[$i]['o_id'];
+                $skeletonProductId[] = $skeletonIds[$i]['id'];
             }
-            $productList->addConditionParam('o_parentId IN (:parent)', ['parent' => $skeletonProductId], 'AND');
+            $productList->addConditionParam('parentId IN (:parent)', ['parent' => $skeletonProductId], 'AND');
         }
         $conditionArray[] = "printedCatalogFlag = '1' ";
 
@@ -387,7 +388,7 @@ class DefaultController extends FrontendController
                         if ($item->$getter() !== null) {
                             $class = 'Pimcore\Model\DataObject\\' . $printColumns[$fieldName]['parent']['class']['name'] . '\\Listing';
                             $classObj = new $class();
-                            $classObj->setCondition('o_id IN (?)', [$value]);
+                            $classObj->setCondition('id IN (?)', [$value]);
                             $fieldGetter = 'get' . $printColumns[$fieldName]['parent']['class']['fieldName'];
 
                             foreach ($classObj as $obj) {
@@ -430,7 +431,7 @@ class DefaultController extends FrontendController
 
                             $class = 'Pimcore\Model\DataObject\\' . $printColumns[$fieldName]['parent']['class']['name'] . '\\Listing';
                             $classObj = new $class();
-                            $classObj->setCondition('o_id IN (?)', [$value]);
+                            $classObj->setCondition('id IN (?)', [$value]);
                             $fieldGetter = 'get' . $printColumns[$fieldName]['parent']['class']['fieldName'];
 
                             foreach ($classObj as $obj) {
@@ -449,7 +450,7 @@ class DefaultController extends FrontendController
 
                             $class = 'Pimcore\Model\DataObject\\' . $printColumns[$fieldName]['parent']['class']['name'] . '\\Listing';
                             $classObj = new $class();
-                            $classObj->setCondition('o_id IN (?)', [$value]);
+                            $classObj->setCondition('id IN (?)', [$value]);
                             $fieldGetter = 'get' . $printColumns[$fieldName]['parent']['class']['fieldName'];
 
                             foreach ($classObj as $obj) {
@@ -468,7 +469,7 @@ class DefaultController extends FrontendController
 
                             $class = 'Pimcore\Model\DataObject\\' . $printColumns[$fieldName]['parent']['class']['name'] . '\\Listing';
                             $classObj = new $class();
-                            $classObj->setCondition('o_id IN (?)', [$value]);
+                            $classObj->setCondition('id IN (?)', [$value]);
                             $fieldGetter = 'get' . $printColumns[$fieldName]['parent']['class']['fieldName'];
 
                             foreach ($classObj as $obj) {
@@ -522,7 +523,7 @@ class DefaultController extends FrontendController
 
                             $class = 'Pimcore\Model\DataObject\\' . $dFieldName['parent']['class']['name'] . '\\Listing';
                             $classObj = new $class();
-                            $classObj->setCondition('o_id IN (?)', [$value]);
+                            $classObj->setCondition('id IN (?)', [$value]);
                             $fieldGetter = 'get' . $dFieldName['parent']['class']['fieldName'];
                             foreach ($classObj as $obj) {
                                 array_push($dataValues, $obj->$fieldGetter());
@@ -563,7 +564,7 @@ class DefaultController extends FrontendController
 
                             $class = 'Pimcore\Model\DataObject\\' . $dFieldName['parent']['class']['name'] . '\\Listing';
                             $classObj = new $class();
-                            $classObj->setCondition('o_id IN (?)', [$value]);
+                            $classObj->setCondition('id IN (?)', [$value]);
                             $fieldGetter = 'get' . $dFieldName['parent']['class']['fieldName'];
 
                             foreach ($classObj as $obj) {
@@ -582,7 +583,7 @@ class DefaultController extends FrontendController
 
                             $class = 'Pimcore\Model\DataObject\\' . $dFieldName['parent']['class']['name'] . '\\Listing';
                             $classObj = new $class();
-                            $classObj->setCondition('o_id IN (?)', [$value]);
+                            $classObj->setCondition('id IN (?)', [$value]);
                             $fieldGetter = 'get' . $dFieldName['parent']['class']['fieldName'];
 
                             foreach ($classObj as $obj) {
@@ -601,7 +602,7 @@ class DefaultController extends FrontendController
 
                             $class = 'Pimcore\Model\DataObject\\' . $dFieldName['parent']['class']['name'] . '\\Listing';
                             $classObj = new $class();
-                            $classObj->setCondition('o_id IN (?)', [$value]);
+                            $classObj->setCondition('id IN (?)', [$value]);
                             $fieldGetter = 'get' . $dFieldName['parent']['class']['fieldName'];
 
                             foreach ($classObj as $obj) {
@@ -720,18 +721,23 @@ class DefaultController extends FrontendController
 
     public function templateHoseLineTileTemplateAction(Request $request): Response
     {
+        $documentPath = $this->document->getFullPath();
+        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+        $parameterBag = $this->getRequestedParameter($request, $documentId);
+
+        $templateEditable = $this->document->getEditable('tiletemplate');
+
         $commonHelper = $this->containerInterface->get('app.common_helper');
         $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
         $catalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
-        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
-        if ($this->document->getEditable('tiletemplate')->getElement()) {
-            $id = $this->document->getEditable('tiletemplate')->getId();
-            $obj = \Pimcore\Model\DataObject::getById($id);
+        
+        if ($templateEditable) {
+            $template = $templateEditable->getElement();
 
-            $footerBgColor = $obj->getColor();
+            $footerBgColor = $template->getColor();
             $data = array();
             $blockDes = "";
-            $headers = (array)json_decode($obj->getHeaderData());
+            $headers = (array)json_decode($template->getHeaderData());
             $headerKeys = array_keys($headers);
             $productsData = array();
             $fertId = array();
@@ -739,8 +745,8 @@ class DefaultController extends FrontendController
 
             $brandsList = $this->getBrandsList();
 
-            if (is_array($obj->getProductsData()) && !empty($obj->getProductsData())) {
-                foreach ($obj->getProductsData() as $k => $row) {
+            if (is_array($template->getProductsData()) && !empty($template->getProductsData())) {
+                foreach ($template->getProductsData() as $k => $row) {
                     $productsData[] = array_combine($headerKeys, $row);
                 }
                 foreach ($productsData as $k => $row) {
@@ -764,7 +770,7 @@ class DefaultController extends FrontendController
                         $data[$baseId]['BrandShortText'][2] = isset($data[$baseId]['BrandShortText3'][2]) && !empty($data[$baseId]['BrandShortText3'][2]) ? $data[$baseId]['BrandShortText3'][2] : $row['BrandShortText3'];
                         $data[$baseId]['BrandShortText'][3] = isset($data[$baseId]['BrandShortText4'][3]) && !empty($data[$baseId]['BrandShortText4'][3]) ? $data[$baseId]['BrandShortText4'][3] : $row['BrandShortText4'];
                         $data[$baseId]['BrandShortText'][4] = isset($data[$baseId]['BrandShortText5'][4]) && !empty($data[$baseId]['BrandShortText5'][4]) ? $data[$baseId]['BrandShortText5'][4] : $row['BrandShortText5'];
-                        $data[$baseId]['mainImage'] = isset($row['mainImage']) && !empty($row['mainImage']) ? \Pimcore\Model\Asset::getByPath($row['mainImage']) : null;
+                        $data[$baseId]['mainImage'] = isset($row['mainImage']) && !empty($row['mainImage']) ? Asset::getByPath($row['mainImage']) : null;
                         $data[$baseId]['SortOrder'] = $brandsList[$data[$baseId]['brandName']];
 
                         if (!isset($data[$baseId]['featureIcon']) && !empty($row['FeaturesBenefitsBulletPoint'])) {
@@ -841,10 +847,14 @@ class DefaultController extends FrontendController
 
     public function templateHoseProductPageAction(Request $request): Response
     {
-        $template = $this->document->getEditable('inh_template_hose_product_page')->getElement();
-        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        $documentPath = $this->document->getFullPath();
+        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+        $parameterBag = $this->getRequestedParameter($request, $documentId);
 
-        if ($template) {
+        $templateEditable = $this->document->getEditable('inh_template_hose_product_page');
+
+        if ($templateEditable) {
+            $template = $templateEditable->getElement();
             $commonHelper = $this->containerInterface->get('app.common_helper');
 
             $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
@@ -952,12 +962,12 @@ class DefaultController extends FrontendController
 
                             $leftPrintCatalogImage = $element[$headerKeysIndex['LeftPrintCatalogImage']];
                             if (empty($leftPrintCatalogImageObj) && $leftPrintCatalogImage) {
-                                $leftPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($leftPrintCatalogImage);
+                                $leftPrintCatalogImageObj = Asset::getByPath($leftPrintCatalogImage);
                             }
 
                             $rightPrintCatalogImage = $element[$headerKeysIndex['RightPrintCatalogImage']];
                             if (empty($rightPrintCatalogImageObj) && $rightPrintCatalogImage) {
-                                $rightPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($rightPrintCatalogImage);
+                                $rightPrintCatalogImageObj = Asset::getByPath($rightPrintCatalogImage);
                             }
 
                             foreach ($element as $bkey => $value) :
@@ -1147,10 +1157,14 @@ class DefaultController extends FrontendController
 
     public function templateHoseAccessoriesSleevingAction(Request $request): Response
     {
-        $template = $this->document->getEditable('template_hose_accessories_sleeving')->getElement();
-        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        $documentPath = $this->document->getFullPath();
+        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+        $parameterBag = $this->getRequestedParameter($request, $documentId);
 
-        if ($template) {
+        $templateEditable = $this->document->getEditable('template_hose_accessories_sleeving');
+
+        if ($templateEditable) {
+            $template = $templateEditable->getElement();
             $commonHelper = $this->containerInterface->get('app.common_helper');
 
             $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
@@ -1215,7 +1229,7 @@ class DefaultController extends FrontendController
                         $brandName = $element[$headerKeysIndex['brandName']];
 
                         if (empty($imageObj) && $element[$headerKeysIndex['mainImage']]) {
-                            $imageObj = \Pimcore\Model\Asset::getByPath($element[$headerKeysIndex['mainImage']]);
+                            $imageObj = Asset::getByPath($element[$headerKeysIndex['mainImage']]);
                         }
 
                         if (empty($longDescription) && $element[$headerKeysIndex['longDescription']]) {
@@ -1305,10 +1319,14 @@ class DefaultController extends FrontendController
 
     public function templateHoseAccessoriesClampsAction(Request $request)
     {
-        $template = $this->document->getEditable('template_hose_accessories_clamps')->getElement();
-        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        $documentPath = $this->document->getFullPath();
+        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+        $parameterBag = $this->getRequestedParameter($request, $documentId);
 
-        if ($template) {
+        $templateEditable = $this->document->getEditable('template_hose_accessories_clamps');
+
+        if ($templateEditable) {
+            $template = $templateEditable->getElement();
             $commonHelper = $this->containerInterface->get('app.common_helper');
 
             $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
@@ -1361,7 +1379,7 @@ class DefaultController extends FrontendController
                     $brandName = $element[$headerKeysIndex['brandName']];
 
                     if (empty($imageObj) && $element[$headerKeysIndex['mainImage']]) {
-                        $imageObj = \Pimcore\Model\Asset::getByPath($element[$headerKeysIndex['mainImage']]);
+                        $imageObj = Asset::getByPath($element[$headerKeysIndex['mainImage']]);
                     }
 
                     if (empty($longDescription) && $element[$headerKeysIndex['longDescription']]) {
@@ -1406,11 +1424,14 @@ class DefaultController extends FrontendController
 
     public function templateHoseAccessoriesOringAction(Request $request)
     {
-        $template = $this->document->getEditable('template_hose_accessories_oring');
-        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        $documentPath = $this->document->getFullPath();
+        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+        $parameterBag = $this->getRequestedParameter($request, $documentId);
 
-        if ($template) {
-            $template = $this->document->getEditable('template_hose_accessories_oring')->getElement();
+        $templateEditable = $this->document->getEditable('template_hose_accessories_oring');
+
+        if ($templateEditable) {
+            $template = $templateEditable->getElement();
 
             $commonHelper = $this->containerInterface->get('app.common_helper');
 
@@ -1471,7 +1492,7 @@ class DefaultController extends FrontendController
                         }
 
                         if (!$imageObj && $item[$headerKeysIndex['mainImage']]) {
-                            $imageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['mainImage']]);
+                            $imageObj = Asset::getByPath($item[$headerKeysIndex['mainImage']]);
                         }
 
                         $uniqueId = md5($brandName);
@@ -1530,13 +1551,18 @@ class DefaultController extends FrontendController
 
     public function templateTableOfContentsAction(Request $request): Response
     {
-        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        $documentPath = $this->document->getFullPath();
+        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+        $parameterBag = $this->getRequestedParameter($request, $documentId);
         return $this->render('@Catalog/Default/template_table_of_contents.html.twig', $parameterBag);
     }
 
     public function templateHydraulicTableOfContentsDynamicAction(Request $request)
     {
-        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        $documentPath = $this->document->getFullPath();
+        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+        $parameterBag = $this->getRequestedParameter($request, $documentId);
+        
         try {
             $folderId = $this->document->getParent()->getId();
             $listing = new \Pimcore\Model\Document\Listing();
@@ -1685,12 +1711,16 @@ class DefaultController extends FrontendController
 
     public function templatePartNumberDesignationsAction(Request $request)
     {
-        $templates = $this->document->getEditable('page_number_designations')->getElements();
-        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        $documentPath = $this->document->getFullPath();
+        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+        $parameterBag = $this->getRequestedParameter($request, $documentId);
+
+        $templatesEditable = $this->document->getEditable('page_number_designations');
 
         $hydraulic_hose_data = [];
         $footerBgColor = '';
-        if ($templates) {
+        if ($templatesEditable) {
+            $templates = $templatesEditable->getElements();
             $commonHelper = $this->containerInterface->get('app.common_helper');
 
             $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
@@ -1742,10 +1772,14 @@ class DefaultController extends FrontendController
 
     public function templateHoseSubCoverAction(Request $request): Response
     {
-        $template = $this->document->getEditable('template_hose_product_page')->getElement();
-        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        $documentPath = $this->document->getFullPath();
+        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+        $parameterBag = $this->getRequestedParameter($request, $documentId);
 
-        if ($template) {
+        $templateEditable = $this->document->getEditable('template_hose_product_page');
+
+        if ($templateEditable) {
+            $template = $templateEditable->getElement();
             $commonHelper = $this->containerInterface->get('app.common_helper');
 
             $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
@@ -1936,8 +1970,11 @@ class DefaultController extends FrontendController
 
     public function templateFittingSplitFlangesAction(Request $request): Response
     {
+        $documentPath = $this->document->getFullPath();
+        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+        $parameterBag = $this->getRequestedParameter($request, $documentId);
+
         $catalogTableObject = $this->document->getEditable('template_hose_accessories_flanges');
-        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
         $footer_logo_src = '';
         $footerBgColor = '';
         $data = '';
@@ -1996,7 +2033,7 @@ class DefaultController extends FrontendController
                         $brandName = $element[$headerKeysIndex['brandName']];
 
                         if (empty($imageObj) && isset($headerKeysIndex['mainImage']) && $element[$headerKeysIndex['mainImage']]) {
-                            $imageObj = \Pimcore\Model\Asset::getByPath($element[$headerKeysIndex['mainImage']]);
+                            $imageObj = Asset::getByPath($element[$headerKeysIndex['mainImage']]);
                         }
 
                         if (empty($shortDescription) && $element[$headerKeysIndex['shortDescription']]) {
@@ -2037,7 +2074,9 @@ class DefaultController extends FrontendController
 
     public function containerAction(Request $request): Response
     {
-        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        $documentPath = $this->document->getFullPath();
+        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+        $parameterBag = $this->getRequestedParameter($request, $documentId);
 
         $allChildren = [];
 
@@ -2088,15 +2127,23 @@ class DefaultController extends FrontendController
     public function getBrandsList(): ?array
     {
         $query = "select name, SortOrder from object_query_3";
-        return \Pimcore\Db\Helper::fetchPairs($this->db, $query);
+        return $this->db->fetchAllKeyValue($query);
     }
 
     public function templatePtgProductPageAction(Request $request): Response
     {
-        $template = $this->document->getEditable('ptg_product_page')->getElement();
-        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        $templateEditable = $this->document->getEditable('ptg_product_page');
 
-        if ($template) {
+        $documentPath = $this->document->getFullPath();
+        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+        $parameterBag = $this->getRequestedParameter($request, $documentId);
+
+        $groupData = array();
+        $footerBgColor = null;
+        $footer_logo_src = null;
+
+        if ($templateEditable) {
+            $template = $templateEditable->getElement();
             $commonHelper = $this->containerInterface->get('app.common_helper');
             $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
             $priceListTableConfig = $this->containerInterface->get('app.config_provider_service')->getPriceListTableConfig();
@@ -2228,11 +2275,11 @@ class DefaultController extends FrontendController
                         }
 
                         if (!$mainImageObj && $item[$headerKeysIndex['mainImage']]) {
-                            $mainImageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['mainImage']]);
+                            $mainImageObj = Asset::getByPath($item[$headerKeysIndex['mainImage']]);
                         }
 
                         if (!$profileDimensionImageObj && $item[$headerKeysIndex['ProfileDimensionImage']]) {
-                            $profileDimensionImageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['ProfileDimensionImage']]);
+                            $profileDimensionImageObj = Asset::getByPath($item[$headerKeysIndex['ProfileDimensionImage']]);
                         }
 
                         if ($item[$headerKeysIndex['material']]) {
@@ -2329,7 +2376,7 @@ class DefaultController extends FrontendController
                     $reinforcementStr = $reinforcement;
                 }
 
-                $groupData = array();
+                
                 $groupData['subHeaderRequired'] = $this->subHeaderRequired;
                 $groupData['iconRequired'] = $this->iconRequired;
                 $groupData['material'] = $materialStr;
@@ -2351,12 +2398,12 @@ class DefaultController extends FrontendController
 
                 $footer_logo_src = (strtolower($footerBgColor) == 'orange') ? $catalogImagesPTGFooter['Black'] : $catalogImagesPTGFooter['Orange'];
                 $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
-
-                $parameterBag['groupData'] = $groupData;
-                $parameterBag['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
-                $parameterBag['footer_logo_src'] = $footer_logo_src;
             }
         }
+
+        $parameterBag['groupData'] = $groupData;
+        $parameterBag['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
+        $parameterBag['footer_logo_src'] = $footer_logo_src;
         return $this->render("@Catalog/Default/template_ptg_product_page.html.twig", $parameterBag);
     }
 
@@ -2412,7 +2459,7 @@ class DefaultController extends FrontendController
     public function getS3ImageSrc($src)
     {
         $s3src = '';
-        $imgObj = \Pimcore\Model\Asset::getByPath($src);
+        $imgObj = Asset::getByPath($src);
 
         if ($imgObj) {
             // uncomment below once imageWidth resolved in view
@@ -2521,13 +2568,17 @@ class DefaultController extends FrontendController
 
     public function templateIndexDescriptiveNumberAction(Request $request): Response
     {
-        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        $documentPath = $this->document->getFullPath();
+        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+        $parameterBag = $this->getRequestedParameter($request, $documentId);
         return $this->render("@Catalog/Default/template_index_descriptive_number.html.twig", $parameterBag);
     }
 
     public function templateHydraulicAlphanumericIndexByDescriptiveNumberDynamicAction(Request $request): Response
     {
-        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        $documentPath = $this->document->getFullPath();
+        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+        $parameterBag = $this->getRequestedParameter($request, $documentId);
         try {
             $folderId = $this->document->getParent()->getId();
             $listing = new \Pimcore\Model\Document\Listing();
@@ -2592,7 +2643,9 @@ class DefaultController extends FrontendController
 
     public function templateHydraulicAlphanumericIndexByProductNumberDynamicAction(Request $request)
     {
-        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        $documentPath = $this->document->getFullPath();
+        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+        $parameterBag = $this->getRequestedParameter($request, $documentId);
         try {
             $folderId = $this->document->getParent()->getId();
             $listing = new \Pimcore\Model\Document\Listing();
@@ -2656,7 +2709,9 @@ class DefaultController extends FrontendController
 
     public function templateIndexProductNumberAction(Request $request): Response
     {
-        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        $documentPath = $this->document->getFullPath();
+        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+        $parameterBag = $this->getRequestedParameter($request, $documentId);
         return $this->render("@Catalog/Default/template_index_product_number.html.twig", $parameterBag);
     }
 
@@ -2687,7 +2742,8 @@ class DefaultController extends FrontendController
     {
         $parameterBag = [];
         $parameterBag['printermarks'] = $request->get('printermarks');
-        $parameterBag['isParentContainerRequest'] = $request->get('isParentContainerRequest') ? $request->get('isParentContainerRequest') : false;
+        $isParentContainerRequest = $request->get('isParentContainerRequest');
+        $parameterBag['isParentContainerRequest'] = $isParentContainerRequest ? $isParentContainerRequest : false;
 
         $imageWidth = null;
         $imageRecompression = null;
