@@ -23,7 +23,7 @@ define("INTERNAL_ASSET_FOLDER_PATHS", [
 ]);
 
 define("APPBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/AppBundle/Resources/config");
-define("CATALOGBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/CatalogBundle/Resources/config");
+define("CATALOGBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/CatalogBundle/config");
 define("CS_PRODUCTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/ContitechCS/ProductBundle/Resources/config");
 
 define("CS_APIBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/ContitechCS/CatalogUIApiBundle/Resources/config");

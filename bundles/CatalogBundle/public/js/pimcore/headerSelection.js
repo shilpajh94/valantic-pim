@@ -21,7 +21,7 @@ pimcore.plugin.headerSelection = Class.create({
 
     // idColumnConfig: {columnLabel: 'Pimcore Id', columnName: 'id', columnWidth: 100},
 
-    attachHeader: function (object, type, e= null, template = null) {
+    attachHeader: function (object, e= null, template = null) {
        
         var tabIndexContainingConfiguration = 0;
         var objectClassName = object.data.general.className;

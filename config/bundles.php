@@ -1,6 +1,7 @@
 <?php
 
 return [
+    \Pimcore\Bundle\BundleGeneratorBundle\PimcoreBundleGeneratorBundle::class => ['dev' => true],
     Symfony\Bundle\WebProfilerBundle\WebProfilerBundle::class => ['dev' => true],
     //Twig\Extra\TwigExtraBundle\TwigExtraBundle::class => ['all' => true],
     ADAuthBundle\ADAuthBundle::class => ['all' => false],

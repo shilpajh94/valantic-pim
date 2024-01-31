@@ -1,66 +1,24 @@
 pimcore.registerNS("pimcore.plugin.CatalogBundle");
 
-pimcore.plugin.CatalogBundle = Class.create(pimcore.plugin.admin, {
+pimcore.plugin.CatalogBundle = Class.create({
     getClassName: function () {
         return "pimcore.plugin.CatalogBundle";
     },
 
     initialize: function () {
-        pimcore.plugin.broker.registerPlugin(this);
+        // alert("pimcore.plugin.CatalogBundle: initialize");
+        // pimcore.plugin.broker.registerPlugin(this);
+        document.addEventListener(pimcore.events.postOpenObject, this.postOpenObject.bind(this));
+        document.addEventListener(pimcore.events.postOpenDocument, this.postOpenDocument.bind(this));
     },
 
-    pimcoreReady: function (params, broker) {
-        // alert('override');
-        //     Ext.override(pimcore.object.tags.table,{
+    postOpenObject: function (e) {
+        let objectClassName = e.detail.object.data.general.className;
 
-        /*initStore: function (data) {
-         console.log('gshsh');
-         var data = [['9','2'],['3','4']];
-         var storeFields = [];
-         if (data[0]) {
-         for (var i = 0; i < data[0].length; i++) {
-         storeFields.push({
-         name: "col_" + i
-         });
-         }
-         }
-         
-         this.store = new Ext.data.ArrayStore({
-         fields: storeFields
-         });
-         
-         this.store.loadData(data);*/
-
-        /*  this.store.on("update", function () {
-         console.log("update event");
-         this.dirty = true;
-         }.bind(this));
-         
-         // customization -- open
-         this.store.on("add", function (store,records,index,eOpts) {;
-         this.dirty = true;
-         }.bind(this));
-         
-         
-         this.store.on("remove", function () {
-         this.dirty = true;
-         }.bind(this));*/
-
-        // customization -- closed
-        /*   this.dirty = true;
-         this.initGrid();
-         },*/
-//});
-
-    },
-    postOpenObject: function (object, type) {
-       
-        let objectClassName = object.data.general.o_className;
-
-        if (object.data.general.o_className == 'Catalog') {
-            var SalesOrganisationCompObj = object.edit.dataFields.SalesOrganisation.component;
-            var DistributionChannelCompObj = object.edit.dataFields.DistributionChannel.component;
-            var IsPriceCatalogCompObj = object.edit.dataFields.IsPriceCatalog.component;
+        if (objectClassName == 'Catalog') {
+            var SalesOrganisationCompObj = e.detail.object.edit.dataFields.SalesOrganisation.component;
+            var DistributionChannelCompObj = e.detail.object.edit.dataFields.DistributionChannel.component;
+            var IsPriceCatalogCompObj = e.detail.object.edit.dataFields.IsPriceCatalog.component;
             if(IsPriceCatalogCompObj.value == '1')
             {
                 SalesOrganisationCompObj.show();
@@ -103,7 +61,7 @@ pimcore.plugin.CatalogBundle = Class.create(pimcore.plugin.admin, {
                     url: '/catalog/get-category',
                     //  method:'POST',
                     extraParams: {
-                        catId: object.data.general.o_parentId,
+                        catId: e.detail.object.data.general.parentId,
 
                     },
                     reader: {
@@ -116,18 +74,18 @@ pimcore.plugin.CatalogBundle = Class.create(pimcore.plugin.admin, {
 
             categoryOptionsStore.load();
 
-            object.edit.dataFields.Category.component.setStore(categoryOptionsStore);
-            if (object.data.data.Category !== null)
+            e.detail.object.edit.dataFields.Category.component.setStore(categoryOptionsStore);
+            if (e.detail.object.data.data.Category !== null)
             {
-                console.log(object.data.data.Category);
-                object.edit.dataFields.Category.component.setValue(object.data.data.Category);
+                console.log(e.detail.object.data.data.Category);
+                e.detail.object.edit.dataFields.Category.component.setValue(e.detail.object.data.data.Category);
             }
             categoryOptionsStore.load();
         }
         //let helper = new pimcore.plugin.lpeHelper();
         if (objectClassName == 'CatalogTables') {
 
-            var colComp = Ext.getCmp(object.edit.dataFields.Columns.component.id);
+            var colComp = Ext.getCmp(e.detail.object.edit.dataFields.Columns.component.id);
             colComp.hide();
             
             var store;
@@ -142,7 +100,7 @@ pimcore.plugin.CatalogBundle = Class.create(pimcore.plugin.admin, {
                     // autoLoad: true,
                     //  method:'POST',
                     extraParams: {
-                        catId: object.data.general.o_parentId,
+                        catId: e.detail.object.data.general.parentId,
 
                     },
                     reader: {
@@ -156,33 +114,33 @@ pimcore.plugin.CatalogBundle = Class.create(pimcore.plugin.admin, {
 
             tableOptionsStore.load();
 
-            object.edit.dataFields.AttributeTable.component.setStore(tableOptionsStore);
-            if (object.data.data.AttributeTable !== null)
+            e.detail.object.edit.dataFields.AttributeTable.component.setStore(tableOptionsStore);
+            if (e.detail.object.data.data.AttributeTable !== null)
             {
                 tableOptionsStore.on('load', function(store, records, successful){
-                    object.edit.dataFields.AttributeTable.component.setValue(object.data.data.AttributeTable);
+                    e.detail.object.edit.dataFields.AttributeTable.component.setValue(e.detail.object.data.data.AttributeTable);
                  });
                 // object.edit.dataFields.AttributeTable.component.setValue(object.data.data.AttributeTable);
             }
             // tableOptionsStore.load();
             let template = null;
-             object.edit.dataFields.Template.component.on('change', function(eve){
+             e.detail.object.edit.dataFields.Template.component.on('change', function(eve){
                 
                template = eve.value;
              });
 
-            if((object.data.data.AttributeTable !== null && trim(object.data.data.AttributeTable) !== "")){
+            if((e.detail.object.data.data.AttributeTable !== null && trim(e.detail.object.data.data.AttributeTable) !== "")){
                 var headerSelection = new pimcore.plugin.headerSelection();
-                headerSelection.attachHeader(object, type,{'value': object.data.data.AttributeTable},template);
+                headerSelection.attachHeader(e.detail.object, {'value': e.detail.object.data.data.AttributeTable},template);
             }
 
-             object.edit.dataFields.AttributeTable.component.on('select', function(event){
-                 //console.log(object.data.data.AttributeTable);
-              //   if(object.data.data.AttributeTable != event.value)
-                 {
-                var headerSelection = new pimcore.plugin.headerSelection();
-            headerSelection.attachHeader(object, type,event,template);
-        }
+             e.detail.object.edit.dataFields.AttributeTable.component.on('select', function(event){
+                 //console.log(e.detail.object.data.data.AttributeTable);
+              //   if(e.detail.object.data.data.AttributeTable != event.value)
+                {
+                    var headerSelection = new pimcore.plugin.headerSelection();
+                    headerSelection.attachHeader(e.detail.object, event,template);
+                }
              });
              
 
@@ -193,7 +151,7 @@ pimcore.plugin.CatalogBundle = Class.create(pimcore.plugin.admin, {
                     url: '/catalog/get-base-products',
                     //  method:'POST',
                     extraParams: {
-                        catId: object.data.general.o_parentId,
+                        catId: e.detail.object.data.general.parentId,
 
                     },
                     reader: {
@@ -206,16 +164,16 @@ pimcore.plugin.CatalogBundle = Class.create(pimcore.plugin.admin, {
 
             baseOptionsStore.load();
 
-            object.edit.dataFields.BaseProduct.component.setStore(baseOptionsStore);
+            e.detail.object.edit.dataFields.BaseProduct.component.setStore(baseOptionsStore);
 
-            if (object.data.data.BaseProduct !== null)
+            if (e.detail.object.data.data.BaseProduct !== null)
             {
-               // console.log(object.data.data.BaseProduct);
-                object.edit.dataFields.BaseProduct.component.setValue(object.data.data.BaseProduct);
+               // console.log(e.detail.object.data.data.BaseProduct);
+                e.detail.object.edit.dataFields.BaseProduct.component.setValue(e.detail.object.data.data.BaseProduct);
             }
             baseOptionsStore.load();
 
-            object.edit.dataFields.BaseProduct.component.on('blur', function (e) {
+            e.detail.object.edit.dataFields.BaseProduct.component.on('blur', function (e) {
 
                 var skeletonOptionsStore = Ext.create('Ext.data.Store', {
                     fields: ['id', 'text'],
@@ -237,12 +195,12 @@ pimcore.plugin.CatalogBundle = Class.create(pimcore.plugin.admin, {
 
                 skeletonOptionsStore.load();
 
-                object.edit.dataFields.SkeletonProduct.component.setStore(skeletonOptionsStore);
+                e.detail.object.edit.dataFields.SkeletonProduct.component.setStore(skeletonOptionsStore);
                 
-                 if (object.data.data.SkeletonProduct !== null)
+                 if (e.detail.object.data.data.SkeletonProduct !== null)
             {
-                console.log(object.data.data.SkeletonProduct);
-                object.edit.dataFields.SkeletonProduct.component.setValue(object.data.data.SkeletonProduct);
+                console.log(e.detail.object.data.data.SkeletonProduct);
+                e.detail.object.edit.dataFields.SkeletonProduct.component.setValue(e.detail.object.data.data.SkeletonProduct);
             }
             skeletonOptionsStore.load();
             });
@@ -256,7 +214,7 @@ pimcore.plugin.CatalogBundle = Class.create(pimcore.plugin.admin, {
                     url: '/catalog/get-siop-data',
                     //  method:'POST',
                     extraParams: {
-                        catId: object.data.general.o_parentId,
+                        catId: e.detail.object.data.general.parentId,
 
                     },
                     reader: {
@@ -268,35 +226,35 @@ pimcore.plugin.CatalogBundle = Class.create(pimcore.plugin.admin, {
             });
 
             siopStore.load();
-            object.edit.dataFields.SIOPLevel4.component.setStore(siopStore);
+            e.detail.object.edit.dataFields.SIOPLevel4.component.setStore(siopStore);
              
            siopStore.on('load', function(store, records, successful){
    if(store.getCount() == 0)
             {
-                object.edit.dataFields.SIOPLevel4.component.setDisabled(true);
+                e.detail.object.edit.dataFields.SIOPLevel4.component.setDisabled(true);
             }
 });
            
-            if (object.data.data.SIOPLevel4 !== null)
+            if (e.detail.object.data.data.SIOPLevel4 !== null)
             {
-               // console.log(object.data.data.BaseProduct);
-                object.edit.dataFields.SIOPLevel4.component.setValue(object.data.data.SIOPLevel4);
+               // console.log(e.detail.object.data.data.BaseProduct);
+                e.detail.object.edit.dataFields.SIOPLevel4.component.setValue(e.detail.object.data.data.SIOPLevel4);
             }
             
-            var tabs = Ext.getCmp(object.edit.layout.items.items[0].id);
+            var tabs = Ext.getCmp(e.detail.object.edit.layout.items.items[0].id);
 
             tabs.on('tabChange', function (obj, newTab, oldTab) {
 
 
                 if (newTab.name == 'Data')
                 {
-                    var headComp = Ext.getCmp(object.edit.dataFields.headerData.component.id);
+                    var headComp = Ext.getCmp(e.detail.object.edit.dataFields.headerData.component.id);
                     headComp.hide();
                     Ext.Ajax.request({
                         url: "/catalog/get-initial-data",
                         method: 'GET',
                         async: false,
-                        params: {'objId': object.id},
+                        params: {'objId': e.detail.object.id},
                         success: function (response) {
                             response = Ext.decode(response.responseText);
 
@@ -320,54 +278,46 @@ pimcore.plugin.CatalogBundle = Class.create(pimcore.plugin.admin, {
 
 
 
-                            var table = new Conti.pimcore.object.tags.table([], object.edit.dataFields.ProductsData.fieldConfig);
-                            var comp = Ext.getCmp(object.edit.dataFields.ProductsData.component.id);
+                            var table = new Conti.pimcore.object.tags.table([], e.detail.object.edit.dataFields.ProductsData.fieldConfig);
+                            var comp = Ext.getCmp(e.detail.object.edit.dataFields.ProductsData.component.id);
 
-                            table.initStore(data, comp, object.edit.dataFields.ProductsData, columns);
+                            table.initStore(data, comp, e.detail.object.edit.dataFields.ProductsData, columns);
                         }
                     });
                 }
             });
-            let formatterGridHandler = new pimcore.plugin.formattedGridHandler(object);
-            formatterGridHandler.setUpFormattedGrid();
+            let formatterGridHandler = new pimcore.plugin.formattedGridHandler();
+            formatterGridHandler.setUpFormattedGrid(e);
 
 
         }
     },
-    postOpenDocument: function(doc,type){
+    postOpenDocument: function(e){
 
-        let docPath             = doc.data.path;
-        let docType             = doc.data.type;
-        let template             = doc.data.template;
+        let template = e.detail.document.data.template;
 
-        if(template ==  '@Catalog/Default/template_hydraulic_alphanumeric_index_by_descriptive_number_dynamic.html.twig')
-        {
-            let resetTableOfContent = new pimcore.plugin.contitech.resetTableOfContent(doc);
+        if (template == '@Catalog/Default/template_hydraulic_alphanumeric_index_by_descriptive_number_dynamic.html.twig') {
+            let resetTableOfContent = new pimcore.plugin.contitech.resetTableOfContent(e.detail.document);
             resetTableOfContent.addResetContentButton();
         }
-        else if(template ==  '@Catalog/Default/template_hydraulic_alphanumeric_index_by_product_number_dynamic.html.twig')
-        {
-            let resetTableOfContent = new pimcore.plugin.contitech.resetTableOfContent(doc);
+        else if (template == '@Catalog/Default/template_hydraulic_alphanumeric_index_by_product_number_dynamic.html.twig') {
+            let resetTableOfContent = new pimcore.plugin.contitech.resetTableOfContent(e.detail.document);
             resetTableOfContent.addResetContentButton();
         }
-        else if(template ==  'CatalogBundle:Default:template_hydraulic_table_of_contents_dynamic.html.twig')
-        {
-            let resetTableOfContent = new pimcore.plugin.contitech.resetTableOfContent(doc);
+        else if (template == '@Catalog/Default/template_hydraulic_table_of_contents_dynamic.html.twig') {
+            let resetTableOfContent = new pimcore.plugin.contitech.resetTableOfContent(e.detail.document);
             resetTableOfContent.addResetContentButton();
         }
-        else if(template ==  '@Catalog/INH/template_industrial_hose_index_by_application_dynamic.html.twig')
-        {
-            let resetTableOfContent = new pimcore.plugin.contitech.resetTableOfContent(doc);
+        else if (template == '@Catalog/INH/template_industrial_hose_index_by_application_dynamic.html.twig') {
+            let resetTableOfContent = new pimcore.plugin.contitech.resetTableOfContent(e.detail.document);
             resetTableOfContent.addResetContentButton();
         }
-        else if(template ==  '@Catalog/INH/template_industrial_hose_index_by_alphabet_dynamic.html.twig')
-        {
-            let resetTableOfContent = new pimcore.plugin.contitech.resetTableOfContent(doc);
+        else if (template == '@Catalog/INH/template_industrial_hose_index_by_alphabet_dynamic.html.twig') {
+            let resetTableOfContent = new pimcore.plugin.contitech.resetTableOfContent(e.detail.document);
             resetTableOfContent.addResetContentButton();
         }
-        else if(template ==  '@Catalog/INH/template_industrial_hose_table_of_contents_dynamic.html.twig')
-        {
-            let resetTableOfContent = new pimcore.plugin.contitech.resetTableOfContent(doc);
+        else if (template == '@Catalog/INH/template_industrial_hose_table_of_contents_dynamic.html.twig') {
+            let resetTableOfContent = new pimcore.plugin.contitech.resetTableOfContent(e.detail.document);
             resetTableOfContent.addResetContentButton();
         }
     },
