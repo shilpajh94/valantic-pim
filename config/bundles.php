@@ -13,7 +13,7 @@ return [
     ContitechCS\ProductBundle\ContitechCSProductBundle::class => ['all' => true],
     // ContitechCS\ImportBundle\ContitechCSImportBundle::class => ['all' => true],
     // ContitechCS\CatalogBundle\ContitechCSCatalogBundle::class => ['all' => true],
-    // ContitechCS\CatalogUIApiBundle\CatalogUIApiBundle::class => ['all' => true],
+    ContitechCS\CatalogUIApiBundle\CatalogUIApiBundle::class => ['all' => true],
     // Wvision\Bundle\DataDefinitionsBundle\DataDefinitionsBundle::class => ['all' => true],
     // DistributionHubBundle\DistributionHubBundle::class => ['all' => true],
     // EmailNotificationBundle\EmailNotificationBundle::class => ['all' => true],
