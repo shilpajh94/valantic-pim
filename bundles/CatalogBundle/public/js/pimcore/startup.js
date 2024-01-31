@@ -296,27 +296,27 @@ pimcore.plugin.CatalogBundle = Class.create({
 
         let template = e.detail.document.data.template;
 
-        if (template == '@Catalog/Default/template_hydraulic_alphanumeric_index_by_descriptive_number_dynamic.html.twig') {
+        if (template == 'catalog/default/template_hydraulic_alphanumeric_index_by_descriptive_number_dynamic.html.twig') {
             let resetTableOfContent = new pimcore.plugin.contitech.resetTableOfContent(e.detail.document);
             resetTableOfContent.addResetContentButton();
         }
-        else if (template == '@Catalog/Default/template_hydraulic_alphanumeric_index_by_product_number_dynamic.html.twig') {
+        else if (template == 'catalog/default/template_hydraulic_alphanumeric_index_by_product_number_dynamic.html.twig') {
             let resetTableOfContent = new pimcore.plugin.contitech.resetTableOfContent(e.detail.document);
             resetTableOfContent.addResetContentButton();
         }
-        else if (template == '@Catalog/Default/template_hydraulic_table_of_contents_dynamic.html.twig') {
+        else if (template == 'catalog/default/template_hydraulic_table_of_contents_dynamic.html.twig') {
             let resetTableOfContent = new pimcore.plugin.contitech.resetTableOfContent(e.detail.document);
             resetTableOfContent.addResetContentButton();
         }
-        else if (template == '@Catalog/INH/template_industrial_hose_index_by_application_dynamic.html.twig') {
+        else if (template == 'catalog/inh/template_industrial_hose_index_by_application_dynamic.html.twig') {
             let resetTableOfContent = new pimcore.plugin.contitech.resetTableOfContent(e.detail.document);
             resetTableOfContent.addResetContentButton();
         }
-        else if (template == '@Catalog/INH/template_industrial_hose_index_by_alphabet_dynamic.html.twig') {
+        else if (template == 'catalog/inh/template_industrial_hose_index_by_alphabet_dynamic.html.twig') {
             let resetTableOfContent = new pimcore.plugin.contitech.resetTableOfContent(e.detail.document);
             resetTableOfContent.addResetContentButton();
         }
-        else if (template == '@Catalog/INH/template_industrial_hose_table_of_contents_dynamic.html.twig') {
+        else if (template == 'catalog/inh/template_industrial_hose_table_of_contents_dynamic.html.twig') {
             let resetTableOfContent = new pimcore.plugin.contitech.resetTableOfContent(e.detail.document);
             resetTableOfContent.addResetContentButton();
         }

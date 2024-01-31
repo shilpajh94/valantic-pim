@@ -89,7 +89,7 @@ class DefaultController extends FrontendController
             
             $categoryList = new DataObject\PTGEUProductHierarchy\Listing();
             $categoryList->setCondition("Level = ?", ["7"]);
-            $categoryList->setCondition("o_parentId IN (?)", [$parentIds]);
+            $categoryList->setCondition("parentId IN (?)", [$parentIds]);
             $categoryList->setOrderKey('description');
             $categoryList->setOrder("ASC");
             $categoryList = $categoryList->load();
@@ -189,7 +189,9 @@ class DefaultController extends FrontendController
 
     public function containerAction(Request $request): Response
     {
-        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        $documentPath = $this->document->getFullPath();
+        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+        $parameterBag = $this->getRequestedParameter($request, $documentId);
 
         $allChildren = [];
 
@@ -202,12 +204,15 @@ class DefaultController extends FrontendController
         }
 
         $parameterBag['allChildren'] = $allChildren;
-        return $this->render('@PTGEUCatalog/Default/container.html.twig',$parameterBag);
+        return $this->render('ptgeucatalog/default/container.html.twig',$parameterBag);
     }
     
     public function templatePtgEuProductProfileAction(Request $request): Response
     {
-        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
+        $documentPath = $this->document->getFullPath();
+        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+        $parameterBag = $this->getRequestedParameter($request, $documentId);
+
         $language = $this->document->getProperty('language');
         $language = $language ? $language : 'en';
 
@@ -260,7 +265,7 @@ class DefaultController extends FrontendController
                     }
                 }
 
-                $sql = "SELECT o_id FROM `object_38` WHERE `o_parentId` = '$objectLevel5thId' ORDER BY o_id ASC";
+                $sql = "SELECT id FROM `object_38` WHERE `parentId` = '$objectLevel5thId' ORDER BY id ASC";
                 $row6ThLevelDetails =  $this->db->fetchFirstColumn($sql);
                 $profile = [];
                 foreach ($row6ThLevelDetails as $objectLevel6thId) {
@@ -279,18 +284,18 @@ class DefaultController extends FrontendController
                         $sql = "SELECT staticConductive FROM `object_query_38` WHERE `oo_id` = '$objectLevel6thId'";
                         $staticConductive =  $this->db->fetchOne($sql);
                         
-                        $sql = "SELECT o_id FROM `object_38` WHERE `o_parentId` = '$objectLevel6thId' ";
-                        $sql .= "AND `PrintedCatalogFlag` = '1' ORDER BY o_id ASC LIMIT 1";
+                        $sql = "SELECT id FROM `object_38` WHERE `parentId` = '$objectLevel6thId' ";
+                        $sql .= "AND `PrintedCatalogFlag` = '1' ORDER BY id ASC LIMIT 1";
                         $fertObjId =  $this->db->fetchOne($sql);
 
                         if($fertObjId)
                         {
                             $sql = "SELECT heightMM FROM `object_brick_query_PTGEUCommonFert_38` ";
-                            $sql .= "WHERE `o_id` = '$fertObjId'";
+                            $sql .= "WHERE `id` = '$fertObjId'";
                             $beltHeight =  $this->db->fetchOne($sql);
 
                             $sql = "SELECT widthMM FROM `object_brick_query_PTGEUCommonFert_38` ";
-                            $sql .= "WHERE `o_id` = '$fertObjId'";
+                            $sql .= "WHERE `id` = '$fertObjId'";
                             $upperRibWidth =  $this->db->fetchOne($sql);
                         }
 
@@ -388,7 +393,7 @@ class DefaultController extends FrontendController
                 $parameterBag['profileData'] = $profileData;
             }
         }
-        return $this->render("@PTGEUCatalog/Default/template_ptg_eu_product_profile.html.twig", $parameterBag);
+        return $this->render("ptgeucatalog/default/template_ptg_eu_product_profile.html.twig", $parameterBag);
     }
     public function templatePtgEuProductPageAction(Request $request): Response
     {
@@ -474,11 +479,11 @@ class DefaultController extends FrontendController
                 # get All PlantMaterialMaster of the selected Delivery Plant
                 if(trim($deliveringPlant))
                 {
-                    $sql = "SELECT o_id FROM `object_PTGEUPlant` WHERE Plant = '$deliveringPlant' AND o_published = 1 ";
+                    $sql = "SELECT id FROM `object_PTGEUPlant` WHERE Plant = '$deliveringPlant' AND published = 1 ";
                     $deliveringPlantID =  $this->db->fetchOne($sql);
 
                     $sql = "SELECT TRIM(BOTH ',' FROM `Material`) AS `materialID` FROM `object_40` ";
-                    $sql .= " WHERE plant__id = '$deliveringPlantID' AND o_published = 1 ";
+                    $sql .= " WHERE plant__id = '$deliveringPlantID' AND published = 1 ";
                     
                     $plantAssociatedMaterials =  $this->db->fetchFirstColumn($sql);
                 }
@@ -486,13 +491,13 @@ class DefaultController extends FrontendController
                 # get All SalesMaterialMaster of the selected Sales Organization
                 if(trim($salesOrganisation))
                 {
-                    $sql = "SELECT o_id FROM `object_PTGEUSalesOrg` ";
-                    $sql .= " WHERE salesOrgCode = '$salesOrganisation' AND o_published = 1 ";
+                    $sql = "SELECT id FROM `object_PTGEUSalesOrg` ";
+                    $sql .= " WHERE salesOrgCode = '$salesOrganisation' AND published = 1 ";
 
                     $salesOrganisationID =  $this->db->fetchOne($sql);
 
                     $sql = "SELECT TRIM(BOTH ',' FROM `Material`) AS `materialID` FROM `object_41` ";
-                    $sql .= " WHERE salesOrganization__id = '$salesOrganisationID' AND o_published = 1 ";
+                    $sql .= " WHERE salesOrganization__id = '$salesOrganisationID' AND published = 1 ";
                     $salesAssociatedMaterials =  $this->db->fetchFirstColumn($sql);
                 }
 
@@ -678,7 +683,7 @@ class DefaultController extends FrontendController
                     
                     $groupData['brandName'] = $objectLevel5thDetails['ProductName'];
                     
-                    $sql = "SELECT * FROM `object_38` WHERE `o_parentId` = '$objectLevel5thId' ORDER BY o_id ASC";
+                    $sql = "SELECT * FROM `object_38` WHERE `parentId` = '$objectLevel5thId' ORDER BY id ASC";
                     $row6ThLevelDetails =  $this->db->fetchAllAssociative($sql);
                     $notApplicableFields = [];
                     $articles = [];
@@ -695,7 +700,7 @@ class DefaultController extends FrontendController
                     }
 
                     foreach ($row6ThLevelDetails as $objectLevel6) {
-                        $objectLevel6thId = $objectLevel6['o_id'];
+                        $objectLevel6thId = $objectLevel6['id'];
                         if(empty($seventhLevelProductList) || in_array($objectLevel6thId, $seventhLevelProductList))
                         {
                             $appendWhereClauseSQL = '';
@@ -714,14 +719,14 @@ class DefaultController extends FrontendController
                             }
 
                             $sql = "SELECT * FROM `object_38` ";
-                            $sql .= " WHERE `o_parentId` = '$objectLevel6thId' $appendWhereClauseSQL ORDER BY o_id ASC";
+                            $sql .= " WHERE `parentId` = '$objectLevel6thId' $appendWhereClauseSQL ORDER BY id ASC";
                             $productObjectLevel7List =  $this->db->fetchAllAssociative($sql);
 
                             foreach ($productObjectLevel7List as $article) {
                                 if($article['printedCatalogFlag'] == '1')
                                 {
                                     foreach ($orderFieldNameList as $fieldName => $fields) {
-                                        if( ($fields['objectLevel'] == 'fert') && ($fields['fieldLevel'] == 'class'))
+                                        if(isset($fields['objectLevel']) && ($fields['objectLevel'] == 'fert') && ($fields['fieldLevel'] == 'class'))
                                         {
                                             if(ucfirst($fields['fieldType']) == 'Input')
                                             {
@@ -737,7 +742,7 @@ class DefaultController extends FrontendController
                                                 }
                                             }
                                         }
-                                        elseif( ($fields['objectLevel'] == 'base') && ($fields['fieldLevel'] == 'class'))
+                                        elseif(isset($fields['objectLevel']) &&  ($fields['objectLevel'] == 'base') && ($fields['fieldLevel'] == 'class'))
                                         {
                                             if(ucfirst($fields['fieldType']) == 'Input')
                                             {
@@ -748,7 +753,7 @@ class DefaultController extends FrontendController
                                                     $data[$fieldName] = floatval($objectLevel5thDetails[$fieldName]);
                                             }
                                         }
-                                        elseif( ($fields['objectLevel'] == 'skeleton') && ($fields['fieldLevel'] == 'class'))
+                                        elseif(isset($fields['objectLevel']) && ($fields['objectLevel'] == 'skeleton') && ($fields['fieldLevel'] == 'class'))
                                         {
                                             if(ucfirst($fields['fieldType']) == 'Input')
                                             {
@@ -759,7 +764,7 @@ class DefaultController extends FrontendController
                                                     $data[$fieldName] = floatval($objectLevel6[$fieldName]);
                                             }
                                         }
-                                        elseif( ($fields['objectLevel'] == 'skeleton') && ($fields['fieldLevel'] == 'objectBrick'))
+                                        elseif(isset($fields['objectLevel']) && ($fields['objectLevel'] == 'skeleton') && ($fields['fieldLevel'] == 'objectBrick'))
                                         {
                                             $inputOrNumber = false;
                                             $isNumericField = false;
@@ -777,7 +782,7 @@ class DefaultController extends FrontendController
                                             {
                                                 $o_id = $objectLevel6['oo_id'];
                                                 $objectBrickName = $fields['objectBrickName'];
-                                                $sql = "SELECT * FROM `object_brick_query_{$objectBrickName}_38` WHERE `o_id` = '$o_id'";
+                                                $sql = "SELECT * FROM `object_brick_query_{$objectBrickName}_38` WHERE `id` = '$o_id'";
                                                 $rowData =  $this->db->fetchAssociative($sql);
                                                 if($rowData)
                                                 {
@@ -802,8 +807,7 @@ class DefaultController extends FrontendController
                                             }
                                             
                                         }
-
-                                        elseif($fields['objectLevel'] == 'fert' && ($fields['fieldLevel'] == 'objectBrick'))
+                                        elseif(isset($fields['objectLevel']) && $fields['objectLevel'] == 'fert' && ($fields['fieldLevel'] == 'objectBrick'))
                                         {
                                             $inputOrNumber = false;
                                             $isNumericField = false;
@@ -819,9 +823,9 @@ class DefaultController extends FrontendController
 
                                             if($inputOrNumber)
                                             {
-                                                $o_id = $article['o_id'];
+                                                $o_id = $article['id'];
                                                 $objectBrickName = $fields['objectBrickName'];
-                                                $sql = "SELECT * FROM `object_brick_query_{$objectBrickName}_38` WHERE `o_id` = '$o_id'";
+                                                $sql = "SELECT * FROM `object_brick_query_{$objectBrickName}_38` WHERE `id` = '$o_id'";
                                                 $rowData =  $this->db->fetchAssociative($sql);
                                                 if($rowData)
                                                 {
@@ -1749,7 +1753,7 @@ class DefaultController extends FrontendController
             $parameterBag['footer_logo_src'] = $footerLogoSrc;
             $parameterBag['groupData'] = $groupData;
         }
-        return $this->render("@PTGEUCatalog/Default/template_ptg_eu_product_page.html.twig", $parameterBag);
+        return $this->render("ptgeucatalog/default/template_ptg_eu_product_page.html.twig", $parameterBag);
     }
 
     public function getFiveSortedFeaturesWithIconList($safetyFeatures): ?array
@@ -1903,9 +1907,10 @@ class DefaultController extends FrontendController
     public function getRequestedParameter(Request $request, $documentId): ?array
     {
         $parameterBag = [];
+        $isParentContainerRequest = $request->get('isParentContainerRequest');
+        $parameterBag['isParentContainerRequest'] = $isParentContainerRequest ? $isParentContainerRequest : false;
         $parameterBag['printermarks'] = $request->get('printermarks');
-        $parameterBag['isParentContainerRequest'] = $request->get('isParentContainerRequest') ? $request->get('isParentContainerRequest') : false;
-
+        
         $imageWidth = null;
         $imageRecompression = null;
         $printConfigFile = Processor::getJobConfigFile($documentId);

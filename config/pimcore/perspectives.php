@@ -297,7 +297,7 @@ return [
                 'expanded' => false,
                 'hidden' => false,
                 'sort' => 0,
-                'id' => 'contitech_ptgeu_catalog_cms',
+                'id' => 'contitech_ptgeucatalog_cms',
             ],
             [
                 'type' => 'customview',
@@ -313,7 +313,7 @@ return [
                 'expanded' => false,
                 'hidden' => false,
                 'sort' => 3,
-                'id' => 'contitech_ptgeu_catalog_images',
+                'id' => 'contitech_ptgeucatalog_images',
             ],
             [
                 'type' => 'customview',
@@ -353,7 +353,7 @@ return [
                 'expanded' => false,
                 'hidden' => false,
                 'sort' => 8,
-                'id' => 'contitech_ptgeu_catalog_objects',
+                'id' => 'contitech_ptgeucatalog_objects',
             ],
         ]
     ],
@@ -367,7 +367,7 @@ return [
                 'expanded' => false,
                 'hidden' => false,
                 'sort' => 0,
-                'id' => 'contitech_ptgeu_catalog_cms',
+                'id' => 'contitech_ptgeucatalog_cms',
             ],
             [
                 'type' => 'customview',
@@ -383,7 +383,7 @@ return [
                 'expanded' => false,
                 'hidden' => false,
                 'sort' => 3,
-                'id' => 'contitech_ptgeu_catalog_images',
+                'id' => 'contitech_ptgeucatalog_images',
             ],
             [
                 'type' => 'customview',
@@ -415,7 +415,7 @@ return [
                 'expanded' => false,
                 'hidden' => false,
                 'sort' => 7,
-                'id' => 'contitech_ptgeu_catalog_objects',
+                'id' => 'contitech_ptgeucatalog_objects',
             ],
             
         ]
@@ -430,7 +430,7 @@ return [
                 'expanded' => false,
                 'hidden' => false,
                 'sort' => 0,
-                'id' => 'contitech_ptgeu_catalog_cms',
+                'id' => 'contitech_ptgeucatalog_cms',
             ],
             [
                 'type' => 'customview',
@@ -446,7 +446,7 @@ return [
                 'expanded' => false,
                 'hidden' => false,
                 'sort' => 3,
-                'id' => 'contitech_ptgeu_catalog_images',
+                'id' => 'contitech_ptgeucatalog_images',
             ],
             [
                 'type' => 'customview',
@@ -462,7 +462,7 @@ return [
                 'expanded' => false,
                 'hidden' => false,
                 'sort' => 5,
-                'id' => 'contitech_ptgeu_catalog_objects',
+                'id' => 'contitech_ptgeucatalog_objects',
             ],
             [
                 'type' => 'customview',
@@ -493,7 +493,7 @@ return [
                 'expanded' => false,
                 'hidden' => false,
                 'sort' => 0,
-                'id' => 'contitech_ptgeu_catalog_cms',
+                'id' => 'contitech_ptgeucatalog_cms',
             ],
             [
                 'type' => 'customview',
@@ -509,7 +509,7 @@ return [
                 'expanded' => false,
                 'hidden' => false,
                 'sort' => 3,
-                'id' => 'contitech_ptgeu_catalog_images',
+                'id' => 'contitech_ptgeucatalog_images',
             ],
             [
                 'type' => 'customview',
@@ -525,7 +525,7 @@ return [
                 'expanded' => false,
                 'hidden' => false,
                 'sort' => 5,
-                'id' => 'contitech_ptgeu_catalog_objects',
+                'id' => 'contitech_ptgeucatalog_objects',
             ],
             [
                 'type' => 'customview',
@@ -556,7 +556,7 @@ return [
                 'expanded' => false,
                 'hidden' => false,
                 'sort' => 0,
-                'id' => 'contitech_ptgeu_catalog_cms',
+                'id' => 'contitech_ptgeucatalog_cms',
             ],
             [
                 'type' => 'customview',
@@ -572,7 +572,7 @@ return [
                 'expanded' => false,
                 'hidden' => false,
                 'sort' => 3,
-                'id' => 'contitech_ptgeu_catalog_images',
+                'id' => 'contitech_ptgeucatalog_images',
             ],
             [
                 'type' => 'customview',
@@ -588,7 +588,7 @@ return [
                 'expanded' => false,
                 'hidden' => false,
                 'sort' => 5,
-                'id' => 'contitech_ptgeu_catalog_objects',
+                'id' => 'contitech_ptgeucatalog_objects',
             ],
             
         ]

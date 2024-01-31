@@ -10,24 +10,24 @@ pimcore.registerNS("pimcore.plugin.euHeaderSelection");
 
 pimcore.plugin.euHeaderSelection = Class.create({
 
-    attachEUHeaders: function (object) {
+    attachEUHeaders: function (e) {
         var headerFieldIndex = 1;
         var sorterFieldIndex = 3;
-        var objectClassName = object.data.general.o_className;
+        var objectClassName = e.detail.object.data.general.className;
 
         if (objectClassName == 'PTGEUCatalogCategory') {
             var headerDataFieldName = 'Columns';
             var sortingDataFieldName = 'SortingColumns';
-            var dataFields = object.edit.dataFields;
+            var dataFields = e.detail.object.edit.dataFields;
             var headerDataComponent = dataFields[headerDataFieldName].component;
             var sortingDataComponent = dataFields[sortingDataFieldName].component;
-            var headerFieldSet = object.edit.layout.items.items[0].items.items[headerFieldIndex];
-            var sorterFieldSet = object.edit.layout.items.items[0].items.items[sorterFieldIndex];
+            var headerFieldSet = e.detail.object.edit.layout.items.items[0].items.items[headerFieldIndex];
+            var sorterFieldSet = e.detail.object.edit.layout.items.items[0].items.items[sorterFieldIndex];
             var headerData = [];
             var sorterData = [];
 
             Ext.Ajax.request({
-                url: '/ptgeu_catalog/get-available-headers',
+                url: '/ptgeucatalog/get-available-headers',
                 async: false,
                 success: function (response) {
 
@@ -39,7 +39,7 @@ pimcore.plugin.euHeaderSelection = Class.create({
             });
 
             Ext.Ajax.request({
-                url: '/ptgeu_catalog/get-available-sorters',
+                url: '/ptgeucatalog/get-available-sorters',
                 async: false,
                 success: function (response) {
 
@@ -160,7 +160,6 @@ pimcore.plugin.euHeaderSelection = Class.create({
 
         let returnData = undefined;
         if (headerDataComponent.getValue()) {
-            // console.log(headerDataComponent.getValue());
             returnData = JSON.parse(headerDataComponent.getValue());
         }
 
@@ -198,8 +197,6 @@ pimcore.plugin.euHeaderSelection = Class.create({
         return returnData;
     },
     formatSorterHeaderDataForSave: function (data, completeData) {
-        // console.log(data);
-        // console.log(completeData);
         let returnData = {};
 
         data.forEach((currentElement, index)  => {
@@ -209,15 +206,7 @@ pimcore.plugin.euHeaderSelection = Class.create({
                 returnData[currentElement] = currentElement;
             }
         });
-        // for (let i = 0; i < data.length; i++) {
-          
-        //     var completeHeaderData = completeData[data[i]];
-        //     // let header = {
-        //     //     "fieldName": completeHeaderData.fieldName
-        //     // };
-        //     returnData[data[i]] = completeHeaderData;
-        // }
-        // console.log(returnData);
+        
         return returnData;
     },
     setDefaultColumnsSetting: function (headerDataComponent, my_item_selector_instance, completeData) {
@@ -231,7 +220,7 @@ pimcore.plugin.euHeaderSelection = Class.create({
 
     setSorterDefaultColumnsSetting: function (headerDataComponent, my_sorter_item_selector_instance, completeData) {
         let selectedHeaders = my_sorter_item_selector_instance.getValue();
-        // console.log(selectedHeaders);
+
         // setting selected headers in selectedHeadersField
         let formatedSelectedHeaders = this.formatSorterHeaderDataForSave(selectedHeaders, completeData);
         formatedSelectedHeaders = JSON.stringify(formatedSelectedHeaders);
