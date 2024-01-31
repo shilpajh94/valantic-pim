@@ -249,7 +249,6 @@ class DefaultController extends FrontendController
         $fitting = $tableObj->getFittingFamily();
         $baseProduct = $tableObj->getBaseProduct();
         $skeletonProduct = $tableObj->getSkeletonProduct();
-        $skeletonIds = [];
         $tableColumns = json_decode($tableData, 1);
         if ($tableColumns !== null) {
             $columns = array_keys($tableColumns);
@@ -306,20 +305,18 @@ class DefaultController extends FrontendController
                 $conditionArray[] = $fittingString;
             }
         }
+        
+        $skeletonProductId = [];
 
         if ($baseProduct !== null && count($baseProduct) > 0) {
             $baseIds = implode(',', $baseProduct);
             $query = "select id from object_1 where parentId IN (" . $baseIds . ")";
 
-            $skeletonIds = $this->db->fetchAllAssociative($query);
+            $skeletonProductId = $this->db->fetchFirstColumn($query);
         }
         if ($skeletonProduct !== null && count($skeletonProduct) > 0) {
             $productList->addConditionParam('parentId IN (:parent)', ['parent' => $skeletonProduct], 'AND');
-        } elseif (!empty($skeletonIds) && count($baseProduct) > 0) {
-            $skeletonProductId = [];
-            for ($i = 0; $i < count($skeletonIds); $i++) {
-                $skeletonProductId[] = $skeletonIds[$i]['id'];
-            }
+        } elseif (!empty($skeletonProductId) && count($baseProduct) > 0) {
             $productList->addConditionParam('parentId IN (:parent)', ['parent' => $skeletonProductId], 'AND');
         }
         $conditionArray[] = "printedCatalogFlag = '1' ";
@@ -842,7 +839,7 @@ class DefaultController extends FrontendController
                 );
             }
         }
-        return $this->render("@Catalog/Default/template_hose_line_tile_template.html.twig", $parameterBag);
+        return $this->render("catalog/default/template_hose_line_tile_template.html.twig", $parameterBag);
     }
 
     public function templateHoseProductPageAction(Request $request): Response
@@ -1152,7 +1149,7 @@ class DefaultController extends FrontendController
                 $parameterBag['footer_logo_src'] = $footer_logo_src;
             }
         }
-        return $this->render("@Catalog/Default/template_hose_product_page.html.twig", $parameterBag);
+        return $this->render("catalog/default/template_hose_product_page.html.twig", $parameterBag);
     }
 
     public function templateHoseAccessoriesSleevingAction(Request $request): Response
@@ -1314,7 +1311,7 @@ class DefaultController extends FrontendController
             $parameterBag['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
             $parameterBag['footer_logo_src'] = $footer_logo_src;
         }
-        return $this->render("@Catalog/Default/template_hose_accessories_sleeving.html.twig", $parameterBag);
+        return $this->render("catalog/default/template_hose_accessories_sleeving.html.twig", $parameterBag);
     }
 
     public function templateHoseAccessoriesClampsAction(Request $request)
@@ -1419,7 +1416,7 @@ class DefaultController extends FrontendController
             $parameterBag['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
             $parameterBag['footer_logo_src'] = $footer_logo_src;
         }
-        return $this->render("@Catalog/Default/template_hose_accessories_clamps.html.twig", $parameterBag);
+        return $this->render("catalog/default/template_hose_accessories_clamps.html.twig", $parameterBag);
     }
 
     public function templateHoseAccessoriesOringAction(Request $request)
@@ -1546,7 +1543,7 @@ class DefaultController extends FrontendController
             $parameterBag['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
             $parameterBag['footer_logo_src'] = $footer_logo_src;
         }
-        return $this->render("@Catalog/Default/template_hose_accessories_oring.html.twig", $parameterBag);
+        return $this->render("catalog/default/template_hose_accessories_oring.html.twig", $parameterBag);
     }
 
     public function templateTableOfContentsAction(Request $request): Response
@@ -1554,7 +1551,7 @@ class DefaultController extends FrontendController
         $documentPath = $this->document->getFullPath();
         $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
         $parameterBag = $this->getRequestedParameter($request, $documentId);
-        return $this->render('@Catalog/Default/template_table_of_contents.html.twig', $parameterBag);
+        return $this->render('catalog/default/template_table_of_contents.html.twig', $parameterBag);
     }
 
     public function templateHydraulicTableOfContentsDynamicAction(Request $request)
@@ -1571,8 +1568,8 @@ class DefaultController extends FrontendController
             $listing->setOrderKey("index");
             $listing->setOrder("asc");
             $templateArray = [
-                '@Catalog/Default/template_part_number_designations.html.twig',
-                '@Catalog/Fitting/hydraulic_fitting.html.twig',
+                'catalog/default/template_part_number_designations.html.twig',
+                'catalog/fitting/hydraulic_fitting.html.twig',
             ];
 
             $hydraulicHose[] = 'HYDRAULIC HOSE';
@@ -1588,7 +1585,7 @@ class DefaultController extends FrontendController
                             foreach ($childDoc->getChildren() as $child2Doc) {
                                 if (in_array($child2Doc->getTemplate(), $templateArray)) {
 
-                                    if ($child2Doc->getTemplate() == '@Catalog/Default/template_part_number_designations.html.twig') {
+                                    if ($child2Doc->getTemplate() == 'catalog/default/template_part_number_designations.html.twig') {
                                         $obj = $child2Doc->getEditable('hydraulic_hose_details');
                                         if (!empty($obj) && !empty($obj->getData())) {
 
@@ -1607,7 +1604,7 @@ class DefaultController extends FrontendController
                                                 $hydraulicHose[] = $hydraulicHoseInnerData;
                                             }
                                         }
-                                    } elseif ($child2Doc->getTemplate() == '@Catalog/Fitting/hydraulic_fitting.html.twig') {
+                                    } elseif ($child2Doc->getTemplate() == 'catalog/fitting/hydraulic_fitting.html.twig') {
                                         $obj = $child2Doc->getEditable('hydraulic_fitting_brand');
                                         if (!empty($obj) && !empty($obj->getData())) {
                                             $fittingBrandNames = explode('$$', $obj->getData());
@@ -1622,7 +1619,7 @@ class DefaultController extends FrontendController
                         } else {
                             if (in_array($childDoc->getTemplate(), $templateArray)) {
 
-                                if ($childDoc->getTemplate() == '@Catalog/Default/template_part_number_designations.html.twig') {
+                                if ($childDoc->getTemplate() == 'catalog/default/template_part_number_designations.html.twig') {
                                     $obj = $childDoc->getEditable('hydraulic_hose_details');
                                     if (!empty($obj) && !empty($obj->getData())) {
 
@@ -1641,7 +1638,7 @@ class DefaultController extends FrontendController
                                             $hydraulicHose[] = $hydraulicHoseInnerData;
                                         }
                                     }
-                                } elseif ($childDoc->getTemplate() == '@Catalog/Fitting/hydraulic_fitting.html.twig') {
+                                } elseif ($childDoc->getTemplate() == 'catalog/fitting/hydraulic_fitting.html.twig') {
                                     $obj = $childDoc->getEditable('hydraulic_fitting_brand');
                                     if (!empty($obj) && !empty($obj->getData())) {
                                         $fittingBrandNames = explode('$$', $obj->getData());
@@ -1657,7 +1654,7 @@ class DefaultController extends FrontendController
                 } else {
 
                     if (in_array($doc->getTemplate(), $templateArray)) {
-                        if ($doc->getTemplate() == '@Catalog/Default/template_part_number_designations.html.twig') {
+                        if ($doc->getTemplate() == 'catalog/default/template_part_number_designations.html.twig') {
                             $obj = $doc->getEditable('hydraulic_hose_details');
                             if (!empty($obj) && !empty($obj->getData())) {
 
@@ -1676,7 +1673,7 @@ class DefaultController extends FrontendController
                                     $hydraulicHose[] = $hydraulicHoseInnerData;
                                 }
                             }
-                        } elseif ($doc->getTemplate() == '@Catalog/Fitting/hydraulic_fitting.html.twig') {
+                        } elseif ($doc->getTemplate() == 'catalog/fitting/hydraulic_fitting.html.twig') {
                             $obj = $doc->getEditable('hydraulic_fitting_brand');
                             if (!empty($obj) && !empty($obj->getData())) {
                                 $fittingBrandNames = explode('$$', $obj->getData());
@@ -1706,7 +1703,7 @@ class DefaultController extends FrontendController
         }
 
         $parameterBag['data'] = $dynamicPageData;
-        return $this->render("@Catalog/Default/template_hydraulic_table_of_contents_dynamic.html.twig", $parameterBag);
+        return $this->render("catalog/default/template_hydraulic_table_of_contents_dynamic.html.twig", $parameterBag);
     }
 
     public function templatePartNumberDesignationsAction(Request $request)
@@ -1767,7 +1764,7 @@ class DefaultController extends FrontendController
 
         $parameterBag['hydraulic_hose_details_text'] = $hydraulic_hose_details_text;
 
-        return $this->render("@Catalog/Default/template_part_number_designations.html.twig", $parameterBag);
+        return $this->render("catalog/default/template_part_number_designations.html.twig", $parameterBag);
     }
 
     public function templateHoseSubCoverAction(Request $request): Response
@@ -1965,7 +1962,7 @@ class DefaultController extends FrontendController
             $parameterBag['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
             $parameterBag['footer_logo_src'] = $footer_logo_src;
         }
-        return $this->render("@Catalog/Default/template_hose_sub_cover.html.twig", $parameterBag);
+        return $this->render("catalog/default/template_hose_sub_cover.html.twig", $parameterBag);
     }
 
     public function templateFittingSplitFlangesAction(Request $request): Response
@@ -2069,7 +2066,7 @@ class DefaultController extends FrontendController
         $parameterBag['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
         $parameterBag['footer_logo_src'] = $footer_logo_src;
 
-        return $this->render("@Catalog/Default/template_fitting_split_flanges.html.twig", $parameterBag);
+        return $this->render("catalog/default/template_fitting_split_flanges.html.twig", $parameterBag);
     }
 
     public function containerAction(Request $request): Response
@@ -2089,7 +2086,7 @@ class DefaultController extends FrontendController
         }
 
         $parameterBag['allChildren'] = $allChildren;
-        return $this->render('@Catalog/Default/container.html.twig', $parameterBag);
+        return $this->render('catalog/default/container.html.twig', $parameterBag);
     }
 
     public function getFeaturesList($language): array
@@ -2404,7 +2401,7 @@ class DefaultController extends FrontendController
         $parameterBag['groupData'] = $groupData;
         $parameterBag['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
         $parameterBag['footer_logo_src'] = $footer_logo_src;
-        return $this->render("@Catalog/Default/template_ptg_product_page.html.twig", $parameterBag);
+        return $this->render("catalog/default/template_ptg_product_page.html.twig", $parameterBag);
     }
 
     public function getFiveSortedFeaturesWithIconList($safetyFeatures): ?array
@@ -2571,7 +2568,7 @@ class DefaultController extends FrontendController
         $documentPath = $this->document->getFullPath();
         $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
         $parameterBag = $this->getRequestedParameter($request, $documentId);
-        return $this->render("@Catalog/Default/template_index_descriptive_number.html.twig", $parameterBag);
+        return $this->render("catalog/default/template_index_descriptive_number.html.twig", $parameterBag);
     }
 
     public function templateHydraulicAlphanumericIndexByDescriptiveNumberDynamicAction(Request $request): Response
@@ -2587,12 +2584,12 @@ class DefaultController extends FrontendController
             $listing->setOrderKey("index");
             $listing->setOrder("asc");
             $templateArray = [
-                '@Catalog/Default/template_fitting_split_flanges.html.twig',
-                '@Catalog/Default/template_hose_accessories_clamps.html.twig',
-                '@Catalog/Default/template_hose_accessories_oring.html.twig',
-                '@Catalog/Default/template_hose_accessories_sleeving.html.twig',
-                '@Catalog/Default/template_hose_product_page.html.twig',
-                '@Catalog/Fitting/hydraulic_fitting.html.twig'
+                'catalog/default/template_fitting_split_flanges.html.twig',
+                'catalog/default/template_hose_accessories_clamps.html.twig',
+                'catalog/default/template_hose_accessories_oring.html.twig',
+                'catalog/default/template_hose_accessories_sleeving.html.twig',
+                'catalog/default/template_hose_product_page.html.twig',
+                'catalog/fitting/hydraulic_fitting.html.twig'
             ];
 
             $all_doc_arr = [];
@@ -2635,7 +2632,7 @@ class DefaultController extends FrontendController
             sort($all_doc_arr);
 
             $parameterBag['data'] = $all_doc_arr;
-            return $this->render("@Catalog/Default/template_hydraulic_alphanumeric_index_by_descriptive_number_dynamic.html.twig", $parameterBag);
+            return $this->render("catalog/default/template_hydraulic_alphanumeric_index_by_descriptive_number_dynamic.html.twig", $parameterBag);
         } catch (Exception $e) {
             return new Response($e->getMessage());
         }
@@ -2654,11 +2651,11 @@ class DefaultController extends FrontendController
             $listing->setOrderKey("index");
             $listing->setOrder("asc");
             $templateArray = [
-                '@Catalog/Default/template_fitting_split_flanges.html.twig',
-                '@Catalog/Default/template_hose_accessories_clamps.html.twig',
-                '@Catalog/Default/template_hose_accessories_oring.html.twig',
-                '@Catalog/Default/template_hose_accessories_sleeving.html.twig',
-                '@Catalog/Fitting/hydraulic_fitting.html.twig'
+                'catalog/default/template_fitting_split_flanges.html.twig',
+                'catalog/default/template_hose_accessories_clamps.html.twig',
+                'catalog/default/template_hose_accessories_oring.html.twig',
+                'catalog/default/template_hose_accessories_sleeving.html.twig',
+                'catalog/fitting/hydraulic_fitting.html.twig'
             ];
 
             $all_doc_arr = [];
@@ -2701,7 +2698,7 @@ class DefaultController extends FrontendController
             sort($all_doc_arr);
 
             $parameterBag['data'] = $all_doc_arr;
-            return $this->render("@Catalog/Default/template_hydraulic_alphanumeric_index_by_product_number_dynamic.html.twig", $parameterBag);
+            return $this->render("catalog/default/template_hydraulic_alphanumeric_index_by_product_number_dynamic.html.twig", $parameterBag);
         } catch (Exception $e) {
             return new Response($e->getMessage());
         }
@@ -2712,7 +2709,7 @@ class DefaultController extends FrontendController
         $documentPath = $this->document->getFullPath();
         $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
         $parameterBag = $this->getRequestedParameter($request, $documentId);
-        return $this->render("@Catalog/Default/template_index_product_number.html.twig", $parameterBag);
+        return $this->render("catalog/default/template_index_product_number.html.twig", $parameterBag);
     }
 
     public function replaceYellowCode($string): string

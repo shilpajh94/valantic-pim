@@ -35,9 +35,4 @@ services:
         class: CatalogBundle\TwigExtension\TwigExtension
         tags:
         - { name: twig.extension }
-    
-    # adds additional static files to admin backend
-    # CatalogBundle\EventListener\CatalogJsCssListener:
-    #     tags:
-    #         - { name: kernel.event_listener, event: pimcore.bundle_manager.paths.css, method: addCSSFiles }
-    #         - { name: kernel.event_listener, event: pimcore.bundle_manager.paths.js, method: addJSFiles }
+        

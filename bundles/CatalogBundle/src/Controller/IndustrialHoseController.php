@@ -51,8 +51,8 @@ class IndustrialHoseController extends FrontendController
             $listing->setOrderKey("index");
             $listing->setOrder("asc");
             $templateArray = [
-                '@Catalog/INH/inhprintcatalogproductpage.html.twig',
-                '@Catalog/INH/inhfitting.html.twig',
+                'catalog/inh/inhprintcatalogproductpage.html.twig',
+                'catalog/inh/inhfitting.html.twig',
             ];
 
             $industrial_hose_list = [];
@@ -64,7 +64,7 @@ class IndustrialHoseController extends FrontendController
                         if ($childDoc->getChildren()) {
                             foreach ($childDoc->getChildren() as $key => $child2Doc) {
                                 if (in_array($child2Doc->getTemplate(), $templateArray)) {
-                                    if ($child2Doc->getTemplate() == '@Catalog/INH/inhprintcatalogproductpage.html.twig') {
+                                    if ($child2Doc->getTemplate() == 'catalog/inh/inhprintcatalogproductpage.html.twig') {
                                         $obj = $child2Doc->getEditable('industrial_hose_details');
                                         if (!empty($obj) && !empty($obj->getData())) {
                                             $dataParts = explode('$$', $obj->getData());
@@ -78,7 +78,7 @@ class IndustrialHoseController extends FrontendController
 
                                             $industrial_hose_list[] = $datam;
                                         }
-                                    } elseif ($child2Doc->getTemplate() == '@Catalog/INH/inhfitting.html.twig') {
+                                    } elseif ($child2Doc->getTemplate() == 'catalog/inh/inhfitting.html.twig') {
                                         $obj = $child2Doc->getEditable('industrial_hose_fitting_details');
                                         if (!empty($obj) && !empty($obj->getData())) {
                                             $dataParts = explode('$$', $obj->getData());
@@ -91,7 +91,7 @@ class IndustrialHoseController extends FrontendController
                             }
                         } else {
                             if (in_array($childDoc->getTemplate(), $templateArray)) {
-                                if ($childDoc->getTemplate() == '@Catalog/INH/inhprintcatalogproductpage.html.twig') {
+                                if ($childDoc->getTemplate() == 'catalog/inh/inhprintcatalogproductpage.html.twig') {
                                     $obj = $childDoc->getEditable('industrial_hose_details');
                                     if (!empty($obj) && !empty($obj->getData())) {
                                         $dataParts = explode('$$', $obj->getData());
@@ -105,7 +105,7 @@ class IndustrialHoseController extends FrontendController
 
                                         $industrial_hose_list[] = $datam;
                                     }
-                                } elseif ($childDoc->getTemplate() == '@Catalog/INH/inhfitting.html.twig') {
+                                } elseif ($childDoc->getTemplate() == 'catalog/inh/inhfitting.html.twig') {
                                     $obj = $childDoc->getEditable('industrial_hose_fitting_details');
                                     if (!empty($obj) && !empty($obj->getData())) {
                                         $dataParts = explode('$$', $obj->getData());
@@ -119,7 +119,7 @@ class IndustrialHoseController extends FrontendController
                     }
                 } else {
                     if (in_array($doc->getTemplate(), $templateArray)) {
-                        if ($doc->getTemplate() == '@Catalog/INH/inhprintcatalogproductpage.html.twig') {
+                        if ($doc->getTemplate() == 'catalog/inh/inhprintcatalogproductpage.html.twig') {
                             $obj = $doc->getEditable('industrial_hose_details');
                             if (!empty($obj) && !empty($obj->getData())) {
                                 $dataParts = explode('$$', $obj->getData());
@@ -133,7 +133,7 @@ class IndustrialHoseController extends FrontendController
 
                                 $industrial_hose_list[] = $datam;
                             }
-                        } elseif ($doc->getTemplate() == '@Catalog/INH/inhfitting.html.twig') {
+                        } elseif ($doc->getTemplate() == 'catalog/inh/inhfitting.html.twig') {
                             $obj = $doc->getEditable('industrial_hose_fitting_details');
                             if (!empty($obj) && !empty($obj->getData())) {
                                 $dataParts = explode('$$', $obj->getData());
@@ -157,7 +157,7 @@ class IndustrialHoseController extends FrontendController
             }
 
             $parameterBag['data'] = $industrial_hose_list;
-            return $this->render("@Catalog/INH/template_industrial_hose_index_by_application_dynamic.html.twig", $parameterBag);
+            return $this->render("catalog/inh/template_industrial_hose_index_by_application_dynamic.html.twig", $parameterBag);
         } catch (Exception $e) {
             return new Response($e->getMessage());
         }
@@ -176,8 +176,8 @@ class IndustrialHoseController extends FrontendController
             $listing->setOrderKey("index");
             $listing->setOrder("asc");
             $templateArray = [
-                '@Catalog/INH/inhprintcatalogproductpage.html.twig',
-                '@Catalog/INH/inhfitting.html.twig',
+                'catalog/inh/inhprintcatalogproductpage.html.twig',
+                'catalog/inh/inhfitting.html.twig',
             ];
 
             $industrial_hose_list = [];
@@ -189,7 +189,7 @@ class IndustrialHoseController extends FrontendController
                         if ($childDoc->getChildren()) {
                             foreach ($childDoc->getChildren() as $key => $child2Doc) {
                                 if (in_array($child2Doc->getTemplate(), $templateArray)) {
-                                    if ($child2Doc->getTemplate() == '@Catalog/INH/inhprintcatalogproductpage.html.twig') {
+                                    if ($child2Doc->getTemplate() == 'catalog/inh/inhprintcatalogproductpage.html.twig') {
                                         $obj = $child2Doc->getEditable('industrial_hose_details');
                                         if (!empty($obj) && !empty($obj->getData())) {
                                             $dataParts = explode('$$', $obj->getData());
@@ -198,7 +198,7 @@ class IndustrialHoseController extends FrontendController
                                                 $allHoses = array_merge($allHoses, $hoseslist);
                                             }
                                         }
-                                    } elseif ($child2Doc->getTemplate() == '@Catalog/INH/inhfitting.html.twig') {
+                                    } elseif ($child2Doc->getTemplate() == 'catalog/inh/inhfitting.html.twig') {
                                         $obj = $child2Doc->getEditable('industrial_hose_fitting_details');
                                         if (!empty($obj) && !empty($obj->getData())) {
                                             $dataParts = explode('$$', $obj->getData());
@@ -212,7 +212,7 @@ class IndustrialHoseController extends FrontendController
                             }
                         } else {
                             if (in_array($childDoc->getTemplate(), $templateArray)) {
-                                if ($childDoc->getTemplate() == '@Catalog/INH/inhprintcatalogproductpage.html.twig') {
+                                if ($childDoc->getTemplate() == 'catalog/inh/inhprintcatalogproductpage.html.twig') {
                                     $obj = $childDoc->getEditable('industrial_hose_details');
                                     if (!empty($obj) && !empty($obj->getData())) {
                                         $dataParts = explode('$$', $obj->getData());
@@ -221,7 +221,7 @@ class IndustrialHoseController extends FrontendController
                                             $allHoses = array_merge($allHoses, $hoseslist);
                                         }
                                     }
-                                } elseif ($childDoc->getTemplate() == '@Catalog/INH/inhfitting.html.twig') {
+                                } elseif ($childDoc->getTemplate() == 'catalog/inh/inhfitting.html.twig') {
                                     $obj = $childDoc->getEditable('industrial_hose_fitting_details');
                                     if (!empty($obj) && !empty($obj->getData())) {
                                         $dataParts = explode('$$', $obj->getData());
@@ -236,7 +236,7 @@ class IndustrialHoseController extends FrontendController
                     }
                 } else {
                     if (in_array($doc->getTemplate(), $templateArray)) {
-                        if ($doc->getTemplate() == '@Catalog/INH/inhprintcatalogproductpage.html.twig') {
+                        if ($doc->getTemplate() == 'catalog/inh/inhprintcatalogproductpage.html.twig') {
                             $obj = $doc->getEditable('industrial_hose_details');
                             if (!empty($obj) && !empty($obj->getData())) {
                                 $dataParts = explode('$$', $obj->getData());
@@ -244,7 +244,7 @@ class IndustrialHoseController extends FrontendController
                                     $allHoses[] = $dataParts[1];
                                 }
                             }
-                        } elseif ($doc->getTemplate() == '@Catalog/INH/inhfitting.html.twig') {
+                        } elseif ($doc->getTemplate() == 'catalog/inh/inhfitting.html.twig') {
                             $obj = $doc->getEditable('industrial_hose_fitting_details');
                             if (!empty($obj) && !empty($obj->getData())) {
                                 $dataParts = explode('$$', $obj->getData());
@@ -279,7 +279,7 @@ class IndustrialHoseController extends FrontendController
             }
 
             $parameterBag['data'] = $industrial_hose_list_alphabet_sorted;
-            return $this->render("@Catalog/INH/template_industrial_hose_index_by_alphabet_dynamic.html.twig", $parameterBag);
+            return $this->render("catalog/inh/template_industrial_hose_index_by_alphabet_dynamic.html.twig", $parameterBag);
         } catch (Exception $e) {
             return new Response($e->getMessage());
         }
@@ -299,7 +299,7 @@ class IndustrialHoseController extends FrontendController
             $listing->setOrderKey("index");
             $listing->setOrder("asc");
             $templateArray = [
-                '@Catalog/INH/inhprintcatalogproductpage.html.twig'
+                'catalog/inh/inhprintcatalogproductpage.html.twig'
             ];
 
             $industrial_hose_list = [];
@@ -367,7 +367,7 @@ class IndustrialHoseController extends FrontendController
             }
 
             $parameterBag['data'] = $toc_data;
-            return $this->render("@Catalog/INH/template_industrial_hose_table_of_contents_dynamic.html.twig", $parameterBag);
+            return $this->render("catalog/inh/template_industrial_hose_table_of_contents_dynamic.html.twig", $parameterBag);
         } catch (Exception $e) {
             return new Response($e->getMessage());
         }
@@ -501,7 +501,7 @@ class IndustrialHoseController extends FrontendController
                 'footer_logo_src' => $footer_logo_src,
             );
         }
-        return $this->render("@Catalog/INH/inhprintcatalog.html.twig", $parameterBag);
+        return $this->render("catalog/inh/inhprintcatalog.html.twig", $parameterBag);
     }
 
     /**
@@ -835,7 +835,7 @@ class IndustrialHoseController extends FrontendController
             );
 
         }
-        return $this->render("@Catalog/INH/inhprintcatalogproductpage.html.twig", $parameterBag);
+        return $this->render("catalog/inh/inhprintcatalogproductpage.html.twig", $parameterBag);
     }
 
 
@@ -1027,7 +1027,7 @@ class IndustrialHoseController extends FrontendController
             $parameterBag['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
             $parameterBag['footer_logo_src'] = $footer_logo_src;
         }
-        return $this->render("@Catalog/INH/inhfitting.html.twig", $parameterBag);
+        return $this->render("catalog/inh/inhfitting.html.twig", $parameterBag);
     }
 
     public function inhFittingCoverAction(Request $request)
@@ -1116,7 +1116,7 @@ class IndustrialHoseController extends FrontendController
             $parameterBag['footer_logo_src'] = $footer_logo_src;
 
         }
-        return $this->render("@Catalog/INH/inhfitting_cover.html.twig", $parameterBag);
+        return $this->render("catalog/inh/inhfitting_cover.html.twig", $parameterBag);
     }
 
     private function getSIOP($language)
@@ -1381,9 +1381,10 @@ class IndustrialHoseController extends FrontendController
     public function getRequestedParameter(Request $request, $documentId): array
     {
         $parameterBag = [];
+        $isParentContainerRequest = $request->get('isParentContainerRequest');
+        $parameterBag['isParentContainerRequest'] = $isParentContainerRequest ? $isParentContainerRequest : false;
         $parameterBag['printermarks'] = $request->get('printermarks');
-        $parameterBag['isParentContainerRequest'] = $request->get('isParentContainerRequest') ? $request->get('isParentContainerRequest') : false;
-
+        
         $imageWidth = null;
         $imageRecompression = null;
         $printConfigFile = Processor::getJobConfigFile($documentId);

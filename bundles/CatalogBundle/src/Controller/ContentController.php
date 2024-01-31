@@ -39,7 +39,7 @@ class ContentController extends FrontendController {
         }
         
         $parameterBag['showPDFInput'] = $showPDFInput;
-        return $this->render("@Catalog/Content/pdf.html.twig", $parameterBag);
+        return $this->render("catalog/content/pdf.html.twig", $parameterBag);
     }
 
     public function pdfWithFooterAction(Request $request): Response {
@@ -57,7 +57,7 @@ class ContentController extends FrontendController {
         }
 
         $parameterBag['showPDFInput'] = $showPDFInput;
-        return $this->render("@Catalog/Content/pdfWithFooter.html.twig", $parameterBag);
+        return $this->render("catalog/content/pdfWithFooter.html.twig", $parameterBag);
     }
 
     public function getRequestedParameter(Request $request, $documentId): array
@@ -65,7 +65,8 @@ class ContentController extends FrontendController {
         $parameterBag = [];
         $isParentContainerRequest = $request->get('isParentContainerRequest');
         $parameterBag['isParentContainerRequest'] = $isParentContainerRequest ? $isParentContainerRequest : false;
-
+        $parameterBag['printermarks'] = $request->get('printermarks');
+        
         foreach ($request->attributes as $key => $value) {
             $parameterBag[$key] = $value;
         }

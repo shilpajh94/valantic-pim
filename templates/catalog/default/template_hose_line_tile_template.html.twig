@@ -1,0 +1,251 @@
+{% if not isParentContainerRequest %}
+	{% extends "catalog/layouts/layout.html.twig" %}
+{% endif %}
+
+{% block _content %}
+	{% if editmode %}
+		{{ pimcore_relation("tiletemplate") }}
+	{% endif %}
+	{% if info is defined and info %}
+		{% set featuresFooter = false %}
+
+		<div class="template">
+			<div class="hoseline" id="hoseline">
+
+				<div id="pageHeader" class="alternate"></div>
+				<div class="hoselineHeader">
+					<header class="dark ">
+						<h1>
+							{{ pimcore_input("header") }}
+						</h1>
+					</header>
+				</div>
+
+				<div class="footer">
+					<footer class="flex-center {{ info['footer_class'] }}">
+						<span class="logo">
+							<b>
+								{% if editmode %}
+									{% if pimcore_input("footerTitle").isEmpty() %}
+										{{ pimcore_input("footerTitle").setDataFromResource('Hose') | raw }}
+									{% else %}
+										{{ pimcore_input("footerTitle") }}
+									{% endif %}
+								{% else %}
+									{{ pimcore_input("footerTitle") }}
+								{% endif %}
+							</b>
+
+							<img src="{{ info['footer_logo_src'] }}">
+						</span>
+						<div class="flex aligned ">
+
+							<h4>
+								{{ pimcore_input('footerContent', {'width': 826, 'height': 34}) }}
+							</h4>
+
+						</div>
+					</footer>
+				</div>
+
+				<div class="footer1">
+					<footer class="flex-center {{ info['footer_class'] }}">
+
+						<div class="flex aligned ">
+
+							<h4>
+								{{ pimcore_input('footerContent1', {'width': 826, 'height': 34}) }}
+							</h4>
+
+						</div>
+						<span class="logo">
+							<b>
+								{% if editmode %}
+									{% if pimcore_input("footerTitle1").isEmpty() %}
+										{{ pimcore_input("footerTitle1").setDataFromResource('Hose') | raw }}
+									{% else %}
+										{{ pimcore_input("footerTitle1") }}
+									{% endif %}
+								{% else %}
+									{{ pimcore_input("footerTitle1") }}
+								{% endif %}
+							</b>
+
+							<img src="{{ info['footer_logo_src'] }}">
+						</span>
+					</footer>
+				</div>
+
+				<section>
+					<article class="fullcontainer single hoseline">
+						<aside class="flex first ">
+
+							{% set brandsInfo = info['brandsInfo'] %}
+							{% set blockDes = info['blockDes'] %}
+
+							{% if brandsInfo is defined and brandsInfo is iterable %}
+								{% set brandIds = brandsInfo|keys %}
+								{% if brandIds is iterable and brandIds is not empty %}
+
+									{% set k = 0 %}
+									{# {% block contentblock with {'default': brandIds|length} %} #}
+									{% set contentBlock = pimcore_block('contentBlock', {'default': brandIds|length}) %}
+									{% for i in contentBlock.iterator %}
+
+										{% set k = i - 1 %}
+
+										{% if brandIds[k] is defined %}
+											{% set key = brandIds[k] %}
+											{% set row = brandsInfo[key] %}
+										{% endif %}
+
+										{% if k == 0 %}
+											<p>
+												{% if pimcore_input('prodDesc' ~ k).isEmpty() %}
+													{{ pimcore_input("prodDesc" ~ k, {'width': 540}).setDataFromResource(info['blockDes']) | raw }}
+												{% else %}
+													{{ pimcore_input("prodDesc" ~ k, {'width': 540}) }}
+												{% endif %}
+											</p>
+										{% endif %}
+
+										<figure class="products">
+											<span class="img-placeholder">
+												{% if pimcore_input('productImage' ~ k).isEmpty() and row['mainImage'] is not empty %}
+													{{ pimcore_image('productImage' ~ k, {
+                                                'width': row['mainImage'].getWidth(),
+                                                'height': row['mainImage'].getHeight(),
+                                                'aspectratio': true,
+                                                'interlace': true,
+                                                'quality': 95,
+                                                'format': 'PNG'
+                                            }).setImage(row['mainImage']) | raw }}
+												{% else %}
+													{% set imgSrcObj1 = pimcore_image('productImage' ~ k, {
+                                                'width': 92,
+                                                'height': 240,
+                                                'aspectratio': true,
+                                                'interlace': true,
+                                                'quality': 95,
+                                                'format': 'PNG'
+                                            }) %}
+													{% if imgSrcObj1 %}
+														<img src="{{ getImageThumbnail(imgSrcObj1, imageWidth) }}" width="92" height="240"/>
+													{% endif %}
+												{% endif %}
+											</span>
+											<figcaption>
+												<div class="topText">
+													<span class="productName">
+														{% if pimcore_input("brandName" ~ k).isEmpty() and row['brandName'] is not empty %}
+															{{ pimcore_input("brandName" ~ k, {'class': 'productName'}).setDataFromResource(row['brandName']) | raw }}
+														{% else %}
+															{{ pimcore_input("brandName" ~ k, {'class': 'productName'}) }}
+														{% endif %}
+													</span>
+													<span class="productTitle">
+														{% if pimcore_input("industryStandard" ~ k).isEmpty() and row['industryStandard'] is not empty %}
+															{{ pimcore_input("industryStandard" ~ k, {'class': 'productTitle'}).setDataFromResource(row['industryStandard']) | raw }}
+														{% else %}
+															{{ pimcore_input("industryStandard" ~ k, {'class': 'productTitle'}) }}
+														{% endif %}
+													</span>
+													<ul>
+														{% set bstCnt = 1 %}
+														{% for i, bst in row['BrandShortText'] %}
+															{% if bst is not empty %}
+																<li>
+																	{% if pimcore_input("brandShortText" ~ key ~ i).isEmpty() %}
+																		{{ pimcore_input("brandShortText" ~ key ~ i).setDataFromResource(bst) | raw }}
+																	{% else %}
+																		{{ pimcore_input("brandShortText" ~ key ~ i) }}
+																	{% endif %}
+																</li>
+																{% set bstCnt = bstCnt + 1 %}
+															{% endif %}
+														{% endfor %}
+
+														{% for bstCnt in bstCnt..5 %}
+															{% if editmode %}
+																<li>
+																	{{ pimcore_input("brandShortText" ~ key ~ bstCnt) }}
+																</li>
+															{% elseif not pimcore_input("brandShortText" ~ key ~ bstCnt).isEmpty() %}
+																<li>
+																	{{ pimcore_input("brandShortText" ~ key ~ bstCnt) }}
+																</li>
+															{% endif %}
+														{% endfor %}
+													</ul>
+												</div>
+												<div class="bottomText">
+													<span class="productImage">
+														{% set iccnt = 0 %}
+														{% if  row.featureIcon is defined and  row.featureIcon is iterable %}
+															{% for iccntKey, featureIcon in row['featureIcon'] %}
+																{% if editmode and iccnt <= 3 %}
+																	{% if pimcore_input("productLogo" ~ key ~ iccnt).isEmpty() and featureIcon['icon'] is not null %}
+																		{{ pimcore_image("productLogo" ~ key ~ iccnt, {
+																		'width': featureIcon['icon'].getWidth(),
+																		'height': featureIcon['icon'].getHeight(),
+																		'aspectratio': true,
+																		'interlace': true,
+																		'quality': 95,
+																		'format': 'PNG'
+																	}).setImage(featureIcon['icon']) | raw }}
+																	{% else %}
+																		{{ pimcore_image("productLogo" ~ key ~ iccnt, {
+																		'width': 91,
+																		'height': 53,
+																		'aspectratio': true,
+																		'interlace': true,
+																		'quality': 95,
+																		'format': 'PNG'
+																	}) }}
+																	{% endif %}
+																	{% set iccnt = iccnt + 1 %}
+																{% else %}
+																	{% if iccnt <= 3 %}
+																		{% set imgSrcObj2 = pimcore_image("productLogo" ~ key ~ iccnt) %}
+																		{% if imgSrcObj2 %}
+																			<img src="{{ getImageThumbnail(imgSrcObj2, imageWidth) }}" width="91" height="53"/>
+																		{% endif %}
+																		{% set iccnt = iccnt + 1 %}
+																	{% endif %}
+																{% endif %}
+															{% endfor %}
+														{% endif %}
+														{% if (iccnt < 3) %}
+															{% for iccnt in iccnt..3 %}
+																{{ pimcore_image("productLogo" ~ key ~ iccnt, {
+																'width': 91,
+																'height': 53,
+																'aspectratio': true,
+																'interlace': true,
+																'quality': 95,
+																'format': 'PNG'
+															}) }}
+															{% endfor %}
+														{% endif %}
+													</span>
+													<span class="details">
+														{% if pimcore_input("sizeRange" ~ k).isEmpty() and row['range'] is not empty %}
+															{{ pimcore_input("sizeRange" ~ k, {'class': 'details'}).setDataFromResource(row['range']) | raw }}
+														{% else %}
+															{{ pimcore_input("sizeRange" ~ k, {'class': 'details'}) }}
+														{% endif %}
+													</span>
+												</div>
+											</figcaption>
+										</figure>
+										{% set key= '' %}
+									{% endfor %}
+								{% endif %}
+							{% endif %}
+						</aside>
+					</article>
+				</section>
+			</div>
+		</div>
+	{% endif %}
+{% endblock %}

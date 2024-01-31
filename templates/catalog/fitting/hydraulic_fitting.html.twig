@@ -1,0 +1,501 @@
+{% if not isParentContainerRequest %}
+	{% extends "catalog/layouts/layout.html.twig" %}
+{% endif %}
+
+{% block _content %}
+
+	{% if editmode %}
+		{{ pimcore_relation("fitting-straight") }}
+	{% endif %}
+
+	{% if brandsData is iterable and brandsData is defined %}
+		{% set partNumbers = [] %}
+		{% set brandNameList = [] %}
+		{% set productNumbers = [] %}
+		<div class="template">
+			<section class="segregate">
+				<div id="pageHeader"></div>
+				<span class="pageName">Hydraulic Fittings</span>
+				<div class="footer">
+					<footer class="flex-center {{footer_class}}">
+						<span class="logo">
+							<b>
+								{% if editmode %}
+									{% if pimcore_input("HHFP_Logo_Text1").isEmpty() %}
+										{{ pimcore_input("HHFP_Logo_Text1").setDataFromResource('Hose') | raw }}
+									{% else %}
+										{{ pimcore_input("HHFP_Logo_Text1") }}
+									{% endif %}
+								{% else %}
+									{{ pimcore_input("HHFP_Logo_Text1") }}
+								{% endif %}
+							</b>
+							<img src="{{footer_logo_src}}">
+						</span>
+						<div class="flex aligned ">
+							<h5>
+								{% if editmode %}
+									{% if pimcore_input("section_11").isEmpty() %}
+										{{ pimcore_input("section_11").setDataFromResource('Section 1') | raw}}
+									{% else %}
+										{{ pimcore_input("section_11") }}
+									{% endif %}
+								{% else %}
+									{{ pimcore_input("section_11") }}
+								{% endif %}
+
+								<span>
+									{% if editmode %}
+										{% if pimcore_input('fittingFamily_11', {"placeholder" : "Fitting Type"}).isEmpty() %}
+											{{ pimcore_input('fittingFamily_11', {"placeholder" : "Fitting Type"}).setDataFromResource(HydFittingFamily ~ ' Fittings') | raw }}
+										{% else %}
+											{{ pimcore_input('fittingFamily_11', {"placeholder" : "Fitting Type"}) }}
+										{% endif %}
+									{% else %}
+										{{ pimcore_input('fittingFamily_11', {"placeholder" : "Fitting Type"}) }}
+									{% endif %}
+								</span>
+							</h5>
+							<div class="compatible">
+								<b>
+									{{ pimcore_input('HHF_Footer_Compatibility11', {"placeholder" : "Compatible Hose:"}) }}
+								</b>
+								{{ pimcore_input('HHF_Footer_Compatibility_Description11', {"placeholder" : "SR1SN SR2SN SR3SN"}) }}
+							</div>
+						</div>
+					</footer>
+				</div>
+
+				<div class="footer1">
+					<footer class="flex-center {{footer_class}}">
+						<div class="flex aligned ">
+							<p class="flex-center">
+								{% if editmode %}
+									{{ pimcore_image('myCrampApp_f1', {
+									"width" : 61,
+									"height" : 60,
+									"aspectratio" : true,
+									"interlace" : true,
+									"quality" : 95,
+									"format" : "PNG"
+								}) }}
+								{% else %}
+									{% set imgSrcObj4 = pimcore_image('myCrampApp_f1') %}
+									{% if getImageThumbnail(imgSrcObj4, imageWidth) %}
+										<img src="{{ getImageThumbnail(imgSrcObj4, imageWidth) }}" width="61" height="60"/>
+									{% endif %}
+								{% endif %}
+								<span>
+									Download the
+									<strong class="contitech-yellow">MyCrimp App</strong><br/>
+									for more information
+								</span>
+							</p>
+
+							<h5>
+								{% if editmode %}
+									{% if pimcore_input("section_1").isEmpty() %}
+										{{ pimcore_input("section_1").setDataFromResource('Section 1') | raw }}
+									{% else %}
+										{{ pimcore_input("section_1") }}
+									{% endif %}
+								{% else %}
+									{{ pimcore_input("section_1") }}
+								{% endif %}
+
+								<span>
+									{% if editmode %}
+										{% if pimcore_input('fittingFamily_1', {"placeholder" : "Fitting Type"}).isEmpty() %}
+											{{ pimcore_input('fittingFamily_1', {"placeholder" : "Fitting Type"}).setDataFromResource(HydFittingFamily ~ ' Fittings') | raw }}
+										{% else %}
+											{{ pimcore_input('fittingFamily_1', {"placeholder" : "Fitting Type"}) }}
+										{% endif %}
+									{% else %}
+										{{ pimcore_input('fittingFamily_1', {"placeholder" : "Fitting Type"}) }}
+									{% endif %}
+								</span>
+							</h5>
+						</div>
+						<span class="logo">
+
+							<b>
+								{% if editmode %}
+									{% if pimcore_input('HHFP_Logo_Text2').isEmpty() %}
+										{{ pimcore_input('HHFP_Logo_Text2').setDataFromResource('Hose') | raw }}
+									{% else %}
+										{{ pimcore_input('HHFP_Logo_Text2') }}
+									{% endif %}
+								{% else %}
+									{{ pimcore_input('HHFP_Logo_Text2') }}
+								{% endif %}
+							</b>
+							<img src="{{footer_logo_src}}">
+						</span>
+					</footer>
+				</div>
+
+				<div class="wrapper padding">
+					{% for uniqueId, shortDescrioptionTableData in brandsData %}
+						{# unsetTwig(shortDescrioptionTableData['SortOrder']) #}
+						{% for shortDescrioptionKey, tableData in shortDescrioptionTableData %}
+							{% if not (shortDescrioptionKey == 'SortOrder') %}
+								{% for tableName, tableRowsSkiveType in tableData %}
+									{% set firstKey = tableRowsSkiveType|keys|first %}
+									{% set uniqueIdTemp = uniqueId %}
+									{% set uniqueId = md5Twig(uniqueId ~ shortDescrioptionKey ~ tableName) %}
+									<article class="container page-break-inside-avoid">
+										<figure class="headingSection">
+											{% if tableRowsSkiveType['NS'] is defined and tableRowsSkiveType['DG'] is defined %}
+												<span>
+													{% set uniqueIdDG = md5Twig(uniqueIdTemp ~ shortDescrioptionKey ~ tableName ~ 'DG') %}
+													{% if editmode %}
+														{% if not pimcore_image('catLeftImage' ~ uniqueIdDG).isEmpty() %}
+															{{ pimcore_image('catLeftImage' ~ uniqueIdDG, {'class': 'leftImg', 'width': 226, 'height': 150}) }}
+														{% else %}
+															{% if tableRowsSkiveType['DG']['brandData']['LeftPrintCatalogImageObj'] %}
+																{{ pimcore_image('catLeftImage' ~ uniqueIdDG, {'class': 'leftImg', 'width': 226, 'height': 150}).setImage(tableRowsSkiveType['DG']['brandData']['LeftPrintCatalogImageObj']) | raw }}
+															{% else %}
+																{{ pimcore_image('catLeftImage' ~ uniqueIdDG, {'class': 'leftImg', 'width': 226, 'height': 150}) }}
+															{% endif %}
+														{% endif %}
+													{% else %}
+														{% set imgSrcObj1 = pimcore_image('catLeftImage' ~ uniqueIdDG) %}
+														{% if getImageThumbnail(imgSrcObj1, imageWidth) %}
+															<img src="{{ getImageThumbnail(imgSrcObj1, imageWidth) }}" class="lImg" width="226" height="150"/>
+														{% endif %}
+													{% endif %}
+													{% if editmode %}
+														{% if not pimcore_image('catRightImage' ~ uniqueIdDG).isEmpty() %}
+															{{ pimcore_image('catRightImage' ~ uniqueIdDG, {'class': 'rightImg', 'width': 226, 'height': 150}) }}
+														{% else %}
+															{% if tableRowsSkiveType['DG']['brandData']['RightPrintCatalogImageObj'] %}
+																{{ pimcore_image('catRightImage' ~ uniqueIdDG, {'class': 'rightImg', 'width': 226, 'height': 150}).setImage(tableRowsSkiveType['DG']['brandData']['RightPrintCatalogImageObj']) | raw }}
+															{% else %}
+																{{ pimcore_image('catRightImage' ~ uniqueIdDG, {'class': 'rightImg', 'width': 226, 'height': 150}) }}
+															{% endif %}
+														{% endif %}
+													{% else %}
+														{% set imgSrcObj2 = pimcore_image('catRightImage' ~ uniqueIdDG) %}
+														{% if getImageThumbnail(imgSrcObj2, imageWidth) %}
+															<img src="{{ getImageThumbnail(imgSrcObj2, imageWidth) }}" class="rImg" width="226" height="150"/>
+														{% endif %}
+													{% endif %}
+
+													{% set imgSrcObj1 = pimcore_image('catLeftImage' ~ uniqueIdDG) %}
+													{% set imgSrcObj2 = pimcore_image('catRightImage' ~ uniqueIdDG) %}
+
+													{% if editmode %}
+														{% if getImageThumbnail(imgSrcObj1, imageWidth) and getImageThumbnail(imgSrcObj2, imageWidth) %}
+															{% if pimcore_input('dualgrip' ~ uniqueIdDG).isEmpty() %}
+																{{ pimcore_input('dualgrip' ~ uniqueIdDG).setDataFromResource('Dual-Grip Style') | raw }}
+															{% else %}
+																{{ pimcore_input('dualgrip' ~ uniqueIdDG) }}
+															{% endif %}
+														{% endif %}
+													{% else %}
+														{% if getImageThumbnail(imgSrcObj1, imageWidth) and getImageThumbnail(imgSrcObj2, imageWidth) %}
+															{{ pimcore_input('dualgrip' ~ uniqueIdDG) }}
+														{% endif %}
+													{% endif %}
+												</span>
+												<span>
+
+													{% set uniqueIdNS = md5Twig(uniqueIdTemp ~ shortDescrioptionKey ~ tableName ~ 'NS') %}
+													{% if editmode %}
+														{% if not pimcore_image('catLeftImage' ~ uniqueIdNS).isEmpty() %}
+															{{ pimcore_image('catLeftImage' ~ uniqueIdNS, {"class" : "leftImg", "width" : 226, "height" : 150}) }}
+														{% else %}
+															{% if tableRowsSkiveType['NS']['brandData']['LeftPrintCatalogImageObj'] %}
+																{{ pimcore_image('catLeftImage' ~ uniqueIdNS, {"class" : "leftImg", "width" : 226, "height" : 150}).setImage(tableRowsSkiveType['NS']['brandData']['LeftPrintCatalogImageObj']) | raw }}
+															{% else %}
+																{{ pimcore_image('catLeftImage' ~ uniqueIdNS, {"class" : "leftImg", "width" : 226, "height" : 150}) }}
+															{% endif %}
+														{% endif %}
+													{% else %}
+														{% set imgSrcObj1 =  pimcore_image('catLeftImage' ~ uniqueIdNS) %}
+														{% if getImageThumbnail(imgSrcObj1, imageWidth) %}
+															<img src="{{getImageThumbnail(imgSrcObj1, imageWidth)}}" class="lImg" width="226" height="150"/>
+														{% endif %}
+													{% endif %}
+													{% if editmode %}
+														{% if not pimcore_image('catRightImage' ~ uniqueIdNS).isEmpty() %}
+															{{ pimcore_image('catRightImage' ~ uniqueIdNS, {"class" : "rightImg", "width" : 226, "height" : 150}) }}
+														{% else %}
+															{% if tableRowsSkiveType['NS']['brandData']['RightPrintCatalogImageObj'] %}
+																{{ pimcore_image('catRightImage' ~ uniqueIdNS, {"class" : "rightImg", "width" : 226, "height" : 150}).setImage(tableRowsSkiveType['NS']['brandData']['RightPrintCatalogImageObj']) | raw }}
+															{% else %}
+																{{ pimcore_image('catRightImage' ~ uniqueIdNS, {"class" : "rightImg", "width" : 226, "height" : 150}) }}
+															{% endif %}
+														{% endif %}
+													{% else %}
+														{% set imgSrcObj2 = pimcore_image('catRightImage' ~ uniqueIdNS) %}
+														{% if getImageThumbnail(imgSrcObj2, imageWidth) %}
+															<img src="{{ getImageThumbnail(imgSrcObj2, imageWidth)}}" class="rImg" width="226" height="150"/>
+
+															{% set imgSrcObj1 = pimcore_image('catLeftImage' ~ uniqueIdNS) %}
+															{% set imgSrcObj2 = pimcore_image('catRightImage' ~ uniqueIdNS) %}
+
+															{% if editmode %}
+																{% if getImageThumbnail(imgSrcObj1, imageWidth) and getImageThumbnail(imgSrcObj2, imageWidth) %}
+																	{% if pimcore_image('unicrimp' ~ uniqueIdNS).isEmpty() %}
+																		{{ pimcore_input('unicrimp' ~ uniqueIdNS).setDataFromResource('Uni-Crimp™ Style') | raw }};
+																	{% else %}
+																		{{ pimcore_input('unicrimp' ~ uniqueIdNS) }}
+																	{% endif %}
+																{% endif %}
+															{% else %}
+																{% if getImageThumbnail(imgSrcObj1, imageWidth) and getImageThumbnail(imgSrcObj2, imageWidth) %}
+																	{{ pimcore_input('unicrimp' ~ uniqueIdNS) }}
+																{% endif %}
+															{% endif %}
+														{% endif %}
+													{% endif %}
+												</span>
+											{% else %}
+												<span>
+													{% if editmode %}
+														{% if not pimcore_image('catLeftImage' ~ uniqueId).isEmpty() %}
+															{{ pimcore_image('catLeftImage' ~ uniqueId, {'class': 'leftImg', 'width': 226, 'height': 150}) }}
+														{% else %}
+															{% if tableRowsSkiveType[firstKey]['brandData']['LeftPrintCatalogImageObj'] %}
+																{{ pimcore_image('catLeftImage' ~ uniqueId, {'class': 'leftImg', 'width': 226, 'height': 150}).setImage(tableRowsSkiveType[firstKey]['brandData']['LeftPrintCatalogImageObj']) | raw }}
+															{% else %}
+																{{ pimcore_image('catLeftImage' ~ uniqueId, {'class': 'leftImg', 'width': 226, 'height': 150}) }}
+															{% endif %}
+														{% endif %}
+													{% else %}
+														{% set imgSrcObj1 = pimcore_image('catLeftImage' ~ uniqueId) %}
+														{% if getImageThumbnail(imgSrcObj1, imageWidth) %}
+															<img src="{{ getImageThumbnail(imgSrcObj1, imageWidth) }}" class="lImg" width="226" height="150"/>
+														{% endif %}
+													{% endif %}
+
+													{% if editmode %}
+														{% if not pimcore_image('catRightImage' ~ uniqueId).isEmpty() %}
+															{{ pimcore_image('catRightImage' ~ uniqueId, {'class': 'rightImg', 'width': 226, 'height': 150}) }}
+														{% else %}
+															{% if tableRowsSkiveType[firstKey]['brandData']['RightPrintCatalogImageObj'] %}
+																{{ pimcore_image('catRightImage' ~ uniqueId, {'class': 'rightImg', 'width': 226, 'height': 150}).setImage(tableRowsSkiveType[firstKey]['brandData']['RightPrintCatalogImageObj']) | raw }}
+															{% else %}
+																{{ pimcore_image('catRightImage' ~ uniqueId, {'class': 'rightImg', 'width': 226, 'height': 150}) }}
+															{% endif %}
+														{% endif %}
+													{% else %}
+														{% set imgSrcObj2 = pimcore_image('catRightImage' ~ uniqueId) %}
+														{% if getImageThumbnail(imgSrcObj2, imageWidth) %}
+															<img src="{{ getImageThumbnail(imgSrcObj2, imageWidth) }}" class="rImg" width="226" height="150"/>
+														{% endif %}
+													{% endif %}
+												</span>
+											{% endif %}
+											<figcaption class="highlight">
+												<h3>
+													{% if editmode %}
+														{% if pimcore_input('brandName' ~ uniqueId).isEmpty() %}
+															{{ pimcore_input('brandName' ~ uniqueId).setDataFromResource(tableRowsSkiveType[firstKey]['brandData']['brandName']) | raw }}
+														{% else %}
+															{{ pimcore_input('brandName' ~ uniqueId) }}
+														{% endif %}
+													{% else %}
+														{{ pimcore_input('brandName' ~ uniqueId) }}
+													{% endif %}
+												</h3>
+												<p>
+													{% if editmode %}
+														{% if pimcore_input('shortDescription' ~ uniqueId).isEmpty() %}
+															{{ pimcore_input('shortDescription' ~ uniqueId).setDataFromResource((tableRowsSkiveType[firstKey]['brandData']['shortDescription'])|striptags) | raw }}
+														{% else %}
+															{{ pimcore_input('shortDescription' ~ uniqueId) }}
+														{% endif %}
+													{% else %}
+														{{ pimcore_input('shortDescription' ~ uniqueId) }}
+													{% endif %}
+												</p>
+											</figcaption>
+										</figure>
+										{% for skiveTypekey, skiveTypekValue in skiveTypeSortKeys %}
+											{% set showTitle = tableRowsSkiveType|length > 1 %}
+											{% if tableRowsSkiveType[skiveTypekValue] is defined %}
+												{% set tableRows = tableRowsSkiveType[skiveTypekValue] %}
+
+												{% set uniqueId2 = md5Twig(uniqueId ~ shortDescrioptionKey ~ tableName ~ skiveTypekey) %}
+
+												{% if tableRows['articleData'] is defined and tableRows['articleData'] is iterable %}
+													{% set skiveTypeTableTitle = '' %}
+													{% set columnList = [] %}
+													{% if skiveTypekey == 'Non-Skive' or skiveTypekey == 'NS' %}
+														{% set skiveTypeTableTitle = 'Uni-Crimp™ Style' %}
+													{% elseif skiveTypekey == 'Dual-Grip' or skiveTypekey == 'DG' %}
+														{% set skiveTypeTableTitle = 'Dual-Grip Style' %}
+													{% endif %}
+
+													{% if showTitle %}
+														<h1 class="skiveTypeTableTitle">
+															{{ skiveTypeTableTitle }}
+														</h1>
+													{% endif %}
+
+													<table class="grid inh fitting marginBottom5 continueLable" cellspacing="0" cellpadding="0">
+														<thead>
+															{% if iconRequired == 'YES' %}
+																<tr class="sub-head">
+																	{% for key, c1data in tableRows['articleData']['columnsDataWithImages'] %}
+																		{% set columnWidth = '' %}
+																		{% set g1count = c1data|length %}
+																		{% set firstArray = c1data|first %}
+
+																		{% if (firstArray['columnWidth']) %}
+																			{% set columnWidth = "width="~firstArray['columnWidth'] %}
+																		{% endif %}
+
+																		<td colspan="{{g1count}}" {{columnWidth}}>
+																			{% if ( firstArray['columnIcon'] is defined and firstArray['columnIcon']) %}
+																				<img src="{{firstArray['columnIcon']}}" width="45" height="45"/>
+																			{% endif %}
+																		</td>
+																	{% endfor %}
+																</tr>
+															{% endif %}
+															<tr class="head">
+																{% for key, c2data in tableRows['articleData']['columnsDataWithImages'] %}
+																	{% set columnWidth = '' %}
+																	{% set g2count = c2data|length %}
+																	{% set first2Array = c2data|first %}
+
+																	{% if (first2Array['columnWidth']) %}
+																		{% set columnWidth = "width="~first2Array['columnWidth'] %}
+																	{% endif %}
+																	<td colspan="{{g2count}}" {{columnWidth}}>{{first2Array['columnLabel']}}</td>
+																{% endfor %}
+															</tr>
+															{% if tableRows['articleData']['subHeaderRequired'] == 'YES' %}
+																<tr class="head">
+																	{% for key, c3data in tableRows['articleData']['columnsDataWithImages'] %}
+																		{% for c3key, c3value in c3data %}
+																			{% set columnList = columnList|merge([c3key]) %}
+																			<td>{{ c3value['unitName'] ?? '' }}</td>
+																		{% endfor %}
+																	{% endfor %}
+																</tr>
+															{% endif %}
+														</thead>
+														<tbody class="tableNewFont">
+															{% if tableRows['articleData']['articles'] is defined and tableRows['articleData']['articles'] is iterable %}
+																{% set HoseID1InFractIndex = tableRows['articleData']['HoseID1InFractIndex'] %}
+																{% set oldValue = '' %}
+																{% set activeClass = '' %}
+																{% for key, shortedRows in tableRows['articleData']['articles'] %}
+																	{% if key == shortedRows|keys|first %}
+																		{% set oldValue = shortedRows[HoseID1InFractIndex] %}
+																	{% endif %}
+																	{% if oldValue != shortedRows[HoseID1InFractIndex] %}
+																		{% set oldValue = shortedRows[HoseID1InFractIndex] %}
+																		{% set activeClass = (activeClass == 'active') ? '' : 'active' %}
+																	{% endif %}
+																	<tr class="{{ activeClass }}" data-id="{{ oldValue == shortedRows[HoseID1InFractIndex] }}">
+																		{% set nutTypeSuperText = '' %}
+																		{% set nutType = tableRows['articleData']['NutType'] %}
+																		{% if 'Thrust Nut' in nutType %}
+																			{% set nutTypeSuperText = 'T' %}
+																		{% endif %}
+
+																		{% set singleHexSuperText = '' %}
+																		{% set singleHex = tableRows['articleData']['SingleHexYN'] %}
+																		{% if 'true' in singleHex %}
+																			{% set singleHexSuperText = '1' %}
+																		{% endif %}
+
+																		{% set partNumberSuperText = nutTypeSuperText ~ ',' ~ singleHexSuperText %}
+
+																		{% if 'DescriptivePartNumber' in columnList %}
+																			{% set columnKey = null %}
+																			{% for key, value in columnList %}
+																				{% if value == 'DescriptivePartNumber' %}
+																					{% set columnKey = key %}
+																				{% endif %}
+																			{% endfor %}
+
+																			{% set descriptiveNumberText = shortedRows[columnKey] %}
+																			{% set descriptiveNumberList = descriptiveNumberText | split('-') %}
+
+																			{% if descriptiveNumberList|length > 1 %}
+																				{% set descriptiveText = descriptiveNumberList[0] ~ '-' ~ descriptiveNumberList[1] %}
+																			{% endif %}
+																			{% if descriptiveText not in partNumbers %}
+																				{% set partNumbers = partNumbers|merge([descriptiveText]) %}
+																			{% endif %}
+
+																		{% endif %}
+
+																		{% if 'industryStandard' in columnList %}
+																			{% set columnKey = null %}
+																			{% for key, value in columnList %}
+																				{% if value == 'industryStandard' %}
+																					{% set columnKey = key %}
+																				{% endif %}
+																			{% endfor %}
+
+																			{% set industryStandardText = shortedRows[columnKey] %}
+																			{% set industryStandardList = industryStandardText | split('-') %}
+
+																			{% if industryStandardList[0] not in productNumbers %}
+																				{% set productNumbers = productNumbers|merge([industryStandardList[0]]) %}
+																			{% endif %}
+
+																		{% endif %}
+
+																		{% for ekey, value in shortedRows %}
+																			{% if ekey == 0 %}
+																				<td>{{ value }}<sup>{{ partNumberSuperText }}</sup>
+																				</td>
+																			{% else %}
+																				<td>{{ value | raw}}</td>
+																			{% endif %}
+																		{% endfor %}
+																	</tr>
+																{% endfor %}
+															{% endif %}
+														</tbody>
+
+													</table>
+													<span class="tableFooter">
+														{{ pimcore_input("HYD_PP_" ~ uniqueId2, ["Table Info"], {"placeholder" : "Enter comment"}) }}
+													</span>
+												{% endif %}
+											{% endif %}
+										{% endfor %}
+									</article>
+								{% endfor %}
+							{% endif %}
+						{% endfor %}
+					{% endfor %}
+				</div>
+			</section>
+			<div class="hide">
+				{% if partNumbers|length > 0 %}
+					{% set partNumberString = partNumbers|join(',') %}
+					{{ pimcore_textarea('product_page_part_number').setDataFromResource(partNumberString) | raw}}
+				{% endif %}
+
+				{% if productNumbers|length > 0 %}
+					{% set productNumbersString = productNumbers|join(',') %}
+					{{ pimcore_textarea('product_page_product_number').setDataFromResource(productNumbersString) | raw}}
+				{% endif %}
+
+				{% if brandNameList|length > 0 %}
+					{% set newBrandNameList = [] %}
+					{% for i in brandNameList %}
+						{% if i not in newBrandNameList %}
+							{% set newBrandNameList = newBrandNameList|merge([i]) %}
+						{% endif %}
+					{% endfor %}
+					{% set brandNamesText = newBrandNameList|join('$$') %}
+					{{ pimcore_textarea('hydraulic_fitting_brand').setDataFromResource(brandNamesText) | raw}}
+				{% endif %}
+			</div>
+		</div>
+		{% if not isParentContainerRequest %}
+			<script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
+		{% endif %}
+	{% endif %}
+{% endblock %}

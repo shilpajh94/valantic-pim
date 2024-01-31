@@ -18,7 +18,7 @@ class CatalogBundle extends AbstractPimcoreBundle implements PimcoreBundleAdminC
     public function getJsPaths(): array
     {
         return [
-            '/bundles/catalog/js/pimcore/startup_old.js',
+            '/bundles/catalog/js/pimcore/startup.js',
             '/bundles/catalog/js/pimcore/headerSelection.js',
             '/bundles/catalog/js/pimcore/formattedGridHandler.js',
             '/bundles/catalog/js/pimcore/resetTableOfContent.js'

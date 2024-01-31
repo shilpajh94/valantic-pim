@@ -1,0 +1,52 @@
+{% if not isParentContainerRequest %}
+	{% extends "catalog/layouts/layout.html.twig" %}
+{% endif %}
+
+{% block _content %}
+	<div class="template">
+		<div id="toc" class="toc">
+			<div id="pageHeader"></div>
+
+			<div class="tableHeader">
+				<header class="content partNumber tableContent">
+					{% if (editmode) %}
+						{% if pimcore_input("TOC_Heading").isEmpty() %}
+							<h2>{{ pimcore_input("TOC_Heading", {'placeholder':'Table of Contents'}).setDataFromResource('Table of Contents') |raw }}</h2>
+						{% else %}
+							<h2>{{ pimcore_input("TOC_Heading") }}</h2>
+						{% endif %}
+					{% else %}
+						<h2>{{ pimcore_input("TOC_Heading") }}</h2>
+					{% endif %}
+				</header>
+			</div>
+
+			<div class="content content_double  table-content ">
+				{% set sectionBlock = pimcore_block('TOC_SectionBlock') %}
+				{% for i in sectionBlock.iterator %}
+					<h4>{{ pimcore_input("TOC_SectionName", {'placeholder':'Enter Section name here.'}) }}</h4>
+					<article>
+						{% set headingBlock = pimcore_block('TOC_HeadingBlock') %}
+						{% for i in headingBlock.iterator %}
+							<h5>{{ pimcore_input("TOC_HeadingName", {'placeholder':'Enter Heading here.'}) }}</h5>
+							{% if (editmode) %}
+								<span class="pageTitle">{{ pimcore_input("TOC_Desc", {'placeholder':'Enter heading description here.'}) }}</span>
+							{% else %}
+								{% if not (pimcore_input("TOC_Desc").isEmpty()) %}
+									<span class="pageTitle">{{ pimcore_input("TOC_Desc") }}</span>
+								{% endif %}
+							{% endif %}
+							{% set contentBlock = pimcore_block('TOC_ContentBlock') %}
+							{% for i in contentBlock.iterator %}
+								<div class="paging">
+									<span class="pageTitle">{{ pimcore_input("TOC_Title", {'placeholder':'Enter title here.'}) }}</span>
+									<span class="pageNo">{{ pimcore_input("TOC_Page", {'placeholder':'Enter page number here.'}) }}</span>
+								</div>
+							{% endfor %}
+						{% endfor %}
+					</article>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+{% endblock %}

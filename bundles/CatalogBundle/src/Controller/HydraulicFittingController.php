@@ -248,7 +248,13 @@ class HydraulicFittingController extends FrontendController
                             }
                         }
                     }
-                    $newBrandArray[$brandKey]['SortOrder'] = $brandsList[$brandKey];
+
+                    if(isset($brandsList[$brandKey])){
+                        $newBrandArray[$brandKey]['SortOrder'] = $brandsList[$brandKey];
+                    }else{
+                        $newBrandArray[$brandKey]['SortOrder'] = null;
+                    }
+                    
                     unset($sortedBrandsData[$brandKey]);
                 }
                 if ($newBrandArray) {
@@ -267,7 +273,7 @@ class HydraulicFittingController extends FrontendController
             $parameterBag['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
             $parameterBag['footer_logo_src'] = $footer_logo_src;
         }
-        return $this->render("@Catalog/Fitting/hydraulic_fitting.html.twig", $parameterBag);
+        return $this->render("catalog/fitting//hydraulic_fitting.html.twig", $parameterBag);
     }
 
     public function getS3ImageSrc($src): string
@@ -297,7 +303,7 @@ class HydraulicFittingController extends FrontendController
     public function getBrandsList(): mixed
     {
         $query = "select name, SortOrder from object_query_3";
-        return \Pimcore\Db\Helper::fetchPairs($this->db, $query);
+        return $this->db->fetchAllAssociative($query);
     }
 
     public function getColumnHeadersForCatalog($fittingTableColWidths, $isTableNameColumnRequired = false, $tableNameColumns = []): array
@@ -430,6 +436,8 @@ class HydraulicFittingController extends FrontendController
     public function getRequestedParameter(Request $request, $documentId): array
     {
         $parameterBag = [];
+        $isParentContainerRequest = $request->get('isParentContainerRequest');
+        $parameterBag['isParentContainerRequest'] = $isParentContainerRequest ? $isParentContainerRequest : false;
         $parameterBag['printermarks'] = $request->get('printermarks');
 
         $imageWidth = null;
