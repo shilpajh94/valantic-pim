@@ -88,8 +88,8 @@ class ProductModel
                 $currentDateTime = date('Y-m-d H:i:s');
                 $currentDateTimeStamp = strtotime($currentDateTime);
                 $previousDateTimeStamp = strtotime(' -1 day');
-                $conditionString    .=   " o_modificationDate >= ".$previousDateTimeStamp." AND
-                 o_modificationDate <=".$currentDateTimeStamp."  AND ";
+                $conditionString    .=   " modificationDate >= ".$previousDateTimeStamp." AND
+                 modificationDate <=".$currentDateTimeStamp."  AND ";
         }
         else {
             // Code to be executed if productType = base or skeleton
@@ -186,14 +186,14 @@ class ProductModel
             $limitText = " LIMIT ".$offsetLimit['offset'].",".$offsetLimit['limit'];
         }
 
-        
+
         $selectStatementAttributeArray = $this->createSelectStatementAttributeArray($conArray);
 
         $this->sqlArr [$this->fallbackLangCode] = '
             SELECT  '.implode(",",$selectStatementAttributeArray).'
             FROM object_localized_' . $this->classId. '_' . $this->langCode . '
             WHERE '.$conArray['condition'].' '.$limitText."\n\n";
-        \Pimcore\Log\Simple::log('ehosequery', print_r($this->sqlArr [$this->fallbackLangCode],true));
+        \AppBundle\Logger\Simple::log('ehosequery', print_r($this->sqlArr [$this->fallbackLangCode],true));
         return true;
     }
 
@@ -203,7 +203,7 @@ class ProductModel
         $fieldConfigs = $conArray["fields"];
         foreach($fieldConfigs as $fieldName => $fieldConfig){
             $fieldDataType = $fieldConfig[0];
-            
+
             if( is_array($fieldDataType) && array_key_first($fieldDataType) === "numeric" ){
                 $decimalPoints = $fieldDataType["numeric"] ?? DEFAULT_DECIMAL_PLACES_IN_EHOSE_API;
                 $selectStatementAttributes[] = "ROUND(". $fieldName .",". $decimalPoints .") AS " . $fieldName;
@@ -288,7 +288,7 @@ class ProductModel
             $query = 'SELECT ShippingConditions FROM object_localized_'.$classId.'_en
             WHERE `oo_id` IN ('.$oo_id.') AND language IN ('.$languages.')';
             $shippingConditions = $this->db->fetchFirstColumn($query);
-            return implode(", ",$shippingConditions);    
+            return implode(", ",$shippingConditions);
         }
         return '';
     }
@@ -308,7 +308,7 @@ class ProductModel
             $query = 'SELECT Conditions FROM object_localized_'.$classId.'_en
             WHERE `oo_id` IN ('.$oo_id.') AND language IN ('.$languages.')';
             $conditions = $this->db->fetchFirstColumn($query);
-            return implode(", ",$conditions);    
+            return implode(", ",$conditions);
         }
         return '';
     }
@@ -347,9 +347,9 @@ class ProductModel
         WHERE `oo_id` IN ('.$oo_id.') AND language IN ('.$languages.')';
         return $this->db->fetchOne($query);
     }
-    
 
-    
+
+
     /**
      * Method to get the CountryAbbr from object_IFSEUCountries table based on oo_id
      *
@@ -379,7 +379,7 @@ class ProductModel
      */
     public function getCategoryName(int $oo_id) : ?string
     {
-        $query = 'SELECT o_key FROM object_IFSEUCategory WHERE `oo_id` = '.$oo_id;
+        $query = 'SELECT key FROM object_IFSEUCategory WHERE `oo_id` = '.$oo_id;
         return $this->db->fetchOne($query);
     }
 
@@ -391,7 +391,7 @@ class ProductModel
      */
     public function getSubCategoryName(int $oo_id) : ?string
     {
-        $query = 'SELECT o_key FROM object_IFSEUSubCategory WHERE `oo_id` = '.$oo_id;
+        $query = 'SELECT key FROM object_IFSEUSubCategory WHERE `oo_id` = '.$oo_id;
         return $this->db->fetchOne($query);
     }
 
@@ -465,5 +465,5 @@ class ProductModel
         return $resultSetFormatted;
     }
 
-    
+
 }

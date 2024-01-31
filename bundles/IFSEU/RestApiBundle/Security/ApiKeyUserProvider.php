@@ -11,7 +11,7 @@ use Pimcore\Db;
 class ApiKeyUserProvider implements UserProviderInterface
 {
     private $db;
-    
+
     public function getUsernameForApiKey($apiKey)
     {
         $this->db = Db::get();
@@ -36,5 +36,10 @@ class ApiKeyUserProvider implements UserProviderInterface
     public function supportsClass($class)
     {
         return User::class === $class;
+    }
+
+    public function loadUserByIdentifier(string $identifier): UserInterface
+    {
+        return $identifier;
     }
 }

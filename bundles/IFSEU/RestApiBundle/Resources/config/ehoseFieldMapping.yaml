@@ -10,9 +10,9 @@ ehoseAPI:
         Fields:
             oo_id:
                 - string
-            o_key:
+            key:
                 - string
-            o_parentId:
+            parentId:
                 - string
             productBrandName:
                 - string
@@ -92,7 +92,7 @@ ehoseAPI:
                 - numeric: 2
             DampableUntil2T:
                 - numeric: 2
-            o_published:
+            published:
                 - string
             shippingConditions:
                 - string
@@ -259,9 +259,9 @@ ehoseAPI:
         Fields:
             oo_id:
                 - string
-            o_key:
+            key:
                 - string
-            o_parentId:
+            parentId:
                 - string
             siopFullCode:
                 - string
@@ -329,13 +329,13 @@ ehoseAPI:
         Fields:
             oo_id:
                 - string
-            o_key:
-                - string
-            o_parentId:
+            # key:
+            #     - string
+            parentId:
                 - string
             siopFullCode:
                 - string
-            o_published:
+            published:
                 - string
             certificationImage:
                 - string
