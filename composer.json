@@ -62,7 +62,7 @@
       "ContitechCS\\ImportBundle\\": "bundles/ContitechCS/ImportBundle",
       "ContitechCS\\ProductBundle\\": "bundles/ContitechCS/ProductBundle",
       "ContitechCS\\CatalogUIApiBundle\\": "bundles/ContitechCS/CatalogUIApiBundle",
-      "ContitechCS\\CatalogBundle\\": "bundles/ContitechCS/CatalogBundle",
+      "ContitechCS\\CatalogBundle\\": "bundles/ContitechCS/CatalogBundle/src",
       "Wvision\\Bundle\\DataDefinitionsBundle\\": "bundles/w-vision/data-definitions/src/DataDefinitionsBundle"
     }
   },

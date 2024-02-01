@@ -397,8 +397,10 @@ class DefaultController extends FrontendController
     }
     public function templatePtgEuProductPageAction(Request $request): Response
     {
-        $parameterBag = $this->getRequestedParameter($request, $this->document->getId());
-
+        $documentPath = $this->document->getFullPath();
+        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+        $parameterBag = $this->getRequestedParameter($request, $documentId);
+        
         $initialSortList = array(
             "profile",
             "pitchLengthLpLwMM",

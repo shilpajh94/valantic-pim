@@ -1,0 +1,151 @@
+{% if not isParentContainerRequest %}
+	{% extends "contitechcscatalog/layouts/layout.html.twig" %}
+{% endif %}
+
+{% block _content %}
+
+	<div class="wrapper imgcoverPage1 coverPageWrapper">
+		<div class="cover-image " id="cover-up">
+            {% if editmode %}
+                Select image type: {{ pimcore_select("image_type", {
+                        "store" : [
+                            ['single-image', 'Single Collage Image'],
+                            ['multi-images', 'Multiple Image (Fixed Design)']
+                        ],
+                        "reload" : true
+                }) }}
+            {% endif %}
+
+			<div class="top-section">
+                {% if not pimcore_select("image_type").isEmpty() %}
+                    {% set imageType == pimcore_select("image_type").getData() %} 
+                    {% if imageType == 'single-image' %} 
+                        {% if editmode %}   
+                            <div class="" style="max-width: 300px; position: relative;">Drop logo image here {{ pimcore_image("cover_page_logo_image") }}</div>
+                            <div class="img-wrapper">
+                                <div class="set1-collage">{{ pimcore_image("cover_page_collage_image") }}</div>
+                            </div>
+                        {% else %}    
+                            {% set logoSrcObj = pimcore_image("cover_page_logo_image") %}
+                            {% set collageSrcObj = pimcore_image("cover_page_collage_image") %}
+
+                            {% if getImageThumbnail(logoSrcObj, imageWidth) %}
+                                <div class="logo">
+                                    <img src="{{ getImageThumbnail(logoSrcObj, imageWidth) }}">
+                                </div>
+                            {% endif %}
+
+                            {% if getImageThumbnail(collageSrcObj, imageWidth) %}
+                                <div class="img-wrapper">
+                                    <div class="set1-collage">
+                                        <img src="{{ getImageThumbnail(collageSrcObj, imageWidth) }}">
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    {% else %}   
+                        {% if editmode %}
+                            <div class="" style="max-width: 300px; position: relative;">{{ pimcore_image("cover_page_logo_image") }}</div>
+                            <div class="img-wrapper">
+                                <div class="set1">{{ pimcore_image("cover_page_collage_image_1") }}</div>
+                                <div class="set2">
+                                    <div class="col-3 set2-1">{{ pimcore_image("cover_page_collage_image_2_1") }}</div>
+                                    <div class="col-3 set2-2">
+                                        <div class="set2-2-1">{{ pimcore_image("cover_page_collage_image_2_2_1") }}</div>
+                                        <div class="set2-2-2">{{ pimcore_image("cover_page_collage_image_2_2_2") }}</div>
+                                    </div>
+                                    <div class="col-3 set2-3">{{ pimcore_image("cover_page_collage_image_2_3") }}</div>
+                                </div>
+                            </div>
+                        {% else %}
+                            {% set logoSrcObj =  pimcore_image("cover_page_logo_image") %}
+                            {% set collageSetObj1 =  pimcore_image("cover_page_collage_image_1") %}
+                            {% set collageSetObj21 =  pimcore_image("cover_page_collage_image_2_1") %}
+                            {% set collageSetObj221 =  pimcore_image("cover_page_collage_image_2_2_1") %}
+                            {% set collageSetObj222 =  pimcore_image("cover_page_collage_image_2_2_2") %}
+                            {% set collageSetObj23 =  pimcore_image("cover_page_collage_image_2_3") %}
+                            
+                            {% if getImageThumbnail(logoSrcObj, imageWidth) %}
+                                <div class="logo"><img src="{{ getImageThumbnail(logoSrcObj, imageWidth)}}"/></div>
+                            {% endif %}
+
+                            <div class="img-wrapper">
+                                {% if getImageThumbnail(collageSetObj1, imageWidth) %}
+                                    <div class="set1"><img src="{{ getImageThumbnail(collageSetObj1, imageWidth)}}"/></div>
+                                {% endif %}
+                                
+                                {% if getImageThumbnail(collageSetObj21, imageWidth) or getImageThumbnail(collageSetObj221, imageWidth) or getImageThumbnail(collageSetObj222, imageWidth) or getImageThumbnail(collageSetObj23, imageWidth) %}
+                                    <div class="set2">
+                                        <div class="col-3 set2-1"><img src="{{ getImageThumbnail(collageSetObj21, imageWidth) }}"/></div>
+                                        <div class="col-3 set2-2">
+                                            <div class="set2-2-1"><img src="{{ getImageThumbnail(collageSetObj221, imageWidth) }}"/></div>
+                                            <div class="set2-2-2"><img src="{{ getImageThumbnail(collageSetObj222, imageWidth) }}"/></div>
+                                        </div>
+                                        <div class="col-3 set2-3"><img src="{{ getImageThumbnail(collageSetObj23, imageWidth) }}"/></div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+            </div>
+				<div class="bottom-section">
+					<h1 class="orange lh">{{ pimcore_input("cover_page_bottom_part_heading1",{"placeholder": "Enter First Heading"}) }}</h1>
+					<h1 class="orange">{{ pimcore_input("cover_page_bottom_part_heading2",{"placeholder": "Enter Second Heading"}) }}</h1>
+					<h2 class="">{{ pimcore_input("cover_page_bottom_part_sub_heading",{"placeholder": "Enter Sub Heading"}) }}</h2>
+					{% if editmode %}
+						<div class="orange bottom-align">{{ pimcore_input("cover_page_bottom_line",{"placeholder" =>"Enter Details"}) }}</div>
+					{% else %}
+						<p class="orange bottom-align">{{ pimcore_input("cover_page_bottom_line").getData() }}</p>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+
+		<style>
+			.imgcoverPage1 {
+				page: title81;
+				width: 100%;
+				height: 100%;
+
+			}
+
+			.imgcoverPage1 .footer2 {
+				display: none;
+				text-align: left;
+				position: running(footer2);
+
+			}
+
+			.imgcoverPage1 .footer3 {
+				display: none;
+				text-align: left;
+				position: running(footer3);
+			}
+
+			@page title81 {
+				margin: 20px;
+				padding: 0;
+				content: counter(0);
+
+				@top-right-corner {
+					content: padding;
+                }
+
+				@top-left-corner {
+					content: "";
+				}
+
+				@top-right {
+					content: "";
+				}
+				@bottom-left {
+					content: "";
+				}
+				@bottom-right {
+					content: "";
+				}
+			}
+		</style>
+
+{% endblock %}
