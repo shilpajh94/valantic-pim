@@ -70,7 +70,7 @@ class PlantMaterialService
 
         echo 'Importing File: ' . $this->filePath.PHP_EOL;
         $time = new \DateTime();
-        
+
         /**
          * get folder ids of Master List, MaterialMaster, Master List/Plants,
          * Master List/Sales Organizations, Master List/Distribution Channel
@@ -100,7 +100,7 @@ class PlantMaterialService
             $this->tableImportHelper->truncateTempTable();
             $td = $t->diff(new \DateTime());
             echo $td->format("Truncating temp table takes %h hour %i minute %s second").PHP_EOL;
-            
+
             echo "Inserting temp table...".PHP_EOL;
             $time1 = new \DateTime();
             $this->tableImportHelper->insertDataInTemp($excelDataNewArray,
@@ -131,7 +131,7 @@ class PlantMaterialService
             echo "Total {$csvRowCount} records found in csv file.".PHP_EOL;
             $deltaCount = count($excelDataNewArray);
             echo "Total {$deltaCount} Delta records found...".PHP_EOL;
-            
+
             $applicationLogMessage = "No delta records found.";
 
             if($deltaCount > 0)
@@ -178,10 +178,10 @@ class PlantMaterialService
             $timediff4 = $time4->diff(new \DateTime());
             echo $timediff4->format("Total {$deltaCount} replaced in master table takes
              %h hour %i minute %s second").PHP_EOL;
-            
+
             $this->tableImportHelper->deleteFailedRecordsFromMaster($this->failedIDs);
         }
-       
+
         echo $applicationLogMessage;
 
         if ($this->failedCount > 0)
@@ -232,7 +232,7 @@ class PlantMaterialService
                 try
                 {
                     $materialObjId = $this->getMaterialObjectId($material);
-                    
+
                     if($materialObjId)
                     {
                         $processedRowData = $this->processRowData($plantName, $material,
@@ -241,7 +241,7 @@ class PlantMaterialService
                         $createdOrUpdated   = $processedRowData['createdOrUpdated'];
                         $plantMaterialKey   = $processedRowData['plantMaterialKey'];
                         $objectArr          = $processedRowData['objectArr'];
-                        
+
                         $objId              = $this->tableImportHelper->insertInObjects($objectArr);
                         $prepareTableData = $this->prepareTableDataArray($objId, $materialObjId, $rowvalue);
 
@@ -251,7 +251,7 @@ class PlantMaterialService
                          $prepareTableData['objectRelationsTableData']);
                         $dependencyTableDataArray = array_merge($dependencyTableDataArray,
                          $prepareTableData['dependencyTableData']);
-                        
+
                         unset($prepareTableData);
 
                         $errorsData['SUCCESS'] = "Plant Material Code: ".
@@ -295,7 +295,7 @@ class PlantMaterialService
 
         $this->insertDataInDB($queryTableDataArray, $storeTableDataArray,
         $relationTableDataArray, $dependencyTableDataArray);
-            
+
         $timediff2 = $time2->diff(new \DateTime());
         echo $timediff2->format("{$createdUpdatedCount} Object created out of {$dataCount}
          records in %h hour %i minute %s second").PHP_EOL;
@@ -428,7 +428,7 @@ class PlantMaterialService
             $dependencyTableData[] = ['sourceid' => $objId, 'targetid' => $countryObjId,
              'sourcetype' => 'object', 'targettype' => 'object'];
         }
-            
+
         if($plantObjId)
         {
             $relationTableData[] = ['src_id' => $objId, 'dest_id' => $plantObjId,
@@ -436,7 +436,7 @@ class PlantMaterialService
             $dependencyTableData[] = ['sourceid' => $objId, 'targetid' => $plantObjId,
              'sourcetype' => 'object', 'targettype' => 'object'];
         }
-            
+
         $relationTableData[] = ['src_id' => $objId, 'dest_id' => $salesOrgObjId,
          'type' => 'object', 'fieldname' => 'salesOrganization', 'ownertype' => 'object' ];
         $relationTableData[] = ['src_id' => $objId, 'dest_id' => $distributionChannelObjId,
@@ -467,12 +467,12 @@ class PlantMaterialService
         {
             $errorsData[] = 'Material should not be blank.';
         }
-            
+
         if(empty(trim($salesOrg)))
         {
             $errorsData[] = 'Sales organization should not be blank.';
         }
-        
+
         if(empty(trim($distributionChannel)))
         {
             $errorsData[] = 'Distribution channel should not be blank.';
@@ -502,7 +502,7 @@ class PlantMaterialService
         {
             $materialObjId = $this->materialArray[$material];
         }
-        
+
         return $materialObjId;
     }
 
@@ -520,7 +520,7 @@ class PlantMaterialService
             {
                 $this->plantArray[$plantName] = $plantId;
             }
-                
+
         }
 
         $plantObjId = '';
@@ -571,7 +571,7 @@ class PlantMaterialService
                 $this->salesOrgArray[$salesOrg] = $salesOrgId;
                 return $this->salesOrgArray[$salesOrg];
             }
-                
+
         }
     }
 
@@ -597,7 +597,7 @@ class PlantMaterialService
      * return material object or false
      */
     public function getMaterialObject($materialKey){
-        $query = "SELECT oo_id, o_key, o_path FROM `object_38` WHERE `articleNumber` LIKE '%{$materialKey}%' limit 1";
+        $query = "SELECT oo_id, `key`, `path` FROM `object_38` WHERE `articleNumber` LIKE '%{$materialKey}%' limit 1";
         $objectMaterial = $this->db->fetchAllAssociative($query);
 
         foreach ($objectMaterial as $material) {
@@ -625,7 +625,7 @@ class PlantMaterialService
                 $this->monitoringItem->getLogger()->info("Plant: ".$plantKey." found in master list.");
                 return $objPlant->getId();
             }
-         
+
         }
     }
 
@@ -648,7 +648,7 @@ class PlantMaterialService
                 $distributionChannelKey." found in master list.");
                 return $obj->getId();
             }
-          
+
         }
     }
 
@@ -670,7 +670,7 @@ class PlantMaterialService
                 $this->monitoringItem->getLogger()->info("Sales Org: ".$salesOrgKey." found in master list");
                 return $obj->getId();
             }
-            
+
         }
 
     }
@@ -711,26 +711,26 @@ class PlantMaterialService
 
         $materialFolderId= DataObject\Service::createFolderByPath(ImportConstants::
         PTGEU_MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER."/".$material)->getId();
-        $query = "SELECT oo_id, o_parentId, o_key, o_path FROM `object_40`
-        WHERE `o_parentId` = '{$materialFolderId}' AND `o_key` LIKE '%{$plantMaterialKey}%' limit 1";
+        $query = "SELECT oo_id, parentId, `key`, `path` FROM `object_40`
+        WHERE `parentId` = '{$materialFolderId}' AND `key` LIKE '%{$plantMaterialKey}%' limit 1";
         $objectMaterial = $this->db->fetchAssociative($query);
 
-        
+
         $createdOrUpdated = 'Updated';
         if(!$objectMaterial){
             $createdOrUpdated = 'Created';
             $objectArr = [
-                'o_parentId' => $materialFolderId,
-                'o_key' => $plantMaterialKey,
-                'o_path' => "/".ImportConstants::PTGEU_MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER."/".$material."/",
+                'parentId' => $materialFolderId,
+                'key' => $plantMaterialKey,
+                'path' => "/".ImportConstants::PTGEU_MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER."/".$material."/",
             ];
             $this->createdCount++;
         }
         else{
             $objectArr = [
-                'o_parentId' => $objectMaterial['o_parentId'],
-                'o_key' => $objectMaterial['o_key'],
-                'o_path' => $objectMaterial['o_path'],
+                'parentId' => $objectMaterial['parentId'],
+                'key' => $objectMaterial['key'],
+                'path' => $objectMaterial['path'],
             ];
             $this->updatedCount++;
         }
@@ -747,17 +747,17 @@ class PlantMaterialService
         {
             $this->tableImportHelper->insertIntoMaterialTable($queryTableDataArray, 'object_query_40');
         }
-            
+
         if(count($storeTableDataArray))
         {
             $this->tableImportHelper->insertIntoMaterialTable($storeTableDataArray, 'object_store_40');
         }
-            
+
         if(count($relationTableDataArray))
         {
             $this->tableImportHelper->insertIntoMaterialTable($relationTableDataArray, 'object_relations_40');
         }
-            
+
         if(count($dependencyTableDataArray))
         {
             $this->tableImportHelper->insertIntoMaterialTable($dependencyTableDataArray, 'dependencies');

@@ -53,10 +53,10 @@ class ProductService
     private $relationTableDataArray;
     private $relationTableDataDeleteArray;
     private $container;
- 
+
     const LOGGER_MODULE = 'SAP IMPORT SHEET';
-    
-    
+
+
     public function __construct(CompletenessPercentageService $percentageCompletionService,
      ContainerInterface $container)
     {
@@ -106,7 +106,7 @@ class ProductService
             $this->categories[$fullCode] = array(
                 'data' =>  $cat,
                 'id'    =>  $cat['oo_id'],
-                'fullPath'  =>  $cat['o_path'].$cat['o_key']
+                'fullPath'  =>  $cat['path'].$cat['key']
             );
             unset($fullCode);
         }
@@ -118,7 +118,7 @@ class ProductService
             unset($code);
         }
     }
-    
+
     public function import()
     {
         $sapFileFeeder  = $this->container->get('import.sap_file_feeder_service');
@@ -140,13 +140,13 @@ class ProductService
                 Logger::log(self::LOGGER_MODULE)->info("Product import completed");
                 $this->productModel->updateMaster();
                 Logger::log(self::LOGGER_MODULE)->info("Data copied from temp table to master table");
-    
+
                 if (!empty($this->updatedArticlesArray) && count($this->updatedArticlesArray)>0) {
                     echo "Object Saving started for completeness.".PHP_EOL;
                     $this->saveProducts($this->updatedArticlesArray);
                     echo "Object Saving completed for completeness.".PHP_EOL;
                 }
-    
+
                 if (!empty($this->baseSiopMismatchLog) && count($this->baseSiopMismatchLog)>0) {
                     $this->productModel->removeArticlesFromMaster($this->baseSiopMismatchLog);
                     Logger::log(self::LOGGER_MODULE)->info("failed records removed from master table.");
@@ -157,11 +157,11 @@ class ProductService
                 Logger::error($this->logFileName, $th);
                 die;
             }
-    
+
         }else{
             die;
         }
-            
+
     }
 
     public function sendSkippedArticlesEmailNotification($skippedArticles, $emailTemplate) {
@@ -196,7 +196,7 @@ class ProductService
             Logger::log(self::LOGGER_MODULE)->error($th);
         }
     }
-    
+
     public function initiateProductsProcess() {
         $a = time();
         $delta = $this->productModel->getDelta();
@@ -204,7 +204,7 @@ class ProductService
         $deltaCount = count($delta);
         \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("Product Delta count: ".$deltaCount);
         $j = 1;
-        
+
         $this->logArray = [];
         $i = 0;
         $length = 1000;
@@ -227,7 +227,7 @@ class ProductService
             $j++;
         }
     }
-    
+
     public function setVariablesToEmpty() {
         unset($this->products, $this->logArray, $this->objectsTableData,
          $this->queryTableDataArray, $this->storeTableDataArray, $this->localisedQueryTableDataArray,
@@ -250,7 +250,7 @@ class ProductService
         echo "Memory usage before garbage collector: ". memory_get_usage().PHP_EOL;
         \Pimcore::collectGarbage();
     }
-    
+
     public function processProducts($data) {
         foreach ($data as $row) {
             $this->processSingleRecord($row['siopfullcode'], $row);
@@ -260,7 +260,7 @@ class ProductService
         unset($data, $row);
         $this->setVariablesToEmpty();
     }
-    
+
     public function insertDataInDB() {
         if(!empty($this->queryTableDataArray)) {
             $this->productModel->insertIntoProductTable($this->queryTableDataArray, 'object_query_38');
@@ -272,7 +272,7 @@ class ProductService
             $this->productModel->deleteRelationTableRecords($this->relationTableDataDeleteArray);
             $this->productModel->insertIntoProductTable($this->relationTableDataArray, 'object_relations_38');
         }
-        
+
         foreach ($this->langArr as $lang) {
             if (!empty($this->localisedQueryTableDataArray[$lang])) {
                 $tbl = 'object_localized_query_38_'.($lang);
@@ -293,22 +293,22 @@ class ProductService
             }
         }
     }
-    
+
     private function getRecordIndexByKey($key) {
         return $this->csvHeader[$this->columnName[$key]];
     }
 
     public function createPTGObject($record, $parentId, $parentPath, $levelInfo, $type)
     {
-        
+
         $objectIndex        = $this->productHelper->getObjectIndex($type, $levelInfo);
-        
+
         $currentLevelCode   = $levelInfo[$objectIndex]['levelFullCode'];
-        
+
         $fertLevelCode      = $levelInfo[count($levelInfo)]['levelFullCode'];
-        
+
         $categoryPath       = $this->categories[$currentLevelCode]['fullPath'];
-        
+
         if ($type == 'base' || $type == 'skeleton') {
             $currentLevelPath = $this->productHelper->convertCategoryPathToProduct($categoryPath);
             $currentLevelArray = explode('/', $currentLevelPath);
@@ -324,28 +324,28 @@ class ProductService
         }
         $objectArr = [
             'parentId' => $parentId,
-            'o_key' => $objectKey,
+            'key' => $objectKey,
             'path' => $parentPath.'/',
-            'o_className' => 'PTGEUProduct'
+            'className' => 'PTGEUProduct'
         ];
         $currentLevelPath = $parentPath.'/'.$objectKey;
-                
+
         if (!array_key_exists($currentLevelPath, $this->products)) {
             if ($type == 'fert') {
                 // Need to check the current path of fert, changed or not
                 $newPath = explode("/", $currentLevelPath);
                 array_pop($newPath);
                 $newPath = implode("/", $newPath);
-                
+
                 $productObj = new \Pimcore\Model\DataObject\PTGEUProduct;
                 $currentPathId = $productObj->getByPath($newPath)->getId();
-                
+
                 $articleNumber = $record[$this->getRecordIndexByKey('material')];
                 $data = $this->productModel->checkIfArticleExists($articleNumber);
-                
+
                 if (!empty($data)) {
                     $objId = $data[0]['oo_id'];
-                    $objectArr['o_id'] = $objId;
+                    $objectArr['id'] = $objId;
                     $objectArr['parentId'] = $currentPathId;
                 }
             }
@@ -381,12 +381,12 @@ class ProductService
         $prodHier7 = $recData[$this->getRecordIndexByKey('prodHier7')];
 
         if (array_key_exists($siopCode, $this->categories)) {
-            
+
             if ($this->productHelper->isValidCategoryCode($siopCode)) {
 
                 if($this->productModel->checkHierarchyExistAtLevel($prodHier5, 5) &&
                 $this->productModel->checkHierarchyExistAtLevel($prodHier7, 7)) {
-                    
+
                     if (!empty(trim($recData[$this->getRecordIndexByKey('group')]))) {
                         echo $recData['0'].PHP_EOL;
                         $record = array(
@@ -412,7 +412,7 @@ class ProductService
         } else {
             $msg = 'SIOP Category not exists.';
         }
-        
+
         $logRow = [
             'id' => $recData[$this->getRecordIndexByKey('material')],
             'siopfullcode' => $siopCode,
@@ -442,9 +442,9 @@ class ProductService
             $folderIndex = count($levelInfo['levels'])-3;
             $folderCode = $levelInfo['levels'][$folderIndex]['levelFullCode'];
             $folderPath = $this->categories[$folderCode]['fullPath'];
-            
+
             $folderPath = $this->productHelper->convertCategoryPathToProduct($folderPath);
-            
+
             if (!array_key_exists($folderPath, $this->products)) {
                 $folderId = $this->productHelper->getFolderByPath($folderPath);
                 $this->products[$folderPath] = $folderId;
@@ -462,7 +462,7 @@ class ProductService
             }
             $levelArray = $this->createPTGObject($recData, $levelArray[0],
              $levelArray[1], $levelInfo['levels'], 'fert');
-            
+
             $status = 'Success';
             $msg = 'Object Id is: '.$levelArray[0];
 
@@ -479,7 +479,7 @@ class ProductService
     }
 
     public function getLocalizedQueryData($objId, $record, $productType = 'fert') {
-        
+
         foreach ($this->langArr as $lang) {
             $sapDescription     = null;
 
@@ -504,10 +504,10 @@ class ProductService
         {
             return null;
         }
-        
+
         $beltTypeList = new \Pimcore\Model\DataObject\PTGEUBeltType\Listing();
         $beltTypeList->setCondition("beltType = ". $beltTypeList->quote(trim($beltType)));
-        
+
         foreach ($beltTypeList as $belt) {
             return $belt->getId();
         }
@@ -577,7 +577,7 @@ class ProductService
             'priceRef' => null,
             // 'vtlStatus' => null
         ];
-        
+
         if (strtolower($productType) == 'base') {
             $queryTableData['ProductName'] = trim($record[$this->getRecordIndexByKey('ProductName')]);
             $queryTableData['fabricType'] = trim($record[$this->getRecordIndexByKey('fabricType')]);
@@ -600,7 +600,7 @@ class ProductService
             $beltType                   = trim($record[$this->getRecordIndexByKey('beltType')]);
             $queryTableData['beltType'] = $this->getBeltTypeId($beltType);
 
-            $baseObject = DataObject\PTGEUProduct::getById($objId, true);
+            $baseObject = DataObject\PTGEUProduct::getById($objId);
 
             $reinforcementValuesToBeMapped = [];
             $reinforcementValue     = trim($record[$this->getRecordIndexByKey('reinforcement')]);
@@ -613,7 +613,7 @@ class ProductService
                         array_push($reinforcementValuesToBeMapped,$eachOptions['value']);
                     }
                 }
-                
+
             }
             $reinforcements  = implode(',', $reinforcementValuesToBeMapped);
             $queryTableData['reinforcement'] = $reinforcements;
@@ -684,7 +684,7 @@ class ProductService
             $queryTableData['materialType'] = trim($record[$this->getRecordIndexByKey('materialType')]);
             $queryTableData['priceRef'] = trim($record[$this->getRecordIndexByKey('priceRef')]);
 
-            $fertObject = DataObject\PTGEUProduct::getById($objId, true);
+            $fertObject = DataObject\PTGEUProduct::getById($objId);
 
             $weightUnit = trim($record[$this->getRecordIndexByKey('weightUnit')]);
             $fd = $fertObject->getClass()->getFieldDefinition("weightUnit");
@@ -700,7 +700,7 @@ class ProductService
             //     $queryTableData['vtlStatus'] = trim($vtlObject);
             // }
         }
-        
+
         $this->queryTableDataArray[] = array_merge($queryTableData, $siopData);
     }
 
@@ -790,7 +790,7 @@ class ProductService
             $beltType                       = trim($record[$this->getRecordIndexByKey('beltType')]);
             $storeTableDataArray['beltType']= $this->getBeltTypeId($beltType);
 
-            $baseObject = DataObject\PTGEUProduct::getById($objId, true);
+            $baseObject = DataObject\PTGEUProduct::getById($objId);
 
             $reinforcementValuesToBeMapped = [];
             $reinforcementValue     = trim($record[$this->getRecordIndexByKey('reinforcement')]);
@@ -803,7 +803,7 @@ class ProductService
                         array_push($reinforcementValuesToBeMapped,$eachOptions['value']);
                     }
                 }
-                
+
             }
             $reinforcements  = implode(',', $reinforcementValuesToBeMapped);
             $storeTableDataArray['reinforcement'] = $reinforcements;
@@ -825,7 +825,7 @@ class ProductService
                 if(strtolower($eachOptions['value']) == strtolower($materialCompound)){
                     $storeTableDataArray['material'] = trim($eachOptions['value']);
                 }
-                
+
             }
 
             $color = trim($record[$this->getRecordIndexByKey('Color')]);
@@ -874,8 +874,8 @@ class ProductService
             $storeTableDataArray['sapDescriptionLanguage'] = trim($record[$this->getRecordIndexByKey('language')]);
             $storeTableDataArray['materialType'] = trim($record[$this->getRecordIndexByKey('materialType')]);
             $storeTableDataArray['priceRef'] = trim($record[$this->getRecordIndexByKey('priceRef')]);
-            
-            $fertObject = DataObject\PTGEUProduct::getById($objId, true);
+
+            $fertObject = DataObject\PTGEUProduct::getById($objId);
 
             $weightUnit = trim($record[$this->getRecordIndexByKey('weightUnit')]);
             $fd = $fertObject->getClass()->getFieldDefinition("weightUnit");
@@ -954,7 +954,7 @@ class ProductService
             }
         }
     }
-    
+
     public function setBricksData($objId, $bricks, $type, $record) {
         $csvHeader      = array_flip($this->csvHeader);
         $rowData        = array_combine($csvHeader, $record);
@@ -965,14 +965,14 @@ class ProductService
                 foreach ($this->brickTablePrefixArray  as $brickPrefix) {
                     $tblName    = $brickPrefix.ucfirst($brick)."_38";
                     $unitData   = $this->productHelper->checkBrickUnitData($bricksUnitData, $brick);
-                    $tableData  = array_merge(['o_id' => $objId, 'fieldname' => ucfirst($type)],
+                    $tableData  = array_merge(['id' => $objId, 'fieldname' => ucfirst($type)],
                     $bricksData, $unitData);
                     $this->bricksDataArray[$tblName][] = $tableData;
                 }
             }
         }
     }
-    
+
     public function getOrCreateMaterialGroupCodeId($materialGroupCode) {
         if (!empty($materialGroupCode) && !empty($this->materialGroup[$materialGroupCode])) {
             return $this->materialGroup[$materialGroupCode];
@@ -983,7 +983,7 @@ class ProductService
     public function saveProducts($updatedArticlesArray) {
             foreach ($updatedArticlesArray as $objectId) {
                 if (!empty($objectId)) {
-                    $object = DataObject\PTGEUProduct::getById($objectId, true);
+                    $object = DataObject\PTGEUProduct::getById($objectId);
                     if (!empty($object) && $object instanceof \Pimcore\Model\DataObject\PTGEUProduct) {
                         $object->save();
                     }

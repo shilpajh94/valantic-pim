@@ -13,12 +13,14 @@ use PTGEU\ProductBundle\Services\CompletenessPercentageService;
 class ImportDropDownDataCommand extends AbstractCommand
 {
     private $t;
+    private $db;
+    private $percentageCompletionService;
 
     public function __construct(CompletenessPercentageService $percentageCompletionService)
     {
         parent::__construct();
         $this->db = Db::get();
-        $this->percentageCompletionService = $percentageCompletionService; 
+        $this->percentageCompletionService = $percentageCompletionService;
 
     }
     protected function configure()
@@ -59,11 +61,11 @@ class ImportDropDownDataCommand extends AbstractCommand
                             $VBeltsFertBrickData = [
                                 'rmaCode' => $rowData['RMA Code']
                             ];
-        
+
                             $this->insertBrickData($VBeltsFertBrickData, 'object_brick_query_PTGEUVBeltsFert_38', $fertObjectId);
-                            $this->insertBrickData($VBeltsFertBrickData, 'object_brick_store_PTGEUVBeltsFert_38', $fertObjectId); 
-                            $this->percentageCompletionService->completenessPercentage($fertObj, 'import');  
-                        }    
+                            $this->insertBrickData($VBeltsFertBrickData, 'object_brick_store_PTGEUVBeltsFert_38', $fertObjectId);
+                            $this->percentageCompletionService->completenessPercentage($fertObj, 'import');
+                        }
                     }
                     if(isset($rowData['PAH'])){
                         if($fertObj->getFert()->getPTGEUCommonFert()){
@@ -71,11 +73,11 @@ class ImportDropDownDataCommand extends AbstractCommand
                             $commonFertBrickData = [
                                 'pah' => $rowData['PAH']
                             ];
-        
+
                             $this->insertBrickData($commonFertBrickData, 'object_brick_store_PTGEUCommonFert_38', $fertObjectId);
-                            $this->insertBrickData($commonFertBrickData, 'object_brick_query_PTGEUCommonFert_38', $fertObjectId); 
-                            $this->percentageCompletionService->completenessPercentage($fertObj, 'import');  
-                        }    
+                            $this->insertBrickData($commonFertBrickData, 'object_brick_query_PTGEUCommonFert_38', $fertObjectId);
+                            $this->percentageCompletionService->completenessPercentage($fertObj, 'import');
+                        }
                     }
                     if(isset($rowData['Reinforcement / Cord']) || isset($rowData['Performance'])){
                         $baseObject = $fertObj->getParent()->getParent();
@@ -93,11 +95,11 @@ class ImportDropDownDataCommand extends AbstractCommand
                                             array_push($reinforcementValuesToBeMapped,$eachOptions['value']);
                                         }
                                     }
-                                    
+
                                 }
                                 $reinforcements  = implode(',', $reinforcementValuesToBeMapped);
                                 $productClassData['reinforcement'] = $reinforcements;
-    
+
                             }
                             if(isset($rowData['Performance'])){
                                 $performance = trim($rowData['Performance']);
@@ -108,19 +110,19 @@ class ImportDropDownDataCommand extends AbstractCommand
                                         $productClassData['performance'] = trim($eachOptions['value']);
                                     }
                                 }
-    
+
                             }
                             $this->insertProductclassData($productClassData, 'object_store_38', $baseObjectId);
-                            $this->insertProductclassData($productClassData, 'object_query_38', $baseObjectId); 
-                            $this->percentageCompletionService->completenessPercentage($baseObject, 'import');  
-    
+                            $this->insertProductclassData($productClassData, 'object_query_38', $baseObjectId);
+                            $this->percentageCompletionService->completenessPercentage($baseObject, 'import');
+
                         }
-    
-    
+
+
                     }
 
 
-                    p_r($i.'. '.$rowData['SAPMaterialCode']);    
+                    p_r($i.'. '.$rowData['SAPMaterialCode']);
                     $i++;
                 }
             }
@@ -145,7 +147,7 @@ class ImportDropDownDataCommand extends AbstractCommand
         foreach($dataArray as $key=>$val) {
             $cols[] = "$key = '$val'";
         }
-        $sql = "UPDATE $tableName SET " . implode(', ', $cols) . " WHERE o_id =  $objId";
+        $sql = "UPDATE $tableName SET " . implode(', ', $cols) . " WHERE id =  $objId";
         $this->db->executeUpdate($sql);
     }
 

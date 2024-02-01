@@ -101,7 +101,7 @@ class PTGEUSkeletonBrickMappingAndDataImport extends AbstractCommand
         foreach($dataArray as $key=>$val) {
             $cols[] = "$key = '$val'";
         }
-        $sql = "UPDATE $tableName SET " . implode(', ', $cols) . " WHERE o_id =  $objId";
+        $sql = "UPDATE $tableName SET " . implode(', ', $cols) . " WHERE id =  $objId";
         $this->db->executeQuery($sql);
 
 

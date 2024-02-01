@@ -66,11 +66,11 @@ class PTGEUPulleysToDataImportCommand extends AbstractCommand
                     $pulleysTo =  $this->db->quote(trim($rowData['Pulleys to']));
 
                     $querySql = "UPDATE object_brick_query_PTGEUVBeltsFert_38 SET
-                     pulleysTo = $pulleysTo where o_id = $o_id";
+                     pulleysTo = $pulleysTo where id = $o_id";
                     $this->db->executeQuery($querySql);
 
                     $updateSql = "UPDATE object_brick_store_PTGEUVBeltsFert_38 SET
-                     pulleysTo = $pulleysTo where o_id = $o_id";
+                     pulleysTo = $pulleysTo where id = $o_id";
                     $this->db->executeQuery($updateSql);
 
                     $this->percentageCompletionService->completenessPercentage($object, 'import');

@@ -101,7 +101,7 @@ class PTGEUCommonFertBrickMappingAndDataImport extends AbstractCommand
                     'object_brick_store_PTGEUCommonFert_38', $fertObjectId);
                     $this->percentageCompletionService->completenessPercentage($fertObj, 'import');
                     p_r($i.'. '.$rowData['SAPMaterialCode']);
-                    
+
                 }
                 $i++;
             }
@@ -118,7 +118,7 @@ class PTGEUCommonFertBrickMappingAndDataImport extends AbstractCommand
         foreach($dataArray as $key=>$val) {
             $cols[] = "$key = '$val'";
         }
-        $sql = "UPDATE $tableName SET " . implode(', ', $cols) . " WHERE o_id =  $objId";
+        $sql = "UPDATE $tableName SET " . implode(', ', $cols) . " WHERE id =  $objId";
         $this->db->executeQuery($sql);
     }
 

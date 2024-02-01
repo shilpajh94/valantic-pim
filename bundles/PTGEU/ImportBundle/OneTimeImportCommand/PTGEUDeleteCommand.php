@@ -29,19 +29,19 @@ class PTGEUDeleteCommand extends AbstractCommand
         $this->t = time();
         p_r('Script started at: ' . date('h:i:s', $this->t));
         p_r('------------------------------------------------');
-        
+
         $this->delete();
-        
+
         p_r('--------------Total Execution Time---------------');
         p_r('Script completed after: ' . (abs(time() - $this->t) / 60) . ' mnt');
         return 1;
-        
+
     }
 
     public function delete()
     {
         $getObjectData = new DataObject\Listing;
-        $getObjectData->setCondition("o_path = ?", ['/Contitech_PTGEU/MaterialMaster/PlantMaterialMaster/']);
+        $getObjectData->setCondition("path = ?", ['/Contitech_PTGEU/MaterialMaster/PlantMaterialMaster/']);
         foreach($getObjectData->load() as $data)
         {
             echo $data->getId()." is deleting .. \n";

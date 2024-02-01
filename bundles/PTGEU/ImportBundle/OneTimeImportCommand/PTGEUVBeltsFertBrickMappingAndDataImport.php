@@ -77,10 +77,10 @@ class PTGEUVBeltsFertBrickMappingAndDataImport extends AbstractCommand
                         'object_brick_store_PTGEUVBeltsFert_38', $fertObjectId);
                         $this->percentageCompletionService->completenessPercentage($fertObj, 'import');
                         p_r($i.'. '.$rowData['SAPMaterialCode']);
-                        
+
                     }
                     $i++;
-    
+
                     }
             }
         }catch (\Throwable $th) {
@@ -96,7 +96,7 @@ class PTGEUVBeltsFertBrickMappingAndDataImport extends AbstractCommand
         foreach($dataArray as $key=>$val) {
             $cols[] = "$key = '$val'";
         }
-        $sql = "UPDATE $tableName SET " . implode(', ', $cols) . " WHERE o_id =  $objId";
+        $sql = "UPDATE $tableName SET " . implode(', ', $cols) . " WHERE id =  $objId";
         $this->db->executeQuery($sql);
     }
 

@@ -252,8 +252,10 @@ class CategoryBrickMappingService
         $groupToBrickMapping = $this->getBrickMappingConfigForKey('group_name_to_brick_suffix_mapping');
 
         foreach ($selectedClassificationNames as $classificationName) {
-            $brickKeyIdentifier = $groupToBrickMapping[$classificationName];
-            $returnValue[] = $brickKeyIdentifier . ucfirst($level);
+            if (isset($groupToBrickMapping[$classificationName])) {
+                $brickKeyIdentifier = $groupToBrickMapping[$classificationName];
+                $returnValue[] = $brickKeyIdentifier . ucfirst($level);
+            }
         }
         return $returnValue;
     }
