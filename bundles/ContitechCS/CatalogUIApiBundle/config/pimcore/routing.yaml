@@ -1,5 +1,4 @@
 rest_a_pi:
-    resource: "@CatalogUIApiBundle/Controller/"
+    resource: "@CatalogUIApiBundle/src/Controller/"
     type:     annotation
     prefix:   /
-

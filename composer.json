@@ -61,7 +61,7 @@
       "IFSEU\\RestApiBundle\\": "bundles/IFSEU/RestApiBundle",
       "ContitechCS\\ImportBundle\\": "bundles/ContitechCS/ImportBundle",
       "ContitechCS\\ProductBundle\\": "bundles/ContitechCS/ProductBundle",
-      "ContitechCS\\CatalogUIApiBundle\\": "bundles/ContitechCS/CatalogUIApiBundle",
+      "ContitechCS\\CatalogUIApiBundle\\": "bundles/ContitechCS/CatalogUIApiBundle/src",
       "ContitechCS\\CatalogBundle\\": "bundles/ContitechCS/CatalogBundle",
       "Wvision\\Bundle\\DataDefinitionsBundle\\": "bundles/w-vision/data-definitions/src/DataDefinitionsBundle"
     }
