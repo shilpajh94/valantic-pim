@@ -32,7 +32,7 @@ define("CS_APIBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/Contite
 define("PTG_EU_PRODUCTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/PTGEU/ProductBundle/Resources/config");
 
 
-define("IFS_EU_PRODUCTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/IFSEU/ProductBundle/Resources/config");
+define("IFS_EU_PRODUCTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/IFSEU/ProductBundle/config");
 define("B2BTRANSLATIONBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/B2BTranslationBundle/Resources/config");
 
 

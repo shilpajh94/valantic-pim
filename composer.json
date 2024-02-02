@@ -56,7 +56,7 @@
       "PTGEU\\ImportBundle\\": "bundles/PTGEU/ImportBundle",
       "PTGEU\\ProductBundle\\": "bundles/PTGEU/ProductBundle",
       "PTGEU\\CatalogBundle\\": "bundles/PTGEU/CatalogBundle/src",
-      "IFSEU\\ProductBundle\\": "bundles/IFSEU/ProductBundle",
+      "IFSEU\\ProductBundle\\": "bundles/IFSEU/ProductBundle/src",
       "IFSEU\\ImportBundle\\": "bundles/IFSEU/ImportBundle",
       "IFSEU\\RestApiBundle\\": "bundles/IFSEU/RestApiBundle",
       "ContitechCS\\ImportBundle\\": "bundles/ContitechCS/ImportBundle",
