@@ -10,6 +10,7 @@ use AppBundle\Tool\Utils;
 use Exception;
 use Pimcore\Cache;
 use Pimcore\Model\DataObject;
+use Teamplates;
 
 /**
  * @package IFSEU\ProductBundle\Controller
@@ -133,6 +134,6 @@ class DefaultController extends FrontendController
     public function newProductsEmailAction()
     {
         $parameterBag = [];
-        return $this->render("@IFSEUProduct/default/NewProductsEmail.html.twig", $parameterBag);
+        return $this->render("ifseuproduct/default/NewProductsEmail.html.twig", $parameterBag);
     }
 }

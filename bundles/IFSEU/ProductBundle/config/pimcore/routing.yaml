@@ -1,5 +1,5 @@
 ifseu_product:
-    resource: "@IFSEUProductBundle/Controller/"
+    resource: "@IFSEUProductBundle/src/Controller/"
     type:     annotation
     prefix:   /
 
