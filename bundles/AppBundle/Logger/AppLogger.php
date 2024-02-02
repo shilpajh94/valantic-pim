@@ -3,7 +3,7 @@
 namespace AppBundle\Logger;
 use Elements\Bundle\ProcessManagerBundle;
 use Throwable;
-use Pimcore\Log\Simple;
+use AppBundle\Logger\Simple;
 /**
  * Class AppLogger
  * @package AppBundle\Logger
@@ -40,7 +40,7 @@ class AppLogger {
                 $message = $th;
             }
             // p_r($message);
-            if(self::$monitoringItem->id){
+            if(self::$monitoringItem){
                 self::$monitoringItem->setMessage($message)->save();
                 self::$monitoringItem->getLogger()->error($message);
                 self::$monitoringItem->setStatus(self::$monitoringItem::STATUS_FAILED)->save();

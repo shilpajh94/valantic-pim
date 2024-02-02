@@ -112,7 +112,7 @@ class ProductService
             $this->categories[$fullCode] = array(
                 'data' =>  $cat,
                 'id'    =>  $cat['oo_id'],
-                'fullPath'  =>  $cat['o_path'].$cat['o_key']
+                'fullPath'  =>  $cat['path'].$cat['key']
             );
             unset($fullCode);
         }
@@ -139,7 +139,7 @@ class ProductService
                 $this->productModel->truncateTempTable();
                 $this->productModel->insertDataInTemp($csvInfo['data']);
                 Logger::log(self::LOGGER_MODULE)->info("Data Sheet imported in temp table");
-                $this->productModel->processDeletedProducts();
+                // $this->productModel->processDeletedProducts();
                 Logger::log(self::LOGGER_MODULE)->info("Removed records in data sheet, marked as unpublished.");
                 Logger::log(self::LOGGER_MODULE)->info("Product import started");
                 $this->initiateProductsProcess();
@@ -338,9 +338,9 @@ class ProductService
         }
         $objectArr = [
             'parentId' => $parentId,
-            'o_key' => $objectKey,
+            'key' => $objectKey,
             'path' => $parentPath.'/',
-            'o_className' => 'IFSEUProduct'
+            'className' => 'IFSEUProduct'
         ];
         $currentLevelPath = $parentPath.'/'.$objectKey;
 
@@ -359,7 +359,7 @@ class ProductService
                 
                 if (!empty($data)) {
                     $objId = $data[0]['oo_id'];
-                    $objectArr['o_id'] = $objId;
+                    $objectArr['id'] = $objId;
                     $objectArr['parentId'] = $currentPathId;
                 }
             }
@@ -724,11 +724,11 @@ class ProductService
         }
     }
     public function getBricksDataForMapping($objId){
-        $this->mapBricksArray['object_brick_query_IFSEUHoseBase_IFSEUProduct'] = array(array('o_id'=>$objId,'fieldname'=>'Base','BaseBrickMapping'=>'test'));
-        $this->mapBricksArray['object_brick_store_IFSEUHoseBase_IFSEUProduct'] = array(array('o_id'=>$objId,'fieldname'=>'Base','BaseBrickMapping'=>'test'));
+        $this->mapBricksArray['object_brick_query_IFSEUHoseBase_IFSEUProduct'] = array(array('id'=>$objId,'fieldname'=>'Base','BaseBrickMapping'=>'test'));
+        $this->mapBricksArray['object_brick_store_IFSEUHoseBase_IFSEUProduct'] = array(array('id'=>$objId,'fieldname'=>'Base','BaseBrickMapping'=>'test'));
 
-        $this->mapBricksArray['object_brick_query_IFSEUHoseSkeleton_IFSEUProduct'][] = array('o_id'=>$objId,'fieldname'=>'Skeleton','SkeletonBrickMapping'=>'test');
-        $this->mapBricksArray['object_brick_store_IFSEUHoseSkeleton_IFSEUProduct'][] = array('o_id'=>$objId,'fieldname'=>'Skeleton','SkeletonBrickMapping'=>'test');
+        $this->mapBricksArray['object_brick_query_IFSEUHoseSkeleton_IFSEUProduct'][] = array('id'=>$objId,'fieldname'=>'Skeleton','SkeletonBrickMapping'=>'test');
+        $this->mapBricksArray['object_brick_store_IFSEUHoseSkeleton_IFSEUProduct'][] = array('id'=>$objId,'fieldname'=>'Skeleton','SkeletonBrickMapping'=>'test');
     }
     public function setBricksData($objId, $bricks, $type) {
         if($bricks){
@@ -737,7 +737,7 @@ class ProductService
                     foreach ($this->brickTablePrefixArray  as $brickPrefix) {
                         $tblName = $brickPrefix.ucfirst($brick)."_IFSEUProduct";
                         $this->bricksDataArray[$tblName][] = [
-                            'o_id' => $objId,
+                            'id' => $objId,
                             'fieldname' => ucfirst($type)
                         ];
                     }
@@ -758,7 +758,7 @@ class ProductService
     public function saveProducts($updatedArticlesArray) {
         foreach ($updatedArticlesArray as $objectId) {
             if (!empty($objectId)) {
-                $object = DataObject\IFSEUProduct::getById($objectId, true);
+                $object = DataObject\IFSEUProduct::getById($objectId);
                 if (!empty($object) && $object instanceof \Pimcore\Model\DataObject\IFSEUProduct) {
                     $object->save();
                     // $this->percentageCompletionService->completenessPercentage($object, 'import');

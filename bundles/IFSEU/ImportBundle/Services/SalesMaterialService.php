@@ -194,16 +194,16 @@ class SalesMaterialService
         if(!$objectMaterial){      
             $createdOrUpdated = 'Created'; 
             $objectArr = [
-                'o_parentId' => $materialFolderId,
-                'o_key' => $salesMaterialKey,
-                'o_path' => "/".ImportConstants::IFSEU_MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER."/".$material."/",
+                'parentId' => $materialFolderId,
+                'key' => $salesMaterialKey,
+                'path' => "/".ImportConstants::IFSEU_MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER."/".$material."/",
             ];
             $this->createdCount++;
         }else{
             $objectArr = [
-                'o_parentId' => $objectMaterial['o_parentId'],
-                'o_key' => $objectMaterial['o_key'],
-                'o_path' => $objectMaterial['o_path'],
+                'parentId' => $objectMaterial['parentId'],
+                'key' => $objectMaterial['key'],
+                'path' => $objectMaterial['path'],
             ];
             $this->updatedCount++;
         }
@@ -285,7 +285,7 @@ class SalesMaterialService
                         $salesMaterialKey = $material.'-'.$salesOrg.'-'.$distributionChannel; 
 
                         $materialFolderId= DataObject\Service::createFolderByPath(ImportConstants::IFSEU_MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER."/".$material)->getId();
-                        $query = "SELECT oo_id, o_parentId, o_key, o_path FROM `object_IFSEUSalesMaterialMaster` WHERE `o_parentId` = '{$materialFolderId}' AND `o_key` LIKE '%{$salesMaterialKey}%' limit 1";
+                        $query = "SELECT oo_id, parentId, `key`, path FROM `object_IFSEUSalesMaterialMaster` WHERE `parentId` = '{$materialFolderId}' AND `key` LIKE '%{$salesMaterialKey}%' limit 1";
                         $objectMaterial = $this->db->fetchAssociative($query);
         
                         if(!empty(trim($plantName)) && !isset($this->plantArray[$plantName])) {
@@ -396,7 +396,7 @@ class SalesMaterialService
                     }
                 } 
                 catch (\Exception $e) {
-
+                    p_r($e);
                     /* return error massage if any exception found */
                     $errorsData[] = "Sales Material Code: ".$salesMaterialKey. " - ".$e->getMessage();
                 }
@@ -457,7 +457,7 @@ class SalesMaterialService
                 $keyArray = explode('$',$value['id']);
                 $material = $keyArray[0];
                 $key = str_replace('$','-',$value['id']);
-                $objDelete = DataObject\IFSEUSalesMaterialMaster::getByPath("/".ImportConstants::IFSEU_MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER."/".$material."/".$key, true);
+                $objDelete = DataObject\IFSEUSalesMaterialMaster::getByPath("/".ImportConstants::IFSEU_MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER."/".$material."/".$key);
 
                 if($objDelete) {
                     $deleteCount++;
@@ -474,7 +474,7 @@ class SalesMaterialService
      * return material object or false
      */
     public function getMaterialObject($MaterialKey) {
-        $query = "SELECT oo_id, o_key, o_path FROM `object_IFSEUProduct` WHERE `materialNumber` LIKE '%{$MaterialKey}%' limit 1";
+        $query = "SELECT oo_id, `key`, path FROM `object_IFSEUProduct` WHERE `materialNumber` LIKE '%{$MaterialKey}%' limit 1";
         $objectMaterial = $this->db->fetchAllAssociative($query);
         
         foreach ($objectMaterial as $material) {

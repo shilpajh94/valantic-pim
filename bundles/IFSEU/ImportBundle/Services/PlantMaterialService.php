@@ -227,7 +227,7 @@ class PlantMaterialService
                 try
                 {
                     $materialObjId = $this->getMaterialObjectId($material);
-                    
+
                     if($materialObjId)
                     {
                         echo "$plantName, $material, $salesOrg, $distributionChannel".PHP_EOL;
@@ -347,7 +347,7 @@ class PlantMaterialService
         $columnSafetyStock = $this->mappingCsvColumn['SafetyStock'];
         $columnStockIndicator = $this->mappingCsvColumn['StockIndicator'];
         $columnUnitOfMeasure = $this->mappingCsvColumn['UnitOfMeasure'];
-        $columnABCIndicator = $this->mappingCsvColumn['ABCIndicator'];
+        // $columnABCIndicator = $this->mappingCsvColumn['ABCIndicator'];
         
         $plantName = $rowvalue[$columnPlant];
         $countryName =  $rowvalue[$columnCountryOfOrigin];
@@ -367,7 +367,7 @@ class PlantMaterialService
         $safetyStock =  $rowvalue[$columnSafetyStock];
         $stockIndicator =  $rowvalue[$columnStockIndicator];
         $unitOfMeasure =  $rowvalue[$columnUnitOfMeasure];
-        $ABCIndicator =  $rowvalue[$columnABCIndicator];
+        // $ABCIndicator =  $rowvalue[$columnABCIndicator];
 
         $plantObjId = $this->getPlantObjectId($plantName);
         $salesOrgObjId = $this->getSalesOrgObjectId($salesOrg);
@@ -390,7 +390,7 @@ class PlantMaterialService
             'SafetyStock' => $safetyStock,
             'StockIndicator' => $stockIndicator,
             'UnitOfMeasure' => $unitOfMeasure,
-            'ABCIndicator' => $ABCIndicator,
+            // 'ABCIndicator' => $ABCIndicator,
         ];
         $data['storeTableData'] = $storeTableData;
         $queryTableData = [
@@ -575,7 +575,7 @@ class PlantMaterialService
      * return material object or false
      */
     public function getMaterialObject($MaterialKey){
-        $query = "SELECT oo_id, o_key, o_path FROM `object_IFSEUProduct` WHERE `materialNumber` LIKE '%{$MaterialKey}%' limit 1";
+        $query = "SELECT oo_id, `key`, path FROM `object_IFSEUProduct` WHERE `materialNumber` LIKE '%{$MaterialKey}%' limit 1";
         $objectMaterial = $this->db->fetchAllAssociative($query);
 
         foreach ($objectMaterial as $material) {
@@ -669,7 +669,7 @@ class PlantMaterialService
         }
 
         $materialFolderId= DataObject\Service::createFolderByPath(ImportConstants::IFSEU_MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER."/".$material)->getId();
-        $query = "SELECT oo_id, o_parentId, o_key, o_path FROM `object_IFSEUPlantMaterialMaster` WHERE `o_parentId` = '{$materialFolderId}' AND `o_key` LIKE '%{$plantMaterialKey}%' limit 1";
+        $query = "SELECT oo_id, parentId, `key`, path FROM `object_IFSEUPlantMaterialMaster` WHERE `parentId` = '{$materialFolderId}' AND `key` LIKE '%{$plantMaterialKey}%' limit 1";
         $objectMaterial = $this->db->fetchAssociative($query);
 
         
@@ -677,17 +677,17 @@ class PlantMaterialService
         if(!$objectMaterial){
             $createdOrUpdated = 'Created';
             $objectArr = [
-                'o_parentId' => $materialFolderId,
-                'o_key' => $plantMaterialKey,
-                'o_path' => "/".ImportConstants::IFSEU_MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER."/".$material."/",
+                'parentId' => $materialFolderId,
+                'key' => $plantMaterialKey,
+                'path' => "/".ImportConstants::IFSEU_MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER."/".$material."/",
             ];
             $this->createdCount++;
         }
         else{
             $objectArr = [
-                'o_parentId' => $objectMaterial['o_parentId'],
-                'o_key' => $objectMaterial['o_key'],
-                'o_path' => $objectMaterial['o_path'],
+                'parentId' => $objectMaterial['parentId'],
+                'key' => $objectMaterial['key'],
+                'path' => $objectMaterial['path'],
             ];
             $this->updatedCount++;
         }

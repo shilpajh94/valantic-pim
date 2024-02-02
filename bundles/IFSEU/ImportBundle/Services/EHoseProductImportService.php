@@ -128,7 +128,7 @@ class EHoseProductImportService
             $this->categories[$fullCode] = array(
                 'data' =>  $cat,
                 'id'    =>  $cat['oo_id'],
-                'fullPath'  =>  $cat['o_path'].$cat['o_key']
+                'fullPath'  =>  $cat['path'].$cat['key']
             );
             unset($fullCode);
         }
@@ -205,37 +205,37 @@ class EHoseProductImportService
             unset($countryName);
         }
         foreach($baseLevelCategoryList as $baseLevelCategoryData) {
-            $categoryName = $baseLevelCategoryData['o_key'];
+            $categoryName = $baseLevelCategoryData['key'];
             $this->BaseLevelCategory[$categoryName] = $baseLevelCategoryData['oo_id'];
             unset($categoryName);
         }
         foreach($propertiesList as $propertiesListData){
             $propertyType=$propertiesListData['TypeName'];
-            $propertyValue=$propertiesListData['o_key'];
+            $propertyValue=$propertiesListData['key'];
             $this->productProperties[$propertyType][$propertyValue]=$propertiesListData['oo_id'];
         }
         foreach($fieldsOfApplicationList as $fieldsOfApplicationData) {
-            $applicationName = $fieldsOfApplicationData['o_key'];
+            $applicationName = $fieldsOfApplicationData['key'];
             $this->fieldsOfApplication[$applicationName] = $fieldsOfApplicationData['oo_id'];
             unset($applicationName);
         }
         foreach($flowMediumList as $flowMediumData) {
-            $flowMediumName = $flowMediumData['o_key'];
+            $flowMediumName = $flowMediumData['key'];
             $this->flowMedium[$flowMediumName] = $flowMediumData['oo_id'];
             unset($flowMediumName);
         }
         foreach($standardsList as $standardsData) {
-            $standardsName = $standardsData['o_key'];
+            $standardsName = $standardsData['key'];
             $this->standards[$standardsName] = $standardsData['oo_id'];
             unset($standardsName);
         }
         foreach($subCategoryList as $subCategoryData) {
-            $subCategoryName = $subCategoryData['o_key'];
+            $subCategoryName = $subCategoryData['key'];
             $this->SubCategory[$subCategoryName] = $subCategoryData['oo_id'];
             unset($subCategoryName);
         }
         foreach($BrandNameList as $brandNameData) {
-            $brandName = $brandNameData['o_key'];
+            $brandName = $brandNameData['key'];
             $this->BrandName[$brandName] = $brandNameData['oo_id'];
             unset($brandName);
         }
@@ -315,7 +315,7 @@ class EHoseProductImportService
                 }
             }
         } catch (\Throwable $th) {
-            p_r($th);
+            // p_r($th);
             \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($th);
 //            Logger::error("sap_import_log", $th);
         }
@@ -500,9 +500,9 @@ class EHoseProductImportService
         }
         $objectArr = [
             'parentId' => $parentId,
-            'o_key' => $objectKey,
+            'key' => $objectKey,
             'path' => $parentPath.'/',
-            'o_className' => 'IFSEUProduct'
+            'className' => 'IFSEUProduct'
         ];
         $currentLevelPath = $parentPath.'/'.$objectKey;
         if (!array_key_exists($currentLevelPath, $this->products)) {
@@ -520,7 +520,7 @@ class EHoseProductImportService
                 
                 if (!empty($data)) {
                     $objId = $data[0]['oo_id'];
-                    $objectArr['o_id'] = $objId;
+                    $objectArr['id'] = $objId;
                     $objectArr['parentId'] = $currentPathId;
                 }
             }
@@ -1382,11 +1382,11 @@ class EHoseProductImportService
         }
     }
     public function getBricksDataForMapping($objId){
-        $this->mapBricksArray['object_brick_query_IFSEUHoseBase_IFSEUProduct'] = array(array('o_id'=>$objId,'fieldname'=>'Base','BaseBrickMapping'=>'test'));
-        $this->mapBricksArray['object_brick_store_IFSEUHoseBase_IFSEUProduct'] = array(array('o_id'=>$objId,'fieldname'=>'Base','BaseBrickMapping'=>'test'));
+        $this->mapBricksArray['object_brick_query_IFSEUHoseBase_IFSEUProduct'] = array(array('id'=>$objId,'fieldname'=>'Base','BaseBrickMapping'=>'test'));
+        $this->mapBricksArray['object_brick_store_IFSEUHoseBase_IFSEUProduct'] = array(array('id'=>$objId,'fieldname'=>'Base','BaseBrickMapping'=>'test'));
 
-        $this->mapBricksArray['object_brick_query_IFSEUHoseSkeleton_IFSEUProduct'][] = array('o_id'=>$objId,'fieldname'=>'Skeleton','SkeletonBrickMapping'=>'test');
-        $this->mapBricksArray['object_brick_store_IFSEUHoseSkeleton_IFSEUProduct'][] = array('o_id'=>$objId,'fieldname'=>'Skeleton','SkeletonBrickMapping'=>'test');
+        $this->mapBricksArray['object_brick_query_IFSEUHoseSkeleton_IFSEUProduct'][] = array('id'=>$objId,'fieldname'=>'Skeleton','SkeletonBrickMapping'=>'test');
+        $this->mapBricksArray['object_brick_store_IFSEUHoseSkeleton_IFSEUProduct'][] = array('id'=>$objId,'fieldname'=>'Skeleton','SkeletonBrickMapping'=>'test');
     }
     public function setBricksData($objId, $bricks, $type,$record) {
         if($bricks){
@@ -1400,14 +1400,14 @@ class EHoseProductImportService
                     if (in_array($brick, $this->allBricksList)) {
                         foreach ($this->brickTablePrefixArray  as $brickPrefix) {
                             $tblName = $brickPrefix.ucfirst($brick)."_IFSEUProduct";
-                            //$tableData  =['o_id' => $objId, 'fieldname' => ucfirst($type)];
+                            //$tableData  =['id' => $objId, 'fieldname' => ucfirst($type)];
                             if($brick=='IFSEUHoseBase'){
                                 
                                 $hoseBricksData=$this->hoseBaseBricksAttribute($bricksData,$brick);
-                                $tableData  = array_merge(['o_id' => $objId, 'fieldname' => ucfirst($type)], $hoseBricksData);
+                                $tableData  = array_merge(['id' => $objId, 'fieldname' => ucfirst($type)], $hoseBricksData);
     
                             }else{
-                                $tableData  = array_merge(['o_id' => $objId, 'fieldname' => ucfirst($type)], $bricksData);
+                                $tableData  = array_merge(['id' => $objId, 'fieldname' => ucfirst($type)], $bricksData);
     
                             }
                             $this->bricksDataArray[$tblName][] = $tableData;
@@ -1572,7 +1572,7 @@ class EHoseProductImportService
     public function saveProducts($updatedArticlesArray) {
         foreach ($updatedArticlesArray as $objectId) {
             if (!empty($objectId)) {
-                $object = DataObject\IFSEUProduct::getById($objectId, true);
+                $object = DataObject\IFSEUProduct::getById($objectId);
                 if (!empty($object) && $object instanceof \Pimcore\Model\DataObject\IFSEUProduct) {
                     // $object->save();
                     $this->percentageCompletionService->completenessPercentage($object, 'import');
