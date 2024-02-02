@@ -47,7 +47,7 @@
       "CatalogBundle\\": "bundles/CatalogBundle/src",
       "ClassRelationBundle\\": "bundles/ClassRelationBundle",
       "DistributionHubBundle\\": "bundles/DistributionHubBundle",
-      "EmailNotificationBundle\\": "bundles/EmailNotificationBundle",
+      "EmailNotificationBundle\\": "bundles/EmailNotificationBundle/src",
       "ImportBundle\\": "bundles/ImportBundle",
       "PimDataPostBundle\\": "bundles/PimDataPostBundle",
       "RequiredAttributesBundle\\": "bundles/RequiredAttributesBundle",
