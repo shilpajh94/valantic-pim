@@ -6,6 +6,7 @@ use Pimcore\Controller\FrontendController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Templates;
 
 class DefaultController extends FrontendController
 {
@@ -20,6 +21,6 @@ class DefaultController extends FrontendController
     public function newProductsEmailAction(Request $request)
     {
         $parameterBag = [];
-        return $this->render("@PTGEUProduct/default/NewProductsEmail.html.twig", $parameterBag);
+        return $this->render("ptgeuproduct/default/NewProductsEmail.html.twig", $parameterBag);
     }
 }
