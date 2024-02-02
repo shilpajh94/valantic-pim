@@ -53,7 +53,7 @@
       "RequiredAttributesBundle\\": "bundles/RequiredAttributesBundle",
       "RestApiBundle\\": "bundles/RestApiBundle",
       "S3CustomizationBundle\\": "bundles/S3CustomizationBundle",
-      "PTGEU\\ImportBundle\\": "bundles/PTGEU/ImportBundle",
+      "PTGEU\\ImportBundle\\": "bundles/PTGEU/ImportBundle/src",
       "PTGEU\\ProductBundle\\": "bundles/PTGEU/ProductBundle",
       "PTGEU\\CatalogBundle\\": "bundles/PTGEU/CatalogBundle/src",
       "IFSEU\\ProductBundle\\": "bundles/IFSEU/ProductBundle",

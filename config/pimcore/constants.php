@@ -168,7 +168,7 @@ define('IFS_EU_ASSET_CONFIG_FILE_PATH', IFS_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "
 define('FAILURE_RECORDS_EMAIL_TEMPLATE','/FailureRecordEmail/ProductFailedRecordEmailTemplates');
 
 // define constants used in PTGEU
-define("PTG_EU_IMPORTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/PTGEU/ImportBundle/Resources/config");
+define("PTG_EU_IMPORTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/PTGEU/ImportBundle/config");
 // global product configuration file path
 define('PTG_EU_PRODUCT_CONFIG_FILE_PATH', PTG_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/product.yaml");
 // Global Category Configuraction File Path
@@ -198,7 +198,7 @@ define('PTG_EU_CATALOGBUNDLE_PRICE_LIST_TABLE_CONFIG_FILE_PATH', PTG_EU_CATALOGB
 define("PIMDATAPOSTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/PimDataPostBundle/Resources/config");
 
 
-# IFS EU Constants 
+# IFS EU Constants
 
 
 #define("IFS_EU_IMPORTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/IFSEU/ImportBundle/Resources/config");
