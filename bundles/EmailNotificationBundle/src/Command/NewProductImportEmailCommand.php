@@ -5,6 +5,7 @@ namespace EmailNotificationBundle\Command;
 use Pimcore\Console\AbstractCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class NewProductImportEmailCommand
@@ -17,6 +18,14 @@ class NewProductImportEmailCommand extends AbstractCommand
 {
     private $db;
     const LOGGER_MODULE = "New_Created_Product_Email";
+
+    private $container;
+
+    public function __construct(ContainerInterface $container)
+    {
+        parent::__construct();
+        $this->container = $container;
+    }
 
     /**
      * Function to set the command configurations
@@ -46,7 +55,6 @@ class NewProductImportEmailCommand extends AbstractCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->db = \Pimcore\Db::get();
-        $engine = \Pimcore::getContainer()->get('pimcore.templating.engine.twig');
         $userRole =  \Pimcore\Model\User\Role::getByName("ProductManager");
         $users = new \Pimcore\Model\DataObject\Users\Listing();
         $users->setCondition("userType LIKE '%" . $userRole->getId() . "%'");
@@ -77,8 +85,8 @@ class NewProductImportEmailCommand extends AbstractCommand
                     if ($siopNewProducts) {
                         // Render records to a template
                         $noofdays = SIOP_NEW_PRODUCT_IMPORT_NUMBER_OF_DAYS;
-                        $content = $engine->render(
-                            '@EmailNotification/default/NewProductTableContent.html.twig',
+                        $content = $this->container->get('pimcore.templating.engine.delegating')->render(
+                            'email_notification/default/NewProductTableContent.html.twig',
                             ['content' => $siopNewProducts]);
                         $params = array('firstName' => $firstName, 'lastName' => $lastName,
                             'tableContent' => $content, 'numberofdays' => $noofdays);
@@ -126,9 +134,9 @@ class NewProductImportEmailCommand extends AbstractCommand
                         2,
                         (LENGTH(product.`SIOPLevel4`) - 2))
                         LEFT JOIN
-                    object_3 brand ON brand.o_id = product.brandName
+                    object_3 brand ON brand.id = product.brandName
                 WHERE
-                    DATE(FROM_UNIXTIME(product.o_creationDate)) >= NOW() - INTERVAL " .
+                    DATE(FROM_UNIXTIME(product.creationDate)) >= NOW() - INTERVAL " .
                     SIOP_NEW_PRODUCT_IMPORT_NUMBER_OF_DAYS . " DAY
                         AND ProductType = 'fert'
                         AND " . $siopLevelToQuery . " LIKE '%," . $siopId . ",%'

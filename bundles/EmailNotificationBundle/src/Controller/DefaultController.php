@@ -48,16 +48,16 @@ class DefaultController extends FrontendController
 
     public function newProductsEmailAction(Request $request)
     {
-        return $this->render("@EmailNotification/default/NewProductsEmail.html.twig");
+        return $this->render("email_notification/default/NewProductsEmail.html.twig");
     }
 
     public function newProductTableContentAction(Request $request)
     {
-        return $this->render("@EmailNotification/default/NewProductTableContent.html.twig");
+        return $this->render("email_notification/default/NewProductTableContent.html.twig");
     }
 
     public function templateAction(Request $request)
     {
-        return $this->render("@EmailNotification/default/template.html.twig");
+        return $this->render("email_notification/default/template.html.twig");
     }
 }
