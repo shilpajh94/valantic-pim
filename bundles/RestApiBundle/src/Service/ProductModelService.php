@@ -685,7 +685,7 @@ class ProductModelService {
 
     public function getVirtualCatalogFieldMapping() {
         $yamlFilePath = PIMCORE_PROJECT_ROOT .
-        "/bundles/RestApiBundle/Resources/config/virtualCatalogFieldMapping.yaml";
+        "/bundles/RestApiBundle/config/virtualCatalogFieldMapping.yaml";
         return Utils::getYmlConfig($yamlFilePath);
     }
 
