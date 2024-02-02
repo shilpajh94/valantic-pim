@@ -107,7 +107,7 @@ class EhoseProductLocalizationImportService
             $this->categories[$fullCode] = array(
                 'data' =>  $cat,
                 'id'    =>  $cat['oo_id'],
-                'fullPath'  =>  $cat['o_path'].$cat['o_key']
+                'fullPath'  =>  $cat['path'].$cat['key']
             );
             unset($fullCode);
         }
@@ -202,12 +202,12 @@ class EhoseProductLocalizationImportService
             unset($standardsName);
         }
         foreach($subCategoryList as $subCategoryData) {
-            $subCategoryName = $subCategoryData['o_key'];
+            $subCategoryName = $subCategoryData['key'];
             $this->SubCategory[$subCategoryName] = $subCategoryData['oo_id'];
             unset($subCategoryName);
         }
         foreach($BrandNameList as $brandNameData) {
-            $brandName = $brandNameData['o_key'];
+            $brandName = $brandNameData['key'];
             $this->BrandName[$brandName] = $brandNameData['oo_id'];
             unset($brandName);
         }
@@ -389,9 +389,9 @@ class EhoseProductLocalizationImportService
         }
         $objectArr = [
             'parentId' => $parentId,
-            'o_key' => $objectKey,
+            'key' => $objectKey,
             'path' => $parentPath.'/',
-            'o_className' => 'IFSEUProduct'
+            'className' => 'IFSEUProduct'
         ];
         $currentLevelPath = $parentPath.'/'.$objectKey;
         if (!array_key_exists($currentLevelPath, $this->products)) {
@@ -409,7 +409,7 @@ class EhoseProductLocalizationImportService
                 
                 if (!empty($data)) {
                     $objId = $data[0]['oo_id'];
-                    $objectArr['o_id'] = $objId;
+                    $objectArr['id'] = $objId;
                     $objectArr['parentId'] = $currentPathId;
                 }
             }
@@ -447,7 +447,7 @@ class EhoseProductLocalizationImportService
         $ObjectDetails=$this->productModel->checkIfArticleExists($materialNumber);
         if (!empty($ObjectDetails)) {
             $siopCode=$ObjectDetails[0]['siopFullCode'];
-            $o_key=$ObjectDetails[0]['o_key'];
+            $o_key=$ObjectDetails[0]['key'];
             
                 echo $recData['0'].PHP_EOL;
                 $record = array(
@@ -1048,7 +1048,7 @@ class EhoseProductLocalizationImportService
                         if($brick=='IFSEUHoseBase'){
                             $bricksData=$this->hoseBaseBricksAttribute($bricksData,$brick);
                         }
-                        $tableData  = array_merge(['o_id' => $objId, 'fieldname' => ucfirst($type)], $bricksData);
+                        $tableData  = array_merge(['id' => $objId, 'fieldname' => ucfirst($type)], $bricksData);
                         $this->bricksDataArray[$tblName][] = $tableData;
                     }
                 }
@@ -1210,7 +1210,7 @@ class EhoseProductLocalizationImportService
     public function saveProducts($updatedArticlesArray) {
         foreach ($updatedArticlesArray as $objectId) {
             if (!empty($objectId)) {
-                $object = DataObject\IFSEUProduct::getById($objectId, true);
+                $object = DataObject\IFSEUProduct::getById($objectId);
                 if (!empty($object) && $object instanceof \Pimcore\Model\DataObject\IFSEUProduct) {
                     // $object->save();
                     $this->percentageCompletionService->completenessPercentage($object, 'import');

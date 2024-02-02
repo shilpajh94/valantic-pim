@@ -108,7 +108,7 @@ class ProductAssetMappingService
         {
             echo $assetObject->getFilename()." is mapping with ".$productName."\n";
             $allProductObject = new IFSEUProduct\Listing();
-            $allProductObject->setCondition("o_key = ?", [$productName]);
+            $allProductObject->setCondition("key = ?", [$productName]);
             $allProductObject->load();
 
             foreach($allProductObject as $productObject)
