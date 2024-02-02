@@ -1,0 +1,5 @@
+contitechcscatalog:
+    resource: "@ContitechCSCatalogBundle/src/Controller/"
+    type:     annotation
+    prefix:   /
+

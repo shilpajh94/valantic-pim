@@ -1,0 +1,256 @@
+{% if not isParentContainerRequest %}
+	{% extends "contitechcscatalog/layouts/layout.html.twig" %}
+{% endif %}
+
+{% block _content %}
+
+	{% if editmode %}
+		{{ pimcore_relation("cbs_template_steelcord_belt_construction_page", {
+        "types" : ["object"],
+        "subtypes" : {
+        "object" : ["object"]
+        },
+        "classes" : ["CSCatalogCategory"],
+    }) }}
+	{% endif %}
+
+    {% if data is defined and data %}
+        <div class="wrapper">
+            <div class="wrapper">
+                <header id="header">
+                    <div class="header-sec">
+                        <div class="header-txt"><span class="first-title">{{'CS_header_title'|trans}}</span>
+                            <span class="second-title">
+                                {% if pimcore_input("STBC_title").isEmpty() %}
+                                    {{ pimcore_input("STBC_title", {'placeholder' : 'Enter your title'}).setDataFromResource(data['HierarchyNameLevel2']) | raw }}
+                                {% else %}
+                                    {{ pimcore_input("STBC_title", {'placeholder' : 'Enter your title'}) }}
+                                {% endif %}
+                            </span>
+                        </div>
+                        <div class="print-pg-no"></div>
+                    </div>
+                </header>
+                <footer id="footer" class="footer">
+                    <div class="footer-logo">
+                        <img src="{{footer_logo_src}}" alt="" width="150">
+                    </div>
+                </footer>
+                <main id="content" role="main">
+                    <section class="fortressxp-belts steel-belt-const">
+                        {% if editmode %}
+                            <div class="attr-font">Attribute Name = Name</div>
+                        {% endif %}
+                        
+                        <h1 class="orange">
+                            {% if editmode %}
+                                {% if pimcore_input("CS_ProductName").isEmpty() %}
+                                    {{ pimcore_input("CS_ProductName", {'placeholder' : 'Enter Product Name'}).setDataFromResource(data['Name']) | raw }}
+                                {% else %}
+                                    {{ pimcore_input("CS_ProductName", {'placeholder' : 'Enter Product Name'}) }}
+                                {% endif %}
+                            {% else %}
+                                {{ pimcore_input("CS_ProductName", {'placeholder' : 'Enter Product Name'}) }}
+                            {% endif %}
+                        </h1>
+
+                        {% if editmode %}
+                            <div class="attr-font">Attribute Name = Product Claim/Slogan</div>
+                        {% endif %}
+                        
+                        <p class="p-medium-big">
+                            {% if editmode %}
+                                {% if pimcore_input("SCB_ProductClaimSlogan").isEmpty() %}
+                                    {{ pimcore_input("SCB_ProductClaimSlogan", {'placeholder' : 'Enter Product Slogan'}).setDataFromResource(data['ProductClaimSlogan']) | raw }}
+                                {% else %}
+                                    {{ pimcore_input("SCB_ProductClaimSlogan", {'placeholder' : 'Enter Product Slogan'}) }}
+                                {% endif %}
+                            {% else %}
+                                {{ pimcore_input("SCB_ProductClaimSlogan", {'placeholder' : 'Enter Product Slogan'}) }}
+                            {% endif %}
+                        </p>
+
+                        {% if editmode %}
+                            <div class="attr-font">Attribute Name = Short Text</div>
+                        {% endif %}
+                        
+                        <p style="margin-top: 18px; padding-bottom: 2px;">
+                            {% if editmode %}
+                                {% if pimcore_wysiwyg("SCB_ShortText").isEmpty() %}
+                                    {{ pimcore_wysiwyg("SCB_ShortText", {'placeholder' : 'Enter Short Text'}).setDataFromResource(data['ShortText']) | raw }}
+                                {% else %}
+                                    {{ pimcore_wysiwyg("SCB_ShortText", {'placeholder' : 'Enter Short Text'}) }}
+                                {% endif %}
+                            {% else %}
+                                {{ pimcore_wysiwyg("SCB_ShortText", {'placeholder' : 'Enter Short Text'}) }}
+                            {% endif %}
+                        </p>
+
+                        {% if editmode %}
+                            <div class="attr-font">Enter Your SubHeading</div>
+                        {% endif %}
+                        
+                        <h3 class="orange fnt20 mb-3 ">
+                            {{ pimcore_input("SubHeading_title", {"placeholder": "Enter Your  SubHeading"}) }}
+                        </h3>
+
+                        {% if editmode %}
+                            <div class="attr-font">Attribute Name = Product Image</div>
+                        {% endif %}
+
+                        {% if editmode %}
+                            {% if pimcore_image("SCB_ProductImage").isEmpty() %}
+                                {{ pimcore_image("SCB_ProductImage", {"height" : 350}).setImage(data['ProductImage']) | raw }}
+                            {% else %}
+                                {{ pimcore_image("SCB_ProductImage", {"height" : 350}) }}
+                            {% endif %}
+                        {% else %}
+                            {% set SCBImgSrcObj = pimcore_image("SCB_ProductImage") %}
+                            {% if getImageThumbnail(SCBImgSrcObj, imageWidth) %}
+                                <img src="{{ getImageThumbnail(SCBImgSrcObj, imageWidth) }}" alt="" class="w-100 mb-5" style="max-height: 350px; width: auto;">
+                            {% endif %}
+                        {% endif %}
+
+                        {% if editmode %}
+                            <div class="attr-font">Enter Your SubHeading</div>
+                        {% endif %}
+                        
+                        <h3 class="orange fnt20 mb-3">
+                            {{ pimcore_input("SubHeading_title2", {"placeholder": "Enter Your  SubHeading"}) }}
+                        </h3>
+                        <hr>
+                        </hr>
+                        {% if editmode %}
+                            <div class="attr-font">Attribute Name = Application Image</div>
+                        {% endif %}
+                        
+                        {% if editmode %}
+                            {% if pimcore_image("SCB_ApplicationImage").isEmpty() %}
+                                {{ pimcore_image("SCB_ApplicationImage", {"height" : 240}).setImage(data['ApplicationImage']) | raw }}
+                            {% else %}
+                                {{ pimcore_image("SCB_ApplicationImage", {"height" : 240}) }}
+                            {% endif %}
+                        {% else %}
+                            {% set SCBAppImgSrcObj = pimcore_image("SCB_ApplicationImage") %}
+                            {% if getImageThumbnail(SCBAppImgSrcObj, imageWidth) %}
+                                <img src="{{ getImageThumbnail(SCBAppImgSrcObj, imageWidth) }}" alt="" class="mb-0" style="height: 220px; width: 700px;">
+                            {% endif %}
+                        {% endif %}
+
+
+                        {% if not pimcore_input("PPFB_title").isEmpty() %}
+                            <div class="page-break"></div>
+                        {% endif %}
+
+                        {% if editmode %}
+                            <div class="attr-font">Enter Title</div>
+                        {% endif %}
+                        <h2 class="orange">
+                            {{ pimcore_input("PPFB_title", {"placeholder": "Phoenix Phoenocord® and Flexsteel® Belts"}) }}
+                        </h2>
+                        
+                        {% if editmode %}
+                            <div class="attr-font">Enter Slogan</div>
+                        {% endif %}
+                        <h2 class="">
+                            <span class="sub-title">
+                                {{ pimcore_input("PPFB_SubHeading", {"placeholder": "Technologically Superior Products"}) }}
+                            </span>
+                        </h2>
+
+                        {% if editmode %}
+                            <div class="attr-font">Enter Short Description</div>
+                        {% endif %}
+                        <div class="p-medium">
+                            {{ pimcore_wysiwyg("PPFB_Content", {"placeholder": "Description"}) }}
+                        </div>
+
+                        {% if editmode %}
+                            <div class="attr-font">Enter Heading</div>
+                        {% endif %}
+                        <h3 class="h-padding">
+                            {{ pimcore_input("PPFB_Slogan", {"placeholder": "Three Reasons Why We Outperform The Competition:"}) }}
+                        </h3>
+                        
+                        {% if editmode %}
+                            <div class="attr-font">Enter Sub Heading</div>
+                        {% endif %}
+                        <h3 class="orange mb-0">
+                            {{ pimcore_input("ZGSC_title", {"placeholder": "Zinc galvanized steel cord"}) }}
+                        </h3>
+
+                        {% if editmode %}
+                            <div class="attr-font">Enter Description</div>
+                        {% endif %}
+                        <div> 
+                            {{ pimcore_wysiwyg("ZGSC_Content", {"placeholder": "Description"}) }}
+                        </div>
+
+                        {% if editmode %}
+                            <div class="attr-font">Enter Sub Heading</div>
+                        {% endif %}
+                        <h3 class="orange mb-0">
+                            {{ pimcore_input("ZGSC2_title", {"placeholder": "Insulation gum (core rubber)"}) }}
+                        </h3>
+
+                        {% if editmode %}
+                            <div class="attr-font">Enter Description</div>
+                        {% endif %}
+                        <div>
+                            {{ pimcore_wysiwyg("ZGSC2_Content", {"placeholder": "Description"}) }}
+                        </div>
+
+                        {% if editmode %}
+                            <div class="attr-font">Enter Sub Heading</div>
+                        {% endif %}
+                        <h3 class="orange mb-0">
+                            {{ pimcore_input("ORBC_title", {"placeholder": "Outer rubber covers"}) }}
+                        </h3>
+
+                        {% if editmode %}
+                            <div class="attr-font">Enter Description</div>
+                        {% endif %}
+                        <div>
+                            {{ pimcore_wysiwyg("ORBC_Content", {"placeholder": "Description"}) }}
+                        </div>
+
+                        {% if editmode %}
+                            <div class="attr-font">Enter Heading</div>
+                        {% endif %}
+                        <h3 class="h-padding">
+                            {{ pimcore_input("BHE_title", {"placeholder": "Built for the Harshest Environments"}) }}
+                        </h3>
+
+                        {% if editmode %}
+                            <div class="attr-font">Enter Sub Heading</div>
+                        {% endif %}
+                        <h3 class="orange">
+                            {{ pimcore_input("PPSB_title", {"placeholder": "Phoenix Phoenocord® – World’s Strongest Belts"}) }}
+                        </h3>
+
+                        {% if editmode %}
+                            <div class="attr-font">Enter Description</div>
+                        {% endif %}
+                        <div>
+                            {{ pimcore_wysiwyg("PPSB_Content", {"placeholder": "Description"}) }}
+                        </div>
+
+                        {% if editmode %}
+                            <div class="attr-font">Enter Sub Heading</div>
+                        {% endif %}
+                        <h3 class="orange">
+                            {{ pimcore_input("FSSMO_title", {"placeholder": "Flexsteel® – Superior Strength for Heavy Mining Operations"}) }}
+                        </h3>
+                        
+                        {% if editmode %}
+                            <div class="attr-font">Enter Description</div>
+                        {% endif %}
+                        <div> 
+                            {{ pimcore_wysiwyg("FSSMO_Content", {"placeholder": "Description"}) }}
+                        </div>
+                    </section>
+                </main>
+            </div>
+    
+    {% endif %}
+{% endblock %}

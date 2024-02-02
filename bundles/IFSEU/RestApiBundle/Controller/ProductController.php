@@ -17,12 +17,13 @@
 namespace IFSEU\RestApiBundle\Controller;
 
 use Pimcore\Controller\FrontendController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use IFSEU\RestApiBundle\RestTrait\RestResponce;
 use IFSEU\RestApiBundle\RestTrait\LanguageCode;
 use IFSEU\RestApiBundle\Security\ApiKeyUserProvider;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use AppBundle\Logger\Simple;
 
 class ProductController extends FrontendController
 {
@@ -35,24 +36,24 @@ class ProductController extends FrontendController
      * trait LanguageCode
      */
     use LanguageCode;
-    
+
     /**
      * Service variable for service class
      * @var $service
      */
     public $service;
-    
+
     /**
      * Security variable for security class
      * @var $service
      */
     public $security;
-    
+
     private $ehoseRestAPILogFileName   =   '';
 
     const RESPONSE = "Response:-";
     const EHOSE_DATA_NOT_FOUND = 'ehose data not found!';
-    
+
     /**
      * Constructor function to set variables
      */
@@ -77,29 +78,29 @@ class ProductController extends FrontendController
      *
      * @throws \Exception
      */
-   
+
     public function getProductdataAction(Request $request)
     {
         // Get Apikey validation.
         $returnValidationFlag =   $this->validateApiKey($request);
-        
+
         if($returnValidationFlag){
             // Get Parameter Array.
             $conditionArray =   $this->getParameterArray($request);
             // Get eHose data based on parameter request.
             $productDetail  =   $this->service->getProduct('en',$conditionArray);
             // Log Data.
-            \Pimcore\Log\Simple::log($this->ehoseRestAPILogFileName, "Request:-".json_encode($conditionArray));
+            Simple::log($this->ehoseRestAPILogFileName, "Request:-".json_encode($conditionArray));
             // If eHose data not exist return error.
             if (empty($productDetail)) {
-                \Pimcore\Log\Simple::log($this->ehoseRestAPILogFileName, self::RESPONSE.
+                Simple::log($this->ehoseRestAPILogFileName, self::RESPONSE.
                 json_encode($this->responseCode('ObjectNotFound', self::EHOSE_DATA_NOT_FOUND)));
                 return $this->jsonResponce($this->responseCode('ObjectNotFound', self::EHOSE_DATA_NOT_FOUND), 404);
             }
-            \Pimcore\Log\Simple::log($this->ehoseRestAPILogFileName, self::RESPONSE.json_encode($productDetail));
+            Simple::log($this->ehoseRestAPILogFileName, self::RESPONSE.json_encode($productDetail));
             return $this->jsonResponce($productDetail);
         }else{
-            \Pimcore\Log\Simple::log($this->ehoseRestAPILogFileName, self::RESPONSE.
+            Simple::log($this->ehoseRestAPILogFileName, self::RESPONSE.
             json_encode($this->responseCode('ObjectNotFound', self::EHOSE_DATA_NOT_FOUND)));
             return $this->jsonResponce($this->responseCode('InvalidApiKey', 'Api key is not valid!'), 404);
         }
@@ -122,7 +123,7 @@ class ProductController extends FrontendController
         $parameterArray['limit']= $request->get('limit');
         return  $parameterArray;
     }
-    
+
     /**
      * Function to validate api key.
      *

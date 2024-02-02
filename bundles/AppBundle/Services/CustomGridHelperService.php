@@ -23,18 +23,18 @@ class CustomGridHelperService extends GridHelperService
         $list = new $listClass();
 
         $colMappings = [
-            'key' => 'o_key',
-            'filename' => 'o_key',
-            'fullpath' => ['o_path', 'o_key'],
+            'key' => 'key',
+            'filename' => 'key',
+            'fullpath' => ['path', 'key'],
             'id' => 'oo_id',
-            'published' => 'o_published',
-            'modificationDate' => 'o_modificationDate',
-            'creationDate' => 'o_creationDate'
+            'published' => 'published',
+            'modificationDate' => 'modificationDate',
+            'creationDate' => 'creationDate'
         ];
 
         $start = 0;
         $limit = 20;
-        $orderKey = 'o_id';
+        $orderKey = 'id';
         $order = 'ASC';
 
         $fields = [];
@@ -88,11 +88,11 @@ class CustomGridHelperService extends GridHelperService
 
         $conditionFilters = [];
         if (isset($requestParams['only_direct_children']) && $requestParams['only_direct_children'] === 'true') {
-            $conditionFilters[] = 'o_parentId = ' . $folder->getId();
+            $conditionFilters[] = 'parentId = ' . $folder->getId();
         } else {
             $quotedPath = $list->quote($folder->getRealFullPath());
             $quotedWildcardPath = $list->quote(str_replace('//', '/', $folder->getRealFullPath() . '/') . '%');
-            $conditionFilters[] = '(o_path = ' . $quotedPath . ' OR o_path LIKE ' . $quotedWildcardPath . ')';
+            $conditionFilters[] = '(path = ' . $quotedPath . ' OR path LIKE ' . $quotedWildcardPath . ')';
         }
 
         if (!$adminUser->isAdmin()) {
@@ -100,9 +100,9 @@ class CustomGridHelperService extends GridHelperService
             $userIds[] = $adminUser->getId();
             if($this->isWorkspaceQueryNeeded($folder,$className,$adminUser)){
                 $conditionFilters[] = ' (
-                                                        (select list from users_workspaces_object where userId in (' . implode(',', $userIds) . ') and LOCATE(CONCAT(o_path,o_key),cpath)=1  ORDER BY LENGTH(cpath) DESC LIMIT 1)=1
+                                                        (select list from users_workspaces_object where userId in (' . implode(',', $userIds) . ') and LOCATE(CONCAT(path,key),cpath)=1  ORDER BY LENGTH(cpath) DESC LIMIT 1)=1
                                                         OR
-                                                        (select list from users_workspaces_object where userId in (' . implode(',', $userIds) . ') and LOCATE(cpath,CONCAT(o_path,o_key))=1  ORDER BY LENGTH(cpath) DESC LIMIT 1)=1
+                                                        (select list from users_workspaces_object where userId in (' . implode(',', $userIds) . ') and LOCATE(cpath,CONCAT(path,key))=1  ORDER BY LENGTH(cpath) DESC LIMIT 1)=1
                                                      )';
             }
         }
@@ -152,7 +152,7 @@ class CustomGridHelperService extends GridHelperService
         if (isset($sortingSettings['isFeature']) && $sortingSettings['isFeature']) {
             $orderKey = 'cskey_' . $sortingSettings['fieldname'] . '_' . $sortingSettings['groupId'] . '_' . $sortingSettings['keyId'];
             $list->setOrderKey($orderKey);
-            $list->setGroupBy('o_id');
+            $list->setGroupBy('id');
 
             $parts = explode('_', $orderKey);
 

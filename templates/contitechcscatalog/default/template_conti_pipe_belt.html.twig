@@ -1,0 +1,316 @@
+{% if not isParentContainerRequest %}
+	{% extends "contitechcscatalog/layouts/layout.html.twig" %}
+{% endif %}
+
+{% block _content %}
+
+	{% if editmode %}
+		{{pimcore_relation("cbs_conti_pipe_belt", {
+                "types" : ["object"],
+                "subtypes" : {
+                "object" : ["object"]
+                },
+                "classes" : ["CSCatalogTables"],
+        }) }}
+	{% endif %}
+
+	{% if data is defined %}
+		{% set parentProductData = data['parentProductData'] %}
+		{% set childProductData = data['childProductData'] %}
+		<div class="wrapper">
+			<header id="header">
+				<div class="header-sec">
+					<div class="header-txt">
+						<span class="first-title">
+							{{ ('CS_header_title')|trans }}
+						</span>
+						<span class="second-title">
+							{% if pimcore_input("CPB_title").isEmpty() %}
+								{{ pimcore_input("CPB_title", {'placeholder' : 'Enter your title'}).setDataFromResource(parentProductData['HierarchyNameLevel2']) | raw }}
+							{% else %}
+								{{ pimcore_input("CPB_title", {'placeholder' : 'Enter your title'}) }}
+							{% endif %}
+						</span>
+					</div>
+					<div class="print-pg-no"></div>
+				</div>
+			</header>
+
+			<footer id="footer" class="footer">
+				<div class="footer-logo">
+					<img src="{{ footer_logo_src }}" alt="" width="150">
+				</div>
+			</footer>
+
+			<main id="content" role="main">
+				<section class="fortressxp-belts">
+					{% if editmode %}
+						<div class="attr-font">Attribute Name = Name</div>
+					{% endif %}
+					<h1 class="orange">
+						{% if editmode %}
+							{% if pimcore_input("CS_ProductName").isEmpty() %}
+								{{ pimcore_input("CS_ProductName", {'placeholder' : 'Enter Product Name'}).setDataFromResource(parentProductData['Name']) | raw }}
+							{% else %}
+								{{ pimcore_input("CS_ProductName", {'placeholder' : 'Enter Product Name'}) }}
+							{% endif %}
+						{% else %}
+							{{ pimcore_input("CS_ProductName", {'placeholder' : 'Enter Product Name'}) }}
+						{% endif %}
+
+						<span class="sub-title">
+							{% if editmode %}
+								<div class="attr-font">Attribute Name = Product Claim/Slogan</div>
+							{% endif %}
+							{% if editmode %}
+								{% if pimcore_input("CPBParent_ProductClaimSlogan").isEmpty() %}
+									{{ pimcore_input("CPBParent_ProductClaimSlogan", {'placeholder' : 'Enter Product Slogan'}).setDataFromResource(parentProductData['ProductClaimSlogan']) | raw }}
+								{% else %}
+									{{ pimcore_input("CPBParent_ProductClaimSlogan", {'placeholder' : 'Enter Product Slogan'}) }}
+								{% endif %}
+							{% else %}
+								{{ pimcore_input("CPBParent_ProductClaimSlogan", {'placeholder' : 'Enter Product Slogan'}) }}
+							{% endif %}
+						</span>
+					</h1>
+
+					<div class="feature-benefit-list">
+						{% if editmode %}
+							<div class="attr-font">Attribute Name = Short Text</div>
+						{% endif %}
+						{% if editmode %}
+							{% if pimcore_wysiwyg("CPBParent_ShortText").isEmpty() %}
+								{{ pimcore_wysiwyg("CPBParent_ShortText", {'placeholder' : 'Enter Short Text'}).setDataFromResource(parentProductData['ShortText']) | raw }}
+							{% else %}
+								{{ pimcore_wysiwyg("CPBParent_ShortText", {'placeholder': 'Enter Short Text'}) }}
+							{% endif %}
+						{% else %}
+							{{ pimcore_wysiwyg("CPBParent_ShortText", {'placeholder': 'Enter Short Text'}) }}
+						{% endif %}
+					</div>
+
+					{% if parentProductData['Applications'] is defined %}
+						<div class="table">
+							<table width="100%">
+								<thead>
+									<tr>
+										<th class="orange" colspan="3">
+											{{ ('CS_Typical_Applications_Label') | trans }}</th>
+									</tr>
+								</thead>
+                                <tbody>
+                                <tr valign="top">
+                                    {% set applications = parentProductData['Applications'] %}
+                                    {% set chunk_app = applications|batch(5) %}
+                                    {% for arr in chunk_app %}
+                                        <td>
+                                            <ul>
+                                                {% for val in arr %}
+                                                    <li>
+                                                        <span class="orange">›</span>
+                                                        {{ val }}
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </td>
+                                    {% endfor %}
+                                </tr>
+                            </tbody>
+							</table>
+						</div>
+					{% endif %}
+                <h3 class="orange">
+                    {% if editmode %}
+                        {% if pimcore_input("CPBParentConveyor_Belt_Components_Label").isEmpty() %}
+                            {{ pimcore_input("CPBParentConveyor_Belt_Components_Label", {'placeholder' : 'Conveyor Belt Components'}) }}
+                        {% else %}
+                            {{ pimcore_input("CPBParentConveyor_Belt_Components_Label") }}
+                        {% endif %}
+                    {% else %}
+                        {{ pimcore_input("CPBParentConveyor_Belt_Components_Label") }}
+                    {% endif %}
+                </h3>  
+
+                {% if editmode %}
+                    <div class="attr-font">Attribute Name = Product Image</div>
+                {% endif %}
+
+                {% if editmode %}
+                    {% if pimcore_image("CPBParent_ProductImage").isEmpty() %}
+                        {{ pimcore_image("CPBParent_ProductImage", {'height' : 385}).setImage(parentProductData['ProductImage']) | raw }}
+                    {% else %}
+                        {{ pimcore_image("CPBParent_ProductImage", {'height' : 385}) }}
+                    {% endif %}
+                {% else %}
+                    {% set CPBParent_ProductImageObj = pimcore_image("CPBParent_ProductImage") %}
+                    {% if CPBParent_ProductImageObj.getId() is not empty %}
+                        <img src="{{ getImageThumbnail(CPBParent_ProductImageObj, imageWidth) }}" alt="" class="mb-4" style="max-height:385px; width:auto;">
+                    {% endif %}
+                {% endif %}
+
+                <div class="page-break"></div>
+
+                {% if editmode %}
+                    <div class="attr-font">Child Attribute Name = Name</div>
+                {% endif %}
+
+                <h2>
+                    <span class="orange">
+                        {% if editmode %}
+                            {% if pimcore_input("CPBChild_ProductNameBeltInfo").isEmpty() %}
+                                {{ pimcore_input("CPBChild_ProductNameBeltInfo").setDataFromResource(childProductData['Name']) | raw}}
+                            {% else %}
+                                {{ pimcore_input("CPBChild_ProductNameBeltInfo") }}
+                            {% endif %}
+                        {% else %}
+                            {{ pimcore_input("CPBChild_ProductNameBeltInfo") }}
+                        {% endif %}
+                    </span>
+                    <span class="light-black">
+                        {% if editmode %}
+                            {% if pimcore_input("CPBChild_BeltInfoLabel").isEmpty() %}
+                                {{ pimcore_input("CPBChild_BeltInfoLabel", {'placeholder' : 'Belt Information'}) }}
+                            {% else %}
+                                {{ pimcore_input("CPBChild_BeltInfoLabel") }}
+                            {% endif %}
+                        {% else %}
+                            {{ pimcore_input("CPBChild_BeltInfoLabel") }}
+                        {% endif %}
+                    </span>
+                </h2>
+
+                <div class="feature-benefit-list">
+                    {% if editmode %}
+                        <div class="attr-font">Child Attribute Name = Product Claim/Slogan</div>
+                    {% endif %}
+                    <h3 class="orange mb-0">
+                        {% if editmode %}
+                            {% if pimcore_input("CPBChild_ProductClaimSlogan").isEmpty() %}
+                                {{ pimcore_input("CPBChild_ProductClaimSlogan", {'placeholder' : 'Enter Product Slogan'}).setDataFromResource(childProductData['ProductClaimSlogan']) | raw }}
+                            {% else %}
+                                {{ pimcore_input("CPBChild_ProductClaimSlogan", {'placeholder' : 'Enter Product Slogan'}) }}
+                            {% endif %}
+                        {% else %}
+                            {{ pimcore_input("CPBChild_ProductClaimSlogan", {'placeholder' : 'Enter Product Slogan'}) }}
+                        {% endif %}
+                    </h3>
+
+                    {% if editmode %}
+                        <div class="attr-font">Child Attribute Name = Short Text</div>
+                    {% endif %}
+                    {% if editmode %}
+                        {% if pimcore_wysiwyg("CPBChild_ShortText").isEmpty() %}
+                            {{ pimcore_wysiwyg("CPBChild_ShortText").setDataFromResource(childProductData['ShortText']) | raw }}
+                        {% else %}
+                            {{ pimcore_wysiwyg("CPBChild_ShortText") }}
+                        {% endif %}
+                    {% else %}
+                        {{ pimcore_wysiwyg("CPBChild_ShortText") }}
+                    {% endif %}
+                </div>
+
+                <div class="feature-benefit-list black-bold">
+                    {% if childProductData['Benefits'] is defined and childProductData['Benefits'] %}
+                        <div class="feature-benefit-list">
+                            <ul>
+                                {% for key, item in childProductData['Benefits'] %}
+                                    <li> {{ item }} </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                </div>
+
+                {% if editmode %}
+                    <div class="attr-font">Child Attribute Name = Product Image</div>
+                {% endif %}
+
+                {% if editmode %}
+                    {% if pimcore_image("CPBChild_ProductImage").isEmpty() %}
+                        {{ pimcore_image("CPBChild_ProductImage", {'height' : 195}).setImage(childProductData['ProductImage']) | raw}}
+                    {% else %}
+                        {{ pimcore_image("CPBChild_ProductImage", {'height' : 195}) }}
+                    {% endif %}
+                {% else %}
+                    {% set CPBChild_ProductImageObj = pimcore_image("CPBChild_ProductImage") %}
+                    {% if CPBChild_ProductImageObj.getId() is not empty %}
+                        <img src="{{ getImageThumbnail(CPBChild_ProductImageObj, imageWidth) }}" alt="" style="max-height:195px; width:auto;">
+                    {% endif %}
+                {% endif %}
+
+                {% if childProductData['productSpecificData'] is defined %}
+                    <div class="belts-information black">
+                        <h3>
+                            {{ pimcore_input("CPBContiPipe_MegaPipe", {'placeholder' : 'Enter Heading'}) }}
+                        </h3>
+                        <div class="table-data contipipe-table w-80">
+                            <table width="100%">
+                                <thead>
+                                    <tr align="left" class="orange-bg">   
+                                        <th colspan="10">&nbsp;</th>
+                                    </tr>
+                                    <tr class="grey-bg">
+                                        <th colspan="2">
+                                            {{ ('CS_Diameter')|trans }}
+                                        </th>
+                                        <th colspan="2">
+                                            {{ ('CS_Belt_Width')|trans }}
+                                        </th>
+                                        <th colspan="2">
+                                            {{ ('CS_Type')|trans }}
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th width="16.5%">
+                                            {{ ('CS_Unit_in')|trans }}~
+                                        </th>
+                                        <th width="16.5%">
+                                            {{ ('CS_Unit_mm')|trans }}
+                                        </th>
+                                        <th width="16.5%">
+                                            {{ ('CS_Unit_in')|trans }}~
+                                        </th>
+                                        <th width="16.5%">
+                                            {{ ('CS_Unit_mm')|trans }}
+                                        </th>
+                                        <th width="16.5%">
+                                            {{ ('CS_Fabric')|trans }}
+                                        </th>
+                                        <th width="16.5%">
+                                            {{ ('CS_Steel')|trans }}
+                                        </th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    {% for arr in childProductData['productSpecificData'] %}
+                                        <tr align='center'>
+                                        {% for val in arr %}
+                                            <td> {{ val }} </td>
+                                        {% endfor %}
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p class="table-notes w-80">
+                        {% if editmode %}
+                            {% if pimcore_input("CPBChild_Note").isEmpty() %}
+                                {{ pimcore_input("CPBChild_Note",{'placeholder' : 'notes'}) }}
+                            {% else %}
+                                {{ pimcore_input("CPBChild_Note") }}
+                            {% endif %}
+                        {% else %}
+                            {{ pimcore_input("CPBChild_Note") }}
+                        {% endif %}
+                        </p>
+                    </div>
+                {% endif %}
+
+				</section>
+			</main>
+		</div>
+	{% endif %}
+
+{% endblock %}

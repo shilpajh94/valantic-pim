@@ -1,5 +1,0 @@
-contitech_cs_catalog:
-    resource: "@ContitechCSCatalogBundle/Controller/"
-    type:     annotation
-    prefix:   /
-

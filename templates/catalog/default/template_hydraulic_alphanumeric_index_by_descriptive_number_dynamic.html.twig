@@ -1,0 +1,113 @@
+{% if not isParentContainerRequest %}
+	{% extends "catalog/layouts/layout.html.twig" %}
+{% endif %}
+
+{% block _content %}
+	{% if data is defined and data %}
+		<div class="template">
+			<div id="descriptive">
+				<div id="pageHeader"></div>
+				<span class="pageName">Index</span>
+
+				<div class="numberTitle">
+					{% if editmode %}
+						{% if pimcore_input("HHIDN_Heading").isEmpty() %}
+							<h2>{{ pimcore_input("HHIDN_Heading",{'placeholder':"Index Page Title"}).setDataFromResource('Alphanumeric Index by Descriptive Number') | raw }}
+							</h2>
+						{% else %}
+							<h2>{{ pimcore_input("HHIDN_Heading") }}</h2>
+						{% endif %}
+					{% else %}
+						<h2>{{ pimcore_input("HHIDN_Heading") }}</h2>
+					{% endif %}
+				</div>
+				<div id="amortizationTable" class="{% if not editmode %} {{'content_double'}} {% endif %} single">
+					{% if editmode %}
+						<div class="flex">
+
+							<div class="upper">
+								{% if editmode %}
+									{% if pimcore_input("HHIDN_th_col_1").isEmpty() %}
+										{{ pimcore_input("HHIDN_th_col_1",{'placeholder':"Column 1"}).setDataFromResource('Descriptive #') | raw }}
+									{% else %}
+										{{ pimcore_input("HHIDN_th_col_1",{'placeholder':"Column 1"}) }}
+									{% endif %}
+								{% else %}
+									{{ pimcore_input("HHIDN_th_col_1",{'placeholder':"Column 1"}) }}
+								{% endif %}
+							</div>
+
+							<div class="upper">
+								{% if editmode %}
+									{% if pimcore_input("HHIDN_th_col_2").isEmpty() %}
+										{{ pimcore_input("HHIDN_th_col_2",{'placeholder':"Column 2"}).setDataFromResource('Page #') | raw }}
+									{% else %}
+										{{ pimcore_input("HHIDN_th_col_2",{'placeholder':"Column 2"}) }}
+									{% endif %}
+								{% else %}
+									{{ pimcore_input("HHIDN_th_col_2",{'placeholder':"Column 2"}) }}
+								{% endif %}
+							</div>
+						</div>
+
+						{% set dataCount = data|length %}
+
+						{% set HHIDN_Index_ContentBlock = pimcore_block('HHIDN_Index_Content') %}
+
+						{% if HHIDN_Index_ContentBlock.getCount() %}
+
+							{% for i in HHIDN_Index_ContentBlock.iterator %}
+								<div class="paging">
+									<span class="pageTitle">{{ pimcore_input("HHIDN_td1",{'placeholder':"Page Title"}) }}</span>
+									<span class="pageNo">{{ pimcore_input("HHIDN_td2",{'placeholder':"Page No"}) }}</span>
+								</div>
+							{% endfor %}
+
+						{% else %}
+							{% set HHIDN_Index_ContentBlock = pimcore_block('HHIDN_Index_Content', {'default':dataCount}) %}
+
+							{% for i in HHIDN_Index_ContentBlock.iterator %}
+								{% set rowCount = i-1 %}
+								{% if data[rowCount] is defined %}
+									<div class="paging">
+										<span class="pageTitle">{{ pimcore_input("HHIDN_td1",{'placeholder':"Page Title"}).setDataFromResource(data[rowCount]) | raw }}</span>
+										<span class="pageNo">{{ pimcore_input("HHIDN_td2",{'placeholder':"Page No"}) }}</span>
+									</div>
+								{% endif %}
+							{% endfor %}
+						{% endif %}
+
+					{% else %}
+						<table cellpadding="0" cellspacing="0" class="grid">
+							<thead>
+								<tr>
+									<td>
+										<span class="upper">{{ pimcore_input("HHIDN_th_col_1") }}</span>
+									</td>
+									<td align="right">
+										<span class="upper">{{ pimcore_input("HHIDN_th_col_2") }}</span>
+									</td>
+								</tr>
+							</thead>
+							<tbody>
+								{% set HHIDN_Index_ContentBlock = pimcore_block('HHIDN_Index_Content') %}
+								{% for i in HHIDN_Index_ContentBlock.iterator %}
+									<tr>
+										<td colspan="2">
+											<div class="paging">
+												<span class="pageTitle">{{ pimcore_input("HHIDN_td1") }}</span>
+												<span class="pageNo">{{ pimcore_input("HHIDN_td2") }}</span>
+											</div>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	{% else %}
+		<h6>No data found</h6>
+	{% endif %}
+{% endblock %}

@@ -23,7 +23,7 @@ define("INTERNAL_ASSET_FOLDER_PATHS", [
 ]);
 
 define("APPBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/AppBundle/Resources/config");
-define("CATALOGBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/CatalogBundle/Resources/config");
+define("CATALOGBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/CatalogBundle/config");
 define("CS_PRODUCTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/ContitechCS/ProductBundle/Resources/config");
 
 define("CS_APIBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/ContitechCS/CatalogUIApiBundle/Resources/config");
@@ -190,7 +190,7 @@ define('PTGEU_OBJECT_TABLE_NAME', 'object_38');
 define('PTG_EU_BRICK_ATTRIBUTES_CONFIG_FILE_PATH', PTG_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "/import/brick_attributes.yaml");
 
 // define constants used in PTGEU - CatalogBundle config
-define("PTG_EU_CATALOGBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/PTGEU/CatalogBundle/Resources/config");
+define("PTG_EU_CATALOGBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/PTGEU/CatalogBundle/config");
 define('PTG_EU_CATALOGBUNDLE_CONFIG_FILE_PATH', PTG_EU_CATALOGBUNDLE_CONFIG_DIRECTORY . "/catalog.yaml");
 define('PTG_EU_CATALOGBUNDLE_ATTRIBUTE_IMAGE_CONFIG_FILE_PATH', PTG_EU_CATALOGBUNDLE_CONFIG_DIRECTORY . "/attribute_images.yaml");
 define('PTG_EU_CATALOGBUNDLE_PRICE_LIST_TABLE_CONFIG_FILE_PATH', PTG_EU_CATALOGBUNDLE_CONFIG_DIRECTORY . "/price_list_table_config.yaml");
