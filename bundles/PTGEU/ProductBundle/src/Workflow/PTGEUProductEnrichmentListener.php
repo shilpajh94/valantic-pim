@@ -174,8 +174,8 @@ class PTGEUProductEnrichmentListener
     {
         $list = new DataObject\PTGEUProduct\Listing();
         $list->setIgnoreLocalizedFields(true);
-        $list->setCondition('o_path like ' . $list->quote($product->getPath() .
-            $product->getKey() . "%") . ' AND (`o_published` = 1) ');
+        $list->setCondition('path like ' . $list->quote($product->getPath() .
+            $product->getKey() . "%") . ' AND (`published` = 1) ');
         if (count($list) > 0) {
             return ['success' => false, 'msg' => 'Not able to archive/pause as all childs are not archived/paused.'];
         } else {

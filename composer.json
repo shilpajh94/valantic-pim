@@ -54,7 +54,7 @@
       "RestApiBundle\\": "bundles/RestApiBundle/src",
       "S3CustomizationBundle\\": "bundles/S3CustomizationBundle",
       "PTGEU\\ImportBundle\\": "bundles/PTGEU/ImportBundle/src",
-      "PTGEU\\ProductBundle\\": "bundles/PTGEU/ProductBundle",
+      "PTGEU\\ProductBundle\\": "bundles/PTGEU/ProductBundle/src",
       "PTGEU\\CatalogBundle\\": "bundles/PTGEU/CatalogBundle/src",
       "IFSEU\\ProductBundle\\": "bundles/IFSEU/ProductBundle/src",
       "IFSEU\\ImportBundle\\": "bundles/IFSEU/ImportBundle",
