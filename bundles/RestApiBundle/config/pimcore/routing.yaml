@@ -1,5 +1,5 @@
 rest_a_pi:
-    resource: "@RestApiBundle/Controller/"
+    resource: "@RestApiBundle/src/Controller/"
     type:     annotation
     prefix:   /
 rest_api_homepage:

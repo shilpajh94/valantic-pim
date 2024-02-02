@@ -51,7 +51,7 @@
       "ImportBundle\\": "bundles/ImportBundle",
       "PimDataPostBundle\\": "bundles/PimDataPostBundle",
       "RequiredAttributesBundle\\": "bundles/RequiredAttributesBundle",
-      "RestApiBundle\\": "bundles/RestApiBundle",
+      "RestApiBundle\\": "bundles/RestApiBundle/src",
       "S3CustomizationBundle\\": "bundles/S3CustomizationBundle",
       "PTGEU\\ImportBundle\\": "bundles/PTGEU/ImportBundle",
       "PTGEU\\ProductBundle\\": "bundles/PTGEU/ProductBundle",
