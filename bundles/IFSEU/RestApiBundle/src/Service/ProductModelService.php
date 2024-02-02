@@ -995,7 +995,7 @@ class ProductModelService
      */
     public function getEHoseFieldMapping()
     {
-        $yamlFilePath = PIMCORE_PROJECT_ROOT . "/bundles/IFSEU/RestApiBundle/Resources/config/ehoseFieldMapping.yaml";
+        $yamlFilePath = PIMCORE_PROJECT_ROOT . "/bundles/IFSEU/RestApiBundle/config/ehoseFieldMapping.yaml";
 
         return Utils::getYmlConfig($yamlFilePath);
     }
