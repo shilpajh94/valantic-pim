@@ -1,16 +1,16 @@
 pimcore.registerNS("pimcore.plugin.AppBundle");
 
-pimcore.plugin.AppBundle = Class.create(pimcore.plugin.admin, {
+pimcore.plugin.AppBundle = Class.create({
     getClassName: function () {
         return "pimcore.plugin.AppBundle";
     },
 
     initialize: function () {
-        pimcore.plugin.broker.registerPlugin(this);
+        document.addEventListener(pimcore.events.pimcoreReady, this.pimcoreReady.bind(this));
     },
 
     pimcoreReady: function (params, broker) {
-        alert("AppBundle ready!");
+        // alert("AppBundle ready!");
     }
 });
 

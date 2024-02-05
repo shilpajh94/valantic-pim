@@ -12,7 +12,7 @@
  */
 // alert('ZZZ')
 pimcore.registerNS("pimcore.plugin.formattedGridHandlerMapper");
-pimcore.plugin.formattedGridHandlerMapper = Class.create(pimcore.plugin.admin, {
+pimcore.plugin.formattedGridHandlerMapper = Class.create({
 
     /**
      * constructor
@@ -25,7 +25,7 @@ pimcore.plugin.formattedGridHandlerMapper = Class.create(pimcore.plugin.admin, {
 
     setUpFormattedGrid: function () {
         // alert('yes');
-        var objectClassName = this.object.data.general.o_className;
+        var objectClassName = this.object.data.general.className;
         let dataFields = this.object.edit.dataFields;
         if (objectClassName == 'VirtualCatalogApiMapper') {
             var objectId = this.object.id;
@@ -146,7 +146,7 @@ pimcore.plugin.formattedGridHandlerMapper = Class.create(pimcore.plugin.admin, {
                                  //   console.log(this.object.data);
                                 let headerJson = [];
                                 
-                                var table = new Conti.pimcore.object.tags.table([["1","1"],['2','2']],this.object.edit.dataFields.ProductsData.fieldConfig);
+                                var table = new RestAPI.pimcore.object.tags.table([["1","1"],['2','2']],this.object.edit.dataFields.ProductsData.fieldConfig);
                               //  table.getLayoutEdit();
                                // console.log(this.object.edit.dataFields.ProductsData.component.id);
                                 var comp = Ext.getCmp(this.object.edit.dataFields.ProductsData.component.id);

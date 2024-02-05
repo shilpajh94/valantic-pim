@@ -1,44 +1,23 @@
-document.addEventListener(pimcore.events.postOpenObject, (e) => {
-    console.log('pimcore.plugin.RestApiBundle postOpenObject')
+pimcore.registerNS("pimcore.plugin.RestApiBundle");
 
-    let objectClassName = e.detail.object.data.general.o_className;
-    if (objectClassName == 'VirtualCatalogApiMapper') {
+pimcore.plugin.RestApiBundle = Class.create({
+    getClassName: function () {
+        return "pimcore.plugin.RestApiBundle";
+    },
 
-        Ext.Ajax.request({
-            url: "/virtual_catalog/get_mapper_data/",
-            method: 'GET',
-            async: false,
-            params: { 'table': e.detail.object.edit.dataFields.GroupingField.component.getValue(), objId: e.detail.object.id },
-            success: function (response) {
-                response = Ext.decode(response.responseText);
+    initialize: function () {
+        document.addEventListener(pimcore.events.pimcoreReady, this.pimcoreReady.bind(this));
+        document.addEventListener(pimcore.events.postOpenObject, this.postOpenObject.bind(this));
+    },
 
-                store = Ext.create('Ext.data.Store', {
-                    fields: response.fieldData,
-                    data: { 'items': response.data },
-                    //   data    : {'items':[["1","1"],['2','2']]},
+    pimcoreReady: function (e) {
+        // alert("RestApiBundle ready!");
+    },
+    
+    postOpenObject: function (e) {
+        let objectClassName = e.detail.object.data.general.className;
+        if (objectClassName == 'VirtualCatalogApiMapper') {
 
-                    proxy: {
-                        type: 'memory',
-                        reader: {
-                            //  xtype: 'grid',
-                            type: 'json',
-                            rootProperty: 'items'
-                        }
-                    },
-                    header: true
-                });
-                columns = response.columnData;
-                data = response.data;
-
-                var table = new Conti.pimcore.object.tags.table([], e.detail.object.edit.dataFields.originalValues.fieldConfig);
-                var comp = Ext.getCmp(e.detail.object.edit.dataFields.originalValues.component.id);
-
-                table.initStore(data, comp, e.detail.object.edit.dataFields.originalValues, columns);
-            }
-        });
-
-
-        e.detail.object.edit.dataFields.GroupingField.component.on('select', function (event) {
             Ext.Ajax.request({
                 url: "/virtual_catalog/get_mapper_data/",
                 method: 'GET',
@@ -65,58 +44,93 @@ document.addEventListener(pimcore.events.postOpenObject, (e) => {
                     columns = response.columnData;
                     data = response.data;
 
-                    console.log(columns);
-
-                    var table = new Conti.pimcore.object.tags.table([], e.detail.object.edit.dataFields.originalValues.fieldConfig);
+                    var table = new RestAPI.pimcore.object.tags.table([], e.detail.object.edit.dataFields.originalValues.fieldConfig);
                     var comp = Ext.getCmp(e.detail.object.edit.dataFields.originalValues.component.id);
 
                     table.initStore(data, comp, e.detail.object.edit.dataFields.originalValues, columns);
-
-                    //     var table = new Conti.pimcore.object.tags.table([], object.edit.dataFields.valueAlias.fieldConfig);
-                    //     var comp = Ext.getCmp(object.edit.dataFields.valueAlias.component.id);
-
-                    //     table.initStore(response.newdata, comp, object.edit.dataFields.valueAlias, response.newcolumnData);
                 }
             });
-        });
 
-        // let formatterGridHandler = new pimcore.plugin.formattedGridHandlerMapper(object);
-        // formatterGridHandler.setUpFormattedGrid();
-    }
-    if (objectClassName == 'VirtualCatalogApiSorter') {
-        var colComp = Ext.getCmp(e.detail.object.edit.dataFields.Columns.component.id);
-        colComp.hide();
-        var store;
-        var columns;
-        var data;
 
-        var storeData = [];
-        var completeData = [];
+            e.detail.object.edit.dataFields.GroupingField.component.on('select', function (event) {
+                Ext.Ajax.request({
+                    url: "/virtual_catalog/get_mapper_data/",
+                    method: 'GET',
+                    async: false,
+                    params: { 'table': e.detail.object.edit.dataFields.GroupingField.component.getValue(), objId: e.detail.object.id },
+                    success: function (response) {
+                        response = Ext.decode(response.responseText);
 
-        if (e.detail.object.data.data.GroupingField !== null) {
+                        store = Ext.create('Ext.data.Store', {
+                            fields: response.fieldData,
+                            data: { 'items': response.data },
+                            //   data    : {'items':[["1","1"],['2','2']]},
 
-            e.detail.object.edit.dataFields.GroupingField.component.setValue(e.detail.object.data.data.GroupingField);
+                            proxy: {
+                                type: 'memory',
+                                reader: {
+                                    //  xtype: 'grid',
+                                    type: 'json',
+                                    rootProperty: 'items'
+                                }
+                            },
+                            header: true
+                        });
+                        columns = response.columnData;
+                        data = response.data;
+
+                        console.log(columns);
+
+                        var table = new RestAPI.pimcore.object.tags.table([], e.detail.object.edit.dataFields.originalValues.fieldConfig);
+                        var comp = Ext.getCmp(e.detail.object.edit.dataFields.originalValues.component.id);
+
+                        table.initStore(data, comp, e.detail.object.edit.dataFields.originalValues, columns);
+                    }
+                });
+            });
+
+            // let formatterGridHandler = new pimcore.plugin.formattedGridHandlerMapper(object);
+            // formatterGridHandler.setUpFormattedGrid();
         }
-        if ((e.detail.object.data.data.GroupingField !== null && trim(e.detail.object.data.data.GroupingField) !== "")) {
-            var headerSorter = new pimcore.plugin.headerSorter();
-            headerSorter.attachHeader(e.detail.object, type, { 'value': e.detail.object.data.data.GroupingField }, null, 0);
-        }
+        if (objectClassName == 'VirtualCatalogApiSorter') {
+            var colComp = Ext.getCmp(e.detail.object.edit.dataFields.Columns.component.id);
+            colComp.hide();
+            var store;
+            var columns;
+            var data;
 
-        e.detail.object.edit.dataFields.GroupingField.component.on('select', function (event) {
-            //console.log(object.data.data.GroupingField);
-            //   if(object.data.data.GroupingField != event.value)
-            {
-                var headerSorter = new pimcore.plugin.headerSorter();
-                headerSorter.attachHeader(e.detail.object, type, event, null, 1);
+            var storeData = [];
+            var completeData = [];
+
+            if (e.detail.object.data.data.GroupingField !== null) {
+
+                e.detail.object.edit.dataFields.GroupingField.component.setValue(e.detail.object.data.data.GroupingField);
             }
-        });
-    }
+            if ((e.detail.object.data.data.GroupingField !== null && trim(e.detail.object.data.data.GroupingField) !== "")) {
+                var headerSorter = new pimcore.plugin.headerSorter();
+                headerSorter.attachHeader(e, type, { 'value': e.detail.object.data.data.GroupingField }, null, 0);
+            }
 
-    e.preventDefault();
-    e.stopPropagation();
+            e.detail.object.edit.dataFields.GroupingField.component.on('select', function (event) {
+                //console.log(object.data.data.GroupingField);
+                //   if(object.data.data.GroupingField != event.value)
+                {
+                    var headerSorter = new pimcore.plugin.headerSorter();
+                    headerSorter.attachHeader(e, type, event, null, 1);
+                }
+            });
+
+
+
+        }
+    }
 });
 
-Ext.define('Conti.pimcore.object.tags.table', {
+
+var RestApiBundlePlugin = new pimcore.plugin.RestApiBundle();
+
+
+Ext.define('RestAPI.pimcore.object.tags.table', {
     extend: 'pimcore.object.tags.table',
     initStore: function (data, comp, field, columnArr) {
         if (data !== null) {

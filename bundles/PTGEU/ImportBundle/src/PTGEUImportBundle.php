@@ -10,6 +10,11 @@ class PTGEUImportBundle extends AbstractPimcoreBundle implements PimcoreBundleAd
 {
     use BundleAdminClassicTrait;
 
+    public function getPath(): string
+    {
+        return \dirname(__DIR__);
+    }
+
     public function getJsPaths(): array
     {
         return [

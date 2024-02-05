@@ -1,4 +1,0 @@
-distribution_hub_homepage:
-    resource: "@DistributionHubBundle/Controller/"
-    type:       annotation
-    prefix:     /

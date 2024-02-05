@@ -1,0 +1,97 @@
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        # automatically injects dependencies in your services
+        autowire: true
+        # automatically registers your services as commands, event subscribers, etc.
+        autoconfigure: true
+        # this means you cannot fetch services directly from the container via $container->get()
+        # if you need to do this, you can override this setting on individual services
+        public: false
+
+    # controllers are imported separately to make sure they're public
+    # and have a tag that allows actions to type-hint services
+    ContitechCS\ProductBundle\Controller\:
+        resource: '../src/Controller'
+        public: true
+        tags: ['controller.service_arguments']
+
+# add more services, or override services that need manual wiring
+#    ContitechCS\ProductBundle\ExampleClass:
+#        arguments:
+#            - "@service_id"
+#            - "plain_value"
+#            - "%parameter%"
+
+    # auto-register all commands as services
+    # app.config_provider_service:
+    #     class: ContitechCS\ProductBundle\Services\ConfigProviderService
+    #     public: true
+    
+    ContitechCS\ProductBundle\Command\:
+        resource: "../src/Command/*"
+        tags: ["console.command"]
+
+    ContitechCS\ProductBundle\EventListener\ObjectListener:
+        tags:
+            - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: preUpdate }
+            - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: moveProductToRegion }
+            - { name: kernel.event_listener, event: pimcore.admin.search.list.beforeListLoad, method: beforeSearchListLoad }
+
+    ContitechCS\ProductBundle\EventListener\HierarchyListener:
+        tags:
+            - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: setBricks }
+    
+    ContitechCS\ProductBundle\EventListener\UserRolesListener:
+        tags:
+            - { name: kernel.event_listener, event: pimcore.admin.permissions.elementIsAllowed, method: userPermission }
+
+    ContitechCS\ProductBundle\EventListener\ProductListener:
+       tags:
+           - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: checkPublishStatus }
+    
+    ContitechCS\ProductBundle\EventListener\AssetListener:
+        tags:
+            - { name: kernel.event_listener, event: pimcore.asset.postAdd, method: onPostAdd , priority: 20 }
+            
+    Pimcore\Bundle\AdminBundle\Controller\Admin\DataObject\ClassController:
+            class: ContitechCS\ProductBundle\Controller\ClassController
+            
+    # Pimcore\Bundle\AdminBundle\Controller\Admin\DataObject\DataObjectController:
+    #         class: ContitechCS\ProductBundle\Controller\DataObjectController
+            
+    # Pimcore\Bundle\AdminBundle\Controller\Admin\UserController:
+    #         class: ContitechCS\ProductBundle\Controller\UserController
+        
+    ContitechCS\ProductBundle\Services\AppService:
+        public: true
+
+    ContitechCS\ProductBundle\Services\UnitConverterService:
+        public: true
+
+    ContitechCS\ProductBundle\Services\ConfigProviderService:
+        public: true
+    ContitechCS\ProductBundle\Services\MandatoryValidationService:
+        public: true
+    ContitechCS\ProductBundle\Workflow\AssetSupportStrategy:
+        public: true
+    
+    ContitechCS\ProductBundle\Workflow\ProductEnrichmentListener:
+        tags:
+            - { name: kernel.event_listener, event: workflow.product_enrichment.completed, method: csWorkflowNotification }
+#            - { name: kernel.event_listener, event: workflow.product_enrichment.completed.send_for_review, method: csWorkflowTransitionNotification }
+#            - { name: kernel.event_listener, event: workflow.product_enrichment.completed.reject_product, method: csWorkflowTransitionNotification }
+#            - { name: kernel.event_listener, event: workflow.product_enrichment.completed.approve_processing, method: csWorkflowTransitionNotification} 
+#            - { name: kernel.event_listener, event: workflow.product_enrichment.completed.publish_product, method: csWorkflowTransitionNotification } 
+#            - { name: kernel.event_listener, event: workflow.product_enrichment.completed.pause_product, method: csWorkflowTransitionNotification} 
+#            - { name: kernel.event_listener, event: workflow.product_enrichment.completed.archived_product, method: csWorkflowTransitionNotification } 
+            - { name: kernel.event_listener, event: workflow.product_enrichment.transition, method: csWorkflowActions } 
+            
+    ContitechCS\ProductBundle\Workflow\AssetWorkflowListener:
+        tags:
+            - { name: kernel.event_listener, event: workflow.cs_asset_workflow.transition, method: csAssetTransitionAction }
+            
+    ContitechCS\ProductBundle\Services\PercentageCompletionService:
+        class: ContitechCS\ProductBundle\Services\PercentageCompletionService
+        public: true
+        autowire: true

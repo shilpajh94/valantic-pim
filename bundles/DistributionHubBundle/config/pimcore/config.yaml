@@ -1,0 +1,54 @@
+distribution_hub:
+    core_fields_configuration:
+        # -
+        #     field: o_id
+        #     type: long
+        #     title: ID
+        #     fieldDefinition: Pimcore\Model\DataObject\ClassDefinition\Data\Numeric 
+        # -
+        #     field: o_published
+        #     type: boolean
+        #     title: published
+        #     fieldDefinition: Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox
+        #     values: { options: [{ key: 'Yes', value: true }, { key: 'No', value: false }] }
+        # -
+        #     field: o_path
+        #     type: keyword
+        #     title: path
+        #     fieldDefinition: Pimcore\Model\DataObject\ClassDefinition\Data\Input
+            
+    field_definition_adapters:
+        # default: 'DistributionHubBundle\Filter\FieldDefinitionAdapter\DefaultAdapter'
+        # calculatedValue: 'DistributionHubBundle\Filter\FieldDefinitionAdapter\CalculatedValue'
+        # checkbox: 'DistributionHubBundle\Filter\FieldDefinitionAdapter\Checkbox'
+        # booleanSelect: 'DistributionHubBundle\Filter\FieldDefinitionAdapter\BooleanSelect'
+        # country: 'DistributionHubBundle\Filter\FieldDefinitionAdapter\Country'
+        # countrymultiselect: 'DistributionHubBundle\Filter\FieldDefinitionAdapter\Countrymultiselect'
+        # date: 'DistributionHubBundle\Filter\FieldDefinitionAdapter\Date'
+        # datetime: 'DistributionHubBundle\Filter\FieldDefinitionAdapter\Datetime'
+        # fieldcollections: 'DistributionHubBundle\Filter\FieldDefinitionAdapter\Fieldcollections'
+        # manyToOneRelation: 'DistributionHubBundle\Filter\FieldDefinitionAdapter\ManyToOneRelation'
+        # language: 'DistributionHubBundle\Filter\FieldDefinitionAdapter\Language'
+        # languagemultiselect: 'DistributionHubBundle\Filter\FieldDefinitionAdapter\Languagemultiselect'
+        # localizedfields: 'DistributionHubBundle\Filter\FieldDefinitionAdapter\Localizedfields'
+        # manyToManyRelation: 'DistributionHubBundle\Filter\FieldDefinitionAdapter\ManyToManyRelation'
+        # advancedManyToManyRelation: 'DistributionHubBundle\Filter\FieldDefinitionAdapter\AdvancedManyToManyRelation'
+        # multiselect: 'DistributionHubBundle\Filter\FieldDefinitionAdapter\Multiselect'
+        # numeric: 'DistributionHubBundle\Filter\FieldDefinitionAdapter\Numeric'
+        # slider: 'DistributionHubBundle\Filter\FieldDefinitionAdapter\Slider'
+        # objectbricks: 'DistributionHubBundle\Filter\FieldDefinitionAdapter\Objectbricks'
+        # manyToManyObjectRelation: 'DistributionHubBundle\Filter\FieldDefinitionAdapter\ManyToManyObjectRelation'
+        # advancedManyToManyObjectRelation: 'DistributionHubBundle\Filter\FieldDefinitionAdapter\AdvancedManyToManyObjectRelation'
+        # quantityValue: 'DistributionHubBundle\Filter\FieldDefinitionAdapter\QuantityValue'
+        # select: 'DistributionHubBundle\Filter\FieldDefinitionAdapter\Select'
+        # time: 'DistributionHubBundle\Filter\FieldDefinitionAdapter\Time'
+        # user: 'DistributionHubBundle\Filter\FieldDefinitionAdapter\User'
+
+        # # legacy mappings
+        # href: 'DistributionHubBundle\Filter\FieldDefinitionAdapter\ManyToOneRelation'
+        # objects: 'DistributionHubBundle\Filter\FieldDefinitionAdapter\ManyToManyObjectRelation'
+        # multihref: 'DistributionHubBundle\Filter\FieldDefinitionAdapter\ManyToManyRelation'
+        # multihrefMetadata: 'DistributionHubBundle\Filter\FieldDefinitionAdapter\AdvancedManyToManyRelation'
+        # objectsMetadata: 'DistributionHubBundle\Filter\FieldDefinitionAdapter\AdvancedManyToManyObjectRelation'
+
+
