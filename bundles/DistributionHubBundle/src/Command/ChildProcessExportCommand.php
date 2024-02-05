@@ -125,7 +125,7 @@ class ChildProcessExportCommand extends Command
         // $listObj->setUnpublished(false);
         // Assuming $filterConfig['conditions'] is an array of conditions
         foreach ($filterConfig['conditions']['filters'] as $condition) {
-        if ($condition['fieldname'] === 'o_published') {
+        if ($condition['fieldname'] === 'published') {
         $operator = $condition['filterEntryData'] ?? null;
         if($operator == 'true'){
             $listObj->setUnpublished(false);

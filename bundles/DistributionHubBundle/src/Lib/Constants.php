@@ -15,8 +15,8 @@ class Constants
     const FILE_TYPE_XLSX = 'Xlsx';
     const FILE_TYPE_XLS = 'Xls';
     const FILE_TYPE_JSON = 'Json';
-    const CONFIG_FILE = PIMCORE_PROJECT_ROOT . '/bundles/DistributionHubBundle/Resources/config/config.yaml';
-    const PACKAGE_CONFIG_FILE = PIMCORE_PROJECT_ROOT . '/bundles/DistributionHubBundle/Resources/config/pimcore/package/plugin_config.yaml';
+    const CONFIG_FILE = PIMCORE_PROJECT_ROOT . '/bundles/DistributionHubBundle/config/config.yaml';
+    const PACKAGE_CONFIG_FILE = PIMCORE_PROJECT_ROOT . '/bundles/DistributionHubBundle/config/pimcore/package/plugin_config.yaml';
     const SCHEDULE_STATUS_CREATED = 'CREATED';
 
     /**
@@ -27,7 +27,7 @@ class Constants
     const SCHEDULE_STATUS_FAILED = 'FAILED';
     const SCHEDULE_STATUS_KILLED = 'KILLED';
     const SCHEDULE_STATUS_EXPIRED = 'EXPIRED';
-    const MAIL_CONFIG_FILE = PIMCORE_PROJECT_ROOT . '/bundles/DistributionHubBundle/Resources/config/mail_config.yaml';
+    const MAIL_CONFIG_FILE = PIMCORE_PROJECT_ROOT . '/bundles/DistributionHubBundle/config/mail_config.yaml';
     const EXPORT_ONLY_ASSETS = "dHub_assets";
     const EXPORT_ONLY_DATA = "dHub_data_file";
     const EXPORT_DATA_ASSETS_BOTH = "dHub_both";
@@ -99,6 +99,6 @@ class Constants
             'position' => 5]];
 
     //Business Unit Specific Class and Roles Config
-    const DHUB_BU_CLASSESS = PIMCORE_PROJECT_ROOT .'/bundles/DistributionHubBundle/Resources/config/business_unit_classes.yaml';
-    const DHUB_BU_ROLES = PIMCORE_PROJECT_ROOT .'/bundles/DistributionHubBundle/Resources/config/business_unit_roles.yaml';
+    const DHUB_BU_CLASSESS = PIMCORE_PROJECT_ROOT .'/bundles/DistributionHubBundle/config/business_unit_classes.yaml';
+    const DHUB_BU_ROLES = PIMCORE_PROJECT_ROOT .'/bundles/DistributionHubBundle/config/business_unit_roles.yaml';
 }

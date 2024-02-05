@@ -48,7 +48,7 @@ class AnyGetter extends AbstractOperator
         $result = new \stdClass();
         $result->label = $this->label;
 
-        $childs = $this->getChilds();
+        $childs = $this->getChildren();
 
         $getter = 'get'.ucfirst($this->attribute);
 
@@ -119,7 +119,7 @@ class AnyGetter extends AbstractOperator
                             }elseif($o instanceof ObjectMetadata){
                                 $o = $o->getObject();
                             }
-                            
+
                             // -------- customiation closed --------------------
                             if ($this->attribute && method_exists($o, $getter)) {
                                 $targetValue = $o->$getter($this->getParam1());

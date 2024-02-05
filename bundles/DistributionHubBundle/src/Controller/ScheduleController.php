@@ -3,6 +3,7 @@
 namespace DistributionHubBundle\Controller;
 
 use Doctrine\DBAL\Exception\NotNullConstraintViolationException;
+use Pimcore\Controller\UserAwareController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 // use Pimcore\Bundle\AdminBundle\Controller\AdminController;
@@ -18,7 +19,7 @@ use DistributionHubBundle\Services\ScheduleService;
  * @package DistributionHubBundle\Controller
  * @Route("/admin/distributionhub/schedules")
  */
-class ScheduleController
+class ScheduleController extends UserAwareController
 {
 
     /**

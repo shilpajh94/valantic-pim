@@ -204,7 +204,7 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
                 if (!empty($results)) {
                     foreach ($results as $val) {
                         $val = $val['src_id'];
-                        $resultsIds[] = " `o_id` = '" . $val . "' ";
+                        $resultsIds[] = " `id` = '" . $val . "' ";
                     }
                     $conditonPrepare = implode(' OR ', $resultsIds);
 
@@ -278,7 +278,7 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
                     if (!empty($results)) {
                         foreach ($results as $val) {
                             $val = $val['src_id'];
-                            $resultsIds[] = " `o_id` = '" . $val . "' ";
+                            $resultsIds[] = " `id` = '" . $val . "' ";
                         }
                         $conditonPrepare = implode(' OR ', $resultsIds);
 

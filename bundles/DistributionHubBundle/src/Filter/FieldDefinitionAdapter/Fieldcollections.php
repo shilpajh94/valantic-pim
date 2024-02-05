@@ -58,7 +58,7 @@ class Fieldcollections extends DefaultAdapter implements FieldDefinitionAdapterI
 
                     foreach ($filteredResults as $val) {
                         $val = array_key_exists("src_id", $val) ? $val['src_id'] : $val = $val['ooo_id'];
-                        $resultsIds[] = " `o_id` = '" . $val . "' ";
+                        $resultsIds[] = " `id` = '" . $val . "' ";
                     }
                     $conditonPrepare = implode(' OR ', $resultsIds);
                     $conditionParams['key'] = $conditonPrepare;
@@ -72,7 +72,7 @@ class Fieldcollections extends DefaultAdapter implements FieldDefinitionAdapterI
 
                 $tableName = "object_collection_" . $fieldCollectionType . "_" . $listing->getClassId();
 
-                $query = "SELECT `o_id` FROM `" . $tableName . "` WHERE     " . $filteredResults;
+                $query = "SELECT `id` FROM `" . $tableName . "` WHERE     " . $filteredResults;
 
                 $results = $db->fetchAllAssociative($query);
 
@@ -80,8 +80,8 @@ class Fieldcollections extends DefaultAdapter implements FieldDefinitionAdapterI
                     $resultsIds = array();
 
                     foreach ($results as $val) {
-                        $val = $val['o_id'];
-                        $resultsIds[] = " `o_id` = '" . $val . "' ";
+                        $val = $val['id'];
+                        $resultsIds[] = " `id` = '" . $val . "' ";
                     }
 
                     $conditonPrepare = implode(' OR ', $resultsIds);

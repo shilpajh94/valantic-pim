@@ -5,13 +5,12 @@ namespace DistributionHubBundle\Services;
 use DistributionHubBundle\Filter\FieldDefinitionAdapter\FieldDefinitionAdapterInterface;
 use DistributionHubBundle\Filter\FieldSelectionInformation;
 use DistributionHubBundle\Filter\FilterEntry;
-// use Pimcore\Bundle\AdminBundle\Security\User\TokenStorageUserResolver;
+use Pimcore\Security\User\TokenStorageUserResolver;
 use Pimcore\Model\DataObject\ClassDefinition;
 use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\Fieldcollection\Definition;
 use Pimcore\Model\User;
 use Pimcore\Translation\Translator;
-// use Psr\Container\ContainerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -61,7 +60,7 @@ class FilterService
      */
     public function __construct(
         LoggerInterface $logger,
-        // TokenStorageUserResolver $userResolver,
+        TokenStorageUserResolver $userResolver,
         ContainerInterface $filterLocator,
         EventDispatcherInterface $eventDispatcher,
         Translator $translator
@@ -209,11 +208,11 @@ class FilterService
 //                    if (!empty($localizedTypes)) {
 //                        foreach ($localizedTypes as $child) {
 //                            if ($child->fieldtype === "fieldcontainer" || $child->fieldtype === "fieldset" || $child->fieldtype === "accordian") {
-//                                if (!empty($child->getChilds())) {
-//                                    foreach ($child->getChilds() as $child1stLevel) {
+//                                if (!empty($child->getChildren())) {
+//                                    foreach ($child->getChildren() as $child1stLevel) {
 //                                        if ($child1stLevel->fieldtype === "fieldcontainer" || $child1stLevel->fieldtype === "fieldset" || $child1stLevel->fieldtype === "accordian") {
-//                                            if (!empty($child1stLevel->getChilds())) {
-//                                                foreach ($child1stLevel->getChilds() as $child2ndLevel) {
+//                                            if (!empty($child1stLevel->getChildren())) {
+//                                                foreach ($child1stLevel->getChildren() as $child2ndLevel) {
 //                                                    if ($child2ndLevel->fieldtype === $attrInfo->dataType) {
 //                                                        $gridConfigPrepare['columns'][$index] = self::prepareGridConfig($child2ndLevel, $attrInfo, $i);
 //                                                    }
@@ -381,8 +380,8 @@ class FilterService
     {
         $adapter = null;
 
-        if ($this->filterLocator->has($fieldDefinition->fieldtype)) {
-            $adapter = $this->filterLocator->get($fieldDefinition->fieldtype);
+        if ($this->filterLocator->has($fieldDefinition->getFieldType())) {
+            $adapter = $this->filterLocator->get($fieldDefinition->getFieldType());
         } else {
             $adapter = $this->filterLocator->get('default');
         }
@@ -448,7 +447,7 @@ class FilterService
                     if (!empty($condition)) {
                         $listingClass->addConditionParam($condition['key'], $condition['value'], $condition['concatenator']);
                     } else {
-                        $listingClass->setCondition("`o_id` IS NULL");
+                        $listingClass->setCondition("`id` IS NULL");
                     }
                 }
 

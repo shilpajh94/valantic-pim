@@ -35,7 +35,7 @@ class Checkbox extends DefaultAdapter implements FieldDefinitionAdapterInterface
 
         $fieldName = $fieldDefinition->getName();
         $conditionParams = array();
-        if ($fieldName === "o_published") {
+        if ($fieldName === "published") {
             if ($fieldFilter->getFilterEntryData() === self::DHUB_OPERATOR_TRUE) {
                 $conditionParams['key'] = " `" . $fieldName . "`  = ? ";
                 $conditionParams['value'] = '1';
