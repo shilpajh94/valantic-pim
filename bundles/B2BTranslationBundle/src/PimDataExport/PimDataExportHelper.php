@@ -80,7 +80,7 @@ class PimDataExportHelper
     {
         $db = Db::get();
         $sqlMapping="select PIMB2BMappingData from object_B2BTranslationMapping Where TranslationDataType ='{$type}'
-         AND BusinessUnit='{$bu}' ORDER BY o_modificationDate DESC";
+         AND BusinessUnit='{$bu}' ORDER BY modificationDate DESC";
         return $db->fetchOne($sqlMapping);
     }
 
@@ -92,7 +92,7 @@ class PimDataExportHelper
         $ids = [];
         if($table)
         {
-            $sql = "SELECT o_id FROM $table";
+            $sql = "SELECT id FROM $table";
             $ids = $db->fetchFirstColumn($sql);
         }
 
@@ -106,7 +106,7 @@ class PimDataExportHelper
         $ids = [];
         if($table)
         {
-            $sql = "SELECT o_id FROM $table";
+            $sql = "SELECT id FROM $table";
             $ids = $db->fetchFirstColumn($sql);
         }
         
@@ -147,7 +147,7 @@ class PimDataExportHelper
         $config = $this->bUCategoryClassTableID[$bu];
         $categoryClassId = $config['categoryClassId'];
 
-        $columnsString = 'o_id';
+        $columnsString = 'id';
 
         if($fields)
         {
@@ -155,7 +155,7 @@ class PimDataExportHelper
         }
         
         $ids = implode(',', $b2bProducts);
-        $sql = "select {$columnsString} from object_{$categoryClassId} where o_id IN ($ids)";
+        $sql = "select {$columnsString} from object_{$categoryClassId} where id IN ($ids)";
         return $db->fetchAllAssociative($sql);
     }
 

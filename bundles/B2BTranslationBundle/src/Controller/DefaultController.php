@@ -113,8 +113,8 @@ class DefaultController extends FrontendController
             $msg = $e->getMessage();
             return $this->json(['result' => false, 'data' => [], "msg" => $msg]);
         }
-        return $this->json(['result' => true, 'general' => ['o_id' => $object->getId(),
-        'o_key' => $object->getName()], 'data' => $data, 'vendors' => $vendors, "msg" => '']);
+        return $this->json(['result' => true, 'general' => ['id' => $object->getId(),
+        'key' => $object->getName()], 'data' => $data, 'vendors' => $vendors, "msg" => '']);
     }
 
     /**
