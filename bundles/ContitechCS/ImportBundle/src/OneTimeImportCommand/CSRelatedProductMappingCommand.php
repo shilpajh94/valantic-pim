@@ -1,11 +1,5 @@
 <?php
 
-/**
- * File Path: Your File path on system
- * Command: cs:one-time-import:available-belt-width-import <filePath>
- * Des: Available Belt data import script.
- */
-
 namespace ContitechCS\ImportBundle\OneTimeImportCommand;
 
 use Pimcore\Console\AbstractCommand;
@@ -15,15 +9,15 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Pimcore\Model\DataObject;
 use ContitechCS\ImportBundle\Services\ImportConstants;
 
-class CSAvailableBeltWidthImportCommand extends AbstractCommand
+class CSRelatedProductMappingCommand extends AbstractCommand
 {
     private $t;
-    private $duplicateTitle = [];
+    private $productFolderPath = ImportConstants::CONTITECH_CS_PRODUCT_FOLDER;
 
     protected function configure()
     {
-        $this->setName('cs:one-time-import:available-belt-width-import')
-            ->setDescription('Available Belt width data import script')
+        $this->setName('cs:one-time-import:related-product-mapping')
+            ->setDescription('Related Products data import script')
             ->addArgument('filePath', InputArgument::REQUIRED, 'Enter File Path: ');
     }
 
@@ -55,54 +49,79 @@ class CSAvailableBeltWidthImportCommand extends AbstractCommand
 
             if (isset($data) && is_array($data)) {
 
-                $parentFolderID = DataObject\Service::createFolderByPath(ImportConstants::CONTITECH_CS_MASTERDATA_AVAILABLEBELTWIDTH_FOLDER)->getId();
-
                 foreach ($data  as $result) {
 
                     if (isset($result) && is_array($result)) {
-                        $this->insertAvailableBeltWidth($result, $parentFolderID);
+                        $this->mapRelatedProduct($result);
                     }
                 }
-
-                echo "\n Total " . count($this->duplicateTitle) . " Duplicate title found. \n ";
-                p_r($this->duplicateTitle);
             }
         } catch (\Throwable $th) {
             p_r($th->getMessage());
         }
     }
 
-    public function insertAvailableBeltWidth($result, $parentFolderID)
+    public function mapRelatedProduct($result)
     {
-        $beltWidthMM = trim(ucwords($result['BeltWidthMM']));
-        $beltWidthInch = trim(ucwords($result['BeltWidthInch']));
+        $productHierarchy = trim($result['Product Hierarchy']);
+        $productName = trim($result['Product Name']);
+        $product = trim($result['Product']);
+        $relatedProducts = trim(ucwords($result['Related Products']));
 
-        $validKey = DataObject\Service::getValidKey($beltWidthInch, "object");
-        if (empty($validKey)) {
-            $validKey = DataObject\Service::getValidKey($beltWidthMM, "object");
-        }
+        if ($productHierarchy && $productName && $relatedProducts) {
+            $relatedProducts = explode('|', $relatedProducts);
+            $relatedProducts = array_map('trim', $relatedProducts);
+            $objectsToMap = array();
+            foreach ($relatedProducts as $productKey) {
+                $object = $this->getProductObject($productKey);
+                if ($object) {
+                    $objectsToMap[] = $object;
+                }
 
-        if ($beltWidthInch || $beltWidthMM) {
-
-            $beltWidthObj = DataObject\CSAvailableBeltWidths::getByPath("/" . ImportConstants::CONTITECH_CS_MASTERDATA_AVAILABLEBELTWIDTH_FOLDER . "/" . $validKey);
-
-            if (!$beltWidthObj) {
-                $obj = new DataObject\CSAvailableBeltWidths();
-                $obj->setKey($validKey);
-                $obj->setAvailableBeltWidthInch($beltWidthInch);
-                $obj->setAvailableBeltWidthMM($beltWidthMM);
-                $obj->setAvailableBeltWidthInchUnit("inch");
-                $obj->setAvailableBeltWidthMMUnit("mm");
-                $obj->setParentID($parentFolderID);
-                $obj->setPublished(true);
-                $obj->setOmitMandatoryCheck(true);
-                $obj->save();
-            } else {
-                $this->duplicateTitle[] = $beltWidthMM;
             }
-        } else {
-            echo "Title not found";
+            if ($objectsToMap) {
+                $productHierarchy = explode('/', $productHierarchy);
+                $productHierarchy = array_map('trim', $productHierarchy);
+                $productHierarchy = implode('/', $productHierarchy);
+
+                $objectInMapPath = "/" . $this->productFolderPath;
+                if ($productHierarchy && $productName && $product) {
+                    $productKey = $productName . "/" . $product;
+                    $validProductNameKey = DataObject\Service::getValidKey($productKey, "object");
+                    $objectInMapPath = $objectInMapPath . "/" . $productHierarchy . "/" . $validProductNameKey;
+                } else {
+                    $validProductNameKey = DataObject\Service::getValidKey($productName, "object");
+                    $objectInMapPath = $objectInMapPath . "/" . $productHierarchy . "/" . $validProductNameKey;
+                }
+
+                try {
+                    $productObj = DataObject\CSProducts::getByPath($objectInMapPath);
+                    $productObj->setCSRelatedProducts($objectsToMap);
+                    $productObj->setOmitMandatoryCheck(true);
+                    $productObj->save();
+                    echo "\n ";
+                    echo $objectInMapPath;
+                    echo "\n Product Updated. \n";
+                } catch (\Throwable $th) {
+                    p_r($th->getMessage());
+                }
+            }
         }
+    }
+
+    public function getProductObject($productKey)
+    {
+        $objectlist = new DataObject\CSProducts\Listing;
+        $validKey = DataObject\Service::getValidKey($productKey, "object");
+
+        $objectlist->setCondition("`key` = ?", $validKey);
+        $objectlist->setLimit(1);
+        $objectlist->load();
+
+        foreach ($objectlist as $object) {
+            return $object;
+        }
+        return false;
     }
 
     public function getCSVData($fileName)

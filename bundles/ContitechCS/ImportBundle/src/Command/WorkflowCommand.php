@@ -42,7 +42,7 @@ class WorkflowCommand extends AbstractCommand {
         $options = $input->getOptions();
         $this->workflow = $this->container->get('state_machine.product_enrichment');
         $listObject = new \Pimcore\Model\DataObject\CSProducts\Listing();
-        $listObject->setCondition("o_published = 1");
+        $listObject->setCondition("published = 1");
         $listObject->load();
         echo "1";
         foreach($listObject as $object) {

@@ -24,7 +24,7 @@ class CSGetAllCoverCompoundDataFromProducts extends AbstractCommand
         fputcsv($fileResource, $columns, ',');
 
         $productsList = new DataObject\CSProducts\Listing();
-        $productsList->setCondition("o_published = ?", 1);
+        $productsList->setCondition("published = ?", 1);
         $productsList->load();
         foreach($productsList as $eachProduct){
             if($eachProduct->hasChildren()){

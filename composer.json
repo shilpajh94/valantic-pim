@@ -59,7 +59,7 @@
       "IFSEU\\ProductBundle\\": "bundles/IFSEU/ProductBundle/src",
       "IFSEU\\ImportBundle\\": "bundles/IFSEU/ImportBundle/src",
       "IFSEU\\RestApiBundle\\": "bundles/IFSEU/RestApiBundle/src",
-      "ContitechCS\\ImportBundle\\": "bundles/ContitechCS/ImportBundle",
+      "ContitechCS\\ImportBundle\\": "bundles/ContitechCS/ImportBundle/src",
       "ContitechCS\\ProductBundle\\": "bundles/ContitechCS/ProductBundle/src",
       "ContitechCS\\CatalogBundle\\": "bundles/ContitechCS/CatalogBundle/src",
       "ContitechCS\\CatalogUIApiBundle\\": "bundles/ContitechCS/CatalogUIApiBundle/src",

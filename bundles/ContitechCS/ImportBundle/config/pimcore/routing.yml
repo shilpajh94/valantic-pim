@@ -1,5 +1,5 @@
 contitech_cs_import:
-    resource: "@ContitechCSImportBundle/Controller/"
+    resource: "@ContitechCSImportBundle/src/Controller/"
     type:     annotation
     prefix:   /
 
