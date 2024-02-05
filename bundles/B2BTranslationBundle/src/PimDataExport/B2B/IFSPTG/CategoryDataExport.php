@@ -132,9 +132,9 @@ class CategoryDataExport implements IDataExport
                                             $rawData = [];
 
                                             foreach ($nonLocalizedResultSet as $rvalue) {
-                                                if($id == $rvalue['o_id'])
+                                                if($id == $rvalue['id'])
                                                 {
-                                                    unset($rvalue['o_id']);
+                                                    unset($rvalue['id']);
                                                     $rvalue['language'] = $language;
                                                     $rawData = $rvalue;
                                                 }
@@ -167,7 +167,7 @@ class CategoryDataExport implements IDataExport
                                 }
                                 else{
                                     foreach ($nonLocalizedResultSet as $rvalue) {
-                                        unset($rvalue['o_id']);
+                                        unset($rvalue['id']);
                                         $finalPritingList[] = $rvalue;
                                     }
                                 }

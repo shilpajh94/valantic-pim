@@ -69,7 +69,7 @@ class ImportExternalIDForCategoryCommand extends AbstractCommand
 
     public function getAllCategoryIds($classID)
     {
-        $query = "SELECT o_id FROM object_{$classID}";
+        $query = "SELECT id FROM object_{$classID}";
         return $this->db->fetchFirstColumn($query);
     }
 

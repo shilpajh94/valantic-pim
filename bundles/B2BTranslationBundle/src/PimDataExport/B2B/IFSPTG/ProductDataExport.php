@@ -75,7 +75,7 @@ class ProductDataExport implements IDataExport
                         $this->headerMapping = $headerMapping;
 
                         # Fetch all products satisfying condition "salesMaster.epixFlag = '001' AND
-                        # salesMaster.o_published = 1 AND product.o_published = 1"
+                        # salesMaster.published = 1 AND product.published = 1"
                         $b2bProducts = $this->helper->getAllB2BProduct($this->bu);
 
                         if($b2bProducts)
@@ -297,7 +297,7 @@ class ProductDataExport implements IDataExport
                                             foreach ($result0 as $key1 => $value1) {
                                                 $dataFound = [];
                                                 foreach ($resultNonLocalized as $value2) {
-                                                    if($value1['oo_id'] == $value2['o_id'])
+                                                    if($value1['oo_id'] == $value2['id'])
                                                     {
                                                         $dataFound = array_merge($dataFound,$value2);
                                                     }
@@ -305,7 +305,7 @@ class ProductDataExport implements IDataExport
 
                                                 if($dataFound)
                                                 {
-                                                    unset($dataFound['o_id']);
+                                                    unset($dataFound['id']);
                                                     $result0[$key1] = array_merge($value1,$dataFound);
                                                 }
                                                 else{
@@ -342,7 +342,7 @@ class ProductDataExport implements IDataExport
                                                 $dataFound = [];
                                                 foreach ($nomenClature as $value2)
                                                 {
-                                                    if($value1['oo_id'] == $value2['o_id'])
+                                                    if($value1['oo_id'] == $value2['id'])
                                                     {
                                                         $dataFound = $value2;
                                                         break;
@@ -421,7 +421,7 @@ class ProductDataExport implements IDataExport
                                                     {
                                                         $master = $multiSelectMastersGroupList[$masterType][$field];
                                                         foreach ($master as $mkey => $value) {
-                                                            $localizeData3[$fields['o_id']][$fkey][$mkey] = $value;
+                                                            $localizeData3[$fields['id']][$fkey][$mkey] = $value;
                                                         }
                                                     }
                                                 }
@@ -454,7 +454,7 @@ class ProductDataExport implements IDataExport
                                                     {
                                                         $master = $fitingFamilyMastersGroupList[$field];
                                                         foreach ($master as $mkey => $value) {
-                                                            $localizeData4[$fields['o_id']][$fkey][$mkey] = $value;
+                                                            $localizeData4[$fields['id']][$fkey][$mkey] = $value;
                                                         }
                                                     }
 
@@ -462,7 +462,7 @@ class ProductDataExport implements IDataExport
                                                     {
                                                         $master = $fittingEndFamilyTypeGroupList[$field];
                                                         foreach ($master as $mkey => $value) {
-                                                            $localizeData4[$fields['o_id']][$fkey][$mkey] = $value;
+                                                            $localizeData4[$fields['id']][$fkey][$mkey] = $value;
                                                         }
                                                     }
                                                 }
@@ -876,11 +876,11 @@ class ProductDataExport implements IDataExport
             $idsArray = explode(',',$ids);
             foreach($idsArray as $keys => $eachid){
                 foreach($brickAttributeNameArray as $eachBrickAttributeName1){
-                    $brickAttributesWithNullValueArray[$keys]['o_id'] = $eachid;
+                    $brickAttributesWithNullValueArray[$keys]['id'] = $eachid;
                     $brickAttributesWithNullValueArray[$keys][$eachBrickAttributeName1] = null;
                 }
             }
-            $sql = "select o_id, {$columnsString} from object_brick_query_{$brickName}_{$productClassId} where o_id IN ($ids)";
+            $sql = "select id, {$columnsString} from object_brick_query_{$brickName}_{$productClassId} where id IN ($ids)";
             $resultSet = $this->db->fetchAllAssociative($sql);
 
             if(!$resultSet){
@@ -891,12 +891,12 @@ class ProductDataExport implements IDataExport
                 $resultSetDataArray = [];
 
                 foreach($resultSet as $eachResultSet){
-                    $resultSet_oid_Array[] = $eachResultSet['o_id'];
+                    $resultSet_oid_Array[] = $eachResultSet['id'];
                     $resultSetDataArray[] = $eachResultSet;
                 }
 
                 foreach($brickAttributesWithNullValueArray as $eachProductArraySet){
-                    if(!in_array($eachProductArraySet['o_id'],$resultSet_oid_Array)){
+                    if(!in_array($eachProductArraySet['id'],$resultSet_oid_Array)){
                         $resultSetDataArray[] = $eachProductArraySet;
                     }
                 }
@@ -910,7 +910,7 @@ class ProductDataExport implements IDataExport
     public function getAllB2BProduct()
     {
 
-        $sql = "SELECT o_id FROM salesforce_integration_b2b_product_master";
+        $sql = "SELECT id FROM salesforce_integration_b2b_product_master";
         return $this->db->fetchFirstColumn($sql);
     }
 
