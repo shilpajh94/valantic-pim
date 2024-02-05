@@ -12,7 +12,7 @@ services:
     # controllers are imported separately to make sure they're public
     # and have a tag that allows actions to type-hint services
     ContitechCS\ImportBundle\Controller\:
-        resource: "../../Controller"
+        resource: "../src/Controller"
         public: true
         tags: ["controller.service_arguments"]
 
@@ -29,7 +29,7 @@ services:
 
     # auto-register all commands as services
     ContitechCS\ImportBundle\Command\:
-        resource: "../../Command/*"
+        resource: "../src/Command/*"
         tags: ["console.command"]
 
     # ContitechCS\ImportBundle\CSImportCommand:

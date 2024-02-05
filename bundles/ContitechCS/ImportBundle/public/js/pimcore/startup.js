@@ -1,15 +1,15 @@
 pimcore.registerNS("pimcore.plugin.ContitechCSImportBundle");
 
-pimcore.plugin.ContitechCSImportBundle = Class.create(pimcore.plugin.admin, {
+pimcore.plugin.ContitechCSImportBundle = Class.create({
     getClassName: function () {
         return "pimcore.plugin.ContitechCSImportBundle";
     },
 
     initialize: function () {
-        pimcore.plugin.broker.registerPlugin(this);
+        document.addEventListener(pimcore.events.pimcoreReady, this.pimcoreReady.bind(this));
     },
 
-    pimcoreReady: function (params, broker) {
+    pimcoreReady: function (e) {
         // alert("ContitechCSImportBundle ready!");
     }
 });

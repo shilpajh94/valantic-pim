@@ -71,15 +71,14 @@ class CSRelatedProductMappingCommand extends AbstractCommand
         if ($productHierarchy && $productName && $relatedProducts) {
             $relatedProducts = explode('|', $relatedProducts);
             $relatedProducts = array_map('trim', $relatedProducts);
-
             $objectsToMap = array();
             foreach ($relatedProducts as $productKey) {
                 $object = $this->getProductObject($productKey);
                 if ($object) {
                     $objectsToMap[] = $object;
                 }
-            }
 
+            }
             if ($objectsToMap) {
                 $productHierarchy = explode('/', $productHierarchy);
                 $productHierarchy = array_map('trim', $productHierarchy);
