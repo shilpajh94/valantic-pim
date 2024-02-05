@@ -68,14 +68,18 @@ class CSAvailableBeltWidthImportCommand extends AbstractCommand
                 p_r($this->duplicateTitle);
             }
         } catch (\Throwable $th) {
+            p_r($th);
             p_r($th->getMessage());
         }
     }
 
     public function insertAvailableBeltWidth($result, $parentFolderID)
     {
-        $beltWidthMM = trim(ucwords($result['BeltWidthMM']));
-        $beltWidthInch = trim(ucwords($result['BeltWidthInch']));
+        // $beltWidthMM = trim(ucwords($result['BeltWidthMM']));
+        // $beltWidthInch = trim(ucwords($result['BeltWidthInch']));
+        // dd($result['BeltWidthMM'], floatval($result['BeltWidthMM']));
+        $beltWidthMM = floatval($result['BeltWidthMM']);
+        $beltWidthInch = floatval($result['BeltWidthInch']);
 
         $validKey = DataObject\Service::getValidKey($beltWidthInch, "object");
         if (empty($validKey)) {
