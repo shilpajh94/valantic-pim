@@ -257,8 +257,8 @@ class CSProductDataImportCommand extends AbstractCommand
 
                                 //     }
                                 //     // /Contitech_ConveyorSolution/Products/Material Handling/Textile Conveyor Belts/ContiFlex/EMEA/400-3  --> for example
-                                //     $query = "SELECT o_id from objects where concat(o_path,o_key)
-                                //     LIKE '%$pathWithoutRegion/%/$productName' and o_type='object'";
+                                //     $query = "SELECT id from objects where concat(path,key)
+                                //     LIKE '%$pathWithoutRegion/%/$productName' and type='object'";
                                 //     $result = $this->db->fetchFirstColumn($query);
                                 //     $count = count($result);
                                 //     if ($count > 0) {
@@ -267,8 +267,8 @@ class CSProductDataImportCommand extends AbstractCommand
                                 //         $product->setParentId($parentId);
                                 //     } else {
                                 //         // /Contitech_ConveyorSolution/Products/Material Handling/Textile Conveyor Belts/ContiFlex/1000-5  -->for example
-                                //         $query = "SELECT o_id from objects where concat(o_path,o_key)
-                                //         LIKE '%$pathWithoutRegion%$productName' and o_type='object'";
+                                //         $query = "SELECT id from objects where concat(path,key)
+                                //         LIKE '%$pathWithoutRegion%$productName' and type='object'";
                                 //         $result = $this->db->fetchFirstColumn($query);
                                 //         $count = count($result);
                                 //         if ($count > 0) {
@@ -423,6 +423,9 @@ class CSProductDataImportCommand extends AbstractCommand
                                                     }
                                                 }
                                                 $method = 'set' . $fieldName;
+                                                if($fieldValue == ""){
+                                                    $fieldValue = null;
+                                                }
                                                 $product->$method($fieldValue, $language);
                                             }
                                         } else {
@@ -578,7 +581,7 @@ class CSProductDataImportCommand extends AbstractCommand
                                 }
                                 $result = $product->save();
                                 $parentId = $result->getId();
-                                $prd = DataObject\CSProducts::getById($parentId, true);
+                                $prd = DataObject\CSProducts::getById($parentId);
                                 $prd->save();
                                 echo "\n" . '---------------------------';
                                 echo "\n" . "Product added successfully";

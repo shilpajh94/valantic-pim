@@ -22,7 +22,7 @@ class CSWorkflowPublishCommand extends AbstractCommand
 
         $sqlQuery =    "SELECT `oo_id`
                         FROM `object_CSProducts`
-                        WHERE `o_path` LIKE '%/Contitech_ConveyorSolution/Products/Material Handling/Cover Options/%'";
+                        WHERE `path` LIKE '%/Contitech_ConveyorSolution/Products/Material Handling/Cover Options/%'";
 
         $productsList = $this->db->fetchAllAssociative($sqlQuery);
 

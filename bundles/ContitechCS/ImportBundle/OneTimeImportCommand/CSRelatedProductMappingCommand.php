@@ -115,7 +115,7 @@ class CSRelatedProductMappingCommand extends AbstractCommand
         $objectlist = new DataObject\CSProducts\Listing;
         $validKey = DataObject\Service::getValidKey($productKey, "object");
 
-        $objectlist->setCondition("o_key = ?", $validKey);
+        $objectlist->setCondition("`key` = ?", $validKey);
         $objectlist->setLimit(1);
         $objectlist->load();
 

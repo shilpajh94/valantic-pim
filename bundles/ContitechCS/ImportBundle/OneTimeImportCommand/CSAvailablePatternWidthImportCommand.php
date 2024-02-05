@@ -74,8 +74,6 @@ class CSAvailablePatternWidthImportCommand extends AbstractCommand
 
     public function insertAvailablePatternWidth($result, $parentFolderID)
     {
-        // $patternWidthInch = trim(ucwords($result['PatternWidthInch']));
-        // $patternWidthMM = trim(ucwords($result['PatternWidthMM']));
         $patternWidthInch = floatval($result['PatternWidthInch']);
         $patternWidthMM = floatval($result['PatternWidthMM']);
         $patternWidthText = trim(ucwords($result['PatternWidthText']));

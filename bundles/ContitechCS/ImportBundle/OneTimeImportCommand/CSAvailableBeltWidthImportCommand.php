@@ -75,12 +75,8 @@ class CSAvailableBeltWidthImportCommand extends AbstractCommand
 
     public function insertAvailableBeltWidth($result, $parentFolderID)
     {
-        // $beltWidthMM = trim(ucwords($result['BeltWidthMM']));
-        // $beltWidthInch = trim(ucwords($result['BeltWidthInch']));
-        // dd($result['BeltWidthMM'], floatval($result['BeltWidthMM']));
         $beltWidthMM = floatval($result['BeltWidthMM']);
         $beltWidthInch = floatval($result['BeltWidthInch']);
-
         $validKey = DataObject\Service::getValidKey($beltWidthInch, "object");
         if (empty($validKey)) {
             $validKey = DataObject\Service::getValidKey($beltWidthMM, "object");
