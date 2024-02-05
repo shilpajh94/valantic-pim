@@ -1,5 +1,0 @@
-contitech_cs_product:
-    resource: "@ContitechCSProductBundle/Controller/"
-    type:     annotation
-    prefix:   /
-

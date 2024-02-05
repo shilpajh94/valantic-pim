@@ -1,6 +1,19 @@
-document.addEventListener(pimcore.events.pimcoreReady, (e) => {
-    //print out the parameters of the event
-    console.log('pimcore.plugin.PTGEUImportBundle pimcoreReady')
-    e.preventDefault();
-    e.stopPropagation();
+pimcore.registerNS("pimcore.plugin.PTGEUImportBundle");
+
+pimcore.plugin.PTGEUImportBundle = Class.create({
+    getClassName: function () {
+        return "pimcore.plugin.PTGEUImportBundle";
+    },
+
+    initialize: function () {
+        document.addEventListener(pimcore.events.pimcoreReady, this.pimcoreReady.bind(this));
+    },
+
+    pimcoreReady: function (params, broker) {
+        // alert("PTGEUImportBundle ready!");
+    }
+    
 });
+
+var PTGEUImportBundlePlugin = new pimcore.plugin.PTGEUImportBundle();
+

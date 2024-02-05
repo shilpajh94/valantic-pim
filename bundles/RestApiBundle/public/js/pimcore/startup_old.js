@@ -43,12 +43,12 @@ pimcore.plugin.RestApiBundle = Class.create(pimcore.plugin.admin, {
                     columns = response.columnData;
                     data = response.data;
 
-                    var table = new Conti.pimcore.object.tags.table([], object.edit.dataFields.originalValues.fieldConfig);
+                    var table = new RestAPI.pimcore.object.tags.table([], object.edit.dataFields.originalValues.fieldConfig);
                     var comp = Ext.getCmp(object.edit.dataFields.originalValues.component.id);
 
                     table.initStore(data, comp, object.edit.dataFields.originalValues, columns);
 
-                    // var table = new Conti.pimcore.object.tags.table([], object.edit.dataFields.valueAlias.fieldConfig);
+                    // var table = new RestAPI.pimcore.object.tags.table([], object.edit.dataFields.valueAlias.fieldConfig);
                     // var comp = Ext.getCmp(object.edit.dataFields.valueAlias.component.id);
 
                     // table.initStore(response.newdata, comp, object.edit.dataFields.valueAlias, response.newcolumnData);
@@ -85,12 +85,12 @@ pimcore.plugin.RestApiBundle = Class.create(pimcore.plugin.admin, {
 
                         console.log(columns);
 
-                        var table = new Conti.pimcore.object.tags.table([], object.edit.dataFields.originalValues.fieldConfig);
+                        var table = new RestAPI.pimcore.object.tags.table([], object.edit.dataFields.originalValues.fieldConfig);
                         var comp = Ext.getCmp(object.edit.dataFields.originalValues.component.id);
 
                         table.initStore(data, comp, object.edit.dataFields.originalValues, columns);
 
-                        //     var table = new Conti.pimcore.object.tags.table([], object.edit.dataFields.valueAlias.fieldConfig);
+                        //     var table = new RestAPI.pimcore.object.tags.table([], object.edit.dataFields.valueAlias.fieldConfig);
                         //     var comp = Ext.getCmp(object.edit.dataFields.valueAlias.component.id);
 
                         //     table.initStore(response.newdata, comp, object.edit.dataFields.valueAlias, response.newcolumnData);
@@ -139,7 +139,7 @@ pimcore.plugin.RestApiBundle = Class.create(pimcore.plugin.admin, {
 var RestApiBundlePlugin = new pimcore.plugin.RestApiBundle();
 
 
-Ext.define('Conti.pimcore.object.tags.table', {
+Ext.define('RestAPI.pimcore.object.tags.table', {
     extend: 'pimcore.object.tags.table',
     initStore: function (data, comp, field, columnArr) {
         if (data !== null) {

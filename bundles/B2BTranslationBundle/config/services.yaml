@@ -1,0 +1,49 @@
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        # automatically injects dependencies in your services
+        autowire: true
+        # automatically registers your services as commands, event subscribers, etc.
+        autoconfigure: true
+        # this means you cannot fetch services directly from the container via $container->get()
+        # if you need to do this, you can override this setting on individual services
+        public: false
+
+    # controllers are imported separately to make sure they're public
+    # and have a tag that allows actions to type-hint services
+    B2BTranslationBundle\Controller\:
+        resource: '../src/Controller'
+        public: true
+        tags: ['controller.service_arguments']
+    
+# add more services, or override services that need manual wiring
+#    B2BTranslationBundle\ExampleClass:
+#        arguments:
+#            - "@service_id"
+#            - "plain_value"
+#            - "%parameter%"
+    #services
+    b2b_translation.common_helper:
+        class: B2BTranslationBundle\Helper\Common
+        public: true
+    
+    b2b_translation.sap_file_feeder_service:
+        class: B2BTranslationBundle\Services\FileFeederService
+        public: true
+
+    b2b_translation.config_provider_service:
+        class: B2BTranslationBundle\Services\ConfigProviderService
+        public: true
+
+    #command
+    B2BTranslationBundle\Command\PimDataImportCommand:
+        tags:
+            - { name: 'console.command', command: 'contitech:b2b:pim-data-import-command' }
+
+    B2BTranslationBundle\Command\PimDataExportCommand:
+        tags:
+            - { name: 'console.command', command: 'contitech:b2b:pim-data-export-command' }
+
+    B2BTranslationBundle\OneTimeCommand\ImportExternalIDForCategoryCommand:
+        tags:
+            - { name: 'console.command', command: 'contitech:b2b:onetime:import-external_id-for-category-command' }

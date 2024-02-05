@@ -1,15 +1,15 @@
 pimcore.registerNS("pimcore.plugin.ADAuthBundle");
 
-pimcore.plugin.ADAuthBundle = Class.create(pimcore.plugin.admin, {
+pimcore.plugin.ADAuthBundle = Class.create({
     getClassName: function () {
         return "pimcore.plugin.ADAuthBundle";
     },
 
     initialize: function () {
-        pimcore.plugin.broker.registerPlugin(this);
+        document.addEventListener(pimcore.events.pimcoreReady, this.pimcoreReady.bind(this));
     },
 
-    pimcoreReady: function (params, broker) {
+    pimcoreReady: function (e) {
         // alert("ADAuthBundle ready!");
     }
 });

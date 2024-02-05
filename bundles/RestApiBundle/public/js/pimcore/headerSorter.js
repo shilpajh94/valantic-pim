@@ -25,7 +25,7 @@ pimcore.plugin.headerSorter = Class.create({
     attachHeader: function (object, type, e= null, template = null, count) {
        
         var tabIndexContainingConfiguration = 0;
-        var objectClassName = object.data.general.o_className;
+        var objectClassName = object.data.general.className;
 
         var callApiNum = 0;
         if (objectClassName == 'VirtualCatalogApiSorter') {
@@ -56,8 +56,8 @@ pimcore.plugin.headerSorter = Class.create({
                 async: false,
                 params: {
                   
-                    o_id: object.data.general.o_id,
-                    o_parentId: object.data.general.o_parentId,
+                    id: object.data.general.id,
+                    parentId: object.data.general.parentId,
                     table: e.value,
                     template : template
                 },

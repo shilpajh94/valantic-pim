@@ -11,8 +11,8 @@
  * @license Pimcore global services GPLv3 and PEL
  */
 
-pimcore.registerNS("pimcore.plugin.lpe.resetTableOfContent");
-pimcore.plugin.lpe.resetTableOfContent = Class.create({
+pimcore.registerNS("pimcore.plugin.cs.resetTableOfContent");
+pimcore.plugin.cs.resetTableOfContent = Class.create({
 
     /**
      * constructor

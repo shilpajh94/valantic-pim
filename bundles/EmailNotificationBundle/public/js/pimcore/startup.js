@@ -6,11 +6,11 @@ pimcore.plugin.EmailNotificationBundle = Class.create({
     },
 
     initialize: function () {
-        document.addEventListener(pimcore.events.postOpenObject, this.postOpenObject.bind(this));
+        document.addEventListener(pimcore.events.pimcoreReady, this.pimcoreReady.bind(this));
     },
 
     pimcoreReady: function (e) {
-        alert("EmailNotificationBundle ready!");
+        // alert("EmailNotificationBundle ready!");
     }
 });
 

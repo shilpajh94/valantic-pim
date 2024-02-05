@@ -10,7 +10,12 @@ class CatalogUIApiBundle extends AbstractPimcoreBundle implements PimcoreBundleA
 {
     use BundleAdminClassicTrait;
 
-    public function getJsPaths() : array
+    public function getPath(): string
+    {
+        return \dirname(__DIR__);
+    }
+
+    public function getJsPaths(): array
     {
         return [
             '/bundles/cataloguiapi/js/pimcore/startup.js',
@@ -18,3 +23,4 @@ class CatalogUIApiBundle extends AbstractPimcoreBundle implements PimcoreBundleA
         ];
     }
 }
+

@@ -1,0 +1,5 @@
+b2b_translation:
+    resource: "@B2BTranslationBundle/src/Controller/"
+    type:     annotation
+    prefix:   /
+

@@ -58,9 +58,9 @@ pimcore.plugin.ContitechCSCatalogBundle = Class.create({
     postOpenDocument: function(e){
 
         let template = e.detail.document.data.template;
-        if(template ==  'contitechcscatalog/default/template_dynamic_table_of_contents.html.php')
+        if(template ==  'contitechcscatalog/default/template_dynamic_table_of_contents.html.twig')
         {
-            let resetTableOfContent = new pimcore.plugin.lpe.resetTableOfContent(doc);
+            let resetTableOfContent = new pimcore.plugin.cs.resetTableOfContent(e.detail.document);
             resetTableOfContent.addResetContentButton();
         }
     },

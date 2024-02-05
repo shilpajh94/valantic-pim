@@ -192,8 +192,6 @@ class DefaultController extends FrontendController
     private function savePdfIntoDb($objPdf, $containerId, $language, $region, $productGroupId)
     {
         try {
-            $objContainer = \Pimcore\Model\Document::getById($containerId);
-
             $fileLink = '';
 
             if ($objPdf) {

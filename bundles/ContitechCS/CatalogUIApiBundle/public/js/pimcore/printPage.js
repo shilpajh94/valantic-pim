@@ -11,8 +11,8 @@
  * @license Pimcore global services GPLv3 and PEL
  */
 
-pimcore.registerNS("pimcore.plugin.lpe.printPage");
-pimcore.plugin.lpe.printPage = Class.create({
+pimcore.registerNS("pimcore.plugin.csUiApi.printPage");
+pimcore.plugin.csUiApi.printPage = Class.create({
 
     /**
      * constructor
@@ -37,38 +37,6 @@ pimcore.plugin.lpe.printPage = Class.create({
     },
 
     publishPdf: function(){
-
-        /* var myMask = new Ext.LoadMask(Ext.getBody(), {msg:"Please wait..."});
-        myMask.show();
-        var window = Ext.create('Ext.window.Window', {
-            title: 'Hello',
-            height: 200,
-            width: 400
-        });
-        setTimeout(function() {
-            window.show();
-            myMask.hide();
-        }, 3000);
-
-        return false; */ 
-
-
-/*         var myMask = new Ext.LoadMask(Ext.getBody(), {msg:"Please wait..."});
- */
-
-            /* var myMask = new Ext.LoadMask(Ext.getBody(), {msg:"Please wait..."});
-            //myMask.show();
-            var window = Ext.create('Ext.window.Window', {
-                title: 'Hello',
-                height: 200,
-                width: 400
-            });
-            setTimeout(function() {
-                window.show();
-                myMask.hide();
-            }, 3000);
-
-            return false; */
 
         Ext.Ajax.request({
             url: "/move-container-pdf-to-assets",

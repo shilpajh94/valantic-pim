@@ -1,0 +1,5 @@
+class_relation:
+    resource: "@ClassRelationBundle/src/Controller/"
+    type:     annotation
+    prefix:   /
+
