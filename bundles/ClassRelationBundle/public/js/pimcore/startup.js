@@ -33,48 +33,48 @@ pimcore.plugin.ClassRelationBundle = Class.create({
             }
         });
 
-        Ext.override(pimcore.plugin.channels.helpers.grid, {
-            getStore: function () {
-                var readerFields = [];
-                for (var i = 0; i < this.fields.length; i++) {
-                    readerFields.push({name: this.fields[i].key, allowBlank: true});
-                }
-                var fields = this.fields;
-                var proxy = {
-                    type: 'ajax',
-                    url: this.url,
-                    timeout: 600000,
-                    reader: {
-                        type: 'json',
-                        totalProperty: 'total',
-                        successProperty: 'success',
-                        rootProperty: 'data'
-                    },
-                    api: {
-                        create: this.url + "?xaction=create",
-                        read: this.url + "?xaction=read",
-                        update: this.url + "?xaction=update",
-                        destroy: this.url + "?xaction=destroy"
-                    },
-                    actionMethods: {
-                        create: 'POST',
-                        read: 'POST',
-                        update: 'POST',
-                        destroy: 'POST'
-                    },
-                    extraParams: this.baseParams
-                };
-                this.store = new Ext.data.Store({
-                    remoteSort: true,
-                    remoteFilter: true,
-                    autoDestroy: true,
-                    fields: readerFields,
-                    proxy: proxy,
-                    autoSync: true
-                });
-                return this.store;
-            },
-        });
+        // Ext.override(pimcore.plugin.channels.helpers.grid, {
+        //     getStore: function () {
+        //         var readerFields = [];
+        //         for (var i = 0; i < this.fields.length; i++) {
+        //             readerFields.push({name: this.fields[i].key, allowBlank: true});
+        //         }
+        //         var fields = this.fields;
+        //         var proxy = {
+        //             type: 'ajax',
+        //             url: this.url,
+        //             timeout: 600000,
+        //             reader: {
+        //                 type: 'json',
+        //                 totalProperty: 'total',
+        //                 successProperty: 'success',
+        //                 rootProperty: 'data'
+        //             },
+        //             api: {
+        //                 create: this.url + "?xaction=create",
+        //                 read: this.url + "?xaction=read",
+        //                 update: this.url + "?xaction=update",
+        //                 destroy: this.url + "?xaction=destroy"
+        //             },
+        //             actionMethods: {
+        //                 create: 'POST',
+        //                 read: 'POST',
+        //                 update: 'POST',
+        //                 destroy: 'POST'
+        //             },
+        //             extraParams: this.baseParams
+        //         };
+        //         this.store = new Ext.data.Store({
+        //             remoteSort: true,
+        //             remoteFilter: true,
+        //             autoDestroy: true,
+        //             fields: readerFields,
+        //             proxy: proxy,
+        //             autoSync: true
+        //         });
+        //         return this.store;
+        //     },
+        // });
     },
     preOpenObject: function (e) {
         Ext.override(pimcore.object.tags.objectbricks, {
@@ -100,7 +100,7 @@ pimcore.plugin.ClassRelationBundle = Class.create({
             },
         });
     },
-    postOpenObject: function (object) {
+    postOpenObject: function (e) {
         self = this;
         var configs = this.configdata;
         Ext.override(pimcore.object.tags.objectbricks, {
