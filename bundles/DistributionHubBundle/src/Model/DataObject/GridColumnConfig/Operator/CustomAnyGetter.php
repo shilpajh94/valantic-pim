@@ -51,7 +51,7 @@ class CustomAnyGetter extends AbstractOperator
         $result = new \stdClass();
         $result->label = $this->label;
 
-        $childs = $this->getChilds();
+        $childs = $this->getChildren();
 
         $getter = 'get'.ucfirst($this->attribute);
 

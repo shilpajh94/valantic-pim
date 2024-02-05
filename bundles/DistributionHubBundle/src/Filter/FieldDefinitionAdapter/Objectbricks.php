@@ -72,7 +72,7 @@ class Objectbricks extends DefaultAdapter implements FieldDefinitionAdapterInter
 
                 $tableName = "object_brick_store_" . $fieldCollectionType . "_" . $listing->getClassId();
 
-                $query = "SELECT `o_id` FROM `" . $tableName . "` WHERE     " . $filteredResults;
+                $query = "SELECT `id` FROM `" . $tableName . "` WHERE     " . $filteredResults;
 
                 $results = $db->fetchAllAssociative($query);
 
@@ -80,7 +80,7 @@ class Objectbricks extends DefaultAdapter implements FieldDefinitionAdapterInter
                     $resultsIds = array();
 
                     foreach ($results as $val) {
-                        $val = $val['o_id'];
+                        $val = $val['id'];
                         $resultsIds[] = " `oo_id` = '" . $val . "' ";
                     }
 

@@ -26,7 +26,7 @@ class SelectTypeMasterGetter extends AbstractOperator
         $result = new \stdClass();
         $result->label = $this->label;
 
-        $childs = $this->getChilds();
+        $childs = $this->getChildren();
 
         if (!$childs) {
             return $result;

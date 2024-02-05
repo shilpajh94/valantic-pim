@@ -2,12 +2,14 @@
 
 namespace DistributionHubBundle\Controller;
 
+use Pimcore\Controller\UserAwareController;
 use DateTime;
 use DistributionHubBundle\Lib\DHubLogger;
 use DistributionHubBundle\Model\Channel;
 use DistributionHubBundle\Model\ChannelConfigShare;
 use Exception;
 // use Pimcore\Bundle\AdminBundle\Controller\AdminController;
+use Pimcore\Controller\Traits\JsonHelperTrait;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,8 +18,10 @@ use Symfony\Component\Routing\Annotation\Route;
  * @package DistributionHubBundle\Controller
  * @Route("/admin/distributionhub/share")
  */
-class ShareController
+class ShareController extends UserAwareController
 {
+    use JsonHelperTrait;
+
     public const CONFIG_NAME = 'plugin_distribution_hub';
     protected const SUCCESS = 'success';
     protected const ERROR = 'error';
@@ -112,7 +116,7 @@ class ShareController
 
         $condition[] = "admin = 1";
         $list->addConditionParam("((CONCAT(',', permissions, ',') LIKE ? ) OR " . implode(" OR ", $condition) . ")", '%,plugin_distribution_hub,%');
-        $list->addConditionParam('id != ?', $this->getAdminUser()->getId());
+        $list->addConditionParam('id != ?', $this->getPimcoreUser()->getId());
         $list->load();
         $userList = $list->getUsers();
 
@@ -123,7 +127,7 @@ class ShareController
             ];
         }
 
-        return $this->adminJson(['success' => true, 'total' => count($users), 'data' => $users]);
+        return $this->jsonResponse(['success' => true, 'total' => count($users), 'data' => $users]);
     }
 
 
@@ -151,6 +155,6 @@ class ShareController
             ];
         }
 
-        return $this->adminJson(['success' => true, 'total' => count($users), 'data' => $roles]);
+        return $this->jsonResponse(['success' => true, 'total' => count($users), 'data' => $roles]);
     }
 }

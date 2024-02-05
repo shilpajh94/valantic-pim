@@ -5,12 +5,13 @@ namespace DistributionHubBundle\Controller;
 use DistributionHubBundle\Model\Channel;
 use DistributionHubBundle\Model\ChannelConfigShare;
 use Doctrine\DBAL\Exception\NotNullConstraintViolationException;
+use Pimcore\Controller\Traits\JsonHelperTrait;
 use Pimcore\Model\Element;
 use Pimcore\Model\DataObject;
 use DistributionHubBundle\Services;
 use DistributionHubBundle\Services\FilterService;
 use Exception;
-// use Pimcore\Bundle\AdminBundle\Controller\AdminController;
+use Pimcore\Controller\UserAwareController;
 use Pimcore\Tool\Admin;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,19 +21,20 @@ use Pimcore\Tool;
 use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface;
 use DistributionHubBundle\Lib\DHubLogger;
 use Pimcore\Translation\Translator;
-// use Psr\Container\ContainerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Pimcore\Bundle\AdminBundle\Security\User\TokenStorageUserResolver;
+use Pimcore\Security\User\TokenStorageUserResolver;
 use Pimcore\Db;
 
 /**
  * @package DistributionHubBundle\Controller
  * @Route("/admin/distributionhub/channel")
  */
-class ChannelController
+class ChannelController extends UserAwareController
 {
+    use JsonHelperTrait;
+
     public const CONFIG_NAME = 'plugin_distribution_hub';
     protected const SUCCESS = 'success';
     protected const ERROR = 'error';
@@ -43,7 +45,7 @@ class ChannelController
     public $bundleService;
     public $basicConfigService;
     public $logger;
-    // public $userResolver;
+    public $userResolver;
     public $filterLocator;
     public $eventDispatcher;
     public $translator;
@@ -52,7 +54,7 @@ class ChannelController
         Services\BundleService $bundleService,
         Services\BasicConfigService $basicConfigService,
         LoggerInterface $logger,
-        // TokenStorageUserResolver $userResolver,
+        TokenStorageUserResolver $userResolver,
         ContainerInterface $filterLocator,
         EventDispatcherInterface $eventDispatcher,
         Translator $translator
@@ -60,7 +62,7 @@ class ChannelController
         $this->bundleService = $bundleService;
         $this->basicConfigService = $basicConfigService;
         $this->logger = $logger;
-        // $this->userResolver = $userResolver;
+        $this->userResolver = $userResolver;
         $this->filterLocator = $filterLocator;
         $this->eventDispatcher = $eventDispatcher;
         $this->translator = $translator;
@@ -143,7 +145,7 @@ class ChannelController
         {
             $dataString = implode(',', $userIds);
             $db = Db::get();
-            
+
             $query = "SELECT id FROM `users` where id in ($dataString) and type ='user'";
             $recordUserIds = $db->fetchFirstColumn($query);
             $newUserIds = count($recordUserIds) ? $recordUserIds : '';
@@ -212,7 +214,7 @@ class ChannelController
             $msg = $e->getMessage();
             return $this->json(['result' => false, 'data' => [], "msg" => $msg]);
         }
-        return $this->json(['result' => true, 'general' => ['o_id' => $object->getId(), 'o_key' => $object->getName()], 'data' => $data, "msg" => '']);
+        return $this->json(['result' => true, 'general' => ['id' => $object->getId(), 'key' => $object->getName()], 'data' => $data, "msg" => '']);
     }
 
     /**
@@ -400,7 +402,7 @@ class ChannelController
             $data = $request->request->all();
             $data['mapping'] = json_encode(Services\ChannelService::gridConfigToPimConfig($data));
             $data['mappingJson'] = json_encode(Services\ChannelService::filterAttributeMappingConfig($data['mappingJson']));
-            $filter = new FilterService($this->logger, $this->filterLocator, $this->eventDispatcher, $this->translator);
+            $filter = new FilterService($this->logger, $this->userResolver, $this->filterLocator, $this->eventDispatcher, $this->translator);
             $data['showInGrid'] = json_encode($filter->getShowInGridMapping($data));
 
             Services\ChannelService::updateChannelMapping($data, $objectId);
@@ -436,7 +438,7 @@ class ChannelController
      *
      * @param Request $request
      *
-     * @return \Pimcore\Bundle\AdminBundle\HttpFoundation\JsonResponse
+     * @return JsonResponse
      * @throws Exception
      */
     public function getClassDefinitionForColumnConfigAction(Request $request)
@@ -452,7 +454,7 @@ class ChannelController
         $filteredFieldDefinition = isset($filteredDefinitions['fieldDefinition']) ? $filteredDefinitions['fieldDefinition'] : false;
         $class->setFieldDefinitions([]);
         $result = [];
-        $result['objectColumns']['childs'] = $loadChilds ? $layoutDefinitions->getChilds() : [];
+        $result['objectColumns']['childs'] = $loadChilds ? $layoutDefinitions->getChildren() : [];
         $result['objectColumns']['nodeLabel'] = 'object_columns';
         $result['objectColumns']['nodeType'] = 'object';
 
@@ -461,20 +463,20 @@ class ChannelController
             Services\ClassificationStoreService::setBricksLayout($class, $result, $filteredFieldDefinition);
         }
 
-        return $this->adminJson($result);
+        return $this->jsonResponse($result);
     }
     /**
      * @Route("/get-classification-store-for-column-config", methods={"GET"})
      *
      * @param Request $request
      *
-     * @return \Pimcore\Bundle\AdminBundle\HttpFoundation\JsonResponse
+     * @return JsonResponse
      * @throws Exception
      */
     public function getClassificationStoreForColumnConfigAction(Request $request)
     {
         $request =  Services\ClassificationStoreService::getStore($request->get('id'));
-        return $this->adminJson($request);
+        return $this->jsonResponse($request);
     }
 
     /**
@@ -511,6 +513,6 @@ class ChannelController
                 }
             }
         }
-        return $this->adminJson($result[$brickName]);
+        return $this->jsonResponse($result[$brickName]);
     }
 }

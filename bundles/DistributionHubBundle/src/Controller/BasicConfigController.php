@@ -2,6 +2,7 @@
 
 namespace DistributionHubBundle\Controller;
 
+use Pimcore\Controller\UserAwareController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,7 +26,7 @@ use AppBundle\Tool\Utils;
  * @package DistributionHubBundle\Controller
  * @Route("/admin/distributionhub/basic_config")
  */
-class BasicConfigController
+class BasicConfigController extends UserAwareController
 {
     /**
      * @Route("/get_pimcore_classes")
@@ -97,7 +98,7 @@ class BasicConfigController
         }
 
         $arrUserRoles   = [];
-        $userRoles      = $this->getAdminUser()->getRoles();
+        $userRoles      = $this->getPimcoreUser()->getRoles();
         if ($userRoles) {
             foreach ($userRoles  as $userRoleId) {
                 $role = Role::getById($userRoleId);

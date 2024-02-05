@@ -6,6 +6,7 @@ return [
     //Twig\Extra\TwigExtraBundle\TwigExtraBundle::class => ['all' => true],
     ADAuthBundle\ADAuthBundle::class => ['all' => false],
     B2BTranslationBundle\B2BTranslationBundle::class => ['all' => true],
+    ClassRelationBundle\ClassRelationBundle::class => ['all' => true],
     // Elements\Bundle\ProcessManagerBundle\ElementsProcessManagerBundle::class => ['all' => true],
     // ImportBundle\ImportBundle::class => ['all' => true],
     // RequiredAttributesBundle\RequiredAttributesBundle::class => ['all' => true],

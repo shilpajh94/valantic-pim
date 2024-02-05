@@ -24,7 +24,7 @@ class MediaGetter extends AbstractOperator
         $result = new \stdClass();
         $result->label = $this->label;
 
-        $childs = $this->getChilds();
+        $childs = $this->getChildren();
 
         if (!$childs) {
             return $result;
@@ -35,7 +35,7 @@ class MediaGetter extends AbstractOperator
                 $customDefaultValue = $this->getCustomAnyGetter($c);
                 $childResult = $customDefaultValue->getLabeledValue($element);
             }
-            
+
             if ($childResult && $childResult->value) {
                 $image = $childResult->value;
                 if(is_array($image)){
@@ -53,7 +53,7 @@ class MediaGetter extends AbstractOperator
                     }
                     if($result->value && $this->getContext()['purpose'] == "gridview"){
                         $result->value = '<a href="'.$result->value.'" target="_blank">'.$result->value.'</a>';
-                    }    
+                    }
                 }
             }
         }

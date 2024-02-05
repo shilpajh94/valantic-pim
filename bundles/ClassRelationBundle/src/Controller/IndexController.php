@@ -2,7 +2,8 @@
 namespace ClassRelationBundle\Controller;
 
 use Pimcore\Controller\FrontendController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+// use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Yaml\Parser;
@@ -22,7 +23,7 @@ class IndexController extends FrontendController
         
         $yamlFieldData = new Parser();
 
-        $yamlFilePath = PIMCORE_PROJECT_ROOT . "/src/ClassRelationBundle/Resources/config/categorySpecificBrick.yaml";
+        $yamlFilePath = PIMCORE_PROJECT_ROOT . "/bundles/ClassRelationBundle/config/categorySpecificBrick.yaml";
 
         $yamlFileData = $yamlFieldData->parse(file_get_contents($yamlFilePath));
 
