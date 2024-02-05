@@ -46,5 +46,6 @@ class CSWorkflowPublishCommand extends AbstractCommand
                 }
             }
         }
+        return 1;
     }
 }
