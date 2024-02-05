@@ -85,7 +85,7 @@ class ExportCommand extends Command
      * @param ScheduleProcessHelperService $helperService
      * @param MailNotificationService $mailNotificationService
      */
-    public function __construct(ExportService $exportService, BundleService $bundleService, ScheduleProcessHelperService $helperService, MailNotificationService $mailNotificationService)
+    public function __construct(ExportService $exportService, FilterService $filterService, BundleService $bundleService, ScheduleProcessHelperService $helperService, MailNotificationService $mailNotificationService)
     {
         $this->exportService = $exportService;
         $this->filterService = $filterService;

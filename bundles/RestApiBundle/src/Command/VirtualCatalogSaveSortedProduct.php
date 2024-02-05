@@ -87,7 +87,7 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
                 $sapCode = $brandProducts["articleNumber"];
                 $siopFullcode = $brandProducts["siopFullCode"];
                 $sortFieldValue = isset($brandProducts["sortFieldValue"]) ? $brandProducts["sortFieldValue"] : null;
-                $updatedAt = $brandProducts["o_modificationDate"];
+                $updatedAt = $brandProducts["modificationDate"];
 
                 $insertValues[] = " ($oo_id, '$brandName', '$selectedSortFieldName',
                 '$selectedSortFieldValues', '$sortFieldValue', $sapCode, '$siopFullcode', $updatedAt) ";
@@ -178,7 +178,7 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
 
     private function getProductsInSortedFormat($brandId,$fieldForSort,$sortingData, $brickName){
         $select = "SELECT `oo_id`, `objbrickquery1`.{$fieldForSort} AS
-        `sortFieldValue` ,`articleNumber`, `siopFullCode`, `o_modificationDate`
+        `sortFieldValue` ,`articleNumber`, `siopFullCode`, `modificationDate`
         from `object_1` INNER JOIN `object_brick_query_".$brickName."_1`
         AS `objbrickquery1` ON object_1.oo_id = objbrickquery1.id
         where `VirtualCatalogFlag` = 1 AND `object_1`.`brandName` = ".$brandId."
@@ -202,7 +202,7 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
             $else = ' ELSE '.$i++. ' END';
             if($fieldForSort == 'reinforcement'){
                 $sql = "SELECT `oo_id`, `{$fieldForSort}` AS
-                `sortFieldValue`,`articleNumber`, `siopFullCode`, `o_modificationDate`
+                `sortFieldValue`,`articleNumber`, `siopFullCode`, `modificationDate`
                 from `object_1` where `VirtualCatalogFlag` = 1 AND `brandName` = ".$brandId."
                 and `ProductType` = 'fert' "." ORDER BY ".$case.$condition.$else;
             }else{
@@ -249,7 +249,7 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
     private function getAllBrand()
     {
         $sql = "SELECT
-            p.oo_id, p.articleNumber, p.siopFullcode, p.o_modificationDate,p.brandName as brand_id,
+            p.oo_id, p.articleNumber, p.siopFullcode, p.modificationDate,p.brandName as brand_id,
             b.name AS brandNameText,
             vcmap.GroupingField as mapper_GroupingField,
             vcmap.originalValues as mapping,

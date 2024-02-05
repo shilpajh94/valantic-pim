@@ -1,0 +1,5 @@
+ad_auth:
+    resource: "@ADAuthBundle/src/Controller/"
+    type:     annotation
+    prefix:   /
+

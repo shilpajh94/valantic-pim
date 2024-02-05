@@ -1,0 +1,7 @@
+rest_a_pi:
+    resource: "@ImportBundle/src/Controller/"
+    type:     annotation
+    prefix:   /
+import_homepage:
+    path:     /import
+    defaults: { _controller: ImportBundle:Default:index }

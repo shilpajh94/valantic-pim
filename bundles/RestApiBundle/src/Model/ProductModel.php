@@ -126,8 +126,8 @@ class ProductModel
                 $conditionString    .=   " siopFullCode ='" . $conditionArray['siop'] . "'AND ";
             }
             if (isset($conditionArray['updatedFrom']) && !empty($conditionArray['updatedFrom'])) {
-                $conditionString    .=   " o_modificationDate >= " . strtotime($conditionArray['updatedFrom']) .
-                " AND o_modificationDate <=" . strtotime(date('Y-m-d H:i:s')) . "AND";
+                $conditionString    .=   " modificationDate >= " . strtotime($conditionArray['updatedFrom']) .
+                " AND modificationDate <=" . strtotime(date('Y-m-d H:i:s')) . "AND";
             }
         }
         else {
@@ -170,7 +170,7 @@ class ProductModel
             }
             if (isset($conditionArray['updatedFrom']) && !empty($conditionArray['updatedFrom'])) {
                 $conditionString    .=   " `vc`.updatedAt >= " . strtotime($conditionArray['updatedFrom']) .
-                " AND  o_modificationDate <=" . strtotime(date('Y-m-d H:i:s')) . "AND ";
+                " AND  modificationDate <=" . strtotime(date('Y-m-d H:i:s')) . "AND ";
             }
         }
         else {
