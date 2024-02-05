@@ -2,6 +2,10 @@
 
 namespace DistributionHubBundle\Controller;
 
+use Pimcore\Controller\Traits\JsonHelperTrait;
+use Pimcore\Controller\UserAwareController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 // use Pimcore\Bundle\AdminBundle\Controller\AdminController;
@@ -21,8 +25,9 @@ use DistributionHubBundle\Lib\DHubLogger;
 * @package DistributionHubBundle\Controller
 * @Route("/admin/distributionhub/filters")
 */
-class FiltersController
+class FiltersController extends UserAwareController
 {
+    use JsonHelperTrait;
 
     /**
      * @Route("/get_filter_config")
@@ -36,12 +41,19 @@ class FiltersController
         $filterConfig = null;
         try {
             $channelId = $request->get('channelId');
+            $session = $request->getSession();
+            // p_r('gvhjb');
+            // p_r($channelId);
+            // p_r($session);
             $channel = Channel::getById($channelId);
             if ($channel) {
-                $filterConfig = $this->getSavedFilters($channel);
+                $filterConfig = $this->getSavedFilters($channel, $session);
+                // p_r('in 48');
+                // p_r($filterConfig);
             }
         } catch (Exception $ex) {
             $msg = $ex->getMessage();
+            // p_r($msg);
             return $this->json(['result' => false, 'data' => [], "msg" => $msg]);
         }
 
@@ -96,7 +108,7 @@ class FiltersController
             }
         } else {
             DHubLogger::log("Pimcore Class id not found in channel .", DHubLogger::CRITICAL);
-            return $this->adminJson(['success' => 'false']);
+            return $this->jsonResponse(['success' => 'false']);
         }
 
         $fieldSelectionInformationEntries = $service->getFieldSelectionInformationForClassDefinition($definition, $fieldTypes, $allowInheritance);
@@ -105,14 +117,14 @@ class FiltersController
 
         foreach ($fieldSelectionInformationEntries as $entry) {
             if ($type === "fieldcollection" || $type === "objectbrick") {
-                if ($entry->getfieldName() === "o_id" || $entry->getfieldName() === "o_published" || $entry->getfieldName() === "o_path") {
+                if ($entry->getfieldName() === "id" || $entry->getfieldName() === "published" || $entry->getfieldName() === "path") {
                     continue;
                 }
             }
             $fields[] = $entry->toArray();
         }
 
-        return $this->adminJson(['data' => $fields]);
+        return $this->jsonResponse(['data' => $fields]);
     }
 
 
@@ -174,7 +186,7 @@ class FiltersController
             DHubLogger::log("Invalid Channel.", DHubLogger::ERROR);
         }
 
-        return $this->adminJson(["success" => true, "id" => $filter->getId()]);
+        return $this->jsonResponse(["success" => true, "id" => $filter->getId()]);
     }
 
     /**
@@ -183,9 +195,9 @@ class FiltersController
      * @return array
      * @throws RequestParameterNotValidException
      */
-    public function getSavedFilters($channelObject)
+    public function getSavedFilters($channelObject, $session)
     {
-
+        // p_r('bhbjkj');
         $filter = $channelObject->getFilter();
 
         if ($filter) {
@@ -217,13 +229,15 @@ class FiltersController
                 }
 
                 // store the saved columns in the session, otherwise they won't work
-                Tool\Session::useSession(function (AttributeBagInterface $session) use ($helperColumns) {
-                    $existingColumns = $session->get('helpercolumns', []);
+                Tool\Session::useBag(
+                    $session,
+                    function (AttributeBagInterface $attributeBagInterface) use ($helperColumns) {
+                    $existingColumns = $attributeBagInterface->get('helpercolumns', []);
                     $helperColumns = array_merge($existingColumns, $helperColumns);
-                    $session->set('helpercolumns', $helperColumns);
+                    $attributeBagInterface->set('helpercolumns', $helperColumns);
                 }, 'pimcore_gridconfig');
             }
-
+            // p_r('nbghtyhgj');
             return  [
                 'success' => true,
                 'id' => $filter->getId(),
@@ -237,6 +251,7 @@ class FiltersController
                 'gridConfig' => array_key_exists("gridConfig", $config) ? $config['gridConfig'] : null
             ];
         } else {
+            // p_r('in error');
             DHubLogger::log("No saved filter found for channel Id".$channelObject->getId(), DHubLogger::CRITICAL);
             return json_encode(["success" => false, "message" => "No saved filter found not found."]);
         }
@@ -299,13 +314,13 @@ class FiltersController
             $results = $service->getFilteredList($data, $list);
 
             $conditionFilters = [];
-            if (!$this->getAdminUser()->isAdmin()) {
-                $userIds = $this->getAdminUser()->getRoles();
-                $userIds[] = $this->getAdminUser()->getId();
+            if (!$this->getPimcoreUser()->isAdmin()) {
+                $userIds = $this->getPimcoreUser()->getRoles();
+                $userIds[] = $this->getPimcoreUser()->getId();
                 $conditionFilters[] .= ' (
-                    (select list from users_workspaces_object where userId in (' . implode(',', $userIds) . ') and LOCATE(CONCAT(o_path,o_key),cpath)=1  ORDER BY LENGTH(cpath) DESC LIMIT 1)=1
+                    (select list from users_workspaces_object where userId in (' . implode(',', $userIds) . ') and LOCATE(CONCAT(path,key),cpath)=1  ORDER BY LENGTH(cpath) DESC LIMIT 1)=1
                     OR
-                    (select list from users_workspaces_object where userId in (' . implode(',', $userIds) . ') and LOCATE(cpath,CONCAT(o_path,o_key))=1  ORDER BY LENGTH(cpath) DESC LIMIT 1)=1
+                    (select list from users_workspaces_object where userId in (' . implode(',', $userIds) . ') and LOCATE(cpath,CONCAT(path,key))=1  ORDER BY LENGTH(cpath) DESC LIMIT 1)=1
                  )';
             }
 
@@ -347,7 +362,7 @@ class FiltersController
             $eventDispatcher->dispatch($afterListLoadEvent, AdminEvents::OBJECT_LIST_AFTER_LIST_LOAD);
             $result = $afterListLoadEvent->getArgument('list');
 
-            return $this->adminJson($result);
+            return $this->jsonResponse($result);
         }
     }
 
@@ -367,13 +382,13 @@ class FiltersController
         if (!empty($channelId)) {
             $channel = Channel::getById($channelId);
             if (!empty($channel->getPimcoreClassId())) {
-                return $this->adminJson(['success' => true, 'classId' => $channel->getPimcoreClassId(), 'showInGrid' => $channel->getShowInGridMapping(), "lang" => $channel->getLanguage()]);
+                return $this->jsonResponse(['success' => true, 'classId' => $channel->getPimcoreClassId(), 'showInGrid' => $channel->getShowInGridMapping(), "lang" => $channel->getLanguage()]);
             } else {
-                return $this->adminJson(['success' => false]);
+                return $this->jsonResponse(['success' => false]);
             }
         } else {
             DHubLogger::log("Channel Id not found", DHubLogger::CRITICAL);
-            return $this->adminJson(['success' => false, 'error' => "channel Id not found"]);
+            return $this->jsonResponse(['success' => false, 'error' => "channel Id not found"]);
         }
     }
 }

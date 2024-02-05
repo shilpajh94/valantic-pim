@@ -51,7 +51,7 @@ class ClassificationStoreService
         if ($class) {
             $definitions = $class->getFieldDefinitions();
             foreach ($definitions as $definition) {
-                if ($definition->fieldtype === "classificationstore") {
+                if ($definition->getFieldType() === "classificationstore") {
                     $cDetails =  ['name' => $definition->getName(),'title' => $definition->getTitle(), 'storeId' => $definition->getStoreId()];
                     array_push($classificationStore, $cDetails);
                 }
@@ -183,10 +183,10 @@ class ClassificationStoreService
     public static function updateObjectLayout($filteredDefinitions)
     {
         $childArray = [];
-        foreach ($filteredDefinitions["layoutDefinition"]->getChilds() as $childPanel) {
-            foreach ($childPanel->getChilds() as $key => $child) {
-                if (method_exists($child, "getChilds")) {
-                    foreach ($child->getChilds() as $key => $childLevel) {
+        foreach ($filteredDefinitions["layoutDefinition"]->getChildren() as $childPanel) {
+            foreach ($childPanel->getChildren() as $key => $child) {
+                if (method_exists($child, "getChildren")) {
+                    foreach ($child->getChildren() as $key => $childLevel) {
                         if ($childLevel->fieldtype !== "classificationstore") {
                             $childArray[] = $childLevel;
                         }
@@ -197,7 +197,7 @@ class ClassificationStoreService
                     }
                 }
             }
-            $childPanel->setChilds($childArray);
+            $childPanel->setChildren($childArray);
         }
     }
 

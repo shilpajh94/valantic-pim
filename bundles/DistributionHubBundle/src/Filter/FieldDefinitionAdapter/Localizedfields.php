@@ -63,7 +63,7 @@ class Localizedfields extends DefaultAdapter implements FieldDefinitionAdapterIn
 
         return $localizedFieldData;
     }
-    
+
     /**
      * Get query based on applied filter, use pimcore addConditionParams() method
      * $key, $value = null, $concatenator = 'AND'
@@ -78,11 +78,11 @@ class Localizedfields extends DefaultAdapter implements FieldDefinitionAdapterIn
      */
     public function getQueryPart($fieldFilter, $fieldDefinition, $listing)
     {
-        
+
         $validLanguages = Tool::getValidLanguages();
 
         $classId = $listing->getClassId();
-        
+
         $lang = array_keys($fieldFilter->getFilterEntryData())['0'];
         if (empty($lang)) {
             $lang = $validLanguages['0'];
@@ -122,7 +122,7 @@ class Localizedfields extends DefaultAdapter implements FieldDefinitionAdapterIn
             if (!empty($filteredResults)) {
                 foreach ($filteredResults as $val) {
                     $val = $val['ooo_id'];
-                    $resultsIds[] = " `o_id` = '" . $val . "' ";
+                    $resultsIds[] = " `id` = '" . $val . "' ";
                 }
                 $conditonPrepare = implode(' OR ', $resultsIds);
 
@@ -150,7 +150,7 @@ class Localizedfields extends DefaultAdapter implements FieldDefinitionAdapterIn
     {
 
         $validLanguages = Tool::getValidLanguages();
-                            
+
         if ($fieldType === "objectbricks") {
             $tableName = "object_brick_localized_" . $fieldFilter['type'] . "_" . $classId;
             $lang = array_keys($fieldFilter['filterCondition']['filterEntryData'])['0'];
@@ -170,7 +170,7 @@ class Localizedfields extends DefaultAdapter implements FieldDefinitionAdapterIn
 
         $fieldName = $data['fieldname'];
         $childFieldType = $this->getLocalizedFieldType($fieldDefinition, $fieldName);
-        
+
         if (!empty($childFieldType)) {
             if (is_array($data['filterEntryData'])) {
                 $operator = array_keys($data['filterEntryData'])['0'];
@@ -204,32 +204,32 @@ class Localizedfields extends DefaultAdapter implements FieldDefinitionAdapterIn
             return false;
         }
     }
-    
+
     /**
      * returns child fieldTypes of localized type
      * @return childDefiniton/object
      */
     public function getLocalizedFieldType($fieldDefinition, $fieldName)
     {
-        foreach ($fieldDefinition->getChilds() as $childDefiniton) {
+        foreach ($fieldDefinition->getChildren() as $childDefiniton) {
             // handling of feild containers if used under localized fields.
             if ($childDefiniton instanceof \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer) {
-                foreach ($childDefiniton->getChilds() as $childDefiniton1stLevel) {
+                foreach ($childDefiniton->getChildren() as $childDefiniton1stLevel) {
                     if ($childDefiniton1stLevel instanceof \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer) {
-                        foreach ($childDefiniton1stLevel->getChilds() as $childDefiniton2ndLevel) {
+                        foreach ($childDefiniton1stLevel->getChildren() as $childDefiniton2ndLevel) {
                             if ($childDefiniton2ndLevel->getName() === $fieldName) {
                                 return $childDefiniton2ndLevel;
                             }
                         }
                     }
-                    
+
                     if ($childDefiniton1stLevel->getName() === $fieldName) {
                         return $childDefiniton1stLevel;
                     }
                 }
             }
-            
-            
+
+
             if ($childDefiniton->getName() === $fieldName) {
                 return $childDefiniton;
             }

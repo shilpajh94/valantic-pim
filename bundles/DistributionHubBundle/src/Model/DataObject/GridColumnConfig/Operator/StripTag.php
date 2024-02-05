@@ -19,7 +19,7 @@ class StripTag extends AbstractOperator
         $result = new \stdClass();
         $result->label = $this->label;
 
-        $childs = $this->getChilds();
+        $childs = $this->getChildren();
 
         if (!$childs) {
             return $result;
@@ -59,5 +59,5 @@ class StripTag extends AbstractOperator
 
         return new CustomAnyGetter($config,$context);
     }
-    
+
 }

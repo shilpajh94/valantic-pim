@@ -25,7 +25,7 @@ class Dao extends AbstractDao
      */
     public function getById($id)
     {
-        $data = $this->db->fetchAssociative("SELECT * FROM " . $this->db->quoteIdentifier(static::TABLE_NAME) . " WHERE id = ?", $id);
+        $data = $this->db->fetchAssociative("SELECT * FROM " . $this->db->quoteIdentifier(static::TABLE_NAME) . " WHERE id = " . $id);
         if (!$data["id"]) {
             throw new \Exception("record with id " . $id . " not found");
         }
@@ -39,7 +39,7 @@ class Dao extends AbstractDao
 
     public function getByName($name)
     {
-        $data = $this->db->fetchAssociative("SELECT * FROM " . $this->db->quoteIdentifier(self::TABLE_NAME) . " WHERE name = ?", $name);
+        $data = $this->db->fetchAssociative("SELECT * FROM " . $this->db->quoteIdentifier(self::TABLE_NAME) . " WHERE name = " . $name);
         if (!$data["id"]) {
             throw new \Exception("channel with id " . $name . " not found");
         }
