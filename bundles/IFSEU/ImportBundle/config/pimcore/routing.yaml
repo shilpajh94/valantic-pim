@@ -1,5 +1,5 @@
 ifseu_import:
-    resource: "@IFSEUImportBundle/Controller/"
+    resource: "@IFSEUImportBundle/src/Controller/"
     type:     annotation
     prefix:   /
 

@@ -108,7 +108,7 @@ class ProductAssetMappingService
         {
             echo $assetObject->getFilename()." is mapping with ".$productName."\n";
             $allProductObject = new IFSEUProduct\Listing();
-            $allProductObject->setCondition("key = ?", [$productName]);
+            $allProductObject->setCondition("`key` = ?", [$productName]);
             $allProductObject->load();
 
             foreach($allProductObject as $productObject)
@@ -158,7 +158,8 @@ class ProductAssetMappingService
         echo "Processing ".$rowData[0]."\n";
         $assetDirectoryPath = $rowData[0];
         $assetFolderId = $this->getFolderByPath($assetHierarchyPath);
-        $fileName = end(explode('/',$rowData[0]));
+        $file = explode('/',$rowData[0]);
+        $fileName = end($file);
 
         // $folderData = scanDir($assetDirectoryPath);
         // foreach($folderData as $fileName)
@@ -234,7 +235,8 @@ class ProductAssetMappingService
     private function getImagesDataByPath(string $assetHierarchyFilePath): ? array
     {
         //$assetHierarchyFilePath = $this->resetPathSlash($assetHierarchyFilePath);
-        $fileName = end(explode("/",$assetHierarchyFilePath));
+        $file = explode("/",$assetHierarchyFilePath);
+        $fileName = end($file);
         $getAsset = new Asset\Listing();
         $getAsset->setCondition("filename = ? AND type = 'image'", [$fileName]);
         return $getAsset->load();
@@ -268,7 +270,7 @@ class ProductAssetMappingService
         if($rowData[0]!='' && !is_dir($rowData[0]) && $rowData[1] != '')
         {
             $this->insertLog($rowData, $type, 'Failed', 'Asset folder path doesn`t exist !!', '');
-        }  else if($rowData[0]!='' && is_dir($rowData[0]) && $rowData[4] == '')
+        }  else if($rowData[0]!='' && is_dir($rowData[0]) && $rowData[3] == '')
         {
             $this->insertLog($rowData, $type, 'Failed', 'Hierarchy path doesn`t defined !!', '');
         }
@@ -278,7 +280,7 @@ class ProductAssetMappingService
     {
         $sql = "INSERT INTO `ifseu_asset_import_log` ";
         $sql .= "(`productName`, `statusCode`, `statusMessage`, `type`, `folderPath`, `hierarchyPath`, `imageName`)";
-        $sql .= " VALUES ('".$rowData[1]."', '".$statusCode."', '".$statusMessage."', '".$type."', '".$rowData[0]."', '".$rowData[4]."', '".$imageName."' )";
+        $sql .= " VALUES ('".$rowData[1]."', '".$statusCode."', '".$statusMessage."', '".$type."', '".$rowData[0]."', '".$rowData[3]."', '".$imageName."' )";
         $this->db->executeQuery($sql);
     }
 
