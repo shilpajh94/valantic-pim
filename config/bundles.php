@@ -4,6 +4,7 @@ return [
     \Pimcore\Bundle\BundleGeneratorBundle\PimcoreBundleGeneratorBundle::class => ['dev' => true],
     Symfony\Bundle\WebProfilerBundle\WebProfilerBundle::class => ['dev' => true],
     //Twig\Extra\TwigExtraBundle\TwigExtraBundle::class => ['all' => true],
+    // ADAuthBundle\ADAuthBundle::class => ['all' => true],
     ADAuthBundle\ADAuthBundle::class => ['all' => true],
     B2BTranslationBundle\B2BTranslationBundle::class => ['all' => true],
     ClassRelationBundle\ClassRelationBundle::class => ['all' => true],

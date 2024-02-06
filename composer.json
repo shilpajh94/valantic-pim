@@ -41,7 +41,7 @@
       "Pimcore\\Model\\Object\\": "var/classes/Object",
       "Website\\": "legacy/website/lib",
       "ADAuthBundle\\": "bundles/ADAuthBundle/src",
-      "AppBundle\\": "bundles/AppBundle",
+      "AppBundle\\": "bundles/AppBundle/src",
       "B2BTranslationBundle\\": "bundles/B2BTranslationBundle/src",
       "CatalogBundle\\": "bundles/CatalogBundle/src",
       "ClassRelationBundle\\": "bundles/ClassRelationBundle/src",
@@ -49,7 +49,7 @@
       "EmailNotificationBundle\\": "bundles/EmailNotificationBundle/src",
       "ImportBundle\\": "bundles/ImportBundle/src",
       "PimDataPostBundle\\": "bundles/PimDataPostBundle",
-      "RequiredAttributesBundle\\": "bundles/RequiredAttributesBundle",
+      "RequiredAttributesBundle\\": "bundles/RequiredAttributesBundle/src",
       "RestApiBundle\\": "bundles/RestApiBundle/src",
       "S3CustomizationBundle\\": "bundles/S3CustomizationBundle/src",
       "PTGEU\\ImportBundle\\": "bundles/PTGEU/ImportBundle/src",
@@ -62,7 +62,7 @@
       "ContitechCS\\ProductBundle\\": "bundles/ContitechCS/ProductBundle/src",
       "ContitechCS\\CatalogBundle\\": "bundles/ContitechCS/CatalogBundle/src",
       "ContitechCS\\CatalogUIApiBundle\\": "bundles/ContitechCS/CatalogUIApiBundle/src",
-      "Wvision\\Bundle\\DataDefinitionsBundle\\": "bundles/w-vision/data-definitions/src/DataDefinitionsBundle"
+      "Wvision\\Bundle\\DataDefinitionsBundle\\": "bundles/w-vision/data-definitions/src/DataDefinitionsBundle/src"
     }
   },
   "autoload-dev": {

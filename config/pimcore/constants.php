@@ -22,7 +22,7 @@ define("INTERNAL_ASSET_FOLDER_PATHS", [
     "/Contitech_ConveyorSolution/Internal Assets","/IFS PTG Private Folder/Import Failure Logs"
 ]);
 
-define("APPBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/AppBundle/Resources/config");
+define("APPBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/AppBundle/config");
 define("CATALOGBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/CatalogBundle/config");
 define("CS_PRODUCTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/ContitechCS/ProductBundle/config");
 
