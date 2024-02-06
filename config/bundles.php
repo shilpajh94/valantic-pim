@@ -9,7 +9,7 @@ return [
     ClassRelationBundle\ClassRelationBundle::class => ['all' => true],
     // Elements\Bundle\ProcessManagerBundle\ElementsProcessManagerBundle::class => ['all' => true],
     ImportBundle\ImportBundle::class => ['all' => true],
-    // RequiredAttributesBundle\RequiredAttributesBundle::class => ['all' => true],
+    RequiredAttributesBundle\RequiredAttributesBundle::class => ['all' => true],
     S3CustomizationBundle\S3CustomizationBundle::class => ['all' => true],
     CatalogBundle\CatalogBundle::class => ['all' => true],
     ContitechCS\ProductBundle\ContitechCSProductBundle::class => ['all' => true],

@@ -16,11 +16,11 @@ use Pimcore\Model\Element;
 use Pimcore\Model\Translation;
 use Pimcore\Tool;
 use Pimcore\Tool\Session;
-use Pimcore\Translation\ExportService\Exporter\ExporterInterface;
-use Pimcore\Translation\ExportService\ExportServiceInterface;
-use Pimcore\Translation\ImportDataExtractor\ImportDataExtractorInterface;
+use Pimcore\Bundle\XliffBundle\ExportService\Exporter\ExporterInterface;
+use Pimcore\Bundle\XliffBundle\ExportService\ExportServiceInterface;
+use Pimcore\Bundle\XliffBundle\ImportDataExtractor\ImportDataExtractorInterface;
 use Pimcore\Translation\ImporterService\ImporterServiceInterface;
-use Pimcore\Translation\TranslationItemCollection\TranslationItemCollection;
+use Pimcore\Bundle\XliffBundle\TranslationItemCollection\TranslationItemCollection;
 use Pimcore\Translation\Translator;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -38,6 +38,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  * CUSTOMIZATION IS DONE REGARDING ADDITION OF XLIFF FILTERS
  */
 class CustomTranslationController extends \Pimcore\Bundle\AdminBundle\Controller\Admin\TranslationController{
+// class CustomTranslationController extends \Pimcore\Bundle\XliffBundle\Controller\XliffTranslationController{
 
     /**
      * -----------------------------------------------------------------------------------
@@ -91,7 +92,7 @@ class CustomTranslationController extends \Pimcore\Bundle\AdminBundle\Controller
                         );
                     }
                     $list->setCondition(
-                        ($el instanceof DataObject\AbstractObject ? 'o_' : '') . 'path LIKE ?',
+                        ($el instanceof DataObject\AbstractObject ? '' : '') . 'path LIKE ?',
                         [$el->getRealFullPath() . ($el->getRealFullPath() != '/' ? '/' : '') . '%']
                     );
                     $childs = $list->load();
@@ -169,36 +170,36 @@ class CustomTranslationController extends \Pimcore\Bundle\AdminBundle\Controller
      *
      * @throws \Exception
      */
-    // public function xliffExportAction(Request $request, ExportServiceInterface $exportService): JsonResponse
-    // {
-    //     $id = $request->get('id');
-    //     $data = $this->decodeJson($request->get('data'));
-    //     $source = $request->get('source');
-    //     $target = $request->get('target');
-    //     $publishState = $request->get('publishState');
-    //     $xliffFilters =$this->decodeJson($request->get('xliffFilters'));
+    public function xliffExportAction(Request $request, ExportServiceInterface $exportService): JsonResponse
+    {
+        $id = $request->get('id');
+        $data = $this->decodeJson($request->get('data'));
+        $source = $request->get('source');
+        $target = $request->get('target');
+        $publishState = $request->get('publishState');
+        $xliffFilters =$this->decodeJson($request->get('xliffFilters'));
 
-    //     $translationItems = new TranslationItemCollection();
+        $translationItems = new TranslationItemCollection();
 
-    //     foreach ($data as $el) {
-    //         $element = Element\Service::getElementById($el['type'], $el['id']);
-    //         if($element->getType() == 'folder'){
-    //             continue;
-    //         }
-    //         if(!($this->checkPubslishFilter($element, $publishState))){
-    //             continue;
-    //         }
-    //         if(!($this->checkXliffFilter($element, $xliffFilters))){
-    //             continue;
-    //         }
-    //         $translationItems->addPimcoreElement($element);
-    //     }
-    //     $exportService->exportTranslationItems($translationItems, $source, [$target], $id);
+        foreach ($data as $el) {
+            $element = Element\Service::getElementById($el['type'], $el['id']);
+            if($element->getType() == 'folder'){
+                continue;
+            }
+            if(!($this->checkPubslishFilter($element, $publishState))){
+                continue;
+            }
+            if(!($this->checkXliffFilter($element, $xliffFilters))){
+                continue;
+            }
+            $translationItems->addPimcoreElement($element);
+        }
+        $exportService->exportTranslationItems($translationItems, $source, [$target], $id);
 
-    //     return $this->adminJson([
-    //         'success' => true
-    //     ]);
-    // }
+        return $this->adminJson([
+            'success' => true
+        ]);
+    }
 
     private function checkPubslishFilter(AbstractObject $object, string $userSelection){
         if($userSelection == 'true'){
@@ -634,7 +635,8 @@ class CustomTranslationController extends \Pimcore\Bundle\AdminBundle\Controller
         $admin = $domain == Translation::DOMAIN_ADMIN;
 
         $dialect = $request->get('csvSettings', null);
-        $session = Session::get('pimcore_importconfig');
+        // $session = Session::get('pimcore_importconfig');
+        $session = Session::getSessionBag($request->getSession(), 'pimcore_importconfig');
         $tmpFile = $session->get('translation_import_file');
 
         if ($dialect) {
@@ -816,9 +818,7 @@ class CustomTranslationController extends \Pimcore\Bundle\AdminBundle\Controller
      * @param Request $request
     */
     public function getXliffFiltersConfigAction(Request $request) {
-
-        $xLiffFiltersConfig = Yaml::parseFile(PIMCORE_PROJECT_ROOT .
-        '/bundles/RequiredAttributesBundle/Resources/config/xliff_filters.yaml');
+        $xLiffFiltersConfig = Yaml::parseFile(PIMCORE_PROJECT_ROOT . '/bundles/RequiredAttributesBundle/config/xliff_filters.yaml');
         return $this->json(["success" => true,"data" => $xLiffFiltersConfig['xliff_filters']]);
     }
     
