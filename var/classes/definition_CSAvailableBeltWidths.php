@@ -18,7 +18,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1706469128,
+   'modificationDate' => 1707197120,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -201,7 +201,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
-                     'width' => 40,
+                     'width' => 100,
                      'defaultValueGenerator' => '',
                   )),
                   1 => 
@@ -231,7 +231,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
-                     'width' => 40,
+                     'width' => 100,
                      'defaultValueGenerator' => '',
                   )),
                 ),
@@ -284,7 +284,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'group' => 'Conveyor Solution',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
-   'previewGeneratorReference' => NULL,
+   'previewGeneratorReference' => '',
    'compositeIndices' => 
   array (
   ),
