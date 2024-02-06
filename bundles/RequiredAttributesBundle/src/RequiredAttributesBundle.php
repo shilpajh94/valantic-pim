@@ -1,12 +1,20 @@
 <?php
-
 namespace RequiredAttributesBundle;
 
 use Pimcore\Extension\Bundle\AbstractPimcoreBundle;
+use Pimcore\Extension\Bundle\PimcoreBundleAdminClassicInterface;
+use Pimcore\Extension\Bundle\Traits\BundleAdminClassicTrait;
 
-class RequiredAttributesBundle extends AbstractPimcoreBundle
+class RequiredAttributesBundle extends AbstractPimcoreBundle implements PimcoreBundleAdminClassicInterface
 {
-    public function getJsPaths()
+    use BundleAdminClassicTrait;
+
+    public function getPath(): string
+    {
+        return \dirname(__DIR__);
+    }
+
+    public function getJsPaths(): array
     {
         return [
             '/bundles/requiredattributes/js/pimcore/startup.js',
@@ -17,10 +25,11 @@ class RequiredAttributesBundle extends AbstractPimcoreBundle
         ];
     }
 
-    public function getCssPaths()
+    public function getCssPaths(): array
     {
         return [
             '/bundles/requiredattributes/css/style.css'
         ];
     }
 }
+

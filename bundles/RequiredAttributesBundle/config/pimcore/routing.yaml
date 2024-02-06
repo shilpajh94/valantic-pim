@@ -1,5 +1,5 @@
 required_attribute:
-    resource: "@RequiredAttributesBundle/Controller/"
+    resource: "@RequiredAttributesBundle/src/Controller/"
     type:     annotation
     prefix:   /
 required_attributes_homepage:
