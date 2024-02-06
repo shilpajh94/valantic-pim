@@ -37,9 +37,10 @@ class CSMapAllCoverCompoundDataInProducts extends AbstractCommand
                     }
                 }
                 $product->setCoverCompounds($objectsToMap);
-                $product->save();    
+                $product->save();
             }
         }
+        return 1;
     }
 
     public function getProductObject($productPath){

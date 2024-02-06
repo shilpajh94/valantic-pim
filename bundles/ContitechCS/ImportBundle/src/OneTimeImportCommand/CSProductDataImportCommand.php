@@ -423,7 +423,7 @@ class CSProductDataImportCommand extends AbstractCommand
                                                     }
                                                 }
                                                 $method = 'set' . $fieldName;
-                                                if($fieldValue == ""){
+                                                if($fieldValue == '' || $fieldValue == null || empty($fieldValue)){
                                                     $fieldValue = null;
                                                 }
                                                 $product->$method($fieldValue, $language);
@@ -543,6 +543,9 @@ class CSProductDataImportCommand extends AbstractCommand
                                                         $idArray = [];
                                                     }
                                                 } else {
+                                                    if($fieldValue == '' || $fieldValue == null || empty($fieldValue)){
+                                                        $fieldValue = null;
+                                                    }
                                                     $brickObject->$objectBrickFieldMethod($fieldValue, $language);
                                                 }
                                             }
