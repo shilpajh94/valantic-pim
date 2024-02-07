@@ -49,7 +49,7 @@
       "EmailNotificationBundle\\": "bundles/EmailNotificationBundle/src",
       "ImportBundle\\": "bundles/ImportBundle/src",
       "PimDataPostBundle\\": "bundles/PimDataPostBundle",
-      "RequiredAttributesBundle\\": "bundles/RequiredAttributesBundle",
+      "RequiredAttributesBundle\\": "bundles/RequiredAttributesBundle/src",
       "RestApiBundle\\": "bundles/RestApiBundle/src",
       "S3CustomizationBundle\\": "bundles/S3CustomizationBundle/src",
       "PTGEU\\ImportBundle\\": "bundles/PTGEU/ImportBundle/src",
