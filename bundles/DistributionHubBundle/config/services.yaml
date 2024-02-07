@@ -128,8 +128,8 @@ services:
 
     DistributionHubBundle\Services\FilterService:
         public: true
-    #     calls:
-    #         - [setCoreFieldsConfig, ['%distribution_hub.core_fields_configuration%']]
+        calls:
+            - [setCoreFieldsConfig, ['%distribution_hub.core_fields_configuration%']]
     #     arguments:
     #         - '@logger'
     #         - '@pimcore_admin.security.token_storage_user_resolver'

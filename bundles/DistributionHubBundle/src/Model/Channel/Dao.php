@@ -80,10 +80,12 @@ class Dao extends AbstractDao
                     $tmp = ['channelId' => $this->model->getId(), 'ftpDetailId' => $id];
                     $ftpData = $tmp;
                 }
-                $this->db->insertOrUpdate('distribution_hub_channel_ftp_map', $ftpData);
+                // $this->db->insertOrUpdate('distribution_hub_channel_ftp_map', $ftpData);
+                $this->db->insert('distribution_hub_channel_ftp_map', $ftpData);
             }
 
-            $this->db->insertOrUpdate(static::TABLE_NAME, $data);
+            // $this->db->insertOrUpdate(static::TABLE_NAME, $data);
+            $this->db->insert('distribution_hub_channel_ftp_map', $ftpData);
 
             $lastInsertId = $this->db->lastInsertId();
             if (!$this->model->getId() && $lastInsertId) {
