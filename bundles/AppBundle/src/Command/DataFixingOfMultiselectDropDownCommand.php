@@ -78,7 +78,7 @@ class DataFixingOfMultiselectDropDownCommand extends Command
                         $record = $this->db->fetchAllAssociative($sql);                       
                         foreach ($record as $product)
                         {
-                            $productId = $product['o_id'];
+                            $productId = $product['id'];
 
                             if($productId)
                             {   

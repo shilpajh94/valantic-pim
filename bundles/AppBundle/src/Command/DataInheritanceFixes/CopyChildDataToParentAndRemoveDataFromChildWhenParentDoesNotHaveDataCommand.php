@@ -151,27 +151,27 @@ class CopyChildDataToParentAndRemoveDataFromChildWhenParentDoesNotHaveDataComman
         // Because if the data in the children is eqaual only then we can copy children data to parent
         $fetchChildHasDataParentDoesNotQuery = "
                             SELECT
-                                parentBrickTable.o_id parentId,
+                                parentBrickTable.id parentId,
                                 parentBrickTable.$brickAttr parentData,
                                 GROUP_CONCAT(DISTINCT childsBrickTable.$brickAttr
                                         SEPARATOR ', ') distinctChildData,
-                                GROUP_CONCAT(childsBrickTable.o_id
+                                GROUP_CONCAT(childsBrickTable.id
                                         SEPARATOR ', ') allChildWithData,
                                 COUNT(DISTINCT childsBrickTable.$brickAttr) distinctchildDataCount
                             FROM
                                 $brickStoreTableName AS childsBrickTable
                                     JOIN
-                                object_1 AS childObjectTable ON childsBrickTable.o_id = childObjectTable.o_id
+                                object_1 AS childObjectTable ON childsBrickTable.id = childObjectTable.id
                                     JOIN
-                                object_1 AS parentObjectTable ON childObjectTable.o_parentId = parentObjectTable.o_id
+                                object_1 AS parentObjectTable ON childObjectTable.parentId = parentObjectTable.id
                                     JOIN
-                                $brickStoreTableName AS parentBrickTable ON parentObjectTable.o_id = parentBrickTable.o_id
+                                $brickStoreTableName AS parentBrickTable ON parentObjectTable.id = parentBrickTable.id
                             WHERE
-                                parentObjectTable.o_type = 'object'
+                                parentObjectTable.type = 'object'
                                 AND (parentBrickTable.$brickAttr IS NULL OR parentBrickTable.$brickAttr = '')
                                 AND (childsBrickTable.$brickAttr IS NOT NULL)
                                 AND childObjectTable.productType = '$childType'
-                            GROUP BY parentBrickTable.o_id
+                            GROUP BY parentBrickTable.id
                             HAVING MIN(childsBrickTable.$brickAttr) = MAX(childsBrickTable.$brickAttr)
                 ";
 
@@ -194,21 +194,21 @@ class CopyChildDataToParentAndRemoveDataFromChildWhenParentDoesNotHaveDataComman
         $fixDataQuery = "
                     UPDATE $brickStoreTableName AS childsBrickTable
                             JOIN
-                        object_1 AS childObjectTable ON childsBrickTable.o_id = childObjectTable.o_id
+                        object_1 AS childObjectTable ON childsBrickTable.id = childObjectTable.id
                             JOIN
-                        $brickQueryTableName AS childQueryBrickTable ON childsBrickTable.o_id = childQueryBrickTable.o_id
+                        $brickQueryTableName AS childQueryBrickTable ON childsBrickTable.id = childQueryBrickTable.id
                             JOIN
-                        object_1 AS parentObjectTable ON childObjectTable.o_parentId = parentObjectTable.o_id
+                        object_1 AS parentObjectTable ON childObjectTable.parentId = parentObjectTable.id
                             JOIN
-                        $brickStoreTableName AS parentBrickTable ON parentObjectTable.o_id = parentBrickTable.o_id 
+                        $brickStoreTableName AS parentBrickTable ON parentObjectTable.id = parentBrickTable.id 
                             JOIN
-                        $brickQueryTableName AS parentQueryBrickTable ON parentQueryBrickTable.o_id = parentBrickTable.o_id 
+                        $brickQueryTableName AS parentQueryBrickTable ON parentQueryBrickTable.id = parentBrickTable.id 
                     SET 
                         parentBrickTable.$brickAttr = childsBrickTable.$brickAttr,
                         parentQueryBrickTable.$brickAttr = childQueryBrickTable.$brickAttr,
                         childsBrickTable.$brickAttr = NULL
                     WHERE
-                        parentObjectTable.o_type = 'object'
+                        parentObjectTable.type = 'object'
                             AND (parentBrickTable.$brickAttr IS NULL )
                             AND (childsBrickTable.$brickAttr IS NOT NULL)
                             AND childObjectTable.productType = '$childType'
@@ -219,7 +219,7 @@ class CopyChildDataToParentAndRemoveDataFromChildWhenParentDoesNotHaveDataComman
         try{
 
             if(count($parentIds) > 0){
-                $fixDataQuery .=  " AND parentBrickTable.o_id IN (" . implode(",",$parentIds) . ")";
+                $fixDataQuery .=  " AND parentBrickTable.id IN (" . implode(",",$parentIds) . ")";
 
                 $affectedRowsQuery = $this->db->exec($fixDataQuery);
             }
@@ -253,32 +253,32 @@ class CopyChildDataToParentAndRemoveDataFromChildWhenParentDoesNotHaveDataComman
         // Because if the data in the children is eqaual only then we can copy children data to parent
         $fetchFertHasDataBaseDoesNotQuery = "
                             SELECT 
-                                baseBrickTable.o_id baseId,
+                                baseBrickTable.id baseId,
                                 baseBrickTable.$brickAttr baseData,
                                 GROUP_CONCAT(DISTINCT fertBrickTable.$brickAttr
                                     SEPARATOR ', ') distinctFertData,
-                                GROUP_CONCAT(fertBrickTable.o_id
+                                GROUP_CONCAT(fertBrickTable.id
                                     SEPARATOR ', ') allFertWithData,
                                 COUNT(DISTINCT fertBrickTable.$brickAttr) distinctFertDataCount
                             FROM
                                 $brickStoreTableName AS fertBrickTable
                                     JOIN
-                                object_1 AS fertObjectTable ON fertBrickTable.o_id = fertObjectTable.o_id
+                                object_1 AS fertObjectTable ON fertBrickTable.id = fertObjectTable.id
                                     JOIN
-                                object_1 AS skeletonObjectTable ON fertObjectTable.o_parentId = skeletonObjectTable.o_id
+                                object_1 AS skeletonObjectTable ON fertObjectTable.parentId = skeletonObjectTable.id
                                     JOIN
-                                $brickStoreTableName AS skeletonBrickTable ON skeletonObjectTable.o_id = skeletonBrickTable.o_id
+                                $brickStoreTableName AS skeletonBrickTable ON skeletonObjectTable.id = skeletonBrickTable.id
                                     JOIN
-                                object_1 AS baseObjectTable ON skeletonObjectTable.o_parentId = baseObjectTable.o_id
+                                object_1 AS baseObjectTable ON skeletonObjectTable.parentId = baseObjectTable.id
                                     JOIN
-                                $brickStoreTableName as baseBrickTable ON baseObjectTable.o_id = baseBrickTable.o_id
+                                $brickStoreTableName as baseBrickTable ON baseObjectTable.id = baseBrickTable.id
                             WHERE
-                                skeletonObjectTable.o_type = 'object'
-                                    AND baseObjectTable.o_type = 'object'
+                                skeletonObjectTable.type = 'object'
+                                    AND baseObjectTable.type = 'object'
                                     AND (fertBrickTable.$brickAttr IS NOT NULL AND fertBrickTable.$brickAttr != ''  )
                                     AND (baseBrickTable.$brickAttr IS NULL || baseBrickTable.$brickAttr = '')
                                     AND fertObjectTable.productType = '$childType'
-                            GROUP BY baseBrickTable.o_id
+                            GROUP BY baseBrickTable.id
                                 HAVING MIN(fertBrickTable.$brickAttr) = MAX(fertBrickTable.$brickAttr)
                 ";
 
@@ -301,21 +301,21 @@ class CopyChildDataToParentAndRemoveDataFromChildWhenParentDoesNotHaveDataComman
         $fixDataQuery = "
                     UPDATE $brickStoreTableName AS fertBrickTable
                             JOIN
-                        object_1 AS fertObjectTable ON fertBrickTable.o_id = fertObjectTable.o_id
+                        object_1 AS fertObjectTable ON fertBrickTable.id = fertObjectTable.id
                             JOIN
-                        $brickQueryTableName as fertQueryBrickTable ON fertBrickTable.o_id = fertQueryBrickTable.o_id
+                        $brickQueryTableName as fertQueryBrickTable ON fertBrickTable.id = fertQueryBrickTable.id
                             JOIN
-                        object_1 AS skeletonObjectTable ON fertObjectTable.o_parentId = skeletonObjectTable.o_id
+                        object_1 AS skeletonObjectTable ON fertObjectTable.parentId = skeletonObjectTable.id
                             JOIN
-                        $brickStoreTableName AS skeletonBrickTable ON skeletonObjectTable.o_id = skeletonBrickTable.o_id
+                        $brickStoreTableName AS skeletonBrickTable ON skeletonObjectTable.id = skeletonBrickTable.id
                             JOIN
-                        $brickQueryTableName AS skeletonQueryBrickTable ON skeletonObjectTable.o_id = skeletonQueryBrickTable.o_id
+                        $brickQueryTableName AS skeletonQueryBrickTable ON skeletonObjectTable.id = skeletonQueryBrickTable.id
                             JOIN
-                        object_1 AS baseObjectTable ON skeletonObjectTable.o_parentId = baseObjectTable.o_id
+                        object_1 AS baseObjectTable ON skeletonObjectTable.parentId = baseObjectTable.id
                             JOIN
-                        $brickStoreTableName AS baseBrickTable ON baseObjectTable.o_id = baseBrickTable.o_id 
+                        $brickStoreTableName AS baseBrickTable ON baseObjectTable.id = baseBrickTable.id 
                             JOIN
-                        $brickQueryTableName AS baseQueryBrickTable ON baseQueryBrickTable.o_id = baseBrickTable.o_id 
+                        $brickQueryTableName AS baseQueryBrickTable ON baseQueryBrickTable.id = baseBrickTable.id 
                     SET 
                         baseBrickTable.$brickAttr = fertBrickTable.$brickAttr,
                         baseQueryBrickTable.$brickAttr = fertQueryBrickTable.$brickAttr,
@@ -323,8 +323,8 @@ class CopyChildDataToParentAndRemoveDataFromChildWhenParentDoesNotHaveDataComman
                         skeletonBrickTable.$brickAttr = NULL,
                         fertBrickTable.$brickAttr = NULL
                     WHERE
-                        baseObjectTable.o_type = 'object'
-                            AND skeletonObjectTable.o_type = 'object'
+                        baseObjectTable.type = 'object'
+                            AND skeletonObjectTable.type = 'object'
                             AND (baseBrickTable.$brickAttr IS NULL )
                             AND (fertBrickTable.$brickAttr IS NOT NULL AND fertBrickTable.$brickAttr != '')
                             AND fertObjectTable.productType = '$childType'
@@ -336,7 +336,7 @@ class CopyChildDataToParentAndRemoveDataFromChildWhenParentDoesNotHaveDataComman
         try{
 
             if(count($baseIds) > 0){
-                $fixDataQuery .=  " AND baseBrickTable.o_id IN (" . implode(",",$baseIds) . ")";
+                $fixDataQuery .=  " AND baseBrickTable.id IN (" . implode(",",$baseIds) . ")";
 
                 $affectedRowsQuery = $this->db->exec($fixDataQuery);
             }

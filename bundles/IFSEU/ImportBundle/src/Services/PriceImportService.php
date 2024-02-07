@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class PriceImportService {
         private $filePath;
         private $logArray;
-        private $products = [];    
+        private $products = []; 
         public $priceModel;
         private $csvHeader;
         private $queryTableNewData;
@@ -22,7 +22,7 @@ class PriceImportService {
         public function __construct(ContainerInterface $container)
         {
             $this->container = $container;
-            $this->priceModel       = new PriceModel;     
+            $this->priceModel       = new PriceModel;
         }
         
         public function import()

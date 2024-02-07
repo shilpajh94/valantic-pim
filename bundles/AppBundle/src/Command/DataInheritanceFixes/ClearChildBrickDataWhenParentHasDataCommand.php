@@ -208,20 +208,20 @@ class ClearChildBrickDataWhenParentHasDataCommand extends Command
 
         $recordsToBeUpdatedQuery = "
                             SELECT 
-                                childsBrickTable.o_id childId,
-                                parentBrickTable.o_id parentId,
+                                childsBrickTable.id childId,
+                                parentBrickTable.id parentId,
                                 childsBrickTable.$attr childData,
                                 parentBrickTable.$attr parentData
                             FROM 
                                 $storebrickTableName AS childsBrickTable
                                     JOIN
-                                object_1 AS childObjectTable ON childsBrickTable.o_id = childObjectTable.o_id
+                                object_1 AS childObjectTable ON childsBrickTable.id = childObjectTable.id
                                     JOIN
-                                object_1 AS parentObjectTable ON childObjectTable.o_parentId = parentObjectTable.o_id
+                                object_1 AS parentObjectTable ON childObjectTable.parentId = parentObjectTable.id
                                     JOIN
-                                $storebrickTableName AS parentBrickTable ON parentObjectTable.o_id = parentBrickTable.o_id
+                                $storebrickTableName AS parentBrickTable ON parentObjectTable.id = parentBrickTable.id
                             WHERE
-                                parentObjectTable.o_type = 'object'
+                                parentObjectTable.type = 'object'
                                 AND (parentBrickTable.$attr IS NOT NULL)
                                 AND (parentBrickTable.$attr != '')
                                 AND childObjectTable.productType = '$childType'
@@ -234,14 +234,14 @@ class ClearChildBrickDataWhenParentHasDataCommand extends Command
                             UPDATE 
                                 $storebrickTableName AS childsBrickTable
                                     JOIN
-                                object_1 AS childObjectTable ON childsBrickTable.o_id = childObjectTable.o_id
+                                object_1 AS childObjectTable ON childsBrickTable.id = childObjectTable.id
                                     JOIN
-                                object_1 AS parentObjectTable ON childObjectTable.o_parentId = parentObjectTable.o_id
+                                object_1 AS parentObjectTable ON childObjectTable.parentId = parentObjectTable.id
                                     JOIN
-                                $storebrickTableName AS parentBrickTable ON parentObjectTable.o_id = parentBrickTable.o_id
+                                $storebrickTableName AS parentBrickTable ON parentObjectTable.id = parentBrickTable.id
                             SET childsBrickTable.$attr = NULL
                             WHERE
-                                parentObjectTable.o_type = 'object'
+                                parentObjectTable.type = 'object'
                                     AND (parentBrickTable.$attr IS NOT NULL)
                                     AND (parentBrickTable.$attr != '')
                                     AND childObjectTable.productType = '$childType'
@@ -254,16 +254,16 @@ class ClearChildBrickDataWhenParentHasDataCommand extends Command
                             UPDATE 
                                 $querybrickTableName AS childsBrickTable
                                     JOIN
-                                object_1 AS childObjectTable ON childsBrickTable.o_id = childObjectTable.o_id
+                                object_1 AS childObjectTable ON childsBrickTable.id = childObjectTable.id
                                     JOIN
-                                object_1 AS parentObjectTable ON childObjectTable.o_parentId = parentObjectTable.o_id
+                                object_1 AS parentObjectTable ON childObjectTable.parentId = parentObjectTable.id
                                     JOIN
-                                $querybrickTableName AS parentBrickTable ON parentObjectTable.o_id = parentBrickTable.o_id
+                                $querybrickTableName AS parentBrickTable ON parentObjectTable.id = parentBrickTable.id
                                     JOIN
-                                $storebrickTableName AS parentStoreBrickTable ON parentStoreBrickTable.o_id = parentBrickTable.o_id
+                                $storebrickTableName AS parentStoreBrickTable ON parentStoreBrickTable.id = parentBrickTable.id
                             SET childsBrickTable.$attr = parentBrickTable.$attr
                             WHERE
-                                parentObjectTable.o_type = 'object'
+                                parentObjectTable.type = 'object'
                                     AND (parentStoreBrickTable.$attr IS NOT NULL)
                                     AND (parentStoreBrickTable.$attr != '')
                                     AND childObjectTable.productType = '$childType'
@@ -278,8 +278,8 @@ class ClearChildBrickDataWhenParentHasDataCommand extends Command
 
             $childIds = array_column($rowsToBeAffected, "childId");
             if(count($childIds) > 0){
-                $clearDataFromChildStoreTableWhenParentHasDataQuery .=  " AND childsBrickTable.o_id IN (" . implode(",",$childIds) . ")";
-                $setChildQueryTableDataEqualToParentQueryTableDataQuery .= " AND childsBrickTable.o_id IN (" . implode(",",$childIds) . ")";
+                $clearDataFromChildStoreTableWhenParentHasDataQuery .=  " AND childsBrickTable.id IN (" . implode(",",$childIds) . ")";
+                $setChildQueryTableDataEqualToParentQueryTableDataQuery .= " AND childsBrickTable.id IN (" . implode(",",$childIds) . ")";
 
                 $affectedRowsForStoreTableQuery = $this->db->exec($clearDataFromChildStoreTableWhenParentHasDataQuery);
                 $affectedRowsForQueryTableQuery = $this->db->exec($setChildQueryTableDataEqualToParentQueryTableDataQuery);
@@ -310,25 +310,25 @@ class ClearChildBrickDataWhenParentHasDataCommand extends Command
 
         $fetchBaseHasDataRegardlessOfFertQuery = "
                     SELECT
-                        fertBrickTable.o_id fertId,
-                        baseBrickTable.o_id baseId,
+                        fertBrickTable.id fertId,
+                        baseBrickTable.id baseId,
                         fertBrickTable.$attr fertData,
                         baseBrickTable.$attr baseData
                     FROM
                         $storebrickTableName AS fertBrickTable
                             JOIN
-                        object_1 AS fertObjectTable ON fertBrickTable.o_id = fertObjectTable.o_id
+                        object_1 AS fertObjectTable ON fertBrickTable.id = fertObjectTable.id
                             JOIN
-                        object_1 AS skeletonObjectTable ON fertObjectTable.o_parentId = skeletonObjectTable.o_id
+                        object_1 AS skeletonObjectTable ON fertObjectTable.parentId = skeletonObjectTable.id
                             JOIN
-                        $storebrickTableName AS skeletonBrickTable ON skeletonObjectTable.o_id = skeletonBrickTable.o_id
+                        $storebrickTableName AS skeletonBrickTable ON skeletonObjectTable.id = skeletonBrickTable.id
                             JOIN
-                        object_1 AS baseObjectTable ON skeletonObjectTable.o_parentId = baseObjectTable.o_id
+                        object_1 AS baseObjectTable ON skeletonObjectTable.parentId = baseObjectTable.id
                             JOIN
-                        $storebrickTableName as baseBrickTable ON baseObjectTable.o_id = baseBrickTable.o_id
+                        $storebrickTableName as baseBrickTable ON baseObjectTable.id = baseBrickTable.id
                     WHERE
-                        skeletonObjectTable.o_type = 'object'
-                        AND baseObjectTable.o_type = 'object'
+                        skeletonObjectTable.type = 'object'
+                        AND baseObjectTable.type = 'object'
                         AND (baseBrickTable.$attr IS NOT NULL)
                         AND (baseBrickTable.$attr != '')
                         AND fertObjectTable.productType = '$childType'
@@ -342,19 +342,19 @@ class ClearChildBrickDataWhenParentHasDataCommand extends Command
                     UPDATE
                         $storebrickTableName AS fertBrickTable
                             JOIN
-                        object_1 AS fertObjectTable ON fertBrickTable.o_id = fertObjectTable.o_id
+                        object_1 AS fertObjectTable ON fertBrickTable.id = fertObjectTable.id
                             JOIN
-                        object_1 AS skeletonObjectTable ON fertObjectTable.o_parentId = skeletonObjectTable.o_id
+                        object_1 AS skeletonObjectTable ON fertObjectTable.parentId = skeletonObjectTable.id
                             JOIN
-                        $storebrickTableName AS skeletonBrickTable ON skeletonObjectTable.o_id = skeletonBrickTable.o_id
+                        $storebrickTableName AS skeletonBrickTable ON skeletonObjectTable.id = skeletonBrickTable.id
                             JOIN
-                        object_1 AS baseObjectTable ON skeletonObjectTable.o_parentId = baseObjectTable.o_id
+                        object_1 AS baseObjectTable ON skeletonObjectTable.parentId = baseObjectTable.id
                             JOIN
-                        $storebrickTableName as baseBrickTable ON baseObjectTable.o_id = baseBrickTable.o_id
+                        $storebrickTableName as baseBrickTable ON baseObjectTable.id = baseBrickTable.id
                     SET fertBrickTable.$attr = NULL
                     WHERE
-                        skeletonObjectTable.o_type = 'object'
-                        AND baseObjectTable.o_type = 'object'
+                        skeletonObjectTable.type = 'object'
+                        AND baseObjectTable.type = 'object'
                         AND (baseBrickTable.$attr IS NOT NULL)
                         AND (baseBrickTable.$attr != '')
                         AND fertObjectTable.productType = '$childType'
@@ -368,19 +368,19 @@ class ClearChildBrickDataWhenParentHasDataCommand extends Command
                     UPDATE
                         $querybrickTableName AS fertBrickTable
                             JOIN
-                        object_1 AS fertObjectTable ON fertBrickTable.o_id = fertObjectTable.o_id
+                        object_1 AS fertObjectTable ON fertBrickTable.id = fertObjectTable.id
                             JOIN
-                        object_1 AS skeletonObjectTable ON fertObjectTable.o_parentId = skeletonObjectTable.o_id
+                        object_1 AS skeletonObjectTable ON fertObjectTable.parentId = skeletonObjectTable.id
                             JOIN
-                        $querybrickTableName AS skeletonBrickTable ON skeletonObjectTable.o_id = skeletonBrickTable.o_id
+                        $querybrickTableName AS skeletonBrickTable ON skeletonObjectTable.id = skeletonBrickTable.id
                             JOIN
-                        object_1 AS baseObjectTable ON skeletonObjectTable.o_parentId = baseObjectTable.o_id
+                        object_1 AS baseObjectTable ON skeletonObjectTable.parentId = baseObjectTable.id
                             JOIN
-                        $querybrickTableName as baseBrickTable ON baseObjectTable.o_id = baseBrickTable.o_id
+                        $querybrickTableName as baseBrickTable ON baseObjectTable.id = baseBrickTable.id
                     SET fertBrickTable.$attr = baseBrickTable.$attr
                     WHERE
-                        skeletonObjectTable.o_type = 'object'
-                        AND baseObjectTable.o_type = 'object'
+                        skeletonObjectTable.type = 'object'
+                        AND baseObjectTable.type = 'object'
                         AND (baseBrickTable.$attr IS NOT NULL)
                         AND (baseBrickTable.$attr != '')
                         AND fertObjectTable.productType = '$childType'
@@ -396,8 +396,8 @@ class ClearChildBrickDataWhenParentHasDataCommand extends Command
 
             $fertIds = array_column($rowsToBeAffected, "fertId");
             if(count($fertIds) > 0){
-                $clearDataFromFertStoreWhenBaseHasDataQuery .=  " AND fertBrickTable.o_id IN (" . implode(",",$fertIds) . ")";
-                $setFertQueryTableDataEqualToBaseQueryTableDataQuery .= " AND fertBrickTable.o_id IN (" . implode(",",$fertIds) . ")";
+                $clearDataFromFertStoreWhenBaseHasDataQuery .=  " AND fertBrickTable.id IN (" . implode(",",$fertIds) . ")";
+                $setFertQueryTableDataEqualToBaseQueryTableDataQuery .= " AND fertBrickTable.id IN (" . implode(",",$fertIds) . ")";
 
                 $affectedRowsForStoreTableQuery = $this->db->exec($clearDataFromFertStoreWhenBaseHasDataQuery);
                 $affectedRowsForQueryTableQuery = $this->db->exec($setFertQueryTableDataEqualToBaseQueryTableDataQuery);
@@ -430,20 +430,20 @@ class ClearChildBrickDataWhenParentHasDataCommand extends Command
 
         $recordsToBeUpdatedQuery = "
                             SELECT 
-                                childsBrickTable.o_id childId,
-                                parentBrickTable.o_id parentId,
+                                childsBrickTable.id childId,
+                                parentBrickTable.id parentId,
                                 childsBrickTable.$attr childData,
                                 parentBrickTable.$attr parentData
                             FROM 
                                 $storebrickTableName AS childsBrickTable
                                     JOIN
-                                object_1 AS childObjectTable ON childsBrickTable.o_id = childObjectTable.o_id
+                                object_1 AS childObjectTable ON childsBrickTable.id = childObjectTable.id
                                     JOIN
-                                object_1 AS parentObjectTable ON childObjectTable.o_parentId = parentObjectTable.o_id
+                                object_1 AS parentObjectTable ON childObjectTable.parentId = parentObjectTable.id
                                     JOIN
-                                $storebrickTableName AS parentBrickTable ON parentObjectTable.o_id = parentBrickTable.o_id
+                                $storebrickTableName AS parentBrickTable ON parentObjectTable.id = parentBrickTable.id
                             WHERE
-                                parentObjectTable.o_type = 'object'
+                                parentObjectTable.type = 'object'
                                 AND (parentBrickTable.$attr IS NOT NULL)
                                 AND (parentBrickTable.$attr = 0)
                                 AND (childsBrickTable.$attr IS NOT NULL)
@@ -458,17 +458,17 @@ class ClearChildBrickDataWhenParentHasDataCommand extends Command
                             UPDATE 
                                 $storebrickTableName AS childsBrickTable
                                     JOIN
-                                object_1 AS childObjectTable ON childsBrickTable.o_id = childObjectTable.o_id
+                                object_1 AS childObjectTable ON childsBrickTable.id = childObjectTable.id
                                     JOIN
-                                $querybrickTableName AS childQueryBrickTable ON childsBrickTable.o_id = childQueryBrickTable.o_id
+                                $querybrickTableName AS childQueryBrickTable ON childsBrickTable.id = childQueryBrickTable.id
                                     JOIN
-                                object_1 AS parentObjectTable ON childObjectTable.o_parentId = parentObjectTable.o_id
+                                object_1 AS parentObjectTable ON childObjectTable.parentId = parentObjectTable.id
                                     JOIN
-                                $storebrickTableName AS parentBrickTable ON parentObjectTable.o_id = parentBrickTable.o_id
+                                $storebrickTableName AS parentBrickTable ON parentObjectTable.id = parentBrickTable.id
                             SET childsBrickTable.$attr = NULL, 
                                 childQueryBrickTable.$attr = parentBrickTable.$attr
                             WHERE
-                                parentObjectTable.o_type = 'object'
+                                parentObjectTable.type = 'object'
                                 AND (parentBrickTable.$attr IS NOT NULL)
                                 AND (parentBrickTable.$attr = 0)
                                 AND (childsBrickTable.$attr IS NOT NULL)
@@ -484,8 +484,8 @@ class ClearChildBrickDataWhenParentHasDataCommand extends Command
 
             $childIds = array_column($rowsToBeAffected, "childId");
             if(count($childIds) > 0){
-                $clearDataFromChildStoreTableWhenParentHasDataQuery .=  " AND childsBrickTable.o_id IN (" . implode(",",$childIds) . ")";
-                // $setChildQueryTableDataEqualToParentQueryTableDataQuery .= " AND childsBrickTable.o_id IN (" . implode(",",$childIds) . ")";
+                $clearDataFromChildStoreTableWhenParentHasDataQuery .=  " AND childsBrickTable.id IN (" . implode(",",$childIds) . ")";
+                // $setChildQueryTableDataEqualToParentQueryTableDataQuery .= " AND childsBrickTable.id IN (" . implode(",",$childIds) . ")";
 
                 $affectedRowsForStoreTableQuery = $this->db->exec($clearDataFromChildStoreTableWhenParentHasDataQuery);
                 // $affectedRowsForQueryTableQuery = $this->db->exec($setChildQueryTableDataEqualToParentQueryTableDataQuery);

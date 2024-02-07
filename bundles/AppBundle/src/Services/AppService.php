@@ -561,7 +561,7 @@ class AppService
      */
     private function skeletonProductUpdate($currentDate){
         $batchSize = $this->batchSize;
-        $baseSql = " SELECT * FROM object_".$this->productClassId ." WHERE productType='base' AND o_modificationDate >= ". $this->db->quote($currentDate);
+        $baseSql = " SELECT * FROM object_".$this->productClassId ." WHERE productType='base' AND modificationDate >= ". $this->db->quote($currentDate);
         $totalCount = count($this->db->fetchFirstColumn($baseSql));
         echo "total base products- (".$totalCount. ") ".date('m/d/Y h:i:s') . PHP_EOL;
         $offset = 0;
@@ -569,7 +569,7 @@ class AppService
             $limit = " LIMIT " . $offset . ", " . $batchSize;
             $baseProductSql = $baseSql . $limit;
             $baseProducts = $this->db->fetchFirstColumn($baseProductSql);
-            $skeletonSql = " SELECT oo_id as id FROM object_" . $this->productClassId . " WHERE productType='skeleton' AND o_parentId IN (" . implode(",", $baseProducts) . ")";
+            $skeletonSql = " SELECT oo_id as id FROM object_" . $this->productClassId . " WHERE productType='skeleton' AND parentId IN (" . implode(",", $baseProducts) . ")";
             if (count($baseProducts)) {
                 $skeletonProducts = $this->db->fetchFirstColumn($skeletonSql);
                 echo "total skeleton products in this batch- (" . count($skeletonProducts) . ") " . date('m/d/Y h:i:s') . PHP_EOL;
@@ -586,7 +586,7 @@ class AppService
      */
     private function fertProductUpdate($currentDate){
         $batchSize = $this->batchSize;
-        $skeletonSql = " SELECT * FROM object_".$this->productClassId ." WHERE productType='skeleton' AND o_modificationDate >= ". $this->db->quote($currentDate);
+        $skeletonSql = " SELECT * FROM object_".$this->productClassId ." WHERE productType='skeleton' AND modificationDate >= ". $this->db->quote($currentDate);
         $totalCount = count($this->db->fetchFirstColumn($skeletonSql));
         echo "Total skeleton products- (".$totalCount. ") ".date('m/d/Y h:i:s') . PHP_EOL;
         $offset = 0;
@@ -595,7 +595,7 @@ class AppService
             $skeletonProductSql = $skeletonSql . $limit;
             $skeletonProducts = $this->db->fetchFirstColumn($skeletonProductSql);
             if (count($skeletonProducts)) {
-                $fertSql = " SELECT oo_id as id FROM object_" . $this->productClassId . " WHERE productType='fert' AND o_parentId IN (" . implode(",", $skeletonProducts) . ")";
+                $fertSql = " SELECT oo_id as id FROM object_" . $this->productClassId . " WHERE productType='fert' AND parentId IN (" . implode(",", $skeletonProducts) . ")";
                 $fertProducts = $this->db->fetchFirstColumn($fertSql);
                 echo "total fert products in this batch- (" . count($fertProducts) . ") " . date('m/d/Y h:i:s') . PHP_EOL;
                 $this->saveProducts($skeletonProducts, $fertProducts, 'fert');
@@ -616,7 +616,7 @@ class AppService
         $batchSize =$this->batchSize;
         $totalCount = count($products);
         while($offset <= ( $totalCount - 1) ){
-            $sql = " SELECT oo_id as id FROM object_" . $this->productClassId ." WHERE productType=".$this->db->quote($type)." AND o_parentId IN (" . implode(",",$parentProducts) . ") LIMIT ".$offset.", ".$batchSize;
+            $sql = " SELECT oo_id as id FROM object_" . $this->productClassId ." WHERE productType=".$this->db->quote($type)." AND parentId IN (" . implode(",",$parentProducts) . ") LIMIT ".$offset.", ".$batchSize;
             $results = $this->db->fetchFirstColumn($sql);
             foreach ($results as $product){
                 $cp =  Product::getById($product);

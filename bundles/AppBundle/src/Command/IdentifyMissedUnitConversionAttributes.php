@@ -120,11 +120,11 @@ class IdentifyMissedUnitConversionAttributes extends Command {
 
                 $columnQuery = "
                             SELECT
-                                $brickTableName.o_id
+                                $brickTableName.id
                             FROM
                                 $brickTableName
                                     JOIN
-                                object_1 ON $brickTableName.o_id = object_1.o_id
+                                object_1 ON $brickTableName.id = object_1.id
                             WHERE
                                 $brickTableName.$columnName IS NOT NULL
                                     AND object_1.productType = '$levelForQuery'
@@ -134,17 +134,17 @@ class IdentifyMissedUnitConversionAttributes extends Command {
 
                 $fetchChildParentNotEqualDataQuery = "
                             SELECT
-                                childsBrickTable.o_id
+                                childsBrickTable.id
                             FROM
                                 $brickTableName AS childsBrickTable
                                     JOIN
-                                object_1 AS childObjectTable ON childsBrickTable.o_id = childObjectTable.o_id
+                                object_1 AS childObjectTable ON childsBrickTable.id = childObjectTable.id
                                     JOIN
-                                object_1 AS parentObjectTable ON childObjectTable.o_parentId = parentObjectTable.o_id
+                                object_1 AS parentObjectTable ON childObjectTable.parentId = parentObjectTable.id
                                     JOIN
-                                $brickTableName AS parentBrickData ON parentObjectTable.o_id = parentBrickData.o_id
+                                $brickTableName AS parentBrickData ON parentObjectTable.id = parentBrickData.id
                             WHERE
-                                parentObjectTable.o_type = 'object'
+                                parentObjectTable.type = 'object'
                                 AND childsBrickTable.$columnName IS NOT NULL
                                 AND (childsBrickTable.$columnName != parentBrickData.$columnName OR parentBrickData.$columnName is null )
                                 AND childObjectTable.productType = '$levelForQuery'
@@ -154,17 +154,17 @@ class IdentifyMissedUnitConversionAttributes extends Command {
 
                 $fetchChildWhereParentDataNullDataQuery = "
                             SELECT
-                                childsBrickTable.o_id
+                                childsBrickTable.id
                             FROM
                                 $brickTableName AS childsBrickTable
                                     JOIN
-                                object_1 AS childObjectTable ON childsBrickTable.o_id = childObjectTable.o_id
+                                object_1 AS childObjectTable ON childsBrickTable.id = childObjectTable.id
                                     JOIN
-                                object_1 AS parentObjectTable ON childObjectTable.o_parentId = parentObjectTable.o_id
+                                object_1 AS parentObjectTable ON childObjectTable.parentId = parentObjectTable.id
                                     JOIN
-                                $brickTableName AS parentBrickData ON parentObjectTable.o_id = parentBrickData.o_id
+                                $brickTableName AS parentBrickData ON parentObjectTable.id = parentBrickData.id
                             WHERE
-                                parentObjectTable.o_type = 'object'
+                                parentObjectTable.type = 'object'
                                 AND childsBrickTable.$columnName IS NOT NULL
                                 AND (parentBrickData.$columnName IS NULL )
                                 AND childObjectTable.productType = '$levelForQuery'
@@ -174,17 +174,17 @@ class IdentifyMissedUnitConversionAttributes extends Command {
 
                 $fetchChildParentDataEqualQuery = "
                             SELECT
-                                childsBrickTable.o_id
+                                childsBrickTable.id
                             FROM
                                 $brickTableName AS childsBrickTable
                                     JOIN
-                                object_1 AS childObjectTable ON childsBrickTable.o_id = childObjectTable.o_id
+                                object_1 AS childObjectTable ON childsBrickTable.id = childObjectTable.id
                                     JOIN
-                                object_1 AS parentObjectTable ON childObjectTable.o_parentId = parentObjectTable.o_id
+                                object_1 AS parentObjectTable ON childObjectTable.parentId = parentObjectTable.id
                                     JOIN
-                                $brickTableName AS parentBrickData ON parentObjectTable.o_id = parentBrickData.o_id
+                                $brickTableName AS parentBrickData ON parentObjectTable.id = parentBrickData.id
                             WHERE
-                                parentObjectTable.o_type = 'object'
+                                parentObjectTable.type = 'object'
                                 AND childsBrickTable.$columnName IS NOT NULL
                                 AND (parentBrickData.$columnName = childsBrickTable.$columnName )
                                 AND childObjectTable.productType = '$levelForQuery'
@@ -194,17 +194,17 @@ class IdentifyMissedUnitConversionAttributes extends Command {
 
                 $fetchChildParentNotNullNotEqualDataQuery = "
                             SELECT
-                                childsBrickTable.o_id
+                                childsBrickTable.id
                             FROM
                                 $brickTableName AS childsBrickTable
                                     JOIN
-                                object_1 AS childObjectTable ON childsBrickTable.o_id = childObjectTable.o_id
+                                object_1 AS childObjectTable ON childsBrickTable.id = childObjectTable.id
                                     JOIN
-                                object_1 AS parentObjectTable ON childObjectTable.o_parentId = parentObjectTable.o_id
+                                object_1 AS parentObjectTable ON childObjectTable.parentId = parentObjectTable.id
                                     JOIN
-                                $brickTableName AS parentBrickData ON parentObjectTable.o_id = parentBrickData.o_id
+                                $brickTableName AS parentBrickData ON parentObjectTable.id = parentBrickData.id
                             WHERE
-                                parentObjectTable.o_type = 'object'
+                                parentObjectTable.type = 'object'
                                 AND childsBrickTable.$columnName IS NOT NULL
                                 AND parentBrickData.$columnName IS NOT NULL
                                 AND (childsBrickTable.$columnName != parentBrickData.$columnName )
@@ -276,7 +276,7 @@ class IdentifyMissedUnitConversionAttributes extends Command {
                             $attr2 = $attributes[1];
 
                             if ($this->getIfColumnExistInTable($brickTableName, $attr1) && $this->getIfColumnExistInTable($brickTableName, $attr2)) {
-                                $query = "select o_id from " . $brickTableName . "
+                                $query = "select id from " . $brickTableName . "
                                             where (" . $attr1 . " is not null and  " . $attr2 . " is null) OR
                                             (" . $attr1 . " is null and  " . $attr2 . " is not null)";
                                 $result = $this->db->fetchOne($query);
@@ -301,7 +301,7 @@ class IdentifyMissedUnitConversionAttributes extends Command {
                             if ($this->getIfColumnExistInTable($brickTableName, $attr1) &&
                                     $this->getIfColumnExistInTable($brickTableName, $attr2) &&
                                     $this->getIfColumnExistInTable($brickTableName, $attr3)) {
-                                $query = "select o_id from " . $brickTableName . "
+                                $query = "select id from " . $brickTableName . "
                                             where (" . $attr1 . " is not null and  " . $attr2 . " is null) OR
                                             (" . $attr1 . " is null and  " . $attr2 . " is not null) OR
                                              (" . $attr1 . " is not null and  " . $attr3 . " is null) OR

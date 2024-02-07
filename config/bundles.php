@@ -8,7 +8,7 @@ return [
     ADAuthBundle\ADAuthBundle::class => ['all' => true],
     B2BTranslationBundle\B2BTranslationBundle::class => ['all' => true],
     ClassRelationBundle\ClassRelationBundle::class => ['all' => true],
-    // Elements\Bundle\ProcessManagerBundle\ElementsProcessManagerBundle::class => ['all' => true],
+    Elements\Bundle\ProcessManagerBundle\ElementsProcessManagerBundle::class => ['all' => true],
     ImportBundle\ImportBundle::class => ['all' => true],
     // RequiredAttributesBundle\RequiredAttributesBundle::class => ['all' => true],
     S3CustomizationBundle\S3CustomizationBundle::class => ['all' => true],

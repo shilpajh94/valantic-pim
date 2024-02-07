@@ -77,20 +77,20 @@ class SalesMaterialImport
 
     public function insertInObjects($data) {
     	try {
-	        $sql      = "INSERT INTO `objects` (`o_parentId`, `o_type`, `o_key`, `o_path`, `o_published`, `o_classId`, `o_className`, `o_creationDate`, `o_modificationDate`) VALUES";
-	        $update[] = " `o_parentId` = VALUES(`o_parentId`) ";
-	        $update[] = " `o_type` = VALUES(`o_type`) ";
-	        $update[] = " `o_key` = VALUES(`o_key`) ";
-	        $update[] = " `o_path` = VALUES(`o_path`) ";
-	        $update[] = " `o_published` = VALUES(`o_published`) ";
-	        $update[] = " `o_classId` = VALUES(`o_classId`) ";
-	        $update[] = " `o_className` = VALUES(`o_className`) ";
-	        $update[] = " `o_modificationDate` = VALUES(`o_modificationDate`) ";
+	        $sql      = "INSERT INTO `objects` (`parentId`, `type`, `key`, `path`, `published`, `classId`, `className`, `creationDate`, `modificationDate`) VALUES";
+	        $update[] = " `parentId` = VALUES(`parentId`) ";
+	        $update[] = " `type` = VALUES(`type`) ";
+	        $update[] = " `key` = VALUES(`key`) ";
+	        $update[] = " `path` = VALUES(`path`) ";
+	        $update[] = " `published` = VALUES(`published`) ";
+	        $update[] = " `classId` = VALUES(`classId`) ";
+	        $update[] = " `className` = VALUES(`className`) ";
+	        $update[] = " `modificationDate` = VALUES(`modificationDate`) ";
 	        $update = " ON DUPLICATE KEY UPDATE ".implode(", ", $update);
-	        $valuesArr[] = $this->db->quote($data['o_parentId']);
+	        $valuesArr[] = $this->db->quote($data['parentId']);
 	        $valuesArr[] = $this->db->quote("object");
-	        $valuesArr[] = $this->db->quote($data['o_key']);
-	        $valuesArr[] = $this->db->quote($data['o_path']);
+	        $valuesArr[] = $this->db->quote($data['key']);
+	        $valuesArr[] = $this->db->quote($data['path']);
 	        $valuesArr[] = $this->db->quote("1");
 	        $valuesArr[] = $this->db->quote("10");
 	        $valuesArr[] = $this->db->quote("SalesMaterialMaster");
@@ -131,7 +131,7 @@ class SalesMaterialImport
         $valColumns = [];
         foreach ($keys as $key) {
             $sqlColumns[] = "`".$key."`";
-            if ($key!='o_id') {
+            if ($key!='id') {
                 $updateColumns[] = "`".$key."`= VALUES(`".$key."`)";
             }
             $valColumns[] = $key;
