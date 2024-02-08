@@ -223,7 +223,7 @@ class ChannelController extends UserAwareController
      * @param Request $request
      * @return JsonResponse
      */
-    public function addAction(Request $request)
+    public function addAction(Request $request): JsonResponse
     {
         $this->checkPermission(self::CONFIG_NAME);
         try {

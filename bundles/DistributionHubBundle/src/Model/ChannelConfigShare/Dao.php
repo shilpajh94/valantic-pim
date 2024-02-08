@@ -4,6 +4,7 @@ namespace DistributionHubBundle\Model\ChannelConfigShare;
 
 use DistributionHubBundle\Model\AbstractDao;
 use Pimcore\Db;
+use Pimcore\Db\Helper;
 
 /**
  * @property DistributionHubBundle\Model\ChannelConfigShare $model
@@ -58,7 +59,7 @@ class Dao extends AbstractDao
         }
 
         // $this->db->insertOrUpdate(self::TABLE_NAME, $data);
-        $this->db->insert(static::TABLE_NAME, $data);
+        Helper::upsert($this->db, static::TABLE_NAME, $data, $this->getPrimaryKey(static::TABLE_NAME));
     }
 
     /**

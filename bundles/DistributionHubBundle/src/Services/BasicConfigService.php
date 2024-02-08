@@ -57,19 +57,23 @@ class BasicConfigService
         $headerMappingFileExists = false;
         $headerMappingFileSheetNames = array();
 
-        $asset = Asset::getById($fileAssetId);
-        if ($asset) {
-            $headerMappingFileExists = true;
-            if ($headerMappingFileType == Constants::FILE_TYPE_EXCEL) {
-                $file = $asset->getFileSystemPath();
-                try {
-                    $headerMappingFileSheetNames = $this->getSheetNamesInExcelFile($file);
-                } catch (\Exception $exception) {
-                    DHubLogger::log("Error reading template file in BasicConfigController getSheetsInExcelAsset:".$exception->getMessage(), DHubLogger::CRITICAL);
-                    throw new \Exception('dHub_could_not_read_template_file');
+        // dd($channel);
+        if($fileAssetId == null){
+        }else{
+            $asset = Asset::getById($fileAssetId);
+            if ($asset) {
+                $headerMappingFileExists = true;
+                if ($headerMappingFileType == Constants::FILE_TYPE_EXCEL) {
+                    $file = $asset->getFileSystemPath();
+                    try {
+                        $headerMappingFileSheetNames = $this->getSheetNamesInExcelFile($file);
+                    } catch (\Exception $exception) {
+                        DHubLogger::log("Error reading template file in BasicConfigController getSheetsInExcelAsset:".$exception->getMessage(), DHubLogger::CRITICAL);
+                        throw new \Exception('dHub_could_not_read_template_file');
+                    }
                 }
+                $headerMappingFileName = $asset->getFilename();
             }
-            $headerMappingFileName = $asset->getFilename();
         }
 
         $defaultAssetFolderPathForExportedFiles = $this->bundleService->getDefaultAssetFolderPathForExportedFiles();

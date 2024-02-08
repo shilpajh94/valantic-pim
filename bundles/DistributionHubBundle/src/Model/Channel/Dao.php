@@ -6,6 +6,7 @@ use DistributionHubBundle\Model\AbstractDao;
 use DistributionHubBundle\Model\FTPDetail;
 use DistributionHubBundle\Model\Filter;
 use DistributionHubBundle\Model\Schedule;
+use Pimcore\Db\Helper;
 
 class Dao extends AbstractDao
 {
@@ -81,11 +82,11 @@ class Dao extends AbstractDao
                     $ftpData = $tmp;
                 }
                 // $this->db->insertOrUpdate('distribution_hub_channel_ftp_map', $ftpData);
-                $this->db->insert('distribution_hub_channel_ftp_map', $ftpData);
+                Helper::upsert($this->db, 'distribution_hub_channel_ftp_map', $ftpData, $this->getPrimaryKey('distribution_hub_channel_ftp_map'));
             }
 
             // $this->db->insertOrUpdate(static::TABLE_NAME, $data);
-            $this->db->insert('distribution_hub_channel_ftp_map', $ftpData);
+            Helper::upsert($this->db, static::TABLE_NAME, $data, $this->getPrimaryKey(static::TABLE_NAME));
 
             $lastInsertId = $this->db->lastInsertId();
             if (!$this->model->getId() && $lastInsertId) {

@@ -1,6 +1,7 @@
 <?php
 
 namespace DistributionHubBundle\Model;
+use Pimcore\Db\Helper;
 
 abstract class AbstractDao extends \Pimcore\Model\Dao\AbstractDao
 {
@@ -37,7 +38,7 @@ abstract class AbstractDao extends \Pimcore\Model\Dao\AbstractDao
             }
 
             // $this->db->insertOrUpdate(static::TABLE_NAME, $data);
-            $this->db->insert(static::TABLE_NAME, $data);
+            Helper::upsert($this->db, static::TABLE_NAME, $data, $this->getPrimaryKey(static::TABLE_NAME));
 
             $lastInsertId = $this->db->lastInsertId();
             if (!$this->model->getId() && $lastInsertId) {
