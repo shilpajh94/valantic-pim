@@ -7,9 +7,9 @@ pimcore.registerNS("pimcore.plugin.RequiredAttributesBundle.override_xliff");
 pimcore.plugin.RequiredAttributesBundle.override_xliff = Class.create({
 
     filterOnExportProducts: function(){
+        Ext.override(pimcore.bundle.xliff.settings, {
 
-        Ext.override(pimcore.settings.translation.xliff, {
-
+            
             //This function is used to get all the values provided in the filter panel
 
             getFilterValues : function (){

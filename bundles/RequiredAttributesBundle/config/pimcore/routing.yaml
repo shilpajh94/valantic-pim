@@ -11,3 +11,9 @@ label_value_data_for_nomeclature:
 get_data_for_xliff_filters:
     path: /admin/xliff-filters/get-data
     defaults: { _controller: RequiredAttributesBundle:CustomTranslation:getXliffFiltersConfig }
+get_xliff_export:
+    path: /admin/translation/xliff-export
+    defaults: { _controller: RequiredAttributesBundle:CustomXliffTranslation:getxliffExport }
+get_xliff_export_download:
+    path: /admin/translation/xliff-export-download
+    defaults: { _controller: RequiredAttributesBundle:CustomXliffTranslation:getxliffExportDownload }

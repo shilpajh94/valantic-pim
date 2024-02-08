@@ -155,7 +155,7 @@ class DefaultController extends FrontendController
         $dataArray = $designfactor = $featuresArr = [];
         $baseObjectId = $request->get('objectId');
 
-        $exportColumnsConfig = YaML::parseFile(PIMCORE_PROJECT_ROOT . '/bundles/ImportBundle/Resources/config/spec-sheet-export-columns.yaml');
+        $exportColumnsConfig = YaML::parseFile(PIMCORE_PROJECT_ROOT . '/bundles/ImportBundle/config/spec-sheet-export-columns.yaml');
         $catalogImagesINHFooter = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHFooter'];
 
         $baseObj = \Pimcore\Model\DataObject::getById($baseObjectId);
@@ -364,7 +364,7 @@ class DefaultController extends FrontendController
         ];
 
         $exportFertsId = $request->get('articleNumber');
-        $exportColumnsConfig = YaML::parseFile(PIMCORE_PROJECT_ROOT . '/bundles/ImportBundle/Resources/config/spec-sheet-export-columns.yaml');
+        $exportColumnsConfig = YaML::parseFile(PIMCORE_PROJECT_ROOT . '/bundles/ImportBundle/config/spec-sheet-export-columns.yaml');
 
         $trimBrackets = trim($exportFertsId, "[]");
         $articleNumberArray = explode(",", $trimBrackets);
@@ -704,7 +704,7 @@ class DefaultController extends FrontendController
      */
     public function getSpecSheetAvailableHeaders(Request $request)
     {
-        $tableColumns = YaML::parseFile(PIMCORE_PROJECT_ROOT . '/bundles/ImportBundle/Resources/config/spec-sheet-export-columns.yaml');
+        $tableColumns = YaML::parseFile(PIMCORE_PROJECT_ROOT . '/bundles/ImportBundle/config/spec-sheet-export-columns.yaml');
 
         $columns = array();
         $arr = [];
