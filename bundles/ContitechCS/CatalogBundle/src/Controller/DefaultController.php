@@ -65,7 +65,7 @@ class DefaultController extends FrontendController
         $id = $request->get('catId');
         $categoryObj = DataObject\CSCatalogCategory::getById($id);
         $hierarchyId = ($categoryObj->getSecondLevelCategory());
-        $resultData['data'] = [];
+        $result = [];
         if ($hierarchyId) {
             $productsList = new DataObject\CSProducts\Listing();
             $productsList->setCondition("ParentCategory like " . $productsList->quote("%," . $hierarchyId . ",%"));
@@ -76,8 +76,8 @@ class DefaultController extends FrontendController
                     $result[] = array('text' => trim($cat->getName()), 'id' => trim($cat->getId()));
                 }
             }
-            $resultData['data'] = $result;
         }
+        $resultData['data'] = $result;
         return $this->json(['data' => $resultData['data']]);
     }
 
