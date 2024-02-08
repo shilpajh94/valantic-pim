@@ -7,7 +7,7 @@ pimcore:
                     name: ProductManagementIFSEMEA
                     description: ''
                     creationDate: 1706593782
-                    modificationDate: 1706594386
+                    modificationDate: 1707385848
                     userOwner: 2
                     classId: IFSEUProduct
                     layoutDefinitions:
@@ -797,7 +797,7 @@ pimcore:
                                                                                 labelAlign: left
                                                                         region: null
                                                                         layout: null
-                                                                        maxTabs: 20
+                                                                        maxTabs: 35
                                                                         border: false
                                                                         provideSplitView: true
                                                                         tabPosition: top
@@ -2346,7 +2346,7 @@ pimcore:
                                                                         labelAlign: left
                                                                 region: null
                                                                 layout: null
-                                                                maxTabs: 20
+                                                                maxTabs: 35
                                                                 border: false
                                                                 provideSplitView: true
                                                                 tabPosition: top
@@ -3101,7 +3101,7 @@ pimcore:
                                                                                                 datatype: data
                                                                                         region: null
                                                                                         layout: null
-                                                                                        maxTabs: 20
+                                                                                        maxTabs: 35
                                                                                         border: false
                                                                                         provideSplitView: true
                                                                                         tabPosition: top
@@ -5439,7 +5439,7 @@ pimcore:
                                                         datatype: data
                                                 region: null
                                                 layout: null
-                                                maxTabs: 20
+                                                maxTabs: 35
                                                 border: false
                                                 provideSplitView: true
                                                 tabPosition: top
