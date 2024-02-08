@@ -16,7 +16,7 @@ pimcore.plugin.distributionhub.tabs.preview = Class.create(pimcore.bundle.distri
 
         if (!this.portletMode) {
             this.extensionBag = new pimcore.bundle.distributionhub.filtersConfig.ResultPanelExtensionBag(this, typeof gridConfigData != 'undefined' ? gridConfigData.predefinedFilter : null);
-            pimcore.plugin.broker.fireEvent("onDHubPreviewResult", this.extensionBag);
+            // pimcore.plugin.broker.fireEvent("onDHubPreviewResult", this.extensionBag);
         }
     },
 
