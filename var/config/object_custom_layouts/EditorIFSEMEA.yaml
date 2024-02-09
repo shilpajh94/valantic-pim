@@ -7,7 +7,7 @@ pimcore:
                     name: EditorIFSEMEA
                     description: ''
                     creationDate: 1706526201
-                    modificationDate: 1707385711
+                    modificationDate: 1707460309
                     userOwner: 2
                     classId: IFSEUProduct
                     layoutDefinitions:
