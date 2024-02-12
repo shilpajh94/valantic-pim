@@ -164,7 +164,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1706469166,
+   'modificationDate' => 1707289235,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -336,7 +336,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'blockedVarsForExport' => 
                                     array (
                                     ),
-                                     'options' => NULL,
                                      'defaultValue' => '1',
                                      'columnLength' => 190,
                                      'dynamicOptions' => false,
@@ -365,7 +364,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'blockedVarsForExport' => 
                                     array (
                                     ),
-                                     'options' => NULL,
                                      'maxItems' => 1,
                                      'renderType' => 'tags',
                                      'dynamicOptions' => false,
@@ -444,7 +442,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'blockedVarsForExport' => 
                                     array (
                                     ),
-                                     'options' => NULL,
                                      'defaultValue' => '1',
                                      'columnLength' => 190,
                                      'dynamicOptions' => false,
@@ -631,7 +628,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'blockedVarsForExport' => 
                                         array (
                                         ),
-                                         'options' => NULL,
                                          'maxItems' => NULL,
                                          'renderType' => 'tags',
                                          'dynamicOptions' => false,
@@ -921,7 +917,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                             ),
                              'region' => NULL,
                              'layout' => NULL,
-                             'maxTabs' => 20,
+                             'maxTabs' => 35,
                              'border' => false,
                              'provideSplitView' => false,
                              'tabPosition' => 'top',
@@ -1107,7 +1103,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                 ),
                                  'region' => NULL,
                                  'layout' => NULL,
-                                 'maxTabs' => 20,
+                                 'maxTabs' => 30,
                                  'border' => false,
                                  'provideSplitView' => false,
                                  'tabPosition' => 'top',
@@ -1170,7 +1166,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                 ),
                                  'region' => NULL,
                                  'layout' => NULL,
-                                 'maxTabs' => 20,
+                                 'maxTabs' => 35,
                                  'border' => false,
                                  'provideSplitView' => false,
                                  'tabPosition' => 'top',
@@ -1263,7 +1259,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                 ),
                                  'region' => NULL,
                                  'layout' => NULL,
-                                 'maxTabs' => 20,
+                                 'maxTabs' => 35,
                                  'border' => false,
                                  'provideSplitView' => false,
                                  'tabPosition' => 'top',
@@ -3278,7 +3274,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                             ),
                              'region' => NULL,
                              'layout' => NULL,
-                             'maxTabs' => 20,
+                             'maxTabs' => 30,
                              'border' => false,
                              'provideSplitView' => false,
                              'tabPosition' => 'top',
@@ -4014,7 +4010,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                     ),
                                      'region' => NULL,
                                      'layout' => NULL,
-                                     'maxTabs' => 20,
+                                     'maxTabs' => 35,
                                      'border' => false,
                                      'provideSplitView' => false,
                                      'tabPosition' => 'top',
@@ -6142,7 +6138,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'blockedVarsForExport' => 
                                     array (
                                     ),
-                                     'options' => NULL,
                                      'defaultValue' => '1',
                                      'columnLength' => 190,
                                      'dynamicOptions' => false,
@@ -6171,7 +6166,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'blockedVarsForExport' => 
                                     array (
                                     ),
-                                     'options' => NULL,
                                      'defaultValue' => '1',
                                      'columnLength' => 190,
                                      'dynamicOptions' => false,
@@ -6200,7 +6194,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'blockedVarsForExport' => 
                                     array (
                                     ),
-                                     'options' => NULL,
                                      'defaultValue' => '1',
                                      'columnLength' => 190,
                                      'dynamicOptions' => false,
@@ -7772,7 +7765,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'region' => NULL,
                  'layout' => NULL,
-                 'maxTabs' => 20,
+                 'maxTabs' => 35,
                  'border' => false,
                  'provideSplitView' => false,
                  'tabPosition' => 'top',

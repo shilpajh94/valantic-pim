@@ -7,7 +7,7 @@ pimcore:
                     name: EditorPTGEU
                     description: ''
                     creationDate: 1706596833
-                    modificationDate: 1706597298
+                    modificationDate: 1707388124
                     userOwner: 2
                     classId: '38'
                     layoutDefinitions:
@@ -486,7 +486,7 @@ pimcore:
                                                                         labelAlign: left
                                                                 region: null
                                                                 layout: null
-                                                                maxTabs: 20
+                                                                maxTabs: 35
                                                                 border: true
                                                                 provideSplitView: false
                                                                 tabPosition: top
@@ -1684,7 +1684,7 @@ pimcore:
                                                                                 title: 'Nominal Length'
                                                                                 tooltip: ''
                                                                                 mandatory: false
-                                                                                noteditable: true
+                                                                                noteditable: false
                                                                                 index: false
                                                                                 locked: false
                                                                                 style: 'margin-left:10px;'
@@ -2398,7 +2398,7 @@ pimcore:
                                                                                 datatype: data
                                                                         region: null
                                                                         layout: null
-                                                                        maxTabs: 20
+                                                                        maxTabs: 35
                                                                         border: true
                                                                         provideSplitView: false
                                                                         tabPosition: top
@@ -2802,7 +2802,7 @@ pimcore:
                                                                                 datatype: data
                                                                         region: null
                                                                         layout: null
-                                                                        maxTabs: 20
+                                                                        maxTabs: 35
                                                                         border: true
                                                                         provideSplitView: false
                                                                         tabPosition: top
@@ -3826,7 +3826,7 @@ pimcore:
                                                         datatype: data
                                                 region: null
                                                 layout: null
-                                                maxTabs: 20
+                                                maxTabs: 35
                                                 border: false
                                                 provideSplitView: false
                                                 tabPosition: top

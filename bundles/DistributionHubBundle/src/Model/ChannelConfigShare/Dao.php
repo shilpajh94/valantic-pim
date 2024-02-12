@@ -57,7 +57,8 @@ class Dao extends AbstractDao
             }
         }
 
-        $this->db->insertOrUpdate(self::TABLE_NAME, $data);
+        // $this->db->insertOrUpdate(self::TABLE_NAME, $data);
+        $this->db->insert(static::TABLE_NAME, $data);
     }
 
     /**

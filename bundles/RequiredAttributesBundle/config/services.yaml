@@ -39,3 +39,6 @@ services:
 
     Pimcore\Bundle\AdminBundle\Controller\Admin\TranslationController:
         class: RequiredAttributesBundle\Controller\CustomTranslationController
+
+    Pimcore\Bundle\XliffBundle\Controller\XliffTranslationController:
+        class: RequiredAttributesBundle\Controller\CustomXliffTranslationController

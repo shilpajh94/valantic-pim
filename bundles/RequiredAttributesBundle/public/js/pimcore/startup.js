@@ -179,7 +179,7 @@ pimcore.plugin.RequiredAttributesBundle = Class.create({
                     closable: closable,
                     autoHeight: true,
                     border: false,
-                    title: title ? ts(title) : ts(type),
+                    title: title ? t(title) : t(type),
                     // items: items
                     items: [],
                     listeners: { 

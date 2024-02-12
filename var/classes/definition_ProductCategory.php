@@ -34,7 +34,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1706469177,
+   'modificationDate' => 1707302691,
    'userOwner' => 0,
    'userModification' => 2,
    'parentClass' => '\\Pimcore\\Bundle\\EcommerceFrameworkBundle\\Model\\AbstractCategory',
@@ -434,7 +434,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'options' => NULL,
                          'maxItems' => NULL,
                          'renderType' => 'list',
                          'dynamicOptions' => false,
@@ -737,7 +736,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'region' => NULL,
                  'layout' => NULL,
-                 'maxTabs' => 20,
+                 'maxTabs' => 35,
                  'border' => false,
                  'provideSplitView' => false,
                  'tabPosition' => 'top',
