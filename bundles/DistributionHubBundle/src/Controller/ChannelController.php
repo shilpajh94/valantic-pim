@@ -449,15 +449,19 @@ class ChannelController extends UserAwareController
         $loadChilds = boolval($request->get('loadChilds'));
 
         $filteredDefinitions = DataObject\Service::getCustomLayoutDefinitionForGridColumnConfig($class, $objectId);
+        // dd($filteredDefinitions);
         if ($loadChilds) {
             $layoutDefinitions = isset($filteredDefinitions['layoutDefinition']) ? $filteredDefinitions['layoutDefinition'] : false;
         }
         $filteredFieldDefinition = isset($filteredDefinitions['fieldDefinition']) ? $filteredDefinitions['fieldDefinition'] : false;
         $class->setFieldDefinitions([]);
         $result = [];
-        $result['objectColumns']['childs'] = $loadChilds ? $layoutDefinitions->getChildren() : [];
+        $result['objectColumns']['children'] = $loadChilds ? $layoutDefinitions->getChildren() : [];
         $result['objectColumns']['nodeLabel'] = 'object_columns';
         $result['objectColumns']['nodeType'] = 'object';
+        
+        // dd($result['objectColumns']['childs'] = $loadChilds ? $layoutDefinitions->getChildren() : []);
+        // dd($result['objectColumns']['nodeLabel'] = 'object_columns');
 
         if (!$loadChilds) {
             Services\ClassificationStoreService::updateObjectLayout($filteredDefinitions);

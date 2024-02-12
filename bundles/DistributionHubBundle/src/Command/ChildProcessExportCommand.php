@@ -115,7 +115,7 @@ class ChildProcessExportCommand extends Command
          p_r($columnAttributeMapping);
         $this->exportService->prepareFieldsAndHelperDefinition($columnAttributeMapping);
         $fields = $this->exportService->getFieldsForExport();
-        p_r($fields); die;
+        // p_r($fields); die;
         try {
             $writer = Factory::getWriter($this->channel, $this->schedule, $tmpFilePath);
             // p_r('y');
