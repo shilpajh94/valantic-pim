@@ -50,7 +50,8 @@ class B2BInitialLoadCommand extends AbstractCommand
             echo "\n Page number should be numeric and should be greater than or equal to 1. \n";
         }
 
-         echo "executed\n";
+        echo "executed\n";
+        return 1;
     }
 
 }

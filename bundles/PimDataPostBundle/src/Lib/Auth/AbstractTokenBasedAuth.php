@@ -28,23 +28,26 @@ abstract class AbstractTokenBasedAuth{
         }
 
         $newToken = $this->getNewToken($tokenConfig);
-          
+
         $this->setTokenToSession($newToken);
         return $newToken;
     }
 
     private function getTokenFromSession(): ?AuthToken
     {
-        $session = Util::getService('session');
+        // $session = Util::getService('session');
         $key = $this->getType() . "_token";
-        return $session->get($key);
+        $GLOBALS[$key];
+        return $GLOBALS[$key];
+        // return $session->get($key);
     }
 
     private function setTokenToSession(AuthToken $token): void
     {
-        $session = Util::getService('session');
+        // $session = Util::getService('session');
         $key = $this->getType() . "_token";
-        $session->set($key,$token);
+        $GLOBALS[$key] = $token;
+        // $session->set($key,$token);
     }
 
 }

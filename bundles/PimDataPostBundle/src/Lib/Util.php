@@ -49,7 +49,7 @@ Class Util
         foreach ($records as $record) {
             fputcsv($handle, $record, $delimiter);
         }
-        
+
         fclose($handle);
         return file_exists($filePath);
     }
@@ -69,7 +69,7 @@ Class Util
         $newAsset->setParent($parentObj);
         $newAsset->save();
 
-        return $newAsset;      
+        return $newAsset;
     }
 
     /**
@@ -97,16 +97,19 @@ Class Util
 
     public static function setB2BScriptStartTime(int $timestampt): void
     {
-        $session = self::getService('session');
+        // $session = self::getService('session');
         $key = Constants::B2B_SCRIPT_START_TIME_SESSION_KEY;
-        $session->set($key,$timestampt);
+        $GLOBALS[$key] = $timestampt;
+        // $session->set($key,$timestampt);
     }
 
     public static function getB2BScriptStartTime(): int
     {
-        $session = self::getService('session');
+        // $session = self::getService('session');
         $key = Constants::B2B_SCRIPT_START_TIME_SESSION_KEY;
-        return $session->get($key);
+        p_r($GLOBALS[$key]);
+        return $GLOBALS[$key];
+        // return $session->get($key);
     }
 
 
@@ -122,16 +125,19 @@ Class Util
 
     public static function setPIMFailureFlag(): void
     {
-        $session = self::getService('session');
+        // $session = self::getService('session');
         $key = Constants::B2B_PIM_FAILURE_FLAG_SESSION_KEY;
-        $session->set($key, true);
+        $GLOBALS[$key] = true;
+        // $session->set($key, true);
     }
 
     public static function isPIMFailureFlagSet(): ?bool
     {
-        $session = self::getService('session');
+        // $session = self::getService('session');
         $key = Constants::B2B_PIM_FAILURE_FLAG_SESSION_KEY;
-        return $session->get($key);
+        $GLOBALS[$key];
+        return $GLOBALS[$key];
+        // return $session->get($key);
     }
 
     public static function getB2BRequestHeader(bool $forceNewToken = false): array
@@ -173,67 +179,76 @@ Class Util
 
     public static function addB2BFailureId(string $failureId): void
     {
-        $session = self::getService('session');
+        // $session = self::getService('session');
         $key = Constants::B2B_FAILURE_IDS_SESSION_KEY;
 
         $existingFailureIds = self::getB2BFailureIds();
         $existingFailureIds[] = $failureId;
-        $session->set($key, $existingFailureIds);
+        $GLOBALS[$key] = $existingFailureIds;
+        // $session->set($key, $existingFailureIds);
     }
 
     public static function getB2BFailureIds(): array
     {
-        $session = self::getService('session');
+        // $session = self::getService('session');
         $key = Constants::B2B_FAILURE_IDS_SESSION_KEY;
-        return $session->get($key) === null ? [] : $session->get($key);
+        return $GLOBALS[$key] === null ? [] : $GLOBALS[$key];
+        // return $session->get($key) === null ? [] : $session->get($key);
     }
 
     public static function addB2BSuccessId(string $failureId): void
     {
-        $session = self::getService('session');
+        // $session = self::getService('session');
         $key = Constants::B2B_SUCCESS_IDS_SESSION_KEY;
 
         $existingFailureIds = self::getB2BSuccessIds();
         $existingFailureIds[] = $failureId;
-        $session->set($key, $existingFailureIds);
+        $GLOBALS[$key] = $existingFailureIds;
+        // $session->set($key, $existingFailureIds);
     }
 
     public static function getB2BSuccessIds(): array
     {
-        $session = self::getService('session');
+        // $session = self::getService('session');
         $key = Constants::B2B_SUCCESS_IDS_SESSION_KEY;
-        return $session->get($key) === null ? [] : $session->get($key);
+        return $GLOBALS[$key] === null ? [] : $GLOBALS[$key];
+        // return $session->get($key) === null ? [] : $session->get($key);
     }
 
     public static function getB2CSuccessIds(): array
     {
-        $session = self::getService('session');
+        // $session = self::getService('session');
         $key = Constants::B2C_SUCCESS_IDS_SESSION_KEY;
-        return $session->get($key) === null ? [] : $session->get($key);
+        return $GLOBALS[$key] === null ? [] : $GLOBALS[$key];
+        // return $session->get($key) === null ? [] : $session->get($key);
     }
 
     public static function addB2CSuccessId(string $failureId): void
     {
-        $session = self::getService('session');
+        // $session = self::getService('session');
         $key = Constants::B2C_SUCCESS_IDS_SESSION_KEY;
 
         $existingFailureIds = self::getB2BSuccessIds();
         $existingFailureIds[] = $failureId;
-        $session->set($key, $existingFailureIds);
+        $GLOBALS[$key] = $existingFailureIds;
+        // $session->set($key, $existingFailureIds);
     }
 
     public static function setB2CScriptStartTime(int $timestampt): void
     {
-        $session = self::getService('session');
+        // $session = self::getService('session');
         $key = Constants::B2C_SCRIPT_START_TIME_SESSION_KEY;
-        $session->set($key,$timestampt);
+        $GLOBALS[$key] = $timestampt;
+        // $session->set($key,$timestampt);
     }
 
     public static function getB2CScriptStartTime(): int
     {
-        $session = self::getService('session');
+        // $session = self::getService('session');
         $key = Constants::B2C_SCRIPT_START_TIME_SESSION_KEY;
-        return $session->get($key);
+        $GLOBALS[$key];
+        return $GLOBALS[$key];
+        // return $session->get($key);
     }
 
     public static function formatWysiwygValue(?string $value): ?string

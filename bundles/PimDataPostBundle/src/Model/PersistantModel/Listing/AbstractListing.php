@@ -8,7 +8,7 @@ class AbstractListing extends \Pimcore\Model\Listing\AbstractListing
     public $items = array();
 
 
-    public function isValidOrderKey($key)
+    public function isValidOrderKey($key): bool
     {
         return true;
     }

@@ -26,7 +26,7 @@ class PimDataPostCommand extends AbstractCommand
     {
         $this->postDataForB2BShop();
         // $this->postDataForB2CShop();
-      
+
         $this->removeEntriesFromPimDeletedAssets();
 
         if(Util::isPIMFailureFlagSet()){
@@ -38,7 +38,8 @@ class PimDataPostCommand extends AbstractCommand
             }
         }
 
-         echo "executed\n";
+        echo "executed\n";
+        return 1;
     }
 
     private function postDataForB2BShop()

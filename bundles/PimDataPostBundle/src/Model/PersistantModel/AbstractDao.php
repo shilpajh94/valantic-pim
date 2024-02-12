@@ -10,7 +10,7 @@ abstract class AbstractDao extends \Pimcore\Model\Dao\AbstractDao
      */
     public function getById($id)
     {
-        $data = $this->db->fetchAssociative("SELECT * FROM " . $this->db->quoteIdentifier(static::TABLE_NAME) . " WHERE id = ?", $id);
+        $data = $this->db->fetchAssociative("SELECT * FROM " . $this->db->quoteIdentifier(static::TABLE_NAME) . " WHERE id = " . $id);
         if (!$data["id"]) {
             throw new \Exception("record with id " . $id . " not found");
         }
@@ -35,7 +35,7 @@ abstract class AbstractDao extends \Pimcore\Model\Dao\AbstractDao
                 }
             }
 
-            $this->db->insertOrUpdate(static::TABLE_NAME, $data);
+            \Pimcore\Db\Helper::upsert($this->db, static::TABLE_NAME, $data, $this->getPrimaryKey(static::TABLE_NAME));
 
             $lastInsertId = $this->db->lastInsertId();
             if (!$this->model->getId() && $lastInsertId) {

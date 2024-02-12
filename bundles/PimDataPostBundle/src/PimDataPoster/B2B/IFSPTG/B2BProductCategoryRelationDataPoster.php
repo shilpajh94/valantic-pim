@@ -36,7 +36,7 @@ class B2BProductCategoryRelationDataPoster implements IDataPoster
             $levelCategoriesRelationObject = $relationChangeProvider->getSIOPLevel4Categories();
 
             $categoryRelationsObjectsEnforcedToPush = $enforcedRecordProvier->getEnforcedRelationObject();
-    
+
             $relationObjectsForFailureEntry = $levelCategoriesRelationObject;
 
             $pimFailedRecordsToResend = $pimFailedRecordHandler->getFixedPimFailedRecord(B2BSalesForceObjectType::PRODUCT_CATEGORY_PRODUCT());
@@ -81,7 +81,7 @@ class B2BProductCategoryRelationDataPoster implements IDataPoster
         return $relationObjects;
     }
 
-    private function createAPIRequestEntityForRelationChangeObjects(array $relationChangeObjects, 
+    private function createAPIRequestEntityForRelationChangeObjects(array $relationChangeObjects,
                                                         B2BProductCategoryRelationRequestBodyGenerator $requestBodyGenerator): void
     {
         foreach($relationChangeObjects as $relationChangeObject){
@@ -92,7 +92,10 @@ class B2BProductCategoryRelationDataPoster implements IDataPoster
 
             /* =================================== */
             $newValue = trim($relationChangeObject->getNewValue(),",");
-            $oldValue = trim($relationChangeObject->getOldValue(),",");
+            if ( !empty($relationChangeObject->getOldValue()) ) {
+                $oldValue = trim($relationChangeObject->getOldValue(),",");
+            }
+            // $oldValue = trim($relationChangeObject->getOldValue(),",");
             //echo "New Value == ".$newValue."_____ Old Value === ".$oldValue."\n\n";
             if($newValue != $oldValue) {
                 $apiRequestEntityDelete = new B2BAPIRequestEntity();
@@ -107,7 +110,7 @@ class B2BProductCategoryRelationDataPoster implements IDataPoster
                 $apiRequestEntityDelete->save();
             }
             /* =================================== */
-            
+
             $apiRequestEntity = new B2BAPIRequestEntity();
             $apiRequestEntity->setBody(json_encode($requestBody,JSON_UNESCAPED_SLASHES));
             $apiRequestEntity->setOperationType(APIOperationType::UPDATE());

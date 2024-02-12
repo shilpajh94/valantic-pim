@@ -4,7 +4,7 @@ namespace PimDataPostBundle\Model\PersistantModel\Listing;
 
 abstract class AbstractDao extends \Pimcore\Model\Listing\Dao\AbstractDao
 {
-    public function load()
+    public function load(): array
     {
 //        $searchIds = $this->db->fetchFirstColumn("SELECT id FROM " . $this->db->quoteIdentifier(Channel\Dao::TABLE_NAME) . " " . $this->getCondition() . $this->getOrder() . $this->getOffsetLimit(), $this->model->getConditionVariables());
 
@@ -28,7 +28,7 @@ abstract class AbstractDao extends \Pimcore\Model\Listing\Dao\AbstractDao
         return $searchIds;
     }
 
-    public function getTotalCount()
+    public function getTotalCount(): int
     {
         try {
             $amount = (int) $this->db->fetchOne("SELECT COUNT(*) as amount FROM " . $this->db->quoteIdentifier(static::TABLE_NAME) . " " . $this->getCondition(), $this->model->getConditionVariables());
