@@ -93,7 +93,7 @@ class ProductDataImportCommand extends Command
             $this->categories[$fullCode] = array(
                 'data' =>  $cat,
                 'id'    =>  $cat['oo_id'],
-                'fullPath'  =>  $cat['o_path'].$cat['o_key']
+                'fullPath'  =>  $cat['path'].$cat['key']
             );
             unset($fullCode);
         }
@@ -187,7 +187,7 @@ class ProductDataImportCommand extends Command
     public function updateProductsList() {
         $productList = $this->tableObj->getProducts();
         foreach($productList as $prod) {
-            $fullPath = $prod['o_path'].$prod['o_key'];
+            $fullPath = $prod['path'].$prod['key'];
             $this->products[$fullPath] = $prod['oo_id'];
             unset($fullPath);
         }
@@ -248,9 +248,9 @@ class ProductDataImportCommand extends Command
         }
         $objectArr = [
             'parentId' => $parentId,
-            'o_key' => $objectKey,
+            'key' => $objectKey,
             'path' => $parentPath.'/',
-            'o_className' => 'Product'
+            'className' => 'Product'
         ];
         echo PHP_EOL;
         echo $objId = $this->tableObj->insertInObjects($objectArr);
@@ -282,9 +282,9 @@ class ProductDataImportCommand extends Command
         }
         $objectArr = [
             'parentId' => $parentId,
-            'o_key' => $objectKey,
+            'key' => $objectKey,
             'path' => $parentPath.'/',
-            'o_className' => 'Product'
+            'className' => 'Product'
         ];
         $objId = $this->tableObj->insertInObjects($objectArr);
         $currentLevelPath = $parentPath.'/'.$objectKey;

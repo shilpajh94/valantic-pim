@@ -63,7 +63,7 @@ class ProductImport
     }
 
     public function getFittingFamilyFlagByMaterial($materialObjId) {
-        $sql = "SELECT * from object_brick_query_HydFittingsFert_1 where `o_id` = ".$this->db->quote($materialObjId)." AND (`HydFittingFamily` is not null OR `HydFittingFamily` != '') ";
+        $sql = "SELECT * from object_brick_query_HydFittingsFert_1 where `id` = ".$this->db->quote($materialObjId)." AND (`HydFittingFamily` is not null OR `HydFittingFamily` != '') ";
         $data = $this->db->fetchAllAssociative($sql);
 	$flag = false;
         if (count($data)>0) {
@@ -73,40 +73,41 @@ class ProductImport
     }
 
     public function checkIfArticleExists($articleNumber) {
-        $sql = " SELECT `oo_id`, `o_parentId`, `o_path`, `articleNumber`, `oldMaterialCode`  FROM `object_1` WHERE `articleNumber` = ".$this->db->quote(trim($articleNumber)) ." AND `ProductType` = 'fert'";
+        $sql = " SELECT `oo_id`, `parentId`, `path`, `articleNumber`, `oldMaterialCode`  FROM `object_1` WHERE `articleNumber` = ".$this->db->quote(trim($articleNumber)) ." AND `ProductType` = 'fert'";
         return $this->db->fetchAllAssociative($sql);
     }
 
     public function insertInObjects($data) {
     	try {
             $valuesArr = [];
-            if (!empty($data['o_id'])) {
-                $insertColumns[] = "`o_id`";
-                $update[] = " `o_id` = VALUES(`o_id`) ";
-                $valuesArr[] = $this->db->quote($data['o_id']);
+            if (!empty($data['id'])) {
+                $insertColumns[] = "`id`";
+                $update[] = " `id` = VALUES(`id`) ";
+                $valuesArr[] = $this->db->quote($data['id']);
             }
-            $insertColumns[] = "`o_parentId`";
-            $insertColumns[] = "`o_type`";
-            $insertColumns[] = "`o_key`";
-            $insertColumns[] = "`o_path`";
-            $insertColumns[] = "`o_published`";
-            $insertColumns[] = "`o_classId`";
-            $insertColumns[] = "`o_className`";
-            $insertColumns[] = "`o_creationDate`";
-            $insertColumns[] = "`o_modificationDate`";
+            $insertColumns[] = "`parentId`";
+            $insertColumns[] = "`type`";
+            $insertColumns[] = "`key`";
+            $insertColumns[] = "`path`";
+            $insertColumns[] = "`published`";
+            $insertColumns[] = "`classId`";
+            $insertColumns[] = "`className`";
+            $insertColumns[] = "`creationDate`";
+            $insertColumns[] = "`modificationDate`";
             $sql      = "INSERT INTO `objects` (".implode(", ", $insertColumns).") VALUES";
-            $update[] = " `o_parentId` = VALUES(`o_parentId`) ";
-            $update[] = " `o_type` = VALUES(`o_type`) ";
-            $update[] = " `o_key` = VALUES(`o_key`) ";
-            $update[] = " `o_path` = VALUES(`o_path`) ";
-            $update[] = " `o_published` = VALUES(`o_published`) ";
-            $update[] = " `o_classId` = VALUES(`o_classId`) ";
-            $update[] = " `o_className` = VALUES(`o_className`) ";
-            $update[] = " `o_modificationDate` = VALUES(`o_modificationDate`) ";
+            $update[] = " `parentId` = VALUES(`parentId`) ";
+            $update[] = " `type` = VALUES(`type`) ";
+            $update[] = " `key` = VALUES(`key`) ";
+            $update[] = " `path` = VALUES(`path`) ";
+            $update[] = " `published` = VALUES(`published`) ";
+            $update[] = " `classId` = VALUES(`classId`) ";
+            $update[] = " `className` = VALUES(`className`) ";
+            $update[] = " `modificationDate` = VALUES(`modificationDate`) ";
             $update = " ON DUPLICATE KEY UPDATE ".implode(", ", $update);
-            $valuesArr[] = $this->db->quote($data['parentId']);
+            $parentId = $data['parentId'];
+            $valuesArr[] = "$parentId";
             $valuesArr[] = $this->db->quote("object");
-            $valuesArr[] = $this->db->quote($data['o_key']);
+            $valuesArr[] = $this->db->quote($data['key']);
             $valuesArr[] = $this->db->quote($data['path']);
             $valuesArr[] = $this->db->quote("1");
             $valuesArr[] = $this->db->quote("1");
@@ -117,8 +118,8 @@ class ProductImport
             $query = $sql.$values.$update;
             $this->db->executeQuery($query);
             $lastId = $this->db->lastInsertId();
-            if (!empty($data['o_id'])) {
-                $lastId = $data['o_id'];
+            if (!empty($data['id'])) {
+                $lastId = $data['id'];
             }
             $data = $values = $query = $update = $valuesArr = null;
     	} catch(\Exception $e) {
@@ -338,7 +339,7 @@ class ProductImport
             $data = $this->db->fetchAllAssociative($sql);
             $recordArray = [];
             foreach ($data as $record) {
-                $recordArray[$record['o_key']] = $record['o_id'];
+                $recordArray[$record['key']] = $record['id'];
             }
             return $recordArray;
         } catch (\Exception $ex) {
@@ -433,7 +434,7 @@ class ProductImport
     }
 
     public function getCategories() {
-        $query = "SELECT oo_id, code, o_key, fullCode, RelatedObjectBrick, o_path, BusinessUnit, Level FROM `object_2` ";
+        $query = "SELECT oo_id, code, `key`, fullCode, RelatedObjectBrick, `path`, BusinessUnit, Level FROM `object_2` ";
         return $this->db->fetchAllAssociative($query);
     }
 
@@ -443,12 +444,12 @@ class ProductImport
     }
 
     public function getProducts() {
-        $query = "SELECT oo_id, o_key, o_path FROM `object_1` ";
+        $query = "SELECT oo_id, `key`, `path` FROM `object_1` ";
         return $this->db->fetchAllAssociative($query);
     }
 
     public function getObjectsTableData() {
-        $query = "SELECT o_id, o_key, o_path FROM `objects` where o_type = 'object' AND o_classId = '1'";
+        $query = "SELECT id, `key`, `path` FROM `objects` where type = 'object' AND classId = '1'";
         return $this->db->fetchAllAssociative($query);
     }
 }

@@ -262,7 +262,7 @@ class ProductSQLModel
     public function saveProducts($updatedArticlesArray) {
         foreach ($updatedArticlesArray as $objectId) {
             if (!empty($objectId)) {
-                $object = DataObject\Product::getById($objectId, true);
+                $object = DataObject\Product::getById($objectId);
                 if (!empty($object) && $object instanceof \Pimcore\Model\DataObject\Product) {
                     $object->save();
                 }

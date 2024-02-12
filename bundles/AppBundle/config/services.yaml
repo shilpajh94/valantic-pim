@@ -16,14 +16,15 @@ services:
             
     AppBundle\EventListener\AdminAssetsListener:
         tags:
-                - { name: kernel.event_subscriber }
+                - { name: kernel.event_subscriber } 
     AppBundle\EventListener\AdminStyleListener:
         tags:
                 - { name: kernel.event_listener, event: pimcore.admin.resolve.elementAdminStyle, method: onResolveElementAdminStyle }
 
-    # AppBundle\Workflow\ProductPublishingListener:
-    #     tags:
-    #             - { name: kernel.event_product_workflow}         
+    AppBundle\Workflow\ProductPublishingListener:
+        tags:
+                - { name: kernel.event_product_workflow}   
+
     ADAuthBundle\EventListener\AuthenticateListener:
         tags:
                 - { name: kernal.event_user_login, event: pimcore.admin.login.credentials, method: onLoginCredentials}    
@@ -43,9 +44,9 @@ services:
     #
 
     # auto-register all commands as services
-    # AppBundle\Command\:
-    #     resource: '../../Command/*'
-    #     tags: ['console.command']
+    AppBundle\Command\:
+        resource: '../src/Command/*'
+        tags: ['console.command']
         
     # Services
     # this service will be common throughout the project
@@ -54,32 +55,32 @@ services:
         public: true
 
     # Global helper
-    # app.category_helper:
-    #     class: AppBundle\Helper\Category
-    #     public: true
+    app.category_helper:
+        class: AppBundle\Helper\Category
+        public: true
         
     AppBundle\Formatter\AssetFormatter:
         public: true
 
-    # app.product_helper:
-    #     class: AppBundle\Helper\Product
-    #     public: true
+    app.product_helper:
+        class: AppBundle\Helper\Product
+        public: true
         
-    # app.table_import_helper:
-    #     class: AppBundle\Helper\TableImport
-    #     public: true
+    app.table_import_helper:
+        class: AppBundle\Helper\TableImport
+        public: true
         
-    # app.product_import_helper:
-    #     class: AppBundle\Helper\ProductImport
-    #     public: true
+    app.product_import_helper:
+        class: AppBundle\Helper\ProductImport
+        public: true
 
-    # app.plant_material_import_helper:
-    #     class: AppBundle\Helper\PlantMaterialImport
-    #     public: true
+    app.plant_material_import_helper:
+        class: AppBundle\Helper\PlantMaterialImport
+        public: true
 
-    # app.sales_material_import_helper:
-    #     class: AppBundle\Helper\SalesMaterialImport
-    #     public: true
+    app.sales_material_import_helper:
+        class: AppBundle\Helper\SalesMaterialImport
+        public: true
 
     # Pim catgory(SIOP) class
     pim.category_service:
@@ -99,9 +100,9 @@ services:
         class: AppBundle\Services\ConfigProviderService
         public: true
 
-    # app.workflow_helper:
-    #     class: AppBundle\Helper\Workflow
-    #     public: true
+    app.workflow_helper:
+        class: AppBundle\Helper\Workflow
+        public: true
 
     AppBundle\EventListener\ObjectListener:
         tags:
@@ -111,11 +112,11 @@ services:
             - { name: kernel.event_listener, event: pimcore.document.print.processor.modifyProcessingOptions, method: modifyProcessingOptions }
             - { name: kernel.event_listener, event: pimcore.document.print.prePdfGeneration, method: listenPrintPrePdfGeneration }
 
-    # AppBundle\EventListener\OptionProviderCacheListener:
-    #     tags:
-    #         - { name: kernel.event_listener, event: pimcore.dataobject.postAdd, method: postAdd }
-    #         - { name: kernel.event_listener, event: pimcore.dataobject.postUpdate, method: postUpdate }
-    #         - { name: kernel.event_listener, event: pimcore.dataobject.postDelete, method: postDelete }
+    AppBundle\EventListener\OptionProviderCacheListener:
+        tags:
+            - { name: kernel.event_listener, event: pimcore.dataobject.postAdd, method: postAdd }
+            - { name: kernel.event_listener, event: pimcore.dataobject.postUpdate, method: postUpdate }
+            - { name: kernel.event_listener, event: pimcore.dataobject.postDelete, method: postDelete }
 
     
 
@@ -125,39 +126,137 @@ services:
     AppBundle\Services\CategoryBrickMappingService:
       public: true
 
-    # ImportBundle\OneTimeImportCommand\PtgImportCommand:
-    #     tags:
-            # - { name: 'console.command', command: 'conti:onetimeimport:ptg' }
-    # ImportBundle\OneTimeImportCommand\PtgFeatureImportCommand:
-    #     tags:
-    #         - { name: 'console.command', command: 'conti:onetimeimport:ptg-feature' }
-    # ImportBundle\OneTimeImportCommand\HoseDataImportCommand:
-    #     tags:
-    #         - { name: 'console.command', command: 'conti:onetimeimport:hose' }
-    # ImportBundle\OneTimeImportCommand\ImportFittingDbCommand:
-    #     tags:
-    #         - { name: 'console.command', command: 'onetime-import:fitting-data' }
-    # ImportBundle\OneTimeImportCommand\ImportCompetitorDataCommand:
-    #     tags:
-    #         - { name: 'console.command', command: 'onetime-import:competitor-data' }
-    # ImportBundle\OneTimeImportCommand\ImportNomenClatureCommand:
-    #     tags:
-    #         - { name: 'console.command', command: 'onetime-import:nomenclature-masterlist' }
-    # ImportBundle\OneTimeImportCommand\HosesFlagSetCommand:
-    #     tags:
-    #         - { name: 'console.command', command: 'conti:onetimeimport:hosesflag' }
-    # ImportBundle\OneTimeImportCommand\VirtualCatalogImportCommand:
-    #     tags:
-    #         - { name: 'console.command', command: 'conti:onetimeimport:virtialcatalog' }
-    # ImportBundle\OneTimeImportCommand\VirtualCatalogFlagImportCommand:
-    #     tags:
-    #         - { name: 'console.command', command: 'conti:onetimeimport:virtual-catalog-flag' }
-    # ImportBundle\OneTimeImportCommand\TableNameImportCommand:
-    #     tags:
-    #         - { name: 'console.command', command: 'conti:onetimeimport:table-name-import' }
-    # ImportBundle\OneTimeImportCommand\FeatureImportCommand:
-    #     tags:
-    #         - { name: 'console.command', command: 'conti:onetimeimport:feature-import-command' }
+    ImportBundle\OneTimeImportCommand\PtgImportCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:onetimeimport:ptg' }
+    ImportBundle\OneTimeImportCommand\PtgFeatureImportCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:onetimeimport:ptg-feature' }
+    ImportBundle\OneTimeImportCommand\HoseDataImportCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:onetimeimport:hose' }
+    ImportBundle\OneTimeImportCommand\ImportFittingDbCommand:
+        tags:
+            - { name: 'console.command', command: 'onetime-import:fitting-data' }
+    ImportBundle\OneTimeImportCommand\ImportCompetitorDataCommand:
+        tags:
+            - { name: 'console.command', command: 'onetime-import:competitor-data' }
+    ImportBundle\OneTimeImportCommand\ImportNomenClatureCommand:
+        tags:
+            - { name: 'console.command', command: 'onetime-import:nomenclature-masterlist' }
+    ImportBundle\OneTimeImportCommand\HosesFlagSetCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:onetimeimport:hosesflag' }
+    ImportBundle\OneTimeImportCommand\VirtualCatalogImportCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:onetimeimport:virtialcatalog' }
+    ImportBundle\OneTimeImportCommand\VirtualCatalogFlagImportCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:onetimeimport:virtual-catalog-flag' }
+    ImportBundle\OneTimeImportCommand\TableNameImportCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:onetimeimport:table-name-import' }
+    ImportBundle\OneTimeImportCommand\FeatureImportCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:onetimeimport:feature-import-command' }
+
+    AppBundle\Command\AssetDocumentConversionCommand:
+        tags:
+            - {name: 'console.command', command: 'contitech:asset_document_convert'}
+
+    AppBundle\Command\ClearChildBrickDataWhenEqualToParentCommand:
+        tags:
+            - {name: 'console.command', command: 'contitech:clear_child_brick_data_when_equal_to_parent'}
+
+    AppBundle\Command\DataFixingOfMultiselectDropDownCommand:
+        tags:
+            - {name: 'console.command', command: 'contitech:remove_duplicate_values_of_dropdown'}
+
+    AppBundle\Command\DeleteOlderSapFileCommand:
+        tags:
+            - {name: 'console.command', command: 'contitech:delete_older_sap_files'}
+
+    AppBundle\Command\HydAttributeDataImportCommand:
+        tags:
+            - {name: 'console.command', command: 'contitech:hyd_attribute_data_import'}
+
+    AppBundle\Command\HydFittingCatalogDataImportCommand:
+        tags:
+            - {name: 'console.command', command: 'contitech:hydraulic_fitting_catalog_data_import'}
+
+    AppBundle\Command\IdentifyMissedUnitConversionAttributes:
+        tags:
+            - {name: 'console.command', command: 'contitech:identify_missed_unit_conversion_attributes'}
+
+    AppBundle\Command\ImportCommand:
+        tags:
+            - {name: 'console.command', command: 'conti:import'}
+
+    AppBundle\Command\ImportFittingCommand:
+        tags:
+            - {name: 'console.command', command: 'conti:import:fittingdata'}
+
+    AppBundle\Command\InvokeLambdaCommand:
+        tags:
+            - {name: 'console.command', command: 'contitech:invoke_aws_lambda'}
+
+    AppBundle\Command\MoveSAPFileToS3Command:
+        tags:
+            - {name: 'console.command', command: 'contitech:move_sap_file_to_s3'}
+
+    AppBundle\Command\MultiselectMasterImportCommand:
+        tags:
+            - {name: 'console.command', command: 'contitech:multiselect_master_import'}
+
+    AppBundle\Command\NutTypeDataImportCommand:
+        tags:
+            - {name: 'console.command', command: 'contitech:Nut-Type-Data-Import'}
+
+    AppBundle\Command\OptimizedObjectSearchBackendReindexCommand:
+        tags:
+            - {name: 'console.command', command: 'contitech:optimized-object-search-backend-reindex'}
+
+    AppBundle\Command\ProductCompletenessCommand:
+        tags:
+            - {name: 'console.command', command: 'contitech:product_completeness'}
+
+    AppBundle\Command\ProductDataImportCommand:
+        tags:
+            - {name: 'console.command', command: 'contitech:product-data-import'}
+
+    AppBundle\Command\RestoreDeletedS3ObjectsCommand:
+        tags:
+            - {name: 'console.command', command: 'contitech:s3_restore_deleted_objects'}
+
+    AppBundle\Command\S3ChangePathsCommand:
+        tags:
+            - {name: 'console.command', command: 'contitech:s3_change_paths'}
+
+    AppBundle\Command\S3WrongPathsCommand:
+        tags:
+            - {name: 'console.command', command: 'contitech:s3_wrong_paths'}
+
+    AppBundle\Command\SAPImportCommand:
+        tags:
+            - {name: 'console.command', command: 'contitech:import_sap_files'}
+
+    AppBundle\Command\SaveAllProductsCommand:
+        tags:
+            - {name: 'console.command', command: 'contitech:populate_completeness_percentage'}
+
+    AppBundle\Command\UnitConversionAttributeToGroupCacheCommand:
+        tags:
+            - {name: 'console.command', command: 'contitech:unit_conversion_attribute_to_group_cache'}
+
+    AppBundle\Command\UnpublishDateAndUserCommand:
+        tags:
+            - {name: 'console.command', command: 'Unpublish-Date-And-User-Command'}
+
+    AppBundle\Command\WorkflowReminderCommand:
+        tags:
+            - {name: 'console.command', command: 'contitech:workflow:reminder'}
+
+           
     AppBundle\Services\UnitConverterService:
       public: true
 

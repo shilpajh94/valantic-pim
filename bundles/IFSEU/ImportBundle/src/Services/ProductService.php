@@ -139,7 +139,7 @@ class ProductService
                 $this->productModel->truncateTempTable();
                 $this->productModel->insertDataInTemp($csvInfo['data']);
                 Logger::log(self::LOGGER_MODULE)->info("Data Sheet imported in temp table");
-                // $this->productModel->processDeletedProducts();
+                $this->productModel->processDeletedProducts();
                 Logger::log(self::LOGGER_MODULE)->info("Removed records in data sheet, marked as unpublished.");
                 Logger::log(self::LOGGER_MODULE)->info("Product import started");
                 $this->initiateProductsProcess();
@@ -148,7 +148,7 @@ class ProductService
                 Logger::log(self::LOGGER_MODULE)->info("Data copied from temp table to master table");
     
                 if (!empty($this->updatedArticlesArray) && count($this->updatedArticlesArray)>0) {
-                    echo "Object Saving started for completeness.".PHP_EOL;         
+                    echo "Object Saving started for completeness.".PHP_EOL;
                     $this->saveProducts($this->updatedArticlesArray);
                     echo "Object Saving completed for completeness.".PHP_EOL;
                 }
@@ -181,7 +181,7 @@ class ProductService
                     fputcsv($fp, $article);
                 }
                 fclose($fp);
-                if (!empty($emailTemplate)) {                
+                if (!empty($emailTemplate)) {
                     $doc = \Pimcore\Model\Document::getByPath($emailTemplate);
                     if (!empty($doc)) {
                         // Sending the mail

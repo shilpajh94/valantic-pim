@@ -7,7 +7,7 @@ pimcore:
                     name: ProductCategoryApplicationAdminIFSEMEA
                     description: ''
                     creationDate: 1706594475
-                    modificationDate: 1706594653
+                    modificationDate: 1707389878
                     userOwner: 2
                     classId: IFSEUProductCategory
                     layoutDefinitions:
@@ -415,7 +415,7 @@ pimcore:
                                                         datatype: data
                                                 region: null
                                                 layout: null
-                                                maxTabs: 20
+                                                maxTabs: 35
                                                 border: false
                                                 provideSplitView: false
                                                 tabPosition: top

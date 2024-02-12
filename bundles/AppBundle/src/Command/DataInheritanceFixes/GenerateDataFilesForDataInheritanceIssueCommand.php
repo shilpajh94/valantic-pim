@@ -295,20 +295,20 @@ class GenerateDataFilesForDataInheritanceIssueCommand extends Command
 
         $fetchParentHasDataRegardlessOfChildQuery = "
                             SELECT
-                                childsBrickTable.o_id childId,
-                                parentBrickTable.o_id parentId,
+                                childsBrickTable.id childId,
+                                parentBrickTable.id parentId,
                                 childsBrickTable.$attr childData,
                                 parentBrickTable.$attr parentData
                             FROM
                                 $brickTableName AS childsBrickTable
                                     JOIN
-                                object_1 AS childObjectTable ON childsBrickTable.o_id = childObjectTable.o_id
+                                object_1 AS childObjectTable ON childsBrickTable.id = childObjectTable.id
                                     JOIN
-                                object_1 AS parentObjectTable ON childObjectTable.o_parentId = parentObjectTable.o_id
+                                object_1 AS parentObjectTable ON childObjectTable.parentId = parentObjectTable.id
                                     JOIN
-                                $brickTableName AS parentBrickTable ON parentObjectTable.o_id = parentBrickTable.o_id
+                                $brickTableName AS parentBrickTable ON parentObjectTable.id = parentBrickTable.id
                             WHERE
-                                parentObjectTable.o_type = 'object'
+                                parentObjectTable.type = 'object'
                                 AND (parentBrickTable.$attr IS NOT NULL)
                                 AND (parentBrickTable.$attr != '')
                                 AND childObjectTable.productType = '$childType'
@@ -336,20 +336,20 @@ class GenerateDataFilesForDataInheritanceIssueCommand extends Command
 
         $fetchParentAndChildBothHaveDataQuery = "
                             SELECT
-                                childsBrickTable.o_id childId,
-                                parentBrickTable.o_id parentId,
+                                childsBrickTable.id childId,
+                                parentBrickTable.id parentId,
                                 childsBrickTable.$attr childData,
                                 parentBrickTable.$attr parentData
                             FROM
                                 $brickTableName AS childsBrickTable
                                     JOIN
-                                object_1 AS childObjectTable ON childsBrickTable.o_id = childObjectTable.o_id
+                                object_1 AS childObjectTable ON childsBrickTable.id = childObjectTable.id
                                     JOIN
-                                object_1 AS parentObjectTable ON childObjectTable.o_parentId = parentObjectTable.o_id
+                                object_1 AS parentObjectTable ON childObjectTable.parentId = parentObjectTable.id
                                     JOIN
-                                $brickTableName AS parentBrickTable ON parentObjectTable.o_id = parentBrickTable.o_id
+                                $brickTableName AS parentBrickTable ON parentObjectTable.id = parentBrickTable.id
                             WHERE
-                                parentObjectTable.o_type = 'object'
+                                parentObjectTable.type = 'object'
                                 AND (parentBrickTable.$attr IS NOT NULL)
                                 AND (parentBrickTable.$attr != '')
                                 AND (childsBrickTable.$attr IS NOT NULL)
@@ -382,26 +382,26 @@ class GenerateDataFilesForDataInheritanceIssueCommand extends Command
 
         $fetchChildWithDistinctDataQuery = "
                                 SELECT 
-                                    parentBrickTable.o_id parentId,
+                                    parentBrickTable.id parentId,
                                     GROUP_CONCAT(DISTINCT childsBrickTable.$attr
                                         SEPARATOR ', ') distinctChildData,
-                                    GROUP_CONCAT(childsBrickTable.o_id
+                                    GROUP_CONCAT(childsBrickTable.id
                                         SEPARATOR ', ') allChildWithData,
                                     COUNT(DISTINCT childsBrickTable.$attr) distinctchildDataCount
                                 FROM
                                     $brickTableName AS childsBrickTable
                                         JOIN
-                                    object_1 AS childObjectTable ON childsBrickTable.o_id = childObjectTable.o_id
+                                    object_1 AS childObjectTable ON childsBrickTable.id = childObjectTable.id
                                         JOIN
-                                    object_1 AS parentObjectTable ON childObjectTable.o_parentId = parentObjectTable.o_id
+                                    object_1 AS parentObjectTable ON childObjectTable.parentId = parentObjectTable.id
                                         JOIN
-                                    $brickTableName AS parentBrickTable ON parentObjectTable.o_id = parentBrickTable.o_id
+                                    $brickTableName AS parentBrickTable ON parentObjectTable.id = parentBrickTable.id
                                 WHERE
-                                    parentObjectTable.o_type = 'object'
+                                    parentObjectTable.type = 'object'
                                         AND childsBrickTable.$attr IS NOT NULL
                                         AND (parentBrickTable.$attr IS NULL || parentBrickTable.$attr = '')
                                         AND childObjectTable.productType = '$childType'
-                                GROUP BY parentBrickTable.o_id
+                                GROUP BY parentBrickTable.id
                                 HAVING COUNT(DISTINCT childsBrickTable.$attr) > 1
         ";
 
@@ -425,20 +425,20 @@ class GenerateDataFilesForDataInheritanceIssueCommand extends Command
 
         $fetchParentAndChildBothHaveDataQuery = "
                             SELECT
-                                childsBrickTable.o_id childId,
-                                parentBrickTable.o_id parentId,
+                                childsBrickTable.id childId,
+                                parentBrickTable.id parentId,
                                 childsBrickTable.$attr childData,
                                 parentBrickTable.$attr parentData
                             FROM
                                 $brickTableName AS childsBrickTable
                                     JOIN
-                                object_1 AS childObjectTable ON childsBrickTable.o_id = childObjectTable.o_id
+                                object_1 AS childObjectTable ON childsBrickTable.id = childObjectTable.id
                                     JOIN
-                                object_1 AS parentObjectTable ON childObjectTable.o_parentId = parentObjectTable.o_id
+                                object_1 AS parentObjectTable ON childObjectTable.parentId = parentObjectTable.id
                                     JOIN
-                                $brickTableName AS parentBrickTable ON parentObjectTable.o_id = parentBrickTable.o_id
+                                $brickTableName AS parentBrickTable ON parentObjectTable.id = parentBrickTable.id
                             WHERE
-                                parentObjectTable.o_type = 'object'
+                                parentObjectTable.type = 'object'
                                 AND (parentBrickTable.$attr IS NOT NULL)
                                 AND (parentBrickTable.$attr != '')
                                 AND (childsBrickTable.$attr != parentBrickTable.$attr OR childsBrickTable.$attr IS NULL)
@@ -468,20 +468,20 @@ class GenerateDataFilesForDataInheritanceIssueCommand extends Command
 
         $fetchChildHasDataParentDoesNotQuery = "
                             SELECT
-                                childsBrickTable.o_id childId,
-                                parentBrickTable.o_id parentId,
+                                childsBrickTable.id childId,
+                                parentBrickTable.id parentId,
                                 childsBrickTable.$attr childData,
                                 parentBrickTable.$attr parentData
                             FROM
                                 $brickTableName AS childsBrickTable
                                     JOIN
-                                object_1 AS childObjectTable ON childsBrickTable.o_id = childObjectTable.o_id
+                                object_1 AS childObjectTable ON childsBrickTable.id = childObjectTable.id
                                     JOIN
-                                object_1 AS parentObjectTable ON childObjectTable.o_parentId = parentObjectTable.o_id
+                                object_1 AS parentObjectTable ON childObjectTable.parentId = parentObjectTable.id
                                     JOIN
-                                $brickTableName AS parentBrickTable ON parentObjectTable.o_id = parentBrickTable.o_id
+                                $brickTableName AS parentBrickTable ON parentObjectTable.id = parentBrickTable.id
                             WHERE
-                                parentObjectTable.o_type = 'object'
+                                parentObjectTable.type = 'object'
                                 AND (parentBrickTable.$attr IS NULL OR parentBrickTable.$attr = '')
                                 AND (childsBrickTable.$attr IS NOT NULL)
                                 AND childObjectTable.productType = '$childType'
@@ -512,26 +512,26 @@ class GenerateDataFilesForDataInheritanceIssueCommand extends Command
 
         $fetchChildWithDistinctDataQuery = "
                                 SELECT 
-                                    parentBrickTable.o_id parentId,
+                                    parentBrickTable.id parentId,
                                     GROUP_CONCAT(DISTINCT childsBrickTable.$attr
                                         SEPARATOR ', ') distinctChildData,
-                                    GROUP_CONCAT(childsBrickTable.o_id
+                                    GROUP_CONCAT(childsBrickTable.id
                                         SEPARATOR ', ') allChildWithData,
                                     COUNT(DISTINCT childsBrickTable.$attr) distinctchildDataCount
                                 FROM
                                     $brickTableName AS childsBrickTable
                                         JOIN
-                                    object_1 AS childObjectTable ON childsBrickTable.o_id = childObjectTable.o_id
+                                    object_1 AS childObjectTable ON childsBrickTable.id = childObjectTable.id
                                         JOIN
-                                    object_1 AS parentObjectTable ON childObjectTable.o_parentId = parentObjectTable.o_id
+                                    object_1 AS parentObjectTable ON childObjectTable.parentId = parentObjectTable.id
                                         JOIN
-                                    $brickTableName AS parentBrickTable ON parentObjectTable.o_id = parentBrickTable.o_id
+                                    $brickTableName AS parentBrickTable ON parentObjectTable.id = parentBrickTable.id
                                 WHERE
-                                    parentObjectTable.o_type = 'object'
+                                    parentObjectTable.type = 'object'
                                         AND childsBrickTable.$attr IS NOT NULL
                                         AND (parentBrickTable.$attr IS NULL || parentBrickTable.$attr = '')
                                         AND childObjectTable.productType = '$childType'
-                                GROUP BY parentBrickTable.o_id
+                                GROUP BY parentBrickTable.id
                                 HAVING MIN(childsBrickTable.$attr) != MAX(childsBrickTable.$attr)
         ";
 
@@ -556,20 +556,20 @@ class GenerateDataFilesForDataInheritanceIssueCommand extends Command
 
         $fetchParentAndChildBothHaveDataQuery = "
                             SELECT
-                                childsBrickTable.o_id childId,
-                                parentBrickTable.o_id parentId,
+                                childsBrickTable.id childId,
+                                parentBrickTable.id parentId,
                                 childsBrickTable.$attr childData,
                                 parentBrickTable.$attr parentData
                             FROM
                                 $brickTableName AS childsBrickTable
                                     JOIN
-                                object_1 AS childObjectTable ON childsBrickTable.o_id = childObjectTable.o_id
+                                object_1 AS childObjectTable ON childsBrickTable.id = childObjectTable.id
                                     JOIN
-                                object_1 AS parentObjectTable ON childObjectTable.o_parentId = parentObjectTable.o_id
+                                object_1 AS parentObjectTable ON childObjectTable.parentId = parentObjectTable.id
                                     JOIN
-                                $brickTableName AS parentBrickTable ON parentObjectTable.o_id = parentBrickTable.o_id
+                                $brickTableName AS parentBrickTable ON parentObjectTable.id = parentBrickTable.id
                             WHERE
-                                parentObjectTable.o_type = 'object'
+                                parentObjectTable.type = 'object'
                                 AND (parentBrickTable.$attr IS NOT NULL)
                                 AND (parentBrickTable.$attr = 0)
                                 AND (childsBrickTable.$attr IS NOT NULL)
@@ -599,25 +599,25 @@ class GenerateDataFilesForDataInheritanceIssueCommand extends Command
 
         $fetchBaseHasDataRegardlessOfFertQuery = "
                             SELECT
-                                fertBrickTable.o_id fertId,
-                                baseBrickTable.o_id baseId,
+                                fertBrickTable.id fertId,
+                                baseBrickTable.id baseId,
                                 fertBrickTable.$attr fertData,
                                 baseBrickTable.$attr baseData
                             FROM
                                 $brickTableName AS fertBrickTable
                                     JOIN
-                                object_1 AS fertObjectTable ON fertBrickTable.o_id = fertObjectTable.o_id
+                                object_1 AS fertObjectTable ON fertBrickTable.id = fertObjectTable.id
                                     JOIN
-                                object_1 AS skeletonObjectTable ON fertObjectTable.o_parentId = skeletonObjectTable.o_id
+                                object_1 AS skeletonObjectTable ON fertObjectTable.parentId = skeletonObjectTable.id
                                     JOIN
-                                $brickTableName AS skeletonBrickTable ON skeletonObjectTable.o_id = skeletonBrickTable.o_id
+                                $brickTableName AS skeletonBrickTable ON skeletonObjectTable.id = skeletonBrickTable.id
                                     JOIN
-                                object_1 AS baseObjectTable ON skeletonObjectTable.o_parentId = baseObjectTable.o_id
+                                object_1 AS baseObjectTable ON skeletonObjectTable.parentId = baseObjectTable.id
                                     JOIN
-                                $brickTableName as baseBrickTable ON baseObjectTable.o_id = baseBrickTable.o_id
+                                $brickTableName as baseBrickTable ON baseObjectTable.id = baseBrickTable.id
                             WHERE
-                                skeletonObjectTable.o_type = 'object'
-                                AND baseObjectTable.o_type = 'object'
+                                skeletonObjectTable.type = 'object'
+                                AND baseObjectTable.type = 'object'
                                 AND (baseBrickTable.$attr IS NOT NULL)
                                 AND (baseBrickTable.$attr != '')
                                 AND fertObjectTable.productType = '$childType'
@@ -643,25 +643,25 @@ class GenerateDataFilesForDataInheritanceIssueCommand extends Command
 
         $fetchBaseAndFertBothHaveDataQuery = "
                             SELECT
-                                fertBrickTable.o_id fertId,
-                                baseBrickTable.o_id baseId,
+                                fertBrickTable.id fertId,
+                                baseBrickTable.id baseId,
                                 fertBrickTable.$attr fertData,
                                 baseBrickTable.$attr baseData
                             FROM
                                 $brickTableName AS fertBrickTable
                                     JOIN
-                                object_1 AS fertObjectTable ON fertBrickTable.o_id = fertObjectTable.o_id
+                                object_1 AS fertObjectTable ON fertBrickTable.id = fertObjectTable.id
                                     JOIN
-                                object_1 AS skeletonObjectTable ON fertObjectTable.o_parentId = skeletonObjectTable.o_id
+                                object_1 AS skeletonObjectTable ON fertObjectTable.parentId = skeletonObjectTable.id
                                     JOIN
-                                $brickTableName AS skeletonBrickTable ON skeletonObjectTable.o_id = skeletonBrickTable.o_id
+                                $brickTableName AS skeletonBrickTable ON skeletonObjectTable.id = skeletonBrickTable.id
                                     JOIN
-                                object_1 AS baseObjectTable ON skeletonObjectTable.o_parentId = baseObjectTable.o_id
+                                object_1 AS baseObjectTable ON skeletonObjectTable.parentId = baseObjectTable.id
                                     JOIN
-                                $brickTableName as baseBrickTable ON baseObjectTable.o_id = baseBrickTable.o_id
+                                $brickTableName as baseBrickTable ON baseObjectTable.id = baseBrickTable.id
                             WHERE
-                                skeletonObjectTable.o_type = 'object'
-                                AND baseObjectTable.o_type = 'object'
+                                skeletonObjectTable.type = 'object'
+                                AND baseObjectTable.type = 'object'
                                 AND (baseBrickTable.$attr IS NOT NULL)
                                 AND (baseBrickTable.$attr != '')
                                 AND (fertBrickTable.$attr IS NOT NULL)
@@ -691,31 +691,31 @@ class GenerateDataFilesForDataInheritanceIssueCommand extends Command
 
         $fetchChildWithDistinctDataQuery = "
                                 SELECT 
-                                    baseBrickTable.o_id baseId,
+                                    baseBrickTable.id baseId,
                                     GROUP_CONCAT(DISTINCT fertBrickTable.$attr
                                         SEPARATOR ', ') distinctFertData,
-                                    GROUP_CONCAT(fertBrickTable.o_id
+                                    GROUP_CONCAT(fertBrickTable.id
                                         SEPARATOR ', ') allFertWithData,
                                     COUNT(DISTINCT fertBrickTable.$attr) distinctFertDataCount
                                 FROM
                                     $brickTableName AS fertBrickTable
                                         JOIN
-                                    object_1 AS fertObjectTable ON fertBrickTable.o_id = fertObjectTable.o_id
+                                    object_1 AS fertObjectTable ON fertBrickTable.id = fertObjectTable.id
                                         JOIN
-                                    object_1 AS skeletonObjectTable ON fertObjectTable.o_parentId = skeletonObjectTable.o_id
+                                    object_1 AS skeletonObjectTable ON fertObjectTable.parentId = skeletonObjectTable.id
                                         JOIN
-                                    $brickTableName AS skeletonBrickTable ON skeletonObjectTable.o_id = skeletonBrickTable.o_id
+                                    $brickTableName AS skeletonBrickTable ON skeletonObjectTable.id = skeletonBrickTable.id
                                         JOIN
-                                    object_1 AS baseObjectTable ON skeletonObjectTable.o_parentId = baseObjectTable.o_id
+                                    object_1 AS baseObjectTable ON skeletonObjectTable.parentId = baseObjectTable.id
                                         JOIN
-                                    $brickTableName as baseBrickTable ON baseObjectTable.o_id = baseBrickTable.o_id
+                                    $brickTableName as baseBrickTable ON baseObjectTable.id = baseBrickTable.id
                                 WHERE
-                                    skeletonObjectTable.o_type = 'object'
-                                        AND baseObjectTable.o_type = 'object'
+                                    skeletonObjectTable.type = 'object'
+                                        AND baseObjectTable.type = 'object'
                                         AND fertBrickTable.$attr IS NOT NULL
                                         AND (baseBrickTable.$attr IS NULL || baseBrickTable.$attr = '')
                                         AND fertObjectTable.productType = '$childType'
-                                GROUP BY baseBrickTable.o_id
+                                GROUP BY baseBrickTable.id
                                 HAVING COUNT(DISTINCT fertBrickTable.$attr) > 1
         ";
 
@@ -742,31 +742,31 @@ class GenerateDataFilesForDataInheritanceIssueCommand extends Command
 
         $fetchChildWithDistinctDataQuery = "
                                 SELECT 
-                                    baseBrickTable.o_id baseId,
+                                    baseBrickTable.id baseId,
                                     GROUP_CONCAT(DISTINCT fertBrickTable.$attr
                                         SEPARATOR ', ') distinctFertData,
-                                    GROUP_CONCAT(fertBrickTable.o_id
+                                    GROUP_CONCAT(fertBrickTable.id
                                         SEPARATOR ', ') allFertWithData,
                                     COUNT(DISTINCT fertBrickTable.$attr) distinctFertDataCount
                                 FROM
                                     $brickTableName AS fertBrickTable
                                         JOIN
-                                    object_1 AS fertObjectTable ON fertBrickTable.o_id = fertObjectTable.o_id
+                                    object_1 AS fertObjectTable ON fertBrickTable.id = fertObjectTable.id
                                         JOIN
-                                    object_1 AS skeletonObjectTable ON fertObjectTable.o_parentId = skeletonObjectTable.o_id
+                                    object_1 AS skeletonObjectTable ON fertObjectTable.parentId = skeletonObjectTable.id
                                         JOIN
-                                    $brickTableName AS skeletonBrickTable ON skeletonObjectTable.o_id = skeletonBrickTable.o_id
+                                    $brickTableName AS skeletonBrickTable ON skeletonObjectTable.id = skeletonBrickTable.id
                                         JOIN
-                                    object_1 AS baseObjectTable ON skeletonObjectTable.o_parentId = baseObjectTable.o_id
+                                    object_1 AS baseObjectTable ON skeletonObjectTable.parentId = baseObjectTable.id
                                         JOIN
-                                    $brickTableName as baseBrickTable ON baseObjectTable.o_id = baseBrickTable.o_id
+                                    $brickTableName as baseBrickTable ON baseObjectTable.id = baseBrickTable.id
                                 WHERE
-                                    skeletonObjectTable.o_type = 'object'
-                                        AND baseObjectTable.o_type = 'object'
+                                    skeletonObjectTable.type = 'object'
+                                        AND baseObjectTable.type = 'object'
                                         AND fertBrickTable.$attr IS NOT NULL
                                         AND (baseBrickTable.$attr IS NULL || baseBrickTable.$attr = '')
                                         AND fertObjectTable.productType = '$childType'
-                                GROUP BY baseBrickTable.o_id
+                                GROUP BY baseBrickTable.id
                                     HAVING MIN(fertBrickTable.$attr) != MAX(fertBrickTable.$attr)
         ";
 
@@ -790,25 +790,25 @@ class GenerateDataFilesForDataInheritanceIssueCommand extends Command
 
         $fetchBaseAndFertBothHaveDataQuery = "
                             SELECT
-                                fertBrickTable.o_id fertId,
-                                baseBrickTable.o_id baseId,
+                                fertBrickTable.id fertId,
+                                baseBrickTable.id baseId,
                                 fertBrickTable.$attr fertData,
                                 baseBrickTable.$attr baseData
                             FROM
                                 $brickTableName AS fertBrickTable
                                     JOIN
-                                object_1 AS fertObjectTable ON fertBrickTable.o_id = fertObjectTable.o_id
+                                object_1 AS fertObjectTable ON fertBrickTable.id = fertObjectTable.id
                                     JOIN
-                                object_1 AS skeletonObjectTable ON fertObjectTable.o_parentId = skeletonObjectTable.o_id
+                                object_1 AS skeletonObjectTable ON fertObjectTable.parentId = skeletonObjectTable.id
                                     JOIN
-                                $brickTableName AS skeletonBrickTable ON skeletonObjectTable.o_id = skeletonBrickTable.o_id
+                                $brickTableName AS skeletonBrickTable ON skeletonObjectTable.id = skeletonBrickTable.id
                                     JOIN
-                                object_1 AS baseObjectTable ON skeletonObjectTable.o_parentId = baseObjectTable.o_id
+                                object_1 AS baseObjectTable ON skeletonObjectTable.parentId = baseObjectTable.id
                                     JOIN
-                                $brickTableName as baseBrickTable ON baseObjectTable.o_id = baseBrickTable.o_id
+                                $brickTableName as baseBrickTable ON baseObjectTable.id = baseBrickTable.id
                             WHERE
-                                skeletonObjectTable.o_type = 'object'
-                                AND baseObjectTable.o_type = 'object'
+                                skeletonObjectTable.type = 'object'
+                                AND baseObjectTable.type = 'object'
                                 AND (baseBrickTable.$attr IS NOT NULL)
                                 AND (baseBrickTable.$attr != '')
                                 AND (baseBrickTable.$attr != fertBrickTable.$attr OR fertBrickTable.$attr IS NULL)
@@ -835,25 +835,25 @@ class GenerateDataFilesForDataInheritanceIssueCommand extends Command
 
         $fetchFertHasDataBaseDoesNotQuery = "
                             SELECT
-                                fertBrickTable.o_id fertId,
-                                baseBrickTable.o_id baseId,
+                                fertBrickTable.id fertId,
+                                baseBrickTable.id baseId,
                                 fertBrickTable.$attr fertData,
                                 baseBrickTable.$attr baseData
                             FROM
                                 $brickTableName AS fertBrickTable
                                     JOIN
-                                object_1 AS fertObjectTable ON fertBrickTable.o_id = fertObjectTable.o_id
+                                object_1 AS fertObjectTable ON fertBrickTable.id = fertObjectTable.id
                                     JOIN
-                                object_1 AS skeletonObjectTable ON fertObjectTable.o_parentId = skeletonObjectTable.o_id
+                                object_1 AS skeletonObjectTable ON fertObjectTable.parentId = skeletonObjectTable.id
                                     JOIN
-                                $brickTableName AS skeletonBrickTable ON skeletonObjectTable.o_id = skeletonBrickTable.o_id
+                                $brickTableName AS skeletonBrickTable ON skeletonObjectTable.id = skeletonBrickTable.id
                                     JOIN
-                                object_1 AS baseObjectTable ON skeletonObjectTable.o_parentId = baseObjectTable.o_id
+                                object_1 AS baseObjectTable ON skeletonObjectTable.parentId = baseObjectTable.id
                                     JOIN
-                                $brickTableName as baseBrickTable ON baseObjectTable.o_id = baseBrickTable.o_id
+                                $brickTableName as baseBrickTable ON baseObjectTable.id = baseBrickTable.id
                             WHERE
-                                skeletonObjectTable.o_type = 'object'
-                                AND baseObjectTable.o_type = 'object'
+                                skeletonObjectTable.type = 'object'
+                                AND baseObjectTable.type = 'object'
                                 AND (baseBrickTable.$attr IS NULL OR baseBrickTable.$attr = '')
                                 AND (fertBrickTable.$attr IS NOT NULL AND fertBrickTable.$attr != '')
                                 AND fertObjectTable.productType = '$childType'

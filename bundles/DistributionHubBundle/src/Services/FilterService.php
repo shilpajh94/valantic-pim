@@ -97,8 +97,8 @@ class FilterService
 
         foreach ($fieldDefinitions as $fieldDefinition) {
             if (in_array($fieldDefinition->getFieldtype(), $AllowedDataComponants)) {
-                $fieldDefinitionAdapter = $this->getFieldDefinitionAdapter($fieldDefinition, $allowInheritance);
-                $fieldSelectionInformationEntries = array_merge($fieldSelectionInformationEntries, $fieldDefinitionAdapter->getFieldSelectionInformation());
+                // $fieldDefinitionAdapter = $this->getFieldDefinitionAdapter($fieldDefinition, $allowInheritance);
+                // $fieldSelectionInformationEntries = array_merge($fieldSelectionInformationEntries, $fieldDefinitionAdapter->getFieldSelectionInformation());
             }
         }
 
@@ -378,6 +378,7 @@ class FilterService
      */
     public function getFieldDefinitionAdapter(ClassDefinition\Data $fieldDefinition, bool $considerInheritance)
     {
+        // dd($fieldDefinition);
         $adapter = null;
 
         if ($this->filterLocator->has($fieldDefinition->getFieldType())) {

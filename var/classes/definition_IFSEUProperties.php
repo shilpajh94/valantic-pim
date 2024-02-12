@@ -20,7 +20,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1706469161,
+   'modificationDate' => 1707300342,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -227,7 +227,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             ),
              'region' => NULL,
              'layout' => NULL,
-             'maxTabs' => 20,
+             'maxTabs' => 35,
              'border' => false,
              'provideSplitView' => false,
              'tabPosition' => 'top',
@@ -269,7 +269,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'group' => 'IFSEU_MasterData',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
-   'previewGeneratorReference' => NULL,
+   'previewGeneratorReference' => '',
    'compositeIndices' => 
   array (
   ),

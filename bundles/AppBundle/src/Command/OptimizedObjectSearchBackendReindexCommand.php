@@ -193,7 +193,7 @@ class OptimizedObjectSearchBackendReindexCommand extends AbstractCommand
 
                 if ($this->modificationDays) {
                     // fetch only those objects which have been deleted in delete query above
-                    $list->setCondition("o_id IN ".$idStr);
+                    $list->setCondition("id IN ".$idStr);
                 }
 
                 $elementsTotal = $list->getTotalCount();
@@ -360,9 +360,9 @@ class OptimizedObjectSearchBackendReindexCommand extends AbstractCommand
 
         $olderTimeStamp = $this->getOlderTimestampByDays($days);
 
-        $query = "SELECT o_id from objects";
-        $query .= " WHERE  o_modificationDate > ".$olderTimeStamp;
-        $query .= " AND o_className = "."'".$className."'";
+        $query = "SELECT id from objects";
+        $query .= " WHERE  modificationDate > ".$olderTimeStamp;
+        $query .= " AND className = "."'".$className."'";
 
         try {
             $ids = $this->db->fetchOne($query);

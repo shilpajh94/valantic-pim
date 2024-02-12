@@ -24,12 +24,12 @@ class NutTypeDataImportCommand extends AbstractCommand
     {
         $this->db = Db::get();
 
-        $sql = "SELECT o_id FROM object_brick_store_HydFittingsFert_1 
+        $sql = "SELECT id FROM object_brick_store_HydFittingsFert_1 
                 WHERE '1' IN (ThrustWireNut, CrimpNutYN)";
          $results = $this->db->fetchAllAssociative($sql);
 
          foreach($results as $id){
-            $element = DataObject\Product::getById($id['o_id']);
+            $element = DataObject\Product::getById($id['id']);
             $crimpNutValue = $element->getFert()->getHydFittingsFert()->getCrimpNutYN();
             $thrustWireNutValue = $element->getFert()->getHydFittingsFert()->getThrustWireNut();
             if($crimpNutValue == 1){

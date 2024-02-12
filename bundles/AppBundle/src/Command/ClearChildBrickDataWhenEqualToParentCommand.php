@@ -142,20 +142,20 @@ class ClearChildBrickDataWhenEqualToParentCommand extends Command
 
         $fetchChildParentEqualDataQuery = "
                             SELECT
-                                childsBrickTable.o_id childId,
-                                parentBrickTable.o_id parentId,
+                                childsBrickTable.id childId,
+                                parentBrickTable.id parentId,
                                 childsBrickTable.$attr childData,
                                 parentBrickTable.$attr parentData
                             FROM
                                 $brickTableName AS childsBrickTable
                                     JOIN
-                                object_1 AS childObjectTable ON childsBrickTable.o_id = childObjectTable.o_id
+                                object_1 AS childObjectTable ON childsBrickTable.id = childObjectTable.id
                                     JOIN
-                                object_1 AS parentObjectTable ON childObjectTable.o_parentId = parentObjectTable.o_id
+                                object_1 AS parentObjectTable ON childObjectTable.parentId = parentObjectTable.id
                                     JOIN
-                                $brickTableName AS parentBrickTable ON parentObjectTable.o_id = parentBrickTable.o_id
+                                $brickTableName AS parentBrickTable ON parentObjectTable.id = parentBrickTable.id
                             WHERE
-                                parentObjectTable.o_type = 'object'
+                                parentObjectTable.type = 'object'
                                 AND childsBrickTable.$attr IS NOT NULL
                                 AND (childsBrickTable.$attr = parentBrickTable.$attr)
                                 AND childObjectTable.productType = '$childType'
@@ -170,7 +170,7 @@ class ClearChildBrickDataWhenEqualToParentCommand extends Command
             $childData = $item['childData'];
             $parentData = $item['parentData'];
 
-            $updateQuery = "UPDATE $brickTableName SET $attr = null WHERE o_id = $childId";
+            $updateQuery = "UPDATE $brickTableName SET $attr = null WHERE id = $childId";
             $response = $this->db->executeQuery($updateQuery);
 
             $this->csvLog($csvLogFileHandle, [++$c, $brickName, $attr, $childId, $parentId, $childData, $parentData, $childType, $response]);

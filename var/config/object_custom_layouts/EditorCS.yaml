@@ -7,7 +7,7 @@ pimcore:
                     name: EditorCS
                     description: ''
                     creationDate: 1706594709
-                    modificationDate: 1706594959
+                    modificationDate: 1707389681
                     userOwner: 2
                     classId: CSProducts
                     layoutDefinitions:
@@ -271,7 +271,7 @@ pimcore:
                                                         datatype: data
                                                 region: null
                                                 layout: null
-                                                maxTabs: 20
+                                                maxTabs: 35
                                                 border: true
                                                 provideSplitView: false
                                                 tabPosition: top
@@ -1004,7 +1004,7 @@ pimcore:
                                                         datatype: data
                                                 region: null
                                                 layout: null
-                                                maxTabs: 20
+                                                maxTabs: 35
                                                 border: false
                                                 provideSplitView: false
                                                 tabPosition: top
@@ -1539,7 +1539,7 @@ pimcore:
                                                                                 datatype: data
                                                                         region: null
                                                                         layout: null
-                                                                        maxTabs: 20
+                                                                        maxTabs: 35
                                                                         border: false
                                                                         provideSplitView: false
                                                                         tabPosition: top
@@ -1799,7 +1799,7 @@ pimcore:
                                                         datatype: data
                                                 region: null
                                                 layout: null
-                                                maxTabs: 20
+                                                maxTabs: 35
                                                 border: false
                                                 provideSplitView: false
                                                 tabPosition: top

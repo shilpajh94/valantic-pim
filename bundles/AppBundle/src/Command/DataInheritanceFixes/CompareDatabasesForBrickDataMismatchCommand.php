@@ -102,15 +102,15 @@ class CompareDatabasesForBrickDataMismatchCommand extends Command
                     p_r($tableName . "-" . $columnName);
                     $query = "        
                                 SELECT 
-                                    db1BrickTable.o_id objectId,
+                                    db1BrickTable.id objectId,
                                     db1BrickTable.$columnName db1Data,
                                     db2BrickTable.$columnName db2Data
                                 FROM
                                     $this->db_1_name.$tableName AS db1BrickTable
                                         JOIN
-                                    $this->db_1_name.object_1 AS db1ObjectTable ON db1BrickTable.o_id = db1ObjectTable.o_id
+                                    $this->db_1_name.object_1 AS db1ObjectTable ON db1BrickTable.id = db1ObjectTable.id
                                         JOIN
-                                    $this->db_2_name.$tableName AS db2BrickTable ON db1BrickTable.o_id = db2BrickTable.o_id
+                                    $this->db_2_name.$tableName AS db2BrickTable ON db1BrickTable.id = db2BrickTable.id
                                 WHERE
                                     db1ObjectTable.productType = '$brickType'
                                         AND (
@@ -179,7 +179,7 @@ class CompareDatabasesForBrickDataMismatchCommand extends Command
                         IF(dataTable.New_Fert_Query_Data = concat(',',dataTable.New_Base_Store_Data,','), true, false) AS validity_Query_Table_2
                     FROM
                         (SELECT 
-                            newDBBaseProduct_Store_Table.o_id Base_Id,
+                            newDBBaseProduct_Store_Table.id Base_Id,
                                 GROUP_CONCAT(DISTINCT newDBBaseProduct_Store_Table.$columnName) AS New_Base_Store_Data,
                                 GROUP_CONCAT(DISTINCT newDBSkeletonProduct_Store_Table.$columnName
                                     SEPARATOR ' , ') AS New_Skeleton_Store_Data,
@@ -203,22 +203,22 @@ class CompareDatabasesForBrickDataMismatchCommand extends Command
                                     SEPARATOR ' , ') AS Old_Fert_Query_Data
                         FROM
                             $this->newDb.$storeTableName AS newDBBaseProduct_Store_Table
-                                JOIN $this->olderDb.$storeTableName AS oldDBBaseProduct_Store_Table ON newDBBaseProduct_Store_Table.o_id = oldDBBaseProduct_Store_Table.o_id
-                                JOIN $this->newDb.object_1 AS objectTableBaseProduct ON newDBBaseProduct_Store_Table.o_id = objectTableBaseProduct.o_id
-                                JOIN $this->newDb.object_1 AS objectTableSkeletonProduct ON objectTableSkeletonProduct.o_parentId = objectTableBaseProduct.o_id
-                                JOIN $this->newDb.$storeTableName AS newDBSkeletonProduct_Store_Table ON objectTableSkeletonProduct.o_id = newDBSkeletonProduct_Store_Table.o_id
-                                JOIN $this->olderDb.$storeTableName AS oldDBSkeletonProduct_Store_Table ON newDBSkeletonProduct_Store_Table.o_id = oldDBSkeletonProduct_Store_Table.o_id
-                                JOIN $this->newDb.object_1 AS objectTableFertProduct ON objectTableFertProduct.o_parentId = newDBSkeletonProduct_Store_Table.o_id
-                                JOIN $this->newDb.$storeTableName AS newDBFertProduct_Store_Table ON newDBFertProduct_Store_Table.o_id = objectTableFertProduct.o_id
-                                JOIN $this->olderDb.$storeTableName AS oldDBFertProduct_Store_Table ON oldDBFertProduct_Store_Table.o_id = newDBFertProduct_Store_Table.o_id
+                                JOIN $this->olderDb.$storeTableName AS oldDBBaseProduct_Store_Table ON newDBBaseProduct_Store_Table.id = oldDBBaseProduct_Store_Table.id
+                                JOIN $this->newDb.object_1 AS objectTableBaseProduct ON newDBBaseProduct_Store_Table.id = objectTableBaseProduct.id
+                                JOIN $this->newDb.object_1 AS objectTableSkeletonProduct ON objectTableSkeletonProduct.parentId = objectTableBaseProduct.id
+                                JOIN $this->newDb.$storeTableName AS newDBSkeletonProduct_Store_Table ON objectTableSkeletonProduct.id = newDBSkeletonProduct_Store_Table.id
+                                JOIN $this->olderDb.$storeTableName AS oldDBSkeletonProduct_Store_Table ON newDBSkeletonProduct_Store_Table.id = oldDBSkeletonProduct_Store_Table.id
+                                JOIN $this->newDb.object_1 AS objectTableFertProduct ON objectTableFertProduct.parentId = newDBSkeletonProduct_Store_Table.id
+                                JOIN $this->newDb.$storeTableName AS newDBFertProduct_Store_Table ON newDBFertProduct_Store_Table.id = objectTableFertProduct.id
+                                JOIN $this->olderDb.$storeTableName AS oldDBFertProduct_Store_Table ON oldDBFertProduct_Store_Table.id = newDBFertProduct_Store_Table.id
 
-                                JOIN $this->newDb.$queryTableName AS newDBBaseProduct_Query_Table ON newDBBaseProduct_Store_Table.o_id = newDBBaseProduct_Query_Table.o_id
-                                JOIN $this->newDb.$queryTableName AS newDBSkeletonProduct_Query_Table ON newDBSkeletonProduct_Store_Table.o_id = newDBSkeletonProduct_Query_Table.o_id
-                                JOIN $this->newDb.$queryTableName AS newDBFertProduct_Query_Table ON newDBFertProduct_Store_Table.o_id = newDBFertProduct_Query_Table.o_id
+                                JOIN $this->newDb.$queryTableName AS newDBBaseProduct_Query_Table ON newDBBaseProduct_Store_Table.id = newDBBaseProduct_Query_Table.id
+                                JOIN $this->newDb.$queryTableName AS newDBSkeletonProduct_Query_Table ON newDBSkeletonProduct_Store_Table.id = newDBSkeletonProduct_Query_Table.id
+                                JOIN $this->newDb.$queryTableName AS newDBFertProduct_Query_Table ON newDBFertProduct_Store_Table.id = newDBFertProduct_Query_Table.id
 
-                                JOIN $this->olderDb.$queryTableName AS oldDBBaseProduct_Query_Table ON oldDBBaseProduct_Store_Table.o_id = oldDBBaseProduct_Query_Table.o_id
-                                JOIN $this->olderDb.$queryTableName AS oldDBSkeletonProduct_Query_Table ON oldDBSkeletonProduct_Store_Table.o_id = oldDBSkeletonProduct_Query_Table.o_id
-                                JOIN $this->olderDb.$queryTableName AS oldDBFertProduct_Query_Table ON oldDBFertProduct_Store_Table.o_id = oldDBFertProduct_Query_Table.o_id
+                                JOIN $this->olderDb.$queryTableName AS oldDBBaseProduct_Query_Table ON oldDBBaseProduct_Store_Table.id = oldDBBaseProduct_Query_Table.id
+                                JOIN $this->olderDb.$queryTableName AS oldDBSkeletonProduct_Query_Table ON oldDBSkeletonProduct_Store_Table.id = oldDBSkeletonProduct_Query_Table.id
+                                JOIN $this->olderDb.$queryTableName AS oldDBFertProduct_Query_Table ON oldDBFertProduct_Store_Table.id = oldDBFertProduct_Query_Table.id
 
                             WHERE
                             (newDBBaseProduct_Store_Table.$columnName != oldDBBaseProduct_Store_Table.$columnName)
@@ -226,7 +226,7 @@ class CompareDatabasesForBrickDataMismatchCommand extends Command
                                 AND oldDBBaseProduct_Store_Table.$columnName IS NOT NULL)
                                 OR (newDBBaseProduct_Store_Table.$columnName IS NOT NULL
                                 AND oldDBBaseProduct_Store_Table.$columnName IS NULL))
-                        GROUP BY newDBBaseProduct_Store_Table.o_id) AS dataTable
+                        GROUP BY newDBBaseProduct_Store_Table.id) AS dataTable
 
                         ";
 
@@ -308,7 +308,7 @@ class CompareDatabasesForBrickDataMismatchCommand extends Command
                         IF(dataTable.New_Fert_Query_Data = concat(',',dataTable.New_Base_Store_Data,','), true, false) AS validity_Query_Table_2
                     FROM
                         (SELECT 
-                            newDBBaseProduct_Store_Table.o_id Base_Id,
+                            newDBBaseProduct_Store_Table.id Base_Id,
                                 GROUP_CONCAT(DISTINCT newDBBaseProduct_Store_Table.$columnName) AS New_Base_Store_Data,
                                 GROUP_CONCAT(DISTINCT newDBSkeletonProduct_Store_Table.$columnName
                                     SEPARATOR ' , ') AS New_Skeleton_Store_Data,
@@ -332,22 +332,22 @@ class CompareDatabasesForBrickDataMismatchCommand extends Command
                                     SEPARATOR ' , ') AS Old_Fert_Query_Data
                         FROM
                             $this->newDb.$storeTableName AS newDBBaseProduct_Store_Table
-                                JOIN $this->olderDb.$storeTableName AS oldDBBaseProduct_Store_Table ON newDBBaseProduct_Store_Table.o_id = oldDBBaseProduct_Store_Table.o_id
-                                JOIN $this->newDb.object_1 AS objectTableBaseProduct ON newDBBaseProduct_Store_Table.o_id = objectTableBaseProduct.o_id
-                                JOIN $this->newDb.object_1 AS objectTableSkeletonProduct ON objectTableSkeletonProduct.o_parentId = objectTableBaseProduct.o_id
-                                JOIN $this->newDb.$storeTableName AS newDBSkeletonProduct_Store_Table ON objectTableSkeletonProduct.o_id = newDBSkeletonProduct_Store_Table.o_id
-                                JOIN $this->olderDb.$storeTableName AS oldDBSkeletonProduct_Store_Table ON newDBSkeletonProduct_Store_Table.o_id = oldDBSkeletonProduct_Store_Table.o_id
-                                JOIN $this->newDb.object_1 AS objectTableFertProduct ON objectTableFertProduct.o_parentId = newDBSkeletonProduct_Store_Table.o_id
-                                JOIN $this->newDb.$storeTableName AS newDBFertProduct_Store_Table ON newDBFertProduct_Store_Table.o_id = objectTableFertProduct.o_id
-                                JOIN $this->olderDb.$storeTableName AS oldDBFertProduct_Store_Table ON oldDBFertProduct_Store_Table.o_id = newDBFertProduct_Store_Table.o_id
+                                JOIN $this->olderDb.$storeTableName AS oldDBBaseProduct_Store_Table ON newDBBaseProduct_Store_Table.id = oldDBBaseProduct_Store_Table.id
+                                JOIN $this->newDb.object_1 AS objectTableBaseProduct ON newDBBaseProduct_Store_Table.id = objectTableBaseProduct.id
+                                JOIN $this->newDb.object_1 AS objectTableSkeletonProduct ON objectTableSkeletonProduct.parentId = objectTableBaseProduct.id
+                                JOIN $this->newDb.$storeTableName AS newDBSkeletonProduct_Store_Table ON objectTableSkeletonProduct.id = newDBSkeletonProduct_Store_Table.id
+                                JOIN $this->olderDb.$storeTableName AS oldDBSkeletonProduct_Store_Table ON newDBSkeletonProduct_Store_Table.id = oldDBSkeletonProduct_Store_Table.id
+                                JOIN $this->newDb.object_1 AS objectTableFertProduct ON objectTableFertProduct.parentId = newDBSkeletonProduct_Store_Table.id
+                                JOIN $this->newDb.$storeTableName AS newDBFertProduct_Store_Table ON newDBFertProduct_Store_Table.id = objectTableFertProduct.id
+                                JOIN $this->olderDb.$storeTableName AS oldDBFertProduct_Store_Table ON oldDBFertProduct_Store_Table.id = newDBFertProduct_Store_Table.id
 
-                                JOIN $this->newDb.$queryTableName AS newDBBaseProduct_Query_Table ON newDBBaseProduct_Store_Table.o_id = newDBBaseProduct_Query_Table.o_id
-                                JOIN $this->newDb.$queryTableName AS newDBSkeletonProduct_Query_Table ON newDBSkeletonProduct_Store_Table.o_id = newDBSkeletonProduct_Query_Table.o_id
-                                JOIN $this->newDb.$queryTableName AS newDBFertProduct_Query_Table ON newDBFertProduct_Store_Table.o_id = newDBFertProduct_Query_Table.o_id
+                                JOIN $this->newDb.$queryTableName AS newDBBaseProduct_Query_Table ON newDBBaseProduct_Store_Table.id = newDBBaseProduct_Query_Table.id
+                                JOIN $this->newDb.$queryTableName AS newDBSkeletonProduct_Query_Table ON newDBSkeletonProduct_Store_Table.id = newDBSkeletonProduct_Query_Table.id
+                                JOIN $this->newDb.$queryTableName AS newDBFertProduct_Query_Table ON newDBFertProduct_Store_Table.id = newDBFertProduct_Query_Table.id
 
-                                JOIN $this->olderDb.$queryTableName AS oldDBBaseProduct_Query_Table ON oldDBBaseProduct_Store_Table.o_id = oldDBBaseProduct_Query_Table.o_id
-                                JOIN $this->olderDb.$queryTableName AS oldDBSkeletonProduct_Query_Table ON oldDBSkeletonProduct_Store_Table.o_id = oldDBSkeletonProduct_Query_Table.o_id
-                                JOIN $this->olderDb.$queryTableName AS oldDBFertProduct_Query_Table ON oldDBFertProduct_Store_Table.o_id = oldDBFertProduct_Query_Table.o_id
+                                JOIN $this->olderDb.$queryTableName AS oldDBBaseProduct_Query_Table ON oldDBBaseProduct_Store_Table.id = oldDBBaseProduct_Query_Table.id
+                                JOIN $this->olderDb.$queryTableName AS oldDBSkeletonProduct_Query_Table ON oldDBSkeletonProduct_Store_Table.id = oldDBSkeletonProduct_Query_Table.id
+                                JOIN $this->olderDb.$queryTableName AS oldDBFertProduct_Query_Table ON oldDBFertProduct_Store_Table.id = oldDBFertProduct_Query_Table.id
 
                             WHERE
                             (newDBSkeletonProduct_Store_Table.$columnName != oldDBSkeletonProduct_Store_Table.$columnName)
@@ -355,7 +355,7 @@ class CompareDatabasesForBrickDataMismatchCommand extends Command
                                 AND oldDBSkeletonProduct_Store_Table.$columnName IS NOT NULL)
                                 OR (newDBSkeletonProduct_Store_Table.$columnName IS NOT NULL
                                 AND oldDBSkeletonProduct_Store_Table.$columnName IS NULL))
-                        GROUP BY newDBSkeletonProduct_Store_Table.o_id) AS dataTable
+                        GROUP BY newDBSkeletonProduct_Store_Table.id) AS dataTable
 
                         ";
 
@@ -437,7 +437,7 @@ class CompareDatabasesForBrickDataMismatchCommand extends Command
                         IF(dataTable.New_Fert_Query_Data = concat(',',dataTable.New_Base_Store_Data,','), true, false) AS validity_Query_Table_2
                     FROM
                         (SELECT 
-                            newDBBaseProduct_Store_Table.o_id Base_Id,
+                            newDBBaseProduct_Store_Table.id Base_Id,
                                 GROUP_CONCAT(DISTINCT newDBBaseProduct_Store_Table.$columnName) AS New_Base_Store_Data,
                                 GROUP_CONCAT(DISTINCT newDBSkeletonProduct_Store_Table.$columnName
                                     SEPARATOR ' , ') AS New_Skeleton_Store_Data,
@@ -461,22 +461,22 @@ class CompareDatabasesForBrickDataMismatchCommand extends Command
                                     SEPARATOR ' , ') AS Old_Fert_Query_Data
                         FROM
                             $this->newDb.$storeTableName AS newDBBaseProduct_Store_Table
-                                JOIN $this->olderDb.$storeTableName AS oldDBBaseProduct_Store_Table ON newDBBaseProduct_Store_Table.o_id = oldDBBaseProduct_Store_Table.o_id
-                                JOIN $this->newDb.object_1 AS objectTableBaseProduct ON newDBBaseProduct_Store_Table.o_id = objectTableBaseProduct.o_id
-                                JOIN $this->newDb.object_1 AS objectTableSkeletonProduct ON objectTableSkeletonProduct.o_parentId = objectTableBaseProduct.o_id
-                                JOIN $this->newDb.$storeTableName AS newDBSkeletonProduct_Store_Table ON objectTableSkeletonProduct.o_id = newDBSkeletonProduct_Store_Table.o_id
-                                JOIN $this->olderDb.$storeTableName AS oldDBSkeletonProduct_Store_Table ON newDBSkeletonProduct_Store_Table.o_id = oldDBSkeletonProduct_Store_Table.o_id
-                                JOIN $this->newDb.object_1 AS objectTableFertProduct ON objectTableFertProduct.o_parentId = newDBSkeletonProduct_Store_Table.o_id
-                                JOIN $this->newDb.$storeTableName AS newDBFertProduct_Store_Table ON newDBFertProduct_Store_Table.o_id = objectTableFertProduct.o_id
-                                JOIN $this->olderDb.$storeTableName AS oldDBFertProduct_Store_Table ON oldDBFertProduct_Store_Table.o_id = newDBFertProduct_Store_Table.o_id
+                                JOIN $this->olderDb.$storeTableName AS oldDBBaseProduct_Store_Table ON newDBBaseProduct_Store_Table.id = oldDBBaseProduct_Store_Table.id
+                                JOIN $this->newDb.object_1 AS objectTableBaseProduct ON newDBBaseProduct_Store_Table.id = objectTableBaseProduct.id
+                                JOIN $this->newDb.object_1 AS objectTableSkeletonProduct ON objectTableSkeletonProduct.parentId = objectTableBaseProduct.id
+                                JOIN $this->newDb.$storeTableName AS newDBSkeletonProduct_Store_Table ON objectTableSkeletonProduct.id = newDBSkeletonProduct_Store_Table.id
+                                JOIN $this->olderDb.$storeTableName AS oldDBSkeletonProduct_Store_Table ON newDBSkeletonProduct_Store_Table.id = oldDBSkeletonProduct_Store_Table.id
+                                JOIN $this->newDb.object_1 AS objectTableFertProduct ON objectTableFertProduct.parentId = newDBSkeletonProduct_Store_Table.id
+                                JOIN $this->newDb.$storeTableName AS newDBFertProduct_Store_Table ON newDBFertProduct_Store_Table.id = objectTableFertProduct.id
+                                JOIN $this->olderDb.$storeTableName AS oldDBFertProduct_Store_Table ON oldDBFertProduct_Store_Table.id = newDBFertProduct_Store_Table.id
 
-                                JOIN $this->newDb.$queryTableName AS newDBBaseProduct_Query_Table ON newDBBaseProduct_Store_Table.o_id = newDBBaseProduct_Query_Table.o_id
-                                JOIN $this->newDb.$queryTableName AS newDBSkeletonProduct_Query_Table ON newDBSkeletonProduct_Store_Table.o_id = newDBSkeletonProduct_Query_Table.o_id
-                                JOIN $this->newDb.$queryTableName AS newDBFertProduct_Query_Table ON newDBFertProduct_Store_Table.o_id = newDBFertProduct_Query_Table.o_id
+                                JOIN $this->newDb.$queryTableName AS newDBBaseProduct_Query_Table ON newDBBaseProduct_Store_Table.id = newDBBaseProduct_Query_Table.id
+                                JOIN $this->newDb.$queryTableName AS newDBSkeletonProduct_Query_Table ON newDBSkeletonProduct_Store_Table.id = newDBSkeletonProduct_Query_Table.id
+                                JOIN $this->newDb.$queryTableName AS newDBFertProduct_Query_Table ON newDBFertProduct_Store_Table.id = newDBFertProduct_Query_Table.id
 
-                                JOIN $this->olderDb.$queryTableName AS oldDBBaseProduct_Query_Table ON oldDBBaseProduct_Store_Table.o_id = oldDBBaseProduct_Query_Table.o_id
-                                JOIN $this->olderDb.$queryTableName AS oldDBSkeletonProduct_Query_Table ON oldDBSkeletonProduct_Store_Table.o_id = oldDBSkeletonProduct_Query_Table.o_id
-                                JOIN $this->olderDb.$queryTableName AS oldDBFertProduct_Query_Table ON oldDBFertProduct_Store_Table.o_id = oldDBFertProduct_Query_Table.o_id
+                                JOIN $this->olderDb.$queryTableName AS oldDBBaseProduct_Query_Table ON oldDBBaseProduct_Store_Table.id = oldDBBaseProduct_Query_Table.id
+                                JOIN $this->olderDb.$queryTableName AS oldDBSkeletonProduct_Query_Table ON oldDBSkeletonProduct_Store_Table.id = oldDBSkeletonProduct_Query_Table.id
+                                JOIN $this->olderDb.$queryTableName AS oldDBFertProduct_Query_Table ON oldDBFertProduct_Store_Table.id = oldDBFertProduct_Query_Table.id
 
                             WHERE
                             (newDBFertProduct_Store_Table.$columnName != oldDBFertProduct_Store_Table.$columnName)
@@ -484,7 +484,7 @@ class CompareDatabasesForBrickDataMismatchCommand extends Command
                                 AND oldDBFertProduct_Store_Table.$columnName IS NOT NULL)
                                 OR (newDBFertProduct_Store_Table.$columnName IS NOT NULL
                                 AND oldDBFertProduct_Store_Table.$columnName IS NULL))
-                            GROUP BY newDBFertProduct_Store_Table.o_id) AS dataTable
+                            GROUP BY newDBFertProduct_Store_Table.id) AS dataTable
 
                         ";
 
@@ -566,7 +566,7 @@ class CompareDatabasesForBrickDataMismatchCommand extends Command
                         if(dataTable.New_Fert_Query_Data = dataTable.New_Skeleton_Store_Data, true , if(dataTable.New_Fert_Query_Data = concat(',',dataTable.New_Skeleton_Store_Data,','), true , false)   ) AS validity_Query_Table_1
                     FROM
                         (SELECT 
-                            newDBSkeletonProduct_Store_Table.o_id Skeleton_Id,
+                            newDBSkeletonProduct_Store_Table.id Skeleton_Id,
                                 GROUP_CONCAT(DISTINCT newDBSkeletonProduct_Store_Table.$columnName SEPARATOR ' , ') AS New_Skeleton_Store_Data,
                                 GROUP_CONCAT(DISTINCT newDBFertProduct_Store_Table.$columnName SEPARATOR ' , ') AS New_Fert_Store_Data,
                                 GROUP_CONCAT(DISTINCT oldDBSkeletonProduct_Store_Table.$columnName SEPARATOR ' , ') AS Old_Skeleton_Store_Data,
@@ -578,21 +578,21 @@ class CompareDatabasesForBrickDataMismatchCommand extends Command
                                 GROUP_CONCAT(DISTINCT oldDBFertProduct_Query_Table.$columnName SEPARATOR ' , ') AS Old_Fert_Query_Data
                         FROM
                              $this->newDb.$storeTableName AS newDBSkeletonProduct_Store_Table
-                                JOIN $this->olderDb.$storeTableName AS oldDBSkeletonProduct_Store_Table ON newDBSkeletonProduct_Store_Table.o_id = oldDBSkeletonProduct_Store_Table.o_id
-                                JOIN $this->newDb.object_1 AS objectTableFertProduct ON objectTableFertProduct.o_parentId = newDBSkeletonProduct_Store_Table.o_id
-                                JOIN $this->newDb.$storeTableName AS newDBFertProduct_Store_Table ON newDBFertProduct_Store_Table.o_id = objectTableFertProduct.o_id
-                                JOIN $this->olderDb.$storeTableName AS oldDBFertProduct_Store_Table ON oldDBFertProduct_Store_Table.o_id = newDBFertProduct_Store_Table.o_id
+                                JOIN $this->olderDb.$storeTableName AS oldDBSkeletonProduct_Store_Table ON newDBSkeletonProduct_Store_Table.id = oldDBSkeletonProduct_Store_Table.id
+                                JOIN $this->newDb.object_1 AS objectTableFertProduct ON objectTableFertProduct.parentId = newDBSkeletonProduct_Store_Table.id
+                                JOIN $this->newDb.$storeTableName AS newDBFertProduct_Store_Table ON newDBFertProduct_Store_Table.id = objectTableFertProduct.id
+                                JOIN $this->olderDb.$storeTableName AS oldDBFertProduct_Store_Table ON oldDBFertProduct_Store_Table.id = newDBFertProduct_Store_Table.id
 
-                                JOIN $this->newDb.$queryTableName AS newDBSkeletonProduct_Query_Table ON newDBSkeletonProduct_Store_Table.o_id = newDBSkeletonProduct_Query_Table.o_id
-                                JOIN $this->newDb.$queryTableName AS newDBFertProduct_Query_Table ON newDBFertProduct_Store_Table.o_id = newDBFertProduct_Query_Table.o_id
+                                JOIN $this->newDb.$queryTableName AS newDBSkeletonProduct_Query_Table ON newDBSkeletonProduct_Store_Table.id = newDBSkeletonProduct_Query_Table.id
+                                JOIN $this->newDb.$queryTableName AS newDBFertProduct_Query_Table ON newDBFertProduct_Store_Table.id = newDBFertProduct_Query_Table.id
 
-                                JOIN $this->olderDb.$queryTableName AS oldDBSkeletonProduct_Query_Table ON oldDBSkeletonProduct_Store_Table.o_id = oldDBSkeletonProduct_Query_Table.o_id
-                                JOIN $this->olderDb.$queryTableName AS oldDBFertProduct_Query_Table ON oldDBFertProduct_Store_Table.o_id = oldDBFertProduct_Query_Table.o_id
+                                JOIN $this->olderDb.$queryTableName AS oldDBSkeletonProduct_Query_Table ON oldDBSkeletonProduct_Store_Table.id = oldDBSkeletonProduct_Query_Table.id
+                                JOIN $this->olderDb.$queryTableName AS oldDBFertProduct_Query_Table ON oldDBFertProduct_Store_Table.id = oldDBFertProduct_Query_Table.id
                             WHERE
                             (newDBSkeletonProduct_Store_Table.$columnName != oldDBSkeletonProduct_Store_Table.$columnName)
                                 OR ((newDBSkeletonProduct_Store_Table.$columnName IS NULL  AND oldDBSkeletonProduct_Store_Table.$columnName IS NOT NULL)
                                 OR (newDBSkeletonProduct_Store_Table.$columnName IS NOT NULL AND oldDBSkeletonProduct_Store_Table.$columnName IS NULL))
-                            GROUP BY newDBSkeletonProduct_Store_Table.o_id) AS dataTable
+                            GROUP BY newDBSkeletonProduct_Store_Table.id) AS dataTable
                         ";
 
                         $result = $this->dbCon->fetchAllAssociative($query);
@@ -669,7 +669,7 @@ class CompareDatabasesForBrickDataMismatchCommand extends Command
                         if(dataTable.New_Fert_Query_Data = dataTable.New_Skeleton_Store_Data, true , if(dataTable.New_Fert_Query_Data = concat(',',dataTable.New_Skeleton_Store_Data,','), true , false)   ) AS validity_Query_Table_1
                     FROM
                         (SELECT 
-                            newDBSkeletonProduct_Store_Table.o_id Skeleton_Id,
+                            newDBSkeletonProduct_Store_Table.id Skeleton_Id,
                                 GROUP_CONCAT(DISTINCT newDBSkeletonProduct_Store_Table.$columnName SEPARATOR ' , ') AS New_Skeleton_Store_Data,
                                 GROUP_CONCAT(DISTINCT newDBFertProduct_Store_Table.$columnName SEPARATOR ' , ') AS New_Fert_Store_Data,
                                 GROUP_CONCAT(DISTINCT oldDBSkeletonProduct_Store_Table.$columnName SEPARATOR ' , ') AS Old_Skeleton_Store_Data,
@@ -681,21 +681,21 @@ class CompareDatabasesForBrickDataMismatchCommand extends Command
                                 GROUP_CONCAT(DISTINCT oldDBFertProduct_Query_Table.$columnName SEPARATOR ' , ') AS Old_Fert_Query_Data
                         FROM
                              $this->newDb.$storeTableName AS newDBSkeletonProduct_Store_Table
-                                JOIN $this->olderDb.$storeTableName AS oldDBSkeletonProduct_Store_Table ON newDBSkeletonProduct_Store_Table.o_id = oldDBSkeletonProduct_Store_Table.o_id
-                                JOIN $this->newDb.object_1 AS objectTableFertProduct ON objectTableFertProduct.o_parentId = newDBSkeletonProduct_Store_Table.o_id
-                                JOIN $this->newDb.$storeTableName AS newDBFertProduct_Store_Table ON newDBFertProduct_Store_Table.o_id = objectTableFertProduct.o_id
-                                JOIN $this->olderDb.$storeTableName AS oldDBFertProduct_Store_Table ON oldDBFertProduct_Store_Table.o_id = newDBFertProduct_Store_Table.o_id
+                                JOIN $this->olderDb.$storeTableName AS oldDBSkeletonProduct_Store_Table ON newDBSkeletonProduct_Store_Table.id = oldDBSkeletonProduct_Store_Table.id
+                                JOIN $this->newDb.object_1 AS objectTableFertProduct ON objectTableFertProduct.parentId = newDBSkeletonProduct_Store_Table.id
+                                JOIN $this->newDb.$storeTableName AS newDBFertProduct_Store_Table ON newDBFertProduct_Store_Table.id = objectTableFertProduct.id
+                                JOIN $this->olderDb.$storeTableName AS oldDBFertProduct_Store_Table ON oldDBFertProduct_Store_Table.id = newDBFertProduct_Store_Table.id
 
-                                JOIN $this->newDb.$queryTableName AS newDBSkeletonProduct_Query_Table ON newDBSkeletonProduct_Store_Table.o_id = newDBSkeletonProduct_Query_Table.o_id
-                                JOIN $this->newDb.$queryTableName AS newDBFertProduct_Query_Table ON newDBFertProduct_Store_Table.o_id = newDBFertProduct_Query_Table.o_id
+                                JOIN $this->newDb.$queryTableName AS newDBSkeletonProduct_Query_Table ON newDBSkeletonProduct_Store_Table.id = newDBSkeletonProduct_Query_Table.id
+                                JOIN $this->newDb.$queryTableName AS newDBFertProduct_Query_Table ON newDBFertProduct_Store_Table.id = newDBFertProduct_Query_Table.id
 
-                                JOIN $this->olderDb.$queryTableName AS oldDBSkeletonProduct_Query_Table ON oldDBSkeletonProduct_Store_Table.o_id = oldDBSkeletonProduct_Query_Table.o_id
-                                JOIN $this->olderDb.$queryTableName AS oldDBFertProduct_Query_Table ON oldDBFertProduct_Store_Table.o_id = oldDBFertProduct_Query_Table.o_id
+                                JOIN $this->olderDb.$queryTableName AS oldDBSkeletonProduct_Query_Table ON oldDBSkeletonProduct_Store_Table.id = oldDBSkeletonProduct_Query_Table.id
+                                JOIN $this->olderDb.$queryTableName AS oldDBFertProduct_Query_Table ON oldDBFertProduct_Store_Table.id = oldDBFertProduct_Query_Table.id
                             WHERE
                             (newDBFertProduct_Store_Table.$columnName != oldDBFertProduct_Store_Table.$columnName)
                                 OR ((newDBFertProduct_Store_Table.$columnName IS NULL  AND oldDBFertProduct_Store_Table.$columnName IS NOT NULL)
                                 OR (newDBFertProduct_Store_Table.$columnName IS NOT NULL AND oldDBFertProduct_Store_Table.$columnName IS NULL))
-                            GROUP BY newDBFertProduct_Store_Table.o_id) AS dataTable
+                            GROUP BY newDBFertProduct_Store_Table.id) AS dataTable
                         ";
 
                         $result = $this->dbCon->fetchAllAssociative($query);
@@ -769,7 +769,7 @@ class CompareDatabasesForBrickDataMismatchCommand extends Command
                         if(dataTable.New_Fert_Query_Data = dataTable.Old_Fert_Query_Data, true , false) AS validity_Query_Table
                     FROM
                         (SELECT 
-                                newDBFertProduct_Store_Table.o_id fert_Id,
+                                newDBFertProduct_Store_Table.id fert_Id,
                                 GROUP_CONCAT(DISTINCT newDBFertProduct_Store_Table.$columnName SEPARATOR ' , ') AS New_Fert_Store_Data,
                                 GROUP_CONCAT(DISTINCT oldDBFertProduct_Store_Table.$columnName SEPARATOR ' , ') AS Old_Fert_Store_Data,
                                 '------',
@@ -777,15 +777,15 @@ class CompareDatabasesForBrickDataMismatchCommand extends Command
                                 GROUP_CONCAT(DISTINCT oldDBFertProduct_Query_Table.$columnName SEPARATOR ' , ') AS Old_Fert_Query_Data
                         FROM
                             $this->newDb.$storeTableName AS newDBFertProduct_Store_Table
-                                JOIN $this->olderDb.$storeTableName AS oldDBFertProduct_Store_Table ON oldDBFertProduct_Store_Table.o_id = newDBFertProduct_Store_Table.o_id
+                                JOIN $this->olderDb.$storeTableName AS oldDBFertProduct_Store_Table ON oldDBFertProduct_Store_Table.id = newDBFertProduct_Store_Table.id
 
-                                JOIN $this->newDb.$queryTableName AS newDBFertProduct_Query_Table ON newDBFertProduct_Store_Table.o_id = newDBFertProduct_Query_Table.o_id
-                                JOIN $this->olderDb.$queryTableName AS oldDBFertProduct_Query_Table ON oldDBFertProduct_Store_Table.o_id = oldDBFertProduct_Query_Table.o_id
+                                JOIN $this->newDb.$queryTableName AS newDBFertProduct_Query_Table ON newDBFertProduct_Store_Table.id = newDBFertProduct_Query_Table.id
+                                JOIN $this->olderDb.$queryTableName AS oldDBFertProduct_Query_Table ON oldDBFertProduct_Store_Table.id = oldDBFertProduct_Query_Table.id
                             WHERE
                             (newDBFertProduct_Store_Table.$columnName != oldDBFertProduct_Store_Table.$columnName)
                                 OR ((newDBFertProduct_Store_Table.$columnName IS NULL  AND oldDBFertProduct_Store_Table.$columnName IS NOT NULL)
                                 OR (newDBFertProduct_Store_Table.$columnName IS NOT NULL AND oldDBFertProduct_Store_Table.$columnName IS NULL))
-                            GROUP BY newDBFertProduct_Store_Table.o_id) AS dataTable
+                            GROUP BY newDBFertProduct_Store_Table.id) AS dataTable
                         ";
 
                         $result = $this->dbCon->fetchAllAssociative($query);

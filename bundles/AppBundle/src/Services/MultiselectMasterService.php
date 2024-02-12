@@ -39,7 +39,7 @@ class MultiselectMasterService
 
         $listing = new DataObject\MultiselectMaster\Listing();
         // we should have a unique entry for a set of key and type
-        $listing->setCondition(" o_key   = :key AND masterType = :masterType ", ["key" => $key, "masterType" => $masterType]);
+        $listing->setCondition(" key   = :key AND masterType = :masterType ", ["key" => $key, "masterType" => $masterType]);
         $listing->load();
         $objects = $listing->getObjects();
 
@@ -97,12 +97,12 @@ class MultiselectMasterService
     {
 
         $folderObject = DataObject\Folder::create([
-            'o_parentId' => $folderParent->getId(),
-            'o_creationDate' => time(),
-//                'o_userOwner' => $this->getAdminUser()->getId(),
-//                'o_userModification' => $this->getAdminUser()->getId(),
-            'o_key' => $folderName,
-            'o_published' => true
+            'parentId' => $folderParent->getId(),
+            'creationDate' => time(),
+//                'userOwner' => $this->getAdminUser()->getId(),
+//                'userModification' => $this->getAdminUser()->getId(),
+            'key' => $folderName,
+            'published' => true
         ]);
         return $folderObject;
     }

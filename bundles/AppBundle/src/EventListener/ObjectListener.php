@@ -250,10 +250,13 @@ class ObjectListener
 
         if ($object instanceof  DataObject\PlantMaterialMaster) {
             $materials = $object->getMaterial();
-            $product = $materials[0];
-            if ($product) {
-                $this->appService->updateProductReturnFlag($product->getId());
+            if(is_array($materials) && !empty($materials)){
+                $product = $materials[0];
+                if ($product) {
+                    $this->appService->updateProductReturnFlag($product->getId());
+                }
             }
+            
         }
     }
 

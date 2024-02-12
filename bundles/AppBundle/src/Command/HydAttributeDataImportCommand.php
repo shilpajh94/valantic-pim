@@ -24,7 +24,7 @@ class HydAttributeDataImportCommand extends Command
     const IMPORT_CONFIG = array(
         "BASE_CONFIG" => array(
             "ID_COLUMN" => "D",
-            "ID_ATTRIBUTE" => "o_key",
+            "ID_ATTRIBUTE" => "key",
             "ID_ATTRIBUTE_TITLE" => "Material Code",
             "COLUMN_MAP" => "BASE_COLUMN_MAP",
             "LOG_FILE_NAME" => "HYD_ATTRIBUTE_BASE_DATA_IMPORT_LOG",
@@ -32,7 +32,7 @@ class HydAttributeDataImportCommand extends Command
         ),
         "SKELETON_CONFIG" => array(
             "ID_COLUMN" => "C",
-            "ID_ATTRIBUTE" => "o_key",
+            "ID_ATTRIBUTE" => "key",
             "ID_ATTRIBUTE_TITLE" => "Material Code",
             "COLUMN_MAP" => "SKELETON_COLUMN_MAP",
             "LOG_FILE_NAME" => "HYD_ATTRIBUTE_SKELETON_DATA_IMPORT_LOG",
