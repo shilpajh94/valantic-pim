@@ -74,8 +74,7 @@ class ScheduleController extends UserAwareController
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function saveScheduleAction(Request $request, ScheduleService $scheduleService)
-    {
-
+{
         $name = $request->get('name');
         $exportDate = $request->get('exportDate');
         $exportTime = $request->get('exportTime');

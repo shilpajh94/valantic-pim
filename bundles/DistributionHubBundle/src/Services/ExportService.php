@@ -6,6 +6,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 use Pimcore\Localization\LocaleServiceInterface;
 use Pimcore\Model\Asset;
+use Pimcore\Db;
+use Doctrine\DBAL\Connection;
 
 use DistributionHubBundle\Lib\Constants;
 use DistributionHubBundle\Model\Channel;
@@ -68,10 +70,25 @@ class ExportService
         $schList->setOrder("ASC");
         $schList->setLimit(1);
         $schList->load();
-        if (count($schList->getItems()) > 0) {
-            $sch = $schList->getItems()[0];
+        $db = \Pimcore\Db::get();
+        // Assuming $tableName is the name of your table and $id is the ID of the record
+        $tableName = 'distribution_hub_schedule';
+        $status = 'CREATED'; // Your specific ID
+        // Fetch all columns for the record with the specified ID
+        $query = "SELECT `id` FROM `$tableName` WHERE status = ? ORDER BY time ASC LIMIT 1";
+        $record = $db->fetchAllAssociative($query, [$status]);
+        // $record will contain an associative array with column values for the specified ID
+        // p_r($record[0]['id']);
+        if($record){
+         $returnValue = Schedule::getById($record[0]['id']);
+        }else{
+         $returnValue = null;    
         }
-        return $sch;
+        // p_r($schList);
+        // if (count($schList->getItems()) > 0) {
+        //     $sch = $schList->getItems()[0];
+        // }
+        return $returnValue;
     }
 
     /**
@@ -89,9 +106,9 @@ class ExportService
         if ($filter) {
             $filterConfig = $filter->getFilterConfig();
             $filterConfig = json_decode($filterConfig, true);
-//            if(!is_array($filterConfig)){
-//                $filterConfig = [];
-//            }
+           if(!is_array($filterConfig)){
+               $filterConfig = [];
+           }
 
             $filterByList = $filter->getFilterByList();
             $listFileAssetId = $filter->getListFileAssetId();
@@ -124,6 +141,7 @@ class ExportService
         $templateColumns = $columnAttributeMapping['templateAttribute'];
         $fields = [];
         $helperDefinition = [];
+        p_r($selectedGridColumnAssoc);
         try {
             foreach ($selectedGridColumnAssoc as $key => $selectedGridColumn) {
                 foreach ($templateColumns as $index => $templateColumn) {
@@ -227,6 +245,7 @@ class ExportService
     public function getCsvDataForExport($list, $fields, $language, $addTitles = true)
     {
         $request = new Request(['language' => $language]);
+        // p_r($list);
         $dataFetcher = new DataFetcher();
         return $dataFetcher->getCsvData($request, $this->localeService, $list, $fields, $addTitles, $this->getHelperDefinitions());
     }

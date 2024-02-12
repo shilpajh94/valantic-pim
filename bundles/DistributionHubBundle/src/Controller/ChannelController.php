@@ -21,7 +21,8 @@ use Pimcore\Tool;
 use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface;
 use DistributionHubBundle\Lib\DHubLogger;
 use Pimcore\Translation\Translator;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+// use Symfony\Component\DependencyInjection\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Pimcore\Security\User\TokenStorageUserResolver;
@@ -444,7 +445,7 @@ class ChannelController extends UserAwareController
     public function getClassDefinitionForColumnConfigAction(Request $request)
     {
         $class = DataObject\ClassDefinition::getById($request->get('id'));
-        $objectId = intval($request->get('oid'));
+        $objectId = intval($request->get('id'));
         $loadChilds = boolval($request->get('loadChilds'));
 
         $filteredDefinitions = DataObject\Service::getCustomLayoutDefinitionForGridColumnConfig($class, $objectId);

@@ -11,7 +11,11 @@ use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\Fieldcollection\Definition;
 use Pimcore\Model\User;
 use Pimcore\Translation\Translator;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+// use Symfony\Component\DependencyInjection\ContainerInterface;
+use Psr\Container\ContainerInterface;
+// use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+// use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\ServiceLocator;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use DistributionHubBundle\Installer;
@@ -54,10 +58,12 @@ class FilterService
     /**
      * Service constructor.
      * @param LoggerInterface $logger
+     * @param TokenStorageUserResolver $userResolver
      * @param ContainerInterface $filterLocator
      * @param EventDispatcherInterface $eventDispatcher
      * @param Translator $translator
      */
+    
     public function __construct(
         LoggerInterface $logger,
         TokenStorageUserResolver $userResolver,
@@ -97,8 +103,8 @@ class FilterService
 
         foreach ($fieldDefinitions as $fieldDefinition) {
             if (in_array($fieldDefinition->getFieldtype(), $AllowedDataComponants)) {
-                // $fieldDefinitionAdapter = $this->getFieldDefinitionAdapter($fieldDefinition, $allowInheritance);
-                // $fieldSelectionInformationEntries = array_merge($fieldSelectionInformationEntries, $fieldDefinitionAdapter->getFieldSelectionInformation());
+                $fieldDefinitionAdapter = $this->getFieldDefinitionAdapter($fieldDefinition, $allowInheritance);
+                $fieldSelectionInformationEntries = array_merge($fieldSelectionInformationEntries, $fieldDefinitionAdapter->getFieldSelectionInformation());
             }
         }
 
@@ -378,15 +384,19 @@ class FilterService
      */
     public function getFieldDefinitionAdapter(ClassDefinition\Data $fieldDefinition, bool $considerInheritance)
     {
-        // dd($fieldDefinition);
         $adapter = null;
-
+        // dd($this->filterLocator);
         if ($this->filterLocator->has($fieldDefinition->getFieldType())) {
             $adapter = $this->filterLocator->get($fieldDefinition->getFieldType());
         } else {
             $adapter = $this->filterLocator->get('default');
         }
-
+        // if ($this->filterLocator->has($fieldDefinition->fieldtype)) {
+        //     $adapter = $this->filterLocator->get($fieldDefinition->fieldtype);
+        // } else {
+        //     $adapter = $this->filterLocator->get('default');
+        // }
+        // dd($fieldDefinition->getFieldType());
         $adapter->setConsiderInheritance($considerInheritance);
         $adapter->setFieldDefinition($fieldDefinition);
 

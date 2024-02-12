@@ -391,9 +391,10 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
                 nodeLabel = initData.name;
             }
         }
+        console.log(initData);
 
         if (type != 'classificationstore') {
-            expandable = initData.childs.length;
+            expandable = initData.children.length;
             expanded = true;
             datatype = 'layouts';
         } else {

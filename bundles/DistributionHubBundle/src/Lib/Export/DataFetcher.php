@@ -13,6 +13,7 @@ class DataFetcher
 
     public function getCsvData(Request $request, LocaleServiceInterface $localeService, $list, $fields, $addTitles = true, $helperDefinitions)
     {
+        p_r($fields);
         $requestedLanguage = $this->extractLanguage($request);
         $mappedFieldnames = [];
 
@@ -26,7 +27,6 @@ class DataFetcher
                             $objectData[$key] = $field;
                             continue;
                         }
-
                         if (DataObject\Service::isHelperGridColumnConfig($field) && $validLanguages = DataObject\Service::expandGridColumnForExport($helperDefinitions, $field)) {
                             $currentLocale = $localeService->getLocale();
                             $mappedFieldnameBase = $this->mapFieldname($field, $helperDefinitions);
@@ -43,17 +43,33 @@ class DataFetcher
 
                             $localeService->setLocale($currentLocale);
                         } else {
+                            p_r("------Second --------");
+                            // p_r($object->getId());
                             $fieldData = $this->getCsvFieldData($request, $field, $object, $requestedLanguage, $helperDefinitions);
+
+                            // p_r($fieldData);
+                            // p_r("------Third --------");
 
                             if (!isset($mappedFieldnames[$field])) {
                                 $mappedFieldnames[$field] = $this->mapFieldname($field, $helperDefinitions);
                             }
+                            
                             $objectData[$field] = str_replace("\n","",$fieldData);
+                            // p_r($field);
+                            // p_r($objectData[$field]);
+                            // p_r($objectData);
+                            // p_r("------Forth --------");
                         }
+                        p_r("------Third --------");
                     }
+                    p_r("------Forth --------");
                     $objects[] = $objectData;
+                    p_r($objects);
                 }
             }
+            p_r("********");
+            p_r(count($objects));
+            p_r("---------");
             //create csv
             $csv = [];
             if (!empty($objects)) {
@@ -78,7 +94,6 @@ class DataFetcher
 
     private function getCsvFieldData(Request $request, $field, $object, $requestedLanguage, $helperDefinitions)
     {
-
         //check if field is systemfield
         $systemFieldMap = [
             'id' => 'getId',
@@ -107,26 +122,31 @@ class DataFetcher
                     $fieldType = $fieldDefinition->getFieldtype();
                     if ($fieldType === "image" || $fieldType === "imageGallery" || $fieldType === "externalImage" || $fieldType === "hotspotimage") {
                         $dataForAssetExport = $fieldDefinition->getForCsvExport($object);
-
                         if (empty($dataForAssetExport)) {
                             return $dataForAssetExport;
                         }
                         // Prefix hostname with assets
                         return $hostName . $dataForAssetExport;
                     }
+                    // p_r($fieldDefinition->getForCsvExport($object));
                     return $fieldDefinition->getForCsvExport($object);
                 } else {
+                    // p_r('13');
                     $fieldParts = explode('~', $field);
 
                     // check for objects bricks and localized fields
                     if (DataObject\Service::isHelperGridColumnConfig($field)) {
+                        // p_r('14');
                         if ($helperDefinitions[$field]) {
+                            // p_r('15');
                             return DataObject\Service::calculateCellValue($object, $helperDefinitions, $field, ['language' => $requestedLanguage]);
                         }
                     } elseif (substr($field, 0, 1) == '~') {
                         $type = $fieldParts[1];
+                        // p_r('16');
 
                         if ($type == 'classificationstore') {
+                            // p_r('17');
                             $fieldname = $fieldParts[2];
                             $groupKeyId = explode('-', $fieldParts[3]);
                             $groupId = $groupKeyId[0];
@@ -160,6 +180,7 @@ class DataFetcher
                         //key value store - ignore for now
                     } elseif (count($fieldParts) > 1) {
                         // brick
+                        // p_r('18');
                         $brickType = $fieldParts[0];
                         $brickDescriptor = null;
                         $innerContainer = null;

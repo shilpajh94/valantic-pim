@@ -6,6 +6,7 @@ use DistributionHubBundle\Model\AbstractDao;
 use DistributionHubBundle\Model\Channel;
 use DistributionHubBundle\Model\FTPDetail;
 
+// dd('dkj2');
 class Dao extends AbstractDao
 {
     const TABLE_NAME = 'distribution_hub_schedule';
@@ -16,13 +17,15 @@ class Dao extends AbstractDao
      */
     public function getById($id)
     {
-        $data = $this->db->fetchAssociative("SELECT * FROM " . $this->db->quoteIdentifier(static::TABLE_NAME) . " WHERE id = " . $id);
+        // $data = $this->db->fetchRow("SELECT * FROM " . $this->db->quoteIdentifier(static::TABLE_NAME) . " WHERE id = ?", $id);
+        $data = $this->db->fetchAssociative("SELECT * FROM " . $this->db->quoteIdentifier(static::TABLE_NAME) . " WHERE id = ?", [$id]);
         if (!$data["id"]) {
             throw new \Exception("record with id " . $id . " not found");
         }
         $this->assignVariablesToModel($data);
 
         if ($data['ftpDetailId']) {
+            dd($data['ftpDetailId']);
             $ftp = FTPDetail::getById($data['ftpDetailId']);
             $this->model->setFTPDetail($ftp);
         }
