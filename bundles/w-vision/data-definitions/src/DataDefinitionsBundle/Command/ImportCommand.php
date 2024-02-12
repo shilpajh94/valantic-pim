@@ -29,8 +29,6 @@ use Wvision\Bundle\DataDefinitionsBundle\Event\ImportDefinitionEvent;
 use Wvision\Bundle\DataDefinitionsBundle\Importer\ImporterInterface;
 use Wvision\Bundle\DataDefinitionsBundle\Model\ImportDefinitionInterface;
 use Wvision\Bundle\DataDefinitionsBundle\Repository\DefinitionRepository;
-use Wvision\Bundle\DataDefinitionsBundle\Lib\DataImportLogger;
-
 
 final class ImportCommand extends AbstractCommand
 {
@@ -84,20 +82,21 @@ EOT
             $params['userId'] = 0;
         }
 
-        try {
-            $definition = $this->repository->find($input->getOption('definition'));
-        } catch (InvalidArgumentException $e) {
-            $definition = $this->repository->findByName($input->getOption('definition'));
-        }
+        $definition = null;
 
-        $progress = null;
-        $process = null;
-        $countProgress = 0;
-        $startTime = time();
+        try {
+            $definition = $this->repository->findByName($input->getOption('definition'));
+        } catch (InvalidArgumentException $e) {
+
+        }
 
         if (!$definition instanceof ImportDefinitionInterface) {
             throw new Exception('Import Definition not found');
         }
+
+        $progress = null;
+        $countProgress = 0;
+        $startTime = time();
 
         $imStatus = function (ImportDefinitionEvent $e) use ($output, &$progress, &$countProgress, $startTime) {
             if ($progress instanceof ProgressBar) {

@@ -26,7 +26,7 @@ final class ObjectDeleteListener
         $resource = $event->getObject();
 
         $list = new Log\Listing();
-        $list->setCondition('o_id = ?', $resource->getId());
+        $list->setCondition('id = ?', $resource->getId());
         $logEntries = $list->load();
 
         /** @var Log $entry */

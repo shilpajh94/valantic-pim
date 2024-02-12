@@ -1,4 +1,3 @@
-host_name: 'host.com'
 tmp_template_upload_pimcore_dir: var/tmp/
 asset_folder_product_data_import_module: 'Product Data Import Module'
 folder_for_uploaded_template_in_asset_folder: 'Uploaded Files'

@@ -7,13 +7,18 @@
     "sort-packages": true,
     "process-timeout": 0,
     "allow-plugins": {
-      "symfony/runtime": true
+      "symfony/runtime": true,
+      "php-http/discovery": true
     }
   },
   "prefer-stable": true,
   "require": {
-    "elements/process-manager-bundle": "^5.0",
+    "coreshop/pimcore-bundle": "*",
+    "coreshop/resource-bundle": "*",
+    "coreshop/rule-bundle": "*",
+    "elements/process-manager-bundle": "*",
     "league/flysystem-aws-s3-v3": "^3.12.0",
+    "php-http/discovery": "^1.19",
     "pimcore/admin-ui-classic-bundle": "^1.3",
     "pimcore/bundle-generator": "^2.0",
     "pimcore/compatibility-bridge-v10": "^1.0",
@@ -24,7 +29,9 @@
     "pimcore/pimcore": "^11.0",
     "pimcore/system-info-bundle": "^1.0",
     "pimcore/web-to-print-bundle": "^1.1",
+    "psr/http-factory-implementation": "*",
     "symfony/dotenv": "^6.2",
+    "symfony/http-client": "^6.4",
     "symfony/runtime": "^6.2"
   },
   "require-dev": {
@@ -62,7 +69,7 @@
       "ContitechCS\\ProductBundle\\": "bundles/ContitechCS/ProductBundle/src",
       "ContitechCS\\CatalogBundle\\": "bundles/ContitechCS/CatalogBundle/src",
       "ContitechCS\\CatalogUIApiBundle\\": "bundles/ContitechCS/CatalogUIApiBundle/src",
-      "Wvision\\Bundle\\DataDefinitionsBundle\\": "bundles/w-vision/data-definitions/src/DataDefinitionsBundle/src"
+      "Wvision\\Bundle\\DataDefinitionsBundle\\": "bundles/w-vision/data-definitions/src/DataDefinitionsBundle"
     }
   },
   "autoload-dev": {

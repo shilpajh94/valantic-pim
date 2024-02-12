@@ -12,31 +12,43 @@
  * @license    https://github.com/w-vision/DataDefinitions/blob/master/gpl-3.0.txt GNU General Public License version 3 (GPLv3)
  */
 
+declare(strict_types=1);
+
 namespace Wvision\Bundle\DataDefinitionsBundle\Model\ImportDefinition;
 
+use Exception;
 use Pimcore\Model;
+use Pimcore\Model\AbstractModel;
+use Pimcore\Model\Listing\CallableFilterListingInterface;
+use Pimcore\Model\Listing\CallableOrderListingInterface;
+use Pimcore\Model\Listing\Traits\FilterListingTrait;
+use Pimcore\Model\Listing\Traits\OrderListingTrait;
 use Wvision\Bundle\DataDefinitionsBundle\Model\ImportDefinitionInterface;
 
-class Listing extends Model\Listing\JsonListing
+/**
+ * @method loadList()
+ */
+class Listing extends AbstractModel implements CallableFilterListingInterface, CallableOrderListingInterface
 {
+    use FilterListingTrait;
+    use OrderListingTrait;
+
     /**
      * Contains the results of the list.
      * They are all an instance of Configuration.
-     *
-     * @var array
      */
-    public $definitions;
+    public ?array $definitions = null;
 
     /**
      * Get Configurations.
      *
      * @return ImportDefinitionInterface[]
-     * @throws \Exception
+     * @throws Exception
      */
     public function getObjects()
     {
         if (null === $this->definitions) {
-            $this->load();
+            $this->loadList();
         }
 
         return $this->definitions;
@@ -47,10 +59,8 @@ class Listing extends Model\Listing\JsonListing
      *
      * @param array $definitions
      */
-    public function setObjects($definitions)
+    public function setObjects(array $definitions)
     {
         $this->definitions = $definitions;
     }
 }
-
-

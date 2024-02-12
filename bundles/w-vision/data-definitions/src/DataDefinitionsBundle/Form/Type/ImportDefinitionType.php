@@ -12,7 +12,7 @@
  * @license    https://github.com/w-vision/DataDefinitions/blob/master/gpl-3.0.txt GNU General Public License version 3 (GPLv3)
  */
 
- declare(strict_types=1);
+declare(strict_types=1);
 
 namespace Wvision\Bundle\DataDefinitionsBundle\Form\Type;
 
@@ -28,14 +28,8 @@ use Symfony\Component\Form\FormInterface;
 
 final class ImportDefinitionType extends AbstractResourceType
 {
-    /**
-     * @var FormTypeRegistryInterface
-     */
-    private $formTypeRegistry;
+    private FormTypeRegistryInterface $formTypeRegistry;
 
-    /**
-     * {@inheritdoc}
-     */
     public function __construct(
         $dataClass,
         array $validationGroups,
@@ -46,9 +40,6 @@ final class ImportDefinitionType extends AbstractResourceType
         $this->formTypeRegistry = $formTypeRegistry;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -60,6 +51,7 @@ final class ImportDefinitionType extends AbstractResourceType
             ->add('cleaner', CleanerChoiceType::class)
             ->add('filter', FilterChoiceType::class)
             ->add('runner', RunnerChoiceType::class)
+            ->add('persister', PersisterChoiceType::class)
             ->add('name', TextType::class)
             ->add('objectPath', TextType::class)
             ->add('key', TextType::class)
@@ -73,7 +65,6 @@ final class ImportDefinitionType extends AbstractResourceType
             ->add('failureNotificationDocument', IntegerType::class)
             ->add('successNotificationDocument', IntegerType::class)
             ->add('mapping', ImportMappingCollectionType::class)
-            ->add('persister', PersisterChoiceType::class)
             ->add('forceLoadObject', CheckboxType::class);
 
         $builder
@@ -116,16 +107,16 @@ final class ImportDefinitionType extends AbstractResourceType
 
     /**
      * @param FormInterface $form
-     * @param string        $configurationType
+     * @param string $configurationType
      */
-    protected function addConfigurationFields(FormInterface $form, $configurationType): void
+    protected function addConfigurationFields(FormInterface $form, string $configurationType): void
     {
         $form->add('configuration', $configurationType);
     }
 
     /**
      * @param FormInterface $form
-     * @param mixed         $data
+     * @param mixed $data
      * @return string|null
      */
     protected function getRegistryIdentifier(FormInterface $form, $data = null): ?string
@@ -141,4 +132,3 @@ final class ImportDefinitionType extends AbstractResourceType
         return null;
     }
 }
-

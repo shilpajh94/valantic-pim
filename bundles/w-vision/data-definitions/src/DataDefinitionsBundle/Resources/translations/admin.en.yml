@@ -21,6 +21,7 @@ data_name_not_valid: "File name should not contain space or special characters."
 config_name_not_valid: "Configuration name should not contain space or special characters."
 data_definitions_file_not_uploaded: "Upload csv file in Provider Settings Tab"
 data_definitions_csv_enclosure: 'Enclosure'
+data_definitions_csv_escape: 'Escape'
 data_definitions_csv_delimiter: 'Delimiter'
 data_definitions_excel_headers: 'Excel headers'
 data_definitions_excel_file: 'Excel example file'
@@ -46,6 +47,7 @@ data_definitions_json_example: 'Json Example'
 data_definitions_xml_xpath: 'XPath'
 data_definitions_xml_exampleXPath: 'Example XPath'
 data_definitions_xml_file: 'Example File'
+data_definitions_data_object_headers: 'Example Data'
 data_definitions_xml_xslt_path: 'XSLT post-export processing file path'
 data_definitions_keys: 'Keys (FROM:TO,FROM:TO)'
 data_definitions_setter_settings: 'Setter Settings'
@@ -128,4 +130,4 @@ data_definition_create_import: 'Create Data definition Import'
 data_definition_name: 'Data Definition Name'
 data_definition_max_allowed_length_100: "Maximum allowed length is 100"
 data_definition_field_is_required: "Field is required"
-
+data_definitions_persister: 'Persister'

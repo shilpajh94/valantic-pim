@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Data Definitions.
  *
@@ -13,22 +12,29 @@
  * @license    https://github.com/w-vision/DataDefinitions/blob/master/gpl-3.0.txt GNU General Public License version 3 (GPLv3)
  */
 
+declare(strict_types=1);
+
 namespace Wvision\Bundle\DataDefinitionsBundle\Controller;
 
-use Doctrine\DBAL\Exception\NotNullConstraintViolationException;
-use CoreShop\Bundle\ResourceBundle\Controller\ResourceController;
+use CoreShop\Component\Registry\ServiceRegistryInterface;
+use Exception;
 use Pimcore\Model\DataObject;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Contracts\Service\Attribute\SubscribedService;
 use Wvision\Bundle\DataDefinitionsBundle\Model\ImportDefinitionInterface;
+use Wvision\Bundle\DataDefinitionsBundle\Model\ImportMapping;
 use Wvision\Bundle\DataDefinitionsBundle\Model\ImportMapping\FromColumn;
 use Wvision\Bundle\DataDefinitionsBundle\Service\FieldSelection;
+use function is_array;
 use Wvision\Bundle\DataDefinitionsBundle\Lib\DataImportLogger;
 use Wvision\Bundle\DataDefinitionsBundle\Helper\CommonHelper as commonHelper;
 use CoreShop\Component\Resource\Model\ResourceInterface;
-use Pimcore\Bundle\AdminBundle\HttpFoundation\JsonResponse;
+// use Pimcore\Bundle\AdminBundle\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\JsonResponse as SymfonyJsonResponse;
 use Wvision\Bundle\DataDefinitionsBundle\Model\ImportDefinition;
 use AppBundle\Tool\Utils;
@@ -42,16 +48,9 @@ use Wvision\Bundle\DataDefinitionsBundle\Helper\ImportHelper as importHelper;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Process\Process;
 
-
-class ImportDefinitionController extends ResourceController
+class ImportDefinitionController extends AbstractDefinitionController
 {
-    private $data_definition_already_exists = 'Data definition already exits! Please provide a different name.';
-    private $data_definition_not_found_relaod_admin = 'Data definition could not be found. Please reload the admin interface.';
-    private $data_definitions_file_not_uploaded = "Upload csv file in Provider Settings Tab";
-    /**
-     * @return mixed|\Symfony\Component\HttpFoundation\JsonResponse
-     */
-    public function getConfigAction()
+    public function getConfigAction(): JsonResponse
     {
         $providers = $this->getConfigProviders();
         $loaders = $this->getConfigLoaders();
@@ -63,6 +62,7 @@ class ImportDefinitionController extends ResourceController
         $persisters = $this->getConfigPersisters();
         $importRuleConditions = $this->getImportRuleConditions();
         $importRuleActions = $this->getImportRuleActions();
+
         return $this->viewHandler->handle([
             'providers' => array_keys($providers),
             'loaders' => array_keys($loaders),
@@ -74,8 +74,8 @@ class ImportDefinitionController extends ResourceController
             'persister' => array_keys($persisters),
             'import_rules' => [
                 'conditions' => array_keys($importRuleConditions),
-                'actions' => array_keys($importRuleActions)
-            ]
+                'actions' => array_keys($importRuleActions),
+            ],
         ]);
     }
     /**
@@ -126,43 +126,50 @@ class ImportDefinitionController extends ResourceController
     {
         $id = $request->get('id');
         $definition = $this->repository->find($id);
+
         if ($definition instanceof ImportDefinitionInterface) {
             try {
-                if ($this->get('data_definitions.registry.provider')->get($definition->getProvider())->testData($definition->getConfiguration())) {
+                if (\Pimcore::getContainer()->get('data_definitions.registry.provider')->get(
+                    $definition->getProvider()
+                )->testData(
+                    $definition->getConfiguration()
+                )) {
                     return $this->viewHandler->handle(['success' => true]);
                 }
-            } catch (\Exception $ex) {
+            } catch (Exception $ex) {
                 return $this->viewHandler->handle(['success' => false, 'message' => $ex->getMessage()]);
             }
         }
+
         return $this->viewHandler->handle(['success' => false]);
     }
-    /**
-     * @param Request $request
-     * @return mixed|\Symfony\Component\HttpFoundation\JsonResponse
-     * @throws \Exception
-     */
-    public function getColumnsAction(Request $request)
+
+    public function getColumnsAction(Request $request): JsonResponse
     {
         $id = $request->get('id');
         $definition = $this->repository->find($id);
         $primaryKeyValue = $definition->getPrimaryKey();
+
         if ($definition instanceof ImportDefinitionInterface && $definition->getClass()) {
             try {
-                $fromColumns = $this->get('data_definitions.registry.provider')->get($definition->getProvider())->getColumns($definition->getConfiguration(), $definition->name);
+                $fromColumns = \Pimcore::getContainer()->get('data_definitions.registry.provider')->get($definition->getProvider())->getColumns($definition->getConfiguration(), $definition->name);
             } catch (\Exception $e) {
                 $fromColumns = [];
             }
+
             $classDefinition = DataObject\ClassDefinition::getByName($definition->getClass());
+
             if (!$classDefinition) {
                 throw new NotFoundHttpException();
             }
-            $toColumns = $this->get(FieldSelection::class)->getClassDefinition($classDefinition);
+
+            $toColumns = \Pimcore::getContainer()->get(FieldSelection::class)->getClassDefinition($classDefinition);
             $mappings = $definition->getMapping();
             $mappingDefinition = [];
             $fromColumnsResult = [];
             $bricks = [];
             $collections = [];
+
             foreach ($classDefinition->getFieldDefinitions() as $field) {
                 if ($field instanceof DataObject\ClassDefinition\Data\Objectbricks) {
                     $bricks[$field->getName()] = $field->getAllowedTypes();
@@ -170,17 +177,26 @@ class ImportDefinitionController extends ResourceController
                     $collections[$field->getName()] = $field->getAllowedTypes();
                 }
             }
+
             foreach ($fromColumns as $fromColumn) {
                 $fromColumn = get_object_vars($fromColumn);
+
                 $fromColumn['id'] = $fromColumn['identifier'];
+
                 $fromColumnsResult[] = $fromColumn;
             }
+
             foreach ($toColumns as $classToColumn) {
                 $found = false;
-                if (\is_array($mappings)) {
+
+                if (is_array($mappings)) {
+                    /**
+                     * @var ImportMapping $mapping
+                     */
                     foreach ($mappings as $mapping) {
                         if ($mapping->getToColumn() === $classToColumn->getIdentifier()) {
                             $found = true;
+
                             $mappingDefinition[] = [
                                 'fromColumn' => $mapping->getFromColumn(),
                                 'toColumn' => $mapping->getToColumn(),
@@ -190,10 +206,12 @@ class ImportDefinitionController extends ResourceController
                                 'interpreter' => $mapping->getInterpreter(),
                                 'interpreterConfig' => $mapping->getInterpreterConfig(),
                             ];
+
                             break;
                         }
                     }
                 }
+
                 if (!$found) {
                     $mappingDefinition[] = [
                         'identifier' => null,
@@ -226,6 +244,7 @@ class ImportDefinitionController extends ResourceController
                 'fieldcollections' => $collections,
             ]);
         }
+
         return $this->viewHandler->handle(['success' => false]);
     }
     /**
@@ -235,11 +254,15 @@ class ImportDefinitionController extends ResourceController
     public function exportAction(Request $request): Response
     {
         $id = (int)$request->get('id');
+
         if ($id) {
             $definition = $this->repository->find($id);
+
             if ($definition instanceof ImportDefinitionInterface) {
+
                 $name = $definition->getName();
                 unset($definition->id, $definition->creationDate, $definition->modificationDate);
+
                 $response = new Response();
                 $response->headers->set('Content-Type', 'application/json');
                 $response->headers->set(
@@ -249,123 +272,69 @@ class ImportDefinitionController extends ResourceController
                 $response->headers->set('Pragma', 'no-cache');
                 $response->headers->set('Expires', '0');
                 $response->headers->set('Content-Transfer-Encoding', 'binary');
+
                 $response->setContent(json_encode($definition));
+
                 return $response;
             }
         }
+
         throw new NotFoundHttpException();
     }
     /**
      * @param Request $request
      * @return mixed|\Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function importAction(Request $request)
+    public function importAction(Request $request): JsonResponse
     {
         $id = (int)$request->get('id');
         $definition = $this->repository->find($id);
+
         if ($id && $definition instanceof ImportDefinitionInterface && $request->files->has('Filedata')) {
             $uploadedFile = $request->files->get('Filedata');
+
             if ($uploadedFile instanceof UploadedFile) {
                 $jsonContent = file_get_contents($uploadedFile->getPathname());
-                $data = json_decode($jsonContent, false);
+                $data = $this->decodeJson($jsonContent, false);
+
                 $form = $this->resourceFormFactory->create($this->metadata, $definition);
                 $handledForm = $form->submit($data);
+
                 if ($handledForm->isValid()) {
                     $definition = $form->getData();
+
                     $this->manager->persist($definition);
                     $this->manager->flush();
+
                     return $this->viewHandler->handle(['success' => true]);
                 }
             }
         }
+
         return $this->viewHandler->handle(['success' => false]);
     }
     /**
      * @param Request $request
      * @return mixed|\Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function duplicateAction(Request $request)
+    public function duplicateAction(Request $request): JsonResponse
     {
         $id = (int)$request->get('id');
         $definition = $this->repository->find($id);
         $name = (string)$request->get('name');
+
         if ($definition instanceof ImportDefinitionInterface && $name) {
             $newDefinition = clone $definition;
             $newDefinition->setId(null);
             $newDefinition->setName($name);
+
             $this->manager->persist($newDefinition);
             $this->manager->flush();
+
             return $this->viewHandler->handle(['success' => true, 'data' => $newDefinition]);
         }
-        return $this->viewHandler->handle(['success' => false]);
-    }
-    /**
-     * @return array
-     */
-    protected function getConfigProviders(): array
-    {
-        return $this->container->getParameter('data_definitions.import_providers');
-    }
-    /**
-     * @return array
-     */
-    protected function getConfigLoaders(): array
-    {
-        return $this->container->getParameter('data_definitions.loaders');
-    }
-    /**
-     * @return array
-     */
-    protected function getConfigInterpreters(): array
-    {
-        return $this->container->getParameter('data_definitions.interpreters');
-    }
-    /**
-     * @return array
-     */
-    protected function getConfigCleaners(): array
-    {
-        return $this->container->getParameter('data_definitions.cleaners');
-    }
-    /**
-     * @return array
-     */
-    protected function getConfigSetters(): array
-    {
-        return $this->container->getParameter('data_definitions.setters');
-    }
-    /**
-     * @return array
-     */
-    protected function getConfigFilters(): array
-    {
-        return $this->container->getParameter('data_definitions.filters');
-    }
-    /**
-     * @return array
-     */
-    protected function getConfigRunners(): array
-    {
-        return $this->container->getParameter('data_definitions.runners');
-    }
-    /**
-     * @return array
-     */
-    protected function getImportRuleConditions(): array
-    {
-        return $this->container->getParameter('data_definitions.import_rule.conditions');
-    }
-    /**
-     * @return array
-     */
-    protected function getImportRuleActions(): array
-    {
-        return $this->container->getParameter('data_definitions.import_rule.actions');
-    }
 
-    protected function getConfigPersisters(): array
-    {
-        return $this->container->getParameter('data_definitions.persisters');
+        return $this->viewHandler->handle(['success' => false]);
     }
     
     /**
@@ -504,7 +473,7 @@ class ImportDefinitionController extends ResourceController
         foreach ($roles as $key => $val) {
             if ($key == 'CBS') {
                 $class = $getClass['config']['CBS']['Class'];
-            } else if ($key == 'PTG_EU') {
+            } elseif ($key == 'PTG_EU') {
                 $class = $getClass['config']['PTG_EU']['Class'];
             } else {
                 $class = $getClass['config']['IFSPTG_US']['Class'];
@@ -568,21 +537,23 @@ class ImportDefinitionController extends ResourceController
         if(preg_match('/[\s@!#$%^&*()<>?|}{~:]/', $name))
         {
             return $this->viewHandler->handle(['success' => false, 'msg' => $config_name_not_valid]);
-        }
-
-        $configArray = include PIMCORE_PROJECT_ROOT . '/var/config/importdefinitions.php';
-        foreach ($configArray as $perConfig) {
-            $existname[] = strtolower($perConfig['name']);
-        }
-        if(is_array($existname)){
-            $alreadyTakenName =  in_array(strtolower($name), $existname);
-        }
-
-        if ($alreadyTakenName == true) {
-            return $this->viewHandler->handle(['success' => false, 'msg' => $data_definition_config_exists]);
         }elseif (strlen($name) == 0) {
             return $this->viewHandler->handle(['success' => false, 'msg' =>$data_definition_name_required]);
-        } else {
+        }
+
+        // $configArray = include PIMCORE_PROJECT_ROOT . '/var/config/importdefinitions.php';
+        // p_r($configArray);
+        // die;
+        // foreach ($configArray as $perConfig) {
+        //     $existname[] = strtolower($perConfig['name']);
+        // }
+        // if(is_array($existname)){
+        //     $alreadyTakenName =  in_array(strtolower($name), $existname);
+        // }
+
+        // if ($alreadyTakenName == true) {
+        //     return $this->viewHandler->handle(['success' => false, 'msg' => $data_definition_config_exists]);
+        // } else {
             $resource = $this->factory->createNew();
 
             if ($resource instanceof ResourceInterface) {
@@ -600,12 +571,13 @@ class ImportDefinitionController extends ResourceController
 
             $this->eventDispatcher->dispatchPostEvent('create', $this->metadata, $resource, $request);
             return $this->viewHandler->handle(['data' => $resource, 'success' => true], ['group' => 'Detailed']);
-        }
+        // }
     }
 
     // fucntion to start data definition import
     public function saveDataDefinitionImportAction(Request $request)
     {
+        // echo "sdsdsd"; die;
         $data_definition_already_exists = 'Data definition already exits! Please provide a different name.';
         $data_definition_not_found_relaod_admin = 'Data definition could not be found. Please reload the admin interface.';
         $data_definitions_file_not_uploaded = "Upload csv file in Provider Settings Tab";
@@ -613,12 +585,14 @@ class ImportDefinitionController extends ResourceController
         $commonHelperObject = new commonHelper();
         $name               = $request->get('name');
         $importDefinitionId = $request->get('importDefinitionId');
-
+        // p_r($name);
+        // p_r($importDefinitionId);
         /**
          * checking if the data definition name exist
          */
         $existingDefinition =  DataDefinitionImport::getByName($name);
-
+        // p_r($existingDefinition);
+        // die;
         if ($existingDefinition && $existingDefinition->getImportDefinitionId()==$importDefinitionId) {
             DataImportLogger::log("Requested data definition ($name) already exitst into the database.", DataImportLogger::INFO);
             $msg = $data_definition_already_exists;
@@ -628,22 +602,23 @@ class ImportDefinitionController extends ResourceController
         /**
          * checking if the import definition exist
          */
-        $importDefinition = null;
-        if ($importDefinitionId) {
-            $importDefinition = ImportDefinition::getById($importDefinitionId);
-        }
+        // $importDefinition = null;
+        // if ($importDefinitionId) {
+        //     $importDefinition = ImportDefinition::getById($importDefinitionId);
+        // }
 
-        if (!$importDefinition) {
-            DataImportLogger::log("Requested import definition ($importDefinitionId) not found in ImportDefinitionController saveDataDefinitionImportAction .", DataImportLogger::INFO);
-            $msg = $data_definition_not_found_relaod_admin;
-            return $this->json(['success' => false, 'msg' => $msg]);
-        }
+        // if (!$importDefinition) {
+        //     DataImportLogger::log("Requested import definition ($importDefinitionId) not found in ImportDefinitionController saveDataDefinitionImportAction .", DataImportLogger::INFO);
+        //     $msg = $data_definition_not_found_relaod_admin;
+        //     return $this->json(['success' => false, 'msg' => $msg]);
+        // }
 
         // get the config details to get the file path
-        $configArray        = include PIMCORE_PROJECT_ROOT . '/var/config/importdefinitions.php';
-        $currentDefinition  = $configArray[$importDefinitionId];
-        $definitionName     = $currentDefinition['name'];
-        $fileName           = $definitionName . "-" . $currentDefinition['configuration']['csvFile'];
+        // $configArray        = include PIMCORE_PROJECT_ROOT . '/var/config/importdefinitions.php';
+        $definition = $this->repository->find($importDefinitionId);
+        $configArray = $definition->getConfiguration();
+        
+        $fileName           = $importDefinitionId. "-". $configArray['csvFile'];
         $filePath           = $commonHelperObject->getDefaultAssetFolderForUploadedFiles() . "/" . $fileName;
         $asset              = Asset::getByPath($filePath);
         if(!$asset){
@@ -672,14 +647,16 @@ class ImportDefinitionController extends ResourceController
         $dataImport->setImportFileName($fileName);
         $dataImport->setImportFilePimcoreAssetId($importFilePimcoreAssetId);
         $dataImport->setImportProcessStartTime(new \DateTime());
-        $dataImport->setImportDefinitionId($importDefinition->getId());
+        $dataImport->setImportDefinitionId($importDefinitionId);
         $dataImport->setCreationDate(new \DateTime());
 
         $user = \Pimcore\Tool\Admin::getCurrentUser();
         $dataImport->setUserOwner($user->getId());
 
         try {
+            // echo "Insert";
             $dataImport->save();
+            // echo "Saved";
             $importDataId   = $dataImport->getId();
 
             // create command to import the data of csv and run command in background
@@ -687,20 +664,26 @@ class ImportDefinitionController extends ResourceController
             $encParams      = json_encode(json_encode($arrParams,JSON_UNESCAPED_SLASHES), JSON_UNESCAPED_SLASHES);
             $encParams      = trim($encParams,'"');
             $cmd            = PIMCORE_PROJECT_ROOT. "/bin/console data-definitions:import -d $importDefinitionId -p \"$encParams\"";
+            // p_r($cmd);
             DataImportLogger::log($cmd);
             $processId      = \Pimcore\Tool\Console::execInBackground($cmd);
-
+            // p_r($processId);
             // update process id of respective data definition import
             $dataImport     = DataDefinitionImport::getById($importDataId);
-            $dataImport->setProcessId($processId);
+            $dataImport->setProcessId((string)$processId);
             $dataImport->save();
+            // echo "zero";
 
         } catch (NotNullConstraintViolationException $exception) {
+            // p_r($exception);
+            // echo "first";
             DataImportLogger::log("Error saving schedule: " . $exception->getMessage(), DataImportLogger::CRITICAL);
 
             $msg = $data_definition_mandatory_field_check_failed;
             return $this->json(['success' => false, 'msg' => $msg]);
         } catch (\Exception $exception) {
+            // p_r($exception);
+            // echo "second";
             DataImportLogger::log("Error saving schedule: " . $exception->getMessage(), DataImportLogger::CRITICAL);
             return $this->json(['success' => false, 'msg' => $exception->getMessage()]);
         }
@@ -716,21 +699,29 @@ class ImportDefinitionController extends ResourceController
     // function to list data definition import
     public function listDataDefinitionImportAction(Request $request)
     {
+        // p_r('listDataDefinitionImportAction');
         $importHelperObject = new importHelper();
         $importDefinitionId = $request->get('importDefinitionId');
-
+        // p_r($importDefinitionId); 
+        // $importDefinitionId = 17;
         $list = new DataDefinitionImport\Listing();
-        $condition = "importDefinitionId = " . $importDefinitionId . " AND status != " . $list->quote(Constants::SCHEDULE_STATUS_EXPIRED);
+        // p_r($list); die;
+        $condition = "importDefinitionId = '" . $importDefinitionId . "' AND status != " . $list->quote(Constants::SCHEDULE_STATUS_EXPIRED);
         $list->setCondition($condition);
         $list->setOrderKey("creationDate");
         $list->setOrder("DESC");
+        // p_r($list); die;
         $list->load();
-
+        // p_r($list); die;
+        // p_r($request);
+        // die('ASAS');
         $data = [];
         foreach ($list->getItems() as $dataImport) {
+            // p_r($dataImport);
             $data[] = $importHelperObject->buildScheduleForGrid($dataImport);
         }
-
+        // die('ASAS');
+        // p_r($data);
         return $this->json(['success' => true, 'data' => $data]);
     }
 
@@ -848,5 +839,55 @@ class ImportDefinitionController extends ResourceController
             }
         }
         return $this->json(["data" => $classFields]);
+    }
+
+    protected function getConfigProviders(): array
+    {
+        return $this->getParameter('data_definitions.import_providers');
+    }
+
+    protected function getConfigLoaders(): array
+    {
+        return $this->getParameter('data_definitions.loaders');
+    }
+
+    protected function getConfigInterpreters(): array
+    {
+        return $this->getParameter('data_definitions.interpreters');
+    }
+
+    protected function getConfigCleaners(): array
+    {
+        return $this->getParameter('data_definitions.cleaners');
+    }
+
+    protected function getConfigSetters(): array
+    {
+        return $this->getParameter('data_definitions.setters');
+    }
+
+    protected function getConfigFilters(): array
+    {
+        return $this->getParameter('data_definitions.filters');
+    }
+
+    protected function getConfigRunners(): array
+    {
+        return $this->getParameter('data_definitions.runners');
+    }
+
+    protected function getConfigPersisters(): array
+    {
+        return $this->getParameter('data_definitions.persisters');
+    }
+
+    protected function getImportRuleConditions(): array
+    {
+        return $this->getParameter('data_definitions.import_rule.conditions');
+    }
+
+    protected function getImportRuleActions(): array
+    {
+        return $this->getParameter('data_definitions.import_rule.actions');
     }
 }

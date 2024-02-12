@@ -185,6 +185,9 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
 
         $filterType = $definition->getFilter();
         if ($filterType) {
+            /**
+             * @var FilterInterface $filter
+             */
             $filter = $this->filterRegistry->get($filterType);
         }
 
@@ -259,6 +262,10 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
                                                 $exceptions,
                                                 $logResult)
     {
+        if (!is_int($definition->getSuccessNotificationDocument())) {
+            return;
+        }
+
         $this->sendDocument($definition, Document::getById($definition->getSuccessNotificationDocument()),
             $objectIds, $exceptions, $params, $logResult);
         $this->eventDispatcher->dispatch($definition, 'data_definitions.import.success', $params);
@@ -277,6 +284,10 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
                                         $exceptions,
                                         $logResult)
     {
+        if (!is_int($definition->getFailureNotificationDocument())) {
+            return;
+        }
+
         $this->sendDocument($definition, Document::getById($definition->getFailureNotificationDocument()),
             $objectIds, $exceptions, $params, $logResult);
         $this->eventDispatcher->dispatch($definition, 'data_definitions.import.failure', $params);
@@ -544,8 +555,12 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
             $this->eventDispatcher->dispatch($definition, 'data_definitions.import.progress', '', $params);
 
             if ($this->shouldStop) {
-                $this->eventDispatcher->dispatch($definition, 'data_definitions.import.status',
-                    'Process has been stopped.');
+                $this->eventDispatcher->dispatch(
+                    $definition,
+                    'data_definitions.import.status',
+                    'Process has been stopped.'
+                );
+
                 return [$objectIds, $exceptions];
             }
 
@@ -599,7 +614,7 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
         $runner = null;
 
 
-        $object = $this->getObject($definition, $data, $params);
+        $object = $this->getObject($definition, $data, $dataSet, $params);
 
         if (null !== $object && !$object->getId()) {
             if ($definition->getSkipNewObjects()) {
@@ -660,9 +675,7 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
 
         $this->logger->info(sprintf('Imported Object: %s', $object->getRealFullPath()));
 
-        /**
-         * @var $mapItem ImportMapping
-         */
+        /** @var ImportMapping $mapItem */
         foreach ($definition->getMapping() as $mapItem) {
             $value = null;
             if ((array_key_exists($mapItem->getFromColumn(), $data) &&
@@ -696,9 +709,9 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
                     }
                 }
                 $this->setObjectValue($object, $mapItem, $value, $data, $dataSet, $definition, $params, $runner);
-                 
             }
         }
+
         $shouldSave = true;
         if ($runner instanceof SaveRunnerInterface) {
             if ($runner instanceof DataSetAwareInterface) {
@@ -757,10 +770,10 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
         Concrete $object,
         ImportMapping $map,
         $value,
-        $data,
-        $dataSet,
+        array $data,
+        ImportDataSetInterface $dataSet,
         ImportDefinitionInterface $definition,
-        $params,
+        array $params,
         RunnerInterface $runner = null
     ): void {
         if ($map->getInterpreter()) {
@@ -788,9 +801,12 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
                 }
                 catch (UnexpectedValueException $ex) {
                     $this->logger->info(
-                            sprintf('Unexpected Value from Interpreter "%s" with message "%s"',
+                        sprintf(
+                            'Unexpected Value from Interpreter "%s" with message "%s"',
                             $map->getInterpreter(),
-                            $ex->getMessage()));
+                            $ex->getMessage()
+                        )
+                    );
                 }
 
             } catch (DoNotSetException $ex) {
@@ -799,8 +815,8 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
 
         }
 
-        if ($map->getToColumn() === 'o_type' && $map->getSetter() !== 'object_type') {
-            throw new \InvalidArgumentException('Type has to be used with ObjectType Setter!');
+        if ($map->getToColumn() === 'type' && $map->getSetter() !== 'object_type') {
+            throw new InvalidArgumentException('Type has to be used with ObjectType Setter!');
         }
 
         $shouldSetField = true;
@@ -877,6 +893,7 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
     /**
      * @param ImportDefinitionInterface     $definition
      * @param                               $data
+     * @param ImportDataSetInterface|array $dataSet
      * @param                               $params
      * @return Concrete
      * @throws \Exception
@@ -889,7 +906,7 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
         $obj = null;
 
         if (!$classDefinition instanceof ClassDefinition) {
-            throw new \InvalidArgumentException(sprintf('Class not found %s', $class));
+            throw new InvalidArgumentException(sprintf('Class not found %s', $class));
         }
 
         /**
@@ -924,7 +941,7 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
         }
 
         $key = Service::getValidKey($this->createKey($definition, $data), 'object');
-        
+
         if ($definition->getRelocateExistingObjects() || !$obj->getId()) {
             $obj->setParent(Service::createFolderByPath($this->createPath($definition, $data)));
         }
@@ -933,16 +950,16 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
             if ($key && $definition->getKey()) {
                 $obj->setKey($key);
             } else {
-                $obj->setKey(File::getValidFilename(uniqid()));
+                $obj->setKey(File::getValidFilename(uniqid('', true)));
             }
         }
 
         if (!$obj->getKey()) {
-            throw new \InvalidArgumentException('No key set, please check your import-data');
+            throw new InvalidArgumentException('No key set, please check your import-data');
         }
 
         $obj->setKey(Service::getUniqueKey($obj));
-       
+
         return $obj;
     }
 

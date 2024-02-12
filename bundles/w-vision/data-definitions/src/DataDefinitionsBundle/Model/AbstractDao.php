@@ -49,7 +49,8 @@ abstract class AbstractDao extends \Pimcore\Model\Dao\AbstractDao
                 }
             }
 
-            $this->db->insertOrUpdate(static::TABLE_NAME, $data);
+            \Pimcore\Db\Helper::upsert($this->db, static::TABLE_NAME,$data,['id'],true);
+            // $this->db->insertOrUpdate(static::TABLE_NAME, $data);
 
             $lastInsertId = $this->db->lastInsertId();
             if (!$this->model->getId() && $lastInsertId) {

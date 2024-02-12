@@ -12,8 +12,11 @@
  * @license    https://github.com/w-vision/DataDefinitions/blob/master/gpl-3.0.txt GNU General Public License version 3 (GPLv3)
  */
 
+declare(strict_types=1);
+
 namespace Wvision\Bundle\DataDefinitionsBundle\Loader;
 
+use InvalidArgumentException;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\Listing;
@@ -61,11 +64,12 @@ class PrimaryKeyLoader implements LoaderInterface
             ]);
             $list->load();
             $objectData = $list->getObjects();
-            if (\count($objectData) > 1) {
-                throw new \InvalidArgumentException('Object with the same primary key was found multiple times');
+
+            if (count($objectData) > 1) {
+                throw new InvalidArgumentException('Object with the same primary key was found multiple times');
             }
 
-            if (\count($objectData) === 1) {
+            if (count($objectData) === 1) {
                 $obj = $objectData[0];
 
                 if ($definition->getForceLoadObject()) {
@@ -134,6 +138,7 @@ class PrimaryKeyLoader implements LoaderInterface
             }
             return DataObject\CSProducts::getByPath($path);
         }
+
         return null;
     }
 }

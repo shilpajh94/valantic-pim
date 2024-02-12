@@ -12,21 +12,18 @@
  * @license    https://github.com/w-vision/DataDefinitions/blob/master/gpl-3.0.txt GNU General Public License version 3 (GPLv3)
  */
 
-namespace Wvision\Bundle\DataDefinitionsBundle\Model;
+declare(strict_types=1);
 
-use Wvision\Bundle\DataDefinitionsBundle\Provider\ImportDataSetInterface;
+namespace Wvision\Bundle\DataDefinitionsBundle\EventListener;
 
-interface DataSetAwareInterface
+use Pimcore\Bundle\AdminBundle\Event\IndexActionSettingsEvent;
+use Wvision\Bundle\DataDefinitionsBundle\Model\ExportDefinition;
+use Wvision\Bundle\DataDefinitionsBundle\Model\ImportDefinition;
+
+class PimcoreSettingsListener
 {
-    /**
-     * @return ImportDataSetInterface|array
-     */
-    public function getDataSet();
+    public function indexSettings(IndexActionSettingsEvent $settingsEvent): void
+    {
 
-    /**
-     * @param ImportDataSetInterface|array $dataSet
-     */
-    public function setDataSet($dataSet);
+    }
 }
-
-

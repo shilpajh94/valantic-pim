@@ -43,9 +43,9 @@ class DataDefinitionImport extends AbstractModel
      /**
      * @return mixed
      */
-    public function setImportDefinitionId(?int $importDefinitionId): void
+    public function setImportDefinitionId(?string $importDefinitionId): void
     {
-        $this->importDefinitionId = $importDefinitionId;
+        $this->importDefinitionId = "$importDefinitionId";
     }
 
     /**
@@ -53,7 +53,7 @@ class DataDefinitionImport extends AbstractModel
      */
     public function getImportDefinitionId()
     {
-        return $this->importDefinitionId;
+        return "$this->importDefinitionId";
     }
 
     /**
