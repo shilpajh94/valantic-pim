@@ -26,7 +26,7 @@ return [
     IFSEU\ProductBundle\IFSEUProductBundle::class => ['all' => true],
     IFSEU\ImportBundle\IFSEUImportBundle::class => ['all' => true],
     PTGEU\CatalogBundle\PTGEUCatalogBundle::class => ['all' => true],
-    // PimDataPostBundle\PimDataPostBundle::class => ['all' => true],
+    PimDataPostBundle\PimDataPostBundle::class => ['all' => true],
     \Pimcore\Bundle\WebToPrintBundle\PimcoreWebToPrintBundle::class => ['all' => true],
     // \Pimcore\Bundle\EcommerceFrameworkBundle\PimcoreEcommerceFrameworkBundle::class => ['all' => true],
     \Pimcore\Bundle\PersonalizationBundle\PimcorePersonalizationBundle::class => ['all' => true],
