@@ -25,10 +25,10 @@ final class CsvProviderType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('csvExample', TextType::class)
+            // ->add('csvExample', TextType::class)
             ->add('delimiter', TextType::class)
             ->add('enclosure', TextType::class)
-            ->add('csvHeaders', TextType::class)
+            // ->add('csvHeaders', TextType::class)
             ->add('csvFile', TextType::class)
             ->add('csvId', TextType::class);
     }

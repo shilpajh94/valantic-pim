@@ -262,12 +262,11 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
                                                 $exceptions,
                                                 $logResult)
     {
-        if (!is_int($definition->getSuccessNotificationDocument())) {
-            return;
-        }
+        // if (!is_int($definition->getSuccessNotificationDocument())) {
+        //     return;
+        // }
 
-        $this->sendDocument($definition, Document::getById($definition->getSuccessNotificationDocument()),
-            $objectIds, $exceptions, $params, $logResult);
+        $this->sendDocument($definition,$objectIds, $exceptions, $params, $logResult);
         $this->eventDispatcher->dispatch($definition, 'data_definitions.import.success', $params);
     }
 
@@ -284,12 +283,11 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
                                         $exceptions,
                                         $logResult)
     {
-        if (!is_int($definition->getFailureNotificationDocument())) {
-            return;
-        }
+        // if (!is_int($definition->getFailureNotificationDocument())) {
+        //     return;
+        // }
 
-        $this->sendDocument($definition, Document::getById($definition->getFailureNotificationDocument()),
-            $objectIds, $exceptions, $params, $logResult);
+        $this->sendDocument($definition, $objectIds, $exceptions, $params, $logResult);
         $this->eventDispatcher->dispatch($definition, 'data_definitions.import.failure', $params);
     }
 
@@ -306,7 +304,6 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
      * @throws \Exception
      */
     private function sendDocument(ImportDefinitionInterface $definition,
-                                  $document,
                                   $objectIds,
                                   $exceptions,
                                   $importDataParams =[],
@@ -324,19 +321,19 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
             'logResult' => $logResult
         ];
         $this->CreateLogsFilesForImport($params );
-        $templateParam['tableContent'] = $definition->getName();
-        $documentEmail = Document\Email::getByPath(Constants::BULK_PRODUCT_IMPORT_REPORT);
-        if ($documentEmail instanceof Document\Email) {
-            $mail = new Mail();
-            $mail->setDocument($documentEmail);
-            $mail->addto('admin@example.com');
-            $mail->Subject("Import Log");
-            $mail->setParams($templateParam);
+        // $templateParam['tableContent'] = $definition->getName();
+        // $documentEmail = Document\Email::getByPath(Constants::BULK_PRODUCT_IMPORT_REPORT);
+        // if ($documentEmail instanceof Document\Email) {
+        //     $mail = new Mail();
+        //     $mail->setDocument($documentEmail);
+        //     $mail->addto('admin@example.com');
+        //     $mail->Subject("Import Log");
+        //     $mail->setParams($templateParam);
 
-            $mail->send();
-        } elseif (is_a($document, "\\Pimcore\\Model\\Document\\Pushover")) {
-            $document->send($params);
-        }
+        //     $mail->send();
+        // } elseif (is_a($document, "\\Pimcore\\Model\\Document\\Pushover")) {
+        //     $document->send($params);
+        // }
     }
 
     public function CreateLogsFilesForImport($params)

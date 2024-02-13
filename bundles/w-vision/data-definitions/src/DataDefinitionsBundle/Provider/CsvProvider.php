@@ -49,41 +49,52 @@ class CsvProvider extends AbstractFileProvider implements ImportProviderInterfac
     public function getColumns(array $configuration, $definitionName = ''): array
     {
         $commonHelperObject = new commonHelper();
-	    $csvHeaders = (string)$configuration['csvHeaders'];
-        $csvExample = $configuration['csvExample'];
+	    // $csvHeaders = (string)$configuration['csvHeaders'];
+        // $csvExample = $configuration['csvExample'];
         $delimiter = $configuration['delimiter'];
         $enclosure = $configuration['enclosure'];
         $csvFile = $definitionName . "-" . $configuration['csvFile'];
         $path = $commonHelperObject->getDefaultAssetFolderForUploadedFiles() . "/" . $csvFile;
         $asset = Asset::getByPath($path);
+        // p_r($asset);
         if ($asset) {
             // $fullPath = $asset->getFileSystemPath();
             $fullPath = PIMCORE_ASSET_DIRECTORY.$asset->getRealFullPath();
             // p_r($fullPath);
             $fp = fopen($fullPath, 'r');
-            $header = fgetcsv($fp, 4096, $delimiter, '"');
-            
+            $headers = fgetcsv($fp, 4096, $delimiter, '"');
+            // p_r($headers);
             //$headerRow = explode(',', $header[0]);
-            foreach ($header as $column) {
-                if (!is_null($column) && $column != "") {
-                    $columns[] = $column;
-                }
-            }
+            // foreach ($header as $column) {
+            //     if (!is_null($column) && $column != "") {
+            //         $columns[] = $column;
+            //     }
+            // }
             fclose($fp);
 
-            if (!empty($columns)) {
-                $csvExample = implode(",", array_map("trim", array_filter($columns)));
-            }
+            // if (!empty($columns)) {
+            //     $csvExample = implode(",", array_map("trim", array_filter($columns)));
+            // }
         }
-
+        // p_r($columns);
+        // p_r($csvExample);
         $returnHeaders = [];
-        $rows = str_getcsv($csvHeaders ?: $csvExample, "\n"); //parse the rows
+        // $rows = [];
 
-        if (count($rows) > 0) {
-            $headerRow = $rows[0];
+        // if($csvHeaders)
+        // {
+        //     $rows = str_getcsv($csvHeaders ?: $csvExample, "\n"); //parse the rows
+        // }
 
-            $headers = str_getcsv($headerRow, $delimiter, $enclosure ?: \chr(8));
+        // p_r($rows);
+        
+        // if (count($rows) > 0) {
+        //     $headerRow = $rows[0];
 
+        //     p_r($headerRow);
+
+        //     $headers = str_getcsv($headerRow, $delimiter, $enclosure ?: \chr(8));
+            // p_r($headers);die;
             if (count($headers) > 0) {
                 //First line are the headers
                 foreach ($headers as $header) {
@@ -98,7 +109,7 @@ class CsvProvider extends AbstractFileProvider implements ImportProviderInterfac
                     $returnHeaders[] = $headerObj;
                 }
             }
-        }
+        // }
 
         return $returnHeaders;
     }
@@ -109,7 +120,7 @@ class CsvProvider extends AbstractFileProvider implements ImportProviderInterfac
         array $params,
         FilterInterface $filter = null
     ): ImportDataSetInterface {
-        $csvHeaders = $configuration['csvHeaders'];
+        // $csvHeaders = $configuration['csvHeaders'];
         $delimiter = $configuration['delimiter'];
         $enclosure = $configuration['enclosure'];
 
@@ -122,7 +133,7 @@ class CsvProvider extends AbstractFileProvider implements ImportProviderInterfac
         $csv->setDelimiter($delimiter);
         $csv->setEnclosure($enclosure);
 
-        if ($csvHeaders) {
+        if ($configuration['csvFile']) {
             $headers = array_map(function (FromColumn $column) {
                 return $column->getIdentifier();
             }, $this->getColumns($configuration));
