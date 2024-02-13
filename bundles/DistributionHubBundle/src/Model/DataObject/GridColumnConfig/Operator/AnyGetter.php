@@ -48,11 +48,11 @@ class AnyGetter extends AbstractOperator
         $result = new \stdClass();
         $result->label = $this->label;
 
-        $childs = $this->getChildren();
+        $children = $this->getChildren();
 
         $getter = 'get'.ucfirst($this->attribute);
 
-        if (!$childs) {
+        if (!$children) {
             if ($this->attribute && method_exists($element, $getter)) {
                 $result->value = $element->$getter();
                 if ($result->value instanceof AbstractModel) {
@@ -62,16 +62,16 @@ class AnyGetter extends AbstractOperator
                 return $result;
             }
         } else {
-            if (count($childs) > 1) {
+            if (count($children) > 1) {
                 $result->isArrayType = true;
             }
             $resultElements = [];
 
-            if (!is_array($childs)) {
-                $childs = [$childs];
+            if (!is_array($children)) {
+                $children = [$children];
             }
 
-            foreach ($childs as $c) {
+            foreach ($children as $c) {
                 $forwardObject = $element;
 
                 if ($this->forwardAttribute) {
@@ -137,7 +137,7 @@ class AnyGetter extends AbstractOperator
                 }
                 $resultElements[] = $resultElementValue;
             }
-            if (count($childs) == 1) {
+            if (count($children) == 1) {
                 $result->value = $resultElements[0];
             } else {
                 $result->value = $resultElements;
@@ -248,7 +248,7 @@ class AnyGetter extends AbstractOperator
         $config = new \stdClass();
 
         $refletionObject = new \ReflectionObject($anyGetter);
-        $anyGetterProperties = ['label','childs','attribute','param1','isArrayType','forwardAttribute',
+        $anyGetterProperties = ['label','children','attribute','param1','isArrayType','forwardAttribute',
             'forwardParam1','returnLastResult'];
         foreach ($anyGetterProperties as $property) {
             $reflectionProperty = $refletionObject->getProperty($property);

@@ -85,7 +85,7 @@ pimcore.bundle.distributionhub.filtersConfig.ResultPanelExtensionBag = Class.cre
             for (var i = 0; i < columns.length; i++) {
                 var column = columns[i];
 
-                if (column.isOperator && this._hasFieldRecursive(fieldname, column.attributes.childs)) {
+                if (column.isOperator && this._hasFieldRecursive(fieldname, column.attributes.children)) {
                     return true
                 } else if (column.attribute == fieldname || column.key == fieldname) {
                     return true;
@@ -112,7 +112,7 @@ pimcore.bundle.distributionhub.filtersConfig.ResultPanelExtensionBag = Class.cre
                 }
 
                 if (column.isOperator) {
-                    this._hasOperatorRecursive(config, column.attributes.childs);
+                    this._hasOperatorRecursive(config, column.attributes.children);
                 }
             }
         } catch (exception) {

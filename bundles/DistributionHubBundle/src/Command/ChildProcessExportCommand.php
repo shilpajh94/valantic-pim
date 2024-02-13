@@ -76,23 +76,18 @@ class ChildProcessExportCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output):int
     {
-        // $scheduleId = $input->getArgument('scheduleId');
-        $scheduleId = 461;
+        $scheduleId = $input->getArgument('scheduleId');
         $pimcoreClassId = $input->getArgument('pimcoreClassId');
         $limit = $input->getArgument('limit');
         $offset = $input->getArgument('offset');
         $tmpFilePath = $input->getArgument('tmpFilePath');
 
         $this->schedule = Schedule::getById($scheduleId);
-        // $scheduleId = 460;
-        // p_r()
         $scheduleData = $this->exportService->getScheduleDataForProcess($this->schedule);
-        // p_r($scheduleData);
         $this->channel = $scheduleData['channel'];
         $filterConfig = $scheduleData['filterConfig'];
         $columnAttributeMapping = json_decode($this->channel->getColumnAttributeMapping(), true);
 
-        p_r('kjds123');
         try {
             $this->doExport($columnAttributeMapping,$tmpFilePath,$pimcoreClassId,$filterConfig,$offset,$limit);
         }catch (\Exception $exception){
@@ -105,22 +100,17 @@ class ChildProcessExportCommand extends Command
     
     private function doExport($columnAttributeMapping,$tmpFilePath,$pimcoreClassId,$filterConfig,$offset,$limit)
     {
-        // p_r('kjds');
         /**
          * preparing fields array (name of all the fields in column configuration) and
          * helperDefinition array (definition of operators in the column configuration)
          * which would be used to fetch the data
          */
 
-         p_r($columnAttributeMapping);
         $this->exportService->prepareFieldsAndHelperDefinition($columnAttributeMapping);
         $fields = $this->exportService->getFieldsForExport();
-        // p_r($fields); die;
         try {
             $writer = Factory::getWriter($this->channel, $this->schedule, $tmpFilePath);
-            // p_r('y');
         } catch (\Exception $exception) {
-            // p_r('n');
             p_r($exception->getMessage().' : '.$exception->getFile().' : '.$exception->getLine());
             $this->handleProcessFailure($exception->getMessage());
             return;
@@ -134,7 +124,6 @@ class ChildProcessExportCommand extends Command
 
         $listClass = "\\Pimcore\\Model\\DataObject\\" . ucfirst($pimcoreClassName) . "\\Listing";
         $listObj = new $listClass();
-        // p_r($listObj);
         // $listObj->setUnpublished(false);
         // Assuming $filterConfig['conditions'] is an array of conditions
         foreach ($filterConfig['conditions']['filters'] as $condition) {
@@ -161,7 +150,6 @@ class ChildProcessExportCommand extends Command
 
         try {
             $resultListObj = $this->filterService->getFilteredList($dataForFilterService, $listObj);
-            //  p_r($resultListObj);
         } catch (\Exception $exception) {
             p_r($exception->getMessage().' : '.$exception->getFile().' : '.$exception->getLine());
             $this->handleProcessFailure($exception->getMessage());
@@ -171,20 +159,15 @@ class ChildProcessExportCommand extends Command
         $resultListObj->setLimit($limit);
         try {
             $resultListObj->load();
-            // p_r($resultListObj);
             $exportData = $this->exportService->getCsvDataForExport($resultListObj, $fields, $this->channel->getLanguage(), false);
-            // p_r($exportData);
             if (empty($exportData)) {
                 $msg = "Prepared export data is empty";
-                // p_r('1111');
-                // p_r($msg);
                 $this->handleProcessFailure($msg);
                 return;
             }
 
             $writer->write($exportData);
         } catch (\Exception $exception) {
-            // p_r('2222');
             // p_r($exception->getMessage().' : '.$exception->getFile().' : '.$exception->getLine());
             $this->handleProcessFailure($exception->getMessage());
             return;
@@ -193,7 +176,6 @@ class ChildProcessExportCommand extends Command
         try {
             $writer->postWrite();
         } catch (\Exception $exception) {
-            p_r('3333');
             p_r($exception->getMessage().' : '.$exception->getFile().' : '.$exception->getLine());
             $msg = "Error while writing to export file. msg: ".$exception->getMessage();
             $this->handleProcessFailure($msg);

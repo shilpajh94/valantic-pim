@@ -239,10 +239,10 @@ class ChannelService
         $pimMapped['sourceDataType'] = isset($object['sourceDataType']) ? $object['sourceDataType'] : '';
         $pimMapped['targetAttributeId'] = $object['targetAttributeId'] ?? '';
         $pimMapped['definition'] = self::filterMappedData($object);
-        $pimMapped['childs'] = [];
-        if (isset($object['childs']) && count($object['childs'])) {
-            foreach ($object['childs'] as $k => $childObject) {
-                $pimMapped['childs'][$k] = self::childWithInner($childObject, $pimMapped);
+        $pimMapped['children'] = [];
+        if (isset($object['children']) && count($object['children'])) {
+            foreach ($object['children'] as $k => $childObject) {
+                $pimMapped['children'][$k] = self::childWithInner($childObject, $pimMapped);
             }
         }
         return $pimMapped;

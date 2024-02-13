@@ -446,24 +446,24 @@ class ChannelController extends UserAwareController
     {
         $class = DataObject\ClassDefinition::getById($request->get('id'));
         $objectId = intval($request->get('id'));
-        $loadChilds = boolval($request->get('loadChilds'));
+        $loadchildren = boolval($request->get('loadchildren'));
 
         $filteredDefinitions = DataObject\Service::getCustomLayoutDefinitionForGridColumnConfig($class, $objectId);
         // dd($filteredDefinitions);
-        if ($loadChilds) {
+        if ($loadchildren) {
             $layoutDefinitions = isset($filteredDefinitions['layoutDefinition']) ? $filteredDefinitions['layoutDefinition'] : false;
         }
         $filteredFieldDefinition = isset($filteredDefinitions['fieldDefinition']) ? $filteredDefinitions['fieldDefinition'] : false;
         $class->setFieldDefinitions([]);
         $result = [];
-        $result['objectColumns']['children'] = $loadChilds ? $layoutDefinitions->getChildren() : [];
+        $result['objectColumns']['children'] = $loadchildren ? $layoutDefinitions->getChildren() : [];
         $result['objectColumns']['nodeLabel'] = 'object_columns';
         $result['objectColumns']['nodeType'] = 'object';
         
-        // dd($result['objectColumns']['childs'] = $loadChilds ? $layoutDefinitions->getChildren() : []);
+        // dd($result['objectColumns']['children'] = $loadchildren ? $layoutDefinitions->getChildren() : []);
         // dd($result['objectColumns']['nodeLabel'] = 'object_columns');
 
-        if (!$loadChilds) {
+        if (!$loadchildren) {
             Services\ClassificationStoreService::updateObjectLayout($filteredDefinitions);
             Services\ClassificationStoreService::setBricksLayout($class, $result, $filteredFieldDefinition);
         }
@@ -512,7 +512,7 @@ class ChannelController extends UserAwareController
                         $result[$key]['nodeLabel'] = $key;
                         $result[$key]['brickField'] = $fieldName;
                         $result[$key]['nodeType'] = 'objectbricks';
-                        $result[$key]['childs'] = $brickDefinition->getLayoutDefinitions()->getChildren();
+                        $result[$key]['children'] = $brickDefinition->getLayoutDefinitions()->getChildren();
                         break;
                     }
                 }

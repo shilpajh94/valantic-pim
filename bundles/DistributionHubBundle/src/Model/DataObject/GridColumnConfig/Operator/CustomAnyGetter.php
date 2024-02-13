@@ -51,11 +51,11 @@ class CustomAnyGetter extends AbstractOperator
         $result = new \stdClass();
         $result->label = $this->label;
 
-        $childs = $this->getChildren();
+        $children = $this->getChildren();
 
         $getter = 'get'.ucfirst($this->attribute);
 
-        if (!$childs) {
+        if (!$children) {
             if ($this->attribute && method_exists($element, $getter)) {
                 $result->value = $element->$getter();
                 if ($result->value instanceof AbstractModel) {
@@ -65,16 +65,16 @@ class CustomAnyGetter extends AbstractOperator
                 return $result;
             }
         } else {
-            if (count($childs) > 1) {
+            if (count($children) > 1) {
                 $result->isArrayType = true;
             }
             $resultElements = [];
 
-            if (!is_array($childs)) {
-                $childs = [$childs];
+            if (!is_array($children)) {
+                $children = [$children];
             }
 
-            foreach ($childs as $c) {
+            foreach ($children as $c) {
                 $forwardObject = $element;
 
                 if ($this->forwardAttribute) {
@@ -148,7 +148,7 @@ class CustomAnyGetter extends AbstractOperator
                 }
                 $resultElements[] = $resultElementValue;
             }
-            if (count($childs) == 1) {
+            if (count($children) == 1) {
                 $result->value = $resultElements[0];
             } else {
                 $result->value = $resultElements;

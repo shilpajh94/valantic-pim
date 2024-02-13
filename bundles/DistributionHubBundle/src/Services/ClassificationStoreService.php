@@ -224,7 +224,7 @@ class ClassificationStoreService
                         $result[$key]['nodeLabel'] = $key;
                         $result[$key]['brickField'] = $fieldName;
                         $result[$key]['nodeType'] = 'objectbricks';
-                        $result[$key]['childs'] = [];
+                        $result[$key]['children'] = [];
                         break;
                     }
                 }

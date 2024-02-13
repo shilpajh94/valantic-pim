@@ -78,16 +78,11 @@ class ExportService
         $query = "SELECT `id` FROM `$tableName` WHERE status = ? ORDER BY time ASC LIMIT 1";
         $record = $db->fetchAllAssociative($query, [$status]);
         // $record will contain an associative array with column values for the specified ID
-        // p_r($record[0]['id']);
         if($record){
          $returnValue = Schedule::getById($record[0]['id']);
         }else{
          $returnValue = null;    
         }
-        // p_r($schList);
-        // if (count($schList->getItems()) > 0) {
-        //     $sch = $schList->getItems()[0];
-        // }
         return $returnValue;
     }
 
@@ -141,7 +136,6 @@ class ExportService
         $templateColumns = $columnAttributeMapping['templateAttribute'];
         $fields = [];
         $helperDefinition = [];
-        p_r($selectedGridColumnAssoc);
         try {
             foreach ($selectedGridColumnAssoc as $key => $selectedGridColumn) {
                 foreach ($templateColumns as $index => $templateColumn) {
@@ -185,10 +179,10 @@ class ExportService
                     $fields['templateColumn'] = $assetCol['templateHeader'];
                     if ($selectedGridColumn['isOperator']) {
                         $fields['thumbnail'] = $selectedGridColumn['attributes']['thumbnail'];
-                        if ($selectedGridColumn['attributes']['childs']) {
-                            $fields['attributeName'] =  $selectedGridColumn['attributes']['childs']['0']['attribute'];
-                            if($selectedGridColumn['attributes']['childs']['0']['childs']){
-                                $fields['className'] = $selectedGridColumn['attributes']['childs']['0']['childs']['0']['attribute'];
+                        if ($selectedGridColumn['attributes']['children']) {
+                            $fields['attributeName'] =  $selectedGridColumn['attributes']['children']['0']['attribute'];
+                            if($selectedGridColumn['attributes']['children']['0']['children']){
+                                $fields['className'] = $selectedGridColumn['attributes']['children']['0']['children']['0']['attribute'];
                             }
                         } else {
                             //handle field collection operator
@@ -245,7 +239,6 @@ class ExportService
     public function getCsvDataForExport($list, $fields, $language, $addTitles = true)
     {
         $request = new Request(['language' => $language]);
-        // p_r($list);
         $dataFetcher = new DataFetcher();
         return $dataFetcher->getCsvData($request, $this->localeService, $list, $fields, $addTitles, $this->getHelperDefinitions());
     }

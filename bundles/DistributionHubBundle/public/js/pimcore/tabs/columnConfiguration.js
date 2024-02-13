@@ -156,18 +156,18 @@ pimcore.plugin.distributionhub.tabs.columnConfiguration = Class.create({
         this.configPanel.add(this.getLeftPanel());
     },
     doGetRecursiveData: function (node) {
-        var childs = [];
+        var children = [];
         node.eachChild(function (child) {
             var attributes = child.data.configAttributes;
             attributes.targetAttributeKey = child.data.targetAttributeKey ? child.data.targetAttributeKey : "";
             attributes.sourceDataType = child.data.sourceDataType ? child.data.sourceDataType : "";
             attributes.targetAttributeId = child.data.targetAttributeId ? child.data.targetAttributeId : "";
             attributes.isLocalizedfield = child.data.isLocalizedfield ? child.data.isLocalizedfield : false;
-            attributes.childs = this.doGetRecursiveData(child);
-            childs.push(attributes);
+            attributes.children = this.doGetRecursiveData(child);
+            children.push(attributes);
         }.bind(this));
 
-        return childs;
+        return children;
     },
     commitData: function () {
         this.config.selectedGridColumns = [];
@@ -178,8 +178,8 @@ pimcore.plugin.distributionhub.tabs.columnConfiguration = Class.create({
             this.selectionPanel.getRootNode().eachChild(function (child) {
                 var obj = {};
                 var attributes = child.data.configAttributes;
-                var operatorChilds = this.doGetRecursiveData(child);
-                attributes.childs = operatorChilds;
+                var operatorchildren = this.doGetRecursiveData(child);
+                attributes.children = operatorchildren;
                 operatorFound = true;
 
 
@@ -265,7 +265,7 @@ pimcore.plugin.distributionhub.tabs.columnConfiguration = Class.create({
     getSelectionPanel: function () {
         var scope = this;
         if (!this.selectionPanel) {
-            var childs = [];
+            var children = [];
             for (var i = 0; i < this.config.selectedGridColumns.length; i++) {
                 var nodeConf = this.config.selectedGridColumns[i];
                 if (typeof nodeConf.isOperator == "undefined") {
@@ -287,7 +287,7 @@ pimcore.plugin.distributionhub.tabs.columnConfiguration = Class.create({
                     child.isLocalizedfield = nodeConf.isLocalizedfield;
 
                 }
-                childs.push(child);
+                children.push(child);
             }
             
             //Language combo 
@@ -335,7 +335,7 @@ pimcore.plugin.distributionhub.tabs.columnConfiguration = Class.create({
                     isTarget: true,
                     expanded: true,
                     allowDrop: false,
-                    children: childs
+                    children: children
                 },
                 dockedItems: [{
                     xtype: 'toolbar',
@@ -689,24 +689,24 @@ pimcore.plugin.distributionhub.tabs.columnConfiguration = Class.create({
     },
     getChangeTypeMenu: function (record) {
         var operators = Object.keys(pimcore.object.gridcolumn.operator);
-        var childs = [];
+        var children = [];
         for (var i = 0; i < operators.length; i++) {
             let operatorName = operators[i];
             let operatorClass = pimcore.object.gridcolumn.operator[operatorName].prototype;
             if (this.allowedOperatorList.indexOf(operatorClass.class) > -1) {
-                childs.push(pimcore.object.gridcolumn.operator[operators[i]].prototype.getConfigTreeNode());
+                children.push(pimcore.object.gridcolumn.operator[operators[i]].prototype.getConfigTreeNode());
             }
         }
 
-        childs.sort(
+        children.sort(
             function (x, y) {
                 return x.text < y.text ? -1 : 1;
             }
         );
 
         var menu = [];
-        for (var i = 0; i < childs.length; i++) {
-            var child = childs[i];
+        for (var i = 0; i < children.length; i++) {
+            var child = children[i];
             var item = new Ext.menu.Item({
                 text: child.text,
                 iconCls: child.iconCls,
@@ -723,17 +723,17 @@ pimcore.plugin.distributionhub.tabs.columnConfiguration = Class.create({
                     replacement.data.configAttributes.label = node.data.configAttributes.label;
                     replacement.data.text = node.data.configAttributes.label;
                     var parent = node.parentNode;
-                    var originalChilds = [];
+                    var originalchildren = [];
 
                     node.eachChild(function (child) {
-                        originalChilds.push(child);
+                        originalchildren.push(child);
                     });
 
 
                     node.removeAll();
                     parent.replaceChild(replacement, node);
 
-                    replacement.appendChild(originalChilds);
+                    replacement.appendChild(originalchildren);
 
                     var element = this.getConfigElement(replacement.data.configAttributes);
                     this.showConfigWindow(element, replacement);
@@ -810,8 +810,8 @@ pimcore.plugin.distributionhub.tabs.columnConfiguration = Class.create({
 
         for (i = 0; i < len; i++) {
             var k = groupKeys[i];
-            var childs = groups[k];
-            childs.sort(
+            var children = groups[k];
+            children.sort(
                 function (x, y) {
                     return x.text < y.text ? -1 : 1;
                 }
@@ -824,7 +824,7 @@ pimcore.plugin.distributionhub.tabs.columnConfiguration = Class.create({
                 allowDrop: false,
                 leaf: false,
                 expanded: true,
-                children: childs
+                children: children
             };
 
             groupNodes.push(groupNode);
@@ -893,10 +893,10 @@ pimcore.plugin.distributionhub.tabs.columnConfiguration = Class.create({
                     treenode.targetAttributeId = nodeConf.targetAttributeId;
                     treenode.sourceDataType = nodeConf.sourceDataType;
                     treenode.isLocalizedfield = nodeConf.isLocalizedfield;
-                    if (configuration[i].childs) {
-                        var childs = this.doBuildChannelConfigTree(configuration[i].childs);
-                        treenode.children = childs;
-                        if (childs.length > 0) {
+                    if (configuration[i].children) {
+                        var children = this.doBuildChannelConfigTree(configuration[i].children);
+                        treenode.children = children;
+                        if (children.length > 0) {
                             treenode.expandable = true;
                         }
                     }

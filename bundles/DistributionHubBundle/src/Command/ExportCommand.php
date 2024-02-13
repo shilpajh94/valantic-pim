@@ -113,14 +113,12 @@ class ExportCommand extends Command
         if (!$inProgressProcessesStatus['canNewProcessStart']) {
             $msg = "Not starting new process.";
             $msg .= $inProgressProcessesStatus['inProgressProcessCount']." process/es is/are already running. ";
-            // p_r($msg);
             $this->log($msg, DHubLogger::INFO);
         } else {
             $this->hostUrl = $this->bundleService->getConfig('host_name');
             if (empty($this->hostUrl)) {
                 $msg ="hostName empty in configuration";
                 $this->handleProcessFailure($msg);
-                // p_r($msg);
                 return 1;
             }
 
@@ -301,10 +299,7 @@ class ExportCommand extends Command
                 $process->setTimeout(3600);
                 $process->run();
                 $output = $process->getOutput();
-                // p_r("output: ".'dhasjdhk');
-                // p_r("output: ".$output);
                 $errorOutput = $process->getErrorOutput();
-                // p_r('error: '.$errorOutput);
 
                 if($errorOutput !== null && trim($errorOutput) != ""){
                     $msg = "[Child Script Error Output] " . $errorOutput;

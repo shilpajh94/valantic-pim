@@ -98,7 +98,7 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
                             url: "/admin/distributionhub/channel/get-class-definition-for-column-config",
                             params: {
                                 id: classId,
-                                loadChilds: true
+                                loadchildren: true
                             },
                             success: function (response) {
                                 let result = Ext.decode(response.responseText);
