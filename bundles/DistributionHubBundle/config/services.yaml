@@ -130,10 +130,10 @@ services:
         public: true
         calls:
             - [setCoreFieldsConfig, ['%distribution_hub.core_fields_configuration%']]
-    #     arguments:
-    #         - '@logger'
-    #         - '@pimcore_admin.security.token_storage_user_resolver'
-    #         - '@bundle.distribution_hub.filter_locator'
+        arguments:
+            - '@logger'
+            - '@Pimcore\Security\User\TokenStorageUserResolver'
+            - '@bundle.distribution_hub.filter_locator'
 
     bundle.distribution_hub.filter_locator:
         class: Symfony\Component\DependencyInjection\ServiceLocator
@@ -160,54 +160,54 @@ services:
     DistributionHubBundle\Services\MailNotificationService:
         public: true
 
-    # pimcore.data_object.grid_column_config.operator.factory.mediagetter:
-    #     class: Pimcore\DataObject\GridColumnConfig\Operator\Factory\DefaultOperatorFactory
-    #     arguments:
-    #         $className: DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator\MediaGetter
-    #     tags:
-    #         - { name: pimcore.data_object.grid_column_config.operator_factory, id: MediaGetter }
+    pimcore.data_object.grid_column_config.operator.factory.mediagetter:
+        class: Pimcore\Bundle\AdminBundle\DataObject\GridColumnConfig\Operator\Factory\DefaultOperatorFactory
+        arguments:
+            $className: DistributionHubBundle\src\Model\DataObject\GridColumnConfig\Operator\MediaGetter
+        tags:
+            - { name: pimcore.bundle.adminbundle.data_object.grid_column_config.operator_factory, id: MediaGetter }
 
-    # pimcore.data_object.grid_column_config.operator.factory.ignore:
-    #     class: Pimcore\DataObject\GridColumnConfig\Operator\Factory\DefaultOperatorFactory
-    #     arguments:
-    #         $className: DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator\Ignore
-    #     tags:
-    #         - { name: pimcore.data_object.grid_column_config.operator_factory, id: Ignore }
+    pimcore.data_object.grid_column_config.operator.factory.ignore:
+        class: Pimcore\Bundle\AdminBundle\DataObject\GridColumnConfig\Operator\Factory\DefaultOperatorFactory
+        arguments:
+            $className: DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator\Ignore
+        tags:
+            - { name: pimcore.bundle.adminbundle.data_object.grid_column_config.operator_factory, id: Ignore }
 
-    # pimcore.data_object.grid_column_config.operator.factory.collectionmediagetter:
-    #     class: Pimcore\DataObject\GridColumnConfig\Operator\Factory\DefaultOperatorFactory
-    #     arguments:
-    #         $className: DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator\CollectionMediaGetter
-    #     tags:
-    #         - { name: pimcore.data_object.grid_column_config.operator_factory, id: CollectionMediaGetter }
+    pimcore.data_object.grid_column_config.operator.factory.collectionmediagetter:
+        class: Pimcore\Bundle\AdminBundle\DataObject\GridColumnConfig\Operator\Factory\DefaultOperatorFactory
+        arguments:
+            $className: DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator\CollectionMediaGetter
+        tags:
+            - { name: pimcore.bundle.adminbundle.data_object.grid_column_config.operator_factory, id: CollectionMediaGetter }
 
-    # pimcore.data_object.grid_column_config.operator.factory.reversemanytomanygetter:
-    #     class: Pimcore\DataObject\GridColumnConfig\Operator\Factory\DefaultOperatorFactory
-    #     arguments:
-    #         $className: DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator\ReverseManyToManyGetter
-    #     tags:
-    #         - { name: pimcore.data_object.grid_column_config.operator_factory, id: ReverseManyToManyGetter }
+    pimcore.data_object.grid_column_config.operator.factory.reversemanytomanygetter:
+        class: Pimcore\Bundle\AdminBundle\DataObject\GridColumnConfig\Operator\Factory\DefaultOperatorFactory
+        arguments:
+            $className: DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator\ReverseManyToManyGetter
+        tags:
+            - { name: pimcore.bundle.adminbundle.data_object.grid_column_config.operator_factory, id: ReverseManyToManyGetter }
 
-    # pimcore.data_object.grid_column_config.operator.factory.selecttypemastergetter:
-    #     class: Pimcore\DataObject\GridColumnConfig\Operator\Factory\DefaultOperatorFactory
-    #     arguments:
-    #         $className: DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator\SelectTypeMasterGetter
-    #     tags:
-    #         - { name: pimcore.data_object.grid_column_config.operator_factory, id: SelectTypeMasterGetter }
+    pimcore.data_object.grid_column_config.operator.factory.selecttypemastergetter:
+        class: Pimcore\Bundle\AdminBundle\DataObject\GridColumnConfig\Operator\Factory\DefaultOperatorFactory
+        arguments:
+            $className: DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator\SelectTypeMasterGetter
+        tags:
+            - { name: pimcore.bundle.adminbundle.data_object.grid_column_config.operator_factory, id: SelectTypeMasterGetter }
     
-    # pimcore.data_object.grid_column_config.operator.factory.striptag:
-    #     class: Pimcore\DataObject\GridColumnConfig\Operator\Factory\DefaultOperatorFactory
-    #     arguments:
-    #         $className: DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator\StripTag
-    #     tags:
-    #         - { name: pimcore.data_object.grid_column_config.operator_factory, id: StripTag }
+    pimcore.data_object.grid_column_config.operator.factory.striptag:
+        class: Pimcore\Bundle\AdminBundle\DataObject\GridColumnConfig\Operator\Factory\DefaultOperatorFactory
+        arguments:
+            $className: DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator\StripTag
+        tags:
+            - { name: pimcore.bundle.adminbundle.data_object.grid_column_config.operator_factory, id: StripTag }
 
-    # pimcore.data_object.grid_column_config.operator.factory.any_getter:
-    #     class: Pimcore\DataObject\GridColumnConfig\Operator\Factory\DefaultOperatorFactory
-    #     arguments:
-    #         $className: DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator\AnyGetter
-    #     tags:
-    #         - { name: pimcore.data_object.grid_column_config.operator_factory, id: AnyGetter }
+    pimcore.data_object.grid_column_config.operator.factory.any_getter:
+        class: Pimcore\Bundle\AdminBundle\DataObject\GridColumnConfig\Operator\Factory\DefaultOperatorFactory
+        arguments:
+            $className: DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator\AnyGetter
+        tags:
+            - { name: pimcore.bundle.adminbundle.data_object.grid_column_config.operator_factory, id: AnyGetter }
 
     DistributionHubBundle\Services\ClassificationStoreService:
         public: true

@@ -21,6 +21,7 @@ use Pimcore\Model\DataObject\AbstractObject;
 use Pimcore\Tool\Admin;
 use Pimcore\Model\User\Role;
 use AppBundle\Tool\Utils;
+use Pimcore\Controller\Traits\JsonHelperTrait;
 
 /**
  * @package DistributionHubBundle\Controller
@@ -28,6 +29,7 @@ use AppBundle\Tool\Utils;
  */
 class BasicConfigController extends UserAwareController
 {
+    use JsonHelperTrait;
     /**
      * @Route("/get_pimcore_classes")
      *
@@ -209,7 +211,7 @@ class BasicConfigController extends UserAwareController
      * @return JsonResponse
      * @throws \Exception
      */
-    public function save(Request $request, BasicConfigService $basicConfigService, BundleService $bundleService)
+    public function save(Request $request, BasicConfigService $basicConfigService, BundleService $bundleService): JsonResponse
     {
         $channelId = $request->get('channelId');
         $pimcoreClassId = $request->get('pimcoreClassId');
@@ -346,7 +348,7 @@ class BasicConfigController extends UserAwareController
      * @param Request $request
      * @return JsonResponse
      */
-    public function saveConfirmationResponse(Request $request)
+    public function saveConfirmationResponse(Request $request):JsonResponse
     {
         $channelId = $request->get('channelId');
         $channel = Channel::getById($channelId);

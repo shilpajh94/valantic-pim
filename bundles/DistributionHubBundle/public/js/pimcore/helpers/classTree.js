@@ -98,7 +98,7 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
                             url: "/admin/distributionhub/channel/get-class-definition-for-column-config",
                             params: {
                                 id: classId,
-                                loadChilds: true
+                                loadchildren: true
                             },
                             success: function (response) {
                                 let result = Ext.decode(response.responseText);
@@ -212,8 +212,8 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
                                         layout: keyObj,
                                         leaf: true,
                                         allowDrag: true,
-                                        dataType: keyObj.fieldtype,
-                                        iconCls: "pimcore_icon_" + keyObj.fieldtype,
+                                        dataType: keyObj.name,
+                                        iconCls: "pimcore_icon_" + keyObj.name,
                                         expanded: true,
                                         brickDescriptor: brickDescriptor
                                     };
@@ -292,7 +292,7 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
                     baseNode = tree.getRootNode().appendChild(baseNode);
                 }
 
-                if (data[keys[i]].nodeType === "object" && data[keys[i]].childs) {
+                if (data[keys[i]].nodeType === "object" && data[keys[i]].children) {
                     var baseNode = {
                         type: "layout",
                         visible: true,
@@ -303,9 +303,9 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
                         text: text
                     };
                     baseNode = tree.getRootNode().appendChild(baseNode);
-                    if (data[keys[i]].childs) {
-                        for (var j = 0; j < data[keys[i]].childs.length; j++) {
-                            baseNode.appendChild(this.recursiveAddClassNode(data[keys[i]].childs[j], baseNode));
+                    if (data[keys[i]].children) {
+                        for (var j = 0; j < data[keys[i]].children.length; j++) {
+                            baseNode.appendChild(this.recursiveAddClassNode(data[keys[i]].children[j], baseNode));
                         }
                     }
                 }
@@ -314,7 +314,7 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
     },
 
     initBrickFields: function (data, node) {
-        if (data.childs) {
+        if (data.children) {
             var brickDescriptor = {};
 
             brickDescriptor = {
@@ -323,16 +323,16 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
                 brickField: data.brickField
             };
 
-            for (var j = 0; j < data.childs.length; j++) {
-                node.appendChild(this.recursiveAddBrickNode(data.childs[j], node, brickDescriptor));
+            for (var j = 0; j < data.children.length; j++) {
+                node.appendChild(this.recursiveAddBrickNode(data.children[j], node, brickDescriptor));
             }
         }
     },
 
     initClassFields: function (data, node) {
-        if (data.objectColumns.childs) {
-            for (var j = 0; j < data.objectColumns.childs.length; j++) {
-                node.appendChild(this.recursiveAddBrickNode(data.objectColumns.childs[j], node));
+        if (data.objectColumns.children) {
+            for (var j = 0; j < data.objectColumns.children.length; j++) {
+                node.appendChild(this.recursiveAddBrickNode(data.objectColumns.children[j], node));
             }
         }
     },
@@ -344,16 +344,16 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
         if (con.datatype === "layout") {
             scope.data.expanded = false;
 
-            fn = this.addLayoutChild.bind(scope, con.fieldtype, con);
+            fn = this.addLayoutChild.bind(scope, con.name, con);
         } else if (con.datatype === "data") {
-            fn = this.addDataChild.bind(scope, con.fieldtype, con, this.showFieldName, {});
+            fn = this.addDataChild.bind(scope, con.name, con, this.showFieldName, {});
         }
 
         newNode = fn();
 
-        if (con.childs) {
-            for (var i = 0; i < con.childs.length; i++) {
-                this.recursiveAddClassNode(con.childs[i], newNode);
+        if (con.children) {
+            for (var i = 0; i < con.children.length; i++) {
+                this.recursiveAddClassNode(con.children[i], newNode);
             }
         }
 
@@ -365,16 +365,16 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
         var fn = null;
         var newNode = null;
         if (con.datatype === "layout") {
-            fn = this.addLayoutChild.bind(scope, con.fieldtype, con);
+            fn = this.addLayoutChild.bind(scope, con.name, con);
         } else if (con.datatype === "data") {
-            fn = this.addDataChild.bind(scope, con.fieldtype, con, this.showFieldName, brickDescriptor);
+            fn = this.addDataChild.bind(scope, con.name, con, this.showFieldName, brickDescriptor);
         }
 
         newNode = fn();
 
-        if (con.childs) {
-            for (var i = 0; i < con.childs.length; i++) {
-                this.recursiveAddBrickNode(con.childs[i], newNode, brickDescriptor);
+        if (con.children) {
+            for (var i = 0; i < con.children.length; i++) {
+                this.recursiveAddBrickNode(con.children[i], newNode, brickDescriptor);
             }
         }
 
@@ -392,8 +392,9 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
             }
         }
 
+        console.log(initData);
         if (type != 'classificationstore') {
-            expandable = initData.childs.length;
+            expandable = initData.children.length;
             expanded = true;
             datatype = 'layouts';
         } else {

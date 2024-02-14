@@ -42,18 +42,12 @@ class FiltersController extends UserAwareController
         try {
             $channelId = $request->get('channelId');
             $session = $request->getSession();
-            // p_r('gvhjb');
-            // p_r($channelId);
-            // p_r($session);
             $channel = Channel::getById($channelId);
             if ($channel) {
                 $filterConfig = $this->getSavedFilters($channel, $session);
-                // p_r('in 48');
-                // p_r($filterConfig);
             }
         } catch (Exception $ex) {
             $msg = $ex->getMessage();
-            // p_r($msg);
             return $this->json(['result' => false, 'data' => [], "msg" => $msg]);
         }
 
@@ -197,7 +191,6 @@ class FiltersController extends UserAwareController
      */
     public function getSavedFilters($channelObject, $session)
     {
-        // p_r('bhbjkj');
         $filter = $channelObject->getFilter();
 
         if ($filter) {
@@ -237,7 +230,6 @@ class FiltersController extends UserAwareController
                     $attributeBagInterface->set('helpercolumns', $helperColumns);
                 }, 'pimcore_gridconfig');
             }
-            // p_r('nbghtyhgj');
             return  [
                 'success' => true,
                 'id' => $filter->getId(),
@@ -251,7 +243,6 @@ class FiltersController extends UserAwareController
                 'gridConfig' => array_key_exists("gridConfig", $config) ? $config['gridConfig'] : null
             ];
         } else {
-            // p_r('in error');
             DHubLogger::log("No saved filter found for channel Id".$channelObject->getId(), DHubLogger::CRITICAL);
             return json_encode(["success" => false, "message" => "No saved filter found not found."]);
         }

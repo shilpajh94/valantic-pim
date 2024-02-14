@@ -21,7 +21,8 @@ use Pimcore\Tool;
 use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface;
 use DistributionHubBundle\Lib\DHubLogger;
 use Pimcore\Translation\Translator;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+// use Symfony\Component\DependencyInjection\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Pimcore\Security\User\TokenStorageUserResolver;
@@ -223,7 +224,7 @@ class ChannelController extends UserAwareController
      * @param Request $request
      * @return JsonResponse
      */
-    public function addAction(Request $request)
+    public function addAction(Request $request): JsonResponse
     {
         $this->checkPermission(self::CONFIG_NAME);
         try {
@@ -444,21 +445,25 @@ class ChannelController extends UserAwareController
     public function getClassDefinitionForColumnConfigAction(Request $request)
     {
         $class = DataObject\ClassDefinition::getById($request->get('id'));
-        $objectId = intval($request->get('oid'));
-        $loadChilds = boolval($request->get('loadChilds'));
+        $objectId = intval($request->get('id'));
+        $loadchildren = boolval($request->get('loadchildren'));
 
         $filteredDefinitions = DataObject\Service::getCustomLayoutDefinitionForGridColumnConfig($class, $objectId);
-        if ($loadChilds) {
+        // dd($filteredDefinitions);
+        if ($loadchildren) {
             $layoutDefinitions = isset($filteredDefinitions['layoutDefinition']) ? $filteredDefinitions['layoutDefinition'] : false;
         }
         $filteredFieldDefinition = isset($filteredDefinitions['fieldDefinition']) ? $filteredDefinitions['fieldDefinition'] : false;
         $class->setFieldDefinitions([]);
         $result = [];
-        $result['objectColumns']['childs'] = $loadChilds ? $layoutDefinitions->getChildren() : [];
+        $result['objectColumns']['children'] = $loadchildren ? $layoutDefinitions->getChildren() : [];
         $result['objectColumns']['nodeLabel'] = 'object_columns';
         $result['objectColumns']['nodeType'] = 'object';
+        
+        // dd($result['objectColumns']['children'] = $loadchildren ? $layoutDefinitions->getChildren() : []);
+        // dd($result['objectColumns']['nodeLabel'] = 'object_columns');
 
-        if (!$loadChilds) {
+        if (!$loadchildren) {
             Services\ClassificationStoreService::updateObjectLayout($filteredDefinitions);
             Services\ClassificationStoreService::setBricksLayout($class, $result, $filteredFieldDefinition);
         }
@@ -507,7 +512,7 @@ class ChannelController extends UserAwareController
                         $result[$key]['nodeLabel'] = $key;
                         $result[$key]['brickField'] = $fieldName;
                         $result[$key]['nodeType'] = 'objectbricks';
-                        $result[$key]['childs'] = $brickDefinition->getLayoutDefinitions()->getChildren();
+                        $result[$key]['children'] = $brickDefinition->getLayoutDefinitions()->getChildren();
                         break;
                     }
                 }

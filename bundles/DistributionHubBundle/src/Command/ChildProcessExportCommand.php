@@ -97,6 +97,7 @@ class ChildProcessExportCommand extends Command
         return 1;
     }
 
+    
     private function doExport($columnAttributeMapping,$tmpFilePath,$pimcoreClassId,$filterConfig,$offset,$limit)
     {
         /**
@@ -104,6 +105,7 @@ class ChildProcessExportCommand extends Command
          * helperDefinition array (definition of operators in the column configuration)
          * which would be used to fetch the data
          */
+
         $this->exportService->prepareFieldsAndHelperDefinition($columnAttributeMapping);
         $fields = $this->exportService->getFieldsForExport();
         try {
@@ -160,14 +162,13 @@ class ChildProcessExportCommand extends Command
             $exportData = $this->exportService->getCsvDataForExport($resultListObj, $fields, $this->channel->getLanguage(), false);
             if (empty($exportData)) {
                 $msg = "Prepared export data is empty";
-                p_r($msg);
                 $this->handleProcessFailure($msg);
                 return;
             }
 
             $writer->write($exportData);
         } catch (\Exception $exception) {
-            p_r($exception->getMessage().' : '.$exception->getFile().' : '.$exception->getLine());
+            // p_r($exception->getMessage().' : '.$exception->getFile().' : '.$exception->getLine());
             $this->handleProcessFailure($exception->getMessage());
             return;
         }
@@ -184,7 +185,7 @@ class ChildProcessExportCommand extends Command
 
     private function handleProcessFailure(string $msg)
     {
-        p_r("in process failure function: ".$msg);
+        p_r("in process failure function3: ".$msg);
         $this->helperService->updateScheduleStatusToFailure($this->schedule);
         $this->log($msg, DHubLogger::CRITICAL, true);
         try {

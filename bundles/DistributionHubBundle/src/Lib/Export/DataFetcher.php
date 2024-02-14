@@ -26,8 +26,7 @@ class DataFetcher
                             $objectData[$key] = $field;
                             continue;
                         }
-
-                        if (DataObject\Service::isHelperGridColumnConfig($field) && $validLanguages = DataObject\Service::expandGridColumnForExport($helperDefinitions, $field)) {
+                        if (DataObject\Service::isHelperGridColumnConfig($field) && $validLanguages = null) {
                             $currentLocale = $localeService->getLocale();
                             $mappedFieldnameBase = $this->mapFieldname($field, $helperDefinitions);
 
@@ -48,6 +47,7 @@ class DataFetcher
                             if (!isset($mappedFieldnames[$field])) {
                                 $mappedFieldnames[$field] = $this->mapFieldname($field, $helperDefinitions);
                             }
+                            
                             $objectData[$field] = str_replace("\n","",$fieldData);
                         }
                     }
@@ -78,7 +78,6 @@ class DataFetcher
 
     private function getCsvFieldData(Request $request, $field, $object, $requestedLanguage, $helperDefinitions)
     {
-
         //check if field is systemfield
         $systemFieldMap = [
             'id' => 'getId',
@@ -107,13 +106,14 @@ class DataFetcher
                     $fieldType = $fieldDefinition->getFieldtype();
                     if ($fieldType === "image" || $fieldType === "imageGallery" || $fieldType === "externalImage" || $fieldType === "hotspotimage") {
                         $dataForAssetExport = $fieldDefinition->getForCsvExport($object);
-
                         if (empty($dataForAssetExport)) {
                             return $dataForAssetExport;
                         }
                         // Prefix hostname with assets
                         return $hostName . $dataForAssetExport;
                     }
+            
+                    // p_r($fieldDefinition->getForCsvExport($object));
                     return $fieldDefinition->getForCsvExport($object);
                 } else {
                     $fieldParts = explode('~', $field);

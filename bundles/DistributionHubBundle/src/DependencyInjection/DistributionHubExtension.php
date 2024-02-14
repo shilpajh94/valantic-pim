@@ -20,8 +20,9 @@ class DistributionHubExtension extends ConfigurableExtension
      */
     public function loadInternal(array $config, ContainerBuilder $container)
     {
-        $configuration = new Configuration();
-        $this->processConfiguration($configuration, $config);
+        // $configuration = new Configuration();
+        // // dd($config);
+        // $this->processConfiguration($configuration, $config);
 
         $loader = new YamlFileLoader(
             $container,

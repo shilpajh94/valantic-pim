@@ -38,7 +38,7 @@ Ext.define('pimcore.plugin.distributionhub.helpers.customPagingTreeStore', {
                 }
             }.bind(this));
 
-            //to hide or show the expanding icon depending if childs are available or not
+            //to hide or show the expanding icon depending if children are available or not
             node.addListener('remove', function (node, removedNode, isMove) {
                 if (!node.hasChildNodes()) {
                     node.set('expandable', false);

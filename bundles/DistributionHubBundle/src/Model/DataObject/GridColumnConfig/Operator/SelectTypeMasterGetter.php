@@ -26,12 +26,12 @@ class SelectTypeMasterGetter extends AbstractOperator
         $result = new \stdClass();
         $result->label = $this->label;
 
-        $childs = $this->getChildren();
+        $children = $this->getChildren();
 
-        if (!$childs) {
+        if (!$children) {
             return $result;
         } else {
-            $c = $childs[0];
+            $c = $children[0];
             $fieldDefinition = null;
             $value = null;
 
@@ -67,7 +67,7 @@ class SelectTypeMasterGetter extends AbstractOperator
         $config = new \stdClass();
 
         $refletionObject = new \ReflectionObject($anyGetter);
-        $anyGetterProperties = ['label','childs','attribute','param1','isArrayType','forwardAttribute',
+        $anyGetterProperties = ['label','children','attribute','param1','isArrayType','forwardAttribute',
             'forwardParam1','returnLastResult'];
         foreach ($anyGetterProperties as $property) {
             $reflectionProperty = $refletionObject->getProperty($property);
