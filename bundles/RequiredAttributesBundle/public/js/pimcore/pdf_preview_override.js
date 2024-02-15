@@ -45,7 +45,7 @@ pimcore.plugin.RequiredAttributesBundle.pdf_preview_override = Class.create({
                             iconCls: "pimcore_icon_cancel",
                             handler: function() {
                                 Ext.Ajax.request({
-                                    url: "/admin/printpage/cancel-generation",
+                                    url: Routing.generate('pimcore_bundle_web2print_document_printpage_cancelgeneration'),
                                     method: 'DELETE',
                                     params: {id: this.page.id},
                                     success: function(response) {
@@ -91,7 +91,8 @@ pimcore.plugin.RequiredAttributesBundle.pdf_preview_override = Class.create({
                         style: "float: right; margin-top: 10px",
                         handler: function () {
                             var date = new Date();
-                            pimcore.helpers.download("/admin/printpage/pdf-download?download=1&id=" + this.page.id + "&time=" + date.getTime());
+                            var url = Routing.generate('pimcore_bundle_document_printpage_pdfdownload', {id: this.page.id, download: 1, time: date.getTime()});
+                    	     pimcore.helpers.download(url);
                         }.bind(this)
                     });
                     this.generatedDateField = new Ext.form.TextField({
@@ -196,7 +197,7 @@ pimcore.plugin.RequiredAttributesBundle.pdf_preview_override = Class.create({
                 // customization -- closed
 
                 Ext.Ajax.request({
-                    url: "/admin/printpage/start-pdf-generation",
+                    url: Routing.generate('pimcore_bundle_web2print_document_printpage_startpdfgeneration'),
                     method: 'POST',
                     jsonData: params,
                     timeout: 2400000,

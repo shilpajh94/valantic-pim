@@ -82,7 +82,6 @@ pimcore.plugin.RequiredAttributesBundle.overrides = Class.create({
             initialize: function (data, fieldConfig) {
                 this.data = [];
                 this.fieldConfig = fieldConfig;
-
                 var classStore = pimcore.globalmanager.get("object_types_store");
                 var classIdx = classStore.findExact("text", fieldConfig.allowedClassId);
                 var classNameText;
@@ -961,7 +960,7 @@ pimcore.plugin.RequiredAttributesBundle.overrides = Class.create({
      */
     dataObjectSearchOverride: function(){
 
-        Ext.override(pimcore.element.selector.object, {
+        Ext.override(pimcore.bundle.search.element.selector.object, {
             applyExtraParamsToStore: function () {
                 var formValues = this.formPanel.getForm().getFieldValues();
         
@@ -997,7 +996,7 @@ pimcore.plugin.RequiredAttributesBundle.overrides = Class.create({
      */
     assetSearchOverride: function(){
 
-        Ext.override(pimcore.element.selector.asset, {
+        Ext.override(pimcore.bundle.search.element.selector.asset, {
             search: function () {
                 var formValues = this.formPanel.getForm().getFieldValues();
         
@@ -1028,7 +1027,7 @@ pimcore.plugin.RequiredAttributesBundle.overrides = Class.create({
      */
     documentSearchOverride: function(){
 
-        Ext.override(pimcore.element.selector.document, {
+        Ext.override(pimcore.bundle.search.element.selector.document, {
             search: function () {
                 var formValues = this.formPanel.getForm().getFieldValues();
         

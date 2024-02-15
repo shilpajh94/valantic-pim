@@ -626,7 +626,7 @@ class DefaultController extends FrontendController
         $html .= '</body>';
         $html .= '</html>';
 
-        $file = \Pimcore\Web2Print\Processor::getInstance()->getPdfFromString($html);
+        $file = \Pimcore\Bundle\WebToPrintBundle\Processor::getInstance()->getPdfFromString($html);
         $filePath = PIMCORE_PROJECT_ROOT . '/var/tmp/spec_sheet_export_' . time() . '.pdf';
         $fp = fopen($filePath, 'wb');
         fwrite($fp, $file);
