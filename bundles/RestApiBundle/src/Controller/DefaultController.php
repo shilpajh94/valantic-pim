@@ -30,7 +30,7 @@ class DefaultController extends FrontendController
         $storeData=array();
         $completeData=array();
         $cofigArray = $this->container->get('app.config_provider_service')
-        ->getConfigFromYmlFile(PIMCORE_PROJECT_ROOT.'/bundles/RestApiBundle/Resources/config/config.yaml');
+        ->getConfigFromYmlFile(PIMCORE_PROJECT_ROOT.'/bundles/RestApiBundle/config/config.yaml');
         if(isset($cofigArray['parameters']['grouping_fields'][$request->get('table')]) &&
         $cofigArray['parameters']['grouping_fields'][$request->get('table')]['field_type'] == 'Select')
         {
@@ -79,49 +79,51 @@ class DefaultController extends FrontendController
     public function getAvailableMappersAction(Request $request, ContainerInterface $container) {
         $this->container = $container;
         $aliasValueArray = [];
+        $storeData=array();
+        $newData=array();
+        $type ='';
         $listing = new \Pimcore\Model\DataObject\VirtualCatalogApiMapper\Listing();
         $listing->setCondition("oo_id = ? ", [$request->get('objId')]);
         $listing = $listing->load();
         $selectedField = null;
-        foreach($listing as $obj)
-        {
-            $selectedField = $obj->getGroupingField();
-            if($selectedField == $request->get('table') &&
-            is_array($obj->getOriginalValues()) && !empty($obj->getOriginalValues()))
+        if($request->get('table')){
+            foreach($listing as $obj)
             {
-                foreach($obj->getOriginalValues() as $values)
+                $selectedField = $obj->getGroupingField();
+                if($selectedField == $request->get('table') &&
+                is_array($obj->getOriginalValues()) && !empty($obj->getOriginalValues()))
                 {
-                    $aliasValueArray[$values[0]] =  $values[2];
+                    foreach($obj->getOriginalValues() as $values)
+                    {
+                        $aliasValueArray[$values[0]] =  $values[2];
+                    }
+                }
+            
+            }
+            $cofigArray =  $this->container->get('app.config_provider_service')
+            ->getConfigFromYmlFile(PIMCORE_PROJECT_ROOT.'/bundles/RestApiBundle/config/config.yaml');
+            $type = $cofigArray['parameters']['grouping_fields'][$request->get('table')]['field_type'];
+            if(isset($cofigArray['parameters']['grouping_fields'][$request->get('table')]) &&
+            $cofigArray['parameters']['grouping_fields'][$request->get('table')]['field_type'] == 'Select')
+            {
+                \Pimcore::setAdminMode();
+                $className = $cofigArray['parameters']['grouping_fields'][$request->get('table')]['container_name'];
+                $definiion = $this->getClassDefinition($className);
+                $fieldName = $request->get('table');
+                $fieldDefinition = $definiion->getFieldDefinition($fieldName);
+                \Pimcore::unsetAdminMode();
+                $options = $fieldDefinition->getOptions();
+                foreach ($options as $option) {
+                    $aliasText = '';
+                    if(isset($aliasValueArray[$option['value']]))
+                    {
+                        $aliasText = $aliasValueArray[$option['value']];
+                    }
+                    $storeData[] = [$option['value'], $option['key'], $aliasText];
+                    $newData[] = [''];
                 }
             }
-           
         }
-        $storeData=array();
-        $newData=array();
-        $cofigArray =  $this->container->get('app.config_provider_service')
-        ->getConfigFromYmlFile(PIMCORE_PROJECT_ROOT.'/bundles/RestApiBundle/Resources/config/config.yaml');
-        $type = $cofigArray['parameters']['grouping_fields'][$request->get('table')]['field_type'];
-        if(isset($cofigArray['parameters']['grouping_fields'][$request->get('table')]) &&
-        $cofigArray['parameters']['grouping_fields'][$request->get('table')]['field_type'] == 'Select')
-        {
-            \Pimcore::setAdminMode();
-            $className = $cofigArray['parameters']['grouping_fields'][$request->get('table')]['container_name'];
-            $definiion = $this->getClassDefinition($className);
-            $fieldName = $request->get('table');
-            $fieldDefinition = $definiion->getFieldDefinition($fieldName);
-            \Pimcore::unsetAdminMode();
-            $options = $fieldDefinition->getOptions();
-            foreach ($options as $option) {
-                $aliasText = '';
-                if(isset($aliasValueArray[$option['value']]))
-                {
-                    $aliasText = $aliasValueArray[$option['value']];
-                }
-                $storeData[] = [$option['value'], $option['key'], $aliasText];
-                $newData[] = [''];
-            }
-        }
-
         $arrayVar = [
             "objectData" => $aliasValueArray,
             "brandData" => [],

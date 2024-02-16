@@ -42,7 +42,6 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
             $this->createTable();
 
             $brandsData  = $this->getAllBrand();
-
             echo "Processing ".count($brandsData)." products having virtual catalog flag - true ". PHP_EOL;
 
             $this->getBrandProducts($brandsData);
@@ -211,14 +210,14 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
         }else{
             $sql = $select.' `objbrickquery1`.'.$fieldForSort.' '. $sortingData;
         }
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAllAssociative();
+        // $stmt = $this->db->prepare($sql);
+        // $stmt->execute();
+        return $this->db->fetchAllAssociative($sql);
     }
 
     private function getSortingFieldDataFromConfig($groupingFieldNameForSorting){
         $groupingFieldsConfig = Yaml::parseFile(PIMCORE_PROJECT_ROOT .
-         '/bundles/RestApiBundle/Resources/config/config.yaml');
+         '/bundles/RestApiBundle/config/config.yaml');
         if(array_key_exists($groupingFieldNameForSorting,$groupingFieldsConfig['parameters']['grouping_fields'])){
             return $groupingFieldsConfig['parameters']['grouping_fields']
             [$groupingFieldNameForSorting]['container_name'];
@@ -266,8 +265,8 @@ class VirtualCatalogSaveSortedProduct extends AbstractCommand
             ORDER BY b.name IS NULL, b.name ASC";
     //  p.brandName is not null and p.brandName <> '' and p.brandName IN (1649, 1646, 1660, 1722)
         $stmt = $this->db->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAllAssociative();
+        // $stmt->execute();
+        return $this->db->fetchAllAssociative($sql);
     }
 
 }

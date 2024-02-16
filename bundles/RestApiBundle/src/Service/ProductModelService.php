@@ -134,7 +134,7 @@ class ProductModelService {
 
     public function getSortingFieldDataFromConfig($groupingFieldNameForSorting){
         $groupingFieldsConfig = Yaml::parseFile(PIMCORE_PROJECT_ROOT .
-         '/bundles/RestApiBundle/Resources/config/config.yaml');
+         '/bundles/RestApiBundle/config/config.yaml');
         if(array_key_exists($groupingFieldNameForSorting,$groupingFieldsConfig['parameters']['grouping_fields'])){
             return $groupingFieldsConfig['parameters']['grouping_fields']
             [$groupingFieldNameForSorting]['container_name'];
