@@ -64,10 +64,14 @@
                                         <div class="attr-font">Attribute Name = Product Claim/Slogan</div>
                                     </div>
                                 {% endif %}
-                                {% if pimcore_input("PP_TitleTagSlogan").isEmpty() %}
-                                    {{ pimcore_input("PP_TitleTagSlogan", {'placeholder' : 'Enter Title Tag Slogan'}).setDataFromResource(data['ProductClaimSlogan'])  | raw}}
-                                {% else %}
+                                {% if data['ProductClaimSlogan'] == null %}
                                     {{ pimcore_input("PP_TitleTagSlogan", {'placeholder' : 'Enter Title Tag Slogan'}) }}
+                                {% else %}
+                                    {% if pimcore_input("PP_TitleTagSlogan").isEmpty() %}
+                                        {{ pimcore_input("PP_TitleTagSlogan", {'placeholder' : 'Enter Title Tag Slogan'}).setDataFromResource(data['ProductClaimSlogan'])  | raw}}
+                                    {% else %}
+                                        {{ pimcore_input("PP_TitleTagSlogan", {'placeholder' : 'Enter Title Tag Slogan'}) }}
+                                    {% endif %}
                                 {% endif %}
                             </span>
                         </h1>
@@ -78,10 +82,14 @@
                                     <div class="attr-font">Attribute Name = Short Text</div>
                                 {% endif %}
                                 <p>
-                                    {% if pimcore_input("PP_ShortText").isEmpty() %}
-                                        {{ pimcore_input("PP_ShortText", {'placeholder' : 'Enter Short Text'}).setDataFromResource(data['ShortText']) | raw }}
-                                    {% else %}
+                                    {% if data['ShortText'] == null %}
                                         {{ pimcore_input("PP_ShortText", {'placeholder' : 'Enter Short Text'}) }}
+                                    {% else %}
+                                        {% if pimcore_input("PP_ShortText").isEmpty() %}
+                                            {{ pimcore_input("PP_ShortText", {'placeholder' : 'Enter Short Text'}).setDataFromResource(data['ShortText']) | raw }}
+                                        {% else %}
+                                            {{ pimcore_input("PP_ShortText", {'placeholder' : 'Enter Short Text'}) }}
+                                        {% endif %}
                                     {% endif %}
                                 </p>
                             </div>

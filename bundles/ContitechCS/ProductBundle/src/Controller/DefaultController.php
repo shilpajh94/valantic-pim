@@ -42,7 +42,7 @@ class DefaultController extends FrontendController
      */
     public function emailTemplateAction(Request $request)
     {
-        return $this->render("@ContitechCSProduct/CSWorkflowReportTemplate/emailTemplate.html.twig");
+        return $this->render("contitech_cs_product/CSWorkflowReportTemplate/emailTemplate.html.twig");
     }
 
     /**
@@ -358,7 +358,7 @@ class DefaultController extends FrontendController
 
                         $product->save();
                         $parentId = $product->getId();
-                        $prd = DataObject\CSProducts::getById($parentId, true);
+                        $prd = DataObject\CSProducts::getById($parentId);
                         $prd->save();
                         /** code added below to change workflow state on creation of product **/
 

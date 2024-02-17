@@ -320,6 +320,7 @@ class DefaultController extends FrontendController
 
                     $moreThanOneProduct = 0;
                     $childrenData = [];
+                    $filterArrayMultipleData = [];
 
                     if (count($selectedProduct) > 1) {
                         $moreThanOneProduct = 1;
