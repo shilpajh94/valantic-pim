@@ -115,7 +115,7 @@
                         {% if editmode %}
                             <div class="full-image-sec">
                                 {% if pimcore_image("CC_productImage").isEmpty() %}
-                                    {{ pimcore_image("CC_productImage", {'height':370}.setImage(coverCompound['productImage'])) | raw }}
+                                    {{ pimcore_image("CC_productImage", {'height':370}).setImage(coverCompound['productImage']) | raw }}
                                 {% else %}
                                     {{ pimcore_image("CC_productImage", {'height':370}) }}
                                 {% endif %}
@@ -453,7 +453,7 @@
 
                                     {% for coverCompoundType,coverCompoundArray in coverCompounds %}
                                         <tr>
-                                            <th colspan="{{ colSpan }};" class="orange-bg" align="left">{{ coverCompoundType }}</th>
+                                            <th colspan="{{ colspan }};" class="orange-bg" align="left">{{ coverCompoundType }}</th>
                                         </tr>
                                         <tbody>
                                             {% for cc,ccArr in coverCompoundArray %}

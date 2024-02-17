@@ -249,6 +249,7 @@ class DefaultController extends FrontendController
         $fitting = $tableObj->getFittingFamily();
         $baseProduct = $tableObj->getBaseProduct();
         $skeletonProduct = $tableObj->getSkeletonProduct();
+        $skeletonIds = [];
         $tableColumns = json_decode($tableData, 1);
         if ($tableColumns !== null) {
             $columns = array_keys($tableColumns);
@@ -311,16 +312,19 @@ class DefaultController extends FrontendController
         if ($baseProduct !== null && count($baseProduct) > 0) {
             $baseIds = implode(',', $baseProduct);
             $query = "select id from object_1 where parentId IN (" . $baseIds . ")";
-
-            $skeletonProductId = $this->db->fetchFirstColumn($query);
+            $skeletonIds = $this->db->fetchAllAssociative($query);
+            // $skeletonProductId = $this->db->fetchFirstColumn($query);
         }
         if ($skeletonProduct !== null && count($skeletonProduct) > 0) {
             $productList->addConditionParam('parentId IN (:parent)', ['parent' => $skeletonProduct], 'AND');
-        } elseif (!empty($skeletonProductId) && count($baseProduct) > 0) {
+        } elseif (count($skeletonIds) > 0 && count($baseProduct) > 0) {
+            $skeletonProductId = [];
+            for ($i = 0; $i < count($skeletonIds); $i++) {
+                $skeletonProductId[] = $skeletonIds[$i]['id'];
+            }
             $productList->addConditionParam('parentId IN (:parent)', ['parent' => $skeletonProductId], 'AND');
         }
         $conditionArray[] = "printedCatalogFlag = '1' ";
-
         $productList->setCondition(implode(' AND ', $conditionArray));
 
         $bricksList['fert'] = [];

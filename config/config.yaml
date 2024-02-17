@@ -6,8 +6,8 @@ imports:
     - { resource: product_workflow.yaml }
     - { resource: cs_product_enrichment_workflow.yaml }
     - { resource: cs_asset_workflow.yaml }
-    - { resource: ptg_eu_product_enrichment_workflow.yaml }
-    - { resource: ifs_eu_product_enrichment_workflow.yaml }
+    #- { resource: ptg_eu_product_enrichment_workflow.yaml }
+    #- { resource: ifs_eu_product_enrichment_workflow.yaml }
 
 pimcore:
     documents: 

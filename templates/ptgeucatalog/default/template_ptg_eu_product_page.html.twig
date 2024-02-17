@@ -28,7 +28,11 @@
                         <h5>
                             {% if editmode %}
                                 {% if pimcore_input("PTG_Footer_BrandName").isEmpty() %}
-                                    {{ pimcore_input("PTG_Footer_BrandName").setDataFromResource(groupData['brandName']) | raw }}
+                                    {% if groupData['brandName'] %}
+                                        {{ pimcore_input("PTG_Footer_BrandName").setDataFromResource(groupData['brandName']) | raw }}
+                                    {% else %}
+                                        {{ pimcore_input("PTG_Footer_BrandName") }}
+                                    {% endif %}
                                 {% else %}
                                     {{ pimcore_input("PTG_Footer_BrandName") }}
                                 {% endif %}
@@ -113,7 +117,11 @@
                         <h5>
                             {% if editmode %}
                                 {% if pimcore_input("PTG_Footer_BrandName1").isEmpty() %}
-                                    {{ pimcore_input("PTG_Footer_BrandName1").setDataFromResource(groupData['brandName']) | raw }}
+                                    {% if groupData['brandName'] %}
+                                        {{ pimcore_input("PTG_Footer_BrandName1").setDataFromResource(groupData['brandName']) | raw }}
+                                    {% else %}
+                                        {{ pimcore_input("PTG_Footer_BrandName1") }}
+                                    {% endif %}
                                 {% else %}
                                     {{ pimcore_input("PTG_Footer_BrandName1") }}
                                 {% endif %}
@@ -153,7 +161,11 @@
                 <h1>
                     {% if editmode %}
                         {% if pimcore_input("PTG_Heading").isEmpty() %}
-                            {{ pimcore_input("PTG_Heading").setDataFromResource(groupData['brandName']) | raw }}
+                            {% if groupData['brandName'] %}
+                                {{ pimcore_input("PTG_Heading").setDataFromResource(groupData['brandName']) | raw }}
+                            {% else %}
+                                {{ pimcore_input("PTG_Heading") }}
+                            {% endif %}
                         {% else %}
                             {{ pimcore_input("PTG_Heading") }}
                         {% endif %}

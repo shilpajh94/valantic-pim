@@ -179,19 +179,22 @@ class DefaultController extends FrontendController
         $sectionPageTitle = '';
         $all_doc_arr = [];
         foreach ($listing as $doc) {
-            if ($doc->getTemplate() == 'contitechcscatalog/default/template_product_section_page.html.twig') {
-                $obj = $doc->getEditable('TOC_Section_Title');
-                if (!empty($obj)) {
-                    $sectionPageTitle = $obj->getData();
+            if($doc->getType() == 'printpage')
+            {
+                if ($doc->getTemplate() == 'contitechcscatalog/default/template_product_section_page.html.twig') {
+                    $obj = $doc->getEditable('TOC_Section_Title');
+                    if (!empty($obj)) {
+                        $sectionPageTitle = $obj->getData();
+                    }
+                    continue;
                 }
-                continue;
-            }
-            if (!empty($sectionPageTitle) && in_array($doc->getTemplate(), $templateArray)) {
-                $obj = $doc->getEditable('CS_ProductName');
-                if (!empty($obj) && !empty($obj->getData())) {
-                    $all_doc_arr[$sectionPageTitle][] = $obj->getData();
-                } else {
-                    $all_doc_arr[$sectionPageTitle][] = $doc->getKey();
+                if (!empty($sectionPageTitle) && in_array($doc->getTemplate(), $templateArray)) {
+                    $obj = $doc->getEditable('CS_ProductName');
+                    if (!empty($obj) && !empty($obj->getData())) {
+                        $all_doc_arr[$sectionPageTitle][] = $obj->getData();
+                    } else {
+                        $all_doc_arr[$sectionPageTitle][] = $doc->getKey();
+                    }
                 }
             }
         }
@@ -1166,7 +1169,7 @@ class DefaultController extends FrontendController
                     }
                     $productData['ProductName'] = $productNameTitle;
                     $productData['ShortText'] = $productObj->getShortText();
-
+                    $applicationsHtml = '';
                     if (method_exists($productObj, 'getCSProductApplications') &&  $productObj->getCSProductApplications()) {
                         $applicationsHtml = '<ul>';
                         foreach ($productObj->getCSProductApplications() as $key => $value) {
@@ -1256,17 +1259,42 @@ class DefaultController extends FrontendController
                             foreach ($childrenDataChunkArray as $chunkKey => $childrenDataChunk) {
                                 unset($productDataImportConfig['Common Product Page'][$productKeyName]['Product_Table_Column_Limit']);
                                 $tables = $productDataImportConfig['Common Product Page'][$productKeyName];
-
+                                
                                 if ($tables) {
                                     foreach ($tables as $tablekey => $metricImperialFields) {
+                                        
                                         $columnKeys = $metricImperialFields['ColumnKeys'];
-                                        $cs_Trough_Angle_Label = $metricImperialFields['CS_Trough_Angle_Label'];
-                                        $cs_Material_Weight_Label = $metricImperialFields['CS_Material_Weight_Label'];
-                                        $cs_Idlers_Label = $metricImperialFields['CS_Idlers_Label'];
-                                        $cs_Idler_Angle_Label = $metricImperialFields['CS_Idler_Angle_Label'];
-                                        $cs_Type_Of_Idler_Label = $metricImperialFields['CS_Type_Of_Idler_Label'];
 
+                                        $cs_Trough_Angle_Label = '';
+                                        if(isset($metricImperialFields['CS_Trough_Angle_Label']))
+                                        {
+                                            $cs_Trough_Angle_Label = $metricImperialFields['CS_Trough_Angle_Label'];
+                                        }
 
+                                        $cs_Material_Weight_Label = '';
+                                        if(isset($metricImperialFields['CS_Material_Weight_Label']))
+                                        {
+                                            $cs_Material_Weight_Label = $metricImperialFields['CS_Material_Weight_Label'];
+                                        }
+
+                                        $cs_Idlers_Label = '';
+                                        if(isset($metricImperialFields['CS_Idlers_Label']))
+                                        {
+                                            $cs_Idlers_Label = $metricImperialFields['CS_Idlers_Label'];
+                                        }
+
+                                        $cs_Idler_Angle_Label = '';
+                                        if(isset($metricImperialFields['CS_Idler_Angle_Label']))
+                                        {
+                                            $cs_Idler_Angle_Label = $metricImperialFields['CS_Idler_Angle_Label'];
+                                        }
+
+                                        $cs_Type_Of_Idler_Label = '';
+                                        if(isset($metricImperialFields['CS_Type_Of_Idler_Label']))
+                                        {
+                                            $cs_Type_Of_Idler_Label = $metricImperialFields['CS_Type_Of_Idler_Label'];
+                                        }
+                                        
                                         unset($metricImperialFields['ColumnKeys']);
                                         unset($metricImperialFields['CS_Trough_Angle_Label']);
                                         unset($metricImperialFields['CS_Material_Weight_Label']);
@@ -1320,7 +1348,7 @@ class DefaultController extends FrontendController
 
                                                 $groupingTitle = [];
 
-                                                if ($additionalGroupKey) {
+                                                if (isset($additionalGroupKey) && $additionalGroupKey) {
                                                     $groupingTitle[$additionalGroupKey] = 1;
                                                 }
 
@@ -1346,7 +1374,7 @@ class DefaultController extends FrontendController
                                                     $showDecimalPlaces = '';
                                                     $bricks = $childValue->getProductAttributes();
 
-                                                    if ($productNamePrefix) {
+                                                    if (isset($productNamePrefix) && $productNamePrefix) {
                                                         $productBrand = $childValue->getProductNamePrefix();
                                                     }
 
@@ -1354,8 +1382,19 @@ class DefaultController extends FrontendController
 
                                                     foreach ($miValues as $key => $value) {
                                                         $brickName = $value['objectType'];
-                                                        $percentageSymbol = $value['percentageSymbol'];
-                                                        $showDecimalPlaces = $value['showDecimalPlaces'];
+                                                        
+                                                        $percentageSymbol = '';
+                                                        if(isset($value['percentageSymbol']))
+                                                        {
+                                                            $percentageSymbol = $value['percentageSymbol'];
+                                                        }
+
+                                                        $showDecimalPlaces = '';
+                                                        if(isset($value['showDecimalPlaces']))
+                                                        {
+                                                            $showDecimalPlaces = $value['showDecimalPlaces'];
+                                                        }
+                                                        
                                                         $getBrick = 'get' . $brickName;
                                                         $getField = 'get' . $key;
 
@@ -1757,16 +1796,20 @@ class DefaultController extends FrontendController
                 $productData['coverCompoundsHeaderKeys'] = $coverCompoundsHeaderKeys;
                 $productData['level3rdObjectData'] = $level3rdObjectData;
                 $productData['singleProductPage'] = $singleProductPage;
+                $productData['coverCompoundData'] = $coverCompoundData;
+                $parameterBag['HierarchyNameLevel2'] = '';
+                if(isset($coverCompoundData['HierarchyNameLevel2']))
+                {
+                    $parameterBag['HierarchyNameLevel2'] = $coverCompoundData['HierarchyNameLevel2'];
+                }
+                $parameterBag['data']                 = $productData;
             } else {
                 echo "Category Not Select In Catalog Category Object";
                 die;
             }
 
-            $productData['coverCompoundData'] = $coverCompoundData;
         }
-
-        $parameterBag['data']                 = $productData;
-        $parameterBag['HierarchyNameLevel2']  = $coverCompoundData['HierarchyNameLevel2'];
+        
         return $this->render("contitechcscatalog/default/template_cover_compounds.html.twig", $parameterBag);
     }
 

@@ -287,7 +287,7 @@ class DefaultController extends FrontendController
                         $sql = "SELECT id FROM `object_38` WHERE `parentId` = '$objectLevel6thId' ";
                         $sql .= "AND `PrintedCatalogFlag` = '1' ORDER BY id ASC LIMIT 1";
                         $fertObjId =  $this->db->fetchOne($sql);
-
+                        $beltHeight = '';
                         if($fertObjId)
                         {
                             $sql = "SELECT heightMM FROM `object_brick_query_PTGEUCommonFert_38` ";
@@ -477,6 +477,8 @@ class DefaultController extends FrontendController
                 $siop5Category = $ptgEUProductHierarchy->getPrintedCatalogDescription();
                 $siop6siop7Category = '';
                 $objectLevel5thDetails = '';
+                $plantAssociatedMaterials = [];
+                $salesAssociatedMaterials = [];
 
                 # get All PlantMaterialMaster of the selected Delivery Plant
                 if(trim($deliveringPlant))
@@ -650,7 +652,7 @@ class DefaultController extends FrontendController
                     $sql = "SELECT longDescription FROM `object_localized_data_38` WHERE ooo_id = '$objectLevel5thId' AND `language` = '{$language}' LIMIT 1";
                     $longDescription =  $this->db->fetchOne($sql);
                     $groupData['longDescription'] = $longDescription;
-
+                    $groupData['temperatureRange'] = '';
                     if($objectLevel5thDetails['minimumTemperatureF'] && $objectLevel5thDetails['maximumTemperatureF'] && $objectLevel5thDetails['minimumTemperatureC'] && $objectLevel5thDetails['maximumTemperatureC'])
                     {
                         $minTempF = round($objectLevel5thDetails['minimumTemperatureF']);
