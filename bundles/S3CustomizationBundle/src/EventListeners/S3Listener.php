@@ -233,9 +233,8 @@ class S3Listener
     {
         if(!DISABLE_S3_CDN) {
             $thumbnail = $event->getSubject();
-            $stream = $thumbnail->getAsset();
+            $fsPath = $thumbnail->getAsset()->getPath();
             //$fsPath = $thumbnail->getFileSystemPath();
-            $fsPath = $stream->getStream();
             if ($fsPath && $event->getArgument("generated")) {
                 $cacheKey = "thumb_s3_" . md5($fsPath);
 
