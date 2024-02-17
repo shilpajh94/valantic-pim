@@ -15,6 +15,7 @@ pimcore.plugin.RestApiBundle = Class.create({
     },
     
     postOpenObject: function (e) {
+        let type = e.detail.type;
         let objectClassName = e.detail.object.data.general.className;
         if (objectClassName == 'VirtualCatalogApiMapper') {
 
@@ -108,7 +109,7 @@ pimcore.plugin.RestApiBundle = Class.create({
             }
             if ((e.detail.object.data.data.GroupingField !== null && trim(e.detail.object.data.data.GroupingField) !== "")) {
                 var headerSorter = new pimcore.plugin.headerSorter();
-                headerSorter.attachHeader(e, type, { 'value': e.detail.object.data.data.GroupingField }, null, 0);
+                headerSorter.attachHeader(e.detail.object, type, { 'value': e.detail.object.data.data.GroupingField }, null, 0);
             }
 
             e.detail.object.edit.dataFields.GroupingField.component.on('select', function (event) {
@@ -116,7 +117,7 @@ pimcore.plugin.RestApiBundle = Class.create({
                 //   if(object.data.data.GroupingField != event.value)
                 {
                     var headerSorter = new pimcore.plugin.headerSorter();
-                    headerSorter.attachHeader(e, type, event, null, 1);
+                    headerSorter.attachHeader(e.detail.object, type, event, null, 1);
                 }
             });
 
