@@ -28,4 +28,4 @@ parameters:
         ldap_ssl:
             1
         ldap_ignore_cert:
-            1
+            0

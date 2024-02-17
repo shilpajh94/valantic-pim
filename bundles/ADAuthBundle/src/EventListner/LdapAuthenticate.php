@@ -135,6 +135,9 @@ class LdapAuthenticate
         if($this->ldapIgnoreCert){
             // ignore SSL certificate
             putenv('LDAPTLS_REQCERT=never');
+        }else {
+            putenv('LDAPTLS_REQCERT=allow');
+            putenv('LDAPTLS_CACERT=/efs/storage_new/crt/Conti-CA.cer');
         }
 
         try {
