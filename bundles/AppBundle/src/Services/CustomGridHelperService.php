@@ -100,9 +100,9 @@ class CustomGridHelperService extends GridHelperService
             $userIds[] = $adminUser->getId();
             if($this->isWorkspaceQueryNeeded($folder,$className,$adminUser)){
                 $conditionFilters[] = ' (
-                                                        (select list from users_workspaces_object where userId in (' . implode(',', $userIds) . ') and LOCATE(CONCAT(path,key),cpath)=1  ORDER BY LENGTH(cpath) DESC LIMIT 1)=1
+                                                        (select list from users_workspaces_object where userId in (' . implode(',', $userIds) . ') and LOCATE(CONCAT(`path`,`key`),cpath)=1  ORDER BY LENGTH(cpath) DESC LIMIT 1)=1
                                                         OR
-                                                        (select list from users_workspaces_object where userId in (' . implode(',', $userIds) . ') and LOCATE(cpath,CONCAT(path,key))=1  ORDER BY LENGTH(cpath) DESC LIMIT 1)=1
+                                                        (select list from users_workspaces_object where userId in (' . implode(',', $userIds) . ') and LOCATE(cpath,CONCAT(`path`,`key`))=1  ORDER BY LENGTH(cpath) DESC LIMIT 1)=1
                                                      )';
             }
         }
