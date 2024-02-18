@@ -12,29 +12,39 @@
  * @license    https://github.com/w-vision/DataDefinitions/blob/master/gpl-3.0.txt GNU General Public License version 3 (GPLv3)
  */
 
-declare(strict_types=1);
-
 namespace Wvision\Bundle\DataDefinitionsBundle\Interpreter;
 
+use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\Listing;
-use Wvision\Bundle\DataDefinitionsBundle\Context\InterpreterContextInterface;
+use Wvision\Bundle\DataDefinitionsBundle\Model\DataDefinitionInterface;
+use Wvision\Bundle\DataDefinitionsBundle\Model\MappingInterface;
 
 class ObjectResolverInterpreter implements InterpreterInterface
 {
-    public function interpret(InterpreterContextInterface $context): mixed
-    {
-        if (!$context->getValue()) {
-            return null;
+    /**
+     * {@inheritdoc}
+     */
+    public function interpret(
+        Concrete $object,
+        $value,
+        MappingInterface $map,
+        $data,
+        DataDefinitionInterface $definition,
+        $params,
+        $configuration
+    ) {
+        if (!$value) {
+            return $value;
         }
 
-        $class = 'Pimcore\Model\DataObject\\'.ucfirst($context->getConfiguration()['class']);
-        $lookup = 'getBy'.ucfirst($context->getConfiguration()['field']);
+        $class = 'Pimcore\Model\DataObject\\'.ucfirst($configuration['class']);
+        $lookup = 'getBy'.ucfirst($configuration['field']);
 
         /**
          * @var Listing $listing
          */
-        $listing = $class::$lookup($context->getValue());
-        $listing->setUnpublished($context->getConfiguration()['match_unpublished']);
+        $listing = $class::$lookup($value);
+        $listing->setUnpublished($configuration['match_unpublished']);
 
         if ($listing->count() === 1) {
             return $listing->current();
@@ -43,3 +53,5 @@ class ObjectResolverInterpreter implements InterpreterInterface
         return null;
     }
 }
+
+

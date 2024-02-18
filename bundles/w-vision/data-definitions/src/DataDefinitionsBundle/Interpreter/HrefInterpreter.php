@@ -12,23 +12,36 @@
  * @license    https://github.com/w-vision/DataDefinitions/blob/master/gpl-3.0.txt GNU General Public License version 3 (GPLv3)
  */
 
-declare(strict_types=1);
-
 namespace Wvision\Bundle\DataDefinitionsBundle\Interpreter;
 
 use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\Element\Service;
 use Pimcore\Tool;
-use Wvision\Bundle\DataDefinitionsBundle\Context\InterpreterContextInterface;
+use Wvision\Bundle\DataDefinitionsBundle\Model\DataSetAwareInterface;
+use Wvision\Bundle\DataDefinitionsBundle\Model\DataSetAwareTrait;
+use Wvision\Bundle\DataDefinitionsBundle\Model\DataDefinitionInterface;
+use Wvision\Bundle\DataDefinitionsBundle\Model\MappingInterface;
 
-class HrefInterpreter implements InterpreterInterface
+class HrefInterpreter implements InterpreterInterface, DataSetAwareInterface
 {
-    public function interpret(InterpreterContextInterface $context): mixed
-    {
-        $type = $context->getConfiguration()['type'] ?: 'object';
-        $objectClass = $context->getConfiguration()['class'];
+    use DataSetAwareTrait;
 
-        if (!$context->getValue()) {
+    /**
+     * {@inheritdoc}
+     */
+    public function interpret(
+        Concrete $object,
+        $value,
+        MappingInterface $map,
+        $data,
+        DataDefinitionInterface $definition,
+        $params,
+        $configuration
+    ) {
+        $type = $configuration['type'] ?: 'object';
+        $objectClass = $configuration['class'];
+
+        if (!$value) {
             return null;
         }
 
@@ -43,7 +56,7 @@ class HrefInterpreter implements InterpreterInterface
                 $class = new $class();
 
                 if ($class instanceof Concrete) {
-                    $ret = $class::getById($context->getValue());
+                    $ret = $class::getById($value);
 
                     if ($ret instanceof Concrete) {
                         return $ret;
@@ -51,9 +64,11 @@ class HrefInterpreter implements InterpreterInterface
                 }
             }
         } else {
-            return Service::getElementById($type, $context->getValue());
+            return Service::getElementById($type, $value);
         }
 
         return null;
     }
 }
+
+

@@ -28,6 +28,8 @@ use Wvision\Bundle\DataDefinitionsBundle\ProcessManager\ArtifactProviderTrait;
 use Wvision\Bundle\DataDefinitionsBundle\Helper\CommonHelper as commonHelper;
 use Pimcore\Model\Asset;
 use Wvision\Bundle\DataDefinitionsBundle\Provider\ImportDataSetInterface;
+use Wvision\Bundle\DataDefinitionsBundle\Lib\DataImportLogger;
+
 
 
 
@@ -48,6 +50,7 @@ class CsvProvider extends AbstractFileProvider implements ImportProviderInterfac
      */
     public function getColumns(array $configuration, $definitionName = ''): array
     {
+        // $headers = 0;
         $commonHelperObject = new commonHelper();
 	    // $csvHeaders = (string)$configuration['csvHeaders'];
         // $csvExample = $configuration['csvExample'];
@@ -56,7 +59,6 @@ class CsvProvider extends AbstractFileProvider implements ImportProviderInterfac
         $csvFile = $definitionName . "-" . $configuration['csvFile'];
         $path = $commonHelperObject->getDefaultAssetFolderForUploadedFiles() . "/" . $csvFile;
         $asset = Asset::getByPath($path);
-        // p_r($asset);
         if ($asset) {
             // $fullPath = $asset->getFileSystemPath();
             $fullPath = PIMCORE_ASSET_DIRECTORY.$asset->getRealFullPath();
@@ -136,13 +138,12 @@ class CsvProvider extends AbstractFileProvider implements ImportProviderInterfac
         if ($configuration['csvFile']) {
             $headers = array_map(function (FromColumn $column) {
                 return $column->getIdentifier();
-            }, $this->getColumns($configuration));
+            }, $this->getColumns($configuration, $definition->name));
 
             $writer = Writer::createFromString('');
 
             $stmt = new Statement();
             $records = $stmt->process($csv);
-
             $writer->insertOne($headers);
             $writer->insertAll($records);
 
@@ -163,7 +164,6 @@ class CsvProvider extends AbstractFileProvider implements ImportProviderInterfac
         }
 
         $records = $stmt->process($csv);
-
         return new TraversableImportDataSet($records);
     }
 

@@ -12,35 +12,42 @@
  * @license    https://github.com/w-vision/DataDefinitions/blob/master/gpl-3.0.txt GNU General Public License version 3 (GPLv3)
  */
 
-declare(strict_types=1);
-
 namespace Wvision\Bundle\DataDefinitionsBundle\Interpreter;
 
+use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\Data\Link;
 use Pimcore\Model\Element\ElementInterface;
-use Wvision\Bundle\DataDefinitionsBundle\Context\InterpreterContextInterface;
+use Wvision\Bundle\DataDefinitionsBundle\Model\DataDefinitionInterface;
 use Wvision\Bundle\DataDefinitionsBundle\Model\ExportDefinitionInterface;
 use Wvision\Bundle\DataDefinitionsBundle\Model\ImportDefinitionInterface;
+use Wvision\Bundle\DataDefinitionsBundle\Model\MappingInterface;
 
 class LinkInterpreter implements InterpreterInterface
 {
-    public function interpret(InterpreterContextInterface $context): mixed
-    {
-        if (($context->getDefinition() instanceof ExportDefinitionInterface) && $context->getValue() instanceof Link) {
-            return $context->getValue()->getHref();
+    public function interpret(
+        Concrete $object,
+        $value,
+        MappingInterface $map,
+        $data,
+        DataDefinitionInterface $definition,
+        $params,
+        $configuration
+    ) {
+        if (($definition instanceof ExportDefinitionInterface) && $value instanceof Link) {
+            return $value->getHref();
         }
 
-        if (($context->getDefinition() instanceof ImportDefinitionInterface)) {
+        if (($definition instanceof ImportDefinitionInterface)) {
             $link = new Link();
 
-            if (filter_var($context->getValue(), FILTER_VALIDATE_URL)) {
-                $link->setDirect($context->getValue());
+            if (filter_var($value, FILTER_VALIDATE_URL)) {
+                $link->setDirect($value);
             }
 
-            $link->setText($context->getValue());
+            $link->setText($value);
 
-            if ($context->getValue() instanceof ElementInterface) {
-                $link->setElement($context->getValue());
+            if ($value instanceof ElementInterface) {
+                $link->setObject($value);
             }
 
             return $link;
@@ -49,3 +56,5 @@ class LinkInterpreter implements InterpreterInterface
         return null;
     }
 }
+
+

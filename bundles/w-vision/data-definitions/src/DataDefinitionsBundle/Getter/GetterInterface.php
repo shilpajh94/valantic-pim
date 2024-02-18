@@ -12,13 +12,19 @@
  * @license    https://github.com/w-vision/DataDefinitions/blob/master/gpl-3.0.txt GNU General Public License version 3 (GPLv3)
  */
 
-declare(strict_types=1);
-
 namespace Wvision\Bundle\DataDefinitionsBundle\Getter;
 
-use Wvision\Bundle\DataDefinitionsBundle\Context\GetterContextInterface;
+use Pimcore\Model\DataObject\Concrete;
+use Wvision\Bundle\DataDefinitionsBundle\Model\ExportMapping;
 
 interface GetterInterface
 {
-    public function get(GetterContextInterface $context);
+    /**
+     * @param Concrete      $object
+     * @param ExportMapping $map
+     * @param array         $data
+     */
+    public function get(Concrete $object, ExportMapping $map, $data);
 }
+
+
