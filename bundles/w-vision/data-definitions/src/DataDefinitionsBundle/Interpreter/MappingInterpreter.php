@@ -12,17 +12,31 @@
  * @license    https://github.com/w-vision/DataDefinitions/blob/master/gpl-3.0.txt GNU General Public License version 3 (GPLv3)
  */
 
-declare(strict_types=1);
-
 namespace Wvision\Bundle\DataDefinitionsBundle\Interpreter;
 
-use Wvision\Bundle\DataDefinitionsBundle\Context\InterpreterContextInterface;
+use Pimcore\Model\DataObject\Concrete;
+use Wvision\Bundle\DataDefinitionsBundle\Model\DataSetAwareInterface;
+use Wvision\Bundle\DataDefinitionsBundle\Model\DataSetAwareTrait;
+use Wvision\Bundle\DataDefinitionsBundle\Model\DataDefinitionInterface;
+use Wvision\Bundle\DataDefinitionsBundle\Model\MappingInterface;
 
-class MappingInterpreter implements InterpreterInterface
+class MappingInterpreter implements InterpreterInterface, DataSetAwareInterface
 {
-    public function interpret(InterpreterContextInterface $context): mixed
-    {
-        $interpreterMap = $context->getConfiguration()['mapping'];
+    use DataSetAwareTrait;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function interpret(
+        Concrete $object,
+        $value,
+        MappingInterface $map,
+        $data,
+        DataDefinitionInterface $definition,
+        $params,
+        $configuration
+    ) {
+        $interpreterMap = $configuration['mapping'];
         $resolvedMap = [];
 
         if (!is_array($interpreterMap)) {
@@ -33,14 +47,16 @@ class MappingInterpreter implements InterpreterInterface
             $resolvedMap[$itemMap['from']] = $itemMap['to'];
         }
 
-        if (array_key_exists($context->getValue(), $resolvedMap)) {
-            return $resolvedMap[$context->getValue()];
+        if (array_key_exists($value, $resolvedMap)) {
+            return $resolvedMap[$value];
         }
 
-        if ($context->getConfiguration()['return_null_when_not_found']) {
+        if ($configuration['return_null_when_not_found']) {
             return null;
         }
 
-        return $context->getValue();
+        return $value;
     }
 }
+
+

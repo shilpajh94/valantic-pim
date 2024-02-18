@@ -38,6 +38,7 @@ use CoreShop\Component\Resource\Model\ResourceInterface;
 use Symfony\Component\HttpFoundation\JsonResponse as SymfonyJsonResponse;
 use Wvision\Bundle\DataDefinitionsBundle\Model\ImportDefinition;
 use AppBundle\Tool\Utils;
+use Doctrine\DBAL\Exception\NotNullConstraintViolationException;
 use Pimcore\Model\User\Role;
 use Pimcore\Tool\Admin;
 use Wvision\Bundle\DataDefinitionsBundle\Lib\Constants;
@@ -234,7 +235,6 @@ class ImportDefinitionController extends AbstractDefinitionController
                 }
                 $i++;
             }
-            
             return $this->viewHandler->handle([
                 'success' => true,
                 'mapping' => $mappingDefinition,
@@ -540,6 +540,14 @@ class ImportDefinitionController extends AbstractDefinitionController
         }elseif (strlen($name) == 0) {
             return $this->viewHandler->handle(['success' => false, 'msg' =>$data_definition_name_required]);
         }
+        $dirPath = PIMCORE_PROJECT_ROOT . '/var/config/import-definitions';
+        $files = glob($dirPath . "/*");
+        foreach ($files as $file) {
+            $existname[] =  basename($file,".yaml");
+        }
+        if(is_array($existname)){
+            $alreadyTakenName =  in_array(strtolower($name), $existname);
+        }
 
         // $configArray = include PIMCORE_PROJECT_ROOT . '/var/config/importdefinitions.php';
         // p_r($configArray);
@@ -551,9 +559,9 @@ class ImportDefinitionController extends AbstractDefinitionController
         //     $alreadyTakenName =  in_array(strtolower($name), $existname);
         // }
 
-        // if ($alreadyTakenName == true) {
-        //     return $this->viewHandler->handle(['success' => false, 'msg' => $data_definition_config_exists]);
-        // } else {
+        if ($alreadyTakenName == true) {
+            return $this->viewHandler->handle(['success' => false, 'msg' => $data_definition_config_exists]);
+        } else {
             $resource = $this->factory->createNew();
 
             if ($resource instanceof ResourceInterface) {
@@ -571,7 +579,7 @@ class ImportDefinitionController extends AbstractDefinitionController
 
             $this->eventDispatcher->dispatchPostEvent('create', $this->metadata, $resource, $request);
             return $this->viewHandler->handle(['data' => $resource, 'success' => true], ['group' => 'Detailed']);
-        // }
+        }
     }
 
     // fucntion to start data definition import

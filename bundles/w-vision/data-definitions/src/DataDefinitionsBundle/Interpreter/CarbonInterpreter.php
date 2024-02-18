@@ -12,26 +12,42 @@
  * @license    https://github.com/w-vision/DataDefinitions/blob/master/gpl-3.0.txt GNU General Public License version 3 (GPLv3)
  */
 
-declare(strict_types=1);
-
 namespace Wvision\Bundle\DataDefinitionsBundle\Interpreter;
 
 use Carbon\Carbon;
-use Wvision\Bundle\DataDefinitionsBundle\Context\InterpreterContextInterface;
+use Pimcore\Model\DataObject\Concrete;
+use Wvision\Bundle\DataDefinitionsBundle\Model\DataSetAwareInterface;
+use Wvision\Bundle\DataDefinitionsBundle\Model\DataSetAwareTrait;
+use Wvision\Bundle\DataDefinitionsBundle\Model\DataDefinitionInterface;
+use Wvision\Bundle\DataDefinitionsBundle\Model\MappingInterface;
 
-class CarbonInterpreter implements InterpreterInterface
+class CarbonInterpreter implements InterpreterInterface, DataSetAwareInterface
 {
-    public function interpret(InterpreterContextInterface $context): bool|null|\Carbon\Carbon
-    {
-        if ($context->getValue()) {
-            $format = $context->getConfiguration()['date_format'];
+    use DataSetAwareTrait;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function interpret(
+        Concrete $object,
+        $value,
+        MappingInterface $map,
+        $data,
+        DataDefinitionInterface $definition,
+        $params,
+        $configuration
+    ) {
+        if ($value) {
+            $format = $configuration['date_format'];
             if (!empty($format)) {
-                return Carbon::createFromFormat($format, $context->getValue());
+                return Carbon::createFromFormat($format, $value);
             }
 
-            return new Carbon($context->getValue());
+            return new Carbon($value);
         }
 
         return null;
     }
 }
+
+

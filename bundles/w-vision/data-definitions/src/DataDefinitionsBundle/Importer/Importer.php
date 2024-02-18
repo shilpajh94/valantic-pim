@@ -95,7 +95,7 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
         private ExpressionLanguage $expressionLanguage,
         private MessageBusInterface $bus,
     ) {
-        $this->providerRegistry = $providerRegistry;
+        // $this->providerRegistry = $providerRegistry;
         $this->filterRegistry = $filterRegistry;
         $this->runnerRegistry = $runnerRegistry;
         $this->interpreterRegistry = $interpreterRegistry;
@@ -192,6 +192,7 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
         }
 
         /** @var ImportDataSetInterface|array $data */
+
         $data = $this->getData($definition, $params);
         if ((is_array($data) || $data instanceof \Countable) && \count($data) > 0) {
             $this->eventDispatcher->dispatch($definition, 'data_definitions.import.total', \count($data), $params);
@@ -411,14 +412,8 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
     private function getData(ImportDefinitionInterface $definition, $params)
     {
         /** @var ImportProviderInterface $provider */
-        try{
-            $provider = $this->providerRegistry->get($definition->getProvider());
-            
-            return $provider->getData($definition->getConfiguration(), $definition, $params);
-            
-        }catch(\Exception $ex){
-           //exception
-        }
+        $provider = $this->providerRegistry->get($definition->getProvider());
+        return $provider->getData($definition->getConfiguration(), $definition, $params);
     }
 
 
@@ -448,145 +443,152 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
         $i = 0;
 
         foreach ($dataSet as $row) {
-            $i++;
-            $failedReason = '';
-            $status = 'Success';
-
-            if($definition->getClass() == 'Product'){
-                $primaryKey = $row['SAP Code / Material Number'];
-
+            if($i== 0){
+                $i++;
             }
-            elseif($definition->getClass() == 'PTGEUProduct'){
-                $primaryKey = $row['SAPMaterialCode'];
-            }
-            elseif($definition->getClass() == 'IFSEUProduct'){
-                $primaryKey = $row['Material'];
-            }
-            elseif($definition->getClass() == 'CSProducts'){
-                $region = '';
-                if($row['Region']){
-                    $regionArray = explode("|",$row['Region']);
-                    foreach($regionArray as $eachRegion){
-                        $regionObj = DataObject\CSRegion::getByPath(
-                                                            '/Contitech_ConveyorSolution/Master Data/Region/'.
-                                                            trim($eachRegion));
-                        if($regionObj){
-                            $region = trim($eachRegion);
-                            break;
+            else{
+                $i++;
+                $failedReason = '';
+                $status = 'Success';
+    
+                if($definition->getClass() == 'Product'){
+                    $primaryKey = $row['SAP Code / Material Number'];
+    
+                }
+                elseif($definition->getClass() == 'PTGEUProduct'){
+                    $primaryKey = $row['SAPMaterialCode'];
+                }
+                elseif($definition->getClass() == 'IFSEUProduct'){
+                    $primaryKey = $row['Material'];
+                }
+                elseif($definition->getClass() == 'CSProducts'){
+                    $region = '';
+                    if($row['Region']){
+                        $regionArray = explode("|",$row['Region']);
+                        foreach($regionArray as $eachRegion){
+                            $regionObj = DataObject\CSRegion::getByPath(
+                                                                '/Contitech_ConveyorSolution/Master Data/Region/'.
+                                                                trim($eachRegion));
+                            if($regionObj){
+                                $region = trim($eachRegion);
+                                break;
+                            }
                         }
                     }
-                }
-                $primaryKey = trim($row['Product Hierarchy']);
-                if($row['Product Flag'] == "0" || ($row['Product Flag'] == "1" && !$row['Region'])){
-                    $productName = str_replace("/", "-", $row['Product Name']);
-                    $primaryKey = trim($row['Product Hierarchy']).'/'.trim($productName);
-
-                }elseif($row['Product Flag'] == "1" && $row['Region']){
-                    $productName = str_replace("/", "-", $row['Product Name']);
-                    $primaryKey = trim($row['Product Hierarchy']).'/'.$region.'/'.trim($productName);
-                }
-            }
-            
-            try {
-                list($object, $nonImportedAttributes) = $this->importRow($definition,
-                                                                        $row,
-                                                                        $dataSet,
-                                                                        array_merge($params, ['row' => $count]),
-                                                                        $filter);
-                $nonImportedAttributesString =  implode(", ",$nonImportedAttributes);
-                if ($object instanceof Concrete) {
-                    $objectIds[] = $object->getId();
-                }
-                else{
-
-                    if($definition->getClass() == 'Product' || $definition->getClass() == 'PTGEUProduct'){
-                        $failedReason = 'Sap Number does not exist';
-                        $status = 'Failure';
-                    }
-                    elseif($definition->getClass() == 'CSProducts'){
-                        $failedReason  = 'Path does not exist';
-                        $status = 'Failure';
-                    }
-                    elseif($definition->getClass() == 'IFSEUProduct'){
-                        $failedReason  = 'Material Number does not exist';
-                        $status = 'Failure';
+                    $primaryKey = trim($row['Product Hierarchy']);
+                    if($row['Product Flag'] == "0" || ($row['Product Flag'] == "1" && !$row['Region'])){
+                        $productName = str_replace("/", "-", $row['Product Name']);
+                        $primaryKey = trim($row['Product Hierarchy']).'/'.trim($productName);
+    
+                    }elseif($row['Product Flag'] == "1" && $row['Region']){
+                        $productName = str_replace("/", "-", $row['Product Name']);
+                        $primaryKey = trim($row['Product Hierarchy']).'/'.$region.'/'.trim($productName);
                     }
                 }
-                if (($count + 1) % $countToClean === 0) {
-                    \Pimcore::collectGarbage();
-                    $this->logger->info('Clean Garbage');
-                    $this->eventDispatcher->dispatch($definition, 'data_definitions.import.status', 'Collect Garbage',
-                        $params);
-                }
-                $count++;
-
-                $logResult[] = [self::PRIMARY_KEY_HEADER => $primaryKey,
-                                self::NON_IMPORTED_ATTRIBUTES => $nonImportedAttributesString,
-                                self::STATUS_CODE => $status,
-                                self::FAILURE_REASON => $failedReason];
-            }catch (\Throwable $ex) {
-                $mesage = $ex;
-                // $mesage = $ex->getMessage();
-                // preg_match_all("|\: field (.*)  in |imsU",$mesage,$match);
-                // $failedReason = implode(PHP_EOL,$match[1]);
-                if(empty($failedReason)){
-                    $failedReason = $mesage;
-                }
-                $logResult[] = [self::PRIMARY_KEY_HEADER => $primaryKey,
-                                self::NON_IMPORTED_ATTRIBUTES => '',
-                                self::STATUS_CODE => 'Failure',
-                                self::FAILURE_REASON => $failedReason];
-
-                $this->logger->error($ex);
-
-                $exceptions[] = $ex;
-
-                $this->eventDispatcher->dispatch($definition, 'data_definitions.import.status',
-                    sprintf('Error: %s', $ex->getMessage()), $params);
-
-                if ($definition->getStopOnException()) {
-                    throw $ex;
-                }
-            }
-
-            $this->eventDispatcher->dispatch($definition, 'data_definitions.import.progress', '', $params);
-
-            if ($this->shouldStop) {
-                $this->eventDispatcher->dispatch(
-                    $definition,
-                    'data_definitions.import.status',
-                    'Process has been stopped.'
-                );
-
-                return [$objectIds, $exceptions];
-            }
-
-            // set status and process end time
-            if($totalRowsWithData === $i)
-            {
-                $dataImport     = DataDefinitionImport::getById($importDataId);
-                $dataImport->setStatus(Constants::SCHEDULE_STATUS_COMPLETED);
-                $dataImport->setImportProcessEndTime(new \DateTime());
-                $dataImport->setProcessedRecords($totalRowsWithData);
-                $dataImport->save();
                 
-                // unlink temp file 
-                $tempFilePath = PIMCORE_PROJECT_ROOT . '/var/tmp/'.$dataImport->getImportFileName();
-                if(file_exists($tempFilePath))
-                {
-                    unlink($tempFilePath);
+                try {
+    
+                    list($object, $nonImportedAttributes) = $this->importRow($definition,
+                                                                            $row,
+                                                                            $dataSet,
+                                                                            array_merge($params, ['row' => $count]),
+                                                                            $filter);
+                    $nonImportedAttributesString =  implode(", ",$nonImportedAttributes);
+                    if ($object instanceof Concrete) {
+                        $objectIds[] = $object->getId();
+                    }
+                    else{
+    
+                        if($definition->getClass() == 'Product' || $definition->getClass() == 'PTGEUProduct'){
+                            $failedReason = 'Sap Number does not exist';
+                            $status = 'Failure';
+                        }
+                        elseif($definition->getClass() == 'CSProducts'){
+                            $failedReason  = 'Path does not exist';
+                            $status = 'Failure';
+                        }
+                        elseif($definition->getClass() == 'IFSEUProduct'){
+                            $failedReason  = 'Material Number does not exist';
+                            $status = 'Failure';
+                        }
+                    }
+                    if (($count + 1) % $countToClean === 0) {
+                        \Pimcore::collectGarbage();
+                        $this->logger->info('Clean Garbage');
+                        $this->eventDispatcher->dispatch($definition, 'data_definitions.import.status', 'Collect Garbage',
+                            $params);
+                    }
+                    $count++;
+    
+                    $logResult[] = [self::PRIMARY_KEY_HEADER => $primaryKey,
+                                    self::NON_IMPORTED_ATTRIBUTES => $nonImportedAttributesString,
+                                    self::STATUS_CODE => $status,
+                                    self::FAILURE_REASON => $failedReason];
+                }catch (\Throwable $ex) {
+                    $mesage = $ex;
+                    // $mesage = $ex->getMessage();
+                    // preg_match_all("|\: field (.*)  in |imsU",$mesage,$match);
+                    // $failedReason = implode(PHP_EOL,$match[1]);
+                    if(empty($failedReason)){
+                        $failedReason = $mesage;
+                    }
+                    $logResult[] = [self::PRIMARY_KEY_HEADER => $primaryKey,
+                                    self::NON_IMPORTED_ATTRIBUTES => '',
+                                    self::STATUS_CODE => 'Failure',
+                                    self::FAILURE_REASON => $failedReason];
+    
+                    $this->logger->error($ex);
+    
+                    $exceptions[] = $ex;
+    
+                    $this->eventDispatcher->dispatch($definition, 'data_definitions.import.status',
+                        sprintf('Error: %s', $ex->getMessage()), $params);
+    
+                    if ($definition->getStopOnException()) {
+                        throw $ex;
+                    }
                 }
-            }
-            else
-            {
-                // update definition import table after every 10 iteration
-                if(fmod($i, 100)==0)
+    
+                $this->eventDispatcher->dispatch($definition, 'data_definitions.import.progress', '', $params);
+    
+                if ($this->shouldStop) {
+                    $this->eventDispatcher->dispatch(
+                        $definition,
+                        'data_definitions.import.status',
+                        'Process has been stopped.'
+                    );
+    
+                    return [$objectIds, $exceptions];
+                }
+    
+                // set status and process end time
+                if($totalRowsWithData === $i)
                 {
                     $dataImport     = DataDefinitionImport::getById($importDataId);
-                    $dataImport->setProcessedRecords($i);
+                    $dataImport->setStatus(Constants::SCHEDULE_STATUS_COMPLETED);
+                    $dataImport->setImportProcessEndTime(new \DateTime());
+                    $dataImport->setProcessedRecords($totalRowsWithData);
                     $dataImport->save();
+                    
+                    // unlink temp file 
+                    $tempFilePath = PIMCORE_PROJECT_ROOT . '/var/tmp/'.$dataImport->getImportFileName();
+                    // if(file_exists($tempFilePath))
+                    // {
+                    //     unlink($tempFilePath);
+                    // }
+                }
+                else
+                {
+                    // update definition import table after every 10 iteration
+                    if(fmod($i, 100)==0)
+                    {
+                        $dataImport     = DataDefinitionImport::getById($importDataId);
+                        $dataImport->setProcessedRecords($i);
+                        $dataImport->save();
+                    }
                 }
             }
+
 
             
         }
@@ -609,7 +611,6 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
             return [null, $nonImportedAttributes];
         }
         $runner = null;
-
 
         $object = $this->getObject($definition, $data, $dataSet, $params);
 
@@ -914,8 +915,8 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
         } else {
             $loader = $this->loaderRegistry->get('primary_key');
         }
-
         $obj = $loader->load($class, $data, $definition, $params);
+
         if(($class == 'Product' ||
             $class == 'PTGEUProduct' ||
             $class == 'IFSEUProduct')&&
@@ -937,25 +938,26 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
             $obj = new $classImplementation();
         }
 
-        $key = Service::getValidKey($this->createKey($definition, $data), 'object');
+        // $key = Service::getValidKey($this->createKey($definition, $data), 'object');
+        // DataImportLogger::log(($key));
 
-        if ($definition->getRelocateExistingObjects() || !$obj->getId()) {
-            $obj->setParent(Service::createFolderByPath($this->createPath($definition, $data)));
-        }
+        // if ($definition->getRelocateExistingObjects() || !$obj->getId()) {
+        //     $obj->setParent(Service::createFolderByPath($this->createPath($definition, $data)));
+        // }
 
-        if ($definition->getRenameExistingObjects() || !$obj->getId()) {
-            if ($key && $definition->getKey()) {
-                $obj->setKey($key);
-            } else {
-                $obj->setKey(File::getValidFilename(uniqid('', true)));
-            }
-        }
+        // if ($definition->getRenameExistingObjects() || !$obj->getId()) {
+        //     if ($key && $definition->getKey()) {
+        //         $obj->setKey($key);
+        //     } else {
+        //         $obj->setKey(File::getValidFilename(uniqid('', true)));
+        //     }
+        // }
 
-        if (!$obj->getKey()) {
-            throw new InvalidArgumentException('No key set, please check your import-data');
-        }
+        // if (!$obj->getKey()) {
+        //     throw new InvalidArgumentException('No key set, please check your import-data');
+        // }
 
-        $obj->setKey(Service::getUniqueKey($obj));
+        // $obj->setKey(Service::getUniqueKey($obj));
 
         return $obj;
     }

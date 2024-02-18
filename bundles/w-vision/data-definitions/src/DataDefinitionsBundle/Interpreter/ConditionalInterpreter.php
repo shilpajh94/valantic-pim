@@ -12,67 +12,95 @@
  * @license    https://github.com/w-vision/DataDefinitions/blob/master/gpl-3.0.txt GNU General Public License version 3 (GPLv3)
  */
 
-declare(strict_types=1);
-
 namespace Wvision\Bundle\DataDefinitionsBundle\Interpreter;
 
 use CoreShop\Component\Registry\ServiceRegistryInterface;
+use Pimcore\Model\DataObject\Concrete;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
-use Wvision\Bundle\DataDefinitionsBundle\Context\ContextFactoryInterface;
-use Wvision\Bundle\DataDefinitionsBundle\Context\InterpreterContextInterface;
+use Wvision\Bundle\DataDefinitionsBundle\Model\DataSetAwareInterface;
+use Wvision\Bundle\DataDefinitionsBundle\Model\DataSetAwareTrait;
+use Wvision\Bundle\DataDefinitionsBundle\Model\DataDefinitionInterface;
+use Wvision\Bundle\DataDefinitionsBundle\Model\MappingInterface;
 
-class ConditionalInterpreter implements InterpreterInterface
+class ConditionalInterpreter implements InterpreterInterface, DataSetAwareInterface
 {
+    use DataSetAwareTrait;
+
+    /**
+     * @var ServiceRegistryInterface
+     */
+    private $interpreterRegistry;
+
+    /**
+     * @var ExpressionLanguage
+     */
+    protected $expressionLanguage;
+
+    /**
+     * @var ContainerInterface
+     */
+    protected $container;
+
+    /**
+     * @param ServiceRegistryInterface $interpreterRegistry
+     * @param ExpressionLanguage       $expressionLanguage
+     * @param ContainerInterface       $container
+     */
     public function __construct(
-        protected ServiceRegistryInterface $interpreterRegistry,
-        protected ExpressionLanguage $expressionLanguage,
-        protected ContainerInterface $container,
-        protected  ContextFactoryInterface $contextFactory
+        ServiceRegistryInterface $interpreterRegistry,
+        ExpressionLanguage $expressionLanguage,
+        ContainerInterface $container
     ) {
+        $this->interpreterRegistry = $interpreterRegistry;
+        $this->expressionLanguage = $expressionLanguage;
+        $this->container = $container;
     }
 
-    public function interpret(InterpreterContextInterface $context): mixed
-    {
+    /**
+     * {@inheritdoc}
+     */
+    public function interpret(
+        Concrete $object,
+        $value,
+        MappingInterface $map,
+        $data,
+        DataDefinitionInterface $definition,
+        $params,
+        $configuration
+    ) {
         $params = [
-            'value' => $context->getValue(),
-            'object' => $context->getObject(),
-            'map' => $context->getMapping(),
-            'data' => $context->getDataRow(),
-            'data_set' => $context->getDataSet(),
-            'definition' => $context->getDefinition(),
-            'params' => $context->getParams(),
-            'configuration' => $context->getConfiguration(),
+            'value' => $value,
+            'object' => $object,
+            'map' => $map,
+            'data' => $data,
+            'definition' => $definition,
+            'params' => $params,
+            'configuration' => $configuration,
             'container' => $this->container,
         ];
 
-        $condition = $context->getConfiguration()['condition'];
+        $condition = $configuration['condition'];
 
         if ($this->expressionLanguage->evaluate($condition, $params)) {
-            $interpreter = $context->getConfiguration()['true_interpreter'];
+            $interpreter = $configuration['true_interpreter'];
         } else {
-            $interpreter = $context->getConfiguration()['false_interpreter'];
+            $interpreter = $configuration['false_interpreter'];
         }
 
         $interpreterObject = $this->interpreterRegistry->get($interpreter['type']);
 
         if (!$interpreterObject instanceof InterpreterInterface) {
-            return $context->getValue();
+            return $value;
         }
 
-        $interpreterObject = $this->interpreterRegistry->get($interpreter['type']);
+        if ($interpreterObject instanceof DataSetAwareInterface) {
+            $interpreterObject->setDataSet($this->getDataSet());
+        }
 
-        $newContext = $this->contextFactory->createInterpreterContext(
-            $context->getDefinition(),
-            $context->getParams(),
-            $interpreter['interpreterConfig'],
-            $context->getDataRow(),
-            $context->getDataSet(),
-            $context->getObject(),
-            $context->getValue(),
-            $context->getMapping()
-        );
-
-        return $interpreterObject->interpret($newContext);
+        return $interpreterObject->interpret($object, $value, $map, $data, $definition, $params,
+            $interpreter['interpreterConfig']);
     }
 }
+
+

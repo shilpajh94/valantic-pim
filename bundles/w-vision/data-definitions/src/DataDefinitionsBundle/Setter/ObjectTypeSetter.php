@@ -12,30 +12,32 @@
  * @license    https://github.com/w-vision/DataDefinitions/blob/master/gpl-3.0.txt GNU General Public License version 3 (GPLv3)
  */
 
-declare(strict_types=1);
-
 namespace Wvision\Bundle\DataDefinitionsBundle\Setter;
 
 use Pimcore\Model\DataObject\Concrete;
-use Wvision\Bundle\DataDefinitionsBundle\Context\SetterContextInterface;
+use Wvision\Bundle\DataDefinitionsBundle\Model\ImportMapping;
+use Wvision\Bundle\DataDefinitionsBundle\Model\MappingInterface;
 
 class ObjectTypeSetter implements SetterInterface
 {
-    public function set(SetterContextInterface $context)
+    /**
+     * {@inheritdoc}
+     */
+    public function set(Concrete $object, $value, ImportMapping $map, $data)
     {
-        if ($context->getValue() === Concrete::OBJECT_TYPE_FOLDER) {
-            $context->getObject()->setType(Concrete::OBJECT_TYPE_FOLDER);
+        if ($value === Concrete::OBJECT_TYPE_FOLDER) {
+            $object->setType(Concrete::OBJECT_TYPE_FOLDER);
 
             return;
         }
 
-        if ($context->getValue() === Concrete::OBJECT_TYPE_VARIANT) {
-            $context->getObject()->setType(Concrete::OBJECT_TYPE_VARIANT);
+        if ($value === Concrete::OBJECT_TYPE_VARIANT) {
+            $object->setType(Concrete::OBJECT_TYPE_VARIANT);
 
             return;
         }
 
-        $context->getObject()->setType(Concrete::OBJECT_TYPE_OBJECT);
+        $object->setType(Concrete::OBJECT_TYPE_OBJECT);
     }
 }
 

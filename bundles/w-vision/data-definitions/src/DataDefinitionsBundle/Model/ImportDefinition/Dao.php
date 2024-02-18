@@ -101,6 +101,7 @@ class Dao extends Model\Dao\PimcoreLocationAwareConfigDao
      */
     public function save()
     {
+        $ValidateString = '';
         $ts = time();
         if (!$this->model->getCreationDate()) {
             $this->model->setCreationDate($ts);
@@ -157,7 +158,29 @@ class Dao extends Model\Dao\PimcoreLocationAwareConfigDao
                 } else {
                     $data[$key] = $value;
                 }
+                if($dataRaw['class'] == 'CSProducts'){
+                    if($key=='class' && empty($value)){
+                        $ValidateString.=' Class Level Field is required'."<br>";
+                    }
+                    if($key=='primaryKey' && empty($value)){
+                        $ValidateString.=' Primary Key Field is required'."<br>";
+                    }
+                }else{
+                    if($key=='class' && empty($value)){
+                        $ValidateString.=' Class Level Field is required'."<br>";
+                    }
+                    if($key=='importLevel' && empty($value)){
+                        $ValidateString.=' Import Level Fields is required'."<br>";
+                    }
+                    if($key=='primaryKey' && empty($value)){
+                        $ValidateString.=' Primary Key Field is required'."<br>";
+                    }
+
+                }
             }
+        }
+        if(!empty($ValidateString) && !empty($this->model->getId())){
+            throw new \Exception($ValidateString);
         }
 
         $this->saveData($this->model->getName(), $data);

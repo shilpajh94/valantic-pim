@@ -12,24 +12,41 @@
  * @license    https://github.com/w-vision/DataDefinitions/blob/master/gpl-3.0.txt GNU General Public License version 3 (GPLv3)
  */
 
-declare(strict_types=1);
-
 namespace Wvision\Bundle\DataDefinitionsBundle\Interpreter;
 
-use Wvision\Bundle\DataDefinitionsBundle\Context\InterpreterContextInterface;
+use Pimcore\Model\DataObject\Concrete;
+use Wvision\Bundle\DataDefinitionsBundle\Exception\DoNotSetException;
+use Wvision\Bundle\DataDefinitionsBundle\Model\DataSetAwareInterface;
+use Wvision\Bundle\DataDefinitionsBundle\Model\DataSetAwareTrait;
+use Wvision\Bundle\DataDefinitionsBundle\Model\DataDefinitionInterface;
+use Wvision\Bundle\DataDefinitionsBundle\Model\MappingInterface;
 
-class CheckboxInterpreter implements InterpreterInterface
+class CheckboxInterpreter implements InterpreterInterface, DataSetAwareInterface
 {
-    public function interpret(InterpreterContextInterface $context): ?bool
-    {
-        if (is_string($context->getValue())) {
-            if ($context->getValue() === "") {
+    use DataSetAwareTrait;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function interpret(
+        Concrete $object,
+        $value,
+        MappingInterface $map,
+        $data,
+        DataDefinitionInterface $definition,
+        $params,
+        $configuration
+    ) {
+        if (is_string($value)) {
+            if ($value === "") {
                 return null;
             }
 
-            return filter_var(strtolower($context->getValue()), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+            return filter_var(strtolower($value), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
         }
 
-        return ((bool)$context->getValue());
+        return (boolval($value));
     }
 }
+
+
