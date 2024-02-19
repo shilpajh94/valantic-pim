@@ -77,7 +77,6 @@ class ProductDataExport implements IDataExport
                         # Fetch all products satisfying condition "salesMaster.epixFlag = '001' AND
                         # salesMaster.published = 1 AND product.published = 1"
                         $b2bProducts = $this->helper->getAllB2BProduct($this->bu);
-
                         if($b2bProducts)
                         {
                             $fitingFamilyMasters = $this->getFittingFamilyMasterList();
@@ -753,20 +752,57 @@ class ProductDataExport implements IDataExport
 
     public function getThreadList()
     {
-        $sqlMapping = "select oo_id, Name from object_query_32";
-        return \Pimcore\Db\Helper::fetchPairs($this->db, $sqlMapping);
+        // $sqlMapping = "select oo_id, Name from object_query_32";
+        // return \Pimcore\Db\Helper::fetchPairs($this->db, $sqlMapping);
+        $stmt = "select concat (oo_id, '=>', Name) as pair from object_query_32";
+        $results = $this->db->fetchFirstColumn($stmt);
+        $nameIdInKeyValuePairArray = [];
+        foreach($results as $eachResult){
+            $arr = explode("=>",$eachResult);
+            if(isset($arr[0]) && isset($arr[1])){
+                $nameIdInKeyValuePairArray[$arr[0]] = $arr[1];
+            }
+
+        }
+        return $nameIdInKeyValuePairArray;
+
     }
 
     public function getFittingFamilyList()
     {
-        $sqlMapping = "select oo_id, Name from object_query_30";
-        return \Pimcore\Db\Helper::fetchPairs($this->db, $sqlMapping);
+        // $sqlMapping = "select oo_id, Name from object_query_30";
+        // return \Pimcore\Db\Helper::fetchPairs($this->db, $sqlMapping);
+        $stmt = "select concat (oo_id, '=>', Name) as pair from object_query_30";
+        $results = $this->db->fetchFirstColumn($stmt);
+        $nameIdInKeyValuePairArray = [];
+        foreach($results as $eachResult){
+            $arr = explode("=>",$eachResult);
+            if(isset($arr[0]) && isset($arr[1])){
+                $nameIdInKeyValuePairArray[$arr[0]] = $arr[1];
+            }
+
+        }
+        return $nameIdInKeyValuePairArray;
+
+
     }
 
     public function getBrandMasterList()
     {
-        $sqlMapping = "select oo_id, name from object_query_3";
-        return \Pimcore\Db\Helper::fetchPairs($this->db, $sqlMapping);
+        // $sqlMapping = "select oo_id, name from object_query_3";
+        // return \Pimcore\Db\Helper::fetchPairs($this->db, $sqlMapping);
+
+        $stmt = "select concat (oo_id, '=>', name) as pair from object_query_3";
+        $results = $this->db->fetchFirstColumn($stmt);
+        $nameIdInKeyValuePairArray = [];
+        foreach($results as $eachResult){
+            $arr = explode("=>",$eachResult);
+            if(isset($arr[0]) && isset($arr[1])){
+                $nameIdInKeyValuePairArray[$arr[0]] = $arr[1];
+            }
+
+        }
+        return $nameIdInKeyValuePairArray;
     }
 
     public function getLocalizedAttribute($className)
