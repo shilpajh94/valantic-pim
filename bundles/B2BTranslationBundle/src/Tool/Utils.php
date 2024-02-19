@@ -5,6 +5,7 @@ namespace B2BTranslationBundle\Tool;
 
 use B2BTranslationBundle\Logger\LogLevel;
 use Symfony\Component\Yaml\Parser;
+use AppBundle\Logger\Simple;
 
 class Utils
 {
@@ -32,6 +33,6 @@ class Utils
     public static function log(string $logFileName, string $message, LogLevel $logLevel){
         $logLevel = strval($logLevel);
         $logMessage = "[".$logLevel."]"." ".$message;
-        \Pimcore\Log\Simple::log($logFileName,$logMessage);
+        Simple::log($logFileName,$logMessage);
     }
 }
