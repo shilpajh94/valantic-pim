@@ -1,0 +1,208 @@
+pimcore_custom_reports:
+    definitions:
+        CS_TranslationsMissingProduct11:
+            name: CS_TranslationsMissingProduct11
+            sql: ''
+            dataSourceConfig:
+                -
+                    sql: "SELECT \n\tobject_localized_CSProducts_en.oo_id As 'Pimcore Id',\n\tobject_localized_CSProducts_en.Name,\n\tobject_localized_CSProducts_en.CorporateBrand As 'Corporate Brand',\n\tobject_localized_CSProducts_en.productBrand As 'Product Brand',\n\tobject_localized_CSProducts_en.ProductDescription AS 'Product Description in English',\n\tobject_localized_CSProducts_en.ShortText AS 'Short Text in English',\n    object_localized_CSProducts_en.LongText AS 'Long Text in English',\n    object_localized_CSProducts_de.ProductDescription AS 'Product Description in German',\n\tobject_localized_CSProducts_de.ShortText AS 'Short Text in German',\n    object_localized_CSProducts_de.LongText AS 'Long Text in German',   \n    object_localized_CSProducts_fr.ProductDescription AS 'Product Description in French',\n\tobject_localized_CSProducts_fr.ShortText AS 'Short Text in French',\n    object_localized_CSProducts_fr.LongText AS 'Long Text in French',\n    object_localized_CSProducts_pt.ProductDescription AS 'Product Description in Portuguese (Brazil)',\n\tobject_localized_CSProducts_pt.ShortText AS 'Short Text in Portuguese (Brazil)',\n    object_localized_CSProducts_pt.LongText AS 'Long Text in Portuguese (Brazil)',\n    object_localized_CSProducts_zh.ProductDescription AS 'Product Description in Chinese',\n\tobject_localized_CSProducts_zh.ShortText AS 'Short Text in Chinese',\n    object_localized_CSProducts_zh.LongText AS 'Long Text in Chinese',\n    object_localized_CSProducts_es.ProductDescription AS 'Product Description in Spanish',\n\tobject_localized_CSProducts_es.ShortText AS 'Short Text in Spanish',\n    object_localized_CSProducts_es.LongText AS 'Long Text in Spanish'"
+                    from: "FROM object_localized_CSProducts_en\nINNER JOIN object_localized_CSProducts_de ON object_localized_CSProducts_en.oo_id = object_localized_CSProducts_de.oo_id\nINNER JOIN object_localized_CSProducts_fr ON object_localized_CSProducts_en.oo_id = object_localized_CSProducts_fr.oo_id\nINNER JOIN object_localized_CSProducts_pt ON object_localized_CSProducts_en.oo_id = object_localized_CSProducts_pt.oo_id\nINNER JOIN object_localized_CSProducts_zh ON object_localized_CSProducts_en.oo_id = object_localized_CSProducts_zh.oo_id\nINNER JOIN object_localized_CSProducts_es ON object_localized_CSProducts_en.oo_id = object_localized_CSProducts_es.oo_id"
+                    where: "WHERE\n\tobject_localized_CSProducts_en.ProductDescription is null OR\n\tobject_localized_CSProducts_en.ShortText is null OR\n    object_localized_CSProducts_en.LongText is null OR\n    object_localized_CSProducts_de.ProductDescription is null OR\n\tobject_localized_CSProducts_de.ShortText is null OR\n    object_localized_CSProducts_de.LongText is null OR\n    object_localized_CSProducts_fr.ProductDescription is null OR\n\tobject_localized_CSProducts_fr.ShortText is null OR\n    object_localized_CSProducts_fr.LongText is null OR\n    object_localized_CSProducts_pt.ProductDescription is null OR\n\tobject_localized_CSProducts_pt.ShortText is null OR\n    object_localized_CSProducts_pt.LongText is null OR\n    object_localized_CSProducts_zh.ProductDescription is null OR\n\tobject_localized_CSProducts_zh.ShortText is null OR\n    object_localized_CSProducts_zh.LongText is null OR\n    object_localized_CSProducts_es.ProductDescription is null OR\n\tobject_localized_CSProducts_es.ShortText is null OR\n    object_localized_CSProducts_es.LongText is null"
+                    groupby: ''
+                    type: sql
+            columnConfiguration:
+                -
+                    name: 'Pimcore Id'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel3570-1
+                -
+                    name: Name
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel3570-2
+                -
+                    name: 'Corporate Brand'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel3570-3
+                -
+                    name: 'Product Brand'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel3570-4
+                -
+                    name: 'Product Description in English'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel3570-5
+                -
+                    name: 'Short Text in English'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel3570-6
+                -
+                    name: 'Long Text in English'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel3570-7
+                -
+                    name: 'Product Description in German'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel3570-8
+                -
+                    name: 'Short Text in German'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel3570-9
+                -
+                    name: 'Long Text in German'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel3570-10
+                -
+                    name: 'Product Description in French'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel3570-11
+                -
+                    name: 'Short Text in French'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel3570-12
+                -
+                    name: 'Long Text in French'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel3570-13
+                -
+                    name: 'Product Description in Portuguese (Brazil)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel3570-14
+                -
+                    name: 'Short Text in Portuguese (Brazil)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel3570-15
+                -
+                    name: 'Long Text in Portuguese (Brazil)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel3570-16
+                -
+                    name: 'Product Description in Chinese'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel3570-17
+                -
+                    name: 'Short Text in Chinese'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel3570-18
+                -
+                    name: 'Long Text in Chinese'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel3570-19
+                -
+                    name: 'Product Description in Spanish'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel3570-20
+                -
+                    name: 'Short Text in Spanish'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel3570-21
+                -
+                    name: 'Long Text in Spanish'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel3570-22
+            niceName: 'CS_TranslationsMissingProduct 11'
+            group: 'ContiTech CS'
+            groupIconClass: ''
+            iconClass: ''
+            menuShortcut: false
+            reportClass: ''
+            chartType: ''
+            pieColumn: null
+            pieLabelColumn: null
+            xAxis: null
+            yAxis: {  }
+            modificationDate: 1708261220
+            creationDate: 1708244520
+            shareGlobally: false
+            sharedUserNames: {  }
+            sharedRoleNames:
+                - MarComCS
+                - ProductManagerCS
+                - ApplicationAdminCS

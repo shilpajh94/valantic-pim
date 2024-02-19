@@ -1,0 +1,45 @@
+pimcore_custom_reports:
+    definitions:
+        HydrualicHoseChartSKUsUnderReview11:
+            name: HydrualicHoseChartSKUsUnderReview11
+            sql: ''
+            dataSourceConfig:
+                -
+                    sql: "SELECT count(o1.`id`) AS `# of SKUs`, \nCASE\n    WHEN  w.`place` = 'enrich' OR w.`place` is null  THEN 'Enrich Product'\n    WHEN  w.`place` = 'review_content' THEN 'Review Enriched Data'\n    WHEN  w.`place` = 'unpublished' THEN 'Product Unpublished'\n    WHEN  w.`place` = 'accepted' THEN 'Product Published'\n    ELSE \"\"\nEND AS `Status`"
+                    from: "FROM object_1 o1 \nleft JOIN element_workflow_state w ON o1.oo_id = w.cid "
+                    where: "WHERE (o1.siopFullCode LIKE '0415001540%' OR o1.siopFullCode LIKE '0415001550%' OR o1.siopFullCode LIKE '0415001560%' OR o1.siopFullCode LIKE '0415001530000%' OR o1.siopFullCode LIKE '0415001510000%') "
+                    groupby: 'GROUP BY `Status`'
+                    type: sql
+            columnConfiguration:
+                -
+                    name: '# of SKUs'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel550-3
+                -
+                    name: Status
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel550-4
+            niceName: 'Chart - SKUs Workflow Status 11'
+            group: 'Hydraulic Hose'
+            groupIconClass: ''
+            iconClass: ''
+            menuShortcut: false
+            reportClass: ''
+            chartType: pie
+            pieColumn: '# of SKUs'
+            pieLabelColumn: Status
+            xAxis: null
+            yAxis: {  }
+            modificationDate: 1708261897
+            creationDate: 1708255695
+            shareGlobally: true
+            sharedUserNames: {  }
+            sharedRoleNames: {  }

@@ -1,0 +1,80 @@
+pimcore_custom_reports:
+    definitions:
+        CS_DataCompleteness11:
+            name: CS_DataCompleteness11
+            sql: ''
+            dataSourceConfig:
+                -
+                    sql: "SELECT o1.`oo_id` as `Id`,`Name`,CASE WHEN `path` = '/Contitech_ConveyorSolution/Products/' THEN 'LEVEL1' ELSE REPLACE( `path`, '/Contitech_ConveyorSolution/Products/', '' ) END as `Hierarchy Level`,FROM_UNIXTIME(`modificationDate`)as`Modification Date`,`completenessPercentage` as `Completeness Percentage`,`EmptyFields`as `Empty Fields`"
+                    from: 'FROM object_localized_CSProducts_en o1'
+                    where: ''
+                    groupby: ''
+                    type: sql
+            columnConfiguration:
+                -
+                    name: Id
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4319-1
+                -
+                    name: Name
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4319-2
+                -
+                    name: 'Hierarchy Level'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4319-3
+                -
+                    name: 'Modification Date'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4319-4
+                -
+                    name: 'Completeness Percentage'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4319-5
+                -
+                    name: 'Empty Fields'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4319-6
+            niceName: 'CS_Data Completeness 11'
+            group: 'ContiTech CS'
+            groupIconClass: ''
+            iconClass: ''
+            menuShortcut: false
+            reportClass: ''
+            chartType: ''
+            pieColumn: null
+            pieLabelColumn: null
+            xAxis: null
+            yAxis: {  }
+            modificationDate: 1708261271
+            creationDate: 1708243734
+            shareGlobally: false
+            sharedUserNames: {  }
+            sharedRoleNames:
+                - MarComCS
+                - ProductManagerCS
+                - ApplicationAdminCS

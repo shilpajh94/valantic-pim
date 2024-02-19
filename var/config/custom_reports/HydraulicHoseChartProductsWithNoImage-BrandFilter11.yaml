@@ -1,0 +1,70 @@
+pimcore_custom_reports:
+    definitions:
+        HydraulicHoseChartProductsWithNoImage-BrandFilter11:
+            name: HydraulicHoseChartProductsWithNoImage-BrandFilter11
+            sql: ''
+            dataSourceConfig:
+                -
+                    sql: "SELECT\n  temp.`SIOP3`,\n  SUM(temp.`skus`) AS `# of SKUs`,\n  ROUND(\n    (SUM(temp.`images` = \"YES\") * 100.0) / Sum(temp.`skus`),\n    2\n  ) AS `Yes Percentage`,\n  ROUND(\n    (SUM(temp.`images` = \"NO\") * 100.0) / Sum(temp.`skus`),\n    2\n  ) AS ` No Percentage`,\n  temp.`BrandType`"
+                    from: "FROM\n  (\n    SELECT\n      cat3.`description` AS `SIOP3`,\n      count(o1.`id`) AS `skus`,\n      CASE WHEN brand.`BrandType` IS NULL THEN 'Empty' WHEN brand.`BrandType` =\"\" THEN 'Empty' WHEN brand.`BrandType` = \"General\" THEN 'General' WHEN brand.`BrandType` = \"Generic\" THEN 'Generic' WHEN brand.`BrandType` = \"Private\" THEN 'Private' END AS `BrandType`,\n      IF(o1.`mainImage` IS Not NULL, \"YES\", \"NO\") AS `images`\n    FROM\n      object_1 o1\n      LEFT JOIN object_3 brand on brand.oo_id = o1.brandName\n      LEFT JOIN object_localized_query_2_en cat3 ON cat3.ooo_id = SUBSTRING(o1.SIOPLevel3, 2,(LENGTH(o1.SIOPLevel3) - 2))\n    WHERE\n      (\n        o1.`published` = 1\n        AND (o1.siopFullCode LIKE '0415001540%' OR o1.siopFullCode LIKE '0415001550%' OR o1.siopFullCode LIKE '0415001560%' OR o1.siopFullCode LIKE '0415001530000%' OR o1.siopFullCode LIKE '0415001510000%')\n      )\n    GROUP BY\n      cat3.`description`,\n      o1.`id`,\n      o1.`mainImage`,\n      brand.`BrandType`\n  ) AS temp "
+                    where: ''
+                    groupby: "GROUP BY temp.`SIOP3`,\n  temp.`skus`,\n  temp.`BrandType`\nORDER BY\n  temp.`SIOP3`"
+                    type: sql
+            columnConfiguration:
+                -
+                    name: SIOP3
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel2906-1
+                -
+                    name: '# of SKUs'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel2906-2
+                -
+                    name: 'Yes Percentage'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel2906-3
+                -
+                    name: 'No Percentage'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel2906-4
+                -
+                    name: BrandType
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel2906-5
+            niceName: 'Chart - Products With No Image - BrandType  Filter 11'
+            group: 'Hydraulic Hose'
+            groupIconClass: ''
+            iconClass: ''
+            menuShortcut: false
+            reportClass: ''
+            chartType: bar
+            pieColumn: null
+            pieLabelColumn: null
+            xAxis: SIOP3
+            yAxis:
+                - 'Yes Percentage'
+            modificationDate: 1708255248
+            creationDate: 1708255110
+            shareGlobally: true
+            sharedUserNames: {  }
+            sharedRoleNames: {  }

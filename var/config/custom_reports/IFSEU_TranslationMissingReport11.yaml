@@ -1,0 +1,1717 @@
+pimcore_custom_reports:
+    definitions:
+        IFSEU_TranslationMissingReport11:
+            name: IFSEU_TranslationMissingReport11
+            sql: ''
+            dataSourceConfig:
+                -
+                    sql: "SELECT \nobject_localized_IFSEUProduct_en.oo_id As ' Id',\n\n     object_localized_IFSEUProduct_en.headlineWeb As 'HeadLine Web',\n     object_localized_IFSEUProduct_en.productBrandNamePerLanguage As 'Product Brand Name Per Language',\n     object_localized_IFSEUProduct_en.Marking1 As 'Marking 1',\n     object_localized_IFSEUProduct_en.BrandShortText2 As 'Brand Short Text 2',  \n     object_localized_IFSEUProduct_en.Marking2 As 'Marking2',\n     object_localized_IFSEUProduct_en.searchKeywords As 'Search Keywords',\n     object_localized_IFSEUProduct_en.NoteInformationBelowTable As 'Note 2 ( Information Below Table)',\n     object_localized_IFSEUProduct_en.commercialDescription As 'Commercial Description',\n     object_localized_IFSEUProduct_en.technicalDescription As 'Technical Description',\n     object_localized_IFSEUProduct_en.sapDescription As 'SAP Description',\n     object_localized_IFSEUProduct_en.shippingConditions As 'Shipping Conditions',\n     object_localized_IFSEUProduct_en.Conditions As 'Conditions',\n     object_localized_IFSEUProduct_en.manufacturingLength As 'Manufacturing Length', \n     object_localized_IFSEUProduct_en.minimumOrder As 'Minimum Order', \n     \n     object_localized_IFSEUProduct_de.headlineWeb As 'HeadLine Web (de)',\n     object_localized_IFSEUProduct_de.productBrandNamePerLanguage As 'Product Brand Name Per Language (de)',\n     object_localized_IFSEUProduct_de.Marking1 As 'Marking 1 (de)',\n     object_localized_IFSEUProduct_de.BrandShortText2 As 'Brand Short Text 2 (de)',  \n     object_localized_IFSEUProduct_de.Marking2 As 'Marking2 (de)',\n     object_localized_IFSEUProduct_de.searchKeywords As 'Search Keywords (de)',\n     object_localized_IFSEUProduct_de.NoteInformationBelowTable As 'Note 2 ( Information Below Table) (de)',\n     object_localized_IFSEUProduct_de.commercialDescription As 'Commercial Description (de)',\n     object_localized_IFSEUProduct_de.technicalDescription As 'Technical Description (de)',\n     object_localized_IFSEUProduct_de.sapDescription As 'SAP Description (de)',\n     object_localized_IFSEUProduct_de.shippingConditions As 'Shipping Conditions (de)',\n     object_localized_IFSEUProduct_de.Conditions As 'Conditions (de)',\n     object_localized_IFSEUProduct_de.manufacturingLength As 'Manufacturing Length (de)', \n     object_localized_IFSEUProduct_de.minimumOrder As 'Minimum Order (de)', \n     \n     object_localized_IFSEUProduct_da.headlineWeb As 'HeadLine Web (da)',\n     object_localized_IFSEUProduct_da.productBrandNamePerLanguage As 'Product Brand Name Per Language (da)',\n     object_localized_IFSEUProduct_da.Marking1 As 'Marking 1 (da)',\n     object_localized_IFSEUProduct_da.BrandShortText2 As 'Brand Short Text 2 (da)',  \n     object_localized_IFSEUProduct_da.Marking2 As 'Marking2 (da)',\n     object_localized_IFSEUProduct_da.searchKeywords As 'Search Keywords (da)',\n     object_localized_IFSEUProduct_da.NoteInformationBelowTable As 'Note 2 ( Information Below Table) (da)',\n     object_localized_IFSEUProduct_da.commercialDescription As 'Commercial Description (da)',\n     object_localized_IFSEUProduct_da.technicalDescription As 'Technical Description (da)',\n     object_localized_IFSEUProduct_da.sapDescription As 'SAP Description (da)',\n     object_localized_IFSEUProduct_da.shippingConditions As 'Shipping Conditions (da)',\n     object_localized_IFSEUProduct_da.Conditions As 'Conditions (da)',\n     object_localized_IFSEUProduct_da.manufacturingLength As 'Manufacturing Length (da)', \n     object_localized_IFSEUProduct_da.minimumOrder As 'Minimum Order (da)', \n   \n     object_localized_IFSEUProduct_es.headlineWeb As 'HeadLine Web (es)',\n     object_localized_IFSEUProduct_es.productBrandNamePerLanguage As 'Product Brand Name Per Language (es)',\n     object_localized_IFSEUProduct_es.Marking1 As 'Marking 1 (es)',\n     object_localized_IFSEUProduct_es.BrandShortText2 As 'Brand Short Text 2 (es)',  \n     object_localized_IFSEUProduct_es.Marking2 As 'Marking2 (es)',\n     object_localized_IFSEUProduct_es.searchKeywords As 'Search Keywords (es)',\n     object_localized_IFSEUProduct_es.NoteInformationBelowTable As 'Note 2 ( Information Below Table) (es)',\n     object_localized_IFSEUProduct_es.commercialDescription As 'Commercial Description (es)',\n     object_localized_IFSEUProduct_es.technicalDescription As 'Technical Description (es)',\n     object_localized_IFSEUProduct_es.sapDescription As 'SAP Description (es)',\n     object_localized_IFSEUProduct_es.shippingConditions As 'Shipping Conditions (es)',\n     object_localized_IFSEUProduct_es.Conditions As 'Conditions (es)',\n     object_localized_IFSEUProduct_es.manufacturingLength As 'Manufacturing Length (es)', \n     object_localized_IFSEUProduct_es.minimumOrder As 'Minimum Order (es)', \n    \n     object_localized_IFSEUProduct_fr.headlineWeb As 'HeadLine Web (fr)',\n     object_localized_IFSEUProduct_fr.productBrandNamePerLanguage As 'Product Brand Name Per Language (fr)',\n     object_localized_IFSEUProduct_fr.Marking1 As 'Marking 1 (fr)',\n     object_localized_IFSEUProduct_fr.BrandShortText2 As 'Brand Short Text 2 (fr)',  \n     object_localized_IFSEUProduct_fr.Marking2 As 'Marking2 (fr)',\n     object_localized_IFSEUProduct_fr.searchKeywords As 'Search Keywords (fr)',\n     object_localized_IFSEUProduct_fr.NoteInformationBelowTable As 'Note 2 ( Information Below Table) (fr)',\n     object_localized_IFSEUProduct_fr.commercialDescription As 'Commercial Description (fr)',\n     object_localized_IFSEUProduct_fr.technicalDescription As 'Technical Description (fr)',\n     object_localized_IFSEUProduct_fr.sapDescription As 'SAP Description (fr)',\n     object_localized_IFSEUProduct_fr.shippingConditions As 'Shipping Conditions (fr)',\n     object_localized_IFSEUProduct_fr.Conditions As 'Conditions (fr)',\n     object_localized_IFSEUProduct_fr.manufacturingLength As 'Manufacturing Length (fr)', \n     object_localized_IFSEUProduct_fr.minimumOrder As 'Minimum Order (fr)', \n     \n     object_localized_IFSEUProduct_it_IT.headlineWeb As 'HeadLine Web (it)',\n     object_localized_IFSEUProduct_it_IT.productBrandNamePerLanguage As 'Product Brand Name Per Language (it)',\n     object_localized_IFSEUProduct_it_IT.Marking1 As 'Marking 1 (it)',\n     object_localized_IFSEUProduct_it_IT.BrandShortText2 As 'Brand Short Text 2 (it)',  \n     object_localized_IFSEUProduct_it_IT.Marking2 As 'Marking2 (it)',\n     object_localized_IFSEUProduct_it_IT.searchKeywords As 'Search Keywords (it)',\n     object_localized_IFSEUProduct_it_IT.NoteInformationBelowTable As 'Note 2 ( Information Below Table) (it)',\n     object_localized_IFSEUProduct_it_IT.commercialDescription As 'Commercial Description (it)',\n     object_localized_IFSEUProduct_it_IT.technicalDescription As 'Technical Description (it)',\n     object_localized_IFSEUProduct_it_IT.sapDescription As 'SAP Description (it)',\n     object_localized_IFSEUProduct_it_IT.shippingConditions As 'Shipping Conditions (it)',\n     object_localized_IFSEUProduct_it_IT.Conditions As 'Conditions (it)',\n     object_localized_IFSEUProduct_it_IT.manufacturingLength As 'Manufacturing Length (it)', \n     object_localized_IFSEUProduct_it_IT.minimumOrder As 'Minimum Order (it)', \n     \n     object_localized_IFSEUProduct_pt.headlineWeb As 'HeadLine Web (pt)',\n     object_localized_IFSEUProduct_pt.productBrandNamePerLanguage As 'Product Brand Name Per Language (pt)',\n     object_localized_IFSEUProduct_pt.Marking1 As 'Marking 1 (pt)',\n     object_localized_IFSEUProduct_pt.BrandShortText2 As 'Brand Short Text 2 (pt)',  \n     object_localized_IFSEUProduct_pt.Marking2 As 'Marking2 (pt)',\n     object_localized_IFSEUProduct_pt.searchKeywords As 'Search Keywords (pt)',\n     object_localized_IFSEUProduct_pt.NoteInformationBelowTable As 'Note 2 ( Information Below Table) (pt)',\n     object_localized_IFSEUProduct_pt.commercialDescription As 'Commercial Description (pt)',\n     object_localized_IFSEUProduct_pt.technicalDescription As 'Technical Description (pt)',\n     object_localized_IFSEUProduct_pt.sapDescription As 'SAP Description (pt)',\n     object_localized_IFSEUProduct_pt.shippingConditions As 'Shipping Conditions (pt)',\n     object_localized_IFSEUProduct_pt.Conditions As 'Conditions (pt)',\n     object_localized_IFSEUProduct_pt.manufacturingLength As 'Manufacturing Length (pt)', \n     object_localized_IFSEUProduct_pt.minimumOrder As 'Minimum Order (pt)', \n     \n     object_localized_IFSEUProduct_ru_RU.headlineWeb As 'HeadLine Web (ru_RU)',\n     object_localized_IFSEUProduct_ru_RU.productBrandNamePerLanguage As 'Product Brand Name Per Language (ru_RU)',\n     object_localized_IFSEUProduct_ru_RU.Marking1 As 'Marking 1 (ru_RU)',\n     object_localized_IFSEUProduct_ru_RU.BrandShortText2 As 'Brand Short Text 2 (ru_RU)',  \n     object_localized_IFSEUProduct_ru_RU.Marking2 As 'Marking2 (ru_RU)',\n     object_localized_IFSEUProduct_ru_RU.searchKeywords As 'Search Keywords (ru_RU)',\n     object_localized_IFSEUProduct_ru_RU.NoteInformationBelowTable As 'Note 2 ( Information Below Table) (ru_RU)',\n     object_localized_IFSEUProduct_ru_RU.commercialDescription As 'Commercial Description (ru_RU)',\n     object_localized_IFSEUProduct_ru_RU.technicalDescription As 'Technical Description (ru_RU)',\n     object_localized_IFSEUProduct_ru_RU.sapDescription As 'SAP Description (ru_RU)',\n     object_localized_IFSEUProduct_ru_RU.shippingConditions As 'Shipping Conditions (ru_RU)',\n     object_localized_IFSEUProduct_ru_RU.Conditions As 'Conditions (ru_RU)',\n     object_localized_IFSEUProduct_ru_RU.manufacturingLength As 'Manufacturing Length (ru_RU)', \n     object_localized_IFSEUProduct_ru_RU.minimumOrder As 'Minimum Order (ru_RU)', \n     \n     object_localized_IFSEUProduct_zh.headlineWeb As 'HeadLine Web (zh)',\n     object_localized_IFSEUProduct_zh.productBrandNamePerLanguage As 'Product Brand Name Per Language (zh)',\n     object_localized_IFSEUProduct_zh.Marking1 As 'Marking 1 (zh)',\n     object_localized_IFSEUProduct_zh.BrandShortText2 As 'Brand Short Text 2 (zh)',  \n     object_localized_IFSEUProduct_zh.Marking2 As 'Marking2 (zh)',\n     object_localized_IFSEUProduct_zh.searchKeywords As 'Search Keywords (zh)',\n     object_localized_IFSEUProduct_zh.NoteInformationBelowTable As 'Note 2 ( Information Below Table) (zh)',\n     object_localized_IFSEUProduct_zh.commercialDescription As 'Commercial Description (zh)',\n     object_localized_IFSEUProduct_zh.technicalDescription As 'Technical Description (zh)',\n     object_localized_IFSEUProduct_zh.sapDescription As 'SAP Description (zh)',\n     object_localized_IFSEUProduct_zh.shippingConditions As 'Shipping Conditions (zh)',\n     object_localized_IFSEUProduct_zh.Conditions As 'Conditions (zh)',\n     object_localized_IFSEUProduct_zh.manufacturingLength As 'Manufacturing Length (zh)', \n     object_localized_IFSEUProduct_zh.minimumOrder As 'Minimum Order (zh)', \n     \n     object_localized_IFSEUProduct_fi_FI.headlineWeb As 'HeadLine Web (fi_FI)',\n     object_localized_IFSEUProduct_fi_FI.productBrandNamePerLanguage As 'Product Brand Name Per Language (fi_FI)',\n     object_localized_IFSEUProduct_fi_FI.Marking1 As 'Marking 1 (fi_FI)',\n     object_localized_IFSEUProduct_fi_FI.BrandShortText2 As 'Brand Short Text 2 (fi_FI)',  \n     object_localized_IFSEUProduct_fi_FI.Marking2 As 'Marking2 (fi_FI)',\n     object_localized_IFSEUProduct_fi_FI.searchKeywords As 'Search Keywords (fi_FI)',\n     object_localized_IFSEUProduct_fi_FI.NoteInformationBelowTable As 'Note 2 ( Information Below Table) (fi_FI)',\n     object_localized_IFSEUProduct_fi_FI.commercialDescription As 'Commercial Description (fi_FI)',\n     object_localized_IFSEUProduct_fi_FI.technicalDescription As 'Technical Description (fi_FI)',\n     object_localized_IFSEUProduct_fi_FI.sapDescription As 'SAP Description (fi_FI)',\n     object_localized_IFSEUProduct_fi_FI.shippingConditions As 'Shipping Conditions (fi_FI)',\n     object_localized_IFSEUProduct_fi_FI.Conditions As 'Conditions (fi_FI)',\n     object_localized_IFSEUProduct_fi_FI.manufacturingLength As 'Manufacturing Length (fi_FI)', \n     object_localized_IFSEUProduct_fi_FI.minimumOrder As 'Minimum Order (fi_FI)', \n     \n     object_localized_IFSEUProduct_nl_NL.headlineWeb As 'HeadLine Web (nl_NL)',\n     object_localized_IFSEUProduct_nl_NL.productBrandNamePerLanguage As 'Product Brand Name Per Language (nl_NL)',\n     object_localized_IFSEUProduct_nl_NL.Marking1 As 'Marking 1 (nl_NL)',\n     object_localized_IFSEUProduct_nl_NL.BrandShortText2 As 'Brand Short Text 2 (nl_NL)',  \n     object_localized_IFSEUProduct_nl_NL.Marking2 As 'Marking2 (nl_NL)',\n     object_localized_IFSEUProduct_nl_NL.searchKeywords As 'Search Keywords (nl_NL)',\n     object_localized_IFSEUProduct_nl_NL.NoteInformationBelowTable As 'Note 2 ( Information Below Table) (nl_NL)',\n     object_localized_IFSEUProduct_nl_NL.commercialDescription As 'Commercial Description (nl_NL)',\n     object_localized_IFSEUProduct_nl_NL.technicalDescription As 'Technical Description (nl_NL)',\n     object_localized_IFSEUProduct_nl_NL.sapDescription As 'SAP Description (nl_NL)',\n     object_localized_IFSEUProduct_nl_NL.shippingConditions As 'Shipping Conditions (nl_NL)',\n     object_localized_IFSEUProduct_nl_NL.Conditions As 'Conditions (nl_NL)',\n     object_localized_IFSEUProduct_nl_NL.manufacturingLength As 'Manufacturing Length (nl_NL)', \n     object_localized_IFSEUProduct_nl_NL.minimumOrder As 'Minimum Order (nl_NL)', \n     \n     object_localized_IFSEUProduct_nn_NO.headlineWeb As 'HeadLine Web (nn_NO)',\n     object_localized_IFSEUProduct_nn_NO.productBrandNamePerLanguage As 'Product Brand Name Per Language (nn_NO)',\n     object_localized_IFSEUProduct_nn_NO.Marking1 As 'Marking 1 (nn_NO)',\n     object_localized_IFSEUProduct_nn_NO.BrandShortText2 As 'Brand Short Text 2 (nn_NO)',  \n     object_localized_IFSEUProduct_nn_NO.Marking2 As 'Marking2 (nn_NO)',\n     object_localized_IFSEUProduct_nn_NO.searchKeywords As 'Search Keywords (nn_NO)',\n     object_localized_IFSEUProduct_nn_NO.NoteInformationBelowTable As 'Note 2 ( Information Below Table) (nn_NO)',\n     object_localized_IFSEUProduct_nn_NO.commercialDescription As 'Commercial Description (nn_NO)',\n     object_localized_IFSEUProduct_nn_NO.technicalDescription As 'Technical Description (nn_NO)',\n     object_localized_IFSEUProduct_nn_NO.sapDescription As 'SAP Description (nn_NO)',\n     object_localized_IFSEUProduct_nn_NO.shippingConditions As 'Shipping Conditions (nn_NO)',\n     object_localized_IFSEUProduct_nn_NO.Conditions As 'Conditions (nn_NO)',\n     object_localized_IFSEUProduct_nn_NO.manufacturingLength As 'Manufacturing Length (nn_NO)', \n     object_localized_IFSEUProduct_nn_NO.minimumOrder As 'Minimum Order (nn_NO)', \n     \n     object_localized_IFSEUProduct_pl_PL.headlineWeb As 'HeadLine Web (pl_PL)',\n     object_localized_IFSEUProduct_pl_PL.productBrandNamePerLanguage As 'Product Brand Name Per Language (pl_PL)',\n     object_localized_IFSEUProduct_pl_PL.Marking1 As 'Marking 1 (pl_PL)',\n     object_localized_IFSEUProduct_pl_PL.BrandShortText2 As 'Brand Short Text 2 (pl_PL)',  \n     object_localized_IFSEUProduct_pl_PL.Marking2 As 'Marking2 (pl_PL)',\n     object_localized_IFSEUProduct_pl_PL.searchKeywords As 'Search Keywords (pl_PL)',\n     object_localized_IFSEUProduct_pl_PL.NoteInformationBelowTable As 'Note 2 ( Information Below Table) (pl_PL)',\n     object_localized_IFSEUProduct_pl_PL.commercialDescription As 'Commercial Description (pl_PL)',\n     object_localized_IFSEUProduct_pl_PL.technicalDescription As 'Technical Description (pl_PL)',\n     object_localized_IFSEUProduct_pl_PL.sapDescription As 'SAP Description (pl_PL)',\n     object_localized_IFSEUProduct_pl_PL.shippingConditions As 'Shipping Conditions (pl_PL)',\n     object_localized_IFSEUProduct_pl_PL.Conditions As 'Conditions (pl_PL)',\n     object_localized_IFSEUProduct_pl_PL.manufacturingLength As 'Manufacturing Length (pl_PL)', \n     object_localized_IFSEUProduct_pl_PL.minimumOrder As 'Minimum Order (pl_PL)', \n     \n     object_localized_IFSEUProduct_sv_SE.headlineWeb As 'HeadLine Web  (sv_SE)',\n     object_localized_IFSEUProduct_sv_SE.productBrandNamePerLanguage As 'Product Brand Name Per Language  (sv_SE)',\n     object_localized_IFSEUProduct_sv_SE.Marking1 As 'Marking 1  (sv_SE)',\n     object_localized_IFSEUProduct_sv_SE.BrandShortText2 As 'Brand Short Text 2  (sv_SE)',  \n     object_localized_IFSEUProduct_sv_SE.Marking2 As 'Marking2  (sv_SE)',\n     object_localized_IFSEUProduct_sv_SE.searchKeywords As 'Search Keywords  (sv_SE)',\n     object_localized_IFSEUProduct_sv_SE.NoteInformationBelowTable As 'Note 2 ( Information Below Table)  (sv_SE)',\n     object_localized_IFSEUProduct_sv_SE.commercialDescription As 'Commercial Description  (sv_SE)',\n     object_localized_IFSEUProduct_sv_SE.technicalDescription As 'Technical Description  (sv_SE)',\n     object_localized_IFSEUProduct_sv_SE.sapDescription As 'SAP Description  (sv_SE)',\n     object_localized_IFSEUProduct_sv_SE.shippingConditions As 'Shipping Conditions  (sv_SE)',\n     object_localized_IFSEUProduct_sv_SE.Conditions As 'Conditions  (sv_SE)',\n     object_localized_IFSEUProduct_sv_SE.manufacturingLength As 'Manufacturing Length  (sv_SE)', \n     object_localized_IFSEUProduct_sv_SE.minimumOrder As 'Minimum Order  (sv_SE)', \n     \n     object_localized_IFSEUProduct_en_GB.headlineWeb As 'HeadLine Web  (en_GB)',\n     object_localized_IFSEUProduct_en_GB.productBrandNamePerLanguage As 'Product Brand Name Per Language  (en_GB)',\n     object_localized_IFSEUProduct_en_GB.Marking1 As 'Marking 1  (en_GB)',\n     object_localized_IFSEUProduct_en_GB.BrandShortText2 As 'Brand Short Text 2  (en_GB)',  \n     object_localized_IFSEUProduct_en_GB.Marking2 As 'Marking2  (en_GB)',\n     object_localized_IFSEUProduct_en_GB.searchKeywords As 'Search Keywords  (en_GB)',\n     object_localized_IFSEUProduct_en_GB.NoteInformationBelowTable As 'Note 2 ( Information Below Table)  (en_GB)',\n     object_localized_IFSEUProduct_en_GB.commercialDescription As 'Commercial Description  (en_GB)',\n     object_localized_IFSEUProduct_en_GB.technicalDescription As 'Technical Description  (en_GB)',\n     object_localized_IFSEUProduct_en_GB.sapDescription As 'SAP Description  (en_GB)',\n     object_localized_IFSEUProduct_en_GB.shippingConditions As 'Shipping Conditions  (en_GB)',\n     object_localized_IFSEUProduct_en_GB.Conditions As 'Conditions  (en_GB)',\n     object_localized_IFSEUProduct_en_GB.manufacturingLength As 'Manufacturing Length  (en_GB)', \n     object_localized_IFSEUProduct_en_GB.minimumOrder As 'Minimum Order  (en_GB)'"
+                    from: "FROM  object_localized_IFSEUProduct_en\n    INNER JOIN  object_localized_IFSEUProduct_de ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_de.oo_id\n    INNER JOIN  object_localized_IFSEUProduct_da ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_da.oo_id\n    INNER JOIN  object_localized_IFSEUProduct_es ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_es.oo_id\n    INNER JOIN  object_localized_IFSEUProduct_fr ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_fr.oo_id  \n    INNER JOIN  object_localized_IFSEUProduct_it_IT ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_it_IT.oo_id\n    INNER JOIN  object_localized_IFSEUProduct_pt ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_pt.oo_id\n    INNER JOIN  object_localized_IFSEUProduct_ru_RU ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_ru_RU.oo_id\n    INNER JOIN  object_localized_IFSEUProduct_zh ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_zh.oo_id\n    INNER JOIN  object_localized_IFSEUProduct_fi_FI ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_fi_FI.oo_id\n    INNER JOIN  object_localized_IFSEUProduct_nl_NL ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_nl_NL.oo_id\n    INNER JOIN  object_localized_IFSEUProduct_nn_NO ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_nn_NO.oo_id\n    INNER JOIN  object_localized_IFSEUProduct_pl_PL ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_pl_PL.oo_id\n    INNER JOIN  object_localized_IFSEUProduct_sv_SE ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_sv_SE.oo_id\n    INNER JOIN  object_localized_IFSEUProduct_en_GB ON  object_localized_IFSEUProduct_en.oo_id =  object_localized_IFSEUProduct_en_GB.oo_id"
+                    where: "WHERE\n    (\n\t \n     object_localized_IFSEUProduct_en.headlineWeb is null OR\n     object_localized_IFSEUProduct_en.productBrandNamePerLanguage is null OR\n     object_localized_IFSEUProduct_en.Marking1 is null OR\n     object_localized_IFSEUProduct_en.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_en.Marking2 is null OR \n     object_localized_IFSEUProduct_en.searchKeywords is null OR \n     object_localized_IFSEUProduct_en.NoteInformationBelowTable is null OR\n     object_localized_IFSEUProduct_en.commercialDescription is null OR \n     object_localized_IFSEUProduct_en.technicalDescription is null OR \n     object_localized_IFSEUProduct_en.sapDescription is null OR \n     object_localized_IFSEUProduct_en.shippingConditions is null OR \n     object_localized_IFSEUProduct_en.Conditions is null OR \n     object_localized_IFSEUProduct_en.manufacturingLength is null OR \n     object_localized_IFSEUProduct_en.minimumOrder is null OR \n     \n     object_localized_IFSEUProduct_de.headlineWeb is null OR\n     object_localized_IFSEUProduct_de.productBrandNamePerLanguage is null OR\n     object_localized_IFSEUProduct_de.Marking1 is null OR\n     object_localized_IFSEUProduct_de.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_de.Marking2 is null OR \n     object_localized_IFSEUProduct_de.searchKeywords is null OR \n     object_localized_IFSEUProduct_de.NoteInformationBelowTable is null OR\n     object_localized_IFSEUProduct_de.commercialDescription is null OR \n     object_localized_IFSEUProduct_de.technicalDescription is null OR \n     object_localized_IFSEUProduct_de.sapDescription is null OR \n     object_localized_IFSEUProduct_de.shippingConditions is null OR \n     object_localized_IFSEUProduct_de.Conditions is null OR \n     object_localized_IFSEUProduct_de.manufacturingLength is null OR \n     object_localized_IFSEUProduct_de.minimumOrder is null OR \n    \n     object_localized_IFSEUProduct_da.headlineWeb is null OR\n     object_localized_IFSEUProduct_da.productBrandNamePerLanguage is null OR\n     object_localized_IFSEUProduct_da.Marking1 is null OR\n     object_localized_IFSEUProduct_da.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_da.Marking2 is null OR \n     object_localized_IFSEUProduct_da.searchKeywords is null OR \n     object_localized_IFSEUProduct_da.NoteInformationBelowTable is null OR\n     object_localized_IFSEUProduct_da.commercialDescription is null OR \n     object_localized_IFSEUProduct_da.technicalDescription is null OR \n     object_localized_IFSEUProduct_da.sapDescription is null OR \n     object_localized_IFSEUProduct_da.shippingConditions is null OR \n     object_localized_IFSEUProduct_da.Conditions is null OR \n     object_localized_IFSEUProduct_da.manufacturingLength is null OR \n     object_localized_IFSEUProduct_da.minimumOrder is null OR \n    \n     object_localized_IFSEUProduct_es.headlineWeb is null OR\n     object_localized_IFSEUProduct_es.productBrandNamePerLanguage is null OR\n     object_localized_IFSEUProduct_es.Marking1 is null OR\n     object_localized_IFSEUProduct_es.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_es.Marking2 is null OR \n     object_localized_IFSEUProduct_es.searchKeywords is null OR \n     object_localized_IFSEUProduct_es.NoteInformationBelowTable is null OR\n     object_localized_IFSEUProduct_es.commercialDescription is null OR \n     object_localized_IFSEUProduct_es.technicalDescription is null OR \n     object_localized_IFSEUProduct_es.sapDescription is null OR \n     object_localized_IFSEUProduct_es.shippingConditions is null OR \n     object_localized_IFSEUProduct_es.Conditions is null OR \n     object_localized_IFSEUProduct_es.manufacturingLength is null OR \n     object_localized_IFSEUProduct_es.minimumOrder is null OR \n     \n     object_localized_IFSEUProduct_fr.headlineWeb is null OR\n     object_localized_IFSEUProduct_fr.productBrandNamePerLanguage is null OR\n     object_localized_IFSEUProduct_fr.Marking1 is null OR\n     object_localized_IFSEUProduct_fr.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_fr.Marking2 is null OR \n     object_localized_IFSEUProduct_fr.searchKeywords is null OR \n     object_localized_IFSEUProduct_fr.NoteInformationBelowTable is null OR\n     object_localized_IFSEUProduct_fr.commercialDescription is null OR \n     object_localized_IFSEUProduct_fr.technicalDescription is null OR \n     object_localized_IFSEUProduct_fr.sapDescription is null OR \n     object_localized_IFSEUProduct_fr.shippingConditions is null OR \n     object_localized_IFSEUProduct_fr.Conditions is null OR \n     object_localized_IFSEUProduct_fr.manufacturingLength is null OR \n     object_localized_IFSEUProduct_fr.minimumOrder is null OR \n     \n     object_localized_IFSEUProduct_it_IT.headlineWeb is null OR\n     object_localized_IFSEUProduct_it_IT.productBrandNamePerLanguage is null OR\n     object_localized_IFSEUProduct_it_IT.Marking1 is null OR\n     object_localized_IFSEUProduct_it_IT.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_it_IT.Marking2 is null OR \n     object_localized_IFSEUProduct_it_IT.searchKeywords is null OR \n     object_localized_IFSEUProduct_it_IT.NoteInformationBelowTable is null OR\n     object_localized_IFSEUProduct_it_IT.commercialDescription is null OR \n     object_localized_IFSEUProduct_it_IT.technicalDescription is null OR \n     object_localized_IFSEUProduct_it_IT.sapDescription is null OR \n     object_localized_IFSEUProduct_it_IT.shippingConditions is null OR \n     object_localized_IFSEUProduct_it_IT.Conditions is null OR \n     object_localized_IFSEUProduct_it_IT.manufacturingLength is null OR \n     object_localized_IFSEUProduct_it_IT.minimumOrder is null OR \n    \n     object_localized_IFSEUProduct_pt.headlineWeb is null OR\n\t   object_localized_IFSEUProduct_pt.productBrandNamePerLanguage is null OR\n     object_localized_IFSEUProduct_pt.Marking1 is null OR\n     object_localized_IFSEUProduct_pt.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_pt.Marking2 is null OR \n     object_localized_IFSEUProduct_pt.searchKeywords is null OR \n     object_localized_IFSEUProduct_pt.NoteInformationBelowTable is null OR\n     object_localized_IFSEUProduct_pt.commercialDescription is null OR \n     object_localized_IFSEUProduct_pt.technicalDescription is null OR \n     object_localized_IFSEUProduct_pt.sapDescription is null OR \n     object_localized_IFSEUProduct_pt.shippingConditions is null OR \n     object_localized_IFSEUProduct_pt.Conditions is null OR \n     object_localized_IFSEUProduct_pt.manufacturingLength is null OR \n     object_localized_IFSEUProduct_pt.minimumOrder is null OR \n     \n     object_localized_IFSEUProduct_ru_RU.headlineWeb is null OR\n\t   object_localized_IFSEUProduct_ru_RU.productBrandNamePerLanguage is null OR\n     object_localized_IFSEUProduct_ru_RU.Marking1 is null OR\n     object_localized_IFSEUProduct_ru_RU.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_ru_RU.Marking2 is null OR \n     object_localized_IFSEUProduct_ru_RU.searchKeywords is null OR \n     object_localized_IFSEUProduct_ru_RU.NoteInformationBelowTable is null OR\n     object_localized_IFSEUProduct_ru_RU.commercialDescription is null OR \n     object_localized_IFSEUProduct_ru_RU.technicalDescription is null OR \n     object_localized_IFSEUProduct_ru_RU.sapDescription is null OR \n     object_localized_IFSEUProduct_ru_RU.shippingConditions is null OR \n     object_localized_IFSEUProduct_ru_RU.Conditions is null OR \n     object_localized_IFSEUProduct_ru_RU.manufacturingLength is null OR \n     object_localized_IFSEUProduct_ru_RU.minimumOrder is null OR \n    \n     object_localized_IFSEUProduct_zh.headlineWeb is null OR\n\t   object_localized_IFSEUProduct_zh.productBrandNamePerLanguage is null OR\n     object_localized_IFSEUProduct_zh.Marking1 is null OR\n     object_localized_IFSEUProduct_zh.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_zh.Marking2 is null OR \n     object_localized_IFSEUProduct_zh.searchKeywords is null OR \n     object_localized_IFSEUProduct_zh.NoteInformationBelowTable is null OR\n     object_localized_IFSEUProduct_zh.commercialDescription is null OR \n     object_localized_IFSEUProduct_zh.technicalDescription is null OR \n     object_localized_IFSEUProduct_zh.sapDescription is null OR \n     object_localized_IFSEUProduct_zh.shippingConditions is null OR \n     object_localized_IFSEUProduct_zh.Conditions is null OR \n     object_localized_IFSEUProduct_zh.manufacturingLength is null OR \n     object_localized_IFSEUProduct_zh.minimumOrder is null OR \n\n     object_localized_IFSEUProduct_fi_FI.headlineWeb is null OR\n\t   object_localized_IFSEUProduct_fi_FI.productBrandNamePerLanguage is null OR\n     object_localized_IFSEUProduct_fi_FI.Marking1 is null OR\n     object_localized_IFSEUProduct_fi_FI.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_fi_FI.Marking2 is null OR \n     object_localized_IFSEUProduct_fi_FI.searchKeywords is null OR\n     object_localized_IFSEUProduct_fi_FI.NoteInformationBelowTable is null OR \n     object_localized_IFSEUProduct_fi_FI.commercialDescription is null OR \n     object_localized_IFSEUProduct_fi_FI.technicalDescription is null OR \n     object_localized_IFSEUProduct_fi_FI.sapDescription is null OR \n     object_localized_IFSEUProduct_fi_FI.shippingConditions is null OR \n     object_localized_IFSEUProduct_fi_FI.Conditions is null OR \n     object_localized_IFSEUProduct_fi_FI.manufacturingLength is null OR \n     object_localized_IFSEUProduct_fi_FI.minimumOrder is null OR \n     \n     object_localized_IFSEUProduct_nl_NL.headlineWeb is null OR\n\t   object_localized_IFSEUProduct_nl_NL.productBrandNamePerLanguage is null OR\n     object_localized_IFSEUProduct_nl_NL.Marking1 is null OR\n     object_localized_IFSEUProduct_nl_NL.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_nl_NL.Marking2 is null OR \n     object_localized_IFSEUProduct_nl_NL.searchKeywords is null OR \n     object_localized_IFSEUProduct_nl_NL.NoteInformationBelowTable is null OR\n     object_localized_IFSEUProduct_nl_NL.commercialDescription is null OR \n     object_localized_IFSEUProduct_nl_NL.technicalDescription is null OR \n     object_localized_IFSEUProduct_nl_NL.sapDescription is null OR \n     object_localized_IFSEUProduct_nl_NL.shippingConditions is null OR \n     object_localized_IFSEUProduct_nl_NL.Conditions is null OR \n     object_localized_IFSEUProduct_nl_NL.manufacturingLength is null OR \n     object_localized_IFSEUProduct_nl_NL.minimumOrder is null OR \n    \n     object_localized_IFSEUProduct_nn_NO.headlineWeb is null OR\n\t   object_localized_IFSEUProduct_nn_NO.productBrandNamePerLanguage is null OR\n     object_localized_IFSEUProduct_nn_NO.Marking1 is null OR\n     object_localized_IFSEUProduct_nn_NO.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_nn_NO.Marking2 is null OR \n     object_localized_IFSEUProduct_nn_NO.searchKeywords is null OR \n     object_localized_IFSEUProduct_nn_NO.NoteInformationBelowTable is null OR\n     object_localized_IFSEUProduct_nn_NO.commercialDescription is null OR \n     object_localized_IFSEUProduct_nn_NO.technicalDescription is null OR \n     object_localized_IFSEUProduct_nn_NO.sapDescription is null OR \n     object_localized_IFSEUProduct_nn_NO.shippingConditions is null OR \n     object_localized_IFSEUProduct_nn_NO.Conditions is null OR \n     object_localized_IFSEUProduct_nn_NO.manufacturingLength is null OR \n     object_localized_IFSEUProduct_nn_NO.minimumOrder is null OR \n    \n     object_localized_IFSEUProduct_pl_PL.headlineWeb is null OR\n\t   object_localized_IFSEUProduct_pl_PL.productBrandNamePerLanguage is null OR\n     object_localized_IFSEUProduct_pl_PL.Marking1 is null OR\n     object_localized_IFSEUProduct_pl_PL.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_pl_PL.Marking2 is null OR \n     object_localized_IFSEUProduct_pl_PL.searchKeywords is null OR \n     object_localized_IFSEUProduct_pl_PL.NoteInformationBelowTable is null OR\n     object_localized_IFSEUProduct_pl_PL.commercialDescription is null OR \n     object_localized_IFSEUProduct_pl_PL.technicalDescription is null OR \n     object_localized_IFSEUProduct_pl_PL.sapDescription is null OR \n     object_localized_IFSEUProduct_pl_PL.shippingConditions is null OR \n     object_localized_IFSEUProduct_pl_PL.Conditions is null OR \n     object_localized_IFSEUProduct_pl_PL.manufacturingLength is null OR \n     object_localized_IFSEUProduct_pl_PL.minimumOrder is null OR \n     \n     object_localized_IFSEUProduct_sv_SE.headlineWeb is null OR\n\t   object_localized_IFSEUProduct_sv_SE.productBrandNamePerLanguage is null OR\n     object_localized_IFSEUProduct_sv_SE.Marking1 is null OR\n     object_localized_IFSEUProduct_sv_SE.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_sv_SE.Marking2 is null OR \n     object_localized_IFSEUProduct_sv_SE.searchKeywords is null OR \n     object_localized_IFSEUProduct_sv_SE.NoteInformationBelowTable is null OR\n     object_localized_IFSEUProduct_sv_SE.commercialDescription is null OR \n     object_localized_IFSEUProduct_sv_SE.technicalDescription is null OR \n     object_localized_IFSEUProduct_sv_SE.sapDescription is null OR \n     object_localized_IFSEUProduct_sv_SE.shippingConditions is null OR \n     object_localized_IFSEUProduct_sv_SE.Conditions is null OR \n     object_localized_IFSEUProduct_sv_SE.manufacturingLength is null OR \n     object_localized_IFSEUProduct_sv_SE.minimumOrder is null OR \n    \n     object_localized_IFSEUProduct_en_GB.headlineWeb is null OR\n\t   object_localized_IFSEUProduct_en_GB.productBrandNamePerLanguage is null OR\n     object_localized_IFSEUProduct_en_GB.Marking1 is null OR\n     object_localized_IFSEUProduct_en_GB.BrandShortText2 is null OR \n     object_localized_IFSEUProduct_en_GB.Marking2 is null OR \n     object_localized_IFSEUProduct_en_GB.searchKeywords is null OR \n     object_localized_IFSEUProduct_en_GB.NoteInformationBelowTable is null OR\n     object_localized_IFSEUProduct_en_GB.commercialDescription is null OR \n     object_localized_IFSEUProduct_en_GB.technicalDescription is null OR \n     object_localized_IFSEUProduct_en_GB.sapDescription is null OR \n     object_localized_IFSEUProduct_en_GB.shippingConditions is null OR \n     object_localized_IFSEUProduct_en_GB.Conditions is null OR \n     object_localized_IFSEUProduct_en_GB.manufacturingLength is null OR \n     object_localized_IFSEUProduct_en_GB.minimumOrder is null\n    )"
+                    groupby: ''
+                    type: sql
+            columnConfiguration:
+                -
+                    name: Id
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-1
+                -
+                    name: 'HeadLine Web'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-2
+                -
+                    name: 'Product Brand Name Per Language'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-3
+                -
+                    name: 'Marking 1'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-4
+                -
+                    name: 'Brand Short Text 2'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-5
+                -
+                    name: Marking2
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-6
+                -
+                    name: 'Search Keywords'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-7
+                -
+                    name: 'Note 2 ( Information Below Table)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-8
+                -
+                    name: 'Commercial Description'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-9
+                -
+                    name: 'Technical Description'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-10
+                -
+                    name: 'SAP Description'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-11
+                -
+                    name: 'Shipping Conditions'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-12
+                -
+                    name: Conditions
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-13
+                -
+                    name: 'Manufacturing Length'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-14
+                -
+                    name: 'Minimum Order'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-15
+                -
+                    name: 'HeadLine Web (de)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-16
+                -
+                    name: 'Product Brand Name Per Language (de)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-17
+                -
+                    name: 'Marking 1 (de)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-18
+                -
+                    name: 'Brand Short Text 2 (de)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-19
+                -
+                    name: 'Marking2 (de)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-20
+                -
+                    name: 'Search Keywords (de)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-21
+                -
+                    name: 'Note 2 ( Information Below Table) (de)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-22
+                -
+                    name: 'Commercial Description (de)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-23
+                -
+                    name: 'Technical Description (de)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-24
+                -
+                    name: 'SAP Description (de)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-25
+                -
+                    name: 'Shipping Conditions (de)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-26
+                -
+                    name: 'Conditions (de)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-27
+                -
+                    name: 'Manufacturing Length (de)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-28
+                -
+                    name: 'Minimum Order (de)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-29
+                -
+                    name: 'HeadLine Web (da)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-30
+                -
+                    name: 'Product Brand Name Per Language (da)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-31
+                -
+                    name: 'Marking 1 (da)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-32
+                -
+                    name: 'Brand Short Text 2 (da)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-33
+                -
+                    name: 'Marking2 (da)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-34
+                -
+                    name: 'Search Keywords (da)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-35
+                -
+                    name: 'Note 2 ( Information Below Table) (da)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-36
+                -
+                    name: 'Commercial Description (da)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-37
+                -
+                    name: 'Technical Description (da)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-38
+                -
+                    name: 'SAP Description (da)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-39
+                -
+                    name: 'Shipping Conditions (da)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-40
+                -
+                    name: 'Conditions (da)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-41
+                -
+                    name: 'Manufacturing Length (da)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-42
+                -
+                    name: 'Minimum Order (da)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-43
+                -
+                    name: 'HeadLine Web (es)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-44
+                -
+                    name: 'Product Brand Name Per Language (es)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-45
+                -
+                    name: 'Marking 1 (es)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-46
+                -
+                    name: 'Brand Short Text 2 (es)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-47
+                -
+                    name: 'Marking2 (es)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-48
+                -
+                    name: 'Search Keywords (es)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-49
+                -
+                    name: 'Note 2 ( Information Below Table) (es)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-50
+                -
+                    name: 'Commercial Description (es)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-51
+                -
+                    name: 'Technical Description (es)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-52
+                -
+                    name: 'SAP Description (es)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-53
+                -
+                    name: 'Shipping Conditions (es)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-54
+                -
+                    name: 'Conditions (es)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-55
+                -
+                    name: 'Manufacturing Length (es)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-56
+                -
+                    name: 'Minimum Order (es)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-57
+                -
+                    name: 'HeadLine Web (fr)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-58
+                -
+                    name: 'Product Brand Name Per Language (fr)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-59
+                -
+                    name: 'Marking 1 (fr)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-60
+                -
+                    name: 'Brand Short Text 2 (fr)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-61
+                -
+                    name: 'Marking2 (fr)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-62
+                -
+                    name: 'Search Keywords (fr)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-63
+                -
+                    name: 'Note 2 ( Information Below Table) (fr)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-64
+                -
+                    name: 'Commercial Description (fr)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-65
+                -
+                    name: 'Technical Description (fr)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-66
+                -
+                    name: 'SAP Description (fr)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-67
+                -
+                    name: 'Shipping Conditions (fr)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-68
+                -
+                    name: 'Conditions (fr)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-69
+                -
+                    name: 'Manufacturing Length (fr)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-70
+                -
+                    name: 'Minimum Order (fr)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-71
+                -
+                    name: 'HeadLine Web (it)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-72
+                -
+                    name: 'Product Brand Name Per Language (it)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-73
+                -
+                    name: 'Marking 1 (it)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-74
+                -
+                    name: 'Brand Short Text 2 (it)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-75
+                -
+                    name: 'Marking2 (it)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-76
+                -
+                    name: 'Search Keywords (it)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-77
+                -
+                    name: 'Note 2 ( Information Below Table) (it)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-78
+                -
+                    name: 'Commercial Description (it)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-79
+                -
+                    name: 'Technical Description (it)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-80
+                -
+                    name: 'SAP Description (it)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-81
+                -
+                    name: 'Shipping Conditions (it)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-82
+                -
+                    name: 'Conditions (it)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-83
+                -
+                    name: 'Manufacturing Length (it)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-84
+                -
+                    name: 'Minimum Order (it)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-85
+                -
+                    name: 'HeadLine Web (pt)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-86
+                -
+                    name: 'Product Brand Name Per Language (pt)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-87
+                -
+                    name: 'Marking 1 (pt)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-88
+                -
+                    name: 'Brand Short Text 2 (pt)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-89
+                -
+                    name: 'Marking2 (pt)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-90
+                -
+                    name: 'Search Keywords (pt)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-91
+                -
+                    name: 'Note 2 ( Information Below Table) (pt)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-92
+                -
+                    name: 'Commercial Description (pt)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-93
+                -
+                    name: 'Technical Description (pt)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-94
+                -
+                    name: 'SAP Description (pt)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-95
+                -
+                    name: 'Shipping Conditions (pt)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-96
+                -
+                    name: 'Conditions (pt)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-97
+                -
+                    name: 'Manufacturing Length (pt)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-98
+                -
+                    name: 'Minimum Order (pt)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-99
+                -
+                    name: 'HeadLine Web (ru_RU)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-100
+                -
+                    name: 'Product Brand Name Per Language (ru_RU)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-101
+                -
+                    name: 'Marking 1 (ru_RU)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-102
+                -
+                    name: 'Brand Short Text 2 (ru_RU)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-103
+                -
+                    name: 'Marking2 (ru_RU)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-104
+                -
+                    name: 'Search Keywords (ru_RU)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-105
+                -
+                    name: 'Note 2 ( Information Below Table) (ru_RU)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-106
+                -
+                    name: 'Commercial Description (ru_RU)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-107
+                -
+                    name: 'Technical Description (ru_RU)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-108
+                -
+                    name: 'SAP Description (ru_RU)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-109
+                -
+                    name: 'Shipping Conditions (ru_RU)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-110
+                -
+                    name: 'Conditions (ru_RU)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-111
+                -
+                    name: 'Manufacturing Length (ru_RU)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-112
+                -
+                    name: 'Minimum Order (ru_RU)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-113
+                -
+                    name: 'HeadLine Web (zh)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-114
+                -
+                    name: 'Product Brand Name Per Language (zh)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-115
+                -
+                    name: 'Marking 1 (zh)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-116
+                -
+                    name: 'Brand Short Text 2 (zh)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-117
+                -
+                    name: 'Marking2 (zh)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-118
+                -
+                    name: 'Search Keywords (zh)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-119
+                -
+                    name: 'Note 2 ( Information Below Table) (zh)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-120
+                -
+                    name: 'Commercial Description (zh)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-121
+                -
+                    name: 'Technical Description (zh)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-122
+                -
+                    name: 'SAP Description (zh)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-123
+                -
+                    name: 'Shipping Conditions (zh)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-124
+                -
+                    name: 'Conditions (zh)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-125
+                -
+                    name: 'Manufacturing Length (zh)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-126
+                -
+                    name: 'Minimum Order (zh)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-127
+                -
+                    name: 'HeadLine Web (fi_FI)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-128
+                -
+                    name: 'Product Brand Name Per Language (fi_FI)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-129
+                -
+                    name: 'Marking 1 (fi_FI)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-130
+                -
+                    name: 'Brand Short Text 2 (fi_FI)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-131
+                -
+                    name: 'Marking2 (fi_FI)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-132
+                -
+                    name: 'Search Keywords (fi_FI)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-133
+                -
+                    name: 'Note 2 ( Information Below Table) (fi_FI)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-134
+                -
+                    name: 'Commercial Description (fi_FI)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-135
+                -
+                    name: 'Technical Description (fi_FI)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-136
+                -
+                    name: 'SAP Description (fi_FI)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-137
+                -
+                    name: 'Shipping Conditions (fi_FI)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-138
+                -
+                    name: 'Conditions (fi_FI)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-139
+                -
+                    name: 'Manufacturing Length (fi_FI)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-140
+                -
+                    name: 'Minimum Order (fi_FI)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-141
+                -
+                    name: 'HeadLine Web (nl_NL)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-142
+                -
+                    name: 'Product Brand Name Per Language (nl_NL)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-143
+                -
+                    name: 'Marking 1 (nl_NL)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-144
+                -
+                    name: 'Brand Short Text 2 (nl_NL)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-145
+                -
+                    name: 'Marking2 (nl_NL)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-146
+                -
+                    name: 'Search Keywords (nl_NL)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-147
+                -
+                    name: 'Note 2 ( Information Below Table) (nl_NL)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-148
+                -
+                    name: 'Commercial Description (nl_NL)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-149
+                -
+                    name: 'Technical Description (nl_NL)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-150
+                -
+                    name: 'SAP Description (nl_NL)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-151
+                -
+                    name: 'Shipping Conditions (nl_NL)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-152
+                -
+                    name: 'Conditions (nl_NL)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-153
+                -
+                    name: 'Manufacturing Length (nl_NL)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-154
+                -
+                    name: 'Minimum Order (nl_NL)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-155
+                -
+                    name: 'HeadLine Web (nn_NO)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-156
+                -
+                    name: 'Product Brand Name Per Language (nn_NO)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-157
+                -
+                    name: 'Marking 1 (nn_NO)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-158
+                -
+                    name: 'Brand Short Text 2 (nn_NO)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-159
+                -
+                    name: 'Marking2 (nn_NO)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-160
+                -
+                    name: 'Search Keywords (nn_NO)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-161
+                -
+                    name: 'Note 2 ( Information Below Table) (nn_NO)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-162
+                -
+                    name: 'Commercial Description (nn_NO)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-163
+                -
+                    name: 'Technical Description (nn_NO)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-164
+                -
+                    name: 'SAP Description (nn_NO)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-165
+                -
+                    name: 'Shipping Conditions (nn_NO)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-166
+                -
+                    name: 'Conditions (nn_NO)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-167
+                -
+                    name: 'Manufacturing Length (nn_NO)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-168
+                -
+                    name: 'Minimum Order (nn_NO)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-169
+                -
+                    name: 'HeadLine Web (pl_PL)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-170
+                -
+                    name: 'Product Brand Name Per Language (pl_PL)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-171
+                -
+                    name: 'Marking 1 (pl_PL)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-172
+                -
+                    name: 'Brand Short Text 2 (pl_PL)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-173
+                -
+                    name: 'Marking2 (pl_PL)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-174
+                -
+                    name: 'Search Keywords (pl_PL)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-175
+                -
+                    name: 'Note 2 ( Information Below Table) (pl_PL)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-176
+                -
+                    name: 'Commercial Description (pl_PL)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-177
+                -
+                    name: 'Technical Description (pl_PL)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-178
+                -
+                    name: 'SAP Description (pl_PL)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-179
+                -
+                    name: 'Shipping Conditions (pl_PL)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-180
+                -
+                    name: 'Conditions (pl_PL)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-181
+                -
+                    name: 'Manufacturing Length (pl_PL)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-182
+                -
+                    name: 'Minimum Order (pl_PL)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-183
+                -
+                    name: 'HeadLine Web  (sv_SE)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-184
+                -
+                    name: 'Product Brand Name Per Language  (sv_SE)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-185
+                -
+                    name: 'Marking 1  (sv_SE)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-186
+                -
+                    name: 'Brand Short Text 2  (sv_SE)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-187
+                -
+                    name: 'Marking2  (sv_SE)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-188
+                -
+                    name: 'Search Keywords  (sv_SE)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-189
+                -
+                    name: 'Note 2 ( Information Below Table)  (sv_SE)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-190
+                -
+                    name: 'Commercial Description  (sv_SE)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-191
+                -
+                    name: 'Technical Description  (sv_SE)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-192
+                -
+                    name: 'SAP Description  (sv_SE)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-193
+                -
+                    name: 'Shipping Conditions  (sv_SE)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-194
+                -
+                    name: 'Conditions  (sv_SE)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-195
+                -
+                    name: 'Manufacturing Length  (sv_SE)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-196
+                -
+                    name: 'Minimum Order  (sv_SE)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-197
+                -
+                    name: 'HeadLine Web  (en_GB)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-198
+                -
+                    name: 'Product Brand Name Per Language  (en_GB)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-199
+                -
+                    name: 'Marking 1  (en_GB)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-200
+                -
+                    name: 'Brand Short Text 2  (en_GB)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-201
+                -
+                    name: 'Marking2  (en_GB)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-202
+                -
+                    name: 'Search Keywords  (en_GB)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-203
+                -
+                    name: 'Note 2 ( Information Below Table)  (en_GB)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-204
+                -
+                    name: 'Commercial Description  (en_GB)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-205
+                -
+                    name: 'Technical Description  (en_GB)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-206
+                -
+                    name: 'SAP Description  (en_GB)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-207
+                -
+                    name: 'Shipping Conditions  (en_GB)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-208
+                -
+                    name: 'Conditions  (en_GB)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-209
+                -
+                    name: 'Manufacturing Length  (en_GB)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-210
+                -
+                    name: 'Minimum Order  (en_GB)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1483-211
+            niceName: 'IFSEU - Translation Missing Report 11'
+            group: IFS_EU
+            groupIconClass: ''
+            iconClass: ''
+            menuShortcut: false
+            reportClass: ''
+            chartType: ''
+            pieColumn: null
+            pieLabelColumn: null
+            xAxis: null
+            yAxis: {  }
+            modificationDate: 1708326001
+            creationDate: 1708259039
+            shareGlobally: true
+            sharedUserNames: {  }
+            sharedRoleNames: {  }

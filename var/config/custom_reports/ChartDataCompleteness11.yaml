@@ -1,0 +1,53 @@
+pimcore_custom_reports:
+    definitions:
+        ChartDataCompleteness11:
+            name: ChartDataCompleteness11
+            sql: ''
+            dataSourceConfig:
+                -
+                    sql: "SELECT \ncount(o1.`key`) as `# of SKUs`, ROUND((sum(en.CompletenessPercentage)/count(o1.`key`)),3)  AS `COMPLETED (%)`,\ncat3.`description` AS `SIOP Level 3`"
+                    from: "object_1 o1 \nLEFT JOIN `object_localized_query_1_en` en \nON `en`.`ooo_id` = `o1`.`id`\nLEFT JOIN object_localized_query_2_en cat3 \nON cat3.ooo_id = SUBSTRING(o1.SIOPLevel3,2,(LENGTH(o1.SIOPLevel3) - 2))"
+                    where: '(o1.`published` =1)'
+                    groupby: ''
+                    type: sql
+            columnConfiguration:
+                -
+                    name: '# of SKUs'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4778-1
+                -
+                    name: 'COMPLETED (%)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4778-2
+                -
+                    name: 'SIOP Level 3'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4778-3
+            niceName: 'Chart - Data Completeness 11'
+            group: ''
+            groupIconClass: ''
+            iconClass: ''
+            menuShortcut: false
+            reportClass: ''
+            chartType: ''
+            pieColumn: null
+            pieLabelColumn: null
+            xAxis: null
+            yAxis: {  }
+            modificationDate: 1708261309
+            creationDate: 1708241364
+            shareGlobally: true
+            sharedUserNames: {  }
+            sharedRoleNames: {  }

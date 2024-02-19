@@ -1,0 +1,46 @@
+pimcore_custom_reports:
+    definitions:
+        IndustrialHoseChartNewProducts11:
+            name: IndustrialHoseChartNewProducts11
+            sql: ''
+            dataSourceConfig:
+                -
+                    sql: 'SELECT MONTHNAME(FROM_UNIXTIME(o1.`creationDate`)) AS `Month`, IF(Count(*),Count(*),0) AS `# of SKUs`'
+                    from: "FROM object_1 o1 \n"
+                    where: "WHERE (o1.siopFullCode LIKE '041000%') AND (o1.`creationDate` >= MONTH(CURDATE() - Interval 9 month))"
+                    groupby: 'GROUP BY MONTHNAME(FROM_UNIXTIME(o1.`creationDate`)) order by o1.`creationDate`'
+                    type: sql
+            columnConfiguration:
+                -
+                    name: Month
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel2135-1
+                -
+                    name: '# of SKUs'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel2135-2
+            niceName: 'Chart - New Products'
+            group: 'Industrial Hose'
+            groupIconClass: ''
+            iconClass: ''
+            menuShortcut: false
+            reportClass: ''
+            chartType: bar
+            pieColumn: null
+            pieLabelColumn: null
+            xAxis: Month
+            yAxis:
+                - '# of SKUs'
+            modificationDate: 1708320396
+            creationDate: 1708320282
+            shareGlobally: true
+            sharedUserNames: {  }
+            sharedRoleNames: {  }

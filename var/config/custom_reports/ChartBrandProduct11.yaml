@@ -1,0 +1,53 @@
+pimcore_custom_reports:
+    definitions:
+        ChartBrandProduct11:
+            name: ChartBrandProduct11
+            sql: ''
+            dataSourceConfig:
+                -
+                    sql: "SELECT cat4.`description` AS `SIOP Level 4`, o3.`name` AS `Brand`,  \ncount(`o1`.`id`) AS `# of SKUs`"
+                    from: "FROM\nobject_1 o1\nLEFT JOIN object_3 o3 \n\tON o3.`oo_id` = o1.brandName\nLEFT JOIN object_localized_query_2_en cat4 \n\tON cat4.ooo_id = SUBSTRING(o1.SIOPLevel4,2,(LENGTH(o1.SIOPLevel4) - 2))"
+                    where: 'WHERE (o1.`published` =1) '
+                    groupby: ''
+                    type: sql
+            columnConfiguration:
+                -
+                    name: 'SIOP Level 4'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel8951-1
+                -
+                    name: Brand
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel8951-2
+                -
+                    name: '# of SKUs'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel8951-3
+            niceName: 'Chart - Brand Product 11'
+            group: ''
+            groupIconClass: ''
+            iconClass: ''
+            menuShortcut: false
+            reportClass: ''
+            chartType: ''
+            pieColumn: null
+            pieLabelColumn: null
+            xAxis: null
+            yAxis: {  }
+            modificationDate: 1708261555
+            creationDate: 1708241141
+            shareGlobally: true
+            sharedUserNames: {  }
+            sharedRoleNames: {  }
