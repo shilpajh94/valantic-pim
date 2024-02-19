@@ -1,0 +1,53 @@
+pimcore_custom_reports:
+    definitions:
+        IndustrialHoseChartBrandProduct:
+            name: IndustrialHoseChartBrandProduct
+            sql: ''
+            dataSourceConfig:
+                -
+                    sql: 'SELECT cat4.`description` AS `SIOP Level 4`, o3.`name` AS `Brand`, count(`o1`.`id`) AS `# of SKUs`'
+                    from: 'FROM object_1 o1 LEFT JOIN object_3 o3 ON o3.`oo_id` = o1.brandName LEFT JOIN object_localized_query_2_en cat4 ON cat4.ooo_id = SUBSTRING(o1.SIOPLevel4,2,(LENGTH(o1.SIOPLevel4) - 2))  '
+                    where: "WHERE (o1.`published` =1 AND o1.siopFullCode LIKE '041000%') "
+                    groupby: 'GROUP BY cat4.`description`,  o3.`name`'
+                    type: sql
+            columnConfiguration:
+                -
+                    name: 'SIOP Level 4'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel3342-3
+                -
+                    name: Brand
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel3342-4
+                -
+                    name: '# of SKUs'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel3342-5
+            niceName: 'Chart - Brand Product'
+            group: 'Industrial Hose'
+            groupIconClass: ''
+            iconClass: ''
+            menuShortcut: false
+            reportClass: ''
+            chartType: pie
+            pieColumn: '# of SKUs'
+            pieLabelColumn: Brand
+            xAxis: null
+            yAxis: {  }
+            modificationDate: 1708347026
+            creationDate: 1708319509
+            shareGlobally: true
+            sharedUserNames: {  }
+            sharedRoleNames: {  }

@@ -1,0 +1,53 @@
+pimcore_custom_reports:
+    definitions:
+        PTGChartDataCompleteness:
+            name: PTGChartDataCompleteness
+            sql: ''
+            dataSourceConfig:
+                -
+                    sql: "SELECT \ncount(o1.`key`) as `# of SKUs`, ROUND((sum(en.CompletenessPercentage)/count(o1.`key`)),3)  AS `COMPLETED (%)`,\ncat3.`description` AS `SIOP Level 3`"
+                    from: "object_1 o1 \nLEFT JOIN `object_localized_query_1_en` en \nON `en`.`ooo_id` = `o1`.`id`\nLEFT JOIN object_localized_query_2_en cat3 \nON cat3.ooo_id = SUBSTRING(o1.SIOPLevel3,2,(LENGTH(o1.SIOPLevel3) - 2)) \n"
+                    where: "(o1.`published` =1 AND o1.siopFullCode LIKE '043000%' )"
+                    groupby: cat3.`description`
+                    type: sql
+            columnConfiguration:
+                -
+                    name: '# of SKUs'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1093-3
+                -
+                    name: 'COMPLETED (%)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1093-4
+                -
+                    name: 'SIOP Level 3'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel1093-5
+            niceName: 'Chart - Data Completeness'
+            group: PTG
+            groupIconClass: ''
+            iconClass: ''
+            menuShortcut: false
+            reportClass: ''
+            chartType: pie
+            pieColumn: 'COMPLETED (%)'
+            pieLabelColumn: 'SIOP Level 3'
+            xAxis: null
+            yAxis: {  }
+            modificationDate: 1708346599
+            creationDate: 1708321716
+            shareGlobally: true
+            sharedUserNames: {  }
+            sharedRoleNames: {  }
