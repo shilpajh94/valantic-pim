@@ -309,6 +309,7 @@ class ProductModelService {
             $reinforcement = $value["reinforcement"];
             
             $groupingFieldIdNameList = [];
+            $brandName = '';
             if (isset($value["brandName"]) && !empty($value["brandName"])) {
                 
                 if(!isset($this->brandData[$value["brandName"]]))

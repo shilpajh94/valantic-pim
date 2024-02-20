@@ -87,7 +87,7 @@ pimcore.plugin.distributionhub.mappingLeftPanel = Class.create({
     getSharedChannelTree:function f() {
         if (!this.sharedChannelTree) {
             //let sharedChannelStore = Ext.create('pimcore.plugin.distributionhub.helpers.customPagingTreeStore', {
-                let sharedChannelStore = Ext.data.JsonStore({
+            let sharedChannelStore = Ext.data.JsonStore({
                 autoLoad: true,
                 autoSync: false,
                 proxy: {
