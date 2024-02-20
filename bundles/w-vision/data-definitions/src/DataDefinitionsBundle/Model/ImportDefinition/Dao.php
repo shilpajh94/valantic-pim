@@ -138,7 +138,6 @@ class Dao extends Model\Dao\PimcoreLocationAwareConfigDao
             'loader',
             'fetcher',
         ];
-
         foreach ($dataRaw as $key => $value) {
             if (in_array($key, $allowedProperties, true)) {
                 if ($key === 'providerConfiguration') {
@@ -179,7 +178,7 @@ class Dao extends Model\Dao\PimcoreLocationAwareConfigDao
                 }
             }
         }
-        if(!empty($ValidateString) && !empty($this->model->getId())){
+        if(!empty($dataRaw['provider']) && !empty($ValidateString) && !empty($this->model->getName())){
             throw new \Exception($ValidateString);
         }
 
