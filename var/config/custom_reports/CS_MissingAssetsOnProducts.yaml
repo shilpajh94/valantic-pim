@@ -1,0 +1,240 @@
+pimcore_custom_reports:
+    definitions:
+        CS_MissingAssetsOnProducts:
+            name: CS_MissingAssetsOnProducts
+            sql: ''
+            dataSourceConfig:
+                -
+                    sql: "SELECT\noo_id As `Pimcore Id`,\nName,\nCorporateBrand As `Corporate Brand`,\nProductBrand As `Product Brand`,\n IF(object_localized_CSProducts_en.`LogoImage` IS NOT NULL, \"True\", \"False\") AS `Logo Image`,\n IF(object_localized_CSProducts_en.`fieldPhoto` IS NOT NULL, \"True\", \"False\") AS `Field Photo`,\n IF(object_localized_CSProducts_en.`productImage` IS NOT NULL, \"True\", \"False\") AS `Product Image`,\n IF(object_localized_CSProducts_en.`softwareImage` IS NOT NULL, \"True\", \"False\") AS `Software Image`,\n IF(object_localized_CSProducts_en.`applicationImage` IS NOT NULL, \"True\", \"False\") AS `Application Image`,\n IF(object_localized_CSProducts_en.`reportImage` IS NOT NULL, \"True\", \"False\") AS `Report Image`,\n IF(object_localized_CSProducts_en.`functionalityImage` IS NOT NULL, \"True\", \"False\") AS `Functionality Image`,\n IF(object_localized_CSProducts_en.`damageImage` IS NOT NULL, \"True\", \"False\") AS `Damage Image`,\n IF(object_localized_CSProducts_en.`deviationAngleForVerticalCurves` IS NOT NULL, \"True\", \"False\") AS `Deviation Angle For Vertical Curves`,\n IF(object_localized_CSProducts_en.`deviatioAngleForHorizontal` IS NOT NULL, \"True\", \"False\") AS `Deviation Angle For Horizontal`,\n IF(object_localized_CSProducts_en.`sidewallSizes` IS NOT NULL, \"True\", \"False\") AS `Sidewall Sizes`,\n IF(object_localized_CSProducts_en.`sidewallQualities` IS NOT NULL, \"True\", \"False\") AS `Sidewall Qualities`,\n IF(object_localized_CSProducts_en.`anglesofInclination` IS NOT NULL, \"True\", \"False\") AS `Angles of Inclination`,\n IF(object_localized_CSProducts_en.`increasingInclinationAngle` IS NOT NULL, \"True\", \"False\") AS `Increasing Inclination Angle`,\n IF(object_localized_CSProducts_en.`imageCrossSectionOfProducts` IS NOT NULL, \"True\", \"False\") AS `Image Cross Section Of Products`,\n IF(object_localized_CSProducts_en.`beltRollDiameters` IS NOT NULL, \"True\", \"False\") AS `Belt Roll Diameters`,\n IF(object_localized_CSProducts_en.`overviewImageofSystem` IS NOT NULL, \"True\", \"False\") AS `Overview Image of System`,\n IF(object_localized_CSProducts_en.`imageGallery__images` IS NOT NULL, \"True\", \"False\") AS `Image Gallery`,\n IF(object_localized_CSProducts_en.`systemAnimation` IS NOT NULL, \"True\", \"False\") AS `System Animation`,\n IF(object_localized_CSProducts_en.`systemVideo` IS NOT NULL, \"True\", \"False\") AS `System Video`,\n IF(object_localized_CSProducts_en.`productAnimation` IS NOT NULL, \"True\", \"False\") AS `Product Animation`,\n IF(object_localized_CSProducts_en.`documents` IS NOT NULL, \"True\", \"False\") AS `Documents`"
+                    from: 'FROM object_localized_CSProducts_en'
+                    where: "WHERE \n LogoImage is null OR\n fieldPhoto is null OR\n productImage is null OR\n softwareImage is null OR\n applicationImage is null OR\n reportImage is null OR\n functionalityImage is null OR\n damageImage is null OR\n deviationAngleForVerticalCurves is null OR\n deviatioAngleForHorizontal is null OR\n sidewallSizes is null OR\n sidewallQualities is null OR\n anglesofInclination is null OR\n increasingInclinationAngle is null OR\n imageCrossSectionOfProducts is null OR\n beltRollDiameters is null OR\n overviewImageofSystem is null OR\n imageGallery__images is null OR\n systemAnimation is null OR\n systemVideo is null OR\n productAnimation is null OR\n documents is null"
+                    groupby: ''
+                    type: sql
+            columnConfiguration:
+                -
+                    name: 'Pimcore Id'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4237-1
+                -
+                    name: Name
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4237-2
+                -
+                    name: 'Corporate Brand'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4237-3
+                -
+                    name: 'Product Brand'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4237-4
+                -
+                    name: 'Logo Image'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4237-5
+                -
+                    name: 'Field Photo'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4237-6
+                -
+                    name: 'Product Image'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4237-7
+                -
+                    name: 'Software Image'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4237-8
+                -
+                    name: 'Application Image'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4237-9
+                -
+                    name: 'Report Image'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4237-10
+                -
+                    name: 'Functionality Image'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4237-11
+                -
+                    name: 'Damage Image'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4237-12
+                -
+                    name: 'Deviation Angle For Vertical Curves'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4237-13
+                -
+                    name: 'Deviation Angle For Horizontal'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4237-14
+                -
+                    name: 'Sidewall Sizes'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4237-15
+                -
+                    name: 'Sidewall Qualities'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4237-16
+                -
+                    name: 'Angles of Inclination'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4237-17
+                -
+                    name: 'Increasing Inclination Angle'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4237-18
+                -
+                    name: 'Image Cross Section Of Products'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4237-19
+                -
+                    name: 'Belt Roll Diameters'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4237-20
+                -
+                    name: 'Overview Image of System'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4237-21
+                -
+                    name: 'Image Gallery'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4237-22
+                -
+                    name: 'System Animation'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4237-23
+                -
+                    name: 'System Video'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4237-24
+                -
+                    name: 'Product Animation'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4237-25
+                -
+                    name: Documents
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4237-26
+            niceName: CS_MissingAssetsOnProducts
+            group: 'ContiTech CS'
+            groupIconClass: ''
+            iconClass: ''
+            menuShortcut: false
+            reportClass: ''
+            chartType: ''
+            pieColumn: null
+            pieLabelColumn: null
+            xAxis: null
+            yAxis: {  }
+            modificationDate: 1708345145
+            creationDate: 1708243855
+            shareGlobally: false
+            sharedUserNames: {  }
+            sharedRoleNames:
+                - MarComCS
+                - ProductManagerCS
+                - ApplicationAdminCS

@@ -1,0 +1,62 @@
+pimcore_custom_reports:
+    definitions:
+        IndustrialHoseChartDataCompleteness-VirtualCatalogFilter:
+            name: IndustrialHoseChartDataCompleteness-VirtualCatalogFilter
+            sql: ''
+            dataSourceConfig:
+                -
+                    sql: "SELECT \n  temp.nSKU AS `# of Sku's`, \n  temp.percentage AS `Completeness Percentage`, \n  temp.SIOP3 AS `SIOP3`, \n  temp.VirtualFlag "
+                    from: "FROM \n  (\n    SELECT \n      COUNT(o1.`key`) AS `nSKU`, \n      (\n        ROUND(\n          (\n            SUM(en.CompletenessPercentage) / COUNT(o1.`key`)\n          ), \n          3\n        )\n      ) AS `percentage`, \n      cat3.`description` AS `SIOP3`, \n      CASE WHEN o1.`virtualCatalogFlag` IS NULL THEN 'False' WHEN o1.`virtualCatalogFlag` = -1 THEN 'False' WHEN o1.`virtualCatalogFlag` = 1 THEN 'True' END AS VirtualFlag \n    FROM \n      object_1 o1 \n      LEFT JOIN `object_localized_query_1_en` en ON `en`.`ooo_id` = `o1`.`id` \n      LEFT JOIN object_localized_query_2_en cat3 ON cat3.ooo_id = SUBSTRING(\n        o1.SIOPLevel3, \n        2, \n        (\n          LENGTH(o1.SIOPLevel3) -2\n        )\n      ) \n    WHERE \n      (\n        o1.`published` = 1 \n        AND o1.siopFullCode LIKE '041000%'\n      ) \n    GROUP BY \n      cat3.`description`, \n      `VirtualFlag` \n    ORDER BY \n      cat3.`description`\n  ) temp"
+                    where: ''
+                    groupby: ''
+                    type: sql
+            columnConfiguration:
+                -
+                    name: "# of Sku's"
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel3428-3
+                -
+                    name: 'Completeness Percentage'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel3428-4
+                -
+                    name: SIOP3
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel3428-5
+                -
+                    name: VirtualFlag
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel3428-6
+            niceName: 'Chart - Data Completeness - Virtual Catalog Filter'
+            group: 'Industrial Hose'
+            groupIconClass: ''
+            iconClass: ''
+            menuShortcut: false
+            reportClass: ''
+            chartType: bar
+            pieColumn: null
+            pieLabelColumn: null
+            xAxis: SIOP3
+            yAxis:
+                - 'Completeness Percentage'
+            modificationDate: 1708342661
+            creationDate: 1708320110
+            shareGlobally: true
+            sharedUserNames: {  }
+            sharedRoleNames: {  }

@@ -1,0 +1,32 @@
+pimcore_custom_reports:
+    definitions:
+        CS_ArchivedProducts:
+            name: CS_ArchivedProducts
+            sql: ''
+            dataSourceConfig:
+                -
+                    sql: "SELECT\n  o1.`oo_id` as `Id`,\n  o1.`Name`,\n  o1.CorporateBrand As 'Corporate Brand',\n  o1.ProductBrand As 'Product Brand',\n  FROM_UNIXTIME(o1.`creationDate`) as `Creation Date`"
+                    from: "FROM\n  object_localized_CSProducts_en o1\n  LEFT JOIN element_workflow_state wf on o1.`oo_id` = wf.`cid` \n  where wf.place = 'archived' ORDER BY\n  (o1.`creationDate`) DESC\n"
+                    where: ''
+                    groupby: ''
+                    type: sql
+            columnConfiguration: {  }
+            niceName: CS_ArchivedProducts
+            group: 'ContiTech CS'
+            groupIconClass: ''
+            iconClass: ''
+            menuShortcut: false
+            reportClass: ''
+            chartType: ''
+            pieColumn: null
+            pieLabelColumn: null
+            xAxis: null
+            yAxis: {  }
+            modificationDate: 1708344819
+            creationDate: 1708243451
+            shareGlobally: false
+            sharedUserNames: {  }
+            sharedRoleNames:
+                - MarComCS
+                - ProductManagerCS
+                - ApplicationAdminCS

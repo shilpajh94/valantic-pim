@@ -1,0 +1,53 @@
+pimcore_custom_reports:
+    definitions:
+        ChartProductsWithNoImage:
+            name: ChartProductsWithNoImage
+            sql: ''
+            dataSourceConfig:
+                -
+                    sql: 'SELECT temp.`SIOP3` AS `SIOP Level 3`, SUM(temp.`skus`) AS `# of SKUs`, temp.`images` AS `Main Image`'
+                    from: "FROM (SELECT\ncat3.`description` AS `SIOP3`,\ncount(o1.`id`) AS `skus`,\nIF(o1.`mainImage` IS NOT NULL, \"YES\", \"NO\") AS `images` FROM object_1 o1 \nLEFT JOIN object_localized_query_2_en cat3 \n\tON cat3.ooo_id = SUBSTRING(o1.SIOPLevel3,2,(LENGTH(o1.SIOPLevel3) - 2))\nWHERE (o1.`published` =1)\nGROUP BY cat3.`description`, o1.`mainImage`)  AS temp"
+                    where: ''
+                    groupby: 'temp.`SIOP3`, temp.`images`'
+                    type: sql
+            columnConfiguration:
+                -
+                    name: 'SIOP Level 3'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4540-1
+                -
+                    name: '# of SKUs'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4540-2
+                -
+                    name: 'Main Image'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel4540-3
+            niceName: 'Chart - Products with No Images - Main Image'
+            group: ''
+            groupIconClass: ''
+            iconClass: ''
+            menuShortcut: false
+            reportClass: ''
+            chartType: ''
+            pieColumn: null
+            pieLabelColumn: null
+            xAxis: null
+            yAxis: {  }
+            modificationDate: 1708345180
+            creationDate: 1708242980
+            shareGlobally: true
+            sharedUserNames: {  }
+            sharedRoleNames: {  }
