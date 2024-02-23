@@ -46,10 +46,10 @@ pimcore.plugin.distributionhub.mappingLeftPanel = Class.create({
                         rootProperty: 'nodes'
                     },
                     extraParams: {
-                        limit: 15,
+                        // limit: 15,
                     }
                 },
-                pageSize: 15,
+                // pageSize: 15,
             });
             this.tree = Ext.create('Ext.tree.Panel', {
                 title: t('dHub_my_channel'),
@@ -99,11 +99,11 @@ pimcore.plugin.distributionhub.mappingLeftPanel = Class.create({
                         rootProperty: 'nodes'
                     },
                     extraParams: {
-                        limit: 15,
+                        // limit: 15,
                         type:"shared"
                     }
                 },
-                pageSize: 15
+                // pageSize: 15
             });
 
             this.sharedChannelTree = Ext.create('Ext.tree.Panel', {

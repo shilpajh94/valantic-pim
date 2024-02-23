@@ -44,8 +44,8 @@ class MailNotificationService
 
         $mailClient = new Mail();
         $mailClient->addTo($userMail);
-        $mailClient->setSubject($placeHolderReplacedSubject);
-        $mailClient->setBodyText($placeHolderReplacedBody);
+        $mailClient->subject($placeHolderReplacedSubject);
+        $mailClient->setBody($placeHolderReplacedBody);
         try {
             $mailClient->send();
         } catch (\Exception $exception) {

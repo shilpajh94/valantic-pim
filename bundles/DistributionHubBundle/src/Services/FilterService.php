@@ -63,7 +63,7 @@ class FilterService
      * @param EventDispatcherInterface $eventDispatcher
      * @param Translator $translator
      */
-    
+
     public function __construct(
         LoggerInterface $logger,
         TokenStorageUserResolver $userResolver,
@@ -456,7 +456,11 @@ class FilterService
                 // addConditionParams to listing class
                 foreach ($conditionParams as $condition) {
                     if (!empty($condition)) {
-                        $listingClass->addConditionParam($condition['key'], $condition['value'], $condition['concatenator']);
+                        if (array_key_exists('value', $condition)) {
+                            $listingClass->addConditionParam($condition['key'], $condition['value'], $condition['concatenator']);
+                        } else {
+                            $listingClass->addConditionParam($condition['key'], $condition['concatenator']);
+                        }
                     } else {
                         $listingClass->setCondition("`id` IS NULL");
                     }

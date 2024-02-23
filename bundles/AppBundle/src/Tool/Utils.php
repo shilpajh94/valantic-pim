@@ -46,7 +46,7 @@ class Utils
     public static function log(string $logFileName, string $message, LogLevel $logLevel){
         $logLevel = strval($logLevel);
         $logMessage = "[".$logLevel."]"." ".$message;
-        \Pimcore\Log\Simple::log($logFileName,$logMessage);
+        \AppBundle\Logger\Simple::log($logFileName,$logMessage);
     }
 
 }

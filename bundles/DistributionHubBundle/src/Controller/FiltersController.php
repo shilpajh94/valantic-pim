@@ -198,7 +198,7 @@ class FiltersController extends UserAwareController
 
             $classDefinition = DataObject\ClassDefinition::getById($channelObject->getPimcoreClassId());
 
-            if (array_key_exists("gridConfig", $config) && !empty( $config["gridConfig"]["columns"])) {
+            if ($config && array_key_exists("gridConfig", $config) && !empty( $config["gridConfig"]["columns"])) {
                 $helperColumns = [];
 
                 foreach ($config["gridConfig"]["columns"] as &$column) {
@@ -239,8 +239,8 @@ class FiltersController extends UserAwareController
                 'listFileAssetId' => $filter->getListFileAssetId(),
                 'filterByAttribute' => $filter->getFilterByAttribute(),
                 'listFileSavePath' => $filter->getListFileSavePath(),
-                'conditions' => $config['conditions'],
-                'gridConfig' => array_key_exists("gridConfig", $config) ? $config['gridConfig'] : null
+                'conditions' => $config ? $config['conditions'] : null,
+                'gridConfig' => $config ? (array_key_exists("gridConfig", $config) ? $config['gridConfig'] : null) :null
             ];
         } else {
             DHubLogger::log("No saved filter found for channel Id".$channelObject->getId(), DHubLogger::CRITICAL);
