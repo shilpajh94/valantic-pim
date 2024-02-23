@@ -1,0 +1,101 @@
+pimcore_custom_reports:
+    definitions:
+        PTGEU_ProductCompleteness:
+            name: PTGEU_ProductCompleteness
+            sql: ''
+            dataSourceConfig:
+                -
+                    sql: "SELECT \no1.`key` as `Key`,\no1.`articleNumber` AS `Article Number`,\nen.`sapDescription` AS `SAP Description`,\no1.`siopFullCode` AS `SIOP Full Code`,\no1.`path` AS `Path`,\nen.`EmptyFields`as `Empty Fields`, \nen.CompletenessPercentage \"COMPLETED (%)\",\no1.`ProductType` AS `Product Type`,\no1.`id` as  `Id`"
+                    from: "From\nobject_38 o1 \nLEFT JOIN `object_localized_query_38_en` en \n\tON `en`.`ooo_id` = `o1`.`id`\n\nWHERE\n    (o1.`published` =1) AND (en.`CompletenessPercentage`  != \"\")"
+                    where: ''
+                    groupby: ''
+                    type: sql
+            columnConfiguration:
+                -
+                    name: Key
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel6598-1
+                -
+                    name: 'Article Number'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel6598-2
+                -
+                    name: 'SAP Description'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel6598-3
+                -
+                    name: 'SIOP Full Code'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel6598-4
+                -
+                    name: Path
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel6598-5
+                -
+                    name: 'Empty Fields'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel6598-6
+                -
+                    name: 'COMPLETED (%)'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel6598-7
+                -
+                    name: 'Product Type'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel6598-8
+                -
+                    name: Id
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel6598-9
+            niceName: 'PTGEU - Product Completeness'
+            group: PTG_EU
+            groupIconClass: ''
+            iconClass: ''
+            menuShortcut: false
+            reportClass: ''
+            chartType: ''
+            pieColumn: null
+            pieLabelColumn: null
+            xAxis: null
+            yAxis: {  }
+            modificationDate: 1708343405
+            creationDate: 1708260587
+            shareGlobally: true
+            sharedUserNames: {  }
+            sharedRoleNames: {  }
