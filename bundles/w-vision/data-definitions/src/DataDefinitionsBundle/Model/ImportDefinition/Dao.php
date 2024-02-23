@@ -202,6 +202,7 @@ class Dao extends Model\Dao\PimcoreLocationAwareConfigDao
      */
     public function delete()
     {
+        p_r(''); // Keep this p_r() statement as it letting bulk import channels delete smoothly without any excepting
         $this->deleteData($this->model->getName());
     }
 }

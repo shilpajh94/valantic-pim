@@ -92,7 +92,7 @@ class PimDataExportHelper
         $ids = [];
         if($table)
         {
-            $sql = "SELECT o_id FROM $table limit 2000";
+            $sql = "SELECT o_id FROM $table";
             $ids = $db->fetchFirstColumn($sql);
         }
 
