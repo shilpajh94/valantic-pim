@@ -28,22 +28,34 @@ class ConditionsOptionsProvider implements SelectOptionsProviderInterface {
      */
     public function getOptions(array $context, Data $fieldDefinition): array
     {
-         $optionsData = [];
-
-        $conditionsList = new DataObject\IFSEUConditions\Listing();
-
-
-        $conditionsList->setOrderKey('key');
-        $conditionsList->setOrder("ASC");
-
-        foreach($conditionsList as $listItem)
+        $this->optionProvider = \Pimcore::getKernel()->getContainer()->get('AppBundle\Services\OptionProviderCacheService');
+        $optionsData = array();
+        $className = 'IFSEUConditions';
+        $allAvailablelArrayCache = $this->optionProvider->getCachedKeyData($className);
+        if($allAvailablelArrayCache && !empty($allAvailablelArrayCache))
         {
-            if($listItem instanceof DataObject\IFSEUConditions)
+            $optionsData = $allAvailablelArrayCache;
+            unset($allAvailablelArrayCache);
+        }
+        else
+        {
+            $conditionsList = new DataObject\IFSEUConditions\Listing();
+            $conditionsList->setOrderKey('key');
+            $conditionsList->setOrder("ASC");
+
+            foreach($conditionsList as $listItem)
             {
-            $optionsData[] = array ('key' => $listItem->getConditions(),'value' => $listItem->getID());
+                if($listItem instanceof DataObject\IFSEUConditions)
+                {
+                $optionsData[] = array ('key' => $listItem->getConditions(),'value' => $listItem->getID());
+                }
+            }
+            if(!empty($optionsData))
+            {
+                $this->optionProvider->setCachedOptionProviders($className);
+                $this->optionProvider->setAllOptionsInCacheForClass($className, $optionsData);
             }
         }
-
         return $optionsData;
     }
 

@@ -28,22 +28,35 @@ class NoteInformationBelowTableOptionsProvider implements SelectOptionsProviderI
      */
     public function getOptions(array $context, Data $fieldDefinition): array
     {
-         $optionsData = [];
-
-        $noteInformationBelowtableList = new DataObject\IFSEUNoteInformationBelowTable\Listing();
-
-
-        $noteInformationBelowtableList->setOrderKey('key');
-        $noteInformationBelowtableList->setOrder("ASC");
-
-        foreach($noteInformationBelowtableList as $listItem)
+        $this->optionProvider = \Pimcore::getKernel()->getContainer()->get('AppBundle\Services\OptionProviderCacheService');
+        $optionsData = array();
+        $className = 'IFSEUNoteInformationBelowTable';
+        $allAvailablelArrayCache = $this->optionProvider->getCachedKeyData($className);
+        if($allAvailablelArrayCache && !empty($allAvailablelArrayCache))
         {
-            if($listItem instanceof DataObject\IFSEUNoteInformationBelowTable)
+            $optionsData = $allAvailablelArrayCache;
+            unset($allAvailablelArrayCache);
+        }
+        else
+        {
+
+            $noteInformationBelowtableList = new DataObject\IFSEUNoteInformationBelowTable\Listing();
+            $noteInformationBelowtableList->setOrderKey('key');
+            $noteInformationBelowtableList->setOrder("ASC");
+
+            foreach($noteInformationBelowtableList as $listItem)
             {
-            $optionsData[] = array ('key' => $listItem->getNoteInformationBelowTable(),'value' => $listItem->getID());
+                if($listItem instanceof DataObject\IFSEUNoteInformationBelowTable)
+                {
+                $optionsData[] = array ('key' => $listItem->getNoteInformationBelowTable(),'value' => $listItem->getID());
+                }
+            }
+            if(!empty($optionsData))
+            {
+                $this->optionProvider->setCachedOptionProviders($className);
+                $this->optionProvider->setAllOptionsInCacheForClass($className, $optionsData);
             }
         }
-
         return $optionsData;
     }
 

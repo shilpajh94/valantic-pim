@@ -226,6 +226,7 @@ class ObjectListener
      */
     private function updatePIMUser(\Pimcore\Model\DataObject\Users $object)
     {
+        p_r($object->getAdminReference());
         $userObj = \Pimcore\Model\User::getById($object->getAdminReference());
         if (!empty($userObj)) {
             $userData = array(

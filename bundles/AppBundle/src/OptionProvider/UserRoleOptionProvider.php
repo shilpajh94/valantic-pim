@@ -27,16 +27,33 @@ class UserRoleOptionProvider implements SelectOptionsProviderInterface
      */
     public function getOptions(array $context, Data $fieldDefinition): array
     {
-        $roleList = new \Pimcore\Model\User\Role\Listing;
-        $roleList->load();
+        $this->optionProvider = \Pimcore::getKernel()->getContainer()->get('AppBundle\Services\OptionProviderCacheService');
         $roles = array();
-        $roleList = $roleList->getItems();
-        if(!empty($roleList) && count($roleList)>0) {
-            foreach($roleList as $role) {
-                $roles[] = array(
-                    'key'       =>  $role->getName(),
-                    'value'     =>  $role->getId()
-                );
+        $className = 'Roles_Users';
+        $allAvailablelArrayCache = $this->optionProvider->getCachedKeyData($className);
+        if($allAvailablelArrayCache && !empty($allAvailablelArrayCache))
+        {
+            $roles = $allAvailablelArrayCache;
+            unset($allAvailablelArrayCache);
+        }
+        else
+        {
+
+            $roleList = new \Pimcore\Model\User\Role\Listing;
+            $roleList->load();
+            $roleList = $roleList->getItems();
+            if(!empty($roleList) && count($roleList)>0) {
+                foreach($roleList as $role) {
+                    $roles[] = array(
+                        'key'       =>  $role->getName(),
+                        'value'     =>  $role->getId()
+                    );
+                }
+            }
+            if(!empty($roles))
+            {
+                $this->optionProvider->setCachedOptionProviders($className);
+                $this->optionProvider->setAllOptionsInCacheForClass($className, $roles);
             }
         }
         return $roles;

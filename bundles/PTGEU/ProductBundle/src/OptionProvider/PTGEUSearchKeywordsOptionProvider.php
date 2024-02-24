@@ -28,13 +28,30 @@ class PTGEUSearchKeywordsOptionProvider  implements SelectOptionsProviderInterfa
      */
     public function getOptions(array $context, Data $fieldDefinition): array
     {
-        $result = [];
-        $searchKeywordsPTGEU = new DataObject\PTGEUSearchKeywords\Listing();
-        $searchKeywordsPTGEU->setCondition("path = ?", "/Contitech_PTGEU/Master List/Search Keywords/" );
-        $searchKeywordsPTGEU = $searchKeywordsPTGEU->load();
+        // $result = [];
+        $this->optionProvider = \Pimcore::getKernel()->getContainer()->get('AppBundle\Services\OptionProviderCacheService');
+        $result = array();
+        $className = 'PTGEUSearchKeywords';
+        $allAvailablelArrayCache = $this->optionProvider->getCachedKeyData($className);
+        if($allAvailablelArrayCache && !empty($allAvailablelArrayCache))
+        {
+            $result = $allAvailablelArrayCache;
+            unset($allAvailablelArrayCache);
+        }
+        else
+        {
+            $searchKeywordsPTGEU = new DataObject\PTGEUSearchKeywords\Listing();
+            $searchKeywordsPTGEU->setCondition("path = ?", "/Contitech_PTGEU/Master List/Search Keywords/" );
+            $searchKeywordsPTGEU = $searchKeywordsPTGEU->load();
 
-        foreach ($searchKeywordsPTGEU as $searchKeywords) {
-            $result[] = array('key' => $searchKeywords->getSearchKeywords(), 'value' => $searchKeywords->getId());
+            foreach ($searchKeywordsPTGEU as $searchKeywords) {
+                $result[] = array('key' => $searchKeywords->getSearchKeywords(), 'value' => $searchKeywords->getId());
+                if(!empty($result))
+                {
+                    $this->optionProvider->setCachedOptionProviders($className);
+                    $this->optionProvider->setAllOptionsInCacheForClass($className, $result);
+                }
+            }
         }
         return $result;
     }

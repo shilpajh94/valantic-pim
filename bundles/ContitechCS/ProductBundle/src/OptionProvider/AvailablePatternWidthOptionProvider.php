@@ -28,15 +28,33 @@ class AvailablePatternWidthOptionProvider implements MultiSelectOptionsProviderI
      */
     public function getOptions(array $context, Data $fieldDefinition): array
     {
-        $availablePatternWidthList = new DataObject\CSAvailablePatternWidths\Listing();
-        $availablePatternWidthList = $availablePatternWidthList->load();
+        $this->optionProvider = \Pimcore::getKernel()->getContainer()->get('AppBundle\Services\OptionProviderCacheService');
+        $result = array();
+        $className = 'CSAvailablePatternWidths';
+        $allAvailablelArrayCache = $this->optionProvider->getCachedKeyData($className);
+        if($allAvailablelArrayCache && !empty($allAvailablelArrayCache))
+        {
+            $result = $allAvailablelArrayCache;
+            unset($allAvailablelArrayCache);
+        }
+        else
+        {
 
-        foreach ($availablePatternWidthList as $option) {
-            if($option->getAvailableProfilePatternWidthsInch()){
-                $result[] = array('key' => $option->getAvailableProfilePatternWidthsInch(),'value' => $option->getId());
-            }
-            else{
-                $result[] = array('key' => $option->getAvailablePatternWidthText(), 'value' => $option->getId());
+            $availablePatternWidthList = new DataObject\CSAvailablePatternWidths\Listing();
+            $availablePatternWidthList = $availablePatternWidthList->load();
+
+            foreach ($availablePatternWidthList as $option) {
+                if($option->getAvailableProfilePatternWidthsInch()){
+                    $result[] = array('key' => $option->getAvailableProfilePatternWidthsInch(),'value' => $option->getId());
+                }
+                else{
+                    $result[] = array('key' => $option->getAvailablePatternWidthText(), 'value' => $option->getId());
+                }
+                if(!empty($result))
+                {
+                    $this->optionProvider->setCachedOptionProviders($className);
+                    $this->optionProvider->setAllOptionsInCacheForClass($className, $result);
+                }
             }
         }
         return $result;

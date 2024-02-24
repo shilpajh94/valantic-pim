@@ -28,11 +28,28 @@ class CSMaterialOptionProvider implements SelectOptionsProviderInterface
      */
     public function getOptions(array $context, Data $fieldDefinition): array
     {
-        $coverCompoundList = new DataObject\CSMaterial\Listing();
-        $coverCompoundList = $coverCompoundList->load();
+        $this->optionProvider = \Pimcore::getKernel()->getContainer()->get('AppBundle\Services\OptionProviderCacheService');
+        $result = array();
+        $className = 'CSMaterial';
+        $allAvailablelArrayCache = $this->optionProvider->getCachedKeyData($className);
+        if($allAvailablelArrayCache && !empty($allAvailablelArrayCache))
+        {
+            $result = $allAvailablelArrayCache;
+            unset($allAvailablelArrayCache);
+        }
+        else
+        {
+            $coverCompoundList = new DataObject\CSMaterial\Listing();
+            $coverCompoundList = $coverCompoundList->load();
 
-        foreach ($coverCompoundList as $cat) {
-            $result[] = array('key' => $cat->getMaterialName(), 'value' => $cat->getId());
+            foreach ($coverCompoundList as $cat) {
+                $result[] = array('key' => $cat->getMaterialName(), 'value' => $cat->getId());
+                if(!empty($result))
+                {
+                    $this->optionProvider->setCachedOptionProviders($className);
+                    $this->optionProvider->setAllOptionsInCacheForClass($className, $result);
+                }
+            }
         }
         return $result;
     }

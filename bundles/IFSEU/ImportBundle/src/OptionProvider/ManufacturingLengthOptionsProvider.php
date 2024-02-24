@@ -28,19 +28,33 @@ class ManufacturingLengthOptionsProvider implements SelectOptionsProviderInterfa
      */
     public function getOptions(array $context, Data $fieldDefinition): array
     {
-         $optionsData = [];
-
-        $manufacturingLengthList = new DataObject\IFSEUManufacturingLength\Listing();
-
-
-        $manufacturingLengthList->setOrderKey('key');
-        $manufacturingLengthList->setOrder("ASC");
-
-        foreach($manufacturingLengthList as $listItem)
+        $this->optionProvider = \Pimcore::getKernel()->getContainer()->get('AppBundle\Services\OptionProviderCacheService');
+        $optionsData = array();
+        $className = 'IFSEUManufacturingLength';
+        $allAvailablelArrayCache = $this->optionProvider->getCachedKeyData($className);
+        if($allAvailablelArrayCache && !empty($allAvailablelArrayCache))
         {
-            if($listItem instanceof DataObject\IFSEUManufacturingLength)
+            $optionsData = $allAvailablelArrayCache;
+            unset($allAvailablelArrayCache);
+        }
+        else
+        {
+
+            $manufacturingLengthList = new DataObject\IFSEUManufacturingLength\Listing();
+            $manufacturingLengthList->setOrderKey('key');
+            $manufacturingLengthList->setOrder("ASC");
+
+            foreach($manufacturingLengthList as $listItem)
             {
-            $optionsData[] = array ('key' => $listItem->getManufacturingLength(),'value' => $listItem->getID());
+                if($listItem instanceof DataObject\IFSEUManufacturingLength)
+                {
+                $optionsData[] = array ('key' => $listItem->getManufacturingLength(),'value' => $listItem->getID());
+                }
+            }
+            if(!empty($optionsData))
+            {
+                $this->optionProvider->setCachedOptionProviders($className);
+                $this->optionProvider->setAllOptionsInCacheForClass($className, $optionsData);
             }
         }
 

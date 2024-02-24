@@ -28,22 +28,35 @@ class ApplicationsOptionsProvider implements SelectOptionsProviderInterface {
      */
     public function getOptions(array $context, Data $fieldDefinition): array
     {
-         $optionsData = [];
-
-        $applicaList = new DataObject\IFSEUApplications\Listing();
-
-
-        $applicaList->setOrderKey('key');
-        $applicaList->setOrder("ASC");
-
-        foreach($applicaList as $listItem)
+        $this->optionProvider = \Pimcore::getKernel()->getContainer()->get('AppBundle\Services\OptionProviderCacheService');
+        $optionsData = array();
+        $className = 'IFSEUApplications';
+        $allAvailablelArrayCache = $this->optionProvider->getCachedKeyData($className);
+        if($allAvailablelArrayCache && !empty($allAvailablelArrayCache))
         {
-            if($listItem instanceof DataObject\IFSEUApplications)
+            $optionsData = $allAvailablelArrayCache;
+            unset($allAvailablelArrayCache);
+        }
+        else
+        {
+
+            $applicaList = new DataObject\IFSEUApplications\Listing();
+            $applicaList->setOrderKey('key');
+            $applicaList->setOrder("ASC");
+
+            foreach($applicaList as $listItem)
             {
-            $optionsData[] = array ('key' => $listItem->getApplicationName(),'value' => $listItem->getID());
+                if($listItem instanceof DataObject\IFSEUApplications)
+                {
+                $optionsData[] = array ('key' => $listItem->getApplicationName(),'value' => $listItem->getID());
+                }
+            }
+            if(!empty($optionsData))
+            {
+                $this->optionProvider->setCachedOptionProviders($className);
+                $this->optionProvider->setAllOptionsInCacheForClass($className, $optionsData);
             }
         }
-
         return $optionsData;
     }
 
