@@ -1,0 +1,61 @@
+pimcore_custom_reports:
+    definitions:
+        ChartNewProducts:
+            name: ChartNewProducts
+            sql: ''
+            dataSourceConfig:
+                -
+                    sql: 'SELECT o1.`BusinessUnit`,cat2.`description` AS `SIOP Level 2`, MONTHNAME(FROM_UNIXTIME(o1.`creationDate`)) AS `Month`, IF(Count(*),Count(*),0) AS `# of SKUs`  '
+                    from: 'FROM object_1 o1 LEFT JOIN object_localized_query_2_en cat2 ON cat2.ooo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2))'
+                    where: 'WHERE o1.`creationDate` >= MONTH(CURDATE() - Interval 9 month)  '
+                    groupby: 'GROUP BY o1.`BusinessUnit`,cat2.`description`, MONTHNAME(FROM_UNIXTIME(o1.`creationDate`)) order by o1.`creationDate` '
+                    type: sql
+            columnConfiguration:
+                -
+                    name: BusinessUnit
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel2519-1
+                -
+                    name: 'SIOP Level 2'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel2519-2
+                -
+                    name: Month
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel2519-3
+                -
+                    name: '# of SKUs'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel2519-4
+            niceName: 'Chart - New Products'
+            group: ''
+            groupIconClass: ''
+            iconClass: ''
+            menuShortcut: false
+            reportClass: ''
+            chartType: ''
+            pieColumn: null
+            pieLabelColumn: null
+            xAxis: null
+            yAxis: {  }
+            modificationDate: 1708342550
+            creationDate: 1708241535
+            shareGlobally: true
+            sharedUserNames: {  }
+            sharedRoleNames: {  }

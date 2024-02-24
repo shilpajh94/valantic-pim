@@ -1,0 +1,61 @@
+pimcore_custom_reports:
+    definitions:
+        PTGChartBrandProduct:
+            name: PTGChartBrandProduct
+            sql: ''
+            dataSourceConfig:
+                -
+                    sql: "SELECT \n    cat4.`description` AS `SIOP Level 4`,\n    o3.`name` AS `Brand`,\n    COUNT(`o1`.`id`) AS `# of SKUs`,\n    CASE\n\t\tWHEN o3.`name` IS NULL THEN concat(cat4.`description`,\" -- \",\"[NO BRAND]\")\n        ELSE concat(cat4.`description`,\" -- \",o3.`name`)\n\tEND as `SIOP Level 4 -- Band`"
+                    from: 'FROM object_1 o1 LEFT JOIN object_3 o3 ON o3.`oo_id` = o1.brandName LEFT JOIN object_localized_query_2_en cat4 ON cat4.ooo_id = SUBSTRING(o1.SIOPLevel4,2,(LENGTH(o1.SIOPLevel4) - 2)) '
+                    where: "WHERE (o1.`published` =1 AND o1.siopFullCode LIKE '043000%') "
+                    groupby: 'GROUP BY cat4.`description`,  o3.`name`'
+                    type: sql
+            columnConfiguration:
+                -
+                    name: 'SIOP Level 4'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel449-1
+                -
+                    name: Brand
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel449-2
+                -
+                    name: '# of SKUs'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel449-3
+                -
+                    name: 'SIOP Level 4 -- Band'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel449-4
+            niceName: 'Chart - Brand Product'
+            group: PTG
+            groupIconClass: ''
+            iconClass: ''
+            menuShortcut: false
+            reportClass: ''
+            chartType: pie
+            pieColumn: '# of SKUs'
+            pieLabelColumn: 'SIOP Level 4'
+            xAxis: null
+            yAxis: {  }
+            modificationDate: 1708345197
+            creationDate: 1708321489
+            shareGlobally: true
+            sharedUserNames: {  }
+            sharedRoleNames: {  }

@@ -1,0 +1,157 @@
+pimcore_custom_reports:
+    definitions:
+        IFSEU_WorkflowPendingProducts:
+            name: IFSEU_WorkflowPendingProducts
+            sql: ''
+            dataSourceConfig:
+                -
+                    sql: "SELECT\no1.`key` as `Key`,o1.`materialNumber` AS `Material Number`,\nen.`sapDescription` AS `SAP Description`,\no1.`siopFullCode` AS `SIOP Full Code`,\nCONCAT(DATEDIFF(NOW(), FROM_UNIXTIME(n.`date`)), ' DAYS') AS 'Pending Since',\nFROM_UNIXTIME(n.`date`) AS `Last Action Date`, \no1.`ProductType` AS `Product Type`,\ncat1.`description` AS `SIOP Level 1`,\ncat2.`description` AS `SIOP Level 2`,\ncat3.`description` AS `SIOP Level 3`,\ncat4.`description` AS `SIOP Level 4`,\ncat5.`description` AS `SIOP Level 5`,\ncat6.`description` AS `SIOP Level 6`,\ncat7.`description` AS `SIOP Level 7`,\n  CASE \nWHEN wf.`place` = 'open' THEN 'Open' \nWHEN wf.`place` = 'in_marcom_edit' THEN 'In Marcom Edit' \nWHEN wf.`place` = 'in_editor_edit' THEN 'In Editor Edit' \nWHEN wf.`place` = 'in_editor_edit_after_publish' THEN 'In Editor Edit'\nWHEN wf.`place` = 'in_marcom_edit_after_publish' THEN 'In Marcom Edit'\nWHEN wf.`place` = 'in_pm_review_after_publish' THEN 'In Product Manger Review'\nWHEN wf.`place` = 'in_review' THEN 'In Product Manger Review'\nWHEN wf.`place` = 'published' THEN 'Published'\nEND as `Status`,\no1.`id`"
+                    from: "FROM notes n\nINNER JOIN\n(\n    SELECT `cid`, MAX(id) AS noteId\n    FROM notes\n    GROUP BY `cid`\n) n1 ON n.`cid` = n1.`cid` AND n.id = n1.noteId\nJOIN element_workflow_state wf ON wf.cid = n.cid \n  LEFT JOIN object_IFSEUProduct o1 ON o1.oo_id = n.cid \n  LEFT JOIN `object_localized_query_IFSEUProduct_en` `en` ON `en`.`ooo_id` = `o1`.`id` \n  LEFT JOIN object_localized_IFSEUProductCategory_en cat1 ON cat1.oo_id = SUBSTRING(o1.SIOPLevel1,2,(LENGTH(o1.SIOPLevel1) - 2)) \n  LEFT JOIN object_localized_IFSEUProductCategory_en cat2 ON cat2.oo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2)) \n  LEFT JOIN object_localized_IFSEUProductCategory_en cat3 ON cat3.oo_id = SUBSTRING(o1.SIOPLevel3,2,(LENGTH(o1.SIOPLevel3) - 2)) \n  LEFT JOIN object_localized_IFSEUProductCategory_en cat4 ON cat4.oo_id = SUBSTRING(o1.SIOPLevel4,2,(LENGTH(o1.SIOPLevel4) - 2)) \n  LEFT JOIN object_localized_IFSEUProductCategory_en cat5 ON cat5.oo_id = SUBSTRING(o1.SIOPLevel5,2,(LENGTH(o1.SIOPLevel5) - 2)) \n  LEFT JOIN object_localized_IFSEUProductCategory_en cat6 ON cat6.oo_id = SUBSTRING(o1.SIOPLevel6,2,(LENGTH(o1.SIOPLevel6) - 2))\n  LEFT JOIN object_localized_IFSEUProductCategory_en cat7 ON cat7.oo_id = SUBSTRING(o1.SIOPLevel7,2,(LENGTH(o1.SIOPLevel7) - 2)) \nWHERE (o1.`published` =1)"
+                    where: ''
+                    groupby: ''
+                    type: sql
+            columnConfiguration:
+                -
+                    name: Key
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel2364-1
+                -
+                    name: 'Material Number'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel2364-2
+                -
+                    name: 'SAP Description'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel2364-3
+                -
+                    name: 'SIOP Full Code'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel2364-4
+                -
+                    name: 'Pending Since'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel2364-5
+                -
+                    name: 'Last Action Date'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel2364-6
+                -
+                    name: 'Product Type'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel2364-7
+                -
+                    name: 'SIOP Level 1'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel2364-8
+                -
+                    name: 'SIOP Level 2'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel2364-9
+                -
+                    name: 'SIOP Level 3'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel2364-10
+                -
+                    name: 'SIOP Level 4'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel2364-11
+                -
+                    name: 'SIOP Level 5'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel2364-12
+                -
+                    name: 'SIOP Level 6'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel2364-13
+                -
+                    name: 'SIOP Level 7'
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel2364-14
+                -
+                    name: Status
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel2364-15
+                -
+                    name: id
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ''
+                    id: extModel2364-16
+            niceName: 'IFSEU - WorkflowPendingProducts'
+            group: IFS_EU
+            groupIconClass: ''
+            iconClass: ''
+            menuShortcut: false
+            reportClass: ''
+            chartType: ''
+            pieColumn: null
+            pieLabelColumn: null
+            xAxis: null
+            yAxis: {  }
+            modificationDate: 1708695370
+            creationDate: 1708259221
+            shareGlobally: true
+            sharedUserNames: {  }
+            sharedRoleNames: {  }
