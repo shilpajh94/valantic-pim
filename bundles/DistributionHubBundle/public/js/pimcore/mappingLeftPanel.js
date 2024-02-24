@@ -33,8 +33,8 @@ pimcore.plugin.distributionhub.mappingLeftPanel = Class.create({
     },
     getChannelTree: function () {
         if (!this.tree) {
-            //let channelStore = Ext.create('pimcore.plugin.distributionhub.helpers.customPagingTreeStore', {
-            let channelStore = Ext.data.JsonStore({
+            let channelStore = Ext.create('pimcore.plugin.distributionhub.helpers.customPagingTreeStore', {
+            // let channelStore = Ext.data.JsonStore({
                 autoLoad: true,
                 autoSync: false,
                 proxy: {
@@ -46,10 +46,10 @@ pimcore.plugin.distributionhub.mappingLeftPanel = Class.create({
                         rootProperty: 'nodes'
                     },
                     extraParams: {
-                        // limit: 15,
+                        limit: 15,
                     }
                 },
-                // pageSize: 15,
+                pageSize: 15,
             });
             this.tree = Ext.create('Ext.tree.Panel', {
                 title: t('dHub_my_channel'),
@@ -86,8 +86,8 @@ pimcore.plugin.distributionhub.mappingLeftPanel = Class.create({
     },
     getSharedChannelTree:function f() {
         if (!this.sharedChannelTree) {
-            //let sharedChannelStore = Ext.create('pimcore.plugin.distributionhub.helpers.customPagingTreeStore', {
-            let sharedChannelStore = Ext.data.JsonStore({
+            let sharedChannelStore = Ext.create('pimcore.plugin.distributionhub.helpers.customPagingTreeStore', {
+            // let sharedChannelStore = Ext.data.JsonStore({
                 autoLoad: true,
                 autoSync: false,
                 proxy: {
@@ -99,11 +99,11 @@ pimcore.plugin.distributionhub.mappingLeftPanel = Class.create({
                         rootProperty: 'nodes'
                     },
                     extraParams: {
-                        // limit: 15,
+                        limit: 15,
                         type:"shared"
                     }
                 },
-                // pageSize: 15
+                pageSize: 15
             });
 
             this.sharedChannelTree = Ext.create('Ext.tree.Panel', {
