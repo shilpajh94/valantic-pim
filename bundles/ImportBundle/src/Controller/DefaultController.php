@@ -66,12 +66,14 @@ class DefaultController extends FrontendController
                     $query = "select brandName from object_1 where parentId = $skeltonId";
                     $result = $db->fetchAllAssociative($query);
                     foreach ($result as $eachFert) {
-                        $brandId = $eachFert['brandName'];
-                        $brandObj = DataObject\Brand::getById($brandId);
-                        $optionData[$i]['key'] = $brandObj->getName();
-                        $optionData[$i]['value'] = $eachFert['brandName'];
-                        $resultArray = array_merge($resultArray, $optionData);
-                        $i++;
+                        if($eachFert['brandName']){
+                            $brandId = $eachFert['brandName'];
+                            $brandObj = DataObject\Brand::getById($brandId);
+                            $optionData[$i]['key'] = $brandObj->getName();
+                            $optionData[$i]['value'] = $eachFert['brandName'];
+                            $resultArray = array_merge($resultArray, $optionData);
+                            $i++;    
+                        }
                     }
                 }
                 $uniqueResultArray = array_unique($resultArray, SORT_REGULAR);
