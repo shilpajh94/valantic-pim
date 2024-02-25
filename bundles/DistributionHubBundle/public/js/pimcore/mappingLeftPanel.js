@@ -63,15 +63,15 @@ pimcore.plugin.distributionhub.mappingLeftPanel = Class.create({
                     },
                     xtype: 'custompimcoretreeview'
                 },
-                root: {
-                    id: '0',
-                    iconCls: "pimcore_icon_home",
-                    text: t('home'),
-                    expanded: true,
-                    reload: true,
-                    draggable: false,
-                    allowChildren: true
-                },
+                // root: {
+                //     id: '0',
+                //     iconCls: "pimcore_icon_home",
+                //     text: t('home'),
+                //     expanded: true,
+                //     reload: true,
+                //     draggable: false,
+                //     allowChildren: true
+                // },
                 listeners: this.getTreeNodeListeners(),
                 tbar: {
                     items: [{
@@ -121,15 +121,15 @@ pimcore.plugin.distributionhub.mappingLeftPanel = Class.create({
                     },
                     xtype: 'custompimcoretreeview'
                 },
-                root: {
-                    id: 'shared',
-                    iconCls: "pimcore_icon_home",
-                    text: t('home'),
-                    expanded: true,
-                    reload: true,
-                    collapsed:false,
-                    draggable: false
-                },
+                // root: {
+                //     id: 'shared',
+                //     iconCls: "pimcore_icon_home",
+                //     text: t('home'),
+                //     expanded: true,
+                //     reload: true,
+                //     collapsed:false,
+                //     draggable: false
+                // },
                 listeners: this.getTreeNodeListeners('shared')
             });
         }
