@@ -28,19 +28,35 @@ class BrandOptionProvider implements SelectOptionsProviderInterface {
      */
     public function getOptions(array $context, Data $fieldDefinition): array
     {
-         $optionsData = [];
+        //  $optionsData = [];
+         $this->optionProvider = \Pimcore::getKernel()->getContainer()->get('AppBundle\Services\OptionProviderCacheService');
+         $optionsData = array();
+         $className = 'IFSEUBrand';
+         $allAvailablelArrayCache = $this->optionProvider->getCachedKeyData($className);
+         if($allAvailablelArrayCache && !empty($allAvailablelArrayCache))
+         {
+             $optionsData = $allAvailablelArrayCache;
+             unset($allAvailablelArrayCache);
+         }
+         else
+         {
 
-        $brandList = new DataObject\IFSEUBrand\Listing();
-        $brandList->setOrderKey('key');
-        $brandList->setOrder("ASC");
-        foreach($brandList as $listItem)
-        {
-            if($listItem instanceof DataObject\IFSEUBrand)
+            $brandList = new DataObject\IFSEUBrand\Listing();
+            $brandList->setOrderKey('key');
+            $brandList->setOrder("ASC");
+            foreach($brandList as $listItem)
             {
-            $optionsData[] = array ('key' => $listItem->getName(),'value' => $listItem->getID());
+                if($listItem instanceof DataObject\IFSEUBrand)
+                {
+                $optionsData[] = array ('key' => $listItem->getName(),'value' => $listItem->getID());
+                }
             }
+            if(!empty($optionsData))
+            {
+                $this->optionProvider->setCachedOptionProviders($className);
+                $this->optionProvider->setAllOptionsInCacheForClass($className, $optionsData);
+            }            
         }
-
         return $optionsData;
     }
 

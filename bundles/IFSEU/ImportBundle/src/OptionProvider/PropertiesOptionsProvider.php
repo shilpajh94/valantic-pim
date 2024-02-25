@@ -28,22 +28,37 @@ class PropertiesOptionsProvider implements SelectOptionsProviderInterface {
      */
     public function getOptions(array $context, Data $fieldDefinition): array
     {
-         $optionsData = [];
+        //  $optionsData = [];
+         $this->optionProvider = \Pimcore::getKernel()->getContainer()->get('AppBundle\Services\OptionProviderCacheService');
+         $optionsData = array();
+         $className = 'IFSEUProperties';
+         $allAvailablelArrayCache = $this->optionProvider->getCachedKeyData($className);
+         if($allAvailablelArrayCache && !empty($allAvailablelArrayCache))
+         {
+             $optionsData = $allAvailablelArrayCache;
+             unset($allAvailablelArrayCache);
+         }
+         else
+         {
+            $type =  $fieldDefinition->getOptionsProviderData();
+            $propertiesList =  DataObject\IFSEUProperties::getByTypeName($type);
+            $propertiesList->setOrderKey('key');
+            $propertiesList->setOrder("ASC");
 
-        $type =  $fieldDefinition->getOptionsProviderData();
-        $propertiesList =  DataObject\IFSEUProperties::getByTypeName($type);
-        $propertiesList->setOrderKey('key');
-        $propertiesList->setOrder("ASC");
-
-        foreach($propertiesList as $listItem)
-        {
-            if($listItem instanceof DataObject\IFSEUProperties)
+            foreach($propertiesList as $listItem)
             {
-            $optionsData[] = array ('key' => $listItem->getPropertyName(),'value' => $listItem->getID());
+                if($listItem instanceof DataObject\IFSEUProperties)
+                {
+                $optionsData[] = array ('key' => $listItem->getPropertyName(),'value' => $listItem->getID());
+                }
+            }
+            if(!empty($optionsData))
+            {
+                $this->optionProvider->setCachedOptionProviders($className);
+                $this->optionProvider->setAllOptionsInCacheForClass($className, $optionsData);
             }
         }
-
-        return $optionsData;
+            return $optionsData;
     }
 
     /**
