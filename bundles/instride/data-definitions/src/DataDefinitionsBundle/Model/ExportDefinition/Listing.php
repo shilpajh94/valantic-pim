@@ -1,0 +1,65 @@
+<?php
+/**
+ * Data Definitions.
+ *
+ * LICENSE
+ *
+ * This source file is subject to the GNU General Public License version 3 (GPLv3)
+ * For the full copyright and license information, please view the LICENSE.md and gpl-3.0.txt
+ * files that are distributed with this source code.
+ *
+ * @copyright  Copyright (c) 2016-2019 instride AG (https://www.instride.ch)
+ * @license    https://github.com/instride/DataDefinitions/blob/master/gpl-3.0.txt GNU General Public License version 3 (GPLv3)
+ */
+
+declare(strict_types=1);
+
+namespace Instride\Bundle\DataDefinitionsBundle\Model\ExportDefinition;
+
+use Exception;
+use Pimcore\Model\AbstractModel;
+use Pimcore\Model\Listing\CallableFilterListingInterface;
+use Pimcore\Model\Listing\CallableOrderListingInterface;
+use Pimcore\Model\Listing\Traits\FilterListingTrait;
+use Pimcore\Model\Listing\Traits\OrderListingTrait;
+use Instride\Bundle\DataDefinitionsBundle\Model\ExportDefinitionInterface;
+
+/**
+ * @method loadList()
+ */
+class Listing extends AbstractModel implements CallableFilterListingInterface, CallableOrderListingInterface
+{
+    use FilterListingTrait;
+    use OrderListingTrait;
+
+    /**
+     * Contains the results of the list.
+     * They are all an instance of Configuration.
+     */
+    public ?array $definitions = null;
+
+    /**
+     * Get Configurations.
+     *
+     * @return ExportDefinitionInterface[]
+     * @throws Exception
+     */
+    public function getObjects()
+    {
+        if (null === $this->definitions) {
+            $this->loadList();
+        }
+
+        return $this->definitions;
+    }
+
+    /**
+     * Set Definitions.
+     *
+     * @param array $definitions
+     */
+    public function setObjects(array $definitions): void
+    {
+        $this->definitions = $definitions;
+    }
+}
