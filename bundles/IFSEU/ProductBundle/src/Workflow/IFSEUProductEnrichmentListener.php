@@ -156,7 +156,7 @@ class IFSEUProductEnrichmentListener
                 ]
             ];
 
-            // $this->sendMail($params);
+            $this->sendMail($params);
         }
 
     }
@@ -240,10 +240,10 @@ class IFSEUProductEnrichmentListener
             $document = Document\Email::getByPath($params['template']);
 
             $mail->setDocument($document);
-            $mail->setSubject($document->getSubject());
+            $mail->subject($document->getSubject());
         }
         if (!empty($params['toEmails'])) {
-            $mail->addTo($params['toEmails']);
+            $mail->addTo($params['toEmails'][0]);
         } else {
             return false;
         }
