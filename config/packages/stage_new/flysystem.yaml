@@ -12,5 +12,13 @@ flysystem:
             visibility: private
             options:
                 client: 'assets_s3'
-                bucket: 'pimcorex-contitech-assets-stage'
+                bucket: 'pimcorex-contitech-assets-prod'
                 prefix: assets
+        pimcore.version.storage:
+           # Storage for serialized versioning data of documents/asset/data objects
+            adapter: 'aws'
+            visibility: public
+            options:
+                client: 'version_s3'
+                bucket: 'pim-prod-versions'
+                prefix: 'versions'
