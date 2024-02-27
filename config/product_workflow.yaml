@@ -27,7 +27,7 @@ pimcore:
                 enrich_again:
                     from: [review_content]
                     to: enrich
-                    guard: "is_fully_authenticated() and ('ROLE_PRODUCTMANAGER' in role_names or 'ROLE_APPLICATIONADMIN' in role_name)"
+                    guard: "is_fully_authenticated() and ('ROLE_PRODUCTMANAGER' in role_names or 'ROLE_APPLICATIONADMIN' in role_names)"
                     # notificationSettings:
                     #     notifyRoles: ['ROLE_EDITOR']
                     #     mailPath: '@PimcoreCore/Workflow/NotificationEmail/notificationEmail.html.twig'
