@@ -201,12 +201,13 @@ pimcore.plugin.ContitechCSProductBundle = Class.create({
                             text: 'Submit',
                             cls: 'pimcore_save_button',
                             iconCls: 'pimcore_icon_apply',
-                            handler: function () {
+                            handler: function (btnElement) {
                                 var form = this.up('form');
                                 if (form.isValid()) {
+                                    btnElement.setDisabled(true);
                                     form.submit({
                                         success: function (form, response) {
-
+                                            btnElement.setDisabled(false);
                                             var win = Ext.WindowManager.getActive();
                                             if (win) {
                                                 win.close();
@@ -216,6 +217,7 @@ pimcore.plugin.ContitechCSProductBundle = Class.create({
 
                                         },
                                         failure: function (form, response) {
+                                            btnElement.setDisabled(false);
                                             var label = Ext.ComponentQuery.query('label');
                                             label[0].setHtml('<div class="alert alert-danger alert-dismissible"><strong>Error : </strong> ' + response.result.msg + '</div>');
                                         }

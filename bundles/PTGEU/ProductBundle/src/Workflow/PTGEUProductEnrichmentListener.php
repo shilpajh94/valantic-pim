@@ -65,7 +65,7 @@ class PTGEUProductEnrichmentListener
                     'actionRemark' => $actionRemark
                 ]
             ];
-            // $this->sendMail($params);
+            $this->sendMail($params);
         }
     }
 
@@ -150,7 +150,7 @@ class PTGEUProductEnrichmentListener
             $mail->subject($document->getSubject());
         }
         if (!empty($params['toEmails'])) {
-            $mail->addTo($params['toEmails']);
+            $mail->addTo($params['toEmails'][0]);
         } else {
             return false;
         }

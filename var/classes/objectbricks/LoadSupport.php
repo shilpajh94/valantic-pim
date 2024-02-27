@@ -694,7 +694,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValueGenerator' => '',
                   )),
                   1 => 
@@ -724,7 +724,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValueGenerator' => '',
                   )),
                   2 => 
@@ -754,7 +754,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValueGenerator' => '',
                   )),
                   3 => 
@@ -784,7 +784,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValueGenerator' => '',
                   )),
                   4 => 
@@ -814,7 +814,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValueGenerator' => '',
                   )),
                   5 => 
@@ -844,7 +844,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValueGenerator' => '',
                   )),
                   6 => 
@@ -874,7 +874,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValueGenerator' => '',
                   )),
                   7 => 
@@ -904,7 +904,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValueGenerator' => '',
                   )),
                   8 => 
@@ -934,7 +934,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValueGenerator' => '',
                   )),
                   9 => 
@@ -964,7 +964,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValueGenerator' => '',
                   )),
                   10 => 
@@ -994,7 +994,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValueGenerator' => '',
                   )),
                   11 => 
@@ -1024,7 +1024,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValueGenerator' => '',
                   )),
                   12 => 
@@ -1054,7 +1054,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValueGenerator' => '',
                   )),
                   13 => 
@@ -1084,7 +1084,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValueGenerator' => '',
                   )),
                   14 => 
@@ -1114,7 +1114,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValueGenerator' => '',
                   )),
                   15 => 
@@ -1144,7 +1144,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValueGenerator' => '',
                   )),
                 ),
@@ -1704,7 +1704,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValueGenerator' => '',
                   )),
                   1 => 
@@ -1734,7 +1734,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValueGenerator' => '',
                   )),
                   2 => 
@@ -1764,7 +1764,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValueGenerator' => '',
                   )),
                   3 => 
@@ -1794,7 +1794,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValueGenerator' => '',
                   )),
                   4 => 
@@ -1824,7 +1824,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValueGenerator' => '',
                   )),
                   5 => 
@@ -1854,7 +1854,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValueGenerator' => '',
                   )),
                   6 => 
@@ -1884,7 +1884,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValueGenerator' => '',
                   )),
                   7 => 
@@ -1914,7 +1914,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValueGenerator' => '',
                   )),
                   8 => 
@@ -1944,7 +1944,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValueGenerator' => '',
                   )),
                   9 => 
@@ -1974,7 +1974,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValueGenerator' => '',
                   )),
                   10 => 
@@ -2004,7 +2004,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValueGenerator' => '',
                   )),
                   11 => 
@@ -2034,7 +2034,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValueGenerator' => '',
                   )),
                   12 => 
@@ -2064,7 +2064,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValueGenerator' => '',
                   )),
                   13 => 
@@ -2094,7 +2094,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValueGenerator' => '',
                   )),
                   14 => 
@@ -2124,7 +2124,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValueGenerator' => '',
                   )),
                   15 => 
@@ -2154,7 +2154,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
-                     'width' => 40,
+                     'width' => 90,
                      'defaultValueGenerator' => '',
                   )),
                 ),

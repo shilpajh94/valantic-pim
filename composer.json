@@ -70,7 +70,7 @@
       "ContitechCS\\ProductBundle\\": "bundles/ContitechCS/ProductBundle/src",
       "ContitechCS\\CatalogBundle\\": "bundles/ContitechCS/CatalogBundle/src",
       "ContitechCS\\CatalogUIApiBundle\\": "bundles/ContitechCS/CatalogUIApiBundle/src",
-      "Wvision\\Bundle\\DataDefinitionsBundle\\": "bundles/w-vision/data-definitions/src/DataDefinitionsBundle"
+      "Instride\\Bundle\\DataDefinitionsBundle\\": "bundles/instride/data-definitions/src/DataDefinitionsBundle"
     }
   },
   "autoload-dev": {
