@@ -392,7 +392,6 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
             }
         }
 
-        console.log(initData);
         if (type != 'classificationstore') {
             expandable = initData.children.length;
             expanded = true;
@@ -408,7 +407,7 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
             expanded: expanded,
             expandable: expandable,
             allowDrag: false,
-            iconCls: "pimcore_icon_" + type,
+            iconCls: "pimcore_icon_" + initData.fieldtype,
             text: nodeLabel
         };
 
@@ -464,7 +463,7 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
                 leaf: isLeaf,
                 allowDrag: draggable,
                 dataType: type,
-                iconCls: "pimcore_icon_" + type,
+                iconCls: "pimcore_icon_" + initData.fieldtype,
                 expanded: true,
                 brickDescriptor: brickDescriptor
             };
