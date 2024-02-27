@@ -7,11 +7,12 @@ use Pimcore\Db;
 use Pimcore\Model\DataObject;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Pimcore\Controller\FrontendController;
 use Symfony\Component\Routing\Annotation\Route;
 use Pimcore\Model\DataObject\Data\BlockElement;
 use \Exception;
 
-class ChemicalChartController extends AbstractController
+class ChemicalChartController extends FrontendController
 {
 
     private $db;
@@ -39,7 +40,8 @@ class ChemicalChartController extends AbstractController
             $common = \Pimcore::getContainer()->get('app.common_helper');
             $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
             $this->attributeImages = $common->getParameter($attributeImagesConfig, 'attributeImages');
-            $CatalogImagesHYDFooter = $common->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
+            $catalogImagesHYDFooter = $common->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
+            $parameterBag = [];
 
             $class = 'Pimcore\Model\DataObject\\Chemical\\Listing';
             $classObj = new $class();
@@ -138,7 +140,7 @@ class ChemicalChartController extends AbstractController
                     if ($value2 != null) {
                         $productArr[$i][$key] = $value[$i];
                         $i++;
-                    } 
+                    }
                     else {
                         $productArr[$i][$key] = null;
                         $i++;
@@ -146,14 +148,14 @@ class ChemicalChartController extends AbstractController
                 }
             }
 
-            $footer_logo_src = $CatalogImagesHYDFooter['Black'];
+            $footer_logo_src = $catalogImagesHYDFooter['Black'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
-            $this->view['data'] = $productArr;
-            $this->view['tubeMaterialheaders'] = array_unique($tubeMaterialArr);
-            $this->view['fittingMaterialheaders'] = array_unique($fittingMaterialArr);
-            $this->view['footer_logo_src']  = $footer_logo_src;
-            //p_r($productArr);
+            $parameterBag['data'] = $productArr;
+            $parameterBag['tubeMaterialheaders'] = array_unique($tubeMaterialArr);
+            $parameterBag['fittingMaterialheaders'] = array_unique($fittingMaterialArr);
+            $parameterBag['footer_logo_src']  = $footer_logo_src;
+            return $this->render("catalog/chemical/chemical_chart_product_page.html.twig", $parameterBag);
         } catch (Exception $e) {
             echo "<h3>" . $e->getMessage() . "</h3>";
         }
@@ -165,7 +167,7 @@ class ChemicalChartController extends AbstractController
         $imgObj = \Pimcore\Model\Asset::getByPath($src);
 
         if($imgObj){
-            $s3src = $this->catalogTemplatingHelper->getImageThumbnail($imgObj,$this->view->imageWidth);
+            $s3src = $this->catalogTemplatingHelper->getImageThumbnail($imgObj,null);
         }
         return $s3src;
     }
