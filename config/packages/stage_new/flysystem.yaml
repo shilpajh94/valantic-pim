@@ -12,5 +12,5 @@ flysystem:
             visibility: private
             options:
                 client: 'assets_s3'
-                bucket: 'pimcorex-contitech-assets-stage'
+                bucket: 'pimcorex-contitech-assets-prod'
                 prefix: assets
