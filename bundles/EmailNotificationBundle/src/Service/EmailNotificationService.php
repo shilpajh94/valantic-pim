@@ -56,7 +56,7 @@ class EmailNotificationService {
             if (!empty($emailParams['attachment'])) {
                 foreach ($emailParams['attachment'] as $attachment) {
                     $this->attachment = $this->createAttachmentAssetsObject($attachment);
-                    $mail->createAttachment($this->attachment->getData(),
+                    $mail->attach($this->attachment->getData(),
                         $this->attachment->getMimetype(), $this->attachment->getFilename());
                 }
             }

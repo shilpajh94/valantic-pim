@@ -48,6 +48,7 @@ class ProductDataExport implements IDataExport
         try{
             # Get valid languages
             $this->languages = \Pimcore\Tool::getValidLanguages();
+            $this->languages = array_unique($this->languages);
 
             $this->productAttributeConfig = $this->helper->getLocalizedAttribute($this->bu,'Product');
             if($this->productAttributeConfig)
