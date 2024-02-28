@@ -227,7 +227,7 @@ class DefaultController extends FrontendController
         $success = true;
         $msg = "";
         $parentId = '';
-        // $natureOfProduct = 'Product Group';
+        $natureOfProduct = 'Product Group';
 
         $productName = $request->get('productName');
         $currentUser = $request->get('currentUser');
@@ -238,26 +238,22 @@ class DefaultController extends FrontendController
             $marcomId = $request->get('marcomId');
             $editorId = $request->get('editorId');
 
-            $csHierarchyObj = DataObject\CSHierarchy::getById($productCategoryId);
-            $csHierarchyPath = $csHierarchyObj->getPath();
+            $CSHierarchyObj = DataObject\CSHierarchy::getById($productCategoryId);
+            $CSHierarchyPath = $CSHierarchyObj->getPath();
 
-            $relatedBricksSameLevel = $csHierarchyObj->getRelatedBricks();
+            $relatedBricksSameLevel = $CSHierarchyObj->getRelatedBricks();
 
-            // $CSHierarchyName = $csHierarchyObj->getName();
+            $CSHierarchyName = $CSHierarchyObj->getName();
 
-            $parentId = DataObject\Service::createFolderByPath(
-                ImportConstants::CONTITECH_CS_PRODUCT_FOLDER
-                )->getId();   // createFolderByPath creates the folder assigned in the constant if not created
-                // and returns the path & if the folder is already present then returns the path of the folder.
+            $parentId = DataObject\Service::createFolderByPath(ImportConstants::CONTITECH_CS_PRODUCT_FOLDER)->getId();   // createFolderByPath creates the folder assigned in the constant if not created and returns the path & if the folder is already present then returns the path of the folder.
 
-            $csHierarchyPath = \str_replace(ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER,
-                "", $csHierarchyPath);
-            $csHierarchyPath = trim($csHierarchyPath, '/');
-            $productHier = explode('/', $csHierarchyPath);
+            $CSHierarchyPath = \str_replace(ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER, "", $CSHierarchyPath);
+            $CSHierarchyPath = trim($CSHierarchyPath, '/');
+            $productHier = explode('/', $CSHierarchyPath);
 
             if (!$productCategoryCheck) {
-                $productHier[] = $csHierarchyPath;
-                // $natureOfProduct = "Final Product";
+                $productHier[] = $CSHierarchyName;
+                $natureOfProduct = "Final Product";
             }
             $productHier[] = $productName;
 
@@ -275,8 +271,7 @@ class DefaultController extends FrontendController
 
                 $productPath = "/" . ImportConstants::CONTITECH_CS_PRODUCT_FOLDER . '/' . $hierarchyString;
 
-                $hierarchyPath = \str_replace(ImportConstants::CONTITECH_CS_PRODUCT_FOLDER,
-                    ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER, $productPath);
+                $hierarchyPath = \str_replace(ImportConstants::CONTITECH_CS_PRODUCT_FOLDER, ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER, $productPath);
 
                 $hierarchyPathObj = DataObject\CSHierarchy::getByPath($hierarchyPath);
 
@@ -285,9 +280,9 @@ class DefaultController extends FrontendController
                     if ($hierarchyPathObj->getLevel() != 'Level 1') {
                         $parentHierarchyObj = $hierarchyPathObj->getParent();
                     }
-                    $csHierarchyRelatedBricks = $hierarchyPathObj->getRelatedBricks();
-                    if ($csHierarchyRelatedBricks) {
-                        $allObjectBricks = array_merge($allObjectBricks, $csHierarchyRelatedBricks);
+                    $CSHierarchyRelatedBricks = $hierarchyPathObj->getRelatedBricks();
+                    if ($CSHierarchyRelatedBricks) {
+                        $allObjectBricks = array_merge($allObjectBricks, $CSHierarchyRelatedBricks);
                     }
                 }
                 if ($counter == $productHierCount) {
@@ -297,8 +292,8 @@ class DefaultController extends FrontendController
                     $allObjectBricks = array_unique($allObjectBricks);
                 }
 
-                $csProductObj = DataObject\CSProducts::getByPath($productPath);
-                if (!$csProductObj) {
+                $CSProductObj = DataObject\CSProducts::getByPath($productPath);
+                if (!$CSProductObj) {
 
                     try {
                         $product = new DataObject\CSProducts();
@@ -309,12 +304,7 @@ class DefaultController extends FrontendController
                         if ($hierarchyPathObj) {
                             $product->setParentCategory([$parentHierarchyObj]);
                         } else {
-                            if($parentObjForLeaf){
-                                $product->setParentCategory([$parentObjForLeaf]);
-                            }
-                            else{
-                                $product->setParentCategory(null);
-                            }
+                            $product->setParentCategory([$parentObjForLeaf]);
                         }
                         $product->setPublished(true);
                         $product->setProductOwner($userId);
@@ -324,18 +314,13 @@ class DefaultController extends FrontendController
                         $product->setUserModification($currentUser);
                         //$product->setNatureOfProduct($natureOfProduct);
                         $product->setPublished(false);
-                        // functionality to check if product is already exist or not,
-                        // if already exists then display an error message saying “Duplicate product name”
+                        // functionality to check if product is already exist or not, if already exists then display an error message saying “Duplicate product name”
                         if (!empty($productName)) {
                             $list = new \Pimcore\Model\DataObject\CSProducts\Listing();
                             $list->setCondition('Name = ?', $productName);
                             $uniqueProduct = $list->load();
                             if (!empty($uniqueProduct)) {
-                                echo json_encode(array(
-                                    'success' => false,
-                                    'objectId' => $parentId,
-                                    "msg" => "Duplicate product name"
-                                ));
+                                echo json_encode(array('success' => false, 'objectId' => $parentId, "msg" => "Duplicate product name"));
                                 die;
                             }
                         }
@@ -345,6 +330,7 @@ class DefaultController extends FrontendController
                                 $class = 'Pimcore\\Model\\DataObject\\Objectbrick\\Data\\' . $brick;
                                 $brickObject = new $class($product);
                                 foreach ($unitValueConfig as $unit => $unitValue) {
+
 
                                     $fieldKey = ucfirst($unitValue['fieldName']);
                                     $objectBrickFieldMethod = 'set' . $fieldKey;
@@ -368,16 +354,14 @@ class DefaultController extends FrontendController
                         /** code added below to change workflow state on creation of product **/
 
                         /** code added above to change workflow state on creation of product **/
-                        $this->containerInterface->get('ContitechCS\ProductBundle\Services\AppService')
-                            ->createAssetsHierarch($prd);
-                        $success = true;
+                        \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\AppService')->createAssetsHierarch($prd);
                         $msg =  "Product added successfully";
                     } catch (\Throwable $th) {
                         $success = false;
                         $msg =  $th->getMessage();
                     }
                 } else {
-                    $parentId = $csProductObj->getId();
+                    $parentId = $CSProductObj->getId();
                     // echo "Inside Else";
                     // print_r($parentId);
                     // echo "\n\n";
