@@ -30,6 +30,7 @@ class CategoryDataExport implements IDataExport
         try{
             # Get valid languages
             $this->languages = \Pimcore\Tool::getValidLanguages();
+            $this->languages = array_unique($this->languages);
 
             $this->categoryAttributeConfig = $this->helper->getLocalizedAttribute($this->bu,'Category');
             if($this->categoryAttributeConfig)

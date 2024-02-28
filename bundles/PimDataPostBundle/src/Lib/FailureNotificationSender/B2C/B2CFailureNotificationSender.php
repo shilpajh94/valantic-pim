@@ -79,7 +79,7 @@ class B2CFailureNotificationSender extends AbstractB2CFailureNotificationSender
         //     $mail->addTo($email);
         // }
 
-        $mail->setSubject(Constants::B2C_FAILURE_TEMPLATE_SUBJECT_NAME);
+        $mail->Subject(Constants::B2C_FAILURE_TEMPLATE_SUBJECT_NAME);
         $mail->setDocument(Constants::B2C_FAILURE_TEMPLATE_NAME);
         $mail->setParams($params);
         $mail->send();

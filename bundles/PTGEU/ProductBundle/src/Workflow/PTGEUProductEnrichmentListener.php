@@ -142,6 +142,8 @@ class PTGEUProductEnrichmentListener
     private function sendMail($params)
     {
         $mail = new \Pimcore\Mail();
+        $mail->preventDebugInformationAppending();
+        $mail->setIgnoreDebugMode(true);
         if (!empty($params['template'])) {
 
             $document = Document\Email::getByPath($params['template']);
@@ -150,23 +152,31 @@ class PTGEUProductEnrichmentListener
             $mail->subject($document->getSubject());
         }
         if (!empty($params['toEmails'])) {
-            $mail->addTo($params['toEmails'][0]);
+            foreach ($params['toEmails'] as $toEmail) {
+                $mail->addTo($toEmail);
+            }
+            
         } else {
             return false;
         }
-
+        
         if (!empty($params['ccEmails'])) {
             foreach ($params['ccEmails'] as $email) {
                 $mail->addCc($email);
             }
         }
         if (!empty($params['params'])) {
-            $mail->setParams($params['params']);
+            try{
+                $mail->setParams($params['params']);
+            } catch (\Exception $ex) {
+                return false;
+            }
         }
+       
         if ($mail->send()) {
             return true;
         }
-
+        
         return false;
     }
 

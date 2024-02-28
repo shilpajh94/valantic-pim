@@ -78,7 +78,7 @@ class B2BFailureNotificationSender extends AbstractB2BFailureNotificationSender
         //     $mail->addTo($email);
         // }
 
-        $mail->setSubject(Constants::B2B_FAILURE_TEMPLATE_SUBJECT_NAME);
+        $mail->Subject(Constants::B2B_FAILURE_TEMPLATE_SUBJECT_NAME);
         $mail->setDocument(Constants::B2B_FAILURE_TEMPLATE_NAME);
         $mail->setParams($params);
         $mail->send();
