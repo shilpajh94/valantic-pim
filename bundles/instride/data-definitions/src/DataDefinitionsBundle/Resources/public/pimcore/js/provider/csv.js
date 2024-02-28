@@ -16,7 +16,6 @@ pimcore.registerNS('pimcore.plugin.datadefinitions.provider.csv');
 
 pimcore.plugin.datadefinitions.provider.csv = Class.create(pimcore.plugin.datadefinitions.provider.abstractprovider, {
     getItems: function () {
-        console.log()
         return [{
             xtype: 'textfield',
             name: 'delimiter',
@@ -134,7 +133,7 @@ pimcore.plugin.datadefinitions.provider.csv = Class.create(pimcore.plugin.datade
                                 // to send it in the save request
                                 outerScope.newlyUploadedFileName = response.fileName;
                                 outerScope.uploadedCSVId = response.fileId;
-                                Ext.getCmp('csvId'+this.parentItemPanel.data.id).setValue(response.fileId);
+                                Ext.getCmp('csvId'+this.params.definitionName).setValue(response.fileId);
                             },
                             failure: function (form, response) {
                                 response = response.response;
