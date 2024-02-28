@@ -462,7 +462,7 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
                 layout: initData,
                 leaf: isLeaf,
                 allowDrag: draggable,
-                dataType: type,
+                dataType: initData.fieldtype,
                 iconCls: "pimcore_icon_" + initData.fieldtype,
                 expanded: true,
                 brickDescriptor: brickDescriptor

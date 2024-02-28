@@ -2,10 +2,11 @@
 
 namespace DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator;
 
-use Pimcore\DataObject\GridColumnConfig\Operator\AbstractOperator;
-use Pimcore\DataObject\GridColumnConfig\ResultContainer;
+use Pimcore\Bundle\AdminBundle\DataObject\GridColumnConfig\Operator\AbstractOperator;
+use Pimcore\Bundle\AdminBundle\DataObject\GridColumnConfig\ResultContainer;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\AbstractObject;
+use stdClass;
 use Symfony\Component\Yaml\Yaml;
 
 class ProductBrickDataOperator extends AbstractOperator
@@ -19,7 +20,7 @@ class ProductBrickDataOperator extends AbstractOperator
         $this->attributeName = $config->additionalData;
     }
 
-    public function getLabeledValue($element)
+    public function getLabeledValue($element) : ResultContainer | stdClass
     {
 
         $originalGetInheritedValues = AbstractObject::doGetInheritedValues();

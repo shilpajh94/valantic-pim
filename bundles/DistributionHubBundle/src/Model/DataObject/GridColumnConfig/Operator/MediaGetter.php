@@ -3,9 +3,10 @@
 namespace DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator;
 
 use DistributionHubBundle\Lib\Constants;
-use Pimcore\DataObject\GridColumnConfig\Operator\AbstractOperator;
+use Pimcore\Bundle\AdminBundle\DataObject\GridColumnConfig\Operator\AbstractOperator;
 use DistributionHubBundle\Lib\DHubLogger;
 use S3CustomizationBundle\Lib\Utils;
+use stdClass;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class MediaGetter extends AbstractOperator
@@ -19,7 +20,7 @@ class MediaGetter extends AbstractOperator
         parent::__construct($config, $context);
     }
 
-    public function getLabeledValue($element)
+    public function getLabeledValue($element) : stdClass
     {
         $result = new \stdClass();
         $result->label = $this->label;

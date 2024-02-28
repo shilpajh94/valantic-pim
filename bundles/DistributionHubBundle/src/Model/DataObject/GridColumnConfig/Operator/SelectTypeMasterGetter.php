@@ -5,9 +5,9 @@ namespace DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator;
 
 
 use DistributionHubBundle\Model\DataObject\GridColumnConfig\Value\CustomDefaultValue;
-use Pimcore\DataObject\GridColumnConfig\Operator\AbstractOperator;
-use Pimcore\DataObject\GridColumnConfig\Operator\AnyGetter;
-use Pimcore\DataObject\GridColumnConfig\Value\DefaultValue;
+use Pimcore\Bundle\AdminBundle\DataObject\GridColumnConfig\Operator\AbstractOperator;
+use Pimcore\Bundle\AdminBundle\DataObject\GridColumnConfig\Operator\AnyGetter;
+use Pimcore\Bundle\AdminBundle\DataObject\GridColumnConfig\Value\DefaultValue;
 use Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect;
 use Pimcore\Model\DataObject\ClassDefinition\Data\Select;
 
@@ -21,7 +21,7 @@ class SelectTypeMasterGetter extends AbstractOperator
         parent::__construct($config, $context);
     }
 
-    public function getLabeledValue($element)
+    public function getLabeledValue($element): \stdClass
     {
         $result = new \stdClass();
         $result->label = $this->label;

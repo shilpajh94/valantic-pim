@@ -466,7 +466,7 @@ class ExportCommand extends Command
         $this->helperService->updateScheduleStatusToFailure($this->schedule);
         $this->log($msg, DHubLogger::CRITICAL, true);
         try {
-            // $this->mailNotificationService->sendNotification($this->schedule, $this->channel, Constants::SCHEDULE_STATUS_FAILED);
+            $this->mailNotificationService->sendNotification($this->schedule, $this->channel, Constants::SCHEDULE_STATUS_FAILED);
         } catch (\Exception $exception) {
             $this->log($exception->getMessage(), DHubLogger::CRITICAL);
         }
@@ -491,7 +491,7 @@ class ExportCommand extends Command
     private function sendNotification()
     {
         try {
-            // $this->mailNotificationService->sendNotification($this->schedule, $this->channel, Constants::SCHEDULE_STATUS_COMPLETED);
+            $this->mailNotificationService->sendNotification($this->schedule, $this->channel, Constants::SCHEDULE_STATUS_COMPLETED);
         } catch (\Exception $exception) {
             $this->log($exception->getMessage(), DHubLogger::CRITICAL);
         }

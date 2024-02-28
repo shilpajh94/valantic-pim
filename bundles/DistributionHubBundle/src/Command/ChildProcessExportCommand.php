@@ -97,7 +97,7 @@ class ChildProcessExportCommand extends Command
         return 1;
     }
 
-    
+
     private function doExport($columnAttributeMapping,$tmpFilePath,$pimcoreClassId,$filterConfig,$offset,$limit)
     {
         /**
@@ -168,7 +168,7 @@ class ChildProcessExportCommand extends Command
 
             $writer->write($exportData);
         } catch (\Exception $exception) {
-            // p_r($exception->getMessage().' : '.$exception->getFile().' : '.$exception->getLine());
+            p_r($exception->getMessage().' : '.$exception->getFile().' : '.$exception->getLine());
             $this->handleProcessFailure($exception->getMessage());
             return;
         }
@@ -189,7 +189,7 @@ class ChildProcessExportCommand extends Command
         $this->helperService->updateScheduleStatusToFailure($this->schedule);
         $this->log($msg, DHubLogger::CRITICAL, true);
         try {
-            // $this->mailNotificationService->sendNotification($this->schedule, $this->channel, Constants::SCHEDULE_STATUS_FAILED);
+            $this->mailNotificationService->sendNotification($this->schedule, $this->channel, Constants::SCHEDULE_STATUS_FAILED);
         } catch (\Exception $exception) {
             p_r($exception->getMessage().' : '.$exception->getFile().' : '.$exception->getLine());
             $this->log($exception->getMessage(), DHubLogger::CRITICAL);

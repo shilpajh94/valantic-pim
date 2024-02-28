@@ -81,7 +81,7 @@ class ExportService
         if($record){
          $returnValue = Schedule::getById($record[0]['id']);
         }else{
-         $returnValue = null;    
+         $returnValue = null;
         }
         return $returnValue;
     }
@@ -238,6 +238,7 @@ class ExportService
      */
     public function getCsvDataForExport($list, $fields, $language, $addTitles = true)
     {
+        // p_r('here in 241');
         $request = new Request(['language' => $language]);
         $dataFetcher = new DataFetcher();
         return $dataFetcher->getCsvData($request, $this->localeService, $list, $fields, $addTitles, $this->getHelperDefinitions());

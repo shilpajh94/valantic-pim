@@ -3,8 +3,8 @@
 
 namespace DistributionHubBundle\Model\DataObject\GridColumnConfig\Value;
 
-use Pimcore\DataObject\GridColumnConfig\Value\AbstractValue;
-use Pimcore\DataObject\GridColumnConfig\Value\DefaultValue;
+use Pimcore\Bundle\AdminBundle\DataObject\GridColumnConfig\Value\DefaultValue;
+use Pimcore\Bundle\AdminBundle\DataObject\GridColumnConfig\Value\AbstractValue;
 use Pimcore\Localization\LocaleServiceInterface;
 use Pimcore\Model\DataObject\Classificationstore;
 use Pimcore\Model\DataObject\AbstractObject;
@@ -13,7 +13,7 @@ use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\Service;
 use Pimcore\Model\Element\ElementInterface;
 use Pimcore\Model\DataObject\Objectbrick;
-
+use stdClass;
 
 class CustomDefaultValue extends AbstractValue
 {
@@ -105,7 +105,7 @@ class CustomDefaultValue extends AbstractValue
             }
         }
 
-        $result = new \stdClass();
+        $result = new stdClass();
         $result->value = $value;
         $result->label = $fieldDefinition->getTitle();
         $result->def = $fieldDefinition;
@@ -180,7 +180,7 @@ class CustomDefaultValue extends AbstractValue
                     $definition = json_decode($keyConfig->getDefinition());
                     $definition = Classificationstore\Service::getFieldDefinitionFromJson($definition, $type);
 
-                    $result = new \stdClass();
+                    $result = new stdClass();
                     $result->value = $fielddata;
                     $result->label = $definition->getTitle();
                     $result->def = $definition;
@@ -202,7 +202,7 @@ class CustomDefaultValue extends AbstractValue
      */
     private function getDefaultValue($value)
     {
-        $result = new \stdClass();
+        $result = new stdClass();
         $result->value = $value;
         $result->label = $this->label;
         $result->def = null;
@@ -221,7 +221,7 @@ class CustomDefaultValue extends AbstractValue
      *
      * {@inheritdoc}
      */
-    public function getLabeledValue($element)
+    public function getLabeledValue($element): stdClass
     {
         /** @var Concrete $element */
         $attributeParts = explode('~', $this->attribute);

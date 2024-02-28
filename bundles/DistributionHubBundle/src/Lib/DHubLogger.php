@@ -17,7 +17,7 @@ class DHubLogger
 
     /** const string - log source */
     const SOURCE = 'dHub';
-    
+
     /** const string - name of the log file */
     const DEFAULT_LOG_NAME = 'dHub.log';
 
@@ -36,7 +36,7 @@ class DHubLogger
     const CRITICAL = Logger::CRITICAL;
     const ALERT = Logger::ALERT;
     const EMERGENCY = Logger::EMERGENCY;
- 
+
     public static function getMonoLogger($logName = null, $logLevel = null, array $config = [])
     {
         $monoLogger = new Logger($logName);
@@ -64,7 +64,7 @@ class DHubLogger
     {
         try {
             $source = self::SOURCE;
-            
+
             $data = [
                 'source' => $source,
                 'message' => $message,
@@ -72,7 +72,7 @@ class DHubLogger
                 'logtime' => time()
             ];
             self::getMonoLogger($source.'.log')->log($type, $message);
-            
+
             self::logInApplicationLogger($data);
         } catch (\Exception $exception) {
             self::logException($source, 'Error in save dHub_logs', $exception);
@@ -84,10 +84,10 @@ class DHubLogger
         $message = $message.'---'.$exception->getMessage();
         self::log($message, Logger::ERROR);
     }
-     
+
     public static function logInApplicationLogger($logDetails)
     {
-        $logger = \Pimcore\Log\ApplicationLogger::getInstance($logDetails['source'], true);
+        $logger = \Pimcore\Bundle\ApplicationLoggerBundle\ApplicationLogger::getInstance($logDetails['source'], true);
         $logger->log($logDetails['type'], $logDetails['message']);
     }
 }
