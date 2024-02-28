@@ -2,8 +2,9 @@
 
 namespace DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator;
 
-use Pimcore\DataObject\GridColumnConfig\Operator\AbstractOperator;
+use Pimcore\Bundle\AdminBundle\DataObject\GridColumnConfig\Operator\AbstractOperator;
 use Pimcore\Model\DataObject\AbstractObject;
+use stdClass;
 
 class ReverseManyToManyGetter extends AbstractOperator
 {
@@ -25,7 +26,7 @@ class ReverseManyToManyGetter extends AbstractOperator
         $this->returnLastResult = $config->returnLastResult ?? false;
     }
 
-    public function getLabeledValue($element)
+    public function getLabeledValue($element) : stdClass
     {
         $result = new \stdClass();
         $result->label = $this->label;

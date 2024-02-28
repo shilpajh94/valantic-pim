@@ -86,7 +86,7 @@ class DHubLogger
 
     public static function logInApplicationLogger($logDetails)
     {
-        $logger = \Pimcore\Log\ApplicationLogger::getInstance($logDetails['source'], true);
+        $logger = \Pimcore\Bundle\ApplicationLoggerBundle\ApplicationLogger::getInstance($logDetails['source'], true);
         $logger->log($logDetails['type'], $logDetails['message']);
     }
 }

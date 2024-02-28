@@ -165,49 +165,49 @@ services:
         arguments:
             $className: DistributionHubBundle\src\Model\DataObject\GridColumnConfig\Operator\MediaGetter
         tags:
-            - { name: pimcore.bundle.adminbundle.data_object.grid_column_config.operator_factory, id: MediaGetter }
+            - { name: pimcore.data_object.grid_column_config.operator_factory, id: MediaGetter }
 
     pimcore.data_object.grid_column_config.operator.factory.ignore:
         class: Pimcore\Bundle\AdminBundle\DataObject\GridColumnConfig\Operator\Factory\DefaultOperatorFactory
         arguments:
             $className: DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator\Ignore
         tags:
-            - { name: pimcore.bundle.adminbundle.data_object.grid_column_config.operator_factory, id: Ignore }
+            - { name: pimcore.data_object.grid_column_config.operator_factory, id: Ignore }
 
     pimcore.data_object.grid_column_config.operator.factory.collectionmediagetter:
         class: Pimcore\Bundle\AdminBundle\DataObject\GridColumnConfig\Operator\Factory\DefaultOperatorFactory
         arguments:
             $className: DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator\CollectionMediaGetter
         tags:
-            - { name: pimcore.bundle.adminbundle.data_object.grid_column_config.operator_factory, id: CollectionMediaGetter }
+            - { name: pimcore.data_object.grid_column_config.operator_factory, id: CollectionMediaGetter }
 
     pimcore.data_object.grid_column_config.operator.factory.reversemanytomanygetter:
         class: Pimcore\Bundle\AdminBundle\DataObject\GridColumnConfig\Operator\Factory\DefaultOperatorFactory
         arguments:
             $className: DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator\ReverseManyToManyGetter
         tags:
-            - { name: pimcore.bundle.adminbundle.data_object.grid_column_config.operator_factory, id: ReverseManyToManyGetter }
+            - { name: pimcore.data_object.grid_column_config.operator_factory, id: ReverseManyToManyGetter }
 
     pimcore.data_object.grid_column_config.operator.factory.selecttypemastergetter:
         class: Pimcore\Bundle\AdminBundle\DataObject\GridColumnConfig\Operator\Factory\DefaultOperatorFactory
         arguments:
             $className: DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator\SelectTypeMasterGetter
         tags:
-            - { name: pimcore.bundle.adminbundle.data_object.grid_column_config.operator_factory, id: SelectTypeMasterGetter }
+            - { name: pimcore.data_object.grid_column_config.operator_factory, id: SelectTypeMasterGetter }
     
     pimcore.data_object.grid_column_config.operator.factory.striptag:
         class: Pimcore\Bundle\AdminBundle\DataObject\GridColumnConfig\Operator\Factory\DefaultOperatorFactory
         arguments:
             $className: DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator\StripTag
         tags:
-            - { name: pimcore.bundle.adminbundle.data_object.grid_column_config.operator_factory, id: StripTag }
+            - { name: pimcore.data_object.grid_column_config.operator_factory, id: StripTag }
 
     pimcore.data_object.grid_column_config.operator.factory.any_getter:
         class: Pimcore\Bundle\AdminBundle\DataObject\GridColumnConfig\Operator\Factory\DefaultOperatorFactory
         arguments:
             $className: DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator\AnyGetter
         tags:
-            - { name: pimcore.bundle.adminbundle.data_object.grid_column_config.operator_factory, id: AnyGetter }
+            - { name: pimcore.data_object.grid_column_config.operator_factory, id: AnyGetter }
 
     DistributionHubBundle\Services\ClassificationStoreService:
         public: true

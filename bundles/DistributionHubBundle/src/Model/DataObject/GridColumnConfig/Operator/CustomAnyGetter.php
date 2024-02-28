@@ -4,13 +4,13 @@
 namespace DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator;
 
 use Pimcore\Model\AbstractModel;
-use Pimcore\DataObject\GridColumnConfig\Operator\AbstractOperator;
+use Pimcore\Bundle\AdminBundle\DataObject\GridColumnConfig\Operator\AbstractOperator;
 use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\Objectbrick\Data\AbstractData;
-use Pimcore\DataObject\GridColumnConfig\Value\DefaultValue;
+use Pimcore\Bundle\AdminBundle\DataObject\GridColumnConfig\Value\DefaultValue;
 use \DistributionHubBundle\Model\DataObject\GridColumnConfig\Value\CustomDefaultValue;
 use Pimcore\Model\DataObject\Data\ObjectMetadata;
-
+use stdClass;
 
 class CustomAnyGetter extends AbstractOperator
 {
@@ -46,7 +46,7 @@ class CustomAnyGetter extends AbstractOperator
         $this->returnLastResult = $config->returnLastResult ?? false;
     }
 
-    public function getLabeledValue($element)
+    public function getLabeledValue($element): stdClass
     {
         $result = new \stdClass();
         $result->label = $this->label;

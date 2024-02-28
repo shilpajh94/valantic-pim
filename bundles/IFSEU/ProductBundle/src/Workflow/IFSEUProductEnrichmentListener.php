@@ -171,7 +171,7 @@ class IFSEUProductEnrichmentListener
         return '';
     }
 
-    public function getUserEmailsListByRoles($userRolesArray, $product = []) {
+    public function getUserEmailsListByRoles($userRolesArray, $product) {
       
         $emailIds = [];
         if (!empty($userRolesArray)) {
@@ -233,8 +233,9 @@ class IFSEUProductEnrichmentListener
 
     private function sendMail($params)
     {
-        
         $mail = new \Pimcore\Mail();
+        $mail->preventDebugInformationAppending();
+        $mail->setIgnoreDebugMode(true);
         if (!empty($params['template'])) {
 
             $document = Document\Email::getByPath($params['template']);
@@ -243,7 +244,10 @@ class IFSEUProductEnrichmentListener
             $mail->subject($document->getSubject());
         }
         if (!empty($params['toEmails'])) {
-            $mail->addTo($params['toEmails'][0]);
+            foreach ($params['toEmails'] as $toEmail) {
+                $mail->addTo($toEmail);
+            }
+            
         } else {
             return false;
         }
@@ -254,8 +258,13 @@ class IFSEUProductEnrichmentListener
             }
         }
         if (!empty($params['params'])) {
-            $mail->setParams($params['params']);
+            try{
+                $mail->setParams($params['params']);
+            } catch (\Exception $ex) {
+                return false;
+            }
         }
+       
         if ($mail->send()) {
             return true;
         }

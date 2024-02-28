@@ -26,7 +26,7 @@ class DataFetcher
                             $objectData[$key] = $field;
                             continue;
                         }
-                        if (DataObject\Service::isHelperGridColumnConfig($field) && $validLanguages = null) {
+                        if (DataObject\Service::isHelperGridColumnConfig($field) && $validLanguages = DataObject\Service::expandGridColumnForExport($helperDefinitions, $field)) {
                             $currentLocale = $localeService->getLocale();
                             $mappedFieldnameBase = $this->mapFieldname($field, $helperDefinitions);
 
@@ -47,7 +47,7 @@ class DataFetcher
                             if (!isset($mappedFieldnames[$field])) {
                                 $mappedFieldnames[$field] = $this->mapFieldname($field, $helperDefinitions);
                             }
-                            
+
                             $objectData[$field] = str_replace("\n","",$fieldData);
                         }
                     }
@@ -112,8 +112,7 @@ class DataFetcher
                         // Prefix hostname with assets
                         return $hostName . $dataForAssetExport;
                     }
-            
-                    // p_r($fieldDefinition->getForCsvExport($object));
+
                     return $fieldDefinition->getForCsvExport($object);
                 } else {
                     $fieldParts = explode('~', $field);
