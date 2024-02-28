@@ -309,7 +309,12 @@ class DefaultController extends FrontendController
                         if ($hierarchyPathObj) {
                             $product->setParentCategory([$parentHierarchyObj]);
                         } else {
-                            $product->setParentCategory([$parentObjForLeaf]);
+                            if($parentObjForLeaf){
+                                $product->setParentCategory([$parentObjForLeaf]);
+                            }
+                            else{
+                                $product->setParentCategory(null);
+                            }
                         }
                         $product->setPublished(true);
                         $product->setProductOwner($userId);
