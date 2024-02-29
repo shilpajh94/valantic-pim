@@ -28,7 +28,7 @@ pimcore.plugin.data_definitions = Class.create({
 
         var user = pimcore.globalmanager.get('user');
 
-        if (user.isAllowed('plugins')) {
+        if (user.isAllowed('data_definitions_permission_data_import')) {
 
             var importMenu = new Ext.Action({
                 text: t('data_definitions_import_definitions'),

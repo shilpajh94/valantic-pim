@@ -579,8 +579,7 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
     reloadColumnMapping: function () {
         if (this.mappingSettings) {
             this.mappingSettings.removeAll();
-
-            if (this.data.provider) {
+            // if (this.data.provider == 'csv') {
                 this.mappingSettings.enable();
 
                 Ext.Ajax.request({
@@ -794,7 +793,7 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                         this.mappingSettings.add(grid);
                     }.bind(this)
                 });
-            }
+            // }
         }
     },
 
