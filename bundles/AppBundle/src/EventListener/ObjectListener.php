@@ -226,7 +226,9 @@ class ObjectListener
      */
     private function updatePIMUser(\Pimcore\Model\DataObject\Users $object)
     {
-        $userObj = \Pimcore\Model\User::getById($object->getAdminReference());
+        // $userObj = \Pimcore\Model\User::getById($object->getAdminReference());
+        $userObj = \Pimcore\Model\User::getById($object->getId());
+
         if (!empty($userObj)) {
             $userData = array(
                 'firstname' =>  $object->getFirstname(),
