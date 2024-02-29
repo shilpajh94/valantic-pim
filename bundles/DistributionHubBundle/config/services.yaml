@@ -163,7 +163,7 @@ services:
     pimcore.data_object.grid_column_config.operator.factory.mediagetter:
         class: Pimcore\Bundle\AdminBundle\DataObject\GridColumnConfig\Operator\Factory\DefaultOperatorFactory
         arguments:
-            $className: DistributionHubBundle\src\Model\DataObject\GridColumnConfig\Operator\MediaGetter
+            $className: DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator\MediaGetter
         tags:
             - { name: pimcore.data_object.grid_column_config.operator_factory, id: MediaGetter }
 
