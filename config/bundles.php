@@ -5,6 +5,7 @@ return [
     Symfony\Bundle\WebProfilerBundle\WebProfilerBundle::class => ['dev' => true],
     //Twig\Extra\TwigExtraBundle\TwigExtraBundle::class => ['all' => true],
     ADAuthBundle\ADAuthBundle::class => ['all' => true],
+    // \Pimcore\Bundle\PerspectiveEditorBundle\PimcorePerspectiveEditorBundle::class => ['all' => true],
     ClassRelationBundle\ClassRelationBundle::class => ['all' => true],
     Elements\Bundle\ProcessManagerBundle\ElementsProcessManagerBundle::class => ['all' => true],
     ImportBundle\ImportBundle::class => ['all' => true],
