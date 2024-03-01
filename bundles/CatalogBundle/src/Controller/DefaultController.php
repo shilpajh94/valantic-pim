@@ -726,7 +726,7 @@ class DefaultController extends FrontendController
         $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
         $parameterBag = $this->getRequestedParameter($request, $documentId);
 
-        $templateEditable = $this->document->getEditable('tiletemplate');
+        $templateEditable = $this->document->getEditable('inh_template_hose_product_page');
 
         $commonHelper = $this->containerInterface->get('app.common_helper');
         $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
@@ -1196,7 +1196,9 @@ class DefaultController extends FrontendController
             $orderKeys = array();
             foreach ($columnsDataWithImages as $svalue) {
                 foreach ($svalue as $vvalue) {
-                    $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
+                    if(isset($orderKeys[$vvalue['columnName']]) && isset($headerKeysIndex[$vvalue['columnName']])) {
+                        $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
+                    }                   
                 }
             }
 
@@ -1311,7 +1313,10 @@ class DefaultController extends FrontendController
             $footer_logo_src = (strtolower($footerBgColor) == 'orange') ? $catalogImagesHYDFooter['Black'] : $catalogImagesHYDFooter['Orange'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
-            $parameterBag['data'] = $data;
+            if(isset($data)){
+                $parameterBag['data'] = $data;
+            }
+            
             $parameterBag['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
             $parameterBag['footer_logo_src'] = $footer_logo_src;
         }
@@ -1399,7 +1404,7 @@ class DefaultController extends FrontendController
                         $articlesData[$key][$ckey] = $element[$headerKeysIndex[$ckey]];
                     }
 
-                endforeach;
+                endforeach;              
                 $uniqueId = md5($brandKey);
                 $material = array_unique($material);
                 $materialString = implode(', ', $material);
@@ -1410,13 +1415,13 @@ class DefaultController extends FrontendController
                 $data[$uniqueId]['iconRequired'] = $this->iconRequired;
                 $data[$uniqueId]['columnsDataWithImages'] = $columnsDataWithImages;
                 $data[$uniqueId]['subHeaderRequired'] = $this->subHeaderRequired;
-                $data[$uniqueId]['articlesData'] = $articlesData;
+                $data[$uniqueId]['articlesData'] = isset($articlesData) ? $articlesData : null;
             }
 
             $footer_logo_src = (strtolower($footerBgColor) == 'orange') ? $catalogImagesHYDFooter['Black'] : $catalogImagesHYDFooter['Orange'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
-            $parameterBag['data'] = $data;
+            $parameterBag['data'] = isset($data) ? $data : null;
             $parameterBag['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
             $parameterBag['footer_logo_src'] = $footer_logo_src;
         }
@@ -2196,7 +2201,9 @@ class DefaultController extends FrontendController
                     if ($vvalue['columnName'] == 'listPrice'){
                         $orderKeys[$vvalue['columnName']] = count($headerKeysIndex);
                     }else{
-                        $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
+                        if (isset($headerKeysIndex[$vvalue['columnName']])) {
+                            $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
+                        }
                     }
                 }
             }

@@ -77,6 +77,7 @@ class HydraulicFittingController extends FrontendController
             $brandsList = $this->getBrandsList();
 
             $brandsDataList = array();
+            $sortedBrandsData = [];
             if ($productsData) {
                 // HoseID1InFract field value to decimal and add a new field in product data
                 foreach ($productsData as $key => $productItem) {
@@ -106,7 +107,6 @@ class HydraulicFittingController extends FrontendController
                 }
 
                 # Sort talbes using short table description
-                $sortedBrandsData = [];
                 if ($brandsDataList) {
                     foreach ($brandsDataList as $brandNameKey => $brandInfo) {
 
@@ -179,19 +179,17 @@ class HydraulicFittingController extends FrontendController
                                     // Getting order of the keys
                                     $orderKeys = array();
 
-
                                     foreach ($columnsDataWithImages as $svalue) {
-
                                         foreach ($svalue as $vvalue) {
-
-                                            $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
+                                            if(isset($vvalue['columnName'])){
+                                                $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];    
+                                            }                                            
                                         }
                                     }
-
                                     if (isset($headerKeysIndex['DescriptivePartNumber']) && $articles[$headerKeysIndex['DescriptivePartNumber']]) {
                                         $partialPartNumberArray = explode('-', $articles[$headerKeysIndex['DescriptivePartNumber']]);
                                         $partialPartNumber = $partialPartNumberArray[0] . '-' . $partialPartNumberArray[1];
-                                        if (isset($headerKeysIndex['ElbowType'])) {
+                                        if (isset($headerKeysIndex['ElbowType']) && isset($nomenClatureList[$partialPartNumber])) {
                                             $articles[$headerKeysIndex['ElbowType']] = $nomenClatureList[$partialPartNumber];
                                         }
                                     } else {
