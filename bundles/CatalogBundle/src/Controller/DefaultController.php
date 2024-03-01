@@ -2432,7 +2432,7 @@ class DefaultController extends FrontendController
 
                     $safetyFeaturesListWithImage[] = array('name' => $this->featuresList[$fvalue]['name'], 'iconSrc' => $fvalue, 'SortOrder' => $this->featuresList[$fvalue]['SortOrder']);
                 } else {
-                    $safetyFeaturesListWithOutImage[] = array('name' => $this->featuresList[$fvalue]['name'], 'iconSrc' => $fIcon, 'SortOrder' => $this->featuresList[$fvalue]['SortOrder']);
+                    $safetyFeaturesListWithOutImage[] = array('name' => (isset($this->featuresList[$fvalue]['name']))?$this->featuresList[$fvalue]['name']: null, 'iconSrc' => $fIcon, 'SortOrder' => (isset($this->featuresList[$fvalue]['SortOrder']))?$this->featuresList[$fvalue]['SortOrder']: null); 
                 }
             }
         }
