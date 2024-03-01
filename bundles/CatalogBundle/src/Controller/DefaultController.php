@@ -1468,7 +1468,9 @@ class DefaultController extends FrontendController
             $orderKeys = array();
             foreach ($columnsDataWithImages as $svalue) {
                 foreach ($svalue as $vvalue) {
-                    $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
+                    if (isset($headerKeysIndex[$vvalue['columnName']])) {
+                        $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
+                    }
                 }
             }
 
