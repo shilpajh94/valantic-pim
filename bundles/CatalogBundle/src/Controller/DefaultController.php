@@ -725,8 +725,13 @@ class DefaultController extends FrontendController
         $documentPath = $this->document->getFullPath();
         $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
         $parameterBag = $this->getRequestedParameter($request, $documentId);
-
+        try{
+            // dd(get_class_methods($this->document));
+            // dd($this->document->getEditables());
         $templateEditable = $this->document->getEditable('tiletemplate');
+        }catch(Exception $e){
+
+        }
 
         $commonHelper = $this->containerInterface->get('app.common_helper');
         $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
@@ -772,8 +777,15 @@ class DefaultController extends FrontendController
                         $data[$baseId]['BrandShortText'][3] = isset($data[$baseId]['BrandShortText4'][3]) && !empty($data[$baseId]['BrandShortText4'][3]) ? $data[$baseId]['BrandShortText4'][3] : $row['BrandShortText4'];
                         $data[$baseId]['BrandShortText'][4] = isset($data[$baseId]['BrandShortText5'][4]) && !empty($data[$baseId]['BrandShortText5'][4]) ? $data[$baseId]['BrandShortText5'][4] : $row['BrandShortText5'];
                         $data[$baseId]['mainImage'] = isset($row['mainImage']) && !empty($row['mainImage']) ? Asset::getByPath($row['mainImage']) : null;
-                        $data[$baseId]['SortOrder'] = $brandsList[$data[$baseId]['brandName']];
-
+                        if(is_array($data[$baseId]['brandName'])){
+                            if(array_key_exists($data[$baseId]['brandName'][0],$brandsList) && !empty($brandsList[$data[$baseId]['brandName'][0]])){
+                                $data[$baseId]['SortOrder'] = $brandsList[$data[$baseId]['brandName'][0]];
+                            }else{
+                                $data[$baseId]['SortOrder'] = 0; 
+                            }
+                        }else{
+                            $data[$baseId]['SortOrder'] = $brandsList[$data[$baseId]['brandName']];
+                        }
                         if (!isset($data[$baseId]['featureIcon']) && !empty($row['FeaturesBenefitsBulletPoint'])) {
 
                             $features = null;
@@ -901,8 +913,8 @@ class DefaultController extends FrontendController
                 $catalogGrouping = array();
 
                 foreach ($productsData as $key => $item) {
-                    if (!empty(trim($item[$headerKeysIndex['CatalogGrouping']])) && !empty(trim($item[$headerKeysIndex['brandName']]))) {
-                        $catalogGrouping[$item[$headerKeysIndex['CatalogGrouping']]][$item[$headerKeysIndex['brandName']]][] = $item;
+                    if (isset($item[$headerKeysIndex['CatalogGrouping']]) && isset($item[$headerKeysIndex['brandName']])) {
+                        $catalogGrouping[$item[$headerKeysIndex['CatalogGrouping']]][$item[$headerKeysIndex['brandName']][0]][] = $item;
                     }
                 }
 
@@ -1132,7 +1144,10 @@ class DefaultController extends FrontendController
                         }
 
                         $data[$uniqueId]['articlesData'] = $articlesData;
-                        $data[$uniqueId]['SortOrder'] = $brandsList[$brandName];
+                        if(array_key_exists($brandName[0],$brandsList)){
+
+                        $data[$uniqueId]['SortOrder'] = (isset($brandsList[$brandName[0]]))?$brandsList[$brandName[0]]:null;
+                        }
                     }
                     if ($data) {
                         array_multisort(array_column($data, 'SortOrder'), SORT_ASC, $data);

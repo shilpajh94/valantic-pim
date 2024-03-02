@@ -138,7 +138,10 @@
 												<div class="topText">
 													<span class="productName">
 														{% if pimcore_input("brandName" ~ k).isEmpty() and row['brandName'] is not empty %}
-															{{ pimcore_input("brandName" ~ k, {'class': 'productName'}).setDataFromResource(row['brandName']) | raw }}
+													<pre>
+														{# {{ dump(row['brandName']) }} #}
+													</pre>
+															{{ pimcore_input("brandName" ~ k, {'class': 'productName'}).setDataFromResource(row['brandName'][0]) | raw }}
 														{% else %}
 															{{ pimcore_input("brandName" ~ k, {'class': 'productName'}) }}
 														{% endif %}
