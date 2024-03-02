@@ -51,7 +51,8 @@ pimcore.plugin.ImportBundle = Class.create({
                     
                                 var objectId = e.detail.object.id;
                                 var productBrandStore = Ext.create('Ext.data.Store', {
-                                    fields: ['id', 'text'],
+                                    fields: ['key', 'value'],
+                                    data: ['key', 'value'],
                                     proxy: {
                                         type: 'ajax',
                                         url: '/contitech_us_product/default/get_ferts_brand',
@@ -59,6 +60,8 @@ pimcore.plugin.ImportBundle = Class.create({
                                         extraParams: {
                                             objectId: objectId,
                                         },
+                                        dataFields:id,
+                                        valueFields:id,
                                         reader: {
                                             type: 'json',
                                             rootProperty: 'data'

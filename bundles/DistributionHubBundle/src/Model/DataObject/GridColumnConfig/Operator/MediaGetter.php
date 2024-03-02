@@ -44,7 +44,7 @@ class MediaGetter extends AbstractOperator
                         if ($img instanceof \Pimcore\Model\Asset\Image) {
                             $result->value = \DistributionHubBundle\Lib\Utils::getImageOrThumbnailPublicPath($img, $this->thumbnail);
                         }
-                        if($result->value && $this->getContext()['purpose'] == "gridview"){
+                        if(array_key_exists('purpose',$this->getContext()) && $result->value && $this->getContext()['purpose'] == "gridview"){
                             $result->value = '<a href="'.$result->value.'" target="_blank">'.$result->value.'</a>';
                         }
                     }
@@ -52,7 +52,7 @@ class MediaGetter extends AbstractOperator
                     if ($image instanceof \Pimcore\Model\Asset\Image) {
                         $result->value = \DistributionHubBundle\Lib\Utils::getImageOrThumbnailPublicPath($image, $this->thumbnail);
                     }
-                    if($result->value && $this->getContext()['purpose'] == "gridview"){
+                    if(array_key_exists('purpose',$this->getContext()) && $result->value && $this->getContext()['purpose'] == "gridview"){
                         $result->value = '<a href="'.$result->value.'" target="_blank">'.$result->value.'</a>';
                     }
                 }

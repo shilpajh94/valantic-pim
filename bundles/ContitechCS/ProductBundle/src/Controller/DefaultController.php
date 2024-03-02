@@ -169,6 +169,7 @@ class DefaultController extends FrontendController
      */
     public function getCountries(Request $request)
     {
+        $result = [];
         $segmentId = $request->get('segmentId');
         $segmentId = json_decode($segmentId);
         $this->configProviderService = new ConfigProviderService();
@@ -186,7 +187,12 @@ class DefaultController extends FrontendController
                 }
             }
         }
-        $res['data'] = $result;
+        if(empty($result)){
+            $res['data'] = null;
+        }
+        else{
+            $res['data'] = $result;
+        }
         echo json_encode(['data' => $res['data']]);
         die;
     }
