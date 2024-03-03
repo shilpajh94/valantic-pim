@@ -565,8 +565,12 @@ class IndustrialHoseController extends FrontendController
                     foreach ($productsData as $key => $item) {
                         if (isset($item[$headerKeysIndex['brandName']])) {
 
-                            $brandsData[$item[$headerKeysIndex['brandName']]][] = $item;
-
+                            if(is_array($item[$headerKeysIndex['brandName']])){
+                            
+                                $brandsData[$item[$headerKeysIndex['brandName']][0]][] = $item;
+                            }else{
+                                 $brandsData[$item[$headerKeysIndex['brandName']]][] = $item;
+                            }
                             unset($item);
                         }
                     }
