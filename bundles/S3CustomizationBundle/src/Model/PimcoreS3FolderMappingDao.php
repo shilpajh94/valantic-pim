@@ -32,7 +32,6 @@ class PimcoreS3FolderMappingDao
             $sql = "INSERT INTO ".self::MAPPING_TABLE_NAME."(pimcore_path,s3_path)";
             $sql .= " VALUES(".$this->db->quote($pimcorePath).",".$this->db->quote($s3Path)."".") ";
         }
-
         return $this->db->exec($sql);
     }
 
@@ -103,7 +102,7 @@ class PimcoreS3FolderMappingDao
         $sql = " DELETE FROM ".self::MAPPING_TABLE_NAME;
         $sql .= " WHERE pimcore_object_id = ".$pimcoreObjectId;
         $sql .= " AND pimcore_path != ". $this->db->quote($newPath);
-
+        // echo $sql;
         return $this->db->executeStatement($sql);
     }
 
@@ -148,7 +147,22 @@ class PimcoreS3FolderMappingDao
         $sql = "SELECT pimcore_object_id,pimcore_path,s3_path FROM " . self::MAPPING_TABLE_NAME;
         $sql .= " WHERE pimcore_object_id = " . $objectId;
         $sql .= " AND pimcore_path != " . $this->db->quote($currentPimcorePath);
-
+        // echo $sql;
         return $this->db->fetchAllAssociative($sql);
+    }
+
+    public function deleteEntryIfExistWithNullId($pimcorePath, $s3Path){
+        $sql = "DELETE FROM ".self::MAPPING_TABLE_NAME;
+        $sql .= " WHERE (pimcore_object_id is null";
+        $sql .= " AND pimcore_path = ". $this->db->quote($pimcorePath);
+        $sql .= " )";
+        return $this->db->executeUpdate($sql);
+    }
+
+    public function getPimcoreAsstesType($s3_path){
+        $sql = "SELECT  assets.type  FROM ".self::MAPPING_TABLE_NAME;
+        $sql .= " as pm LEFT JOIN assets on assets.id=pm.pimcore_object_id WHERE pm.pimcore_path=".$this->db->quote('/'.$s3_path);
+        $result = $this->db->fetchOne($sql);
+        return $result;
     }
 }

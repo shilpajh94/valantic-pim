@@ -36,26 +36,57 @@ class S3CustomizationService
      * @param $pimcorePath
      * @return string
      */
-    public function getS3PathForPimcorePath($pimcorePath,$isPathStartsFromAsset = false)
+
+    // public function getS3PathForPimcorePath($pimcorePath,$isPathStartsFromAsset = false)
+    // {
+    //     $pathPrefix = PIMCORE_ASSET_DIRECTORY;
+    //     if($isPathStartsFromAsset){
+    //         $pathPrefix = "assets";
+    //     }
+
+    //     //        $pathFromPimcoreAssetRoot = str_replace($pathPrefix, '', $pimcorePath);
+    //     if(strpos($pimcorePath, $pathPrefix) === 0) {
+    //         $pathFromPimcoreAssetRoot = substr_replace($pimcorePath, '', 0, strlen($pathPrefix));
+    //     }else{
+    //         $pathFromPimcoreAssetRoot = $pimcorePath;
+    //     }
+
+    //     $s3Path = $this->dao->getS3PathForPimcorePath($pathFromPimcoreAssetRoot);
+    //     if ($s3Path) {
+    //         $completeS3Path = $pathPrefix . $s3Path;
+    //         return $completeS3Path;
+    //     }
+    //     dd($pimcorePath);
+    //     // @TODO: this needs a thought, whether to return the pimcore path here or not
+    //     return $pimcorePath;
+    // }
+
+    public function getS3PathForPimcorePath($pimcorePath,$isPathStartsFromAsset = false, $returnCompletePath = true)
     {
         $pathPrefix = PIMCORE_ASSET_DIRECTORY;
         if($isPathStartsFromAsset){
             $pathPrefix = "assets";
         }
-
-        //        $pathFromPimcoreAssetRoot = str_replace($pathPrefix, '', $pimcorePath);
+ 
+        // $pathFromPimcoreAssetRoot = str_replace($pathPrefix, '', $pimcorePath);
         if(strpos($pimcorePath, $pathPrefix) === 0) {
             $pathFromPimcoreAssetRoot = substr_replace($pimcorePath, '', 0, strlen($pathPrefix));
         }else{
             $pathFromPimcoreAssetRoot = $pimcorePath;
+            $pathFromPimcoreAssetRoot = trim($pathFromPimcoreAssetRoot, "/");
+            $pathFromPimcoreAssetRoot = "/".$pathFromPimcoreAssetRoot;
         }
-
+ 
         $s3Path = $this->dao->getS3PathForPimcorePath($pathFromPimcoreAssetRoot);
         if ($s3Path) {
-            $completeS3Path = $pathPrefix . $s3Path;
-            return $completeS3Path;
+            if ($returnCompletePath) {
+                $completeS3Path = $pathPrefix . $s3Path;
+                return $completeS3Path;
+            } else {
+                return $s3Path;
+            }
         }
-
+ 
         // @TODO: this needs a thought, whether to return the pimcore path here or not
         return $pimcorePath;
     }
@@ -100,7 +131,7 @@ class S3CustomizationService
 
 
     public function addMappingInCustomTable($pimcorePath, $s3Path, $pimcoreFolderId = null)
-    {
+    {   
         return $this->dao->insertEntry($pimcorePath, $s3Path, $pimcoreFolderId);
     }
 
@@ -227,4 +258,16 @@ class S3CustomizationService
         return $this->dao->getEntriesWithOlderPimcorePathsByObjectId($objectId, $currentPimcorePath);
     }
 
+    public function deleteEntryIfExistWithNullId($pimcorePath, $s3Path){
+        return $this->dao->deleteEntryIfExistWithNullId($pimcorePath, $s3Path);
+    }
+
+    public function getPimcoreAsstesType($pimcorePath){
+
+        $pimPath = $this->dao->getPimcoreAsstesType($pimcorePath);
+        if ($pimPath) {
+            return $pimPath;
+        }
+        
+    }
 }

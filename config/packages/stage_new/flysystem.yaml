@@ -1,3 +1,6 @@
+parameters:
+    s3.bucket: 'pimcorex-contitech-assets-prod'
+
 services:
     assets_s3:
         class: 'Aws\S3\S3Client'
@@ -8,7 +11,7 @@ services:
 flysystem:
     storages:
         pimcore.asset.storage:
-            adapter: 'aws'
+            adapter: 'S3CustomizationBundle\Lib\AwsCustomAdapter'
             visibility: private
             options:
                 client: 'assets_s3'
