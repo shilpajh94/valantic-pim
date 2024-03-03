@@ -47,6 +47,7 @@ class AssetEventsListener
             $asset = $e->getAsset();
 
             try{
+               
                 $this->s3CustomizationService->addPimcoreIdForPimcorePath($asset->getRealFullPath(),$asset->getId());
             }catch (\Exception $exception){
                 $msg = "||" . __METHOD__ . "||" . $exception->getMessage();
@@ -78,6 +79,8 @@ class AssetEventsListener
                 }else{
 
                     $olderEntries = $this->s3CustomizationService->getEntriesWithOlderPimcorePathsByObjectId($asset->getId(),$asset->getRealFullPath());
+                    // print_r($olderEntries);
+                    // echo "Real Full Path:===>".$asset->getRealFullPath();
                     if(is_array($olderEntries)){
                         foreach($olderEntries as $olderEntry){
                             $id = $olderEntry["pimcore_object_id"];
@@ -120,12 +123,14 @@ class AssetEventsListener
         if($e instanceof AssetEvent) {
             $asset = $e->getAsset();
             $assetParent = $asset->getParent();
-            $parentFullPath = $assetParent->getPath().$assetParent->getFilename();
+            $parentFullPath = $assetParent->getRealPath().$assetParent->getFilename();
             $assetFullPath = $parentFullPath."/".$asset->getFilename();
             $assetFullPath = str_replace("//","/",$assetFullPath);
+
+            
             try{
                 $s3Path = $this->s3CustomizationService->getS3PathForNotMappedPimcorePath($assetFullPath,$asset->getFilename());
-
+                
                 /**
                  * if a folder is going to be added than we need to check whether the created follder S3 path
                  * already exist at S3, if so than add the timestamp to the current folder S3 name
@@ -138,9 +143,10 @@ class AssetEventsListener
                         $s3Path = $s3Path."_".time();
                     }
                 }
-
+                $this->s3CustomizationService->deleteEntryIfExistWithNullId($assetFullPath,$s3Path);
                 $this->s3CustomizationService->addMappingInCustomTable($assetFullPath,$s3Path);
             }catch (\Exception $exception){
+                // dd($exception);
                 $msg = "||" . __METHOD__ . "||" . $exception->getMessage();
                 Utils::log(Constants::S3_CUSTOMIZATION_LOG_FILE,$msg,LogLevel::ERROR());
                 throw new \Exception("Unable to perform operation, an exception occurred in system.");
@@ -160,7 +166,7 @@ class AssetEventsListener
             $asset = $e->getAsset();
             $assetKey = $asset->getFilename();
             $assetFullPath = $asset->getRealFullPath();
-
+            // echo "assetKey::=>  $assetKey";
             if($asset->getType() != 'folder'){
                 $oldPath = $asset->getDao()->getCurrentFullPath();
                 $newParentId = $asset->getParentId();
@@ -168,7 +174,7 @@ class AssetEventsListener
 
                 try{
                     $oldParentId = $this->s3CustomizationService->getCurrentParentIdForObjectById($asset->getId());
-
+                    
                     if($oldPath != $assetFullPath){
                         // if file is renamed
                         $newS3Path = $this->s3CustomizationService->getS3PathForNotMappedPimcorePath($assetFullPath,$assetKey);
@@ -185,6 +191,7 @@ class AssetEventsListener
                         $this->s3CustomizationService->addMappingInCustomTable($newAssetPath,$newS3Path,$asset->getId());
                     }
                 }catch (\Exception $exception){
+                    // dd($exception);
                     $msg = "||" . __METHOD__ . "||" . $exception->getMessage();
                     Utils::log(Constants::S3_CUSTOMIZATION_LOG_FILE,$msg,LogLevel::ERROR());
                     throw new \Exception("Unable to perform operation, an exception occured in system.");

@@ -36,15 +36,15 @@ $default_opts = [
 
 $default = stream_context_set_default($default_opts);
 
-if(class_exists('\S3CustomizationBundle\Lib\CustomStreamWrapper')){
+//if(class_exists('\S3CustomizationBundle\Lib\CustomStreamWrapper')){
     /**
      * to customize the default behaviour of wrapper,all the file and directory operations
      * will be done through the mapping of pimcore and s3 path
      */
-    CustomStreamWrapper::register($s3Client);
-}else{
-    $s3Client->registerStreamWrapper();
-}
+  //  CustomStreamWrapper::register($s3Client);
+//}else{
+//    $s3Client->registerStreamWrapper();
+//}
 
 // set default file context
 \Pimcore\File::setContext(stream_context_create([
