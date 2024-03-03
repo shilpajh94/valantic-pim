@@ -167,7 +167,7 @@ class AwsCustomAdapter implements FilesystemAdapter
 
             return $result->hasKey('Contents') || $result->hasKey('CommonPrefixes');
         } catch (Throwable $exception) {
-            dd($exception);
+            // dd($exception);
             throw UnableToCheckDirectoryExistence::forLocation($path, $exception);
         }
     }
@@ -483,8 +483,8 @@ class AwsCustomAdapter implements FilesystemAdapter
          * so need to check and handle that
          */
         $is_folder = $this->getS3PathForPimcorePathType($source);
-        echo "Source:$source"."\n";
-        echo "destination:$destination";
+        // echo "Source:$source"."\n";
+        // echo "destination:$destination";
         if($is_folder === 'folder') {
            
             return;
