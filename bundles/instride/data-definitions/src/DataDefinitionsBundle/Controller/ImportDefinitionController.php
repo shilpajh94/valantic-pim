@@ -416,32 +416,32 @@ class ImportDefinitionController extends AbstractDefinitionController
     public function importDefClass()
     {
         $importClass = '';
-        $user = Admin::getCurrentUser();
-        if (!$user->isAdmin()) {
-            $common_role = $this->getCommonRoles();
-            $rolesConfig    = $this->getBusinessUnitRolesFromConfig();
-            $resultBU       = [];
-            if (isset($rolesConfig['config'])) {
-                foreach ($rolesConfig['config'] as $roleClass => $arrRoles) {
-                    $resultBU[$arrRoles['Roles'][0]] = $roleClass;
-                }
-            }
-            $buConfig   = $this->getBusinessUnitClassFromConfig();
-            $resultClass = [];
-            if (isset($buConfig['config'])) {
-                foreach ($buConfig['config'] as $buClass => $arrClass) {
-                    $resultClass[$buClass] = $arrClass['Class'][0];
-                }
-            }
-            foreach ($common_role as $currentRole) {
-                if (array_key_exists($currentRole, $resultBU)) {
-                    $currentBU = $resultBU[$currentRole];
-                    if (array_key_exists($currentBU, $resultClass)) {
-                        $importClass = $resultClass[$currentBU];
-                    }
-                }
-            }
-        }
+        // $user = Admin::getCurrentUser();
+        // if (!$user->isAdmin()) {
+        //     $common_role = $this->getCommonRoles();
+        //     $rolesConfig    = $this->getBusinessUnitRolesFromConfig();
+        //     $resultBU       = [];
+        //     if (isset($rolesConfig['config'])) {
+        //         foreach ($rolesConfig['config'] as $roleClass => $arrRoles) {
+        //             $resultBU[$arrRoles['Roles'][0]] = $roleClass;
+        //         }
+        //     }
+        //     $buConfig   = $this->getBusinessUnitClassFromConfig();
+        //     $resultClass = [];
+        //     if (isset($buConfig['config'])) {
+        //         foreach ($buConfig['config'] as $buClass => $arrClass) {
+        //             $resultClass[$buClass] = $arrClass['Class'][0];
+        //         }
+        //     }
+        //     foreach ($common_role as $currentRole) {
+        //         if (array_key_exists($currentRole, $resultBU)) {
+        //             $currentBU = $resultBU[$currentRole];
+        //             if (array_key_exists($currentBU, $resultClass)) {
+        //                 $importClass = $resultClass[$currentBU];
+        //             }
+        //         }
+        //     }
+        // }
         return $importClass;
     }
 
