@@ -150,7 +150,8 @@ class BasicConfigController extends UserAwareController
     {
 
         try {
-            $result = $basicConfigService->validateUploadedFile($_FILES['file']);
+            $channelName = $request->get('channelName');
+            $result = $basicConfigService->validateUploadedFile($_FILES['file'], $channelName);
         } catch (\PhpOffice\PhpSpreadsheet\Reader\Exception $exception) {
             DHubLogger::log("Error reading uploaded file in BasicConfigController readUploadedFile:".$exception->getMessage(), DHubLogger::INFO);
             return $this->json(['success' => false, 'msg' => $this->trans('dHub_file_not_valid') ]);
@@ -175,7 +176,7 @@ class BasicConfigController extends UserAwareController
         $channelName = $allParams["channelName"];
 
         try {
-            $result = $basicConfigService->validateUploadedFile($_FILES['file']);
+            $result = $basicConfigService->validateUploadedFile($_FILES['file'], $channelName);
 
             if ($result['fileType'] === Constants::FILE_TYPE_CSV) {
                 $tmpUploadPathfolder = PIMCORE_PROJECT_ROOT . '/'.$bundleService->getConfig('tmp_template_upload_pimcore_dir');
@@ -326,9 +327,9 @@ class BasicConfigController extends UserAwareController
                 DHubLogger::log("Error saving channel ($channelId) in BasicConfigController save:".$exception->getMessage(), DHubLogger::CRITICAL);
                 return $this->json(['success' => false, 'msg' => $exception->getMessage()]);
             }
-            if ($uploadedFilePath) {
-                unlink($uploadedFilePath);
-            }
+            // if ($uploadedFilePath) {
+            //     unlink($uploadedFilePath);
+            // }
 
             return $this->json([
                 'success' => true,
