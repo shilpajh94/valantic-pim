@@ -31,7 +31,9 @@ class PropertiesOptionsProvider implements SelectOptionsProviderInterface {
         //  $optionsData = [];
          $this->optionProvider = \Pimcore::getKernel()->getContainer()->get('AppBundle\Services\OptionProviderCacheService');
          $optionsData = array();
-         $className = 'IFSEUProperties';
+         //$className = 'IFSEUProperties';
+         $type =  $fieldDefinition->getOptionsProviderData();
+         $className = $type;
          $allAvailablelArrayCache = $this->optionProvider->getCachedKeyData($className);
          if($allAvailablelArrayCache && !empty($allAvailablelArrayCache))
          {
@@ -40,7 +42,7 @@ class PropertiesOptionsProvider implements SelectOptionsProviderInterface {
          }
          else
          {
-            $type =  $fieldDefinition->getOptionsProviderData();
+            
             $propertiesList =  DataObject\IFSEUProperties::getByTypeName($type);
             $propertiesList->setOrderKey('key');
             $propertiesList->setOrder("ASC");

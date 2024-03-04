@@ -110,10 +110,11 @@ class DefaultController extends FrontendController
         $tableConfig = $this->containerInterface->get('app.config_provider_service')->getCatalogTableConfig();
         $tables = $commonHelper->getParameter($tableConfig, 'tablemapping');
         $options = [];
-        foreach ($tables[$category] as $key => $value) {
-            $options[] = array('key' => $key, 'value' => $value);
+        if(isset($tables[$category])){
+            foreach ($tables[$category] as $key => $value) {
+                $options[] = array('key' => $key, 'value' => $value);
+            }
         }
-
         return $this->json(['data' => $options]);
     }
 
@@ -127,10 +128,12 @@ class DefaultController extends FrontendController
         $category = $categoryObj->getCategory();
         $productList = new DataObject\Product\Listing();
         $x = array();
-        for ($i = 0; $i < count($category); $i++) {
-            $y = ',' . $category[$i] . ',';
-            array_push($x, $y);
-            array_push($x, $category[$i]);
+        if($category != null){
+            for ($i = 0; $i < count($category); $i++) {
+                $y = ',' . $category[$i] . ',';
+                array_push($x, $y);
+                array_push($x, $category[$i]);
+            }
         }
         $productList->addConditionParam('SIOPLevel4 IN (?)', [$x], 'AND');
         $productList->setCondition('ProductType = "base"');
