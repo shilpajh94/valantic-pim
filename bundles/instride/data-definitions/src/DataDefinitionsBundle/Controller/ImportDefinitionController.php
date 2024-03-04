@@ -89,8 +89,9 @@ class ImportDefinitionController extends AbstractDefinitionController
         $data_error_saving = "An unexpected error occurred while saving.";
         $data_file_not_valid = "Uploaded file not valid.";
         $commonHelperObject = new commonHelper();
+        $definitionName = $request->get('definitionName');
         try {
-            $result = $commonHelperObject->validateUploadedFile($_FILES['csvFile']);
+            $result = $commonHelperObject->validateUploadedFile($_FILES['csvFile'], $definitionName);
             if ($result) {
                 $regex = preg_match('/[\s@!#$%^&*()<>?|}{~:]/', $result['fileName']);
                 if($regex){
@@ -227,7 +228,7 @@ class ImportDefinitionController extends AbstractDefinitionController
                     ];
                 }
             }
-            
+
             $i = 0;
             foreach($mappingDefinition as $testData){
                 if($mappingDefinition[$i]['toColumn'] == $primaryKeyValue){
@@ -336,7 +337,7 @@ class ImportDefinitionController extends AbstractDefinitionController
 
         return $this->viewHandler->handle(['success' => false]);
     }
-    
+
     /**
      * @param Request $request
      */
@@ -359,13 +360,13 @@ class ImportDefinitionController extends AbstractDefinitionController
                 $conditionArray[] =  'name = ' . $adminClassesList->quote(implode("",array_keys($classForAdmin['Class'][0])));
                 $classNameAndDisplayNameArray[(implode("",array_keys($classForAdmin['Class'][0])))] = implode("",array_values($classForAdmin['Class'][0]));
             }
-            
+
             $adminClassesList->setCondition(implode(" OR ", $conditionArray));
             $adminClassesList->setOrderKey('name');
             $adminClassesList->setOrder('asc');
             $classes = $adminClassesList->load();
             $fieldArray = array();
-            
+
             foreach ($classes as $class) {
                 $fieldArrayTemp = array();
                 $fieldArrayTemp['name'] = $class->getName();
@@ -373,7 +374,7 @@ class ImportDefinitionController extends AbstractDefinitionController
                 $fieldArray[] = $fieldArrayTemp;
             }
         }
-        
+
         return $this->json(["data" => $fieldArray]);
     }
 
@@ -530,7 +531,7 @@ class ImportDefinitionController extends AbstractDefinitionController
         $config_name_not_valid = "Configuration name should not contain space or special characters.";
         $data_definition_config_exists = 'Name already exists! Please provide a different name.';
         $data_definition_name_required = 'Channel name cannot be empty';
-    
+
         $this->isGrantedOr403();
 
         $name = $request->get('name');
@@ -625,7 +626,7 @@ class ImportDefinitionController extends AbstractDefinitionController
         // $configArray        = include PIMCORE_PROJECT_ROOT . '/var/config/importdefinitions.php';
         $definition = $this->repository->find($importDefinitionId);
         $configArray = $definition->getConfiguration();
-        
+
         $fileName           = $importDefinitionId. "-". $configArray['csvFile'];
         $filePath           = $commonHelperObject->getDefaultAssetFolderForUploadedFiles() . "/" . $fileName;
         $asset              = Asset::getByPath($filePath);
@@ -647,7 +648,7 @@ class ImportDefinitionController extends AbstractDefinitionController
         $tempFilePath       = PIMCORE_PROJECT_ROOT . '/var/tmp/'.$fileName;
         $fd                 = fopen($tempFilePath, "w");
         fputs($fd, $csvContent);
-        
+
         // insert the record into the data definition import
         $dataImport  = new DataDefinitionImport();
         $dataImport->setName($name);
@@ -710,7 +711,7 @@ class ImportDefinitionController extends AbstractDefinitionController
         // p_r('listDataDefinitionImportAction');
         $importHelperObject = new importHelper();
         $importDefinitionId = $request->get('importDefinitionId');
-        // p_r($importDefinitionId); 
+        // p_r($importDefinitionId);
         // $importDefinitionId = 17;
         $list = new DataDefinitionImport\Listing();
         // p_r($list); die;
@@ -775,7 +776,7 @@ class ImportDefinitionController extends AbstractDefinitionController
                             $importFilePimcoreAsset->delete();
                         }
                     }
-    
+
                     // check and delete the log file
                     $logFilePimcoreAssetId      = $data->logFilePimcoreAssetId;
                     if(!empty($logFilePimcoreAssetId))
@@ -783,7 +784,7 @@ class ImportDefinitionController extends AbstractDefinitionController
                         $logFilePimcoreAsset  = Asset::getById($logFilePimcoreAssetId);
                         $logFilePimcoreAsset->delete();
                     }
-    
+
                     // check and delete the import data from the database
                     $importId       = $data->id;
                     $dataImport     = DataDefinitionImport::getById($importId);
@@ -827,7 +828,7 @@ class ImportDefinitionController extends AbstractDefinitionController
         if($className ) {
             $class = ClassDefinition::getByName($className);
             $fields = $class->getFielddefinitions();
-        
+
             foreach($fields as $classFieldAttributes) {
                 $fieldAttributes = $classFieldAttributes->getName();
 
@@ -836,7 +837,7 @@ class ImportDefinitionController extends AbstractDefinitionController
                     $classFields[] = ['name'=>$fieldAttributes];
                 }
 
-                $fieldType =  $classFieldAttributes->getFieldType(); 
+                $fieldType =  $classFieldAttributes->getFieldType();
 
                 if ($fieldType == 'localizedfields') {
                     foreach ($classFieldAttributes->getChilds() as $obj) {

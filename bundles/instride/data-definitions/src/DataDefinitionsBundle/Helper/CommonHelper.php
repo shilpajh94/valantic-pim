@@ -31,7 +31,7 @@ class CommonHelper
      * @return array
      * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
      */
-    public function validateUploadedFile($requestBinaryFile)
+    public function validateUploadedFile($requestBinaryFile, $definitionName)
     {
         $fileType = null;
 
@@ -46,7 +46,8 @@ class CommonHelper
             $validTypes = [Constants::FILE_TYPE_CSV];
             $tmpUploadPathfolder = PIMCORE_PROJECT_ROOT . '/' . self::getConfig('tmp_template_upload_pimcore_dir');
 
-            $fileName = basename($requestBinaryFile['name']);
+            $fileName = $definitionName.'-'.basename($requestBinaryFile['name']);
+
             $tmpUploadPath = $tmpUploadPathfolder . $fileName;
 
             move_uploaded_file($requestBinaryFile['tmp_name'], $tmpUploadPath);
@@ -80,7 +81,7 @@ class CommonHelper
     {
         $asset = null;
         $fileName = basename($file);
-/* 
+/*
         $hyphenPos = strpos($fileName, '-');
         // remove the custom random value added in file name
         if ($hyphenPos !== false) {
