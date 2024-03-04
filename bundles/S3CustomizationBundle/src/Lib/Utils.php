@@ -49,4 +49,7 @@ class Utils
         \AppBundle\Logger\Simple::log($logFileName,$logMessage);
     }
 
+    public static function getIsFolderrenamerequest(){
+        return true;
+    }
 }
