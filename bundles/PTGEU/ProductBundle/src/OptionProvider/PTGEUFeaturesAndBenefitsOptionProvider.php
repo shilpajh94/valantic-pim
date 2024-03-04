@@ -28,13 +28,30 @@ class PTGEUFeaturesAndBenefitsOptionProvider  implements SelectOptionsProviderIn
      */
     public function getOptions(array $context, Data $fieldDefinition): array
     {
-        $result = [];
-        $featuresAndBenefitsPTGEU = new DataObject\PTGEUFeaturesAndBenefits\Listing();
-        $featuresAndBenefitsPTGEU->setCondition("path = ?", "/Contitech_PTGEU/Master List/Features and Benefits/" );
-        $featuresAndBenefitsPTGEU = $featuresAndBenefitsPTGEU->load();
-        foreach ($featuresAndBenefitsPTGEU as $featuresAndBenefits) {
-            $result[] = array('key' => $featuresAndBenefits->getFeaturesAndBenefits(),
-                'value' => $featuresAndBenefits->getId());
+        // $result = [];
+        $this->optionProvider = \Pimcore::getKernel()->getContainer()->get('AppBundle\Services\OptionProviderCacheService');
+        $result = array();
+        $className = 'PTGEUFeaturesAndBenefits';
+        $allAvailablelArrayCache = $this->optionProvider->getCachedKeyData($className);
+        if($allAvailablelArrayCache && !empty($allAvailablelArrayCache))
+        {
+            $result = $allAvailablelArrayCache;
+            unset($allAvailablelArrayCache);
+        }
+        else
+        {
+            $featuresAndBenefitsPTGEU = new DataObject\PTGEUFeaturesAndBenefits\Listing();
+            $featuresAndBenefitsPTGEU->setCondition("path = ?", "/Contitech_PTGEU/Master List/Features and Benefits/" );
+            $featuresAndBenefitsPTGEU = $featuresAndBenefitsPTGEU->load();
+            foreach ($featuresAndBenefitsPTGEU as $featuresAndBenefits) {
+                $result[] = array('key' => $featuresAndBenefits->getFeaturesAndBenefits(),
+                    'value' => $featuresAndBenefits->getId());
+                if(!empty($result))
+                {
+                    $this->optionProvider->setCachedOptionProviders($className);
+                    $this->optionProvider->setAllOptionsInCacheForClass($className, $result);
+                }
+            }
         }
         return $result;
     }

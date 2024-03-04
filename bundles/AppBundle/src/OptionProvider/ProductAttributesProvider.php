@@ -21,21 +21,38 @@ class ProductAttributesProvider implements MultiSelectOptionsProviderInterface
     public function getOptions(array $context, Data $fieldDefinition): array
     {
         $attributesToSkip = array("SIOPLevel1","SIOPLevel2","SIOPLevel3","SIOPLevel4","SIOPLevel5","SIOPLevel6","SalesOrgData","Plants","Specification","BrandData","Digit14","Document");
-
-        $classDef = \Pimcore\Model\DataObject\ClassDefinition::getByName("Product");
-        $fieldDef = $classDef->getFieldDefinitions();
+        $this->optionProvider = \Pimcore::getKernel()->getContainer()->get('AppBundle\Services\OptionProviderCacheService');
         $options = array();
-        foreach($fieldDef as $field){
-            if(!in_array($field->getName(),$attributesToSkip)){
+        $className = 'Product';
+        $allAvailablelArrayCache = $this->optionProvider->getCachedKeyData($className);
+        if($allAvailablelArrayCache && !empty($allAvailablelArrayCache))
+        {
+            $options = $allAvailablelArrayCache;
+            unset($allAvailablelArrayCache);
+        }
+        else
+        {
 
-                if($field->getFieldtype() == "localizedfields"){
-                    $options = array_merge($options,$this->getLocalizedFieldsOptions($field));
+            $classDef = \Pimcore\Model\DataObject\ClassDefinition::getByName("Product");
+            $fieldDef = $classDef->getFieldDefinitions();
+            foreach($fieldDef as $field){
+                if(!in_array($field->getName(),$attributesToSkip)){
 
-                }else{
-                    $options[] = array("key" => $field->getTitle(),"value" =>  $field->getName() );
+                    if($field->getFieldtype() == "localizedfields"){
+                        $options = array_merge($options,$this->getLocalizedFieldsOptions($field));
+
+                    }else{
+                        $options[] = array("key" => $field->getTitle(),"value" =>  $field->getName() );
+                    }
+                }
+                if(!empty($options))
+                {
+                    $this->optionProvider->setCachedOptionProviders($className);
+                    $this->optionProvider->setAllOptionsInCacheForClass($className, $options);
                 }
             }
-        }
+    
+            }
         return $options;
     }
 

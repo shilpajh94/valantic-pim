@@ -28,13 +28,30 @@ class PTGEUVTLOptionProvider implements SelectOptionsProviderInterface
      */
     public function getOptions(array $context, Data $fieldDefinition): array
     {
-        $result = [];
-        $uvtlListPTGEU = new DataObject\PTGEUVTL\Listing();
-        $uvtlListPTGEU->setCondition("path = ?", "/Contitech_PTGEU/Master List/VTL/" );
-        $uvtlListPTGEU = $uvtlListPTGEU->load();
+        // $result = [];
+        $this->optionProvider = \Pimcore::getKernel()->getContainer()->get('AppBundle\Services\OptionProviderCacheService');
+        $result = array();
+        $className = 'PTGEUVTL';
+        $allAvailablelArrayCache = $this->optionProvider->getCachedKeyData($className);
+        if($allAvailablelArrayCache && !empty($allAvailablelArrayCache))
+        {
+            $result = $allAvailablelArrayCache;
+            unset($allAvailablelArrayCache);
+        }
+        else
+        {
+            $uvtlListPTGEU = new DataObject\PTGEUVTL\Listing();
+            $uvtlListPTGEU->setCondition("path = ?", "/Contitech_PTGEU/Master List/VTL/" );
+            $uvtlListPTGEU = $uvtlListPTGEU->load();
 
-        foreach ($uvtlListPTGEU as $uvtl) {
-            $result[] = array('key' => $uvtl->getDescription(), 'value' => $uvtl->getId());
+            foreach ($uvtlListPTGEU as $uvtl) {
+                $result[] = array('key' => $uvtl->getDescription(), 'value' => $uvtl->getId());
+                if(!empty($result))
+                {
+                    $this->optionProvider->setCachedOptionProviders($className);
+                    $this->optionProvider->setAllOptionsInCacheForClass($className, $result);
+                }
+            }
         }
         return $result;
     }

@@ -28,22 +28,35 @@ class MinimumOrderOptionsProvider implements SelectOptionsProviderInterface {
      */
     public function getOptions(array $context, Data $fieldDefinition): array
     {
-         $optionsData = [];
-
-        $minimumOrderList = new DataObject\IFSEUMinimumOrder\Listing();
-
-
-        $minimumOrderList->setOrderKey('key');
-        $minimumOrderList->setOrder("ASC");
-
-        foreach($minimumOrderList as $listItem)
+        $this->optionProvider = \Pimcore::getKernel()->getContainer()->get('AppBundle\Services\OptionProviderCacheService');
+        $optionsData = array();
+        $className = 'IFSEUMinimumOrder';
+        $allAvailablelArrayCache = $this->optionProvider->getCachedKeyData($className);
+        if($allAvailablelArrayCache && !empty($allAvailablelArrayCache))
         {
-            if($listItem instanceof DataObject\IFSEUMinimumOrder)
+            $optionsData = $allAvailablelArrayCache;
+            unset($allAvailablelArrayCache);
+        }
+        else
+        {
+
+            $minimumOrderList = new DataObject\IFSEUMinimumOrder\Listing();
+            $minimumOrderList->setOrderKey('key');
+            $minimumOrderList->setOrder("ASC");
+
+            foreach($minimumOrderList as $listItem)
             {
-            $optionsData[] = array ('key' => $listItem->getMinimumOrder(),'value' => $listItem->getID());
+                if($listItem instanceof DataObject\IFSEUMinimumOrder)
+                {
+                $optionsData[] = array ('key' => $listItem->getMinimumOrder(),'value' => $listItem->getID());
+                }
+            }
+            if(!empty($optionsData))
+            {
+                $this->optionProvider->setCachedOptionProviders($className);
+                $this->optionProvider->setAllOptionsInCacheForClass($className, $optionsData);
             }
         }
-
         return $optionsData;
     }
 

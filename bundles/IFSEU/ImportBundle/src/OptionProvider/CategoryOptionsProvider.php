@@ -28,20 +28,35 @@ class CategoryOptionsProvider implements SelectOptionsProviderInterface {
      */
     public function getOptions(array $context, Data $fieldDefinition): array
     {
-         $optionsData = [];
-
-        $categoryList = new DataObject\IFSEUCategory\Listing();
-
-
-        $categoryList->setOrderKey('key');
-        $categoryList->setOrder("ASC");
-
-        foreach($categoryList as $listItem)
+        $this->optionProvider = \Pimcore::getKernel()->getContainer()->get('AppBundle\Services\OptionProviderCacheService');
+        $optionsData = array();
+        $className = 'IFSEUCategory';
+        $allAvailablelArrayCache = $this->optionProvider->getCachedKeyData($className);
+        if($allAvailablelArrayCache && !empty($allAvailablelArrayCache))
         {
-            if($listItem instanceof DataObject\IFSEUCategory)
+            $optionsData = $allAvailablelArrayCache;
+            unset($allAvailablelArrayCache);
+        }
+        else
+        {
+
+            $categoryList = new DataObject\IFSEUCategory\Listing();
+            $categoryList->setOrderKey('key');
+            $categoryList->setOrder("ASC");
+
+            foreach($categoryList as $listItem)
             {
-            $optionsData[] = array ('key' => $listItem->getCategoryName(),'value' => $listItem->getID());
+                if($listItem instanceof DataObject\IFSEUCategory)
+                {
+                $optionsData[] = array ('key' => $listItem->getCategoryName(),'value' => $listItem->getID());
+                }
             }
+            if(!empty($optionsData))
+            {
+                $this->optionProvider->setCachedOptionProviders($className);
+                $this->optionProvider->setAllOptionsInCacheForClass($className, $optionsData);
+            }
+
         }
 
         return $optionsData;

@@ -28,17 +28,33 @@ class CSDocumentOptionProvider implements SelectOptionsProviderInterface
      */
     public function getOptions(array $context, Data $fieldDefinition): array
     {
-        $optionsData = [];
-
-        $documentTypeList = new Document\DocType\Listing();
-        $docList = $documentTypeList->load();
-
-        foreach($docList as $doc)
+        // $optionsData = [];
+        $this->optionProvider = \Pimcore::getKernel()->getContainer()->get('AppBundle\Services\OptionProviderCacheService');
+        $optionsData = array();
+        $className = 'DocumentType';
+        $allAvailablelArrayCache = $this->optionProvider->getCachedKeyData($className);
+        if($allAvailablelArrayCache && !empty($allAvailablelArrayCache))
         {
+            $optionsData = $allAvailablelArrayCache;
+            unset($allAvailablelArrayCache);
+        }
+        else
+        {
+            $documentTypeList = new Document\DocType\Listing();
+            $docList = $documentTypeList->load();
 
-            if($doc instanceof Document\DocType && $doc->getGroup() == 'Contitech CS' && $doc->getType() == 'printpage')
+            foreach($docList as $doc)
             {
-            $optionsData[] = array ('key' => $doc->getName(),'value' => $doc->getName());
+
+                if($doc instanceof Document\DocType && $doc->getGroup() == 'Contitech CS' && $doc->getType() == 'printpage')
+                {
+                    $optionsData[] = array ('key' => $doc->getName(),'value' => $doc->getName());
+                }
+                if(!empty($optionsData))
+                {
+                    $this->optionProvider->setCachedOptionProviders($className);
+                    $this->optionProvider->setAllOptionsInCacheForClass($className, $roptionsDataesult);
+                }
             }
         }
 

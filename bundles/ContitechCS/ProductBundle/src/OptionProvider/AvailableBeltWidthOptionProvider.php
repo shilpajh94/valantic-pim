@@ -28,17 +28,35 @@ class AvailableBeltWidthOptionProvider implements SelectOptionsProviderInterface
      */
     public function getOptions(array $context, Data $fieldDefinition): array
     {
-        $availableBeltWidthList = new DataObject\CSAvailableBeltWidths\Listing();
-        $availableBeltWidthList = $availableBeltWidthList->load();
+        $this->optionProvider = \Pimcore::getKernel()->getContainer()->get('AppBundle\Services\OptionProviderCacheService');
+        $result = array();
+        $className = 'CSAvailableBeltWidths';
+        $allAvailablelArrayCache = $this->optionProvider->getCachedKeyData($className);
+        if($allAvailablelArrayCache && !empty($allAvailablelArrayCache))
+        {
+            $result = $allAvailablelArrayCache;
+            unset($allAvailablelArrayCache);
+        }
+        else
+        {
 
-        foreach ($availableBeltWidthList as $option) {
-            if($option->getAvailableBeltWidthInch()){
-                $result[] = array('key' => $option->getAvailableBeltWidthInch(), 'value' => $option->getId());
+            $availableBeltWidthList = new DataObject\CSAvailableBeltWidths\Listing();
+            $availableBeltWidthList = $availableBeltWidthList->load();
 
-            }
-            else{
-                $result[] = array('key' => $option->getAvailableBeltWidthMM(), 'value' => $option->getId());
+            foreach ($availableBeltWidthList as $option) {
+                if($option->getAvailableBeltWidthInch()){
+                    $result[] = array('key' => $option->getAvailableBeltWidthInch(), 'value' => $option->getId());
 
+                }
+                else{
+                    $result[] = array('key' => $option->getAvailableBeltWidthMM(), 'value' => $option->getId());
+
+                }
+                if(!empty($result))
+                {
+                    $this->optionProvider->setCachedOptionProviders($className);
+                    $this->optionProvider->setAllOptionsInCacheForClass($className, $result);
+                }
             }
         }
         return $result;

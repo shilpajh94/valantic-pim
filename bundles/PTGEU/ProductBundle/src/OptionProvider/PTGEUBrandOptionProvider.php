@@ -28,13 +28,30 @@ class PTGEUBrandOptionProvider implements SelectOptionsProviderInterface
      */
     public function getOptions(array $context, Data $fieldDefinition): array
     {
-        $result = [];
-        $brandListPTGEU = new DataObject\PTGEUBrand\Listing();
-        $brandListPTGEU->setCondition("path = ?", "/Contitech_PTGEU/Master List/Brands/" );
-        $brandListPTGEU = $brandListPTGEU->load();
+        // $result = [];
+        $this->optionProvider = \Pimcore::getKernel()->getContainer()->get('AppBundle\Services\OptionProviderCacheService');
+        $result = array();
+        $className = 'PTGEUBrand';
+        $allAvailablelArrayCache = $this->optionProvider->getCachedKeyData($className);
+        if($allAvailablelArrayCache && !empty($allAvailablelArrayCache))
+        {
+            $result = $allAvailablelArrayCache;
+            unset($allAvailablelArrayCache);
+        }
+        else
+        {
+            $brandListPTGEU = new DataObject\PTGEUBrand\Listing();
+            $brandListPTGEU->setCondition("path = ?", "/Contitech_PTGEU/Master List/Brands/" );
+            $brandListPTGEU = $brandListPTGEU->load();
 
-        foreach ($brandListPTGEU as $brand) {
-            $result[] = array('key' => $brand->getBrandCode()."-".$brand->getName(), 'value' => $brand->getId());
+            foreach ($brandListPTGEU as $brand) {
+                $result[] = array('key' => $brand->getBrandCode()."-".$brand->getName(), 'value' => $brand->getId());
+                if(!empty($result))
+                {
+                    $this->optionProvider->setCachedOptionProviders($className);
+                    $this->optionProvider->setAllOptionsInCacheForClass($className, $result);
+                }
+            }
         }
         return $result;
     }

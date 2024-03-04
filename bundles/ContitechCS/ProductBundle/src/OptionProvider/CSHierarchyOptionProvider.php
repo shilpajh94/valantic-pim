@@ -28,12 +28,30 @@ class CSHierarchyOptionProvider implements SelectOptionsProviderInterface
      */
     public function getOptions(array $context, Data $fieldDefinition): array
     {
-        $categoryList = new DataObject\CSHierarchy\Listing();
-        $categoryList->addConditionParam("Level = ?", ["Level 1"], 'AND');
-        $categoryList = $categoryList->load();
+        $this->optionProvider = \Pimcore::getKernel()->getContainer()->get('AppBundle\Services\OptionProviderCacheService');
+        $result = array();
+        $className = 'CSHierarchy';
+        $allAvailablelArrayCache = $this->optionProvider->getCachedKeyData($className);
+        if($allAvailablelArrayCache && !empty($allAvailablelArrayCache))
+        {
+            $result = $allAvailablelArrayCache;
+            unset($allAvailablelArrayCache);
+        }
+        else
+        {
 
-        foreach ($categoryList as $cat) {
-            $result[] = array('key' => $cat->getName(), 'value' => $cat->getId());
+            $categoryList = new DataObject\CSHierarchy\Listing();
+            $categoryList->addConditionParam("Level = ?", ["Level 1"], 'AND');
+            $categoryList = $categoryList->load();
+
+            foreach ($categoryList as $cat) {
+                $result[] = array('key' => $cat->getName(), 'value' => $cat->getId());
+                if(!empty($result))
+                {
+                    $this->optionProvider->setCachedOptionProviders($className);
+                    $this->optionProvider->setAllOptionsInCacheForClass($className, $result);
+                }
+            }
         }
         return $result;
     }
