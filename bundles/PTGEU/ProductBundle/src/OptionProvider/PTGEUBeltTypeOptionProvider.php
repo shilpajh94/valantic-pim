@@ -28,13 +28,30 @@ class PTGEUBeltTypeOptionProvider implements SelectOptionsProviderInterface
      */
     public function getOptions(array $context, Data $fieldDefinition): array
     {
-        $result = [];
-        $beltTypeListPTGEU = new DataObject\PTGEUBeltType\Listing();
-        $beltTypeListPTGEU->setCondition("path = ?", "/Contitech_PTGEU/Master List/Belts Type/" );
-        $beltTypeListPTGEU = $beltTypeListPTGEU->load();
+        // $result = [];
+        $this->optionProvider = \Pimcore::getKernel()->getContainer()->get('AppBundle\Services\OptionProviderCacheService');
+        $result = array();
+        $className = 'PTGEUBeltType';
+        $allAvailablelArrayCache = $this->optionProvider->getCachedKeyData($className);
+        if($allAvailablelArrayCache && !empty($allAvailablelArrayCache))
+        {
+            $result = $allAvailablelArrayCache;
+            unset($allAvailablelArrayCache);
+        }
+        else
+        {
+            $beltTypeListPTGEU = new DataObject\PTGEUBeltType\Listing();
+            $beltTypeListPTGEU->setCondition("path = ?", "/Contitech_PTGEU/Master List/Belts Type/" );
+            $beltTypeListPTGEU = $beltTypeListPTGEU->load();
 
-        foreach ($beltTypeListPTGEU as $beltType) {
-            $result[] = array('key' => $beltType->getbeltType(), 'value' => $beltType->getId());
+            foreach ($beltTypeListPTGEU as $beltType) {
+                $result[] = array('key' => $beltType->getbeltType(), 'value' => $beltType->getId());
+                if(!empty($result))
+                {
+                    $this->optionProvider->setCachedOptionProviders($className);
+                    $this->optionProvider->setAllOptionsInCacheForClass($className, $result);
+                }
+            }
         }
         return $result;
     }

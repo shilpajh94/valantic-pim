@@ -28,22 +28,35 @@ class SubCategoryOptionsProvider implements SelectOptionsProviderInterface {
      */
     public function getOptions(array $context, Data $fieldDefinition): array
     {
-         $optionsData = [];
-
-        $subCategoryList = new DataObject\IFSEUSubCategory\Listing();
-
-
-        $subCategoryList->setOrderKey('key');
-        $subCategoryList->setOrder("ASC");
-
-        foreach($subCategoryList as $listItem)
+        $this->optionProvider = \Pimcore::getKernel()->getContainer()->get('AppBundle\Services\OptionProviderCacheService');
+        $optionsData = array();
+        $className = 'IFSEUSubCategory';
+        $allAvailablelArrayCache = $this->optionProvider->getCachedKeyData($className);
+        if($allAvailablelArrayCache && !empty($allAvailablelArrayCache))
         {
-            if($listItem instanceof DataObject\IFSEUSubCategory)
+            $optionsData = $allAvailablelArrayCache;
+            unset($allAvailablelArrayCache);
+        }
+        else
+        {
+
+            $subCategoryList = new DataObject\IFSEUSubCategory\Listing();
+            $subCategoryList->setOrderKey('key');
+            $subCategoryList->setOrder("ASC");
+
+            foreach($subCategoryList as $listItem)
             {
-            $optionsData[] = array ('key' => $listItem->getSubCategoryName(),'value' => $listItem->getID());
+                if($listItem instanceof DataObject\IFSEUSubCategory)
+                {
+                $optionsData[] = array ('key' => $listItem->getSubCategoryName(),'value' => $listItem->getID());
+                }
+            }
+            if(!empty($optionsData))
+            {
+                $this->optionProvider->setCachedOptionProviders($className);
+                $this->optionProvider->setAllOptionsInCacheForClass($className, $optionsData);
             }
         }
-
         return $optionsData;
     }
 

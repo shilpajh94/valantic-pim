@@ -28,21 +28,35 @@ class FlowMediumOptionsProvider implements SelectOptionsProviderInterface {
      */
     public function getOptions(array $context, Data $fieldDefinition): array
     {
-         $optionsData = [];
-
-        $flowMediumList = new DataObject\IFSEUFlowMedium\Listing();
-       
-        $flowMediumList->setOrderKey('key');
-        $flowMediumList->setOrder("ASC");
-
-        foreach($flowMediumList as $listItem)
+        $this->optionProvider = \Pimcore::getKernel()->getContainer()->get('AppBundle\Services\OptionProviderCacheService');
+        $optionsData = array();
+        $className = 'IFSEUFlowMedium';
+        $allAvailablelArrayCache = $this->optionProvider->getCachedKeyData($className);
+        if($allAvailablelArrayCache && !empty($allAvailablelArrayCache))
         {
-            if($listItem instanceof DataObject\IFSEUFlowMedium)
+            $optionsData = $allAvailablelArrayCache;
+            unset($allAvailablelArrayCache);
+        }
+        else
+        {
+
+            $flowMediumList = new DataObject\IFSEUFlowMedium\Listing();
+            $flowMediumList->setOrderKey('key');
+            $flowMediumList->setOrder("ASC");
+
+            foreach($flowMediumList as $listItem)
             {
-            $optionsData[] = array ('key' => $listItem->getFlowMedium(),'value' => $listItem->getID());
+                if($listItem instanceof DataObject\IFSEUFlowMedium)
+                {
+                $optionsData[] = array ('key' => $listItem->getFlowMedium(),'value' => $listItem->getID());
+                }
+            }
+            if(!empty($optionsData))
+            {
+                $this->optionProvider->setCachedOptionProviders($className);
+                $this->optionProvider->setAllOptionsInCacheForClass($className, $optionsData);
             }
         }
-
         return $optionsData;
     }
 

@@ -28,13 +28,30 @@ class CSObjectBricks implements SelectOptionsProviderInterface
      */
     public function getOptions(array $context, Data $fieldDefinition): array
     {
-        $result = [];
-        $list = new DataObject\Objectbrick\Definition\Listing();
-        $list = $list->load();
+        // $result = [];
+        $this->optionProvider = \Pimcore::getKernel()->getContainer()->get('AppBundle\Services\OptionProviderCacheService');
+        $result = array();
+        $className = 'CSObjectBrick';
+        $allAvailablelArrayCache = $this->optionProvider->getCachedKeyData($className);
+        if($allAvailablelArrayCache && !empty($allAvailablelArrayCache))
+        {
+            $result = $allAvailablelArrayCache;
+            unset($allAvailablelArrayCache);
+        }
+        else
+        {
+            $list = new DataObject\Objectbrick\Definition\Listing();
+            $list = $list->load();
 
-        foreach ($list as $object) {
-            if (!empty($object->getGroup()) && $object->getGroup() == "CONVEYOR-BELT-SOLUTION") {
-                $result[] = array('key' => $object->getKey(), 'value' => $object->getKey());
+            foreach ($list as $object) {
+                if (!empty($object->getGroup()) && $object->getGroup() == "CONVEYOR-BELT-SOLUTION") {
+                    $result[] = array('key' => $object->getKey(), 'value' => $object->getKey());
+                }
+                if(!empty($result))
+                {
+                    $this->optionProvider->setCachedOptionProviders($className);
+                    $this->optionProvider->setAllOptionsInCacheForClass($className, $result);
+                }
             }
         }
         return $result;

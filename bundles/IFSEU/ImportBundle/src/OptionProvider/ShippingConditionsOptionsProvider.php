@@ -28,22 +28,34 @@ class ShippingConditionsOptionsProvider implements SelectOptionsProviderInterfac
      */
     public function getOptions(array $context, Data $fieldDefinition): array
     {
-         $optionsData = [];
-
-        $shippingConditionsList = new DataObject\IFSEUShippingConditions\Listing();
-
-
-        $shippingConditionsList->setOrderKey('key');
-        $shippingConditionsList->setOrder("ASC");
-
-        foreach($shippingConditionsList as $listItem)
+        $this->optionProvider = \Pimcore::getKernel()->getContainer()->get('AppBundle\Services\OptionProviderCacheService');
+        $optionsData = array();
+        $className = 'IFSEUShippingConditions';
+        $allAvailablelArrayCache = $this->optionProvider->getCachedKeyData($className);
+        if($allAvailablelArrayCache && !empty($allAvailablelArrayCache))
         {
-            if($listItem instanceof DataObject\IFSEUShippingConditions)
+            $optionsData = $allAvailablelArrayCache;
+            unset($allAvailablelArrayCache);
+        }
+        else
+        {
+            $shippingConditionsList = new DataObject\IFSEUShippingConditions\Listing();
+            $shippingConditionsList->setOrderKey('key');
+            $shippingConditionsList->setOrder("ASC");
+
+            foreach($shippingConditionsList as $listItem)
             {
-            $optionsData[] = array ('key' => $listItem->getShippingConditions(),'value' => $listItem->getID());
+                if($listItem instanceof DataObject\IFSEUShippingConditions)
+                {
+                $optionsData[] = array ('key' => $listItem->getShippingConditions(),'value' => $listItem->getID());
+                }
+            }
+            if(!empty($optionsData))
+            {
+                $this->optionProvider->setCachedOptionProviders($className);
+                $this->optionProvider->setAllOptionsInCacheForClass($className, $optionsData);
             }
         }
-
         return $optionsData;
     }
 
