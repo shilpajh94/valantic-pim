@@ -166,7 +166,7 @@ class BasicConfigService
      * @return array
      * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
      */
-    public function validateUploadedFile($requestBinaryFile)
+    public function validateUploadedFile($requestBinaryFile, $channelName)
     {
         $fileType = null;
         $sheetNames = array();
@@ -185,11 +185,11 @@ class BasicConfigService
             $tmpUploadPathfolder = PIMCORE_PROJECT_ROOT . '/' . $this->bundleService->getConfig('tmp_template_upload_pimcore_dir');
 
             // adding rand, to handle that is multiples users upload the file with same name before a save is hit
-            $fileName = rand(0, 1000) . '-' . basename($requestBinaryFile['name']);
+            $fileName = $channelName . '-' . basename($requestBinaryFile['name']);
             $tmpUploadPath = $tmpUploadPathfolder . $fileName;
 
             move_uploaded_file($requestBinaryFile['tmp_name'], $tmpUploadPath);
-            
+
             try {
                 $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($tmpUploadPath);
             } catch (\PhpOffice\PhpSpreadsheet\Reader\Exception $exception) {

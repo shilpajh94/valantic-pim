@@ -151,7 +151,8 @@ class ChannelService
 	// for contitech
         // $fullPath = PIMCORE_ASSET_DIRECTORY . $assetObject->getPath() . $assetObject->getFilename();
         // path with s3 protocol
-        $fullPath = PIMCORE_ASSET_DIRECTORY . $assetObject->getRealFullPath();
+        // $fullPath = PIMCORE_ASSET_DIRECTORY . $assetObject->getRealFullPath();
+        $fullPath = PIMCORE_PROJECT_ROOT . '/var/tmp/' . $assetObject->getFileName();
         if (strtolower($fileType) === 'csv') {
             $fp = fopen($fullPath, 'r');
             $header = fgetcsv($fp, 4096, $separator, '"');

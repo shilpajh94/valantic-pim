@@ -199,7 +199,8 @@ pimcore.plugin.distributionhub.tabs.basicConfig = Class.create(pimcore.element.a
                             url: '/admin/distributionhub/basic_config/read_uploaded_file',
                             waitMsg: t('dHub_uploading_file'),
                             params: {
-                                csrfToken: pimcore.settings['csrfToken']
+                                csrfToken: pimcore.settings['csrfToken'],
+                                channelName : outerScope.data[0].key
                             },
                             success: function (fp, response) {
                                 response = response.response;
