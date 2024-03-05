@@ -1,6 +1,6 @@
 parameters:
-    s3.bucket: 'pimcorex-contitech-assets-prod'
-    # s3.bucket: 'megha-pim'
+    # s3.bucket: 'pimcorex-contitech-assets-prod'
+    s3.bucket: 'megha-pim'
 
 services:
     assets_s3:
@@ -9,8 +9,8 @@ services:
             # -  endpoint: 'https://s3.us-east-1.amazonaws.com'
             #    region: 'us-east-1'
             -  endpoint: 'https://s3.eu-central-1.amazonaws.com'
-            region: 'eu-central-1'
-            version: 'latest'
+               region: 'eu-central-1'
+               version: 'latest'
             #    credentials:
             #        key: 'AKIAZ6MFIGPTWVTS2K6D'
             #        secret: '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'
