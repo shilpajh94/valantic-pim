@@ -16,10 +16,10 @@ if (CUSTOM_ENV == "stage" || CUSTOM_ENV == "prod" || CUSTOM_ENV == "stage_new"){
     $s3ConfigSettings = [
         'version' => 'latest',
         'region' => S3_REGION,
-        'credentials' => [
-            'key' => S3_KEY,
-            'secret' => S3_SECRET
-        ],
+        // 'credentials' => [
+        //     'key' => S3_KEY,
+        //     'secret' => S3_SECRET
+        // ],
     ];
 }
 
