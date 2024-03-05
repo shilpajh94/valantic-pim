@@ -1,0 +1,56 @@
+pimcore:
+    perspectives:
+        definitions:
+            PTGEU_ProductManager:
+                elementTree:
+                    -
+                        type: customview
+                        position: left
+                        sort: 0
+                        expanded: false
+                        hidden: false
+                        id: contitech_ptgeu_catalog_cms
+                    -
+                        type: customview
+                        position: left
+                        sort: 1
+                        expanded: false
+                        hidden: false
+                        id: contitech_ptgeu_asset_products
+                    -
+                        type: customview
+                        position: left
+                        sort: 2
+                        expanded: false
+                        hidden: false
+                        id: contitech_ptgeu_catalog_images
+                    -
+                        type: customview
+                        position: left
+                        sort: 3
+                        expanded: false
+                        hidden: false
+                        id: contitech_ptgeu_master_list
+                    -
+                        type: customview
+                        position: left
+                        sort: 4
+                        expanded: false
+                        hidden: false
+                        id: contitech_ptgeu_material_master_list
+                    -
+                        type: customview
+                        position: left
+                        sort: 5
+                        expanded: false
+                        hidden: false
+                        id: contitech_ptgeu_product_objects
+                    -
+                        type: customview
+                        position: left
+                        sort: 6
+                        expanded: false
+                        hidden: false
+                        id: contitech_ptgeu_catalog_objects
+                iconCls: null
+                icon: /bundles/pimcoreadmin/img/flat-color-icons/biohazard.svg

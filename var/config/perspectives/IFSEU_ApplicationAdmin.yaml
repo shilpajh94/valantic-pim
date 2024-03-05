@@ -1,0 +1,35 @@
+pimcore:
+    perspectives:
+        definitions:
+            IFSEU_ApplicationAdmin:
+                elementTree:
+                    -
+                        type: customview
+                        position: left
+                        sort: 0
+                        expanded: false
+                        hidden: false
+                        id: contitech_ifseu_master_data
+                    -
+                        type: customview
+                        position: left
+                        sort: 1
+                        expanded: false
+                        hidden: false
+                        id: contitech_ifseu_product_objects
+                    -
+                        type: customview
+                        position: left
+                        sort: 2
+                        expanded: false
+                        hidden: false
+                        id: contitech_ifseu_material_master_list
+                    -
+                        type: customview
+                        position: left
+                        sort: 3
+                        expanded: false
+                        hidden: false
+                        id: contitech_ifseu_asset_products
+                iconCls: null
+                icon: /bundles/pimcoreadmin/img/flat-color-icons/biohazard.svg
