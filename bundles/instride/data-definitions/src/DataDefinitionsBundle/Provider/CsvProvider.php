@@ -57,11 +57,13 @@ class CsvProvider extends AbstractFileProvider implements ImportProviderInterfac
         $delimiter = $configuration['delimiter'];
         $enclosure = $configuration['enclosure'];
         $csvFile = $definitionName . "-" . $configuration['csvFile'];
-        $path = $commonHelperObject->getDefaultAssetFolderForUploadedFiles() . "/" . $csvFile;
-        $asset = Asset::getByPath($path);
-        if ($asset) {
-            // $fullPath = $asset->getFileSystemPath();
-            $fullPath = PIMCORE_ASSET_DIRECTORY.$asset->getRealFullPath();
+        // $path = $commonHelperObject->getDefaultAssetFolderForUploadedFiles() . "/" . $csvFile;
+        $path = PIMCORE_PROJECT_ROOT . '/var/tmp/'. $csvFile;
+
+        if ($path) {
+            $fullPath = $path;
+            // $this->downloadFile($filePath);
+            // die;
             // p_r($fullPath);
             $fp = fopen($fullPath, 'r');
             $headers = fgetcsv($fp, 4096, $delimiter, '"');
@@ -89,7 +91,7 @@ class CsvProvider extends AbstractFileProvider implements ImportProviderInterfac
         // }
 
         // p_r($rows);
-        
+
         // if (count($rows) > 0) {
         //     $headerRow = $rows[0];
 
@@ -212,5 +214,16 @@ class CsvProvider extends AbstractFileProvider implements ImportProviderInterfac
         $writer->insertAll($this->exportData);
 
         return $stream;
+    }
+
+    public function downloadFile($filePath) {
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename="' . basename($filePath) . '"');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length: ' . filesize($filePath));
+        readfile($filePath);
+        exit;
     }
 }

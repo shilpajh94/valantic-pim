@@ -16,7 +16,7 @@ pimcore:
                         sort: 1
                         expanded: false
                         hidden: false
-                        id: cs_asset_external
+                        id: cs_asset_products
                     -
                         type: customview
                         position: left

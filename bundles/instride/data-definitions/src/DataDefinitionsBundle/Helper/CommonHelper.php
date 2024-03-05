@@ -31,7 +31,7 @@ class CommonHelper
      * @return array
      * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
      */
-    public function validateUploadedFile($requestBinaryFile)
+    public function validateUploadedFile($requestBinaryFile, $definitionName)
     {
         $fileType = null;
 
@@ -46,7 +46,8 @@ class CommonHelper
             $validTypes = [Constants::FILE_TYPE_CSV];
             $tmpUploadPathfolder = PIMCORE_PROJECT_ROOT . '/' . self::getConfig('tmp_template_upload_pimcore_dir');
 
-            $fileName = basename($requestBinaryFile['name']);
+            $fileName = $definitionName.'-'.basename($requestBinaryFile['name']);
+
             $tmpUploadPath = $tmpUploadPathfolder . $fileName;
 
             move_uploaded_file($requestBinaryFile['tmp_name'], $tmpUploadPath);
@@ -80,7 +81,7 @@ class CommonHelper
     {
         $asset = null;
         $fileName = basename($file);
-/* 
+/*
         $hyphenPos = strpos($fileName, '-');
         // remove the custom random value added in file name
         if ($hyphenPos !== false) {
@@ -88,9 +89,10 @@ class CommonHelper
         } */
         $pathinfo = pathinfo($fileName);
         $parentAsset = self::getDefaultAssetFolderForUploadedFiles();
+        // p_r($pathinfo);die;
 
         // add timestamp to the filename while uploading in assets
-        $fileName = $definitionName . '-' . $pathinfo['filename'] . '.' . $pathinfo['extension'];
+        $fileName = $pathinfo['filename'] . '.' . $pathinfo['extension'];
         $fileName = Element\Service::getValidKey($fileName, 'asset');
         if (empty($fileName)) {
             throw new \Exception('The filename of the asset is empty');
@@ -98,7 +100,6 @@ class CommonHelper
 
         $assetPath = $parentAsset . '/' . $fileName;
         $asset = Asset::getByPath($assetPath);
-
         if (!$asset) {
             $asset = new Asset();
             $asset->setParent($parentAsset);
