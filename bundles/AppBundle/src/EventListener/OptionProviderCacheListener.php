@@ -132,7 +132,7 @@ class OptionProviderCacheListener
                 
                 }else{
 
-                    if($isPublished)
+                    if($isPublished && $className != 'Product')
                         $this->optionProvider->createUpdateOptionProviderMapCache($className, $object->getId(), $object->getName());
                     else
                         $this->optionProvider->clearOptionProviderMapCache($className, $object->getId());
