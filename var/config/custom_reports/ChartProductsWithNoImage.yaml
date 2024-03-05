@@ -18,7 +18,7 @@ pimcore_custom_reports:
                     order: true
                     width: ''
                     label: ''
-                    id: extModel4540-1
+                    id: extModel595-1
                 -
                     name: '# of SKUs'
                     display: true
@@ -26,7 +26,7 @@ pimcore_custom_reports:
                     order: true
                     width: ''
                     label: ''
-                    id: extModel4540-2
+                    id: extModel595-2
                 -
                     name: 'Main Image'
                     display: true
@@ -34,19 +34,19 @@ pimcore_custom_reports:
                     order: true
                     width: ''
                     label: ''
-                    id: extModel4540-3
+                    id: extModel595-3
             niceName: 'Chart - Products with No Images - Main Image'
             group: ''
             groupIconClass: ''
             iconClass: ''
             menuShortcut: false
             reportClass: ''
-            chartType: ''
-            pieColumn: null
-            pieLabelColumn: null
+            chartType: pie
+            pieColumn: '# of SKUs'
+            pieLabelColumn: 'Main Image'
             xAxis: null
             yAxis: {  }
-            modificationDate: 1708345180
+            modificationDate: 1709623015
             creationDate: 1708242980
             shareGlobally: true
             sharedUserNames: {  }
