@@ -18,7 +18,7 @@ pimcore_custom_reports:
                     order: true
                     width: ''
                     label: ''
-                    id: extModel2722-1
+                    id: extModel757-1
                 -
                     name: Brand
                     display: true
@@ -26,7 +26,7 @@ pimcore_custom_reports:
                     order: true
                     width: ''
                     label: ''
-                    id: extModel2722-2
+                    id: extModel757-2
                 -
                     name: '# of SKUs'
                     display: true
@@ -34,19 +34,19 @@ pimcore_custom_reports:
                     order: true
                     width: ''
                     label: ''
-                    id: extModel2722-3
+                    id: extModel757-3
             niceName: 'Chart - Brand Product'
             group: ''
             groupIconClass: ''
             iconClass: ''
             menuShortcut: false
             reportClass: ''
-            chartType: ''
-            pieColumn: null
-            pieLabelColumn: null
+            chartType: pie
+            pieColumn: '# of SKUs'
+            pieLabelColumn: Brand
             xAxis: null
             yAxis: {  }
-            modificationDate: 1708344960
+            modificationDate: 1709623068
             creationDate: 1708241141
             shareGlobally: true
             sharedUserNames: {  }
