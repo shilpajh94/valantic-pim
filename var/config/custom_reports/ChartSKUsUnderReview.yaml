@@ -18,7 +18,7 @@ pimcore_custom_reports:
                     order: true
                     width: ''
                     label: ''
-                    id: extModel2419-1
+                    id: extModel430-1
                 -
                     name: Status
                     display: true
@@ -26,19 +26,19 @@ pimcore_custom_reports:
                     order: true
                     width: ''
                     label: ''
-                    id: extModel2419-2
+                    id: extModel430-2
             niceName: 'Chart - SKUs Workflow Status'
             group: ''
             groupIconClass: ''
             iconClass: ''
             menuShortcut: false
             reportClass: ''
-            chartType: ''
-            pieColumn: null
-            pieLabelColumn: null
+            chartType: pie
+            pieColumn: '# of SKUs'
+            pieLabelColumn: Status
             xAxis: null
             yAxis: {  }
-            modificationDate: 1708344932
+            modificationDate: 1709622969
             creationDate: 1708243186
             shareGlobally: true
             sharedUserNames: {  }
