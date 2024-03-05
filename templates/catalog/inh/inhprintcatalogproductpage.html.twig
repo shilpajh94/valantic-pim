@@ -195,6 +195,8 @@
 
 												{% if not pimcore_image('INH_MAIN_IMAGE_'~uniqueId).isEmpty() %}
 													{% set imgSrcObj = pimcore_image('INH_MAIN_IMAGE_'~uniqueId) %}
+												{% else %}
+													{% set imgSrcObj = "" %}
 												{% endif %}
 
 												{% if imgSrcObj %}
