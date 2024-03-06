@@ -253,13 +253,13 @@ pimcore.plugin.datadefinitions.definition.abstractItem = Class.create(coreshop.r
                         this.items[0].icon = "";
                         metadata.style = 'cursor: pointer;';
                     } else {
-                        this.items[0].icon = "public/bundles/pimcoreadmin/img/icon/download-medium.png";
+                        this.items[0].icon = "/bundles/pimcoreadmin/img/icon/download-medium.png";
                         this.items[0].disabled = false;
                     }
                     return '';
                 },
                 items: [{
-                    icon: "public/bundles/pimcoreadmin/img/icon/download-medium.png",
+                    icon: "/bundles/pimcoreadmin/img/icon/download-medium.png",
                     handler: function (grid, rowIndex, param, button,) {
                         let logFilePimcoreAssetId = grid.getStore().getAt(rowIndex).getData().logFilePimcoreAssetId;
 

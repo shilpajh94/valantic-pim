@@ -31,6 +31,7 @@ use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\Filesystem\Filesystem;
 
 
 
@@ -212,135 +213,135 @@ class CustomTranslationController extends \Pimcore\Bundle\AdminBundle\Controller
      *
      * @return Response
      */
-    // public function exportAction(Request $request)
-    // {
-    //     $domain = $request->get('domain', Translation::DOMAIN_DEFAULT);
-    //     $admin = $domain == Translation::DOMAIN_ADMIN;
+    public function exportAction(Request $request):JsonResponse
+    {
+        $domain = $request->get('domain', Translation::DOMAIN_DEFAULT);
+        $admin = $domain == Translation::DOMAIN_ADMIN;
 
-    //     $this->checkPermission(($admin ? 'admin_' : '') . 'translations');
+        $this->checkPermission(($admin ? 'admin_' : '') . 'translations');
 
-    //     $translation = new Translation();
-    //     $translation->setDomain($domain);
-    //     $tableName = $translation->getDao()->getDatabaseTableName();
+        $translation = new Translation();
+        $translation->setDomain($domain);
+        $tableName = $translation->getDao()->getDatabaseTableName();
 
-    //     // clear translation cache
-    //     Translation::clearDependentCache();
+        // clear translation cache
+        Translation::clearDependentCache();
 
-    //     $list = new Translation\Listing();
-    //     $list->setDomain($domain);
+        $list = new Translation\Listing();
+        $list->setDomain($domain);
 
-    //     $joins = [];
+        $joins = [];
 
-    //     $list->setOrder('asc');
-    //     $list->setOrderKey($tableName . '.key', false);
+        $list->setOrder('asc');
+        $list->setOrderKey($tableName . '.key', false);
 
-    //     $conditions = $this->getGridFilterCondition($request, $tableName, false, $admin);
-    //     if (!empty($conditions)) {
-    //         $list->setCondition($conditions['condition'], $conditions['params']);
-    //     }
+        $conditions = $this->getGridFilterCondition($request, $tableName, false, $admin);
+        if (!empty($conditions)) {
+            $list->setCondition($conditions['condition'], $conditions['params']);
+        }
 
-    //     $filters = $this->getGridFilterCondition($request, $tableName, true, $admin);
+        $filters = $this->getGridFilterCondition($request, $tableName, true, $admin);
 
-    //     if ($filters) {
-    //         $joins = array_merge($joins, $filters['joins']);
-    //     }
+        if ($filters) {
+            $joins = array_merge($joins, $filters['joins']);
+        }
 
-    //     $this->extendTranslationQuery($joins, $list, $tableName, $filters);
+        $this->extendTranslationQuery($joins, $list, $tableName, $filters);
 
-    //     try {
-    //         $list->load();
-    //     } catch (SyntaxErrorException $syntaxErrorException) {
-    //         throw new \InvalidArgumentException('Check your arguments.');
-    //     }
+        try {
+            $list->load();
+        } catch (SyntaxErrorException $syntaxErrorException) {
+            throw new \InvalidArgumentException('Check your arguments.');
+        }
 
-    //     $translations = [];
-    //     $translationObjects = $list->getTranslations();
+        $translations = [];
+        $translationObjects = $list->getTranslations();
 
-    //     // fill with one dummy translation if the store is empty
-    //     if (empty($translationObjects)) {
-    //         if ($admin) {
-    //             $t = new Translation();
-    //             $t->setDomain(Translation::DOMAIN_ADMIN);
-    //             $languages = Tool\Admin::getLanguages();
-    //         } else {
-    //             $t = new Translation();
-    //             $languages = $this->getAdminUser()->getAllowedLanguagesForViewingWebsiteTranslations();
-    //         }
+        // fill with one dummy translation if the store is empty
+        if (empty($translationObjects)) {
+            if ($admin) {
+                $t = new Translation();
+                $t->setDomain(Translation::DOMAIN_ADMIN);
+                $languages = Tool\Admin::getLanguages();
+            } else {
+                $t = new Translation();
+                $languages = $this->getAdminUser()->getAllowedLanguagesForViewingWebsiteTranslations();
+            }
 
-    //         foreach ($languages as $language) {
-    //             $t->addTranslation($language, '');
-    //         }
+            foreach ($languages as $language) {
+                $t->addTranslation($language, '');
+            }
 
-    //         $translationObjects[] = $t;
-    //     }
+            $translationObjects[] = $t;
+        }
 
-    //     foreach ($translationObjects as $t) {
-    //         $row = $t->getTranslations();
-    //         $row = Element\Service::escapeCsvRecord($row);
-    //         $translations[] = array_merge(
-    //             ['key' => $t->getKey(),
-    //                 'creationDate' => $t->getCreationDate(),
-    //                 'modificationDate' => $t->getModificationDate(),
-    //             ],
-    //             $row
-    //         );
-    //     }
+        foreach ($translationObjects as $t) {
+            $row = $t->getTranslations();
+            $row = Element\Service::escapeCsvRecord($row);
+            $translations[] = array_merge(
+                ['key' => $t->getKey(),
+                    'creationDate' => $t->getCreationDate(),
+                    'modificationDate' => $t->getModificationDate(),
+                ],
+                $row
+            );
+        }
 
-    //     //header column
-    //     $columns = array_keys($translations[0]);
+        //header column
+        $columns = array_keys($translations[0]);
 
-    //     if ($admin) {
-    //         $languages = Tool\Admin::getLanguages();
-    //     } else {
-    //         $languages = $this->getAdminUser()->getAllowedLanguagesForViewingWebsiteTranslations();
-    //     }
+        if ($admin) {
+            $languages = Tool\Admin::getLanguages();
+        } else {
+            $languages = $this->getAdminUser()->getAllowedLanguagesForViewingWebsiteTranslations();
+        }
 
-    //     //add language columns which have no translations yet
-    //     foreach ($languages as $l) {
-    //         if (!in_array($l, $columns)) {
-    //             $columns[] = $l;
-    //         }
-    //     }
+        //add language columns which have no translations yet
+        foreach ($languages as $l) {
+            if (!in_array($l, $columns)) {
+                $columns[] = $l;
+            }
+        }
 
-    //     //remove invalid languages
-    //     foreach ($columns as $key => $column) {
-    //         if (strtolower(trim($column)) != 'key' && !in_array($column, $languages)) {
-    //             unset($columns[$key]);
-    //         }
-    //     }
-    //     $columns = array_values($columns);
+        //remove invalid languages
+        foreach ($columns as $key => $column) {
+            if (strtolower(trim($column)) != 'key' && !in_array($column, $languages)) {
+                unset($columns[$key]);
+            }
+        }
+        $columns = array_values($columns);
 
-    //     $headerRow = [];
-    //     foreach ($columns as $key => $value) {
-    //         $headerRow[] = '"' . $value . '"';
-    //     }
-    //     $csv = implode(';', $headerRow) . "\r\n";
+        $headerRow = [];
+        foreach ($columns as $key => $value) {
+            $headerRow[] = '"' . $value . '"';
+        }
+        $csv = implode(';', $headerRow) . "\r\n";
 
-    //     foreach ($translations as $t) {
-    //         $tempRow = [];
-    //         foreach ($columns as $key) {
-    //             $value = $t[$key] ?? null;
-    //             //clean value of evil stuff such as " and linebreaks
-    //             if (is_string($value)) {
-    //                 $value = Tool\Text::removeLineBreaks($value);
-    //                 $value = str_replace('"', '&quot;', $value);
+        foreach ($translations as $t) {
+            $tempRow = [];
+            foreach ($columns as $key) {
+                $value = $t[$key] ?? null;
+                //clean value of evil stuff such as " and linebreaks
+                if (is_string($value)) {
+                    $value = Tool\Text::removeLineBreaks($value);
+                    $value = str_replace('"', '&quot;', $value);
 
-    //                 $tempRow[$key] = '"' . $value . '"';
-    //             } else {
-    //                 $tempRow[$key] = $value;
-    //             }
-    //         }
-    //         $csv .= implode(';', $tempRow) . "\r\n";
-    //     }
+                    $tempRow[$key] = '"' . $value . '"';
+                } else {
+                    $tempRow[$key] = $value;
+                }
+            }
+            $csv .= implode(';', $tempRow) . "\r\n";
+        }
 
-    //     $response = new Response("\xEF\xBB\xBF" . $csv);
-    //     $response->headers->set('Content-Encoding', 'UTF-8');
-    //     $response->headers->set('Content-Type', 'text/csv; charset=UTF-8');
-    //     $response->headers->set('Content-Disposition', 'attachment; filename="export_' . $domain . '_translations.csv"');
-    //     ini_set('display_errors', '0'); //to prevent warning messages in csv
+        $response = new Response("\xEF\xBB\xBF" . $csv);
+        $response->headers->set('Content-Encoding', 'UTF-8');
+        $response->headers->set('Content-Type', 'text/csv; charset=UTF-8');
+        $response->headers->set('Content-Disposition', 'attachment; filename="export_' . $domain . '_translations.csv"');
+        ini_set('display_errors', '0'); //to prevent warning messages in csv
 
-    //     return $response;
-    // }
+        return $response;
+    }
 
 
     /**
@@ -528,34 +529,33 @@ class CustomTranslationController extends \Pimcore\Bundle\AdminBundle\Controller
      *
      * @return JsonResponse
      */
-    // public function uploadImportFileAction(Request $request): JsonResponse
-    // {
-    //     $tmpData = file_get_contents($_FILES['Filedata']['tmp_name']);
+    public function uploadImportFileAction(Request $request, Filesystem $filesystem): JsonResponse
+    {
+        $tmpData = file_get_contents($_FILES['Filedata']['tmp_name']);
 
-    //     //store data for further usage
-    //     $filename = uniqid('import_translations-');
-    //     $importFile = PIMCORE_SYSTEM_TEMP_DIRECTORY . '/' . $filename;
-    //     File::put($importFile, $tmpData);
+        //store data for further usage
+        $filename = uniqid('import_translations-');
+        $importFile = PIMCORE_SYSTEM_TEMP_DIRECTORY . '/' . $filename;
+        $filesystem->dumpFile($importFile, $tmpData);
 
-    //     Session::useSession(function (AttributeBagInterface $session) use ($importFile) {
-    //         $session->set('translation_import_file', $importFile);
-    //     }, 'pimcore_importconfig');
+        Session::useBag($request->getSession(), function (AttributeBagInterface $session) use ($importFile) {
+            $session->set('translation_import_file', $importFile);
+        }, 'pimcore_importconfig');
+        // determine csv settings
+        $dialect = Tool\Admin::determineCsvDialect($importFile);
 
-    //     // determine csv settings
-    //     $dialect = Tool\Admin::determineCsvDialect($importFile);
+        //ignore if line terminator is already hex otherwise generate hex for string
+        if (!empty($dialect->lineterminator) && empty(preg_match('/[a-f0-9]{2}/i', $dialect->lineterminator))) {
+            $dialect->lineterminator = bin2hex($dialect->lineterminator);
+        }
 
-    //     //ignore if line terminator is already hex otherwise generate hex for string
-    //     if (!empty($dialect->lineterminator) && empty(preg_match('/[a-f0-9]{2}/i', $dialect->lineterminator))) {
-    //         $dialect->lineterminator = bin2hex($dialect->lineterminator);
-    //     }
-
-    //     return $this->adminJson([
-    //         'success' => true,
-    //         'config' => [
-    //             'csvSettings' => $dialect,
-    //         ],
-    //     ]);
-    // }
+        return $this->adminJson([
+            'success' => true,
+            'config' => [
+                'csvSettings' => $dialect,
+            ],
+        ]);
+    }
 
         /**
      * @Route("/import", methods={"POST"})
