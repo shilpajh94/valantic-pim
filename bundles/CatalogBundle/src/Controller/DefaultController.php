@@ -309,7 +309,7 @@ class DefaultController extends FrontendController
                 $conditionArray[] = $fittingString;
             }
         }
-        
+
         $skeletonProductId = [];
 
         if ($baseProduct !== null && count($baseProduct) > 0) {
@@ -734,7 +734,7 @@ class DefaultController extends FrontendController
         $commonHelper = $this->containerInterface->get('app.common_helper');
         $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
         $catalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
-        
+
         if ($templateEditable) {
             $template = $templateEditable->getElement();
 
@@ -779,7 +779,7 @@ class DefaultController extends FrontendController
                             if(array_key_exists($data[$baseId]['brandName'][0],$brandsList) && !empty($brandsList[$data[$baseId]['brandName'][0]])){
                                 $data[$baseId]['SortOrder'] = $brandsList[$data[$baseId]['brandName'][0]];
                             }else{
-                                $data[$baseId]['SortOrder'] = 0; 
+                                $data[$baseId]['SortOrder'] = 0;
                             }
                         }else{
                             $data[$baseId]['SortOrder'] = $brandsList[$data[$baseId]['brandName']];
@@ -911,8 +911,8 @@ class DefaultController extends FrontendController
                 $catalogGrouping = array();
 
                 foreach ($productsData as $key => $item) {
-                    if (isset($item[$headerKeysIndex['CatalogGrouping']]) && isset($item[$headerKeysIndex['brandName']])) {
-                        $catalogGrouping[$item[$headerKeysIndex['CatalogGrouping']]][$item[$headerKeysIndex['brandName']][0]][] = $item;
+                    if (!empty(trim($item[$headerKeysIndex['CatalogGrouping']])) && !empty(trim($item[$headerKeysIndex['brandName']]))) {
+                        $catalogGrouping[$item[$headerKeysIndex['CatalogGrouping']]][$item[$headerKeysIndex['brandName']]][] = $item;
                     }
                 }
 
@@ -1142,11 +1142,9 @@ class DefaultController extends FrontendController
                         }
 
                         $data[$uniqueId]['articlesData'] = $articlesData;
-                        if(array_key_exists($brandName[0],$brandsList)){
-
-                        $data[$uniqueId]['SortOrder'] = (isset($brandsList[$brandName[0]]))?$brandsList[$brandName[0]]:null;
-                        }
+                        $data[$uniqueId]['SortOrder'] = $brandsList[$brandName];
                     }
+
                     if ($data) {
                         array_multisort(array_column($data, 'SortOrder'), SORT_ASC, $data);
                     }
@@ -1211,7 +1209,7 @@ class DefaultController extends FrontendController
                 foreach ($svalue as $vvalue) {
                     if(isset($orderKeys[$vvalue['columnName']]) && isset($headerKeysIndex[$vvalue['columnName']])) {
                         $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
-                    }                   
+                    }
                 }
             }
 
@@ -1329,7 +1327,7 @@ class DefaultController extends FrontendController
             if(isset($data)){
                 $parameterBag['data'] = $data;
             }
-            
+
             $parameterBag['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
             $parameterBag['footer_logo_src'] = $footer_logo_src;
         }
@@ -1417,7 +1415,7 @@ class DefaultController extends FrontendController
                         $articlesData[$key][$ckey] = $element[$headerKeysIndex[$ckey]];
                     }
 
-                endforeach;              
+                endforeach;
                 $uniqueId = md5($brandKey);
                 $material = array_unique($material);
                 $materialString = implode(', ', $material);
@@ -1583,7 +1581,7 @@ class DefaultController extends FrontendController
         $documentPath = $this->document->getFullPath();
         $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
         $parameterBag = $this->getRequestedParameter($request, $documentId);
-        
+
         try {
             $folderId = $this->document->getParent()->getId();
             $listing = new \Pimcore\Model\Document\Listing();
@@ -2399,7 +2397,7 @@ class DefaultController extends FrontendController
                     $reinforcementStr = $reinforcement;
                 }
 
-                
+
                 $groupData['subHeaderRequired'] = $this->subHeaderRequired;
                 $groupData['iconRequired'] = $this->iconRequired;
                 $groupData['material'] = $materialStr;
@@ -2447,7 +2445,7 @@ class DefaultController extends FrontendController
 
                     $safetyFeaturesListWithImage[] = array('name' => $this->featuresList[$fvalue]['name'], 'iconSrc' => $fvalue, 'SortOrder' => $this->featuresList[$fvalue]['SortOrder']);
                 } else {
-                    $safetyFeaturesListWithOutImage[] = array('name' => (isset($this->featuresList[$fvalue]['name']))?$this->featuresList[$fvalue]['name']: null, 'iconSrc' => $fIcon, 'SortOrder' => (isset($this->featuresList[$fvalue]['SortOrder']))?$this->featuresList[$fvalue]['SortOrder']: null); 
+                    $safetyFeaturesListWithOutImage[] = array('name' => (isset($this->featuresList[$fvalue]['name']))?$this->featuresList[$fvalue]['name']: null, 'iconSrc' => $fIcon, 'SortOrder' => (isset($this->featuresList[$fvalue]['SortOrder']))?$this->featuresList[$fvalue]['SortOrder']: null);
                 }
             }
         }
