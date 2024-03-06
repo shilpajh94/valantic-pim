@@ -1,0 +1,43 @@
+pimcore:
+    custom_views:
+        definitions:
+            db8a81f1-3b4c-c7b7-2f90-aed77b7dc4f5:
+                name: Catalog
+                treetype: document
+                position: left
+                rootfolder: /Contitech_PTGEU/Catalog
+                showroot: true
+                sort: 11
+                treeContextMenu:
+                    document:
+                        items:
+                            add: true
+                            addSnippet: false
+                            addLink: false
+                            addEmail: false
+                            addNewsletter: false
+                            addHardlink: false
+                            addFolder: true
+                            addPrintPage: true
+                            paste: false
+                            pasteCut: false
+                            copy: true
+                            cut: false
+                            rename: false
+                            unpublish: true
+                            publish: true
+                            delete: true
+                            open: false
+                            convert: false
+                            searchAndMove: false
+                            useAsSite: false
+                            editSite: false
+                            removeSite: false
+                            lock: false
+                            unlock: false
+                            lockAndPropagate: false
+                            unlockAndPropagate: false
+                            reload: true
+                icon: /bundles/pimcoreadmin/img/flat-color-icons/email.svg
+                joins: {  }
+                id: db8a81f1-3b4c-c7b7-2f90-aed77b7dc4f5

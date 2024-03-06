@@ -1,0 +1,43 @@
+pimcore:
+    custom_views:
+        definitions:
+            c3fbd52d-40b8-c397-b6c3-953f6e08a129:
+                name: 'Catalog Documents'
+                treetype: document
+                position: left
+                rootfolder: /ConveyorBeltSolutions/Catalogs
+                showroot: true
+                sort: 11
+                treeContextMenu:
+                    document:
+                        items:
+                            add: true
+                            addSnippet: true
+                            addLink: true
+                            addEmail: true
+                            addNewsletter: true
+                            addHardlink: true
+                            addFolder: true
+                            addPrintPage: true
+                            paste: true
+                            pasteCut: true
+                            copy: true
+                            cut: true
+                            rename: true
+                            unpublish: true
+                            publish: true
+                            delete: true
+                            open: true
+                            convert: true
+                            searchAndMove: true
+                            useAsSite: true
+                            editSite: true
+                            removeSite: true
+                            lock: true
+                            unlock: true
+                            lockAndPropagate: true
+                            unlockAndPropagate: true
+                            reload: true
+                icon: /bundles/pimcoreadmin/img/flat-color-icons/pdf.svg
+                joins: {  }
+                id: c3fbd52d-40b8-c397-b6c3-953f6e08a129

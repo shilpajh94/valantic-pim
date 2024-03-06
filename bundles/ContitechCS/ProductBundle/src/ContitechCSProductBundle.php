@@ -20,7 +20,7 @@ class ContitechCSProductBundle extends AbstractPimcoreBundle implements PimcoreB
         return [
             '/bundles/contitechcsproduct/js/pimcore/startup.js',
             '/bundles/contitechcsproduct/js/pimcore/tags/objectbricks.js',
-            '/bundles/contitechcsproduct/js/pimcore/object/tree.js',
+            // '/bundles/contitechcsproduct/js/pimcore/object/tree.js',
             // '/bundles/contitechcsproduct/js/pimcore/object/versions.js',
             // '/bundles/contitechcsproduct/js/pimcore/object.js'
         ];

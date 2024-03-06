@@ -1,0 +1,34 @@
+pimcore:
+    custom_views:
+        definitions:
+            44b196ec-44c7-ae18-c2a7-187bbebf9a5c:
+                name: 'Master Data'
+                treetype: object
+                position: left
+                rootfolder: '/Contitech_ConveyorSolution/Master Data'
+                showroot: true
+                sort: 10
+                treeContextMenu:
+                    object:
+                        items:
+                            add: true
+                            addFolder: true
+                            importCsv: true
+                            cut: true
+                            copy: true
+                            paste: true
+                            delete: true
+                            rename: true
+                            reload: true
+                            publish: true
+                            unpublish: true
+                            searchAndMove: true
+                            lock: true
+                            unlock: true
+                            lockAndPropagate: true
+                            unlockAndPropagate: true
+                            changeChildrenSortBy: true
+                classes: 'CSApplications,CSSegment,CSAvailablePatternWidths,CSRegion,CSFeaturesAndBenefits,CSHierarchy,CSIndustries,CSMaterial,CSPerformanceCategories'
+                icon: /bundles/pimcoreadmin/img/flat-color-icons/negative_dynamic.svg
+                joins: {  }
+                id: 44b196ec-44c7-ae18-c2a7-187bbebf9a5c

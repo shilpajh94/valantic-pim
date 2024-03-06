@@ -9,56 +9,56 @@ pimcore:
                         sort: 0
                         expanded: false
                         hidden: false
-                        id: cs_catalog_cms
+                        id: c3fbd52d-40b8-c397-b6c3-953f6e08a129
                     -
                         type: customview
                         position: left
                         sort: 1
                         expanded: false
                         hidden: false
-                        id: cs_workflow_templates_cms
+                        id: 357faec7-287c-fbe1-17b2-c338e59807a8
                     -
                         type: customview
                         position: left
                         sort: 2
                         expanded: false
                         hidden: false
-                        id: cs_asset_products
+                        id: 9ed83110-972e-7aec-ee36-34c266198058
                     -
                         type: customview
                         position: left
                         sort: 3
                         expanded: false
                         hidden: false
-                        id: cs_asset_internal
+                        id: b99f5b5e-70f5-4528-cb85-892299d07427
                     -
                         type: customview
                         position: left
                         sort: 4
                         expanded: false
                         hidden: false
-                        id: cs_product_data_import_module
+                        id: 12d2cd3b-39fc-5e27-6ac7-e1f88fdd5fb5
                     -
                         type: customview
                         position: left
                         sort: 5
                         expanded: false
                         hidden: false
-                        id: cs_dataobject_products_data
+                        id: c7f34178-e14e-eaa0-1c4e-5a46cd7c8542
                     -
                         type: customview
                         position: left
                         sort: 6
                         expanded: false
                         hidden: false
-                        id: cs_dataobject_catalogs_data
+                        id: adb53b31-b21c-58f7-dc7e-3ec2d6333f9c
                     -
                         type: customview
                         position: left
                         sort: 7
                         expanded: false
                         hidden: false
-                        id: cs_dataobject_master_data
+                        id: 44b196ec-44c7-ae18-c2a7-187bbebf9a5c
                 iconCls: null
                 icon: /bundles/pimcoreadmin/img/flat-color-icons/biohazard.svg
                 toolbar:

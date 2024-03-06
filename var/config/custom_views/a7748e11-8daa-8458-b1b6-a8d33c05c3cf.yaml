@@ -1,0 +1,37 @@
+pimcore:
+    custom_views:
+        definitions:
+            a7748e11-8daa-8458-b1b6-a8d33c05c3cf:
+                name: 'Product Assets'
+                treetype: asset
+                position: left
+                rootfolder: '/Contitech_PTGEU/Product Assets'
+                showroot: true
+                sort: 5
+                treeContextMenu:
+                    asset:
+                        items:
+                            add:
+                                hidden: false
+                                items:
+                                    upload: true
+                                    uploadCompatibility: true
+                                    uploadZip: true
+                                    importFromServer: true
+                                    uploadFromUrl: true
+                            addFolder: true
+                            rename: false
+                            copy: true
+                            cut: true
+                            paste: false
+                            pasteCut: false
+                            delete: false
+                            searchAndMove: false
+                            lock: false
+                            unlock: false
+                            lockAndPropagate: false
+                            unlockAndPropagate: false
+                            reload: false
+                icon: /bundles/pimcoreadmin/img/flat-color-icons/edit_image.svg
+                joins: {  }
+                id: a7748e11-8daa-8458-b1b6-a8d33c05c3cf

@@ -9,55 +9,55 @@ pimcore:
                         sort: 0
                         expanded: false
                         hidden: false
-                        id: contitech_ptgeu_catalog_cms
+                        id: db8a81f1-3b4c-c7b7-2f90-aed77b7dc4f5
                     -
                         type: customview
                         position: left
                         sort: 1
                         expanded: false
                         hidden: false
-                        id: contitech_ptgeu_asset_products
+                        id: a7748e11-8daa-8458-b1b6-a8d33c05c3cf
                     -
                         type: customview
                         position: left
                         sort: 2
                         expanded: false
                         hidden: false
-                        id: contitech_ptgeu_catalog_images
+                        id: 41d6962c-a9e4-4373-babe-38bef79269ac
                     -
                         type: customview
                         position: left
                         sort: 3
                         expanded: false
                         hidden: false
-                        id: cs_product_data_import_module
+                        id: 12d2cd3b-39fc-5e27-6ac7-e1f88fdd5fb5
                     -
                         type: customview
                         position: left
                         sort: 4
                         expanded: false
                         hidden: false
-                        id: contitech_ptgeu_master_list
+                        id: 2b90c932-835b-b4eb-0d96-58bfe5d57dda
                     -
                         type: customview
                         position: left
                         sort: 5
                         expanded: false
                         hidden: false
-                        id: contitech_ptgeu_material_master_list
+                        id: b9d8eeb8-1f5f-1ea2-9a9f-4ee7d70ca3b0
                     -
                         type: customview
                         position: left
                         sort: 6
                         expanded: false
                         hidden: false
-                        id: contitech_ptgeu_product_objects
+                        id: 09c71855-ea36-80ab-db4d-12bf58ead9ae
                     -
                         type: customview
                         position: left
                         sort: 7
                         expanded: false
                         hidden: false
-                        id: contitech_ptgeu_catalog_objects
+                        id: a1da9aef-1d4d-cf2b-957d-5f91c7bf5a8b
                 iconCls: null
                 icon: /bundles/pimcoreadmin/img/flat-color-icons/biohazard.svg

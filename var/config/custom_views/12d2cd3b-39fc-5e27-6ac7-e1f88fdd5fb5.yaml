@@ -1,0 +1,37 @@
+pimcore:
+    custom_views:
+        definitions:
+            12d2cd3b-39fc-5e27-6ac7-e1f88fdd5fb5:
+                name: 'Product Data Import Module'
+                treetype: asset
+                position: left
+                rootfolder: '/Product Data Import Module'
+                showroot: true
+                sort: 10
+                treeContextMenu:
+                    asset:
+                        items:
+                            add:
+                                hidden: false
+                                items:
+                                    upload: true
+                                    uploadCompatibility: true
+                                    uploadZip: true
+                                    importFromServer: true
+                                    uploadFromUrl: true
+                            addFolder: true
+                            rename: true
+                            copy: true
+                            cut: true
+                            paste: true
+                            pasteCut: true
+                            delete: true
+                            searchAndMove: true
+                            lock: true
+                            unlock: true
+                            lockAndPropagate: true
+                            unlockAndPropagate: true
+                            reload: true
+                icon: /bundles/pimcoreadmin/img/flat-color-icons/negative_dynamic.svg
+                joins: {  }
+                id: 12d2cd3b-39fc-5e27-6ac7-e1f88fdd5fb5

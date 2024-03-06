@@ -1,0 +1,34 @@
+pimcore:
+    custom_views:
+        definitions:
+            2b90c932-835b-b4eb-0d96-58bfe5d57dda:
+                name: 'Master List'
+                treetype: object
+                position: left
+                rootfolder: '/Contitech_PTGEU/Master List'
+                showroot: true
+                sort: 10
+                treeContextMenu:
+                    object:
+                        items:
+                            add: true
+                            addFolder: true
+                            importCsv: false
+                            cut: true
+                            copy: true
+                            paste: false
+                            delete: true
+                            rename: true
+                            reload: true
+                            publish: true
+                            unpublish: true
+                            searchAndMove: true
+                            lock: false
+                            unlock: false
+                            lockAndPropagate: false
+                            unlockAndPropagate: false
+                            changeChildrenSortBy: false
+                icon: /bundles/pimcoreadmin/img/flat-color-icons/negative_dynamic.svg
+                classes: 'PTGEUBeltType,PTGEUBrand,PTGEUCompound,PTGEUCountryOfOrigin,PTGEUDistributionChannel,PTGEUFeaturesAndBenefits,PTGEUMaterialGroup,PTGEUPlant,39,PTGEUProfileProdName,PTGEUSalesOrg,PTGEUSearchKeywords,PTGEUVTL,PTGEUCatalog,PTGEUCatalogCategory,40,38,41'
+                joins: {  }
+                id: 2b90c932-835b-b4eb-0d96-58bfe5d57dda

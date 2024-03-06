@@ -1,0 +1,37 @@
+pimcore:
+    custom_views:
+        definitions:
+            41d6962c-a9e4-4373-babe-38bef79269ac:
+                name: 'Catalog Images'
+                treetype: asset
+                position: left
+                rootfolder: /Contitech_PTGEU/CatalogImages
+                showroot: true
+                sort: 5
+                treeContextMenu:
+                    asset:
+                        items:
+                            add:
+                                hidden: false
+                                items:
+                                    upload: true
+                                    uploadCompatibility: true
+                                    uploadZip: true
+                                    importFromServer: true
+                                    uploadFromUrl: true
+                            addFolder: true
+                            rename: false
+                            copy: true
+                            cut: true
+                            paste: false
+                            pasteCut: false
+                            delete: false
+                            searchAndMove: false
+                            lock: false
+                            unlock: false
+                            lockAndPropagate: false
+                            unlockAndPropagate: false
+                            reload: true
+                icon: /bundles/pimcoreadmin/img/flat-color-icons/edit_image.svg
+                joins: {  }
+                id: 41d6962c-a9e4-4373-babe-38bef79269ac

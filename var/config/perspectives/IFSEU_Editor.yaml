@@ -9,28 +9,28 @@ pimcore:
                         sort: 0
                         expanded: false
                         hidden: false
-                        id: contitech_ifseu_master_data
+                        id: 1b65a393-9e7a-6ffe-f007-8354474d1a2e
                     -
                         type: customview
                         position: left
                         sort: 1
                         expanded: false
                         hidden: false
-                        id: contitech_ifseu_product_objects
+                        id: bd207e9d-40fc-d2de-53c9-cdbe70fd5de5
                     -
                         type: customview
                         position: left
                         sort: 2
                         expanded: false
                         hidden: false
-                        id: contitech_ifseu_material_master_list
+                        id: ee359143-5fdb-bc7b-56c7-c2471aa40599
                     -
                         type: customview
                         position: left
                         sort: 3
                         expanded: false
                         hidden: false
-                        id: contitech_ifseu_asset_products
+                        id: 257f4630-027e-e5ce-cb91-b5526003439c
                 iconCls: null
                 icon: /bundles/pimcoreadmin/img/flat-color-icons/biohazard.svg
                 toolbar:

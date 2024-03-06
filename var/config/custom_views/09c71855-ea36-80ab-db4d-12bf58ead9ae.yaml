@@ -1,0 +1,34 @@
+pimcore:
+    custom_views:
+        definitions:
+            09c71855-ea36-80ab-db4d-12bf58ead9ae:
+                name: Products
+                treetype: object
+                position: left
+                rootfolder: /Contitech_PTGEU/Products
+                showroot: true
+                sort: 10
+                treeContextMenu:
+                    object:
+                        items:
+                            add: true
+                            addFolder: true
+                            importCsv: false
+                            cut: true
+                            copy: true
+                            paste: false
+                            delete: false
+                            rename: true
+                            reload: true
+                            publish: false
+                            unpublish: false
+                            searchAndMove: false
+                            lock: false
+                            unlock: false
+                            lockAndPropagate: false
+                            unlockAndPropagate: false
+                            changeChildrenSortBy: true
+                icon: /bundles/pimcoreadmin/img/flat-color-icons/neutral_trading.svg
+                classes: 'PTGEUMaterialGroup,PTGEUCatalog,PTGEUCatalogCategory,40,38,41,PTGEUBeltType,PTGEUBrand,PTGEUCompound,PTGEUCountryOfOrigin,PTGEUDistributionChannel,PTGEUFeaturesAndBenefits,PTGEUPlant,39,PTGEUProfileProdName,PTGEUSalesOrg,PTGEUSearchKeywords,PTGEUVTL'
+                joins: {  }
+                id: 09c71855-ea36-80ab-db4d-12bf58ead9ae

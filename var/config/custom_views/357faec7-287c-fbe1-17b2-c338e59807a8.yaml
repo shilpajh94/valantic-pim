@@ -1,0 +1,43 @@
+pimcore:
+    custom_views:
+        definitions:
+            357faec7-287c-fbe1-17b2-c338e59807a8:
+                name: 'Email Templates'
+                treetype: document
+                position: left
+                rootfolder: /ConveyorBeltSolutions/WorkflowEmailTemplates
+                showroot: true
+                sort: 11
+                treeContextMenu:
+                    document:
+                        items:
+                            add: false
+                            addSnippet: false
+                            addLink: false
+                            addEmail: false
+                            addNewsletter: false
+                            addHardlink: false
+                            addFolder: false
+                            addPrintPage: false
+                            paste: false
+                            pasteCut: false
+                            copy: false
+                            cut: false
+                            rename: false
+                            unpublish: false
+                            publish: false
+                            delete: false
+                            open: false
+                            convert: false
+                            searchAndMove: false
+                            useAsSite: false
+                            editSite: false
+                            removeSite: false
+                            lock: false
+                            unlock: false
+                            lockAndPropagate: false
+                            unlockAndPropagate: false
+                            reload: true
+                icon: /bundles/pimcoreadmin/img/flat-color-icons/email.svg
+                joins: {  }
+                id: 357faec7-287c-fbe1-17b2-c338e59807a8

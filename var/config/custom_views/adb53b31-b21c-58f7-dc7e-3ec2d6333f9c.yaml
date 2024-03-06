@@ -1,0 +1,34 @@
+pimcore:
+    custom_views:
+        definitions:
+            adb53b31-b21c-58f7-dc7e-3ec2d6333f9c:
+                name: 'Catalog Objects'
+                treetype: object
+                position: left
+                rootfolder: '/Contitech_ConveyorSolution/Catalog Objects'
+                showroot: true
+                sort: 10
+                treeContextMenu:
+                    object:
+                        items:
+                            add: true
+                            addFolder: true
+                            importCsv: true
+                            cut: true
+                            copy: true
+                            paste: false
+                            delete: true
+                            rename: true
+                            reload: true
+                            publish: true
+                            unpublish: true
+                            searchAndMove: true
+                            lock: false
+                            unlock: false
+                            lockAndPropagate: false
+                            unlockAndPropagate: false
+                            changeChildrenSortBy: true
+                classes: 'CSCatalogTables,CSCatalogCategory'
+                icon: /bundles/pimcoreadmin/img/flat-color-icons/overlay-reading.svg
+                joins: {  }
+                id: adb53b31-b21c-58f7-dc7e-3ec2d6333f9c

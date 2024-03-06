@@ -1,0 +1,37 @@
+pimcore:
+    custom_views:
+        definitions:
+            b99f5b5e-70f5-4528-cb85-892299d07427:
+                name: 'Internal Assets'
+                treetype: asset
+                position: left
+                rootfolder: '/Contitech_ConveyorSolution/Internal Assets'
+                showroot: true
+                sort: 5
+                treeContextMenu:
+                    asset:
+                        items:
+                            add:
+                                hidden: false
+                                items:
+                                    upload: true
+                                    uploadCompatibility: true
+                                    uploadZip: true
+                                    importFromServer: true
+                                    uploadFromUrl: true
+                            addFolder: true
+                            rename: true
+                            copy: true
+                            cut: true
+                            paste: true
+                            pasteCut: true
+                            delete: true
+                            searchAndMove: true
+                            lock: true
+                            unlock: true
+                            lockAndPropagate: true
+                            unlockAndPropagate: true
+                            reload: true
+                icon: /bundles/pimcoreadmin/img/flat-color-icons/edit_image.svg
+                joins: {  }
+                id: b99f5b5e-70f5-4528-cb85-892299d07427

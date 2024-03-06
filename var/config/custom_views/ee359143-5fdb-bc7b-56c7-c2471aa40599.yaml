@@ -1,0 +1,34 @@
+pimcore:
+    custom_views:
+        definitions:
+            ee359143-5fdb-bc7b-56c7-c2471aa40599:
+                name: 'Material Master'
+                treetype: object
+                position: left
+                rootfolder: /Contitech_IFS_EMEA/MaterialMaster
+                showroot: true
+                sort: 10
+                treeContextMenu:
+                    object:
+                        items:
+                            add: false
+                            addFolder: false
+                            importCsv: false
+                            cut: false
+                            copy: true
+                            paste: false
+                            delete: false
+                            rename: false
+                            reload: true
+                            publish: false
+                            unpublish: false
+                            searchAndMove: false
+                            lock: false
+                            unlock: false
+                            lockAndPropagate: false
+                            unlockAndPropagate: false
+                            changeChildrenSortBy: false
+                classes: ''
+                icon: /bundles/pimcoreadmin/img/flat-color-icons/neutral_trading.svg
+                joins: {  }
+                id: ee359143-5fdb-bc7b-56c7-c2471aa40599
