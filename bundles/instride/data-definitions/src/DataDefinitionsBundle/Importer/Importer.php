@@ -500,15 +500,15 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
                     else{
     
                         if($definition->getClass() == 'Product' || $definition->getClass() == 'PTGEUProduct'){
-                            $failedReason = 'Sap Number does not exist';
+                            $failedReason = 'Either Sap Number or Product does not exist';
                             $status = 'Failure';
                         }
                         elseif($definition->getClass() == 'CSProducts'){
-                            $failedReason  = 'Path does not exist';
+                            $failedReason  = 'Either Path or Product does not exist';
                             $status = 'Failure';
                         }
                         elseif($definition->getClass() == 'IFSEUProduct'){
-                            $failedReason  = 'Material Number does not exist';
+                            $failedReason  = 'Either Material Number or Product does not exist';
                             $status = 'Failure';
                         }
                     }
@@ -613,7 +613,6 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
         $runner = null;
 
         $object = $this->getObject($definition, $data, $dataSet, $params);
-
         if (null !== $object && !$object->getId()) {
             if ($definition->getSkipNewObjects()) {
                 $this->eventDispatcher->dispatch($definition, 'data_definitions.import.status', 'Ignoring new Object',
@@ -621,7 +620,11 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
 
                     return [null, $nonImportedAttributes];
             }
-        } else {
+        } 
+        elseif(null === $object){
+            return [null, $nonImportedAttributes];
+        }
+        else {
             if ($definition->getSkipExistingObjects()) {
                 $this->eventDispatcher->dispatch($definition,
                                                 'data_definitions.import.status',
@@ -896,7 +899,7 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
      * @return Concrete
      * @throws \Exception
      */
-    private function getObject(ImportDefinitionInterface $definition, $data, $params): Concrete
+    private function getObject(ImportDefinitionInterface $definition, $data, $params): Mixed
     {
         $class = $definition->getClass();
         $classObject = '\Pimcore\Model\DataObject\\'.ucfirst($class);
@@ -916,6 +919,9 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
             $loader = $this->loaderRegistry->get('primary_key');
         }
         $obj = $loader->load($class, $data, $definition, $params);
+        if (null === $obj) {
+            return null;
+        }
 
         if(($class == 'Product' ||
             $class == 'PTGEUProduct' ||
@@ -923,20 +929,31 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
             $definition->importLevel !== 'Fert' &&
             $obj->getParent()->getType() != 'object')
         {
-                throw new \InvalidArgumentException(
-                    $definition->importLevel.' does not exist for the particular object');
+                // throw new \InvalidArgumentException(
+                //     $definition->importLevel.' does not exist for the particular object');
+            return null;
         }else{
-            if($definition->importLevel == 'Skeleton'){
+            
+            if($definition->importLevel == 'Skeleton' && ($obj->getParent()->getType() == 'object' && $obj->getParent()->getProductType() == 'skeleton')){
                 $obj = $obj->getParent();
-            }
-            if($definition->importLevel == 'Base'){
+                return $obj;
+
+            }else{
+                return null;
+                }
+            if($definition->importLevel == 'Base' && ($obj->getParent()->getParent()->getType() == 'object' && $obj->getParent()->getParent()->getProductType() == 'base')){
                 $obj = $obj->getParent()->getParent();
-            }
+                return $obj;
+
+            }else{
+                return null;
+                }
         }
-        if (null === $obj) {
-            $classImplementation = $this->modelFactory->getClassNameFor($classObject) ?? $classObject;
-            $obj = new $classImplementation();
-        }
+
+        // if (null === $obj) {
+        //     $classImplementation = $this->modelFactory->getClassNameFor($classObject) ?? $classObject;
+        //     $obj = new $classImplementation();
+        // }
 
         // $key = Service::getValidKey($this->createKey($definition, $data), 'object');
         // DataImportLogger::log(($key));
@@ -959,7 +976,6 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
 
         // $obj->setKey(Service::getUniqueKey($obj));
 
-        return $obj;
     }
 
     private function createPath(ImportDefinitionInterface $definition, array $data): string
