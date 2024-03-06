@@ -89,9 +89,10 @@ class CommonHelper
         } */
         $pathinfo = pathinfo($fileName);
         $parentAsset = self::getDefaultAssetFolderForUploadedFiles();
+        // p_r($pathinfo);die;
 
         // add timestamp to the filename while uploading in assets
-        $fileName = $definitionName . '-' . $pathinfo['filename'] . '.' . $pathinfo['extension'];
+        $fileName = $pathinfo['filename'] . '.' . $pathinfo['extension'];
         $fileName = Element\Service::getValidKey($fileName, 'asset');
         if (empty($fileName)) {
             throw new \Exception('The filename of the asset is empty');
@@ -99,7 +100,6 @@ class CommonHelper
 
         $assetPath = $parentAsset . '/' . $fileName;
         $asset = Asset::getByPath($assetPath);
-
         if (!$asset) {
             $asset = new Asset();
             $asset->setParent($parentAsset);

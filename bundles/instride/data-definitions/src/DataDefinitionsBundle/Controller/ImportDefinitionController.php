@@ -594,14 +594,10 @@ class ImportDefinitionController extends AbstractDefinitionController
         $commonHelperObject = new commonHelper();
         $name               = $request->get('name');
         $importDefinitionId = $request->get('importDefinitionId');
-        // p_r($name);
-        // p_r($importDefinitionId);
         /**
          * checking if the data definition name exist
          */
         $existingDefinition =  DataDefinitionImport::getByName($name);
-        // p_r($existingDefinition);
-        // die;
         if ($existingDefinition && $existingDefinition->getImportDefinitionId()==$importDefinitionId) {
             DataImportLogger::log("Requested data definition ($name) already exitst into the database.", DataImportLogger::INFO);
             $msg = $data_definition_already_exists;
@@ -611,19 +607,7 @@ class ImportDefinitionController extends AbstractDefinitionController
         /**
          * checking if the import definition exist
          */
-        // $importDefinition = null;
-        // if ($importDefinitionId) {
-        //     $importDefinition = ImportDefinition::getById($importDefinitionId);
-        // }
-
-        // if (!$importDefinition) {
-        //     DataImportLogger::log("Requested import definition ($importDefinitionId) not found in ImportDefinitionController saveDataDefinitionImportAction .", DataImportLogger::INFO);
-        //     $msg = $data_definition_not_found_relaod_admin;
-        //     return $this->json(['success' => false, 'msg' => $msg]);
-        // }
-
         // get the config details to get the file path
-        // $configArray        = include PIMCORE_PROJECT_ROOT . '/var/config/importdefinitions.php';
         $definition = $this->repository->find($importDefinitionId);
         $configArray = $definition->getConfiguration();
 
@@ -641,12 +625,16 @@ class ImportDefinitionController extends AbstractDefinitionController
             }
         }
         // $fullPath           = $asset->getFileSystemPath();
-        $fullPath = PIMCORE_ASSET_DIRECTORY.$asset->getRealFullPath();
+        // $fullPath = PIMCORE_ASSET_DIRECTORY.$asset->getRealFullPath();
+        // p_r($fullPath);die;
+        $fullPath = PIMCORE_PROJECT_ROOT . '/var/tmp/'.$fileName;
+        // p_r($filePath);die;
+
         $importFilePimcoreAssetId   = $asset->getId();
 
         $csvContent         = file_get_contents($fullPath);
-        $tempFilePath       = PIMCORE_PROJECT_ROOT . '/var/tmp/'.$fileName;
-        $fd                 = fopen($tempFilePath, "w");
+        // $tempFilePath       = PIMCORE_PROJECT_ROOT . '/var/tmp/'.$fileName;
+        $fd                 = fopen($fullPath, "w");
         fputs($fd, $csvContent);
 
         // insert the record into the data definition import
@@ -663,36 +651,27 @@ class ImportDefinitionController extends AbstractDefinitionController
         $dataImport->setUserOwner($user->getId());
 
         try {
-            // echo "Insert";
             $dataImport->save();
-            // echo "Saved";
             $importDataId   = $dataImport->getId();
 
             // create command to import the data of csv and run command in background
-            $arrParams      = ['file' => $tempFilePath, 'importDataId' => $importDataId];
+            $arrParams      = ['file' => $fullPath, 'importDataId' => $importDataId];
             $encParams      = json_encode(json_encode($arrParams,JSON_UNESCAPED_SLASHES), JSON_UNESCAPED_SLASHES);
             $encParams      = trim($encParams,'"');
             $cmd            = PIMCORE_PROJECT_ROOT. "/bin/console data-definitions:import -d $importDefinitionId -p \"$encParams\"";
-            // p_r($cmd);
             DataImportLogger::log($cmd);
             $processId      = \Pimcore\Tool\Console::execInBackground($cmd);
-            // p_r($processId);
             // update process id of respective data definition import
             $dataImport     = DataDefinitionImport::getById($importDataId);
             $dataImport->setProcessId((string)$processId);
             $dataImport->save();
-            // echo "zero";
 
         } catch (NotNullConstraintViolationException $exception) {
-            // p_r($exception);
-            // echo "first";
             DataImportLogger::log("Error saving schedule: " . $exception->getMessage(), DataImportLogger::CRITICAL);
 
             $msg = $data_definition_mandatory_field_check_failed;
             return $this->json(['success' => false, 'msg' => $msg]);
         } catch (\Exception $exception) {
-            // p_r($exception);
-            // echo "second";
             DataImportLogger::log("Error saving schedule: " . $exception->getMessage(), DataImportLogger::CRITICAL);
             return $this->json(['success' => false, 'msg' => $exception->getMessage()]);
         }
@@ -708,29 +687,18 @@ class ImportDefinitionController extends AbstractDefinitionController
     // function to list data definition import
     public function listDataDefinitionImportAction(Request $request)
     {
-        // p_r('listDataDefinitionImportAction');
         $importHelperObject = new importHelper();
         $importDefinitionId = $request->get('importDefinitionId');
-        // p_r($importDefinitionId);
-        // $importDefinitionId = 17;
         $list = new DataDefinitionImport\Listing();
-        // p_r($list); die;
         $condition = "importDefinitionId = '" . $importDefinitionId . "' AND status != " . $list->quote(Constants::SCHEDULE_STATUS_EXPIRED);
         $list->setCondition($condition);
         $list->setOrderKey("creationDate");
         $list->setOrder("DESC");
-        // p_r($list); die;
         $list->load();
-        // p_r($list); die;
-        // p_r($request);
-        // die('ASAS');
         $data = [];
         foreach ($list->getItems() as $dataImport) {
-            // p_r($dataImport);
             $data[] = $importHelperObject->buildScheduleForGrid($dataImport);
         }
-        // die('ASAS');
-        // p_r($data);
         return $this->json(['success' => true, 'data' => $data]);
     }
 
