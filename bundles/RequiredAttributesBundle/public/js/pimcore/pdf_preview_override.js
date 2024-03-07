@@ -187,15 +187,15 @@ pimcore.plugin.RequiredAttributesBundle.pdf_preview_override = Class.create({
                     params[rec.data.name] = rec.data.value;
                 });
                 params.id = this.page.id;
-
+                params['disableBackgroundExecution'] = true;
                 // customization -- open
-                console.log(params);
+                // console.log("disableBackgroundExecution:::=>>" , params['disableBackgroundExecution']);
+
                 if(params['disableBackgroundExecution']){
                     this.generateForm.hide();
                     this.cutomProgressPanel.show();
                 }
                 // customization -- closed
-
                 Ext.Ajax.request({
                     url: Routing.generate('pimcore_bundle_web2print_document_printpage_startpdfgeneration'),
                     method: 'POST',
