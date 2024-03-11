@@ -28,6 +28,7 @@ class AppBundle extends AbstractPimcoreBundle implements PimcoreBundleAdminClass
     {
         return [
             '/bundles/app/js/pimcore/startup.js',
+            '/bundles/app/js/pimcore/object/tags/overrideAbstract.js',
         ];
     }
 }
