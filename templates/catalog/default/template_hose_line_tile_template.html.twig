@@ -141,7 +141,7 @@
 													<pre>
 														{# {{ dump(row['brandName']) }} #}
 													</pre>
-															{{ pimcore_input("brandName" ~ k, {'class': 'productName'}).setDataFromResource(row['brandName'][0]) | raw }}
+															{{ pimcore_input("brandName" ~ k, {'class': 'productName'}).setDataFromResource(row['brandName']) | raw }}
 														{% else %}
 															{{ pimcore_input("brandName" ~ k, {'class': 'productName'}) }}
 														{% endif %}
