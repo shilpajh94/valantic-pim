@@ -168,7 +168,6 @@ Ext.override(pimcore.object.tags.abstract,{
             lastChild.insertHtml("afterBegin", '<div class="pimcore_open_inheritance_source"></div>');
             
             var button = Ext.get(lastChild.query(".pimcore_open_inheritance_source")[0]);
-            console.log("button->",button, "ele => ",el,"parent",parent);
             if (button) {
                 button.addListener("click", function (metaData) {
 
