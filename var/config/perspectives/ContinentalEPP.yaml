@@ -1,0 +1,208 @@
+pimcore:
+    perspectives:
+        definitions:
+            ContinentalEPP:
+                elementTree:
+                    -
+                        type: documents
+                        position: left
+                        sort: 0
+                        expanded: false
+                        hidden: false
+                        treeContextMenu:
+                            document:
+                                items:
+                                    add: true
+                                    addSnippet: true
+                                    addLink: true
+                                    addEmail: true
+                                    addNewsletter: true
+                                    addHardlink: true
+                                    addFolder: true
+                                    addPrintPage: true
+                                    paste: false
+                                    pasteCut: false
+                                    copy: true
+                                    cut: false
+                                    rename: true
+                                    unpublish: false
+                                    publish: false
+                                    delete: false
+                                    open: true
+                                    convert: true
+                                    searchAndMove: true
+                                    useAsSite: false
+                                    editSite: false
+                                    removeSite: false
+                                    lock: false
+                                    unlock: false
+                                    lockAndPropagate: false
+                                    unlockAndPropagate: false
+                                    reload: true
+                    -
+                        type: assets
+                        position: left
+                        sort: 1
+                        expanded: false
+                        hidden: false
+                        treeContextMenu:
+                            asset:
+                                items:
+                                    add:
+                                        hidden: false
+                                        items:
+                                            upload: true
+                                            uploadCompatibility: true
+                                            uploadZip: true
+                                            importFromServer: true
+                                            uploadFromUrl: true
+                                    addFolder: true
+                                    rename: true
+                                    copy: true
+                                    cut: true
+                                    paste: false
+                                    pasteCut: false
+                                    delete: true
+                                    searchAndMove: true
+                                    lock: false
+                                    unlock: false
+                                    lockAndPropagate: false
+                                    unlockAndPropagate: false
+                                    reload: true
+                    -
+                        type: objects
+                        position: left
+                        sort: 2
+                        expanded: false
+                        hidden: false
+                        treeContextMenu:
+                            object:
+                                items:
+                                    add: true
+                                    addFolder: true
+                                    importCsv: true
+                                    cut: true
+                                    copy: true
+                                    paste: false
+                                    delete: true
+                                    rename: true
+                                    reload: true
+                                    publish: true
+                                    unpublish: true
+                                    searchAndMove: true
+                                    lock: false
+                                    unlock: false
+                                    lockAndPropagate: false
+                                    unlockAndPropagate: false
+                                    changeChildrenSortBy: true
+                iconCls: null
+                icon: null
+                dashboards:
+                    predefined:
+                        welcome:
+                            positions:
+                                -
+                                    -
+                                        type: pimcore.layout.portlets.modificationStatistic
+                                        config: null
+                                -
+                                    -
+                                        type: pimcore.layout.portlets.modificationStatistic
+                                        config: null
+                toolbar:
+                    file:
+                        hidden: false
+                        items:
+                            perspectives: false
+                            dashboards: true
+                            openDocument: true
+                            openAsset: true
+                            openObject: true
+                            searchReplace: true
+                            schedule: true
+                            seemode: false
+                            closeAll: true
+                            help: true
+                            about: true
+                    marketing:
+                        hidden: false
+                        items:
+                            reports: true
+                            tagmanagement: false
+                            targeting: false
+                            seo:
+                                hidden: false
+                                items:
+                                    documents: false
+                                    robots: false
+                                    httperrors: false
+                    extras:
+                        hidden: false
+                        items:
+                            glossary: false
+                            redirects: false
+                            translations: true
+                            recyclebin: true
+                            plugins: true
+                            notesEvents: false
+                            applicationlog: false
+                            gdpr_data_extractor: false
+                            emails: false
+                            maintenance: false
+                            systemtools:
+                                hidden: false
+                                items:
+                                    phpinfo: false
+                                    opcache: false
+                                    requirements: false
+                                    serverinfo: false
+                                    database: false
+                                    fileexplorer: false
+                            xliff_import_export: false
+                    settings:
+                        hidden: false
+                        items:
+                            customReports: true
+                            marketingReports: false
+                            documentTypes: false
+                            predefinedProperties: false
+                            predefinedMetadata: false
+                            system: false
+                            appearance: false
+                            website: false
+                            web2print: false
+                            users:
+                                hidden: false
+                                items:
+                                    users: true
+                                    roles: true
+                            thumbnails: false
+                            objects:
+                                hidden: false
+                                items:
+                                    classes: false
+                                    fieldcollections: false
+                                    objectbricks: false
+                                    quantityValue: false
+                                    classificationstore: false
+                                    bulkExport: false
+                                    bulkImport: false
+                            routes: false
+                            cache:
+                                hidden: false
+                                items:
+                                    clearAll: true
+                                    clearData: true
+                                    clearSymfony: true
+                                    clearOutput: true
+                                    clearTemp: true
+                            adminTranslations: true
+                            tagConfiguration: false
+                            perspectiveEditor: false
+                    search:
+                        hidden: false
+                        items:
+                            quickSearch: true
+                            documents: true
+                            assets: true
+                            objects: true
