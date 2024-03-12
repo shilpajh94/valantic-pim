@@ -137,18 +137,19 @@ if (CUSTOM_ENV == "prod") {
     define("S3_REGION_BW_SAP_ARCHIVE", "");
     define("S3_BW_SAP_ARCHIVE_DIRECTORY", "");
 
-//     define("CDN_ENABLE", 1);
-//     //    define("CDN_HOST", "https://test_cdn");
-//     define("CDN_HOST", "https://dw9p6b81hm4k2.cloudfront.net");
-//     define("S3_KEY", "AKIAZ6MFIGPTWVTS2K6D");
-//     define("S3_SECRET", "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");
-//       define("S3_REGION", "us-east-1");
+    // define("CDN_ENABLE", 0);
+    // define("CDN_HOST", "https://test_cdn");
+    // define("S3_HOST", "https://s3.us-east-1.amazonaws.com");
+    // define("S3_BUCKET", "megha-pim");
+    // define("S3_KEY", "AKIAZ6MFIGPTWVTS2K6D");
+    // define("S3_SECRET", "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");
+    // define("S3_REGION", "us-east-1");
 
-//     define("S3_BUCKET_BW_SAP_ARCHIVE", "pimcore-contitech-assets");
-//     define("S3_KEY_BW_SAP_ARCHIVE", "AKIAZ6MFIGPTWVTS2K6D");
-//     define("S3_SECRET_BW_SAP_ARCHIVE", "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");
-//     define("S3_REGION_BW_SAP_ARCHIVE", "us-east-1");
-//     define("S3_BW_SAP_ARCHIVE_DIRECTORY", "SAP_import_archived_files/");
+    // define("S3_BUCKET_BW_SAP_ARCHIVE", "megha-pim");
+    // define("S3_KEY_BW_SAP_ARCHIVE", "AKIAZ6MFIGPTWVTS2K6D");
+    // define("S3_SECRET_BW_SAP_ARCHIVE", "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");
+    // define("S3_REGION_BW_SAP_ARCHIVE", "us-east-1");
+    // define("S3_BW_SAP_ARCHIVE_DIRECTORY", "SAP_import_archived_files/");
 
 //     define("B2B_EXPORT_SFTP_HOST", "upload.pimcoreclients.com");
 //     define("B2B_EXPORT_SFTP_PORT", 22);
