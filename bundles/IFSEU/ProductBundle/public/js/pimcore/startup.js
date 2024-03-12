@@ -31,14 +31,22 @@ document.addEventListener(pimcore.events.postOpenObject, (e) => {
             this.disableAttributes(e, baseAttributes, addMaskForClasses);
             this.disableAttributes(e, skeletonAttributes, addMaskForClasses);
         }
+        tabPanell.items.items[0].items.items[0].on('tabchange',function(tabObject){
+            productLevel = this.productAjax('/IFSEU/product/get/level/info', 'POST', { idPath: e.detail.object.data.idPath });
+            let tabName = tabObject.activeTab.config.name.toLowerCase();
+            if (productLevel.level == 'fert') {
+                baseAttributes = this.productAjax('/IFSEU/product/get/level/attributes', 'POST', { levelName: 'base' })
+                baseAttributes.attributes.push('Skeleton');
+                this.disableAttributes(e, baseAttributes, addMaskForClasses);
+
+            }
+            if (productLevel.level == 'skeleton') {
+                baseAttributes = this.productAjax('/IFSEU/product/get/level/attributes', 'POST', { levelName: 'base' })
+                this.disableAttributes(e, baseAttributes, addMaskForClasses);
+            }
+
+        }.bind(this));
         tabPanell.on("tabchange", function (tabObject) {
-            // console.log(tabPanell.items[0].name);
-            // setTimeout(function(){
-                
-            //     // tabPanell.items[0].items.items[0].items.items[0].on('tabChange',function(){
-            //     //     alert('sss');
-            //     // })
-            // },2000);
             productLevel = this.productAjax('/IFSEU/product/get/level/info', 'POST', { idPath: e.detail.object.data.idPath });
             let tabName = tabObject.activeTab.config.name.toLowerCase();
             if (productLevel.level == 'fert') {
