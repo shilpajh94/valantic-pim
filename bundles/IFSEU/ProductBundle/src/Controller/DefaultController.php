@@ -79,9 +79,9 @@ class DefaultController extends FrontendController
         $productLevel =['base','skeleton','fert'];
         $level = -1;
         foreach($objIds as $objId){
-            $query = "SELECT `o_id`,`o_type` FROM objects where o_id =".$this->db->quote(trim($objId));
-            $dbData = $this->db->fetchAssoc($query);
-            if(!empty($dbData) && $dbData['o_type']!= 'folder'){
+            $query = "SELECT `id`,`type` FROM objects where id =".$this->db->quote(trim($objId));
+            $dbData = $this->db->fetchAssociative($query);
+            if(!empty($dbData) && $dbData['type']!= 'folder'){
                 $level++;
                 array_push($productIdAndType,$dbData);
             }
