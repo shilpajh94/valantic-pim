@@ -3,61 +3,61 @@
 {% endif %}
 
 {% block _content %}
-	{% if data is defined and data %}
-		<div class="template">
-			<div id="toc" class="toc">
-				<div id="pageHeader"></div>
+	<div class="template">
+		<div id="toc" class="toc">
+			<div id="pageHeader"></div>
 
-				<div class="tableHeader">
-					<header class="content partNumber tableContent">
-						{% if editmode %}
-							{% if pimcore_input("TOC_Heading").isEmpty() %}
-								<h2>{{ pimcore_input("TOC_Heading").setDataFromResource('Table of Contents') | raw }}</h2>
-							{% else %}
-								<h2>{{ pimcore_input("TOC_Heading") }}</h2>
-							{% endif %}
+			<div class="tableHeader">
+				<header class="content partNumber tableContent">
+					{% if editmode %}
+						{% if pimcore_input("TOC_Heading").isEmpty() %}
+							<h2>{{ pimcore_input("TOC_Heading").setDataFromResource('Table of Contents') | raw }}</h2>
 						{% else %}
 							<h2>{{ pimcore_input("TOC_Heading") }}</h2>
 						{% endif %}
-					</header>
-				</div>
-
-				<div class="content {% if not editmode %} {{'content_double'}} {% endif %} table-content ">
-
-					{% set sectionBlock = pimcore_block('TOC_SectionBlock') %}
-					{% set sectionBlockLength = sectionBlock | length %}
-
-					{% if sectionBlockLength %}
-
-						{% for i in sectionBlock.iterator %}
-							<h4>{{ pimcore_input("TOC_SectionName", {'placeholder' : 'Enter Section name here.'}) }}</h4>
-							<article>
-								{% set headingBlock = pimcore_block('TOC_HeadingBlock') %}
-								{% for i in headingBlock.iterator %}
-									<h5>{{ pimcore_input("TOC_HeadingName", {'placeholder' : 'Enter Heading here.'}) }}</h5>
-									{% if editmode %}
-										<span class="pageTitle">
-											{{ pimcore_input("TOC_Desc", {'placeholder' : 'Enter heading description here.'}) }}
-										</span>
-									{% else %}
-										{% if not pimcore_input("TOC_Desc").isEmpty() %}
-											<span class="pageTitle">
-												{{ pimcore_input("TOC_Desc") }}
-											</span>
-										{% endif %}
-									{% endif %}
-									{% set contentBlock = pimcore_block('TOC_ContentBlock') %}
-									{% for i in contentBlock.iterator %}
-										<div class="paging">
-											<span class="pageTitle">{{ pimcore_input("TOC_Title", {'placeholder' : 'Enter title here.'}) }}</span>
-											<span class="pageNo">{{ pimcore_input("TOC_Page", {'placeholder' : 'Enter page number here.'}) }}</span>
-										</div>
-									{% endfor %}
-								{% endfor %}
-							</article>
-						{% endfor %}
-
 					{% else %}
+						<h2>{{ pimcore_input("TOC_Heading") }}</h2>
+					{% endif %}
+				</header>
+			</div>
+
+			<div class="content {% if not editmode %} {{'content_double'}} {% endif %} table-content ">
+
+				{% set sectionBlock = pimcore_block('TOC_SectionBlock') %}
+				{% set sectionBlockLength = sectionBlock | length %}
+
+				{% if sectionBlockLength %}
+
+					{% for i in sectionBlock.iterator %}
+						<h4>{{ pimcore_input("TOC_SectionName", {'placeholder' : 'Enter Section name here.'}) }}</h4>
+						<article>
+							{% set headingBlock = pimcore_block('TOC_HeadingBlock') %}
+							{% for i in headingBlock.iterator %}
+								<h5>{{ pimcore_input("TOC_HeadingName", {'placeholder' : 'Enter Heading here.'}) }}</h5>
+								{% if editmode %}
+									<span class="pageTitle">
+										{{ pimcore_input("TOC_Desc", {'placeholder' : 'Enter heading description here.'}) }}
+									</span>
+								{% else %}
+									{% if not pimcore_input("TOC_Desc").isEmpty() %}
+										<span class="pageTitle">
+											{{ pimcore_input("TOC_Desc") }}
+										</span>
+									{% endif %}
+								{% endif %}
+								{% set contentBlock = pimcore_block('TOC_ContentBlock') %}
+								{% for i in contentBlock.iterator %}
+									<div class="paging">
+										<span class="pageTitle">{{ pimcore_input("TOC_Title", {'placeholder' : 'Enter title here.'}) }}</span>
+										<span class="pageNo">{{ pimcore_input("TOC_Page", {'placeholder' : 'Enter page number here.'}) }}</span>
+									</div>
+								{% endfor %}
+							{% endfor %}
+						</article>
+					{% endfor %}
+
+				{% else %}
+					{% if data is defined and data %}
 						{% set dataCount = data | length %}
 						{% set i = 0 %}
 
@@ -127,13 +127,9 @@
 								</article>
 							{% endif %}
 						{% endfor %}
-
 					{% endif %}
-				</div>
+				{% endif %}
 			</div>
 		</div>
-	{% else %}
-		<h6>No data found
-		</h6>
-	{% endif %}
+	</div>
 {% endblock %}

@@ -1599,11 +1599,11 @@ class DefaultController extends FrontendController
             $allFittingData = [];
 
             foreach ($listing as $doc) {
-                if ($doc->getChildren()) {
+                if ($doc->hasChildren()) {
 
                     foreach ($doc->getChildren() as $childDoc) {
 
-                        if ($childDoc->getChildren()) {
+                        if ($childDoc->hasChildren()) {
                             foreach ($childDoc->getChildren() as $child2Doc) {
                                 if (in_array($child2Doc->getTemplate(), $templateArray)) {
 
