@@ -58,10 +58,10 @@ class IndustrialHoseController extends FrontendController
             $industrial_hose_list = [];
             $industrial_hose_fitting_list = [];
             foreach ($listing as $doc) {
-                if ($doc->getChildren()) {
+                if ($doc->hasChildren()) {
                     foreach ($doc->getChildren() as $key => $childDoc) {
 
-                        if ($childDoc->getChildren()) {
+                        if ($childDoc->hasChildren()) {
                             foreach ($childDoc->getChildren() as $key => $child2Doc) {
                                 if (in_array($child2Doc->getTemplate(), $templateArray)) {
                                     if ($child2Doc->getTemplate() == 'catalog/inh/inhprintcatalogproductpage.html.twig') {
@@ -183,10 +183,10 @@ class IndustrialHoseController extends FrontendController
             $industrial_hose_list = [];
             $allHoses = [];
             foreach ($listing as $doc) {
-                if ($doc->getChildren()) {
+                if ($doc->hasChildren()) {
                     foreach ($doc->getChildren() as $key => $childDoc) {
 
-                        if ($childDoc->getChildren()) {
+                        if ($childDoc->hasChildren()) {
                             foreach ($childDoc->getChildren() as $key => $child2Doc) {
                                 if (in_array($child2Doc->getTemplate(), $templateArray)) {
                                     if ($child2Doc->getTemplate() == 'catalog/inh/inhprintcatalogproductpage.html.twig') {
@@ -290,7 +290,7 @@ class IndustrialHoseController extends FrontendController
         $documentPath = $this->document->getFullPath();
         $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
         $parameterBag = $this->getRequestedParameter($request, $documentId);
-        
+
         try {
             $folderId = $this->document->getParent()->getId();
             $listing = new \Pimcore\Model\Document\Listing();
@@ -304,10 +304,10 @@ class IndustrialHoseController extends FrontendController
 
             $industrial_hose_list = [];
             foreach ($listing as $doc) {
-                if ($doc->getChildren()) {
+                if ($doc->hasChildren()) {
                     foreach ($doc->getChildren() as $key => $childDoc) {
 
-                        if ($childDoc->getChildren()) {
+                        if ($childDoc->hasChildren()) {
                             foreach ($childDoc->getChildren() as $key => $child2Doc) {
                                 if (in_array($child2Doc->getTemplate(), $templateArray)) {
                                     $obj = $child2Doc->getEditable('industrial_hose_details');
@@ -389,7 +389,7 @@ class IndustrialHoseController extends FrontendController
         $documentPath = $this->document->getFullPath();
         $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
         $parameterBag = $this->getRequestedParameter($request, $documentId);
-        
+
         $templateEditable = $this->document->getEditable('inh-printcatalog');
 
         if ($templateEditable) {
@@ -566,7 +566,7 @@ class IndustrialHoseController extends FrontendController
                         if (isset($item[$headerKeysIndex['brandName']])) {
 
                             if(is_array($item[$headerKeysIndex['brandName']])){
-                            
+
                                 $brandsData[$item[$headerKeysIndex['brandName']][0]][] = $item;
                             }else{
                                  $brandsData[$item[$headerKeysIndex['brandName']]][] = $item;
@@ -1393,7 +1393,7 @@ class IndustrialHoseController extends FrontendController
         $isParentContainerRequest = $request->get('isParentContainerRequest');
         $parameterBag['isParentContainerRequest'] = $isParentContainerRequest ? $isParentContainerRequest : false;
         $parameterBag['printermarks'] = $request->get('printermarks');
-        
+
         $imageWidth = null;
         $imageRecompression = null;
         $printConfigFile = Processor::getJobConfigFile($documentId);

@@ -729,7 +729,7 @@ class DefaultController extends FrontendController
         $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
         $parameterBag = $this->getRequestedParameter($request, $documentId);
 
-        $templateEditable = $this->document->getEditable('inh_template_hose_product_page');
+        $templateEditable = $this->document->getEditable('tiletemplate');
 
         $commonHelper = $this->containerInterface->get('app.common_helper');
         $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
@@ -1599,11 +1599,11 @@ class DefaultController extends FrontendController
             $allFittingData = [];
 
             foreach ($listing as $doc) {
-                if ($doc->getChildren()) {
+                if ($doc->hasChildren()) {
 
                     foreach ($doc->getChildren() as $childDoc) {
 
-                        if ($childDoc->getChildren()) {
+                        if ($childDoc->hasChildren()) {
                             foreach ($childDoc->getChildren() as $child2Doc) {
                                 if (in_array($child2Doc->getTemplate(), $templateArray)) {
 
@@ -2618,10 +2618,10 @@ class DefaultController extends FrontendController
 
             $all_doc_arr = [];
             foreach ($listing as $doc) {
-                if ($doc->getChildren()) {
+                if ($doc->hasChildren()) {
                     foreach ($doc->getChildren() as $childDoc) {
 
-                        if ($childDoc->getChildren()) {
+                        if ($childDoc->hasChildren()) {
                             foreach ($childDoc->getChildren() as $child2Doc) {
                                 if (in_array($child2Doc->getTemplate(), $templateArray)) {
                                     $obj = $child2Doc->getEditable('product_page_part_number');
@@ -2684,10 +2684,9 @@ class DefaultController extends FrontendController
 
             $all_doc_arr = [];
             foreach ($listing as $doc) {
-                if ($doc->getChildren()) {
+                if ($doc->hasChildren()) {
                     foreach ($doc->getChildren() as $childDoc) {
-
-                        if ($childDoc->getChildren()) {
+                        if ($childDoc->hasChildren()) {
                             foreach ($childDoc->getChildren() as $child2Doc) {
                                 if (in_array($child2Doc->getTemplate(), $templateArray)) {
                                     $obj = $child2Doc->getEditable('product_page_product_number');
@@ -2717,10 +2716,8 @@ class DefaultController extends FrontendController
                     }
                 }
             }
-
             $all_doc_arr = array_unique($all_doc_arr);
             sort($all_doc_arr);
-
             $parameterBag['data'] = $all_doc_arr;
             return $this->render("catalog/default/template_hydraulic_alphanumeric_index_by_product_number_dynamic.html.twig", $parameterBag);
         } catch (Exception $e) {
