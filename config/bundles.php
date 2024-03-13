@@ -3,7 +3,6 @@
 return [
     \Pimcore\Bundle\BundleGeneratorBundle\PimcoreBundleGeneratorBundle::class => ['dev' => true],
     Symfony\Bundle\WebProfilerBundle\WebProfilerBundle::class => ['dev' => true],
-    AppBundle\AppBundle::class => ['all' => true],
     //Twig\Extra\TwigExtraBundle\TwigExtraBundle::class => ['all' => true],
     ADAuthBundle\ADAuthBundle::class => ['all' => true],
     // \Pimcore\Bundle\PerspectiveEditorBundle\PimcorePerspectiveEditorBundle::class => ['all' => true],

@@ -1,114 +1,117 @@
 {% if not isParentContainerRequest %}
-	{% extends "catalog/layouts/layout.html.twig" %}
+        {% extends "catalog/layouts/layout.html.twig" %}
 {% endif %}
 
 {% block _content %}
-	<div class="template">
-		<div id="toc" class="toc">
-			<div id="pageHeader"></div>
+    {% if data is defined and data %}
+        <div class="template">
+            <div id="toc" class="toc">
+                <div id="pageHeader"></div>
 
-			<div class="tableHeader">
-				<header class="content partNumber tableContent">
-					{% if (editmode) %}
-						{% if pimcore_input("TOC_Heading").isEmpty() %}
-							<h2>{{ pimcore_input("TOC_Heading", {'placeholder':'Table of Contents'}).setDataFromResource('Table of Contents') |raw }}</h2>
-						{% else %}
-							<h2>{{ pimcore_input("TOC_Heading") }}</h2>
-						{% endif %}
-					{% else %}
-						<h2>{{ pimcore_input("TOC_Heading") }}</h2>
-					{% endif %}
-				</header>
-			</div>
+                <div class="tableHeader" >
+                    <header class="content partNumber tableContent">
+                        {% if (editmode) %} 
+                            {% if pimcore_input("TOC_Heading").isEmpty() %} 
+                                <h2>{{ pimcore_input("TOC_Heading", {'placeholder':'Table of Contents'}).setDataFromResource('Table of Contents') |raw }}</h2>
+                            {% else %}
+                                <h2>{{ pimcore_input("TOC_Heading") }}</h2>
+                            {% endif %}
+                        {% else %}
+                            <h2>{{ pimcore_input("TOC_Heading") }}</h2>
+                        {% endif %}
+                    </header>
+                </div>
+            
+                <div class="content {% if not editmode %} {{'content_double'}} {% endif %} table-content ">
 
-			<div class="content {% if not editmode %} {{'content_double'}} {% endif %} table-content ">
+                    {% set sectionBlock = pimcore_block('TOC_SectionBlock') %}
+                    {% set sectionBlockLength = sectionBlock | length %}
 
-				{% set sectionBlock = pimcore_block('TOC_SectionBlock') %}
-				{% set sectionBlockLength = sectionBlock | length %}
+                    {% if sectionBlockLength %}
+                    
+                        {% for i in sectionBlock.iterator %}
+                            <h4>{{ pimcore_input("TOC_SectionName", {'placeholder' : 'Enter Section name here.'}) }}</h4>
+                            <article>
+                                {% set headingBlock = pimcore_block('TOC_HeadingBlock') %}
+                                {% for i in headingBlock.iterator %}
+                                    <h5>{{ pimcore_input("TOC_HeadingName", {'placeholder' : 'Enter Heading here.'}) }}</h5>
+                                    
+                                    {% set contentBlock = pimcore_block('TOC_ContentBlock') %}
+                                    {% for i in contentBlock.iterator %}
+                                        <div class="paging">
+                                            <span class="pageTitle">{{ pimcore_input("TOC_Title", {'placeholder' : 'Enter title here.'}) }}</span>
+                                            <span class="pageNo">{{ pimcore_input("TOC_Page", {'placeholder' : 'Enter page number here.'}) }}</span>
+                                        </div>
+                                    {% endfor %}
+                                {% endfor %}
+                            </article>
+                        {% endfor %}
 
-				{% if sectionBlockLength %}
+                    {% else %}
+                        {% set dataCount = data | length %}
+                        {% set i = 0 %}
+                        
+                        {% set TOC_SectionBlockBlock = pimcore_block('TOC_SectionBlock', {'default':dataCount}) %}
+                        
+                        {% for incr in TOC_SectionBlockBlock.iterator %}
+                            {% set i = incr - 1 %}
+                            {% if data[i][0] is defined %}
+                                {% set sectionName = data[i][0] %}
+                        
+                                <h4>{{ pimcore_input("TOC_SectionName", {'placeholder' : 'Enter Section name here.'}).setDataFromResource(sectionName) | raw }}</h4>
+                                <article>
+                                    {% set j = 0 %}
+                                    {% set innerDataCount = 0 %}
 
-					{% for i in sectionBlock.iterator %}
-						<h4>{{ pimcore_input("TOC_SectionName", {'placeholder' : 'Enter Section name here.'}) }}</h4>
-						<article>
-							{% set headingBlock = pimcore_block('TOC_HeadingBlock') %}
-							{% for i in headingBlock.iterator %}
-								<h5>{{ pimcore_input("TOC_HeadingName", {'placeholder' : 'Enter Heading here.'}) }}</h5>
+                                    {% if data[i][1] is defined %}
 
-								{% set contentBlock = pimcore_block('TOC_ContentBlock') %}
-								{% for i in contentBlock.iterator %}
-									<div class="paging">
-										<span class="pageTitle">{{ pimcore_input("TOC_Title", {'placeholder' : 'Enter title here.'}) }}</span>
-										<span class="pageNo">{{ pimcore_input("TOC_Page", {'placeholder' : 'Enter page number here.'}) }}</span>
-									</div>
-								{% endfor %}
-							{% endfor %}
-						</article>
-					{% endfor %}
+                                        {% set innerData = data[i][1] %}
+                                        {% set innerDataCount = innerData | length %}
 
-				{% else %}
-					{% if data is defined and data %}
-						{% set dataCount = data | length %}
-						{% set i = 0 %}
+                                    {% endif %}
+                                    
+                                    {% set TOC_HeadingBlockBlock = pimcore_block('TOC_HeadingBlock', {'default':innerDataCount}) %}
 
-						{% set TOC_SectionBlockBlock = pimcore_block('TOC_SectionBlock', {'default':dataCount}) %}
+                                    {% for incr2 in TOC_HeadingBlockBlock.iterator %}
+                                        {% set j = incr2 - 1 %}
+                                        {% if innerData[j][0] is defined %}
+                                            {% set heading = innerData[j][0] %}
+                                        
+                                        
+                                            <h5>{{ pimcore_input("TOC_HeadingName", {'placeholder' : 'Enter Heading here.'}).setDataFromResource(heading) | raw}}</h5>
+                                            
+                                            {% set k = 0 %}
 
-						{% for incr in TOC_SectionBlockBlock.iterator %}
-							{% set i = incr - 1 %}
-							{% if data[i][0] is defined %}
-								{% set sectionName = data[i][0] %}
+                                            {% if innerData[j][1] is defined %}
 
-								<h4>{{ pimcore_input("TOC_SectionName", {'placeholder' : 'Enter Section name here.'}).setDataFromResource(sectionName) | raw }}</h4>
-								<article>
-									{% set j = 0 %}
-									{% set innerDataCount = 0 %}
+                                                {% set subInnerData = innerData[j][1] | split(',') %}
+                                                {% set subInnerDataCount = subInnerData | length %}
 
-									{% if data[i][1] is defined %}
+                                            {% endif %}
 
-										{% set innerData = data[i][1] %}
-										{% set innerDataCount = innerData | length %}
+                                            {% set TOC_ContentBlockBlock = pimcore_block('TOC_ContentBlock', {'default':subInnerDataCount}) %}
 
-									{% endif %}
+                                            {% for incr3 in TOC_ContentBlockBlock.iterator %}
+                                                {% set k = incr3 - 1 %}
+                                                {% if subInnerData[k] is defined %}
+                                                    {% set title = subInnerData[k] %}
+                                                    <div class="paging">
+                                                        <span class="pageTitle">{{ pimcore_input("TOC_Title", {'placeholder' : 'Enter title here.'}).setDataFromResource(title) | raw }}</span>
+                                                        <span class="pageNo">{{ pimcore_input("TOC_Page", {'placeholder' : 'Enter page number here.'}) }}</span>
+                                                    </div>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </article>
+                            {% endif %}
+                        {% endfor %}
 
-									{% set TOC_HeadingBlockBlock = pimcore_block('TOC_HeadingBlock', {'default':innerDataCount}) %}
-
-									{% for incr2 in TOC_HeadingBlockBlock.iterator %}
-										{% set j = incr2 - 1 %}
-										{% if innerData[j][0] is defined %}
-											{% set heading = innerData[j][0] %}
-
-
-											<h5>{{ pimcore_input("TOC_HeadingName", {'placeholder' : 'Enter Heading here.'}).setDataFromResource(heading) | raw}}</h5>
-
-											{% set k = 0 %}
-
-											{% if innerData[j][1] is defined %}
-
-												{% set subInnerData = innerData[j][1] | split(',') %}
-												{% set subInnerDataCount = subInnerData | length %}
-
-											{% endif %}
-
-											{% set TOC_ContentBlockBlock = pimcore_block('TOC_ContentBlock', {'default':subInnerDataCount}) %}
-
-											{% for incr3 in TOC_ContentBlockBlock.iterator %}
-												{% set k = incr3 - 1 %}
-												{% if subInnerData[k] is defined %}
-													{% set title = subInnerData[k] %}
-													<div class="paging">
-														<span class="pageTitle">{{ pimcore_input("TOC_Title", {'placeholder' : 'Enter title here.'}).setDataFromResource(title) | raw }}</span>
-														<span class="pageNo">{{ pimcore_input("TOC_Page", {'placeholder' : 'Enter page number here.'}) }}</span>
-													</div>
-												{% endif %}
-											{% endfor %}
-										{% endif %}
-									{% endfor %}
-								</article>
-							{% endif %}
-						{% endfor %}
-					{% endif %}
-				{% endif %}
-			</div>
-		</div>
-	</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <h6>No data found </h6>
+    {% endif %}
 {% endblock %}
