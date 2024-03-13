@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                3ea7f304-8a92-4e84-8951-a341e135da7f:
+                    name: 'Cover Compounds'
+                    group: 'Conveyor Solution'
+                    controller: 'ContitechCS\CatalogBundle\Controller\DefaultController::templateCoverCompoundsAction'
+                    template: contitechcscatalog/default/template_cover_compounds.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710332559
+                    modificationDate: 1710332614
+                    staticGeneratorEnabled: false

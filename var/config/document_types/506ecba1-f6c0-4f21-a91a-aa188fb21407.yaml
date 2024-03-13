@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                506ecba1-f6c0-4f21-a91a-aa188fb21407:
+                    name: 'Hose Accessories Flanges'
+                    group: 'Hydraulic Template'
+                    controller: 'CatalogBundle\Controller\DefaultController::templateFittingSplitFlangesAction'
+                    template: catalog/default/template_fitting_split_flanges.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710333272
+                    modificationDate: 1710333397
+                    staticGeneratorEnabled: false

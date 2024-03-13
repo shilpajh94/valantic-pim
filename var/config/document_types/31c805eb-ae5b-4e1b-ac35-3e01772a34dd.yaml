@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                31c805eb-ae5b-4e1b-ac35-3e01772a34dd:
+                    name: 'Conti Pipe Belt'
+                    group: 'Conveyor Solution'
+                    controller: 'ContitechCS\CatalogBundle\Controller\DefaultController::templateContiPipeBeltAction'
+                    template: contitechcscatalog/default/template_conti_pipe_belt.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710332048
+                    modificationDate: 1710332145
+                    staticGeneratorEnabled: false

@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                1c6715de-e7b3-48b5-bd08-4a4d3020576d:
+                    name: 'Industrial Hose Fitting Page'
+                    group: 'Industrial Hose Template'
+                    controller: 'CatalogBundle\Controller\IndustrialHoseController::inhFittingPageAction'
+                    template: catalog/inh/inhfitting.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710334146
+                    modificationDate: 1710334198
+                    staticGeneratorEnabled: false

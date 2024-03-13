@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                7d93135f-07a9-43fa-b987-5af16ed442aa:
+                    name: 'Steelcord Belt Construction'
+                    group: 'Conveyor Solution'
+                    controller: 'ContitechCS\CatalogBundle\Controller\DefaultController::templateSteelcordBeltConstructionAction'
+                    template: contitechcscatalog/default/template_steelcord_belt_construction.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710332886
+                    modificationDate: 1710332949
+                    staticGeneratorEnabled: false

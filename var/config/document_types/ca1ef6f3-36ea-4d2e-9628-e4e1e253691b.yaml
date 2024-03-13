@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                ca1ef6f3-36ea-4d2e-9628-e4e1e253691b:
+                    name: 'CS Cover with Images'
+                    group: 'Conveyor Solution'
+                    controller: coverPage
+                    template: contitechcscatalog/content/coverPage.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710327648
+                    modificationDate: 1710328278
+                    staticGeneratorEnabled: false

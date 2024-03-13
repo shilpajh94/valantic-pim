@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                2536ec7b-cb26-4e60-b72f-c11644f508ce:
+                    name: 'Hose Sub Cover Page'
+                    group: 'Hydraulic Template'
+                    controller: 'CatalogBundle\Controller\DefaultController::templateHoseSubCoverAction'
+                    template: catalog/default/template_hose_sub_cover.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710333873
+                    modificationDate: 1710333923
+                    staticGeneratorEnabled: false

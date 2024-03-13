@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                6adf3ea2-0d83-443a-a8e6-922a4ddc778b:
+                    name: 'Industrial Hose Fitting Cover Page'
+                    group: 'Industrial Hose Template'
+                    controller: 'CatalogBundle\Controller\IndustrialHoseController::inhFittingCoverAction'
+                    template: catalog/inh/inhfitting_cover.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710334069
+                    modificationDate: 1710334136
+                    staticGeneratorEnabled: false

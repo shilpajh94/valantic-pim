@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                01f31bb4-44b1-4e06-8129-b8fe9e3a59f9:
+                    name: 'PDF Page with Footer'
+                    group: 'Common Template'
+                    controller: 'CatalogBundle\Controller\ContentController::pdfWithFooterAction'
+                    template: catalog/content/pdfWithFooter.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710327448
+                    modificationDate: 1710327558
+                    staticGeneratorEnabled: false

@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                4cd05051-4f36-42c3-b972-0218b749bcc5:
+                    name: 'Conti Inspect Systems'
+                    group: 'Conveyor Solution'
+                    controller: 'ContitechCS\CatalogBundle\Controller\DefaultController::templateContiInspectSystemsAction'
+                    template: contitechcscatalog/default/template_conti_inspect_systems.html.twig
+                    type: page
+                    priority: 0
+                    creationDate: 1710331993
+                    modificationDate: 1710332044
+                    staticGeneratorEnabled: false
