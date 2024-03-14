@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                e326f5d4-81b1-48de-96d0-3d582f33e576:
+                    name: 'PDF Page'
+                    group: 'Common Template'
+                    controller: 'CatalogBundle\Controller\ContentController::pdfAction'
+                    template: catalog/content/pdf.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710327245
+                    modificationDate: 1710327328
+                    staticGeneratorEnabled: false

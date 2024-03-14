@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                06c27670-14fd-4e52-8a55-af4d3fabf6bc:
+                    name: 'Hose Accessories Clamps'
+                    group: 'Hydraulic Template'
+                    controller: 'CatalogBundle\Controller\DefaultController::templateHoseAccessoriesClampsAction'
+                    template: catalog/default/template_hose_accessories_clamps.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710333273
+                    modificationDate: 1710333320
+                    staticGeneratorEnabled: false

@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                bcd7cbe2-065e-4880-b496-a28b625aef0a:
+                    name: 'Cleated Belts'
+                    group: 'Conveyor Solution'
+                    controller: 'ContitechCS\CatalogBundle\Controller\DefaultController::templateCleatedBeltsAction'
+                    template: contitechcscatalog/default/template_cleated_belts.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710328289
+                    modificationDate: 1710328361
+                    staticGeneratorEnabled: false

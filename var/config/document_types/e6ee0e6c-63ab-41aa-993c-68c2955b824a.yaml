@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                e6ee0e6c-63ab-41aa-993c-68c2955b824a:
+                    name: 'PTG Product Page'
+                    group: 'PTG Template'
+                    controller: 'CatalogBundle\Controller\DefaultController::templatePtgProductPageAction'
+                    template: catalog/default/template_ptg_product_page.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710334368
+                    modificationDate: 1710334428
+                    staticGeneratorEnabled: false

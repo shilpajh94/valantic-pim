@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                fa48cceb-92d4-4194-a011-e0c43dcdf629:
+                    name: 'Container Page'
+                    group: 'Conveyor Solution'
+                    controller: 'ContitechCS\CatalogBundle\Controller\DefaultController::containerAction'
+                    template: contitechcscatalog/default/container.html.twig
+                    type: printcontainer
+                    priority: 0
+                    creationDate: 1710331928
+                    modificationDate: 1710331988
+                    staticGeneratorEnabled: false

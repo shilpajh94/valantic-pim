@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                29b010e9-2202-436e-9b32-1defcc8f6ee8:
+                    name: 'Textile Belt Construction'
+                    group: 'Conveyor Solution'
+                    controller: 'ContitechCS\CatalogBundle\Controller\DefaultController::templateTextileConveyorBeltsAction'
+                    template: contitechcscatalog/default/template_textile_belt_construction.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710333198
+                    modificationDate: 1710333258
+                    staticGeneratorEnabled: false

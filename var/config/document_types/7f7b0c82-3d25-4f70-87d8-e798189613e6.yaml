@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                7f7b0c82-3d25-4f70-87d8-e798189613e6:
+                    name: 'Common Product Page'
+                    group: 'Conveyor Solution'
+                    controller: 'ContitechCS\CatalogBundle\Controller\DefaultController::templateProductPageAction'
+                    template: contitechcscatalog/default/template_product_page.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710331247
+                    modificationDate: 1710331830
+                    staticGeneratorEnabled: false

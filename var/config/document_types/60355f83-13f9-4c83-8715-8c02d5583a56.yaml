@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                60355f83-13f9-4c83-8715-8c02d5583a56:
+                    name: 'Sybercord Technology'
+                    group: 'Conveyor Solution'
+                    controller: 'ContitechCS\CatalogBundle\Controller\DefaultController::templateSybercordTechnologyAction'
+                    template: contitechcscatalog/default/template_sybercord_technology.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710332966
+                    modificationDate: 1710333190
+                    staticGeneratorEnabled: false

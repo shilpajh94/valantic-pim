@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                3d88ec51-fa4f-4c15-8adc-ffb2d80d1499:
+                    name: 'ContiClean Page'
+                    group: 'Conveyor Solution'
+                    controller: 'ContitechCS\CatalogBundle\Controller\DefaultController::templateContiCleanAction'
+                    template: contitechcscatalog/default/template_contiClean.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710332224
+                    modificationDate: 1710332281
+                    staticGeneratorEnabled: false

@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                3379bb42-40e0-43ae-beee-f048f1ef8c46:
+                    name: 'Index By Product Number'
+                    group: 'Common Template'
+                    controller: 'CatalogBundle\Controller\DefaultController::templateIndexProductNumberAction'
+                    template: catalog/default/template_index_product_number.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710327129
+                    modificationDate: 1710327238
+                    staticGeneratorEnabled: false

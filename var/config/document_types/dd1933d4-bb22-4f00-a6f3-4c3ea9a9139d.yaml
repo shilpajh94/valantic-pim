@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                dd1933d4-bb22-4f00-a6f3-4c3ea9a9139d:
+                    name: 'Conti Protect Systems'
+                    group: 'Conveyor Solution'
+                    controller: 'ContitechCS\CatalogBundle\Controller\DefaultController::templateContiProtectSystemsAction'
+                    template: contitechcscatalog/default/template_conti_protect_systems.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710332152
+                    modificationDate: 1710332216
+                    staticGeneratorEnabled: false

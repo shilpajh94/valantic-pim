@@ -365,7 +365,7 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
         $onlyFileName   = str_replace('.'.$fileExtension,"",$importFileName);
         $fileName       = $onlyFileName. '-'.$importDataName. '-Log.'.$fileExtension;
         $fileResource   = fopen(PIMCORE_SYSTEM_TEMP_DIRECTORY.'/'.$fileName, 'w');
-        
+
         foreach($data as $arr)
         {
             fputcsv($fileResource, $arr, ',');
@@ -373,7 +373,7 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
         $this->ImportLogFileAsset($fileName, $importDataId);
     }
 
-    public function ImportLogFileAsset($fileName, $importDataId) 
+    public function ImportLogFileAsset($fileName, $importDataId)
     {
         $fileName = basename($fileName);
         $filePath = PIMCORE_SYSTEM_TEMP_DIRECTORY.'/'.$fileName;
@@ -450,10 +450,10 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
                 $i++;
                 $failedReason = '';
                 $status = 'Success';
-    
+
                 if($definition->getClass() == 'Product'){
                     $primaryKey = $row['SAP Code / Material Number'];
-    
+
                 }
                 elseif($definition->getClass() == 'PTGEUProduct'){
                     $primaryKey = $row['SAPMaterialCode'];
@@ -479,15 +479,15 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
                     if($row['Product Flag'] == "0" || ($row['Product Flag'] == "1" && !$row['Region'])){
                         $productName = str_replace("/", "-", $row['Product Name']);
                         $primaryKey = trim($row['Product Hierarchy']).'/'.trim($productName);
-    
+
                     }elseif($row['Product Flag'] == "1" && $row['Region']){
                         $productName = str_replace("/", "-", $row['Product Name']);
                         $primaryKey = trim($row['Product Hierarchy']).'/'.$region.'/'.trim($productName);
                     }
                 }
-                
+
                 try {
-    
+
                     list($object, $nonImportedAttributes) = $this->importRow($definition,
                                                                             $row,
                                                                             $dataSet,
@@ -498,7 +498,7 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
                         $objectIds[] = $object->getId();
                     }
                     else{
-    
+
                         if($definition->getClass() == 'Product' || $definition->getClass() == 'PTGEUProduct'){
                             $failedReason = 'Either Sap Number or Product does not exist';
                             $status = 'Failure';
@@ -519,7 +519,7 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
                             $params);
                     }
                     $count++;
-    
+
                     $logResult[] = [self::PRIMARY_KEY_HEADER => $primaryKey,
                                     self::NON_IMPORTED_ATTRIBUTES => $nonImportedAttributesString,
                                     self::STATUS_CODE => $status,
@@ -536,31 +536,31 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
                                     self::NON_IMPORTED_ATTRIBUTES => '',
                                     self::STATUS_CODE => 'Failure',
                                     self::FAILURE_REASON => $failedReason];
-    
+
                     $this->logger->error($ex);
-    
+
                     $exceptions[] = $ex;
-    
+
                     $this->eventDispatcher->dispatch($definition, 'data_definitions.import.status',
                         sprintf('Error: %s', $ex->getMessage()), $params);
-    
+
                     if ($definition->getStopOnException()) {
                         throw $ex;
                     }
                 }
-    
+
                 $this->eventDispatcher->dispatch($definition, 'data_definitions.import.progress', '', $params);
-    
+
                 if ($this->shouldStop) {
                     $this->eventDispatcher->dispatch(
                         $definition,
                         'data_definitions.import.status',
                         'Process has been stopped.'
                     );
-    
+
                     return [$objectIds, $exceptions];
                 }
-    
+
                 // set status and process end time
                 if($totalRowsWithData === $i)
                 {
@@ -569,8 +569,8 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
                     $dataImport->setImportProcessEndTime(new \DateTime());
                     $dataImport->setProcessedRecords($totalRowsWithData);
                     $dataImport->save();
-                    
-                    // unlink temp file 
+
+                    // unlink temp file
                     $tempFilePath = PIMCORE_PROJECT_ROOT . '/var/tmp/'.$dataImport->getImportFileName();
                     // if(file_exists($tempFilePath))
                     // {
@@ -590,7 +590,7 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
             }
 
 
-            
+
         }
 
         return [$objectIds, $exceptions, $logResult];
@@ -620,7 +620,7 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
 
                     return [null, $nonImportedAttributes];
             }
-        } 
+        }
         elseif(null === $object){
             return [null, $nonImportedAttributes];
         }
@@ -752,7 +752,7 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
 
             $runner->postRun($object, $data, $definition, $params);
         }
-        
+
         return [$object,$nonImportedAttributes];
     }
 
@@ -933,15 +933,13 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
                 //     $definition->importLevel.' does not exist for the particular object');
             return null;
         }else{
-            
+
             if($definition->importLevel == 'Skeleton' && ($obj->getParent()->getType() == 'object' && $obj->getParent()->getProductType() == 'skeleton')){
                 $obj = $obj->getParent();
                 return $obj;
 
-            }else{
-                return null;
-                }
-            if($definition->importLevel == 'Base' && ($obj->getParent()->getParent()->getType() == 'object' && $obj->getParent()->getParent()->getProductType() == 'base')){
+            }
+            else if($definition->importLevel == 'Base' && ($obj->getParent()->getParent()->getType() == 'object' && $obj->getParent()->getParent()->getProductType() == 'base')){
                 $obj = $obj->getParent()->getParent();
                 return $obj;
 

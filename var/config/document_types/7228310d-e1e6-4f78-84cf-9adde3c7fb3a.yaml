@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                7228310d-e1e6-4f78-84cf-9adde3c7fb3a:
+                    name: 'Table of Content'
+                    group: 'Common Template'
+                    controller: 'CatalogBundle\Controller\DefaultController::templateTableOfContentsAction'
+                    template: catalog/default/template_table_of_contents.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710327570
+                    modificationDate: 1710327636
+                    staticGeneratorEnabled: false
