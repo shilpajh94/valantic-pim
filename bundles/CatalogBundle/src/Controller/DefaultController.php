@@ -859,14 +859,14 @@ class DefaultController extends FrontendController
     public function templateHoseProductPageAction(Request $request): Response
     {
         if(!$request->get('contentDocument')->getPublished()){
-            $parameterBag = $this->getRequestedParameter($request, 0); 
+            $parameterBag = $this->getRequestedParameter($request, 0);
         }
         else{
             $documentPath = $this->document->getFullPath();
             $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
             $parameterBag = $this->getRequestedParameter($request, $documentId);
-        };
-       
+        }
+
         $templateEditable = $this->document->getEditable('inh_template_hose_product_page');
 
         if ($templateEditable && $templateEditable->getElement() !=null) {
@@ -1174,13 +1174,22 @@ class DefaultController extends FrontendController
 
     public function templateHoseAccessoriesSleevingAction(Request $request): Response
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+        // $documentPath = $this->document->getFullPath();
+        // $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+        // $parameterBag = $this->getRequestedParameter($request, $documentId);
+
+        if(!$request->get('contentDocument')->getPublished()){
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        }
+        else{
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
 
         $templateEditable = $this->document->getEditable('template_hose_accessories_sleeving');
 
-        if ($templateEditable) {
+        if ($templateEditable && $templateEditable->getElement() !=null) {
             $template = $templateEditable->getElement();
             $commonHelper = $this->containerInterface->get('app.common_helper');
 
@@ -1341,13 +1350,22 @@ class DefaultController extends FrontendController
 
     public function templateHoseAccessoriesClampsAction(Request $request)
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+        // $documentPath = $this->document->getFullPath();
+        // $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+        // $parameterBag = $this->getRequestedParameter($request, $documentId);
+
+        if(!$request->get('contentDocument')->getPublished()){
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        }
+        else{
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
 
         $templateEditable = $this->document->getEditable('template_hose_accessories_clamps');
 
-        if ($templateEditable) {
+        if ($templateEditable && $templateEditable->getElement() != null) {
             $template = $templateEditable->getElement();
             $commonHelper = $this->containerInterface->get('app.common_helper');
 
@@ -1446,13 +1464,22 @@ class DefaultController extends FrontendController
 
     public function templateHoseAccessoriesOringAction(Request $request)
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+        // $documentPath = $this->document->getFullPath();
+        // $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+        // $parameterBag = $this->getRequestedParameter($request, $documentId);
+
+        if(!$request->get('contentDocument')->getPublished()){
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        }
+        else{
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
 
         $templateEditable = $this->document->getEditable('template_hose_accessories_oring');
 
-        if ($templateEditable) {
+        if ($templateEditable && $templateEditable->getElement() != null) {
             $template = $templateEditable->getElement();
 
             $commonHelper = $this->containerInterface->get('app.common_helper');
@@ -1575,17 +1602,34 @@ class DefaultController extends FrontendController
 
     public function templateTableOfContentsAction(Request $request): Response
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+        // $documentPath = $this->document->getFullPath();
+        // $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+        // $parameterBag = $this->getRequestedParameter($request, $documentId);
+        if(!$request->get('contentDocument')->getPublished()){
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        }
+        else{
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
         return $this->render('catalog/default/template_table_of_contents.html.twig', $parameterBag);
     }
 
     public function templateHydraulicTableOfContentsDynamicAction(Request $request)
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+        // $documentPath = $this->document->getFullPath();
+        // $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+        // $parameterBag = $this->getRequestedParameter($request, $documentId);
+
+        if(!$request->get('contentDocument')->getPublished()){
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        }
+        else{
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
 
         try {
             $folderId = $this->document->getParent()->getId();
@@ -1604,11 +1648,11 @@ class DefaultController extends FrontendController
             $allFittingData = [];
 
             foreach ($listing as $doc) {
-                if ($doc->getChildren()) {
+                if ($doc->hasChildren()) {
 
                     foreach ($doc->getChildren() as $childDoc) {
 
-                        if ($childDoc->getChildren()) {
+                        if ($childDoc->hasChildren()) {
                             foreach ($childDoc->getChildren() as $child2Doc) {
                                 if (in_array($child2Doc->getTemplate(), $templateArray)) {
 
@@ -1735,15 +1779,24 @@ class DefaultController extends FrontendController
 
     public function templatePartNumberDesignationsAction(Request $request)
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+        // $documentPath = $this->document->getFullPath();
+        // $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+        // $parameterBag = $this->getRequestedParameter($request, $documentId);
+
+        if(!$request->get('contentDocument')->getPublished()){
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        }
+        else{
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
 
         $templatesEditable = $this->document->getEditable('page_number_designations');
 
         $hydraulic_hose_data = [];
         $footerBgColor = '';
-        if ($templatesEditable) {
+        if ($templatesEditable && $templatesEditable->getElements() != null) {
             $templates = $templatesEditable->getElements();
             $commonHelper = $this->containerInterface->get('app.common_helper');
 
@@ -1796,13 +1849,19 @@ class DefaultController extends FrontendController
 
     public function templateHoseSubCoverAction(Request $request): Response
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+
+        if(!$request->get('contentDocument')->getPublished()){
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        }
+        else{
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
 
         $templateEditable = $this->document->getEditable('template_hose_product_page');
 
-        if ($templateEditable) {
+        if ($templateEditable && $templateEditable->getElement() != null) {
             $template = $templateEditable->getElement();
             $commonHelper = $this->containerInterface->get('app.common_helper');
 
@@ -1994,15 +2053,24 @@ class DefaultController extends FrontendController
 
     public function templateFittingSplitFlangesAction(Request $request): Response
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+        // $documentPath = $this->document->getFullPath();
+        // $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+        // $parameterBag = $this->getRequestedParameter($request, $documentId);
+
+        if(!$request->get('contentDocument')->getPublished()){
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        }
+        else{
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
 
         $catalogTableObject = $this->document->getEditable('template_hose_accessories_flanges');
         $footer_logo_src = '';
         $footerBgColor = '';
         $data = '';
-        if ($catalogTableObject) {
+        if ($catalogTableObject && $catalogTableObject->getElement() != null) {
             $catalogTableObjectElement = $catalogTableObject->getElement();
 
             $commonHelper = $this->containerInterface->get('app.common_helper');
@@ -2098,9 +2166,18 @@ class DefaultController extends FrontendController
 
     public function containerAction(Request $request): Response
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+        // $documentPath = $this->document->getFullPath();
+        // $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+        // $parameterBag = $this->getRequestedParameter($request, $documentId);
+
+        if(!$request->get('contentDocument')->getPublished()){
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        }
+        else{
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
 
         $allChildren = [];
 
@@ -2158,15 +2235,24 @@ class DefaultController extends FrontendController
     {
         $templateEditable = $this->document->getEditable('ptg_product_page');
 
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+        // $documentPath = $this->document->getFullPath();
+        // $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+        // $parameterBag = $this->getRequestedParameter($request, $documentId);
+
+        if(!$request->get('contentDocument')->getPublished()){
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        }
+        else{
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
 
         $groupData = array();
         $footerBgColor = null;
         $footer_logo_src = null;
 
-        if ($templateEditable) {
+        if ($templateEditable && $templateEditable->getElement() != null) {
             $template = $templateEditable->getElement();
             $commonHelper = $this->containerInterface->get('app.common_helper');
             $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
@@ -2623,10 +2709,10 @@ class DefaultController extends FrontendController
 
             $all_doc_arr = [];
             foreach ($listing as $doc) {
-                if ($doc->getChildren()) {
+                if ($doc->hasChildren()) {
                     foreach ($doc->getChildren() as $childDoc) {
 
-                        if ($childDoc->getChildren()) {
+                        if ($childDoc->hasChildren()) {
                             foreach ($childDoc->getChildren() as $child2Doc) {
                                 if (in_array($child2Doc->getTemplate(), $templateArray)) {
                                     $obj = $child2Doc->getEditable('product_page_part_number');
@@ -2689,10 +2775,10 @@ class DefaultController extends FrontendController
 
             $all_doc_arr = [];
             foreach ($listing as $doc) {
-                if ($doc->getChildren()) {
+                if ($doc->hasChildren()) {
                     foreach ($doc->getChildren() as $childDoc) {
 
-                        if ($childDoc->getChildren()) {
+                        if ($childDoc->hasChildren()) {
                             foreach ($childDoc->getChildren() as $child2Doc) {
                                 if (in_array($child2Doc->getTemplate(), $templateArray)) {
                                     $obj = $child2Doc->getEditable('product_page_product_number');
