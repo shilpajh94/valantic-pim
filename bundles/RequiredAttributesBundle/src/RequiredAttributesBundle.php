@@ -17,12 +17,13 @@ class RequiredAttributesBundle extends AbstractPimcoreBundle implements PimcoreB
     public function getJsPaths(): array
     {
         return [
+            '/bundles/requiredattributes/js/pimcore/object/tags/overrideAbstract.js', 
+            '/bundles/requiredattributes/js/pimcore/document/override.admin-ui-classic-bundle.document.tree.js',
             '/bundles/requiredattributes/js/pimcore/startup.js',
             '/bundles/requiredattributes/js/pimcore/overrides.js',
             '/bundles/requiredattributes/js/pimcore/pdf_preview_override.js',
             '/bundles/requiredattributes/js/pimcore/override_xliff.js',
-            '/bundles/requiredattributes/js/pimcore/search_override.js',
-            '/bundles/requiredattributes/js/pimcore/object/tags/overrideAbstract.js'
+            '/bundles/requiredattributes/js/pimcore/search_override.js'
         ];
     }
 
