@@ -3,12 +3,12 @@ pimcore:
         doc_types:
             definitions:
                 72b4dbf9-83a4-45b3-b295-053c850a327b:
-                    name: 'Continental Conveyor Solutions'
+                    name: 'Continental Conveyor Services'
                     group: 'Conveyor Solution'
                     controller: 'ContitechCS\CatalogBundle\Controller\DefaultController::templateContinentalConveyorServicesAction'
                     template: contitechcscatalog/default/template_continental_conveyor_services.html.twig
                     type: printpage
                     priority: 0
                     creationDate: 1710332285
-                    modificationDate: 1710332377
+                    modificationDate: 1710335061
                     staticGeneratorEnabled: false
