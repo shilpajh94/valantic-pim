@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                d3312eda-f354-4f68-879b-0200ab9bd9df:
+                    name: 'Index By Descriptive Number'
+                    group: 'Common Template'
+                    controller: 'CatalogBundle\Controller\DefaultController::templateIndexDescriptiveNumberAction'
+                    template: catalog/default/template_index_descriptive_number.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710327012
+                    modificationDate: 1710327121
+                    staticGeneratorEnabled: false

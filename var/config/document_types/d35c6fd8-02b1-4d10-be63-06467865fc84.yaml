@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                d35c6fd8-02b1-4d10-be63-06467865fc84:
+                    name: 'Hose Accessories Orings'
+                    group: 'Hydraulic Template'
+                    controller: 'CatalogBundle\Controller\DefaultController::templateHoseAccessoriesOringAction'
+                    template: catalog/default/template_hose_accessories_oring.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710333401
+                    modificationDate: 1710333455
+                    staticGeneratorEnabled: false

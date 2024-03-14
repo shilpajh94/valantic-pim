@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                6f8db344-f055-44e8-953e-2aded9077d96:
+                    name: 'Part Number Designations'
+                    group: 'Hydraulic Template'
+                    controller: 'CatalogBundle\Controller\DefaultController::templatePartNumberDesignationsAction'
+                    template: catalog/default/template_part_number_designations.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710333976
+                    modificationDate: 1710334037
+                    staticGeneratorEnabled: false

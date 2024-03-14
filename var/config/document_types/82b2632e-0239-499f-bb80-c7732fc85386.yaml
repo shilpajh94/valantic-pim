@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                82b2632e-0239-499f-bb80-c7732fc85386:
+                    name: 'Hose Line Page'
+                    group: 'Hydraulic Template'
+                    controller: 'CatalogBundle\Controller\DefaultController::templateHoseLineTileTemplateAction'
+                    template: catalog/default/template_hose_line_tile_template.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710333523
+                    modificationDate: 1710333558
+                    staticGeneratorEnabled: false

@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                2df38fb7-7d56-417d-870b-5b69718e864f:
+                    name: 'Common Editable Page'
+                    group: 'Conveyor Solution'
+                    controller: 'ContitechCS\CatalogBundle\Controller\DefaultController::templateCreatedWithBricksAction'
+                    template: contitechcscatalog/default/templates_with_bricks.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710328370
+                    modificationDate: 1710328757
+                    staticGeneratorEnabled: false

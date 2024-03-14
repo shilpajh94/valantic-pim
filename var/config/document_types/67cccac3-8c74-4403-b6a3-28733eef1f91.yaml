@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                67cccac3-8c74-4403-b6a3-28733eef1f91:
+                    name: 'Hydraulic Fitting'
+                    group: 'Hydraulic Templates'
+                    controller: 'CatalogBundle\Controller\HydraulicFittingController::fittingPageAction'
+                    template: catalog/fitting/hydraulic_fitting.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710333930
+                    modificationDate: 1710333969
+                    staticGeneratorEnabled: false

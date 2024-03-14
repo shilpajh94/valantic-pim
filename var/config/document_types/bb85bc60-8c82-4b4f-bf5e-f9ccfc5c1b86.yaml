@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                bb85bc60-8c82-4b4f-bf5e-f9ccfc5c1b86:
+                    name: 'Industrial Hose Section Page'
+                    group: 'Industrial Hose Template'
+                    controller: 'CatalogBundle\Controller\IndustrialHoseController::inhPrintCatalogAction'
+                    template: catalog/inh/inhprintcatalog.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710334291
+                    modificationDate: 1710334331
+                    staticGeneratorEnabled: false

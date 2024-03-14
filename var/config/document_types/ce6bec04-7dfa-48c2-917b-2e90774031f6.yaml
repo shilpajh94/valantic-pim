@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                ce6bec04-7dfa-48c2-917b-2e90774031f6:
+                    name: 'Mega Pipe Belt'
+                    group: 'Conveyor Solution'
+                    controller: 'ContitechCS\CatalogBundle\Controller\DefaultController::templateMegaPipeBeltAction'
+                    template: contitechcscatalog/default/template_mega_pipe_belt.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710332823
+                    modificationDate: 1710332874
+                    staticGeneratorEnabled: false

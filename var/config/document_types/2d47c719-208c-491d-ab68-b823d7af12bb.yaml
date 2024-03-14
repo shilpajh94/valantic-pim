@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                2d47c719-208c-491d-ab68-b823d7af12bb:
+                    name: 'Conveyor Belt Group Contact Page'
+                    group: 'Conveyor Solution'
+                    controller: 'ContitechCS\CatalogBundle\Controller\DefaultController::templateConveyorBeltGroupAction'
+                    template: contitechcscatalog/default/template_conveyor_belt_group.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710332421
+                    modificationDate: 1710332555
+                    staticGeneratorEnabled: false

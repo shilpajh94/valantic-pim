@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                850ef313-13e4-42d2-a00e-078f40673a1a:
+                    name: 'Hose Accessories Sleeving'
+                    group: 'Hydraulic Template'
+                    controller: 'CatalogBundle\Controller\DefaultController::templateHoseAccessoriesSleevingAction'
+                    template: catalog/default/template_hose_accessories_sleeving.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710333459
+                    modificationDate: 1710333519
+                    staticGeneratorEnabled: false
