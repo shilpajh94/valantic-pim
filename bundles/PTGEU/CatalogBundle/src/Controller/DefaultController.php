@@ -86,7 +86,7 @@ class DefaultController extends FrontendController
                 $parentName[$child->getId()] = $child->getDescription('en');
                 $parentIds[] = $child->getId();
             }
-            
+
             $categoryList = new DataObject\PTGEUProductHierarchy\Listing();
             $categoryList->setCondition("Level = ?", ["7"]);
             $categoryList->setCondition("parentId IN (?)", [$parentIds]);
@@ -116,7 +116,7 @@ class DefaultController extends FrontendController
         $commonHelper = $this->containerInterface->get(self::COMMON_HELPER);
         $catalogConfig = $this->getContainerConfig('CatalogConfig');
         $ptgProductPageConfig = $commonHelper->getParameter($catalogConfig, self::PTG_PRODUCT_PAGE);
-        
+
         $columns = array();
         $data = [];
         $defaultColumns = [];
@@ -133,7 +133,7 @@ class DefaultController extends FrontendController
                     }
                 }
             }
-            
+
             $data = array(
                 'storeData' => $columns,
                 'completeData' => $tableColumns,
@@ -160,7 +160,7 @@ class DefaultController extends FrontendController
         $columns = array();
         $data = [];
         $defaultColumns = [];
-        
+
         $tableColumns = $ptgProductPageConfig['PTG Sorting Attributes'];
         if ($tableColumns !== null) {
             if (!empty($tableColumns) && count($tableColumns) > 0) {
@@ -179,19 +179,25 @@ class DefaultController extends FrontendController
                 'defaultColumns'=> null,
                 'success' => true
             );
-            
+
         } else {
             $data = array('storeData' => [], 'completeData' => [], 'success' => true);
         }
-        
+
         return $this->json($data);
     }
 
     public function containerAction(Request $request): Response
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+
+        if(!$request->get('contentDocument')->getPublished()){
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        }
+        else{
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
 
         $allChildren = [];
 
@@ -206,12 +212,18 @@ class DefaultController extends FrontendController
         $parameterBag['allChildren'] = $allChildren;
         return $this->render('ptgeucatalog/default/container.html.twig',$parameterBag);
     }
-    
+
     public function templatePtgEuProductProfileAction(Request $request): Response
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+
+        if(!$request->get('contentDocument')->getPublished()){
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        }
+        else{
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
 
         $language = $this->document->getProperty('language');
         $language = $language ? $language : 'en';
@@ -237,7 +249,7 @@ class DefaultController extends FrontendController
                     'LE' => 'Effective Length',
                     'LB' => 'Reference Length'
                 );
-                
+
                 $ptgEUProductHierarchy = DataObject\PTGEUProductHierarchy::getById($fifthLevelCategoryObj);
                 if($ptgEUProductHierarchy)
                 {
@@ -245,7 +257,7 @@ class DefaultController extends FrontendController
                     $sql .= "AND hierarchyLevel5 LIKE '%$fifthLevelCategoryObj%' LIMIT 1";
                     $objectLevel5thId =  $this->db->fetchOne($sql);
                 }
-                
+
                 if($objectLevel5thId)
                 {
                     $seventhLevelProductList = [];
@@ -269,7 +281,7 @@ class DefaultController extends FrontendController
                 $row6ThLevelDetails =  $this->db->fetchFirstColumn($sql);
                 $profile = [];
                 foreach ($row6ThLevelDetails as $objectLevel6thId) {
-                    
+
                     if(empty($seventhLevelProductList) || in_array($objectLevel6thId, $seventhLevelProductList))
                     {
                         $nominalLength= $upperRibWidth= $staticConductive='';
@@ -283,7 +295,7 @@ class DefaultController extends FrontendController
 
                         $sql = "SELECT staticConductive FROM `object_query_38` WHERE `oo_id` = '$objectLevel6thId'";
                         $staticConductive =  $this->db->fetchOne($sql);
-                        
+
                         $sql = "SELECT id FROM `object_38` WHERE `parentId` = '$objectLevel6thId' ";
                         $sql .= "AND `PrintedCatalogFlag` = '1' ORDER BY id ASC LIMIT 1";
                         $fertObjId =  $this->db->fetchOne($sql);
@@ -306,7 +318,7 @@ class DefaultController extends FrontendController
                         $reinforcementSelected = trim($profileObjectDetails['reinforcement'], ",");
                         $fabricType = $profileObjectDetails['fabricType'];
                         $beltDesignlistContent = [];
-                        
+
                         if($material)
                         {
                             $beltDesignlistContent['PTGEU_Material'] = $material;
@@ -352,7 +364,7 @@ class DefaultController extends FrontendController
                             $technicalDrawing1Obj = \Pimcore\Model\Asset::getById($profileObjectDetails['technicalDrawing1']);
                         }
                         $groupData['technicalDrawing1Obj'] = $technicalDrawing1Obj;
-                        
+
                         if($nominalLength)
                         {
                             $nominalLtUC = strtoupper($nominalLength);
@@ -374,7 +386,7 @@ class DefaultController extends FrontendController
                                 array('datumLength' => '> 5000','lengthTolerance' => '')
                             );
                         }
-                        
+
                         $groupData['profile'] = $profile;
                         $groupData['brandName'] = $profileObjectDetails['ProductName']. " " . $profile;
                         $groupData['beltDesign'] = $beltDesignlistContent;
@@ -397,10 +409,15 @@ class DefaultController extends FrontendController
     }
     public function templatePtgEuProductPageAction(Request $request): Response
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
-        
+        if(!$request->get('contentDocument')->getPublished()){
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        }
+        else{
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
+
         $initialSortList = array(
             "profile",
             "pitchLengthLpLwMM",
@@ -440,7 +457,7 @@ class DefaultController extends FrontendController
             "lowerBeltWidthBiIN",
             "maxPulleyGroove"
         );
-        
+
         $language = $this->document->getProperty('language');
         $language = $language ? $language : 'en';
         $footerLogoSrc = '';
@@ -454,7 +471,7 @@ class DefaultController extends FrontendController
                 $commonHelper = $this->containerInterface->get(self::COMMON_HELPER);
                 $attributeImagesConfig = $this->getContainerConfig('AttributeImagesConfig');
                 $priceListTableConfig = $this->getContainerConfig('PriceListTableConfig');
-                
+
                 $priceListTableColumn = $commonHelper->getParameter($priceListTableConfig, 'priceListTableColumn');
                 $priceListCurrency = $commonHelper->getParameter($priceListTableConfig, 'priceListCurrency');
                 $this->attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
@@ -488,7 +505,7 @@ class DefaultController extends FrontendController
 
                     $sql = "SELECT TRIM(BOTH ',' FROM `Material`) AS `materialID` FROM `object_40` ";
                     $sql .= " WHERE plant__id = '$deliveringPlantID' AND published = 1 ";
-                    
+
                     $plantAssociatedMaterials =  $this->db->fetchFirstColumn($sql);
                 }
 
@@ -519,7 +536,7 @@ class DefaultController extends FrontendController
                 }
 
                 $groupData = array();
-                
+
                 if($objectLevel5thId)
                 {
                     $seventhLevelProductList = [];
@@ -577,7 +594,7 @@ class DefaultController extends FrontendController
                         $this->columnsData['listPrice']['columnLabel'] = 'listPrice';
                         $this->columnsData['listPrice']['unitName'] = $priceListCurrency[$currency];
                     }
-                    
+
                     $this->iconRequired = 'YES';
                     $columnsDataWithImages = $this->getColumnHeadersForCatalog();
 
@@ -684,9 +701,9 @@ class DefaultController extends FrontendController
                         }
                         $groupData['temperatureRange'] = $minTempC.'°C'.' to '.round($objectLevel5thDetails['maximumTemperatureC']).'°C';
                     }
-                    
+
                     $groupData['brandName'] = $objectLevel5thDetails['ProductName'];
-                    
+
                     $sql = "SELECT * FROM `object_38` WHERE `parentId` = '$objectLevel5thId' ORDER BY id ASC";
                     $row6ThLevelDetails =  $this->db->fetchAllAssociative($sql);
                     $notApplicableFields = [];
@@ -809,7 +826,7 @@ class DefaultController extends FrontendController
                                                     $notApplicableFields[$fields['groupName']]= $fieldName;
                                                 }
                                             }
-                                            
+
                                         }
                                         elseif(isset($fields['objectLevel']) && $fields['objectLevel'] == 'fert' && ($fields['fieldLevel'] == 'objectBrick'))
                                         {
@@ -852,7 +869,7 @@ class DefaultController extends FrontendController
                                                     $notApplicableFields[$fields['groupName']]= $fieldName;
                                                 }
                                             }
-                                            
+
                                         }
                                     }
 
@@ -880,10 +897,10 @@ class DefaultController extends FrontendController
                                                 }
                                             }
                                         }
-                                        
+
                                         $data['listPrice'] = trim($listPrice) ? floatval($listPrice) : $listPrice;
                                     }
-                                    
+
                                     $articles[] = $data;
                                 }
                             }
@@ -1741,7 +1758,7 @@ class DefaultController extends FrontendController
                                         break;
                                 }
                             }
-                        
+
                     }
                     $articlesData['articlesData'] = $articles;
                     $groupData['data'] = $articlesData;
@@ -1789,7 +1806,7 @@ class DefaultController extends FrontendController
         }
 
         $safetyFeaturesList = array_merge_recursive($safetyFeaturesListWithImage,$safetyFeaturesListWithOutImage);
-        
+
 	    if($safetyFeaturesList)
         {
             $safetyFeaturesList = array_slice($safetyFeaturesList, 0, 5);
@@ -1804,7 +1821,7 @@ class DefaultController extends FrontendController
 
         unset($safetyFeaturesListWithImage);
         unset($safetyFeaturesListWithOutImage);
-        
+
         return $safetyFeaturesList;
     }
 
@@ -1914,7 +1931,7 @@ class DefaultController extends FrontendController
         $isParentContainerRequest = $request->get('isParentContainerRequest');
         $parameterBag['isParentContainerRequest'] = $isParentContainerRequest ? $isParentContainerRequest : false;
         $parameterBag['printermarks'] = $request->get('printermarks');
-        
+
         $imageWidth = null;
         $imageRecompression = null;
         $printConfigFile = Processor::getJobConfigFile($documentId);

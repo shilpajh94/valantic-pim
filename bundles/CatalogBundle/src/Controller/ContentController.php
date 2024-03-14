@@ -20,14 +20,20 @@ use Pimcore\Bundle\WebToPrintBundle\Processor;
  * @author rohitsrivastava
  */
 class ContentController extends FrontendController {
-    
+
     /**
      * @Route("/print_page")
      */
     public function pdfAction(Request $request): Response {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+
+        if(!$request->get('contentDocument')->getPublished()){
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        }
+        else{
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
 
         $showPDFInput = false;
 
@@ -37,18 +43,24 @@ class ContentController extends FrontendController {
             $previewUrl = "pimcore_preview=true";
             $showPDFInput = (strpos($requestUrl, $previewUrl) !== false) ? true : false;
         }
-        
+
         $parameterBag['showPDFInput'] = $showPDFInput;
         return $this->render("catalog/content/pdf.html.twig", $parameterBag);
     }
 
     public function pdfWithFooterAction(Request $request): Response {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+
+        if(!$request->get('contentDocument')->getPublished()){
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        }
+        else{
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
 
         $showPDFInput = false;
-        
+
         if(isset($_SERVER['REQUEST_URI']))
         {
             $requestUrl = $_SERVER['REQUEST_URI'];
@@ -66,7 +78,7 @@ class ContentController extends FrontendController {
         $isParentContainerRequest = $request->get('isParentContainerRequest');
         $parameterBag['isParentContainerRequest'] = $isParentContainerRequest ? $isParentContainerRequest : false;
         $parameterBag['printermarks'] = $request->get('printermarks');
-        
+
         foreach ($request->attributes as $key => $value) {
             $parameterBag[$key] = $value;
         }
@@ -86,5 +98,5 @@ class ContentController extends FrontendController {
 
         return $parameterBag;
     }
-    
+
 }

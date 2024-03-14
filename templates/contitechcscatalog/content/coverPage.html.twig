@@ -1,6 +1,4 @@
-{% if not isParentContainerRequest %}
-	{% extends "contitechcscatalog/layouts/layout.html.twig" %}
-{% endif %}
+{% extends "contitechcscatalog/layouts/layout.html.twig" %}
 
 {% block _content %}
 
@@ -18,7 +16,7 @@
 
 			<div class="top-section">
                 {% if not pimcore_select("image_type").isEmpty() %}
-                    {% set imageType == pimcore_select("image_type").getData() %} 
+                    {% set imageType = pimcore_select("image_type").getData() %} 
                     {% if imageType == 'single-image' %} 
                         {% if editmode %}   
                             <div class="" style="max-width: 300px; position: relative;">Drop logo image here {{ pimcore_image("cover_page_logo_image") }}</div>
@@ -90,11 +88,11 @@
                 {% endif %}
             </div>
 				<div class="bottom-section">
-					<h1 class="orange lh">{{ pimcore_input("cover_page_bottom_part_heading1",{"placeholder": "Enter First Heading"}) }}</h1>
+					<h1 class="orange lh">{{ pimcore_input("cover_page_bottom_part_heading1",{"placeholder" : "Enter First Heading"}) }}</h1>
 					<h1 class="orange">{{ pimcore_input("cover_page_bottom_part_heading2",{"placeholder": "Enter Second Heading"}) }}</h1>
 					<h2 class="">{{ pimcore_input("cover_page_bottom_part_sub_heading",{"placeholder": "Enter Sub Heading"}) }}</h2>
 					{% if editmode %}
-						<div class="orange bottom-align">{{ pimcore_input("cover_page_bottom_line",{"placeholder" =>"Enter Details"}) }}</div>
+						<div class="orange bottom-align">{{ pimcore_input("cover_page_bottom_line",{"placeholder" : "Enter Details"}) }}</div>
 					{% else %}
 						<p class="orange bottom-align">{{ pimcore_input("cover_page_bottom_line").getData() }}</p>
 					{% endif %}

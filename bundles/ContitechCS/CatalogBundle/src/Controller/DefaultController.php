@@ -89,8 +89,8 @@ class DefaultController extends FrontendController
      */
     public function getCategoryProductTables(Request $request): JsonResponse
     {
-        $resultData['data']    = [];
-        $product        = $request->get('product');
+        $resultData['data'] = [];
+        $product = $request->get('product');
         $productDataImportConfig = $this->configProviderService->getCatalogProductTablesConfig();
 
         if (isset($productDataImportConfig['Common Product Page'][$product])) {
@@ -131,9 +131,13 @@ class DefaultController extends FrontendController
      */
     public function templateTableOfContentsAction(Request $request): Response
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+        if (!$request->get('contentDocument')->getPublished()) {
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        } else {
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
         return $this->render("contitechcscatalog/default/template_table_of_contents.html.twig", $parameterBag);
     }
 
@@ -145,9 +149,13 @@ class DefaultController extends FrontendController
      */
     public function templateDynamicTableOfContentsAction(Request $request): Response
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+        if (!$request->get('contentDocument')->getPublished()) {
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        } else {
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
         $folderId = $this->document->getParent()->getId();
         $listing = new \Pimcore\Model\Document\Listing();
         $listing->setCondition("parentId = $folderId");
@@ -179,8 +187,7 @@ class DefaultController extends FrontendController
         $sectionPageTitle = '';
         $all_doc_arr = [];
         foreach ($listing as $doc) {
-            if($doc->getType() == 'printpage')
-            {
+            if ($doc->getType() == 'printpage') {
                 if ($doc->getTemplate() == 'contitechcscatalog/default/template_product_section_page.html.twig') {
                     $obj = $doc->getEditable('TOC_Section_Title');
                     if (!empty($obj)) {
@@ -210,33 +217,37 @@ class DefaultController extends FrontendController
      */
     public function templateProductPageAction(Request $request): Response
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
-        $regionProperty     = $this->document->getProperty('region');
+        if (!$request->get('contentDocument')->getPublished()) {
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        } else {
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
+        $regionProperty = $this->document->getProperty('region');
 
         if (!$regionProperty) {
             return new Response('Error: Unable to find region, Please specify region in property');
         }
 
-        $regionId                   = $regionProperty->getId();
+        $regionId = $regionProperty->getId();
         $catalogTableObjectEditable = $this->document->getEditable('cbs_template_product_page');
         $productData = [];
 
-        if ($catalogTableObjectEditable) {
+        if ($catalogTableObjectEditable && $catalogTableObjectEditable->getElement() != null) {
             $catalogTableObject = $catalogTableObjectEditable->getElement();
             if ($catalogTableObject) {
 
                 $productDataImportConfig = $this->configProviderService->getCatalogProductTablesConfig();
-                $selectedProduct            = $catalogTableObject->getProducts();
-                $productObj                 = null;
+                $selectedProduct = $catalogTableObject->getProducts();
+                $productObj = null;
                 $productNameArr = [];
 
                 if ($selectedProduct) {
                     foreach ($selectedProduct as $key => $singleProduct) {
-                        $productObject      = DataObject\CSProducts::getById($singleProduct);
+                        $productObject = DataObject\CSProducts::getById($singleProduct);
                         if ($productObject) {
-                            $productNameArr[]   = trim($productObject->getName());
+                            $productNameArr[] = trim($productObject->getName());
                         }
 
                         if (!$productObj) {
@@ -248,10 +259,10 @@ class DefaultController extends FrontendController
                     $productObj->setGetInheritedValues(true);
                 }
                 if ($productObj && ($productObj->isPublished()) && (empty($productObj->getCSRegion()) || in_array($regionId, $productObj->getCSRegion()))) {
-                    $productNameTitle   =   implode(' and ', $productNameArr);
-                    $productName        =   trim($productObj->getName());
-                    $productKeyName     =   trim($productObj->getKey());
-                    $parentParentObj    =   $this->getProductParentObject($productObj);
+                    $productNameTitle = implode(' and ', $productNameArr);
+                    $productName = trim($productObj->getName());
+                    $productKeyName = trim($productObj->getKey());
+                    $parentParentObj = $this->getProductParentObject($productObj);
 
                     if (!empty($parentParentObj) && $parentParentObj instanceof DataObject\CSProducts) {
                         $productData['HierarchyNameLevel2'] = $parentParentObj->getName();
@@ -267,7 +278,7 @@ class DefaultController extends FrontendController
                     $applicationsHtml = '';
                     $coverCompoundHtml = '';
                     $marketsHtml = '';
-                    if (method_exists($productObj, 'getCSProductApplications') &&  $productObj->getCSProductApplications()) {
+                    if (method_exists($productObj, 'getCSProductApplications') && $productObj->getCSProductApplications()) {
                         $applicationsHtml = '<ul>';
                         foreach ($productObj->getCSProductApplications() as $key => $value) {
                             $applicationsHtml .= '<li><span class="orange">›</span> ' . $value->getApplicationName() . ' </li>';
@@ -358,7 +369,7 @@ class DefaultController extends FrontendController
                             }
                         }
 
-                        $productTables          = array();
+                        $productTables = array();
                         $productTableColumnLimit = $productDataImportConfig['Common Product Page'][$productKeyName]['Product_Table_Column_Limit'];
                         $childrenDataChunkArray = array_chunk($childrenData, $productTableColumnLimit);
 
@@ -667,33 +678,38 @@ class DefaultController extends FrontendController
      */
     public function templateContiAlertPageAction(Request $request): Response
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
-        $regionProperty     = $this->document->getProperty('region');
+
+        if (!$request->get('contentDocument')->getPublished()) {
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        } else {
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
+        $regionProperty = $this->document->getProperty('region');
 
         if (!$regionProperty) {
             return new Response('Error: Unable to find region, Please specify region in property');
         }
 
-        $regionId                   = $regionProperty->getId();
+        $regionId = $regionProperty->getId();
         $catalogTableObjectEditable = $this->document->getEditable('cbs_conti_alert');
         $productData = [];
 
-        if ($catalogTableObjectEditable) {
+        if ($catalogTableObjectEditable && $catalogTableObjectEditable->getElement() != null) {
             $catalogTableObject = $catalogTableObjectEditable->getElement();
             if ($catalogTableObject) {
 
                 $productDataImportConfig = $this->configProviderService->getCatalogProductTablesConfig();
-                $selectedProduct            = $catalogTableObject->getProducts();
-                $productObj                 = null;
+                $selectedProduct = $catalogTableObject->getProducts();
+                $productObj = null;
                 $productNameArr = [];
 
                 if ($selectedProduct) {
                     foreach ($selectedProduct as $key => $singleProduct) {
-                        $productObject      = DataObject\CSProducts::getById($singleProduct);
+                        $productObject = DataObject\CSProducts::getById($singleProduct);
                         if ($productObject) {
-                            $productNameArr[]   = trim($productObject->getName());
+                            $productNameArr[] = trim($productObject->getName());
                         }
 
                         if (!$productObj) {
@@ -705,10 +721,10 @@ class DefaultController extends FrontendController
                     $productObj->setGetInheritedValues(true);
                 }
                 if ($productObj && ($productObj->isPublished()) && (empty($productObj->getCSRegion()) || in_array($regionId, $productObj->getCSRegion()))) {
-                    $productNameTitle   =   implode(' and ', $productNameArr);
-                    $productName        =   trim($productObj->getName());
-                    $productKeyName     =   trim($productObj->getKey());
-                    $parentParentObj    =   $this->getProductParentObject($productObj);
+                    $productNameTitle = implode(' and ', $productNameArr);
+                    $productName = trim($productObj->getName());
+                    $productKeyName = trim($productObj->getKey());
+                    $parentParentObj = $this->getProductParentObject($productObj);
 
                     if (!empty($parentParentObj) && $parentParentObj instanceof DataObject\CSProducts) {
                         $productData['HierarchyNameLevel2'] = $parentParentObj->getName();
@@ -721,7 +737,7 @@ class DefaultController extends FrontendController
                     $productData['LongText'] = $productObj->getLongText();
                     $productData['LogoImage'] = $productObj->getLogoImage();
 
-                    if (method_exists($productObj, 'getCSProductApplications') &&  $productObj->getCSProductApplications()) {
+                    if (method_exists($productObj, 'getCSProductApplications') && $productObj->getCSProductApplications()) {
                         $applicationsHtml = '<ul>';
                         foreach ($productObj->getCSProductApplications() as $key => $value) {
                             $applicationsHtml .= '<li><span class="orange">›</span> ' . $value->getApplicationName() . ' </li>';
@@ -813,7 +829,7 @@ class DefaultController extends FrontendController
                             }
                         }
 
-                        $productTables          = array();
+                        $productTables = array();
                         $productTableColumnLimit = $productDataImportConfig['Common Product Page'][$productKeyName]['Product_Table_Column_Limit'];
                         $childrenDataChunkArray = array_chunk($childrenData, $productTableColumnLimit);
 
@@ -1119,33 +1135,38 @@ class DefaultController extends FrontendController
      */
     public function templateTranscontiProductPageAction(Request $request): Response
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
-        $regionProperty     = $this->document->getProperty('region');
+
+        if (!$request->get('contentDocument')->getPublished()) {
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        } else {
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
+        $regionProperty = $this->document->getProperty('region');
 
         if (!$regionProperty) {
             return new Response('Error: Unable to find region, Please specify region in property');
         }
 
-        $regionId                   = $regionProperty->getId();
+        $regionId = $regionProperty->getId();
         $catalogTableObjectEditable = $this->document->getEditable('cbs_template_transconti_product_page');
         $productData = [];
 
-        if ($catalogTableObjectEditable) {
+        if ($catalogTableObjectEditable && $catalogTableObjectEditable->getElement() != null) {
             $catalogTableObject = $catalogTableObjectEditable->getElement();
             if ($catalogTableObject) {
 
                 $productDataImportConfig = $this->configProviderService->getCatalogProductTablesConfig();
-                $selectedProduct            = $catalogTableObject->getProducts();
-                $productObj                 = null;
+                $selectedProduct = $catalogTableObject->getProducts();
+                $productObj = null;
                 $productNameArr = [];
 
                 if ($selectedProduct) {
                     foreach ($selectedProduct as $key => $singleProduct) {
-                        $productObject      = DataObject\CSProducts::getById($singleProduct);
+                        $productObject = DataObject\CSProducts::getById($singleProduct);
                         if ($productObject) {
-                            $productNameArr[]   = trim($productObject->getName());
+                            $productNameArr[] = trim($productObject->getName());
                         }
 
                         if (!$productObj) {
@@ -1157,10 +1178,10 @@ class DefaultController extends FrontendController
                     $productObj->setGetInheritedValues(true);
                 }
                 if ($productObj && ($productObj->isPublished()) && (empty($productObj->getCSRegion()) || in_array($regionId, $productObj->getCSRegion()))) {
-                    $productNameTitle   =   implode(' and ', $productNameArr);
-                    $productName        =   trim($productObj->getName());
-                    $productKeyName     =   trim($productObj->getKey());
-                    $parentParentObj    =   $this->getProductParentObject($productObj);
+                    $productNameTitle = implode(' and ', $productNameArr);
+                    $productName = trim($productObj->getName());
+                    $productKeyName = trim($productObj->getKey());
+                    $parentParentObj = $this->getProductParentObject($productObj);
 
                     if (!empty($parentParentObj) && $parentParentObj instanceof DataObject\CSProducts) {
                         $productData['HierarchyNameLevel2'] = $parentParentObj->getName();
@@ -1170,7 +1191,7 @@ class DefaultController extends FrontendController
                     $productData['ProductName'] = $productNameTitle;
                     $productData['ShortText'] = $productObj->getShortText();
                     $applicationsHtml = '';
-                    if (method_exists($productObj, 'getCSProductApplications') &&  $productObj->getCSProductApplications()) {
+                    if (method_exists($productObj, 'getCSProductApplications') && $productObj->getCSProductApplications()) {
                         $applicationsHtml = '<ul>';
                         foreach ($productObj->getCSProductApplications() as $key => $value) {
                             $applicationsHtml .= '<li><span class="orange">›</span> ' . $value->getApplicationName() . ' </li>';
@@ -1251,7 +1272,7 @@ class DefaultController extends FrontendController
                             }
                         }
 
-                        $productTables          = array();
+                        $productTables = array();
                         $productTableColumnLimit = $productDataImportConfig['Common Product Page'][$productKeyName]['Product_Table_Column_Limit'];
                         $childrenDataChunkArray = array_chunk($childrenData, $productTableColumnLimit);
 
@@ -1259,42 +1280,37 @@ class DefaultController extends FrontendController
                             foreach ($childrenDataChunkArray as $chunkKey => $childrenDataChunk) {
                                 unset($productDataImportConfig['Common Product Page'][$productKeyName]['Product_Table_Column_Limit']);
                                 $tables = $productDataImportConfig['Common Product Page'][$productKeyName];
-                                
+
                                 if ($tables) {
                                     foreach ($tables as $tablekey => $metricImperialFields) {
-                                        
+
                                         $columnKeys = $metricImperialFields['ColumnKeys'];
 
                                         $cs_Trough_Angle_Label = '';
-                                        if(isset($metricImperialFields['CS_Trough_Angle_Label']))
-                                        {
+                                        if (isset($metricImperialFields['CS_Trough_Angle_Label'])) {
                                             $cs_Trough_Angle_Label = $metricImperialFields['CS_Trough_Angle_Label'];
                                         }
 
                                         $cs_Material_Weight_Label = '';
-                                        if(isset($metricImperialFields['CS_Material_Weight_Label']))
-                                        {
+                                        if (isset($metricImperialFields['CS_Material_Weight_Label'])) {
                                             $cs_Material_Weight_Label = $metricImperialFields['CS_Material_Weight_Label'];
                                         }
 
                                         $cs_Idlers_Label = '';
-                                        if(isset($metricImperialFields['CS_Idlers_Label']))
-                                        {
+                                        if (isset($metricImperialFields['CS_Idlers_Label'])) {
                                             $cs_Idlers_Label = $metricImperialFields['CS_Idlers_Label'];
                                         }
 
                                         $cs_Idler_Angle_Label = '';
-                                        if(isset($metricImperialFields['CS_Idler_Angle_Label']))
-                                        {
+                                        if (isset($metricImperialFields['CS_Idler_Angle_Label'])) {
                                             $cs_Idler_Angle_Label = $metricImperialFields['CS_Idler_Angle_Label'];
                                         }
 
                                         $cs_Type_Of_Idler_Label = '';
-                                        if(isset($metricImperialFields['CS_Type_Of_Idler_Label']))
-                                        {
+                                        if (isset($metricImperialFields['CS_Type_Of_Idler_Label'])) {
                                             $cs_Type_Of_Idler_Label = $metricImperialFields['CS_Type_Of_Idler_Label'];
                                         }
-                                        
+
                                         unset($metricImperialFields['ColumnKeys']);
                                         unset($metricImperialFields['CS_Trough_Angle_Label']);
                                         unset($metricImperialFields['CS_Material_Weight_Label']);
@@ -1382,19 +1398,17 @@ class DefaultController extends FrontendController
 
                                                     foreach ($miValues as $key => $value) {
                                                         $brickName = $value['objectType'];
-                                                        
+
                                                         $percentageSymbol = '';
-                                                        if(isset($value['percentageSymbol']))
-                                                        {
+                                                        if (isset($value['percentageSymbol'])) {
                                                             $percentageSymbol = $value['percentageSymbol'];
                                                         }
 
                                                         $showDecimalPlaces = '';
-                                                        if(isset($value['showDecimalPlaces']))
-                                                        {
+                                                        if (isset($value['showDecimalPlaces'])) {
                                                             $showDecimalPlaces = $value['showDecimalPlaces'];
                                                         }
-                                                        
+
                                                         $getBrick = 'get' . $brickName;
                                                         $getField = 'get' . $key;
 
@@ -1594,9 +1608,14 @@ class DefaultController extends FrontendController
      */
     public function templateCoverCompoundsAction(Request $request): Response
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+
+        if (!$request->get('contentDocument')->getPublished()) {
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        } else {
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
         $regionProperty = $this->document->getProperty('region');
 
         if (!$regionProperty) {
@@ -1606,7 +1625,7 @@ class DefaultController extends FrontendController
         $regionId = $regionProperty->getId();
         $catalogTableObjectEditable = $this->document->getEditable('cbs_template_cover_compound_page');
         $productData = [];
-        if ($catalogTableObjectEditable) {
+        if ($catalogTableObjectEditable && $catalogTableObjectEditable->getElement() != null) {
             $catalogTableObject = $catalogTableObjectEditable->getElement();
 
             $coverCompoundData = [];
@@ -1643,13 +1662,13 @@ class DefaultController extends FrontendController
                 $coverCompoundMasterList = $this->getCoverCompoundMasterList();
 
                 // level 3rd object
-                $applicationData    = [];
-                $level4Data         = [];
-                $coverCompounds     = [];
+                $applicationData = [];
+                $level4Data = [];
+                $coverCompounds = [];
                 $level3rdObjectData = [];
-                $singleProductPage  = [];
-                $csCompounds       = $this->addPrefix('Compounds');
-                $coverCompoundsHeaderKeys   = [];
+                $singleProductPage = [];
+                $csCompounds = $this->addPrefix('Compounds');
+                $coverCompoundsHeaderKeys = [];
                 $coverCompoundsHeaderKeys[] = $csCompounds;
 
                 if (isset($csHierarchyObjChild) && $csHierarchyObjChild) {
@@ -1673,7 +1692,7 @@ class DefaultController extends FrontendController
                                 }
                             }
 
-                            $namePerformanceCategory =  $level3Data['Name'] . $performanceCategoryNameString;
+                            $namePerformanceCategory = $level3Data['Name'] . $performanceCategoryNameString;
                             $singleProductPage['Name'] = $level3Data['Name'];
                             $singleProductPage['NamePerformanceCategory'] = $namePerformanceCategory;
                             $singleProductPage['productImage'] = $objectLevel3rd->getProductImage();
@@ -1798,18 +1817,17 @@ class DefaultController extends FrontendController
                 $productData['singleProductPage'] = $singleProductPage;
                 $productData['coverCompoundData'] = $coverCompoundData;
                 $parameterBag['HierarchyNameLevel2'] = '';
-                if(isset($coverCompoundData['HierarchyNameLevel2']))
-                {
+                if (isset($coverCompoundData['HierarchyNameLevel2'])) {
                     $parameterBag['HierarchyNameLevel2'] = $coverCompoundData['HierarchyNameLevel2'];
                 }
-                $parameterBag['data']                 = $productData;
+                $parameterBag['data'] = $productData;
             } else {
                 echo "Category Not Select In Catalog Category Object";
                 die;
             }
 
         }
-        
+
         return $this->render("contitechcscatalog/default/template_cover_compounds.html.twig", $parameterBag);
     }
 
@@ -1821,9 +1839,13 @@ class DefaultController extends FrontendController
      */
     public function templateProductSectionPageAction(Request $request): Response
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+        if (!$request->get('contentDocument')->getPublished()) {
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        } else {
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
         return $this->render("contitechcscatalog/default/template_product_section_page.html.twig", $parameterBag);
     }
 
@@ -1835,21 +1857,26 @@ class DefaultController extends FrontendController
      */
     public function templateCleatedBeltsAction(Request $request): Response
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+        if (!$request->get('contentDocument')->getPublished()) {
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        } else {
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
+
         $regionProperty = $this->document->getProperty('region');
 
         if (!$regionProperty) {
             return new Response('Error: Unable to find region, Please specify region in property');
         }
 
-        $regionId   = $regionProperty->getId();
-        $region     = $regionProperty->getRegionName();
+        $regionId = $regionProperty->getId();
+        $region = $regionProperty->getRegionName();
         $catalogTableObjectEditable = $this->document->getEditable('cbs_template_cleated_belts_page');
-        $productData    = [];
-        $displayTablesFlag  = false;
-        if ($catalogTableObjectEditable) {
+        $productData = [];
+        $displayTablesFlag = false;
+        if ($catalogTableObjectEditable && $catalogTableObjectEditable->getElement() != null) {
             $catalogTableObject = $catalogTableObjectEditable->getElement();
             if ($catalogTableObject) {
                 $selectedProduct = $catalogTableObject->getProducts();
@@ -2049,8 +2076,8 @@ class DefaultController extends FrontendController
             }
         }
 
-        $parameterBag['data']             = $productData;
-        $parameterBag['displayTablesFlag']    = $displayTablesFlag;
+        $parameterBag['data'] = $productData;
+        $parameterBag['displayTablesFlag'] = $displayTablesFlag;
         return $this->render("contitechcscatalog/default/template_cleated_belts.html.twig", $parameterBag);
     }
 
@@ -2072,7 +2099,7 @@ class DefaultController extends FrontendController
 
         if ($objectTypeFolderchildren) {
             foreach ($objectTypeFolderchildren as $objectChildFolder) {
-                
+
                 $children = $objectChildFolder->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
                 foreach ($children as $children2) {
                     array_push($productChildrenData, $children2);
@@ -2163,9 +2190,9 @@ class DefaultController extends FrontendController
      */
     private function getAvailableBeltWidthMasterList(): array
     {
-        $beltWidthList  = new DataObject\CSAvailableBeltWidths\Listing();
-        $beltWidthList  = $beltWidthList->load();
-        $list           = [];
+        $beltWidthList = new DataObject\CSAvailableBeltWidths\Listing();
+        $beltWidthList = $beltWidthList->load();
+        $list = [];
 
         if ($beltWidthList) {
             foreach ($beltWidthList as $value) {
@@ -2185,7 +2212,7 @@ class DefaultController extends FrontendController
     {
         $patternWidthList = new DataObject\CSAvailablePatternWidths\Listing();
         $patternWidthList = $patternWidthList->load();
-        $list             = [];
+        $list = [];
 
         if ($patternWidthList) {
             foreach ($patternWidthList as $value) {
@@ -2228,9 +2255,16 @@ class DefaultController extends FrontendController
      */
     public function containerAction(Request $request): Response
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+
+
+
+        if (!$request->get('contentDocument')->getPublished()) {
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        } else {
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
         $allChildren = [];
 
         //prepare children for include
@@ -2253,9 +2287,13 @@ class DefaultController extends FrontendController
      */
     public function templateContinentalConveyorServicesAction(Request $request): Response
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+        if (!$request->get('contentDocument')->getPublished()) {
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        } else {
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
         $regionProperty = $this->document->getProperty('region');
 
         if (!$regionProperty) {
@@ -2267,7 +2305,7 @@ class DefaultController extends FrontendController
         $catalogCategoryObjectEditable = $this->document->getEditable('cbs_template_belt_services_page');
         $productNameArr = [];
 
-        if ($catalogCategoryObjectEditable) {
+        if ($catalogCategoryObjectEditable && $catalogCategoryObjectEditable->getElement() != null) {
             $catalogCategoryObject = $catalogCategoryObjectEditable->getElement();
             $selectedSecondLevelCategoryId = $catalogCategoryObject->getSecondLevelCategory();
 
@@ -2308,7 +2346,7 @@ class DefaultController extends FrontendController
         }
 
         $parameterBag['data'] = $productNameArr;
-        $parameterBag['default_image']    = $default_image;
+        $parameterBag['default_image'] = $default_image;
         return $this->render('contitechcscatalog/default/template_continental_conveyor_services.html.twig', $parameterBag);
     }
 
@@ -2320,9 +2358,14 @@ class DefaultController extends FrontendController
      */
     public function templateContiProtectSystemsAction(Request $request): Response
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+
+        if (!$request->get('contentDocument')->getPublished()) {
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        } else {
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
         $regionProperty = $this->document->getProperty('region');
 
         if (!$regionProperty) {
@@ -2332,7 +2375,7 @@ class DefaultController extends FrontendController
         $regionId = $regionProperty->getId();
         $catalogTableObjectEditable = $this->document->getEditable('cbs_conti_protect_systems');
         $productData = [];
-        if ($catalogTableObjectEditable) {
+        if ($catalogTableObjectEditable && $catalogTableObjectEditable->getElement() != null) {
             $catalogTableObject = $catalogTableObjectEditable->getElement();
             if ($catalogTableObject) {
                 $selectedProduct = $catalogTableObject->getProducts();
@@ -2349,7 +2392,7 @@ class DefaultController extends FrontendController
                     $productData['ProductImage'] = $productObject->getProductImage();
                     $productData['ApplicationImage'] = $productObject->getApplicationImage();
 
-                    $parentParentObj    =   $this->getProductParentObject($productObject);
+                    $parentParentObj = $this->getProductParentObject($productObject);
 
                     if (!empty($parentParentObj) && $parentParentObj instanceof DataObject\CSProducts) {
                         $productData['HierarchyNameLevel2'] = $parentParentObj->getName();
@@ -2388,9 +2431,13 @@ class DefaultController extends FrontendController
      */
     public function templateContiInspectSystemsAction(Request $request): Response
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+        if (!$request->get('contentDocument')->getPublished()) {
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        } else {
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
         $regionProperty = $this->document->getProperty('region');
 
         if (!$regionProperty) {
@@ -2400,7 +2447,7 @@ class DefaultController extends FrontendController
         $regionId = $regionProperty->getId();
         $catalogTableObjectEditable = $this->document->getEditable('cbs_conti_inspect_systems');
         $productData = [];
-        if ($catalogTableObjectEditable) {
+        if ($catalogTableObjectEditable && $catalogTableObjectEditable->getElement() != null) {
             $catalogTableObject = $catalogTableObjectEditable->getElement();
             if ($catalogTableObject) {
                 $selectedProduct = $catalogTableObject->getProducts();
@@ -2411,8 +2458,8 @@ class DefaultController extends FrontendController
                     $productObject->setGetInheritedValues(true);
                 }
 
-                if ($productObject  && ($productObject->isPublished()) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion()))) {
-                    $parentParentObj    =   $this->getProductParentObject($productObject);
+                if ($productObject && ($productObject->isPublished()) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion()))) {
+                    $parentParentObj = $this->getProductParentObject($productObject);
 
                     if (!empty($parentParentObj) && $parentParentObj instanceof DataObject\CSProducts) {
                         $productData['HierarchyNameLevel2'] = $parentParentObj->getName();
@@ -2460,9 +2507,13 @@ class DefaultController extends FrontendController
      */
     public function templateMegaPipeBeltAction(Request $request): Response
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+        if (!$request->get('contentDocument')->getPublished()) {
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        } else {
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
         $regionProperty = $this->document->getProperty('region');
 
         if (!$regionProperty) {
@@ -2472,7 +2523,7 @@ class DefaultController extends FrontendController
         $regionId = $regionProperty->getId();
         $catalogTableObjectEditable = $this->document->getEditable('cbs_mega_pipe_belt');
         $productData = [];
-        if ($catalogTableObjectEditable) {
+        if ($catalogTableObjectEditable && $catalogTableObjectEditable->getElement() != null) {
             $catalogTableObject = $catalogTableObjectEditable->getElement();
             if ($catalogTableObject) {
                 $selectedProduct = $catalogTableObject->getProducts();
@@ -2481,7 +2532,7 @@ class DefaultController extends FrontendController
                 if (!empty($productObject) && $productObject instanceof DataObject\CSProducts) {
                     $productObject->setGetInheritedValues(true);
                 }
-                if ($productObject  && ($productObject->isPublished()) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion()))) {
+                if ($productObject && ($productObject->isPublished()) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion()))) {
                     $objParent = DataObject\CSProducts::getById($productObject->getParentId());
 
                     $productData['HierarchyNameLevel2'] = $objParent ? $objParent->getName() : '';
@@ -2508,9 +2559,13 @@ class DefaultController extends FrontendController
      */
     public function templateContiPipeBeltAction(Request $request): Response
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+        if (!$request->get('contentDocument')->getPublished()) {
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        } else {
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
         $regionProperty = $this->document->getProperty('region');
 
         if (!$regionProperty) {
@@ -2521,11 +2576,11 @@ class DefaultController extends FrontendController
         $catalogTableObjectEditable = $this->document->getEditable('cbs_conti_pipe_belt');
         $productData = [];
 
-        if ($catalogTableObjectEditable) {
+        if ($catalogTableObjectEditable && $catalogTableObjectEditable->getElement() != null) {
             $catalogTableObject = $catalogTableObjectEditable->getElement();
             if ($catalogTableObject) {
-                $selectedProduct    = $catalogTableObject->getProducts();
-                $singleProduct      = isset($selectedProduct[0]) ? $selectedProduct[0] : '';
+                $selectedProduct = $catalogTableObject->getProducts();
+                $singleProduct = isset($selectedProduct[0]) ? $selectedProduct[0] : '';
 
                 $singleProductObj = DataObject\CSProducts::getById($singleProduct);
                 if (!empty($singleProductObj) && $singleProductObj instanceof DataObject\CSProducts) {
@@ -2550,7 +2605,7 @@ class DefaultController extends FrontendController
                     $productData['childProductData'] = $childProductData;
                 }
 
-                $productObject    =   $this->getProductParentObject($singleProductObj);
+                $productObject = $this->getProductParentObject($singleProductObj);
                 if (!empty($productObject) && $productObject instanceof DataObject\CSProducts) {
                     $productObject->setGetInheritedValues(true);
                 }
@@ -2594,14 +2649,14 @@ class DefaultController extends FrontendController
         $data = [];
 
         if (isset($productDataImportConfig['ContiPipe and MegaPipe Table Attributes'])) {
-            $attributes  = $productDataImportConfig['ContiPipe and MegaPipe Table Attributes'];
+            $attributes = $productDataImportConfig['ContiPipe and MegaPipe Table Attributes'];
         }
 
         $total_attr = count($attributes);
 
         if ($childObject) {
             foreach ($childObject as $obj) {
-                $obj_attr           =   $obj->getProductAttributes();
+                $obj_attr = $obj->getProductAttributes();
 
                 foreach ($attributes as $fieldName => $brickName) {
                     $getBrick = 'get' . $brickName;
@@ -2672,9 +2727,13 @@ class DefaultController extends FrontendController
      */
     public function templateTextileConveyorBeltsAction(Request $request)
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+        if (!$request->get('contentDocument')->getPublished()) {
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        } else {
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
         $regionProperty = $this->document->getProperty('region');
 
         if (!$regionProperty) {
@@ -2685,7 +2744,7 @@ class DefaultController extends FrontendController
         $catalogCategoryObjectEditable = $this->document->getEditable('cbs_template_textile_belt_services_page');
         $productNameArr = [];
 
-        if ($catalogCategoryObjectEditable) {
+        if ($catalogCategoryObjectEditable && $catalogCategoryObjectEditable->getElement() != null) {
             $catalogCategoryObject = $catalogCategoryObjectEditable->getElement();
             $selectedSecondLevelCategoryId = $catalogCategoryObject->getSecondLevelCategory();
 
@@ -2702,7 +2761,7 @@ class DefaultController extends FrontendController
                 if (!empty($productObject) && $productObject instanceof DataObject\CSProducts) {
                     $productObject->setGetInheritedValues(true);
                 }
-                if ($productObject  && ($productObject->isPublished()) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion()))) {
+                if ($productObject && ($productObject->isPublished()) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion()))) {
                     $productNameArr['Name'] = trim($productObject->getName());
                     $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
                     $productNameArr['ShortText'] = $productObject->getShortText();
@@ -2724,9 +2783,14 @@ class DefaultController extends FrontendController
      */
     public function templateSteelcordBeltConstructionAction(Request $request)
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+
+        if (!$request->get('contentDocument')->getPublished()) {
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        } else {
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
         $regionProperty = $this->document->getProperty('region');
 
         if (!$regionProperty) {
@@ -2737,7 +2801,7 @@ class DefaultController extends FrontendController
         $catalogCategoryObjectEditable = $this->document->getEditable('cbs_template_steelcord_belt_construction_page');
         $productNameArr = [];
 
-        if ($catalogCategoryObjectEditable) {
+        if ($catalogCategoryObjectEditable && $catalogCategoryObjectEditable->getElement() != null) {
             $catalogCategoryObject = $catalogCategoryObjectEditable->getElement();
             $selectedSecondLevelCategoryId = $catalogCategoryObject->getSecondLevelCategory();
 
@@ -2754,7 +2818,7 @@ class DefaultController extends FrontendController
                 if (!empty($productObject) && $productObject instanceof DataObject\CSProducts) {
                     $productObject->setGetInheritedValues(true);
                 }
-                if ($productObject  && ($productObject->isPublished()) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion()))) {
+                if ($productObject && ($productObject->isPublished()) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion()))) {
                     $productNameArr['Name'] = trim($productObject->getName());
                     $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
                     $productNameArr['ShortText'] = $productObject->getShortText();
@@ -2776,9 +2840,13 @@ class DefaultController extends FrontendController
      */
     public function templateSybercordTechnologyAction(Request $request): Response
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+        if (!$request->get('contentDocument')->getPublished()) {
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        } else {
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
         $regionProperty = $this->document->getProperty('region');
 
         if (!$regionProperty) {
@@ -2789,7 +2857,7 @@ class DefaultController extends FrontendController
         $catalogTableObjectEditable = $this->document->getEditable('cbs_template_sybercord_technology_construction_page');
         $productNameArr = [];
 
-        if ($catalogTableObjectEditable) {
+        if ($catalogTableObjectEditable && $catalogTableObjectEditable->getElement() != null) {
             $catalogTableObject = $catalogTableObjectEditable->getElement();
             $selectedProduct = [];
 
@@ -2804,8 +2872,8 @@ class DefaultController extends FrontendController
                     if (!empty($productObject) && $productObject instanceof DataObject\CSProducts) {
                         $productObject->setGetInheritedValues(true);
                     }
-                    if ($productObject  && ($productObject->isPublished()) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion()))) {
-                        $parentParentObj    =   $this->getProductParentObject($productObject);
+                    if ($productObject && ($productObject->isPublished()) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion()))) {
+                        $parentParentObj = $this->getProductParentObject($productObject);
                         $parentParentObj->setGetInheritedValues(true);
                         if (!empty($parentParentObj) && $parentParentObj instanceof DataObject\CSProducts) {
                             $productNameArr['HierarchyNameLevel2'] = $parentParentObj->getName();
@@ -2865,9 +2933,13 @@ class DefaultController extends FrontendController
      */
     public function templateConveyorBeltGroupAction(Request $request): Response
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+        if (!$request->get('contentDocument')->getPublished()) {
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        } else {
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
         return $this->render("contitechcscatalog/default/template_conveyor_belt_group.html.twig", $parameterBag);
     }
 
@@ -2878,9 +2950,13 @@ class DefaultController extends FrontendController
      */
     public function templateContiCleanAction(Request $request): Response
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+        if (!$request->get('contentDocument')->getPublished()) {
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        } else {
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
         $regionProperty = $this->document->getProperty('region');
 
         if (!$regionProperty) {
@@ -2890,7 +2966,7 @@ class DefaultController extends FrontendController
         $regionId = $regionProperty->getId();
         $catalogTableObjectEditable = $this->document->getEditable('cbs_conti_clean');
         $productData = [];
-        if ($catalogTableObjectEditable) {
+        if ($catalogTableObjectEditable && $catalogTableObjectEditable->getElement() != null) {
             $catalogTableObject = $catalogTableObjectEditable->getElement();
             if ($catalogTableObject) {
                 $selectedProduct = $catalogTableObject->getProducts();
@@ -2900,7 +2976,7 @@ class DefaultController extends FrontendController
                     if (!empty($productObject) && $productObject instanceof DataObject\CSProducts) {
                         $productObject->setGetInheritedValues(true);
                     }
-                    if ($productObject  && ($productObject->isPublished()) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion()))) {
+                    if ($productObject && ($productObject->isPublished()) && (empty($productObject->getCSRegion()) || in_array($regionId, $productObject->getCSRegion()))) {
                         $productData['Name'] = $productObject->getName();
                         $productData['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
                         $productData['ShortText'] = $productObject->getShortText();
@@ -2960,15 +3036,15 @@ class DefaultController extends FrontendController
      */
     private function getContiCleanMaterials($productObject): array
     {
-        $materials  = [];
-        $objAttr    = $productObject->getProductAttributes();
+        $materials = [];
+        $objAttr = $productObject->getProductAttributes();
 
         if (method_exists($objAttr, 'getMaterial') && method_exists($objAttr->getMaterial(), 'getMaterial')) {
             $arr = $objAttr->getMaterial()->getMaterial();
 
             if ($arr) {
                 foreach ($arr as $materialId) {
-                    $obj  = DataObject\CSMaterial::getById($materialId);
+                    $obj = DataObject\CSMaterial::getById($materialId);
 
                     if (method_exists($obj, "getMaterialName")) {
                         $value = $obj->getMaterialName();
@@ -2988,9 +3064,13 @@ class DefaultController extends FrontendController
      */
     public function templateCreatedWithBricksAction(Request $request): Response
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+        if (!$request->get('contentDocument')->getPublished()) {
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        } else {
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
         return $this->render("contitechcscatalog/default/templates_with_bricks.html.twig", $parameterBag);
     }
 
@@ -3004,8 +3084,8 @@ class DefaultController extends FrontendController
     public function resetTableOfContentPageData(Request $request): JsonResponse
     {
         try {
-            $docId  = $request->get('docId');
-            $sql    = "DELETE FROM documents_editables where documentId = '$docId'";
+            $docId = $request->get('docId');
+            $sql = "DELETE FROM documents_editables where documentId = '$docId'";
             $this->db->query($sql);
 
             return $this->json(array("success" => true, "msg" => 'Content Reset Successfully.'));

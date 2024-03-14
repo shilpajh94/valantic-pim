@@ -51,11 +51,23 @@ class HydraulicFittingController extends FrontendController
         $this->attributeImages = $common->getParameter($attributeImagesConfig, 'attributeImages');
         $catalogImagesHYDFooter = $common->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
 
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+        if(!$request->get('contentDocument')->getPublished()){
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        }
+        else{
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
 
-        if ($this->document->getEditable('fitting-straight')->getElement() instanceof  \Pimcore\Model\DataObject) {
+        $parameterBag['HydFittingFamily'] = '';
+        $parameterBag['iconRequired'] = '';
+        $parameterBag['brandsData'] = '';
+        $parameterBag['skiveTypeSortKeys'] = '';
+        $parameterBag['footer_class'] = '';
+        $parameterBag['footer_logo_src'] = '';
+
+        if ($this->document->getEditable('fitting-straight') && $this->document->getEditable('fitting-straight')->getElement() instanceof  \Pimcore\Model\DataObject) {
             $id = $this->document->getEditable('fitting-straight')->getId();
             $obj = \Pimcore\Model\DataObject::getById($id);
 
@@ -182,8 +194,8 @@ class HydraulicFittingController extends FrontendController
                                     foreach ($columnsDataWithImages as $svalue) {
                                         foreach ($svalue as $vvalue) {
                                             if(isset($vvalue['columnName'])){
-                                                $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];    
-                                            }                                            
+                                                $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
+                                            }
                                         }
                                     }
                                     if (isset($headerKeysIndex['DescriptivePartNumber']) && $articles[$headerKeysIndex['DescriptivePartNumber']]) {
@@ -252,7 +264,7 @@ class HydraulicFittingController extends FrontendController
                     }else{
                         $newBrandArray[$brandKey]['SortOrder'] = null;
                     }
-                    
+
                     unset($sortedBrandsData[$brandKey]);
                 }
                 if ($newBrandArray) {

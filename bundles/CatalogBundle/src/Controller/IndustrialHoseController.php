@@ -40,9 +40,15 @@ class IndustrialHoseController extends FrontendController
 
     public function templateIndustrialHoseIndexByApplicationDynamicAction(Request $request)
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+
+        if(!$request->get('contentDocument')->getPublished()){
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        }
+        else{
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
         try {
             $folderId = $this->document->getParent()->getId();
             $listing = new \Pimcore\Model\Document\Listing();
@@ -165,9 +171,15 @@ class IndustrialHoseController extends FrontendController
 
     public function templateIndustrialHoseIndexByAlphabetDynamicAction(Request $request)
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+
+        if(!$request->get('contentDocument')->getPublished()){
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        }
+        else{
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
         try {
             $folderId = $this->document->getParent()->getId();
             $listing = new \Pimcore\Model\Document\Listing();
@@ -287,9 +299,15 @@ class IndustrialHoseController extends FrontendController
 
     public function templateIndustrialHoseTableOfContentsDynamicAction(Request $request)
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+
+        if(!$request->get('contentDocument')->getPublished()){
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        }
+        else{
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
 
         try {
             $folderId = $this->document->getParent()->getId();
@@ -386,13 +404,18 @@ class IndustrialHoseController extends FrontendController
         $inhSectionPageConfig = $this->containerInterface->get('app.config_provider_service')->getINHSectionPageConfig()['parameters'];
         $catalogImagesINHFooter = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHFooter'];
 
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+        if(!$request->get('contentDocument')->getPublished()){
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        }
+        else{
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
 
         $templateEditable = $this->document->getEditable('inh-printcatalog');
 
-        if ($templateEditable) {
+        if ($templateEditable && $templateEditable->getElement() != null) {
             $template = $templateEditable->getElement();
 
             $catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());
@@ -517,13 +540,18 @@ class IndustrialHoseController extends FrontendController
 
         $brandsData = array();
 
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+        if(!$request->get('contentDocument')->getPublished()){
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        }
+        else{
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
 
         $templateEditable = $this->document->getEditable('inh-printcatalogproduct');
 
-        if ($templateEditable) {
+        if ($templateEditable && $templateEditable->getElement() != null) {
             $template = $templateEditable->getElement();
             if($template){
 
@@ -854,12 +882,18 @@ class IndustrialHoseController extends FrontendController
      */
     public function inhFittingPageAction(Request $request)
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+
+        if(!$request->get('contentDocument')->getPublished()){
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        }
+        else{
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
 
         $templateEditable = $this->document->getEditable('inh_fitting_page');
-        if ($templateEditable) {
+        if ($templateEditable && $templateEditable->getElement() != null) {
             $template = $templateEditable->getElement();
             $commonHelper = $this->containerInterface->get('app.common_helper');
             $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
@@ -1042,11 +1076,17 @@ class IndustrialHoseController extends FrontendController
     public function inhFittingCoverAction(Request $request)
     {
         $templatesEditable = $this->document->getEditable('inh_fitting_cover_page');
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
 
-        if ($templatesEditable) {
+        if(!$request->get('contentDocument')->getPublished()){
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        }
+        else{
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
+
+        if ($templatesEditable && $templatesEditable->getEditable() != null) {
             $templates = $templatesEditable->getElements();
             $commonHelper = $this->containerInterface->get('app.common_helper');
 

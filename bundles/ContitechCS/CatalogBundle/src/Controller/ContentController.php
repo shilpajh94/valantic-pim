@@ -35,9 +35,15 @@ class ContentController extends FrontendController
      */
     public function pdfAction(Request $request): Response
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+
+        if(!$request->get('contentDocument')->getPublished()){
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        }
+        else{
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
 
         $showPDFInput = false;
 
@@ -49,6 +55,10 @@ class ContentController extends FrontendController
 
         $parameterBag['showPDFInput'] = $showPDFInput;
         return $this->render("contitechcscatalog/content/pdf.html.twig", $parameterBag);
+    }
+
+    public function coverPageAction(Request $request) {
+        // function needed for templates/contitechcscatalog/content/coverPage.html.twig
     }
 
     /**

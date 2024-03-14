@@ -1174,9 +1174,6 @@ class DefaultController extends FrontendController
 
     public function templateHoseAccessoriesSleevingAction(Request $request): Response
     {
-        // $documentPath = $this->document->getFullPath();
-        // $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        // $parameterBag = $this->getRequestedParameter($request, $documentId);
 
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
@@ -1350,9 +1347,6 @@ class DefaultController extends FrontendController
 
     public function templateHoseAccessoriesClampsAction(Request $request)
     {
-        // $documentPath = $this->document->getFullPath();
-        // $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        // $parameterBag = $this->getRequestedParameter($request, $documentId);
 
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
@@ -1464,9 +1458,6 @@ class DefaultController extends FrontendController
 
     public function templateHoseAccessoriesOringAction(Request $request)
     {
-        // $documentPath = $this->document->getFullPath();
-        // $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        // $parameterBag = $this->getRequestedParameter($request, $documentId);
 
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
@@ -1602,9 +1593,6 @@ class DefaultController extends FrontendController
 
     public function templateTableOfContentsAction(Request $request): Response
     {
-        // $documentPath = $this->document->getFullPath();
-        // $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        // $parameterBag = $this->getRequestedParameter($request, $documentId);
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
@@ -1618,9 +1606,6 @@ class DefaultController extends FrontendController
 
     public function templateHydraulicTableOfContentsDynamicAction(Request $request)
     {
-        // $documentPath = $this->document->getFullPath();
-        // $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        // $parameterBag = $this->getRequestedParameter($request, $documentId);
 
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
@@ -1779,9 +1764,6 @@ class DefaultController extends FrontendController
 
     public function templatePartNumberDesignationsAction(Request $request)
     {
-        // $documentPath = $this->document->getFullPath();
-        // $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        // $parameterBag = $this->getRequestedParameter($request, $documentId);
 
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
@@ -2053,9 +2035,6 @@ class DefaultController extends FrontendController
 
     public function templateFittingSplitFlangesAction(Request $request): Response
     {
-        // $documentPath = $this->document->getFullPath();
-        // $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        // $parameterBag = $this->getRequestedParameter($request, $documentId);
 
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
@@ -2166,9 +2145,6 @@ class DefaultController extends FrontendController
 
     public function containerAction(Request $request): Response
     {
-        // $documentPath = $this->document->getFullPath();
-        // $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        // $parameterBag = $this->getRequestedParameter($request, $documentId);
 
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
@@ -2234,10 +2210,6 @@ class DefaultController extends FrontendController
     public function templatePtgProductPageAction(Request $request): Response
     {
         $templateEditable = $this->document->getEditable('ptg_product_page');
-
-        // $documentPath = $this->document->getFullPath();
-        // $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        // $parameterBag = $this->getRequestedParameter($request, $documentId);
 
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
@@ -2680,17 +2652,27 @@ class DefaultController extends FrontendController
 
     public function templateIndexDescriptiveNumberAction(Request $request): Response
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+        if(!$request->get('contentDocument')->getPublished()){
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        }
+        else{
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
         return $this->render("catalog/default/template_index_descriptive_number.html.twig", $parameterBag);
     }
 
     public function templateHydraulicAlphanumericIndexByDescriptiveNumberDynamicAction(Request $request): Response
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+        if(!$request->get('contentDocument')->getPublished()){
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        }
+        else{
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
         try {
             $folderId = $this->document->getParent()->getId();
             $listing = new \Pimcore\Model\Document\Listing();
@@ -2755,9 +2737,14 @@ class DefaultController extends FrontendController
 
     public function templateHydraulicAlphanumericIndexByProductNumberDynamicAction(Request $request)
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+        if(!$request->get('contentDocument')->getPublished()){
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        }
+        else{
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
         try {
             $folderId = $this->document->getParent()->getId();
             $listing = new \Pimcore\Model\Document\Listing();
@@ -2821,9 +2808,15 @@ class DefaultController extends FrontendController
 
     public function templateIndexProductNumberAction(Request $request): Response
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+
+        if(!$request->get('contentDocument')->getPublished()){
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        }
+        else{
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
         return $this->render("catalog/default/template_index_product_number.html.twig", $parameterBag);
     }
 
