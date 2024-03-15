@@ -734,13 +734,13 @@ class DefaultController extends FrontendController
             $parameterBag = $this->getRequestedParameter($request, $documentId);
         }
 
-        $templateEditable = $this->document->getEditable('inh_template_hose_product_page');
+        $templateEditable = $this->document->getEditable('tiletemplate');
 
         $commonHelper = $this->containerInterface->get('app.common_helper');
         $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
         $catalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
 
-        if ($templateEditable) {
+        if ($templateEditable && $templateEditable->getElement() != null) {
             $template = $templateEditable->getElement();
 
             $footerBgColor = $template->getColor();
