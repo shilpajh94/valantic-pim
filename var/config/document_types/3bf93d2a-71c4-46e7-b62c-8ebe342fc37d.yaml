@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                3bf93d2a-71c4-46e7-b62c-8ebe342fc37d:
+                    name: 'Industrial Hose Index By Application (Dynamic)'
+                    group: 'Industrial Hose Template'
+                    controller: 'CatalogBundle\Controller\IndustrialHoseController::templateIndustrialHoseIndexByApplicationDynamicAction'
+                    template: catalog/inh/template_industrial_hose_index_by_application_dynamic.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710425082
+                    modificationDate: 1710425127
+                    staticGeneratorEnabled: false

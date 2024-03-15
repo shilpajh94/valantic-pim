@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                99aca276-6cd3-4076-b723-5f1759d1a2d5:
+                    name: 'PTGEU Profile Page'
+                    group: 'PTGEU Template'
+                    controller: 'PTGEU\CatalogBundle\Controller\DefaultController::templatePtgEuProductProfileAction'
+                    template: ptgeucatalog/default/template_ptg_eu_product_profile.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710423514
+                    modificationDate: 1710423615
+                    staticGeneratorEnabled: false

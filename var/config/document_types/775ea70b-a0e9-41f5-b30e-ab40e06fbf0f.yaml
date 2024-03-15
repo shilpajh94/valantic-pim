@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                775ea70b-a0e9-41f5-b30e-ab40e06fbf0f:
+                    name: 'PTGEU Container'
+                    group: 'PTGEU Template'
+                    controller: 'PTGEU\CatalogBundle\Controller\DefaultController::containerAction'
+                    template: ptgeucatalog/default/container.html.twig
+                    type: printcontainer
+                    priority: 0
+                    creationDate: 1710423643
+                    modificationDate: 1710480030
+                    staticGeneratorEnabled: false

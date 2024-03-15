@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                05c6a3e5-76f6-4e40-8bc3-2f9c15759a88:
+                    name: 'HYD Alphanumeric Index by Descriptive Number (Dynamic)'
+                    group: 'Hydraulic Template'
+                    controller: 'CatalogBundle\Controller\DefaultController::templateHydraulicAlphanumericIndexByDescriptiveNumberDynamicAction'
+                    template: catalog/default/template_hydraulic_alphanumeric_index_by_descriptive_number_dynamic.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710315129
+                    modificationDate: 1710423966
+                    staticGeneratorEnabled: false

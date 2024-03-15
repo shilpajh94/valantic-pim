@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                fda6d4a4-4b6e-4398-b9da-38c1611e21f3:
+                    name: 'HYD Table of Contents (Dynamic)'
+                    group: 'Hydraulic Template'
+                    controller: 'CatalogBundle\Controller\DefaultController::templateHydraulicTableOfContentsDynamicAction'
+                    template: catalog/default/template_hydraulic_table_of_contents_dynamic.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710424080
+                    modificationDate: 1710424124
+                    staticGeneratorEnabled: false

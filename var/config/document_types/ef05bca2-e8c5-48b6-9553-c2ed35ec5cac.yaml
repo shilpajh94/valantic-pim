@@ -2,13 +2,13 @@ pimcore:
     documents:
         doc_types:
             definitions:
-                4cd05051-4f36-42c3-b972-0218b749bcc5:
+                ef05bca2-e8c5-48b6-9553-c2ed35ec5cac:
                     name: 'Conti Inspect Systems'
                     group: 'Conveyor Solution'
                     controller: 'ContitechCS\CatalogBundle\Controller\DefaultController::templateContiInspectSystemsAction'
                     template: contitechcscatalog/default/template_conti_inspect_systems.html.twig
-                    type: page
+                    type: printpage
                     priority: 0
-                    creationDate: 1710331993
-                    modificationDate: 1710332044
+                    creationDate: 1710425506
+                    modificationDate: 1710425582
                     staticGeneratorEnabled: false
