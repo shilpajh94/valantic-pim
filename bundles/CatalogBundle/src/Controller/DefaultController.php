@@ -725,9 +725,14 @@ class DefaultController extends FrontendController
 
     public function templateHoseLineTileTemplateAction(Request $request): Response
     {
-        $documentPath = $this->document->getFullPath();
-        $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-        $parameterBag = $this->getRequestedParameter($request, $documentId);
+        if(!$request->get('contentDocument')->getPublished()){
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        }
+        else{
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
 
         $templateEditable = $this->document->getEditable('inh_template_hose_product_page');
 
