@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                34fc664a-9066-48eb-be57-5f9f8ff4ddf5:
+                    name: 'INH Table of Contents (Dynamic)'
+                    group: 'Industrial Hose Template'
+                    controller: 'CatalogBundle\Controller\IndustrialHoseController::templateIndustrialHoseTableOfContentsDynamicAction'
+                    template: catalog/inh/template_industrial_hose_table_of_contents_dynamic.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710424848
+                    modificationDate: 1710424975
+                    staticGeneratorEnabled: false

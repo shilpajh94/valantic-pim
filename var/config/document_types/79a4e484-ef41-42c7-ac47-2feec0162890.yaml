@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                79a4e484-ef41-42c7-ac47-2feec0162890:
+                    name: 'PTGEU Product Page'
+                    group: 'PTGEU Template'
+                    controller: 'PTGEU\CatalogBundle\Controller\DefaultController::templatePtgEuProductPageAction'
+                    template: ptgeucatalog/default/template_ptg_eu_product_page.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710423319
+                    modificationDate: 1710423757
+                    staticGeneratorEnabled: false
