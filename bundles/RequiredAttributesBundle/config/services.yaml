@@ -42,3 +42,6 @@ services:
 
     Pimcore\Bundle\XliffBundle\Controller\XliffTranslationController:
         class: RequiredAttributesBundle\Controller\CustomXliffTranslationController
+
+    Pimcore\Bundle\AdminBundle\Controller\Admin\Asset\AssetController:
+        class: RequiredAttributesBundle\Controller\CustomAssetController
