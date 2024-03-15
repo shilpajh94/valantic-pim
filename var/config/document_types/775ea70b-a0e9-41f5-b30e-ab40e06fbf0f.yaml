@@ -7,8 +7,8 @@ pimcore:
                     group: 'PTGEU Template'
                     controller: 'PTGEU\CatalogBundle\Controller\DefaultController::containerAction'
                     template: ptgeucatalog/default/container.html.twig
-                    type: printpage
+                    type: printcontainer
                     priority: 0
                     creationDate: 1710423643
-                    modificationDate: 1710423710
+                    modificationDate: 1710480030
                     staticGeneratorEnabled: false
