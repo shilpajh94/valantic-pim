@@ -1,0 +1,5 @@
+ad_integration:
+    resource: "@ADIntegrationBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
