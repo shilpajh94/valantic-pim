@@ -17,9 +17,9 @@
 
         <input type="text" name="username" autocomplete="username" placeholder="{{ 'username'|trans([], 'admin') }}" required autofocus>
         <input type="password" name="password" autocomplete="current-password" placeholder="{{ 'password'|trans([], 'admin') }}" required>
-        <input type="hidden" name="csrfToken" id="csrfToken" value="{{ pimcore_csrf.getCsrfToken(app.request.session) }}">
-        			<a class="btn btn-link" href="{{ path('saml_login') }}"><button class="login-btn" type="button">{{ 'Login With CCC SSO'|trans([], 'admin') }}</button></a>
+        <input type="hidden" name="csrfToken" id="csrfToken" value="{{ pimcore_csrf.getCsrfToken(app.request.session) }}">        			
         <button type="submit">{{ 'login'|trans([], 'admin') }}</button>
+        <a class="btn btn-link" href="{{ path('saml_login') }}"><button class="login-btn" type="button">{{ 'Login With CCC SSO'|trans([], 'admin') }}</button></a>
     </form>
 
     <a href="{{ path('pimcore_admin_login_lostpassword') }}" class="lostpassword">{{ 'Forgot your password'|trans([], 'admin') }}</a>
