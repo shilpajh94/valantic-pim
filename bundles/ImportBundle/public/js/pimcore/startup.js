@@ -87,12 +87,12 @@ pimcore.plugin.ImportBundle = Class.create({
                                             Ext.getCmp('exportbtn').hide();
                                         }
                                         this.showGrid(tabObject, e.detail.object.id, e.detail.object.edit.dataFields.sapRange.data, e.detail.object.edit.dataFields.selectBrandName.data.split(","));
-                                        Ext.getCmp('dataGrid').hide(false);
-                                        Ext.getCmp('dataGrid').show();
+                                        Ext.getCmp('dataGrid_'+objectId).hide(false);
+                                        Ext.getCmp('dataGrid_'+objectId).show();
         
                                     }else if(e.detail.object.edit.dataFields.sapRange.data == 'PrintedCatalog'){
-                                        if(Ext.getCmp('dataGrid')){
-                                            Ext.getCmp('dataGrid').hide();
+                                        if(Ext.getCmp('dataGrid_'+objectId)){
+                                            Ext.getCmp('dataGrid_'+objectId).hide();
                                         }
                                         if(Ext.getCmp('exportbtn')){
                                             Ext.getCmp('exportbtn').hide();
@@ -108,8 +108,8 @@ pimcore.plugin.ImportBundle = Class.create({
                                         this.sapRangeData = s.getValue();
                                         if(this.sapRangeData == 'CustomSelection'){
                                             this.showGrid(tabObject, e.detail.object.id, s.getValue(), e.detail.object.edit.dataFields.selectBrandName.data.split(",") );
-                                            Ext.getCmp('dataGrid').hide(false);
-                                            Ext.getCmp('dataGrid').show();
+                                            Ext.getCmp('dataGrid_'+objectId).hide(false);
+                                            Ext.getCmp('dataGrid_'+objectId).show();
                                             if(Ext.getCmp('exportbtn')){
                                                 Ext.getCmp('exportbtn').hide();
                                             }
@@ -117,8 +117,8 @@ pimcore.plugin.ImportBundle = Class.create({
                                             if(Ext.getCmp('exportbtn')){
                                                 Ext.getCmp('exportbtn').hide();
                                             }
-                                            if(Ext.getCmp('dataGrid')){
-                                                Ext.getCmp('dataGrid').hide();
+                                            if(Ext.getCmp('dataGrid_'+objectId)){
+                                                Ext.getCmp('dataGrid_'+objectId).hide();
                                             }
                                             this.listAllFerts(tabObject, e.detail.object.id);
                                         }
@@ -134,8 +134,8 @@ pimcore.plugin.ImportBundle = Class.create({
                                         if(Ext.getCmp('exportbtn')){
                                             Ext.getCmp('exportbtn').hide();
                                         }
-                                        if(Ext.getCmp('dataGrid')){
-                                            Ext.getCmp('dataGrid').hide();
+                                        if(Ext.getCmp('dataGrid_'+objectId)){
+                                            Ext.getCmp('dataGrid_'+objectId).hide();
                                         }
                                         this.listAllFerts(tabObject, e.detail.object.id);
                                     }
@@ -149,8 +149,8 @@ pimcore.plugin.ImportBundle = Class.create({
                                         if(Ext.getCmp('exportbtn')){
                                             Ext.getCmp('exportbtn').hide();
                                         }
-                                        if(Ext.getCmp('dataGrid')){
-                                            Ext.getCmp('dataGrid').hide();
+                                        if(Ext.getCmp('dataGrid_'+objectId)){
+                                            Ext.getCmp('dataGrid_'+objectId).hide();
                                         }
                                         this.listAllFerts(tabObject, e.detail.object.id);
                                     }
@@ -158,8 +158,8 @@ pimcore.plugin.ImportBundle = Class.create({
                                         this.sapRangeData = s.getValue();
                                         if(this.sapRangeData == 'CustomSelection'){
                                             this.showGrid(tabObject, e.detail.object.id, s.getValue(), event.getValue());
-                                            Ext.getCmp('dataGrid').hide(false);
-                                            Ext.getCmp('dataGrid').show();
+                                            Ext.getCmp('dataGrid_'+objectId).hide(false);
+                                            Ext.getCmp('dataGrid_'+objectId).show();
                                             if(Ext.getCmp('exportbtn')){
                                                 Ext.getCmp('exportbtn').hide();
                                             }
@@ -167,8 +167,8 @@ pimcore.plugin.ImportBundle = Class.create({
                                             if(Ext.getCmp('exportbtn')){
                                                 Ext.getCmp('exportbtn').hide();
                                             }
-                                            if(Ext.getCmp('dataGrid')){
-                                                Ext.getCmp('dataGrid').hide();
+                                            if(Ext.getCmp('dataGrid_'+objectId)){
+                                                Ext.getCmp('dataGrid_'+objectId).hide();
                                             }
                                             this.listAllFerts(tabObject, e.detail.object.id);
                                         }
@@ -206,7 +206,7 @@ pimcore.plugin.ImportBundle = Class.create({
         this.grid = Ext.create('Ext.grid.Panel', {
             title: 'Data',
             store: this.store,
-            id: 'dataGrid',            
+            id: 'dataGrid_'+objectId,            
             columns: [{
                 text: 'Id',
                 dataIndex: 'id',
@@ -268,17 +268,17 @@ pimcore.plugin.ImportBundle = Class.create({
             buttons: [{
                 text: 'Select All',
                 handler: function () {
-                    Ext.getCmp('dataGrid').getSelectionModel().selectAll();
+                    Ext.getCmp('dataGrid_'+objectId).getSelectionModel().selectAll();
                 }
             }, {
                 text: 'Deselect All',
                 handler: function () {
-                    Ext.getCmp('dataGrid').getSelectionModel().deselectAll();
+                    Ext.getCmp('dataGrid_'+objectId).getSelectionModel().deselectAll();
                 }
             },{
                 text:'Export Selected Record',
                 handler:function(){
-                    var selection = Ext.getCmp('dataGrid').getSelection();
+                    var selection = Ext.getCmp('dataGrid_'+objectId).getSelection();
                     var fieldArray = new Array();
                     for(let i in selection){
                         fieldArray.push((selection[i].data.articleNumber))
