@@ -37,7 +37,7 @@ class TempTablePopulatorHelper
         foreach($allModifiedProductIdsWithProductType as $productIdWithProductType){
             if($productIdWithProductType["ProductType"] == "base" ){
                 $returnValue = array_merge($this->getFertIdsForBaseId($productIdWithProductType["id"]), $returnValue);
-            }else if($productIdWithProductType["ProductType"] == "skeleton"){
+            }elseif($productIdWithProductType["ProductType"] == "skeleton"){
                 $returnValue = array_merge($this->getFertIdsForSkeletonId($productIdWithProductType["id"]), $returnValue);
             }else{
                 $returnValue[] = $productIdWithProductType["id"];

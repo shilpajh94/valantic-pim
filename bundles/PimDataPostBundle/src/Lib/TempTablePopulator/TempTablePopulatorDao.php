@@ -58,9 +58,10 @@ class TempTablePopulatorDao
 
     public function getTempTableDataForIds(Array $attribute, Array $pimIDs, String $tableName): Array
     {
+        $resultSet = [];
         if($pimIDs && $attribute && $tableName)
         {
-            array_walk($pimIDs, create_function('&$val','$val = trim($val,",");'));
+            array_walk($pimIDs, function(&$val){$val = trim($val,",");});
 
             $productIds = implode(",",$pimIDs);
             $selectArray = [];
@@ -70,7 +71,7 @@ class TempTablePopulatorDao
             $joinOnString = "";
 
             foreach ($attribute as $tableKey => $value) {
-                if($value['hashField'])
+                if(isset($value['hashField']))
                 {
                     continue;
                 }
@@ -80,7 +81,7 @@ class TempTablePopulatorDao
                     continue;
                 }
 
-                if($value['conditionalFieldName'])
+                if(isset($value['conditionalFieldName']))
                 {
                     $selectArray[] = $value['conditionalFieldName'];
                 }
@@ -88,13 +89,12 @@ class TempTablePopulatorDao
                     $selectArray[] = $value['pim_table_name'].".".$value['pim_attribute_name']. " AS {$tableKey}";
                 }
 
-
-                if($value['joinOn'] && !in_array($value['joinOn'], $joinOnArray))
+                if(isset($value['joinOn']) && !in_array($value['joinOn'], $joinOnArray))
                 {
                     $joinOnArray[] = $value['joinOn'];
                 }
 
-                if($value['addOnJoin'] && !in_array($value['addOnJoin'], $secondJoinOnArray))
+                if(isset($value['addOnJoin']) && !in_array($value['addOnJoin'], $secondJoinOnArray))
                 {
                     $secondJoinOnArray[] = $value['addOnJoin'];
                 }
@@ -179,7 +179,11 @@ class TempTablePopulatorDao
                 // inserting records in batch
                 if ($rowCount % Constants::INSERT_BATCH_SIZE == 0) {
                     $query = $sql.rtrim($values, ',');
-                    $this->db->executeQuery($query);
+                    try{
+                        $this->db->executeQuery($query);
+                    } catch(\Exception $e) {
+                        p_r($e->getMessage());
+                    }
                     $values = '';
                 }
                 $rowCount++;
@@ -188,7 +192,11 @@ class TempTablePopulatorDao
             if ($values) {
                 $query = $sql.rtrim($values, ',');
                 $query;
-                $this->db->executeQuery($query);
+                try{
+                    $this->db->executeQuery($query);
+                } catch(\Exception $e) {
+                    p_r($e->getMessage());
+                }
             }
         }
     }

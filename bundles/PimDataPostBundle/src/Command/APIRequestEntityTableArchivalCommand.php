@@ -64,7 +64,7 @@ class APIRequestEntityTableArchivalCommand extends AbstractCommand
         if(count($archiveRecords)> 1)
         {
             $fileName = date("M")."_archive_".time().".csv";
-            $filePath = PIMCORE_TEMPORARY_DIRECTORY . "/" . $fileName;
+            $filePath = PIMCORE_SYSTEM_TEMP_DIRECTORY . "/" . $fileName;
             $b2bAPIRequestArchiveFolder = $archiveFolder."/".date("Y");
 
             $isFileCreated = Util::createCsvFile($filePath, $archiveRecords);

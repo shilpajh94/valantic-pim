@@ -19,12 +19,11 @@ class B2CProductTempTablePopulatorDao extends TempTablePopulatorDao
 
     public function getExistingTempTableData($object_id)
     {
-        $resultSet = [];
         if($object_id)
         {
-            $query = "SELECT * FROM ".Constants::B2C_PRODUCT_TEMP_TABLE_NAME. " WHERE id = {$object_id}";
-            $resultSet = $this->db->fetchAssociative($query);
+            $query = "SELECT * FROM ".Constants::B2C_PRODUCT_TEMP_TABLE_NAME. " WHERE o_id = {$object_id}";
+            return $this->db->fetchAssociative($query);
         }
-        return $resultSet;
+        return [];
     }
 }

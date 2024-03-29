@@ -107,7 +107,6 @@ Class Util
     {
         // $session = self::getService('session');
         $key = Constants::B2B_SCRIPT_START_TIME_SESSION_KEY;
-        p_r($GLOBALS[$key]);
         return $GLOBALS[$key];
         // return $session->get($key);
     }
@@ -192,7 +191,7 @@ Class Util
     {
         // $session = self::getService('session');
         $key = Constants::B2B_FAILURE_IDS_SESSION_KEY;
-        return $GLOBALS[$key] === null ? [] : $GLOBALS[$key];
+        return (array_key_exists($key, $GLOBALS) ? ($GLOBALS[$key] === null ? [] : $GLOBALS[$key]) : []);
         // return $session->get($key) === null ? [] : $session->get($key);
     }
 
@@ -211,7 +210,7 @@ Class Util
     {
         // $session = self::getService('session');
         $key = Constants::B2B_SUCCESS_IDS_SESSION_KEY;
-        return $GLOBALS[$key] === null ? [] : $GLOBALS[$key];
+        return (array_key_exists($key, $GLOBALS) ? ($GLOBALS[$key] === null ? [] : $GLOBALS[$key]) : []);
         // return $session->get($key) === null ? [] : $session->get($key);
     }
 
@@ -219,7 +218,7 @@ Class Util
     {
         // $session = self::getService('session');
         $key = Constants::B2C_SUCCESS_IDS_SESSION_KEY;
-        return $GLOBALS[$key] === null ? [] : $GLOBALS[$key];
+        return (array_key_exists($key, $GLOBALS) ? ($GLOBALS[$key] === null ? [] : $GLOBALS[$key]) : []);
         // return $session->get($key) === null ? [] : $session->get($key);
     }
 

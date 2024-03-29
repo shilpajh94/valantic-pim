@@ -14,21 +14,21 @@ class B2CProductRequestBodyGenerator extends AbstractB2CRequestBodyGenerator
     private $requestBodyGeneratorHelper;
 
     private $b2cProductRequestBodyGeneratorDao;
-    
+
     private $config;
-    
+
     private $classDefinition;
-    
-    
-    
+
+
+
     public function __construct()
     {
         $this->requestBodyGeneratorHelper = new RequestBodyGeneratorHelper($this);
         $this->b2cProductRequestBodyGeneratorDao = new B2CProductRequestBodyGeneratorDao();
         $configProviderService = new B2CProductAttributeConfigProvider();
         $this->config = $configProviderService->getCompleteAttributeConfig();
-        
-        
+
+
         $this->allowedAttributeTypes = [
             strtolower(PimFieldType::SELECT()),
             strtolower(PimFieldType::MULTISELECT()),
@@ -41,7 +41,7 @@ class B2CProductRequestBodyGenerator extends AbstractB2CRequestBodyGenerator
             strtolower(PimFieldType::SALES_FORCE_ID()),
             strtolower(PimFieldType::IMAGE())
         ];
-        
+
     }
 
     /**
@@ -109,7 +109,7 @@ class B2CProductRequestBodyGenerator extends AbstractB2CRequestBodyGenerator
                         $returnArray = array_merge($returnArray, $documentArray);
                     }
 
-                    if(isset($attributeConfig['sf_attribute_format']) && 
+                    if(isset($attributeConfig['sf_attribute_format']) &&
                     $attributeConfig['sf_attribute_format']!= null && $attributeConfig['sf_attribute_format']!='')
                     {
                         $returnArray[$attributeConfig['sf_attribute_name']] = str_replace('<VALUE>', $returnArray[$attributeConfig['sf_attribute_name']], $attributeConfig['sf_attribute_format']);
@@ -120,11 +120,11 @@ class B2CProductRequestBodyGenerator extends AbstractB2CRequestBodyGenerator
                     {
                         $returnArray[$attributeConfig['sf_attribute_name']] = (float) $returnArray[$attributeConfig['sf_attribute_name']];
                     }
-                        
+
                 }
             }
         }
-        $returnArray["online_flag"] = $tempTableData["B2CStoreFlag"] && $tempTableData["published"];
+        $returnArray["online_flag"] = $tempTableData["B2CStoreFlag"] && $tempTableData["o_published"];
         $returnArray["searchable"] =  $returnArray["online_flag"];
         $returnArray["owning_catalog_id"] = (new B2CProductHelper())->getCatalogId();
         unset($returnArray["Document"]);
@@ -144,7 +144,7 @@ class B2CProductRequestBodyGenerator extends AbstractB2CRequestBodyGenerator
                 $path = Util::getAssetPublicPath($documentAsset, null);
                 if($documentAsset->getType() != 'video'){
                     $extension = pathinfo($path, PATHINFO_EXTENSION);
-                    if(($extension == 'pdf' || $extension =='PDF') 
+                    if(($extension == 'pdf' || $extension =='PDF')
                         && ($returnArray['c_hosePDF1'] == '' || $returnArray['c_hosePDF2'] == '')
                     ){
                         if($returnArray['c_hosePDF1'] == ''){
@@ -159,8 +159,8 @@ class B2CProductRequestBodyGenerator extends AbstractB2CRequestBodyGenerator
         }
         return $returnArray;
     }
-    
-    
+
+
     public function generateCreateRequestBody(array $tempTableData): array
     {
         return [];
@@ -175,7 +175,7 @@ class B2CProductRequestBodyGenerator extends AbstractB2CRequestBodyGenerator
     {
         return [];
     }
-    
+
     public function getClassDefinition($className) {
         if (empty($this->classDefinition[$className])) {
             $def = \Pimcore\Model\DataObject\ClassDefinition::getByName($className);
