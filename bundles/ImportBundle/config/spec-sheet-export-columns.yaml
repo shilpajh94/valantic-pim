@@ -15,116 +15,116 @@ articleNumber:
 #   fieldLevel: class
 #   fieldLabel: ID
 #   fieldType: Input
-sixDigitVirtualCatalogDescription:
-  fieldName: sixDigitVirtualCatalogDescription
-  fieldLevel: objectBrick
-  fieldLabel: Six Digit Virtual Catalog Description
-  columnName: sixDigitVirtualCatalogDescription
-  fieldType: Number
-  objectBrickName: HoseBase
-  objectBrickLocation: Base
-temperatureRangeFAndC:
-  fieldName: temperatureRangeFAndC
-  fieldLevel: class
-  columnName: temperatureRangeFAndC
-  fieldType: Input
-  fieldLabel: Temperature Range (°F & C°)
-BrandingLayline:
-  fieldName: BrandingLayline
-  fieldLevel: class
-  columnName: BrandingLayline
-  fieldLabel: Branding
-  fieldType: Textarea
-tubeMaterial:
-  fieldName: tubeMaterial
-  fieldLevel: objectBrick
-  columnName: tubeMaterial
-  fieldLabel: Tube Material
-  fieldType: Relation
-  objectBrickName: HoseBase
-  objectBrickLocation: Base
-reinforcement:
-  fieldName: reinforcement
-  fieldLevel: class
-  columnName: reinforcement
-  fieldType: Relation
-  fieldLabel: Reinforcement
-longDescription:
-  fieldName: longDescription
-  fieldLevel: class
-  columnName: longDescription
-  fieldLabel: Application
-  fieldType: Input
-FittingTableName:
-  fieldName: FittingTableName
-  fieldLevel: class
-  columnName: FittingTableName
-  fieldLabel: Table Name
-  fieldType: Input
-coverColor:
-  fieldName: coverColor
-  fieldLevel: objectBrick
-  columnName: coverColor
-  fieldLabel: Cover Color
-  fieldType: Relation
-  objectBrickName: HoseBase
-  objectBrickLocation: Base
-coverCharacteristic:
-  fieldName: coverCharacteristic
-  fieldLevel: objectBrick
-  columnName: coverCharacteristic
-  fieldLabel: Cover Characteristic
-  fieldType: Relation
-  objectBrickName: HoseBase
-  objectBrickLocation: Base
-staticWireType:
-  fieldName: staticWireType
-  fieldLevel: objectBrick
-  columnName: staticWireType
-  fieldLabel: Static Wire Type
-  fieldType: Select
-  objectBrickName: HoseBase
-  objectBrickLocation: Base
-staticWire:
-  fieldName: staticWire
-  fieldLevel: objectBrick
-  columnName: staticWire
-  fieldLabel: Static Wire
-  fieldType: Select
-  objectBrickName: HoseBase
-  objectBrickLocation: Base
-numberOfPlies:
-  fieldName: numberOfPlies
-  fieldLevel: objectBrick
-  columnName: numberOfPlies
-  fieldLabel: Number of Plies
-  fieldType: Number
-  objectBrickName: HoseBase
-  objectBrickLocation: Base
-Packaging:
-  fieldName: Packaging
-  fieldLevel: objectBrick
-  columnName: Packaging
-  fieldLabel: Packaging
-  fieldType: input
-  objectBrickName: HoseBase
-  objectBrickLocation: Base
-coverMaterial:
-  fieldName: coverMaterial
-  fieldLevel: objectBrick
-  columnName: coverMaterial
-  fieldLabel: Cover Material
-  fieldType: Relation
-  objectBrickName: HoseBase
-  objectBrickLocation: Base
-Coupling:
-  fieldName: Coupling
-  fieldLevel: objectBrick
-  columnName: Coupling
-  fieldLabel: Coupling
-  fieldType: input
-  objectBrickName: HoseBase
-  objectBrickLocation: Base
+# sixDigitVirtualCatalogDescription:
+#   fieldName: sixDigitVirtualCatalogDescription
+#   fieldLevel: objectBrick
+#   fieldLabel: Six Digit Virtual Catalog Description
+#   columnName: sixDigitVirtualCatalogDescription
+#   fieldType: Number
+#   objectBrickName: HoseBase
+#   objectBrickLocation: Base
+# temperatureRangeFAndC:
+#   fieldName: temperatureRangeFAndC
+#   fieldLevel: class
+#   columnName: temperatureRangeFAndC
+#   fieldType: Input
+#   fieldLabel: Temperature Range (°F & C°)
+# BrandingLayline:
+#   fieldName: BrandingLayline
+#   fieldLevel: class
+#   columnName: BrandingLayline
+#   fieldLabel: Branding
+#   fieldType: Textarea
+# tubeMaterial:
+#   fieldName: tubeMaterial
+#   fieldLevel: objectBrick
+#   columnName: tubeMaterial
+#   fieldLabel: Tube Material
+#   fieldType: Relation
+#   objectBrickName: HoseBase
+#   objectBrickLocation: Base
+# reinforcement:
+#   fieldName: reinforcement
+#   fieldLevel: class
+#   columnName: reinforcement
+#   fieldType: Relation
+#   fieldLabel: Reinforcement
+# longDescription:
+#   fieldName: longDescription
+#   fieldLevel: class
+#   columnName: longDescription
+#   fieldLabel: Application
+#   fieldType: Input
+# FittingTableName:
+#   fieldName: FittingTableName
+#   fieldLevel: class
+#   columnName: FittingTableName
+#   fieldLabel: Table Name
+#   fieldType: Input
+# coverColor:
+#   fieldName: coverColor
+#   fieldLevel: objectBrick
+#   columnName: coverColor
+#   fieldLabel: Cover Color
+#   fieldType: Relation
+#   objectBrickName: HoseBase
+#   objectBrickLocation: Base
+# coverCharacteristic:
+#   fieldName: coverCharacteristic
+#   fieldLevel: objectBrick
+#   columnName: coverCharacteristic
+#   fieldLabel: Cover Characteristic
+#   fieldType: Relation
+#   objectBrickName: HoseBase
+#   objectBrickLocation: Base
+# staticWireType:
+#   fieldName: staticWireType
+#   fieldLevel: objectBrick
+#   columnName: staticWireType
+#   fieldLabel: Static Wire Type
+#   fieldType: Select
+#   objectBrickName: HoseBase
+#   objectBrickLocation: Base
+# staticWire:
+#   fieldName: staticWire
+#   fieldLevel: objectBrick
+#   columnName: staticWire
+#   fieldLabel: Static Wire
+#   fieldType: Select
+#   objectBrickName: HoseBase
+#   objectBrickLocation: Base
+# numberOfPlies:
+#   fieldName: numberOfPlies
+#   fieldLevel: objectBrick
+#   columnName: numberOfPlies
+#   fieldLabel: Number of Plies
+#   fieldType: Number
+#   objectBrickName: HoseBase
+#   objectBrickLocation: Base
+# Packaging:
+#   fieldName: Packaging
+#   fieldLevel: objectBrick
+#   columnName: Packaging
+#   fieldLabel: Packaging
+#   fieldType: input
+#   objectBrickName: HoseBase
+#   objectBrickLocation: Base
+# coverMaterial:
+#   fieldName: coverMaterial
+#   fieldLevel: objectBrick
+#   columnName: coverMaterial
+#   fieldLabel: Cover Material
+#   fieldType: Relation
+#   objectBrickName: HoseBase
+#   objectBrickLocation: Base
+# Coupling:
+#   fieldName: Coupling
+#   fieldLevel: objectBrick
+#   columnName: Coupling
+#   fieldLabel: Coupling
+#   fieldType: input
+#   objectBrickName: HoseBase
+#   objectBrickLocation: Base
 HoseIDNominalIDFrac:
   fieldName: HoseIDNominalIDFrac
   fieldLevel: objectBrick
