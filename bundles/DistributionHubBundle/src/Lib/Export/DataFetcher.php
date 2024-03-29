@@ -302,7 +302,7 @@ class DataFetcher
         try {
             if (!empty($field)) {
                 // handle field collections
-                if ($field['fcFieldInBaseClass']) {
+                if (isset($field['fcFieldInBaseClass'])) {
                     $collectionGetter = "get" . ucfirst($field['fcFieldInBaseClass']);
                     $collection = $object->$collectionGetter();
 
@@ -317,7 +317,7 @@ class DataFetcher
                 }
 
                 $getter = "get" . ucfirst($field['attributeName']);
-                if($field['className']){
+                if(isset($field['className'])){
                     $classGetter = "get". ucfirst($field['className']);
                     if($object->getMaterial()[0]){
                         $asset = $object->$classGetter()[0]->$getter();

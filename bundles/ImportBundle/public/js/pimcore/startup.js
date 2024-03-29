@@ -75,6 +75,9 @@ pimcore.plugin.ImportBundle = Class.create({
                                 if (e.detail.object.data.data.selectBrandName !== null)
                                 {
                                 e.detail.object.edit.dataFields.selectBrandName.component.setValue(e.detail.object.data.data.selectBrandName);
+                                setTimeout(function(){
+                                    e.detail.object.edit.dataFields.selectBrandName.component.setValue(e.detail.object.data.data.selectBrandName);
+                                },200);
                                 }
                                 productBrandStore.load();
         
