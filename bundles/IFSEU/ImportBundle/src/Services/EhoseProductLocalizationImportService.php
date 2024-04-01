@@ -276,7 +276,7 @@ class EhoseProductLocalizationImportService
         }
         $this->insertDataInDB();
         $fileName = "IFSEU_eHose_Localized_Data_Log_".$this->localizedLanguage . '-' . date('YmdHis') . '.csv';
-        $localizationImportlogFilePath = PIMCORE_TEMPORARY_DIRECTORY."/".$fileName;
+        $localizationImportlogFilePath = PIMCORE_SYSTEM_TEMP_DIRECTORY."/".$fileName;
         $fp = fopen($localizationImportlogFilePath, 'wb');
         fputcsv($fp, ['materialNumber', 'statusCode', 'failedReason']);
         foreach ($this->logArray as $article) {

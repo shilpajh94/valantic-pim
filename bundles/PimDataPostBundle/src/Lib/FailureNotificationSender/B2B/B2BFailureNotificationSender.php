@@ -20,7 +20,7 @@ class B2BFailureNotificationSender extends AbstractB2BFailureNotificationSender
         $failedRecords = $this->helper->getSfFailureRecords();
 
         $fileName = "failed_log_".date("d")."_".time().".csv";
-        $filePath = PIMCORE_TEMPORARY_DIRECTORY . "/" . $fileName;
+        $filePath = PIMCORE_SYSTEM_TEMP_DIRECTORY . "/" . $fileName;
         $sfFailureAssetFolder = Constants::B2B_FAILURE_LOG_ASSET_FOLDER."/".date("Y")."/".date("M");
         if(count($failedRecords)> 1)
         {
