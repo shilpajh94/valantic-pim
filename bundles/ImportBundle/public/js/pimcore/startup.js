@@ -83,8 +83,8 @@ pimcore.plugin.ImportBundle = Class.create({
         
                                 if (e.detail.object.edit.dataFields.selectBrandName.data !== null && e.detail.object.edit.dataFields.sapRange.data !== null) {
                                     if(e.detail.object.edit.dataFields.sapRange.data == 'CustomSelection'){
-                                        if(Ext.getCmp('exportbtn')){
-                                            Ext.getCmp('exportbtn').hide();
+                                        if(Ext.getCmp('exportbtn_'+objectId)){
+                                            Ext.getCmp('exportbtn_'+objectId).hide();
                                         }
                                         this.showGrid(tabObject, e.detail.object.id, e.detail.object.edit.dataFields.sapRange.data, e.detail.object.edit.dataFields.selectBrandName.data.split(","));
                                         Ext.getCmp('dataGrid_'+objectId).hide(false);
@@ -94,12 +94,12 @@ pimcore.plugin.ImportBundle = Class.create({
                                         if(Ext.getCmp('dataGrid_'+objectId)){
                                             Ext.getCmp('dataGrid_'+objectId).hide();
                                         }
-                                        if(Ext.getCmp('exportbtn')){
-                                            Ext.getCmp('exportbtn').hide();
+                                        if(Ext.getCmp('exportbtn_'+objectId)){
+                                            Ext.getCmp('exportbtn_'+objectId).hide();
                                         }
                                         this.listAllFerts(tabObject, e.detail.object.id);
-                                        Ext.getCmp('exportbtn').hide(false);
-                                        Ext.getCmp('exportbtn').show();
+                                        Ext.getCmp('exportbtn_'+objectId).hide(false);
+                                        Ext.getCmp('exportbtn_'+objectId).show();
                                     }    
                                 }
         
@@ -110,12 +110,12 @@ pimcore.plugin.ImportBundle = Class.create({
                                             this.showGrid(tabObject, e.detail.object.id, s.getValue(), e.detail.object.edit.dataFields.selectBrandName.data.split(",") );
                                             Ext.getCmp('dataGrid_'+objectId).hide(false);
                                             Ext.getCmp('dataGrid_'+objectId).show();
-                                            if(Ext.getCmp('exportbtn')){
-                                                Ext.getCmp('exportbtn').hide();
+                                            if(Ext.getCmp('exportbtn_'+objectId)){
+                                                Ext.getCmp('exportbtn_'+objectId).hide();
                                             }
                                         }else if(this.sapRangeData == 'PrintedCatalog'){
-                                            if(Ext.getCmp('exportbtn')){
-                                                Ext.getCmp('exportbtn').hide();
+                                            if(Ext.getCmp('exportbtn_'+objectId)){
+                                                Ext.getCmp('exportbtn_'+objectId).hide();
                                             }
                                             if(Ext.getCmp('dataGrid_'+objectId)){
                                                 Ext.getCmp('dataGrid_'+objectId).hide();
@@ -131,8 +131,8 @@ pimcore.plugin.ImportBundle = Class.create({
                                         this.brandName = event.getValue();
                                         this.showGrid(tabObject, e.detail.object.id, e.detail.object.edit.dataFields.sapRange.data, event.getValue());
                                     }else if(e.detail.object.edit.dataFields.sapRange.data == 'PrintedCatalog'){
-                                        if(Ext.getCmp('exportbtn')){
-                                            Ext.getCmp('exportbtn').hide();
+                                        if(Ext.getCmp('exportbtn_'+objectId)){
+                                            Ext.getCmp('exportbtn_'+objectId).hide();
                                         }
                                         if(Ext.getCmp('dataGrid_'+objectId)){
                                             Ext.getCmp('dataGrid_'+objectId).hide();
@@ -146,8 +146,8 @@ pimcore.plugin.ImportBundle = Class.create({
                                         this.brandName = event.getValue();
                                         this.showGrid(tabObject, e.detail.object.id, this.sapRangeData, event.getValue());
                                     }else if(this.sapRangeData == 'PrintedCatalog'){
-                                        if(Ext.getCmp('exportbtn')){
-                                            Ext.getCmp('exportbtn').hide();
+                                        if(Ext.getCmp('exportbtn_'+objectId)){
+                                            Ext.getCmp('exportbtn_'+objectId).hide();
                                         }
                                         if(Ext.getCmp('dataGrid_'+objectId)){
                                             Ext.getCmp('dataGrid_'+objectId).hide();
@@ -160,12 +160,12 @@ pimcore.plugin.ImportBundle = Class.create({
                                             this.showGrid(tabObject, e.detail.object.id, s.getValue(), event.getValue());
                                             Ext.getCmp('dataGrid_'+objectId).hide(false);
                                             Ext.getCmp('dataGrid_'+objectId).show();
-                                            if(Ext.getCmp('exportbtn')){
-                                                Ext.getCmp('exportbtn').hide();
+                                            if(Ext.getCmp('exportbtn_'+objectId)){
+                                                Ext.getCmp('exportbtn_'+objectId).hide();
                                             }
                                         }else if(this.sapRangeData == 'PrintedCatalog'){
-                                            if(Ext.getCmp('exportbtn')){
-                                                Ext.getCmp('exportbtn').hide();
+                                            if(Ext.getCmp('exportbtn_'+objectId)){
+                                                Ext.getCmp('exportbtn_'+objectId).hide();
                                             }
                                             if(Ext.getCmp('dataGrid_'+objectId)){
                                                 Ext.getCmp('dataGrid_'+objectId).hide();
@@ -202,6 +202,11 @@ pimcore.plugin.ImportBundle = Class.create({
             fields: ["id", "articleNumber", "sapDescription", "SIOPLevel3", "SIOPLevel4", "published"],
         });
         this.store.load();
+
+        if(Ext.getCmp('dataGrid_'+objectId)) {
+            let existing_grid = Ext.getCmp('dataGrid_'+objectId);
+            existing_grid.destroy();
+        }
 
         this.grid = Ext.create('Ext.grid.Panel', {
             title: 'Data',
@@ -315,10 +320,14 @@ pimcore.plugin.ImportBundle = Class.create({
     },
 
     listAllFerts: function (tabObject, objectId) {
+        if(Ext.getCmp('exportbtn_'+objectId)) {
+            let existing_btn = Ext.getCmp('exportbtn_'+objectId);
+            existing_btn.destroy();
+        }
         let btn = Ext.create('Ext.Button', {
             text: 'Export Data',
             tooltip: 'Spec Sheet Export',
-            id: 'exportbtn',
+            id: 'exportbtn_'+objectId,
             style : "margin-top :10px; margin-left : 635px; background-color: #555555; border: none; border-radius: 5px;",
             handler: function() {
                 var records = [];
