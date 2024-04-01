@@ -9,6 +9,7 @@ pimcore.plugin.ImportBundle = Class.create({
         document.addEventListener(pimcore.events.pimcoreReady, this.pimcoreReady.bind(this));
         document.addEventListener(pimcore.events.postSaveObject, this.postSaveObject.bind(this));
         document.addEventListener(pimcore.events.postOpenObject, this.postOpenObject.bind(this));
+        // document.addEventListener(pimcore.events.preOpenObject, this.preOpenObject.bind(this));
     },
 
     pimcoreReady: function (e) {
@@ -30,10 +31,22 @@ pimcore.plugin.ImportBundle = Class.create({
             console.log(tabPanel.getActiveTab().title);
         }
     },
+    preOpenObject: function(e){
+        setTimeout(function(){
+            var tabPanel = e.detail.object.edit.layout.items.items[0].items.items[0].items.items[0];
+            setTimeout(function(){tabPanel.setActiveTab(0);},200);
+        },1000);
+        
+        
+
+    },
 
     postOpenObject: function (e) {
         if (e.detail.object.data.general.className == 'Product') {
             var tabPanell = e.detail.object.edit.layout.items.items[0].items.items[0].items.items[0];
+            var exportPanel = e.detail.object.edit.layout.items.items[0].items.items[0].items.items[0].items.items[3];
+            this.createBrandNameStoreAndRender(e,exportPanel);
+            
             if(tabPanell){
                 tabPanell.on("tabchange", function (tabObject) {
                     let tabName = tabObject.activeTab.config.name.toLowerCase();
@@ -42,139 +55,7 @@ pimcore.plugin.ImportBundle = Class.create({
                             // console.log(typeof(object.edit.dataFields));    
                         }
                         else{  
-                            if (e.detail.object.data.general.className == 'Product') {
-                                var colComp = Ext.getCmp(e.detail.object.edit.dataFields.Columns.component.id);
-                                colComp.hide();
-        
-                                let csheaderSelection = new pimcore.plugin.csheaderSelection();
-                                csheaderSelection.attachCSHeaders(e);
-                    
-                                var objectId = e.detail.object.id;
-                                var productBrandStore = Ext.create('Ext.data.Store', {
-                                    fields: ['key', 'value'],
-                                    data: ['key', 'value'],
-                                    proxy: {
-                                        type: 'ajax',
-                                        url: '/contitech_us_product/default/get_ferts_brand',
-                                        method:'POST',
-                                        extraParams: {
-                                            objectId: objectId,
-                                        },
-                                        dataFields:id,
-                                        valueFields:id,
-                                        reader: {
-                                            type: 'json',
-                                            rootProperty: 'data'
-                                        }
-                                    },
-                                });
-                                
-                                productBrandStore.load();
-        
-                                e.detail.object.edit.dataFields.selectBrandName.component.setStore(productBrandStore);
-                                if (e.detail.object.data.data.selectBrandName !== null)
-                                {
-                                e.detail.object.edit.dataFields.selectBrandName.component.setValue(e.detail.object.data.data.selectBrandName);
-                                setTimeout(function(){
-                                    e.detail.object.edit.dataFields.selectBrandName.component.setValue(e.detail.object.data.data.selectBrandName);
-                                },200);
-                                }
-                                productBrandStore.load();
-        
-                                if (e.detail.object.edit.dataFields.selectBrandName.data !== null && e.detail.object.edit.dataFields.sapRange.data !== null) {
-                                    if(e.detail.object.edit.dataFields.sapRange.data == 'CustomSelection'){
-                                        if(Ext.getCmp('exportbtn')){
-                                            Ext.getCmp('exportbtn').hide();
-                                        }
-                                        this.showGrid(tabObject, e.detail.object.id, e.detail.object.edit.dataFields.sapRange.data, e.detail.object.edit.dataFields.selectBrandName.data.split(","));
-                                        Ext.getCmp('dataGrid_'+objectId).hide(false);
-                                        Ext.getCmp('dataGrid_'+objectId).show();
-        
-                                    }else if(e.detail.object.edit.dataFields.sapRange.data == 'PrintedCatalog'){
-                                        if(Ext.getCmp('dataGrid_'+objectId)){
-                                            Ext.getCmp('dataGrid_'+objectId).hide();
-                                        }
-                                        if(Ext.getCmp('exportbtn')){
-                                            Ext.getCmp('exportbtn').hide();
-                                        }
-                                        this.listAllFerts(tabObject, e.detail.object.id);
-                                        Ext.getCmp('exportbtn').hide(false);
-                                        Ext.getCmp('exportbtn').show();
-                                    }    
-                                }
-        
-                                e.detail.object.edit.dataFields.sapRange.component.on('select', function (s){
-                                    if(e.detail.object.edit.dataFields.selectBrandName.data){
-                                        this.sapRangeData = s.getValue();
-                                        if(this.sapRangeData == 'CustomSelection'){
-                                            this.showGrid(tabObject, e.detail.object.id, s.getValue(), e.detail.object.edit.dataFields.selectBrandName.data.split(",") );
-                                            Ext.getCmp('dataGrid_'+objectId).hide(false);
-                                            Ext.getCmp('dataGrid_'+objectId).show();
-                                            if(Ext.getCmp('exportbtn')){
-                                                Ext.getCmp('exportbtn').hide();
-                                            }
-                                        }else if(this.sapRangeData == 'PrintedCatalog'){
-                                            if(Ext.getCmp('exportbtn')){
-                                                Ext.getCmp('exportbtn').hide();
-                                            }
-                                            if(Ext.getCmp('dataGrid_'+objectId)){
-                                                Ext.getCmp('dataGrid_'+objectId).hide();
-                                            }
-                                            this.listAllFerts(tabObject, e.detail.object.id);
-                                        }
-                                    }
-                
-                                }.bind(this));
-        
-                                e.detail.object.edit.dataFields.selectBrandName.component.on('select', function (event) {
-                                    if(e.detail.object.edit.dataFields.sapRange.data == 'CustomSelection' && event.getValue()){
-                                        this.brandName = event.getValue();
-                                        this.showGrid(tabObject, e.detail.object.id, e.detail.object.edit.dataFields.sapRange.data, event.getValue());
-                                    }else if(e.detail.object.edit.dataFields.sapRange.data == 'PrintedCatalog'){
-                                        if(Ext.getCmp('exportbtn')){
-                                            Ext.getCmp('exportbtn').hide();
-                                        }
-                                        if(Ext.getCmp('dataGrid_'+objectId)){
-                                            Ext.getCmp('dataGrid_'+objectId).hide();
-                                        }
-                                        this.listAllFerts(tabObject, e.detail.object.id);
-                                    }
-                                }.bind(this));
-        
-                                e.detail.object.edit.dataFields.selectBrandName.component.on('select', function (event) {
-                                    if(this.sapRangeData == 'CustomSelection' && event.getValue()){
-                                        this.brandName = event.getValue();
-                                        this.showGrid(tabObject, e.detail.object.id, this.sapRangeData, event.getValue());
-                                    }else if(this.sapRangeData == 'PrintedCatalog'){
-                                        if(Ext.getCmp('exportbtn')){
-                                            Ext.getCmp('exportbtn').hide();
-                                        }
-                                        if(Ext.getCmp('dataGrid_'+objectId)){
-                                            Ext.getCmp('dataGrid_'+objectId).hide();
-                                        }
-                                        this.listAllFerts(tabObject, e.detail.object.id);
-                                    }
-                                    e.detail.object.edit.dataFields.sapRange.component.on('select', function (s){
-                                        this.sapRangeData = s.getValue();
-                                        if(this.sapRangeData == 'CustomSelection'){
-                                            this.showGrid(tabObject, e.detail.object.id, s.getValue(), event.getValue());
-                                            Ext.getCmp('dataGrid_'+objectId).hide(false);
-                                            Ext.getCmp('dataGrid_'+objectId).show();
-                                            if(Ext.getCmp('exportbtn')){
-                                                Ext.getCmp('exportbtn').hide();
-                                            }
-                                        }else if(this.sapRangeData == 'PrintedCatalog'){
-                                            if(Ext.getCmp('exportbtn')){
-                                                Ext.getCmp('exportbtn').hide();
-                                            }
-                                            if(Ext.getCmp('dataGrid_'+objectId)){
-                                                Ext.getCmp('dataGrid_'+objectId).hide();
-                                            }
-                                            this.listAllFerts(tabObject, e.detail.object.id);
-                                        }
-                                    }.bind(this));
-                                }.bind(this));
-                            }
+                            this.createBrandNameStoreAndRender(e,tabObject);
                         }
                     }
                 }.bind(this));
@@ -184,6 +65,10 @@ pimcore.plugin.ImportBundle = Class.create({
     },
 
     showGrid: function (tabObject, objectId, sapRange, brandName) {
+        if( Ext.getCmp('dataGrid_'+objectId) != undefined){
+            Ext.getCmp('dataGrid_'+objectId).removeAll();
+            Ext.getCmp('dataGrid_'+objectId).remove();
+        }
         this.store = new Ext.data.JsonStore({
             proxy: {
                 type: 'ajax',
@@ -311,10 +196,15 @@ pimcore.plugin.ImportBundle = Class.create({
             },
         ],
         });
-        tabObject.activeTab.add(this.grid);
+        // tabObject.activeTab.add(this.grid);
+        tabObject.add(this.grid);
     },
 
     listAllFerts: function (tabObject, objectId) {
+        if( Ext.getCmp('exportbtn') != undefined){
+            console.log(Ext.getCmp('exportbtn'))
+            Ext.getCmp('exportbtn').destroy();
+        }
         let btn = Ext.create('Ext.Button', {
             text: 'Export Data',
             tooltip: 'Spec Sheet Export',
@@ -342,8 +232,170 @@ pimcore.plugin.ImportBundle = Class.create({
                 });
             }
         });
-       tabObject.activeTab.add(btn);
-    },   
+    //    tabObject.activeTab.add(btn);
+    tabObject.add(btn);
+    },
+    createBrandNameStoreAndRender: function(e,tabObject){
+        if (e.detail.object.data.general.className == 'Product') {
+           var interval = setInterval(function(){
+                if(e.detail.object.edit.dataFields.Columns != undefined){
+                clearInterval(interval);
+                    var colComp = Ext.getCmp(e.detail.object.edit.dataFields.Columns.component.id);
+                    colComp.hide();
+                let csheaderSelection = new pimcore.plugin.csheaderSelection();
+                csheaderSelection.attachCSHeaders(e);
+                }
+            },200);
+           
+
+
+
+            var objectId = e.detail.object.id;
+            var productBrandStore = Ext.create('Ext.data.Store', {
+                fields: ['key', 'value'],
+                data: ['key', 'value'],
+                proxy: {
+                    type: 'ajax',
+                    url: '/contitech_us_product/default/get_ferts_brand',
+                    method:'POST',
+                    extraParams: {
+                        objectId: objectId,
+                    },
+                    dataFields:id,
+                    valueFields:id,
+                    reader: {
+                        type: 'json',
+                        rootProperty: 'data'
+                    }
+                },
+            });
+            
+            productBrandStore.load();
+           var brandInterval= setInterval(function(){
+            var importPlugin = this.ImportBundlePlugin
+
+            if(e.detail.object.edit.dataFields.selectBrandName != undefined){
+                clearInterval(brandInterval);
+                e.detail.object.edit.dataFields.selectBrandName.component.setStore(productBrandStore);
+                if (e.detail.object.data.data.selectBrandName !== null)
+                {
+                e.detail.object.edit.dataFields.selectBrandName.component.setValue(e.detail.object.data.data.selectBrandName);
+                }
+                productBrandStore.load();
+
+            if (e.detail.object.edit.dataFields.selectBrandName.data !== null && e.detail.object.edit.dataFields.sapRange.data !== null) {
+                if(e.detail.object.edit.dataFields.sapRange.data == 'CustomSelection'){
+                    if(Ext.getCmp('exportbtn')){
+                        Ext.getCmp('exportbtn').hide();
+                    }
+                    if( Ext.getCmp('dataGrid_'+objectId) == undefined){
+                        importPlugin.showGrid(tabObject, e.detail.object.id, e.detail.object.edit.dataFields.sapRange.data, e.detail.object.edit.dataFields.selectBrandName.data.split(","));
+                    }
+                    
+                    Ext.getCmp('dataGrid_'+objectId).hide(false);
+                    Ext.getCmp('dataGrid_'+objectId).show();
+
+                }else if(e.detail.object.edit.dataFields.sapRange.data == 'PrintedCatalog'){
+                    if(Ext.getCmp('dataGrid_'+objectId)){
+                        Ext.getCmp('dataGrid_'+objectId).hide();
+                    }
+                    if(Ext.getCmp('exportbtn')){
+                        Ext.getCmp('exportbtn').hide();
+                    }
+                    importPlugin.listAllFerts(tabObject, e.detail.object.id);
+                    Ext.getCmp('exportbtn').hide(false);
+                    Ext.getCmp('exportbtn').show();
+                }
+                
+                e.detail.object.edit.dataFields.sapRange.component.on('select', function (s){
+                    if(e.detail.object.edit.dataFields.selectBrandName.data){
+                        importPlugin.sapRangeData = s.getValue();
+                        if(importPlugin.sapRangeData == 'CustomSelection'){
+                            if( Ext.getCmp('dataGrid_'+objectId) == undefined){
+                            importPlugin.showGrid(tabObject, e.detail.object.id, s.getValue(), e.detail.object.edit.dataFields.selectBrandName.data.split(",") );
+                            }
+                            Ext.getCmp('dataGrid_'+objectId).hide(false);
+                            Ext.getCmp('dataGrid_'+objectId).show();
+                            if(Ext.getCmp('exportbtn')){
+                                Ext.getCmp('exportbtn').hide();
+                            }
+                        }else if(importPlugin.sapRangeData == 'PrintedCatalog'){
+                            if(Ext.getCmp('exportbtn')){
+                                Ext.getCmp('exportbtn').hide();
+                            }
+                            if(Ext.getCmp('dataGrid_'+objectId)){
+                                Ext.getCmp('dataGrid_'+objectId).hide();
+                            }
+                            importPlugin.listAllFerts(tabObject, e.detail.object.id);
+                        }
+                    }
+    
+                }.bind(this));
+            }
+
+
+            e.detail.object.edit.dataFields.selectBrandName.component.on('select', function (event) {
+                if(e.detail.object.edit.dataFields.sapRange.data == 'CustomSelection' && event.getValue()){
+                    importPlugin.brandName = event.getValue();
+                    if( Ext.getCmp('dataGrid_'+objectId) == undefined){
+                    importPlugin.showGrid(tabObject, e.detail.object.id, e.detail.object.edit.dataFields.sapRange.data, event.getValue());
+                    }
+                }else if(e.detail.object.edit.dataFields.sapRange.data == 'PrintedCatalog'){
+                    if(Ext.getCmp('exportbtn')){
+                        Ext.getCmp('exportbtn').hide();
+                    }
+                    if(Ext.getCmp('dataGrid_'+objectId)){
+                        Ext.getCmp('dataGrid_'+objectId).hide();
+                    }
+                    importPlugin.listAllFerts(tabObject, e.detail.object.id);
+                }
+            }.bind(this));
+
+            e.detail.object.edit.dataFields.selectBrandName.component.on('select', function (event) {
+                if(importPlugin.sapRangeData == 'CustomSelection' && event.getValue()){
+                    importPlugin.brandName = event.getValue();
+                    importPlugin.showGrid(tabObject, e.detail.object.id, importPlugin.sapRangeData, event.getValue());
+                }else if(importPlugin.sapRangeData == 'PrintedCatalog'){
+                    if(Ext.getCmp('exportbtn')){
+                        Ext.getCmp('exportbtn').hide();
+                    }
+                    if(Ext.getCmp('dataGrid_'+objectId)){
+                        Ext.getCmp('dataGrid_'+objectId).hide();
+                    }
+                    importPlugin.listAllFerts(tabObject, e.detail.object.id);
+                }
+                e.detail.object.edit.dataFields.sapRange.component.on('select', function (s){
+                    importPlugin.sapRangeData = s.getValue();
+                    if(importPlugin.sapRangeData == 'CustomSelection'){
+                        importPlugin.showGrid(tabObject, e.detail.object.id, s.getValue(), event.getValue());
+                        Ext.getCmp('dataGrid_'+objectId).hide(false);
+                        Ext.getCmp('dataGrid_'+objectId).show();
+                        if(Ext.getCmp('exportbtn')){
+                            Ext.getCmp('exportbtn').hide();
+                        }
+                    }else if(importPlugin.sapRangeData == 'PrintedCatalog'){
+                        if(Ext.getCmp('exportbtn')){
+                            Ext.getCmp('exportbtn').hide();
+                        }
+                        if(Ext.getCmp('dataGrid_'+objectId)){
+                            Ext.getCmp('dataGrid_'+objectId).hide();
+                        }
+                        importPlugin.listAllFerts(tabObject, e.detail.object.id);
+                    }
+                }.bind(this));
+            }.bind(this));
+            
+            }
+            
+
+           },200,this);
+           
+
+           
+
+
+        }
+    }   
 });
 
 var ImportBundlePlugin = new pimcore.plugin.ImportBundle();
