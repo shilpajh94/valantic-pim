@@ -198,6 +198,26 @@ workingPressureBAR:
   fieldType: Input
   objectBrickName: HoseSkeleton
   objectBrickLocation: Skeleton
+minBurstPressurePSI:
+  fieldName: minBurstPressurePSI
+  fieldLevel: objectBrick
+  fieldLabel: Min. Burst Pressure (psi)
+  groupName: Min. Burst Pressure
+  columnName: minBurstPressurePSI
+  unitName: psi
+  fieldType: Input
+  objectBrickName: HoseSkeleton
+  objectBrickLocation: Skeleton
+minBurstPressurempa:
+  fieldName: minBurstPressurempa
+  fieldLevel: objectBrick
+  fieldLabel: Min. Burst Pressure (mpa)
+  groupName: Min. Burst Pressure
+  columnName: minBurstPressurempa
+  unitName: mpa
+  fieldType: Input
+  objectBrickName: HoseSkeleton
+  objectBrickLocation: Skeleton
 grossWeight:
   fieldName: grossWeight
   fieldLevel: class
@@ -300,6 +320,24 @@ InnerHoseWeightLbs:
   columnName: InnerHoseWeightLbs
   unitName: lbs per ft
   numberOfDecimalPoints: 2
+  fieldType: Input
+  objectBrickName: HoseFert
+  objectBrickLocation: Fert
+Descriptive:
+  fieldName: Descriptive
+  fieldLevel: objectBrick
+  fieldLabel: Descriptive#
+  columnName: Descriptive
+  groupName: Descriptive#
+  fieldType: Input
+  objectBrickName: HoseFert
+  objectBrickLocation: Fert
+Fitting1Type:
+  fieldName: Fitting1Type
+  fieldLevel: objectBrick
+  fieldLabel: Fitting Type
+  columnName: Fitting1Type
+  groupName: Fitting Type
   fieldType: Input
   objectBrickName: HoseFert
   objectBrickLocation: Fert
