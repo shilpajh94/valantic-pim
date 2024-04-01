@@ -72,7 +72,7 @@ class DefaultController extends FrontendController
                             $optionData[$i]['key'] = $brandObj->getName();
                             $optionData[$i]['value'] = $eachFert['brandName'];
                             $resultArray = array_merge($resultArray, $optionData);
-                            $i++;    
+                            $i++;
                         }
                     }
                 }
@@ -168,7 +168,8 @@ class DefaultController extends FrontendController
 
         $brandId = $baseObj->getBrandName();
         $brandParentObj = DataObject\Brand::getById($brandId);
-        $brand = $brandParentObj->getName();
+        // $brand = $brandParentObj->getName();
+        $brand = (DataObject\Brand::getById($baseObj->getSelectBrandName()))->getName();
         $longDescription = $baseObj->getlongDescription();
         $mainImage = $baseObj->getMainImage();
         $tubeMaterial = $baseObj->getBase()->getHoseBase()->getVirtualCatalogTubeMaterial();
@@ -473,12 +474,12 @@ class DefaultController extends FrontendController
                                                     <b>Cover Material</b>
                                                     $productAttributesArr[3]
                                                 </div>
-        
+
                                                 <div class='full'>
                                                     <b>Reinforcement</b>
                                                     $productAttributesArr[4]
                                                 </div>
-        
+
                                                 <div class='full'>
                                                     <b>Temperature Range</b>
                                                     $productAttributesArr[5]
@@ -656,43 +657,43 @@ class DefaultController extends FrontendController
         $attributeImages = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['attributeImages'];
 
         $iconRequired = 'YES';
-        foreach ($columnsData as $key => $value) {
+        if(isset($columnsData)) {
+            foreach ($columnsData as $key => $value) {
+                $groupColumnName = $value['columnName'];
+                if (isset($value['groupName']) && $value['groupName']) {
+                    $groupColumnName = $value['groupName'];
+                    $columnsDataWithImages[$groupColumnName][$key]['groupName'] = $value['groupName'];
+                    $columnsDataWithImages[$groupColumnName][$key]['columnWidth'] = isset($value['columnWidth']) ? $value['columnWidth'] : '';
+                }
 
-            $groupColumnName = $value['columnName'];
-            if (isset($value['groupName']) && $value['groupName']) {
-                $groupColumnName = $value['groupName'];
-                $columnsDataWithImages[$groupColumnName][$key]['groupName'] = $value['groupName'];
-                $columnsDataWithImages[$groupColumnName][$key]['columnWidth'] = isset($value['columnWidth']) ? $value['columnWidth'] : '';
-            }
-
-            if ($value['columnName'] == 'listPrice') {
-                $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $value['unitName'];
-            } elseif (isset($value['unitName'])) {
-                $columnsDataWithImages[$groupColumnName][$key]['unitName'] = ($value['unitName']) ? $this->replaceYellowCode($this->translatorInterface->trans($value['unitName'])) : '';
-            } else {
-                $columnsDataWithImages[$groupColumnName][$key]['unitName'] = '';
-            }
-
-            $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
-            $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->replaceYellowCode($this->translatorInterface->trans($groupColumnName));
-
-            if ($iconRequired == 'YES') {
-                if (
-                    !isset($attributeImgS3Arr[$groupColumnName])
-                    && isset($attributeImages[$groupColumnName])
-                ) {
-                    $attributeImagesSrc = $attributeImages[$groupColumnName];
-                    $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
-                    $attributeImgS3Arr[$groupColumnName] = $attributeImagesSrc;
-                    $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImagesSrc;
-                } elseif (isset($attributeImages[$groupColumnName])) {
-                    $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImgS3Arr[$groupColumnName];
+                if ($value['columnName'] == 'listPrice') {
+                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $value['unitName'];
+                } elseif (isset($value['unitName'])) {
+                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = ($value['unitName']) ? $this->replaceYellowCode($this->translatorInterface->trans($value['unitName'])) : '';
                 } else {
-                    $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = '';
+                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = '';
+                }
+
+                $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
+                $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->replaceYellowCode($this->translatorInterface->trans($groupColumnName));
+
+                if ($iconRequired == 'YES') {
+                    if (
+                        !isset($attributeImgS3Arr[$groupColumnName])
+                        && isset($attributeImages[$groupColumnName])
+                    ) {
+                        $attributeImagesSrc = $attributeImages[$groupColumnName];
+                        $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
+                        $attributeImgS3Arr[$groupColumnName] = $attributeImagesSrc;
+                        $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImagesSrc;
+                    } elseif (isset($attributeImages[$groupColumnName])) {
+                        $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImgS3Arr[$groupColumnName];
+                    } else {
+                        $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = '';
+                    }
                 }
             }
         }
-
         return $columnsDataWithImages;
     }
 
