@@ -1854,7 +1854,7 @@ section #pimcore_editable_PBD_Block {
 }
 .coverPage{
     position: relative;
-    top: -70px;
+    top: 0px;
     z-index: -1;
 }
 
