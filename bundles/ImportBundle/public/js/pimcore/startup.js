@@ -47,20 +47,26 @@ pimcore.plugin.ImportBundle = Class.create({
             var exportPanel = e.detail.object.edit.layout.items.items[0].items.items[0].items.items[0].items.items[3];
             this.createBrandNameStoreAndRender(e,exportPanel);
             
-            if(tabPanell){
-                tabPanell.on("tabchange", function (tabObject) {
-                    let tabName = tabObject.activeTab.config.name.toLowerCase();
-                    if (tabName == 'spec sheet export') {
-                        if(Object.keys(e.detail.object.edit.dataFields).length === 0){
-                            // console.log(typeof(object.edit.dataFields));    
-                        }
-                        else{  
-                            this.createBrandNameStoreAndRender(e,tabObject);
-                        }
-                    }
-                }.bind(this));
+            // if(tabPanell){
+            //     tabPanell.on("tabchange", function (tabObject) {
+            //         setTimeout(function(){
+            //             console.log(tabObject.activeTab.config);
+            //         var importPlugin = this.ImportBundlePlugin
+            //             let tabName = tabObject.activeTab.config.name.toLowerCase();
+            //             if (tabName == 'spec sheet export') {
+            //                 if(Object.keys(e.detail.object.edit.dataFields).length === 0){
+            //                     // console.log(typeof(object.edit.dataFields));    
+            //                 }
+            //                 else{  
+            //                     importPlugin.createBrandNameStoreAndRender(e,tabObject);
+            //                 }
+            //             }
+
+            //         },200,this);
+
+            //     }.bind(this));
         
-            }
+            // }
         }
     },
 
