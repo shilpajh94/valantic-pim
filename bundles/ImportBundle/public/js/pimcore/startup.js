@@ -20,7 +20,7 @@ pimcore.plugin.ImportBundle = Class.create({
         if (e.detail.object.data.general.className == "Product") {
             var tabPanel = e.detail.object.edit.layout.items.items[0].items.items[0].items.items[0];
             if(tabPanel.getActiveTab().title == "Spec Sheet Export"){
-                tabPanel.setActiveTab(0);
+                // tabPanel.setActiveTab(0);
 
                 var colComp = Ext.getCmp(e.detail.object.edit.dataFields.Columns.component.id);
                 colComp.hide();
@@ -46,27 +46,7 @@ pimcore.plugin.ImportBundle = Class.create({
             var tabPanell = e.detail.object.edit.layout.items.items[0].items.items[0].items.items[0];
             var exportPanel = e.detail.object.edit.layout.items.items[0].items.items[0].items.items[0].items.items[3];
             this.createBrandNameStoreAndRender(e,exportPanel);
-            
-            // if(tabPanell){
-            //     tabPanell.on("tabchange", function (tabObject) {
-            //         setTimeout(function(){
-            //             console.log(tabObject.activeTab.config);
-            //         var importPlugin = this.ImportBundlePlugin
-            //             let tabName = tabObject.activeTab.config.name.toLowerCase();
-            //             if (tabName == 'spec sheet export') {
-            //                 if(Object.keys(e.detail.object.edit.dataFields).length === 0){
-            //                     // console.log(typeof(object.edit.dataFields));    
-            //                 }
-            //                 else{  
-            //                     importPlugin.createBrandNameStoreAndRender(e,tabObject);
-            //                 }
-            //             }
-
-            //         },200,this);
-
-            //     }.bind(this));
-        
-            // }
+    
         }
     },
 
