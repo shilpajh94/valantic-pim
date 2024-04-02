@@ -25,7 +25,7 @@ class Dao extends AbstractDao
         $this->assignVariablesToModel($data);
 
         if ($data['ftpDetailId']) {
-            dd($data['ftpDetailId']);
+            // dd($data['ftpDetailId']);
             $ftp = FTPDetail::getById($data['ftpDetailId']);
             $this->model->setFTPDetail($ftp);
         }

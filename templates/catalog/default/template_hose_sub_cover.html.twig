@@ -104,13 +104,22 @@
 							</span>
 						</footer>
 					</div>
-
-					<article class="containerAll noBorder coverPage">
+					{% set imgSrcObj = pimcore_image("HHSC_Image_" ~ md5Key) %}
+					{% if editmode %}
+						<article class="containerAll noBorder ">
+					{% elseif imgSrcObj.isEmpty()  %}
+						<article class="containerAll noBorder ">
+					{% else %}
+						<article class="containerAll noBorder coverPage">
+							
+							
+					{% endif %}
+					
 						<header class="dark">
 							{% if editmode %}
 								{{ pimcore_image("HHSC_Image_" ~ md5Key) }}
 							{% else %}
-								{% set imgSrcObj = pimcore_image("HHSC_Image_" ~ md5Key) %}
+								
 								{% if imgSrcObj %}
 									<img src="{{getImageThumbnail(imgSrcObj, imageWidth) }}"/>
 								{% endif %}

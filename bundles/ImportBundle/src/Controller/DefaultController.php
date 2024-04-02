@@ -295,7 +295,8 @@ class DefaultController extends FrontendController
 
         $brandId = $baseObj->getBrandName();
         $brandParentObj = DataObject\Brand::getById($brandId);
-        $brand = $brandParentObj->getName();
+        // $brand = $brandParentObj->getName();
+        $brand = (DataObject\Brand::getById($baseObj->getSelectBrandName()))->getName();
         $longDescription = $baseObj->getlongDescription();
         $mainImage = $baseObj->getMainImage();
         $tubeMaterial = $baseObj->getBase()->getHoseBase()->getVirtualCatalogTubeMaterial();
@@ -364,7 +365,6 @@ class DefaultController extends FrontendController
             $mainImage,
             $footer_logo_src
         ];
-
         $exportFertsId = $request->get('articleNumber');
         $exportColumnsConfig = YaML::parseFile(PIMCORE_PROJECT_ROOT . '/bundles/ImportBundle/config/spec-sheet-export-columns.yaml');
 
@@ -610,7 +610,9 @@ class DefaultController extends FrontendController
             foreach ($columnsDataWithImages as $c4data) {
                 foreach ($c4data as $c4value) {
                     $colummName = $c4value['columnName'];
-                    $html .= "<td class ='spaceRight'>$eachFert[$colummName]</td>";
+                    if(isset($eachFert[$colummName])) {
+                        $html .= "<td class ='spaceRight'>$eachFert[$colummName]</td>";
+                    }
                 }
             }
             $html .= "</tr> ";
