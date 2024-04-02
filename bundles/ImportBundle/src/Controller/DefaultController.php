@@ -166,26 +166,30 @@ class DefaultController extends FrontendController
             $skeletonProductsId[] =  $eachSkeletonLevelProducts->getId();
         }
 
-        $brandId = $baseObj->getBrandName();
+        $entries = new DataObject\Product\Listing();
+        $entries->setCondition("parentId IN (?) AND printedCatalogFlag = ? AND published = ?", [$skeletonProductsId, 1, 1]);
+
+        $firstFertProduct = $entries->load()[0];
+
+        $brandId = $firstFertProduct->getBrandName();
         $brandParentObj = DataObject\Brand::getById($brandId);
-        // $brand = $brandParentObj->getName();
-        $brand = (DataObject\Brand::getById($baseObj->getSelectBrandName()))->getName();
-        $longDescription = $baseObj->getlongDescription();
-        $mainImage = $baseObj->getMainImage();
-        $tubeMaterial = $baseObj->getBase()->getHoseBase()->getVirtualCatalogTubeMaterial();
-        $coverMaterial = $baseObj->getBase()->getHoseBase()->getVirtualCatalogCoverMaterial();
-        $reinforcement = $baseObj->getVirtualCatalogReinforcement();
-        $temperatureRangeFAndC = $baseObj->gettemperatureRangeFAndC();
-        $packaging = $baseObj->getBase()->getHoseBase()->getPackaging();
-        $coupling = $baseObj->getBase()->getHoseBase()->getCoupling();
-        $designfactorId = $baseObj->getBase()->getHoseBase()->getSafetyFactor();
+        $brand = $brandParentObj->getName();
+        $longDescription = $firstFertProduct->getlongDescription();
+        $mainImage = $firstFertProduct->getMainImage();
+        $tubeMaterial = $firstFertProduct->getBase()->getHoseBase()->getVirtualCatalogTubeMaterial();
+        $coverMaterial = $firstFertProduct->getBase()->getHoseBase()->getVirtualCatalogCoverMaterial();
+        $reinforcement = $firstFertProduct->getVirtualCatalogReinforcement();
+        $temperatureRangeFAndC = $firstFertProduct->gettemperatureRangeFAndC();
+        $packaging = $firstFertProduct->getBase()->getHoseBase()->getPackaging();
+        $coupling = $firstFertProduct->getBase()->getHoseBase()->getCoupling();
+        $designfactorId = $firstFertProduct->getBase()->getHoseBase()->getSafetyFactor();
         if ($designfactorId) {
             foreach ($designfactorId as $id) {
                 $parentObj = \Pimcore\Model\DataObject::getById($id);
                 $designfactor[] = $parentObj->getName();
             }
         }
-        $featuresId = $baseObj->getFeaturesBenefitsBulletPoint();
+        $featuresId = $firstFertProduct->getFeaturesBenefitsBulletPoint();
         if ($featuresId != null) {
             foreach ($featuresId as $id) {
                 $parentObj = DataObject\Features::getById($id);
@@ -200,21 +204,22 @@ class DefaultController extends FrontendController
             }
             $featuresArr = array_combine($features, $featureIcon);
         }
-        $brandingLayline = $baseObj->getBrandingLayline();
+        $brandingLayline = $firstFertProduct->getBrandingLayline();
 
-        $query = "select SIOPLevel3 from object_query_1 where oo_id = '$baseObjectId'";
+        $firstFertProductId = $firstFertProduct->getId();
+        $query = "select SIOPLevel3 from object_query_1 where oo_id = '$firstFertProductId'";
         $recordSIOPLevel3 = $this->db->fetchOne($query);
         $siopLevel3 = trim($recordSIOPLevel3, ',');
         $siopLevel3 = DataObject\ProductCategory::getById($siopLevel3);
         $siopLevel3Category = $siopLevel3->getDescription();
 
-        $sixDigitVirtualCatalogDescription = $baseObj->getBase()->getHoseBase()->getsixDigitVirtualCatalogDescription();
+        $sixDigitVirtualCatalogDescription = $firstFertProduct->getBase()->getHoseBase()->getsixDigitVirtualCatalogDescription();
         $baseObjectKey = $baseObj->getKey();
         $baseObjectKeyIntoTwoArray = str_split($baseObjectKey, 3);
         $baseObjectKeyDashedString = implode('-', $baseObjectKeyIntoTwoArray);
         $orderCode = $baseObjectKeyDashedString . " " . $sixDigitVirtualCatalogDescription;
 
-        $columnsData = json_decode($baseObj->getColumns(), true);
+        $columnsData = json_decode($firstFertProduct->getColumns(), true);
         $columnsDataWithImages = $this->getColumnHeadersForCatalog($columnsData);
         $subHeaderRequired = 'YES';
         $iconRequired = 'YES';
@@ -238,9 +243,6 @@ class DefaultController extends FrontendController
             $mainImage,
             $footer_logo_src,
         ];
-
-        $entries = new DataObject\Product\Listing();
-        $entries->setCondition("parentId IN (?) AND printedCatalogFlag = ? AND published = ?", [$skeletonProductsId, 1, 1]);
 
         foreach ($entries as $fertProducts) {
             foreach ($exportColumnsConfig as $exportAttribute) {
@@ -294,26 +296,33 @@ class DefaultController extends FrontendController
         $baseObjectId = $request->get('objectId');
         $baseObj = \Pimcore\Model\DataObject::getById($baseObjectId);
 
-        $brandId = $baseObj->getBrandName();
+        $exportFertsId = $request->get('articleNumber');
+        $exportColumnsConfig = YaML::parseFile(PIMCORE_PROJECT_ROOT . '/bundles/ImportBundle/config/spec-sheet-export-columns.yaml');
+
+        $trimBrackets = trim($exportFertsId, "[]");
+        $articleNumberArray = explode(",", $trimBrackets);
+
+        $firstFertProduct = DataObject\Product::getByArticleNumber($articleNumberArray[0], true);
+
+        $brandId = $firstFertProduct->getBrandName();
         $brandParentObj = DataObject\Brand::getById($brandId);
-        // $brand = $brandParentObj->getName();
-        $brand = (DataObject\Brand::getById($baseObj->getSelectBrandName()))->getName();
-        $longDescription = $baseObj->getlongDescription();
-        $mainImage = $baseObj->getMainImage();
-        $tubeMaterial = $baseObj->getBase()->getHoseBase()->getVirtualCatalogTubeMaterial();
-        $coverMaterial = $baseObj->getBase()->getHoseBase()->getVirtualCatalogCoverMaterial();
-        $reinforcement = $baseObj->getVirtualCatalogReinforcement();
-        $temperatureRangeFAndC = $baseObj->gettemperatureRangeFAndC();
-        $packaging = $baseObj->getBase()->getHoseBase()->getPackaging();
-        $coupling = $baseObj->getBase()->getHoseBase()->getCoupling();
-        $designfactorId = $baseObj->getBase()->getHoseBase()->getSafetyFactor();
+        $brand = $brandParentObj->getName();
+        $longDescription = $firstFertProduct->getlongDescription();
+        $mainImage = $firstFertProduct->getMainImage();
+        $tubeMaterial = $firstFertProduct->getBase()->getHoseBase()->getVirtualCatalogTubeMaterial();
+        $coverMaterial = $firstFertProduct->getBase()->getHoseBase()->getVirtualCatalogCoverMaterial();
+        $reinforcement = $firstFertProduct->getVirtualCatalogReinforcement();
+        $temperatureRangeFAndC = $firstFertProduct->gettemperatureRangeFAndC();
+        $packaging = $firstFertProduct->getBase()->getHoseBase()->getPackaging();
+        $coupling = $firstFertProduct->getBase()->getHoseBase()->getCoupling();
+        $designfactorId = $firstFertProduct->getBase()->getHoseBase()->getSafetyFactor();
         if ($designfactorId) {
             foreach ($designfactorId as $id) {
                 $parentObj = \Pimcore\Model\DataObject::getById($id);
                 $designfactor[] = $parentObj->getName();
             }
         }
-        $featuresId = $baseObj->getFeaturesBenefitsBulletPoint();
+        $featuresId = $firstFertProduct->getFeaturesBenefitsBulletPoint();
         if ($featuresId != null) {
             foreach ($featuresId as $id) {
                 $parentObj = DataObject\Features::getById($id);
@@ -328,21 +337,22 @@ class DefaultController extends FrontendController
             }
             $featuresArr = array_combine($features, $featureIcon);
         }
-        $brandingLayline = $baseObj->getBrandingLayline();
+        $brandingLayline = $firstFertProduct->getBrandingLayline();
 
-        $query = "select SIOPLevel3 from object_query_1 where oo_id = '$baseObjectId'";
+        $firstFertProductId = $firstFertProduct->getId();
+        $query = "select SIOPLevel3 from object_query_1 where oo_id = '$firstFertProductId'";
         $recordSIOPLevel3 = $this->db->fetchOne($query);
         $siopLevel3 = trim($recordSIOPLevel3, ',');
         $siopLevel3 = DataObject\ProductCategory::getById($siopLevel3);
         $siopLevel3Category = $siopLevel3->getDescription();
 
-        $sixDigitVirtualCatalogDescription = $baseObj->getBase()->getHoseBase()->getsixDigitVirtualCatalogDescription();
+        $sixDigitVirtualCatalogDescription = $firstFertProduct->getBase()->getHoseBase()->getsixDigitVirtualCatalogDescription();
         $baseObjectKey = $baseObj->getKey();
         $baseObjectKeyIntoTwoArray = str_split($baseObjectKey, 3);
         $baseObjectKeyDashedString = implode('-', $baseObjectKeyIntoTwoArray);
         $orderCode = $baseObjectKeyDashedString . " " . $sixDigitVirtualCatalogDescription;
 
-        $columnsData = json_decode($baseObj->getColumns(), true);
+        $columnsData = json_decode($firstFertProduct->getColumns(), true);
         $columnsDataWithImages = $this->getColumnHeadersForCatalog($columnsData);
         $subHeaderRequired = 'YES';
         $iconRequired = 'YES';
@@ -366,11 +376,6 @@ class DefaultController extends FrontendController
             $mainImage,
             $footer_logo_src
         ];
-        $exportFertsId = $request->get('articleNumber');
-        $exportColumnsConfig = YaML::parseFile(PIMCORE_PROJECT_ROOT . '/bundles/ImportBundle/config/spec-sheet-export-columns.yaml');
-
-        $trimBrackets = trim($exportFertsId, "[]");
-        $articleNumberArray = explode(",", $trimBrackets);
 
         foreach ($articleNumberArray as $eachArticleNumberArray) {
             $fertProducts = DataObject\Product::getByArticleNumber($eachArticleNumberArray, true);
