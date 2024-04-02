@@ -134,8 +134,7 @@ Class Util
     {
         // $session = self::getService('session');
         $key = Constants::B2B_PIM_FAILURE_FLAG_SESSION_KEY;
-        $GLOBALS[$key];
-        return $GLOBALS[$key];
+        return (array_key_exists($key, $GLOBALS) ? $GLOBALS[$key] : false);
         // return $session->get($key);
     }
 
