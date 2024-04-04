@@ -51,7 +51,7 @@ class TempTablePopulatorDao
         $endTime = $this->updateWindow->getEndTimestamp();
 
         $query = "SELECT {$objectTableName}.`id` FROM {$objectTableName}" ;
-        $query .= " JOIN {$masterTableName} ON {$objectTableName}.`id` = {$masterTableName}.`id`";
+        $query .= " JOIN {$masterTableName} ON {$objectTableName}.`id` = {$masterTableName}.`o_id`";
         $query .= " WHERE (`modificationDate` >= {$startTime} AND `modificationDate` <= {$endTime})";
         return $this->db->fetchFirstColumn($query);
     }

@@ -17,21 +17,21 @@ class B2CProductCategoryRelationRequestBodyGenerator
         if($oldValue != '' && $oldValue != null)
         {
             $returnArray[strval(APIOperationType::DELETE())] = array(
-                    "category_id" => B2CCategoryHelper::getExternalId(['id'=> $oldValue]),
+                    "category_id" => B2CCategoryHelper::getExternalId(['o_id'=> $oldValue]),
                     "product_id" =>  B2CProductHelper::getExternalIdByPimId($b2cProductRelationChange->productId),
                     "catalog_id" => (new B2CCategoryHelper())->getCatalogId()
-                    );                
+                    );
         }
         if($newValue != '' && $newValue != null)
         {
         $returnArray[strval(APIOperationType::CREATE())] = array(
-                "category_id" => B2CCategoryHelper::getExternalId(['id'=> $newValue]),
+                "category_id" => B2CCategoryHelper::getExternalId(['o_id'=> $newValue]),
                 "product_id" =>  B2CProductHelper::getExternalIdByPimId($b2cProductRelationChange->productId),
                 "catalog_id" => (new B2CCategoryHelper())->getCatalogId()
                 );
         }
         return $returnArray;
-        
+
     }
-    
+
 }

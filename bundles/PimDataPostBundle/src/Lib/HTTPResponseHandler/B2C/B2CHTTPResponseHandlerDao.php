@@ -27,7 +27,7 @@ class B2CHTTPResponseHandlerDao
 
     public function moveTempToMaster(int $pimId): bool
     {
-        $sql = "SELECT * FROM ".$this->tempTable." WHERE id = ".$pimId;
+        $sql = "SELECT * FROM ".$this->tempTable." WHERE o_id = ".$pimId;
         $resultTemp = $this->db->fetchAllAssociative($sql);
         foreach($resultTemp as $resultArr)
         {
@@ -58,11 +58,11 @@ class B2CHTTPResponseHandlerDao
 
     public function updateCategoryInProductMasterFromTemp(int $pimId)
     {
-        $sql = "SELECT * FROM ".$this->masterTable." where id = ".$pimId;
+        $sql = "SELECT * FROM ".$this->masterTable." where o_id = ".$pimId;
         $resultMaster = $this->db->fetchAllAssociative($sql);
         foreach($resultMaster as $resultArr)
         {
-            $sql = "SELECT * FROM ".$this->tempTable." where id = ".$pimId;
+            $sql = "SELECT * FROM ".$this->tempTable." where o_id = ".$pimId;
             $resultTemp = $this->db->fetchAllAssociative($sql);
             foreach($resultTemp as $resultArrTemp)
             {
@@ -70,7 +70,7 @@ class B2CHTTPResponseHandlerDao
                 $newMasterArray['B2CCategory'] = $resultArr['B2CCategory'] = $resultArrTemp['B2CCategory'];
                 $hashRelationArray = $this->b2cProductTempTablePopulator->addHashesToTempTableData([$resultArr]);
                 $newMasterArray['relationalHash'] = $hashRelationArray[0]['relationalHash'];
-                return $this->updateMasterRow($resultArr['id'], $newMasterArray);
+                return $this->updateMasterRow($resultArr['o_id'], $newMasterArray);
             }
         }
         return false;

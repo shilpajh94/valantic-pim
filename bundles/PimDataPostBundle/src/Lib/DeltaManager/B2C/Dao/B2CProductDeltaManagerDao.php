@@ -105,7 +105,7 @@ class B2CProductDeltaManagerDao extends DeltaManagerDao
         $result = $this->db->fetchAllAssociative($sql);
         $returnArray = [];
         if( count($result) > 0 ){
-            $returnArray = array_merge($returnArray, array_column($result , 'id'));
+            $returnArray = array_merge($returnArray, array_column($result , 'o_id'));
         }
         return $returnArray;
     }
@@ -127,7 +127,7 @@ class B2CProductDeltaManagerDao extends DeltaManagerDao
             }
             $result = $this->db->fetchAllAssociative($sql);
             if( count($result) >0 ){
-                $returnArray = array_merge($returnArray, array_column($result , 'id'));
+                $returnArray = array_merge($returnArray, array_column($result , 'o_id'));
             }
         }
         return $returnArray;
