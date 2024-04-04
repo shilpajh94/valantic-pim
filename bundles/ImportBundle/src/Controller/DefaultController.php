@@ -168,12 +168,12 @@ class DefaultController extends FrontendController
 
         $entries = new DataObject\Product\Listing();
         $entries->setCondition("parentId IN (?) AND brandName = ? AND printedCatalogFlag = ? AND published = ?", [$skeletonProductsId, $baseObj->getSelectBrandName(), 1, 1]);
-
+        $brand = (DataObject\Brand::getById($baseObj->getSelectBrandName()))->getName();
         $firstFertProduct = $entries->load()[0];
 
         $brandId = $firstFertProduct->getBrandName();
         $brandParentObj = DataObject\Brand::getById($brandId);
-        $brand = $brandParentObj->getName();
+
         $longDescription = $firstFertProduct->getlongDescription();
         $mainImage = $firstFertProduct->getMainImage();
         $tubeMaterial = $firstFertProduct->getBase()->getHoseBase()->getVirtualCatalogTubeMaterial();
