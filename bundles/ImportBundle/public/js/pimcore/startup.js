@@ -43,9 +43,8 @@ pimcore.plugin.ImportBundle = Class.create({
 
     postOpenObject: function (e) {
         if (e.detail.object.data.general.className == 'Product') {
-            var tabPanell = e.detail.object.edit.layout.items.items[0].items.items[0].items.items[0];
-            var exportPanel = e.detail.object.edit.layout.items.items[0].items.items[0].items.items[0].items.items[3];
-            this.createBrandNameStoreAndRender(e,exportPanel);
+            var specSheetExportPanel = e.detail.object.edit.layout.items.items[0].items.items[0].items.items[0].items.items[3];
+            this.createBrandNameStoreAndRender(e,specSheetExportPanel);
     
         }
     },
