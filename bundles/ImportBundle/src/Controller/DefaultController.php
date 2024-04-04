@@ -167,7 +167,7 @@ class DefaultController extends FrontendController
         }
 
         $entries = new DataObject\Product\Listing();
-        $entries->setCondition("parentId IN (?) AND printedCatalogFlag = ? AND published = ?", [$skeletonProductsId, 1, 1]);
+        $entries->setCondition("parentId IN (?) AND brandName = ? AND printedCatalogFlag = ? AND published = ?", [$skeletonProductsId, $baseObj->getSelectBrandName(), 1, 1]);
 
         $firstFertProduct = $entries->load()[0];
 
