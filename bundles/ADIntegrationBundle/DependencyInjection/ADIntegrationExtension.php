@@ -38,8 +38,7 @@ class ADIntegrationExtension extends Extension implements PrependExtensionInterf
     public function prepend(ContainerBuilder $container)
     {
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        // $envConfig = $_ENV['SAML_ENV'];
-        $envConfig = 'dev';
+        $envConfig = $_ENV['SAML_ENV'];
         if ($envConfig != "") {
             switch ($envConfig) {
                 case 'prod':

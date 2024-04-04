@@ -17,8 +17,7 @@ use Symfony\Component\Debug\Debug;
 use Symfony\Component\HttpFoundation\Request;
 
 include __DIR__ . "/../vendor/autoload.php";
-$dotenv = new \Symfony\Component\Dotenv\Dotenv();
-$dotenv->load(dirname(__DIR__) . "/.env");
+
 
 \Pimcore\Bootstrap::setProjectRoot();
 \Pimcore\Bootstrap::bootstrap();
