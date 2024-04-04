@@ -41,8 +41,8 @@ class B2BCategoryHelper extends AbstractB2BSalesForceEntityHelper
     {
         return $this->helper->getExternalIdKey($this->salesForceObjectType);
     }
-    
-    public function getCatalogId() 
+
+    public function getCatalogId()
     {
         $parameter = strtolower($this->getShopType()) ."_" . strval($this->getSalesForceObjectType());
         $objectTypeConfig =  $this->helper->getSymfonyParameter($parameter);
@@ -51,6 +51,6 @@ class B2BCategoryHelper extends AbstractB2BSalesForceEntityHelper
 
     public static function getExternalId(array $tempTableData): string
     {
-        return $tempTableData["id"] . "_category";
+        return $tempTableData["o_id"] . "_category";
     }
 }

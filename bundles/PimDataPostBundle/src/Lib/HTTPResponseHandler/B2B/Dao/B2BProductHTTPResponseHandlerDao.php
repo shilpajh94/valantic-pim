@@ -9,6 +9,8 @@ use PimDataPostBundle\Model\DeltaManager\TempMasterTablesMeta;
 class B2BProductHTTPResponseHandlerDao
 {
     private $db;
+    private $tempTable;
+    private $masterTable;
 
     public function __construct($tempTable , $masterTable)
     {
@@ -20,7 +22,7 @@ class B2BProductHTTPResponseHandlerDao
 
     public function moveTempToMaster(int $pimId): bool
     {
-        $sql = "select * from ".$this->tempTable." where id = ".$pimId;
+        $sql = "select * from ".$this->tempTable." where o_id = ".$pimId;
         $resultTemp = $this->db->fetchAllAssociative($sql);
         foreach($resultTemp as $resultArr)
         {

@@ -27,11 +27,11 @@ class B2BCategoryDataPoster implements IDataPoster
     // @todo for CR: how to decide which category should be used in a group ?
     public function postData()
     {
-        
+
             $tempTablePopulator = new B2BCategoryTempTablePopulator();
-            $tempMasterTableMeta = new TempMasterTablesMeta(Constants::B2B_CATEGORY_TEMP_TABLE_NAME, 
-                                                                Constants::B2B_CATEGORY_MASTER_TABLE_NAME, 
-                                                                "basicHash", 
+            $tempMasterTableMeta = new TempMasterTablesMeta(Constants::B2B_CATEGORY_TEMP_TABLE_NAME,
+                                                                Constants::B2B_CATEGORY_MASTER_TABLE_NAME,
+                                                                "basicHash",
                                                                 "relationalHash");
             $deltaManager = new B2BCategoryDeltaManager($tempMasterTableMeta);
             $enforcedRecordProvier = new B2BCategoryEnforcedRecordsProvider();
@@ -56,13 +56,11 @@ class B2BCategoryDataPoster implements IDataPoster
             $pimModifiedRecordIdsWhichAreAlsoPresentInMaster = array_merge($pimModifiedRecordIdsWhichAreAlsoPresentInMaster, $tempTablePopulator->getAllChildrenObjectsRecursively($pimModifiedRecordIdsWhichAreAlsoPresentInMaster));
             $categoryIdsToBeAddedInTempTable = array_merge($categoryIdsToBeAddedInTempTable, $pimModifiedRecordIdsWhichAreAlsoPresentInMaster);
             $categoryIdsForFailureEntry = $categoryIdsToBeAddedInTempTable;
-    
             $this->insertProductIdsInTempTable($tempTablePopulator, $categoryIdsToBeAddedInTempTable);
-
             $pimFailedRecordsToResend = $pimFailedRecordHandler->getFixedPimFailedRecord(B2BSalesForceObjectType::CATEGORY());
             $pimFailedRecordIdsToResend = $helper->getPimFailedRecordIdsFromObjects($pimFailedRecordsToResend);
             $categoryIdsForFailureEntry = array_merge($categoryIdsForFailureEntry, $pimFailedRecordIdsToResend);
-            $this->insertProductIdsInTempTable($tempTablePopulator, $pimFailedRecordIdsToResend); 
+            $this->insertProductIdsInTempTable($tempTablePopulator, $pimFailedRecordIdsToResend);
             $pimFailedRecordHandler->deleteFixedPimFailedRecord($pimFailedRecordsToResend);
 
             for($level = 1; $level <= 4; $level++){
@@ -79,7 +77,7 @@ class B2BCategoryDataPoster implements IDataPoster
                     $helper->sendAllRequestsToSFAndHandleResponses($httpRequestGenerator, $responseHandler);
                 }
             }
-    
+
             $categoriesEnforcedToPushForUpdate = $enforcedRecordProvier->getRecordsToUpdate();
 
             if(count($categoriesEnforcedToPushForUpdate) > 0){
@@ -97,7 +95,7 @@ class B2BCategoryDataPoster implements IDataPoster
                 $this->createAPIRequestEntityForRecords($recordsToUpdate, APIOperationType::UPDATE(), $tempTablePopulator);
                 $helper->sendAllRequestsToSFAndHandleResponses($httpRequestGenerator, $responseHandler);
             }
-           
+
         }catch(\Throwable $throwable){
             B2BLogger::getInstace()->error( get_class($throwable) . " in B2BCategoryDataPoster: " . $throwable->getMessage() .". StackTrace: " .$throwable->getTraceAsString());
             $helper->addPimFailedRecords($categoryIdsForFailureEntry, $throwable, B2BSalesForceObjectType::CATEGORY());
@@ -112,7 +110,7 @@ class B2BCategoryDataPoster implements IDataPoster
         $categoriyIdsWithLevelInMasterTable = $activeFlagHandler->getCategoryIdToCategoryLevelMapping($categoriyIdsInMasterTable);
         $activeFlagValues = $activeFlagHandler->getValueForActiveFlag($categoriyIdsWithLevelInMasterTable);
         // @todo for CR: if any of the category in the group is active, then all the categories in the group should be active
-        // if all the categories in a group are inactive, then all the categories in the group should be inactive 
+        // if all the categories in a group are inactive, then all the categories in the group should be inactive
         $activeFlagHandler->updateActiveFlagValue($activeFlagValues);
         $categoryIdsToBeAddedInTempTable = [];
 
@@ -134,8 +132,8 @@ class B2BCategoryDataPoster implements IDataPoster
         return $categoryIdsToBeAddedInTempTable;
     }
 
-    private function createAPIRequestEntityForRecords(array $records, 
-                                                            APIOperationType $operationType, 
+    private function createAPIRequestEntityForRecords(array $records,
+                                                            APIOperationType $operationType,
                                                             B2BCategoryTempTablePopulator $tempTablePopulator): void
     {
         $b2bProductRequestBodyGenerator = new B2BCategoryRequestBodyGenerator();
@@ -153,9 +151,9 @@ class B2BCategoryDataPoster implements IDataPoster
             $apiRequestEntity->setBody(json_encode($requestBody,JSON_UNESCAPED_SLASHES));
             $apiRequestEntity->setOperationType($operationType);
             $apiRequestEntity->setSFObjectType(B2BSalesForceObjectType::CATEGORY());
-    
+
             $apiRequestEntity->setexternalID(B2BCategoryHelper::getExternalId($tempTableData));
-            $apiRequestEntity->setPimId($tempTableData["id"]);
+            $apiRequestEntity->setPimId($tempTableData["o_id"]);
             $apiRequestEntity->setReferenceId($recordPimId . "_" . $currTime);
             $apiRequestEntity->setCreationDate($currTime);
             $apiRequestEntity->save();

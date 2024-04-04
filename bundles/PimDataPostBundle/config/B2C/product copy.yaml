@@ -1,6 +1,6 @@
 parameters:
     Attribute:
-        id:
+        o_id:
             pim_attribute_name: id
             pim_table_name: object_1
             sendToSF: true
@@ -144,7 +144,7 @@ parameters:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
             isLocalisedMaster:
-        published:
+        o_published:
             pim_attribute_name: published
             pim_table_name: object_1
             sendToSF: true

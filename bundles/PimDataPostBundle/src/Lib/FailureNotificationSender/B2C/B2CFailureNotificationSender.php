@@ -15,14 +15,14 @@ class B2CFailureNotificationSender extends AbstractB2CFailureNotificationSender
         $this->helper = new B2CFailureNotificationSenderHelper();
     }
 
-    public function sendFailureNotification(): void 
+    public function sendFailureNotification(): void
     {
         $failedRecords = $this->helper->getSfFailureRecords();
 
         $fileName = "failed_log_".date("d")."_".time().".csv";
         $filePath = PIMCORE_SYSTEM_TEMP_DIRECTORY . "/" . $fileName;
         $sfFailureAssetFolder = Constants::B2C_FAILURE_LOG_ASSET_FOLDER."/".date("Y")."/".date("M");
-        
+
         if(count($failedRecords)> 1)
         {
             $isFileCreated = Util::createCsvFile($filePath, $failedRecords);
@@ -30,7 +30,7 @@ class B2CFailureNotificationSender extends AbstractB2CFailureNotificationSender
             if($isFileCreated)
             {
                 $asset = Util::createAsset($fileName, $filePath, $sfFailureAssetFolder);
-                
+
                 if($asset)
                 {
                     $id = $asset->getId();
@@ -51,14 +51,14 @@ class B2CFailureNotificationSender extends AbstractB2CFailureNotificationSender
 
         return $link."{$type}_{$id}_{$subType}";
     }
-    
+
     private function sendFailureCsvLinkEmail($deepLink)
     {
         $userEmailIds = $this->helper->getUsersEmailByRolesNameList();
 
         $link = "<a href='".$deepLink."' target='_blank'>Link</a>";
         $params = ['file_url' => $link];
-        
+
         $mail = new \Pimcore\Mail();
 
         $B2B_B2C_Users_Email = array(
@@ -70,7 +70,7 @@ class B2CFailureNotificationSender extends AbstractB2CFailureNotificationSender
             'kenichi.ban@contitech.de',
             'anthony.miller@contitech.de'
         );
-        
+
         foreach ($B2B_B2C_Users_Email as $email) {
             $mail->addTo($email);
         }
