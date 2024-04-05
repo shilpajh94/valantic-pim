@@ -1,6 +1,6 @@
 parameters:
     Attribute:  
-        id:
+        o_id:
             pim_attribute_name: id
             pim_table_name: object_2
             temp_master_table_attr: true
@@ -72,7 +72,7 @@ parameters:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
             isLocalisedMaster:
-        parentId:
+        o_parentId:
             pim_attribute_name: parentId
             pim_table_name: object_2
             sendToSF: true
@@ -151,7 +151,7 @@ parameters:
             temp_master_table_attr: true
             temp_master_table_column_type: TINYINT(1) NULL
             sf_attribute_name: IsNavigational
-            joinOn: LEFT JOIN object_store_2 ON object_store_2.oid = object_2.id
+            joinOn: LEFT JOIN object_store_2 ON object_store_2.oo_id = object_2.id
             addOnJoin:
             pim_attribute_type: checkbox
             sf_relational_attribute:

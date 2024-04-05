@@ -19,7 +19,7 @@ parameters:
             update_product_if_master_updated:
             isLocalisedMaster:
             value_formatter_for_push:
-        id:
+        o_id:
             pim_attribute_name: id
             pim_table_name: object_1
             sendToSF: false
@@ -3231,7 +3231,7 @@ parameters:
             update_product_if_master_updated:
             isLocalisedMaster:
             value_formatter_for_push:
-        published:
+        o_published:
             pim_attribute_name: published
             pim_table_name: object_1
             sendToSF: false

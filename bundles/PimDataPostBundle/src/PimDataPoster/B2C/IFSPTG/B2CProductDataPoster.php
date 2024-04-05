@@ -26,9 +26,9 @@ class B2CProductDataPoster implements IDataPoster
     public function postData()
     {
         $tempTablePopulator = new B2CProductTempTablePopulator();
-        $tempMasterTableMeta = new TempMasterTablesMeta(Constants::B2C_PRODUCT_TEMP_TABLE_NAME, 
-                                                            Constants::B2C_PRODUCT_MASTER_TABLE_NAME, 
-                                                            "basicHash", 
+        $tempMasterTableMeta = new TempMasterTablesMeta(Constants::B2C_PRODUCT_TEMP_TABLE_NAME,
+                                                            Constants::B2C_PRODUCT_MASTER_TABLE_NAME,
+                                                            "basicHash",
                                                             "relationalHash");
         $relationChangeRegistrar = new B2CProductRelationChangeRegistrar($tempMasterTableMeta);
         $deltaManager = new B2CProductDeltaManager($tempMasterTableMeta);
@@ -44,12 +44,12 @@ class B2CProductDataPoster implements IDataPoster
             $tempTablePopulator->truncateTempTable();
             $pimModifiedRecords = $tempTablePopulator->getPimModifiedRecordIds();
             $productIdsForFailureEntry = $pimModifiedRecords;
-            $this->insertProductIdsInTempTable($tempTablePopulator, $pimModifiedRecords); 
+            $this->insertProductIdsInTempTable($tempTablePopulator, $pimModifiedRecords);
 
             $pimFailedRecordsToResend = $pimFailedRecordHandler->getFixedPimFailedRecord(B2CSalesForceObjectType::PRODUCT());
             $pimFailedRecordIdsToResend = $helper->getPimFailedRecordIdsFromObjects($pimFailedRecordsToResend);
             $productIdsForFailureEntry = array_merge($productIdsForFailureEntry, $pimFailedRecordIdsToResend);
-            $this->insertProductIdsInTempTable($tempTablePopulator, $pimFailedRecordIdsToResend); 
+            $this->insertProductIdsInTempTable($tempTablePopulator, $pimFailedRecordIdsToResend);
             $pimFailedRecordHandler->deleteFixedPimFailedRecord($pimFailedRecordsToResend);
 
             $relationChangeRegistrar->registerChangedRelation();
@@ -82,22 +82,22 @@ class B2CProductDataPoster implements IDataPoster
                 $this->insertProductIdsInTempTable($tempTablePopulator, $productEnforcedToPushForCreate);
             }
             $recordsToCreate = array_unique(array_merge($recordsToCreate, $productEnforcedToPushForCreate));
-            
+
             $this->createAPIRequestEntityForRecords($recordsToUpdate, APIOperationType::UPDATE(), $tempTablePopulator);
             $this->createAPIRequestEntityForRecords($recordsToCreate, APIOperationType::CREATE(), $tempTablePopulator);
 
             $helper->sendAllRequestsToSFAndHandleResponses($httpRequestGenerator, $responseHandler);
-    
+
         }catch(\Throwable $throwable){
             B2CLogger::getInstace()->error( get_class($throwable) . " in B2CProductDataPoster: " . $throwable->getMessage() .". StackTrace: " .$throwable->getTraceAsString());
             $helper->addPimFailedRecords($productIdsForFailureEntry, $throwable, B2CSalesForceObjectType::PRODUCT() );
             Util::setPIMFailureFlag();
         }
-           
+
     }
 
-    private function createAPIRequestEntityForRecords(array $records, 
-                                                            APIOperationType $operationType, 
+    private function createAPIRequestEntityForRecords(array $records,
+                                                            APIOperationType $operationType,
                                                             B2CProductTempTablePopulator $tempTablePopulator)
     {
         $requestBodyGenerator = new B2CProductRequestBodyGenerator();
@@ -113,7 +113,7 @@ class B2CProductDataPoster implements IDataPoster
             $currTime = time();
             $requestBody = $requestBodyGenerator->generateRequestBody($tempTableData);
 
-            $pimId = $tempTableData["id"];
+            $pimId = $tempTableData["o_id"];
             if($pimId && !empty(trim($tempTableData['B2CCategory'])))
             {
                 $B2CCategory = trim($tempTableData['B2CCategory'],",");
@@ -130,16 +130,16 @@ class B2CProductDataPoster implements IDataPoster
             $apiRequestEntity->setBody(json_encode($requestBody));
             $apiRequestEntity->setOperationType($operationType);
             $apiRequestEntity->setSFObjectType(B2CSalesForceObjectType::PRODUCT());
-    
+
             $apiRequestEntity->setexternalID(B2CProductHelper::getExternalId($tempTableData));
-            $apiRequestEntity->setPimId($tempTableData["id"]);
+            $apiRequestEntity->setPimId($tempTableData["o_id"]);
             $apiRequestEntity->setReferenceId($recordPimId . "_" . $currTime);
             $apiRequestEntity->setBusinessUnit($tempTableData["BusinessUnit"]);
             $apiRequestEntity->setCreationDate($currTime);
             $apiRequestEntity->save();
 
             $savedRequestIds[] = $recordPimId;
-            
+
         }
     }
 

@@ -46,7 +46,7 @@ class B2CCategoryActiveFlagHelper
     public function productCategoryArrayFromProductMaster(): array
     {
         $masterArray = $this->dao->productCategoryArrayFromProductMaster();
-        $id = array_column($masterArray, 'id');
+        $id = array_column($masterArray, 'o_id');
         $category = array_column($masterArray, 'B2CCategory');
         return array_combine($id, $category);
     }
@@ -64,7 +64,7 @@ class B2CCategoryActiveFlagHelper
         $list = new B2CProductRelationChange\Listing();
 
         $categories = [];
-        
+
         foreach($list as $obj){
             $categories[] = $obj->getNewValue();
         }
@@ -101,7 +101,7 @@ class B2CCategoryActiveFlagHelper
                 if($onlineFlag != $flag)
                 {
                     $hierarchyObj->setOnlineFlag($flag);
-                    $hierarchyObj->save();  
+                    $hierarchyObj->save();
                 }
             }
         }

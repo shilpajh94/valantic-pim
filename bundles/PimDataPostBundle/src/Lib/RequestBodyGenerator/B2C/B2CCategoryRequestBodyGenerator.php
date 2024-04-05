@@ -20,20 +20,20 @@ use PimDataPostBundle\Lib\Util;
  *
  */
 class B2CCategoryRequestBodyGenerator extends AbstractB2CRequestBodyGenerator {
-    
+
     private $requestBodyGeneratorHelper;
 
     private $b2cProductRequestBodyGeneratorDao;
-    
+
     private $config;
-    
+
     public function __construct()
     {
         $this->requestBodyGeneratorHelper = new RequestBodyGeneratorHelper($this);
         $this->b2cProductRequestBodyGeneratorDao = new B2CProductRequestBodyGeneratorDao();
         $configProviderService = new B2CCategoryAttributeConfigProvider();
         $this->config = $configProviderService->getCompleteAttributeConfig();
-        
+
         $this->allowedAttributeTypes = [
             strtolower(PimFieldType::SELECT()),
             strtolower(PimFieldType::MULTISELECT()),
@@ -47,7 +47,7 @@ class B2CCategoryRequestBodyGenerator extends AbstractB2CRequestBodyGenerator {
             strtolower(PimFieldType::IMAGE())
         ];
     }
-    
+
     /**
      * function to generate data array to send to salesforce. This function will handle single record at a time
      * @param array $tempTableData
@@ -86,7 +86,7 @@ class B2CCategoryRequestBodyGenerator extends AbstractB2CRequestBodyGenerator {
             $config = $this->config;
         }
         foreach ($tempTableData as $key => $value) {
-            if($key == 'id')
+            if($key == 'o_id')
             {
                 $returnArray["parent_category_id"] = $this->getParentExternalId($value, $tempTableData["level"], $language);
             }
@@ -96,7 +96,7 @@ class B2CCategoryRequestBodyGenerator extends AbstractB2CRequestBodyGenerator {
                     if($attributeConfig['pim_attribute_type'] == strval(PimFieldType::WYSIWYG() )){
                         $value = Util::formatWysiwygValue($value);
                     }
-                
+
                     $returnArray[$attributeConfig['sf_attribute_name']] = $value;
                     if ($value !== null && $this->checkIfTypeIsAllowed($attributeConfig)) {
                         $type = $config[$key]['pim_attribute_type'];
@@ -108,7 +108,7 @@ class B2CCategoryRequestBodyGenerator extends AbstractB2CRequestBodyGenerator {
                         if (method_exists($this->requestBodyGeneratorHelper, $fnc)) {
                             $returnArray[$attributeConfig['sf_attribute_name']] = $this->requestBodyGeneratorHelper->$fnc($value, $config[$key], $language);
                         }
-                        
+
                     }
                 }
             }
@@ -121,7 +121,7 @@ class B2CCategoryRequestBodyGenerator extends AbstractB2CRequestBodyGenerator {
         }
         return $returnArray;
     }
-    
+
     public function getParentExternalId($value, $level, $language = null)
     {
         if($level == 1){
@@ -134,10 +134,10 @@ class B2CCategoryRequestBodyGenerator extends AbstractB2CRequestBodyGenerator {
             $parentPimId = $this->b2cProductRequestBodyGeneratorDao->getParentId($parentPimId);
             $parentType = $this->b2cProductRequestBodyGeneratorDao->getObjectType($parentPimId);
         }
-        $categoryTempData = array('id' => $parentPimId);
+        $categoryTempData = array('o_id' => $parentPimId);
         return B2CCategoryHelper::getExternalId($categoryTempData);
     }
-    
+
     public function generateCreateRequestBody(array $tempTableData): array
     {
         return [];

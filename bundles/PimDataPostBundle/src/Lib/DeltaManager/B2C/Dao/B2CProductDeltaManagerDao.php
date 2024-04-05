@@ -40,7 +40,7 @@ class B2CProductDeltaManagerDao extends DeltaManagerDao
         if(empty($updatedMasterIds)){
             return [];
         }
-        $sql = "SELECT id FROM " . $masterTableName;
+        $sql = "SELECT o_id FROM " . $masterTableName;
         if($pimAttributeType === strval(PimFieldType::SELECT())){
             $updatedMasterIdsString = "(" . implode(",", $updatedMasterIds) . ")";
             $sql .= " WHERE " . $productAttributeNameInMasterTable . " IN " . $updatedMasterIdsString;
@@ -64,7 +64,7 @@ class B2CProductDeltaManagerDao extends DeltaManagerDao
     {
         $sql="DELETE t1
             FROM ".$this->tempMasterTablesMeta->getTempTableName()." t1
-             LEFT JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.id = t1.id
+             LEFT JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.o_id = t1.o_id
              WHERE t1.".$this->tempMasterTablesMeta->getNonRelationalhashColumnName()." = t2.".$this->tempMasterTablesMeta->getNonRelationalhashColumnName()."
              AND t1.".$this->tempMasterTablesMeta->getRelationalhashColumnName()." = t2.".$this->tempMasterTablesMeta->getRelationalhashColumnName();
 
@@ -78,10 +78,10 @@ class B2CProductDeltaManagerDao extends DeltaManagerDao
             // Start  # new data which is not in master table
     public function getRecordsPresentInTempNotInMaster()
     {
-        $sql="SELECT t1.id
+        $sql="SELECT t1.o_id
              FROM ".$this->tempMasterTablesMeta->getTempTableName()." t1
-             LEFT JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.id = t1.id
-             WHERE t2.id IS NULL AND t1.B2CStoreFlag=1 AND t1.published=1";
+             LEFT JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.o_id = t1.o_id
+             WHERE t2.id IS NULL AND t1.B2CStoreFlag=1 AND t1.o_published=1";
         return $this->db->fetchFirstColumn($sql);
     }
            // End  ---------
@@ -89,9 +89,9 @@ class B2CProductDeltaManagerDao extends DeltaManagerDao
            // Start  # get data which is exist in master table and BasicHash changed
     public function getHashChangedRecords()
     {
-        $sql="SELECT t1.id
+        $sql="SELECT t1.o_id
             FROM ".$this->tempMasterTablesMeta->getTempTableName()." t1
-            LEFT JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.id = t1.id
+            LEFT JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.o_id = t1.o_id
             WHERE t1.".$this->tempMasterTablesMeta->getNonRelationalhashColumnName()." != t2.".$this->tempMasterTablesMeta->getNonRelationalhashColumnName();
 
             return $this->db->fetchFirstColumn($sql);
@@ -100,12 +100,12 @@ class B2CProductDeltaManagerDao extends DeltaManagerDao
 
      public function getProductIdsByUpdatedAsset(int $assetId): array
     {
-        $sql = "SELECT id FROM ".Constants::B2C_PRODUCT_MASTER_TABLE_NAME;
+        $sql = "SELECT o_id FROM ".Constants::B2C_PRODUCT_MASTER_TABLE_NAME;
         $sql .= " WHERE Document LIKE '%|".$assetId.",%'";
         $result = $this->db->fetchAllAssociative($sql);
         $returnArray = [];
         if( count($result) > 0 ){
-            $returnArray = array_merge($returnArray, array_column($result , 'id'));
+            $returnArray = array_merge($returnArray, array_column($result , 'o_id'));
         }
         return $returnArray;
     }
@@ -116,7 +116,7 @@ class B2CProductDeltaManagerDao extends DeltaManagerDao
         $returnArray = [];
         foreach($attributesArray as $key => $attributesRow)
         {
-            $sql = "SELECT id FROM ".Constants::B2C_PRODUCT_MASTER_TABLE_NAME;
+            $sql = "SELECT o_id FROM ".Constants::B2C_PRODUCT_MASTER_TABLE_NAME;
             if($key == 'Document')
             {
                 $sql .= " WHERE ".$key." LIKE '%|".$assetId.",%'";
@@ -127,7 +127,7 @@ class B2CProductDeltaManagerDao extends DeltaManagerDao
             }
             $result = $this->db->fetchAllAssociative($sql);
             if( count($result) >0 ){
-                $returnArray = array_merge($returnArray, array_column($result , 'id'));
+                $returnArray = array_merge($returnArray, array_column($result , 'o_id'));
             }
         }
         return $returnArray;

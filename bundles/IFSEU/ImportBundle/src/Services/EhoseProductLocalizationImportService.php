@@ -9,7 +9,7 @@ use IFSEU\ProductBundle\Services\CompletenessPercentageService;
 
 class EhoseProductLocalizationImportService
 {
-    
+
     public $filePath;
     private $logFileName;
     private $productModel;
@@ -57,9 +57,9 @@ class EhoseProductLocalizationImportService
     private $ConditionsIdArray;
     private $productionLengthIdArray;
     private $noteInfoIdArray;
-    
+
     const LOGGER_MODULE = 'SAP IMPORT SHEET';
-    
+
     public function __construct(
         CompletenessPercentageService $percentageCompletionService
     ) {
@@ -77,7 +77,7 @@ class EhoseProductLocalizationImportService
 
         $this->unitConversionService= \Pimcore::getContainer()->get('ifs_eu_import.unit_conversion_import_service');
     }
-    
+
     /**
      * Update table name in import table class
      */
@@ -88,7 +88,7 @@ class EhoseProductLocalizationImportService
         $tables['fileColumns'] = $this->csvHeader;
         $tables['mappingCsvColumn'] = $this->columnName;
         $tables['keyColumns'] = $this->common->getParameterItem($this->materialConfigData, 'sheet', 'keyColumns');
-        
+
         $this->productModel->init($tables);
         $allBricksList = new \Pimcore\Model\DataObject\Objectbrick\Definition\Listing();
         $allBricksList = $allBricksList->load();
@@ -213,21 +213,21 @@ class EhoseProductLocalizationImportService
         }
 
     }
-      
+
     public function import($filePath,$lang)
     {
         $this->filePath = $filePath;
         $this->localizedLanguage=$lang;
         if($this->filePath){
             $csvInfo = ImportService::getCSVData($this->filePath);
-            
+
             $this->csvHeader = array_flip($csvInfo['header']);
             try {
                 $this->initImportTable();
                 $this->initiateProductsProcess($csvInfo['data']);
                 Logger::log(self::LOGGER_MODULE)->info("Product import completed");
                 if (!empty($this->updatedArticlesArray) && count($this->updatedArticlesArray)>0) {
-                    echo "Object Saving started for completeness.".PHP_EOL;         
+                    echo "Object Saving started for completeness.".PHP_EOL;
                     $this->saveProducts($this->updatedArticlesArray);
                     echo "Object Saving completed for completeness.".PHP_EOL;
                 }
@@ -235,18 +235,18 @@ class EhoseProductLocalizationImportService
             Logger::error($this->logFileName, $th);
             die;
             }
-    
+
         }else{
-            die; 
+            die;
         }
-            
+
     }
-    
+
     public function initiateProductsProcess($partialData) {
         $this->setVariablesToEmpty();
         $this->processProducts($partialData);
-    }    
-    
+    }
+
     public function setVariablesToEmpty() {
         unset($this->products, $this->logArray, $this->objectsTableData, $this->queryTableDataArray, $this->storeTableDataArray, $this->localisedQueryTableDataArray, $this->localisedDataTableDataArray, $this->dependencyTableDataArray);
         unset($this->bricksDataArray);
@@ -263,20 +263,20 @@ class EhoseProductLocalizationImportService
         $this->bricksDataArray = [];
         $this->mapBricksArray = [];
         foreach ($this->langArr as $lang) {
-            $this->localisedQueryTableDataArray[$lang] = [];    
+            $this->localisedQueryTableDataArray[$lang] = [];
         }
         echo "Memory usage before garbage collector: ". memory_get_usage().PHP_EOL;
         \Pimcore::collectGarbage();
         //gc_collect_cycles();
     }
-    
+
     public function processProducts($data) {
         foreach ($data as $row) {
             $this->processSingleRecord($row);
         }
         $this->insertDataInDB();
         $fileName = "IFSEU_eHose_Localized_Data_Log_".$this->localizedLanguage . '-' . date('YmdHis') . '.csv';
-        $localizationImportlogFilePath = PIMCORE_TEMPORARY_DIRECTORY."/".$fileName;
+        $localizationImportlogFilePath = PIMCORE_SYSTEM_TEMP_DIRECTORY."/".$fileName;
         $fp = fopen($localizationImportlogFilePath, 'wb');
         fputcsv($fp, ['materialNumber', 'statusCode', 'failedReason']);
         foreach ($this->logArray as $article) {
@@ -286,8 +286,8 @@ class EhoseProductLocalizationImportService
 
         unset($data, $row);
         $this->setVariablesToEmpty();
-    }    
-        
+    }
+
     public function insertDataInDB() {
         if(!empty($this->queryTableDataArray)) {
             $this->productModel->insertIntoProductTable($this->queryTableDataArray, 'object_query_IFSEUProduct');
@@ -299,11 +299,11 @@ class EhoseProductLocalizationImportService
             $this->productModel->deleteRelationTableRecords($this->relationTableDataDeleteArray);
             $this->productModel->insertIntoProductTable($this->relationTableDataArray, 'object_relations_IFSEUProduct');
         }
-    
+
         foreach ($this->langArr as $lang) {
             if (!empty($this->localisedQueryTableDataArray[$lang])) {
                 $tbl = 'object_localized_query_IFSEUProduct_'.($lang);
-                $this->productModel->insertIntoProductTable($this->localisedQueryTableDataArray[$lang], $tbl);    
+                $this->productModel->insertIntoProductTable($this->localisedQueryTableDataArray[$lang], $tbl);
             }
         }
         if (!empty($this->localisedDataTableDataArray)) {
@@ -366,9 +366,9 @@ class EhoseProductLocalizationImportService
     private function getRecordIndexByKey($key) {
         return $this->csvHeader[$this->columnName[$key]];
     }
-    public function createIFSEUObject($record, $parentId, $parentPath, $levelInfo, $type) 
+    public function createIFSEUObject($record, $parentId, $parentPath, $levelInfo, $type)
     {
-        $objectIndex        = $this->productHelper->getObjectIndex($type, $levelInfo); 
+        $objectIndex        = $this->productHelper->getObjectIndex($type, $levelInfo);
         $currentLevelCode   = $levelInfo[$objectIndex]['levelFullCode'];
         $fertLevelCode      = $levelInfo[count($levelInfo)]['levelFullCode'];
         $categoryPath       = $this->categories[$currentLevelCode]['fullPath'];
@@ -400,13 +400,13 @@ class EhoseProductLocalizationImportService
                 $newPath = explode("/", $currentLevelPath);
                 array_pop($newPath);
                 $newPath = implode("/", $newPath);
-                
+
                 $productObj = new \Pimcore\Model\DataObject\IFSEUProduct;
                 $currentPathId = $productObj->getByPath($newPath)->getId();
-                
+
                 $materialNumber = $record[$this->getRecordIndexByKey('material')];
                 $data = $this->productModel->checkIfArticleExists($materialNumber);
-                
+
                 if (!empty($data)) {
                     $objId = $data[0]['oo_id'];
                     $objectArr['id'] = $objId;
@@ -448,7 +448,7 @@ class EhoseProductLocalizationImportService
         if (!empty($ObjectDetails)) {
             $siopCode=$ObjectDetails[0]['siopFullCode'];
             $o_key=$ObjectDetails[0]['key'];
-            
+
                 echo $recData['0'].PHP_EOL;
                 $record = array(
                     'code'  =>  $siopCode,
@@ -459,22 +459,22 @@ class EhoseProductLocalizationImportService
                 $result = $this->processLevelInfo($record, $recData, $errorFlag);
                 $status = $result['status'];
                 $msg    = $result['msg'];
-                
+
         } else {
             $msg = 'Material Number not exists.';
         }
-        
+
         $logRow = [
             'materialNumber' => $recData[$this->getRecordIndexByKey('material')],
             'statusCode' => $status,
             'failedReason' => $msg
         ];
-        $this->logArray[] = $logRow; 
+        $this->logArray[] = $logRow;
         $logRow = null;
         unset($logRow);
     }
 
-    private function processLevelInfo($record, $recData, $errorFlag) 
+    private function processLevelInfo($record, $recData, $errorFlag)
     {
 
         $levelInfo = $this->productHelper->getLevels($record['code'], $record);
@@ -483,7 +483,7 @@ class EhoseProductLocalizationImportService
             $folderCode = $levelInfo['levels'][$folderIndex]['levelFullCode'];
             $folderPath = $this->categories[$folderCode]['fullPath'];
             $folderPath = $this->productHelper->convertCategoryPathToProduct($folderPath);
-            
+
             if (!array_key_exists($folderPath, $this->products)) {
                 $folderId = $this->productHelper->getFolderByPath($folderPath);
                 $this->products[$folderPath] = $folderId;
@@ -493,12 +493,12 @@ class EhoseProductLocalizationImportService
 
             $levelArray = $this->createIFSEUObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'base');
             if (!$errorFlag) {
-                $this->updatedArticlesArray[] = $levelArray[0]; 
+                $this->updatedArticlesArray[] = $levelArray[0];
             }
 
             $levelArray = $this->createIFSEUObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'skeleton');
             if (!$errorFlag) {
-                $this->updatedArticlesArray[] = $levelArray[0]; 
+                $this->updatedArticlesArray[] = $levelArray[0];
             }
 
             $levelArray = $this->createIFSEUObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'fert');
@@ -507,7 +507,7 @@ class EhoseProductLocalizationImportService
             $msg = 'Object Id is: '.$levelArray[0];
 
             if (!$errorFlag) {
-                $this->updatedArticlesArray[] = $levelArray[0]; 
+                $this->updatedArticlesArray[] = $levelArray[0];
             }
             $this->updatedArticlesArray = array_unique($this->updatedArticlesArray);
         }
@@ -516,7 +516,7 @@ class EhoseProductLocalizationImportService
                 'msg' => $msg
             ];
     }
-    
+
     public function getLocalizedQueryData($objId, $record, $productType = 'fert') {
         foreach ($this->langArr as $lang) {
             $value = $headlineWeb=$marking1=$marking2=$noteInformationBelowTable=$productBrandNamePerLanguage=$BrandShortText2=$commercialDescription=$technicalDescription=$sapDescription=null;
@@ -598,9 +598,9 @@ class EhoseProductLocalizationImportService
             'countryOfOrigin__type' => null,
             'additionalDiscount' => null
         ];
-        
+
         if (strtolower($productType) == 'fert') {
-            
+
             $queryTableData['productLength'] = trim($record[$this->getRecordIndexByKey('productLength')]);
             $queryTableData['additionalDiscount'] = trim($record[$this->getRecordIndexByKey('additionalDiscount')]);
             $queryTableData['EhoseID'] = trim($record[$this->getRecordIndexByKey('EhoseID')]);
@@ -690,7 +690,7 @@ class EhoseProductLocalizationImportService
             } else {
                 $queryTableData['EANCode'] = trim($record[$this->getRecordIndexByKey('EANCode')]);
             }
-            
+
             $countryOriginId = $this->getCountryOriginCodeId(trim($record[$this->getRecordIndexByKey('countryOfOrigin')]));
             if(!empty($countryOriginId)) {
                 $queryTableData['countryOfOrigin__id'] = $countryOriginId;
@@ -716,7 +716,7 @@ class EhoseProductLocalizationImportService
                 $onlyOpenSystem =  trim($record[$this->getRecordIndexByKey('onlyOpenSystem')]);
                 $queryTableData['onlyOpenSystem'] = $this->getBooleanValue($onlyOpenSystem);
             }
-            
+
             $category = trim($record[$this->getRecordIndexByKey('Category')]);
             $categoryDataInSheet = str_replace(" / ", " - ", $category);
             $getCatagoryID = $this->getCategoryCodeId($categoryDataInSheet);
@@ -783,7 +783,7 @@ class EhoseProductLocalizationImportService
             }
 
         }
-        
+
         $this->queryTableDataArray[] = array_merge($queryTableData);
     }
 
@@ -819,7 +819,7 @@ class EhoseProductLocalizationImportService
             'additionalDiscount' => null
         ];
         if (strtolower($productType) == 'fert') {
-    
+
             $storeTableDataArray['productLength'] = trim($record[$this->getRecordIndexByKey('productLength')]);
             $storeTableDataArray['additionalDiscount'] = trim($record[$this->getRecordIndexByKey('additionalDiscount')]);
             $storeTableDataArray['EhoseID'] = trim($record[$this->getRecordIndexByKey('EhoseID')]);
@@ -954,7 +954,7 @@ class EhoseProductLocalizationImportService
             //         }
             //     }
             // }
-            
+
 
             // if(!empty($maximumTemperatureC)){
             //     $attributeGroupName = $this->unitConversionService->getAttributeGroupName('maximumTemperatureC');
@@ -1002,7 +1002,7 @@ class EhoseProductLocalizationImportService
     }
 
     public function getRelationTableData($objId, $record, $levelInfo, $level=5, $productType = 'fert') {
-        
+
         if (strtolower($productType) == 'fert') {
             $countryOriginName = trim($record[$this->getRecordIndexByKey('countryOfOrigin')]);
             $countryOriginId = $this->getCountryOriginCodeId($countryOriginName);
@@ -1021,7 +1021,7 @@ class EhoseProductLocalizationImportService
         }
     }
     public function getDependencyTableData($objId, $record, $levelInfo, $level=5, $productType = 'fert') {
-        
+
         if (strtolower($productType) == 'fert') {
 
             $countryOriginName = trim($record[$this->getRecordIndexByKey('countryOfOrigin')]);
@@ -1038,10 +1038,10 @@ class EhoseProductLocalizationImportService
     }
     public function setBricksData($objId, $bricks, $type,$record) {
         try{
-            $csvHeader      = array_flip($this->csvHeader); 
+            $csvHeader      = array_flip($this->csvHeader);
             $rowData        = array_combine($csvHeader, $record);
             foreach ($bricks as $brick) {
-                $bricksData     = $this->productHelper->processBricksData($rowData, $brick); 
+                $bricksData     = $this->productHelper->processBricksData($rowData, $brick);
                 if (in_array($brick, $this->allBricksList)) {
                     foreach ($this->brickTablePrefixArray  as $brickPrefix) {
                         $tblName = $brickPrefix.ucfirst($brick)."_IFSEUProduct";
@@ -1057,12 +1057,12 @@ class EhoseProductLocalizationImportService
             print_r($th);
         }
     }
-    
+
     public function getOrCreateMaterialGroupCodeId($materialGroupCode) {
         if (!empty($materialGroupCode)) {
             if (!empty($this->materialGroup[$materialGroupCode])) {
                 return $this->materialGroup[$materialGroupCode];
-            } 
+            }
         }
         return null;
     }
@@ -1070,16 +1070,16 @@ class EhoseProductLocalizationImportService
     public function hoseBaseBricksAttribute($bricksData,$brick){
         $brickAttributesConfigData  = $this->configProviderService->getBrickAttributesConfig();
         $propertiesAttributeArr=['InnerLining'=>'innerlining','colorInnerLining'=>'colorInn','Reinforcement'=>'reinforcements','Helix'=>'helix','propertiesInnerLayer'=>'propertiesInn','ColorOuterLayer'=>'colorOut','CoverOuterLayer'=>'cover','Haptic'=>'haptic','PropertiesOuterLayer'=>'propertiesOut'];
-        foreach ($brickAttributesConfigData as $attributeLabel => $brickAttributeConfig) 
+        foreach ($brickAttributesConfigData as $attributeLabel => $brickAttributeConfig)
         {
-            $fieldMasterType=''; 
+            $fieldMasterType='';
             $fieldName  = $brickAttributeConfig['fieldName'];
             $fieldType = $brickAttributeConfig['fieldType'];
             $objectType = $brickAttributeConfig['objectType'];
             $attributeLabel  = trim($attributeLabel);
             if(($objectType==$brick) && ($fieldType=='Select' || $fieldType=='Multiselection'))
             {
-                
+
                 if(isset($brickAttributeConfig['fieldMasterType'])){
 
                     $fieldMasterType=$brickAttributeConfig['fieldMasterType'];
@@ -1175,7 +1175,7 @@ class EhoseProductLocalizationImportService
         if (!empty($countryOriginName)) {
             if (!empty($this->countryOrigin[$countryOriginName])) {
                 return $this->countryOrigin[$countryOriginName];
-            } 
+            }
         }
         return null;
     }
@@ -1184,7 +1184,7 @@ class EhoseProductLocalizationImportService
         if (!empty($categoryName)) {
             if (!empty($this->BaseLevelCategory[$categoryName])) {
                 return $this->BaseLevelCategory[$categoryName];
-            } 
+            }
         }
         return null;
     }
@@ -1193,7 +1193,7 @@ class EhoseProductLocalizationImportService
         if (!empty($productBrandName)) {
             if (!empty($this->BrandName[$productBrandName])) {
                 return $this->BrandName[$productBrandName];
-            } 
+            }
         }
         return null;
     }
@@ -1202,7 +1202,7 @@ class EhoseProductLocalizationImportService
         if (!empty($subCategory)) {
             if (!empty($this->SubCategory[$subCategory])) {
                 return $this->SubCategory[$subCategory];
-            } 
+            }
         }
         return null;
     }
@@ -1240,6 +1240,6 @@ class EhoseProductLocalizationImportService
             default:
                 return;
         }
-    } 
+    }
 
 }

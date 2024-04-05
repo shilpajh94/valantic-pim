@@ -20,12 +20,12 @@ class B2BProductMediaDeltaManagerDao extends DeltaManagerDao
 
     public function getProductIdsByUpdatedAsset(int $assetId): array
     {
-        $sql = "SELECT id FROM ".Constants::B2B_PRODUCT_MASTER_TABLE_NAME;
+        $sql = "SELECT o_id FROM ".Constants::B2B_PRODUCT_MASTER_TABLE_NAME;
         $sql .= " WHERE Document LIKE '%|".$assetId.",%'";
         $result = $this->db->fetchAllAssociative($sql);
         $returnArray = [];
         if( count($result) > 0 ){
-            $returnArray['Document'] = array_column($result , 'id');
+            $returnArray['Document'] = array_column($result , 'o_id');
         }
         return $returnArray;
     }
@@ -36,7 +36,7 @@ class B2BProductMediaDeltaManagerDao extends DeltaManagerDao
         $returnArray = [];
         foreach($attributesArray as $key => $attributesRow)
         {
-            $sql = "SELECT id FROM ".Constants::B2B_PRODUCT_MASTER_TABLE_NAME;
+            $sql = "SELECT o_id FROM ".Constants::B2B_PRODUCT_MASTER_TABLE_NAME;
             if($key == 'Document')
             {
                 $sql .= " WHERE ".$key." LIKE '%|".$assetId.",%'";
@@ -47,7 +47,7 @@ class B2BProductMediaDeltaManagerDao extends DeltaManagerDao
             }
             $result = $this->db->fetchAllAssociative($sql);
             if( count($result) >0 ){
-                $returnArray[$key] = array_column($result , 'id');
+                $returnArray[$key] = array_column($result , 'o_id');
             }
         }
         return $returnArray;
