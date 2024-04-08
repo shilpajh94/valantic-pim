@@ -108,27 +108,45 @@ class Product
         $len = strlen($code);
         $level = $this->catHelper->getLevelByLength($len);
         $levels = array();
-        for ($i = $level; $i >= 2; $i--) {
+        for ($i = $level; $i >= 1; $i--) {
             $objectKey = empty($reader) ?:( isset($reader[$this->level[$i]['key']]) ? $reader[$this->level[$i]['key']] : NULL);
             $parentLevel = $this->catHelper->getParentLevel($i);
             $levelFullCode = $this->catHelper->extractFullCodeLevelWise($i, $code);
             $parentFullCode = $this->catHelper->extractFullCodeLevelWise(($i - 1), $code);
             $parentPath = $parentLevel ? $this->getParentPath($parentLevel, $buCode, $reader) : $this->root['fullPath'];
             $objectPath = $parentPath . '/' . $objectKey; 
-            $levels[$i] = array(
-                'code'          =>  $this->catHelper->extractCodeLevelWise($i, $code),
-                'parentCode'    =>  $this->catHelper->extractCodeLevelWise($parentLevel, $code),
-                'fullCode'      =>  $code,
-                'levelFullCode' =>  $levelFullCode,
-                'parentFullCode' =>  $parentFullCode,
-                'level'         =>  $i,
-                'bu'            =>  $bu,
-                'objectKey'     =>  $objectKey,
-                'parentObjectKey'   =>  empty($reader) ?: ((isset($reader[$this->level[$parentLevel]['key']]) && isset($this->level[$parentLevel])) ? $reader[$this->level[$parentLevel]['key']] : NULL),
-                'objectPath'    =>  $objectPath,
-                'parentPath'    =>  $parentPath
-            );
+            if($parentLevel){
+                $levels[$i] = array(
+                    'code'          =>  $this->catHelper->extractCodeLevelWise($i, $code),
+                    'parentCode'    =>  $this->catHelper->extractCodeLevelWise($parentLevel, $code),
+                    'fullCode'      =>  $code,
+                    'levelFullCode' =>  $levelFullCode,
+                    'parentFullCode' =>  $parentFullCode,
+                    'level'         =>  $i,
+                    'bu'            =>  $bu,
+                    'objectKey'     =>  $objectKey,
+                    'parentObjectKey'   =>  empty($reader) ?: ((isset($reader[$this->level[$parentLevel]['key']]) && isset($this->level[$parentLevel])) ? $reader[$this->level[$parentLevel]['key']] : NULL),
+                    'objectPath'    =>  $objectPath,
+                    'parentPath'    =>  $parentPath
+                );
+    
+            }else{
+                $levels[$i] = array(
+                    'code'          =>  $this->catHelper->extractCodeLevelWise($i, $code),
+                    'parentCode'    =>  '',
+                    'fullCode'      =>  $code,
+                    'levelFullCode' =>  $levelFullCode,
+                    'parentFullCode' =>  '',
+                    'level'         =>  $i,
+                    'bu'            =>  $bu,
+                    'objectKey'     =>  '',
+                    'parentObjectKey'   => null,
+                    'objectPath'    =>  $objectPath,
+                    'parentPath'    =>  $parentPath
+                );
+            }
         }
+        // p_r($levels);die;
 
         return array(
             'status'    =>  true,

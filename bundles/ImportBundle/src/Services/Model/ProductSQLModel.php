@@ -116,7 +116,9 @@ class ProductSQLModel
      */
     private function initImportTable()
     {
-        $this->langArr = ['de', 'en', 'es_MX', 'fr_CA', 'pt'];
+        // $this->langArr = ['de', 'en', 'es_MX', 'fr_CA', 'pt'];
+        $this->langArr = \Pimcore\Tool::getValidLanguages();
+        $this->langArr = array_unique($this->langArr);
         $tables = $this->common->getParameter($this->prdConfigData, 'table');
         $tables['fileColumns'] = $this->csvHeader;
         $tables['mappingCsvColumn'] = $this->columnName;
@@ -177,6 +179,7 @@ class ProductSQLModel
             $this->initImportTable();
             $this->import($csvInfo['data']);
         } catch (\Throwable $th) {
+            p_r($th);
             //throw $th;
             Logger::error($this->logFileName, $th);
             die;
@@ -242,6 +245,7 @@ class ProductSQLModel
                 }
             }
         } catch (\Throwable $th) {
+            p_r($th);
             \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($th);
 //            Logger::error("sap_import_log", $th);
         }
@@ -682,7 +686,6 @@ class ProductSQLModel
                                 } else {
                                     $folderId = $this->products[$folderPath];
                                 }
-                                
                                 if (empty($oldMaterialCode) || $oldMaterialCode == 'NA' || $oldMaterialCode == 'N/A' || (strlen($oldMaterialCode)!= 14) || strstr($oldMaterialCode,' ') || strstr($oldMaterialCode,'-')) {
                                     $levelArray = $this->createIFSObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'fert', true);
                                 } else {
@@ -793,7 +796,7 @@ class ProductSQLModel
 
     public function getQueryTableData($objId, $record, $levelInfo, $level=4, $productType = 'fert', $businessUnit = 'IFS') {
         $siopData = [];
-        for ($k=2; $k<=6; $k++) {
+        for ($k=1; $k<=6; $k++) {
             $index = 'SIOPLevel'.$k;
             if ($k<=$level) {
                 $catCode = $levelInfo[$k]['levelFullCode'];
@@ -941,7 +944,7 @@ class ProductSQLModel
     }
 
     public function getRelationTableData($objId, $record, $levelInfo, $level=4, $productType = 'fert') {
-        for ($k=2; $k<=$level; $k++) {
+        for ($k=1; $k<=$level; $k++) {
             $index = 'SIOPLevel'.$k;
             $catCode = $levelInfo[$k]['levelFullCode'];
             $targetId = $this->categories[$catCode]['id'];
@@ -975,7 +978,7 @@ class ProductSQLModel
         }
     }
     public function getDependencyTableData($objId, $record, $levelInfo, $level=4, $productType = 'fert') {
-        for ($k=2; $k<=$level; $k++) {
+        for ($k=1; $k<=$level; $k++) {
             $index = 'SIOPLevel'.$k;
             $catCode = $levelInfo[$k]['levelFullCode'];
             $targetId = $this->categories[$catCode]['id'];
