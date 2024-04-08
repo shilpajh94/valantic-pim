@@ -641,7 +641,10 @@ class IndustrialHoseController extends FrontendController
                         $oldMaterialCodeArr = array();
 
                         foreach ($brand as $bvalue) {
-                            $groupingFieldName = $brandsList[$key]['GroupingFieldName'];
+                            $groupingFieldName = null;
+                            if(array_key_exists($key, $brandsList)){
+                                $groupingFieldName = $brandsList[$key]['GroupingFieldName'];
+                            }
                             $groupingFieldNameValue = null;
                             if ($groupingFieldName && isset($headerKeysIndex[$groupingFieldName]) && isset($bvalue[$headerKeysIndex[$groupingFieldName]])) {
                                 $groupingFieldNameValue = $bvalue[$headerKeysIndex[$groupingFieldName]];
@@ -687,11 +690,15 @@ class IndustrialHoseController extends FrontendController
                                 }
 
                                 if ($bvalue[$headerKeysIndex['reinforcement']]) {
-                                    $arr_reinforcement = explode('||', $bvalue[$headerKeysIndex['reinforcement']]);
+                                    if(is_array($bvalue[$headerKeysIndex['reinforcement']])){
+                                        $arr_reinforcement = explode('||', $bvalue[$headerKeysIndex['reinforcement']][0]);
+                                    }else{
+                                        $arr_reinforcement = explode('||', $bvalue[$headerKeysIndex['reinforcement']]);
+                                    }
                                     $reinforcementArr = array_merge($reinforcementArr, $arr_reinforcement);
                                 }
 
-                                if ($bvalue[$headerKeysIndex['safetyFactor']]) {
+                                if (array_key_exists('safetyFactor', $headerKeysIndex) && $bvalue[$headerKeysIndex['safetyFactor']]) {
                                     $arr_safetyFactor = explode('||', $bvalue[$headerKeysIndex['safetyFactor']]);
                                     $designFactorArr = array_merge($designFactorArr, $arr_safetyFactor);
                                 }
@@ -705,7 +712,11 @@ class IndustrialHoseController extends FrontendController
                                 }
 
                                 if ($bvalue[$headerKeysIndex['tubeMaterial']]) {
-                                    $arr_tubeMaterial = explode('||', $bvalue[$headerKeysIndex['tubeMaterial']]);
+                                    if(is_array($bvalue[$headerKeysIndex['tubeMaterial']])){
+                                        $arr_tubeMaterial = explode('||', $bvalue[$headerKeysIndex['tubeMaterial']][0]);
+                                    }else{
+                                        $arr_tubeMaterial = explode('||', $bvalue[$headerKeysIndex['tubeMaterial']]);
+                                    }
                                     $tubeMaterialArr = array_merge($tubeMaterialArr, $arr_tubeMaterial);
                                 }
 
@@ -714,7 +725,11 @@ class IndustrialHoseController extends FrontendController
                                 }
 
                                 if ($bvalue[$headerKeysIndex['coverMaterial']]) {
-                                    $arr_coverMaterial = explode('||', $bvalue[$headerKeysIndex['coverMaterial']]);
+                                    if(is_array($bvalue[$headerKeysIndex['coverMaterial']])){
+                                        $arr_coverMaterial = explode('||', $bvalue[$headerKeysIndex['coverMaterial']][0]);
+                                    }else{
+                                        $arr_coverMaterial = explode('||', $bvalue[$headerKeysIndex['coverMaterial']]);
+                                    }
                                     $coverMaterialArr = array_merge($tubeMaterialArr, $arr_coverMaterial);
                                 }
 
@@ -743,7 +758,11 @@ class IndustrialHoseController extends FrontendController
                                 }
 
                                 if ($bvalue[$headerKeysIndex['FeaturesBenefitsBulletPoint']]) {
-                                    $arr_FeaturesBenefitsBulletPoint = explode('||', $bvalue[$headerKeysIndex['FeaturesBenefitsBulletPoint']]);
+                                    if(is_array($bvalue[$headerKeysIndex['FeaturesBenefitsBulletPoint']])){
+                                        $arr_FeaturesBenefitsBulletPoint = explode('||', $bvalue[$headerKeysIndex['FeaturesBenefitsBulletPoint']][0]);
+                                    }else{
+                                        $arr_FeaturesBenefitsBulletPoint = explode('||', $bvalue[$headerKeysIndex['FeaturesBenefitsBulletPoint']]);
+                                    }
                                     if (count($arr_FeaturesBenefitsBulletPoint) > 0) {
                                         foreach ($arr_FeaturesBenefitsBulletPoint as $feature) {
                                             array_push($featuresBenefitsBulletPointArr, $feature);
@@ -767,7 +786,11 @@ class IndustrialHoseController extends FrontendController
                                 foreach ($orderKeys as $ckey => $cvalue) {
                                     if ($ckey == 'coverColor') {
                                         $temp = '';
-                                        $arr_coverColor = explode('||', $bvalue[$headerKeysIndex[$ckey]]);
+                                        if(is_array($bvalue[$headerKeysIndex[$ckey]])){
+                                            $arr_coverColor = explode('||', $bvalue[$headerKeysIndex[$ckey]][0]);
+                                        }else{
+                                            $arr_coverColor = explode('||', $bvalue[$headerKeysIndex[$ckey]]);
+                                        }
 
                                         if ($arr_coverColor) {
                                             $temp = implode(', ', $arr_coverColor);
@@ -841,7 +864,11 @@ class IndustrialHoseController extends FrontendController
                         unset($featuresBenefitsBulletPointArr);
 
                         $newBrandArray[$key]['brandData']['safetyFeatures'] = $safetyFeaturesList;
-                        $newBrandArray[$key]['SortOrder'] = $brandsList[$key]['SortOrder'];
+                        if(array_key_exists($key, $brandsList)){
+                            $newBrandArray[$key]['SortOrder'] = $brandsList[$key]['SortOrder'];
+                        }else{
+                            $newBrandArray[$key]['SortOrder'] = '';
+                        }
 
                         unset($brandsData[$key]);
                     }
@@ -1086,7 +1113,7 @@ class IndustrialHoseController extends FrontendController
             $parameterBag = $this->getRequestedParameter($request, $documentId);
         }
 
-        if ($templatesEditable && $templatesEditable->getEditable() != null) {
+        if ($templatesEditable && $templatesEditable->getElements() != null) {
             $templates = $templatesEditable->getElements();
             $commonHelper = $this->containerInterface->get('app.common_helper');
 
