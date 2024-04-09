@@ -27,11 +27,12 @@
         <div>
             <h1>{{ pimcore_input('headline') }}</h1>
             {{ pimcore_wysiwyg('content') }}
+            <p>Please find the error log at {{file_url|raw}}</p>
             {{ pimcore_wysiwyg('signature') }}
 
             {% if editmode %}
             <p><strong> Placeholder List - </strong></p>
-            <ul><li>%Text(file_url);</li></ul>
+            <ul><li>{{file_url|raw}}</li></ul>
             {% endif %}
         </div>
     </body>

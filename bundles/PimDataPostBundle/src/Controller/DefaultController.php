@@ -32,7 +32,9 @@ class DefaultController extends FrontendController
      */
     public function saleforceIntegrationFailureEmailAction(Request $request)
     {
-        $parameterBag = [];
+        $parameterBag = [
+            'file_url'=>(!empty($request->get('file_url')))?$request->get('file_url'):'',
+        ];
         return $this->render("pimdatapost/default/saleforce_integration_failure_email.html.twig", $parameterBag);
     }
 
