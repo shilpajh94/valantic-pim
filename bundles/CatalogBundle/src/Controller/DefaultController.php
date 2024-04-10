@@ -1158,7 +1158,7 @@ class DefaultController extends FrontendController
                         }
 
                         $data[$uniqueId]['articlesData'] = $articlesData;
-                        dd(gettype($brandName));
+
                         if(gettype($brandName) == 'array'){
                             if(array_key_exists($brandName[0],$brandsList)){
                                 $data[$uniqueId]['SortOrder'] = (isset($brandsList[$brandName[0]])) ? $brandsList[$brandName[0]]:null;
