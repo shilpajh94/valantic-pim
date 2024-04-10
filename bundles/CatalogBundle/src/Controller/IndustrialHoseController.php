@@ -678,18 +678,18 @@ class IndustrialHoseController extends FrontendController
                                 }
 
                                 $sixDigitVirtualCatalogDescription = '';
-                                if ($bvalue[$headerKeysIndex['sixDigitVirtualCatalogDescription']]) {
+                                if (array_key_exists('sixDigitVirtualCatalogDescription', $headerKeysIndex) && $bvalue[$headerKeysIndex['sixDigitVirtualCatalogDescription']]) {
                                     $sixDigitVirtualCatalogDescription = $bvalue[$headerKeysIndex['sixDigitVirtualCatalogDescription']];
                                 }
 
-                                if (isset($bvalue[$headerKeysIndex['oldMaterialCode']]) && !empty($bvalue[$headerKeysIndex['oldMaterialCode']]) && $bvalue[$headerKeysIndex['oldMaterialCode']] !== 'N/A') {
+                                if (array_key_exists('oldMaterialCode', $headerKeysIndex) && isset($bvalue[$headerKeysIndex['oldMaterialCode']]) && !empty($bvalue[$headerKeysIndex['oldMaterialCode']]) && $bvalue[$headerKeysIndex['oldMaterialCode']] !== 'N/A') {
                                     $sixDigit = substr($bvalue[$headerKeysIndex['oldMaterialCode']], 0, 6);
                                     $sixDigitDevidedIntoTwoArray = str_split($sixDigit, 3);
                                     $sixDigitDashedString = implode('-', $sixDigitDevidedIntoTwoArray);
                                     $oldMaterialCodeArr[$groupingFieldNameValue][] = $sixDigitDashedString . " " . $sixDigitVirtualCatalogDescription;
                                 }
 
-                                if ($bvalue[$headerKeysIndex['reinforcement']]) {
+                                if (array_key_exists('reinforcement', $headerKeysIndex) && $bvalue[$headerKeysIndex['reinforcement']]) {
                                     if(is_array($bvalue[$headerKeysIndex['reinforcement']])){
                                         $arr_reinforcement = explode('||', $bvalue[$headerKeysIndex['reinforcement']][0]);
                                     }else{
@@ -711,7 +711,7 @@ class IndustrialHoseController extends FrontendController
                                     $virtualCatalogReinforcement = $bvalue[$headerKeysIndex['VirtualCatalogReinforcement']];
                                 }
 
-                                if ($bvalue[$headerKeysIndex['tubeMaterial']]) {
+                                if (array_key_exists('tubeMaterial', $headerKeysIndex) && $bvalue[$headerKeysIndex['tubeMaterial']]) {
                                     if(is_array($bvalue[$headerKeysIndex['tubeMaterial']])){
                                         $arr_tubeMaterial = explode('||', $bvalue[$headerKeysIndex['tubeMaterial']][0]);
                                     }else{
@@ -724,7 +724,7 @@ class IndustrialHoseController extends FrontendController
                                     $virtualCatalogTubeMaterial = $bvalue[$headerKeysIndex['VirtualCatalogTubeMaterial']];
                                 }
 
-                                if ($bvalue[$headerKeysIndex['coverMaterial']]) {
+                                if (array_key_exists('coverMaterial', $headerKeysIndex) && $bvalue[$headerKeysIndex['coverMaterial']]) {
                                     if(is_array($bvalue[$headerKeysIndex['coverMaterial']])){
                                         $arr_coverMaterial = explode('||', $bvalue[$headerKeysIndex['coverMaterial']][0]);
                                     }else{
@@ -757,7 +757,7 @@ class IndustrialHoseController extends FrontendController
                                     $longDescription = $bvalue[$headerKeysIndex['longDescription']];
                                 }
 
-                                if ($bvalue[$headerKeysIndex['FeaturesBenefitsBulletPoint']]) {
+                                if (array_key_exists('FeaturesBenefitsBulletPoint', $headerKeysIndex) && $bvalue[$headerKeysIndex['FeaturesBenefitsBulletPoint']]) {
                                     if(is_array($bvalue[$headerKeysIndex['FeaturesBenefitsBulletPoint']])){
                                         $arr_FeaturesBenefitsBulletPoint = explode('||', $bvalue[$headerKeysIndex['FeaturesBenefitsBulletPoint']][0]);
                                     }else{

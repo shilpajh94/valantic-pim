@@ -921,8 +921,14 @@ class DefaultController extends FrontendController
                 $catalogGrouping = array();
 
                 foreach ($productsData as $key => $item) {
-                    if (!empty(trim($item[$headerKeysIndex['CatalogGrouping']])) && !empty(trim($item[$headerKeysIndex['brandName']]))) {
-                        $catalogGrouping[$item[$headerKeysIndex['CatalogGrouping']]][$item[$headerKeysIndex['brandName']]][] = $item;
+                    if(gettype($item[$headerKeysIndex['brandName']]) == 'string') {
+                        if (!empty(trim($item[$headerKeysIndex['CatalogGrouping']])) && !empty(trim($item[$headerKeysIndex['brandName']]))) {
+                            $catalogGrouping[$item[$headerKeysIndex['CatalogGrouping']]][$item[$headerKeysIndex['brandName']]][] = $item;
+                        }
+                    }elseif(gettype($item[$headerKeysIndex['brandName']]) == 'array') {
+                        if (isset($item[$headerKeysIndex['CatalogGrouping']]) && isset($item[$headerKeysIndex['brandName']])) {
+                            $catalogGrouping[$item[$headerKeysIndex['CatalogGrouping']]][$item[$headerKeysIndex['brandName']][0]][] = $item;
+                        }
                     }
                 }
 
@@ -1152,7 +1158,15 @@ class DefaultController extends FrontendController
                         }
 
                         $data[$uniqueId]['articlesData'] = $articlesData;
-                        $data[$uniqueId]['SortOrder'] = $brandsList[$brandName];
+                        dd(gettype($brandName));
+                        if(gettype($brandName) == 'array'){
+                            if(array_key_exists($brandName[0],$brandsList)){
+                                $data[$uniqueId]['SortOrder'] = (isset($brandsList[$brandName[0]])) ? $brandsList[$brandName[0]]:null;
+                            }
+                        }elseif(gettype($brandName) == 'string'){
+                            $data[$uniqueId]['SortOrder'] = $brandsList[$brandName];
+                        }
+
                     }
 
                     if ($data) {
