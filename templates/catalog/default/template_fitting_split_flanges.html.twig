@@ -15,305 +15,304 @@
                 }) }}
 	{% endif %}
 
-	{% if data is defined %}
-		{% set partNumbers = [] %}
-		{% set productNumbers = [] %}
+	{% set partNumbers = [] %}
+	{% set productNumbers = [] %}
 
-		<div class="template">
-			<div class="segregate">
+	<div class="template">
+		<div class="segregate">
 
-				<div id="pageHeader"></div>
-				<span class="pageName">Hydraulic Hose</span>
+			<div id="pageHeader"></div>
+			<span class="pageName">Hydraulic Hose</span>
 
-				<div class="footer">
-					<footer class="flex-center {{footer_class}}">
-						<span class="logo">
-							<b>
-								{% if editmode %}
-									{% if pimcore_input("HHAFC_Logo_Text1").isEmpty() %}
-										{{ pimcore_input("HHAFC_Logo_Text1").setDataFromResource('Fittings') | raw }}
-									{% else %}
-										{{ pimcore_input("HHAFC_Logo_Text1") }}
-									{% endif %}
+			<div class="footer">
+				<footer class="flex-center {{footer_class}}">
+					<span class="logo">
+						<b>
+							{% if editmode %}
+								{% if pimcore_input("HHAFC_Logo_Text1").isEmpty() %}
+									{{ pimcore_input("HHAFC_Logo_Text1").setDataFromResource('Fittings') | raw }}
 								{% else %}
 									{{ pimcore_input("HHAFC_Logo_Text1") }}
 								{% endif %}
-							</b>
+							{% else %}
+								{{ pimcore_input("HHAFC_Logo_Text1") }}
+							{% endif %}
+						</b>
 
-							<img src="{{footer_logo_src}}">
-						</span>
+						<img src="{{footer_logo_src}}">
+					</span>
 
-						<div class="flex aligned">
-							<h5>
-								{% if editmode %}
-									{% if pimcore_input("HHAFC_Footer_Title1").isEmpty() %}
-										{{ pimcore_input("HHAFC_Footer_Title1").setDataFromResource('Split Flanges') | raw }}
-									{% else %}
-										{{ pimcore_input("HHAFC_Footer_Title1") }}
-									{% endif %}
+					<div class="flex aligned">
+						<h5>
+							{% if editmode %}
+								{% if pimcore_input("HHAFC_Footer_Title1").isEmpty() %}
+									{{ pimcore_input("HHAFC_Footer_Title1").setDataFromResource('Split Flanges') | raw }}
 								{% else %}
 									{{ pimcore_input("HHAFC_Footer_Title1") }}
 								{% endif %}
+							{% else %}
+								{{ pimcore_input("HHAFC_Footer_Title1") }}
+							{% endif %}
 
-								<span>
-									{% if editmode %}
-										{% if pimcore_input("HHAFC_Footer_SubTitle1").isEmpty() %}
-											{{ pimcore_input("HHAFC_Footer_SubTitle1").setDataFromResource('Code 61 / Code 62 Clamp Kits') | raw }}
-										{% else %}
-											{{ pimcore_input("HHAFC_Footer_SubTitle1") }}
-										{% endif %}
+							<span>
+								{% if editmode %}
+									{% if pimcore_input("HHAFC_Footer_SubTitle1").isEmpty() %}
+										{{ pimcore_input("HHAFC_Footer_SubTitle1").setDataFromResource('Code 61 / Code 62 Clamp Kits') | raw }}
 									{% else %}
 										{{ pimcore_input("HHAFC_Footer_SubTitle1") }}
 									{% endif %}
-								</span>
-							</h5>
-						</div>
-					</footer>
-				</div>
-				<div class="footer1">
-					<footer class="flex-center {{footer_class}}">
+								{% else %}
+									{{ pimcore_input("HHAFC_Footer_SubTitle1") }}
+								{% endif %}
+							</span>
+						</h5>
+					</div>
+				</footer>
+			</div>
+			<div class="footer1">
+				<footer class="flex-center {{footer_class}}">
 
-						<div class="flex aligned">
-							<h5>
-								{% if editmode %}
-									{% if pimcore_input("HHAFC_Footer_Title2").isEmpty() %}
-										{{ pimcore_input("HHAFC_Footer_Title2").setDataFromResource('Split Flanges') | raw }}
-									{% else %}
-										{{ pimcore_input("HHAFC_Footer_Title2") }}
-									{% endif %}
+					<div class="flex aligned">
+						<h5>
+							{% if editmode %}
+								{% if pimcore_input("HHAFC_Footer_Title2").isEmpty() %}
+									{{ pimcore_input("HHAFC_Footer_Title2").setDataFromResource('Split Flanges') | raw }}
 								{% else %}
 									{{ pimcore_input("HHAFC_Footer_Title2") }}
 								{% endif %}
+							{% else %}
+								{{ pimcore_input("HHAFC_Footer_Title2") }}
+							{% endif %}
 
-								<span>
-									{% if editmode %}
-										{% if pimcore_input("HHAFC_Footer_SubTitle2").isEmpty() %}
-											{{ pimcore_input("HHAFC_Footer_SubTitle2").setDataFromResource('Code 61 / Code 62 Clamp Kits') | raw }}
-										{% else %}
-											{{ pimcore_input("HHAFC_Footer_SubTitle2") }}
-										{% endif %}
+							<span>
+								{% if editmode %}
+									{% if pimcore_input("HHAFC_Footer_SubTitle2").isEmpty() %}
+										{{ pimcore_input("HHAFC_Footer_SubTitle2").setDataFromResource('Code 61 / Code 62 Clamp Kits') | raw }}
 									{% else %}
 										{{ pimcore_input("HHAFC_Footer_SubTitle2") }}
 									{% endif %}
-								</span>
-							</h5>
-						</div>
+								{% else %}
+									{{ pimcore_input("HHAFC_Footer_SubTitle2") }}
+								{% endif %}
+							</span>
+						</h5>
+					</div>
 
-						<span class="logo">
-							<b>
-								{% if editmode %}
-									{% if pimcore_input("HHAFC_Logo_Text2").isEmpty() %}
-										{{ pimcore_input("HHAFC_Logo_Text2").setDataFromResource('Fittings') | raw }}
-									{% else %}
-										{{ pimcore_input("HHAFC_Logo_Text2") }}
-									{% endif %}
+					<span class="logo">
+						<b>
+							{% if editmode %}
+								{% if pimcore_input("HHAFC_Logo_Text2").isEmpty() %}
+									{{ pimcore_input("HHAFC_Logo_Text2").setDataFromResource('Fittings') | raw }}
 								{% else %}
 									{{ pimcore_input("HHAFC_Logo_Text2") }}
 								{% endif %}
-							</b>
-							<img src="{{footer_logo_src}}">
-						</span>
-					</footer>
-				</div>
-
-				<article class="container single">
-					<header>
-						<h2 class="contitech-yellow">{{ pimcore_input("HHAFC_Title") }}</h2>
-						<p>{{ pimcore_wysiwyg("HHAFC_Description") }}</p>
-					</header>
-
-					<figure class="margin15 marginBottom30">
-						<figcaption class="col-6">
-							<h6 class="contitech-yellow">{{ pimcore_input("HHAFC_Sub_Title_1") }}</h6>
-							<ul class="list method ">
-								{% set HHAFC_SectionFirstBlock = pimcore_block('HHAFC_SectionFirst') %}
-								{% for i in HHAFC_SectionFirstBlock.iterator %}
-									<li>
-										{{ pimcore_input("HHAFC_SectionFirst_"~HHAFC_SectionFirstBlock.current) }}
-									</li>
-								{% endfor %}
-							</ul>
-							<h6 class="contitech-yellow">{{ pimcore_input("HHAFC_Sub_Title_2") }}</h6>
-							<ul class="list">
-								{% set HHAFC_SectionSecondBlock = pimcore_block('HHAFC_SectionSecond') %}
-								{% for i in HHAFC_SectionSecondBlock.iterator %}
-									<li>
-										{{ pimcore_input("HHAFC_SectionSecond_"~HHAFC_SectionSecondBlock.current) }}
-									</li>
-								{% endfor %}
-							</ul>
-						</figcaption>
-						<span class="img-placeholder">
-							{% if editmode %}
-								{{ pimcore_image("HHAFC_Image",{"width":400, "height":300}) }}
 							{% else %}
-								{% set imgSrcObj = pimcore_image("HHAFC_Image") %}
-								{% if imgSrcObj %}
-									<img src="{{getImageThumbnail(imgSrcObj, imageWidth)}}" height="300" width="400"/>
-								{% endif %}
+								{{ pimcore_input("HHAFC_Logo_Text2") }}
 							{% endif %}
-						</figure>
-
-
-						{% if data %}
-
-							{% for md5key, brand in data %}
-
-								<div class="marginBottom30 margin15">
-
-									<h3 class="contitech-yellow paddingNo">
-
-										{% if editmode %}
-											{% if pimcore_input("HHAFC_BrandName_"~md5key).isEmpty() %}
-												{{ pimcore_input("HHAFC_BrandName_"~md5key).setDataFromResource(brand['brandName']) | raw }}
-											{% else %}
-												{{ pimcore_input("HHAFC_BrandName_"~md5key) }}
-											{% endif %}
-										{% else %}
-											{{ pimcore_input("HHAFC_BrandName_"~md5key) }}
-										{% endif %}
-
-
-									</h3>
-
-									<h3 class="light paddingNo borderBottom">
-										{% if editmode %}
-											{% if pimcore_wysiwyg("HHAFC_BrandName_Description_"~md5key).isEmpty() %}
-												{{ pimcore_wysiwyg("HHAFC_BrandName_Description_"~md5key).setDataFromResource(brand['shortDescription']) | raw }}
-											{% else %}
-												{{ pimcore_wysiwyg("HHAFC_BrandName_Description_"~md5key) }}
-											{% endif %}
-										{% else %}
-											{{ pimcore_wysiwyg("HHAFC_BrandName_Description_"~md5key) }}
-										{% endif %}
-									</h3>
-
-									<table class="grid special" cellspacing="0" cellpadding="0">
-										<thead>
-
-											{% if (iconRequired == 'YES') %}
-												<tr class="sub-head">
-													{% for key, c1data in brand['columnsDataWithImages'] %}
-
-														{% set columnWidth = '' %}
-														{% set g1count = c1data|length %}
-														{% set firstArray = c1data|first %}
-
-														{% if (firstArray['columnWidth']) %}
-															{% set columnWidth = "width="~firstArray['columnWidth'] %}
-														{% endif %}
-
-														<td colspan="{{g1count}}" {{columnWidth}}>
-															{% if ( firstArray['columnIcon'] is defined and firstArray['columnIcon']) %}
-																<img src="{{firstArray['columnIcon']}}" width="45" height="45"/>
-															{% endif %}
-														</td>
-													{% endfor %}
-												</tr>
-											{% endif %}
-
-											<tr class="head">
-												{% for key, c2data in brand['columnsDataWithImages'] %}
-
-													{% set columnWidth = '' %}
-													{% set g2count = c2data|length %}
-													{% set first2Array = c2data|first %}
-
-													{% if (first2Array['columnWidth']) %}
-														{% set columnWidth = "width="~first2Array['columnWidth'] %}
-													{% endif %}
-													<td colspan="{{g2count}}" {{columnWidth}}>{{first2Array['columnLabel']}}</td>
-
-												{% endfor %}
-											</tr>
-
-											{% if (subHeaderRequired == 'YES') %}
-												<tr class="sub-head">
-													{% for key, c3data in brand['columnsDataWithImages'] %}
-														{% for c3key, c3value in c3data %}
-															{% if (c3value['unitName']) %}
-																<td>{{c3value['unitName']}}</td>
-															{% else %}
-																<td></td>
-															{% endif %}
-														{% endfor %}
-													{% endfor %}
-												</tr>
-											{% endif %}
-										</thead>
-										<tbody>
-											{% set incrRow = 1 %}
-											{% for key, element in brand['articlesData'] %}
-
-												{% if (incrRow%2==0) %}
-													<tr>
-													{% else %}
-														<tr class="active">
-														{% endif %}
-
-														{% if element['Descriptive'] is defined %}
-															{% set descriptiveNumberText = element['Descriptive'] %}
-															{% set descriptiveNumberList = descriptiveNumberText | split('-') %}
-
-															{% if descriptiveNumberList[0] not in partNumbers %}
-																{% set partNumbers = partNumbers|merge([descriptiveNumberList[0]]) %}
-															{% endif %}
-
-														{% endif %}
-
-														{% if element['industryStandard'] is defined %}
-															{% set industryStandardText = element['industryStandard'] %}
-															{% set industryStandardList = industryStandardText | split('-') %}
-
-															{% if industryStandardList[0] not in productNumbers %}
-																{% set productNumbers = productNumbers|merge([industryStandardList[0]]) %}
-															{% endif %}
-
-														{% endif %}
-
-														{% for ekey, value in element %}
-															<td>{{value}}</td>
-														{% endfor %}
-
-													</tr>
-
-													{% set incrRow = incrRow + 1 %}
-												{% endfor %}
-											</tbody>
-										</tbody>
-									</table>
-									<p class="small">
-										{{ pimcore_input("HHAFC_note"~md5key, {placeholder:'Enter comment'}) }}
-									</p>
-								</div>
-							{% endfor %}
-
-						{% endif %}
-
-					</article>
-				</div>
-
-				<div class="hide">
-					{% if partNumbers|length > 0 %}
-						{% set partNumberString = partNumbers|join(',') %}
-						{{ pimcore_textarea('product_page_part_number').setDataFromResource(partNumberString) | raw}}
-					{% endif %}
-
-					{% if productNumbers|length > 0 %}
-						{% set productNumbersString = productNumbers|join(',') %}
-						{{ pimcore_textarea('product_page_product_number').setDataFromResource(productNumbersString) | raw}}
-					{% endif %}
-				</div>
+						</b>
+						<img src="{{footer_logo_src}}">
+					</span>
+				</footer>
 			</div>
 
-			<style>
-				li .pimcore_tag_input.empty {
-					width: 200px;
-				}
-				.reverseColor .logo {
-					background-color: #ffa500;
-					color: #231f20;
-				}
-			</style>
-		{% endif %}
-	{% endblock %}
+			<article class="container single">
+				<header>
+					<h2 class="contitech-yellow">{{ pimcore_input("HHAFC_Title") }}</h2>
+					<p>{{ pimcore_wysiwyg("HHAFC_Description") }}</p>
+				</header>
+
+				<figure class="margin15 marginBottom30">
+					<figcaption class="col-6">
+						<h6 class="contitech-yellow">{{ pimcore_input("HHAFC_Sub_Title_1") }}</h6>
+						<ul class="list method ">
+							{% set HHAFC_SectionFirstBlock = pimcore_block('HHAFC_SectionFirst') %}
+							{% for i in HHAFC_SectionFirstBlock.iterator %}
+								<li>
+									{{ pimcore_input("HHAFC_SectionFirst_"~HHAFC_SectionFirstBlock.current) }}
+								</li>
+							{% endfor %}
+						</ul>
+						<h6 class="contitech-yellow">{{ pimcore_input("HHAFC_Sub_Title_2") }}</h6>
+						<ul class="list">
+							{% set HHAFC_SectionSecondBlock = pimcore_block('HHAFC_SectionSecond') %}
+							{% for i in HHAFC_SectionSecondBlock.iterator %}
+								<li>
+									{{ pimcore_input("HHAFC_SectionSecond_"~HHAFC_SectionSecondBlock.current) }}
+								</li>
+							{% endfor %}
+						</ul>
+					</figcaption>
+					<span class="img-placeholder">
+						{% if editmode %}
+							{{ pimcore_image("HHAFC_Image",{"width":400, "height":300}) }}
+						{% else %}
+							{% set imgSrcObj = pimcore_image("HHAFC_Image") %}
+							{% if imgSrcObj %}
+								<img src="{{getImageThumbnail(imgSrcObj, imageWidth)}}" height="300" width="400"/>
+							{% endif %}
+						{% endif %}
+					</span>
+				</figure>
+
+
+				{% if data is defined and data %}
+
+					{% for md5key, brand in data %}
+
+						<div class="marginBottom30 margin15">
+
+							<h3 class="contitech-yellow paddingNo">
+
+								{% if editmode %}
+									{% if pimcore_input("HHAFC_BrandName_"~md5key).isEmpty() %}
+										{{ pimcore_input("HHAFC_BrandName_"~md5key).setDataFromResource(brand['brandName']) | raw }}
+									{% else %}
+										{{ pimcore_input("HHAFC_BrandName_"~md5key) }}
+									{% endif %}
+								{% else %}
+									{{ pimcore_input("HHAFC_BrandName_"~md5key) }}
+								{% endif %}
+
+
+							</h3>
+
+							<h3 class="light paddingNo borderBottom">
+								{% if editmode %}
+									{% if pimcore_wysiwyg("HHAFC_BrandName_Description_"~md5key).isEmpty() %}
+										{{ pimcore_wysiwyg("HHAFC_BrandName_Description_"~md5key).setDataFromResource(brand['shortDescription']) | raw }}
+									{% else %}
+										{{ pimcore_wysiwyg("HHAFC_BrandName_Description_"~md5key) }}
+									{% endif %}
+								{% else %}
+									{{ pimcore_wysiwyg("HHAFC_BrandName_Description_"~md5key) }}
+								{% endif %}
+							</h3>
+
+							<table class="grid special" cellspacing="0" cellpadding="0">
+								<thead>
+
+									{% if (iconRequired == 'YES') %}
+										<tr class="sub-head">
+											{% for key, c1data in brand['columnsDataWithImages'] %}
+
+												{% set columnWidth = '' %}
+												{% set g1count = c1data|length %}
+												{% set firstArray = c1data|first %}
+
+												{% if (firstArray['columnWidth']) %}
+													{% set columnWidth = "width="~firstArray['columnWidth'] %}
+												{% endif %}
+
+												<td colspan="{{g1count}}" {{columnWidth}}>
+													{% if ( firstArray['columnIcon'] is defined and firstArray['columnIcon']) %}
+														<img src="{{firstArray['columnIcon']}}" width="45" height="45"/>
+													{% endif %}
+												</td>
+											{% endfor %}
+										</tr>
+									{% endif %}
+
+									<tr class="head">
+										{% for key, c2data in brand['columnsDataWithImages'] %}
+
+											{% set columnWidth = '' %}
+											{% set g2count = c2data|length %}
+											{% set first2Array = c2data|first %}
+
+											{% if (first2Array['columnWidth']) %}
+												{% set columnWidth = "width="~first2Array['columnWidth'] %}
+											{% endif %}
+											<td colspan="{{g2count}}" {{columnWidth}}>{{first2Array['columnLabel']}}</td>
+
+										{% endfor %}
+									</tr>
+
+									{% if (subHeaderRequired == 'YES') %}
+										<tr class="sub-head">
+											{% for key, c3data in brand['columnsDataWithImages'] %}
+												{% for c3key, c3value in c3data %}
+													{% if (c3value['unitName']) %}
+														<td>{{c3value['unitName']}}</td>
+													{% else %}
+														<td></td>
+													{% endif %}
+												{% endfor %}
+											{% endfor %}
+										</tr>
+									{% endif %}
+								</thead>
+								<tbody>
+									{% set incrRow = 1 %}
+									{% for key, element in brand['articlesData'] %}
+
+										{% if (incrRow%2==0) %}
+											<tr>
+											{% else %}
+												<tr class="active">
+												{% endif %}
+
+												{% if element['Descriptive'] is defined %}
+													{% set descriptiveNumberText = element['Descriptive'] %}
+													{% set descriptiveNumberList = descriptiveNumberText | split('-') %}
+
+													{% if descriptiveNumberList[0] not in partNumbers %}
+														{% set partNumbers = partNumbers|merge([descriptiveNumberList[0]]) %}
+													{% endif %}
+
+												{% endif %}
+
+												{% if element['industryStandard'] is defined %}
+													{% set industryStandardText = element['industryStandard'] %}
+													{% set industryStandardList = industryStandardText | split('-') %}
+
+													{% if industryStandardList[0] not in productNumbers %}
+														{% set productNumbers = productNumbers|merge([industryStandardList[0]]) %}
+													{% endif %}
+
+												{% endif %}
+
+												{% for ekey, value in element %}
+													<td>{{value}}</td>
+												{% endfor %}
+
+											</tr>
+
+											{% set incrRow = incrRow + 1 %}
+										{% endfor %}
+									</tbody>
+								</tbody>
+							</table>
+							<p class="small">
+								{{ pimcore_input("HHAFC_note"~md5key, {placeholder:'Enter comment'}) }}
+							</p>
+						</div>
+					{% endfor %}
+
+				{% endif %}
+
+			</article>
+		</div>
+
+		<div class="hide">
+			{% if partNumbers|length > 0 %}
+				{% set partNumberString = partNumbers|join(',') %}
+				{{ pimcore_textarea('product_page_part_number').setDataFromResource(partNumberString) | raw}}
+			{% endif %}
+
+			{% if productNumbers|length > 0 %}
+				{% set productNumbersString = productNumbers|join(',') %}
+				{{ pimcore_textarea('product_page_product_number').setDataFromResource(productNumbersString) | raw}}
+			{% endif %}
+		</div>
+	</div>
+
+	<style>
+		li .pimcore_tag_input.empty {
+			width: 200px;
+		}
+		.reverseColor .logo {
+			background-color: #ffa500;
+			color: #231f20;
+		}
+	</style>
+{% endblock %}

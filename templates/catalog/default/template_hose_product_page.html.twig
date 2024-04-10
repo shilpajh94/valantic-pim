@@ -56,7 +56,11 @@
 									<h5>
 										{% if editmode %}
 											{% if pimcore_input("HHPP_Footer_BrandName_" ~ md5key ~ "_" ~ incr).isEmpty() %}
-												{{ pimcore_input("HHPP_Footer_BrandName_" ~ md5key ~ "_" ~ incr).setDataFromResource(brandData['brandName']) | raw}}
+                                                {% if brandData['brandName'][0] is defined %}
+                                                    {{ pimcore_input("HHPP_Footer_BrandName_" ~ md5key ~ "_" ~ incr).setDataFromResource(brandData['brandName'][0]) | raw}}
+                                                {% else %}
+                                                    {{ pimcore_input("HHPP_Footer_BrandName_" ~ md5key ~ "_" ~ incr).setDataFromResource(brandData['brandName']) | raw}}
+                                                {% endif %}
 											{% else %}
 												{{ pimcore_input("HHPP_Footer_BrandName_" ~ md5key ~ "_" ~ incr) }}
 											{% endif %}
@@ -90,7 +94,11 @@
 											{% endif %}
 										</b>
 
-										{% set compatibility_description = "All fittings compatible with " ~ brandData['brandName'] ~ " are listed in Section 1 (starting on page 131)." %}
+                                        {% if brandData['brandName'][0] is defined %}
+                                            {% set compatibility_description = "All fittings compatible with " ~ brandData['brandName'][0] ~ " are listed in Section 1 (starting on page 131)." %}
+                                        {% else %}
+                                            {% set compatibility_description = "All fittings compatible with " ~ brandData['brandName'] ~ " are listed in Section 1 (starting on page 131)." %}
+                                        {% endif %}
 										{% if editmode %}
 											{% if pimcore_input("HHPP_Footer_Compatibility_Description_" ~ md5key ~ "_" ~ incr).isEmpty() %}
 												{{ pimcore_input("HHPP_Footer_Compatibility_Description_" ~ md5key ~ "_" ~ incr).setDataFromResource(compatibility_description) | raw}}
@@ -134,7 +142,11 @@
 									<h5>
 										{% if editmode %}
 											{% if pimcore_input("HHPP_Footer_BrandName1_" ~ md5key ~ "_" ~ incr2).isEmpty() %}
-												{{ pimcore_input("HHPP_Footer_BrandName1_" ~ md5key ~ "_" ~ incr2).setDataFromResource(brandData['brandName']) | raw}}
+                                                {% if brandData['brandName'][0] is defined %}
+                                                    {{ pimcore_input("HHPP_Footer_BrandName1_" ~ md5key ~ "_" ~ incr2).setDataFromResource(brandData['brandName'][0]) | raw}}
+                                                {% else %}
+                                                    {{ pimcore_input("HHPP_Footer_BrandName1_" ~ md5key ~ "_" ~ incr2).setDataFromResource(brandData['brandName']) | raw}}
+                                                {% endif %}								
 											{% else %}
 												{{ pimcore_input("HHPP_Footer_BrandName1_" ~ md5key ~ "_" ~ incr2) }}
 											{% endif %}
@@ -175,7 +187,11 @@
 							<h1>
 								{% if editmode %}
 									{% if pimcore_input("HHPP_Heading_" ~ md5key ~ "_" ~ incr2).isEmpty() %}
-										{{ pimcore_input("HHPP_Heading_" ~ md5key ~ "_" ~ incr2).setDataFromResource(brandData['brandName']) | raw}}
+                                        {% if brandData['brandName'][0] is defined %}
+                                            {{ pimcore_input("HHPP_Heading_" ~ md5key ~ "_" ~ incr2).setDataFromResource(brandData['brandName'][0]) | raw}}
+                                        {% else %}
+                                            {{ pimcore_input("HHPP_Heading_" ~ md5key ~ "_" ~ incr2).setDataFromResource(brandData['brandName']) | raw}}
+                                        {% endif %}
 									{% else %}
 										{{ pimcore_input("HHPP_Heading_" ~ md5key ~ "_" ~ incr2) }}
 									{% endif %}
