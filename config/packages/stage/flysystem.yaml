@@ -1,5 +1,5 @@
 parameters:
-    s3.bucket: 'pimcorex-contitech-assets-prod
+    s3.bucket: 'pimcorex-contitech-assets-prod'
 
 services:
     assets_s3:
