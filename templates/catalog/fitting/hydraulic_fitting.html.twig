@@ -365,7 +365,7 @@
 																	{% if (first2Array['columnWidth']) %}
 																		{% set columnWidth = "width="~first2Array['columnWidth'] %}
 																	{% endif %}
-																	<td colspan="{{g2count}}" {{columnWidth}}>{{first2Array['columnLabel']}}</td>
+																	<td colspan="{{g2count}}" {{columnWidth}}>{{first2Array['columnLabel']|raw}}</td>
 																{% endfor %}
 															</tr>
 															{% if tableRows['articleData']['subHeaderRequired'] == 'YES' %}
