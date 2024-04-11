@@ -618,6 +618,8 @@ class DefaultController extends FrontendController
                     $colummName = $c4value['columnName'];
                     if(isset($eachFert[$colummName])) {
                         $html .= "<td class ='spaceRight'>$eachFert[$colummName]</td>";
+                    }else{
+                        $html .= "<td class ='spaceRight'></td>";
                     }
                 }
             }
