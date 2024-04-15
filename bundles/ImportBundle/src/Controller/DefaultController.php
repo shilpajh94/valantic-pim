@@ -587,7 +587,7 @@ class DefaultController extends FrontendController
             if (isset($first2Array['columnWidth'])) {
                 $columnWidth = "width=" . $first2Array['columnWidth'];
             }
-            $html .= "<td colspan = $g2count $columnWidth>$value</td>";
+            $html .= "<td class='spaceRight' colspan = $g2count $columnWidth>$value</td>";
         }
         $html .= "</tr>
                                             <tr class='sshead'>";
@@ -596,9 +596,9 @@ class DefaultController extends FrontendController
                 foreach ($c3data as $c3value) {
                     if ($c3value['unitName']) {
                         $value = $c3value['unitName'];
-                        $html .= "<td>$value</td>";
+                        $html .= "<td class='spaceRight'>$value</td>";
                     } else {
-                        $html .= "<td></td>";
+                        $html .= "<td class='spaceRight'></td>";
                     }
                 }
             }
@@ -618,6 +618,8 @@ class DefaultController extends FrontendController
                     $colummName = $c4value['columnName'];
                     if(isset($eachFert[$colummName])) {
                         $html .= "<td class ='spaceRight'>$eachFert[$colummName]</td>";
+                    }else{
+                        $html .= "<td class ='spaceRight'></td>";
                     }
                 }
             }
