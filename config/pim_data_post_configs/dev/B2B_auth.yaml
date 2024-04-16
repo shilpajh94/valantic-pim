@@ -1,7 +1,6 @@
 parameters:
     b2b_auth:
-        #url: https://test.salesforce.com/services/oauth2/token
-        url: https://continental-contitech--qa.sandbox.my.salesforce.com/services/oauth2/token
+        url: https://test.salesforce.com/services/oauth2/token
         method: POST
         params:
             client_id: 3MVG9zOb8H6wKLFDWc.bJ.kQJM6dbJ7o74OtkrKwjC2dXywyASH7ZXdYmzk3G0t0oLM42Fb9hv8xfIi8ooGVO
