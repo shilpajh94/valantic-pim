@@ -228,7 +228,7 @@ class DefaultController extends FrontendController
         $language = $this->document->getProperty('language');
         $language = $language ? $language : 'en';
         $objectLevel5thId = '';
-        $profileData = '';
+        $profileData = [];
 
         $catalogCategoryTableObjectEditable = $this->document->getEditable('ptg_eu_product_profile_page');
         if($catalogCategoryTableObjectEditable)
