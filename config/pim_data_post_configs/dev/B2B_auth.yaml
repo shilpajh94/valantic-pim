@@ -3,10 +3,10 @@ parameters:
         url: https://test.salesforce.com/services/oauth2/token
         method: POST
         params:
-            client_id: 3MVG9X0_oZyBSzHrpq1LAYOwqAn1MaBliP5NvU07Wuh9uUsrjFPNr6XRr5XMKQrHrhQu_YTya6QtF8HqdHoSB
-            client_secret: F368D65782C257BC15BBA9412207702DF323D13AEB54B91F13AB4A6567C47F31
-            username: pradeep.singh@happiestminds.com.pimcom
-            password: Continental@91zEeA4fxdlrP7VLDLVg8vQxgi
+            client_id: 3MVG9zOb8H6wKLFDWc.bJ.kQJM6dbJ7o74OtkrKwjC2dXywyASH7ZXdYmzk3G0t0oLM42Fb9hv8xfIi8ooGVO
+            client_secret: C99F847B77DF0AFD8282AF395FE2CF5FA95EA2548A087359F1EC813BF67DFFDC
+            username: pim_integration@contitech.com.qa
+            password: PIM-B2BSFContiTech@20_22rXw5dfRkl03IaITQtG5A1URJZ
             grant_type: password
         token_lifetime: 1740
         guzzle_request_timeout: 10
