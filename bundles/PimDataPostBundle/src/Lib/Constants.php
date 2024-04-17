@@ -45,7 +45,7 @@ class Constants
      */
     const UPDATE_WINDOW_END_HOUR = 18;
 
-    const UPDATE_WINDOW_LENGTH_IN_MINUTES = 1440;
+    const UPDATE_WINDOW_LENGTH_IN_MINUTES = 2880;
 
     const INSERT_BATCH_SIZE = 50;
 
