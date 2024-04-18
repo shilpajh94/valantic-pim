@@ -21,8 +21,8 @@ class B2BProductRelationChangeRegistrarDao
 
     public function fetchRecordsWhereRelationHashChanged()
     {
-        $sql =  "SELECT t1.id FROM ".$this->tempMasterTablesMeta->getTempTableName()." t1 ";
-        $sql .= "JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.id = t1.id ";
+        $sql =  "SELECT t1.o_id FROM ".$this->tempMasterTablesMeta->getTempTableName()." t1 ";
+        $sql .= "JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.o_id = t1.o_id ";
         $sql .= "WHERE t1.".$this->tempMasterTablesMeta->getRelationalhashColumnName();
         $sql .= " != t2.".$this->tempMasterTablesMeta->getRelationalhashColumnName();
 
@@ -31,9 +31,9 @@ class B2BProductRelationChangeRegistrarDao
 
     public function fetchNewActiveRecordsInTempTable()
     {
-        $sql = "SELECT t1.id FROM ".$this->tempMasterTablesMeta->getTempTableName()." t1 ";
-        $sql .= "LEFT JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.id = t1.id ";
-        $sql .=  "WHERE t2.id IS NULL AND t1.epixFlag=1 AND t1.published=1";
+        $sql = "SELECT t1.o_id FROM ".$this->tempMasterTablesMeta->getTempTableName()." t1 ";
+        $sql .= "LEFT JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.o_id = t1.o_id ";
+        $sql .= "WHERE t2.o_id IS NULL AND t1.epixFlag=1 AND t1.o_published=1";
 
         return $this->db->fetchFirstColumn($sql);
     }
@@ -47,7 +47,7 @@ class B2BProductRelationChangeRegistrarDao
             $fieldKeys = array_keys($config);
 
             $selectFields = [];
-            $selectFields[] = "t1.id";
+            $selectFields[] = "t1.o_id";
             $selectFields[] = "t1.BusinessUnit";
             $selectFieldsString = "";
 
@@ -63,8 +63,8 @@ class B2BProductRelationChangeRegistrarDao
             $productIds = implode(', ', $products);
 
             $sql = "SELECT {$selectFieldsString} FROM ".$this->tempMasterTablesMeta->getTempTableName()." t1 ";
-            $sql .= "LEFT JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.id = t1.id ";
-            $sql .=  "WHERE t1.id IN ({$productIds})";
+            $sql .= "LEFT JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.o_id = t1.o_id ";
+            $sql .=  "WHERE t1.o_id IN ({$productIds})";
             $result = $this->db->fetchAllAssociative($sql);
 
             $fieldKeys[] = "BusinessUnit";
@@ -93,7 +93,7 @@ class B2BProductRelationChangeRegistrarDao
                         if($oldValue != $newValue)
                         {
                             $data = [];
-                            $data['productId'] = $resultValue['id'];
+                            $data['productId'] = $resultValue['o_id'];
                             $data['BusinessUnit'] = $resultValue['BusinessUnit'];
                             $data['attributeName'] = $key;
                             $data['oldValue'] = $resultValue['t2_'.$key];

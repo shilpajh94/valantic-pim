@@ -50,8 +50,8 @@ class RequiredAttributeIndicatorFieldPopulator
                 }
                 $manager = new RequiredAttributeManager($config, $product);
                 $langs = \Pimcore\Tool::getValidLanguages();
+                $langs = array_unique($langs);
                 $nonLocEmptyAttributesArray = $manager->getNonLocalizedEmptyAttributes();
-
                 foreach ($langs as $lang) {
 
                     $locEmptyAttributesArray = $manager->getLocalizedEmptyAttributes($lang);

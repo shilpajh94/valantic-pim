@@ -227,6 +227,8 @@ class DefaultController extends FrontendController
 
         $language = $this->document->getProperty('language');
         $language = $language ? $language : 'en';
+        $objectLevel5thId = '';
+        $profileData = [];
 
         $catalogCategoryTableObjectEditable = $this->document->getEditable('ptg_eu_product_profile_page');
         if($catalogCategoryTableObjectEditable)
@@ -461,7 +463,7 @@ class DefaultController extends FrontendController
         $language = $this->document->getProperty('language');
         $language = $language ? $language : 'en';
         $footerLogoSrc = '';
-
+        $objectLevel5thId = '';
         $catalogCategoryTableObjectEditable = $this->document->getEditable('ptg_eu_product_page');
         if($catalogCategoryTableObjectEditable)
         {
@@ -491,7 +493,7 @@ class DefaultController extends FrontendController
                 $sixSevenLevelCategoryObj = $catalogCategoryTableObject->getSixSevenLevelCategory();
 
                 $ptgEUProductHierarchy = DataObject\PTGEUProductHierarchy::getById($fifthLevelCategoryObj);
-                $siop5Category = $ptgEUProductHierarchy->getPrintedCatalogDescription();
+                $siop5Category = ($ptgEUProductHierarchy != null)?$ptgEUProductHierarchy->getPrintedCatalogDescription():'';
                 $siop6siop7Category = '';
                 $objectLevel5thDetails = '';
                 $plantAssociatedMaterials = [];

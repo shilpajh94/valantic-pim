@@ -25,7 +25,7 @@ class B2BCategoryDeltaManagerDao extends DeltaManagerDao
 
         $sql="DELETE t1
             FROM ".$this->tempMasterTablesMeta->getTempTableName()." t1
-            LEFT JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.id = t1.id
+            LEFT JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.o_id = t1.o_id
             WHERE t1.".$this->tempMasterTablesMeta->getNonRelationalhashColumnName()." = t2.".$this->tempMasterTablesMeta->getNonRelationalhashColumnName();
 
         if($this->db->executeQuery($sql)) {
@@ -39,8 +39,8 @@ class B2BCategoryDeltaManagerDao extends DeltaManagerDao
     public function getRecordsPresentInTempNotInMaster()
     {
 
-        $sql="SELECT t1.id FROM ".$this->tempMasterTablesMeta->getTempTableName()." t1
-            LEFT JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.id = t1.id
+        $sql="SELECT t1.o_id FROM ".$this->tempMasterTablesMeta->getTempTableName()." t1
+            LEFT JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.o_id = t1.o_id
             WHERE t2.id IS NULL  AND t1.ShowInMenu=1";
         return $this->db->fetchAssociative($sql);
     }
@@ -49,9 +49,9 @@ class B2BCategoryDeltaManagerDao extends DeltaManagerDao
        // Start  # new data which is not in master table by level
     public function getRecordsPresentInTempNotInMasterByLevel($level)
     {
-       $sql="SELECT t1.id
+       $sql="SELECT t1.o_id
             FROM ".$this->tempMasterTablesMeta->getTempTableName()." t1
-            LEFT JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.id = t1.id
+            LEFT JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.o_id = t1.o_id
             WHERE t1.Level = ".$level." AND t2.id IS NULL  AND t1.ShowInMenu=1";
 
         return $this->db->fetchFirstColumn($sql);
@@ -61,9 +61,9 @@ class B2BCategoryDeltaManagerDao extends DeltaManagerDao
        // Start  # get data which is exist in master table and BasicHash changed
     public function getHashChangedRecords()
     {
-        $sql="SELECT t1.id
+        $sql="SELECT t1.o_id
             FROM ".$this->tempMasterTablesMeta->getTempTableName()." t1
-            JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.id = t1.id
+            JOIN ".$this->tempMasterTablesMeta->getMasterTableName()." t2 ON t2.o_id = t1.o_id
             WHERE t1.".$this->tempMasterTablesMeta->getNonRelationalhashColumnName()." != t2.".$this->tempMasterTablesMeta->getNonRelationalhashColumnName();
 
         return $this->db->fetchFirstColumn($sql);

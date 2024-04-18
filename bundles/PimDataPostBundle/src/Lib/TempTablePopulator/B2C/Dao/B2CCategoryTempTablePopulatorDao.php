@@ -17,13 +17,13 @@ class B2CCategoryTempTablePopulatorDao extends TempTablePopulatorDao
 
     public function iterateMasterTableCategories($tableName)
     {
-        $query = "SELECT `id` FROM {$tableName}";
+        $query = "SELECT `o_id` FROM {$tableName}";
         return $this->db->fetchFirstColumn($query);
     }
 
     public function productCategoryArrayFromProductMaster()
     {
-        $query = "SELECT `id`, `B2CCategory` FROM ".Constants::B2C_PRODUCT_MASTER_TABLE_NAME." WHERE B2CStoreFlag = 1 AND modificationDate = 1";
+        $query = "SELECT `o_id`, `B2CCategory` FROM ".Constants::B2C_PRODUCT_MASTER_TABLE_NAME." WHERE B2CStoreFlag = 1 AND modificationDate = 1";
         return $this->db->fetchAllAssociative($query);
     }
 
@@ -36,7 +36,7 @@ class B2CCategoryTempTablePopulatorDao extends TempTablePopulatorDao
     public function isCategoryPresentInMasterTable($tableName, $categoryId)
     {
         $categoryId = trim($categoryId,',');
-        $query = "SELECT id FROM {$tableName} where id = {$categoryId}";
+        $query = "SELECT o_id FROM {$tableName} where o_id = {$categoryId}";
         $resultSet =  $this->db->fetchFirstColumn($query);
         return ($resultSet) ? true : false;
     }
@@ -44,7 +44,7 @@ class B2CCategoryTempTablePopulatorDao extends TempTablePopulatorDao
     public function isCategoryActiveInMasterTable($tableName, $categoryId)
     {
         $categoryId = trim($categoryId,',');
-        $query = "SELECT id FROM {$tableName} where id = {$categoryId} AND onlineFlag = 1";
+        $query = "SELECT o_id FROM {$tableName} where o_id = {$categoryId} AND onlineFlag = 1";
         $resultSet =  $this->db->fetchFirstColumn($query);
         return ($resultSet) ? true : false;
     }
@@ -57,7 +57,7 @@ class B2CCategoryTempTablePopulatorDao extends TempTablePopulatorDao
             foreach ($categoryIds as $categoryId) {
                 $columnName = "B2CCategory";
                 $categoryId = trim($categoryId,',');
-                $query = "SELECT COUNT(`id`) FROM {$tableName} WHERE (B2CStoreFlag = 1 AND modificationDate = 1) AND  {$columnName} = ',{$categoryId},' ";
+                $query = "SELECT COUNT(`o_id`) FROM {$tableName} WHERE (B2CStoreFlag = 1 AND modificationDate = 1) AND  {$columnName} = ',{$categoryId},' ";
                 $resultSet =  $this->db->fetchOne($query);
                 $categoriesActiveInactiveList[$categoryId] = ($resultSet) ? true : false;
             }

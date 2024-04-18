@@ -20,7 +20,7 @@ class B2BProductTempTablePopulator extends AbstractB2BTempTablePopulator
         $this->dao = new B2BProductTempTablePopulatorDao();
         $this->attributeConfigProvider = new B2BProductAttributeConfigProvider();
     }
-    
+
     public function truncateTempTable(): void
     {
         $this->helper->truncateTempTable(Constants::B2B_PRODUCT_TEMP_TABLE_NAME);
@@ -49,7 +49,7 @@ class B2BProductTempTablePopulator extends AbstractB2BTempTablePopulator
         $epixFlagForPimIds = $this->dao->getEpixFlagValueForProductIds($pimIds);
 
         foreach($tempTableDataWIthoutEpixFlag as &$tempTableRowWithoutEpixFlag){
-            $tempTableRowWithoutEpixFlag["epixFlag"] = isset($epixFlagForPimIds[$tempTableRowWithoutEpixFlag["id"]]) ? 1 : 0 ;
+            $tempTableRowWithoutEpixFlag["epixFlag"] = isset($epixFlagForPimIds[$tempTableRowWithoutEpixFlag["o_id"]]) ? 1 : 0 ;
         }
         return $tempTableDataWIthoutEpixFlag;
     }
@@ -74,6 +74,6 @@ class B2BProductTempTablePopulator extends AbstractB2BTempTablePopulator
     public function filterIFSPTGProducts(array $pimIds): array
     {
         return $this->helper->filterIFSPTGProducts($pimIds);
-    }   
+    }
 
 }

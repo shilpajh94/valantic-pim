@@ -17,7 +17,7 @@ class B2BCategoryTempTablePopulatorDao extends TempTablePopulatorDao
 
     public function iterateMasterTableCategories($tableName)
     {
-        $query = "SELECT `id` FROM {$tableName}";
+        $query = "SELECT `o_id` FROM {$tableName}";
         return $this->db->fetchFirstColumn($query);
     }
 
@@ -45,7 +45,7 @@ class B2BCategoryTempTablePopulatorDao extends TempTablePopulatorDao
     public function isCategoryPresentInMasterTable($tableName, $categoryId)
     {
         $categoryId = trim($categoryId,',');
-        $query = "SELECT id FROM {$tableName} where id = {$categoryId}";
+        $query = "SELECT o_id FROM {$tableName} where o_id = {$categoryId}";
         $resultSet =  $this->db->fetchFirstColumn($query);
         return ($resultSet) ? true : false;
     }
@@ -53,7 +53,7 @@ class B2BCategoryTempTablePopulatorDao extends TempTablePopulatorDao
     public function isCategoryActiveInMasterTable($tableName, $categoryId)
     {
         $categoryId = trim($categoryId,',');
-        $query = "SELECT id FROM {$tableName} where id = {$categoryId} AND ShowInMenu = 1";
+        $query = "SELECT o_id FROM {$tableName} where o_id = {$categoryId} AND ShowInMenu = 1";
         $resultSet =  $this->db->fetchFirstColumn($query);
         return ($resultSet) ? true : false;
     }
@@ -66,7 +66,7 @@ class B2BCategoryTempTablePopulatorDao extends TempTablePopulatorDao
             foreach ($categoryIds as $categoryId => $categoryLevel) {
                 $columnName = "SIOPLevel" . $categoryLevel;
                 $categoryId = trim($categoryId,',');
-                $query = "SELECT COUNT(`id`) FROM {$tableName} WHERE (epixFlag = 1 AND published = 1) AND  {$columnName} = ',{$categoryId},' ";
+                $query = "SELECT COUNT(`o_id`) FROM {$tableName} WHERE (epixFlag = 1 AND o_published = 1) AND  {$columnName} = ',{$categoryId},' ";
                 $resultSet =  $this->db->fetchOne($query);
                 $categoriesActiveInactiveList[$categoryId] = ($resultSet) ? true : false;
             }

@@ -27,7 +27,7 @@ pimcore.plugin.ContitechCSProductBundle = Class.create({
             this.setParentBricks(e, e.detail.object.data.general.parentId);
         }
         if (objectClassName == 'CSProducts') {
-            if (e.detail.object.edit.dataFields.CSSegment.data !== null) {
+            if (e.detail.object.edit.dataFields.CSSegment.data !== null && e.detail.object.edit.dataFields.CSSegment.data != 1) {
                 this.listCountries(e, e.detail.object.edit.dataFields.CSSegment.data.split(","));
             }
             e.detail.object.edit.dataFields.CSSegment.component.on('select', function (event) {

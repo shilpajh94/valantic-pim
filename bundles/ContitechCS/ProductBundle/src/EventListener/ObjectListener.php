@@ -137,7 +137,6 @@ class ObjectListener
     {
         $object = $event->getObject();
         $type = $object->getType();
-
         if ($type != 'folder') {
             $className = $object->getClassName();
 
@@ -147,6 +146,9 @@ class ObjectListener
                     $folderCreationPath = '';
                     $masterRegionArray = $this->getAllRegions();
                     $firstRegionId = trim($regionArray[0]);
+                    if($firstRegionId==1){
+                        return ;
+                    }
                     $regionName = DataObject\CSRegion::getById($firstRegionId)->getRegionName();
 
                     $regionName = $this->removeSlash($regionName);

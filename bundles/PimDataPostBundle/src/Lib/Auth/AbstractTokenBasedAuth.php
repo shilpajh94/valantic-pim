@@ -37,8 +37,10 @@ abstract class AbstractTokenBasedAuth{
     {
         // $session = Util::getService('session');
         $key = $this->getType() . "_token";
-        $GLOBALS[$key];
-        return $GLOBALS[$key];
+        if (array_key_exists($key, $GLOBALS)) {
+            return $GLOBALS[$key];
+        }
+        return null;
         // return $session->get($key);
     }
 

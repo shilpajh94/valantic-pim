@@ -45,5 +45,12 @@ class Kernel extends PimcoreKernel
         // if (class_exists('\\IFSEU\\ImportBundle\\IFSEUImportBundle')) {
         //     $collection->addBundle(new IFSEU\ImportBundle\IFSEUImportBundle());
         // }
+
+        // To read .env contents
+        
+        if(file_exists($this->getProjectDir().'/.env')){
+            $dotenv = new \Symfony\Component\Dotenv\Dotenv();
+            $dotenv->load(dirname(__DIR__) . "/.env");
+        }
     }
 }

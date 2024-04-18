@@ -40,16 +40,16 @@ class B2BProductCategoryRelationDataPoster implements IDataPoster
             $relationObjectsForFailureEntry = $levelCategoriesRelationObject;
 
             $pimFailedRecordsToResend = $pimFailedRecordHandler->getFixedPimFailedRecord(B2BSalesForceObjectType::PRODUCT_CATEGORY_PRODUCT());
-            $relationChangeObjectsToResent = $this->getRelationObjectFromPimFailedRecords($pimFailedRecordsToResend);
+            $relationChangeObjectsToResend = $this->getRelationObjectFromPimFailedRecords($pimFailedRecordsToResend);
 
             $uniqueRelationChangeObjects = $this->mergeAndRemoveDuplicateRelationObjects($levelCategoriesRelationObject,
                                                             $categoryRelationsObjectsEnforcedToPush,
-                                                            $relationChangeObjectsToResent);
+                                                            $relationChangeObjectsToResend);
             // @todo for CR: iterate all these relation objects and replace the old value and new value of categories
             // with the disgnated category value in the group
             $this->createAPIRequestEntityForRelationChangeObjects($uniqueRelationChangeObjects, $requestBodyGenerator);
 
-            $relationObjectsForFailureEntry = array_merge($relationObjectsForFailureEntry, $relationChangeObjectsToResent);
+            $relationObjectsForFailureEntry = array_merge($relationObjectsForFailureEntry, $relationChangeObjectsToResend);
             $pimFailedRecordHandler->deleteFixedPimFailedRecord($pimFailedRecordsToResend);
 
             //$helper->sendAllRequestsToSFAndHandleResponses($httpRequestGenerator, $responseHandler);
@@ -72,9 +72,15 @@ class B2BProductCategoryRelationDataPoster implements IDataPoster
             $failedRecordId = $failedRecord->getPimId();
             $idsArray = explode($this->pimIdSeparator, $failedRecordId);
             $object = new B2BProductRelationChange();
-            $object->setProductId($idsArray[0]);
-            $object->setNewValue($idsArray[1]);
-            $object->setOldValue($idsArray[2]);
+            if(isset($idsArray[0])){
+                $object->setProductId($idsArray[0]);
+            }
+            if(isset($idsArray[1])){
+                $object->setNewValue($idsArray[1]);
+            }
+            if(isset($idsArray[2])){
+                $object->setOldValue($idsArray[2]);
+            }
 
             $relationObjects[] = $object;
         }
@@ -92,11 +98,8 @@ class B2BProductCategoryRelationDataPoster implements IDataPoster
 
             /* =================================== */
             $newValue = trim($relationChangeObject->getNewValue(),",");
-            if ( !empty($relationChangeObject->getOldValue()) ) {
-                $oldValue = trim($relationChangeObject->getOldValue(),",");
-            }
-            // $oldValue = trim($relationChangeObject->getOldValue(),",");
-            //echo "New Value == ".$newValue."_____ Old Value === ".$oldValue."\n\n";
+            $oldValue = trim($relationChangeObject->getOldValue(),",");
+            // echo "New Value == ".$newValue."_____ Old Value === ".$oldValue."\n\n";
             if($newValue != $oldValue) {
                 $apiRequestEntityDelete = new B2BAPIRequestEntity();
                 $apiRequestEntityDelete->setBody(json_encode($requestBody,JSON_UNESCAPED_SLASHES));

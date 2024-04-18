@@ -25,9 +25,9 @@ class B2CCategoryDataPoster implements IDataPoster
     public function postData()
     {
         $tempTablePopulator = new B2CCategoryTempTablePopulator();
-        $tempMasterTableMeta = new TempMasterTablesMeta(Constants::B2C_CATEGORY_TEMP_TABLE_NAME, 
-                                                            Constants::B2C_CATEGORY_MASTER_TABLE_NAME, 
-                                                            "basicHash", 
+        $tempMasterTableMeta = new TempMasterTablesMeta(Constants::B2C_CATEGORY_TEMP_TABLE_NAME,
+                                                            Constants::B2C_CATEGORY_MASTER_TABLE_NAME,
+                                                            "basicHash",
                                                             "relationalHash");
         $deltaManager = new B2CCategoryDeltaManager($tempMasterTableMeta);
         $enforcedRecordProvier = new B2CCategoryEnforcedRecordsProvider();
@@ -52,13 +52,13 @@ class B2CCategoryDataPoster implements IDataPoster
             $pimModifiedRecordIdsWhichAreAlsoPresentInMaster = array_merge($pimModifiedRecordIdsWhichAreAlsoPresentInMaster, $tempTablePopulator->getAllChildrenObjectsRecursively($pimModifiedRecordIdsWhichAreAlsoPresentInMaster));
             $categoryIdsToBeAddedInTempTable = array_merge($categoryIdsToBeAddedInTempTable, $pimModifiedRecordIdsWhichAreAlsoPresentInMaster);
             $categoryIdsForFailureEntry = $categoryIdsToBeAddedInTempTable;
-    
+
             $this->insertProductIdsInTempTable($tempTablePopulator, $categoryIdsToBeAddedInTempTable);
 
             $pimFailedRecordsToResend = $pimFailedRecordHandler->getFixedPimFailedRecord(B2CSalesForceObjectType::CATEGORY());
             $pimFailedRecordIdsToResend = $helper->getPimFailedRecordIdsFromObjects($pimFailedRecordsToResend);
             $categoryIdsForFailureEntry = array_merge($categoryIdsForFailureEntry, $pimFailedRecordIdsToResend);
-            $this->insertProductIdsInTempTable($tempTablePopulator, $pimFailedRecordIdsToResend); 
+            $this->insertProductIdsInTempTable($tempTablePopulator, $pimFailedRecordIdsToResend);
             $pimFailedRecordHandler->deleteFixedPimFailedRecord($pimFailedRecordsToResend);
             $maxlevel = $deltaManager->getMaxLevelInTemp();
             for($level = 1; $level <= $maxlevel; $level++){
@@ -74,7 +74,7 @@ class B2CCategoryDataPoster implements IDataPoster
                     $helper->sendAllRequestsToSFAndHandleResponses($httpRequestGenerator, $responseHandler);
                 }
             }
-    
+
             $categoriesEnforcedToPushForUpdate = $enforcedRecordProvier->getRecordsToUpdate();
 
             if(count($categoriesEnforcedToPushForUpdate) > 0){
@@ -105,19 +105,19 @@ class B2CCategoryDataPoster implements IDataPoster
         //$allCategoriesWithRightActiveFlagValueForAssociatedCategories = $activeFlagHandler->getValueForActiveFlag($categoriyIdsInMasterTable);
 
         //$associatedCategoriesWithTrueActiveFlag = $this->getAssociatedCategoriesWithTrueActiveFlag($allCategoriesWithRightActiveFlagValueForAssociatedCategories);
-        
+
         $allAssociatedActiveCategories = $activeFlagHandler->getAllAssociatesActiveCategories();
         $parentsOfActiveAssociatedCategories = $activeFlagHandler->getUniqueParentIdsForObjectIdOfGivenClass("B2CCategory", $allAssociatedActiveCategories);
         $allActiveCategories = $parentsOfActiveAssociatedCategories;
-        // returns a key value array for all the categories in mastr table with their respective active flag value 
-        $allCategoriesInMasterTableWithActiveFlagValue = $this->prepareActiveFlagValueForAllCategoriesInMasterTable($categoriyIdsInMasterTable, $allActiveCategories); 
-        $activeFlagHandler->updateActiveFlagValue($allCategoriesInMasterTableWithActiveFlagValue); 
+        // returns a key value array for all the categories in mastr table with their respective active flag value
+        $allCategoriesInMasterTableWithActiveFlagValue = $this->prepareActiveFlagValueForAllCategoriesInMasterTable($categoriyIdsInMasterTable, $allActiveCategories);
+        $activeFlagHandler->updateActiveFlagValue($allCategoriesInMasterTableWithActiveFlagValue);
 
         $categoryIdsToBeAddedInTempTable = [];
 
         $associatedCategoryIdsWhereRelationWithHashChanged = $activeFlagHandler->getCategoryIdsWhereRelationWithProductChanged();
         $associatedCategoryIdsWhereRelationWithHashChanged = $this->getIdsWithoutComma($associatedCategoryIdsWhereRelationWithHashChanged);
-        $parentOfAssociatedCategories = $activeFlagHandler->getUniqueParentIdsForObjectIdOfGivenClass("B2CCategory", $associatedCategoryIdsWhereRelationWithHashChanged); 
+        $parentOfAssociatedCategories = $activeFlagHandler->getUniqueParentIdsForObjectIdOfGivenClass("B2CCategory", $associatedCategoryIdsWhereRelationWithHashChanged);
         foreach($parentOfAssociatedCategories as $categoryId){
             if($activeFlagHandler->isCategoryPresentInMasterTable($categoryId)){
                 if(!$activeFlagHandler->isCategoryActiveInMasterTable($categoryId)){
@@ -169,8 +169,8 @@ class B2CCategoryDataPoster implements IDataPoster
         return $associatedCategoriesWithTrueActiveFlag;
     }
 
-    private function createAPIRequestEntityForRecords(array $records, 
-                                                        APIOperationType $operationType, 
+    private function createAPIRequestEntityForRecords(array $records,
+                                                        APIOperationType $operationType,
                                                         B2CCategoryTempTablePopulator $tempTablePopulator): void
     {
         $requestBodyGenerator = new B2CCategoryRequestBodyGenerator();
@@ -188,14 +188,14 @@ class B2CCategoryDataPoster implements IDataPoster
             {
                 $requestBody['c_showInMenu'] = $requestBody['online'];
             }
-            
+
             $apiRequestEntity = new B2CAPIRequestEntity();
             $apiRequestEntity->setBody(json_encode($requestBody,JSON_UNESCAPED_SLASHES));
             $apiRequestEntity->setOperationType($operationType);
             $apiRequestEntity->setSFObjectType(B2CSalesForceObjectType::CATEGORY());
 
             $apiRequestEntity->setexternalID(B2CCategoryHelper::getExternalId($tempTableData));
-            $apiRequestEntity->setPimId($tempTableData["id"]);
+            $apiRequestEntity->setPimId($tempTableData["o_id"]);
             $apiRequestEntity->setReferenceId($recordPimId . "_" . $currTime);
             $apiRequestEntity->setCreationDate($currTime);
             $apiRequestEntity->save();

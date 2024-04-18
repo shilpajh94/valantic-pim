@@ -36,18 +36,19 @@ class CreateB2CTableCommand extends AbstractCommand
 
         $B2CProductAttributeConfigProvider = new B2CProductAttributeConfigProvider();
         $productAttributes = $B2CProductAttributeConfigProvider->getCompleteAttributeConfig();
-        $this->createTable($productAttributes, Constants::B2C_PRODUCT_TEMP_TABLE_NAME, 'id');
-        $this->createTable($productAttributes, Constants::B2C_PRODUCT_MASTER_TABLE_NAME, 'id');
+        $this->createTable($productAttributes, Constants::B2C_PRODUCT_TEMP_TABLE_NAME, 'o_id');
+        $this->createTable($productAttributes, Constants::B2C_PRODUCT_MASTER_TABLE_NAME, 'o_id');
 
         $B2CCategoryAttributeConfigProvider = new B2CCategoryAttributeConfigProvider();
         $categoryAttributes = $B2CCategoryAttributeConfigProvider->getCompleteAttributeConfig();
-        $this->createTable($categoryAttributes, Constants::B2C_CATEGORY_TEMP_TABLE_NAME, 'id');
-        $this->createTable($categoryAttributes, Constants::B2C_CATEGORY_MASTER_TABLE_NAME, 'id');
+        $this->createTable($categoryAttributes, Constants::B2C_CATEGORY_TEMP_TABLE_NAME, 'o_id');
+        $this->createTable($categoryAttributes, Constants::B2C_CATEGORY_MASTER_TABLE_NAME, 'o_id');
 
         $this->createTableB2cApiRequestEntities();
         $this->createTableB2cEntityEnforce();
         $this->createTableB2cProductRelationChange();
         $this->createTableSalesforceIntegrationPimcoreFailedRecord();
+        return 1;
 
     }
 

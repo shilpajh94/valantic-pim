@@ -47,16 +47,16 @@ class PimDataPostCommand extends AbstractCommand
         $scriptStartTime = time();
         Util::setB2BScriptStartTime($scriptStartTime);
         p_r($scriptStartTime);
-
+        p_r('B2BProductDataPoster');
         $executor = new B2BProductDataPoster();
         $executor->postData();
-
+        p_r('B2BCategoryDataPoster');
         $executor = new B2BCategoryDataPoster();
         $executor->postData();
-
+        p_r('B2BProductCategoryRelationDataPoster');
         $executor = new B2BProductCategoryRelationDataPoster();
         $executor->postData();
-
+        p_r('B2BProductMediaPoster');
         $executor = new B2BProductMediaPoster();
         $executor->postData();
 

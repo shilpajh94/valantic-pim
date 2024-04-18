@@ -36,13 +36,13 @@ class CreateB2BTableCommand extends AbstractCommand
 
         $B2BProductAttributeConfigProvider = new B2BProductAttributeConfigProvider();
         $productAttributes = $B2BProductAttributeConfigProvider->getCompleteAttributeConfig();
-        $this->createTable($productAttributes, Constants::B2B_PRODUCT_TEMP_TABLE_NAME, 'id');
-        $this->createTable($productAttributes, Constants::B2B_PRODUCT_MASTER_TABLE_NAME, 'id');
+        $this->createTable($productAttributes, Constants::B2B_PRODUCT_TEMP_TABLE_NAME, 'o_id');
+        $this->createTable($productAttributes, Constants::B2B_PRODUCT_MASTER_TABLE_NAME, 'o_id');
 
         $B2BCategoryAttributeConfigProvider = new B2BCategoryAttributeConfigProvider();
         $categoryAttributes = $B2BCategoryAttributeConfigProvider->getCompleteAttributeConfig();
-        $this->createTable($categoryAttributes, Constants::B2B_CATEGORY_TEMP_TABLE_NAME, 'id');
-        $this->createTable($categoryAttributes, Constants::B2B_CATEGORY_MASTER_TABLE_NAME, 'id');
+        $this->createTable($categoryAttributes, Constants::B2B_CATEGORY_TEMP_TABLE_NAME, 'o_id');
+        $this->createTable($categoryAttributes, Constants::B2B_CATEGORY_MASTER_TABLE_NAME, 'o_id');
         $this->createTableB2bApiRequestEntities();
         $this->createTableB2bEntityEnforce();
         $this->createTableB2bPimToSfCategoryMapping();
@@ -51,6 +51,7 @@ class CreateB2BTableCommand extends AbstractCommand
         $this->createTableSalesforceIntegrationPimcoreDeletedAssets();
         $this->createTableSalesforceIntegrationPimcoreFailedRecord();
         echo "\n";
+        return 1;
     }
 
     public function createTable($fields, $tableName, $uniqueIndexKey)

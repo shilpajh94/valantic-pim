@@ -33,7 +33,8 @@ class B2CTempTablePopulatorHelper extends TempTablePopulatorHelper
 
     public function getTempTableDataForIds($pimIds, $attribute, $tableName)
     {
-        $resultSet =  $this->dao->getTempTableDataForIds($attribute, $pimIds, $tableName);
+        $resultSet = [];
+        $resultSet = $this->dao->getTempTableDataForIds($attribute, $pimIds, $tableName);
         return ($resultSet) ? $resultSet : [];
     }
 

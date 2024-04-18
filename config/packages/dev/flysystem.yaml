@@ -1,5 +1,5 @@
 parameters:
-    s3.bucket: 'pimcorex-contitech-assets-prod'
+    s3.bucket: 'pimcorex-contitech-assets-prod-latest'
 
 services:
     assets_s3:
@@ -15,7 +15,7 @@ flysystem:
             visibility: private
             options:
                 client: 'assets_s3'
-                bucket: 'pimcorex-contitech-assets-prod'
+                bucket: 'pimcorex-contitech-assets-prod-latest'
                 prefix: assets
 
 

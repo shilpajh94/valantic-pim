@@ -879,10 +879,12 @@ class ProductModelService
                        elseif(!empty($fieldDef) && $fieldDef->getFieldtype()==="select")
                        {
                             $bData = $product->$productBrickField()->$brickText()->$fieldText();
-                            $objectIndv = DataObject::getById($bData);
-                            if($objectIndv instanceof DataObject\IFSEUProperties)
-                            {
-                                $bData = $objectIndv->getId();
+                            if(!empty($bData)){
+                                $objectIndv = DataObject::getById($bData);
+                                if($objectIndv instanceof DataObject\IFSEUProperties)
+                                {
+                                    $bData = $objectIndv->getId();
+                                }
                             }
                        }
                        else{
@@ -916,7 +918,7 @@ class ProductModelService
         if($assetIdflag){
             $assetIdPath = trim($assetIdPath,',');
             $assetDetail = explode("|", $assetIdPath);
-            $assetFileId = $assetDetail[1];
+            $assetFileId = $assetDetail[0];
             if($assetFileId)
             {
                 $asset = Asset::getById($assetFileId);

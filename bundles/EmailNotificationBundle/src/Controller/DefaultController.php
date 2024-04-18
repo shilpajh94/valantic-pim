@@ -25,9 +25,7 @@ class DefaultController extends FrontendController
      */
     public function indexAction(Request $request)
     {
-        
         //$templateName = 'EmailNotificationBundle:default:template.html.php';
-
         /* Example for sending mail */
         $email = $this->container->get('email.email_notification_service');
         $array = array(
@@ -48,7 +46,14 @@ class DefaultController extends FrontendController
 
     public function newProductsEmailAction(Request $request)
     {
-        return $this->render("email_notification/default/NewProductsEmail.html.twig");
+        return $this->render("email_notification/default/NewProductsEmail.html.twig",[
+            'firstName'=>$request->get('firstName'),
+            'lastName'=>$request->get('lastName'),
+            'tableContent'=>$request->get('tableContent'),
+            'numberofdays'=>$request->get('numberofdays'),
+            'file_url'=>(!empty($request->get('file_url'))?$request->get('file_url'):'' ),
+
+        ]);
     }
 
     public function newProductTableContentAction(Request $request)
