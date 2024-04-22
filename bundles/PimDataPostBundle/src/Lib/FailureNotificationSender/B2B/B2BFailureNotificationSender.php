@@ -67,7 +67,11 @@ class B2BFailureNotificationSender extends AbstractB2BFailureNotificationSender
             'malte.schickedanz@contitech.de',
             'sachin.baluja@ptg.contitech.in',
             'kenichi.ban@contitech.de',
-            'anthony.miller@contitech.de'
+            'anthony.miller@contitech.de',
+            'arun.10.kumar@continental.com',
+            'rajesh.kumar4@happiestminds.com',
+            'gaurav.tyagi@happiestminds.com',
+            'aman.sharma2@happiestminds.com'
         );
 
         foreach ($B2B_B2C_Users_Email as $email) {
