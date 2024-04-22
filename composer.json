@@ -70,7 +70,8 @@
       "ContitechCS\\ProductBundle\\": "bundles/ContitechCS/ProductBundle/src",
       "ContitechCS\\CatalogBundle\\": "bundles/ContitechCS/CatalogBundle/src",
       "ContitechCS\\CatalogUIApiBundle\\": "bundles/ContitechCS/CatalogUIApiBundle/src",
-      "Instride\\Bundle\\DataDefinitionsBundle\\": "bundles/instride/data-definitions/src/DataDefinitionsBundle"
+      "Instride\\Bundle\\DataDefinitionsBundle\\": "bundles/instride/data-definitions/src/DataDefinitionsBundle",
+      "B2BSalesforcePTGEMEABundle\\": "bundles/B2BSalesforcePTGEMEABundle/src"
     }
   },
   "autoload-dev": {

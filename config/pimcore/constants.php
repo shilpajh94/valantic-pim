@@ -34,7 +34,7 @@ define("PTG_EU_PRODUCTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles
 
 define("IFS_EU_PRODUCTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/IFSEU/ProductBundle/config");
 define("B2BTRANSLATIONBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/B2BTranslationBundle/config");
-
+define("B2B_SALESFORCE_PTG_EMEA_TRANSLATIONBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/B2BSalesforcePTGEMEABundle/config");
 
 /**
  * to include the constants of the required attributes module

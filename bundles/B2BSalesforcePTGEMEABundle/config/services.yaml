@@ -1,0 +1,56 @@
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        # automatically injects dependencies in your services
+        autowire: true
+        # automatically registers your services as commands, event subscribers, etc.
+        autoconfigure: true
+        # this means you cannot fetch services directly from the container via $container->get()
+        # if you need to do this, you can override this setting on individual services
+        public: false
+
+    # controllers are imported separately to make sure they're public
+    # and have a tag that allows actions to type-hint services
+    B2BSalesforcePTGEMEABundle\Controller\:
+        resource: '../src/Controller'
+        public: true
+        tags: ['controller.service_arguments']
+
+# add more services, or override services that need manual wiring
+#    B2BSalesforcePTGEMEABundle\ExampleClass:
+#        arguments:
+#            - "@service_id"
+#            - "plain_value"
+#            - "%parameter%"
+    b2bsalesforceptgemea.common_helper:
+        class: B2BSalesforcePTGEMEABundle\Helper\Common
+        public: true
+        
+    b2bsalesforceptgemea.sap_file_feeder_service:
+        class: B2BSalesforcePTGEMEABundle\Services\FileFeederService
+        public: true
+
+    b2bsalesforceptgemea.config_provider_service:
+        class: B2BSalesforcePTGEMEABundle\Services\ConfigProviderService
+        public: true
+
+    #command
+    # B2BSalesforcePTGEMEABundle\Command\PimDataImportCommand:
+    #     tags:
+    #         - { name: 'console.command', command: 'contitech:b2b:pim-data-import-command' }
+
+    B2BSalesforcePTGEMEABundle\Command\PimDataExportCommand:
+        tags:
+            - { name: 'console.command', command: 'contitech:b2b-salesforce-ptgeu:pim-data-export-command' }
+
+    B2BSalesforcePTGEMEABundle\OneTimeCommand\ImportExternalIDForCategoryCommand:
+        tags:
+            - { name: 'console.command', command: 'contitech:b2b:onetime:import-external_id-for-category-command' }
+
+    B2BSalesforcePTGEMEABundle\Command\PimExtsfidDataExportCommand:
+        tags:
+            - { name: 'console.command', command: 'contitech:b2b-salesforce-ptgeu:pim-extsfid-export-command' }   
+
+    B2BSalesforcePTGEMEABundle\Command\PimExtsfidDataImportCommand:
+        tags:
+            - { name: 'console.command', command: 'contitech:b2b-salesforce-ptgeu:pim-extsfid-import-command' }             

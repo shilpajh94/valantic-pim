@@ -1,0 +1,4 @@
+b2_b_salesforce_ptgemea:
+    resource: "@B2BSalesforcePTGEMEABundle/src/Controller/"
+    type:     annotation
+    prefix:   /
