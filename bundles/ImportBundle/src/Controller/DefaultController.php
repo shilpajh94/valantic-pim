@@ -169,6 +169,9 @@ class DefaultController extends FrontendController
         $entries = new DataObject\Product\Listing();
         $entries->setCondition("parentId IN (?) AND brandName = ? AND printedCatalogFlag = ? AND published = ?", [$skeletonProductsId, $baseObj->getSelectBrandName(), 1, 1]);
         $brand = (DataObject\Brand::getById($baseObj->getSelectBrandName()))->getName();
+        $footer_logo_src = $catalogImagesINHFooter['Orange'];
+        $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
+
         if(!empty($entries->load())) {
 
             $firstFertProduct = $entries->load()[0];
@@ -226,9 +229,6 @@ class DefaultController extends FrontendController
             $subHeaderRequired = 'YES';
             $iconRequired = 'YES';
 
-            $footer_logo_src = $catalogImagesINHFooter['Orange'];
-            $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
-
             $productAttributesArr = [
                 $brand,
                 $longDescription,
@@ -279,6 +279,15 @@ class DefaultController extends FrontendController
                     }
                 }
             }
+            $assetId = $this->getPdfGeneration($dataArray, $productAttributesArr, $columnsDataWithImages, $subHeaderRequired, $iconRequired, $orderCode);
+            return $this->json(["data" => $assetId]);
+        }
+        else{
+            $subHeaderRequired = $iconRequired = $orderCode = null;
+            $productAttributesArr = [
+                $brand,null,null,null,null,null,null,null,null,null,null,null,null,$footer_logo_src,
+            ];
+            $columnsDataWithImages = [];
             $assetId = $this->getPdfGeneration($dataArray, $productAttributesArr, $columnsDataWithImages, $subHeaderRequired, $iconRequired, $orderCode);
             return $this->json(["data" => $assetId]);
         }
