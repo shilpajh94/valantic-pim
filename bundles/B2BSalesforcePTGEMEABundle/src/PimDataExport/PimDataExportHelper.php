@@ -76,7 +76,7 @@ class PimDataExportHelper
         $ids = [];
         if($table)
         {
-            $sql = "SELECT `id` FROM $table WHERE productType='fert' AND published=1 limit 100";
+            $sql = "SELECT `id` FROM $table WHERE productType='fert' AND published=1";
             $ids = $db->fetchFirstColumn($sql);
         }
 
