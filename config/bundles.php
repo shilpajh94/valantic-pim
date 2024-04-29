@@ -30,6 +30,7 @@ return [
     IFSEU\ImportBundle\IFSEUImportBundle::class => ['all' => true],
     PTGEU\CatalogBundle\PTGEUCatalogBundle::class => ['all' => true],
     PimDataPostBundle\PimDataPostBundle::class => ['all' => true],
+    B2BSalesforcePTGEMEABundle\B2BSalesforcePTGEMEABundle::class => ['all' => true],
     \Pimcore\Bundle\WebToPrintBundle\PimcoreWebToPrintBundle::class => ['all' => true],
     // \Pimcore\Bundle\EcommerceFrameworkBundle\PimcoreEcommerceFrameworkBundle::class => ['all' => true],
     \Pimcore\Bundle\PersonalizationBundle\PimcorePersonalizationBundle::class => ['all' => true],

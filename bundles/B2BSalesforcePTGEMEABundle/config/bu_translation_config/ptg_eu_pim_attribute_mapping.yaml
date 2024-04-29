@@ -1,0 +1,49 @@
+parameters:
+    Product:
+        B2B_External_Id__c: B2B_External_Id__c
+        ProductName: Name
+        B2B_Part_Number__c: B2B_Part_Number__c
+        articleNumber: B2B_SAP_material_number__c
+        longDescription: Description
+        IsActive: IsActive
+        beltAngle: B2B_BeltAngle__c
+        Color: B2B_Color__c
+        datumLengthIN: B2B_DatumLengthIn__c
+        datumLengthMM: B2B_DatumLengthMm__c
+        eanUpc: B2B_EANUPC__c
+        heatAndOilResistant: B2B_HeatOilResistant__c
+        # sfIdForDeletion: B2B_SfIdForDeletion__c
+        heightIN: B2B_HeightIn__c
+        heightMM: B2B_HeightMm__c
+        insideLengthIN: B2B_InsideLengthIn__c
+        insideLengthMM: B2B_InsideLengthMm__c
+        material: B2B_Material__c
+        maximumTemperatureC: B2B_TemperatureRatingMaximumC__c
+        minimumTemperatureC: B2B_TemperatureRatingMinimumC__c
+        numberOfTeethZ: B2B_NumberOfTeeth__c
+        outsideLengthIN: B2B_OutsideLengthIn__c
+        outsideLengthMM: B2B_OutsideLengthMm__c
+        pitchLengthLpLwIN: B2B_PitchLengthIn__c
+        pitchLengthLpLwMM: B2B_PitchLengthMm__c
+        profile: B2B_Profile__c
+        reinforcement: B2B_Reinforcement__c
+        staticConductive: B2B_StaticConductive__c
+        toothPitchPtIN: B2B_PitchIn__c
+        toothPitchPtMM: B2B_PitchMm__c
+        widthIN: B2B_WidthIn__c
+        widthMM: B2B_WidthMm__c
+        RecordTypeId: RecordTypeId
+    Category:
+        description: Name
+        CatalogId: CatalogId
+        fullCode: B2B_External_Id__c
+        longDescription: Description
+        SortOrder: SortOrder
+        IsNavigational: IsNavigational
+        ParentCategoryId: ParentCategoryId
+        image: B2B_Image_URL__c
+    ProductCategoryProduct:
+        siopFullCode: Category.B2B_External_Id__c
+        articleNumber: Product2.B2B_External_Id__c
+        IsPrimaryCategory: IsPrimaryCategory
+        B2B_External_Id__c: B2B_External_Id__c
