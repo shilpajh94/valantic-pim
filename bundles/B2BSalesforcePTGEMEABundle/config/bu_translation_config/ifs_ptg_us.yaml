@@ -1,0 +1,951 @@
+parameters:
+    Product:
+        articleNumber:
+            fieldName: articleNumber
+            fieldLocation: class
+            className: Product
+            isLocalized: false
+        externalID:
+            fieldName: externalID
+            fieldLocation: class
+            className: Product
+            isLocalized: false
+        SalesForce_ID:
+            fieldName: SalesForce_ID
+            fieldLocation: class
+            className: Product
+            isLocalized: false
+        industryStandard:
+            fieldName: industryStandard
+            fieldLocation: class
+            className: Product
+            isLocalized: false
+        eanUpc:
+            fieldName: eanUpc
+            fieldLocation: class
+            className: Product
+            isLocalized: false
+        legalText:
+            fieldName: legalText
+            fieldLocation: class
+            className: Product
+            isLocalized: true
+        BrandShortText1:
+            fieldName: BrandShortText1
+            fieldLocation: class
+            className: Product
+            isLocalized: true
+        BrandShortText2:
+            fieldName: BrandShortText2
+            fieldLocation: class
+            className: Product
+            isLocalized: true
+        BrandShortText3:
+            fieldName: BrandShortText3
+            fieldLocation: class
+            className: Product
+            isLocalized: true
+        BrandShortText4:
+            fieldName: BrandShortText4
+            fieldLocation: class
+            className: Product
+            isLocalized: true
+        BrandShortText5:
+            fieldName: BrandShortText5
+            fieldLocation: class
+            className: Product
+            isLocalized: true
+        shortDescription:
+            fieldName: shortDescription
+            fieldLocation: class
+            className: Product
+            isLocalized: true
+        longDescription:
+            fieldName: longDescription
+            fieldLocation: class
+            className: Product
+            isLocalized: true
+        sapDescription:
+            fieldName: sapDescription
+            fieldLocation: class
+            className: Product
+            isLocalized: true
+        reinforcement:
+            fieldName: reinforcement
+            fieldLocation: class
+            className: MultiselectMaster
+            masterType: ProductClass~reinforcement
+            isLocalized: true
+        tubeMaterial:
+            fieldName: tubeMaterial
+            fieldLocation: objectbrick
+            className: MultiselectMaster
+            objectBrickClassName: HoseBase
+            masterType: INH-HYD-HOSE~tubeMaterial
+            isLocalized: true
+        coverMaterial:
+            fieldName: coverMaterial
+            fieldLocation: objectbrick
+            className: MultiselectMaster
+            objectBrickClassName: HoseBase
+            masterType: INH-HYD-HOSE~coverMaterial
+            isLocalized: true
+        MaterialType:
+            fieldName: MaterialType
+            fieldLocation: objectbrick
+            className: MultiselectMaster
+            objectBrickClassName: AccessoriesFert
+            masterType: HYD_ACCESSORIES~MaterialType
+            isLocalized: true
+        Color:
+            fieldName: Color
+            fieldLocation: objectbrick
+            className: MultiselectMaster
+            objectBrickClassName: AccessoriesFert
+            masterType: HYD_ACCESSORIES~Color
+            isLocalized: true
+        material:
+            fieldName: material
+            fieldLocation: objectbrick
+            className: MultiselectMaster
+            objectBrickClassName: PTGBase
+            masterType: PTG~material
+            isLocalized: true
+        # HydFittingFamily:
+        #     fieldName: HydFittingFamily
+        #     fieldLocation: objectbrick
+        #     className: FittingFamily
+        #     objectBrickClassName: HydFittingsFert
+        #     isLocalized: true
+        # FittingEndFamilyType:
+        #     fieldName: FittingEndFamilyType
+        #     fieldLocation: objectbrick
+        #     className: FittingEndFamilyType
+        #     objectBrickClassName: HydFittingsFert
+        #     isLocalized: true
+        # FeaturesBenefitsBulletPoint:
+        #     fieldName: FeaturesBenefitsBulletPoint
+        #     fieldLocation: class
+        #     className: Product
+        #     isLocalized: true
+        webDiscription:
+            fieldName: webDiscription
+            fieldLocation: class
+            className: Product
+            isLocalized: false
+        baseUOM:
+            fieldName: baseUOM
+            fieldLocation: class
+            className: Product
+            isLocalized: false
+        proposition65WarningAttributesRequired:
+            fieldName: proposition65WarningAttributesRequired
+            fieldLocation: class
+            className: Product
+            isLocalized: false
+        BoltHoleSizeInFract:
+            fieldName: BoltHoleSizeInFract
+            fieldLocation: objectbrick
+            objectBrickClassName: AccessoriesFert
+            isLocalized: false
+        ClampingDiameterInFract:
+            fieldName: ClampingDiameterInFract
+            fieldLocation: objectbrick
+            objectBrickClassName: AccessoriesFert
+            isLocalized: false
+        DescriptivePartNumber:
+            fieldName: DescriptivePartNumber
+            fieldLocation: objectbrick
+            objectBrickClassName: HydFittingsFert
+            isLocalized: false
+        FlangeIDInFract:
+            fieldName: FlangeIDInFract
+            fieldLocation: objectbrick
+            objectBrickClassName: HydFittingsFert
+            isLocalized: false
+        HoseID1InFract:
+            fieldName: HoseID1InFract
+            fieldLocation: objectbrick
+            objectBrickClassName: HydFittingsFert
+            isLocalized: false
+        OringMaterial:
+            fieldName: OringMaterial
+            fieldLocation: objectbrick
+            objectBrickClassName: HydFittingsFert
+            isLocalized: false
+        swivel:
+            fieldName: swivel
+            fieldLocation: relational
+            objectBrickClassName: HydFittingsFert
+            isLocalized: false
+        ThreadDashSize1:
+            fieldName: ThreadDashSize1
+            fieldLocation: objectbrick
+            objectBrickClassName: HydFittingsFert
+            isLocalized: false
+        hoseDashSize:
+            fieldName: hoseDashSize
+            fieldLocation: objectbrick
+            objectBrickClassName: HoseSkeleton
+            isLocalized: false
+        DashSize:
+            fieldName: DashSize
+            fieldLocation: objectbrick
+            objectBrickClassName: AccessoriesFert
+            isLocalized: false
+        HoseIDNominalIDFrac:
+            fieldName: HoseIDNominalIDFrac
+            fieldLocation: objectbrick
+            objectBrickClassName: HoseSkeleton
+            isLocalized: false
+        bendRestrictorType:
+            fieldName: bendRestrictorType
+            fieldLocation: objectbrick
+            objectBrickClassName: HoseFert
+            isLocalized: false
+        descriptive:
+            fieldName: descriptive
+            fieldLocation: objectbrick
+            objectBrickClassName: HoseFert
+            isLocalized: false
+        fitting1Material:
+            fieldName: fitting1Material
+            fieldLocation: objectbrick
+            objectBrickClassName: HoseFert
+            isLocalized: false
+        fitting1Size:
+            fieldName: fitting1Size
+            fieldLocation: objectbrick
+            objectBrickClassName: HoseFert
+            isLocalized: false
+        fitting1Type:
+            fieldName: fitting1Type
+            fieldLocation: objectbrick
+            objectBrickClassName: HoseFert
+            isLocalized: false
+        fitting2Material:
+            fieldName: fitting2Material
+            fieldLocation: objectbrick
+            objectBrickClassName: HoseFert
+            isLocalized: false
+        fitting2Size:
+            fieldName: fitting2Size
+            fieldLocation: objectbrick
+            objectBrickClassName: HoseFert
+            isLocalized: false
+        fitting2Type:
+            fieldName: fitting2Type
+            fieldLocation: objectbrick
+            objectBrickClassName: HoseFert
+            isLocalized: false
+        effectiveLengthUOM:
+            fieldName: effectiveLengthUOM
+            fieldLocation: objectbrick
+            objectBrickClassName: BeltsFert
+            isLocalized: false
+        oldMaterialCode:
+            fieldName: oldMaterialCode
+            fieldLocation: class
+            className: Product
+            isLocalized: false 
+        brandName:
+            fieldName: brandName
+            fieldLocation: class
+            className: Product
+            isLocalized: false 
+        californiaProposition65ChemicalName1:
+            fieldName: californiaProposition65ChemicalName1
+            fieldLocation: class
+            className: Product
+            isLocalized: false 
+        totalWeight:
+            fieldName: totalWeight
+            fieldLocation: objectbrick
+            objectBrickClassName: HoseFert
+            isLocalized: false 
+        totalWeightPerPackage:
+            fieldName: totalWeightPerPackage
+            fieldLocation: objectbrick
+            objectBrickClassName: HoseFert
+            isLocalized: false 
+        BoltHoleSizeInDec:
+            fieldName: BoltHoleSizeInDec
+            fieldLocation: objectbrick
+            objectBrickClassName: AccessoriesFert
+            isLocalized: false 
+        BoltHoleSizeMM:
+            fieldName: BoltHoleSizeMM
+            fieldLocation: objectbrick
+            objectBrickClassName: AccessoriesFert
+            isLocalized: false 
+        ClampingDiameterInDec:
+            fieldName: ClampingDiameterInDec
+            fieldLocation: objectbrick
+            objectBrickClassName: AccessoriesFert
+            isLocalized: false 
+        ClampingDiameterMM:
+            fieldName: ClampingDiameterMM
+            fieldLocation: objectbrick
+            objectBrickClassName: AccessoriesFert
+            isLocalized: false 
+        FlatWidthIn:
+            fieldName: FlatWidthIn
+            fieldLocation: objectbrick
+            objectBrickClassName: AccessoriesFert
+            isLocalized: false 
+        HoseIdDecIN:
+            fieldName: HoseIdDecIN
+            fieldLocation: objectbrick
+            objectBrickClassName: AccessoriesFert
+            isLocalized: false 
+        OringIdInDec:
+            fieldName: OringIdInDec
+            fieldLocation: objectbrick
+            objectBrickClassName: AccessoriesFert
+            isLocalized: false 
+        OringIdMM:
+            fieldName: OringIdMM
+            fieldLocation: objectbrick
+            objectBrickClassName: AccessoriesFert
+            isLocalized: false 
+        OringThicknessMM:
+            fieldName: OringThicknessMM
+            fieldLocation: objectbrick
+            objectBrickClassName: AccessoriesFert
+            isLocalized: false 
+        OringThicknessInDec:
+            fieldName: OringThicknessInDec
+            fieldLocation: objectbrick
+            objectBrickClassName: AccessoriesFert
+            isLocalized: false 
+        Width:
+            fieldName: Width
+            fieldLocation: objectbrick
+            objectBrickClassName: AccessoriesFert
+            isLocalized: false 
+        CutOffLengthIN:
+            fieldName: CutOffLengthIN
+            fieldLocation: objectbrick
+            objectBrickClassName: HydFittingsFert
+            isLocalized: false 
+        CutOffLengthMM:
+            fieldName: CutOffLengthMM
+            fieldLocation: objectbrick
+            objectBrickClassName: HydFittingsFert
+            isLocalized: false 
+        DropLengthIN:
+            fieldName: DropLengthIN
+            fieldLocation: objectbrick
+            objectBrickClassName: HydFittingsFert
+            isLocalized: false 
+        DropLengthMM:
+            fieldName: DropLengthMM
+            fieldLocation: objectbrick
+            objectBrickClassName: HydFittingsFert
+            isLocalized: false 
+        elbowType:
+            fieldName: elbowType
+            fieldLocation: relational
+            className: 
+            objectBrickClassName: HydFittingsFert
+            isLocalized: false
+        FittingFamily:
+            fieldName: FittingFamily
+            fieldLocation: relational
+            className: 
+            objectBrickClassName: HydFittingsFert
+            isLocalized: false
+        PackagingQuantityPerBox:
+            fieldName: PackagingQuantityPerBox
+            fieldLocation: objectbrick
+            objectBrickClassName: HydFittingsFert
+            isLocalized: false 
+        FittingWeight:
+            fieldName: FittingWeight
+            fieldLocation: objectbrick
+            objectBrickClassName: HydFittingsFert
+            isLocalized: false 
+        FlangeODInDec:
+            fieldName: FlangeODInDec
+            fieldLocation: objectbrick
+            objectBrickClassName: HydFittingsFert
+            isLocalized: false 
+        FlangeODMM:
+            fieldName: FlangeODMM
+            fieldLocation: objectbrick
+            objectBrickClassName: HydFittingsFert
+            isLocalized: false 
+        gender1:
+            fieldName: gender1
+            fieldLocation: relational
+            className: 
+            objectBrickClassName: HydFittingsFert
+            isLocalized: false
+        Hex1WrenchSizeIN:
+            fieldName: Hex1WrenchSizeIN
+            fieldLocation: objectbrick
+            objectBrickClassName: HydFittingsFert
+            isLocalized: false 
+        Hex1WrenchSizeMM:
+            fieldName: Hex1WrenchSizeMM
+            fieldLocation: objectbrick
+            objectBrickClassName: HydFittingsFert
+            isLocalized: false 
+        Hex2WrenchSizeIN:
+            fieldName: Hex2WrenchSizeIN
+            fieldLocation: objectbrick
+            objectBrickClassName: HydFittingsFert
+            isLocalized: false 
+        Hex2WrenchSizeMM:
+            fieldName: Hex2WrenchSizeMM
+            fieldLocation: objectbrick
+            objectBrickClassName: HydFittingsFert
+            isLocalized: false 
+        InsertionDepthIN:
+            fieldName: InsertionDepthIN
+            fieldLocation: objectbrick
+            objectBrickClassName: HydFittingsFert
+            isLocalized: false 
+        AssemblyMaterial:
+            fieldName: AssemblyMaterial
+            fieldLocation: objectbrick
+            objectBrickClassName: HydFittingsFert
+            isLocalized: false 
+        OverallLengthIN:
+            fieldName: OverallLengthIN
+            fieldLocation: objectbrick
+            objectBrickClassName: HydFittingsFert
+            isLocalized: false 
+        OverallLengthMm:
+            fieldName: OverallLengthMm
+            fieldLocation: objectbrick
+            objectBrickClassName: HydFittingsFert
+            isLocalized: false 
+        ThreadSize1InMMDecimal:
+            fieldName: ThreadSize1InMMDecimal
+            fieldLocation: objectbrick
+            objectBrickClassName: HydFittingsFert
+            isLocalized: false 
+        Thread:
+            fieldName: Thread
+            fieldLocation: relational
+            className: 
+            objectBrickClassName: HydFittingsFert
+            isLocalized: false
+        TubeODInDec:
+            fieldName: TubeODInDec
+            fieldLocation: objectbrick
+            objectBrickClassName: HydFittingsFert
+            isLocalized: false 
+        TubeODMM:
+            fieldName: TubeODMM
+            fieldLocation: objectbrick
+            objectBrickClassName: HydFittingsFert
+            isLocalized: false 
+        weightKg:
+            fieldName: weightKg
+            fieldLocation: class
+            className: Product
+            isLocalized: false 
+        WeightLbsPerFTUOM:
+            fieldName: WeightLbsPerFTUOM
+            fieldLocation: class
+            className: Product
+            isLocalized: false 
+        hoseOdin:
+            fieldName: hoseOdin
+            fieldLocation: objectbrick
+            objectBrickClassName: HoseSkeleton
+            isLocalized: false 
+        hoseOdmm:
+            fieldName: hoseOdmm
+            fieldLocation: objectbrick
+            objectBrickClassName: HoseSkeleton
+            isLocalized: false 
+        workingPressureBAR:
+            fieldName: workingPressureBAR
+            fieldLocation: objectbrick
+            objectBrickClassName: HoseSkeleton
+            isLocalized: false 
+        workingPressurePSI:
+            fieldName: workingPressurePSI
+            fieldLocation: objectbrick
+            objectBrickClassName: HoseSkeleton
+            isLocalized: false 
+        tubeColor:
+            fieldName: tubeColor
+            fieldLocation: objectbrick
+            className: MultiselectMaster
+            objectBrickClassName: HoseBase
+            masterType: INH-HYD-HOSE~tubeColor
+            isLocalized: true
+        coverColor:
+            fieldName: coverColor
+            fieldLocation: objectbrick
+            className: MultiselectMaster
+            objectBrickClassName: HoseBase
+            masterType: INH-HYD-HOSE~coverColor
+            isLocalized: true
+        coverCharacteristic:
+            fieldName: coverCharacteristic
+            fieldLocation: objectbrick
+            className: MultiselectMaster
+            objectBrickClassName: HoseBase
+            masterType: INH-HYD-HOSE~coverCharacteristic
+            isLocalized: true
+        hoseLengthFT:
+            fieldName: hoseLengthFT
+            fieldLocation: objectbrick
+            objectBrickClassName: HoseFert
+            isLocalized: false
+        hoseLengthM:
+            fieldName: hoseLengthM
+            fieldLocation: objectbrick
+            objectBrickClassName: HoseFert
+            isLocalized: false
+        staticWire:
+            fieldName: staticWire
+            fieldLocation: objectbrick
+            objectBrickClassName: HoseBase
+            isLocalized: false
+        assembly:
+            fieldName: assembly
+            fieldLocation: objectbrick
+            objectBrickClassName: HoseFert
+            isLocalized: false
+        BendRadiusIN:
+            fieldName: BendRadiusIN
+            fieldLocation: objectbrick
+            objectBrickClassName: HoseSkeleton
+            isLocalized: false
+        bendRestrictor:
+            fieldName: bendRestrictor
+            fieldLocation: objectbrick
+            objectBrickClassName: HoseFert
+            isLocalized: false
+        BendRadiusMM:
+            fieldName: BendRadiusMM
+            fieldLocation: objectbrick
+            objectBrickClassName: HoseSkeleton
+            isLocalized: false
+        hoseidDec:
+            fieldName: hoseidDec
+            fieldLocation: objectbrick
+            objectBrickClassName: HoseSkeleton
+            isLocalized: false
+        hoseidmm:
+            fieldName: hoseidmm
+            fieldLocation: objectbrick
+            objectBrickClassName: HoseSkeleton
+            isLocalized: false
+        minBurstPressureMPA:
+            fieldName: minBurstPressureMPA
+            fieldLocation: objectbrick
+            objectBrickClassName: HoseSkeleton
+            isLocalized: false
+        minBurstPressurePSI:
+            fieldName: minBurstPressurePSI
+            fieldLocation: objectbrick
+            objectBrickClassName: HoseSkeleton
+            isLocalized: false
+        numberOfHelixWires:
+            fieldName: numberOfHelixWires
+            fieldLocation: objectbrick
+            objectBrickClassName: HoseBase
+            isLocalized: false
+        numberOfPlies:
+            fieldName: numberOfPlies
+            fieldLocation: objectbrick
+            objectBrickClassName: HoseBase
+            isLocalized: false
+        safetyFactor:
+            fieldName: safetyFactor
+            fieldLocation: objectbrick
+            className: MultiselectMaster
+            objectBrickClassName: HoseBase
+            masterType: INH-HYD-HOSE~safetyFactor
+            isLocalized: true
+        StandardMetCover:
+            fieldName: StandardMetCover
+            fieldLocation: objectbrick
+            className: MultiselectMaster
+            objectBrickClassName: HoseBase
+            masterType: INH-HYD-HOSE~StandardMetCover
+            isLocalized: true
+        standardMetHose:
+            fieldName: standardMetHose
+            fieldLocation: objectbrick
+            className: MultiselectMaster
+            objectBrickClassName: HoseBase
+            masterType: INH-HYD-HOSE~standardMetHose
+            isLocalized: true
+        StandardMetTube:
+            fieldName: StandardMetTube
+            fieldLocation: objectbrick
+            className: MultiselectMaster
+            objectBrickClassName: HoseBase
+            masterType: INH-HYD-HOSE~StandardMetTube
+            isLocalized: true
+        tubeCharacteristic:
+            fieldName: tubeCharacteristic
+            fieldLocation: objectbrick
+            className: MultiselectMaster
+            objectBrickClassName: HoseBase
+            masterType: INH-HYD-HOSE~tubeCharacteristic
+            isLocalized: true
+        tubeGaugeIN:
+            fieldName: tubeGaugeIN
+            fieldLocation: objectbrick
+            objectBrickClassName: HoseSkeleton
+            isLocalized: false
+        tubeGaugeMM:
+            fieldName: tubeGaugeMM
+            fieldLocation: objectbrick
+            objectBrickClassName: HoseSkeleton
+            isLocalized: false
+        VacuumIN:
+            fieldName: VacuumIN
+            fieldLocation: objectbrick
+            objectBrickClassName: HoseSkeleton
+            isLocalized: false
+        VacuumMM:
+            fieldName: VacuumMM
+            fieldLocation: objectbrick
+            objectBrickClassName: HoseSkeleton
+            isLocalized: false
+        maximumTemperatureC:
+            fieldName: maximumTemperatureC
+            fieldLocation: class
+            className: Product
+            isLocalized: false
+        maximumTemperatureF:
+            fieldName: maximumTemperatureF
+            fieldLocation: class
+            className: Product
+            isLocalized: false
+        minimumTemperatureC:
+            fieldName: minimumTemperatureC
+            fieldLocation: class
+            className: Product
+            isLocalized: false
+        minimumTemperatureF:
+            fieldName: minimumTemperatureF
+            fieldLocation: class
+            className: Product
+            isLocalized: false
+        heightIn:
+            fieldName: heightIn
+            fieldLocation: objectbrick
+            objectBrickClassName: PTGSkeleton
+            isLocalized: false
+        heightMm:
+            fieldName: heightMm
+            fieldLocation: objectbrick
+            objectBrickClassName: PTGSkeleton
+            isLocalized: false
+        profile:
+            fieldName: profile
+            fieldLocation: objectbrick
+            objectBrickClassName: PTGSkeleton
+            isLocalized: false
+        widthIn:
+            fieldName: widthIn
+            fieldLocation: objectbrick
+            objectBrickClassName: PTGFert
+            isLocalized: false
+        widthmm:
+            fieldName: widthmm
+            fieldLocation: objectbrick
+            objectBrickClassName: PTGFert
+            isLocalized: false
+        beltAngle:
+            fieldName: beltAngle
+            fieldLocation: objectbrick
+            objectBrickClassName: PTGSkeleton
+            isLocalized: false
+        datumLengthIn:
+            fieldName: datumLengthIn
+            fieldLocation: objectbrick
+            objectBrickClassName: BeltsFert
+            isLocalized: false
+        datumLengtMM:
+            fieldName: datumLengtMM
+            fieldLocation: objectbrick
+            objectBrickClassName: BeltsFert
+            isLocalized: false
+        heatOilResistant:
+            fieldName: heatOilResistant
+            fieldLocation: objectbrick
+            objectBrickClassName: PTGSkeleton
+            isLocalized: false
+        insideLengthIN:
+            fieldName: insideLengthIN
+            fieldLocation: objectbrick
+            objectBrickClassName: BeltsFert
+            isLocalized: false
+        insideLengthMM:
+            fieldName: insideLengthMM
+            fieldLocation: objectbrick
+            objectBrickClassName: BeltsFert
+            isLocalized: false
+        numberOfBands:
+            fieldName: numberOfBands
+            fieldLocation: objectbrick
+            objectBrickClassName: BeltsFert
+            isLocalized: false
+        outsideLengthIN:
+            fieldName: outsideLengthIN
+            fieldLocation: objectbrick
+            objectBrickClassName: BeltsFert
+            isLocalized: false
+        outsideLengtMM:
+            fieldName: outsideLengtMM
+            fieldLocation: objectbrick
+            objectBrickClassName: BeltsFert
+            isLocalized: false
+        productEffectiveLengthIN:
+            fieldName: productEffectiveLengthIN
+            fieldLocation: objectbrick
+            objectBrickClassName: BeltsFert
+            isLocalized: false
+        productEffectiveLengthMM:
+            fieldName: productEffectiveLengthMM
+            fieldLocation: objectbrick
+            objectBrickClassName: BeltsFert
+            isLocalized: false
+        staticConductive:
+            fieldName: staticConductive
+            fieldLocation: objectbrick
+            objectBrickClassName: PTGSkeleton
+            isLocalized: false
+        boreType:
+            fieldName: boreType
+            fieldLocation: objectbrick
+            objectBrickClassName: MetalFert
+            isLocalized: false
+        faceWidthIn:
+            fieldName: faceWidthIn
+            fieldLocation: objectbrick
+            objectBrickClassName: MetalFert
+            isLocalized: false
+        faceWidthMm:
+            fieldName: faceWidthMm
+            fieldLocation: objectbrick
+            objectBrickClassName: MetalFert
+            isLocalized: false
+        finish:
+            fieldName: finish
+            fieldLocation: objectbrick
+            objectBrickClassName: MetalFert
+            isLocalized: false
+        flange:
+            fieldName: flange
+            fieldLocation: objectbrick
+            objectBrickClassName: MetalFert
+            isLocalized: false
+        flangeDiameterIn:
+            fieldName: flangeDiameterIn
+            fieldLocation: objectbrick
+            objectBrickClassName: MetalFert
+            isLocalized: false
+        flangeDiameterMm:
+            fieldName: flangeDiameterMm
+            fieldLocation: objectbrick
+            objectBrickClassName: MetalFert
+            isLocalized: false
+        flangeMaterial:
+            fieldName: flangeMaterial
+            fieldLocation: objectbrick
+            objectBrickClassName: MetalFert
+            isLocalized: false
+        beltType:
+            fieldName: beltType
+            fieldLocation: objectbrick
+            objectBrickClassName: MetalFert
+            isLocalized: false
+        beltWidth:
+            fieldName: beltWidth
+            fieldLocation: objectbrick
+            objectBrickClassName: MetalFert
+            isLocalized: false
+        beltWidthUOM:
+            fieldName: beltWidthUOM
+            fieldLocation: objectbrick
+            objectBrickClassName: MetalFert
+            isLocalized: false
+        hubDiameterIn:
+            fieldName: hubDiameterIn
+            fieldLocation: objectbrick
+            objectBrickClassName: MetalFert
+            isLocalized: false
+        hubDiameterMm:
+            fieldName: hubDiameterMm
+            fieldLocation: objectbrick
+            objectBrickClassName: MetalFert
+            isLocalized: false
+        insideDiameterIn:
+            fieldName: insideDiameterIn
+            fieldLocation: objectbrick
+            objectBrickClassName: MetalFert
+            isLocalized: false
+        insideDiameterMm:
+            fieldName: insideDiameterMm
+            fieldLocation: objectbrick
+            objectBrickClassName: MetalFert
+            isLocalized: false
+        maxBoreSizeIN:
+            fieldName: maxBoreSizeIN
+            fieldLocation: objectbrick
+            objectBrickClassName: MetalFert
+            isLocalized: false
+        maxBoreSizeMM:
+            fieldName: maxBoreSizeMM
+            fieldLocation: objectbrick
+            objectBrickClassName: MetalFert
+            isLocalized: false
+        minBoreIn:
+            fieldName: minBoreIn
+            fieldLocation: objectbrick
+            objectBrickClassName: MetalFert
+            isLocalized: false
+        pitchUOM:
+            fieldName: pitchUOM
+            fieldLocation: objectbrick
+            objectBrickClassName: SynchronousFert
+            isLocalized: false
+        minBoreMm:
+            fieldName: minBoreMm
+            fieldLocation: objectbrick
+            objectBrickClassName: MetalFert
+            isLocalized: false
+        outsideDiameterIn:
+            fieldName: outsideDiameterIn
+            fieldLocation: objectbrick
+            objectBrickClassName: MetalFert
+            isLocalized: false
+        outsideDiameterMm:
+            fieldName: outsideDiameterMm
+            fieldLocation: objectbrick
+            objectBrickClassName: MetalFert
+            isLocalized: false
+        MetalFert_OverallLengthIN:
+            fieldName: OverallLengthIN
+            fieldLocation: objectbrick
+            objectBrickClassName: MetalFert
+            isLocalized: false
+        MetalFert_overAllLengthMm:
+            fieldName: overAllLengthMm
+            fieldLocation: objectbrick
+            objectBrickClassName: MetalFert
+            isLocalized: false
+        overallThicknessIn:
+            fieldName: overallThicknessIn
+            fieldLocation: objectbrick
+            objectBrickClassName: MetalFert
+            isLocalized: false
+        overallThicknessMM:
+            fieldName: overallThicknessMM
+            fieldLocation: objectbrick
+            objectBrickClassName: MetalFert
+            isLocalized: false
+        pitchDiameterIn:
+            fieldName: pitchDiameterIn
+            fieldLocation: objectbrick
+            objectBrickClassName: MetalFert
+            isLocalized: false
+        pitchDiameterMm:
+            fieldName: pitchDiameterMm
+            fieldLocation: objectbrick
+            objectBrickClassName: MetalFert
+            isLocalized: false
+        setScrew:
+            fieldName: setScrew
+            fieldLocation: objectbrick
+            objectBrickClassName: MetalFert
+            isLocalized: false
+        stockThicknessIn:
+            fieldName: stockThicknessIn
+            fieldLocation: objectbrick
+            objectBrickClassName: MetalFert
+            isLocalized: false
+        stockThicknessMm:
+            fieldName: stockThicknessMm
+            fieldLocation: objectbrick
+            objectBrickClassName: MetalFert
+            isLocalized: false
+        numberOfTeeth:
+            fieldName: numberOfTeeth
+            fieldLocation: objectbrick
+            objectBrickClassName: SynchronousFert
+            isLocalized: false
+        pitchIN:
+            fieldName: pitchIN
+            fieldLocation: objectbrick
+            objectBrickClassName: SynchronousFert
+            isLocalized: false
+        pitchMM:
+            fieldName: pitchMM
+            fieldLocation: objectbrick
+            objectBrickClassName: SynchronousFert
+            isLocalized: false
+        pitchLengthIN:
+            fieldName: pitchLengthIN
+            fieldLocation: objectbrick
+            objectBrickClassName: SynchronousFert
+            isLocalized: false
+        pitchLengthMM:
+            fieldName: pitchLengthMM
+            fieldLocation: objectbrick
+            objectBrickClassName: SynchronousFert
+            isLocalized: false
+        pitchLengthUOM:
+            fieldName: pitchLengthUOM
+            fieldLocation: objectbrick
+            objectBrickClassName: SynchronousFert
+            isLocalized: false
+    Category: 
+        parentId:
+            fieldName: parentId
+            fieldLocation: class
+            className: ProductCategory
+            isLocalized: false
+        externalID:
+            fieldName: externalID
+            fieldLocation: class
+            className: ProductCategory
+            isLocalized: false
+        SalesForce_ID:
+            fieldName: SalesForce_ID
+            fieldLocation: class
+            className: ProductCategory
+            isLocalized: false
+        # description:
+        #     fieldName: description
+        #     fieldLocation: class
+        #     className: ProductCategory
+        #     isLocalized: true
+        PrintedCatalogDescription:
+            fieldName: PrintedCatalogDescription
+            fieldLocation: class
+            className: ProductCategory
+            isLocalized: true
+        longDescription:
+            fieldName: longDescription
+            fieldLocation: class
+            className: ProductCategory
+            isLocalized: true
+        SortOrder:
+            fieldName: SortOrder
+            fieldLocation: class
+            className: ProductCategory
+            isLocalized: false
+        ShowInMenu:
+            fieldName: ShowInMenu
+            fieldLocation: class
+            className: ProductCategory
+            isLocalized: false
+        image:
+            fieldName: image
+            fieldLocation: class
+            className: ProductCategory
+            isLocalized: false

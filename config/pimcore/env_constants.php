@@ -63,6 +63,16 @@ if (CUSTOM_ENV == "prod") {
     define("B2B_TRANSLATION_SFTP_INBOUND_FOLDER_PATH", "/PIM/Translation/Inbound"); #location where PIM can send the data to our server.
     define("B2B_TRANSLATION_SFTP_OUTBOUND_FOLDER_PATH", "/PIM/Translation/Outbound"); #location where PIM can find extract from salesforce.
 
+    // PTGEU B2B Export File Upload Paths
+
+    define("PTGEU_B2B_SFTP_HOST", "v5as017.tiretech2.contiwan.com");
+    define("PTGEU_B2B_SFTP_PORT", 21);
+    define("PTGEU_B2B_SFTP_USERNAME", "PIMServices");
+    define("PTGEU_B2B_SFTP_PASSWORD", "Pr0duct2023");
+    define("PTGEU_B2B_SFTP_DOWNLOAD_TEMP_DIR",PIMCORE_PROJECT_ROOT."/var/tmp/");
+    define("PTGEU_B2B_EXPORT_SFTP_INBOUND_FOLDER_PATH", "/PIM/Product/Inbound");
+    define("PTGEU_B2B_EXPORT_SFTP_OUTBOUND_FOLDER_PATH", "/PIM/Product/Outbound");
+
 } elseif (CUSTOM_ENV == "stage") {
 
     define("CDN_ENABLE", 1);
@@ -125,6 +135,16 @@ if (CUSTOM_ENV == "prod") {
     define("B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR",PIMCORE_PROJECT_ROOT."/var/tmp/");
     define("B2B_TRANSLATION_SFTP_INBOUND_FOLDER_PATH", "/PIM/Translation/Inbound"); #location where PIM can send the data to our server.
     define("B2B_TRANSLATION_SFTP_OUTBOUND_FOLDER_PATH", "/PIM/Translation/Outbound"); #location where PIM can find extract from salesforce.
+
+    // PTGEU B2B Export File Upload Paths
+
+    define("PTGEU_B2B_SFTP_HOST", "v5as017.tiretech2.contiwan.com");
+    define("PTGEU_B2B_SFTP_PORT", 21);
+    define("PTGEU_B2B_SFTP_USERNAME", "PIMServices");
+    define("PTGEU_B2B_SFTP_PASSWORD", "Pr0duct2023");
+    define("PTGEU_B2B_SFTP_DOWNLOAD_TEMP_DIR",PIMCORE_PROJECT_ROOT."/var/tmp/");
+    define("PTGEU_B2B_EXPORT_SFTP_INBOUND_FOLDER_PATH", "/PIM/Product/Inbound");
+    define("PTGEU_B2B_EXPORT_SFTP_OUTBOUND_FOLDER_PATH", "/PIM/Product/Outbound");
 
 } elseif (CUSTOM_ENV == "dev" || CUSTOM_ENV == "qc") {
 
@@ -190,4 +210,14 @@ if (CUSTOM_ENV == "prod") {
     define("B2B_TRANSLATION_SFTP_INBOUND_FOLDER_PATH", "/PIM/Translation/Inbound"); #location where PIM can send the data to our server.
     define("B2B_TRANSLATION_SFTP_OUTBOUND_FOLDER_PATH", "/PIM/Translation/Outbound"); #location where PIM can find extract from salesforce.
 
+        // PTGEU B2B Export File Upload Paths
+
+        define("PTGEU_B2B_SFTP_HOST", "");
+        define("PTGEU_B2B_SFTP_PORT", 21);
+        define("PTGEU_B2B_SFTP_USERNAME", "");
+        define("PTGEU_B2B_SFTP_PASSWORD", "");
+        define("PTGEU_B2B_SFTP_DOWNLOAD_TEMP_DIR",PIMCORE_PROJECT_ROOT."/var/tmp/");
+        define("PTGEU_B2B_EXPORT_SFTP_INBOUND_FOLDER_PATH", "/PIM/Product/Inbound");
+        define("PTGEU_B2B_EXPORT_SFTP_OUTBOUND_FOLDER_PATH", "/PIM/Product/Outbound");
+    
 }

@@ -1,0 +1,435 @@
+parameters:
+    Product:
+        articleNumber:
+            fieldName: articleNumber
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            isAsset: false
+            level: fert
+        mainImage1:
+            fieldName: mainImage1
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            isAsset: true
+        mainImage2:
+            fieldName: mainImage2
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            isAsset: true
+        fullView1:
+            fieldName: fullView1
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            isAsset: true
+        fullView2:
+            fieldName: fullView2
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            isAsset: true
+        technicalDrawing1:
+            fieldName: technicalDrawing1
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            isAsset: true
+        halfView1:
+            fieldName: halfView1
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            isAsset: true
+        halfView2:
+            fieldName: halfView2
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            isAsset: true
+        halfView3:
+            fieldName: halfView3
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            isAsset: true
+        halfView4:
+            fieldName: halfView4
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            isAsset: true
+        technicalDrawing2:
+            fieldName: technicalDrawing2
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            isAsset: true
+        applicationImage1:
+            fieldName: applicationImage1
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            isAsset: true
+        applicationImage2:
+            fieldName: applicationImage2
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            isAsset: true
+        applicationImage3:
+            fieldName: applicationImage3
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            isAsset: true
+        applicationImage4:
+            fieldName: applicationImage4
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            isAsset: true
+        applicationImage5:
+            fieldName: applicationImage5
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            isAsset: true
+        applicationImage6:
+            fieldName: applicationImage6
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            isAsset: true
+        epixImage1:
+            fieldName: epixImage1
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            isAsset: true
+        epixImage3:
+            fieldName: epixImage3
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            isAsset: true
+        epixImage2:
+            fieldName: epixImage2
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            isAsset: true
+        epixImage4:
+            fieldName: epixImage4
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            isAsset: true
+        siopFullCode:
+            fieldName: siopFullCode
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            level: base
+        ProductName:
+            fieldName: ProductName
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            level: base
+        longDescription:
+            fieldName: longDescription
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: true
+            level: fert
+        beltAngle:
+            fieldName: beltAngle
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            level: skeleton
+        Color:
+            fieldName: Color
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            level: base
+        material:
+            fieldName: material
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            level: base
+        datumLengthIN:
+            fieldName: datumLengthIN
+            fieldLocation: objectbrick
+            objectBrickClassName: PTGEUVBeltsFert
+            isLocalized: false
+            level: fert
+        datumLengthMM:
+            fieldName: datumLengthMM
+            fieldLocation: objectbrick
+            objectBrickClassName: PTGEUVBeltsFert
+            isLocalized: false
+            level: fert
+        eanUpc:
+            fieldName: eanUpc
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            level: fert
+        heatAndOilResistant:
+            fieldName: heatAndOilResistant
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            level: base
+        # externalId:
+        #     fieldName: externalId
+        #     fieldLocation: class
+        #     objectBrickClassName: PTGEUProduct
+        #     isLocalized: false
+        # sfIdForDeletion:
+        #     fieldName: sfIdForDeletion
+        #     fieldLocation: class
+        #     objectBrickClassName: PTGEUProduct
+        #     isLocalized: false
+        heightIN:
+            fieldName: heightIN
+            fieldLocation: objectbrick
+            objectBrickClassName: PTGEUCommonFert
+            level: fert
+            isLocalized: false
+        heightMM:
+            fieldName: heightMM
+            fieldLocation: objectbrick
+            objectBrickClassName: PTGEUCommonFert
+            isLocalized: false
+        insideLengthIN:
+            fieldName: insideLengthIN
+            fieldLocation: objectbrick
+            objectBrickClassName: PTGEUVBeltsFert
+            isLocalized: false
+            level: fert
+        insideLengthMM:
+            fieldName: insideLengthMM
+            fieldLocation: objectbrick
+            objectBrickClassName: PTGEUVBeltsFert
+            isLocalized: false
+            level: fert
+        maximumTemperatureC:
+            fieldName: maximumTemperatureC
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            level: base
+        minimumTemperatureC:
+            fieldName: minimumTemperatureC
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            level: base
+        numberOfTeethZ:
+            fieldName: numberOfTeethZ
+            fieldLocation: objectbrick
+            objectBrickClassName: PTGEUFlatBeltsFert
+            isLocalized: false
+            level: fert
+        outsideLengthIN:
+            fieldName: outsideLengthIN
+            fieldLocation: objectbrick
+            objectBrickClassName: PTGEUVBeltsFert
+            isLocalized: false
+            level: fert
+        outsideLengthMM:
+            fieldName: outsideLengthMM
+            fieldLocation: objectbrick
+            objectBrickClassName: PTGEUVBeltsFert
+            isLocalized: false
+            level: fert
+        pitchLengthLpLwIN:
+            fieldName: pitchLengthLpLwIN
+            fieldLocation: objectbrick
+            objectBrickClassName: PTGEUCommonFert
+            isLocalized: false
+            level: fert
+        pitchLengthLpLwMM:
+            fieldName: pitchLengthLpLwMM
+            fieldLocation: objectbrick
+            objectBrickClassName: PTGEUCommonFert
+            isLocalized: false
+            level: fert
+        profile:
+            fieldName: profile
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            level: skeleton
+        reinforcement:
+            fieldName: reinforcement
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            level: base
+        staticConductive:
+            fieldName: staticConductive
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            level: base
+        toothPitchPtIN:
+            fieldName: toothPitchPtIN
+            fieldLocation: objectbrick
+            objectBrickClassName: PTGEUFlatBeltsSkeleton
+            isLocalized: false
+            level: skeleton
+        toothPitchPtMM:
+            fieldName: toothPitchPtMM
+            fieldLocation: objectbrick
+            objectBrickClassName: PTGEUFlatBeltsSkeleton
+            isLocalized: false
+            level: skeleton
+        widthIN:
+            fieldName: widthIN
+            fieldLocation: objectbrick
+            objectBrickClassName: PTGEUCommonFert
+            isLocalized: false
+            level: fert
+        widthMM:
+            fieldName: widthMM
+            fieldLocation: objectbrick
+            objectBrickClassName: PTGEUCommonFert
+            isLocalized: false
+            level: fert
+    Category: 
+        description:
+            fieldName: description
+            fieldLocation: class
+            className: PTGEUProductHierarchy
+            isLocalized: true
+        longDescription:
+            fieldName: longDescription
+            fieldLocation: class
+            className: PTGEUProductHierarchy
+            isLocalized: true
+        SortOrder:
+            fieldName: SortOrder
+            fieldLocation: class
+            className: PTGEUProductHierarchy
+            isLocalized: false
+        fullCode:
+            fieldName: fullCode
+            fieldLocation: class
+            className: PTGEUProductHierarchy
+            isLocalized: false
+        image:
+            fieldName: image
+            fieldLocation: class
+            className: PTGEUProductHierarchy
+            isLocalized: false
+    # Maintain the sequence of attributes.
+    Media:
+        mainImage1:
+            fieldName: mainImage1
+            fieldLocation: class
+            className: PTGEUProduct
+            mediaType: image
+        mainImage2:
+            fieldName: mainImage2
+            fieldLocation: class
+            className: PTGEUProduct
+            mediaType: image
+        halfView1:
+            fieldName: halfView1
+            fieldLocation: class
+            className: PTGEUProduct
+            mediaType: image
+        halfView2:
+            fieldName: halfView2
+            fieldLocation: class
+            className: PTGEUProduct
+            mediaType: image
+        halfView3:
+            fieldName: halfView3
+            fieldLocation: class
+            className: PTGEUProduct
+            mediaType: image
+        halfView4:
+            fieldName: halfView4
+            fieldLocation: class
+            className: PTGEUProduct
+            mediaType: image
+        fullView1:
+            fieldName: fullView1
+            fieldLocation: class
+            className: PTGEUProduct
+            mediaType: image
+        fullView2:
+            fieldName: fullView2
+            fieldLocation: class
+            className: PTGEUProduct
+            mediaType: image
+        technicalDrawing1:
+            fieldName: technicalDrawing1
+            fieldLocation: class
+            className: PTGEUProduct
+            mediaType: image
+        technicalDrawing2:
+            fieldName: technicalDrawing2
+            fieldLocation: class
+            className: PTGEUProduct
+            mediaType: image
+        applicationImage1:
+            fieldName: applicationImage1
+            fieldLocation: class
+            className: PTGEUProduct
+            mediaType: image
+        applicationImage2:
+            fieldName: applicationImage2
+            fieldLocation: class
+            className: PTGEUProduct
+            mediaType: image
+        applicationImage3:
+            fieldName: applicationImage3
+            fieldLocation: class
+            className: PTGEUProduct
+            mediaType: image
+        applicationImage4:
+            fieldName: applicationImage4
+            fieldLocation: class
+            className: PTGEUProduct
+            mediaType: image
+        applicationImage5:
+            fieldName: applicationImage5
+            fieldLocation: class
+            className: PTGEUProduct
+            mediaType: image
+        applicationImage6:
+            fieldName: applicationImage6
+            fieldLocation: class
+            className: PTGEUProduct
+            mediaType: image
+        epixImage1:
+            fieldName: epixImage1
+            fieldLocation: class
+            className: PTGEUProduct
+            mediaType: image
+        epixImage3:
+            fieldName: epixImage3
+            fieldLocation: class
+            className: PTGEUProduct
+            mediaType: image
+        epixImage2:
+            fieldName: epixImage2
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            mediaType: image
+        epixImage4:
+            fieldName: epixImage4
+            fieldLocation: class
+            className: PTGEUProduct
+            mediaType: image
