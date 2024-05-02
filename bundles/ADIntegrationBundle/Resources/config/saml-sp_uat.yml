@@ -1,7 +1,7 @@
 ad_integration:
     default_sp:
-        entityID: https://ccc-stging.conti.de/saml/sso
+        entityID: https://stage.pim.conti.de/saml/sso
         NameIDFormat: urn:oasis:names:tc:SAML:2.0:nameid-format:transient
-        replyURL: https://ccc-stging.conti.de/saml/sso
+        replyURL: https://stage.pim.conti.de/saml/sso
         baseURLPath: /
         defaultRole: ReadOnly_All
