@@ -7,7 +7,7 @@ pimcore:
                     name: ProductManagerPTGEU
                     description: ''
                     creationDate: 1706598049
-                    modificationDate: 1707389379
+                    modificationDate: 1714976258
                     userOwner: 2
                     classId: '38'
                     layoutDefinitions:
@@ -153,54 +153,6 @@ pimcore:
                                                                                     -
                                                                                         name: specificationConstruction
                                                                                         title: 'Specification Construction'
-                                                                                        tooltip: ''
-                                                                                        mandatory: false
-                                                                                        noteditable: false
-                                                                                        index: false
-                                                                                        locked: false
-                                                                                        style: ''
-                                                                                        permissions: null
-                                                                                        fieldtype: input
-                                                                                        relationType: false
-                                                                                        invisible: false
-                                                                                        visibleGridView: false
-                                                                                        visibleSearch: false
-                                                                                        defaultValue: null
-                                                                                        columnLength: 190
-                                                                                        regex: ''
-                                                                                        regexFlags: {  }
-                                                                                        unique: false
-                                                                                        showCharCount: false
-                                                                                        width: 250
-                                                                                        defaultValueGenerator: ''
-                                                                                        datatype: data
-                                                                                    -
-                                                                                        name: rohs
-                                                                                        title: Rohs
-                                                                                        tooltip: ''
-                                                                                        mandatory: false
-                                                                                        noteditable: false
-                                                                                        index: false
-                                                                                        locked: false
-                                                                                        style: ''
-                                                                                        permissions: null
-                                                                                        fieldtype: input
-                                                                                        relationType: false
-                                                                                        invisible: false
-                                                                                        visibleGridView: false
-                                                                                        visibleSearch: false
-                                                                                        defaultValue: null
-                                                                                        columnLength: 190
-                                                                                        regex: ''
-                                                                                        regexFlags: {  }
-                                                                                        unique: false
-                                                                                        showCharCount: false
-                                                                                        width: 250
-                                                                                        defaultValueGenerator: ''
-                                                                                        datatype: data
-                                                                                    -
-                                                                                        name: reach
-                                                                                        title: Reach
                                                                                         tooltip: ''
                                                                                         mandatory: false
                                                                                         noteditable: false

@@ -7,7 +7,7 @@ pimcore:
                     name: ReadOnlyPTGEU
                     description: ''
                     creationDate: 1706598334
-                    modificationDate: 1707389443
+                    modificationDate: 1714976258
                     userOwner: 2
                     classId: '38'
                     layoutDefinitions:

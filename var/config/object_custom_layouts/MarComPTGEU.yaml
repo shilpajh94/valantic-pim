@@ -7,7 +7,7 @@ pimcore:
                     name: MarComPTGEU
                     description: ''
                     creationDate: 1706597319
-                    modificationDate: 1707389213
+                    modificationDate: 1714976258
                     userOwner: 2
                     classId: '38'
                     layoutDefinitions:
