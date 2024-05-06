@@ -145,7 +145,7 @@ class TableImport
     public function getDelta()
     {
         try {
-            $sql   = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE LENGTH(t.siopfullcode) = 18 AND (t.hash != m.hash OR m.id is null)";
+            $sql   = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE ( LENGTH(t.siopfullcode) = 16 OR LENGTH(t.siopfullcode) = 18) AND (t.hash != m.hash OR m.id is null)";
             $delta = $this->db->fetchAllAssociative($sql);
 
             return $delta;

@@ -201,8 +201,10 @@ class ProductSQLModel
         \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("IFS import started");
         $this->initiateIFSProductsProcess();
         \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("IFS import completed");
-        $this->tblImpHelper->getRecordsSiopCodeDigitsNot13And18();
-        \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("SIOP code other than 13 and 18 digit inserted in Log Table and delted from temp table");
+        // $this->tblImpHelper->getRecordsSiopCodeDigitsNot13And18();
+        // \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("SIOP code other than 13 and 18 digit inserted in Log Table and delted from temp table");
+        $this->tblImpHelper->getRecordsSiopCodeDigitsNot13And16And18();
+        \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("SIOP code other than 13 and 16 and 18 digit inserted in Log Table and delted from temp table");
         $this->tblImpHelper->updateMaster();
         \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("Data copied from temp table to master table");
         if (!empty($this->updatedArticlesArray) && count($this->updatedArticlesArray)>0) {
@@ -576,9 +578,10 @@ class ProductSQLModel
     }
     
     public function createPTGObject($record, $parentId, $parentPath, $levelInfo, $type) {
-        if ($type == 'base') {
+        if ($type == 'base' && strlen($levelInfo[1]['fullCode']) == 18) {
             $objectIndex = count($levelInfo)-1;
-        } elseif ($type == 'skeleton' || $type == 'fert') {
+        } 
+        elseif ($type == 'skeleton' || $type == 'fert' || ($type == 'base' && strlen($levelInfo[1]['fullCode']) == 16)) {
             $objectIndex = count($levelInfo);
         }
         $currentLevelCode = $levelInfo[$objectIndex]['levelFullCode'];
@@ -708,23 +711,43 @@ class ProductSQLModel
                                     $msg = 'Object Id is: '.$levelArray[0];
                                 }
                             }
-                        } else if(strtolower($bu) == 'ptg') {
-                            $folderIndex = count($levelInfo['levels'])-2;
-                            $folderCode = $levelInfo['levels'][$folderIndex]['levelFullCode'];
-                            $folderPath = $this->categories[$folderCode]['fullPath'];
-                            $folderPath = $this->convertCategoryPathToProduct($folderPath);
-                            if (!array_key_exists($folderPath, $this->products)) {
-                                $folderId = $this->getFolderByPath($folderPath);
-                                $this->products[$folderPath] = $folderId;
-                            } else {
-                                $folderId = $this->products[$folderPath];
+                        } else if (strtolower($bu) == 'ptg'
+                        ) {
+                            if (strlen($levelInfo['levels'][1]['fullCode']) == 18) {
+                                $folderIndex = count($levelInfo['levels']) - 2;
+                                $folderCode = $levelInfo['levels'][$folderIndex]['levelFullCode'];
+                                $folderPath = $this->categories[$folderCode]['fullPath'];
+                                $folderPath = $this->convertCategoryPathToProduct($folderPath);
+                                if (!array_key_exists($folderPath, $this->products)) {
+                                    $folderId = $this->getFolderByPath($folderPath);
+                                    $this->products[$folderPath] = $folderId;
+                                } else {
+                                    $folderId = $this->products[$folderPath];
+                                }
+
+                                $levelArray = $this->createPTGObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'base');
+                                $levelArray = $this->createPTGObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'skeleton');
+                                $levelArray = $this->createPTGObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'fert');
+                                $status = 'Success';
+                                $msg = 'Object Id is: ' . $levelArray[0];
+                            } else if (strlen($levelInfo['levels'][1]['fullCode']) == 16) {
+                                $folderIndex = count($levelInfo['levels']) - 1;
+                                $folderCode = $levelInfo['levels'][$folderIndex]['levelFullCode'];
+                                $folderPath = $this->categories[$folderCode]['fullPath'];
+                                $folderPath = $this->convertCategoryPathToProduct($folderPath);
+                                if (!array_key_exists($folderPath, $this->products)) {
+                                    $folderId = $this->getFolderByPath($folderPath);
+                                    $this->products[$folderPath] = $folderId;
+                                } else {
+                                    $folderId = $this->products[$folderPath];
+                                }
+
+                                $levelArray = $this->createPTGObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'base');
+                                // $levelArray = $this->createPTGObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'skeleton');
+                                $levelArray = $this->createPTGObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'fert');
+                                $status = 'Success';
+                                $msg = 'Object Id is: ' . $levelArray[0];
                             }
-                            
-                            $levelArray = $this->createPTGObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'base');
-                            $levelArray = $this->createPTGObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'skeleton');
-                            $levelArray = $this->createPTGObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'fert');
-                            $status = 'Success';
-                            $msg = 'Object Id is: '.$levelArray[0];
                         }
                         if (!$errorFlag) {
                             $this->updatedArticlesArray[] = $levelArray[0]; //$recData[$this->getRecordIndexByKey('material')];
@@ -764,7 +787,7 @@ class ProductSQLModel
     
     public function isValidCategoryCode($buCatCode, $siopCode) {
         if ($buCatCode == 3000) {
-            if (strlen($siopCode) == 18) {
+            if (strlen($siopCode) == 18  || strlen($siopCode) == 16) {
                 return true;
             }
         } else {
