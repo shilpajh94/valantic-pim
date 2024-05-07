@@ -61,14 +61,14 @@ articleNumber:
 #   columnName: FittingTableName
 #   fieldLabel: Table Name
 #   fieldType: Input
-# coverColor:
-#   fieldName: coverColor
-#   fieldLevel: objectBrick
-#   columnName: coverColor
-#   fieldLabel: Cover Color
-#   fieldType: Relation
-#   objectBrickName: HoseBase
-#   objectBrickLocation: Base
+coverColor:
+  fieldName: coverColor
+  fieldLevel: objectBrick
+  columnName: coverColor
+  fieldLabel: Cover Color
+  fieldType: Relation
+  objectBrickName: HoseBase
+  objectBrickLocation: Base
 # coverCharacteristic:
 #   fieldName: coverCharacteristic
 #   fieldLevel: objectBrick
