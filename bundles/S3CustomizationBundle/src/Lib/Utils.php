@@ -18,7 +18,9 @@ class Utils
     {
         $pimcoreFilePath = $assetObj->getPath() . $assetObj->getFilename();
         $s3Path = \Pimcore::getKernel()->getContainer()->get(\S3CustomizationBundle\Services\S3CustomizationService::class)->getS3PathForPimcorePath($pimcoreFilePath, true);
-        $s3Path = substr($s3Path, strlen('assets'));
+        if (str_starts_with($s3Path, 'assets')) {
+            $s3Path = substr($s3Path, strlen('assets'));
+        }
         $s3Path = implode('/', array_map('rawurlencode', explode('/', $s3Path)));
         return PIMCORE_TRANSFORMED_ASSET_URL.$s3Path;
     }
