@@ -7,7 +7,7 @@ pimcore:
                     name: ProductManagerPTGEU
                     description: ''
                     creationDate: 1706598049
-                    modificationDate: 1714976258
+                    modificationDate: 1715067521
                     userOwner: 2
                     classId: '38'
                     layoutDefinitions:

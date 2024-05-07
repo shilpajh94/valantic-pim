@@ -7,7 +7,7 @@ pimcore:
                     name: EditorPTGEU
                     description: ''
                     creationDate: 1706596833
-                    modificationDate: 1714976258
+                    modificationDate: 1715067521
                     userOwner: 2
                     classId: '38'
                     layoutDefinitions:
