@@ -17,11 +17,7 @@
  * -- longDescription [wysiwyg]
  * -- legalText [textarea]
  * -- heatAndOilResistant_localized [input]
- * -- performance_localized [select]
- * -- Color_localized [select]
  * -- quality_localized [input]
- * -- beltType_localized [select]
- * -- staticConductive_localized [select]
  * -- sapDescription [textarea]
  * -- webDiscription [input]
  * -- productShortDescription [input]
@@ -42,6 +38,10 @@
  * - fabricType [input]
  * - beltType [select]
  * - staticConductive [select]
+ * - performance_localized [select]
+ * - Color_localized [select]
+ * - beltType_localized [select]
+ * - staticConductive_localized [select]
  * - minimumTemperatureF [numeric]
  * - maximumTemperatureF [numeric]
  * - rangeTemperatureF [input]
@@ -127,7 +127,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1715067338,
+   'modificationDate' => 1715068288,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -795,404 +795,68 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                                 'name' => 'Field Container',
-                                 'type' => NULL,
-                                 'region' => NULL,
-                                 'title' => '',
-                                 'width' => 0,
-                                 'height' => 0,
-                                 'collapsible' => false,
-                                 'collapsed' => false,
-                                 'bodyStyle' => '',
-                                 'datatype' => 'layout',
-                                 'children' => 
-                                array (
-                                  0 => 
-                                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                                     'name' => 'Field Container',
-                                     'type' => NULL,
-                                     'region' => NULL,
-                                     'title' => '',
-                                     'width' => 0,
-                                     'height' => 0,
-                                     'collapsible' => false,
-                                     'collapsed' => false,
-                                     'bodyStyle' => '',
-                                     'datatype' => 'layout',
-                                     'children' => 
-                                    array (
-                                      0 => 
-                                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                                         'name' => 'Field Container',
-                                         'type' => NULL,
-                                         'region' => NULL,
-                                         'title' => '',
-                                         'width' => 0,
-                                         'height' => 0,
-                                         'collapsible' => false,
-                                         'collapsed' => false,
-                                         'bodyStyle' => '',
-                                         'datatype' => 'layout',
-                                         'children' => 
-                                        array (
-                                          0 => 
-                                          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                             'name' => 'heatAndOilResistant_localized',
-                                             'title' => 'Heat & Oil Resistant',
-                                             'tooltip' => '',
-                                             'mandatory' => false,
-                                             'noteditable' => false,
-                                             'index' => false,
-                                             'locked' => false,
-                                             'style' => '',
-                                             'permissions' => NULL,
-                                             'fieldtype' => '',
-                                             'relationType' => false,
-                                             'invisible' => false,
-                                             'visibleGridView' => false,
-                                             'visibleSearch' => false,
-                                             'blockedVarsForExport' => 
-                                            array (
-                                            ),
-                                             'defaultValue' => NULL,
-                                             'columnLength' => 20,
-                                             'regex' => '',
-                                             'regexFlags' => 
-                                            array (
-                                            ),
-                                             'unique' => false,
-                                             'showCharCount' => false,
-                                             'width' => 250,
-                                             'defaultValueGenerator' => '',
-                                          )),
-                                          1 => 
-                                          \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                                             'name' => 'performance_localized',
-                                             'title' => 'Performance',
-                                             'tooltip' => '',
-                                             'mandatory' => false,
-                                             'noteditable' => false,
-                                             'index' => false,
-                                             'locked' => false,
-                                             'style' => '',
-                                             'permissions' => NULL,
-                                             'fieldtype' => '',
-                                             'relationType' => false,
-                                             'invisible' => false,
-                                             'visibleGridView' => false,
-                                             'visibleSearch' => false,
-                                             'blockedVarsForExport' => 
-                                            array (
-                                            ),
-                                             'options' => 
-                                            array (
-                                              0 => 
-                                              array (
-                                                'key' => 'Convenient Line',
-                                                'value' => 'Convenient Line',
-                                              ),
-                                              1 => 
-                                              array (
-                                                'key' => 'High',
-                                                'value' => 'High',
-                                              ),
-                                              2 => 
-                                              array (
-                                                'key' => 'Advance',
-                                                'value' => 'Advance',
-                                              ),
-                                              3 => 
-                                              array (
-                                                'key' => 'Standard',
-                                                'value' => 'Standard',
-                                              ),
-                                              4 => 
-                                              array (
-                                                'key' => 'Advance Pro',
-                                                'value' => 'Advance Pro',
-                                              ),
-                                              5 => 
-                                              array (
-                                                'key' => 'Supreme',
-                                                'value' => 'Supreme',
-                                              ),
-                                            ),
-                                             'defaultValue' => '',
-                                             'columnLength' => 30,
-                                             'dynamicOptions' => false,
-                                             'defaultValueGenerator' => '',
-                                             'width' => 250,
-                                             'optionsProviderType' => 'configure',
-                                             'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
-                                             'optionsProviderData' => '',
-                                          )),
-                                          2 => 
-                                          \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                                             'name' => 'Color_localized',
-                                             'title' => 'Color',
-                                             'tooltip' => '',
-                                             'mandatory' => false,
-                                             'noteditable' => false,
-                                             'index' => false,
-                                             'locked' => false,
-                                             'style' => '',
-                                             'permissions' => NULL,
-                                             'fieldtype' => '',
-                                             'relationType' => false,
-                                             'invisible' => false,
-                                             'visibleGridView' => false,
-                                             'visibleSearch' => false,
-                                             'blockedVarsForExport' => 
-                                            array (
-                                            ),
-                                             'options' => 
-                                            array (
-                                              0 => 
-                                              array (
-                                                'key' => 'Black / Yellow',
-                                                'value' => 'Black / Yellow',
-                                              ),
-                                              1 => 
-                                              array (
-                                                'key' => 'Black / White',
-                                                'value' => 'Black / White',
-                                              ),
-                                              2 => 
-                                              array (
-                                                'key' => 'Black / Red',
-                                                'value' => 'Black / Red',
-                                              ),
-                                              3 => 
-                                              array (
-                                                'key' => 'Black / Purple',
-                                                'value' => 'Black / Purple',
-                                              ),
-                                              4 => 
-                                              array (
-                                                'key' => 'Black / Orange',
-                                                'value' => 'Black / Orange',
-                                              ),
-                                              5 => 
-                                              array (
-                                                'key' => 'Black / Green',
-                                                'value' => 'Black / Green',
-                                              ),
-                                              6 => 
-                                              array (
-                                                'key' => 'Black / Blue',
-                                                'value' => 'Black / Blue',
-                                              ),
-                                              7 => 
-                                              array (
-                                                'key' => 'White',
-                                                'value' => 'White',
-                                              ),
-                                              8 => 
-                                              array (
-                                                'key' => 'Red',
-                                                'value' => 'Red',
-                                              ),
-                                              9 => 
-                                              array (
-                                                'key' => 'Grey',
-                                                'value' => 'Grey',
-                                              ),
-                                              10 => 
-                                              array (
-                                                'key' => 'Black',
-                                                'value' => 'Black',
-                                              ),
-                                              11 => 
-                                              array (
-                                                'key' => 'Blue',
-                                                'value' => 'Blue',
-                                              ),
-                                              12 => 
-                                              array (
-                                                'key' => 'Yellow',
-                                                'value' => 'Yellow',
-                                              ),
-                                            ),
-                                             'defaultValue' => '',
-                                             'columnLength' => 100,
-                                             'dynamicOptions' => false,
-                                             'defaultValueGenerator' => '',
-                                             'width' => 250,
-                                             'optionsProviderType' => 'configure',
-                                             'optionsProviderClass' => '',
-                                             'optionsProviderData' => '',
-                                          )),
-                                        ),
-                                         'locked' => false,
-                                         'blockedVarsForExport' => 
-                                        array (
-                                        ),
-                                         'fieldtype' => 'fieldcontainer',
-                                         'layout' => 'vbox',
-                                         'fieldLabel' => '',
-                                         'labelWidth' => 150,
-                                         'labelAlign' => 'left',
-                                      )),
-                                      1 => 
-                                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                                         'name' => 'Field Container',
-                                         'type' => NULL,
-                                         'region' => NULL,
-                                         'title' => '',
-                                         'width' => 0,
-                                         'height' => 0,
-                                         'collapsible' => false,
-                                         'collapsed' => false,
-                                         'bodyStyle' => '',
-                                         'datatype' => 'layout',
-                                         'children' => 
-                                        array (
-                                          0 => 
-                                          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                             'name' => 'quality_localized',
-                                             'title' => 'Quality',
-                                             'tooltip' => '',
-                                             'mandatory' => false,
-                                             'noteditable' => false,
-                                             'index' => false,
-                                             'locked' => false,
-                                             'style' => 'margin-left:20px;',
-                                             'permissions' => NULL,
-                                             'fieldtype' => '',
-                                             'relationType' => false,
-                                             'invisible' => false,
-                                             'visibleGridView' => false,
-                                             'visibleSearch' => false,
-                                             'blockedVarsForExport' => 
-                                            array (
-                                            ),
-                                             'defaultValue' => NULL,
-                                             'columnLength' => 30,
-                                             'regex' => '',
-                                             'regexFlags' => 
-                                            array (
-                                            ),
-                                             'unique' => false,
-                                             'showCharCount' => false,
-                                             'width' => 250,
-                                             'defaultValueGenerator' => '',
-                                          )),
-                                          1 => 
-                                          \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                                             'name' => 'beltType_localized',
-                                             'title' => 'Belt Type',
-                                             'tooltip' => '',
-                                             'mandatory' => false,
-                                             'noteditable' => false,
-                                             'index' => false,
-                                             'locked' => false,
-                                             'style' => 'margin-left:20px;',
-                                             'permissions' => NULL,
-                                             'fieldtype' => '',
-                                             'relationType' => false,
-                                             'invisible' => false,
-                                             'visibleGridView' => false,
-                                             'visibleSearch' => false,
-                                             'blockedVarsForExport' => 
-                                            array (
-                                            ),
-                                             'defaultValue' => '1',
-                                             'columnLength' => 30,
-                                             'dynamicOptions' => false,
-                                             'defaultValueGenerator' => '',
-                                             'width' => 250,
-                                             'optionsProviderType' => 'class',
-                                             'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
-                                             'optionsProviderData' => 'PTGEUBeltType|beltType',
-                                          )),
-                                          2 => 
-                                          \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                                             'name' => 'staticConductive_localized',
-                                             'title' => 'Static Conductive',
-                                             'tooltip' => '',
-                                             'mandatory' => false,
-                                             'noteditable' => false,
-                                             'index' => false,
-                                             'locked' => false,
-                                             'style' => 'margin-left:20px;',
-                                             'permissions' => NULL,
-                                             'fieldtype' => '',
-                                             'relationType' => false,
-                                             'invisible' => false,
-                                             'visibleGridView' => false,
-                                             'visibleSearch' => false,
-                                             'blockedVarsForExport' => 
-                                            array (
-                                            ),
-                                             'options' => 
-                                            array (
-                                              0 => 
-                                              array (
-                                                'key' => 'Yes acc. to ISO 1813',
-                                                'value' => 'Yes acc. to ISO 1813',
-                                              ),
-                                              1 => 
-                                              array (
-                                                'key' => 'Yes acc. to ISO 9563',
-                                                'value' => 'Yes acc. to ISO 9563',
-                                              ),
-                                              2 => 
-                                              array (
-                                                'key' => 'Yes',
-                                                'value' => 'Yes',
-                                              ),
-                                              3 => 
-                                              array (
-                                                'key' => 'No',
-                                                'value' => 'No',
-                                              ),
-                                            ),
-                                             'defaultValue' => '',
-                                             'columnLength' => 30,
-                                             'dynamicOptions' => false,
-                                             'defaultValueGenerator' => '',
-                                             'width' => 250,
-                                             'optionsProviderType' => 'configure',
-                                             'optionsProviderClass' => '',
-                                             'optionsProviderData' => '',
-                                          )),
-                                        ),
-                                         'locked' => false,
-                                         'blockedVarsForExport' => 
-                                        array (
-                                        ),
-                                         'fieldtype' => 'fieldcontainer',
-                                         'layout' => 'vbox',
-                                         'fieldLabel' => '',
-                                         'labelWidth' => 150,
-                                         'labelAlign' => 'left',
-                                      )),
-                                    ),
-                                     'locked' => false,
-                                     'blockedVarsForExport' => 
-                                    array (
-                                    ),
-                                     'fieldtype' => 'fieldcontainer',
-                                     'layout' => 'hbox',
-                                     'fieldLabel' => '',
-                                     'labelWidth' => 250,
-                                     'labelAlign' => 'left',
-                                  )),
-                                ),
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                 'name' => 'heatAndOilResistant_localized',
+                                 'title' => 'Heat & Oil Resistant',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
                                  'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
                                  'blockedVarsForExport' => 
                                 array (
                                 ),
-                                 'fieldtype' => 'fieldcontainer',
-                                 'layout' => 'hbox',
-                                 'fieldLabel' => '',
-                                 'labelWidth' => 100,
-                                 'labelAlign' => 'left',
+                                 'defaultValue' => NULL,
+                                 'columnLength' => 20,
+                                 'regex' => '',
+                                 'regexFlags' => 
+                                array (
+                                ),
+                                 'unique' => false,
+                                 'showCharCount' => false,
+                                 'width' => 250,
+                                 'defaultValueGenerator' => '',
+                              )),
+                              1 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                 'name' => 'quality_localized',
+                                 'title' => 'Quality',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'defaultValue' => NULL,
+                                 'columnLength' => 30,
+                                 'regex' => '',
+                                 'regexFlags' => 
+                                array (
+                                ),
+                                 'unique' => false,
+                                 'showCharCount' => false,
+                                 'width' => 250,
+                                 'defaultValueGenerator' => '',
                               )),
                             ),
                              'region' => NULL,
-                             'layout' => NULL,
+                             'layout' => '',
                              'maxTabs' => 35,
                              'border' => true,
                              'provideSplitView' => false,
@@ -1203,7 +867,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                             ),
                              'permissionView' => NULL,
                              'permissionEdit' => NULL,
-                             'labelWidth' => 0,
+                             'labelWidth' => 250,
                              'labelAlign' => 'left',
                              'fieldDefinitionsCache' => NULL,
                           )),
@@ -2320,6 +1984,342 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
+                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                             'name' => 'Field Container',
+                             'type' => NULL,
+                             'region' => NULL,
+                             'title' => '',
+                             'width' => 0,
+                             'height' => 0,
+                             'collapsible' => false,
+                             'collapsed' => false,
+                             'bodyStyle' => '',
+                             'datatype' => 'layout',
+                             'children' => 
+                            array (
+                              0 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                                 'name' => 'Field Container',
+                                 'type' => NULL,
+                                 'region' => NULL,
+                                 'title' => '',
+                                 'width' => 0,
+                                 'height' => 0,
+                                 'collapsible' => false,
+                                 'collapsed' => false,
+                                 'bodyStyle' => '',
+                                 'datatype' => 'layout',
+                                 'children' => 
+                                array (
+                                  0 => 
+                                  \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                                     'name' => 'performance_localized',
+                                     'title' => 'Performance',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
+                                     'locked' => false,
+                                     'style' => '',
+                                     'permissions' => NULL,
+                                     'fieldtype' => '',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                     'blockedVarsForExport' => 
+                                    array (
+                                    ),
+                                     'options' => 
+                                    array (
+                                      0 => 
+                                      array (
+                                        'key' => 'Convenient Line',
+                                        'value' => 'Convenient Line',
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => 'High',
+                                        'value' => 'High',
+                                      ),
+                                      2 => 
+                                      array (
+                                        'key' => 'Advance',
+                                        'value' => 'Advance',
+                                      ),
+                                      3 => 
+                                      array (
+                                        'key' => 'Standard',
+                                        'value' => 'Standard',
+                                      ),
+                                      4 => 
+                                      array (
+                                        'key' => 'Advance Pro',
+                                        'value' => 'Advance Pro',
+                                      ),
+                                      5 => 
+                                      array (
+                                        'key' => 'Supreme',
+                                        'value' => 'Supreme',
+                                      ),
+                                    ),
+                                     'defaultValue' => '',
+                                     'columnLength' => 30,
+                                     'dynamicOptions' => false,
+                                     'defaultValueGenerator' => '',
+                                     'width' => 250,
+                                     'optionsProviderType' => 'configure',
+                                     'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
+                                     'optionsProviderData' => '',
+                                  )),
+                                  1 => 
+                                  \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                                     'name' => 'Color_localized',
+                                     'title' => 'Color',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
+                                     'locked' => false,
+                                     'style' => '',
+                                     'permissions' => NULL,
+                                     'fieldtype' => '',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                     'blockedVarsForExport' => 
+                                    array (
+                                    ),
+                                     'options' => 
+                                    array (
+                                      0 => 
+                                      array (
+                                        'key' => 'Black / Yellow',
+                                        'value' => 'Black / Yellow',
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => 'Black / White',
+                                        'value' => 'Black / White',
+                                      ),
+                                      2 => 
+                                      array (
+                                        'key' => 'Black / Red',
+                                        'value' => 'Black / Red',
+                                      ),
+                                      3 => 
+                                      array (
+                                        'key' => 'Black / Purple',
+                                        'value' => 'Black / Purple',
+                                      ),
+                                      4 => 
+                                      array (
+                                        'key' => 'Black / Orange',
+                                        'value' => 'Black / Orange',
+                                      ),
+                                      5 => 
+                                      array (
+                                        'key' => 'Black / Green',
+                                        'value' => 'Black / Green',
+                                      ),
+                                      6 => 
+                                      array (
+                                        'key' => 'Black / Blue',
+                                        'value' => 'Black / Blue',
+                                      ),
+                                      7 => 
+                                      array (
+                                        'key' => 'White',
+                                        'value' => 'White',
+                                      ),
+                                      8 => 
+                                      array (
+                                        'key' => 'Red',
+                                        'value' => 'Red',
+                                      ),
+                                      9 => 
+                                      array (
+                                        'key' => 'Grey',
+                                        'value' => 'Grey',
+                                      ),
+                                      10 => 
+                                      array (
+                                        'key' => 'Black',
+                                        'value' => 'Black',
+                                      ),
+                                      11 => 
+                                      array (
+                                        'key' => 'Blue',
+                                        'value' => 'Blue',
+                                      ),
+                                      12 => 
+                                      array (
+                                        'key' => 'Yellow',
+                                        'value' => 'Yellow',
+                                      ),
+                                    ),
+                                     'defaultValue' => '',
+                                     'columnLength' => 100,
+                                     'dynamicOptions' => false,
+                                     'defaultValueGenerator' => '',
+                                     'width' => 250,
+                                     'optionsProviderType' => 'configure',
+                                     'optionsProviderClass' => '',
+                                     'optionsProviderData' => '',
+                                  )),
+                                ),
+                                 'locked' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'fieldtype' => 'fieldcontainer',
+                                 'layout' => 'vbox',
+                                 'fieldLabel' => '',
+                                 'labelWidth' => 150,
+                                 'labelAlign' => 'left',
+                              )),
+                              1 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                                 'name' => 'Field Container',
+                                 'type' => NULL,
+                                 'region' => NULL,
+                                 'title' => '',
+                                 'width' => 0,
+                                 'height' => 0,
+                                 'collapsible' => false,
+                                 'collapsed' => false,
+                                 'bodyStyle' => '',
+                                 'datatype' => 'layout',
+                                 'children' => 
+                                array (
+                                  0 => 
+                                  \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                                     'name' => 'beltType_localized',
+                                     'title' => 'Belt Type',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
+                                     'locked' => false,
+                                     'style' => 'margin-left:20px;',
+                                     'permissions' => NULL,
+                                     'fieldtype' => '',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                     'blockedVarsForExport' => 
+                                    array (
+                                    ),
+                                     'defaultValue' => '1',
+                                     'columnLength' => 30,
+                                     'dynamicOptions' => false,
+                                     'defaultValueGenerator' => '',
+                                     'width' => 250,
+                                     'optionsProviderType' => 'class',
+                                     'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
+                                     'optionsProviderData' => 'PTGEUBeltType|beltType',
+                                  )),
+                                  1 => 
+                                  \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                                     'name' => 'staticConductive_localized',
+                                     'title' => 'Static Conductive',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
+                                     'locked' => false,
+                                     'style' => 'margin-left:20px;',
+                                     'permissions' => NULL,
+                                     'fieldtype' => '',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                     'blockedVarsForExport' => 
+                                    array (
+                                    ),
+                                     'options' => 
+                                    array (
+                                      0 => 
+                                      array (
+                                        'key' => 'Yes acc. to ISO 1813',
+                                        'value' => 'Yes acc. to ISO 1813',
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => 'Yes acc. to ISO 9563',
+                                        'value' => 'Yes acc. to ISO 9563',
+                                      ),
+                                      2 => 
+                                      array (
+                                        'key' => 'Yes',
+                                        'value' => 'Yes',
+                                      ),
+                                      3 => 
+                                      array (
+                                        'key' => 'No',
+                                        'value' => 'No',
+                                      ),
+                                    ),
+                                     'defaultValue' => '',
+                                     'columnLength' => 30,
+                                     'dynamicOptions' => false,
+                                     'defaultValueGenerator' => '',
+                                     'width' => 250,
+                                     'optionsProviderType' => 'configure',
+                                     'optionsProviderClass' => '',
+                                     'optionsProviderData' => '',
+                                  )),
+                                ),
+                                 'locked' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'fieldtype' => 'fieldcontainer',
+                                 'layout' => 'vbox',
+                                 'fieldLabel' => '',
+                                 'labelWidth' => 150,
+                                 'labelAlign' => 'left',
+                              )),
+                            ),
+                             'locked' => false,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'fieldtype' => 'fieldcontainer',
+                             'layout' => 'hbox',
+                             'fieldLabel' => '',
+                             'labelWidth' => 250,
+                             'labelAlign' => 'left',
+                          )),
+                        ),
+                         'locked' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'fieldtype' => 'fieldcontainer',
+                         'layout' => 'hbox',
+                         'fieldLabel' => '',
+                         'labelWidth' => 100,
+                         'labelAlign' => 'left',
+                      )),
+                      4 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                         'name' => 'Field Container',
+                         'type' => NULL,
+                         'region' => NULL,
+                         'title' => '',
+                         'width' => 0,
+                         'height' => 0,
+                         'collapsible' => false,
+                         'collapsed' => false,
+                         'bodyStyle' => '',
+                         'datatype' => 'layout',
+                         'children' => 
+                        array (
+                          0 => 
                           \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                              'name' => 'localizedfields',
                              'title' => '',
@@ -2341,404 +2341,68 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                                 'name' => 'Field Container',
-                                 'type' => NULL,
-                                 'region' => NULL,
-                                 'title' => '',
-                                 'width' => 0,
-                                 'height' => 0,
-                                 'collapsible' => false,
-                                 'collapsed' => false,
-                                 'bodyStyle' => '',
-                                 'datatype' => 'layout',
-                                 'children' => 
-                                array (
-                                  0 => 
-                                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                                     'name' => 'Field Container',
-                                     'type' => NULL,
-                                     'region' => NULL,
-                                     'title' => '',
-                                     'width' => 0,
-                                     'height' => 0,
-                                     'collapsible' => false,
-                                     'collapsed' => false,
-                                     'bodyStyle' => '',
-                                     'datatype' => 'layout',
-                                     'children' => 
-                                    array (
-                                      0 => 
-                                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                                         'name' => 'Field Container',
-                                         'type' => NULL,
-                                         'region' => NULL,
-                                         'title' => '',
-                                         'width' => 0,
-                                         'height' => 0,
-                                         'collapsible' => false,
-                                         'collapsed' => false,
-                                         'bodyStyle' => '',
-                                         'datatype' => 'layout',
-                                         'children' => 
-                                        array (
-                                          0 => 
-                                          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                             'name' => 'heatAndOilResistant_localized',
-                                             'title' => 'Heat & Oil Resistant',
-                                             'tooltip' => '',
-                                             'mandatory' => false,
-                                             'noteditable' => false,
-                                             'index' => false,
-                                             'locked' => false,
-                                             'style' => '',
-                                             'permissions' => NULL,
-                                             'fieldtype' => '',
-                                             'relationType' => false,
-                                             'invisible' => false,
-                                             'visibleGridView' => false,
-                                             'visibleSearch' => false,
-                                             'blockedVarsForExport' => 
-                                            array (
-                                            ),
-                                             'defaultValue' => NULL,
-                                             'columnLength' => 20,
-                                             'regex' => '',
-                                             'regexFlags' => 
-                                            array (
-                                            ),
-                                             'unique' => false,
-                                             'showCharCount' => false,
-                                             'width' => 250,
-                                             'defaultValueGenerator' => '',
-                                          )),
-                                          1 => 
-                                          \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                                             'name' => 'performance_localized',
-                                             'title' => 'Performance',
-                                             'tooltip' => '',
-                                             'mandatory' => false,
-                                             'noteditable' => false,
-                                             'index' => false,
-                                             'locked' => false,
-                                             'style' => '',
-                                             'permissions' => NULL,
-                                             'fieldtype' => '',
-                                             'relationType' => false,
-                                             'invisible' => false,
-                                             'visibleGridView' => false,
-                                             'visibleSearch' => false,
-                                             'blockedVarsForExport' => 
-                                            array (
-                                            ),
-                                             'options' => 
-                                            array (
-                                              0 => 
-                                              array (
-                                                'key' => 'Convenient Line',
-                                                'value' => 'Convenient Line',
-                                              ),
-                                              1 => 
-                                              array (
-                                                'key' => 'High',
-                                                'value' => 'High',
-                                              ),
-                                              2 => 
-                                              array (
-                                                'key' => 'Advance',
-                                                'value' => 'Advance',
-                                              ),
-                                              3 => 
-                                              array (
-                                                'key' => 'Standard',
-                                                'value' => 'Standard',
-                                              ),
-                                              4 => 
-                                              array (
-                                                'key' => 'Advance Pro',
-                                                'value' => 'Advance Pro',
-                                              ),
-                                              5 => 
-                                              array (
-                                                'key' => 'Supreme',
-                                                'value' => 'Supreme',
-                                              ),
-                                            ),
-                                             'defaultValue' => '',
-                                             'columnLength' => 30,
-                                             'dynamicOptions' => false,
-                                             'defaultValueGenerator' => '',
-                                             'width' => 250,
-                                             'optionsProviderType' => 'configure',
-                                             'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
-                                             'optionsProviderData' => '',
-                                          )),
-                                          2 => 
-                                          \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                                             'name' => 'Color_localized',
-                                             'title' => 'Color',
-                                             'tooltip' => '',
-                                             'mandatory' => false,
-                                             'noteditable' => false,
-                                             'index' => false,
-                                             'locked' => false,
-                                             'style' => '',
-                                             'permissions' => NULL,
-                                             'fieldtype' => '',
-                                             'relationType' => false,
-                                             'invisible' => false,
-                                             'visibleGridView' => false,
-                                             'visibleSearch' => false,
-                                             'blockedVarsForExport' => 
-                                            array (
-                                            ),
-                                             'options' => 
-                                            array (
-                                              0 => 
-                                              array (
-                                                'key' => 'Black / Yellow',
-                                                'value' => 'Black / Yellow',
-                                              ),
-                                              1 => 
-                                              array (
-                                                'key' => 'Black / White',
-                                                'value' => 'Black / White',
-                                              ),
-                                              2 => 
-                                              array (
-                                                'key' => 'Black / Red',
-                                                'value' => 'Black / Red',
-                                              ),
-                                              3 => 
-                                              array (
-                                                'key' => 'Black / Purple',
-                                                'value' => 'Black / Purple',
-                                              ),
-                                              4 => 
-                                              array (
-                                                'key' => 'Black / Orange',
-                                                'value' => 'Black / Orange',
-                                              ),
-                                              5 => 
-                                              array (
-                                                'key' => 'Black / Green',
-                                                'value' => 'Black / Green',
-                                              ),
-                                              6 => 
-                                              array (
-                                                'key' => 'Black / Blue',
-                                                'value' => 'Black / Blue',
-                                              ),
-                                              7 => 
-                                              array (
-                                                'key' => 'White',
-                                                'value' => 'White',
-                                              ),
-                                              8 => 
-                                              array (
-                                                'key' => 'Red',
-                                                'value' => 'Red',
-                                              ),
-                                              9 => 
-                                              array (
-                                                'key' => 'Grey',
-                                                'value' => 'Grey',
-                                              ),
-                                              10 => 
-                                              array (
-                                                'key' => 'Black',
-                                                'value' => 'Black',
-                                              ),
-                                              11 => 
-                                              array (
-                                                'key' => 'Blue',
-                                                'value' => 'Blue',
-                                              ),
-                                              12 => 
-                                              array (
-                                                'key' => 'Yellow',
-                                                'value' => 'Yellow',
-                                              ),
-                                            ),
-                                             'defaultValue' => '',
-                                             'columnLength' => 100,
-                                             'dynamicOptions' => false,
-                                             'defaultValueGenerator' => '',
-                                             'width' => 250,
-                                             'optionsProviderType' => 'configure',
-                                             'optionsProviderClass' => '',
-                                             'optionsProviderData' => '',
-                                          )),
-                                        ),
-                                         'locked' => false,
-                                         'blockedVarsForExport' => 
-                                        array (
-                                        ),
-                                         'fieldtype' => 'fieldcontainer',
-                                         'layout' => 'vbox',
-                                         'fieldLabel' => '',
-                                         'labelWidth' => 150,
-                                         'labelAlign' => 'left',
-                                      )),
-                                      1 => 
-                                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                                         'name' => 'Field Container',
-                                         'type' => NULL,
-                                         'region' => NULL,
-                                         'title' => '',
-                                         'width' => 0,
-                                         'height' => 0,
-                                         'collapsible' => false,
-                                         'collapsed' => false,
-                                         'bodyStyle' => '',
-                                         'datatype' => 'layout',
-                                         'children' => 
-                                        array (
-                                          0 => 
-                                          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                             'name' => 'quality_localized',
-                                             'title' => 'Quality',
-                                             'tooltip' => '',
-                                             'mandatory' => false,
-                                             'noteditable' => false,
-                                             'index' => false,
-                                             'locked' => false,
-                                             'style' => 'margin-left:20px;',
-                                             'permissions' => NULL,
-                                             'fieldtype' => '',
-                                             'relationType' => false,
-                                             'invisible' => false,
-                                             'visibleGridView' => false,
-                                             'visibleSearch' => false,
-                                             'blockedVarsForExport' => 
-                                            array (
-                                            ),
-                                             'defaultValue' => NULL,
-                                             'columnLength' => 30,
-                                             'regex' => '',
-                                             'regexFlags' => 
-                                            array (
-                                            ),
-                                             'unique' => false,
-                                             'showCharCount' => false,
-                                             'width' => 250,
-                                             'defaultValueGenerator' => '',
-                                          )),
-                                          1 => 
-                                          \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                                             'name' => 'beltType_localized',
-                                             'title' => 'Belt Type',
-                                             'tooltip' => '',
-                                             'mandatory' => false,
-                                             'noteditable' => false,
-                                             'index' => false,
-                                             'locked' => false,
-                                             'style' => 'margin-left:20px;',
-                                             'permissions' => NULL,
-                                             'fieldtype' => '',
-                                             'relationType' => false,
-                                             'invisible' => false,
-                                             'visibleGridView' => false,
-                                             'visibleSearch' => false,
-                                             'blockedVarsForExport' => 
-                                            array (
-                                            ),
-                                             'defaultValue' => '1',
-                                             'columnLength' => 30,
-                                             'dynamicOptions' => false,
-                                             'defaultValueGenerator' => '',
-                                             'width' => 250,
-                                             'optionsProviderType' => 'class',
-                                             'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
-                                             'optionsProviderData' => 'PTGEUBeltType|beltType',
-                                          )),
-                                          2 => 
-                                          \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                                             'name' => 'staticConductive_localized',
-                                             'title' => 'Static Conductive',
-                                             'tooltip' => '',
-                                             'mandatory' => false,
-                                             'noteditable' => false,
-                                             'index' => false,
-                                             'locked' => false,
-                                             'style' => 'margin-left:20px;',
-                                             'permissions' => NULL,
-                                             'fieldtype' => '',
-                                             'relationType' => false,
-                                             'invisible' => false,
-                                             'visibleGridView' => false,
-                                             'visibleSearch' => false,
-                                             'blockedVarsForExport' => 
-                                            array (
-                                            ),
-                                             'options' => 
-                                            array (
-                                              0 => 
-                                              array (
-                                                'key' => 'Yes acc. to ISO 1813',
-                                                'value' => 'Yes acc. to ISO 1813',
-                                              ),
-                                              1 => 
-                                              array (
-                                                'key' => 'Yes acc. to ISO 9563',
-                                                'value' => 'Yes acc. to ISO 9563',
-                                              ),
-                                              2 => 
-                                              array (
-                                                'key' => 'Yes',
-                                                'value' => 'Yes',
-                                              ),
-                                              3 => 
-                                              array (
-                                                'key' => 'No',
-                                                'value' => 'No',
-                                              ),
-                                            ),
-                                             'defaultValue' => '',
-                                             'columnLength' => 30,
-                                             'dynamicOptions' => false,
-                                             'defaultValueGenerator' => '',
-                                             'width' => 250,
-                                             'optionsProviderType' => 'configure',
-                                             'optionsProviderClass' => '',
-                                             'optionsProviderData' => '',
-                                          )),
-                                        ),
-                                         'locked' => false,
-                                         'blockedVarsForExport' => 
-                                        array (
-                                        ),
-                                         'fieldtype' => 'fieldcontainer',
-                                         'layout' => 'vbox',
-                                         'fieldLabel' => '',
-                                         'labelWidth' => 150,
-                                         'labelAlign' => 'left',
-                                      )),
-                                    ),
-                                     'locked' => false,
-                                     'blockedVarsForExport' => 
-                                    array (
-                                    ),
-                                     'fieldtype' => 'fieldcontainer',
-                                     'layout' => 'hbox',
-                                     'fieldLabel' => '',
-                                     'labelWidth' => 250,
-                                     'labelAlign' => 'left',
-                                  )),
-                                ),
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                 'name' => 'heatAndOilResistant_localized',
+                                 'title' => 'Heat & Oil Resistant',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
                                  'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
                                  'blockedVarsForExport' => 
                                 array (
                                 ),
-                                 'fieldtype' => 'fieldcontainer',
-                                 'layout' => 'hbox',
-                                 'fieldLabel' => '',
-                                 'labelWidth' => 100,
-                                 'labelAlign' => 'left',
+                                 'defaultValue' => NULL,
+                                 'columnLength' => 20,
+                                 'regex' => '',
+                                 'regexFlags' => 
+                                array (
+                                ),
+                                 'unique' => false,
+                                 'showCharCount' => false,
+                                 'width' => 250,
+                                 'defaultValueGenerator' => '',
+                              )),
+                              1 => 
+                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                 'name' => 'quality_localized',
+                                 'title' => 'Quality',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'defaultValue' => NULL,
+                                 'columnLength' => 30,
+                                 'regex' => '',
+                                 'regexFlags' => 
+                                array (
+                                ),
+                                 'unique' => false,
+                                 'showCharCount' => false,
+                                 'width' => 250,
+                                 'defaultValueGenerator' => '',
                               )),
                             ),
                              'region' => NULL,
-                             'layout' => NULL,
+                             'layout' => '',
                              'maxTabs' => 35,
                              'border' => true,
                              'provideSplitView' => false,
@@ -2749,7 +2413,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                             ),
                              'permissionView' => NULL,
                              'permissionEdit' => NULL,
-                             'labelWidth' => 0,
+                             'labelWidth' => 250,
                              'labelAlign' => 'left',
                              'fieldDefinitionsCache' => NULL,
                           )),
@@ -2764,7 +2428,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'labelWidth' => 100,
                          'labelAlign' => 'left',
                       )),
-                      4 => 
+                      5 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
                          'name' => 'Temperatures',
                          'type' => NULL,
@@ -6668,250 +6332,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
-    0 => 
-    \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-       'name' => 'performance_localized',
-       'title' => 'Performance',
-       'tooltip' => '',
-       'mandatory' => false,
-       'noteditable' => false,
-       'index' => false,
-       'locked' => false,
-       'style' => '',
-       'permissions' => NULL,
-       'fieldtype' => '',
-       'relationType' => false,
-       'invisible' => false,
-       'visibleGridView' => false,
-       'visibleSearch' => false,
-       'blockedVarsForExport' => 
-      array (
-      ),
-       'options' => 
-      array (
-        0 => 
-        array (
-          'key' => 'Convenient Line',
-          'value' => 'Convenient Line',
-        ),
-        1 => 
-        array (
-          'key' => 'High',
-          'value' => 'High',
-        ),
-        2 => 
-        array (
-          'key' => 'Advance',
-          'value' => 'Advance',
-        ),
-        3 => 
-        array (
-          'key' => 'Standard',
-          'value' => 'Standard',
-        ),
-        4 => 
-        array (
-          'key' => 'Advance Pro',
-          'value' => 'Advance Pro',
-        ),
-        5 => 
-        array (
-          'key' => 'Supreme',
-          'value' => 'Supreme',
-        ),
-      ),
-       'defaultValue' => '',
-       'columnLength' => 30,
-       'dynamicOptions' => false,
-       'defaultValueGenerator' => '',
-       'width' => 250,
-       'optionsProviderType' => 'configure',
-       'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
-       'optionsProviderData' => '',
-    )),
-    1 => 
-    \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-       'name' => 'Color_localized',
-       'title' => 'Color',
-       'tooltip' => '',
-       'mandatory' => false,
-       'noteditable' => false,
-       'index' => false,
-       'locked' => false,
-       'style' => '',
-       'permissions' => NULL,
-       'fieldtype' => '',
-       'relationType' => false,
-       'invisible' => false,
-       'visibleGridView' => false,
-       'visibleSearch' => false,
-       'blockedVarsForExport' => 
-      array (
-      ),
-       'options' => 
-      array (
-        0 => 
-        array (
-          'key' => 'Black / Yellow',
-          'value' => 'Black / Yellow',
-        ),
-        1 => 
-        array (
-          'key' => 'Black / White',
-          'value' => 'Black / White',
-        ),
-        2 => 
-        array (
-          'key' => 'Black / Red',
-          'value' => 'Black / Red',
-        ),
-        3 => 
-        array (
-          'key' => 'Black / Purple',
-          'value' => 'Black / Purple',
-        ),
-        4 => 
-        array (
-          'key' => 'Black / Orange',
-          'value' => 'Black / Orange',
-        ),
-        5 => 
-        array (
-          'key' => 'Black / Green',
-          'value' => 'Black / Green',
-        ),
-        6 => 
-        array (
-          'key' => 'Black / Blue',
-          'value' => 'Black / Blue',
-        ),
-        7 => 
-        array (
-          'key' => 'White',
-          'value' => 'White',
-        ),
-        8 => 
-        array (
-          'key' => 'Red',
-          'value' => 'Red',
-        ),
-        9 => 
-        array (
-          'key' => 'Grey',
-          'value' => 'Grey',
-        ),
-        10 => 
-        array (
-          'key' => 'Black',
-          'value' => 'Black',
-        ),
-        11 => 
-        array (
-          'key' => 'Blue',
-          'value' => 'Blue',
-        ),
-        12 => 
-        array (
-          'key' => 'Yellow',
-          'value' => 'Yellow',
-        ),
-      ),
-       'defaultValue' => '',
-       'columnLength' => 100,
-       'dynamicOptions' => false,
-       'defaultValueGenerator' => '',
-       'width' => 250,
-       'optionsProviderType' => 'configure',
-       'optionsProviderClass' => '',
-       'optionsProviderData' => '',
-    )),
-    2 => 
-    \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-       'name' => 'beltType_localized',
-       'title' => 'Belt Type',
-       'tooltip' => '',
-       'mandatory' => false,
-       'noteditable' => false,
-       'index' => false,
-       'locked' => false,
-       'style' => 'margin-left:20px;',
-       'permissions' => NULL,
-       'fieldtype' => '',
-       'relationType' => false,
-       'invisible' => false,
-       'visibleGridView' => false,
-       'visibleSearch' => false,
-       'blockedVarsForExport' => 
-      array (
-      ),
-       'options' => 
-      array (
-        0 => 
-        array (
-          'key' => NULL,
-          'value' => 14700064,
-        ),
-      ),
-       'defaultValue' => '1',
-       'columnLength' => 30,
-       'dynamicOptions' => false,
-       'defaultValueGenerator' => '',
-       'width' => 250,
-       'optionsProviderType' => 'class',
-       'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
-       'optionsProviderData' => 'PTGEUBeltType|beltType',
-    )),
-    3 => 
-    \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-       'name' => 'staticConductive_localized',
-       'title' => 'Static Conductive',
-       'tooltip' => '',
-       'mandatory' => false,
-       'noteditable' => false,
-       'index' => false,
-       'locked' => false,
-       'style' => 'margin-left:20px;',
-       'permissions' => NULL,
-       'fieldtype' => '',
-       'relationType' => false,
-       'invisible' => false,
-       'visibleGridView' => false,
-       'visibleSearch' => false,
-       'blockedVarsForExport' => 
-      array (
-      ),
-       'options' => 
-      array (
-        0 => 
-        array (
-          'key' => 'Yes acc. to ISO 1813',
-          'value' => 'Yes acc. to ISO 1813',
-        ),
-        1 => 
-        array (
-          'key' => 'Yes acc. to ISO 9563',
-          'value' => 'Yes acc. to ISO 9563',
-        ),
-        2 => 
-        array (
-          'key' => 'Yes',
-          'value' => 'Yes',
-        ),
-        3 => 
-        array (
-          'key' => 'No',
-          'value' => 'No',
-        ),
-      ),
-       'defaultValue' => '',
-       'columnLength' => 30,
-       'dynamicOptions' => false,
-       'defaultValueGenerator' => '',
-       'width' => 250,
-       'optionsProviderType' => 'configure',
-       'optionsProviderClass' => '',
-       'optionsProviderData' => '',
-    )),
   ),
    'blockedVarsForExport' => 
   array (
