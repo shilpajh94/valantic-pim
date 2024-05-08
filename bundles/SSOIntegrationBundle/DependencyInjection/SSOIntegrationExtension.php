@@ -45,7 +45,7 @@ class SSOIntegrationExtension extends Extension implements PrependExtensionInter
                     $loader->load('saml-sp_prod.yml');
                     break;
                 default:
-                    $loader->load('saml-sp_uat.yml');
+                    $loader->load('saml-sp_stage.yml');
                     break;
             }
         }
@@ -67,7 +67,7 @@ class SSOIntegrationExtension extends Extension implements PrependExtensionInter
     private function populateSAMLIDP(ContainerBuilder $container)
     {
         $config = [];
-        $dom = XmlUtils::loadFile(__DIR__ . '/../Resources/config/saml-idp.xml');
+        $dom = $this->loadIDPFile();
         $entityId = $dom->getElementsByTagName('EntityDescriptor')->item(0)
             ->attributes->getNamedItem('entityID')->value;
         $config['entityID'] = $entityId;
@@ -96,6 +96,21 @@ class SSOIntegrationExtension extends Extension implements PrependExtensionInter
 
         $config['IDPSSODescriptor'] = $IDPSSODescriptor;
         $container->setParameter('saml_idp_config', $config);
+    }
+    private function loadIDPFile(){
+        $envConfig = $_ENV['SAML_ENV'];
+        $idpFile='';
+        if ($envConfig != "") {
+            switch ($envConfig) {
+                case 'prod':
+                    $idpFile=XmlUtils::loadFile(__DIR__ . '/../Resources/config/saml-idp-prod.xml');
+                    break;
+                default:
+                $idpFile=XmlUtils::loadFile(__DIR__ . '/../Resources/config/saml-idp-stage.xml');
+                    break;
+            }
+        }
+        return $idpFile;
     }
 }
 
