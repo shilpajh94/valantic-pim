@@ -60,20 +60,22 @@ class DefaultController extends FrontendController
 
             $SAMLResponse->recieve();
             $attributeData = $SAMLResponse->getAttributes();
-            $username = trim(((isset($attributeData['emailaddress']))? $attributeData['emailaddress']:$attributeData['name']) );
+            $email = trim(((isset($attributeData['emailaddress']))? $attributeData['emailaddress']:$attributeData['name']) );
+            $username = (isset((explode('@',$email))[0])? (explode('@',$email))[0]:$email);
             $user = $userService->getUserByUsername($username);
 
             $userData = [
                 'firstname' => $attributeData['givenname'],
                 'lastname' => $attributeData['surname'],
-                'email' => $username
+                'email' => $email,
+                'name'=>$username
             ];
 
             if (!$user instanceof AbstractUser) {
                 $userData['parentId'] = 0;
                 $userData['active'] = true;
                 $user = $userService->save($username, $userData);
-            } else if ($user instanceof AbstractUser && $user->getName() == $userData['email']) {
+            } else if ($user instanceof AbstractUser && $user->getName() == $userData['name']) {
                 $user = $userService->update($user, $userData);
             }
 
