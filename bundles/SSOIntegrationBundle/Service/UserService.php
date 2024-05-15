@@ -34,7 +34,7 @@ class UserService
             'lastname' => $userData['lastname'],
             'email' => $userData['email'],
             'parentId' => intval($userData['parentId']),
-            'name' => trim($userData['email']),
+            'name' => trim($userData['name']),
             'password' => $hash,
             'active' => true,
 
