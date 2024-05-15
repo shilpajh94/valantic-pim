@@ -60,7 +60,7 @@ class DefaultController extends FrontendController
 
             $SAMLResponse->recieve();
             $attributeData = $SAMLResponse->getAttributes();
-            $email = trim(((isset($attributeData['emailaddress']))? $attributeData['emailaddress']:$attributeData['name']) );
+            $email = trim($attributeData['name']);
             $username = (isset((explode('@',$email))[0])? (explode('@',$email))[0]:$email);
             $user = $userService->getUserByUsername($username);
 
