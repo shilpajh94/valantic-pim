@@ -38,6 +38,8 @@ ehoseAPI:
                 - string
             NoteInformationBelowTable:
                 - string
+            manufacturingLength:
+                - string
             searchKeywords:
                 - string
             siopFullCode:
@@ -247,6 +249,8 @@ ehoseAPI:
                         - string
         Localizedfields:
             - headlineWeb
+            - shortDescription
+            - longDescription
             - productBrandNamePerLanguage
             - BrandShortText2
             - Marking1
@@ -434,6 +438,12 @@ ehoseAPI:
             CompletenessPercentage:
                 - string
             B2CCategory:
+                - string
+            # SalesOrgData:
+            #     - string
+            # Plants:
+            #     - string
+            Gallery:
                 - string
             printedCatalogFlag:
                 - string

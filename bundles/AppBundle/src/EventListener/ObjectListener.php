@@ -146,7 +146,28 @@ class ObjectListener
             /**
              * update the calculative logic value fields
              */
-            $this->appService->updateCalcFields($object);
+            $currentRequestData = json_decode($this->requestStack->getCurrentRequest()->getPayload()->get('data'), true);
+
+
+            if (strtoLower($object->getProductType()) == 'fert' && (array_key_exists('minimumTemperatureF', $currentRequestData) || array_key_exists('maximumTemperatureF', $currentRequestData))) {
+                $minTempFFromBase = $object->getParent()->getParent()->getMinimumTemperatureF();
+                $maxTempFFromBase = $object->getParent()->getParent()->getMaximumTemperatureF();
+
+                $minTempFFromFert = $object->getMinimumTemperatureF();
+                $maxTempFFromFert = $object->getMaximumTemperatureF();
+                if (((string)$minTempFFromBase == (string)$minTempFFromFert) && ((string)$maxTempFFromBase == (string)$maxTempFFromFert)) {
+
+                    $this->appService->updateCalcFields($object);
+                    $object->setRangeTemperatureF(null);
+                } else {
+                    $this->appService->updateCalcFields($object);
+                }
+            } elseif (strtoLower($object->getProductType()) != 'fert') {
+
+                $this->appService->updateCalcFields($object);
+            }
+
+
 
             /**
              * update Fitting Family and Thread Desc in HydFittingFert
