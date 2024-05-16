@@ -151,8 +151,8 @@ parameters:
             className: PTGEUProduct
             isLocalized: false
             level: skeleton
-        Color:
-            fieldName: Color
+        color:
+            fieldName: color
             fieldLocation: class
             className: PTGEUProduct
             isLocalized: false

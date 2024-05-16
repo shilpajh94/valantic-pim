@@ -27,7 +27,7 @@
  * - performance [select]
  * - material [select]
  * - fabricColor [input]
- * - Color [select]
+ * - color [select]
  * - heatAndOilResistant [input]
  * - beltHardness [numeric]
  * - reinforcement [multiselect]
@@ -39,7 +39,7 @@
  * - beltType [select]
  * - staticConductive [select]
  * - performance_localized [select]
- * - Color_localized [select]
+ * - color_localized [select]
  * - beltType_localized [select]
  * - staticConductive_localized [select]
  * - minimumTemperatureF [numeric]
@@ -117,17 +117,23 @@
  * - epixImage4 [image]
  * - video1 [image]
  * - video2 [image]
+ * - Document1 [manyToManyRelation]
+ * - Document2 [manyToManyRelation]
+ * - Document3 [manyToManyRelation]
+ * - Certificate1 [advancedManyToManyRelation]
+ * - Certificate2 [advancedManyToManyRelation]
+ * - Certificate3 [advancedManyToManyRelation]
  * - priceData [table]
  */
 
-return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
+return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
    'id' => '38',
    'name' => 'PTGEUProduct',
    'title' => '',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1715068288,
+   'modificationDate' => 1715318852,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -143,7 +149,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'allowVariants' => false,
    'showVariants' => false,
    'layoutDefinitions' => 
-  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'name' => 'pimcore_root',
      'type' => NULL,
      'region' => NULL,
@@ -157,7 +163,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'children' => 
     array (
       0 => 
-      \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
+      Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
@@ -171,7 +177,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'children' => 
         array (
           0 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Base',
              'type' => NULL,
              'region' => NULL,
@@ -185,7 +191,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'children' => 
             array (
               0 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
                  'region' => NULL,
@@ -199,7 +205,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Enriched in PIM',
                      'type' => NULL,
                      'region' => NULL,
@@ -213,7 +219,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                          'name' => 'Layout',
                          'type' => NULL,
                          'region' => NULL,
@@ -238,7 +244,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'border' => false,
                       )),
                       1 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                          'name' => 'Field Container',
                          'type' => NULL,
                          'region' => NULL,
@@ -252,7 +258,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -266,7 +272,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                                  'name' => 'Field Container',
                                  'type' => NULL,
                                  'region' => NULL,
@@ -280,7 +286,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'children' => 
                                 array (
                                   0 => 
-                                  \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                      'name' => 'shelfLife',
                                      'title' => 'Shelf Life',
                                      'tooltip' => '',
@@ -310,7 +316,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'defaultValueGenerator' => '',
                                   )),
                                   1 => 
-                                  \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'name' => 'specificationConstruction',
                                      'title' => 'Specification Construction',
                                      'tooltip' => '',
@@ -351,7 +357,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'labelAlign' => 'left',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                                  'name' => 'Field Container',
                                  'type' => NULL,
                                  'region' => NULL,
@@ -365,7 +371,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'children' => 
                                 array (
                                   0 => 
-                                  \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                                      'name' => 'FeaturesBenefitsBulletPoint',
                                      'title' => 'Features & Benefits Bullet Points',
                                      'tooltip' => 'Max 10 allowed',
@@ -393,7 +399,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'optionsProviderData' => '',
                                   )),
                                   1 => 
-                                  \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                                      'name' => 'productType',
                                      'title' => 'ProductType',
                                      'tooltip' => '',
@@ -434,12 +440,12 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'dynamicOptions' => false,
                                      'defaultValueGenerator' => '',
                                      'width' => 250,
-                                     'optionsProviderType' => NULL,
-                                     'optionsProviderClass' => '',
+                                     'optionsProviderType' => 'configure',
+                                     'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
                                      'optionsProviderData' => '',
                                   )),
                                   2 => 
-                                  \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                                      'name' => 'businessUnit',
                                      'title' => 'Business Unit',
                                      'tooltip' => '',
@@ -470,7 +476,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'dynamicOptions' => false,
                                      'defaultValueGenerator' => '',
                                      'width' => 250,
-                                     'optionsProviderType' => NULL,
+                                     'optionsProviderType' => 'configure',
                                      'optionsProviderClass' => '',
                                      'optionsProviderData' => '',
                                   )),
@@ -508,7 +514,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'labelAlign' => 'left',
                       )),
                       2 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                          'name' => 'localizedfields',
                          'title' => '',
                          'tooltip' => '',
@@ -529,7 +535,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -543,7 +549,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                                  'name' => 'Field Container',
                                  'type' => NULL,
                                  'region' => NULL,
@@ -557,7 +563,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'children' => 
                                 array (
                                   0 => 
-                                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                                      'name' => 'Field Container',
                                      'type' => NULL,
                                      'region' => NULL,
@@ -571,7 +577,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'children' => 
                                     array (
                                       0 => 
-                                      \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+                                      Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                                          'name' => 'shortDescription',
                                          'title' => 'Product Brand Description Short',
                                          'tooltip' => '',
@@ -596,7 +602,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'width' => 425,
                                       )),
                                       1 => 
-                                      \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'name' => 'rohs',
                                          'title' => 'Rohs',
                                          'tooltip' => '',
@@ -626,7 +632,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'defaultValueGenerator' => '',
                                       )),
                                       2 => 
-                                      \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'name' => 'reach',
                                          'title' => 'Reach',
                                          'tooltip' => '',
@@ -667,7 +673,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'labelAlign' => 'left',
                                   )),
                                   1 => 
-                                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                                      'name' => 'Field Container',
                                      'type' => NULL,
                                      'region' => NULL,
@@ -681,7 +687,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'children' => 
                                     array (
                                       0 => 
-                                      \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+                                      Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                                          'name' => 'longDescription',
                                          'title' => 'Product Brand Description Long',
                                          'tooltip' => '',
@@ -706,7 +712,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'width' => 425,
                                       )),
                                       1 => 
-                                      \Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                                      Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                                          'name' => 'legalText',
                                          'title' => 'Legal Text (Term & Conditions)',
                                          'tooltip' => '',
@@ -774,7 +780,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'referencedFields' => 
                         array (
                           0 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                              'name' => 'localizedfields',
                              'title' => '',
                              'tooltip' => '',
@@ -795,7 +801,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'heatAndOilResistant_localized',
                                  'title' => 'Heat & Oil Resistant',
                                  'tooltip' => '',
@@ -825,7 +831,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'quality_localized',
                                  'title' => 'Quality',
                                  'tooltip' => '',
@@ -872,7 +878,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'fieldDefinitionsCache' => NULL,
                           )),
                           1 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                              'name' => 'localizedfields',
                              'title' => '',
                              'tooltip' => '',
@@ -893,7 +899,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                                  'name' => 'sapDescription',
                                  'title' => 'SAP Description',
                                  'tooltip' => '',
@@ -935,7 +941,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'fieldDefinitionsCache' => NULL,
                           )),
                           2 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                              'name' => 'localizedfields',
                              'title' => '',
                              'tooltip' => '',
@@ -956,7 +962,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'webDiscription',
                                  'title' => 'Product Long Description',
                                  'tooltip' => '',
@@ -986,7 +992,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'productShortDescription',
                                  'title' => 'Product Short Description',
                                  'tooltip' => '',
@@ -1016,7 +1022,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               2 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'matchMakerLL_localized',
                                  'title' => 'Match Maker L=L',
                                  'tooltip' => '',
@@ -1063,7 +1069,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'fieldDefinitionsCache' => NULL,
                           )),
                           3 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                              'name' => 'localizedfields',
                              'title' => '',
                              'tooltip' => '',
@@ -1084,7 +1090,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'CompletenessPercentage',
                                  'title' => 'Completeness Percentage',
                                  'tooltip' => '',
@@ -1114,7 +1120,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                                  'name' => 'EmptyFields',
                                  'title' => 'Empty Fields',
                                  'tooltip' => '',
@@ -1175,7 +1181,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'labelAlign' => 'left',
                   )),
                   1 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Imported From SAP',
                      'type' => NULL,
                      'region' => NULL,
@@ -1189,7 +1195,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                          'name' => 'Layout',
                          'type' => NULL,
                          'region' => NULL,
@@ -1214,7 +1220,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'border' => false,
                       )),
                       1 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                          'name' => 'Field Container',
                          'type' => NULL,
                          'region' => NULL,
@@ -1228,7 +1234,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -1242,7 +1248,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                                  'name' => 'performance',
                                  'title' => 'Performance',
                                  'tooltip' => '',
@@ -1260,56 +1266,17 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'blockedVarsForExport' => 
                                 array (
                                 ),
-                                 'options' => 
-                                array (
-                                  0 => 
-                                  array (
-                                    'key' => 'Convenient Line',
-                                    'value' => 'Convenient Line',
-                                    'id' => 'extModel3590-1',
-                                  ),
-                                  1 => 
-                                  array (
-                                    'key' => 'High',
-                                    'value' => 'High',
-                                    'id' => 'extModel3590-2',
-                                  ),
-                                  2 => 
-                                  array (
-                                    'key' => 'Advance',
-                                    'value' => 'Advance',
-                                    'id' => 'extModel3590-3',
-                                  ),
-                                  3 => 
-                                  array (
-                                    'key' => 'Standard',
-                                    'value' => 'Standard',
-                                    'id' => 'extModel3590-4',
-                                  ),
-                                  4 => 
-                                  array (
-                                    'key' => 'Advance Pro',
-                                    'value' => 'Advance Pro',
-                                    'id' => 'extModel3590-5',
-                                  ),
-                                  5 => 
-                                  array (
-                                    'key' => 'Supreme',
-                                    'value' => 'Supreme',
-                                    'id' => 'extModel3590-6',
-                                  ),
-                                ),
-                                 'defaultValue' => '',
+                                 'defaultValue' => '1',
                                  'columnLength' => 30,
                                  'dynamicOptions' => false,
                                  'defaultValueGenerator' => '',
                                  'width' => 250,
-                                 'optionsProviderType' => NULL,
-                                 'optionsProviderClass' => '',
-                                 'optionsProviderData' => '',
+                                 'optionsProviderType' => 'class',
+                                 'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
+                                 'optionsProviderData' => 'PTGEUPerformance|performance',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                                  'name' => 'material',
                                  'title' => 'Material / Compound ',
                                  'tooltip' => '',
@@ -1370,12 +1337,12 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'dynamicOptions' => false,
                                  'defaultValueGenerator' => '',
                                  'width' => 250,
-                                 'optionsProviderType' => NULL,
-                                 'optionsProviderClass' => '',
+                                 'optionsProviderType' => 'configure',
+                                 'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
                                  'optionsProviderData' => '',
                               )),
                               2 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'fabricColor',
                                  'title' => 'Fabric Color',
                                  'tooltip' => '',
@@ -1405,8 +1372,8 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               3 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                                 'name' => 'Color',
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                                 'name' => 'color',
                                  'title' => 'Color',
                                  'tooltip' => '',
                                  'mandatory' => false,
@@ -1423,98 +1390,17 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'blockedVarsForExport' => 
                                 array (
                                 ),
-                                 'options' => 
-                                array (
-                                  0 => 
-                                  array (
-                                    'key' => 'Black / Yellow',
-                                    'value' => 'Black / Yellow',
-                                    'id' => 'extModel4194-1',
-                                  ),
-                                  1 => 
-                                  array (
-                                    'key' => 'Black / White',
-                                    'value' => 'Black / White',
-                                    'id' => 'extModel4194-2',
-                                  ),
-                                  2 => 
-                                  array (
-                                    'key' => 'Black / Red',
-                                    'value' => 'Black / Red',
-                                    'id' => 'extModel4194-3',
-                                  ),
-                                  3 => 
-                                  array (
-                                    'key' => 'Black / Purple',
-                                    'value' => 'Black / Purple',
-                                    'id' => 'extModel4194-4',
-                                  ),
-                                  4 => 
-                                  array (
-                                    'key' => 'Black / Orange',
-                                    'value' => 'Black / Orange',
-                                    'id' => 'extModel4194-5',
-                                  ),
-                                  5 => 
-                                  array (
-                                    'key' => 'Black / Green',
-                                    'value' => 'Black / Green',
-                                    'id' => 'extModel4194-6',
-                                  ),
-                                  6 => 
-                                  array (
-                                    'key' => 'Black / Blue',
-                                    'value' => 'Black / Blue',
-                                    'id' => 'extModel4194-7',
-                                  ),
-                                  7 => 
-                                  array (
-                                    'key' => 'White',
-                                    'value' => 'White',
-                                    'id' => 'extModel4194-8',
-                                  ),
-                                  8 => 
-                                  array (
-                                    'key' => 'Red',
-                                    'value' => 'Red',
-                                    'id' => 'extModel4194-9',
-                                  ),
-                                  9 => 
-                                  array (
-                                    'key' => 'Grey',
-                                    'value' => 'Grey',
-                                    'id' => 'extModel4194-10',
-                                  ),
-                                  10 => 
-                                  array (
-                                    'key' => 'Black',
-                                    'value' => 'Black',
-                                    'id' => 'extModel4194-11',
-                                  ),
-                                  11 => 
-                                  array (
-                                    'key' => 'Blue',
-                                    'value' => 'Blue',
-                                    'id' => 'extModel4194-12',
-                                  ),
-                                  12 => 
-                                  array (
-                                    'key' => 'Yellow',
-                                    'value' => 'Yellow',
-                                    'id' => 'extModel4194-13',
-                                  ),
-                                ),
-                                 'defaultValue' => '',
+                                 'defaultValue' => '1',
                                  'columnLength' => 100,
                                  'dynamicOptions' => false,
                                  'defaultValueGenerator' => '',
                                  'width' => 250,
-                                 'optionsProviderType' => NULL,
-                                 'optionsProviderClass' => '',
-                                 'optionsProviderData' => '',
+                                 'optionsProviderType' => 'class',
+                                 'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
+                                 'optionsProviderData' => 'PTGEUColor|color',
                               )),
                               4 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'heatAndOilResistant',
                                  'title' => 'Heat & Oil Resistant',
                                  'tooltip' => '',
@@ -1544,7 +1430,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               5 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'beltHardness',
                                  'title' => 'Belt Hardness',
                                  'tooltip' => '',
@@ -1574,7 +1460,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               6 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                                  'name' => 'reinforcement',
                                  'title' => 'Reinforcement / Cord',
                                  'tooltip' => '',
@@ -1656,7 +1542,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'labelAlign' => 'left',
                           )),
                           1 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -1670,7 +1556,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'ProductName',
                                  'title' => 'Product Name',
                                  'tooltip' => '',
@@ -1700,7 +1586,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
                                  'name' => 'materialGroup',
                                  'title' => 'Material Group',
                                  'tooltip' => '',
@@ -1742,7 +1628,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'width' => 250,
                               )),
                               2 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
                                  'name' => 'countryOfOrigin',
                                  'title' => 'Country Of Origin',
                                  'tooltip' => '',
@@ -1784,7 +1670,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'width' => 250,
                               )),
                               3 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'quality',
                                  'title' => 'Quality',
                                  'tooltip' => '',
@@ -1814,7 +1700,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               4 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'fabricType',
                                  'title' => 'FabricType',
                                  'tooltip' => '',
@@ -1844,7 +1730,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               5 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                                  'name' => 'beltType',
                                  'title' => 'Belt Type',
                                  'tooltip' => '',
@@ -1872,7 +1758,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'optionsProviderData' => 'PTGEUBeltType|beltType',
                               )),
                               6 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                                  'name' => 'staticConductive',
                                  'title' => 'Static Conductive',
                                  'tooltip' => '',
@@ -1890,37 +1776,14 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'blockedVarsForExport' => 
                                 array (
                                 ),
-                                 'options' => 
-                                array (
-                                  0 => 
-                                  array (
-                                    'key' => 'Yes acc. to ISO 1813',
-                                    'value' => 'Yes acc. to ISO 1813',
-                                  ),
-                                  1 => 
-                                  array (
-                                    'key' => 'Yes acc. to ISO 9563',
-                                    'value' => 'Yes acc. to ISO 9563',
-                                  ),
-                                  2 => 
-                                  array (
-                                    'key' => 'Yes',
-                                    'value' => 'Yes',
-                                  ),
-                                  3 => 
-                                  array (
-                                    'key' => 'No',
-                                    'value' => 'No',
-                                  ),
-                                ),
-                                 'defaultValue' => '',
+                                 'defaultValue' => '1',
                                  'columnLength' => 30,
                                  'dynamicOptions' => false,
                                  'defaultValueGenerator' => '',
                                  'width' => 250,
-                                 'optionsProviderType' => 'configure',
-                                 'optionsProviderClass' => '',
-                                 'optionsProviderData' => '',
+                                 'optionsProviderType' => 'class',
+                                 'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
+                                 'optionsProviderData' => 'PTGEUStaticConductive|staticConductive',
                               )),
                             ),
                              'locked' => false,
@@ -1945,7 +1808,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'labelAlign' => 'left',
                       )),
                       2 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                          'name' => 'Layout',
                          'type' => NULL,
                          'region' => NULL,
@@ -1970,7 +1833,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'border' => false,
                       )),
                       3 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                          'name' => 'Field Container',
                          'type' => NULL,
                          'region' => NULL,
@@ -1984,7 +1847,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -1998,7 +1861,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                                  'name' => 'Field Container',
                                  'type' => NULL,
                                  'region' => NULL,
@@ -2012,7 +1875,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'children' => 
                                 array (
                                   0 => 
-                                  \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                                      'name' => 'performance_localized',
                                      'title' => 'Performance',
                                      'tooltip' => '',
@@ -2030,51 +1893,18 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'blockedVarsForExport' => 
                                     array (
                                     ),
-                                     'options' => 
-                                    array (
-                                      0 => 
-                                      array (
-                                        'key' => 'Convenient Line',
-                                        'value' => 'Convenient Line',
-                                      ),
-                                      1 => 
-                                      array (
-                                        'key' => 'High',
-                                        'value' => 'High',
-                                      ),
-                                      2 => 
-                                      array (
-                                        'key' => 'Advance',
-                                        'value' => 'Advance',
-                                      ),
-                                      3 => 
-                                      array (
-                                        'key' => 'Standard',
-                                        'value' => 'Standard',
-                                      ),
-                                      4 => 
-                                      array (
-                                        'key' => 'Advance Pro',
-                                        'value' => 'Advance Pro',
-                                      ),
-                                      5 => 
-                                      array (
-                                        'key' => 'Supreme',
-                                        'value' => 'Supreme',
-                                      ),
-                                    ),
-                                     'defaultValue' => '',
+                                     'defaultValue' => '1',
                                      'columnLength' => 30,
                                      'dynamicOptions' => false,
                                      'defaultValueGenerator' => '',
                                      'width' => 250,
-                                     'optionsProviderType' => 'configure',
-                                     'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
-                                     'optionsProviderData' => '',
+                                     'optionsProviderType' => 'class',
+                                     'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
+                                     'optionsProviderData' => 'PTGEUPerformance|performance',
                                   )),
                                   1 => 
-                                  \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                                     'name' => 'Color_localized',
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                                     'name' => 'color_localized',
                                      'title' => 'Color',
                                      'tooltip' => '',
                                      'mandatory' => false,
@@ -2091,82 +1921,14 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'blockedVarsForExport' => 
                                     array (
                                     ),
-                                     'options' => 
-                                    array (
-                                      0 => 
-                                      array (
-                                        'key' => 'Black / Yellow',
-                                        'value' => 'Black / Yellow',
-                                      ),
-                                      1 => 
-                                      array (
-                                        'key' => 'Black / White',
-                                        'value' => 'Black / White',
-                                      ),
-                                      2 => 
-                                      array (
-                                        'key' => 'Black / Red',
-                                        'value' => 'Black / Red',
-                                      ),
-                                      3 => 
-                                      array (
-                                        'key' => 'Black / Purple',
-                                        'value' => 'Black / Purple',
-                                      ),
-                                      4 => 
-                                      array (
-                                        'key' => 'Black / Orange',
-                                        'value' => 'Black / Orange',
-                                      ),
-                                      5 => 
-                                      array (
-                                        'key' => 'Black / Green',
-                                        'value' => 'Black / Green',
-                                      ),
-                                      6 => 
-                                      array (
-                                        'key' => 'Black / Blue',
-                                        'value' => 'Black / Blue',
-                                      ),
-                                      7 => 
-                                      array (
-                                        'key' => 'White',
-                                        'value' => 'White',
-                                      ),
-                                      8 => 
-                                      array (
-                                        'key' => 'Red',
-                                        'value' => 'Red',
-                                      ),
-                                      9 => 
-                                      array (
-                                        'key' => 'Grey',
-                                        'value' => 'Grey',
-                                      ),
-                                      10 => 
-                                      array (
-                                        'key' => 'Black',
-                                        'value' => 'Black',
-                                      ),
-                                      11 => 
-                                      array (
-                                        'key' => 'Blue',
-                                        'value' => 'Blue',
-                                      ),
-                                      12 => 
-                                      array (
-                                        'key' => 'Yellow',
-                                        'value' => 'Yellow',
-                                      ),
-                                    ),
-                                     'defaultValue' => '',
+                                     'defaultValue' => '1',
                                      'columnLength' => 100,
                                      'dynamicOptions' => false,
                                      'defaultValueGenerator' => '',
                                      'width' => 250,
-                                     'optionsProviderType' => 'configure',
-                                     'optionsProviderClass' => '',
-                                     'optionsProviderData' => '',
+                                     'optionsProviderType' => 'class',
+                                     'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
+                                     'optionsProviderData' => 'PTGEUColor|color',
                                   )),
                                 ),
                                  'locked' => false,
@@ -2180,7 +1942,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'labelAlign' => 'left',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                                  'name' => 'Field Container',
                                  'type' => NULL,
                                  'region' => NULL,
@@ -2194,7 +1956,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'children' => 
                                 array (
                                   0 => 
-                                  \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                                      'name' => 'beltType_localized',
                                      'title' => 'Belt Type',
                                      'tooltip' => '',
@@ -2222,7 +1984,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'optionsProviderData' => 'PTGEUBeltType|beltType',
                                   )),
                                   1 => 
-                                  \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                                      'name' => 'staticConductive_localized',
                                      'title' => 'Static Conductive',
                                      'tooltip' => '',
@@ -2240,37 +2002,14 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'blockedVarsForExport' => 
                                     array (
                                     ),
-                                     'options' => 
-                                    array (
-                                      0 => 
-                                      array (
-                                        'key' => 'Yes acc. to ISO 1813',
-                                        'value' => 'Yes acc. to ISO 1813',
-                                      ),
-                                      1 => 
-                                      array (
-                                        'key' => 'Yes acc. to ISO 9563',
-                                        'value' => 'Yes acc. to ISO 9563',
-                                      ),
-                                      2 => 
-                                      array (
-                                        'key' => 'Yes',
-                                        'value' => 'Yes',
-                                      ),
-                                      3 => 
-                                      array (
-                                        'key' => 'No',
-                                        'value' => 'No',
-                                      ),
-                                    ),
-                                     'defaultValue' => '',
+                                     'defaultValue' => '1',
                                      'columnLength' => 30,
                                      'dynamicOptions' => false,
                                      'defaultValueGenerator' => '',
                                      'width' => 250,
-                                     'optionsProviderType' => 'configure',
-                                     'optionsProviderClass' => '',
-                                     'optionsProviderData' => '',
+                                     'optionsProviderType' => 'class',
+                                     'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
+                                     'optionsProviderData' => 'PTGEUStaticConductive|staticConductive',
                                   )),
                                 ),
                                  'locked' => false,
@@ -2306,7 +2045,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'labelAlign' => 'left',
                       )),
                       4 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                          'name' => 'Field Container',
                          'type' => NULL,
                          'region' => NULL,
@@ -2320,7 +2059,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                              'name' => 'localizedfields',
                              'title' => '',
                              'tooltip' => '',
@@ -2341,7 +2080,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'heatAndOilResistant_localized',
                                  'title' => 'Heat & Oil Resistant',
                                  'tooltip' => '',
@@ -2371,7 +2110,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'quality_localized',
                                  'title' => 'Quality',
                                  'tooltip' => '',
@@ -2429,7 +2168,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'labelAlign' => 'left',
                       )),
                       5 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
                          'name' => 'Temperatures',
                          'type' => NULL,
                          'region' => NULL,
@@ -2443,7 +2182,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -2457,7 +2196,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                                  'name' => 'Field Container',
                                  'type' => NULL,
                                  'region' => NULL,
@@ -2471,7 +2210,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'children' => 
                                 array (
                                   0 => 
-                                  \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                      'name' => 'minimumTemperatureF',
                                      'title' => 'Min Temp °F',
                                      'tooltip' => '',
@@ -2501,7 +2240,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'defaultValueGenerator' => '',
                                   )),
                                   1 => 
-                                  \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                      'name' => 'maximumTemperatureF',
                                      'title' => 'Max temp °F',
                                      'tooltip' => '',
@@ -2531,7 +2270,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'defaultValueGenerator' => '',
                                   )),
                                   2 => 
-                                  \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'name' => 'rangeTemperatureF',
                                      'title' => 'Temperature Range (°F)',
                                      'tooltip' => '',
@@ -2572,7 +2311,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'labelAlign' => 'left',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                                  'name' => 'Field Container',
                                  'type' => NULL,
                                  'region' => NULL,
@@ -2586,7 +2325,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'children' => 
                                 array (
                                   0 => 
-                                  \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                      'name' => 'minimumTemperatureC',
                                      'title' => 'Min Temp °C',
                                      'tooltip' => '',
@@ -2616,7 +2355,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'defaultValueGenerator' => '',
                                   )),
                                   1 => 
-                                  \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                      'name' => 'maximumTemperatureC',
                                      'title' => 'Max temp °C',
                                      'tooltip' => '',
@@ -2646,7 +2385,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'defaultValueGenerator' => '',
                                   )),
                                   2 => 
-                                  \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'name' => 'rangeTemperatureC',
                                      'title' => 'Temperature Range (°C)',
                                      'tooltip' => '',
@@ -2719,7 +2458,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'labelAlign' => 'left',
                   )),
                   2 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'SIOP Data',
                      'type' => NULL,
                      'region' => NULL,
@@ -2733,7 +2472,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'name' => 'siopFullCode',
                          'title' => 'Product Hierarchy Full Code',
                          'tooltip' => '',
@@ -2763,7 +2502,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'defaultValueGenerator' => '',
                       )),
                       1 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                          'name' => 'hierarchyLevel1',
                          'title' => 'Product Hierarchy Level 1',
                          'tooltip' => '',
@@ -2803,7 +2542,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'height' => '',
                       )),
                       2 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                          'name' => 'hierarchyLevel2',
                          'title' => 'Product Hierarchy Level 2',
                          'tooltip' => '',
@@ -2843,7 +2582,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'height' => '',
                       )),
                       3 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                          'name' => 'hierarchyLevel3',
                          'title' => 'Product Hierarchy Level 3',
                          'tooltip' => '',
@@ -2883,7 +2622,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'height' => '',
                       )),
                       4 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                          'name' => 'hierarchyLevel4',
                          'title' => 'Product Hierarchy Level 4',
                          'tooltip' => '',
@@ -2923,7 +2662,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'height' => '',
                       )),
                       5 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                          'name' => 'hierarchyLevel5',
                          'title' => 'Product Hierarchy Level 5',
                          'tooltip' => '',
@@ -2963,7 +2702,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'height' => '',
                       )),
                       6 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                          'name' => 'hierarchyLevel6',
                          'title' => 'Product Hierarchy Level 6',
                          'tooltip' => '',
@@ -3003,7 +2742,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'height' => '',
                       )),
                       7 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                          'name' => 'hierarchyLevel7',
                          'title' => 'Product Hierarchy Level 7',
                          'tooltip' => '',
@@ -3055,7 +2794,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'labelAlign' => 'left',
                   )),
                   3 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Category Specific Data',
                      'type' => NULL,
                      'region' => NULL,
@@ -3069,7 +2808,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Objectbricks::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Objectbricks::__set_state(array(
                          'name' => 'base',
                          'title' => '',
                          'tooltip' => '',
@@ -3128,7 +2867,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelAlign' => 'left',
           )),
           1 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Skeleton',
              'type' => NULL,
              'region' => NULL,
@@ -3142,7 +2881,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'children' => 
             array (
               0 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
                  'region' => NULL,
@@ -3156,7 +2895,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Imported From SAP',
                      'type' => NULL,
                      'region' => NULL,
@@ -3170,7 +2909,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                          'name' => 'Layout',
                          'type' => NULL,
                          'region' => NULL,
@@ -3195,7 +2934,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'border' => false,
                       )),
                       1 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                          'name' => 'Field Container',
                          'type' => NULL,
                          'region' => NULL,
@@ -3209,7 +2948,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -3223,7 +2962,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'profile',
                                  'title' => 'Profile',
                                  'tooltip' => '',
@@ -3253,7 +2992,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'beltAngle',
                                  'title' => 'Belt Angle',
                                  'tooltip' => '',
@@ -3283,7 +3022,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               2 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'maxSpeed',
                                  'title' => 'Max Speed',
                                  'tooltip' => '',
@@ -3313,7 +3052,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               3 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'minPulleyDia',
                                  'title' => 'Min. pulley dia',
                                  'tooltip' => '',
@@ -3343,7 +3082,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               4 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'minOutsidePulleyDia',
                                  'title' => 'Min. outside pulley dia',
                                  'tooltip' => '',
@@ -3373,7 +3112,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               5 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'nominalLength',
                                  'title' => 'Nominal Length',
                                  'tooltip' => '',
@@ -3437,7 +3176,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'labelAlign' => 'left',
                   )),
                   1 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Category Specific Data',
                      'type' => NULL,
                      'region' => NULL,
@@ -3451,7 +3190,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Objectbricks::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Objectbricks::__set_state(array(
                          'name' => 'skeleton',
                          'title' => '',
                          'tooltip' => '',
@@ -3510,7 +3249,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelAlign' => 'left',
           )),
           2 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Fert',
              'type' => NULL,
              'region' => NULL,
@@ -3524,7 +3263,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'children' => 
             array (
               0 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
                  'region' => NULL,
@@ -3538,7 +3277,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Layout',
                      'type' => NULL,
                      'region' => NULL,
@@ -3552,7 +3291,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                          'name' => 'Layout',
                          'type' => NULL,
                          'region' => NULL,
@@ -3577,7 +3316,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'border' => false,
                       )),
                       1 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                          'name' => 'Field Container',
                          'type' => NULL,
                          'region' => NULL,
@@ -3591,7 +3330,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -3605,7 +3344,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'articleNumber',
                                  'title' => 'SAP Code / Material Number',
                                  'tooltip' => '',
@@ -3635,7 +3374,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'eanUpc',
                                  'title' => 'EAN / UPC',
                                  'tooltip' => '',
@@ -3665,7 +3404,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               2 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'netWeight',
                                  'title' => 'Net Weight',
                                  'tooltip' => '',
@@ -3695,7 +3434,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               3 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                                  'name' => 'weightUnit',
                                  'title' => 'Weight Unit',
                                  'tooltip' => '',
@@ -3741,7 +3480,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'optionsProviderData' => '',
                               )),
                               4 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'listPrice',
                                  'title' => 'List Price',
                                  'tooltip' => '',
@@ -3771,7 +3510,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               5 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'sapDescriptionLanguage',
                                  'title' => 'SAP Description Language',
                                  'tooltip' => '',
@@ -3801,7 +3540,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               6 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'manufacturer',
                                  'title' => 'Manufacturer',
                                  'tooltip' => '',
@@ -3831,7 +3570,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               7 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'manufacturerPartNumber',
                                  'title' => 'Manufacturer Part Number',
                                  'tooltip' => '',
@@ -3861,7 +3600,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               8 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'materialType',
                                  'title' => 'Material type',
                                  'tooltip' => '',
@@ -3891,7 +3630,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               9 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                                  'name' => 'vtlStatus',
                                  'title' => 'Status',
                                  'tooltip' => '',
@@ -3930,7 +3669,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'labelAlign' => 'left',
                           )),
                           1 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -3944,7 +3683,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'oldMaterialCode',
                                  'title' => 'Old Material Code',
                                  'tooltip' => '',
@@ -3974,7 +3713,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'industryStandard',
                                  'title' => 'Industry Standard #',
                                  'tooltip' => '',
@@ -4004,7 +3743,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               2 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'beltTolerance',
                                  'title' => 'Belt Tolerance',
                                  'tooltip' => '',
@@ -4034,7 +3773,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               3 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'grossWeight',
                                  'title' => 'Gross Weight',
                                  'tooltip' => '',
@@ -4064,7 +3803,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               4 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'din',
                                  'title' => 'DIN',
                                  'tooltip' => '',
@@ -4094,7 +3833,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               5 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'matchMakerLL',
                                  'title' => 'Match Maker L=L',
                                  'tooltip' => '',
@@ -4124,7 +3863,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               6 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'alternativeUnitOfMeasureForStockkeepingUnit',
                                  'title' => 'Alternative Unit of Measure for Stockkeeping Unit',
                                  'tooltip' => '',
@@ -4154,7 +3893,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               7 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'priceRef',
                                  'title' => 'Price Ref. Mat',
                                  'tooltip' => '',
@@ -4184,7 +3923,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               8 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                                  'name' => 'Currency',
                                  'title' => 'Currency',
                                  'tooltip' => '',
@@ -4242,7 +3981,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'labelAlign' => 'left',
                       )),
                       2 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                          'name' => 'Field Container',
                          'type' => NULL,
                          'region' => NULL,
@@ -4256,7 +3995,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                              'name' => 'localizedfields',
                              'title' => '',
                              'tooltip' => '',
@@ -4277,7 +4016,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                                  'name' => 'sapDescription',
                                  'title' => 'SAP Description',
                                  'tooltip' => '',
@@ -4330,7 +4069,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'labelAlign' => 'left',
                       )),
                       3 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                          'name' => 'Layout',
                          'type' => NULL,
                          'region' => NULL,
@@ -4355,7 +4094,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'border' => false,
                       )),
                       4 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                          'name' => 'Field Container',
                          'type' => NULL,
                          'region' => NULL,
@@ -4369,7 +4108,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -4383,7 +4122,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'cadLINK',
                                  'title' => 'CAD LINK',
                                  'tooltip' => '',
@@ -4413,7 +4152,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                                  'name' => 'cadFile',
                                  'title' => 'CAD File ',
                                  'tooltip' => '',
@@ -4455,7 +4194,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'width' => 220,
                               )),
                               2 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                                  'name' => 'printedCatalogFlag',
                                  'title' => 'Printed Catalog Flag',
                                  'tooltip' => '',
@@ -4497,7 +4236,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'width' => 220,
                               )),
                               3 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                                  'name' => 'pdfDrawing',
                                  'title' => 'PDF Drawing (Y/N)',
                                  'tooltip' => '',
@@ -4539,7 +4278,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'width' => 220,
                               )),
                               4 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                                  'name' => 'searchKeywords',
                                  'title' => 'Search Keywords',
                                  'tooltip' => '',
@@ -4578,7 +4317,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'labelAlign' => 'left',
                           )),
                           1 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -4592,7 +4331,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'pdfLINK',
                                  'title' => 'PDF LINK',
                                  'tooltip' => '',
@@ -4622,7 +4361,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'catalogFlag',
                                  'title' => 'Catalog Flag',
                                  'tooltip' => '',
@@ -4652,7 +4391,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               2 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                                  'name' => 'virtualCatalogFlag',
                                  'title' => 'Virtual Catalog Flag',
                                  'tooltip' => '',
@@ -4694,7 +4433,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'width' => 220,
                               )),
                               3 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                                  'name' => 'CategoryDescriptionCatalog',
                                  'title' => 'Category Description Catalog',
                                  'tooltip' => '',
@@ -4741,7 +4480,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'labelAlign' => 'left',
                       )),
                       5 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                          'name' => 'Field Container',
                          'type' => NULL,
                          'region' => NULL,
@@ -4755,7 +4494,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                              'name' => 'localizedfields',
                              'title' => '',
                              'tooltip' => '',
@@ -4776,7 +4515,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'webDiscription',
                                  'title' => 'Product Long Description',
                                  'tooltip' => '',
@@ -4806,7 +4545,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'productShortDescription',
                                  'title' => 'Product Short Description',
                                  'tooltip' => '',
@@ -4836,7 +4575,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               2 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'matchMakerLL_localized',
                                  'title' => 'Match Maker L=L',
                                  'tooltip' => '',
@@ -4906,7 +4645,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'labelAlign' => 'left',
                   )),
                   1 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Category Specific Data',
                      'type' => NULL,
                      'region' => NULL,
@@ -4920,7 +4659,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Objectbricks::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Objectbricks::__set_state(array(
                          'name' => 'fert',
                          'title' => '',
                          'tooltip' => '',
@@ -4962,7 +4701,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'labelAlign' => 'left',
                   )),
                   2 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Plant And Sales Data',
                      'type' => NULL,
                      'region' => NULL,
@@ -4976,7 +4715,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\ReverseObjectRelation::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ReverseObjectRelation::__set_state(array(
                          'name' => 'salesData',
                          'title' => 'Sales Data',
                          'tooltip' => '',
@@ -5016,7 +4755,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'lazyLoading' => true,
                       )),
                       1 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\ReverseObjectRelation::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ReverseObjectRelation::__set_state(array(
                          'name' => 'plantData',
                          'title' => 'Plant Data',
                          'tooltip' => '',
@@ -5089,7 +4828,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelAlign' => 'left',
           )),
           3 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Digital Assets',
              'type' => NULL,
              'region' => NULL,
@@ -5103,7 +4842,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'children' => 
             array (
               0 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
                  'region' => NULL,
@@ -5117,7 +4856,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Layout',
                      'type' => NULL,
                      'region' => NULL,
@@ -5131,7 +4870,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                          'name' => 'Field Container',
                          'type' => NULL,
                          'region' => NULL,
@@ -5145,7 +4884,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -5159,7 +4898,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                                  'name' => 'mainImage1',
                                  'title' => 'Main Image 1',
                                  'tooltip' => '',
@@ -5182,7 +4921,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'height' => '',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                                  'name' => 'mainImage2',
                                  'title' => 'Main Image 2',
                                  'tooltip' => '',
@@ -5205,7 +4944,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'height' => '',
                               )),
                               2 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                                  'name' => 'fullView1',
                                  'title' => 'Full View 1',
                                  'tooltip' => '',
@@ -5228,7 +4967,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'height' => '',
                               )),
                               3 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                                  'name' => 'fullView2',
                                  'title' => 'Full View 2',
                                  'tooltip' => '',
@@ -5251,7 +4990,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'height' => '',
                               )),
                               4 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                                  'name' => 'technicalDrawing1',
                                  'title' => 'Technical Drawing 1',
                                  'tooltip' => '',
@@ -5285,7 +5024,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'labelAlign' => 'left',
                           )),
                           1 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -5299,7 +5038,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                                  'name' => 'halfView1',
                                  'title' => 'Half View 1',
                                  'tooltip' => '',
@@ -5322,7 +5061,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'height' => '',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                                  'name' => 'halfView2',
                                  'title' => 'Half View 2',
                                  'tooltip' => '',
@@ -5345,7 +5084,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'height' => '',
                               )),
                               2 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                                  'name' => 'halfView3',
                                  'title' => 'Half View 3',
                                  'tooltip' => '',
@@ -5368,7 +5107,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'height' => '',
                               )),
                               3 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                                  'name' => 'halfView4',
                                  'title' => 'Half View 4',
                                  'tooltip' => '',
@@ -5391,7 +5130,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'height' => '',
                               )),
                               4 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                                  'name' => 'technicalDrawing2',
                                  'title' => 'Technical Drawing 2',
                                  'tooltip' => '',
@@ -5448,7 +5187,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'labelAlign' => 'left',
                   )),
                   1 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Layout',
                      'type' => NULL,
                      'region' => NULL,
@@ -5462,7 +5201,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                          'name' => 'Field Container',
                          'type' => NULL,
                          'region' => NULL,
@@ -5476,7 +5215,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -5490,7 +5229,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                                  'name' => 'applicationImage1',
                                  'title' => 'Application Image1',
                                  'tooltip' => '',
@@ -5513,7 +5252,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'height' => '',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                                  'name' => 'applicationImage2',
                                  'title' => 'Application Image2',
                                  'tooltip' => '',
@@ -5536,7 +5275,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'height' => '',
                               )),
                               2 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                                  'name' => 'applicationImage3',
                                  'title' => 'Application Image3',
                                  'tooltip' => '',
@@ -5570,7 +5309,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'labelAlign' => 'left',
                           )),
                           1 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -5584,7 +5323,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                                  'name' => 'applicationImage4',
                                  'title' => 'Application Image4',
                                  'tooltip' => '',
@@ -5607,7 +5346,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'height' => '',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                                  'name' => 'applicationImage5',
                                  'title' => 'Application Image5',
                                  'tooltip' => '',
@@ -5630,7 +5369,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'height' => '',
                               )),
                               2 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                                  'name' => 'applicationImage6',
                                  'title' => 'Application Image6',
                                  'tooltip' => '',
@@ -5687,7 +5426,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'labelAlign' => 'left',
                   )),
                   2 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Layout',
                      'type' => NULL,
                      'region' => NULL,
@@ -5701,7 +5440,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                          'name' => 'Field Container',
                          'type' => NULL,
                          'region' => NULL,
@@ -5715,7 +5454,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -5729,7 +5468,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                                  'name' => 'epixImage1',
                                  'title' => 'Epix Image 1',
                                  'tooltip' => '',
@@ -5752,7 +5491,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'height' => '',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                                  'name' => 'epixImage3',
                                  'title' => 'Epix Image 3',
                                  'tooltip' => '',
@@ -5786,7 +5525,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'labelAlign' => 'left',
                           )),
                           1 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -5800,7 +5539,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                                  'name' => 'epixImage2',
                                  'title' => 'Epix Image 2',
                                  'tooltip' => '',
@@ -5823,7 +5562,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'height' => '',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                                  'name' => 'epixImage4',
                                  'title' => 'Epix Image 4',
                                  'tooltip' => '',
@@ -5880,7 +5619,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'labelAlign' => 'left',
                   )),
                   3 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Layout',
                      'type' => NULL,
                      'region' => NULL,
@@ -5894,7 +5633,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                          'name' => 'Field Container',
                          'type' => NULL,
                          'region' => NULL,
@@ -5908,7 +5647,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -5922,7 +5661,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                                  'name' => 'video1',
                                  'title' => 'Video 1',
                                  'tooltip' => '',
@@ -5956,7 +5695,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'labelAlign' => 'left',
                           )),
                           1 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -5970,7 +5709,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                                  'name' => 'video2',
                                  'title' => 'Video 2',
                                  'tooltip' => '',
@@ -6026,6 +5765,493 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
+                  4 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                     'name' => 'Layout',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => 'Documents',
+                     'width' => 0,
+                     'height' => 0,
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'children' => 
+                    array (
+                      0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
+                         'name' => 'Document1',
+                         'title' => 'Document 1',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => true,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                        ),
+                         'displayMode' => NULL,
+                         'pathFormatterClass' => '',
+                         'maxItems' => 20,
+                         'assetInlineDownloadAllowed' => false,
+                         'assetUploadPath' => '',
+                         'allowToClearRelation' => true,
+                         'objectsAllowed' => false,
+                         'assetsAllowed' => true,
+                         'assetTypes' => 
+                        array (
+                          0 => 
+                          array (
+                            'assetTypes' => 'document',
+                          ),
+                          1 => 
+                          array (
+                            'assetTypes' => 'image',
+                          ),
+                        ),
+                         'documentsAllowed' => false,
+                         'documentTypes' => 
+                        array (
+                        ),
+                         'enableTextSelection' => false,
+                         'width' => '',
+                         'height' => '',
+                      )),
+                      1 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
+                         'name' => 'Document2',
+                         'title' => 'Document 2',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => true,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                        ),
+                         'displayMode' => NULL,
+                         'pathFormatterClass' => '',
+                         'maxItems' => 20,
+                         'assetInlineDownloadAllowed' => false,
+                         'assetUploadPath' => '',
+                         'allowToClearRelation' => true,
+                         'objectsAllowed' => false,
+                         'assetsAllowed' => true,
+                         'assetTypes' => 
+                        array (
+                          0 => 
+                          array (
+                            'assetTypes' => 'document',
+                          ),
+                          1 => 
+                          array (
+                            'assetTypes' => 'image',
+                          ),
+                        ),
+                         'documentsAllowed' => false,
+                         'documentTypes' => 
+                        array (
+                        ),
+                         'enableTextSelection' => false,
+                         'width' => '',
+                         'height' => '',
+                      )),
+                      2 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
+                         'name' => 'Document3',
+                         'title' => 'Document 3',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => true,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                        ),
+                         'displayMode' => NULL,
+                         'pathFormatterClass' => '',
+                         'maxItems' => 20,
+                         'assetInlineDownloadAllowed' => false,
+                         'assetUploadPath' => '',
+                         'allowToClearRelation' => true,
+                         'objectsAllowed' => false,
+                         'assetsAllowed' => true,
+                         'assetTypes' => 
+                        array (
+                          0 => 
+                          array (
+                            'assetTypes' => 'document',
+                          ),
+                          1 => 
+                          array (
+                            'assetTypes' => 'image',
+                          ),
+                        ),
+                         'documentsAllowed' => false,
+                         'documentTypes' => 
+                        array (
+                        ),
+                         'enableTextSelection' => false,
+                         'width' => '',
+                         'height' => '',
+                      )),
+                    ),
+                     'locked' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'fieldtype' => 'panel',
+                     'layout' => NULL,
+                     'border' => false,
+                     'icon' => '',
+                     'labelWidth' => 100,
+                     'labelAlign' => 'left',
+                  )),
+                  5 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                     'name' => 'Certification',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => 'Certification',
+                     'width' => 0,
+                     'height' => 0,
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'children' => 
+                    array (
+                      0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyRelation::__set_state(array(
+                         'name' => 'Certificate1',
+                         'title' => 'Certificate 1',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => true,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                        ),
+                         'displayMode' => NULL,
+                         'pathFormatterClass' => 'AppBundle\\Formatter\\AssetFormatter',
+                         'maxItems' => 20,
+                         'assetInlineDownloadAllowed' => false,
+                         'assetUploadPath' => '',
+                         'allowToClearRelation' => true,
+                         'objectsAllowed' => false,
+                         'assetsAllowed' => true,
+                         'assetTypes' => 
+                        array (
+                          0 => 
+                          array (
+                            'assetTypes' => 'image',
+                          ),
+                          1 => 
+                          array (
+                            'assetTypes' => 'document',
+                          ),
+                          2 => 
+                          array (
+                            'assetTypes' => 'video',
+                          ),
+                        ),
+                         'documentsAllowed' => false,
+                         'documentTypes' => 
+                        array (
+                        ),
+                         'enableTextSelection' => false,
+                         'width' => '',
+                         'height' => NULL,
+                         'columns' => 
+                        array (
+                          0 => 
+                          array (
+                            'type' => 'text',
+                            'position' => 1,
+                            'key' => 'DrawingNumber',
+                            'label' => 'Drawing Number',
+                          ),
+                          1 => 
+                          array (
+                            'type' => 'number',
+                            'position' => 2,
+                            'key' => 'DrawingRevisionNumber',
+                            'label' => 'Drawing Revision number',
+                          ),
+                          2 => 
+                          array (
+                            'type' => 'text',
+                            'position' => 3,
+                            'key' => 'DrawingRevisionDate',
+                            'label' => 'Drawing Revision Date',
+                            'width' => NULL,
+                          ),
+                          3 => 
+                          array (
+                            'type' => 'bool',
+                            'position' => 4,
+                            'key' => 'CertificationDocument',
+                            'label' => 'Certification Document',
+                          ),
+                        ),
+                         'columnKeys' => 
+                        array (
+                          0 => 'DrawingNumber',
+                          1 => 'DrawingRevisionNumber',
+                          2 => 'DrawingRevisionDate',
+                          3 => 'CertificationDocument',
+                        ),
+                         'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\ElementMetadata[]',
+                         'optimizedAdminLoading' => false,
+                         'enableBatchEdit' => false,
+                         'allowMultipleAssignments' => false,
+                      )),
+                      1 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyRelation::__set_state(array(
+                         'name' => 'Certificate2',
+                         'title' => 'Certificate 2',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => true,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                        ),
+                         'displayMode' => NULL,
+                         'pathFormatterClass' => 'AppBundle\\Formatter\\AssetFormatter',
+                         'maxItems' => 20,
+                         'assetInlineDownloadAllowed' => false,
+                         'assetUploadPath' => '',
+                         'allowToClearRelation' => true,
+                         'objectsAllowed' => false,
+                         'assetsAllowed' => true,
+                         'assetTypes' => 
+                        array (
+                          0 => 
+                          array (
+                            'assetTypes' => 'image',
+                          ),
+                          1 => 
+                          array (
+                            'assetTypes' => 'document',
+                          ),
+                          2 => 
+                          array (
+                            'assetTypes' => 'video',
+                          ),
+                        ),
+                         'documentsAllowed' => false,
+                         'documentTypes' => 
+                        array (
+                        ),
+                         'enableTextSelection' => false,
+                         'width' => '',
+                         'height' => NULL,
+                         'columns' => 
+                        array (
+                          0 => 
+                          array (
+                            'type' => 'text',
+                            'position' => 1,
+                            'key' => 'DrawingNumber',
+                            'label' => 'Drawing Number',
+                          ),
+                          1 => 
+                          array (
+                            'type' => 'number',
+                            'position' => 2,
+                            'key' => 'DrawingRevisionNumber',
+                            'label' => 'Drawing Revision number',
+                          ),
+                          2 => 
+                          array (
+                            'type' => 'text',
+                            'position' => 3,
+                            'key' => 'DrawingRevisionDate',
+                            'label' => 'Drawing Revision Date',
+                            'width' => NULL,
+                          ),
+                          3 => 
+                          array (
+                            'type' => 'bool',
+                            'position' => 4,
+                            'key' => 'CertificationDocument',
+                            'label' => 'Certification Document',
+                          ),
+                        ),
+                         'columnKeys' => 
+                        array (
+                          0 => 'DrawingNumber',
+                          1 => 'DrawingRevisionNumber',
+                          2 => 'DrawingRevisionDate',
+                          3 => 'CertificationDocument',
+                        ),
+                         'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\ElementMetadata[]',
+                         'optimizedAdminLoading' => false,
+                         'enableBatchEdit' => false,
+                         'allowMultipleAssignments' => false,
+                      )),
+                      2 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyRelation::__set_state(array(
+                         'name' => 'Certificate3',
+                         'title' => 'Certificate 3',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => true,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                        ),
+                         'displayMode' => NULL,
+                         'pathFormatterClass' => 'AppBundle\\Formatter\\AssetFormatter',
+                         'maxItems' => 20,
+                         'assetInlineDownloadAllowed' => false,
+                         'assetUploadPath' => '',
+                         'allowToClearRelation' => true,
+                         'objectsAllowed' => false,
+                         'assetsAllowed' => true,
+                         'assetTypes' => 
+                        array (
+                          0 => 
+                          array (
+                            'assetTypes' => 'image',
+                          ),
+                          1 => 
+                          array (
+                            'assetTypes' => 'document',
+                          ),
+                          2 => 
+                          array (
+                            'assetTypes' => 'video',
+                          ),
+                        ),
+                         'documentsAllowed' => false,
+                         'documentTypes' => 
+                        array (
+                        ),
+                         'enableTextSelection' => false,
+                         'width' => '',
+                         'height' => NULL,
+                         'columns' => 
+                        array (
+                          0 => 
+                          array (
+                            'type' => 'text',
+                            'position' => 1,
+                            'key' => 'DrawingNumber',
+                            'label' => 'Drawing Number',
+                          ),
+                          1 => 
+                          array (
+                            'type' => 'number',
+                            'position' => 2,
+                            'key' => 'DrawingRevisionNumber',
+                            'label' => 'Drawing Revision number',
+                          ),
+                          2 => 
+                          array (
+                            'type' => 'text',
+                            'position' => 3,
+                            'key' => 'DrawingRevisionDate',
+                            'label' => 'Drawing Revision Date',
+                            'width' => NULL,
+                          ),
+                          3 => 
+                          array (
+                            'type' => 'bool',
+                            'position' => 4,
+                            'key' => 'CertificationDocument',
+                            'label' => 'Certification Document',
+                          ),
+                        ),
+                         'columnKeys' => 
+                        array (
+                          0 => 'DrawingNumber',
+                          1 => 'DrawingRevisionNumber',
+                          2 => 'DrawingRevisionDate',
+                          3 => 'CertificationDocument',
+                        ),
+                         'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\ElementMetadata[]',
+                         'optimizedAdminLoading' => false,
+                         'enableBatchEdit' => false,
+                         'allowMultipleAssignments' => false,
+                      )),
+                    ),
+                     'locked' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'fieldtype' => 'panel',
+                     'layout' => NULL,
+                     'border' => false,
+                     'icon' => '',
+                     'labelWidth' => 100,
+                     'labelAlign' => 'left',
+                  )),
                 ),
                  'locked' => false,
                  'blockedVarsForExport' => 
@@ -6048,7 +6274,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelAlign' => 'left',
           )),
           4 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Pricing Data',
              'type' => NULL,
              'region' => NULL,
@@ -6062,7 +6288,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'children' => 
             array (
               0 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Table::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Data\Table::__set_state(array(
                  'name' => 'priceData',
                  'title' => 'Price Data',
                  'tooltip' => '',
@@ -6160,7 +6386,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelAlign' => 'left',
           )),
           5 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Completeness',
              'type' => NULL,
              'region' => NULL,
@@ -6174,7 +6400,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'children' => 
             array (
               0 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                  'name' => 'localizedfields',
                  'title' => '',
                  'tooltip' => '',
@@ -6195,7 +6421,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'CompletenessPercentage',
                      'title' => 'Completeness Percentage',
                      'tooltip' => '',
@@ -6225,7 +6451,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   1 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                      'name' => 'EmptyFields',
                      'title' => 'Empty Fields',
                      'tooltip' => '',
@@ -6332,6 +6558,42 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
+    0 => 
+    Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+       'name' => 'Color_localized',
+       'title' => 'Color',
+       'tooltip' => '',
+       'mandatory' => false,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => false,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'options' => 
+      array (
+        0 => 
+        array (
+          'key' => 'Red',
+          'value' => 15323129,
+        ),
+      ),
+       'defaultValue' => '1',
+       'columnLength' => 100,
+       'dynamicOptions' => false,
+       'defaultValueGenerator' => '',
+       'width' => 250,
+       'optionsProviderType' => 'class',
+       'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
+       'optionsProviderData' => 'PTGEUColor|color',
+    )),
   ),
    'blockedVarsForExport' => 
   array (

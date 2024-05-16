@@ -172,6 +172,12 @@ parameters:
         B2B_BoltHoleSizemm__c: B2B_BoltHoleSizemm__c
         B2B_ClampingDiameterinDecimal__c: B2B_ClampingDiameterinDecimal__c
         B2B_ClamingDiametermm__c: B2B_ClamingDiametermm__c
+        B2B_Rohs__c: B2B_Rohs__c
+        B2B_Performance__c: B2B_Performance__c
+        B2B_Belt_Type__c: B2B_Belt_Type__c
+        B2B_Match_Maker_L_L__c: B2B_Match_Maker_L_L__c
+        B2B_Quality__c: B2B_Quality__c
+        B2B_Reach__c: B2B_Reach__c
     Category: 
         Id: Id
         Description: Description
@@ -179,3 +185,4 @@ parameters:
         Language: Language
         Name: 'Name'
         ParentId: ParentId
+        Category.B2B_External_Id__c: Category.B2B_External_Id__c

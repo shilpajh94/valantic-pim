@@ -283,13 +283,13 @@ parameters:
                 objectBrickType: fert
                 objectBrickName: PTGEUFlatBeltsFert
                 defaultColumn: true
-            Color: 
-                columnName: Color
-                columnLabel: Color
+            color: 
+                columnName: color
+                columnLabel: color
                 fieldLevel: class
                 objectLevel: base
                 fieldType: Input
-                groupName: Color
+                groupName: color
             ribs:
                 columnName: ribs
                 columnLabel: ribs

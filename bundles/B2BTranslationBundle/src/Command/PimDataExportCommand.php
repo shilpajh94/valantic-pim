@@ -21,9 +21,12 @@ class PimDataExportCommand extends AbstractCommand
     {
         $this->setName('contitech:b2b:pim-data-export-command')
             ->setDescription('Create and send translation csv to ftp')
-            ->addArgument('optionForBusinessUnit', InputArgument::REQUIRED,
-            "Enter 'IFS_PTG_US' for 'IFS/PTG US', 'CS' for 'Conveyor Solution',
-            'PTG_EU' for 'PTG EU' and 'IFS_EMEA' for 'IFS EMEA'");
+            ->addArgument(
+                'optionForBusinessUnit',
+                InputArgument::REQUIRED,
+                "Enter 'IFS_PTG_US' for 'IFS/PTG US', 'CS' for 'Conveyor Solution',
+            'PTG_EU' for 'PTG EU' and 'IFS_EMEA' for 'IFS EMEA'"
+            );
     }
 
     public function __construct(ContainerInterface $container)
@@ -36,42 +39,40 @@ class PimDataExportCommand extends AbstractCommand
     {
         $this->helper = new PimDataExportHelper($this->container);
 
-        echo $msg = "Script execution started.".PHP_EOL.PHP_EOL;
+        echo $msg = "Script execution started." . PHP_EOL . PHP_EOL;
         $this->helper->logMessage($msg, LogLevel::INFO());
 
         $optionForBusinessUnit = $input->getArgument('optionForBusinessUnit');
-        if(in_array($optionForBusinessUnit,$this->businessUnits))
-        {
+        if (in_array($optionForBusinessUnit, $this->businessUnits)) {
             $this->bu = $optionForBusinessUnit;
             $this->exportDataForB2BShop();
-        }
-        else{
-            echo "Invalid Business Unit Option.".PHP_EOL;
+        } else {
+            echo "Invalid Business Unit Option." . PHP_EOL;
         }
 
         echo PHP_EOL;
-        echo $msg = "Script execution stopped.".PHP_EOL;
+        echo $msg = "Script execution stopped." . PHP_EOL;
         $this->helper->logMessage($msg, LogLevel::INFO());
         return 1;
     }
 
     private function exportDataForB2BShop()
     {
-        echo $msg = "{$this->bu}: Product categories translation data export started.".PHP_EOL;
+        echo $msg = "{$this->bu}: Product categories translation data export started." . PHP_EOL;
         $this->helper->logMessage($msg, LogLevel::INFO());
         $executor = new IFSPTG\CategoryDataExport($this->bu, $this->container);
         $executor->exportData();
         $executor->uploadFile();
-        echo $msg = "{$this->bu}: Product categories translation data export stopped.".PHP_EOL;
+        echo $msg = "{$this->bu}: Product categories translation data export stopped." . PHP_EOL;
         $this->helper->logMessage($msg, LogLevel::INFO());
         echo PHP_EOL;
 
-        echo $msg = "{$this->bu}: Products translation data export started.".PHP_EOL;
+        echo $msg = "{$this->bu}: Products translation data export started." . PHP_EOL;
         $this->helper->logMessage($msg, LogLevel::INFO());
         $executor = new IFSPTG\ProductDataExport($this->bu, $this->container);
         $executor->exportData();
         $executor->uploadFile();
-        echo $msg = "{$this->bu}: Products translation data export stopped.".PHP_EOL.PHP_EOL;
+        echo $msg = "{$this->bu}: Products translation data export stopped." . PHP_EOL . PHP_EOL;
         $this->helper->logMessage($msg, LogLevel::INFO());
         echo PHP_EOL;
     }

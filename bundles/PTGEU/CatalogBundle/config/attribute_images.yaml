@@ -17,7 +17,7 @@ parameters:
     'toothHeightHt': '/Contitech_PTGEU/CatalogImages/Icons/toothHeightHt.png'
     'toothWidth': '/Contitech_PTGEU/CatalogImages/Icons/toothWidth.png'
     'numberOfTeethZ': '/Contitech_PTGEU/CatalogImages/Icons/numberOfTeethZ.png'
-    'Color': '/Contitech_PTGEU/CatalogImages/Icons/Color.png'
+    'color': '/Contitech_PTGEU/CatalogImages/Icons/Color.png'
     'ribs': '/Contitech_PTGEU/CatalogImages/Icons/ribs.png'
     'beltAngle': '/Contitech_PTGEU/CatalogImages/Icons/beltAngle.png'
     'listPrice': '/Contitech_PTGEU/CatalogImages/Icons/listPrice.png'

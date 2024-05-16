@@ -7,7 +7,7 @@ parameters:
         longDescription: Description
         IsActive: IsActive
         beltAngle: B2B_BeltAngle__c
-        Color: B2B_Color__c
+        color: B2B_Color__c
         datumLengthIN: B2B_DatumLengthIn__c
         datumLengthMM: B2B_DatumLengthMm__c
         eanUpc: B2B_EANUPC__c

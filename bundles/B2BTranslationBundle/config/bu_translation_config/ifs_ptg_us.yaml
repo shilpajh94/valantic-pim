@@ -2,87 +2,104 @@ parameters:
     Product:
         articleNumber:
             fieldName: articleNumber
+            sqlQuery: "articleNumber"
             fieldLocation: class
             className: Product
             isLocalized: false
         shortDescription:
             fieldName: shortDescription
+            sqlQuery: "shortDescription"
             fieldLocation: class
             className: Product
             isLocalized: true
         externalID:
             fieldName: externalID
+            sqlQuery: "externalID"
             fieldLocation: class
             className: Product
             isLocalized: false
         SalesForce_ID:
             fieldName: SalesForce_ID
+            sqlQuery: "SalesForce_ID"
             fieldLocation: class
             className: Product
             isLocalized: false
         industryStandard:
             fieldName: industryStandard
+            sqlQuery: "industryStandard"
             fieldLocation: class
             className: Product
             isLocalized: false
         eanUpc:
             fieldName: eanUpc
+            sqlQuery: "eanUpc"
             fieldLocation: class
             className: Product
             isLocalized: false
         legalText:
             fieldName: legalText
+            sqlQuery: "legalText"
             fieldLocation: class
             className: Product
             isLocalized: true
         BrandShortText1:
             fieldName: BrandShortText1
+            sqlQuery: "BrandShortText1"
             fieldLocation: class
             className: Product
             isLocalized: true
         BrandShortText2:
             fieldName: BrandShortText2
+            sqlQuery: "BrandShortText2"
             fieldLocation: class
             className: Product
             isLocalized: true
         BrandShortText3:
             fieldName: BrandShortText3
+            sqlQuery: "BrandShortText3"
             fieldLocation: class
             className: Product
             isLocalized: true
         BrandShortText4:
             fieldName: BrandShortText4
+            sqlQuery: "BrandShortText4"
             fieldLocation: class
             className: Product
             isLocalized: true
         BrandShortText5:
             fieldName: BrandShortText5
+            sqlQuery: "BrandShortText5"
             fieldLocation: class
             className: Product
             isLocalized: true
         longDescription:
             fieldName: longDescription
+            sqlQuery: "longDescription"
             fieldLocation: class
             className: Product
             isLocalized: true
         sapDescription:
             fieldName: sapDescription
+            sqlQuery: "sapDescription"
             fieldLocation: class
             className: Product
             isLocalized: true
         productShortDescription:
             fieldName: productShortDescription
+            sqlQuery: "productShortDescription"
             fieldLocation: class
             className: Product
             isLocalized: true    
         reinforcement:
             fieldName: reinforcement
+            sqlQuery: "reinforcement"
             fieldLocation: class
             className: MultiselectMaster
             masterType: ProductClass~reinforcement
             isLocalized: true
         tubeMaterial:
             fieldName: tubeMaterial
+            sqlQuery: "tubeMaterial"
             fieldLocation: objectbrick
             className: MultiselectMaster
             objectBrickClassName: HoseBase
@@ -90,6 +107,7 @@ parameters:
             isLocalized: true
         coverMaterial:
             fieldName: coverMaterial
+            sqlQuery: "coverMaterial"
             fieldLocation: objectbrick
             className: MultiselectMaster
             objectBrickClassName: HoseBase
@@ -97,6 +115,7 @@ parameters:
             isLocalized: true
         MaterialType:
             fieldName: MaterialType
+            sqlQuery: "MaterialType"
             fieldLocation: objectbrick
             className: MultiselectMaster
             objectBrickClassName: AccessoriesFert
@@ -104,6 +123,7 @@ parameters:
             isLocalized: true
         Color:
             fieldName: Color
+            sqlQuery: "Color"
             fieldLocation: objectbrick
             className: MultiselectMaster
             objectBrickClassName: AccessoriesFert
@@ -111,6 +131,7 @@ parameters:
             isLocalized: true
         material:
             fieldName: material
+            sqlQuery: "material"
             fieldLocation: objectbrick
             className: MultiselectMaster
             objectBrickClassName: PTGBase
@@ -118,281 +139,329 @@ parameters:
             isLocalized: true
         # HydFittingFamily:
         #     fieldName: HydFittingFamily
+        #     sqlQuery: "HydFittingFamily"
         #     fieldLocation: objectbrick
         #     className: FittingFamily
         #     objectBrickClassName: HydFittingsFert
         #     isLocalized: true
         # FittingEndFamilyType:
         #     fieldName: FittingEndFamilyType
+        #     sqlQuery: "FittingEndFamilyType"
         #     fieldLocation: objectbrick
         #     className: FittingEndFamilyType
         #     objectBrickClassName: HydFittingsFert
         #     isLocalized: true
         # FeaturesBenefitsBulletPoint:
         #     fieldName: FeaturesBenefitsBulletPoint
+        #     sqlQuery: "FeaturesBenefitsBulletPoint"
         #     fieldLocation: class
         #     className: Product
         #     isLocalized: true
         webDiscription:
             fieldName: webDiscription
+            sqlQuery: "webDiscription"
             fieldLocation: class
             className: Product
             isLocalized: false
         baseUOM:
             fieldName: baseUOM
+            sqlQuery: "baseUOM"
             fieldLocation: class
             className: Product
             isLocalized: false
         proposition65WarningAttributesRequired:
             fieldName: proposition65WarningAttributesRequired
+            sqlQuery: "proposition65WarningAttributesRequired"
             fieldLocation: class
             className: Product
             isLocalized: false
         BoltHoleSizeInFract:
             className: ''
             fieldName: BoltHoleSizeInFract
+            sqlQuery: "BoltHoleSizeInFract"
             fieldLocation: objectbrick
             objectBrickClassName: AccessoriesFert
             isLocalized: false
         ClampingDiameterInFract:
             className: ''
             fieldName: ClampingDiameterInFract
+            sqlQuery: "ClampingDiameterInFract"
             fieldLocation: objectbrick
             objectBrickClassName: AccessoriesFert
             isLocalized: false
         DescriptivePartNumber:
             className: ''
             fieldName: DescriptivePartNumber
+            sqlQuery: "DescriptivePartNumber"
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false
         FlangeIDInFract:
             className: ''
             fieldName: FlangeIDInFract
+            sqlQuery: "FlangeIDInFract"
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false
         HoseID1InFract:
             className: ''
             fieldName: HoseID1InFract
+            sqlQuery: "HoseID1InFract"
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false
         OringMaterial:
             className: ''
             fieldName: OringMaterial
+            sqlQuery: "OringMaterial"
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false
         swivel:
             className: ''
             fieldName: swivel
+            sqlQuery: "swivel"
             fieldLocation: relational
             objectBrickClassName: HydFittingsFert
             isLocalized: false
         ThreadDashSize1:
             className: ''
             fieldName: ThreadDashSize1
+            sqlQuery: "ThreadDashSize1"
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false
         hoseDashSize:
             className: ''
             fieldName: hoseDashSize
+            sqlQuery: "hoseDashSize"
             fieldLocation: objectbrick
             objectBrickClassName: HoseSkeleton
             isLocalized: false
         DashSize:
             className: ''
             fieldName: DashSize
+            sqlQuery: "DashSize"
             fieldLocation: objectbrick
             objectBrickClassName: AccessoriesFert
             isLocalized: false
         HoseIDNominalIDFrac:
             className: ''
             fieldName: HoseIDNominalIDFrac
+            sqlQuery: "HoseIDNominalIDFrac"
             fieldLocation: objectbrick
             objectBrickClassName: HoseSkeleton
             isLocalized: false
         bendRestrictorType:
             className: ''
             fieldName: bendRestrictorType
+            sqlQuery: "bendRestrictorType"
             fieldLocation: objectbrick
             objectBrickClassName: HoseFert
             isLocalized: false
         descriptive:
             className: ''
             fieldName: descriptive
+            sqlQuery: "descriptive"
             fieldLocation: objectbrick
             objectBrickClassName: HoseFert
             isLocalized: false
         fitting1Material:
             className: ''
             fieldName: fitting1Material
+            sqlQuery: "fitting1Material"
             fieldLocation: objectbrick
             objectBrickClassName: HoseFert
             isLocalized: false
         fitting1Size:
             className: ''
             fieldName: fitting1Size
+            sqlQuery: "fitting1Size"
             fieldLocation: objectbrick
             objectBrickClassName: HoseFert
             isLocalized: false
         fitting1Type:
             className: ''
             fieldName: fitting1Type
+            sqlQuery: "fitting1Type"
             fieldLocation: objectbrick
             objectBrickClassName: HoseFert
             isLocalized: false
         fitting2Material:
             className: ''
             fieldName: fitting2Material
+            sqlQuery: "fitting2Material"
             fieldLocation: objectbrick
             objectBrickClassName: HoseFert
             isLocalized: false
         fitting2Size:
             className: ''
             fieldName: fitting2Size
+            sqlQuery: "fitting2Size"
             fieldLocation: objectbrick
             objectBrickClassName: HoseFert
             isLocalized: false
         fitting2Type:
             className: ''
             fieldName: fitting2Type
+            sqlQuery: "fitting2Type"
             fieldLocation: objectbrick
             objectBrickClassName: HoseFert
             isLocalized: false
         effectiveLengthUOM:
             className: ''
             fieldName: effectiveLengthUOM
+            sqlQuery: "effectiveLengthUOM"
             fieldLocation: objectbrick
             objectBrickClassName: BeltsFert
             isLocalized: false
         oldMaterialCode:
             fieldName: oldMaterialCode
+            sqlQuery: "oldMaterialCode"
             fieldLocation: class
             className: Product
             isLocalized: false 
         brandName:
             fieldName: brandName
+            sqlQuery: "brandName"
             fieldLocation: class
             className: Product
             isLocalized: false 
         californiaProposition65ChemicalName1:        
             fieldName: californiaProposition65ChemicalName1
+            sqlQuery: "californiaProposition65ChemicalName1"
             fieldLocation: class
             className: Product
             isLocalized: false 
         totalWeight:
             className: ''
             fieldName: totalWeight
+            sqlQuery: "totalWeight"
             fieldLocation: objectbrick
             objectBrickClassName: HoseFert
             isLocalized: false 
         totalWeightPerPackage:
             className: ''
             fieldName: totalWeightPerPackage
+            sqlQuery: "totalWeightPerPackage"
             fieldLocation: objectbrick
             objectBrickClassName: HoseFert
             isLocalized: false 
         BoltHoleSizeInDec:
             className: ''
             fieldName: BoltHoleSizeInDec
+            sqlQuery: "BoltHoleSizeInDec"
             fieldLocation: objectbrick
             objectBrickClassName: AccessoriesFert
             isLocalized: false 
         BoltHoleSizeMM:
             className: ''
             fieldName: BoltHoleSizeMM
+            sqlQuery: "BoltHoleSizeMM"
             fieldLocation: objectbrick
             objectBrickClassName: AccessoriesFert
             isLocalized: false 
         ClampingDiameterInDec:
             className: ''
             fieldName: ClampingDiameterInDec
+            sqlQuery: "ClampingDiameterInDec"
             fieldLocation: objectbrick
             objectBrickClassName: AccessoriesFert
             isLocalized: false 
         ClampingDiameterMM:
             className: ''
             fieldName: ClampingDiameterMM
+            sqlQuery: "ClampingDiameterMM"
             fieldLocation: objectbrick
             objectBrickClassName: AccessoriesFert
             isLocalized: false 
         FlatWidthIn:
             className: ''
             fieldName: FlatWidthIn
+            sqlQuery: "FlatWidthIn"
             fieldLocation: objectbrick
             objectBrickClassName: AccessoriesFert
             isLocalized: false 
         HoseIdDecIN:
             className: ''
             fieldName: HoseIdDecIN
+            sqlQuery: "HoseIdDecIN"
             fieldLocation: objectbrick
             objectBrickClassName: AccessoriesFert
             isLocalized: false 
         OringIdInDec:
             className: ''
             fieldName: OringIdInDec
+            sqlQuery: "OringIdInDec"
             fieldLocation: objectbrick
             objectBrickClassName: AccessoriesFert
             isLocalized: false 
         OringIdMM:
             className: ''
             fieldName: OringIdMM
+            sqlQuery: "OringIdMM"
             fieldLocation: objectbrick
             objectBrickClassName: AccessoriesFert
             isLocalized: false 
         OringThicknessMM:
             className: ''
             fieldName: OringThicknessMM
+            sqlQuery: "OringThicknessMM"
             fieldLocation: objectbrick
             objectBrickClassName: AccessoriesFert
             isLocalized: false 
         OringThicknessInDec:
             className: ''
             fieldName: OringThicknessInDec
+            sqlQuery: "OringThicknessInDec"
             fieldLocation: objectbrick
             objectBrickClassName: AccessoriesFert
             isLocalized: false 
         Width:
             className: ''
             fieldName: Width
+            sqlQuery: "Width"
             fieldLocation: objectbrick
             objectBrickClassName: AccessoriesFert
             isLocalized: false 
         CutOffLengthIN:
             className: ''
             fieldName: CutOffLengthIN
+            sqlQuery: "CutOffLengthIN"
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false 
         CutOffLengthMM:
             className: ''
             fieldName: CutOffLengthMM
+            sqlQuery: "CutOffLengthMM"
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false 
         DropLengthIN:
             className: ''
             fieldName: DropLengthIN
+            sqlQuery: "DropLengthIN"
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false 
         DropLengthMM:
             className: ''
             fieldName: DropLengthMM
+            sqlQuery: "DropLengthMM"
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false 
         elbowType:
             fieldName: elbowType
+            sqlQuery: "elbowType"
             fieldLocation: relational
             className: 
             objectBrickClassName: HydFittingsFert
             isLocalized: false
         FittingFamily:
             fieldName: FittingFamily
+            sqlQuery: "FittingFamily"
             fieldLocation: relational
             className: 
             objectBrickClassName: HydFittingsFert
@@ -400,29 +469,34 @@ parameters:
         PackagingQuantityPerBox:
             className: ''
             fieldName: PackagingQuantityPerBox
+            sqlQuery: "PackagingQuantityPerBox"
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false 
         FittingWeight:
             className: ''
             fieldName: FittingWeight
+            sqlQuery: "FittingWeight"
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false 
         FlangeODInDec:
             className: ''
             fieldName: FlangeODInDec
+            sqlQuery: "FlangeODInDec"
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false 
         FlangeODMM:
             className: ''
             fieldName: FlangeODMM
+            sqlQuery: "FlangeODMM"
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false 
         gender1:
             fieldName: gender1
+            sqlQuery: "gender1"
             fieldLocation: relational
             className: 
             objectBrickClassName: HydFittingsFert
@@ -430,59 +504,69 @@ parameters:
         Hex1WrenchSizeIN:
             className: ''
             fieldName: Hex1WrenchSizeIN
+            sqlQuery: "Hex1WrenchSizeIN"
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false 
         Hex1WrenchSizeMM:
             className: ''
             fieldName: Hex1WrenchSizeMM
+            sqlQuery: "Hex1WrenchSizeMM"
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false 
         Hex2WrenchSizeIN:
             className: ''
             fieldName: Hex2WrenchSizeIN
+            sqlQuery: "Hex2WrenchSizeIN"
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false 
         Hex2WrenchSizeMM:
             className: ''
             fieldName: Hex2WrenchSizeMM
+            sqlQuery: "Hex2WrenchSizeMM"
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false 
         InsertionDepthIN:
             className: ''
             fieldName: InsertionDepthIN
+            sqlQuery: "InsertionDepthIN"
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false 
         AssemblyMaterial:
             className: ''
             fieldName: AssemblyMaterial
+            sqlQuery: "AssemblyMaterial"
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false 
         OverallLengthIN:
             className: ''
             fieldName: OverallLengthIN
+            sqlQuery: "OverallLengthIN"
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false 
         OverallLengthMm:
             className: ''
             fieldName: OverallLengthMm
+            sqlQuery: "OverallLengthMm"
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false 
         ThreadSize1InMMDecimal:
             className: ''
             fieldName: ThreadSize1InMMDecimal
+            sqlQuery: "ThreadSize1InMMDecimal"
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false 
         Thread:
             fieldName: Thread
+            sqlQuery: "Thread"
             fieldLocation: relational
             className: 
             objectBrickClassName: HydFittingsFert
@@ -490,51 +574,60 @@ parameters:
         TubeODInDec:
             className: ''
             fieldName: TubeODInDec
+            sqlQuery: "TubeODInDec"
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false 
         TubeODMM:
             className: ''
             fieldName: TubeODMM
+            sqlQuery: "TubeODMM"
             fieldLocation: objectbrick
             objectBrickClassName: HydFittingsFert
             isLocalized: false 
         weightKg:
             fieldName: weightKg
+            sqlQuery: "weightKg"
             fieldLocation: class
             className: Product
             isLocalized: false 
         WeightLbsPerFTUOM:
             fieldName: WeightLbsPerFTUOM
+            sqlQuery: "WeightLbsPerFTUOM"
             fieldLocation: class
             className: Product
             isLocalized: false 
         hoseOdin:
             className: ''
             fieldName: hoseOdin
+            sqlQuery: "hoseOdin"
             fieldLocation: objectbrick
             objectBrickClassName: HoseSkeleton
             isLocalized: false 
         hoseOdmm:
             className: ''
             fieldName: hoseOdmm
+            sqlQuery: "hoseOdmm"
             fieldLocation: objectbrick
             objectBrickClassName: HoseSkeleton
             isLocalized: false 
         workingPressureBAR:
             className: ''
             fieldName: workingPressureBAR
+            sqlQuery: "workingPressureBAR"
             fieldLocation: objectbrick
             objectBrickClassName: HoseSkeleton
             isLocalized: false 
         workingPressurePSI:
             className: ''
             fieldName: workingPressurePSI
+            sqlQuery: "workingPressurePSI"
             fieldLocation: objectbrick
             objectBrickClassName: HoseSkeleton
             isLocalized: false 
         tubeColor:
             fieldName: tubeColor
+            sqlQuery: "tubeColor"
             fieldLocation: objectbrick
             className: MultiselectMaster
             objectBrickClassName: HoseBase
@@ -542,6 +635,7 @@ parameters:
             isLocalized: true
         coverColor:
             fieldName: coverColor
+            sqlQuery: "coverColor"
             fieldLocation: objectbrick
             className: MultiselectMaster
             objectBrickClassName: HoseBase
@@ -549,6 +643,7 @@ parameters:
             isLocalized: true
         coverCharacteristic:
             fieldName: coverCharacteristic
+            sqlQuery: "coverCharacteristic"
             fieldLocation: objectbrick
             className: MultiselectMaster
             objectBrickClassName: HoseBase
@@ -557,83 +652,97 @@ parameters:
         hoseLengthFT:
             className: ''
             fieldName: hoseLengthFT
+            sqlQuery: "hoseLengthFT"
             fieldLocation: objectbrick
             objectBrickClassName: HoseFert
             isLocalized: false
         hoseLengthM:
             className: ''
             fieldName: hoseLengthM
+            sqlQuery: "hoseLengthM"
             fieldLocation: objectbrick
             objectBrickClassName: HoseFert
             isLocalized: false
         staticWire:
             className: ''
             fieldName: staticWire
+            sqlQuery: "staticWire"
             fieldLocation: objectbrick
             objectBrickClassName: HoseBase
             isLocalized: false
         assembly:
             className: ''
             fieldName: assembly
+            sqlQuery: "assembly"
             fieldLocation: objectbrick
             objectBrickClassName: HoseFert
             isLocalized: false
         BendRadiusIN:
             className: ''
             fieldName: BendRadiusIN
+            sqlQuery: "BendRadiusIN"
             fieldLocation: objectbrick
             objectBrickClassName: HoseSkeleton
             isLocalized: false
         bendRestrictor:
             className: ''
             fieldName: bendRestrictor
+            sqlQuery: "bendRestrictor"
             fieldLocation: objectbrick
             objectBrickClassName: HoseFert
             isLocalized: false
         BendRadiusMM:
             className: ''
             fieldName: BendRadiusMM
+            sqlQuery: "BendRadiusMM"
             fieldLocation: objectbrick
             objectBrickClassName: HoseSkeleton
             isLocalized: false
         hoseidDec:
             className: ''
             fieldName: hoseidDec
+            sqlQuery: "hoseidDec"
             fieldLocation: objectbrick
             objectBrickClassName: HoseSkeleton
             isLocalized: false
         hoseidmm:
             className: ''
             fieldName: hoseidmm
+            sqlQuery: "hoseidmm"
             fieldLocation: objectbrick
             objectBrickClassName: HoseSkeleton
             isLocalized: false
         minBurstPressureMPA:
             className: ''
             fieldName: minBurstPressureMPA
+            sqlQuery: "minBurstPressureMPA"
             fieldLocation: objectbrick
             objectBrickClassName: HoseSkeleton
             isLocalized: false
         minBurstPressurePSI:
             className: ''
             fieldName: minBurstPressurePSI
+            sqlQuery: "minBurstPressurePSI"
             fieldLocation: objectbrick
             objectBrickClassName: HoseSkeleton
             isLocalized: false
         numberOfHelixWires:
             className: ''
             fieldName: numberOfHelixWires
+            sqlQuery: "numberOfHelixWires"
             fieldLocation: objectbrick
             objectBrickClassName: HoseBase
             isLocalized: false
         numberOfPlies:
             className: ''
             fieldName: numberOfPlies
+            sqlQuery: "numberOfPlies"
             fieldLocation: objectbrick
             objectBrickClassName: HoseBase
             isLocalized: false
         safetyFactor:
             fieldName: safetyFactor
+            sqlQuery: "safetyFactor"
             fieldLocation: objectbrick
             className: MultiselectMaster
             objectBrickClassName: HoseBase
@@ -641,6 +750,7 @@ parameters:
             isLocalized: true
         StandardMetCover:
             fieldName: StandardMetCover
+            sqlQuery: "StandardMetCover"
             fieldLocation: objectbrick
             className: MultiselectMaster
             objectBrickClassName: HoseBase
@@ -648,6 +758,7 @@ parameters:
             isLocalized: true
         standardMetHose:
             fieldName: standardMetHose
+            sqlQuery: "standardMetHose"
             fieldLocation: objectbrick
             className: MultiselectMaster
             objectBrickClassName: HoseBase
@@ -655,6 +766,7 @@ parameters:
             isLocalized: true
         StandardMetTube:
             fieldName: StandardMetTube
+            sqlQuery: "StandardMetTube"
             fieldLocation: objectbrick
             className: MultiselectMaster
             objectBrickClassName: HoseBase
@@ -662,6 +774,7 @@ parameters:
             isLocalized: true
         tubeCharacteristic:
             fieldName: tubeCharacteristic
+            sqlQuery: "tubeCharacteristic"
             fieldLocation: objectbrick
             className: MultiselectMaster
             objectBrickClassName: HoseBase
@@ -670,414 +783,485 @@ parameters:
         tubeGaugeIN:
             className: ''
             fieldName: tubeGaugeIN
+            sqlQuery: "tubeGaugeIN"
             fieldLocation: objectbrick
             objectBrickClassName: HoseSkeleton
             isLocalized: false
         tubeGaugeMM:
             className: ''
             fieldName: tubeGaugeMM
+            sqlQuery: "tubeGaugeMM"
             fieldLocation: objectbrick
             objectBrickClassName: HoseSkeleton
             isLocalized: false
         VacuumIN:
             className: ''
             fieldName: VacuumIN
+            sqlQuery: "VacuumIN"
             fieldLocation: objectbrick
             objectBrickClassName: HoseSkeleton
             isLocalized: false
         VacuumMM:
             className: ''
             fieldName: VacuumMM
+            sqlQuery: "VacuumMM"
             fieldLocation: objectbrick
             objectBrickClassName: HoseSkeleton
             isLocalized: false
         maximumTemperatureC:
             fieldName: maximumTemperatureC
+            sqlQuery: "maximumTemperatureC"
             fieldLocation: class
             className: Product
             isLocalized: false
         maximumTemperatureF:
             fieldName: maximumTemperatureF
+            sqlQuery: "maximumTemperatureF"
             fieldLocation: class
             className: Product
             isLocalized: false
         minimumTemperatureC:
             fieldName: minimumTemperatureC
+            sqlQuery: "minimumTemperatureC"
             fieldLocation: class
             className: Product
             isLocalized: false
         minimumTemperatureF:
             fieldName: minimumTemperatureF
+            sqlQuery: "minimumTemperatureF"
             fieldLocation: class
             className: Product
             isLocalized: false
         heightIn:
             className: ''
             fieldName: heightIn
+            sqlQuery: "heightIn"
             fieldLocation: objectbrick
             objectBrickClassName: PTGSkeleton
             isLocalized: false
         heightMm:
             className: ''
             fieldName: heightMm
+            sqlQuery: "heightMm"
             fieldLocation: objectbrick
             objectBrickClassName: PTGSkeleton
             isLocalized: false
         profile:
             className: ''
             fieldName: profile
+            sqlQuery: "profile"
             fieldLocation: objectbrick
             objectBrickClassName: PTGSkeleton
             isLocalized: false
         widthIn:
             className: ''
             fieldName: widthIn
+            sqlQuery: "widthIn"
             fieldLocation: objectbrick
             objectBrickClassName: PTGFert
             isLocalized: false
         widthmm:
             className: ''
             fieldName: widthmm
+            sqlQuery: "widthmm"
             fieldLocation: objectbrick
             objectBrickClassName: PTGFert
             isLocalized: false
         beltAngle:
             className: ''
             fieldName: beltAngle
+            sqlQuery: "beltAngle"
             fieldLocation: objectbrick
             objectBrickClassName: PTGSkeleton
             isLocalized: false
         datumLengthIn:
             className: ''
             fieldName: datumLengthIn
+            sqlQuery: "datumLengthIn"
             fieldLocation: objectbrick
             objectBrickClassName: BeltsFert
             isLocalized: false
         datumLengtMM:
             className: ''
             fieldName: datumLengtMM
+            sqlQuery: "datumLengtMM"
             fieldLocation: objectbrick
             objectBrickClassName: BeltsFert
             isLocalized: false
         heatOilResistant:
             className: ''
             fieldName: heatOilResistant
+            sqlQuery: "heatOilResistant"
             fieldLocation: objectbrick
             objectBrickClassName: PTGSkeleton
             isLocalized: false
         insideLengthIN:
             className: ''
             fieldName: insideLengthIN
+            sqlQuery: "insideLengthIN"
             fieldLocation: objectbrick
             objectBrickClassName: BeltsFert
             isLocalized: false
         insideLengthMM:
             className: ''
             fieldName: insideLengthMM
+            sqlQuery: "insideLengthMM"
             fieldLocation: objectbrick
             objectBrickClassName: BeltsFert
             isLocalized: false
         numberOfBands:
             className: ''
             fieldName: numberOfBands
+            sqlQuery: "numberOfBands"
             fieldLocation: objectbrick
             objectBrickClassName: BeltsFert
             isLocalized: false
         outsideLengthIN:
             className: ''
             fieldName: outsideLengthIN
+            sqlQuery: "outsideLengthIN"
             fieldLocation: objectbrick
             objectBrickClassName: BeltsFert
             isLocalized: false
         outsideLengtMM:
             className: ''
             fieldName: outsideLengtMM
+            sqlQuery: "outsideLengtMM"
             fieldLocation: objectbrick
             objectBrickClassName: BeltsFert
             isLocalized: false
         productEffectiveLengthIN:
             className: ''
             fieldName: productEffectiveLengthIN
+            sqlQuery: "productEffectiveLengthIN"
             fieldLocation: objectbrick
             objectBrickClassName: BeltsFert
             isLocalized: false
         productEffectiveLengthMM:
             className: ''
             fieldName: productEffectiveLengthMM
+            sqlQuery: "productEffectiveLengthMM"
             fieldLocation: objectbrick
             objectBrickClassName: BeltsFert
             isLocalized: false
         staticConductive:
             className: ''
             fieldName: staticConductive
+            sqlQuery: "staticConductive"
             fieldLocation: objectbrick
             objectBrickClassName: PTGSkeleton
             isLocalized: false
         boreType:
             className: ''
             fieldName: boreType
+            sqlQuery: "boreType"
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         faceWidthIn:
             className: ''
             fieldName: faceWidthIn
+            sqlQuery: "faceWidthIn"
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         faceWidthMm:
             className: ''
             fieldName: faceWidthMm
+            sqlQuery: "faceWidthMm"
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         finish:
             className: ''
             fieldName: finish
+            sqlQuery: "finish"
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         flange:
             className: ''
             fieldName: flange
+            sqlQuery: "flange"
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         flangeDiameterIn:
             className: ''
             fieldName: flangeDiameterIn
+            sqlQuery: "flangeDiameterIn"
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         flangeDiameterMm:
             className: ''
             fieldName: flangeDiameterMm
+            sqlQuery: "flangeDiameterMm"
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         flangeMaterial:
             className: ''
             fieldName: flangeMaterial
+            sqlQuery: "flangeMaterial"
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         beltType:
             className: ''
             fieldName: beltType
+            sqlQuery: "beltType"
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         beltWidth:
             className: ''
             fieldName: beltWidth
+            sqlQuery: "beltWidth"
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         beltWidthUOM:
             className: ''
             fieldName: beltWidthUOM
+            sqlQuery: "beltWidthUOM"
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         hubDiameterIn:
             className: ''
             fieldName: hubDiameterIn
+            sqlQuery: "hubDiameterIn"
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         hubDiameterMm:
             className: ''
             fieldName: hubDiameterMm
+            sqlQuery: "hubDiameterMm"
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         insideDiameterIn:
             className: ''
             fieldName: insideDiameterIn
+            sqlQuery: "insideDiameterIn"
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         insideDiameterMm:
             className: ''
             fieldName: insideDiameterMm
+            sqlQuery: "insideDiameterMm"
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         maxBoreSizeIN:
             className: ''
             fieldName: maxBoreSizeIN
+            sqlQuery: "maxBoreSizeIN"
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         maxBoreSizeMM:
             className: ''
             fieldName: maxBoreSizeMM
+            sqlQuery: "maxBoreSizeMM"
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         minBoreIn:
             className: ''
             fieldName: minBoreIn
+            sqlQuery: "minBoreIn"
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         pitchUOM:
             className: ''
             fieldName: pitchUOM
+            sqlQuery: "pitchUOM"
             fieldLocation: objectbrick
             objectBrickClassName: SynchronousFert
             isLocalized: false
         minBoreMm:
             className: ''
             fieldName: minBoreMm
+            sqlQuery: "minBoreMm"
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         outsideDiameterIn:
             className: ''
             fieldName: outsideDiameterIn
+            sqlQuery: "outsideDiameterIn"
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         outsideDiameterMm:
             className: ''
             fieldName: outsideDiameterMm
+            sqlQuery: "outsideDiameterMm"
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         MetalFert_OverallLengthIN:
             className: ''
             fieldName: OverallLengthIN
+            sqlQuery: "OverallLengthIN"
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         MetalFert_overAllLengthMm:
             className: ''
             fieldName: overAllLengthMm
+            sqlQuery: "overAllLengthMm"
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         overallThicknessIn:
             className: ''
             fieldName: overallThicknessIn
+            sqlQuery: "overallThicknessIn"
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         overallThicknessMM:
             className: ''
             fieldName: overallThicknessMM
+            sqlQuery: "overallThicknessMM"
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         pitchDiameterIn:
             className: ''
             fieldName: pitchDiameterIn
+            sqlQuery: "pitchDiameterIn"
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         pitchDiameterMm:
             className: ''
             fieldName: pitchDiameterMm
+            sqlQuery: "pitchDiameterMm"
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         setScrew:
             className: ''
             fieldName: setScrew
+            sqlQuery: "setScrew"
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         stockThicknessIn:
             className: ''
             fieldName: stockThicknessIn
+            sqlQuery: "stockThicknessIn"
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         stockThicknessMm:
             className: ''
             fieldName: stockThicknessMm
+            sqlQuery: "stockThicknessMm"
             fieldLocation: objectbrick
             objectBrickClassName: MetalFert
             isLocalized: false
         numberOfTeeth:
             className: ''
             fieldName: numberOfTeeth
+            sqlQuery: "numberOfTeeth"
             fieldLocation: objectbrick
             objectBrickClassName: SynchronousFert
             isLocalized: false
         pitchIN:
             className: ''
             fieldName: pitchIN
+            sqlQuery: "pitchIN"
             fieldLocation: objectbrick
             objectBrickClassName: SynchronousFert
             isLocalized: false
         pitchMM:
             className: ''
             fieldName: pitchMM
+            sqlQuery: "pitchMM"
             fieldLocation: objectbrick
             objectBrickClassName: SynchronousFert
             isLocalized: false
         pitchLengthIN:
             className: ''
             fieldName: pitchLengthIN
+            sqlQuery: "pitchLengthIN"
             fieldLocation: objectbrick
             objectBrickClassName: SynchronousFert
             isLocalized: false
         pitchLengthMM:
             className: ''
             fieldName: pitchLengthMM
+            sqlQuery: "pitchLengthMM"
             fieldLocation: objectbrick
             objectBrickClassName: SynchronousFert
             isLocalized: false
         pitchLengthUOM:
             className: ''
             fieldName: pitchLengthUOM
+            sqlQuery: "pitchLengthUOM"
             fieldLocation: objectbrick
             objectBrickClassName: SynchronousFert
             isLocalized: false
     Category: 
         parentId:
             fieldName: parentId
+            sqlQuery: "parentId"
             fieldLocation: class
             className: ProductCategory
             isLocalized: false
         externalID:
             fieldName: externalID
+            sqlQuery: "externalID"
             fieldLocation: class
             className: ProductCategory
             isLocalized: false
         SalesForce_ID:
             fieldName: SalesForce_ID
+            sqlQuery: "SalesForce_ID"
             fieldLocation: class
             className: ProductCategory
             isLocalized: false
         # description:
         #     fieldName: description
-        #     fieldLocation: class
+        #     sqlQuery: "description"
+            # fieldLocation: class
         #     className: ProductCategory
         #     isLocalized: true
         PrintedCatalogDescription:
             fieldName: PrintedCatalogDescription
+            sqlQuery: "PrintedCatalogDescription"
             fieldLocation: class
             className: ProductCategory
             isLocalized: true
         longDescription:
             fieldName: longDescription
+            sqlQuery: "longDescription"
             fieldLocation: class
             className: ProductCategory
             isLocalized: true
         SortOrder:
             fieldName: SortOrder
+            sqlQuery: "SortOrder"
             fieldLocation: class
             className: ProductCategory
             isLocalized: false
         ShowInMenu:
             fieldName: ShowInMenu
+            sqlQuery: "ShowInMenu"
             fieldLocation: class
             className: ProductCategory
             isLocalized: false
         image:
             fieldName: image
+            sqlQuery: "image"
             fieldLocation: class
             className: ProductCategory
             isLocalized: false
