@@ -180,7 +180,7 @@ class DefaultController extends FrontendController
             $brandParentObj = DataObject\Brand::getById($brandId);
             $brand = $brandParentObj->getName();
             $longDescription = $firstFertProduct->getlongDescription();
-            $mainImage = $firstFertProduct->getMainImage();
+            $leftImage = $firstFertProduct->getLeftPrintCatalogImage();
             $tubeMaterial = $firstFertProduct->getBase()->getHoseBase()->getVirtualCatalogTubeMaterial();
             $coverMaterial = $firstFertProduct->getBase()->getHoseBase()->getVirtualCatalogCoverMaterial();
             $reinforcement = $firstFertProduct->getVirtualCatalogReinforcement();
@@ -242,7 +242,7 @@ class DefaultController extends FrontendController
                 $featuresArr,
                 $brandingLayline,
                 $siopLevel3Category,
-                $mainImage,
+                $leftImage,
                 $footer_logo_src,
             ];
 
@@ -320,7 +320,7 @@ class DefaultController extends FrontendController
         $brandParentObj = DataObject\Brand::getById($brandId);
         $brand = $brandParentObj->getName();
         $longDescription = $firstFertProduct->getlongDescription();
-        $mainImage = $firstFertProduct->getMainImage();
+        $leftImage = $firstFertProduct->getLeftPrintCatalogImage();
         $tubeMaterial = $firstFertProduct->getBase()->getHoseBase()->getVirtualCatalogTubeMaterial();
         $coverMaterial = $firstFertProduct->getBase()->getHoseBase()->getVirtualCatalogCoverMaterial();
         $reinforcement = $firstFertProduct->getVirtualCatalogReinforcement();
@@ -385,7 +385,7 @@ class DefaultController extends FrontendController
             $featuresArr,
             $brandingLayline,
             $siopLevel3Category,
-            $mainImage,
+            $leftImage,
             $footer_logo_src
         ];
 

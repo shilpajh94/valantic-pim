@@ -46,4 +46,5 @@ return [
     \Pimcore\Bundle\XliffBundle\PimcoreXliffBundle::class => ['all' => true],
     \Pimcore\Bundle\FileExplorerBundle\PimcoreFileExplorerBundle::class => ['all' => true],
     \Pimcore\Bundle\SystemInfoBundle\PimcoreSystemInfoBundle::class => ['all' => true],
+    \SSOIntegrationBundle\SSOIntegrationBundle::class => ['all' => true],
 ];

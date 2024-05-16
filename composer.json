@@ -30,6 +30,7 @@
     "pimcore/system-info-bundle": "^1.0",
     "pimcore/web-to-print-bundle": "^1.1",
     "psr/http-factory-implementation": "*",
+    "simplesamlphp/saml2": "4.6.10",
     "symfony/dotenv": "^6.2",
     "symfony/http-client": "^6.4",
     "symfony/http-foundation": "^6.4",
@@ -71,6 +72,7 @@
       "ContitechCS\\CatalogBundle\\": "bundles/ContitechCS/CatalogBundle/src",
       "ContitechCS\\CatalogUIApiBundle\\": "bundles/ContitechCS/CatalogUIApiBundle/src",
       "Instride\\Bundle\\DataDefinitionsBundle\\": "bundles/instride/data-definitions/src/DataDefinitionsBundle",
+      "SSOIntegrationBundle\\":"bundles/SSOIntegrationBundle",
       "B2BSalesforcePTGEMEABundle\\": "bundles/B2BSalesforcePTGEMEABundle/src"
     }
   },

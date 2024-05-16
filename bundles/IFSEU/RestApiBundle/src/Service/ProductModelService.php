@@ -97,7 +97,7 @@ class ProductModelService
 
             // Using strlen as callback to preserve 0 Zero for unpublished records
             // Removing Null, Empty and False value
-            $value  =   array_filter($value, 'strlen');
+            // $value  =   array_filter($value, 'strlen');
             $nineDigitData  =   $this->getSkeletonData($value['parentId']);
             $sixDigitData = [];
             if (!empty($nineDigitData)) {
