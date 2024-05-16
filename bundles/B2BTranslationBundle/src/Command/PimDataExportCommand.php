@@ -62,7 +62,7 @@ class PimDataExportCommand extends AbstractCommand
         $this->helper->logMessage($msg, LogLevel::INFO());
         $executor = new IFSPTG\CategoryDataExport($this->bu, $this->container);
         $executor->exportData();
-        $executor->uploadFile();
+        $executor->uploadFile($this->bu);
         echo $msg = "{$this->bu}: Product categories translation data export stopped." . PHP_EOL;
         $this->helper->logMessage($msg, LogLevel::INFO());
         echo PHP_EOL;
@@ -71,7 +71,7 @@ class PimDataExportCommand extends AbstractCommand
         $this->helper->logMessage($msg, LogLevel::INFO());
         $executor = new IFSPTG\ProductDataExport($this->bu, $this->container);
         $executor->exportData();
-        $executor->uploadFile();
+        $executor->uploadFile($this->bu);
         echo $msg = "{$this->bu}: Products translation data export stopped." . PHP_EOL . PHP_EOL;
         $this->helper->logMessage($msg, LogLevel::INFO());
         echo PHP_EOL;

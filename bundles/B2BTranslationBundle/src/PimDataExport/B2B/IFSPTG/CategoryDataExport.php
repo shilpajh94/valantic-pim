@@ -75,12 +75,12 @@ class CategoryDataExport implements IDataExport
 
                             $b2bCategoriesChucks = array_chunk($b2bCategories, 50);
 
-                            $filePath1 = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR .
-                                "SFPIM_PRODUCTCATEGORY_TRANSLATION_INSERT.csv";
+                            $filePath1 = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR ."$this->bu".
+                                "_SFPIM_PRODUCTCATEGORY_TRANSLATION_INSERT.csv";
                             $file1 = fopen($filePath1, "w+");
 
-                            $filePath2 = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR .
-                                "SFPIM_PRODUCTCATEGORY_TRANSLATION_UPDATE.csv";
+                            $filePath2 = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR ."$this->bu".
+                                "_SFPIM_PRODUCTCATEGORY_TRANSLATION_UPDATE.csv";
                             $file2 = fopen($filePath2, "w+");
 
 
@@ -284,12 +284,12 @@ class CategoryDataExport implements IDataExport
         }
     }
 
-    public function uploadFile()
+    public function uploadFile($bu)
     {
-        $customFileName1 = "SFPIM_PRODUCTCATEGORY_TRANSLATION_UPDATE.csv";
+        $customFileName1 = $bu."_SFPIM_PRODUCTCATEGORY_TRANSLATION_UPDATE.csv";
         $this->helper->uploadFile($customFileName1);
 
-        $customFileName2 = "SFPIM_PRODUCTCATEGORY_TRANSLATION_INSERT.csv";
+        $customFileName2 = $bu."_SFPIM_PRODUCTCATEGORY_TRANSLATION_INSERT.csv";
         $this->helper->uploadFile($customFileName2);
     }
 

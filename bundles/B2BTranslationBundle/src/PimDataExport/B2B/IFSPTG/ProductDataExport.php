@@ -174,7 +174,7 @@ class ProductDataExport implements IDataExport
 
                             $areHeadersAlreadyAdded = false;
                             $b2bProductsChucks = array_chunk($b2bProducts, 1000);
-                            $filePath1 = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR . "SFPIM_PRODUCT_TRANSLATION_INSERT" .
+                            $filePath1 = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR ."$this->bu"."_SFPIM_PRODUCT_TRANSLATION_INSERT" .
                                 date('M') . "_" . date('d') . "_" . date('Y') . ".csv";
                             $file1 = fopen($filePath1, "w+");
                             print_r($filePath1);
@@ -712,9 +712,9 @@ class ProductDataExport implements IDataExport
         }
     }
 
-    public function uploadFile()
+    public function uploadFile($bu)
     {
-        $customFileName2 = "SFPIM_PRODUCT_TRANSLATION_INSERT.csv";
+        $customFileName2 = $bu."_SFPIM_PRODUCT_TRANSLATION_INSERT.csv";
         $this->helper->uploadFile($customFileName2);
     }
 
