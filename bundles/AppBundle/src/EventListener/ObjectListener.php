@@ -120,7 +120,7 @@ class ObjectListener
     {
         $object = $event->getObject();
 
-        $this->appService->updateCalcFields($object);
+        // $this->appService->updateCalcFields($object);
 
         /**
          * if object save is run through cli then do not perform the brick addition or deletion
