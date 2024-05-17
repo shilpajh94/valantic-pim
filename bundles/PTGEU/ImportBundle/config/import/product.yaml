@@ -42,7 +42,7 @@ parameters:
       weightUnit: 'Weight Unit'
       profile: 'Profile'
       ProductName: 'Product Name'
-      Color: 'Color'
+      color: 'Color'
       fabricType: 'Fabric Type'
       fabricColor: 'Fabric Color'
       quality: 'Quality'

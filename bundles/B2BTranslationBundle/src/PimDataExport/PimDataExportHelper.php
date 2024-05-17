@@ -11,26 +11,40 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class PimDataExportHelper
 {
     private $container;
- 
+
     private $b2bProductTable = [
         'IFS_PTG_US' => 'salesforce_integration_b2b_product_master',
         'CS' => '',
-        'PTG_EU' => '',
+        'PTG_EU' => 'object_38',
+        'IFS_EMEA' => ''
+    ];
+
+    private $b2bProductSelectColumn = [
+        'IFS_PTG_US' => 'o_id',
+        'CS' => '',
+        'PTG_EU' => 'oo_id',
         'IFS_EMEA' => ''
     ];
 
     private $b2bCategoryTable = [
         'IFS_PTG_US' => 'salesforce_integration_b2b_category_master',
         'CS' => '',
-        'PTG_EU' => '',
+        'PTG_EU' => 'object_39',
+        'IFS_EMEA' => ''
+    ];
+
+    private $b2bCategorySelectColumn = [
+        'IFS_PTG_US' => 'o_id',
+        'CS' => '',
+        'PTG_EU' => 'oo_id',
         'IFS_EMEA' => ''
     ];
 
     private $bUCategoryClassTableID = [
-        'IFS_PTG_US' => array('categoryClassId'=>'2'),
-        'CS' => array('categoryClassId'=>'CSHierarchy'),
-        'PTG_EU' => array('categoryClassId'=>'39'),
-        'IFS_EMEA' => array('categoryClassId'=>'IFSEUProductCategory'),
+        'IFS_PTG_US' => array('categoryClassId' => '2'),
+        'CS' => array('categoryClassId' => 'CSHierarchy'),
+        'PTG_EU' => array('categoryClassId' => '39'),
+        'IFS_EMEA' => array('categoryClassId' => 'IFSEUProductCategory'),
     ];
 
     public function __construct(ContainerInterface $container)
@@ -40,12 +54,11 @@ class PimDataExportHelper
 
     public function uploadFile($customFileName)
     {
-        $remotefile = B2B_TRANSLATION_SFTP_INBOUND_FOLDER_PATH.'/'.$customFileName;
-        $localfile = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR.$customFileName;
-        try
-        {
+        $remotefile = B2B_TRANSLATION_SFTP_INBOUND_FOLDER_PATH . '/' . $customFileName;
+        $localfile = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR . $customFileName;
+        try {
             $conn = ftp_connect(B2B_TRANSLATION_SFTP_HOST);
-            if(!$conn) {
+            if (!$conn) {
                 echo 'Error: could not connect to ftp server';
                 exit;
             }
@@ -64,14 +77,14 @@ class PimDataExportHelper
                 ftp_quit($conn);
                 exit;
             }
-            
+
             ftp_close($conn);
 
         } catch (\Throwable $th) {
             echo PHP_EOL;
             echo "ERROR: File not uploaded to the server.";
             echo PHP_EOL;
-            echo "ERROR: ". $th->getMessage();
+            echo "ERROR: " . $th->getMessage();
             echo PHP_EOL;
         }
     }
@@ -79,7 +92,7 @@ class PimDataExportHelper
     public function getB2BTranslationMapping($type, $bu)
     {
         $db = Db::get();
-        $sqlMapping="select PIMB2BMappingData from object_B2BTranslationMapping Where TranslationDataType ='{$type}'
+        $sqlMapping = "select PIMB2BMappingData from object_B2BTranslationMapping Where TranslationDataType ='{$type}'
          AND BusinessUnit='{$bu}' ORDER BY modificationDate DESC";
         return $db->fetchOne($sqlMapping);
     }
@@ -88,11 +101,11 @@ class PimDataExportHelper
     {
         $db = Db::get();
         $table = $this->b2bProductTable[$bu];
+        $column = $this->b2bProductSelectColumn[$bu];
 
         $ids = [];
-        if($table)
-        {
-            $sql = "SELECT o_id FROM $table";
+        if ($table) {
+            $sql = "SELECT $column FROM $table";
             $ids = $db->fetchFirstColumn($sql);
         }
 
@@ -102,14 +115,14 @@ class PimDataExportHelper
     {
         $db = Db::get();
         $table = $this->b2bCategoryTable[$bu];
+        $column = $this->b2bCategorySelectColumn[$bu];
 
         $ids = [];
-        if($table)
-        {
-            $sql = "SELECT o_id FROM $table";
+        if ($table) {
+            $sql = "SELECT $column FROM $table";
             $ids = $db->fetchFirstColumn($sql);
         }
-        
+
         return $ids;
     }
 
@@ -117,26 +130,19 @@ class PimDataExportHelper
     {
         $businessUnitFileName = '';
 
-        if($bu == 'IFS_PTG_US')
-        {
+        if ($bu == 'IFS_PTG_US') {
             $businessUnitFileName = B2BTranslationConstants::B2B_IFS_PTG_US_FILE_NAME;
-        }
-        elseif($bu == 'CS')
-        {
+        } elseif ($bu == 'CS') {
             $businessUnitFileName = B2BTranslationConstants::B2B_CS_US_FILE_NAME;
-        }
-        elseif($bu == 'PTG_EU')
-        {
+        } elseif ($bu == 'PTG_EU') {
             $businessUnitFileName = B2BTranslationConstants::B2B_PTG_EU_FILE_NAME;
-        }
-        elseif($bu == 'IFS_EMEA')
-        {
+        } elseif ($bu == 'IFS_EMEA') {
             $businessUnitFileName = B2BTranslationConstants::B2B_IFS_EU_FILE_NAME;
         }
 
         $common = $this->container->get('b2b_translation.common_helper');
         $b2bTranslationConfig = $this->container->get('b2b_translation.config_provider_service')
-        ->getBusinessUnitTranslationConfig($businessUnitFileName);
+            ->getBusinessUnitTranslationConfig($businessUnitFileName);
 
         return $common->getParameter($b2bTranslationConfig, $className);
     }
@@ -149,11 +155,10 @@ class PimDataExportHelper
 
         $columnsString = 'id';
 
-        if($fields)
-        {
-            $columnsString .= ",". implode(',', $fields);
+        if ($fields) {
+            $columnsString .= "," . implode(',', $fields);
         }
-        
+
         $ids = implode(',', $b2bProducts);
         $sql = "select {$columnsString} from object_{$categoryClassId} where id IN ($ids)";
         return $db->fetchAllAssociative($sql);
@@ -165,7 +170,7 @@ class PimDataExportHelper
         $config = $this->bUCategoryClassTableID[$bu];
         $categoryClassId = $config['categoryClassId'];
 
-        $languages = "'" . implode ( "', '", $validLanguage ) . "'";
+        $languages = "'" . implode("', '", $validLanguage) . "'";
         $selectedFields = [];
         $selectedFields[] = 'ooo_id';
         $selectedFields[] = 'language';
@@ -180,7 +185,7 @@ class PimDataExportHelper
         return $db->fetchAllAssociative($sql);
     }
 
-    public function logMessage(String $msg, LogLevel $logLevel)
+    public function logMessage(string $msg, LogLevel $logLevel)
     {
         Utils::log(PRODUCT_LOCALIZATION_EXPORT_LOG_FILE, $msg, $logLevel);
     }

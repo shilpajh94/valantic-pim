@@ -1,73 +1,158 @@
 parameters:
     Product:
-        articleNumber:
-            fieldName: articleNumber
-            fieldLocation: class
-            className: Product
-            isLocalized: false
+        # articleNumber:
+        #     fieldName: articleNumber
+        #     fieldLocation: class
+        #     className: Product
+        #     isLocalized: false
+        #     sqlQuery: "articleNumber"
         externalID:
             fieldName: externalID
             fieldLocation: class
             className: Product
             isLocalized: false
-        industryStandard:
-            fieldName: industryStandard
+            sqlQuery: "CONCAT('06-',articleNumber) AS externalID"
+        productName:
+            fieldName: productName
             fieldLocation: class
             className: Product
             isLocalized: false
-        eanUpc:
-            fieldName: eanUpc
-            fieldLocation: class
-            className: Product
-            isLocalized: false
-        webDiscription:
-            fieldName: webDiscription
-            fieldLocation: class
-            className: Product
-            isLocalized: false
-        sapDescription:
-            fieldName: sapDescription
+            sqlQuery: "productName"
+        # industryStandard:
+        #     fieldName: industryStandard
+        #     fieldLocation: class
+        #     className: Product
+        #     isLocalized: false
+        #     sqlQuery: "industryStandard"
+        # eanUpc:
+        #     fieldName: eanUpc
+        #     fieldLocation: class
+        #     className: Product
+        #     isLocalized: false
+        #     sqlQuery: "eanUpc"
+        # webDiscription:
+        #     fieldName: webDiscription
+        #     fieldLocation: class
+        #     className: Product
+        #     isLocalized: false
+        #     sqlQuery: "webDiscription"
+        # sapDescription:
+        #     fieldName: sapDescription
+        #     fieldLocation: class
+        #     className: Product
+        #     isLocalized: true
+        #     sqlQuery: "sapDescription"
+        longDescription:
+            fieldName: longDescription
             fieldLocation: class
             className: Product
             isLocalized: true
+            sqlQuery: "longDescription"
+        rohs:
+            fieldName: rohs
+            fieldLocation: class
+            className: Product
+            isLocalized: true
+            sqlQuery: "rohs"
+        reach:
+            fieldName: rohs
+            fieldLocation: class
+            className: Product
+            isLocalized: true
+            sqlQuery: "reach"
+        staticConductive_localized:
+            fieldName: staticConductive_localized
+            fieldLocation: class
+            className: Product
+            isLocalized: true
+            sqlQuery: "staticConductive_localized"
+        heatAndOilResistant_localized:
+            fieldName: heatAndOilResistant_localized
+            fieldLocation: class
+            className: Product
+            isLocalized: true
+            sqlQuery: "heatAndOilResistant_localized"
+        quality_localized:
+            fieldName: heatAndOilResistant_localized
+            fieldLocation: class
+            className: Product
+            isLocalized: true
+            sqlQuery: "quality_localized"
+        matchMakerLL_localized:
+            fieldName: matchMakerLL_localized
+            fieldLocation: class
+            className: Product
+            isLocalized: true
+            sqlQuery: "matchMakerLL_localized"
+        performance_localized:
+            fieldName: performance_localized
+            fieldLocation: class
+            className: Product
+            isLocalized: true
+            sqlQuery: "performance_localized"
+        beltType_localized:
+            fieldName: beltType_localized
+            fieldLocation: class
+            className: Product
+            isLocalized: true
+            sqlQuery: "beltType_localized"
+        color_localized:
+            fieldName: color_localized
+            fieldLocation: class
+            className: Product
+            isLocalized: true
+            sqlQuery: "color_localized"
     Category: 
-        parentId:
-            fieldName: parentId
+        # parentId:
+        #     fieldName: parentId
+        #     fieldLocation: class
+        #     className: ProductCategory
+        #     isLocalized: false
+        #     sqlQuery: "parentId"
+        externalID_PTGEU:
+            fieldName: externalID_PTGEU
             fieldLocation: class
             className: ProductCategory
             isLocalized: false
-        externalID:
-            fieldName: externalID
-            fieldLocation: class
-            className: ProductCategory
-            isLocalized: false
+            sqlQuery: "fullCode"
         # description:
         #     fieldName: description
         #     fieldLocation: class
         #     className: ProductCategory
         #     isLocalized: true
-        PrintedCatalogDescription:
-            fieldName: PrintedCatalogDescription
+        Description:
+            fieldName: Description
             fieldLocation: class
             className: ProductCategory
             isLocalized: true
+            sqlQuery: "Description"
         longDescription:
             fieldName: longDescription
             fieldLocation: class
             className: ProductCategory
             isLocalized: true
-        SortOrder:
-            fieldName: SortOrder
+            sqlQuery: "longDescription"
+        # SortOrder:
+        #     fieldName: SortOrder
+        #     fieldLocation: class
+        #     className: ProductCategory
+        #     isLocalized: false
+        #     sqlQuery: "SortOrder"
+        # ShowInMenu:
+        #     fieldName: ShowInMenu
+        #     fieldLocation: class
+        #     className: ProductCategory
+        #     isLocalized: false
+        #     sqlQuery: "ShowInMenu"
+        # image:
+        #     fieldName: image
+        #     fieldLocation: class
+        #     className: ProductCategory
+        #     isLocalized: false
+        #     sqlQuery: "image"
+        fullCode:
+            fieldName: siopFullCode
             fieldLocation: class
             className: ProductCategory
             isLocalized: false
-        ShowInMenu:
-            fieldName: ShowInMenu
-            fieldLocation: class
-            className: ProductCategory
-            isLocalized: false
-        image:
-            fieldName: image
-            fieldLocation: class
-            className: ProductCategory
-            isLocalized: false
+            sqlQuery: "fullCode"

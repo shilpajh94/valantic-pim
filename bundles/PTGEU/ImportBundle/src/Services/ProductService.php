@@ -548,7 +548,7 @@ class ProductService
             'weightUnit' => null,
             'profile' => null,
             'ProductName' => null,
-            'Color' => null,
+            'color' => null,
             'fabricType' => null,
             'fabricColor' => null,
             'quality' => null,
@@ -637,12 +637,12 @@ class ProductService
                 }
             }
 
-            $color = trim($record[$this->getRecordIndexByKey('Color')]);
-            $fd = $baseObject->getClass()->getFieldDefinition("Color");
+            $color = trim($record[$this->getRecordIndexByKey('color')]);
+            $fd = $baseObject->getClass()->getFieldDefinition("color");
             $options = $fd->getOptions();
             foreach($options as $eachOptions){
                 if(strtolower($eachOptions['value']) == strtolower($color)){
-                    $queryTableData['Color'] = trim($eachOptions['value']);
+                    $queryTableData['color'] = trim($eachOptions['value']);
                 }
             }
 
@@ -739,7 +739,7 @@ class ProductService
             'weightUnit' => null,
             'profile' => null,
             'ProductName' => null,
-            'Color' => null,
+            'color' => null,
             'fabricType' => null,
             'fabricColor' => null,
             'quality' => null,
@@ -828,12 +828,12 @@ class ProductService
 
             }
 
-            $color = trim($record[$this->getRecordIndexByKey('Color')]);
-            $fd = $baseObject->getClass()->getFieldDefinition("Color");
+            $color = trim($record[$this->getRecordIndexByKey('color')]);
+            $fd = $baseObject->getClass()->getFieldDefinition("color");
             $options = $fd->getOptions();
             foreach($options as $eachOptions){
                 if(strtolower($eachOptions['value']) == strtolower($color)){
-                    $storeTableDataArray['Color'] = trim($eachOptions['value']);
+                    $storeTableDataArray['color'] = trim($eachOptions['value']);
                 }
             }
 

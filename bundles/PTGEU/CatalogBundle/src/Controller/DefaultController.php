@@ -769,7 +769,17 @@ class DefaultController extends FrontendController
                                         {
                                             if(ucfirst($fields['fieldType']) == 'Input')
                                             {
-                                                $data[$fieldName] = $objectLevel5thDetails[$fieldName];
+                                                if($fieldName == 'beltType' || $fieldName == 'color') {
+                                                    $sql = "SELECT $fieldName FROM object_localized_PTGEU".ucfirst($fieldName)."_en WHERE ooo_id = '$objectLevel5thDetails[$fieldName]';";
+                                                    $result = $this->db->fetchFirstColumn($sql);
+                                                    if($result != null){
+                                                        $data[$fieldName] = $result[0];
+                                                    } else {
+                                                        $data[$fieldName] = null;
+                                                    }
+                                                } else {
+                                                    $data[$fieldName] = $objectLevel5thDetails[$fieldName];
+                                                }
                                             }
                                             elseif(trim($objectLevel5thDetails[$fieldName]) && ucfirst($fields['fieldType']) == 'Number')
                                             {
