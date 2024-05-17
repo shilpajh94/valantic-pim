@@ -120,6 +120,7 @@ class ObjectListener
     {
         $object = $event->getObject();
 
+        $this->appService->updateCalcFields($object);
 
         /**
          * if object save is run through cli then do not perform the brick addition or deletion
@@ -142,50 +143,52 @@ class ObjectListener
             }
         }
 
-        if ($object instanceof DataObject\Product) {
-            /**
-             * update the calculative logic value fields
-             */
-            $currentRequestData = json_decode($this->requestStack->getCurrentRequest()->getPayload()->get('data'), true);
-
-
-            if (strtoLower($object->getProductType()) == 'fert' && (array_key_exists('minimumTemperatureF', $currentRequestData) || array_key_exists('maximumTemperatureF', $currentRequestData))) {
-                $minTempFFromBase = $object->getParent()->getParent()->getMinimumTemperatureF();
-                $maxTempFFromBase = $object->getParent()->getParent()->getMaximumTemperatureF();
-
-                $minTempFFromFert = $object->getMinimumTemperatureF();
-                $maxTempFFromFert = $object->getMaximumTemperatureF();
-                if (((string)$minTempFFromBase == (string)$minTempFFromFert) && ((string)$maxTempFFromBase == (string)$maxTempFFromFert)) {
-
-                    $this->appService->updateCalcFields($object);
-                    $object->setRangeTemperatureF(null);
-                } else {
+        if ($this->requestStack->getCurrentRequest() != null){
+            if ($object instanceof DataObject\Product) {
+                /**
+                 * update the calculative logic value fields
+                 */
+                $currentRequestData = json_decode($this->requestStack->getCurrentRequest()->getPayload()->get('data'), true);
+    
+    
+                if (strtoLower($object->getProductType()) == 'fert' && (array_key_exists('minimumTemperatureF', $currentRequestData) || array_key_exists('maximumTemperatureF', $currentRequestData))) {
+                    $minTempFFromBase = $object->getParent()->getParent()->getMinimumTemperatureF();
+                    $maxTempFFromBase = $object->getParent()->getParent()->getMaximumTemperatureF();
+    
+                    $minTempFFromFert = $object->getMinimumTemperatureF();
+                    $maxTempFFromFert = $object->getMaximumTemperatureF();
+                    if (((string)$minTempFFromBase == (string)$minTempFFromFert) && ((string)$maxTempFFromBase == (string)$maxTempFFromFert)) {
+    
+                        $this->appService->updateCalcFields($object);
+                        $object->setRangeTemperatureF(null);
+                    } else {
+                        $this->appService->updateCalcFields($object);
+                    }
+                } elseif (strtoLower($object->getProductType()) != 'fert') {
+    
                     $this->appService->updateCalcFields($object);
                 }
-            } elseif (strtoLower($object->getProductType()) != 'fert') {
-
-                $this->appService->updateCalcFields($object);
-            }
-
-
-
-            /**
-             * update Fitting Family and Thread Desc in HydFittingFert
-             * by picking values from related nomenclature master object
-             */
-            $this->appService->updateFittingFamilyAndThreadDescInHydFittingFert($object);
-            /**
-             * update product hierarchy for nomenclature (fitting family desc and thread desc)
-             */
-            $this->appService->updateProductHierarchyForNomenclature($object);
-
-            /**
-             * update VirtualCatalogReinforcement value if reinforcement is updated
-             */
-            $requestStack = $this->requestStack;
-            $currRequest = $requestStack->getCurrentRequest();
-            if ($currRequest instanceof Request) {
-                $this->appService->updateVirtualCatalogReinforcementForUpdateInReinforcement($object, $currRequest);
+    
+    
+    
+                /**
+                 * update Fitting Family and Thread Desc in HydFittingFert
+                 * by picking values from related nomenclature master object
+                 */
+                $this->appService->updateFittingFamilyAndThreadDescInHydFittingFert($object);
+                /**
+                 * update product hierarchy for nomenclature (fitting family desc and thread desc)
+                 */
+                $this->appService->updateProductHierarchyForNomenclature($object);
+    
+                /**
+                 * update VirtualCatalogReinforcement value if reinforcement is updated
+                 */
+                $requestStack = $this->requestStack;
+                $currRequest = $requestStack->getCurrentRequest();
+                if ($currRequest instanceof Request) {
+                    $this->appService->updateVirtualCatalogReinforcementForUpdateInReinforcement($object, $currRequest);
+                }
             }
         }
     }
@@ -273,13 +276,12 @@ class ObjectListener
 
         if ($object instanceof  DataObject\PlantMaterialMaster) {
             $materials = $object->getMaterial();
-            if(is_array($materials) && !empty($materials)){
+            if (is_array($materials) && !empty($materials)) {
                 $product = $materials[0];
                 if ($product) {
                     $this->appService->updateProductReturnFlag($product->getId());
                 }
             }
-            
         }
     }
 
@@ -304,13 +306,13 @@ class ObjectListener
      * @param $adminUser
      * @return bool
      */
-    public function isAllowSQLEditor($adminUser) : bool
+    public function isAllowSQLEditor($adminUser): bool
     {
-        foreach(GRID_SQL_EDITOR_ALLOWED_ROLES as $roleName){
+        foreach (GRID_SQL_EDITOR_ALLOWED_ROLES as $roleName) {
             $appliicationAdminRole = Model\User\Role::getByName($roleName);
 
             $adminRoles = $adminUser->getRoles();
-            if(in_array($appliicationAdminRole->getId(), $adminRoles) || $adminUser->isAdmin()){
+            if (in_array($appliicationAdminRole->getId(), $adminRoles) || $adminUser->isAdmin()) {
                 return true;
             }
         }
