@@ -69,10 +69,56 @@ class RangeTemperatureF extends AbstractCommand
                 }
             }
 
+            // dd($result);
             foreach ($result as $key => $productId) {
-                $obj = DataObject\Product::getById($productId);
-                $obj->setPublished(true);
-                $obj->save();
+                $object = DataObject\Product::getById($productId);
+                if (strtoLower($object->getProductType()) == 'skeleton') {
+                    p_r('Skeleton ------- ' . $productId);
+                    $minTempFBase = $object->getParent()->getMinimumTemperatureF();
+                    $maxTempFBase = $object->getParent()->getMaximumTemperatureF();
+
+                    $minTempFSkeleton = $object->getMinimumTemperatureF();
+                    $maxTempFSkeleton = $object->getMaximumTemperatureF();
+
+                    if (((string)$minTempFBase == (string)$minTempFSkeleton)
+                        && ((string)$maxTempFBase == (string)$maxTempFSkeleton)
+                    ) {
+                        $object->setRangeTemperatureF(null);
+                        $object->setPublished(true);
+                        $object->save();
+                    }
+                } elseif (strtoLower($object->getProductType()) == 'fert') {
+                    p_r('Fert ------- ' . $productId);
+                    $minTempFFromBase = $object->getParent()->getParent()->getMinimumTemperatureF();
+                    $maxTempFFromBase = $object->getParent()->getParent()->getMaximumTemperatureF();
+                    $rangeTemperatureF = $object->getParent()->getParent()->getRangeTemperatureF();
+
+                    $minTempFFromSkeleton = $object->getParent()->getMinimumTemperatureF();
+                    $maxTempFFromSkeleton = $object->getParent()->getMaximumTemperatureF();
+
+                    $minTempFFromFert = $object->getMinimumTemperatureF();
+                    $maxTempFFromFert = $object->getMaximumTemperatureF();
+
+                    if (((string)$minTempFFromSkeleton == (string)$minTempFFromFert)
+                        && ((string)$maxTempFFromSkeleton == (string)$maxTempFFromFert)
+                    ) {
+                        $object->setRangeTemperatureF(null);
+                        $object->setPublished(true);
+                        $object->save();
+                    } elseif (((string)$minTempFFromBase == (string)$minTempFFromFert)
+                        && ((string)$maxTempFFromBase == (string)$maxTempFFromFert)
+                    ) {
+                        $object->setMinimumTemperatureC($minTempFFromBase);
+                        $object->setMaximumTemperatureC($maxTempFFromBase);
+                        $object->setRangeTemperatureF($rangeTemperatureF);
+                        $object->setPublished(true);
+                        $object->save();
+                        p_r($object->getRangeTemperatureF());
+                    } else {
+                        $object->setPublished(true);
+                        $object->save();
+                    }
+                }
                 p_r("Executed for this product Id ----- " . $productId);
             }
         } catch (\Exception $e) {
