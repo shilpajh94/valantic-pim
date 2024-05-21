@@ -621,11 +621,22 @@ class DefaultController extends FrontendController
                     $groupData['iconRequired'] = $this->iconRequired;
                     $groupData['material'] = $objectLevel5thDetails['material'];
                     $groupData['heatAndOilResistant'] = $objectLevel5thDetails['heatAndOilResistant'];
-                    $groupData['performance'] = $objectLevel5thDetails['performance'];
+                    $groupData['performance'] = '';
+                    if($objectLevel5thDetails['performance']) {
+                        $performanceId = $objectLevel5thDetails['performance'];
+                        $sql = "SELECT performance FROM object_localized_PTGEUPerformance_en WHERE ooo_id = '$performanceId';";
+                        $result = $this->db->fetchOne($sql);
+                        $groupData['performance'] = $result;
+                    }
+                    $groupData['staticConductive'] = '';
+                    if($objectLevel5thDetails['staticConductive']){
+                        $sql = "SELECT staticConductive FROM `object_query_38` WHERE `oo_id` = '$objectLevel5thId'";
+                        $staticConductiveId =  $this->db->fetchOne($sql);
+                        $sql = "SELECT staticConductive FROM object_localized_PTGEUStaticConductive_en WHERE ooo_id = '$staticConductiveId';";
+                        $result = $this->db->fetchOne($sql);
+                        $groupData['staticConductive'] = $result;
+                    }
 
-                    $sql = "SELECT staticConductive FROM `object_query_38` WHERE `oo_id` = '$objectLevel5thId'";
-                    $staticConductive =  $this->db->fetchOne($sql);
-                    $groupData['staticConductive'] = $staticConductive;
                     $reinforcementSelected = trim($objectLevel5thDetails['reinforcement'], ",");
                     $groupData['reinforcement'] = $reinforcementSelected;
 
@@ -769,8 +780,13 @@ class DefaultController extends FrontendController
                                         {
                                             if(ucfirst($fields['fieldType']) == 'Input')
                                             {
-                                                if($fieldName == 'beltType' || $fieldName == 'color') {
-                                                    $sql = "SELECT $fieldName FROM object_localized_PTGEU".ucfirst($fieldName)."_en WHERE ooo_id = '$objectLevel5thDetails[$fieldName]';";
+                                                if($fieldName == 'beltType' || $fieldName == 'color'|| $fieldName == 'Color') {
+                                                    if($fieldName == 'Color') {
+                                                        $lcFieldName = lcfirst($fieldName);
+                                                        $sql = "SELECT $lcFieldName FROM object_localized_PTGEU".ucfirst($fieldName)."_en WHERE ooo_id = '$objectLevel5thDetails[$lcFieldName]';";
+                                                    } else {
+                                                        $sql = "SELECT $fieldName FROM object_localized_PTGEU".ucfirst($fieldName)."_en WHERE ooo_id = '$objectLevel5thDetails[$fieldName]';";
+                                                    }
                                                     $result = $this->db->fetchFirstColumn($sql);
                                                     if($result != null){
                                                         $data[$fieldName] = $result[0];

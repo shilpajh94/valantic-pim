@@ -133,7 +133,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1715318852,
+   'modificationDate' => 1715931631,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -6559,9 +6559,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'deletedDataComponents' => 
   array (
     0 => 
-    Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-       'name' => 'Color_localized',
-       'title' => 'Color',
+    Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+       'name' => 'B2BProductCategory',
+       'title' => 'B2B Product Category',
        'tooltip' => '',
        'mandatory' => false,
        'noteditable' => false,
@@ -6570,29 +6570,77 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
        'style' => '',
        'permissions' => NULL,
        'fieldtype' => '',
-       'relationType' => false,
+       'relationType' => true,
        'invisible' => false,
        'visibleGridView' => false,
        'visibleSearch' => false,
        'blockedVarsForExport' => 
       array (
       ),
-       'options' => 
+       'classes' => 
       array (
         0 => 
         array (
-          'key' => 'Red',
-          'value' => 15323129,
+          'classes' => 'B2BTaxonomy',
         ),
       ),
-       'defaultValue' => '1',
-       'columnLength' => 100,
-       'dynamicOptions' => false,
-       'defaultValueGenerator' => '',
-       'width' => 250,
-       'optionsProviderType' => 'class',
-       'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
-       'optionsProviderData' => 'PTGEUColor|color',
+       'displayMode' => 'grid',
+       'pathFormatterClass' => '',
+       'assetInlineDownloadAllowed' => false,
+       'assetUploadPath' => '',
+       'allowToClearRelation' => true,
+       'objectsAllowed' => true,
+       'assetsAllowed' => false,
+       'assetTypes' => 
+      array (
+      ),
+       'documentsAllowed' => false,
+       'documentTypes' => 
+      array (
+      ),
+       'width' => 500,
+    )),
+    1 => 
+    Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+       'name' => 'B2BProductSubCategory',
+       'title' => 'B2B Product Sub Category',
+       'tooltip' => '',
+       'mandatory' => false,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => true,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'classes' => 
+      array (
+        0 => 
+        array (
+          'classes' => 'B2BTaxonomy',
+        ),
+      ),
+       'displayMode' => 'grid',
+       'pathFormatterClass' => '',
+       'assetInlineDownloadAllowed' => false,
+       'assetUploadPath' => '',
+       'allowToClearRelation' => true,
+       'objectsAllowed' => true,
+       'assetsAllowed' => false,
+       'assetTypes' => 
+      array (
+      ),
+       'documentsAllowed' => false,
+       'documentTypes' => 
+      array (
+      ),
+       'width' => 500,
     )),
   ),
    'blockedVarsForExport' => 
