@@ -142,7 +142,7 @@ class ObjectListener
             }
         }
 
-        if ($object instanceof DataObject\Product) {
+        if ($this->requestStack->getCurrentRequest() != null && $object instanceof DataObject\Product) {
             /**
              * update the calculative logic value fields
              */
@@ -162,12 +162,27 @@ class ObjectListener
                 } else {
                     $this->appService->updateCalcFields($object);
                 }
-            } elseif (strtoLower($object->getProductType()) != 'fert') {
+            } elseif (
+                strtoLower($object->getProductType()) == 'skeleton'
+                && (array_key_exists('minimumTemperatureF', $currentRequestData)
+                    || array_key_exists('maximumTemperatureF', $currentRequestData))
+            ) {
+                $minTempFFromSkeletonBase = $object->getParent()->getMinimumTemperatureF();
+                $maxTempFFromSkeletonBase = $object->getParent()->getMaximumTemperatureF();
 
+                $minTempFFromSkeleton = $object->getMinimumTemperatureF();
+                $maxTempFFromSkeleton = $object->getMaximumTemperatureF();
+                if (((string)$minTempFFromSkeletonBase == (string)$minTempFFromSkeleton)
+                    && ((string)$maxTempFFromSkeletonBase == (string)$maxTempFFromSkeleton)
+                ) {
+                    $this->appService->updateCalcFields($object);
+                    $object->setRangeTemperatureF(null);
+                } else {
+                    $this->appService->updateCalcFields($object);
+                }
+            } else {
                 $this->appService->updateCalcFields($object);
             }
-
-
 
             /**
              * update Fitting Family and Thread Desc in HydFittingFert
