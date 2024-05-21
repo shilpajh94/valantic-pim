@@ -176,6 +176,8 @@ class ObjectListener
                     && ((string)$maxTempFFromSkeletonBase == (string)$maxTempFFromSkeleton)
                 ) {
                     $this->appService->updateCalcFields($object);
+                    $object->setMinimumTemperatureF(null);
+                    $object->setMaximumTemperatureF(null);
                     $object->setRangeTemperatureF(null);
                 } else {
                     $this->appService->updateCalcFields($object);
