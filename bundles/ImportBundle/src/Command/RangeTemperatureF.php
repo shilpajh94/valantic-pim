@@ -77,7 +77,7 @@ class RangeTemperatureF extends AbstractCommand
             foreach ($result as $key => $productId) {
                 $object = DataObject\Product::getById($productId);
                 if (strtoLower($object->getProductType()) == 'skeleton') {
-                    // p_r('Skeleton ------- ' . $productId);
+                    p_r('Skeleton ------- ' . $productId);
                     $minTempFBase = $object->getParent()->getMinimumTemperatureF();
                     $maxTempFBase = $object->getParent()->getMaximumTemperatureF();
 
@@ -95,7 +95,7 @@ class RangeTemperatureF extends AbstractCommand
                         $this->updateCalcFields($object);
                     }
                 } elseif (strtoLower($object->getProductType()) == 'fert') {
-                    // p_r('Fert ------- ' . $productId);
+                    p_r('Fert ------- ' . $productId);
                     $minTempFFromBase = $object->getParent()->getParent()->getMinimumTemperatureF();
                     $maxTempFFromBase = $object->getParent()->getParent()->getMaximumTemperatureF();
                     $rangeTemperatureF = $object->getParent()->getParent()->getRangeTemperatureF();
