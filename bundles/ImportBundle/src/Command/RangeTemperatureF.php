@@ -69,7 +69,7 @@ class RangeTemperatureF extends AbstractCommand
                 }
             }
 
-            // dd($result);
+            p_r(count($result)); die;
             foreach ($result as $key => $productId) {
                 $object = DataObject\Product::getById($productId);
                 if (strtoLower($object->getProductType()) == 'skeleton') {
@@ -113,7 +113,6 @@ class RangeTemperatureF extends AbstractCommand
                         $object->setRangeTemperatureF($rangeTemperatureF);
                         $object->setPublished(true);
                         $object->save();
-                        p_r($object->getRangeTemperatureF());
                     } else {
                         $object->setPublished(true);
                         $object->save();
