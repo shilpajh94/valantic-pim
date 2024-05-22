@@ -133,7 +133,7 @@ class OptionProviderCacheListener
                 }else{
 
                     if($isPublished && $className != 'Product')
-                        $this->optionProvider->createUpdateOptionProviderMapCache($className, $object->getId(), $object->getName());
+                        $this->optionProvider->createUpdateOptionProviderMapCache($className, $object->getId(), (method_exists($object,'getName')? $object->getName():$this->getObjectFieldName($object)));
                     else
                         $this->optionProvider->clearOptionProviderMapCache($className, $object->getId());
                         
@@ -141,6 +141,33 @@ class OptionProviderCacheListener
             }
         }
 
+    }
+    /**
+     * get field Name from object
+     *
+     * @param DataObject $classObject
+     * @return string 
+     */
+    private function getObjectFieldName(Object $classObject):string{
+        $fieldValue='';
+        switch($classObject->getClassName()){
+            case 'PTGEUColor':
+                $fieldValue= $classObject->getColor();
+                break;
+            case 'PTGEUBeltType':
+                $fieldValue= $classObject->getbeltType();
+                break;
+            case 'PTGEUStaticConductive':
+                $fieldValue= $classObject->getStaticConductive();
+                break;
+            case 'PTGEUPerformance':
+                $fieldValue= $classObject->getPerformance();
+                break;
+            default:
+                break;
+
+        }
+        return $fieldValue;
     }
 
     /**
