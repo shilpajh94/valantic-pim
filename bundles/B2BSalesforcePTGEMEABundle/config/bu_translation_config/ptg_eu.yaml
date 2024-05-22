@@ -454,7 +454,7 @@ parameters:
             className: PTGEUProduct
             mediaType: document
         Certificate2:
-            fieldName: Certificate3
+            fieldName: Certificate2
             fieldLocation: class
             className: PTGEUProduct
             mediaType: document
