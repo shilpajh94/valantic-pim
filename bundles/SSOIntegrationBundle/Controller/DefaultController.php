@@ -75,9 +75,7 @@ class DefaultController extends FrontendController
                 $userData['parentId'] = 0;
                 $userData['active'] = true;
                 $user = $userService->save($username, $userData);
-            } else if ($user instanceof AbstractUser && $user->getName() == $userData['name']) {
-                $user = $userService->update($user, $userData);
-            }
+            } 
 
             $token = Authentication::generateToken($user->getName());
             $loginUrl = 'https://' . $_SERVER['HTTP_HOST'] . '/admin/login/login?username=' . $username . '&token=' . $token;

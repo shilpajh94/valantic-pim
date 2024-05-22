@@ -613,7 +613,7 @@ class ProductDataExport implements IDataExport
                                                     if ($keyHeader == 'color_localized' && $record['color_localized']!=null) {
                                                         $colorMastersList = $this->getColorMasterList($l);
                                                         $colorId = $record['color_localized'];
-                                                        if ($colorId != null && $colorId != 1 && $colorId != '' && is_numeric($colorId)) {
+                                                        if ($colorId != null && $colorId != 1 && $colorId != '' && is_numeric($colorId) && !empty($colorMastersList)) {
                                                             $mapping_record[$keyHeaderValue] = $colorMastersList[$colorId];
                                                         } else {
                                                             $mapping_record[$keyHeaderValue] = null;
@@ -621,7 +621,7 @@ class ProductDataExport implements IDataExport
                                                     }if ($keyHeader == 'beltType_localized' && $record['beltType_localized']!=null) {
                                                         $beltTypeMastersList = $this->getBeltTypeMasterList($l);
                                                         $beltTypeId = $record['beltType_localized'];
-                                                        if ($beltTypeId != null && $beltTypeId != 1 && $beltTypeId != '' && is_numeric($beltTypeId)) {
+                                                        if ($beltTypeId != null && $beltTypeId != 1 && $beltTypeId != '' && is_numeric($beltTypeId) && !empty($beltTypeMastersList)) {
                                                             $mapping_record[$keyHeaderValue] = $beltTypeMastersList[$beltTypeId];
                                                         } else {
                                                             $mapping_record[$keyHeaderValue] = null;
@@ -629,7 +629,7 @@ class ProductDataExport implements IDataExport
                                                     }if ($keyHeader == 'performance_localized' && $record['performance_localized']!=null) {
                                                         $performanceMastersList = $this->getPerformanceMasterList($l);
                                                         $performanceId = $record['performance_localized'];
-                                                        if ($performanceId != null && $performanceId != 1 && $performanceId != '' && is_numeric($performanceId)) {
+                                                        if ($performanceId != null && $performanceId != 1 && $performanceId != '' && is_numeric($performanceId) && !empty($performanceMastersList)) {
                                                             $mapping_record[$keyHeaderValue] = $performanceMastersList[$performanceId];
                                                         } else {
                                                             $mapping_record[$keyHeaderValue] = null;
@@ -637,7 +637,7 @@ class ProductDataExport implements IDataExport
                                                     }if ($keyHeader == 'staticConductive_localized' && $record['staticConductive_localized']!=null) {
                                                         $staticConductiveMastersList = $this->getStaticConductiveMasterList($l);
                                                         $staticConductiveId = $record['staticConductive_localized'];
-                                                        if ($staticConductiveId != null && $staticConductiveId != 1 && $staticConductiveId != '' && is_numeric($staticConductiveId)) {
+                                                        if ($staticConductiveId != null && $staticConductiveId != 1 && $staticConductiveId != '' && is_numeric($staticConductiveId) && !empty($staticConductiveMastersList)) {
                                                             $mapping_record[$keyHeaderValue] = $staticConductiveMastersList[$staticConductiveId];
                                                         } else {
                                                             $mapping_record[$keyHeaderValue] = null;
