@@ -2,7 +2,7 @@ parameters:
     Product:
         B2B_External_Id__c: B2B_External_Id__c
         ProductName: Name
-        B2B_Part_Number__c: B2B_Part_Number__c
+        # B2B_Part_Number__c: B2B_Part_Number__c
         articleNumber: B2B_SAP_material_number__c
         longDescription: Description
         IsActive: IsActive

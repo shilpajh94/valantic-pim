@@ -18,6 +18,8 @@ class ProductMediaDataExport implements IDataExport
 {
     private $bu;
     private $helper;
+    const B2B_PRODUCT_SMALL_IMAGE_DISPLAY_TYPE = "Product Image Small";
+    const B2B_PRODUCT_MEDIUM_IMAGE_DISPLAY_TYPE = "Product Image Medium";
 
     public function __construct($bu)
     {
@@ -34,9 +36,9 @@ class ProductMediaDataExport implements IDataExport
         try{
             $ptgeuConfig = Yaml::parseFile(PIMCORE_PROJECT_ROOT . '/bundles/B2BSalesforcePTGEMEABundle/config/bu_translation_config/ptg_eu.yaml');
             $ptgeuMediaAttributesConfig = $ptgeuConfig['parameters']['Media'];
-    
+
             $allB2BProductId = $this->helper->getAllB2BProduct($this->bu);
-    
+
             if($allB2BProductId){
                 $mediaAttributes = $this->getAllMediaAttributes($ptgeuMediaAttributesConfig);
                 $file = fopen($filePath, "w+");
@@ -48,7 +50,7 @@ class ProductMediaDataExport implements IDataExport
                 echo $message = "{$this->bu}: B2B ptgeu product data csv file created\n";
                 echo PHP_EOL;
                 $this->helper->logMessage($message, LogLevel::INFO());
-        
+
                 foreach($productMediaDataArray as $eachproductMediaData){
                     if($i % 1000 == 0){
                         echo 'Processed '.$i. ' out of '.count($allB2BProductId).' products ' . PHP_EOL;
@@ -97,14 +99,16 @@ class ProductMediaDataExport implements IDataExport
                     $articleNumber = $product->getArticleNumber();
                     if($eachImageType == 'Medium'){
                         $url = Util::getAssetPublicPath($asset, ImageTransformationSize::MEDIUM());
+                        $displayType = self::B2B_PRODUCT_SMALL_IMAGE_DISPLAY_TYPE;
                     }
                     else{
                         $url = Util::getAssetPublicPath($asset, ImageTransformationSize::LARGE());
+                        $displayType = self::B2B_PRODUCT_MEDIUM_IMAGE_DISPLAY_TYPE;
                     }
                     $url = str_replace("Â","",$url);
                     $assetResultSet['Product2__c'] = '06-'.$articleNumber;
                     $assetResultSet['B2B_Media_Type__c'] = $asset->getType();
-                    $assetResultSet['B2B_Display_Type__c'] = $eachImageType;
+                    $assetResultSet['B2B_Display_Type__c'] = $displayType;
                     $assetResultSet['B2B_Media_URL__c'] = $url;
                     $assetResultSet['B2B_Description__c'] = substr($asset->getFilename(), 0, strpos($asset->getFilename(), "."));
                     $assetResultSet['B2B_IsAttachment__c'] = 'False';
@@ -120,14 +124,16 @@ class ProductMediaDataExport implements IDataExport
     }
     public function createExternalId($attributeName,$eachImageType){
         $getFirstCapLatterExpr = '/(?<=|^)[A-Z]/';
-        preg_match_all($getFirstCapLatterExpr, $attributeName, $firstCapmatches); 
+        preg_match_all($getFirstCapLatterExpr, $attributeName, $firstCapmatches);
         $secondLatter = (isset($firstCapmatches[0][0])) ? $firstCapmatches[0][0] : '' ;
         return  strtoupper(substr($attributeName, 0, 1)). $secondLatter . substr($attributeName, -1) . '_' .strtolower(substr($eachImageType, 0, 3));
     }
 
     public function otherMediaData($eachproductMediaData, $attributeName, $assetId, $file){
         $product = DataObject\PTGEUProduct::getById($eachproductMediaData['oo_id']);
-        if($attributeName != 'oo_id' || $attributeName != 'articleNumber'){
+        if(isset($assetId) && ($attributeName != 'oo_id' || $attributeName != 'articleNumber')){
+            $explodedAssetId = explode('|', $assetId);
+            $assetId = trim(str_replace(',','',$explodedAssetId[1]));
             $asset = Asset::getById($assetId);
             if($asset && $product){
                 $articleNumber = $product->getArticleNumber();
@@ -147,7 +153,7 @@ class ProductMediaDataExport implements IDataExport
         }
 
     }
-    
+
     public function getAllMediaAttributes($ptgeuMediaAttributesConfig){
 
         foreach($ptgeuMediaAttributesConfig as $attributeConfig){

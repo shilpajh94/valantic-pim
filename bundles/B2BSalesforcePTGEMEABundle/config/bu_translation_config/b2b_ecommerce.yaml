@@ -6,7 +6,6 @@ parameters:
         Id: Id
         ParentId:	ParentId
         B2B_External_Id__c:	B2B_External_Id__c
-        B2B_Part_Number__c:	B2B_Part_Number__c
         B2B_SAP_material_number__c:	B2B_SAP_material_number__c
         B2B_EANUPC__c:	B2B_EANUPC__c
         B2B_BaseUOM__c:	B2B_BaseUOM__c

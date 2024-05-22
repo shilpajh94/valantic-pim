@@ -120,9 +120,9 @@
  * - Document1 [manyToManyRelation]
  * - Document2 [manyToManyRelation]
  * - Document3 [manyToManyRelation]
- * - Certificate1 [advancedManyToManyRelation]
- * - Certificate2 [advancedManyToManyRelation]
- * - Certificate3 [advancedManyToManyRelation]
+ * - Certificate1 [manyToManyRelation]
+ * - Certificate2 [manyToManyRelation]
+ * - Certificate3 [manyToManyRelation]
  * - priceData [table]
  */
 
@@ -133,7 +133,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1715318852,
+   'modificationDate' => 1716359648,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -5800,6 +5800,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         ),
                          'classes' => 
                         array (
+                          0 => 
+                          array (
+                            'classes' => '',
+                          ),
                         ),
                          'displayMode' => NULL,
                          'pathFormatterClass' => '',
@@ -5823,6 +5827,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'documentsAllowed' => false,
                          'documentTypes' => 
                         array (
+                          0 => 
+                          array (
+                            'documentTypes' => '',
+                          ),
                         ),
                          'enableTextSelection' => false,
                          'width' => '',
@@ -5849,6 +5857,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         ),
                          'classes' => 
                         array (
+                          0 => 
+                          array (
+                            'classes' => '',
+                          ),
                         ),
                          'displayMode' => NULL,
                          'pathFormatterClass' => '',
@@ -5872,6 +5884,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'documentsAllowed' => false,
                          'documentTypes' => 
                         array (
+                          0 => 
+                          array (
+                            'documentTypes' => '',
+                          ),
                         ),
                          'enableTextSelection' => false,
                          'width' => '',
@@ -5898,6 +5914,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         ),
                          'classes' => 
                         array (
+                          0 => 
+                          array (
+                            'classes' => '',
+                          ),
                         ),
                          'displayMode' => NULL,
                          'pathFormatterClass' => '',
@@ -5921,6 +5941,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'documentsAllowed' => false,
                          'documentTypes' => 
                         array (
+                          0 => 
+                          array (
+                            'documentTypes' => '',
+                          ),
                         ),
                          'enableTextSelection' => false,
                          'width' => '',
@@ -5953,7 +5977,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyRelation::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
                          'name' => 'Certificate1',
                          'title' => 'Certificate 1',
                          'tooltip' => '',
@@ -5973,9 +5997,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         ),
                          'classes' => 
                         array (
+                          0 => 
+                          array (
+                            'classes' => '',
+                          ),
                         ),
                          'displayMode' => NULL,
-                         'pathFormatterClass' => 'AppBundle\\Formatter\\AssetFormatter',
+                         'pathFormatterClass' => '',
                          'maxItems' => 20,
                          'assetInlineDownloadAllowed' => false,
                          'assetUploadPath' => '',
@@ -6000,56 +6028,17 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'documentsAllowed' => false,
                          'documentTypes' => 
                         array (
+                          0 => 
+                          array (
+                            'documentTypes' => '',
+                          ),
                         ),
                          'enableTextSelection' => false,
                          'width' => '',
-                         'height' => NULL,
-                         'columns' => 
-                        array (
-                          0 => 
-                          array (
-                            'type' => 'text',
-                            'position' => 1,
-                            'key' => 'DrawingNumber',
-                            'label' => 'Drawing Number',
-                          ),
-                          1 => 
-                          array (
-                            'type' => 'number',
-                            'position' => 2,
-                            'key' => 'DrawingRevisionNumber',
-                            'label' => 'Drawing Revision number',
-                          ),
-                          2 => 
-                          array (
-                            'type' => 'text',
-                            'position' => 3,
-                            'key' => 'DrawingRevisionDate',
-                            'label' => 'Drawing Revision Date',
-                            'width' => NULL,
-                          ),
-                          3 => 
-                          array (
-                            'type' => 'bool',
-                            'position' => 4,
-                            'key' => 'CertificationDocument',
-                            'label' => 'Certification Document',
-                          ),
-                        ),
-                         'columnKeys' => 
-                        array (
-                          0 => 'DrawingNumber',
-                          1 => 'DrawingRevisionNumber',
-                          2 => 'DrawingRevisionDate',
-                          3 => 'CertificationDocument',
-                        ),
-                         'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\ElementMetadata[]',
-                         'optimizedAdminLoading' => false,
-                         'enableBatchEdit' => false,
-                         'allowMultipleAssignments' => false,
+                         'height' => '',
                       )),
                       1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyRelation::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
                          'name' => 'Certificate2',
                          'title' => 'Certificate 2',
                          'tooltip' => '',
@@ -6069,9 +6058,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         ),
                          'classes' => 
                         array (
+                          0 => 
+                          array (
+                            'classes' => '',
+                          ),
                         ),
                          'displayMode' => NULL,
-                         'pathFormatterClass' => 'AppBundle\\Formatter\\AssetFormatter',
+                         'pathFormatterClass' => '',
                          'maxItems' => 20,
                          'assetInlineDownloadAllowed' => false,
                          'assetUploadPath' => '',
@@ -6096,56 +6089,17 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'documentsAllowed' => false,
                          'documentTypes' => 
                         array (
+                          0 => 
+                          array (
+                            'documentTypes' => '',
+                          ),
                         ),
                          'enableTextSelection' => false,
                          'width' => '',
-                         'height' => NULL,
-                         'columns' => 
-                        array (
-                          0 => 
-                          array (
-                            'type' => 'text',
-                            'position' => 1,
-                            'key' => 'DrawingNumber',
-                            'label' => 'Drawing Number',
-                          ),
-                          1 => 
-                          array (
-                            'type' => 'number',
-                            'position' => 2,
-                            'key' => 'DrawingRevisionNumber',
-                            'label' => 'Drawing Revision number',
-                          ),
-                          2 => 
-                          array (
-                            'type' => 'text',
-                            'position' => 3,
-                            'key' => 'DrawingRevisionDate',
-                            'label' => 'Drawing Revision Date',
-                            'width' => NULL,
-                          ),
-                          3 => 
-                          array (
-                            'type' => 'bool',
-                            'position' => 4,
-                            'key' => 'CertificationDocument',
-                            'label' => 'Certification Document',
-                          ),
-                        ),
-                         'columnKeys' => 
-                        array (
-                          0 => 'DrawingNumber',
-                          1 => 'DrawingRevisionNumber',
-                          2 => 'DrawingRevisionDate',
-                          3 => 'CertificationDocument',
-                        ),
-                         'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\ElementMetadata[]',
-                         'optimizedAdminLoading' => false,
-                         'enableBatchEdit' => false,
-                         'allowMultipleAssignments' => false,
+                         'height' => '',
                       )),
                       2 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyRelation::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
                          'name' => 'Certificate3',
                          'title' => 'Certificate 3',
                          'tooltip' => '',
@@ -6165,9 +6119,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         ),
                          'classes' => 
                         array (
+                          0 => 
+                          array (
+                            'classes' => '',
+                          ),
                         ),
                          'displayMode' => NULL,
-                         'pathFormatterClass' => 'AppBundle\\Formatter\\AssetFormatter',
+                         'pathFormatterClass' => '',
                          'maxItems' => 20,
                          'assetInlineDownloadAllowed' => false,
                          'assetUploadPath' => '',
@@ -6192,53 +6150,14 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'documentsAllowed' => false,
                          'documentTypes' => 
                         array (
+                          0 => 
+                          array (
+                            'documentTypes' => '',
+                          ),
                         ),
                          'enableTextSelection' => false,
                          'width' => '',
-                         'height' => NULL,
-                         'columns' => 
-                        array (
-                          0 => 
-                          array (
-                            'type' => 'text',
-                            'position' => 1,
-                            'key' => 'DrawingNumber',
-                            'label' => 'Drawing Number',
-                          ),
-                          1 => 
-                          array (
-                            'type' => 'number',
-                            'position' => 2,
-                            'key' => 'DrawingRevisionNumber',
-                            'label' => 'Drawing Revision number',
-                          ),
-                          2 => 
-                          array (
-                            'type' => 'text',
-                            'position' => 3,
-                            'key' => 'DrawingRevisionDate',
-                            'label' => 'Drawing Revision Date',
-                            'width' => NULL,
-                          ),
-                          3 => 
-                          array (
-                            'type' => 'bool',
-                            'position' => 4,
-                            'key' => 'CertificationDocument',
-                            'label' => 'Certification Document',
-                          ),
-                        ),
-                         'columnKeys' => 
-                        array (
-                          0 => 'DrawingNumber',
-                          1 => 'DrawingRevisionNumber',
-                          2 => 'DrawingRevisionDate',
-                          3 => 'CertificationDocument',
-                        ),
-                         'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\ElementMetadata[]',
-                         'optimizedAdminLoading' => false,
-                         'enableBatchEdit' => false,
-                         'allowMultipleAssignments' => false,
+                         'height' => '',
                       )),
                     ),
                      'locked' => false,
@@ -6558,42 +6477,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
-    0 => 
-    Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-       'name' => 'Color_localized',
-       'title' => 'Color',
-       'tooltip' => '',
-       'mandatory' => false,
-       'noteditable' => false,
-       'index' => false,
-       'locked' => false,
-       'style' => '',
-       'permissions' => NULL,
-       'fieldtype' => '',
-       'relationType' => false,
-       'invisible' => false,
-       'visibleGridView' => false,
-       'visibleSearch' => false,
-       'blockedVarsForExport' => 
-      array (
-      ),
-       'options' => 
-      array (
-        0 => 
-        array (
-          'key' => 'Red',
-          'value' => 15323129,
-        ),
-      ),
-       'defaultValue' => '1',
-       'columnLength' => 100,
-       'dynamicOptions' => false,
-       'defaultValueGenerator' => '',
-       'width' => 250,
-       'optionsProviderType' => 'class',
-       'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
-       'optionsProviderData' => 'PTGEUColor|color',
-    )),
   ),
    'blockedVarsForExport' => 
   array (

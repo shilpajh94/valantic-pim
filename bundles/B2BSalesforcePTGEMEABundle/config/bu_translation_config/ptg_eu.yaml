@@ -433,3 +433,33 @@ parameters:
             fieldLocation: class
             className: PTGEUProduct
             mediaType: image
+        Document1:
+            fieldName: Document1
+            fieldLocation: class
+            className: PTGEUProduct
+            mediaType: document
+        Document2:
+            fieldName: Document2
+            fieldLocation: class
+            className: PTGEUProduct
+            mediaType: document
+        Document3:
+            fieldName: Document3
+            fieldLocation: class
+            className: PTGEUProduct
+            mediaType: document
+        Certificate1:
+            fieldName: Certificate1
+            fieldLocation: class
+            className: PTGEUProduct
+            mediaType: document
+        Certificate2:
+            fieldName: Certificate3
+            fieldLocation: class
+            className: PTGEUProduct
+            mediaType: document
+        Certificate3:
+            fieldName: Certificate3
+            fieldLocation: class
+            className: PTGEUProduct
+            mediaType: document
