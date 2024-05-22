@@ -159,10 +159,12 @@ class ObjectListener
 
                 $minTempFFromFert = $object->getMinimumTemperatureF();
                 $maxTempFFromFert = $object->getMaximumTemperatureF();
-                if (((string)$minTempFFromBase == (string)$minTempFFromFert) 
+                if (((string)$minTempFFromBase == (string)$minTempFFromFert)
                 && ((string)$maxTempFFromBase == (string)$maxTempFFromFert)) {
                     $this->appService->updateCalcFields($object);
                     $object->setRangeTemperatureF(null);
+                    $object->setRangeTemperatureC(null);
+                    $object->setTemperatureRangeFAndC(null);
                 } else {
                     $this->appService->updateCalcFields($object);
                 }
@@ -182,7 +184,11 @@ class ObjectListener
                     $this->appService->updateCalcFields($object);
                     $object->setMinimumTemperatureF(null);
                     $object->setMaximumTemperatureF(null);
+                    $object->setMinimumTemperatureC(null);
+                    $object->setMaximumTemperatureC(null);
                     $object->setRangeTemperatureF(null);
+                    $object->setRangeTemperatureC(null);
+                    $object->setTemperatureRangeFAndC(null);
                 } else {
                     $this->appService->updateCalcFields($object);
                 }
