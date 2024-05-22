@@ -100,6 +100,13 @@ class RangeTemperatureF extends AbstractCommand
                     $maxTempFFromBase = $object->getParent()->getParent()->getMaximumTemperatureF();
                     $rangeTemperatureF = $object->getParent()->getParent()->getRangeTemperatureF();
 
+                    $minTempFFromBaseC = $object->getParent()->getParent()->getMinimumTemperatureC();
+                    $maxTempFFromBaseC = $object->getParent()->getParent()->getMaximumTemperatureC();
+
+                    $rangeTemperatureC = $object->getParent()->getParent()->getRangeTemperatureC();
+                    $rangeTemperatureF = $object->getParent()->getParent()->getRangeTemperatureF();
+                    $temperatureRangeFAndC = $object->getParent()->getParent()->getTemperatureRangeFAndC();
+
                     $minTempFFromSkeleton = $object->getParent()->getMinimumTemperatureF();
                     $maxTempFFromSkeleton = $object->getParent()->getMaximumTemperatureF();
 
@@ -115,9 +122,13 @@ class RangeTemperatureF extends AbstractCommand
                     } elseif (((string)$minTempFFromBase == (string)$minTempFFromFert)
                         && ((string)$maxTempFFromBase == (string)$maxTempFFromFert)
                     ) {
-                        $object->setMinimumTemperatureC($minTempFFromBase);
-                        $object->setMaximumTemperatureC($maxTempFFromBase);
+                        $object->setMinimumTemperatureF($minTempFFromBase);
+                        $object->setMaximumTemperatureF($maxTempFFromBase);
+                        $object->setMinimumTemperatureC($minTempFFromBaseC);
+                        $object->setMaximumTemperatureC($maxTempFFromBaseC);
                         $object->setRangeTemperatureF($rangeTemperatureF);
+                        $object->setRangeTemperatureC($rangeTemperatureC);
+                        $object->setTemperatureRangeFAndC($temperatureRangeFAndC);
                         $object->setPublished(true);
                         $object->save();
                     } else {
