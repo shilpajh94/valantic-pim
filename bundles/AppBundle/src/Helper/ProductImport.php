@@ -4,6 +4,7 @@ namespace AppBundle\Helper;
 
 use Pimcore\Db;
 use ImportBundle\Services\ImportConstants;
+use mysqli;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ProductImport
@@ -219,11 +220,12 @@ class ProductImport
             if ($bu == 'ptg') {
                 $catLength18 = 18;
                 $catLength16 = 16;
-                $sql   = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE (LENGTH(t.siopfullcode) = '".$catLength16."' OR LENGTH(t.siopfullcode) = '".$catLength18."')AND (t.hash != m.hash OR m.id is null) ";
+                $catLength13 = 13;
+                $sql   = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE (LENGTH(t.siopfullcode) = '".$catLength13."' OR LENGTH(t.siopfullcode) = '".$catLength16."' OR LENGTH(t.siopfullcode) = '".$catLength18."') AND (t.siopFullCode LIKE '043000%') AND (t.hash != m.hash OR m.id is null) ";
             }
             else{
                 $catLength = 13;
-                $sql   = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE LENGTH(t.siopfullcode) = '".$catLength."' AND (t.hash != m.hash OR m.id is null) ";
+                $sql   = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE LENGTH(t.siopfullcode) = '".$catLength."' AND (t.siopFullCode NOT LIKE '043000%') AND (t.hash != m.hash OR m.id is null) ";
             }
             $delta = $this->db->fetchAllAssociative($sql);
 
@@ -241,7 +243,7 @@ class ProductImport
                 try {
                     $this->db->executeQuery($sql);
                 } catch (\Exception $e) {
-
+                    echo $e->getMessage(); 
                 }
             }
         }
@@ -255,7 +257,7 @@ class ProductImport
     {
         try {
             // galti not check condition for auto hose ifs
-            $sql = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t WHERE LENGTH(t.siopfullcode) = '13'";
+            $sql = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t WHERE LENGTH(t.siopfullcode) = '13' AND (t.siopFullCode NOT LIKE '043000%')";
             return $this->db->fetchAllAssociative($sql);
         } catch (\Exception $ex) {
             echo $ex->getMessage();
