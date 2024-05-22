@@ -539,7 +539,15 @@ class SalesMaterialModel
                 $productPath = $this->convertCategoryPathToProduct($siopPath);
                 $productFolderId = $this->getFolderByPath($productPath);
                 return ['success' => true, "parentId" => $productFolderId, "parentPath" => $productPath];
-            } elseif (strlen($siopCode) == 13) {
+            }
+            else if (strlen($siopCode) == 16) {
+                $siopLevel5 = $object->getSIOPLevel5()[0];
+                $siopPath = $siopLevel5->getFullpath();
+                $productPath = $this->convertCategoryPathToProduct($siopPath);
+                $productFolderId = $this->getFolderByPath($productPath);
+                return ['success' => true, "parentId" => $productFolderId, "parentPath" => $productPath];
+            } 
+            elseif (strlen($siopCode) == 13) {
                 $siopLevel4 = $object->getSIOPLevel4()[0];
                 $siopPath = $siopLevel4->getFullpath();
                 $productPath = $this->convertCategoryPathToProduct($siopPath);
