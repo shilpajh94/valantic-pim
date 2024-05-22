@@ -277,19 +277,22 @@ class ProductSQLModel
     }
     public function processDeletedProducts() {
         $deletedProducts = $this->tblImpHelper->getDeletedProducts();
-        if (!empty($deletedProducts) && count($deletedProducts)>0) {
+        if (!empty($deletedProducts[0]) && count($deletedProducts[0])>0) {
             $keysArray = [];
             foreach ($deletedProducts as $product) {
-                $keysArray[] = $product['id'];
+                if(!empty($product['id']))
+                    $keysArray[] = $product['id'];
             }
-            $obj = new DataObject\Product\Listing();
-            $obj->setCondition("articleNumber IN (". implode(', ' , $keysArray).")");
-            $obj->setUnpublished(true);
-            $obj->load();
-            foreach($obj as $product) {
-                echo "Mark Product unpublished for id = ".$product->getId()." and article number = ".$product->getArticleNumber().PHP_EOL;
-                $product->setPublished(false);
-                $product->save();
+            if(!empty($keysArray)){
+                $obj = new DataObject\Product\Listing();
+                $obj->setCondition("articleNumber IN (". implode(', ' , $keysArray).")");
+                $obj->load();
+                foreach($obj as $product) {
+                    echo "Mark Product unpublished for id = ".$product->getId()." and article number = ".$product->getArticleNumber().PHP_EOL;
+                    $product->setPublished(false);
+                    $product->save();
+                }
+    
             }
         }
     }
