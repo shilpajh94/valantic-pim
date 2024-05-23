@@ -7,7 +7,7 @@ pimcore:
                     name: ProductManagerPTGEU
                     description: ''
                     creationDate: 1706598049
-                    modificationDate: 1715067521
+                    modificationDate: 1716365042
                     userOwner: 2
                     classId: '38'
                     layoutDefinitions:
@@ -211,8 +211,10 @@ pimcore:
                                                                                         maxItems: 10
                                                                                         renderType: tags
                                                                                         dynamicOptions: false
+                                                                                        defaultValue: null
                                                                                         height: ''
                                                                                         width: 250
+                                                                                        defaultValueGenerator: ''
                                                                                         optionsProviderType: null
                                                                                         optionsProviderClass: \PTGEU\ProductBundle\OptionProvider\PTGEUFeaturesAndBenefitsOptionProvider
                                                                                         optionsProviderData: ''
@@ -677,8 +679,10 @@ pimcore:
                                                                                 maxItems: 1
                                                                                 renderType: tags
                                                                                 dynamicOptions: false
+                                                                                defaultValue: null
                                                                                 height: ''
                                                                                 width: 250
+                                                                                defaultValueGenerator: ''
                                                                                 optionsProviderType: null
                                                                                 optionsProviderClass: ''
                                                                                 optionsProviderData: ''
