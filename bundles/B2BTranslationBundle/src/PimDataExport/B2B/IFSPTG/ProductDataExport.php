@@ -174,7 +174,7 @@ class ProductDataExport implements IDataExport
 
                             $areHeadersAlreadyAdded = false;
                             $b2bProductsChucks = array_chunk($b2bProducts, 1000);
-                            $filePath1 = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR ."$this->bu"."_SFPIM_PRODUCT_TRANSLATION_INSERT" .
+                            $filePath1 = B2B_TRANSLATION_SFTP_DOWNLOAD_TEMP_DIR . "$this->bu" . "_SFPIM_PRODUCT_TRANSLATION_INSERT" .
                                 date('M') . "_" . date('d') . "_" . date('Y') . ".csv";
                             $file1 = fopen($filePath1, "w+");
                             print_r($filePath1);
@@ -584,7 +584,7 @@ class ProductDataExport implements IDataExport
                                                 if (isset($record['language'])) {
                                                     $lan = $record['language'];
                                                     $l = array_search($lan, $languageNameDisplayArray);
-                                                    if($l == "" || $l == null ){
+                                                    if ($l == "" || $l == null) {
                                                         $l = $lan;
                                                     }
                                                 }
@@ -610,37 +610,42 @@ class ProductDataExport implements IDataExport
                                                     if ($keyHeader == 'externalID' && $record[$keyHeader]) {
                                                         $mapping_record[$keyHeaderValue] = $record[$keyHeader] . '_' . $lang;
                                                     }
-                                                    if ($keyHeader == 'color_localized' && $record['color_localized']!=null) {
-                                                        $colorMastersList = $this->getColorMasterList($l);
-                                                        $colorId = $record['color_localized'];
-                                                        if ($colorId != null && $colorId != 1 && $colorId != '' && is_numeric($colorId) && !empty($colorMastersList)) {
-                                                            $mapping_record[$keyHeaderValue] = $colorMastersList[$colorId];
-                                                        } else {
-                                                            $mapping_record[$keyHeaderValue] = null;
+                                                    if ($this->bu = 'PTG_EU') {
+                                                        if ($keyHeader == 'color' && $record['color'] != null) {
+                                                            $colorMastersList = $this->getColorMasterList($l);
+                                                            $colorId = $record['color'];
+                                                            if ($colorId != null && $colorId != 1 && $colorId != '' && is_numeric($colorId) && !empty($colorMastersList)) {
+                                                                $mapping_record[$keyHeaderValue] = $colorMastersList[$colorId];
+                                                            } else {
+                                                                $mapping_record[$keyHeaderValue] = null;
+                                                            }
                                                         }
-                                                    }if ($keyHeader == 'beltType_localized' && $record['beltType_localized']!=null) {
-                                                        $beltTypeMastersList = $this->getBeltTypeMasterList($l);
-                                                        $beltTypeId = $record['beltType_localized'];
-                                                        if ($beltTypeId != null && $beltTypeId != 1 && $beltTypeId != '' && is_numeric($beltTypeId) && !empty($beltTypeMastersList)) {
-                                                            $mapping_record[$keyHeaderValue] = $beltTypeMastersList[$beltTypeId];
-                                                        } else {
-                                                            $mapping_record[$keyHeaderValue] = null;
+                                                        if ($keyHeader == 'beltType' && $record['beltType'] != null) {
+                                                            $beltTypeMastersList = $this->getBeltTypeMasterList($l);
+                                                            $beltTypeId = $record['beltType'];
+                                                            if ($beltTypeId != null && $beltTypeId != 1 && $beltTypeId != '' && is_numeric($beltTypeId) && !empty($beltTypeMastersList)) {
+                                                                $mapping_record[$keyHeaderValue] = $beltTypeMastersList[$beltTypeId];
+                                                            } else {
+                                                                $mapping_record[$keyHeaderValue] = null;
+                                                            }
                                                         }
-                                                    }if ($keyHeader == 'performance_localized' && $record['performance_localized']!=null) {
-                                                        $performanceMastersList = $this->getPerformanceMasterList($l);
-                                                        $performanceId = $record['performance_localized'];
-                                                        if ($performanceId != null && $performanceId != 1 && $performanceId != '' && is_numeric($performanceId) && !empty($performanceMastersList)) {
-                                                            $mapping_record[$keyHeaderValue] = $performanceMastersList[$performanceId];
-                                                        } else {
-                                                            $mapping_record[$keyHeaderValue] = null;
+                                                        if ($keyHeader == 'performance' && $record['performance'] != null) {
+                                                            $performanceMastersList = $this->getPerformanceMasterList($l);
+                                                            $performanceId = $record['performance'];
+                                                            if ($performanceId != null && $performanceId != 1 && $performanceId != '' && is_numeric($performanceId) && !empty($performanceMastersList)) {
+                                                                $mapping_record[$keyHeaderValue] = $performanceMastersList[$performanceId];
+                                                            } else {
+                                                                $mapping_record[$keyHeaderValue] = null;
+                                                            }
                                                         }
-                                                    }if ($keyHeader == 'staticConductive_localized' && $record['staticConductive_localized']!=null) {
-                                                        $staticConductiveMastersList = $this->getStaticConductiveMasterList($l);
-                                                        $staticConductiveId = $record['staticConductive_localized'];
-                                                        if ($staticConductiveId != null && $staticConductiveId != 1 && $staticConductiveId != '' && is_numeric($staticConductiveId) && !empty($staticConductiveMastersList)) {
-                                                            $mapping_record[$keyHeaderValue] = $staticConductiveMastersList[$staticConductiveId];
-                                                        } else {
-                                                            $mapping_record[$keyHeaderValue] = null;
+                                                        if ($keyHeader == 'staticConductive' && $record['staticConductive'] != null) {
+                                                            $staticConductiveMastersList = $this->getStaticConductiveMasterList($l);
+                                                            $staticConductiveId = $record['staticConductive'];
+                                                            if ($staticConductiveId != null && $staticConductiveId != 1 && $staticConductiveId != '' && is_numeric($staticConductiveId) && !empty($staticConductiveMastersList)) {
+                                                                $mapping_record[$keyHeaderValue] = $staticConductiveMastersList[$staticConductiveId];
+                                                            } else {
+                                                                $mapping_record[$keyHeaderValue] = null;
+                                                            }
                                                         }
                                                     }
                                                     if ($keyHeader != 'SalesForce_ID') {
@@ -696,8 +701,9 @@ class ProductDataExport implements IDataExport
 
         } catch (\Throwable $e) {
             $message = $e->getMessage();
+            $trace = $e->getTraceAsString();
             $message = "Exception while trying to export the data" . " " . $message;
-            $this->logMessage($message, LogLevel::CRITICAL());
+            $this->logMessage($trace, LogLevel::CRITICAL());
             return;
         }
 
@@ -714,7 +720,7 @@ class ProductDataExport implements IDataExport
 
     public function uploadFile($bu)
     {
-        $customFileName2 = $bu."_SFPIM_PRODUCT_TRANSLATION_INSERT.csv";
+        $customFileName2 = $bu . "_SFPIM_PRODUCT_TRANSLATION_INSERT.csv";
         $this->helper->uploadFile($customFileName2);
     }
 
@@ -831,7 +837,7 @@ class ProductDataExport implements IDataExport
         return $nameIdInKeyValuePairArray;
     }
 
-    public function getPerformanceMasterList($lang=null)
+    public function getPerformanceMasterList($lang = null)
     {
         $stmt = "SELECT ooo_id, performance FROM object_localized_data_PTGEUPerformance WHERE language = '$lang';";
         $results = $this->db->fetchAllAssociative($stmt);
@@ -846,7 +852,7 @@ class ProductDataExport implements IDataExport
         return $nameIdInKeyValuePairArray;
     }
 
-    public function getStaticConductiveMasterList($lang=null)
+    public function getStaticConductiveMasterList($lang = null)
     {
         $stmt = "SELECT ooo_id, staticConductive FROM object_localized_data_PTGEUStaticConductive WHERE language = '$lang';";
         $results = $this->db->fetchAllAssociative($stmt);
@@ -861,7 +867,7 @@ class ProductDataExport implements IDataExport
         return $nameIdInKeyValuePairArray;
     }
 
-    public function getColorMasterList($lang=null)
+    public function getColorMasterList($lang = null)
     {
         $stmt = "SELECT ooo_id, color FROM object_localized_data_PTGEUColor WHERE language = '$lang';";
         $results = $this->db->fetchAllAssociative($stmt);

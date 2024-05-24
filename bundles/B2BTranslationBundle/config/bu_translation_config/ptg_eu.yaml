@@ -60,49 +60,49 @@ parameters:
             className: Product
             isLocalized: true
             sqlQuery: "reach"
-        staticConductive_localized:
-            fieldName: staticConductive_localized
+        staticConductive:
+            fieldName: staticConductive
             fieldLocation: class
             className: Product
             isLocalized: true
-            sqlQuery: "staticConductive_localized"
-        heatAndOilResistant_localized:
-            fieldName: heatAndOilResistant_localized
+            sqlQuery: "staticConductive"
+        heatAndOilResistant:
+            fieldName: heatAndOilResistant
             fieldLocation: class
             className: Product
             isLocalized: true
-            sqlQuery: "heatAndOilResistant_localized"
-        quality_localized:
-            fieldName: heatAndOilResistant_localized
+            sqlQuery: "heatAndOilResistant"
+        quality:
+            fieldName: quality
             fieldLocation: class
             className: Product
             isLocalized: true
-            sqlQuery: "quality_localized"
-        matchMakerLL_localized:
-            fieldName: matchMakerLL_localized
+            sqlQuery: "quality"
+        matchMakerLL:
+            fieldName: matchMakerLL
             fieldLocation: class
             className: Product
             isLocalized: true
-            sqlQuery: "matchMakerLL_localized"
-        performance_localized:
-            fieldName: performance_localized
+            sqlQuery: "matchMakerLL"
+        performance:
+            fieldName: performance
             fieldLocation: class
             className: Product
             isLocalized: true
-            sqlQuery: "performance_localized"
-        beltType_localized:
-            fieldName: beltType_localized
+            sqlQuery: "performance"
+        beltType:
+            fieldName: beltType
             fieldLocation: class
             className: Product
             isLocalized: true
-            sqlQuery: "beltType_localized"
-        color_localized:
-            fieldName: color_localized
+            sqlQuery: "beltType"
+        color:
+            fieldName: color
             fieldLocation: class
             className: Product
             isLocalized: true
-            sqlQuery: "color_localized"
-    Category: 
+            sqlQuery: "color"
+    Category:
         # parentId:
         #     fieldName: parentId
         #     fieldLocation: class
