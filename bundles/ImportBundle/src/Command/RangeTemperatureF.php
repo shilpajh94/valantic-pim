@@ -88,6 +88,8 @@ class RangeTemperatureF extends AbstractCommand
                         && ((string)$maxTempFBase == (string)$maxTempFSkeleton)
                     ) {
                         $object->setRangeTemperatureF(null);
+                        $object->setRangeTemperatureC(null);
+                        $object->setTemperatureRangeFAndC(null);
                         $object->setPublished(true);
                         $object->save();
                     }
