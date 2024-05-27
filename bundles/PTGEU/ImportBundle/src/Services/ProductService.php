@@ -154,6 +154,8 @@ class ProductService
                      $this->baseSiopMismatchEmailTemplate);
                 }
             } catch (\Throwable $th) {
+                p_r($th);
+                \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($th);
                 Logger::error($this->logFileName, $th);
                 die;
             }
@@ -193,6 +195,7 @@ class ProductService
                 }
             }
         } catch (\Throwable $th) {
+            p_r($th);
             Logger::log(self::LOGGER_MODULE)->error($th);
         }
     }
@@ -607,13 +610,15 @@ class ProductService
             $reinforcementValueArr  = explode('|', $reinforcementValue);
             $fd = $baseObject->getClass()->getFieldDefinition("reinforcement");
             $options = $fd->getOptions();
-            foreach($options as $eachOptions){
-                foreach($reinforcementValueArr as $eachReinforcementValue){
-                    if(strtolower($eachOptions['value']) == strtolower($eachReinforcementValue)){
-                        array_push($reinforcementValuesToBeMapped,$eachOptions['value']);
+            if($options){
+                foreach($options as $eachOptions){
+                    foreach($reinforcementValueArr as $eachReinforcementValue){
+                        if(strtolower($eachOptions['value']) == strtolower($eachReinforcementValue)){
+                            array_push($reinforcementValuesToBeMapped,$eachOptions['value']);
+                        }
                     }
+    
                 }
-
             }
             $reinforcements  = implode(',', $reinforcementValuesToBeMapped);
             $queryTableData['reinforcement'] = $reinforcements;
@@ -621,38 +626,45 @@ class ProductService
             $performance = trim($record[$this->getRecordIndexByKey('performance')]);
             $fd = $baseObject->getClass()->getFieldDefinition("performance");
             $options = $fd->getOptions();
-            foreach($options as $eachOptions){
-                if(strtolower($eachOptions['value']) == strtolower($performance)){
-                    echo $eachOptions['value'].PHP_EOL;
-                    $queryTableData['performance'] = trim($eachOptions['value']);
-                }
+            if($options){
+                foreach($options as $eachOptions){
+                    if(strtolower($eachOptions['value']) == strtolower($performance)){
+                        $queryTableData['performance'] = trim($eachOptions['value']);
+                    }
+                }    
             }
 
             $materialCompound = trim($record[$this->getRecordIndexByKey('materialCompound')]);
             $fd = $baseObject->getClass()->getFieldDefinition("material");
             $options = $fd->getOptions();
-            foreach($options as $eachOptions){
-                if($eachOptions['value'] == $materialCompound){
-                    $queryTableData['material'] = trim($record[$this->getRecordIndexByKey('materialCompound')]);
-                }
+            if($options){
+                foreach($options as $eachOptions){
+                    if($eachOptions['value'] == $materialCompound){
+                        $queryTableData['material'] = trim($record[$this->getRecordIndexByKey('materialCompound')]);
+                    }
+                }    
             }
 
             $color = trim($record[$this->getRecordIndexByKey('color')]);
             $fd = $baseObject->getClass()->getFieldDefinition("color");
             $options = $fd->getOptions();
-            foreach($options as $eachOptions){
-                if(strtolower($eachOptions['value']) == strtolower($color)){
-                    $queryTableData['color'] = trim($eachOptions['value']);
-                }
+            if($options){
+                foreach($options as $eachOptions){
+                    if(strtolower($eachOptions['value']) == strtolower($color)){
+                        $queryTableData['color'] = trim($eachOptions['value']);
+                    }
+                }    
             }
 
             $staticConductive = trim($record[$this->getRecordIndexByKey('staticConductive')]);
             $fd = $baseObject->getClass()->getFieldDefinition("staticConductive");
             $options = $fd->getOptions();
-            foreach($options as $eachOptions){
-                if(strtolower($eachOptions['value']) == strtolower($staticConductive)){
-                    $queryTableData['staticConductive'] = trim($eachOptions['value']);
-                }
+            if($options){
+                foreach($options as $eachOptions){
+                    if(strtolower($eachOptions['value']) == strtolower($staticConductive)){
+                        $queryTableData['staticConductive'] = trim($eachOptions['value']);
+                    }
+                }    
             }
 
         }
@@ -689,10 +701,12 @@ class ProductService
             $weightUnit = trim($record[$this->getRecordIndexByKey('weightUnit')]);
             $fd = $fertObject->getClass()->getFieldDefinition("weightUnit");
             $options = $fd->getOptions();
-            foreach($options as $eachOptions){
-                if($eachOptions['value'] == $weightUnit){
-                    $queryTableData['weightUnit'] = trim($record[$this->getRecordIndexByKey('weightUnit')]);
-                }
+            if($options){
+                foreach($options as $eachOptions){
+                    if($eachOptions['value'] == $weightUnit){
+                        $queryTableData['weightUnit'] = trim($record[$this->getRecordIndexByKey('weightUnit')]);
+                    }
+                }    
             }
             // $vtlstatus = trim($record[$this->getRecordIndexByKey('vtlStatus')]);
             // $vtlObject = $this->getVtlStatus($vtlstatus);
@@ -797,13 +811,14 @@ class ProductService
             $reinforcementValueArr  = explode('|', $reinforcementValue);
             $fd = $baseObject->getClass()->getFieldDefinition("reinforcement");
             $options = $fd->getOptions();
-            foreach($options as $eachOptions){
-                foreach($reinforcementValueArr as $eachReinforcementValue){
-                    if(strtolower($eachOptions['value']) == strtolower($eachReinforcementValue)){
-                        array_push($reinforcementValuesToBeMapped,$eachOptions['value']);
+            if($options){
+                foreach($options as $eachOptions){
+                    foreach($reinforcementValueArr as $eachReinforcementValue){
+                        if(strtolower($eachOptions['value']) == strtolower($eachReinforcementValue)){
+                            array_push($reinforcementValuesToBeMapped,$eachOptions['value']);
+                        }
                     }
-                }
-
+                }    
             }
             $reinforcements  = implode(',', $reinforcementValuesToBeMapped);
             $storeTableDataArray['reinforcement'] = $reinforcements;
@@ -812,38 +827,45 @@ class ProductService
             $performance = trim($record[$this->getRecordIndexByKey('performance')]);
             $fd = $baseObject->getClass()->getFieldDefinition("performance");
             $options = $fd->getOptions();
-            foreach($options as $eachOptions){
-                if(strtolower($eachOptions['value']) == strtolower($performance)){
-                    $storeTableDataArray['performance'] = trim($eachOptions['value']);
-                }
+            if($options){
+                foreach($options as $eachOptions){
+                    if(strtolower($eachOptions['value']) == strtolower($performance)){
+                        $storeTableDataArray['performance'] = trim($eachOptions['value']);
+                    }
+                }    
             }
 
             $materialCompound = trim($record[$this->getRecordIndexByKey('materialCompound')]);
             $fd = $baseObject->getClass()->getFieldDefinition("material");
             $options = $fd->getOptions();
-            foreach($options as $eachOptions){
-                if(strtolower($eachOptions['value']) == strtolower($materialCompound)){
-                    $storeTableDataArray['material'] = trim($eachOptions['value']);
-                }
-
+            if($options){
+                foreach($options as $eachOptions){
+                    if(strtolower($eachOptions['value']) == strtolower($materialCompound)){
+                        $storeTableDataArray['material'] = trim($eachOptions['value']);
+                    }
+                }    
             }
 
             $color = trim($record[$this->getRecordIndexByKey('color')]);
             $fd = $baseObject->getClass()->getFieldDefinition("color");
             $options = $fd->getOptions();
-            foreach($options as $eachOptions){
-                if(strtolower($eachOptions['value']) == strtolower($color)){
-                    $storeTableDataArray['color'] = trim($eachOptions['value']);
-                }
+            if($options){
+                foreach($options as $eachOptions){
+                    if(strtolower($eachOptions['value']) == strtolower($color)){
+                        $storeTableDataArray['color'] = trim($eachOptions['value']);
+                    }
+                }    
             }
 
             $staticConductive = trim($record[$this->getRecordIndexByKey('staticConductive')]);
             $fd = $baseObject->getClass()->getFieldDefinition("staticConductive");
             $options = $fd->getOptions();
-            foreach($options as $eachOptions){
-                if(strtolower($eachOptions['value']) == strtolower($staticConductive)){
-                    $storeTableDataArray['staticConductive'] = trim($eachOptions['value']);
-                }
+            if($options){
+                foreach($options as $eachOptions){
+                    if(strtolower($eachOptions['value']) == strtolower($staticConductive)){
+                        $storeTableDataArray['staticConductive'] = trim($eachOptions['value']);
+                    }
+                }    
             }
         }
 
@@ -880,10 +902,12 @@ class ProductService
             $weightUnit = trim($record[$this->getRecordIndexByKey('weightUnit')]);
             $fd = $fertObject->getClass()->getFieldDefinition("weightUnit");
             $options = $fd->getOptions();
-            foreach($options as $eachOptions){
-                if($eachOptions['value'] == $weightUnit){
-                    $storeTableDataArray['weightUnit'] = trim($record[$this->getRecordIndexByKey('weightUnit')]);
-                }
+            if($options){
+                foreach($options as $eachOptions){
+                    if($eachOptions['value'] == $weightUnit){
+                        $storeTableDataArray['weightUnit'] = trim($record[$this->getRecordIndexByKey('weightUnit')]);
+                    }
+                }    
             }
             // $vtlstatus = trim($record[$this->getRecordIndexByKey('vtlStatus')]);
             // $vtlObject = $this->getVtlStatus($vtlstatus);
