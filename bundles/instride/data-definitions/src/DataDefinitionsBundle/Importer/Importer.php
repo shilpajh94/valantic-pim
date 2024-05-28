@@ -17,57 +17,57 @@ declare(strict_types=1);
 
 namespace Instride\Bundle\DataDefinitionsBundle\Importer;
 
-use CoreShop\Component\Registry\ServiceRegistryInterface;
-use Countable;
-use InvalidArgumentException;
 use Pimcore;
+use Countable;
+use Throwable;
 use Pimcore\File;
 use Pimcore\Mail;
-use Pimcore\Model\DataObject\ClassDefinition;
-use Pimcore\Model\DataObject\Concrete;
-use Pimcore\Model\DataObject\Service;
-use Pimcore\Model\Document;
-use Pimcore\Model\Factory;
-use Pimcore\Model\Version;
-use Psr\Log\LoggerAwareInterface;
-use Psr\Log\LoggerInterface;
-use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
-use Symfony\Component\Messenger\MessageBusInterface;
-use Throwable;
-use Instride\Bundle\DataDefinitionsBundle\Context\ContextFactoryInterface;
-use Instride\Bundle\DataDefinitionsBundle\Event\EventDispatcherInterface;
-use Instride\Bundle\DataDefinitionsBundle\Exception\DoNotSetException;
-use Instride\Bundle\DataDefinitionsBundle\Exception\UnexpectedValueException;
-use Instride\Bundle\DataDefinitionsBundle\Filter\FilterInterface;
-use Instride\Bundle\DataDefinitionsBundle\Interpreter\InterpreterInterface;
-use Instride\Bundle\DataDefinitionsBundle\Loader\LoaderInterface;
-use Instride\Bundle\DataDefinitionsBundle\Messenger\ImportRowMessage;
-use Instride\Bundle\DataDefinitionsBundle\Model\ImportDefinitionInterface;
-use Instride\Bundle\DataDefinitionsBundle\Model\ImportMapping;
-use Instride\Bundle\DataDefinitionsBundle\Model\ParamsAwareInterface;
-use Instride\Bundle\DataDefinitionsBundle\Persister\PersisterInterface;
-use Instride\Bundle\DataDefinitionsBundle\Provider\ArrayImportDataSet;
-use Instride\Bundle\DataDefinitionsBundle\Provider\ImportDataSet;
-use Instride\Bundle\DataDefinitionsBundle\Provider\ImportDataSetInterface;
-use Instride\Bundle\DataDefinitionsBundle\Provider\ImportProviderInterface;
-use Instride\Bundle\DataDefinitionsBundle\Runner\ImportStartFinishRunnerInterface;
-use Instride\Bundle\DataDefinitionsBundle\Runner\RunnerInterface;
-use Instride\Bundle\DataDefinitionsBundle\Runner\SaveRunnerInterface;
-use Instride\Bundle\DataDefinitionsBundle\Runner\SetterRunnerInterface;
-use Instride\Bundle\DataDefinitionsBundle\Setter\SetterInterface;
-use AppBundle\Lib\UnitConversion\ConverterFactory;
-use AppBundle\Lib\UnitConversion\Unit;
-use AppBundle\Services\AppService;
 use Pimcore\Model\Asset;
 use Pimcore\Placeholder;
-use Instride\Bundle\DataDefinitionsBundle\Model\DataSetAwareInterface;
-use Instride\Bundle\DataDefinitionsBundle\Lib\DataImportLogger;
-use Instride\Bundle\DataDefinitionsBundle\Model\DataDefinitionImport;
-use Instride\Bundle\DataDefinitionsBundle\Lib\Constants;
 use Pimcore\Model\Element;
+use Pimcore\Model\Factory;
+use Pimcore\Model\Version;
+use Pimcore\Model\Document;
+use Psr\Log\LoggerInterface;
+use InvalidArgumentException;
 use Pimcore\Model\DataObject;
-use Pimcore\Model\DataObject\Data\BlockElement;
 use Symfony\Component\Yaml\Yaml;
+use Psr\Log\LoggerAwareInterface;
+use AppBundle\Services\AppService;
+use Pimcore\Model\DataObject\Service;
+use AppBundle\Lib\UnitConversion\Unit;
+use Pimcore\Model\DataObject\Concrete;
+use Pimcore\Model\DataObject\ClassDefinition;
+use Pimcore\Model\DataObject\Data\BlockElement;
+use AppBundle\Lib\UnitConversion\ConverterFactory;
+use Symfony\Component\Messenger\MessageBusInterface;
+use Instride\Bundle\DataDefinitionsBundle\Lib\Constants;
+use CoreShop\Component\Registry\ServiceRegistryInterface;
+use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
+use Instride\Bundle\DataDefinitionsBundle\Model\ImportMapping;
+use Instride\Bundle\DataDefinitionsBundle\Lib\DataImportLogger;
+use Instride\Bundle\DataDefinitionsBundle\Filter\FilterInterface;
+use Instride\Bundle\DataDefinitionsBundle\Loader\LoaderInterface;
+use Instride\Bundle\DataDefinitionsBundle\Provider\ImportDataSet;
+use Instride\Bundle\DataDefinitionsBundle\Runner\RunnerInterface;
+use Instride\Bundle\DataDefinitionsBundle\Setter\SetterInterface;
+use Instride\Bundle\DataDefinitionsBundle\Messenger\ImportRowMessage;
+use Instride\Bundle\DataDefinitionsBundle\Model\DataDefinitionImport;
+use Instride\Bundle\DataDefinitionsBundle\Model\ParamsAwareInterface;
+use Instride\Bundle\DataDefinitionsBundle\Runner\SaveRunnerInterface;
+use Instride\Bundle\DataDefinitionsBundle\Exception\DoNotSetException;
+use Instride\Bundle\DataDefinitionsBundle\Model\DataSetAwareInterface;
+use Instride\Bundle\DataDefinitionsBundle\Provider\ArrayImportDataSet;
+use Instride\Bundle\DataDefinitionsBundle\Persister\PersisterInterface;
+use Instride\Bundle\DataDefinitionsBundle\Runner\SetterRunnerInterface;
+use Instride\Bundle\DataDefinitionsBundle\Event\EventDispatcherInterface;
+use Instride\Bundle\DataDefinitionsBundle\Context\ContextFactoryInterface;
+use Instride\Bundle\DataDefinitionsBundle\Model\ImportDefinitionInterface;
+use Instride\Bundle\DataDefinitionsBundle\Provider\ImportDataSetInterface;
+use Instride\Bundle\DataDefinitionsBundle\Interpreter\InterpreterInterface;
+use Instride\Bundle\DataDefinitionsBundle\Provider\ImportProviderInterface;
+use Instride\Bundle\DataDefinitionsBundle\Exception\UnexpectedValueException;
+use Instride\Bundle\DataDefinitionsBundle\Runner\ImportStartFinishRunnerInterface;
 
 
 final class Importer implements ImporterInterface, AsyncImporterInterface
@@ -933,13 +933,17 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
                 //     $definition->importLevel.' does not exist for the particular object');
             return null;
         }else{
+            
+            if($definition->importLevel == 'Fert'){
+                return $obj;
+            }
 
             if($definition->importLevel == 'Skeleton' && ($obj->getParent()->getType() == 'object' && $obj->getParent()->getProductType() == 'skeleton')){
                 $obj = $obj->getParent();
                 return $obj;
 
             }
-            else if($definition->importLevel == 'Base' && ($obj->getParent()->getParent()->getType() == 'object' && $obj->getParent()->getParent()->getProductType() == 'base')){
+            elseif($definition->importLevel == 'Base' && ($obj->getParent()->getParent()->getType() == 'object' && $obj->getParent()->getParent()->getProductType() == 'base')){
                 $obj = $obj->getParent()->getParent();
                 return $obj;
 
