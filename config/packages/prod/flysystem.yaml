@@ -1,0 +1,19 @@
+parameters:
+    s3.bucket: 'pimcore11-contitech-assets-prod'
+
+services:
+    assets_s3:
+        class: 'Aws\S3\S3Client'
+        arguments:
+            -  endpoint: 'https://s3.eu-central-1.amazonaws.com'
+               region: 'eu-central-1'
+               version: 'latest'
+flysystem:
+    storages:
+        pimcore.asset.storage:
+            adapter: 'S3CustomizationBundle\Lib\AwsCustomAdapter'
+            visibility: private
+            options:
+                client: 'assets_s3'
+                bucket: 'pimcore11-contitech-assets-prod'
+                prefix: assets

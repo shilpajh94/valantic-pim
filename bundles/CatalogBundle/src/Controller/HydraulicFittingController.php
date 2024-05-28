@@ -108,7 +108,7 @@ class HydraulicFittingController extends FrontendController
                 array_multisort($hoseID1InDecimalCustom, SORT_ASC, $productsData);
 
                 foreach ($productsData as $key => $item) {
-                    $brandName = $item[$headerKeysIndex['brandName']];
+                    $brandName = ((is_array($item[$headerKeysIndex['brandName']]))?$item[$headerKeysIndex['brandName']][0]:$item[$headerKeysIndex['brandName']]) ;
                     $shortDescription = strip_tags($item[$headerKeysIndex['shortDescription']]);
                     $shortDescription = str_replace(array(" ", "-", "°", "/", PHP_EOL), "", $shortDescription);
                     $fittingTableName = $item[$headerKeysIndex['FittingTableName']];
@@ -170,7 +170,12 @@ class HydraulicFittingController extends FrontendController
 
                                 if (is_array($fittingTableKeys)) {
                                     if (isset($articles[$headerKeysIndex['HydFittingFamily']]) && $articles[$headerKeysIndex['HydFittingFamily']]) {
-                                        $hydFittingFamilyArr[$articles[$headerKeysIndex['HydFittingFamily']]] = $articles[$headerKeysIndex['HydFittingFamily']];
+                                        $HydFittingFamily = ((is_array($articles[$headerKeysIndex['HydFittingFamily']]))?$articles[$headerKeysIndex['HydFittingFamily']][0]:$articles[$headerKeysIndex['HydFittingFamily']]);
+
+                                        $hydFittingFamilyArr[$HydFittingFamily] = $HydFittingFamily;
+
+
+                                        // $hydFittingFamilyArr[$articles[$headerKeysIndex['HydFittingFamily']]] = $articles[$headerKeysIndex['HydFittingFamily']];
                                     }
 
                                     if (!$shortDescription && $articles[$headerKeysIndex['shortDescription']]) {

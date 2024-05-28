@@ -215,7 +215,7 @@
                                                         {% endfor %}
                                                     {% else %}
                                                         {% for key2, value2 in fittingMaterialheaders %}
-                                                            {% if value.value2 %}
+                                                            {% if value.value2 is defined %}
                                                                 {% for key3, value3 in value %}
                                                                     {% if (value2 == key3) %}
                                                                         {% if (value3 == null or value3 == "") %}
