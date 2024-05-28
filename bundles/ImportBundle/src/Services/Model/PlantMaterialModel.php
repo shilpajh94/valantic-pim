@@ -77,6 +77,8 @@ class PlantMaterialModel
 
             $this->import($csvData);
         } catch (\Throwable $th) {
+            p_r($th);
+            \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($th);
             Logger::error($this->logFileName, $th);
             die;
         }
@@ -520,6 +522,7 @@ class PlantMaterialModel
                 }
                 catch (\Exception $e) {
                     /* return error massage if any exception found */
+                    \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($e);
                     $errorsData[] = "Plant Material Code: ".$plantMaterialKey. " - ".$e->getMessage();
                 }
             }
