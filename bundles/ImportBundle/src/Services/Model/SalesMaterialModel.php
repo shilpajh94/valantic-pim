@@ -78,6 +78,8 @@ class SalesMaterialModel
             
             $this->import($csvData);
         } catch (\Throwable $th) {
+            p_r($th);
+            \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($th);
             Logger::error($this->logFileName, $th);
             die;
         }
@@ -422,6 +424,8 @@ class SalesMaterialModel
                     }
                 } 
                 catch (\Exception $e) {
+                    p_r($e);
+                    \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($e);
                     /* return error massage if any exception found */
                     $errorsData[] = "Sales Material Code: ".$salesMaterialKey. " - ".$e->getMessage();
                 }
@@ -592,7 +596,7 @@ class SalesMaterialModel
                 $keyArray = explode('$',$value['id']);
                 $material = $keyArray[0];
                 $key = str_replace('$','-',$value['id']);
-                $objDelete = DataObject\SalesMaterialMaster::getByPath("/".ImportConstants::MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER."/".$material."/".$key, true);
+                $objDelete = DataObject\SalesMaterialMaster::getByPath("/".ImportConstants::MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER."/".$material."/".$key);
 
                 if($objDelete)
                 {

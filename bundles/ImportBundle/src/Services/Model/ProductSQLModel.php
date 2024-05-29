@@ -180,7 +180,7 @@ class ProductSQLModel
             $this->import($csvInfo['data']);
         } catch (\Throwable $th) {
             p_r($th);
-            //throw $th;
+            \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($th);
             Logger::error($this->logFileName, $th);
             die;
         }

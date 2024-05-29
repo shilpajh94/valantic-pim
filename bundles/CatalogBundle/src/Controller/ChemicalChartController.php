@@ -74,9 +74,11 @@ class ChemicalChartController extends FrontendController
                             $tubeMaterialRating[] = $obj['rating']->getData();
                         }
 
-                        foreach ($tubeMaterial as  $value) {
+                        foreach ($tubeMaterial as $value) {
                             $parentObj = \Pimcore\Model\DataObject::getById($value);
-                            $tubeMaterialNameArray[] = $parentObj->getName();
+                            if ($parentObj) {
+                                $tubeMaterialNameArray[] = $parentObj->getName();
+                            }
                         }
 
                         if (count($tubeMaterialNameArray) == count($tubeMaterialRating)) {
@@ -91,7 +93,7 @@ class ChemicalChartController extends FrontendController
                             $fittingMaterialRating[] = $obj['rating']->getData();
                         }
 
-                        foreach ($fittingMaterial as  $value) {
+                        foreach ($fittingMaterial as $value) {
                             $parentObj = \Pimcore\Model\DataObject::getById($value);
                             $fittingMaterialNameArray[] = $parentObj->getFittingMaterialName();
                         }
@@ -136,14 +138,16 @@ class ChemicalChartController extends FrontendController
 
             foreach ($productData as $key => $value) {
                 $i = 0;
-                foreach ($value as $key2 => $value2) {
-                    if ($value2 != null) {
-                        $productArr[$i][$key] = $value[$i];
-                        $i++;
-                    }
-                    else {
-                        $productArr[$i][$key] = null;
-                        $i++;
+                if (isset($value)) {
+                    foreach ($value as $key2 => $value2) {
+                        if ($value2 != null) {
+                            $productArr[$i][$key] = $value[$i];
+                            $i++;
+                        }
+                        else {
+                            $productArr[$i][$key] = null;
+                            $i++;
+                        }
                     }
                 }
             }

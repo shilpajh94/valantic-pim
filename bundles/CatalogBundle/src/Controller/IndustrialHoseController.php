@@ -594,8 +594,10 @@ class IndustrialHoseController extends FrontendController
                         if (isset($item[$headerKeysIndex['brandName']])) {
 
                             if(is_array($item[$headerKeysIndex['brandName']])){
-
-                                $brandsData[$item[$headerKeysIndex['brandName']][0]][] = $item;
+                                if(isset($item[$headerKeysIndex['brandName']][0])){
+                                    $brandsData[$item[$headerKeysIndex['brandName']][0]][] = $item;
+                                }
+                                
                             }else{
                                  $brandsData[$item[$headerKeysIndex['brandName']]][] = $item;
                             }
@@ -699,7 +701,8 @@ class IndustrialHoseController extends FrontendController
                                 }
 
                                 if (array_key_exists('safetyFactor', $headerKeysIndex) && $bvalue[$headerKeysIndex['safetyFactor']]) {
-                                    $arr_safetyFactor = explode('||', $bvalue[$headerKeysIndex['safetyFactor']]);
+                                    $safetyFactor = ((is_array($bvalue[$headerKeysIndex['safetyFactor']]))?$bvalue[$headerKeysIndex['safetyFactor']][0]:$bvalue[$headerKeysIndex['safetyFactor']]);
+                                    $arr_safetyFactor = explode('||', $safetyFactor);
                                     $designFactorArr = array_merge($designFactorArr, $arr_safetyFactor);
                                 }
 
