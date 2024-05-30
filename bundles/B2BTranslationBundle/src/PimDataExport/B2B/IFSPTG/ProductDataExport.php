@@ -610,11 +610,11 @@ class ProductDataExport implements IDataExport
                                                     if ($keyHeader == 'externalID' && $record[$keyHeader]) {
                                                         $mapping_record[$keyHeaderValue] = $record[$keyHeader] . '_' . $lang;
                                                     }
-                                                    if ($this->bu = 'PTG_EU') {
+                                                    if ($this->bu == 'PTG_EU') {
                                                         if ($keyHeader == 'color' && $record['color'] != null) {
                                                             $colorMastersList = $this->getColorMasterList($l);
                                                             $colorId = $record['color'];
-                                                            if ($colorId != null && $colorId != 1 && $colorId != '' && is_numeric($colorId) && !empty($colorMastersList)) {
+                                                            if ($colorId != null && $colorId != 1 && $colorId != '' && is_numeric($colorId) && !empty($colorMastersList) && array_key_exists($colorId, $colorMastersList)) {
                                                                 $mapping_record[$keyHeaderValue] = $colorMastersList[$colorId];
                                                             } else {
                                                                 $mapping_record[$keyHeaderValue] = null;
@@ -623,7 +623,7 @@ class ProductDataExport implements IDataExport
                                                         if ($keyHeader == 'beltType' && $record['beltType'] != null) {
                                                             $beltTypeMastersList = $this->getBeltTypeMasterList($l);
                                                             $beltTypeId = $record['beltType'];
-                                                            if ($beltTypeId != null && $beltTypeId != 1 && $beltTypeId != '' && is_numeric($beltTypeId) && !empty($beltTypeMastersList)) {
+                                                            if ($beltTypeId != null && $beltTypeId != 1 && $beltTypeId != '' && is_numeric($beltTypeId) && !empty($beltTypeMastersList) && array_key_exists($beltTypeId, $beltTypeMastersList)) {
                                                                 $mapping_record[$keyHeaderValue] = $beltTypeMastersList[$beltTypeId];
                                                             } else {
                                                                 $mapping_record[$keyHeaderValue] = null;
@@ -632,7 +632,7 @@ class ProductDataExport implements IDataExport
                                                         if ($keyHeader == 'performance' && $record['performance'] != null) {
                                                             $performanceMastersList = $this->getPerformanceMasterList($l);
                                                             $performanceId = $record['performance'];
-                                                            if ($performanceId != null && $performanceId != 1 && $performanceId != '' && is_numeric($performanceId) && !empty($performanceMastersList)) {
+                                                            if ($performanceId != null && $performanceId != 1 && $performanceId != '' && is_numeric($performanceId) && !empty($performanceMastersList) && array_key_exists($performanceId, $performanceMastersList)) {
                                                                 $mapping_record[$keyHeaderValue] = $performanceMastersList[$performanceId];
                                                             } else {
                                                                 $mapping_record[$keyHeaderValue] = null;
@@ -641,7 +641,7 @@ class ProductDataExport implements IDataExport
                                                         if ($keyHeader == 'staticConductive' && $record['staticConductive'] != null) {
                                                             $staticConductiveMastersList = $this->getStaticConductiveMasterList($l);
                                                             $staticConductiveId = $record['staticConductive'];
-                                                            if ($staticConductiveId != null && $staticConductiveId != 1 && $staticConductiveId != '' && is_numeric($staticConductiveId) && !empty($staticConductiveMastersList)) {
+                                                            if ($staticConductiveId != null && $staticConductiveId != 1 && $staticConductiveId != '' && is_numeric($staticConductiveId) && !empty($staticConductiveMastersList) && array_key_exists($staticConductiveId, $staticConductiveMastersList)) {
                                                                 $mapping_record[$keyHeaderValue] = $staticConductiveMastersList[$staticConductiveId];
                                                             } else {
                                                                 $mapping_record[$keyHeaderValue] = null;
@@ -701,9 +701,8 @@ class ProductDataExport implements IDataExport
 
         } catch (\Throwable $e) {
             $message = $e->getMessage();
-            $trace = $e->getTraceAsString();
             $message = "Exception while trying to export the data" . " " . $message;
-            $this->logMessage($trace, LogLevel::CRITICAL());
+            $this->logMessage($message, LogLevel::CRITICAL());
             return;
         }
 

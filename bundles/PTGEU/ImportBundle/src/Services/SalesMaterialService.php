@@ -434,6 +434,8 @@ class SalesMaterialService
                     }
                 }
                 catch (\Exception $e) {
+                    p_r($e);
+                    \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($e);
                     /* return error massage if any exception found */
                     $errorsData[] = "Sales Material Code: ".$salesMaterialKey. " - ".$e->getMessage();
                 }

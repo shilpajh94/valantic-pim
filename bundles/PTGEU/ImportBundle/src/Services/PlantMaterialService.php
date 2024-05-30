@@ -265,6 +265,8 @@ class PlantMaterialService
                     }
                 }
                 catch (\Exception $e) {
+                    p_r($e);
+                    \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($e);
                     /* return error massage if any exception found */
                     $errorsData[] = "Plant Material Code: ".$plantMaterialKey. " - ".$e->getMessage();
                 }
