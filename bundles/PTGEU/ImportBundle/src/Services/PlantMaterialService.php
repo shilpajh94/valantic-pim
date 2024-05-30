@@ -757,7 +757,9 @@ class PlantMaterialService
 
         if(count($relationTableDataArray))
         {
-            $this->tableImportHelper->insertIntoMaterialTable($relationTableDataArray, 'object_relations_40');
+            // $this->tableImportHelper->insertIntoMaterialTable($relationTableDataArray, 'object_relations_40');
+            $this->tableImportHelper->insertDataInRelationalTable($relationTableDataArray, 'object_relations_40');
+
         }
 
         if(count($dependencyTableDataArray))

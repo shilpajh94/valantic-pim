@@ -557,9 +557,10 @@ class PlantMaterialModel
         if(count($storeTableDataArray))
             $this->tableImportHelper->insertIntoMaterialTable($storeTableDataArray, 'object_store_12');
 
-        if(count($relationTableDataArray))
-            $this->tableImportHelper->insertIntoMaterialTable($relationTableDataArray, 'object_relations_12');
-
+        if(count($relationTableDataArray)){
+            // $this->tableImportHelper->insertIntoMaterialTable($relationTableDataArray, 'object_relations_12');
+            $this->tableImportHelper->insertDataInRelationalTable($relationTableDataArray, 'object_relations_12');
+        }
         if(count($dependencyTableDataArray))
             $this->tableImportHelper->insertIntoMaterialTable($dependencyTableDataArray, 'dependencies');
 

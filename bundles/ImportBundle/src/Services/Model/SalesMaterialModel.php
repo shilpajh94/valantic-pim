@@ -461,9 +461,11 @@ class SalesMaterialModel
         if(count($storeTableDataArray))
             $this->tableImportHelper->insertIntoSalesTable($storeTableDataArray, 'object_store_10');
 
-        if(count($relationTableDataArray))
-            $this->tableImportHelper->insertIntoSalesTable($relationTableDataArray, 'object_relations_10');
-        
+        if(count($relationTableDataArray)){
+            // $this->tableImportHelper->insertIntoSalesTable($relationTableDataArray, 'object_relations_10');
+            $this->tableImportHelper->insertDataInRelationalTable($relationTableDataArray, 'object_relations_10');
+
+        }
         if(count($dependencyTableDataArray))
             $this->tableImportHelper->insertIntoSalesTable($dependencyTableDataArray, 'dependencies');
         
