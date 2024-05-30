@@ -63,6 +63,35 @@ class PlantMaterialModel
         }
     }
 
+    public function insertDataInRelationalTable($dataArray, $tableName){
+        foreach($dataArray as $eachRecord){
+            $valuesArr = [];
+            $srcId = $eachRecord['src_id'];
+            $destId = $eachRecord['dest_id'];
+            $fieldName = $this->db->quote($eachRecord['fieldname']);
+            $sql = "SELECT id from $tableName where src_id = $srcId AND dest_id = $destId AND fieldname = $fieldName";
+            $checkIfRecordAlreadyExists = $this->db->fetchAllAssociative($sql);
+            if($checkIfRecordAlreadyExists){
+                //relation record already exists in relational table
+            }
+            else{
+                $insertQuery = "INSERT into $tableName (`src_id`,`dest_id`,`type`,`fieldname`,`index`,`ownertype`,`position`) VALUES";
+                $valuesArr[] = $this->db->quote($eachRecord['src_id']);
+                $valuesArr[] = $this->db->quote($eachRecord['dest_id']);
+                $valuesArr[] = $this->db->quote('object');
+                $valuesArr[] = $this->db->quote($eachRecord['fieldname']);
+                $valuesArr[] = $this->db->quote(0);
+                $valuesArr[] = $this->db->quote('object');
+                $valuesArr[] = $this->db->quote(0);
+                $values = " (".implode(', ', $valuesArr).") ";
+                $query = $insertQuery.$values;
+                $this->db->executeQuery($query);
+            }
+        }
+
+    }
+
+
 
     public function insertInObjects($data) {
     	try {
