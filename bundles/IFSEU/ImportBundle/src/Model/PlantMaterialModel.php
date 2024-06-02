@@ -66,10 +66,9 @@ class PlantMaterialModel
     public function insertDataInRelationalTable($dataArray, $tableName){
         foreach($dataArray as $eachRecord){
             $valuesArr = [];
-            $srcId = $eachRecord['src_id'];
-            $destId = $eachRecord['dest_id'];
-            $fieldName = $this->db->quote($eachRecord['fieldname']);
-            $sql = "SELECT id from $tableName where src_id = $srcId AND dest_id = $destId AND fieldname = $fieldName";
+            $srcId = $eachRecord['src_id'] ? $eachRecord['src_id'] : 'NULL';
+            $destId = $eachRecord['dest_id'] ? $eachRecord['dest_id'] : 'NULL';
+            $sql = "SELECT id from $tableName where src_id = $srcId AND dest_id = $destId";
             $checkIfRecordAlreadyExists = $this->db->fetchAllAssociative($sql);
             if($checkIfRecordAlreadyExists){
                 //relation record already exists in relational table
@@ -85,7 +84,8 @@ class PlantMaterialModel
                 $valuesArr[] = $this->db->quote(0);
                 $values = " (".implode(', ', $valuesArr).") ";
                 $query = $insertQuery.$values;
-                $this->db->executeQuery($query);
+                    $this->db->executeQuery($query);
+
             }
         }
 
