@@ -269,7 +269,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'options' => NULL,
                      'maxItems' => NULL,
                      'renderType' => 'tags',
                      'dynamicOptions' => false,
@@ -955,8 +954,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'blockedVarsForExport' => 
                                 array (
                                 ),
-                                 'options' => NULL,
-                                 'defaultValue' => '',
+                                 'defaultValue' => '1',
                                  'columnLength' => 150,
                                  'dynamicOptions' => false,
                                  'defaultValueGenerator' => '',
@@ -2039,7 +2037,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                 array (
                                 ),
                                  'defaultValue' => NULL,
-                                 'integer' => false,
+                                 'integer' => true,
                                  'unsigned' => true,
                                  'minValue' => NULL,
                                  'maxValue' => NULL,
@@ -2069,7 +2067,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                 array (
                                 ),
                                  'defaultValue' => NULL,
-                                 'integer' => false,
+                                 'integer' => true,
                                  'unsigned' => true,
                                  'minValue' => NULL,
                                  'maxValue' => NULL,
@@ -2099,7 +2097,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                 array (
                                 ),
                                  'defaultValue' => NULL,
-                                 'integer' => false,
+                                 'integer' => true,
                                  'unsigned' => true,
                                  'minValue' => NULL,
                                  'maxValue' => NULL,
@@ -2184,7 +2182,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                 array (
                                 ),
                                  'defaultValue' => NULL,
-                                 'integer' => false,
+                                 'integer' => true,
                                  'unsigned' => true,
                                  'minValue' => NULL,
                                  'maxValue' => NULL,
@@ -2214,7 +2212,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                 array (
                                 ),
                                  'defaultValue' => NULL,
-                                 'integer' => false,
+                                 'integer' => true,
                                  'unsigned' => true,
                                  'minValue' => NULL,
                                  'maxValue' => NULL,
@@ -2244,7 +2242,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                 array (
                                 ),
                                  'defaultValue' => NULL,
-                                 'integer' => false,
+                                 'integer' => true,
                                  'unsigned' => true,
                                  'minValue' => NULL,
                                  'maxValue' => NULL,
@@ -2774,7 +2772,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                 array (
                                 ),
                                  'defaultValue' => NULL,
-                                 'integer' => false,
+                                 'integer' => true,
                                  'unsigned' => true,
                                  'minValue' => NULL,
                                  'maxValue' => NULL,
@@ -2804,7 +2802,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                 array (
                                 ),
                                  'defaultValue' => NULL,
-                                 'integer' => false,
+                                 'integer' => true,
                                  'unsigned' => true,
                                  'minValue' => NULL,
                                  'maxValue' => NULL,
@@ -2864,7 +2862,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                 array (
                                 ),
                                  'defaultValue' => NULL,
-                                 'integer' => false,
+                                 'integer' => true,
                                  'unsigned' => true,
                                  'minValue' => NULL,
                                  'maxValue' => NULL,
@@ -2949,7 +2947,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                 array (
                                 ),
                                  'defaultValue' => NULL,
-                                 'integer' => false,
+                                 'integer' => true,
                                  'unsigned' => true,
                                  'minValue' => NULL,
                                  'maxValue' => NULL,
@@ -2979,7 +2977,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                 array (
                                 ),
                                  'defaultValue' => NULL,
-                                 'integer' => false,
+                                 'integer' => true,
                                  'unsigned' => true,
                                  'minValue' => NULL,
                                  'maxValue' => NULL,
@@ -3009,7 +3007,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                 array (
                                 ),
                                  'defaultValue' => NULL,
-                                 'integer' => false,
+                                 'integer' => true,
                                  'unsigned' => true,
                                  'minValue' => NULL,
                                  'maxValue' => NULL,
@@ -3039,7 +3037,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                 array (
                                 ),
                                  'defaultValue' => NULL,
-                                 'integer' => false,
+                                 'integer' => true,
                                  'unsigned' => true,
                                  'minValue' => NULL,
                                  'maxValue' => NULL,
@@ -3624,7 +3622,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                             array (
                             ),
                              'defaultValue' => NULL,
-                             'integer' => false,
+                             'integer' => true,
                              'unsigned' => true,
                              'minValue' => NULL,
                              'maxValue' => NULL,
@@ -3799,7 +3797,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                             array (
                             ),
                              'defaultValue' => NULL,
-                             'integer' => false,
+                             'integer' => true,
                              'unsigned' => true,
                              'minValue' => NULL,
                              'maxValue' => NULL,
@@ -3829,7 +3827,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                             array (
                             ),
                              'defaultValue' => NULL,
-                             'integer' => false,
+                             'integer' => true,
                              'unsigned' => true,
                              'minValue' => NULL,
                              'maxValue' => NULL,
