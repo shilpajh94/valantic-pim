@@ -20,7 +20,7 @@ class B2BSalesforcePTGEMEABundle extends AbstractPimcoreBundle implements Pimcor
     {
         return [
             '/bundles/b2bsalesforceptgemea/js/pimcore/startup.js',
-            '/bundles/b2bsalesforceptgemea/js/pimcore/mappingPanel.js',
+            //'/bundles/b2bsalesforceptgemea/js/pimcore/mappingPanel.js',
             '/bundles/b2bsalesforceptgemea/js/pimcore/mappingLeftPanel.js',
             '/bundles/b2bsalesforceptgemea/js/pimcore/configItem.js',
         ];
