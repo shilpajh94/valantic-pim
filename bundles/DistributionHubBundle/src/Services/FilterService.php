@@ -499,7 +499,7 @@ class FilterService
             throw new \Exception('Filter by List : Only csv file type supported');
         }
 
-        $fullPath = $assetObject->getFileSystemPath();
+        $fullPath = PIMCORE_PROJECT_ROOT . '/var/tmp/' . $assetObject->getFileName();
 
         ini_set('auto_detect_line_endings', true);
         $csvData = array_map('str_getcsv', file($fullPath));
