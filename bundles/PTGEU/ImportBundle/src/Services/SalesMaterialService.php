@@ -489,7 +489,9 @@ class SalesMaterialService
             $this->tableImportHelper->insertIntoSalesTable($storeTableDataArray, 'object_store_41');
         }
         if(count($relationTableDataArray))  {
-            $this->tableImportHelper->insertIntoSalesTable($relationTableDataArray, 'object_relations_41');
+            // $this->tableImportHelper->insertIntoSalesTable($relationTableDataArray, 'object_relations_41');
+            $this->tableImportHelper->insertDataInRelationalTable($relationTableDataArray, 'object_relations_41');
+
         }
         if(count($dependencyTableDataArray)) {
             $this->tableImportHelper->insertIntoSalesTable($dependencyTableDataArray, 'dependencies');

@@ -443,7 +443,9 @@ class SalesMaterialService
             $this->tableImportHelper->insertIntoSalesTable($storeTableDataArray, 'object_store_IFSEUSalesMaterialMaster');
         }
         if(count($relationTableDataArray))  {
-            $this->tableImportHelper->insertIntoSalesTable($relationTableDataArray, 'object_relations_IFSEUSalesMaterialMaster');
+            // $this->tableImportHelper->insertIntoSalesTable($relationTableDataArray, 'object_relations_IFSEUSalesMaterialMaster');
+            $this->tableImportHelper->insertDataInRelationalTable($relationTableDataArray, 'object_relations_IFSEUSalesMaterialMaster');
+
         }
         if(count($dependencyTableDataArray)) {
             $this->tableImportHelper->insertIntoSalesTable($dependencyTableDataArray, 'dependencies');

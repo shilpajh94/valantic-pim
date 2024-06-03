@@ -148,13 +148,13 @@ class ProductModel
             $srcId = $eachRecord['src_id'];
             $destId = $eachRecord['dest_id'];
             $fieldName = $this->db->quote($eachRecord['fieldname']);
-            $sql = "SELECT id from object_relations_IFSEUProduct where src_id = $srcId AND dest_id = $destId AND fieldname = $fieldName";
+            $sql = "SELECT id from $tableName where src_id = $srcId AND dest_id = $destId AND fieldname = $fieldName";
             $checkIfRecordAlreadyExists = $this->db->fetchAllAssociative($sql);
             if($checkIfRecordAlreadyExists){
                 //relation record already exists in relational table
             }
             else{
-                $insertQuery = "INSERT into object_relations_IFSEUProduct (`src_id`,`dest_id`,`type`,`fieldname`,`index`,`ownertype`,`position`) VALUES";
+                $insertQuery = "INSERT into $tableName (`src_id`,`dest_id`,`type`,`fieldname`,`index`,`ownertype`,`position`) VALUES";
                 $valuesArr[] = $this->db->quote($eachRecord['src_id']);
                 $valuesArr[] = $this->db->quote($eachRecord['dest_id']);
                 $valuesArr[] = $this->db->quote('object');
