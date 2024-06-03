@@ -236,6 +236,7 @@ class SalesMaterialService
         $relationTableDataArray = array();
         $dependencyTableDataArray = array();
         $createdUpdatedCount = 0;
+        $salesOrgCode = '';
 
         $columnPlant = $this->mappingCsvColumn['deliveringPlantCode'];
         $columnMaterial = $this->mappingCsvColumn['material'];
