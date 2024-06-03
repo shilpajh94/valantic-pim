@@ -126,7 +126,7 @@ class ProductModelService {
                 $brickName = $this->getSortingFieldDataFromConfig($groupingFieldNameForSorting);
                 $arr[$brandId] = $this->model->getProductsInSortedFormat
                 ($brandId,$groupingFieldNameForSorting,$sortingData, $brickName);
-    
+
             }
         }
         return $arr;
@@ -250,13 +250,13 @@ class ProductModelService {
      */
 
      private function getProductDetailNewAPI($products) {
-        
+
         $finalProductArray = [];
         if (empty($products)) {
             return $finalProductArray;
         }
         foreach ($products as $key => $value) {
-            
+
             $finalProductArrayTemp = $value;
             $finalProductArrayTemp["id"] = $finalProductArrayTemp["oo_id"];
             $baseObjectBrickData = $this->getProductObjectBrickData($value["oo_id"], "base");
@@ -278,7 +278,7 @@ class ProductModelService {
             $certificationDocumentID = isset($value["document"]) ? $value["document"] : null;
             $finalProductArrayTemp = array_merge($finalProductArrayTemp, $baseObjectBrickData,
             $skeletonObjectBrickData, $fertObjectBrickData);
-            
+
             if($sixDigit && isset($baseObjectBrickData["sixDigitVirtualCatalogDescription"]))
             {
                 $finalProductArrayTemp["sixDigitVirtualCatalogDescription"] = $sixDigit . "-" .
@@ -293,7 +293,7 @@ class ProductModelService {
                 $finalProductArrayTemp["sixDigitVirtualCatalogDescription"] =
                 $baseObjectBrickData["sixDigitVirtualCatalogDescription"];
             }
-            
+
             $finalProductArrayTemp = array_merge($value, $finalProductArrayTemp);
 
             $brandNameDetail = $finalProductArrayTemp['brandName'];
@@ -307,11 +307,11 @@ class ProductModelService {
             $finalProductArrayTemp["sap_id"] = $value["articleNumber"];
             $finalProductArrayTemp["virtualCatalogReadyToGo"] = ($value["virtualCatalogReadyToGo"] == 1) ? 1: 0;
             $reinforcement = $value["reinforcement"];
-            
+
             $groupingFieldIdNameList = [];
             $brandName = '';
             if (isset($value["brandName"]) && !empty($value["brandName"])) {
-                
+
                 if(!isset($this->brandData[$value["brandName"]]))
                 {
                     $brandData = $this->model->getBrandNameNewAPI($value["brandName"]);
@@ -345,7 +345,7 @@ class ProductModelService {
                     elseif(isset($this->customFields[$groupingField])){
                         $groupingFieldIdName = $this->customFields[$groupingField];
                         $groupingFieldValueList =  $finalProductArrayTemp[$groupingFieldIdName];
-                        
+
                         if($groupingFieldValueList)
                         {
                             foreach ($groupingFieldValueList as $gfValue) {
@@ -355,7 +355,9 @@ class ProductModelService {
                         }
                     }
                     else{
-                        $groupingFieldIdNameList[] = $finalProductArrayTemp[$groupingField];
+                        if(array_key_exists($groupingField, $finalProductArrayTemp)) {
+                            $groupingFieldIdNameList[] = $finalProductArrayTemp[$groupingField];
+                        }
                     }
                 }
 
@@ -501,7 +503,7 @@ class ProductModelService {
             }
 
             $imageDetail = $this->getImageDetail($imageDetail, $imagesFields, $variantId, $value);
-            
+
         }
         return $imageDetail;
     }
@@ -543,7 +545,7 @@ class ProductModelService {
                 foreach ($bvalue["Fields"] as $fieldName => $fieldConfig) {
                     $brickText = "get" . ucfirst($bkey) . ucfirst($productType);
                     $fieldText = "get" . ucfirst($fieldName);
-                    
+
                     //receiving data of a Objectbrick
                     $product = DataObject\Product::getById($objId);
                     $bData = "";
@@ -553,16 +555,16 @@ class ProductModelService {
                         $fieldDef = $product->$productBrickField()->$brickText()->
                         getDefinition()->getFieldDefinition($fieldName);
                         if (!empty($fieldDef) && $fieldDef->getFieldtype() === "multiselect") {
-                            
+
                             $bDataTmp = $product->$productBrickField()->$brickText()->$fieldText();
                             $bData = [];
                             if (!empty($bDataTmp)) {
-                                
+
                                 foreach ($bDataTmp as $mvalue) {
                                     if ($fieldName === "brandName") {
                                         $bData[] = $mvalue;
                                     } else {
-                                        
+
                                         $objectIndv = DataObject::getById($mvalue);
                                         if ($objectIndv) {
                                             $bDataIds[] = $mvalue;
@@ -592,7 +594,7 @@ class ProductModelService {
                         else{
                             $productObjectBricksData[$this->customFields[$fieldName]] = $bData;
                         }
-                        
+
                     }
                 }
             }
