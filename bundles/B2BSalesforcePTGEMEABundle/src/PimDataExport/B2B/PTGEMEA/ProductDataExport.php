@@ -263,13 +263,13 @@ class ProductDataExport implements IDataExport
 
     public function getColorMasterList()
     {
-        $stmt = "SELECT oo_id, color FROM object_query_38;";
+        $stmt = "SELECT ooo_id, color FROM object_localized_data_PTGEUColor WHERE language = 'en';";
         $results = $this->db->fetchAllAssociative($stmt);
 
         $nameIdInKeyValuePairArray = [];
         if (isset($results)) {
             foreach ($results as $eachResult) {
-                $nameIdInKeyValuePairArray[$eachResult['oo_id']] = $eachResult['color'];
+                $nameIdInKeyValuePairArray[$eachResult['ooo_id']] = $eachResult['color'];
             }
         }
 
@@ -278,13 +278,13 @@ class ProductDataExport implements IDataExport
 
     public function getStaticConductiveMasterList()
     {
-        $stmt = "SELECT oo_id, staticConductive FROM object_query_38;";
+        $stmt = "SELECT ooo_id, staticConductive FROM object_localized_data_PTGEUStaticConductive WHERE language = 'en';";
         $results = $this->db->fetchAllAssociative($stmt);
 
         $nameIdInKeyValuePairArray = [];
         if (isset($results)) {
             foreach ($results as $eachResult) {
-                $nameIdInKeyValuePairArray[$eachResult['oo_id']] = $eachResult['staticConductive'];
+                $nameIdInKeyValuePairArray[$eachResult['ooo_id']] = $eachResult['staticConductive'];
             }
         }
 
