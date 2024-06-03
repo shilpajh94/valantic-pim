@@ -30,7 +30,7 @@
  * - acceptableHoseMedia [multiselect]
  */
 
-return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
+return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'dao' => NULL,
    'key' => 'HoseBase',
    'parentClass' => '',
@@ -38,7 +38,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'title' => 'Hose (6 Digit)',
    'group' => 'INH-HYD-HOSE',
    'layoutDefinitions' => 
-  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'name' => NULL,
      'type' => NULL,
      'region' => NULL,
@@ -52,7 +52,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
      'children' => 
     array (
       0 => 
-      Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+      \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
@@ -66,7 +66,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'children' => 
         array (
           0 => 
-          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
              'name' => 'Field Container',
              'type' => NULL,
              'region' => NULL,
@@ -80,7 +80,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'children' => 
             array (
               0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+              \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                  'name' => 'Field Container',
                  'type' => NULL,
                  'region' => NULL,
@@ -94,7 +94,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                      'name' => 'staticWire',
                      'title' => 'Static Wire',
                      'tooltip' => '
@@ -137,7 +137,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'width' => 300,
                   )),
                   1 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                      'name' => 'staticWireType',
                      'title' => 'Static Wire Type',
                      'tooltip' => '',
@@ -178,7 +178,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'optionsProviderData' => '',
                   )),
                   2 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                      'name' => 'tubeCharacteristic',
                      'title' => 'Tube Characteristic',
                      'tooltip' => '',
@@ -196,18 +196,22 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'options' => NULL,
                      'maxItems' => 1,
                      'renderType' => 'tags',
                      'dynamicOptions' => false,
+                     'defaultValue' => 
+                    array (
+                      0 => '1',
+                    ),
                      'height' => '',
                      'width' => 300,
+                     'defaultValueGenerator' => '',
                      'optionsProviderType' => NULL,
                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
                      'optionsProviderData' => 'INH-HYD-HOSE',
                   )),
                   3 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                      'name' => 'tubeColor',
                      'title' => 'Tube Color',
                      'tooltip' => '
@@ -226,18 +230,22 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'options' => NULL,
                      'maxItems' => 1,
                      'renderType' => 'tags',
                      'dynamicOptions' => false,
+                     'defaultValue' => 
+                    array (
+                      0 => '1',
+                    ),
                      'height' => '',
                      'width' => 300,
+                     'defaultValueGenerator' => '',
                      'optionsProviderType' => NULL,
                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
                      'optionsProviderData' => 'INH-HYD-HOSE',
                   )),
                   4 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                      'name' => 'tubeMaterial',
                      'title' => 'Tube Material',
                      'tooltip' => '',
@@ -255,18 +263,22 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'options' => NULL,
                      'maxItems' => 1,
                      'renderType' => 'tags',
                      'dynamicOptions' => false,
+                     'defaultValue' => 
+                    array (
+                      0 => '1',
+                    ),
                      'height' => '',
                      'width' => 300,
+                     'defaultValueGenerator' => '',
                      'optionsProviderType' => NULL,
                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
                      'optionsProviderData' => 'INH-HYD-HOSE',
                   )),
                   5 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                      'name' => 'StandardMetTube',
                      'title' => 'Standard Met- Tube',
                      'tooltip' => '',
@@ -284,18 +296,22 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'options' => NULL,
                      'maxItems' => NULL,
                      'renderType' => 'tags',
                      'dynamicOptions' => false,
+                     'defaultValue' => 
+                    array (
+                      0 => '1',
+                    ),
                      'height' => 180,
                      'width' => 300,
+                     'defaultValueGenerator' => '',
                      'optionsProviderType' => NULL,
                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
                      'optionsProviderData' => 'INH-HYD-HOSE',
                   )),
                   6 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                      'name' => 'VirtualCatalogTubeMaterial',
                      'title' => 'Virtual Catalog Tube Material',
                      'tooltip' => '',
@@ -320,7 +336,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'width' => 295,
                   )),
                   7 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'Coupling',
                      'title' => 'Catalog Coupling',
                      'tooltip' => '',
@@ -350,7 +366,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   8 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'sixDigitVirtualCatalogDescription',
                      'title' => 'Six Digit Virtual Catalog Description',
                      'tooltip' => '',
@@ -380,7 +396,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   9 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'name' => 'numberOfPlies',
                      'title' => 'Number of Plies',
                      'tooltip' => '',
@@ -399,7 +415,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     array (
                     ),
                      'defaultValue' => NULL,
-                     'integer' => false,
+                     'integer' => true,
                      'unsigned' => true,
                      'minValue' => NULL,
                      'maxValue' => NULL,
@@ -410,7 +426,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   10 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                      'name' => 'standardMetHoseComment',
                      'title' => 'Standard Met- Hose "Comment"',
                      'tooltip' => '',
@@ -435,7 +451,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'width' => 295,
                   )),
                   11 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                      'name' => 'standardMetHose',
                      'title' => 'Standard Met- Hose',
                      'tooltip' => '',
@@ -453,18 +469,22 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'options' => NULL,
                      'maxItems' => NULL,
                      'renderType' => 'tags',
                      'dynamicOptions' => false,
+                     'defaultValue' => 
+                    array (
+                      0 => '1',
+                    ),
                      'height' => 180,
                      'width' => 300,
+                     'defaultValueGenerator' => '',
                      'optionsProviderType' => NULL,
                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
                      'optionsProviderData' => 'INH-HYD-HOSE',
                   )),
                   12 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                      'name' => 'IFSApplications',
                      'title' => 'Applications',
                      'tooltip' => '',
@@ -482,12 +502,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'options' => NULL,
                      'maxItems' => 20,
                      'renderType' => 'tags',
                      'dynamicOptions' => false,
+                     'defaultValue' => 
+                    array (
+                      0 => '1',
+                    ),
                      'height' => 250,
                      'width' => 300,
+                     'defaultValueGenerator' => '',
                      'optionsProviderType' => NULL,
                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\ApplicationOptionsProvider',
                      'optionsProviderData' => 'IFS',
@@ -504,7 +528,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'labelAlign' => 'left',
               )),
               1 => 
-              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+              \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                  'name' => 'Field Container',
                  'type' => NULL,
                  'region' => NULL,
@@ -518,7 +542,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'name' => 'numberOfHelixWires',
                      'title' => 'Number of Helix Wires',
                      'tooltip' => '',
@@ -537,7 +561,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     array (
                     ),
                      'defaultValue' => NULL,
-                     'integer' => false,
+                     'integer' => true,
                      'unsigned' => true,
                      'minValue' => NULL,
                      'maxValue' => NULL,
@@ -548,7 +572,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   1 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                      'name' => 'LayFlatHoseYN',
                      'title' => 'Lay-Flat Hose Y/N',
                      'tooltip' => '',
@@ -590,7 +614,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'width' => 300,
                   )),
                   2 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                      'name' => 'coverCharacteristic',
                      'title' => 'Cover Characteristic',
                      'tooltip' => '',
@@ -608,18 +632,22 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'options' => NULL,
                      'maxItems' => 1,
                      'renderType' => 'tags',
                      'dynamicOptions' => false,
+                     'defaultValue' => 
+                    array (
+                      0 => '1',
+                    ),
                      'height' => '',
                      'width' => 300,
+                     'defaultValueGenerator' => '',
                      'optionsProviderType' => NULL,
                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
                      'optionsProviderData' => 'INH-HYD-HOSE',
                   )),
                   3 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                      'name' => 'coverColor',
                      'title' => 'Cover Color',
                      'tooltip' => '
@@ -638,18 +666,22 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'options' => NULL,
                      'maxItems' => 1,
                      'renderType' => 'tags',
                      'dynamicOptions' => false,
+                     'defaultValue' => 
+                    array (
+                      0 => '1',
+                    ),
                      'height' => '',
                      'width' => 300,
+                     'defaultValueGenerator' => '',
                      'optionsProviderType' => NULL,
                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
                      'optionsProviderData' => 'INH-HYD-HOSE',
                   )),
                   4 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                      'name' => 'coverMaterial',
                      'title' => 'Cover Material',
                      'tooltip' => '',
@@ -667,18 +699,22 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'options' => NULL,
                      'maxItems' => 1,
                      'renderType' => 'tags',
                      'dynamicOptions' => false,
+                     'defaultValue' => 
+                    array (
+                      0 => '1',
+                    ),
                      'height' => '',
                      'width' => 300,
+                     'defaultValueGenerator' => '',
                      'optionsProviderType' => NULL,
                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
                      'optionsProviderData' => 'INH-HYD-HOSE',
                   )),
                   5 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                      'name' => 'StandardMetCover',
                      'title' => 'Standard Met- Cover',
                      'tooltip' => '',
@@ -696,18 +732,22 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'options' => NULL,
                      'maxItems' => NULL,
                      'renderType' => 'tags',
                      'dynamicOptions' => false,
+                     'defaultValue' => 
+                    array (
+                      0 => '1',
+                    ),
                      'height' => 180,
                      'width' => 300,
+                     'defaultValueGenerator' => '',
                      'optionsProviderType' => NULL,
                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
                      'optionsProviderData' => 'INH-HYD-HOSE',
                   )),
                   6 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                      'name' => 'VirtualCatalogCoverMaterial',
                      'title' => 'Virtual Catalog Cover Material',
                      'tooltip' => '',
@@ -732,7 +772,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'width' => 295,
                   )),
                   7 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                      'name' => 'Packaging',
                      'title' => 'Catalog Packaging',
                      'tooltip' => '',
@@ -757,7 +797,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'width' => 300,
                   )),
                   8 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                      'name' => 'HelicalWireYN',
                      'title' => 'Helical Wire Y/N',
                      'tooltip' => '',
@@ -799,7 +839,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'width' => 300,
                   )),
                   9 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                      'name' => 'safetyFactor',
                      'title' => 'Design Factor',
                      'tooltip' => '',
@@ -817,18 +857,22 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'options' => NULL,
                      'maxItems' => 1,
                      'renderType' => 'tags',
                      'dynamicOptions' => false,
+                     'defaultValue' => 
+                    array (
+                      0 => '1',
+                    ),
                      'height' => '',
                      'width' => 300,
+                     'defaultValueGenerator' => '',
                      'optionsProviderType' => NULL,
                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
                      'optionsProviderData' => 'INH-HYD-HOSE',
                   )),
                   10 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'NonStockSizes',
                      'title' => 'Non-Stock/Sizes',
                      'tooltip' => '',
@@ -858,7 +902,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   11 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                      'name' => 'agencyCompliance',
                      'title' => 'Agency Compliance',
                      'tooltip' => '',
@@ -876,18 +920,22 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'options' => NULL,
                      'maxItems' => NULL,
                      'renderType' => 'tags',
                      'dynamicOptions' => false,
+                     'defaultValue' => 
+                    array (
+                      0 => '1',
+                    ),
                      'height' => 180,
                      'width' => 300,
+                     'defaultValueGenerator' => '',
                      'optionsProviderType' => NULL,
                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
                      'optionsProviderData' => 'INH-HYD-HOSE',
                   )),
                   12 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                      'name' => 'acceptableHoseMedia',
                      'title' => 'Acceptable Hose Media',
                      'tooltip' => '',
@@ -905,12 +953,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'options' => NULL,
                      'maxItems' => NULL,
                      'renderType' => 'tags',
                      'dynamicOptions' => false,
+                     'defaultValue' => 
+                    array (
+                      0 => '1',
+                    ),
                      'height' => 260,
                      'width' => 300,
+                     'defaultValueGenerator' => '',
                      'optionsProviderType' => NULL,
                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
                      'optionsProviderData' => 'INH-HYD-HOSE',
