@@ -6,6 +6,8 @@ parameters:
     '0310': '0310-Canada'
     '0252': '0252-Export'
     '0644': '0644-Mexico'
+    '0623': '0623-Australia'
+    '0753': '0753-Brazil'
   privateMaterialGroup: 
     '004': '004'
   mappingCsvColumn: 
