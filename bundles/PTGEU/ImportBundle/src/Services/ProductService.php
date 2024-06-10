@@ -509,10 +509,56 @@ class ProductService
         }
 
         $beltTypeList = new \Pimcore\Model\DataObject\PTGEUBeltType\Listing();
-        $beltTypeList->setCondition("beltType = ". $beltTypeList->quote(trim($beltType)));
 
         foreach ($beltTypeList as $belt) {
-            return $belt->getId();
+            if(strtolower($belt->getBeltType()) == (strtolower(trim($beltType)))) {
+                return $belt->getId();
+            }
+        }
+    }
+
+    public function getColorId($color) {
+        if(empty($color))
+        {
+            return null;
+        }
+
+        $colorList = new \Pimcore\Model\DataObject\PTGEUColor\Listing();
+
+        foreach ($colorList as $c) {
+            if(strtolower($c->getColor()) == (strtolower(trim($color)))) {
+                return $c->getId();
+            }
+        }
+    }
+
+    public function getStaticConductiveId($staticConductive) {
+        if(empty($staticConductive))
+        {
+            return null;
+        }
+
+        $staticConductiveList = new \Pimcore\Model\DataObject\PTGEUStaticConductive\Listing();
+
+        foreach ($staticConductiveList as $s) {
+            if(strtolower($s->getStaticConductive()) == (strtolower(trim($staticConductive)))) {
+                return $s->getId();
+            }
+        }
+    }
+
+    public function getPerformanceId($performance) {
+        if(empty($performance))
+        {
+            return null;
+        }
+
+        $performanceList = new \Pimcore\Model\DataObject\PTGEUPerformance\Listing();
+
+        foreach ($performanceList as $p) {
+            if(strtolower($p->getPerformance()) == (strtolower(trim($performance)))) {
+                return $p->getId();
+            }
         }
     }
 
@@ -617,22 +663,19 @@ class ProductService
                             array_push($reinforcementValuesToBeMapped,$eachOptions['value']);
                         }
                     }
-    
                 }
             }
             $reinforcements  = implode(',', $reinforcementValuesToBeMapped);
             $queryTableData['reinforcement'] = $reinforcements;
 
+            $color = trim($record[$this->getRecordIndexByKey('color')]);
+            $queryTableData['color']= $this->getColorId($color);
+
+            $staticConductive = trim($record[$this->getRecordIndexByKey('staticConductive')]);
+            $queryTableData['staticConductive']= $this->getStaticConductiveId($staticConductive);
+
             $performance = trim($record[$this->getRecordIndexByKey('performance')]);
-            $fd = $baseObject->getClass()->getFieldDefinition("performance");
-            $options = $fd->getOptions();
-            if($options){
-                foreach($options as $eachOptions){
-                    if(strtolower($eachOptions['value']) == strtolower($performance)){
-                        $queryTableData['performance'] = trim($eachOptions['value']);
-                    }
-                }    
-            }
+            $queryTableData['performance']= $this->getPerformanceId($performance);
 
             $materialCompound = trim($record[$this->getRecordIndexByKey('materialCompound')]);
             $fd = $baseObject->getClass()->getFieldDefinition("material");
@@ -642,29 +685,7 @@ class ProductService
                     if($eachOptions['value'] == $materialCompound){
                         $queryTableData['material'] = trim($record[$this->getRecordIndexByKey('materialCompound')]);
                     }
-                }    
-            }
-
-            $color = trim($record[$this->getRecordIndexByKey('color')]);
-            $fd = $baseObject->getClass()->getFieldDefinition("color");
-            $options = $fd->getOptions();
-            if($options){
-                foreach($options as $eachOptions){
-                    if(strtolower($eachOptions['value']) == strtolower($color)){
-                        $queryTableData['color'] = trim($eachOptions['value']);
-                    }
-                }    
-            }
-
-            $staticConductive = trim($record[$this->getRecordIndexByKey('staticConductive')]);
-            $fd = $baseObject->getClass()->getFieldDefinition("staticConductive");
-            $options = $fd->getOptions();
-            if($options){
-                foreach($options as $eachOptions){
-                    if(strtolower($eachOptions['value']) == strtolower($staticConductive)){
-                        $queryTableData['staticConductive'] = trim($eachOptions['value']);
-                    }
-                }    
+                }
             }
 
         }
@@ -706,7 +727,7 @@ class ProductService
                     if($eachOptions['value'] == $weightUnit){
                         $queryTableData['weightUnit'] = trim($record[$this->getRecordIndexByKey('weightUnit')]);
                     }
-                }    
+                }
             }
             // $vtlstatus = trim($record[$this->getRecordIndexByKey('vtlStatus')]);
             // $vtlObject = $this->getVtlStatus($vtlstatus);
@@ -818,22 +839,11 @@ class ProductService
                             array_push($reinforcementValuesToBeMapped,$eachOptions['value']);
                         }
                     }
-                }    
+                }
             }
             $reinforcements  = implode(',', $reinforcementValuesToBeMapped);
             $storeTableDataArray['reinforcement'] = $reinforcements;
 
-
-            $performance = trim($record[$this->getRecordIndexByKey('performance')]);
-            $fd = $baseObject->getClass()->getFieldDefinition("performance");
-            $options = $fd->getOptions();
-            if($options){
-                foreach($options as $eachOptions){
-                    if(strtolower($eachOptions['value']) == strtolower($performance)){
-                        $storeTableDataArray['performance'] = trim($eachOptions['value']);
-                    }
-                }    
-            }
 
             $materialCompound = trim($record[$this->getRecordIndexByKey('materialCompound')]);
             $fd = $baseObject->getClass()->getFieldDefinition("material");
@@ -843,30 +853,18 @@ class ProductService
                     if(strtolower($eachOptions['value']) == strtolower($materialCompound)){
                         $storeTableDataArray['material'] = trim($eachOptions['value']);
                     }
-                }    
+                }
             }
 
             $color = trim($record[$this->getRecordIndexByKey('color')]);
-            $fd = $baseObject->getClass()->getFieldDefinition("color");
-            $options = $fd->getOptions();
-            if($options){
-                foreach($options as $eachOptions){
-                    if(strtolower($eachOptions['value']) == strtolower($color)){
-                        $storeTableDataArray['color'] = trim($eachOptions['value']);
-                    }
-                }    
-            }
+            $storeTableDataArray['color']= $this->getColorId($color);
 
             $staticConductive = trim($record[$this->getRecordIndexByKey('staticConductive')]);
-            $fd = $baseObject->getClass()->getFieldDefinition("staticConductive");
-            $options = $fd->getOptions();
-            if($options){
-                foreach($options as $eachOptions){
-                    if(strtolower($eachOptions['value']) == strtolower($staticConductive)){
-                        $storeTableDataArray['staticConductive'] = trim($eachOptions['value']);
-                    }
-                }    
-            }
+            $storeTableDataArray['staticConductive']= $this->getStaticConductiveId($staticConductive);
+
+            $performance = trim($record[$this->getRecordIndexByKey('performance')]);
+            $storeTableDataArray['performance']= $this->getPerformanceId($performance);
+
         }
 
         if (strtolower($productType) == 'skeleton') {
@@ -907,7 +905,7 @@ class ProductService
                     if($eachOptions['value'] == $weightUnit){
                         $storeTableDataArray['weightUnit'] = trim($record[$this->getRecordIndexByKey('weightUnit')]);
                     }
-                }    
+                }
             }
             // $vtlstatus = trim($record[$this->getRecordIndexByKey('vtlStatus')]);
             // $vtlObject = $this->getVtlStatus($vtlstatus);
