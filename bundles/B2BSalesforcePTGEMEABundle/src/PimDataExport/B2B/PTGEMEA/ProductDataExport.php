@@ -13,7 +13,7 @@ class ProductDataExport implements IDataExport
     private $db;
     private $bu;
     private $common;
-    private $helper; 
+    private $helper;
     private $productAttributeConfig;
     private $productAttributeConfig1;
     private $headerMapping;
@@ -46,34 +46,34 @@ class ProductDataExport implements IDataExport
                 $this->productAttributeConfig1 = $this->helper->getLocalizedAttribute1($this->bu,'Product');
                 if($this->productAttributeConfig)
                 {
-                    
+
                     if(isset($this->productAttributeConfig))
                     {
-                        $headerMapping = $this->productAttributeConfig;               
-                    
+                        $headerMapping = $this->productAttributeConfig;
+
                         if($headerMapping)
                         {
                             $this->headerMapping = $headerMapping;
-    
+
                             # Fetch all products satisfying condition productType = fert AND product.published = 1"
                             $b2bProducts = $this->helper->getAllB2BProduct($this->bu);
                             if($b2bProducts)
-                            { 
+                            {
                                 # Product's non localized field
                                 $productNonLocalisedSelectFilteredAttribute = $this->getFilteredAttribute('class', 'PTGEUProduct', false);
-    
+
                                 # Product's localized field
                                 $productFilteredAttribute = $this->getFilteredAttribute('class', 'PTGEUProduct');
-                                
+
                                 # Products attached objectbrick's non localized field
                                 $productNonLocalizedFilteredOjbectbrickAttribute = $this->getFilteredAttribute('objectbrick', '', false);
 
                                 $areHeadersAlreadyAdded = false;
                                 $b2bProductsChucks = array_chunk($b2bProducts,1000);
-    
+
                                 $filePath1 = PTGEU_B2B_SFTP_DOWNLOAD_TEMP_DIR."PIM_Salesforce_B2B_Product2_P61_V2.csv";
                                 $file1 = fopen($filePath1,"w+");
-                                foreach ($b2bProductsChucks as $batchNum => $productIds) 
+                                foreach ($b2bProductsChucks as $batchNum => $productIds)
                                 {
                                     # Product's non-localized field data
                                     $productNonLocalizedAttributesDataArray = [];
@@ -94,11 +94,11 @@ class ProductDataExport implements IDataExport
                                         $productNonLocalizedAttributesDataArray[] = array_merge($productId,$baseData,$skeletonData,$fertData);
                                     }
                                     echo "Processing Batch - ".($batchNum+1). ", It holds ".count($productIds)." products ".PHP_EOL;
-                                    
+
                                     # Product's localized field data
                                     $localizeData = [];
                                     $productFilteredAttributeField = array_keys($productFilteredAttribute);
-                                    
+
                                     $productLocalizedAttributesData = $this->getRecordsWithFilteredFields($productFilteredAttributeField, $productIds);
                                     if($productLocalizedAttributesData){
                                         foreach ($productNonLocalizedAttributesDataArray as $key1 => $value1) {
@@ -124,7 +124,7 @@ class ProductDataExport implements IDataExport
                                     foreach ($productNonLocalizedFilteredOjbectbrickAttribute as $key => $columm) {
                                         $fkey = $columm['fieldName'];
                                         $localizeDataNonLocalized[$key] = '';
-                                        
+
                                         $objectBricksNonLocalisedFields[$columm['objectBrickClassName']][] = "TRIM(BOTH ',' FROM $fkey) AS $key";
                                     }
                                     if($objectBricksNonLocalisedFields);
@@ -163,7 +163,7 @@ class ProductDataExport implements IDataExport
                                     if($finalPritingList)
                                     {
                                         if(!$areHeadersAlreadyAdded)
-                                        {    
+                                        {
                                             $displayKeys = [];
                                             $booleanFields=$this->getBooleanAttribute();
                                             foreach ($headerMapping as $headerIndex => $headerName) {
@@ -172,8 +172,9 @@ class ProductDataExport implements IDataExport
                                             fputcsv($file1, $displayKeys);
                                             $areHeadersAlreadyAdded = true;
                                         }
+                                        $colorMastersList = $this->getColorMasterList();
+                                        $staticConductiveMastersList = $this->getStaticConductiveMasterList();
                                         foreach($finalPritingList as $key=>$record){
-
                                             $record =  array_map(function($value) {
                                                 return trim($value,',');
                                             },$record);
@@ -187,12 +188,26 @@ class ProductDataExport implements IDataExport
                                                         $fieldBooleanValue=$this->getBooleanValue($booleanValue);
                                                         $mapping_record[$keyHeaderValue] = $fieldBooleanValue;
                                                     }
+                                                    if ($keyHeader == 'color' && $record[$keyHeader] != null && is_numeric($record[$keyHeader])) {
+                                                        $colorId = $record[$keyHeader];
+                                                        if ($colorId != 1 && !empty($colorMastersList) && array_key_exists($colorId, $colorMastersList)) {
+                                                            $mapping_record[$keyHeaderValue] = $colorMastersList[$colorId];
+                                                        } else {
+                                                            $mapping_record[$keyHeaderValue] = null;
+                                                        }
+                                                    }
+                                                    if ($keyHeader == 'staticConductive' && $record[$keyHeader] != null  && is_numeric($record[$keyHeader])) {
+                                                        $staticConductiveId = $record[$keyHeader];
+                                                        if ($staticConductiveId != 1 && !empty($staticConductiveMastersList) && array_key_exists($staticConductiveId, $staticConductiveMastersList)) {
+                                                            $mapping_record[$keyHeaderValue] = $staticConductiveMastersList[$staticConductiveId];
+                                                        } else {
+                                                            $mapping_record[$keyHeaderValue] = null;
+                                                        }
+                                                    }
                                                 }elseif($keyHeaderValue == 'B2B_External_Id__c'){
                                                     $mapping_record[$keyHeaderValue] = '06-'.$articleNumber;
-                                                    
                                                 }elseif($keyHeaderValue == 'B2B_Part_Number__c'){
                                                     $mapping_record[$keyHeaderValue] = $articleNumber;
-
                                                 }elseif( $keyHeaderValue == 'IsActive'){
                                                     $mapping_record[$keyHeaderValue] = 'true';
                                                 }elseif( $keyHeaderValue == 'RecordTypeId'){
@@ -211,11 +226,11 @@ class ProductDataExport implements IDataExport
                                     }
 
                                 }
-                                fclose($file1);    
+                                fclose($file1);
                                 echo $message = "{$this->bu}: B2B Product data csv file created";
                                 echo PHP_EOL;
                                 $this->helper->logMessage($message, LogLevel::INFO());
-                                
+
                             }else{
                                 echo $message = "{$this->bu}: B2B Product data not found to export";
                                 echo PHP_EOL;
@@ -240,6 +255,36 @@ class ProductDataExport implements IDataExport
             $this->helper->logMessage($message, LogLevel::CRITICAL());
             return;
         }
+    }
+
+    public function getColorMasterList()
+    {
+        $stmt = "SELECT ooo_id, color FROM object_localized_data_PTGEUColor WHERE language = 'en';";
+        $results = $this->db->fetchAllAssociative($stmt);
+
+        $nameIdInKeyValuePairArray = [];
+        if (isset($results)) {
+            foreach ($results as $eachResult) {
+                $nameIdInKeyValuePairArray[$eachResult['ooo_id']] = $eachResult['color'];
+            }
+        }
+
+        return $nameIdInKeyValuePairArray;
+    }
+
+    public function getStaticConductiveMasterList()
+    {
+        $stmt = "SELECT ooo_id, staticConductive FROM object_localized_data_PTGEUStaticConductive WHERE language = 'en';";
+        $results = $this->db->fetchAllAssociative($stmt);
+
+        $nameIdInKeyValuePairArray = [];
+        if (isset($results)) {
+            foreach ($results as $eachResult) {
+                $nameIdInKeyValuePairArray[$eachResult['ooo_id']] = $eachResult['staticConductive'];
+            }
+        }
+
+        return $nameIdInKeyValuePairArray;
     }
 
     public function getFilteredAttribute($fieldLocation, $className, $isLocalized=true)
@@ -297,14 +342,14 @@ class ProductDataExport implements IDataExport
         foreach ($columnsList as $key => $columm) {
             $selectedFields[] = "$columm";
         }
-        
+
         $columnsString = implode(',', $selectedFields);
         $ids = implode(',', $b2bProducts);
         $tableName = 'object_localized_38_en';
         $sql = "select {$columnsString} from $tableName where oo_id IN ($ids)";
         $sqlData = $this->db->fetchAllAssociative($sql);
         return ($sqlData);
-        
+
     }
 
     public function getRecordsWithFilteredObjectbrickMasterFields($multiObjectbrickColumnsList, $b2bProducts)
@@ -317,7 +362,7 @@ class ProductDataExport implements IDataExport
             $columnsString = implode(',', $fields);
             $ids = implode(',', $b2bProducts);
             $sql = "select `id`, {$columnsString} from object_brick_query_{$brickName}_{$productClassId} where `id` IN ($ids)";
-            
+
             $resultSet = $this->db->fetchAllAssociative($sql);
 
             $allObjectBrickData = array_merge($allObjectBrickData, $resultSet);

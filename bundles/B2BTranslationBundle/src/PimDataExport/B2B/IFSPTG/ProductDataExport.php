@@ -4,6 +4,7 @@ namespace B2BTranslationBundle\PimDataExport\B2B\IFSPTG;
 
 
 use Pimcore\Db;
+use Pimcore\Model\DataObject;
 use B2BTranslationBundle\Tool\Utils;
 use B2BTranslationBundle\Logger\LogLevel;
 use B2BTranslationBundle\B2BTranslationConstants;
@@ -28,6 +29,7 @@ class ProductDataExport implements IDataExport
     ];
 
     private $container;
+    private $attributeName;
 
     public function __construct($bu, ContainerInterface $container)
     {
@@ -461,7 +463,7 @@ class ProductDataExport implements IDataExport
                                                 $rawData = [];
                                                 foreach ($result0 as $rvalue) {
                                                     if ($id == $rvalue['oo_id']) {
-                                                        unset($rvalue['oo_id']);
+                                                        // unset($rvalue['oo_id']);
                                                         if (array_key_exists($language, $languageNameDisplayArray)) {
                                                             $rvalue['language'] = $languageNameDisplayArray[$language];
                                                         } else {
@@ -556,7 +558,7 @@ class ProductDataExport implements IDataExport
                                         }
                                     } else {
                                         foreach ($result0 as $rvalue) {
-                                            unset($rvalue['oo_id']);
+                                            // unset($rvalue['oo_id']);
                                             $finalPritingList[] = $rvalue;
                                         }
                                     }
@@ -610,38 +612,53 @@ class ProductDataExport implements IDataExport
                                                         $mapping_record[$keyHeaderValue] = $record[$keyHeader] . '_' . $lang;
                                                     }
                                                     if ($this->bu == 'PTG_EU') {
-                                                        if ($keyHeader == 'color' && $record['color'] != null) {
-                                                            $colorMastersList = $this->getColorMasterList($l);
-                                                            $colorId = $record['color'];
-                                                            if ($colorId != null && $colorId != 1 && $colorId != '' && is_numeric($colorId) && !empty($colorMastersList) && array_key_exists($colorId, $colorMastersList)) {
-                                                                $mapping_record[$keyHeaderValue] = $colorMastersList[$colorId];
-                                                            } else {
-                                                                $mapping_record[$keyHeaderValue] = null;
-                                                            }
+                                                        $id = $record['oo_id'];
+                                                        $obj = DataObject\PTGEUProduct::getById($id);
+                                                        $parent = $obj->getParent();
+                                                        if ($parent != null) {
+                                                            $parentType = $parent->gettype();
                                                         }
-                                                        if ($keyHeader == 'beltType' && $record['beltType'] != null) {
-                                                            $beltTypeMastersList = $this->getBeltTypeMasterList($l);
-                                                            $beltTypeId = $record['beltType'];
-                                                            if ($beltTypeId != null && $beltTypeId != 1 && $beltTypeId != '' && is_numeric($beltTypeId) && !empty($beltTypeMastersList) && array_key_exists($beltTypeId, $beltTypeMastersList)) {
-                                                                $mapping_record[$keyHeaderValue] = $beltTypeMastersList[$beltTypeId];
+                                                        if (($keyHeader == 'productName' || $keyHeader == 'heatAndOilResistant' || $keyHeader == 'quality') && $record[$keyHeader] == "") {
+                                                            if ($parent != null && $parentType == 'object') {
+                                                                $id = $parent->getId();
+                                                                $attributeValue = $this->getAttribute($id, $keyHeader);
+                                                                if ($attributeValue == '' || $attributeValue == null) {
+                                                                    $attributeValue = $this->getParentIdAttribute($id);
+                                                                }
                                                             } else {
-                                                                $mapping_record[$keyHeaderValue] = null;
+                                                                $attributeValue = '';
                                                             }
+                                                            $mapping_record[$keyHeaderValue] = $attributeValue;
                                                         }
-                                                        if ($keyHeader == 'performance' && $record['performance'] != null) {
-                                                            $performanceMastersList = $this->getPerformanceMasterList($l);
-                                                            $performanceId = $record['performance'];
-                                                            if ($performanceId != null && $performanceId != 1 && $performanceId != '' && is_numeric($performanceId) && !empty($performanceMastersList) && array_key_exists($performanceId, $performanceMastersList)) {
-                                                                $mapping_record[$keyHeaderValue] = $performanceMastersList[$performanceId];
+                                                        if (($keyHeader == 'reach' || $keyHeader == 'rohs') && $record[$keyHeader] == "") {
+                                                            if ($parent != null && $parentType == 'object') {
+                                                                $id = $parent->getId();
+                                                                $attributeValue = $this->getAttributeLocalized($id, $l, $keyHeader);
+                                                                if ($attributeValue == '' || $attributeValue == null) {
+                                                                    $attributeValue = $this->getParentIdAttribute($id, $l);
+                                                                }
                                                             } else {
-                                                                $mapping_record[$keyHeaderValue] = null;
+                                                                $attributeValue = '';
                                                             }
+                                                            $mapping_record[$keyHeaderValue] = $attributeValue;
                                                         }
-                                                        if ($keyHeader == 'staticConductive' && $record['staticConductive'] != null) {
-                                                            $staticConductiveMastersList = $this->getStaticConductiveMasterList($l);
-                                                            $staticConductiveId = $record['staticConductive'];
-                                                            if ($staticConductiveId != null && $staticConductiveId != 1 && $staticConductiveId != '' && is_numeric($staticConductiveId) && !empty($staticConductiveMastersList) && array_key_exists($staticConductiveId, $staticConductiveMastersList)) {
-                                                                $mapping_record[$keyHeaderValue] = $staticConductiveMastersList[$staticConductiveId];
+                                                        if ($keyHeader == 'color' || $keyHeader == 'beltType' || $keyHeader == 'performance' || $keyHeader == 'staticConductive') {
+                                                            if($record[$keyHeader] != null) {
+                                                                $attributeId = $record[$keyHeader];
+                                                            } else {
+                                                                if ($parent != null && $parentType == 'object') {
+                                                                    $id = $parent->getId();
+                                                                    $attributeId = $this->getAttribute($id, $keyHeader);
+                                                                    if ($attributeId == '' || $attributeId == null) {
+                                                                        $attributeId = $this->getParentIdAttribute($id);
+                                                                    }
+                                                                } else {
+                                                                    $attributeId = '';
+                                                                }
+                                                            }
+                                                            $attributeMastersList = $this->getAttributeMasterList($keyHeader, $l);
+                                                            if ($attributeId != null && $attributeId != 1 && $attributeId != '' && is_numeric($attributeId) && !empty($attributeMastersList) && array_key_exists($attributeId, $attributeMastersList)) {
+                                                                $mapping_record[$keyHeaderValue] = $attributeMastersList[$attributeId];
                                                             } else {
                                                                 $mapping_record[$keyHeaderValue] = null;
                                                             }
@@ -665,6 +682,7 @@ class ProductDataExport implements IDataExport
                                             // }
                                             // else{
                                             unset($record['SalesForce_ID']);
+                                            unset($record['oo_id']);
                                             fputcsv($file1, $record);
                                             // }
                                         }
@@ -699,7 +717,7 @@ class ProductDataExport implements IDataExport
             }
 
         } catch (\Throwable $e) {
-            $message = $e->getMessage();
+            $message = $e;
             $message = "Exception while trying to export the data" . " " . $message;
             $this->logMessage($message, LogLevel::CRITICAL());
             return;
@@ -820,64 +838,84 @@ class ProductDataExport implements IDataExport
         return $nameIdInKeyValuePairArray;
     }
 
-    public function getBeltTypeMasterList($lang = null)
+    public function getAttributeMasterList($attribute, $lang = null)
     {
-        $stmt = "SELECT ooo_id, beltType FROM object_localized_data_PTGEUBeltType WHERE language = '$lang';";
+        $stmt = "SELECT ooo_id, $attribute FROM object_localized_data_PTGEU".ucfirst($attribute)." WHERE language = '$lang';";
         $results = $this->db->fetchAllAssociative($stmt);
 
         $nameIdInKeyValuePairArray = [];
         if (isset($results)) {
             foreach ($results as $eachResult) {
-                $nameIdInKeyValuePairArray[$eachResult['ooo_id']] = $eachResult['beltType'];
+                $nameIdInKeyValuePairArray[$eachResult['ooo_id']] = $eachResult[$attribute];
             }
         }
 
         return $nameIdInKeyValuePairArray;
     }
 
-    public function getPerformanceMasterList($lang = null)
-    {
-        $stmt = "SELECT ooo_id, performance FROM object_localized_data_PTGEUPerformance WHERE language = '$lang';";
-        $results = $this->db->fetchAllAssociative($stmt);
-
-        $nameIdInKeyValuePairArray = [];
-        if (isset($results)) {
-            foreach ($results as $eachResult) {
-                $nameIdInKeyValuePairArray[$eachResult['ooo_id']] = $eachResult['performance'];
-            }
+    public function getAttribute($id, $attribute = null){
+        $parentId = $id;
+        if($attribute != null) {
+            $this->attributeName = $attribute;
+            $sql = "Select ".$this->attributeName." from object_query_38 where oo_id = '$parentId'";
+        } else {
+            $sql = "Select ".$this->attributeName." from object_query_38 where oo_id = '$parentId'";
         }
-
-        return $nameIdInKeyValuePairArray;
+        $parentProductName = $this->db->fetchAllAssociative($sql);
+        if($parentProductName != null){
+            $attributeVal = $parentProductName[0][$this->attributeName];
+        } else {
+            $attributeVal = '';
+        }
+        return $attributeVal;
     }
 
-    public function getStaticConductiveMasterList($lang = null)
-    {
-        $stmt = "SELECT ooo_id, staticConductive FROM object_localized_data_PTGEUStaticConductive WHERE language = '$lang';";
-        $results = $this->db->fetchAllAssociative($stmt);
-
-        $nameIdInKeyValuePairArray = [];
-        if (isset($results)) {
-            foreach ($results as $eachResult) {
-                $nameIdInKeyValuePairArray[$eachResult['ooo_id']] = $eachResult['staticConductive'];
+    public function getParentIdAttribute($id, $lang = null){
+        $attributeVal = '';
+        $sql = "SELECT oo_id FROM object_38 WHERE oo_id = '$id';";
+        $objId = $this->db->fetchFirstColumn($sql);
+        if ($objId != null && $objId[0] != null) {
+            $sql = "select parentId from object_38 where oo_id = '$id'";
+            $parentObjectId = $this->db->fetchAllAssociative($sql);
+            if(!empty($parentObjectId)) {
+                $parentId = $parentObjectId[0]['parentId'];
+                if($parentId == null || $parentId == '' ){
+                    $attributeVal = '';
+                }
+                else{
+                    if ($lang != null) {
+                        $attributeVal = $this->getAttributeLocalized($parentId, $lang);
+                    } else {
+                        $attributeVal = $this->getAttribute($parentId);
+                    }
+                    if(empty($attributeVal)){
+                        if ($lang != null) {
+                            $this->getParentIdAttribute($parentId, $lang);
+                        } else {
+                            $this->getParentIdAttribute($parentId);
+                        }
+                    }
+                }
             }
         }
-
-        return $nameIdInKeyValuePairArray;
+        return $attributeVal;
     }
 
-    public function getColorMasterList($lang = null)
-    {
-        $stmt = "SELECT ooo_id, color FROM object_localized_data_PTGEUColor WHERE language = '$lang';";
-        $results = $this->db->fetchAllAssociative($stmt);
-
-        $nameIdInKeyValuePairArray = [];
-        if (isset($results)) {
-            foreach ($results as $eachResult) {
-                $nameIdInKeyValuePairArray[$eachResult['ooo_id']] = $eachResult['color'];
-            }
+    public function getAttributeLocalized($id, $lang, $attribute=null){
+        $parentId = $id;
+        if($attribute != null) {
+            $this->attributeName = $attribute;
+            $sql = "select ".$this->attributeName." from object_localized_data_38 where ooo_id = '$parentId' AND language = '$lang'";
+        } else {
+            $sql = "select ".$this->attributeName." from object_localized_data_38 where ooo_id = '$parentId' AND language = '$lang'";
         }
-
-        return $nameIdInKeyValuePairArray;
+        $parentProductName = $this->db->fetchAllAssociative($sql);
+        if($parentProductName != null){
+            $attributeVal = $parentProductName[0][$this->attributeName];
+        } else {
+            $attributeVal = '';
+        }
+        return $attributeVal;
     }
 
     public function getLocalizedAttribute($className)
