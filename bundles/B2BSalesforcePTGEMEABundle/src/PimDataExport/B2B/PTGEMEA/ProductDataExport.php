@@ -189,7 +189,6 @@ class ProductDataExport implements IDataExport
                                                         $mapping_record[$keyHeaderValue] = $fieldBooleanValue;
                                                     }
                                                     if ($keyHeader == 'color' && $record[$keyHeader] != null && is_numeric($record[$keyHeader])) {
-                                                        // $colorMastersList = $this->getAttributeMasterList($keyHeader);
                                                         $colorId = $record[$keyHeader];
                                                         if ($colorId != 1 && !empty($colorMastersList) && array_key_exists($colorId, $colorMastersList)) {
                                                             $mapping_record[$keyHeaderValue] = $colorMastersList[$colorId];
@@ -198,7 +197,6 @@ class ProductDataExport implements IDataExport
                                                         }
                                                     }
                                                     if ($keyHeader == 'staticConductive' && $record[$keyHeader] != null  && is_numeric($record[$keyHeader])) {
-                                                        // $staticConductiveMastersList = $this->getStaticConductiveMasterList();
                                                         $staticConductiveId = $record[$keyHeader];
                                                         if ($staticConductiveId != 1 && !empty($staticConductiveMastersList) && array_key_exists($staticConductiveId, $staticConductiveMastersList)) {
                                                             $mapping_record[$keyHeaderValue] = $staticConductiveMastersList[$staticConductiveId];
@@ -208,10 +206,8 @@ class ProductDataExport implements IDataExport
                                                     }
                                                 }elseif($keyHeaderValue == 'B2B_External_Id__c'){
                                                     $mapping_record[$keyHeaderValue] = '06-'.$articleNumber;
-
                                                 }elseif($keyHeaderValue == 'B2B_Part_Number__c'){
                                                     $mapping_record[$keyHeaderValue] = $articleNumber;
-
                                                 }elseif( $keyHeaderValue == 'IsActive'){
                                                     $mapping_record[$keyHeaderValue] = 'true';
                                                 }elseif( $keyHeaderValue == 'RecordTypeId'){
