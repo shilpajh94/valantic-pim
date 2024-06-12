@@ -27,6 +27,7 @@ class PriceImportService {
         
         public function import()
         {
+            \AppBundle\Helper\Common::clearAndDisablePimCache();
             $sapFileFeeder  = $this->container->get('ifs_eu_import.sap_file_feeder_service');
             $this->filePath = $sapFileFeeder->execFileFeeder('price');
             $csvInfo        = ImportService::getCSVData($this->filePath);
@@ -84,6 +85,7 @@ class PriceImportService {
             }
             \Pimcore\Cache::clearAll();
             $this->priceModel->updateMasterTable();
+            \AppBundle\Helper\Common::endablePimCache();
         }
      
         public function processPriceData($sapPriceData) {

@@ -127,6 +127,7 @@ class ProductService
       
     public function import()
     {
+        \AppBundle\Helper\Common::clearAndDisablePimCache();
         $sapFileFeeder  = $this->container->get('ifs_eu_import.sap_file_feeder_service');
         $this->filePath = $sapFileFeeder->execFileFeeder('product');
         if($this->filePath){
@@ -167,6 +168,8 @@ class ProductService
         }else{
             die; 
         }
+
+        \AppBundle\Helper\Common::endablePimCache();
             
     }
 

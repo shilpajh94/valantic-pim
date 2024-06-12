@@ -10,7 +10,7 @@ use ImportBundle\Services\Import;
 use AppBundle\Logger\AppLogger as Logger;
 use ImportBundle\Services\ImportConstants;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-
+use AppBundle\Helper\Common;
 class ProductSQLModel
 {
 
@@ -188,10 +188,7 @@ class ProductSQLModel
 
     public function import($csvData)
     {
-        // clear the whole cache
-        \Pimcore\Cache::clearAll();
-        // disable the cache globally
-        \Pimcore\Cache::disable();
+        Common::clearAndDisablePimCache();
 
         \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("SAP import started");
         $this->tblImpHelper->truncateTempTable();
@@ -210,8 +207,7 @@ class ProductSQLModel
         $this->tblImpHelper->updateMaster();
         \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("Data copied from temp table to master table");
 
-        // enable the cache globally
-        \Pimcore\Cache::enable();
+
         
         if (!empty($this->updatedArticlesArray) && count($this->updatedArticlesArray)>0) {
             echo "Object Saving started for completeness.";
@@ -223,6 +219,7 @@ class ProductSQLModel
             \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("failed records removed from master table.");
             $this->sendSkippedArticlesEmailNotification($this->baseSiopMismatchLog, $this->baseSiopMismatchEmailTemplate);
         }
+        Common::endablePimCache();
     }
     public function sendSkippedArticlesEmailNotification($skippedArticles, $emailTemplate) {
         try {
