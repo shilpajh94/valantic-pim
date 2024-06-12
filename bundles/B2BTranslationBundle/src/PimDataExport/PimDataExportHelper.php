@@ -114,7 +114,7 @@ class PimDataExportHelper
         $ids = [];
         if ($table) {
             // $sql = "SELECT $column FROM $table";
-            $sql = "SELECT p.$column FROM $table p JOIN $salesTable s ON p.$column = SUBSTRING(s.Material,2,(LENGTH(s.Material) - 2))
+            $sql = "SELECT DISTINCT p.$column FROM $table p JOIN $salesTable s ON p.$column = SUBSTRING(s.Material,2,(LENGTH(s.Material) - 2))
             WHERE p.published = 1 AND s.published = 1 AND s.epixFlag = 1";
             $ids = $db->fetchFirstColumn($sql);
         }

@@ -48,7 +48,7 @@ class ProductMediaDataExport implements IDataExport
                 $productMediaDataArray = $this->helper->getAllMediaDataForEachProduct($allB2BProductId, $mediaAttributes);
                 $i = 1;
 
-                echo $message = "{$this->bu}: B2B ptgeu product data csv file created\n";
+                echo $message = "{$this->bu}: B2B ptgeu product media data csv file created\n";
                 echo PHP_EOL;
                 $this->helper->logMessage($message, LogLevel::INFO());
 
@@ -68,7 +68,7 @@ class ProductMediaDataExport implements IDataExport
                     }
                 }
             } else {
-                echo $message = "{$this->bu}: B2B  PTGEU products not found to export";
+                echo $message = "{$this->bu}: B2B PTGEU products not found to export";
                 echo PHP_EOL;
                 $this->helper->logMessage($message, LogLevel::ERROR());
             }
