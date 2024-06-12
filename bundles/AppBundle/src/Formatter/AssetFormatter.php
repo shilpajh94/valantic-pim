@@ -27,16 +27,16 @@ class AssetFormatter implements PathFormatterInterface {
         $context = $params["context"];
 
         foreach ($targets as $key => $item) {
-            $newPath = $item["fullpath"];
+            $newPath = ((isset( $item["fullpath"]))? $item["fullpath"]: $item["path"]);
             
             if ($item["type"] == "asset") {
                 $asset = Asset::getById($item["id"]);
                 if ($asset) {
 //                    $title = $asset->getMetadata("title");
                     if ($asset instanceof \Pimcore\Model\Asset\Image) {
-                        $thumb = $asset->getThumbnail(['height' => '80']);
+                        $thumb = $asset->getThumbnail(['height' => '80',"width" => '80']);
                     } elseif($asset instanceof \Pimcore\Model\Asset\Document) {
-                        $thumb = $asset->getImageThumbnail(["height" => 80, "contain" => true]);
+                        $thumb = $asset->getImageThumbnail(["height" => 80,"width" => 80,"contain" => true]);
                     }
 
 //                    if (!$title) {

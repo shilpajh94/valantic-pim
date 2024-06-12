@@ -47,6 +47,13 @@ class PimDataExportHelper
         'IFS_EMEA' => array('categoryClassId' => 'IFSEUProductCategory'),
     ];
 
+    private $b2bSalesTable = [
+        'PTG_EU' => 'object_41',
+        'IFS_PTG_US' => 'object_10',
+        'CS' => '',
+        'IFS_EMEA' => ''
+    ];
+
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
@@ -102,10 +109,13 @@ class PimDataExportHelper
         $db = Db::get();
         $table = $this->b2bProductTable[$bu];
         $column = $this->b2bProductSelectColumn[$bu];
+        $salesTable = $this->b2bSalesTable[$bu];
 
         $ids = [];
         if ($table) {
-            $sql = "SELECT $column FROM $table";
+            // $sql = "SELECT $column FROM $table";
+            $sql = "SELECT p.$column FROM $table p JOIN $salesTable s ON p.$column = SUBSTRING(s.Material,2,(LENGTH(s.Material) - 2))
+            WHERE p.published = 1 AND s.published = 1 AND s.epixFlag = 1";
             $ids = $db->fetchFirstColumn($sql);
         }
 

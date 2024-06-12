@@ -662,6 +662,7 @@ class IndustrialHoseController extends FrontendController
                             if (isset($bvalue[$headerKeysIndex['FittingTableName']]) && $bvalue[$headerKeysIndex['FittingTableName']]) {
                                 $fittingTableName = $bvalue[$headerKeysIndex['FittingTableName']];
                                 $fittingTableKeys = $inhProductPageConfig[$fittingTableName]['columns'];
+                                $fittingTableColWidths = $inhProductPageConfig[$fittingTableName]['widthSetting'];
                             }
 
                             if ($fittingTableName && is_array($fittingTableKeys)) {
@@ -775,8 +776,7 @@ class IndustrialHoseController extends FrontendController
 
                                 $articlesData = array();
                                 $this->subHeaderRequired = 'NO';
-
-                                $columnsDataWithImages = $this->getColumnHeadersForCatalog(true, $fittingTableKeys);
+                                $columnsDataWithImages = $this->getColumnHeadersForCatalog(TRUE, $fittingTableKeys, $fittingTableColWidths);
 
                                 // Getting order of the keys
                                 $orderKeys = array();
@@ -1350,7 +1350,8 @@ class IndustrialHoseController extends FrontendController
         return $brandslist;
     }
 
-    public function getColumnHeadersForCatalog($isTableNameColumnRequired = false, $tableNameColumns = [])
+    public function getColumnHeadersForCatalog($isTableNameColumnRequired = FALSE, $tableNameColumns = [], $fittingTableColWidths)
+
     {
 
         $columnsDataWithImages = array();
@@ -1376,9 +1377,12 @@ class IndustrialHoseController extends FrontendController
                         $groupName = $value['groupName'];
                         $this->subHeaderRequired = 'YES';
                     }
+                    if(array_key_exists($dkey, $fittingTableColWidths)){
+                        $colWidth = $fittingTableColWidths[$dkey];
+                    }
 
                     $columnsDataWithImages[$groupColumnName][$dkey]['groupName'] = $groupName;
-                    $columnsDataWithImages[$groupColumnName][$dkey]['columnWidth'] = $columnWidth;
+                    $columnsDataWithImages[$groupColumnName][$dkey]['columnWidth'] = $colWidth;
                     $columnsDataWithImages[$groupColumnName][$dkey]['unitName'] = $this->replaceYellowCode($this->translatorInterface->trans($unitName));
                     $columnsDataWithImages[$groupColumnName][$dkey]['columnName'] = $value['columnName'];
                     $columnsDataWithImages[$groupColumnName][$dkey]['columnLabel'] = $this->replaceYellowCode($this->translatorInterface->trans($groupColumnName));

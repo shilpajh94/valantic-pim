@@ -219,11 +219,16 @@ class ProductImport
     public function getDelta($bu)
     {
         try {
-            $catLength = 13;
             if ($bu == 'ptg') {
-                $catLength = 18;
+                $catLength18 = 18;
+                $catLength16 = 16;
+                $catLength13 = 13;
+                $sql   = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE (LENGTH(t.siopfullcode) = '".$catLength13."' OR LENGTH(t.siopfullcode) = '".$catLength16."' OR LENGTH(t.siopfullcode) = '".$catLength18."') AND (t.siopFullCode LIKE '043000%') AND (t.hash != m.hash OR m.id is null) ";
             }
-            $sql   = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE LENGTH(t.siopfullcode) = '".$catLength."' AND (t.hash != m.hash OR m.id is null) ";
+            else{
+                $catLength = 13;
+                $sql   = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE LENGTH(t.siopfullcode) = '".$catLength."' AND (t.siopFullCode NOT LIKE '043000%') AND (t.hash != m.hash OR m.id is null) ";
+            }
             $delta = $this->db->fetchAllAssociative($sql);
 
             return $delta;
@@ -240,7 +245,7 @@ class ProductImport
                 try {
                     $this->db->executeQuery($sql);
                 } catch (\Exception $e) {
-                    echo $e->getMessage();
+                    echo $e->getMessage(); 
                 }
             }
         }
@@ -351,24 +356,27 @@ class ProductImport
 
     }
 
-    public function getRecordsSiopCodeDigitsNot13And18()
-    {
-        $sql = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t WHERE  LENGTH(t.siopfullcode) NOT IN (13,18)";
-        $record = $this->db->fetchAllAssociative($sql);
-        $this->insertSiopDigitsNot13And18DataToLogTable($record);
-        $this->deleteSiopCodeDigitsNot13And18FromTemp($record);
-    }
+  //    public function getRecordsSiopCodeDigitsNot13And18()
+  public function getRecordsSiopCodeDigitsNot13And16And18()
 
+  {
+   // $sql = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t WHERE  LENGTH(t.siopfullcode) NOT IN (13,18)";
+   $sql = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t WHERE  LENGTH(t.siopfullcode) NOT IN (13,18,16)";
 
-    public function insertSiopDigitsNot13And18DataToLogTable($data)
-    {
+   $record = $this->db->fetchAllAssociative($sql);
+   $this->insertSiopDigitsNot13And16And18DataToLogTable($record);
+   $this->deleteSiopCodeDigitsNot13And16And18FromTemp($record);
+  } 
+
+  public function insertSiopDigitsNot13And16And18DataToLogTable($data)
+   {
         try {
-        $value='';
+            $value='';
         $rowCount = 1;
         $sql = "INSERT INTO {$this->logTable} (id, siopfullcode, record, statusCode, failedReason, createdAt) VALUES";
         foreach ($data as $dataValue) {
-            $value .= '("'.$dataValue['id'].'", "'.$dataValue['siopfullcode'].'", "'.addslashes($dataValue['record']).'","'.self::STATUS_CODE.'","Length of SIOP full code is neither 13 nor 18","'.time().'"),';
-            // inserting records in batch
+            $value .= '("'.$dataValue['id'].'", "'.$dataValue['siopfullcode'].'", "'.addslashes($dataValue['record']).'","'.self::STATUS_CODE.'","Length of SIOP full code is neither 13 nor 16 nor 18","'.time().'"),';
+          // inserting records in batch
                 if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
                     $query = $sql.rtrim($value, ',');
                     $this->db->executeQuery($query);
@@ -386,8 +394,8 @@ class ProductImport
         }
    }
 
-    public function deleteSiopCodeDigitsNot13And18FromTemp($record)
-    {
+   public function deleteSiopCodeDigitsNot13And16And18FromTemp($record)
+   {
         foreach ($record as $deletedRecords) {
             $deletedRecordsId = $deletedRecords['id'];
             $sql = "DELETE FROM {$this->tempTable} WHERE id = '$deletedRecordsId'";

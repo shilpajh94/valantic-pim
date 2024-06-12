@@ -12,7 +12,7 @@ class PimDataExportHelper
     private $b2bProductTable = [
         'IFS_PTG_US' => 'salesforce_integration_b2b_product_master',
         'CS' => '',
-        'PTG_EU' => 'object_38', 
+        'PTG_EU' => 'object_38',
         'IFS_EMEA' => ''
     ];
 
@@ -30,11 +30,18 @@ class PimDataExportHelper
         'IFS_EMEA' => array('categoryClassId'=>'IFSEUProductCategory'),
     ];
 
+    private $b2bSalesTable = [
+        'PTG_EU' => 'object_41',
+        'IFS_PTG_US' => 'object_10',
+        'CS' => '',
+        'IFS_EMEA' => ''
+    ];
+
     public function uploadFile($customFileName)
     {
         $remotefile = PTGEU_B2B_EXPORT_SFTP_INBOUND_FOLDER_PATH.'/'.$customFileName;
         $localfile =  PTGEU_B2B_SFTP_DOWNLOAD_TEMP_DIR.$customFileName;
-        try 
+        try
         {
             $conn = ftp_connect(PTGEU_B2B_SFTP_HOST);
             if(!$conn) {
@@ -56,7 +63,7 @@ class PimDataExportHelper
                 ftp_quit($conn);
                 exit;
             }
-            
+
             ftp_close($conn);
 
         } catch (\Throwable $th) {
@@ -72,17 +79,20 @@ class PimDataExportHelper
     {
         $db = Db::get();
         $table = $this->b2bProductTable[$bu];
+        $salesTable = $this->b2bSalesTable[$bu];
 
         $ids = [];
         if($table)
         {
-            $sql = "SELECT `id` FROM $table WHERE productType='fert' AND published=1";
+            // $sql = "SELECT `id` FROM $table WHERE productType='fert' AND published=1";
+            $sql = "SELECT p.id FROM $table p JOIN $salesTable s ON p.id = SUBSTRING(s.Material,2,(LENGTH(s.Material) - 2))
+              WHERE p.productType = 'fert' AND p.published = 1 AND s.published = 1 AND s.epixFlag = 1";
             $ids = $db->fetchFirstColumn($sql);
         }
 
         return $ids;
     }
-    
+
     public function getAllB2BCategory($bu)
     {
         $db = Db::get();
@@ -94,7 +104,7 @@ class PimDataExportHelper
             $sql = "SELECT `id` FROM $table WHERE published=1 AND (Level= 3 || Level = 4 || Level = 5)";
             $ids = $db->fetchFirstColumn($sql);
         }
-        
+
         return $ids;
     }
 
@@ -177,7 +187,7 @@ class PimDataExportHelper
         {
             $columnsString .= ",". implode(',', $fields);
         }
-        
+
         $ids = implode(',', $b2bProducts);
         $sql = "select {$columnsString} from object_{$categoryClassId} where `id` IN ($ids)";
         return $db->fetchAllAssociative($sql);

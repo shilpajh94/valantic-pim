@@ -46,8 +46,8 @@ class XlsxWriter implements Writer
             $this->rowNumberToWriteFrom = $this->headerRowNumber + 1;
             $this->spreadSheet = new Spreadsheet();
 
-            $columnAttrMapping = json_decode($channel->getColumnAttributeMapping(), true);
-            $this->writeHeaders($columnAttrMapping['templateAttribute']);
+            // $columnAttrMapping = json_decode($channel->getColumnAttributeMapping(), true);
+            // $this->writeHeaders($columnAttrMapping['templateAttribute']);
         }
     }
 

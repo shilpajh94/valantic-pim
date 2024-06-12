@@ -103,7 +103,7 @@ class ShareController extends UserAwareController
         // condition for users with groups having permission
         $condition = [];
         $rolesList = new \Pimcore\Model\User\Role\Listing();
-        $rolesList->addConditionParam("CONCAT(',', permissions, ',') LIKE ?", '%,bundle_distribution_hub,%');
+        $rolesList->addConditionParam("CONCAT(',', permissions, ',') LIKE ?", '%,plugin_distribution_hub,%');
         $rolesList->load();
         $roles = $rolesList->getRoles();
 

@@ -105,13 +105,18 @@ class ProductMediaDataExport implements IDataExport
                         $displayType = self::B2B_PRODUCT_MEDIUM_IMAGE_DISPLAY_TYPE;
                     }
                     $url = str_replace("Â", "", $url);
+                    if (!empty($asset->getMetadata("title"))) {
+                        $altText = $asset->getMetadata("title");
+                    } else {
+                        $altText = strrev(explode('/', strrev($url))[0]);
+                    }
                     $assetResultSet['Product2__c'] = '06-' . $articleNumber;
                     $assetResultSet['B2B_Media_Type__c'] = $asset->getType();
                     $assetResultSet['B2B_Display_Type__c'] = $displayType;
                     $assetResultSet['B2B_Media_URL__c'] = $url;
                     $assetResultSet['B2B_Description__c'] = substr($asset->getFilename(), 0, strpos($asset->getFilename(), "."));
                     $assetResultSet['B2B_IsAttachment__c'] = 'False';
-                    $assetResultSet['B2B_Alt_Text__c'] = $asset->getMetadata("title");
+                    $assetResultSet['B2B_Alt_Text__c'] = $altText;
                     // $assetResultSet['B2B_External_Id_c__c'] = $articleNumber.'_'.$assetId.'_'.$attributeName;
                     $assetResultSet['B2B_External_Id_c__c'] = $articleNumber . '_' . $this->createExternalId($attributeName, $eachImageType);
                     $assetResultSet['B2B_Sequence__c'] = isset($sequence[$attributeName]) ? $sequence[$attributeName] : '';
@@ -142,13 +147,18 @@ class ProductMediaDataExport implements IDataExport
                 if ($asset->hasProperty('media_type') && $asset->getProperties()['media_type']->getData() != null) {
                     $mediaType = $asset->getProperties()['media_type']->getData();
                 }
+                if (!empty($asset->getMetadata("title"))) {
+                    $altText = $asset->getMetadata("title");
+                } else {
+                    $altText = strrev(explode('/', strrev(Util::getAssetPublicPath($asset)))[0]);
+                }
                 $assetResultSet['Product2__c'] = '06-' . $articleNumber;
                 $assetResultSet['B2B_Media_Type__c'] = $mediaType;
                 $assetResultSet['B2B_Display_Type__c'] = '';
                 $assetResultSet['B2B_Media_URL__c'] = Util::getAssetPublicPath($asset);
                 $assetResultSet['B2B_Description__c'] = substr($asset->getFilename(), 0, strpos($asset->getFilename(), "."));
                 $assetResultSet['B2B_IsAttachment__c'] = 'True';
-                $assetResultSet['B2B_Alt_Text__c'] = $asset->getMetadata("title");
+                $assetResultSet['B2B_Alt_Text__c'] = $altText;
                 $assetResultSet['B2B_External_Id_c__c'] = $articleNumber . '_' . $this->otherMediaExternalIdCreation($attributeName);
                 $assetResultSet['B2B_Sequence__c'] = '';
 
