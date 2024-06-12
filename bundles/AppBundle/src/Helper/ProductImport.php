@@ -370,15 +370,15 @@ class ProductImport
    {
         try {
             $value='';
-        $rowCount = 1;
-        $sql = "INSERT INTO {$this->logTable} (id, siopfullcode, record, statusCode, failedReason, createdAt) VALUES";
-        foreach ($data as $dataValue) {
-            $value .= '("'.$dataValue['id'].'", "'.$dataValue['siopfullcode'].'", "'.addslashes($dataValue['record']).'","'.self::STATUS_CODE.'","Length of SIOP full code is neither 13 nor 16 nor 18","'.time().'"),';
-          // inserting records in batch
+            $rowCount = 1;
+            $sql = "INSERT INTO {$this->logTable} (id, siopfullcode, record, statusCode, failedReason, createdAt) VALUES";
+            foreach ($data as $dataValue) {
+                $value .= '("'.$dataValue['id'].'", "'.$dataValue['siopfullcode'].'", "'.addslashes($dataValue['record']).'","'.self::STATUS_CODE.'","Length of SIOP full code is neither 13 nor 16 nor 18","'.time().'"),';
+            // inserting records in batch
                 if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
                     $query = $sql.rtrim($value, ',');
                     $this->db->executeQuery($query);
-                    $values = '';
+                    $value = '';
                 }
                 $rowCount++;
             }
