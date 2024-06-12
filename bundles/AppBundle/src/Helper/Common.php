@@ -35,6 +35,26 @@ class Common
         }
     }
 
+    /**
+     * Clear and disbale Pimcore cache
+     * @return void
+     */
+    public static function clearAndDisablePimCache():void{
+                // clear the whole cache
+                \Pimcore\Cache::clearAll();
+                // disable the cache globally
+                \Pimcore\Cache::disable();
+    }
+    
+    /**
+     * Enable Pimcore cache
+     * @return void
+     */
+    public static function endablePimCache():void{
+               // enable the cache globally
+               \Pimcore\Cache::enable();
+    }
+
     public function moveFile($param)
     {
         /* 

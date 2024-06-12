@@ -65,6 +65,7 @@ class PriceImportModel {
     
     public function import()
     {
+        \AppBundle\Helper\Common::clearAndDisablePimCache();
         $deletedPriceRecords = '';
         $csvData = $this->fetchDataFromDataSource();
         if (empty($csvData) || count($csvData)==0) {
@@ -119,6 +120,8 @@ class PriceImportModel {
             $j++;
         }
         $this->tblImpHelper->updateMasterTable();
+
+        \AppBundle\Helper\Common::endablePimCache();
     }
  
     public function processPriceData($sapPriceData) {

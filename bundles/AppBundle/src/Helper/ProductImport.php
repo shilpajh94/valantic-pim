@@ -158,6 +158,7 @@ class ProductImport
                 if ($rowCount % 1000 == 0) {
                     $query = $sql.rtrim($values, ',').$update;
                     $this->db->executeQuery($query);
+                    sleep(0.60);
                     $values = '';
                 }
                 $rowCount++;
@@ -165,6 +166,7 @@ class ProductImport
             if (!empty($values)) {
                 $query = $sql.rtrim($values, ',').$update ;
                 $this->db->executeQuery($query);
+                sleep(0.60);
             }
         } catch (\Exception $e) {
             echo $e->getMessage(); die;
