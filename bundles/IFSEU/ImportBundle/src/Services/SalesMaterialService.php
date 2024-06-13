@@ -49,7 +49,7 @@ class SalesMaterialService
     }
 
     public function import() {
-        
+        \AppBundle\Helper\Common::clearAndDisablePimCache();
         $sapFileFeeder  = $this->container->get('ifs_eu_import.sap_file_feeder_service');
         $this->filePath = $sapFileFeeder->execFileFeeder('salesMaterial');
 
@@ -73,6 +73,8 @@ class SalesMaterialService
         $countryOfOriginFolderId  =  DataObject\Service::createFolderByPath(ServicesImportConstants::IFS_EU_COUNTRY_MASTERDATA_FOLDER)->getId();
 
         $this->importStart($excelDataNewArray, $time, $plantFolderId, $salesOrganizationsFolderId, $distributionChannelFolderId, $countryOfOriginFolderId);
+        
+        \AppBundle\Helper\Common::endablePimCache();
     }
 
     public function importStart($excelDataNewArray, $time, $plantFolderId, $salesOrganizationsFolderId, $distributionChannelFolderId, $countryOfOriginFolderId) {

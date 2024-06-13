@@ -54,6 +54,7 @@ class PlantMaterialService
     public function import()
     {
         try {
+            \AppBundle\Helper\Common::clearAndDisablePimCache();
         
             $sapFileFeeder      = $this->container->get('ifs_eu_import.sap_file_feeder_service');
             $this->filePath     = $sapFileFeeder->execFileFeeder('plantMaterial');
@@ -189,6 +190,7 @@ class PlantMaterialService
             $timediff = $time->diff(new \DateTime());
             echo $timediff->format('Total script time: %h hour %i minute %s second').PHP_EOL;
             \Pimcore::collectGarbage();
+            \AppBundle\Helper\Common::endablePimCache();
 
         } catch (\Throwable $th) {
             p_r($th->getMessage());

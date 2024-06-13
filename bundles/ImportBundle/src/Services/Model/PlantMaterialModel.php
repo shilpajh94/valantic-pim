@@ -60,7 +60,9 @@ class PlantMaterialModel
     }
     public function config($param = array())
     {
+
         try {
+            \AppBundle\Helper\Common::clearAndDisablePimCache();
             $this->updateDefaults($param);
             // $spreadsheet = Import::load($this->filePath);
             $csvImportedData = Import::getCSVData($this->filePath);
@@ -76,6 +78,8 @@ class PlantMaterialModel
             $this->keyColumns = $this->common->getParameter($plantMaterialConfig, 'keyColumns');
 
             $this->import($csvData);
+            
+            \AppBundle\Helper\Common::endablePimCache();
         } catch (\Throwable $th) {
             p_r($th);
             \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($th);

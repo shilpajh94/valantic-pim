@@ -121,6 +121,7 @@ class ProductService
 
     public function import()
     {
+        \AppBundle\Helper\Common::clearAndDisablePimCache();
         $sapFileFeeder  = $this->container->get('import.sap_file_feeder_service');
         $this->filePath = $sapFileFeeder->execFileFeeder('product');
         if($this->filePath){
@@ -164,6 +165,7 @@ class ProductService
             die;
         }
 
+        \AppBundle\Helper\Common::endablePimCache();
     }
 
     public function sendSkippedArticlesEmailNotification($skippedArticles, $emailTemplate) {
