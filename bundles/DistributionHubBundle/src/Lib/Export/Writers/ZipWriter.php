@@ -129,7 +129,7 @@ class ZipWriter implements Writer
             $completeSourceFilePath = $sourcePath;
             $success = $this->copyFile($completeSourceFilePath,$completeDestFilePath);
         }
-        
+
         return $success;
     }
 
@@ -143,9 +143,40 @@ class ZipWriter implements Writer
     private function copyFile($source, $destination): bool
     {
         $source = str_replace("%2F", "/", $source);
-        $success = boolval(file_put_contents($destination, file_get_contents($source)));
+        $destinationDir = dirname($destination);
+        if (!is_dir($destinationDir) && !mkdir($destinationDir, 0755, true)) {
+            DHubLogger::log('Error: Failed to create the directory: ' . $destinationDir);die;
+        }
 
-        return $success;
+        if (!is_writable($destinationDir)) {
+            DHubLogger::log('Error: The directory is not writable: ' . $destinationDir);die;
+        }
+
+        $ch = curl_init($source);
+        if ($ch === false) {
+            DHubLogger::log('Error: Unable to initialize cURL.');die;
+        }
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 300);
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'); // Set User-Agent
+
+        $fileContent = curl_exec($ch);
+
+        if ($fileContent === false) {
+            DHubLogger::log('Error: Unable to download the file. ' . curl_error($ch));die;
+        }
+
+        curl_close($ch);
+
+        $result = @file_put_contents($destination, $fileContent);
+        if ($result === false) {
+            $error = error_get_last();
+            DHubLogger::log('Error: Unable to save the file. ' . $error['message']);die;
+        }
+        return $result;
     }
 
     public function write(array $data): ?bool
@@ -194,10 +225,12 @@ class ZipWriter implements Writer
                 if (is_dir($file) === true) {
                     $zip->addEmptyDir(str_replace($source . '/', '', $file . '/'));
                 } elseif (is_file($file) === true) {
+                    DHubLogger::log('here 3');
                     $zip->addFromString(str_replace($source . '/', '', $file), file_get_contents($file));
                 }
             }
         } elseif (is_file($source) === true) {
+            DHubLogger::log('here 4');
             $zip->addFromString(basename($source), file_get_contents($source));
         }
         return $zip->close();
