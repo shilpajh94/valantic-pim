@@ -380,7 +380,7 @@ class ProductImport
                 if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
                     $query = $sql.rtrim($value, ',');
                     $this->db->executeQuery($query);
-                    $values = '';
+                    $value = '';
                 }
                 $rowCount++;
             }
