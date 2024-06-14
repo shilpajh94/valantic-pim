@@ -11,7 +11,7 @@ pimcore.plugin.B2BTranslationBundle = Class.create({
 
     pimcoreReady: function (e) {
         let user = pimcore.globalmanager.get("user");
-        if (user.admin) {
+        if (user.admin || user.isAllowed("plugin_b2b_translation_mapping")) {
             this.b2bTranslationLeftNavigation();
         }
     },
