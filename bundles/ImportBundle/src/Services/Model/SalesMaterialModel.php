@@ -59,6 +59,7 @@ class SalesMaterialModel
     public function config($param = array())
     {
         try {
+            \AppBundle\Helper\Common::clearAndDisablePimCache();
             $this->updateDefaults($param);            
             $csvImportedData = Import::getCSVData($this->filePath);
             
@@ -75,6 +76,7 @@ class SalesMaterialModel
             $this->keyColumns = $this->common->getParameter($salesMaterialConfig, 'keyColumns');
             
             $this->import($csvData);
+            \AppBundle\Helper\Common::endablePimCache();
         } catch (\Throwable $th) {
             p_r($th);
             Logger::error($this->logFileName, $th);

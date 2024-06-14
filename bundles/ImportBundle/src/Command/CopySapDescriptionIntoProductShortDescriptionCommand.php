@@ -39,7 +39,7 @@ class CopySapDescriptionIntoProductShortDescriptionCommand extends AbstractComma
 
         $sql = $select.$join." Where ". $productTypeCondition." And ".$languageCondition." And ".$productShortDescriptionCondition;
         try{
-            $modifiedEmptyProductShortDescriptionProductIds = $this->db->fetchOne($sql);
+            $modifiedEmptyProductShortDescriptionProductIds = $this->db->fetchFirstColumn($sql);
         }catch (\Exception $exception){
             Logger::error("Exception: " . $exception->getMessage());
             throw new \Exception("An unexpected error occurred.");
@@ -56,7 +56,7 @@ class CopySapDescriptionIntoProductShortDescriptionCommand extends AbstractComma
                     $productObj = DataObject\Product::getById($eachModifiedProductId);
                     if($productObj){
                         $sapDescription = $productObj->getSapDescription("en");
-                        $productShortDescription = $productObj->setProductShortDescription($sapDescription,"en");
+                        $productObj->setProductShortDescription($sapDescription,"en");
                         $productObj->save();
                         echo ++$i .' - '.$productObj->getArticleNumber();
                         echo PHP_EOL;

@@ -10,7 +10,7 @@ use ImportBundle\Services\Import;
 use AppBundle\Logger\AppLogger as Logger;
 use ImportBundle\Services\ImportConstants;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-
+use AppBundle\Helper\Common;
 class ProductSQLModel
 {
     
@@ -188,6 +188,7 @@ class ProductSQLModel
     
     public function import($csvData)
     {
+        Common::clearAndDisablePimCache();
 
         \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("SAP import started"); 
         $this->tblImpHelper->truncateTempTable();
@@ -207,6 +208,9 @@ class ProductSQLModel
         \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("SIOP code other than 13 and 16 and 18 digit inserted in Log Table and delted from temp table");
         $this->tblImpHelper->updateMaster();
         \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("Data copied from temp table to master table");
+
+
+        
         if (!empty($this->updatedArticlesArray) && count($this->updatedArticlesArray)>0) {
             echo "Object Saving started for completeness.";
             $this->saveProducts($this->updatedArticlesArray);
@@ -217,6 +221,7 @@ class ProductSQLModel
             \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("failed records removed from master table.");
             $this->sendSkippedArticlesEmailNotification($this->baseSiopMismatchLog, $this->baseSiopMismatchEmailTemplate);
         }
+        Common::endablePimCache();
     }
     public function sendSkippedArticlesEmailNotification($skippedArticles, $emailTemplate) {
         try {
