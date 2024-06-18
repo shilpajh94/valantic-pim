@@ -1190,8 +1190,7 @@ class IndustrialHoseController extends FrontendController
             $parameterBag['featuresMaterials'] = $featuresMaterials;
             $parameterBag['templateBrandDtata'] = $templateBrandDtata;
             $parameterBag['categories'] = $menuCategories;
-            $parameterBag['selectedCategory'] = $catagoryDescription['SIOP3Description'];
-            $parameterBag['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
+            $parameterBag['selectedCategory'] = ((isset($catagoryDescription['SIOP3Description']))?$catagoryDescription['SIOP3Description']:'');            $parameterBag['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
             $parameterBag['footer_logo_src'] = $footer_logo_src;
 
         }
