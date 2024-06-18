@@ -21,6 +21,7 @@ use Pimcore\Model;
 use Instride\Bundle\DataDefinitionsBundle\Model\ImportMapping;
 use function in_array;
 use function is_array;
+use Symfony\Component\Yaml\Yaml;
 
 class Dao extends Model\Dao\PimcoreLocationAwareConfigDao
 {
@@ -31,9 +32,19 @@ class Dao extends Model\Dao\PimcoreLocationAwareConfigDao
      */
     public function configure(): void
     {
+        $importdefinitionsConfigFiles = array();
         $config = \Pimcore::getContainer()->getParameter('data_definitions.config_location');
-        $definitions = \Pimcore::getContainer()->getParameter('data_definitions.import_definitions');
-
+        
+        $dirPath = PIMCORE_PROJECT_ROOT . '/var/config/import-definitions';
+        $files = glob($dirPath . "/*");
+        foreach ($files as $file) {
+            $importDefinitionsConfig = Yaml::parseFile($file);
+            $importDefinitionYamlFileData = array_values($importDefinitionsConfig['data_definitions']['import_definitions']);
+            $importDefinitionYamlFilename = array_keys($importDefinitionsConfig['data_definitions']['import_definitions']);
+            $importdefinitionsConfigFiles[$importDefinitionYamlFilename[0]] = $importDefinitionYamlFileData[0];
+        }
+        $definitions = $importdefinitionsConfigFiles;
+        
         $storageConfig = $config[self::CONFIG_KEY];
 
         parent::configure([
