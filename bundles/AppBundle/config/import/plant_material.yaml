@@ -26,8 +26,7 @@ parameters:
     'unitOfMeasure': 'Unit of measure'
     'stockIndicator': 'Stock Indicator'
     'deleteFlag': 'Delete Flag'
-    'procurementType': 'Procurement Type'
-    'outsidePurchaseIdentifier': ''
+    'OutsidePurchaseIdentifierOrProcurementType': 'Procurement Type'
     'AvailabilityCheckCode': 'Availability Check'
     'ABCIndicator': 'ABC Indicator'
   keyColumns: ['material','plant','salesOrg','distributionChannel']

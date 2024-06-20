@@ -264,7 +264,7 @@ class PlantMaterialModel
         $columnOrderQtyInc = $this->mappingCsvColumn['orderQtyInc'];
         $columnStdPackQtyUOM = $this->mappingCsvColumn['stdPackQtyUOM'];
         $columnStdPackQty = $this->mappingCsvColumn['stdPackQty'];
-        $columnOutsidePurchaseIdentifier = $this->mappingCsvColumn['outsidePurchaseIdentifier'];
+        $columnOutsidePurchaseIdentifier = $this->mappingCsvColumn['OutsidePurchaseIdentifierOrProcurementType'];
         $columnProfitCenter = $this->mappingCsvColumn['profitCenter'];
         $columnMrpController = $this->mappingCsvColumn['mrpController'];
         $columnTotalReplLeadTime = $this->mappingCsvColumn['totalReplLeadTime'];
@@ -410,6 +410,8 @@ class PlantMaterialModel
                         $profitCenter = $rowvalue[$columnProfitCenter];
                         $mrpController = $rowvalue[$columnMrpController];
                         $totalReplLeadTime = $rowvalue[$columnTotalReplLeadTime];
+                        $OutsidePurchaseIdentifierOrProcurementType =
+                         $rowvalue[$columnOutsidePurchaseIdentifier];
                         $stockIndicator = $rowvalue[$columnStockIndicator];
                         $safetyStock = $rowvalue[$columnSafetyStock];
                         $orderQtyInc = $rowvalue[$columnOrderQtyInc];
@@ -440,7 +442,7 @@ class PlantMaterialModel
                             'MinOrderQuantity' => $minOrderQty,
                             'StandardPackQuantity' => $quantityValue,
                             'StandardPackQuantityUOM' => $quantityUnit,
-                            'OutsidePurchaseIdentifierOrProcurementType' => "$columnOutsidePurchaseIdentifier",
+                            'OutsidePurchaseIdentifierOrProcurementType' => strtoupper($OutsidePurchaseIdentifierOrProcurementType),
                             'PlantProfitCenter' => $profitCenter,
                             'MRPController' => $mrpController,
                             'TotalReplenismentLeadTime' => $totalReplLeadTime,
@@ -464,7 +466,8 @@ class PlantMaterialModel
                             'MinOrderQuantity' => $minOrderQty,
                             'StandardPackQuantity' => $quantityValue,
                             'StandardPackQuantityUOM' => $quantityUnit,
-                            'OutsidePurchaseIdentifierOrProcurementType' => $columnOutsidePurchaseIdentifier,
+                            'OutsidePurchaseIdentifierOrProcurementType' =>
+                             strtoupper($OutsidePurchaseIdentifierOrProcurementType),
                             'PlantProfitCenter'	=> $profitCenter,
                             'MRPController' => $mrpController,
                             'TotalReplenismentLeadTime' => $totalReplLeadTime,
@@ -476,7 +479,9 @@ class PlantMaterialModel
                             'ABCIndicator' => $ABCIndicator,
                             'deletedFlagAtPlantLevel' => (strtoupper(trim($deleteFlag)) == 'X') ? 1 : -1
                         ];
-                        if (substr($siopCode, 0, 6) == '041500' && (empty($columnOutsidePurchaseIdentifier) || strtolower($columnOutsidePurchaseIdentifier) == 'f')) {
+                        if (substr($siopCode, 0, 6) == '041500' &&
+                         (empty($OutsidePurchaseIdentifierOrProcurementType) ||
+                         strtolower($OutsidePurchaseIdentifierOrProcurementType) == 'f')) {
                             if (!in_array($materialObjId, $this->materialUpdateArray)) {
                                 $materialObj = DataObject::getById($materialObjId);
                                 $materialObj->setOutsidePurchaseFlag(true);

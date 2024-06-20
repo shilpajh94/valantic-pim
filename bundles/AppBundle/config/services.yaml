@@ -159,6 +159,9 @@ services:
     ImportBundle\OneTimeImportCommand\FeatureImportCommand:
         tags:
             - { name: 'console.command', command: 'conti:onetimeimport:feature-import-command' }
+    ImportBundle\OneTimeImportCommand\ProcurementTypeCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:onetimeimport:procurement-type-import-command' }
 
     AppBundle\Command\AssetDocumentConversionCommand:
         tags:
