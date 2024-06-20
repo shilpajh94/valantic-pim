@@ -20,20 +20,20 @@ use PimDataPostBundle\Lib\Util;
  *
  */
 class B2BCategoryRequestBodyGenerator extends AbstractB2BRequestBodyGenerator {
-    
+
     private $requestBodyGeneratorHelper;
 
     private $b2bProductRequestBodyGeneratorDao;
-    
+
     private $config;
-    
+
     public function __construct()
     {
         $this->requestBodyGeneratorHelper = new RequestBodyGeneratorHelper($this);
         $this->b2bProductRequestBodyGeneratorDao = new B2BProductRequestBodyGeneratorDao();
         $configProviderService = new B2BCategoryAttributeConfigProvider();
         $this->config = $configProviderService->getCompleteAttributeConfig();
-        
+
         $this->allowedAttributeTypes = [
             strtolower(PimFieldType::SELECT()),
             strtolower(PimFieldType::MULTISELECT()),
@@ -47,7 +47,7 @@ class B2BCategoryRequestBodyGenerator extends AbstractB2BRequestBodyGenerator {
             strtolower(PimFieldType::IMAGE())
         ];
     }
-    
+
     /**
      * function to generate data array to send to salesforce. This function will handle single record at a time
      * @param array $tempTableData
@@ -100,12 +100,12 @@ class B2BCategoryRequestBodyGenerator extends AbstractB2BRequestBodyGenerator {
                             $fnc = "getMultiRelationTypeValue";
                         }
 
-                        if($key == "parentId" && $type == "salesForceId"){
+                        if($key == "o_parentId" && $type == "salesForceId"){
                             $returnArray[$attributeConfig['sf_attribute_name']] = $this->getParentSalesForceId($value, $tempTableData["Level"], $config[$key], $language);
                         }elseif (method_exists($this->requestBodyGeneratorHelper, $fnc)) {
                             $returnArray[$attributeConfig['sf_attribute_name']] = $this->requestBodyGeneratorHelper->$fnc($value, $config[$key], $language);
                         }
-       
+
                     }
                 }
             }
@@ -114,7 +114,7 @@ class B2BCategoryRequestBodyGenerator extends AbstractB2BRequestBodyGenerator {
 
         return $returnArray;
     }
-    
+
     public function getParentSalesForceId($parentPimId, $level, array $config, $language = null) {
         // PIM level 2 categories needs to be root level categories in SF
         // if($level == 1){
@@ -122,7 +122,7 @@ class B2BCategoryRequestBodyGenerator extends AbstractB2BRequestBodyGenerator {
         // }
 
         $parentType = $this->b2bProductRequestBodyGeneratorDao->getObjectType($parentPimId);
-        
+
         while($parentType != 'object' && $parentPimId != 0)
         {
             $parentPimId = $this->b2bProductRequestBodyGeneratorDao->getParentId($parentPimId);
@@ -138,10 +138,10 @@ class B2BCategoryRequestBodyGenerator extends AbstractB2BRequestBodyGenerator {
                 return $object->getSalesForceId();
             }
         }
-        
+
         return null;
     }
-    
+
     public function generateCreateRequestBody(array $tempTableData): array
     {
         return [];
