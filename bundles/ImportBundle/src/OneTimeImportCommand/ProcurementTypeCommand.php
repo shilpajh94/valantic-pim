@@ -62,9 +62,14 @@ class ProcurementTypeCommand extends AbstractCommand
 
             foreach ($data as $result) {
                 $key = $this->generateKey($result);
+                
+                $sql = "SELECT `oo_id` FROM object_12 WHERE `key` = '$key'
+                AND (`OutsidePurchaseIdentifierOrProcurementType` = 'null' OR
+                    `OutsidePurchaseIdentifierOrProcurementType` IS NULL OR
+                    `OutsidePurchaseIdentifierOrProcurementType` = '')
+                ";
 
-                $sql = "SELECT `oo_id` FROM object_12 WHERE `key` = ?";
-                $record = $this->db->fetchAllAssociative($sql, [$key]);
+                $record = $this->db->fetchAllAssociative($sql);
 
                 if (!empty($record)) {
                     $oo_id = $record[0]['oo_id'];
@@ -78,7 +83,7 @@ class ProcurementTypeCommand extends AbstractCommand
                     echo "$oo_id \n";
                 } else {
                     $notFoundCount++;
-                    echo "Object doesn't exist for this key --- $key \n";
+                    echo "Either field not empty or object doesn't exist for this key --- $key \n";
                 }
             }
 
