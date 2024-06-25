@@ -9,7 +9,7 @@ use IFSEU\ImportBundle\Services\ImportConstants;
 use IFSEU\ProductBundle\Services\ImportConstants as ServicesImportConstants;
 use Pimcore\Model\DataObject;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-
+use AppBundle\Services\ImportProcessEmailNotificationService;
 
 
 class SalesMaterialService
@@ -34,6 +34,7 @@ class SalesMaterialService
     private $productUpdateArray = array();
     private $failedIDs = [];
     private $container;
+    private $importProcessEmailNotificationObj;
 
     const LOGGER_MODULE = 'IFSEU SALES MATERIAL MASTER';
 
@@ -46,21 +47,24 @@ class SalesMaterialService
         $this->tableImportHelper = new SalesMaterialModel;
         $salesMaterialConfig = $this->container->get('ifs_eu_import.config_provider_service')->getSalesMaterialConfig();
         $this->mappingCsvColumn = $this->common->getParameter($salesMaterialConfig, 'mappingCsvColumn');
+        $this->importProcessEmailNotificationObj = new ImportProcessEmailNotificationService;
     }
 
     public function import() {
         \AppBundle\Helper\Common::clearAndDisablePimCache();
         $sapFileFeeder  = $this->container->get('ifs_eu_import.sap_file_feeder_service');
         $this->filePath = $sapFileFeeder->execFileFeeder('salesMaterial');
-
-        $csvImportedData = ImportService::getCSVData($this->filePath);
+        try {
+            $csvImportedData = ImportService::getCSVData($this->filePath);
+        } catch(\Exception $e) {
+            $this->importProcessEmailNotificationObj->sendMailNotification(
+                "IFSEU Sales Import not performed - Error occured while reading CSV \n".$e->getMessage()
+            );
+        }
 
         $this->fileColumns = $csvImportedData['header'];
         $excelDataNewArray = $csvImportedData['data'];
         unset($csvImportedData);
-
-        // remove once testing done
-        //$excelDataNewArray = (array_slice($excelDataNewArray, 300, 5));
 
         echo 'Importing File: ' . $this->filePath.PHP_EOL;
         $time = new \DateTime();
@@ -73,16 +77,16 @@ class SalesMaterialService
         $countryOfOriginFolderId  =  DataObject\Service::createFolderByPath(ServicesImportConstants::IFS_EU_COUNTRY_MASTERDATA_FOLDER)->getId();
 
         $this->importStart($excelDataNewArray, $time, $plantFolderId, $salesOrganizationsFolderId, $distributionChannelFolderId, $countryOfOriginFolderId);
-        
+
         \AppBundle\Helper\Common::endablePimCache();
     }
 
     public function importStart($excelDataNewArray, $time, $plantFolderId, $salesOrganizationsFolderId, $distributionChannelFolderId, $countryOfOriginFolderId) {
-        
+
         try {
-        
+
             if(count($excelDataNewArray) >= 1) {
-            
+
                 $csvRowCount = count($excelDataNewArray);
 
                 echo "Creating IFS EU sales material tables...".PHP_EOL;
@@ -90,17 +94,17 @@ class SalesMaterialService
                 $this->tableImportHelper->createSalesMaterialTable();
                 $td = $t->diff(new \DateTime());
                 echo $td->format("Creating IFS EU sales material tables takes %h hour %i minute %s second").PHP_EOL;
-                    
 
-                echo "Truncating temp table...".PHP_EOL; 
+
+                echo "Truncating temp table...".PHP_EOL;
                 $t = new \DateTime();
                 $this->tableImportHelper->truncateTempTable();
                 $td = $t->diff(new \DateTime());
                 echo $td->format("Truncating temp table takes %h hour %i minute %s second").PHP_EOL;
-                
+
                 echo "Inserting temp table...".PHP_EOL;
                 $time1 = new \DateTime();
-                $this->tableImportHelper->insertDataInTemp($excelDataNewArray, $this->fileColumns);   
+                $this->tableImportHelper->insertDataInTemp($excelDataNewArray, $this->fileColumns);
                 $timediff1 = $time1->diff(new \DateTime());
                 echo $timediff1->format("Total {$csvRowCount} records inserted in temp table takes %h hour %i minute %s second").PHP_EOL;
                 unset($excelDataNewArray);
@@ -117,10 +121,10 @@ class SalesMaterialService
 
                 echo "Getting delta records...".PHP_EOL;
                 $t1 = new \DateTime();
-                $excelDataNewArray = $this->tableImportHelper->getDelta();        
+                $excelDataNewArray = $this->tableImportHelper->getDelta();
                 $td1 = $t1->diff(new \DateTime());
                 echo $td1->format("Getting delta takes %h hour %i minute %s second").PHP_EOL;
-                
+
                 echo "Total {$csvRowCount} records found in csv file.".PHP_EOL;
                 $deltaCount = count($excelDataNewArray);
                 echo "Total {$deltaCount} Delta records found...".PHP_EOL;
@@ -129,18 +133,19 @@ class SalesMaterialService
                 } else {
                     $applicationLogMessage = "No delta records found.";
                 }
-                
+
                 $time4 = new \DateTime();
                 $this->tableImportHelper->updateMaster();
                 $timediff4 = $time4->diff(new \DateTime());
                 echo $timediff4->format("Total {$deltaCount} replaced in master table takes %h hour %i minute %s second").PHP_EOL;
-                
+
                 $this->tableImportHelper->deleteFailedRecordsFromMaster($this->failedIDs);
-                
+
             } else {
-                $applicationLogMessage = "No record found in file.";
+                $applicationLogMessage = "IFSEU Sales - No record found in file.";
+                $this->importProcessEmailNotificationObj->sendMailNotification($applicationLogMessage);
             }
-            
+
             echo $applicationLogMessage;
 
         } catch (\Throwable $th) {
@@ -163,9 +168,9 @@ class SalesMaterialService
             if ($diff < $length) {
                 $length = $diff;
             }
-            
+
             $partialData = array_slice($excelDataNewArray, $i, $length);
-            
+
             $i = $i+$length;
             echo "Part {$j}, Record {$length}, Batch size ".ImportConstants::IMPORT_BATCH_SIZE.", ".PHP_EOL;
             $this->processSlicedData($partialData, $plantFolderId, $salesOrganizationsFolderId, $distributionChannelFolderId, $countryOfOriginFolderId);
@@ -185,7 +190,7 @@ class SalesMaterialService
             $applicationLogMessage = "Sales material command failed to import {$this->failedCount} Record(s) out of {$deltaCount} Record(s)";
         } else {
             $applicationLogMessage = "Sales Material Master Imported successfully.";
-        }   
+        }
         $applicationLogMessage .= $countMsg;
 
         return $applicationLogMessage;
@@ -193,8 +198,8 @@ class SalesMaterialService
 
     private function processRowData($objectMaterial, $materialFolderId, $salesMaterialKey, $material) {
         $createdOrUpdated = 'Updated';
-        if(!$objectMaterial){      
-            $createdOrUpdated = 'Created'; 
+        if(!$objectMaterial){
+            $createdOrUpdated = 'Created';
             $objectArr = [
                 'parentId' => $materialFolderId,
                 'key' => $salesMaterialKey,
@@ -214,7 +219,7 @@ class SalesMaterialService
 
         return ['createdOrUpdated' => $createdOrUpdated, 'objId' => $objId];
     }
-    
+
     public function processSlicedData($data, $plantFolderId, $salesOrganizationsFolderId, $distributionChannelFolderId, $countryOfOriginFolderId) {
         $time2 = new \DateTime();
         \Pimcore\Model\Version::disable();
@@ -227,7 +232,7 @@ class SalesMaterialService
         $columnMaterial = $this->mappingCsvColumn['Material'];
         $columnSalesOrg = $this->mappingCsvColumn['SalesOrganization'];
         $columnDistributionChannel = $this->mappingCsvColumn['DistributionChannel'];
-        $columnPlant = $this->mappingCsvColumn['DeliveringPlant']; 
+        $columnPlant = $this->mappingCsvColumn['DeliveringPlant'];
         $columnSalesUnit = $this->mappingCsvColumn['SalesUOM'];
         $columnDistChainStatus = $this->mappingCsvColumn['deletedFlagAtDistributionChainLevel'];
         $columnMaterialGroup1 = $this->mappingCsvColumn['MaterialGroup1'];
@@ -236,14 +241,14 @@ class SalesMaterialService
         $columnMaterialGroup4 = $this->mappingCsvColumn['MaterialGroup4'];
         $columnMaterialGroup5 = $this->mappingCsvColumn['MaterialGroup5'];
 
-        
+
         $columnSalesOrgDesc = $this->mappingCsvColumn['SalesOrgDesc'];
-        
+
         $columnDistributionChannelDesc = $this->mappingCsvColumn['DistChannelDesc'];
-        
+
 	    $dataCount = count($data);
         foreach ($data as $rowCount => $rowvalueRecord) {
-            
+
             $rowvalue = json_decode($rowvalueRecord['record']);
             if($rowvalue == null){
                 continue;
@@ -257,18 +262,18 @@ class SalesMaterialService
             $errorsData = array();
 
             if(empty(trim($material))) {
-                $errorsData[] = 'Material should not be blank.'; 
-            }       
+                $errorsData[] = 'Material should not be blank.';
+            }
             if(empty(trim($salesOrg))) {
-                $errorsData[] = 'Sales organization should not be blank.'; 
-            } 
+                $errorsData[] = 'Sales organization should not be blank.';
+            }
             if(empty(trim($distributionChannel))) {
-                $errorsData[] = 'Distribution channel should not be blank.';  
+                $errorsData[] = 'Distribution channel should not be blank.';
             }
             if(empty(trim($plantName))) {
-                $errorsData[] = 'Plant should not be blank.'; 
-            } 
-            
+                $errorsData[] = 'Plant should not be blank.';
+            }
+
             if(!count($errorsData)) {
                 try
                 {
@@ -284,12 +289,12 @@ class SalesMaterialService
                     if(!empty($this->materialArray[$material])) {
                         $materialObjId = $this->materialArray[$material];
 
-                        $salesMaterialKey = $material.'-'.$salesOrg.'-'.$distributionChannel; 
+                        $salesMaterialKey = $material.'-'.$salesOrg.'-'.$distributionChannel;
 
                         $materialFolderId= DataObject\Service::createFolderByPath(ImportConstants::IFSEU_MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER."/".$material)->getId();
                         $query = "SELECT oo_id, parentId, `key`, path FROM `object_IFSEUSalesMaterialMaster` WHERE `parentId` = '{$materialFolderId}' AND `key` LIKE '%{$salesMaterialKey}%' limit 1";
                         $objectMaterial = $this->db->fetchAssociative($query);
-        
+
                         if(!empty(trim($plantName)) && !isset($this->plantArray[$plantName])) {
                             $plantId = $this->getPlantObject($plantName, $plantFolderId);
                             if($plantId) {
@@ -302,7 +307,7 @@ class SalesMaterialService
                         }
 
                         if(!isset($this->salesOrgArray[$salesOrg])) {
-                            $salesOrgDesc = $rowvalue[$columnSalesOrgDesc]; 
+                            $salesOrgDesc = $rowvalue[$columnSalesOrgDesc];
 
                             $salesOrgId = $this->getSalesOrgObject($salesOrg, $salesOrgDesc, $salesOrganizationsFolderId);
                             if($salesOrgId) {
@@ -313,7 +318,7 @@ class SalesMaterialService
 
 
                         if(!isset($this->distributionChannelArray[$distributionChannel])) {
-                            $distributionChannelDesc = $rowvalue[$columnDistributionChannelDesc]; 
+                            $distributionChannelDesc = $rowvalue[$columnDistributionChannelDesc];
                             $distributionChannelId = $this->getDistributionChannelObject($distributionChannel, $distributionChannelDesc, $distributionChannelFolderId);
                             if($distributionChannelId) {
                                 $this->distributionChannelArray[$distributionChannel] = $distributionChannelId;
@@ -322,7 +327,7 @@ class SalesMaterialService
                         $distributionChannelCode = $this->distributionChannelArray[$distributionChannel];
 
                         $resultRowData      = $this->processRowData($objectMaterial, $materialFolderId, $salesMaterialKey, $material);
-                        $createdOrUpdated   = $resultRowData['createdOrUpdated'];            
+                        $createdOrUpdated   = $resultRowData['createdOrUpdated'];
                         $objId              = $resultRowData['objId'];
 
                         $salesUnit = $rowvalue[$columnSalesUnit];
@@ -336,7 +341,7 @@ class SalesMaterialService
                         $materialGroup4 = $rowvalue[$columnMaterialGroup4];
                         $materialGroup5 = $rowvalue[$columnMaterialGroup5];
                         $privateOrGenericBrand = '';
-                        
+
                         $this->productUpdateArray[$materialId] = $material;
 
                         $queryTableDataArray[] = ['oo_id' => $objId,
@@ -359,9 +364,9 @@ class SalesMaterialService
                             'MaterialGroup3' => $materialGroup3,
                             'MaterialGroup4' => $materialGroup4,
                             'MaterialGroup5' => $materialGroup5,
-                            'deletedFlagAtSalesLevel' => (strtoupper(trim($deletionFlag)) == 'X') ? 1 : -1 
+                            'deletedFlagAtSalesLevel' => (strtoupper(trim($deletionFlag)) == 'X') ? 1 : -1
                         ];
-                        
+
                         $storeTableDataArray[] = [
                             'oo_id' => $objId,
                             'SalesUOM' => $salesUnit,
@@ -374,29 +379,29 @@ class SalesMaterialService
                             'MaterialGroup3' => $materialGroup3,
                             'MaterialGroup4' => $materialGroup4,
                             'MaterialGroup5' => $materialGroup5,
-                            'deletedFlagAtSalesLevel' => (strtoupper(trim($deletionFlag)) == 'X') ? 1 : -1 
+                            'deletedFlagAtSalesLevel' => (strtoupper(trim($deletionFlag)) == 'X') ? 1 : -1
                         ];
-                        
+
                         if($plantObjId) {
                             $relationTableDataArray[] = ['src_id' => $objId, 'dest_id' => $plantObjId, 'type' => 'object', 'fieldname' => 'DeliveringPlant', 'ownertype' => 'object' ];
                         }
                         $relationTableDataArray[] = ['src_id' => $objId, 'dest_id' => $salesOrgCode, 'type' => 'object', 'fieldname' => 'SalesOrganization', 'ownertype' => 'object' ];
                         $relationTableDataArray[] = ['src_id' => $objId, 'dest_id' => $distributionChannelCode, 'type' => 'object', 'fieldname' => 'DistributionChannel', 'ownertype' => 'object' ];
                         $relationTableDataArray[] = ['src_id' => $objId, 'dest_id' => $materialObjId, 'type' => 'object', 'fieldname' => 'Material', 'ownertype' => 'object' ];
-                        
+
                         if($plantObjId) {
                             $dependencyTableDataArray[] = ['sourceid' => $objId, 'targetid' => $plantObjId, 'sourcetype' => 'object', 'targettype' => 'object'];
                         }
                         $dependencyTableDataArray[] = ['sourceid' => $objId, 'targetid' => $salesOrgCode, 'sourcetype' => 'object', 'targettype' => 'object'];
                         $dependencyTableDataArray[] = ['sourceid' => $objId, 'targetid' => $distributionChannelCode, 'sourcetype' => 'object', 'targettype' => 'object'];
                         $dependencyTableDataArray[] = ['sourceid' => $objId, 'targetid' => $materialObjId, 'sourcetype' => 'object', 'targettype' => 'object'];
-                        
+
                         $errorsData['SUCCESS'] = "Sales Material Code: ".$salesMaterialKey." has been ".$createdOrUpdated.".";
                     } else{
                         $errorsData[] = "Material ".$material. " not found in system.";
                         $this->failedIDs[] = $rowvalueRecord['id'];
                     }
-                } 
+                }
                 catch (\Exception $e) {
                     p_r($e);
                     /* return error massage if any exception found */
@@ -426,18 +431,18 @@ class SalesMaterialService
 
         $timediff2 = $time2->diff(new \DateTime());
         echo $timediff2->format("{$createdUpdatedCount} Object created out of {$dataCount} records in %h hour %i minute %s second").PHP_EOL;
-                    
+
         $time3 = new \DateTime();
         $this->tableImportHelper->insertDataToLogTable($data);
         $timediff3 = $time3->diff(new \DateTime());
         echo $timediff3->format("Total {$dataCount} records inserted in log table takes %h hour %i minute %s second").PHP_EOL;
 
         echo "Unset the temporary variable ...".PHP_EOL;
-        unset($queryTableDataArray, $storeTableDataArray, $relationTableDataArray, $dependencyTableDataArray, $data);       
+        unset($queryTableDataArray, $storeTableDataArray, $relationTableDataArray, $dependencyTableDataArray, $data);
     }
 
-    public function insertDataInDB($queryTableDataArray, $storeTableDataArray, $relationTableDataArray, $dependencyTableDataArray) 
-    {       
+    public function insertDataInDB($queryTableDataArray, $storeTableDataArray, $relationTableDataArray, $dependencyTableDataArray)
+    {
         if(count($queryTableDataArray)) {
             $this->tableImportHelper->insertIntoSalesTable($queryTableDataArray, 'object_query_IFSEUSalesMaterialMaster');
         }
@@ -480,7 +485,7 @@ class SalesMaterialService
     public function getMaterialObject($MaterialKey) {
         $query = "SELECT oo_id, `key`, path FROM `object_IFSEUProduct` WHERE `materialNumber` LIKE '%{$MaterialKey}%' limit 1";
         $objectMaterial = $this->db->fetchAllAssociative($query);
-        
+
         foreach ($objectMaterial as $material) {
             return $material['oo_id'];
         }
@@ -497,8 +502,8 @@ class SalesMaterialService
             $objectPlant->setKey($plantKey);
             $objectPlant->setPlant($plantKey);
             $objectPlant->setParentId($plantFolderId);
-            $objectPlant->setPublished(TRUE);   
-            $objectPlant->save();  
+            $objectPlant->setPublished(TRUE);
+            $objectPlant->save();
         }
 
         return $objectPlant->getId();
@@ -515,13 +520,13 @@ class SalesMaterialService
             $object->setCode($distributionChannelKey);
             $object->setName($distributionChannelDesc);
             $object->setParentId($distributionChannelFolderId);
-            $object->setPublished(TRUE);   
-            $object->save(); 
+            $object->setPublished(TRUE);
+            $object->save();
 
         } else {
             $object->setCode($distributionChannelKey);
             $object->setName($distributionChannelDesc);
-            $object->save(); 
+            $object->save();
         }
 
         return $object->getId();
@@ -538,13 +543,13 @@ class SalesMaterialService
             $object->setCode($salesOrgKey);
             $object->setName($salesOrgDesc);
             $object->setParentId($salesOrganizationsFolderId);
-            $object->setPublished(TRUE); 
-            $object->save();   
+            $object->setPublished(TRUE);
+            $object->save();
 
         } else {
             $object->setCode($salesOrgKey);
             $object->setName($salesOrgDesc);
-            $object->save(); 
+            $object->save();
         }
 
         return $object->getId();
