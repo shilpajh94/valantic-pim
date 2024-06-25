@@ -5,6 +5,7 @@ namespace PTGEU\ImportBundle\Services;
 use Exception;
 use Throwable;
 use AppBundle\Lib\SFTPConnection;
+use AppBundle\Services\ImportProcessEmailNotificationService;
 use TypeError;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -20,12 +21,14 @@ class SAPFileFeederService
     public $filePath;
     private $datetime;
     private $container;
+    private $importProcessEmailNotificationObj;
 
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
         $this->datetime = date('Ymdhis');
         $this->common = $this->container->get('import.common_helper');
+        $this->importProcessEmailNotificationObj = new ImportProcessEmailNotificationService;
     }
 
     /**
@@ -49,11 +52,12 @@ class SAPFileFeederService
             $fileName = $fileNamePrefix . "_" . date("mdY") . "." . $ext;
 
             if (!$sftpConObj->fileExists($ftpFilePath . "/" . $fileName)) {
-                $fileName = $fileNamePrefix . "_" . date('mdY', strtotime("-1 days")) . "." . $ext;
+            $fileName = $fileNamePrefix . "_" . date('mdY', strtotime("-1 days")) . "." . $ext;
 
                 if (!$sftpConObj->fileExists($ftpFilePath . "/" . $fileName)) {
-                    echo "Today's file not uploaded.";
-                    return null;
+                    $msg = "PTGEU ".ucFirst($commandType)." - Today's and yesterday's import file not uploaded.";
+                    $this->importProcessEmailNotificationObj->sendMailNotification($msg);
+                    throw new Exception($msg);
                 }
             }
 
@@ -69,7 +73,9 @@ class SAPFileFeederService
             if ($this->validateAllowedFileType()) {
                 return realpath($this->filePath);
             } else {
-                throw new TypeError(sprintf(ALLOWED_FILE_TYPES, implode(' and ', $this->fileType)));
+                $msg = "PTGEU ".ucFirst($commandType)." - ".FILE_FORMAT_DOESNOT_SUPPORT." ".sprintf(ALLOWED_FILE_TYPES, implode(' and ', $this->fileType));
+                $this->importProcessEmailNotificationObj->sendMailNotification($msg);
+                throw new TypeError($msg);
             }
         } catch (Throwable $th) {
             echo $th->getMessage();
@@ -85,8 +91,6 @@ class SAPFileFeederService
         try {
             if (in_array($ext, $this->fileType)) {
                 return true;
-            } else {
-                throw new Exception(FILE_FORMAT_DOESNOT_SUPPORT);
             }
         } catch (\Throwable $th) {
             echo $th->getMessage();

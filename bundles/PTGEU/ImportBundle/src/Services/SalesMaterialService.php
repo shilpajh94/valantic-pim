@@ -2,6 +2,7 @@
 
 namespace PTGEU\ImportBundle\Services;
 
+use AppBundle\Services\ImportProcessEmailNotificationService;
 use PTGEU\ImportBundle\Model\SalesMaterialModel;
 use Elements\Bundle\ProcessManagerBundle;
 use Pimcore\Db;
@@ -35,6 +36,7 @@ class SalesMaterialService
     private $countryOfOriginCode;
     private $distributionChannelCode;
     private $container;
+    private $importProcessEmailNotificationObj;
 
     const LOGGER_MODULE = 'PTGEU SALES MATERIAL MASTER';
 
@@ -47,7 +49,7 @@ class SalesMaterialService
         $this->tableImportHelper = new SalesMaterialModel;
         $salesMaterialConfig = $this->container->get('import.config_provider_service')
         ->getSalesMaterialConfig();
-
+        $this->importProcessEmailNotificationObj = new ImportProcessEmailNotificationService();
         $this->mappingCsvColumn = $this->common->getParameter($salesMaterialConfig, 'mappingCsvColumn');
     }
 
@@ -55,8 +57,13 @@ class SalesMaterialService
         \AppBundle\Helper\Common::clearAndDisablePimCache();
         $sapFileFeeder  = $this->container->get('import.sap_file_feeder_service');
         $this->filePath = $sapFileFeeder->execFileFeeder('salesMaterial');
-
+        try{
         $csvImportedData = ImportService::getCSVData($this->filePath);
+        } catch (\Exception $e) {
+            $this->importProcessEmailNotificationObj->sendMailNotification(
+                "PTGEU Sales Import not performed - Error occured while reading CSV \n".$e->getMessage()
+            );
+        }
 
         $this->fileColumns = $csvImportedData['header'];
         $excelDataNewArray = $csvImportedData['data'];
@@ -80,7 +87,7 @@ class SalesMaterialService
 
         $this->importStart($excelDataNewArray, $time, $plantFolderId,
          $salesOrganizationsFolderId, $distributionChannelFolderId, $countryOfOriginFolderId);
-         \AppBundle\Helper\Common::endablePimCache();
+        \AppBundle\Helper\Common::endablePimCache();
     }
 
     public function importStart($excelDataNewArray, $time, $plantFolderId,
@@ -142,7 +149,8 @@ class SalesMaterialService
             $this->tableImportHelper->deleteFailedRecordsFromMaster($this->failedIDs);
 
         } else {
-            $applicationLogMessage = "No record found in file.";
+            $applicationLogMessage = "PTGEU Sales - No record found in file.";
+            $this->importProcessEmailNotificationObj->sendMailNotification($applicationLogMessage);
         }
 
         echo $applicationLogMessage;

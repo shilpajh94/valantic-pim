@@ -8,6 +8,7 @@ use PTGEU\ImportBundle\Services\ImportConstants;
 use PTGEU\ImportBundle\Services\ImportService;
 use PTGEU\ImportBundle\Model\PlantMaterialModel;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use AppBundle\Services\ImportProcessEmailNotificationService;
 
 class PlantMaterialService
 {
@@ -36,6 +37,7 @@ class PlantMaterialService
     private $countryFolderId;
     private $failedIDs = [];
     private $container;
+    private $importProcessEmailNotificationObj;
 
 
     const LOGGER_MODULE = 'PLANT MATERIAL MASTER';
@@ -51,6 +53,7 @@ class PlantMaterialService
 
         $this->approvedSalesOrg     = $this->common->getParameter($plantMaterialConfig, 'approvedSalesOrg');
         $this->mappingCsvColumn     = $this->common->getParameter($plantMaterialConfig, 'mappingCsvColumn');
+        $this->importProcessEmailNotificationObj = new ImportProcessEmailNotificationService();
 
         /* Initilize monitoring item and set the number of steps will take to complete the task */
         $this->monitoringItem = ProcessManagerBundle\ElementsProcessManagerBundle::getMonitoringItem();
@@ -62,7 +65,13 @@ class PlantMaterialService
         $sapFileFeeder      = $this->container->get('import.sap_file_feeder_service');
         $this->filePath     = $sapFileFeeder->execFileFeeder('plantMaterial');
 
-        $csvInfo            = ImportService::getCSVData($this->filePath);
+        try{
+            $csvInfo = ImportService::getCSVData($this->filePath);
+        } catch (\Exception $e) {
+            $this->importProcessEmailNotificationObj->sendMailNotification(
+                "PTGEU Plant Import not performed - Error occured while reading CSV \n".$e->getMessage()
+            );
+        }
         $this->fileColumns = $csvInfo['header'];
         $excelDataNewArray  = $csvInfo['data'];
 
@@ -89,7 +98,8 @@ class PlantMaterialService
         MASTER_LIST_COUNTRY_FOLDER)->getId();
         DataObject\Service::createFolderByPath(ImportConstants::PTGEU_MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER);
 
-        $applicationLogMessage = "No record found in file.";
+        $applicationLogMessage = "PTGEU Plant - No record found in file.";
+        $this->importProcessEmailNotificationObj->sendMailNotification($applicationLogMessage);
         if(count($excelDataNewArray) > 1)
         {
             /**

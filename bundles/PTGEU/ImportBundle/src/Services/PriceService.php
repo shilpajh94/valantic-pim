@@ -9,6 +9,7 @@ use Pimcore\Model\DataObject;
 use PTGEU\ImportBundle\Services\ImportService;
 use PTGEU\ImportBundle\Model\PriceModel;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use AppBundle\Services\ImportProcessEmailNotificationService;
 
 class PriceService
 {
@@ -20,19 +21,27 @@ class PriceService
     private $queryTableNewData;
     private $storeTableNewData;
     private $container;
- 
+    private $importProcessEmailNotificationObj;
+
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
         $this->priceModel = new PriceModel;
+        $this->importProcessEmailNotificationObj = new ImportProcessEmailNotificationService;
     }
-    
+
     public function import()
     {
         \AppBundle\Helper\Common::clearAndDisablePimCache();
         $sapFileFeeder  = $this->container->get('import.sap_file_feeder_service');
         $this->filePath = $sapFileFeeder->execFileFeeder('price');
-        $csvInfo        = ImportService::getCSVData($this->filePath);
+        try{
+            $csvInfo = ImportService::getCSVData($this->filePath);
+        } catch (Exception $e) {
+            $this->importProcessEmailNotificationObj->sendMailNotification(
+                "PTGEU Price Import - Error occured while reading CSV \n".$e->getMessage()
+            );
+        }
         $this->csvHeader= array_flip($csvInfo['header']);
         $csvData        = $csvInfo['data'];
 
@@ -42,11 +51,11 @@ class PriceService
         $this->priceModel->insertDataInTemp($csvData);
         $deletedPriceRecords = $this->priceModel->getDeletedPriceDataProducts();
         echo "Price deleted DELTA count is: ".count($deletedPriceRecords).PHP_EOL;
-        
+
         $delta = $this->priceModel->getDelta();
         $deltaCount = count($delta);
         echo "Price DELTA count is: ".$deltaCount.PHP_EOL;
-        
+
         if (count($deletedPriceRecords)>0) {
             foreach ($deletedPriceRecords as $data) {
                 $delta[] = $data;
@@ -56,14 +65,14 @@ class PriceService
         $a = time();
         $deltaCount = count($delta);
         echo "Total price DELTA count is: ".$deltaCount.PHP_EOL;
-        
+
         $productsData = $this->priceModel->getAllProducts();
         $queryTableData = $productsData['queryTableData'];
         foreach ($queryTableData as $rec) {
             $this->products[$rec['articleNumber']] = $rec;
         }
-        
-        
+
+
         $j = 1;
         $this->logArray = [];
         $i = 0;
@@ -89,10 +98,10 @@ class PriceService
         $this->priceModel->updateMasterTable();
         \AppBundle\Helper\Common::endablePimCache();
     }
- 
+
     public function processPriceData($sapPriceData) {
         $i = $j = 0;
-        
+
         foreach ($sapPriceData as $record) {
             $artNo = $record['id'];
             if (!empty($this->products[$artNo])) {
@@ -119,7 +128,7 @@ class PriceService
         $this->logArray = [];
         $this->queryTableNewData = [];
         $this->storeTableNewData = [];
-        
+
     }
     public function processSingleRecord($record) {
         $artNo = $record['id'];
@@ -169,7 +178,7 @@ class PriceService
         ];
         return ['status' => 'Success', 'msg' => ''];
     }
-    
+
     public function insertDataInDB() {
         if(!empty($this->queryTableNewData)) {
             $this->priceModel->insertDataIntoTable($this->queryTableNewData, 'object_query_38');
@@ -177,7 +186,7 @@ class PriceService
         if(!empty($this->storeTableNewData)) {
             $this->priceModel->insertDataIntoTable($this->storeTableNewData, 'object_store_38');
         }
-        
+
         if(!empty($this->logArray)) {
             $this->priceModel->insertDataIntoTable($this->logArray, 'ptgeu_material_list_price_import_log');
         }
