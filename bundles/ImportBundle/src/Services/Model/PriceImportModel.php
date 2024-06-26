@@ -9,6 +9,7 @@ use Pimcore\Model\DataObject;
 use ImportBundle\Services\Import;
 use ImportBundle\Services\ImportConstants;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use AppBundle\Services\ImportProcessEmailNotificationService;
 
 class PriceImportModel {
     /**
@@ -23,13 +24,14 @@ class PriceImportModel {
      */
     private $modelArticle;
     private $productModel;
-    private $datasource; 
-    private $assetFilePath; 
-    private $tblImpHelper; 
-    private $logArray; 
-    private $queryTableNewData; 
-    private $storeTableNewData; 
+    private $datasource;
+    private $assetFilePath;
+    private $tblImpHelper;
+    private $logArray;
+    private $queryTableNewData;
+    private $storeTableNewData;
     private $csvHeader;
+    private $importProcessEmailNotificationObj;
 
 
     /**
@@ -38,7 +40,7 @@ class PriceImportModel {
     private $mainClass = "\\Pimcore\\Model\\DataObject\\";
 
     private $products = [];
-    
+
     /**
      * @var object
      */
@@ -48,13 +50,14 @@ class PriceImportModel {
 
         $this->container = $container;
         $this->datasource = 'FTP'; // "ASSETS" OR "FTP"
-        
+
         $this->assetFilePath = '/Data Import Files/Price List/PIM_ListPrice.csv';
-        
+
         //$this->common =$this->container->get('app.common_helper');
-        
+
         $this->tblImpHelper =$this->container->get('import.sap_price_import_table_helper');
-        
+        $this->importProcessEmailNotificationObj = new ImportProcessEmailNotificationService;
+
 //        $this->productHelper =$this->container->get('app.product_helper');
 //        $this->catHelper =$this->container->get('app.category_helper');
 //        $this->catInstance =$this->container->get('import.category_service');
@@ -62,7 +65,7 @@ class PriceImportModel {
 //        $this->startRow = $this->common->getParameterItem($this->prdConfigData, 'sheet', 'startRow');
 //        $this->columnName = $this->common->getParameterItem($this->prdConfigData, 'sheet', 'columnName');
     }
-    
+
     public function import()
     {
         \AppBundle\Helper\Common::clearAndDisablePimCache();
@@ -77,11 +80,11 @@ class PriceImportModel {
         $this->tblImpHelper->insertDataInTemp($csvData);
         $deletedPriceRecords = $this->tblImpHelper->getDeletedPriceDataProducts();
         echo "Price Deleted DELTA Count is: ".count($deletedPriceRecords).PHP_EOL;
-        
+
         $delta = $this->tblImpHelper->getDelta();
         $deltaCount = count($delta);
         echo "Price DELTA Count is: ".$deltaCount.PHP_EOL;
-        
+
         if (count($deletedPriceRecords)>0) {
             foreach ($deletedPriceRecords as $data) {
                 $delta[] = $data;
@@ -89,13 +92,13 @@ class PriceImportModel {
         }
         $deltaCount = count($delta);
         echo "Total Price DELTA Count is: ".$deltaCount.PHP_EOL;
-        
+
         $productsData = $this->tblImpHelper->fetchArticles();
         $queryTableData = $productsData['queryTableData'];
         foreach ($queryTableData as $rec) {
             $this->products[$rec['articleNumber']] = $rec;
         }
-        
+
         $this->logArray = [];
         $i = 0;
         $j = 1;
@@ -123,7 +126,7 @@ class PriceImportModel {
 
         \AppBundle\Helper\Common::endablePimCache();
     }
- 
+
     public function processPriceData($sapPriceData) {
         $i = $j = 0;
         foreach ($sapPriceData as $record) {
@@ -152,7 +155,7 @@ class PriceImportModel {
         $this->logArray = [];
         $this->queryTableNewData = [];
         $this->storeTableNewData = [];
-        
+
     }
     public function processSingleRecord($record) {
         $artNo = $record['id'];
@@ -194,7 +197,7 @@ class PriceImportModel {
         ];
         return ['status' => 'Success', 'msg' => ''];
     }
-    
+
     public function insertDataInDB() {
         if(!empty($this->queryTableNewData)) {
             $this->tblImpHelper->insertDataIntoTable($this->queryTableNewData, 'object_query_1');
@@ -202,12 +205,12 @@ class PriceImportModel {
         if(!empty($this->storeTableNewData)) {
             $this->tblImpHelper->insertDataIntoTable($this->storeTableNewData, 'object_store_1');
         }
-        
+
         if(!empty($this->logArray)) {
             $this->tblImpHelper->insertDataIntoTable($this->logArray, 'material_list_price_import_log');
         }
     }
-    
+
     public function fetchDataFromDataSource() {
         $dataArray = [];
         switch ($this->datasource) {
@@ -228,12 +231,19 @@ class PriceImportModel {
         }
         if (!empty($sysFilePath) && file_exists($sysFilePath)) {
             $csvInfo = Import::getCSVData($sysFilePath);
+            try{
+                $csvInfo = Import::getCSVData($sysFilePath);
+            } catch (Exception $e) {
+                $this->importProcessEmailNotificationObj->sendMailNotification(
+                    "IFS-NA Price Import not performed - Error occured while reading CSV \n".$e->getMessage()
+                );
+            }
             $this->csvHeader = array_flip($csvInfo['header']);
             $dataArray = $csvInfo['data'];
         }
         return $dataArray;
     }
-    
+
     public function fetchFileFromFTP() {
         $SFTPConObj = new \AppBundle\Lib\SFTPConnection(BW_SAP_IMPORT_SFTP_HOST, BW_SAP_IMPORT_SFTP_PORT);
         $SFTPConObj->login(BW_SAP_IMPORT_SFTP_USERNAME, BW_SAP_IMPORT_SFTP_PASSWORD);
@@ -247,7 +257,8 @@ class PriceImportModel {
         if (!$SFTPConObj->fileExists($ftpFilePath."/".$fileName)) {
             $fileName = $fileNamePrefix."_".date('mdY',strtotime("-1 days")).".".$ext;
             if (!$SFTPConObj->fileExists($ftpFilePath."/".$fileName)) {
-                echo "Today's file not uploaded.";
+                $msg = "IFS-NA Price - Today's and yesterday's import file not uploaded.";
+                $this->importProcessEmailNotificationObj->sendMailNotification($msg);
                 return null;
             }
         }
@@ -256,7 +267,7 @@ class PriceImportModel {
         $SFTPConObj->downloadFile($tmpFilePath, $ftpFilePath."/".$fileName);
 
         $SFTPConObj->moveFile($ftpFilePath."/".$fileName, BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH.$fileName);
-        
+
         return $tmpFilePath;
     }
 }

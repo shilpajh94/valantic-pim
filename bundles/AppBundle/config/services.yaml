@@ -271,6 +271,9 @@ services:
 
     AppBundle\Services\MultiselectMasterService:
         public: true
-
+    
+    AppBundle\Services\ImportProcessEmailNotificationService:
+        public: true
+        
     Pimcore\Bundle\AdminBundle\Helper\GridHelperService:
         class: AppBundle\Services\CustomGridHelperService

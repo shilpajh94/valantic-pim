@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <title>
+            Regular Import Process Failure Email
+        </title>
+        <style>
+            body {
+                padding: 0;
+                margin: 0;
+                font-family: "Lucida Sans Unicode", Arial;
+                font-size: 14px;
+                float: left;
+                color: black;
+            }
+
+            h1 {
+                font-size: 16px;
+                font-family: "Lucida Sans Unicode", Arial;
+                padding: 0 0 5px 0;
+                border-bottom: 1px solid #001428;
+                margin-bottom: 5px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div>
+            <h1>{{ pimcore_input('headline') }}</h1>
+            {{ pimcore_wysiwyg('content') }}
+            <p>&emsp;{{message|raw}}</p>
+            {{ pimcore_wysiwyg('signature') }}
+        </div>
+    </body>
+</html>

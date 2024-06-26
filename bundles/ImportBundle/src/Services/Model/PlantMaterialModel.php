@@ -10,6 +10,7 @@ use Elements\Bundle\ProcessManagerBundle;
 use ImportBundle\Services\Import;
 use ImportBundle\Services\ImportConstants;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use AppBundle\Services\ImportProcessEmailNotificationService;
 
 class PlantMaterialModel
 {
@@ -48,24 +49,31 @@ class PlantMaterialModel
     private $materialReturnFlagUpdateArray = array();
     private $failedIDs = [];
     private $container;
+    private $importProcessEmailNotificationObj;
 
     const LOGGER_MODULE = 'PLANT MATERIAL MASTER';
-    
+
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
         $this->db = Db::get();
         /* Initilize monitoring item and set the number of steps will take to complete the task */
         $this->monitoringItem = ProcessManagerBundle\ElementsProcessManagerBundle::getMonitoringItem();
+        $this->importProcessEmailNotificationObj = new ImportProcessEmailNotificationService;
     }
     public function config($param = array())
     {
-
         try {
             \AppBundle\Helper\Common::clearAndDisablePimCache();
             $this->updateDefaults($param);
             // $spreadsheet = Import::load($this->filePath);
-            $csvImportedData = Import::getCSVData($this->filePath);
+            try {
+                $csvImportedData = Import::getCSVData($this->filePath);
+            } catch(Exception $e) {
+                $this->importProcessEmailNotificationObj->sendMailNotification(
+                    "IFS-NA Plant Import not performed - Error occured while reading CSV \n".$e->getMessage()
+                );
+            }
             $this->fileColumns = $csvImportedData['header'];
             $csvData = $csvImportedData['data'];
             unset($csvImportedData);
@@ -78,7 +86,7 @@ class PlantMaterialModel
             $this->keyColumns = $this->common->getParameter($plantMaterialConfig, 'keyColumns');
 
             $this->import($csvData);
-            
+
             \AppBundle\Helper\Common::endablePimCache();
         } catch (\Throwable $th) {
             p_r($th);
@@ -95,7 +103,7 @@ class PlantMaterialModel
 
         echo 'Importing File: ' . $this->filePath.PHP_EOL;
         $time = new \DateTime();
-        
+
         /**
          * get folder ids of Master List, MaterialMaster, Master List/Plants,
          * Master List/Sales Organizations, Master List/Distribution Channel
@@ -206,12 +214,13 @@ class PlantMaterialModel
             $this->tableImportHelper->updateMaster();
             $timediff4 = $time4->diff(new \DateTime());
             echo $timediff4->format("Total {$deltaCount} replaced in master table takes %h hour %i minute %s second").PHP_EOL;
-            
+
             $this->tableImportHelper->deleteFailedRecordsFromMaster($this->failedIDs);
         }
         else
         {
-            $applicationLogMessage = "No record found in file.";
+            $applicationLogMessage = "IFS-NA Plant - No record found in file.";
+            $this->importProcessEmailNotificationObj->sendMailNotification($applicationLogMessage);
         }
 
         /**
@@ -241,7 +250,7 @@ class PlantMaterialModel
     }
 
     public function processSlicedData($data, $plantFolderId, $countryFolderId, $salesOrganizationsFolderId, $distributionChannelFolderId) {
-        
+
         $salesOrgDesc = '';
         $distributionChannelDesc = '';
 
