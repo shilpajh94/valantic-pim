@@ -2,10 +2,21 @@
 
 namespace AppBundle\Services;
 
+use AppBundle\Logger\AppLogger;
+
 class ImportProcessEmailNotificationService
 {
     const LOGGER_MODULE = 'Import_Process_Email_Notification';
 
+    /**
+     * Sends Import Process Failure Email
+     *
+     * @param string $msg Message which needs to be sent in the email.
+     *
+     * @throws \Exception If any exception is encountered while sending the email.
+     * @author Animesh Chaturvedi
+     * @return void
+     */
     public function sendMailNotification($msg)
     {
         $params = ['message' => $msg];
@@ -27,8 +38,7 @@ class ImportProcessEmailNotificationService
         try {
             $mail->send();
         } catch (\Exception $exception) {
-            \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->
-                error("Exception sending mail: " . $exception->getMessage());
+            AppLogger::log(self::LOGGER_MODULE)->error("Exception sending mail: " . $exception->getMessage());
         }
     }
 }

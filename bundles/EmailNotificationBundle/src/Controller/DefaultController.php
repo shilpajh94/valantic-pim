@@ -66,6 +66,14 @@ class DefaultController extends FrontendController
         return $this->render("email_notification/default/template.html.twig");
     }
 
+    /**
+     * Import Process Failure Email Template Action
+     *
+     * @param Request $request
+     *
+     * @author Animesh Chaturvedi
+     * @return Response
+     */
     public function importProcessFailureEmailAction(Request $request)
     {
         $parameterBag = [
