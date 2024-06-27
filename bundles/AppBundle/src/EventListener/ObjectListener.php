@@ -150,7 +150,6 @@ class ObjectListener
 
             if ($currRequest instanceof Request) {
                 $updatedData = json_decode($currRequest->get('data'), true);
-                // p_r($object->getId() .'-----' . $object->getProductType());
                 $this->appService->updateCalcFields($object, $updatedData);
             }
 
