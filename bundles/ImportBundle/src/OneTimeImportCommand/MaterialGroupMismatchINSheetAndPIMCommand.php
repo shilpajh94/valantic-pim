@@ -8,6 +8,7 @@
 namespace ImportBundle\OneTimeImportCommand;
 
 use Pimcore\Console\AbstractCommand;
+use Pimcore\Model\DataObject;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -41,14 +42,17 @@ class MaterialGroupMismatchINSheetAndPIMCommand extends AbstractCommand
         if (is_file($filePath)) {
             p_r('Script started at: ' . date('h:i:s', $this->t));
             p_r('------------------------------------------------');
-            $this->import($filePath);
+
+            $exportedFilePath = $this->export($filePath);
+            $this->import($exportedFilePath);
+
             p_r('--------------Total Execution Time---------------');
             p_r('Script completed after: ' . (abs(time() - $this->t) / 60) . ' mnt');
         }
         return 1;
     }
 
-    private function import($filePath)
+    private function export($filePath)
     {
         try {
             $results = $this->getCSVData($filePath);
@@ -69,7 +73,8 @@ class MaterialGroupMismatchINSheetAndPIMCommand extends AbstractCommand
             $rowCount = 1;
             $j = 1;
             p_r("Total row count == " . count($data));
-            $totalParts = ceil(count($data)/5000);
+            p_r("Export for material Group mismatch data Started");
+            $totalParts = ceil(count($data) / 5000);
 
             foreach ($data as $result) {
                 $materialGroupInSheet = $result['Material Group'];
@@ -97,6 +102,52 @@ class MaterialGroupMismatchINSheetAndPIMCommand extends AbstractCommand
                 }
             }
             echo "Part " . $j . '/' . $totalParts . " completed" . PHP_EOL;
+            p_r("Export Completed");
+            return PIMCORE_SYSTEM_TEMP_DIRECTORY . '/' . $fileName;
+        } catch (\Throwable $th) {
+            p_r($th->getMessage());
+        }
+    }
+
+    private function import($filePath)
+    {
+        try {
+            $results = $this->getCSVData($filePath);
+            $data = $results['data'];
+
+            if (empty($data)) {
+                return;
+            }
+
+            p_r("Import to update material group started");
+            foreach ($data as $result) {
+                $articleNumber = $result['Material'];
+
+                $sql = "SELECT oo_id FROM object_1 WHERE articleNumber = '$articleNumber' ";
+                $record = $this->db->fetchAllAssociative($sql);
+
+                if (!empty($record)) {
+                    $oo_id = $record[0]['oo_id'];
+                    $code = $result['Material Group in SAP File'];
+
+                    $sql = "SELECT oo_id FROM object_21 WHERE code = '$code'";
+                    $result = $this->db->fetchAllAssociative($sql);
+                    $materialGroupId = $result[0]['oo_id'];
+
+                    $queryTable = "UPDATE object_query_1
+                                    SET materialGroup__id = $materialGroupId, materialGroup__type = 'object'
+                                    WHERE oo_id = $oo_id ";
+                    $this->db->executeQuery($queryTable);
+
+                    $relationTable = "UPDATE object_relations_1
+                                    SET dest_id = $materialGroupId, type = 'object', `index`= 0
+                                    WHERE src_id = $oo_id AND fieldname = 'materialGroup' ";
+                    $this->db->executeQuery($relationTable);
+
+                    echo "$oo_id \n";
+                }
+            }
+            p_r("Import Completed for the above id's");
         } catch (\Throwable $th) {
             p_r($th->getMessage());
         }
