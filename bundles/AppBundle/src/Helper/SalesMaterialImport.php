@@ -348,4 +348,28 @@ class SalesMaterialImport
         $query = "SELECT code, oo_id FROM `object_8` ";
         return \Pimcore\Db\Helper::fetchPairs($this->db, $query, ['code','oo_id']);
     }
+    
+    /**
+     * Get failed records from material_sales_import_log table
+     * @author Sandeep Bhardwaj Coder <sandeep@happiestminds.com>
+     * @return array
+     */ 
+    public function removeFailedRecordFromMaster():array{
+
+        $failedIds =[];
+        try{
+                $failedLogRecordQuery = "SELECT `id` FROM {$this->logTable} WHERE `statusCode` =?";
+                $failedLogRecordResult = $this->db->fetchAllAssociative($failedLogRecordQuery,['FAILED']);
+                if(count($failedLogRecordResult)>0){
+                    $failedIds = array_column($failedLogRecordResult,'id');
+                }
+                return $failedIds;
+        }catch(\Exception $e){
+
+            echo $e->getMessage();
+            return $failedIds;
+        }
+
+       
+    }
 }
