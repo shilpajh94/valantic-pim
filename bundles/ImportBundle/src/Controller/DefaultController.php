@@ -66,7 +66,7 @@ class DefaultController extends FrontendController
                     $query = "select brandName from object_1 where parentId = $skeltonId";
                     $result = $db->fetchAllAssociative($query);
                     foreach ($result as $eachFert) {
-                        if($eachFert['brandName']){
+                        if ($eachFert['brandName']) {
                             $brandId = $eachFert['brandName'];
                             $brandObj = DataObject\Brand::getById($brandId);
                             $optionData[$i]['key'] = $brandObj->getName();
@@ -153,28 +153,172 @@ class DefaultController extends FrontendController
      */
     public function getFertExport(Request $request)
     {
+        try {
+            $dataArray = $designfactor = $featuresArr = [];
+            $baseObjectId = $request->get('objectId');
 
-        $dataArray = $designfactor = $featuresArr = [];
-        $baseObjectId = $request->get('objectId');
+            $exportColumnsConfig = YaML::parseFile(PIMCORE_PROJECT_ROOT . '/bundles/ImportBundle/config/spec-sheet-export-columns.yaml');
+            $catalogImagesINHFooter = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHFooter'];
 
-        $exportColumnsConfig = YaML::parseFile(PIMCORE_PROJECT_ROOT . '/bundles/ImportBundle/config/spec-sheet-export-columns.yaml');
-        $catalogImagesINHFooter = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHFooter'];
+            $baseObj = \Pimcore\Model\DataObject::getById($baseObjectId);
+            $skeletonLevelProducts = $baseObj->getChildren();
+            foreach ($skeletonLevelProducts as $eachSkeletonLevelProducts) {
+                $skeletonProductsId[] =  $eachSkeletonLevelProducts->getId();
+            }
 
-        $baseObj = \Pimcore\Model\DataObject::getById($baseObjectId);
-        $skeletonLevelProducts = $baseObj->getChildren();
-        foreach ($skeletonLevelProducts as $eachSkeletonLevelProducts) {
-            $skeletonProductsId[] =  $eachSkeletonLevelProducts->getId();
+            $entries = new DataObject\Product\Listing();
+            $entries->setCondition("parentId IN (?) AND brandName = ? AND printedCatalogFlag = ? AND published = ?", [$skeletonProductsId, $baseObj->getSelectBrandName(), 1, 1]);
+            $brand = (DataObject\Brand::getById($baseObj->getSelectBrandName()))->getName();
+            $footer_logo_src = $catalogImagesINHFooter['Orange'];
+            $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
+
+            if (!empty($entries->load())) {
+
+                $firstFertProduct = $entries->load()[0];
+
+                $brandId = $firstFertProduct->getBrandName();
+                $brandParentObj = DataObject\Brand::getById($brandId);
+                $brand = $brandParentObj->getName();
+                $longDescription = $firstFertProduct->getlongDescription();
+                $leftImage = $firstFertProduct->getLeftPrintCatalogImage();
+                $tubeMaterial = $firstFertProduct->getBase()->getHoseBase()->getVirtualCatalogTubeMaterial();
+                $coverMaterial = $firstFertProduct->getBase()->getHoseBase()->getVirtualCatalogCoverMaterial();
+                $reinforcement = $firstFertProduct->getVirtualCatalogReinforcement();
+                $temperatureRangeFAndC = $firstFertProduct->gettemperatureRangeFAndC();
+                $packaging = $firstFertProduct->getBase()->getHoseBase()->getPackaging();
+                $coupling = $firstFertProduct->getBase()->getHoseBase()->getCoupling();
+                $designfactorId = $firstFertProduct->getBase()->getHoseBase()->getSafetyFactor();
+                if ($designfactorId) {
+                    foreach ($designfactorId as $id) {
+                        $parentObj = \Pimcore\Model\DataObject::getById($id);
+                        $designfactor[] = $parentObj->getName();
+                    }
+                }
+                $featuresId = $firstFertProduct->getFeaturesBenefitsBulletPoint();
+                if ($featuresId != null) {
+                    foreach ($featuresId as $id) {
+                        $parentObj = DataObject\Features::getById($id);
+                        if ($parentObj != null) {
+                            $icon = $parentObj->getIcon();
+                            $iconS3Path = null;
+                            if ($icon) {
+                                $iconSrc = $icon->getPath() . $icon->getFileName();
+                                $iconS3Path = $this->getS3ImageSrc($iconSrc);
+                            }
+                            $featureIcon[] = $iconS3Path;
+                            $features[] = $parentObj->getName();
+                        }
+                    }
+                    $featuresArr = array_combine($features, $featureIcon);
+                }
+                $brandingLayline = $firstFertProduct->getBrandingLayline();
+
+                $firstFertProductId = $firstFertProduct->getId();
+                $query = "select SIOPLevel3 from object_query_1 where oo_id = '$firstFertProductId'";
+                $recordSIOPLevel3 = $this->db->fetchOne($query);
+                $siopLevel3 = trim($recordSIOPLevel3, ',');
+                $siopLevel3 = DataObject\ProductCategory::getById($siopLevel3);
+                $siopLevel3Category = $siopLevel3->getDescription();
+
+                $sixDigitVirtualCatalogDescription = $firstFertProduct->getBase()->getHoseBase()->getsixDigitVirtualCatalogDescription();
+                $baseObjectKey = $baseObj->getKey();
+                $baseObjectKeyIntoTwoArray = str_split($baseObjectKey, 3);
+                $baseObjectKeyDashedString = implode('-', $baseObjectKeyIntoTwoArray);
+                $orderCode = $baseObjectKeyDashedString . " " . $sixDigitVirtualCatalogDescription;
+
+                $columnsData = json_decode($firstFertProduct->getColumns(), true);
+                $columnsDataWithImages = $this->getColumnHeadersForCatalog($columnsData);
+                $subHeaderRequired = 'YES';
+                $iconRequired = 'YES';
+
+                $productAttributesArr = [
+                    $brand,
+                    $longDescription,
+                    $tubeMaterial,
+                    $coverMaterial,
+                    $reinforcement,
+                    $temperatureRangeFAndC,
+                    $packaging,
+                    $coupling,
+                    $designfactor,
+                    $featuresArr,
+                    $brandingLayline,
+                    $siopLevel3Category,
+                    $leftImage,
+                    $footer_logo_src,
+                ];
+
+                foreach ($entries as $fertProducts) {
+                    foreach ($exportColumnsConfig as $exportAttribute) {
+                        if (array_key_exists($exportAttribute['fieldName'], $columnsData)) {
+                            if ($exportAttribute['fieldLevel'] == 'class') {
+                                $method = 'get' . $exportAttribute['fieldName'];
+                                $methodData = $fertProducts->$method();
+                                if (is_array($methodData)) {
+                                    $methodDataId = $methodData[0];
+                                    $obj = \Pimcore\Model\DataObject::getById($methodDataId);
+                                    $dataArray[$fertProducts->getId()][$exportAttribute['columnName']] = $obj->getName();
+                                } elseif (isset($exportAttribute['numberOfDecimalPoints'])) {
+                                    $dataArray[$fertProducts->getId()][$exportAttribute['columnName']] = number_format((float) $methodData, 2, '.', '');
+                                } else {
+                                    $dataArray[$fertProducts->getId()][$exportAttribute['columnName']] = $methodData;
+                                }
+                            } else {
+                                $getObjectBrickLocation = 'get' . $exportAttribute['objectBrickLocation'];
+                                $getObjectBrickName = 'get' . $exportAttribute['objectBrickName'];
+                                $getAttributeName = 'get' . $exportAttribute['fieldName'];
+                                $attributeData = $fertProducts->$getObjectBrickLocation()->$getObjectBrickName()->$getAttributeName();
+                                if (is_array($attributeData)) {
+                                    $attributeDataId = $attributeData[0];
+                                    $obj = \Pimcore\Model\DataObject::getById($attributeDataId);
+                                    $dataArray[$fertProducts->getId()][$exportAttribute['columnName']] = $obj->getName();
+                                } elseif (isset($exportAttribute['numberOfDecimalPoints'])) {
+                                    $dataArray[$fertProducts->getId()][$exportAttribute['columnName']] = number_format((float) $attributeData, 2, '.', '');
+                                } else {
+                                    $dataArray[$fertProducts->getId()][$exportAttribute['columnName']] = $attributeData;
+                                }
+                            }
+                        }
+                    }
+                }
+                $assetId = $this->getPdfGeneration($dataArray, $productAttributesArr, $columnsDataWithImages, $subHeaderRequired, $iconRequired, $orderCode);
+                return $this->json(["data" => $assetId]);
+            } else {
+                $subHeaderRequired = $iconRequired = $orderCode = null;
+                $productAttributesArr = [
+                    $brand, null, null, null, null, null, null, null, null, null, null, null, null, $footer_logo_src,
+                ];
+                $columnsDataWithImages = [];
+                $assetId = $this->getPdfGeneration($dataArray, $productAttributesArr, $columnsDataWithImages, $subHeaderRequired, $iconRequired, $orderCode);
+                return $this->json(["data" => $assetId]);
+            }
+        } catch (\throwable $ex) {
+            return $this->json(["data" => '']);
         }
+    }
 
-        $entries = new DataObject\Product\Listing();
-        $entries->setCondition("parentId IN (?) AND brandName = ? AND printedCatalogFlag = ? AND published = ?", [$skeletonProductsId, $baseObj->getSelectBrandName(), 1, 1]);
-        $brand = (DataObject\Brand::getById($baseObj->getSelectBrandName()))->getName();
-        $footer_logo_src = $catalogImagesINHFooter['Orange'];
-        $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
+    /**
+     * @Route("/get_selected_ferts")
+     * @param Request $request
+     * @return JsonResponse
+     * This function retrieves all the selected ferts from grid view
+     */
+    public function getCustomSelectedFertExport(Request $request)
+    {
+        try {
+            $catalogImagesINHFooter = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHFooter'];
 
-        if(!empty($entries->load())) {
+            $dataArray = $designfactor = $featuresArr = [];
+            $baseObjectId = $request->get('objectId');
+            $baseObj = \Pimcore\Model\DataObject::getById($baseObjectId);
 
-            $firstFertProduct = $entries->load()[0];
+            $exportFertsId = $request->get('articleNumber');
+            $exportColumnsConfig = YaML::parseFile(PIMCORE_PROJECT_ROOT . '/bundles/ImportBundle/config/spec-sheet-export-columns.yaml');
+
+            $trimBrackets = trim($exportFertsId, "[]");
+            $articleNumberArray = explode(",", $trimBrackets);
+
+            $firstFertProduct = DataObject\Product::getByArticleNumber($articleNumberArray[0], true);
 
             $brandId = $firstFertProduct->getBrandName();
             $brandParentObj = DataObject\Brand::getById($brandId);
@@ -198,16 +342,14 @@ class DefaultController extends FrontendController
             if ($featuresId != null) {
                 foreach ($featuresId as $id) {
                     $parentObj = DataObject\Features::getById($id);
-                    if($parentObj != null){
-                        $icon = $parentObj->getIcon();
-                        $iconS3Path = null;
-                        if ($icon) {
-                            $iconSrc = $icon->getPath() . $icon->getFileName();
-                            $iconS3Path = $this->getS3ImageSrc($iconSrc);
-                        }
-                        $featureIcon[] = $iconS3Path;
-                        $features[] = $parentObj->getName();
+                    $icon = $parentObj->getIcon();
+                    $iconS3Path = null;
+                    if ($icon) {
+                        $iconSrc = $icon->getPath() . $icon->getFileName();
+                        $iconS3Path = $this->getS3ImageSrc($iconSrc);
                     }
+                    $featureIcon[] = $iconS3Path;
+                    $features[] = $parentObj->getName();
                 }
                 $featuresArr = array_combine($features, $featureIcon);
             }
@@ -231,6 +373,9 @@ class DefaultController extends FrontendController
             $subHeaderRequired = 'YES';
             $iconRequired = 'YES';
 
+            $footer_logo_src = $catalogImagesINHFooter['Orange'];
+            $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
+
             $productAttributesArr = [
                 $brand,
                 $longDescription,
@@ -245,13 +390,15 @@ class DefaultController extends FrontendController
                 $brandingLayline,
                 $siopLevel3Category,
                 $leftImage,
-                $footer_logo_src,
+                $footer_logo_src
             ];
 
-            foreach ($entries as $fertProducts) {
+            foreach ($articleNumberArray as $eachArticleNumberArray) {
+                $fertProducts = DataObject\Product::getByArticleNumber($eachArticleNumberArray, true);
+
                 foreach ($exportColumnsConfig as $exportAttribute) {
                     if (array_key_exists($exportAttribute['fieldName'], $columnsData)) {
-                        if ($exportAttribute['fieldLevel'] == 'class') {
+                        if ($exportAttribute['fieldLevel'] == 'class' && $fertProducts) {
                             $method = 'get' . $exportAttribute['fieldName'];
                             $methodData = $fertProducts->$method();
                             if (is_array($methodData)) {
@@ -263,175 +410,33 @@ class DefaultController extends FrontendController
                             } else {
                                 $dataArray[$fertProducts->getId()][$exportAttribute['columnName']] = $methodData;
                             }
-                        } else {
+                        } elseif ($fertProducts) {
                             $getObjectBrickLocation = 'get' . $exportAttribute['objectBrickLocation'];
                             $getObjectBrickName = 'get' . $exportAttribute['objectBrickName'];
                             $getAttributeName = 'get' . $exportAttribute['fieldName'];
-                            $attributeData = $fertProducts->$getObjectBrickLocation()->$getObjectBrickName()->$getAttributeName();
-                            if (is_array($attributeData)) {
-                                $attributeDataId = $attributeData[0];
-                                $obj = \Pimcore\Model\DataObject::getById($attributeDataId);
-                                $dataArray[$fertProducts->getId()][$exportAttribute['columnName']] = $obj->getName();
-                            } elseif (isset($exportAttribute['numberOfDecimalPoints'])) {
-                                $dataArray[$fertProducts->getId()][$exportAttribute['columnName']] = number_format((float) $attributeData, 2, '.', '');
-                            } else {
-                                $dataArray[$fertProducts->getId()][$exportAttribute['columnName']] = $attributeData;
-                            }
-                        }
-                    }
-                }
-            }
-            $assetId = $this->getPdfGeneration($dataArray, $productAttributesArr, $columnsDataWithImages, $subHeaderRequired, $iconRequired, $orderCode);
-            return $this->json(["data" => $assetId]);
-        }
-        else{
-            $subHeaderRequired = $iconRequired = $orderCode = null;
-            $productAttributesArr = [
-                $brand,null,null,null,null,null,null,null,null,null,null,null,null,$footer_logo_src,
-            ];
-            $columnsDataWithImages = [];
-            $assetId = $this->getPdfGeneration($dataArray, $productAttributesArr, $columnsDataWithImages, $subHeaderRequired, $iconRequired, $orderCode);
-            return $this->json(["data" => $assetId]);
-        }
-    }
-
-    /**
-     * @Route("/get_selected_ferts")
-     * @param Request $request
-     * @return JsonResponse
-     * This function retrieves all the selected ferts from grid view
-     */
-    public function getCustomSelectedFertExport(Request $request)
-    {
-
-        $catalogImagesINHFooter = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHFooter'];
-
-        $dataArray = $designfactor = $featuresArr = [];
-        $baseObjectId = $request->get('objectId');
-        $baseObj = \Pimcore\Model\DataObject::getById($baseObjectId);
-
-        $exportFertsId = $request->get('articleNumber');
-        $exportColumnsConfig = YaML::parseFile(PIMCORE_PROJECT_ROOT . '/bundles/ImportBundle/config/spec-sheet-export-columns.yaml');
-
-        $trimBrackets = trim($exportFertsId, "[]");
-        $articleNumberArray = explode(",", $trimBrackets);
-
-        $firstFertProduct = DataObject\Product::getByArticleNumber($articleNumberArray[0], true);
-
-        $brandId = $firstFertProduct->getBrandName();
-        $brandParentObj = DataObject\Brand::getById($brandId);
-        $brand = $brandParentObj->getName();
-        $longDescription = $firstFertProduct->getlongDescription();
-        $leftImage = $firstFertProduct->getLeftPrintCatalogImage();
-        $tubeMaterial = $firstFertProduct->getBase()->getHoseBase()->getVirtualCatalogTubeMaterial();
-        $coverMaterial = $firstFertProduct->getBase()->getHoseBase()->getVirtualCatalogCoverMaterial();
-        $reinforcement = $firstFertProduct->getVirtualCatalogReinforcement();
-        $temperatureRangeFAndC = $firstFertProduct->gettemperatureRangeFAndC();
-        $packaging = $firstFertProduct->getBase()->getHoseBase()->getPackaging();
-        $coupling = $firstFertProduct->getBase()->getHoseBase()->getCoupling();
-        $designfactorId = $firstFertProduct->getBase()->getHoseBase()->getSafetyFactor();
-        if ($designfactorId) {
-            foreach ($designfactorId as $id) {
-                $parentObj = \Pimcore\Model\DataObject::getById($id);
-                $designfactor[] = $parentObj->getName();
-            }
-        }
-        $featuresId = $firstFertProduct->getFeaturesBenefitsBulletPoint();
-        if ($featuresId != null) {
-            foreach ($featuresId as $id) {
-                $parentObj = DataObject\Features::getById($id);
-                $icon = $parentObj->getIcon();
-                $iconS3Path = null;
-                if ($icon) {
-                    $iconSrc = $icon->getPath() . $icon->getFileName();
-                    $iconS3Path = $this->getS3ImageSrc($iconSrc);
-                }
-                $featureIcon[] = $iconS3Path;
-                $features[] = $parentObj->getName();
-            }
-            $featuresArr = array_combine($features, $featureIcon);
-        }
-        $brandingLayline = $firstFertProduct->getBrandingLayline();
-
-        $firstFertProductId = $firstFertProduct->getId();
-        $query = "select SIOPLevel3 from object_query_1 where oo_id = '$firstFertProductId'";
-        $recordSIOPLevel3 = $this->db->fetchOne($query);
-        $siopLevel3 = trim($recordSIOPLevel3, ',');
-        $siopLevel3 = DataObject\ProductCategory::getById($siopLevel3);
-        $siopLevel3Category = $siopLevel3->getDescription();
-
-        $sixDigitVirtualCatalogDescription = $firstFertProduct->getBase()->getHoseBase()->getsixDigitVirtualCatalogDescription();
-        $baseObjectKey = $baseObj->getKey();
-        $baseObjectKeyIntoTwoArray = str_split($baseObjectKey, 3);
-        $baseObjectKeyDashedString = implode('-', $baseObjectKeyIntoTwoArray);
-        $orderCode = $baseObjectKeyDashedString . " " . $sixDigitVirtualCatalogDescription;
-
-        $columnsData = json_decode($firstFertProduct->getColumns(), true);
-        $columnsDataWithImages = $this->getColumnHeadersForCatalog($columnsData);
-        $subHeaderRequired = 'YES';
-        $iconRequired = 'YES';
-
-        $footer_logo_src = $catalogImagesINHFooter['Orange'];
-        $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
-
-        $productAttributesArr = [
-            $brand,
-            $longDescription,
-            $tubeMaterial,
-            $coverMaterial,
-            $reinforcement,
-            $temperatureRangeFAndC,
-            $packaging,
-            $coupling,
-            $designfactor,
-            $featuresArr,
-            $brandingLayline,
-            $siopLevel3Category,
-            $leftImage,
-            $footer_logo_src
-        ];
-
-        foreach ($articleNumberArray as $eachArticleNumberArray) {
-            $fertProducts = DataObject\Product::getByArticleNumber($eachArticleNumberArray, true);
-
-            foreach ($exportColumnsConfig as $exportAttribute) {
-                if (array_key_exists($exportAttribute['fieldName'], $columnsData)) {
-                    if ($exportAttribute['fieldLevel'] == 'class' && $fertProducts) {
-                        $method = 'get' . $exportAttribute['fieldName'];
-                        $methodData = $fertProducts->$method();
-                        if (is_array($methodData)) {
-                            $methodDataId = $methodData[0];
-                            $obj = \Pimcore\Model\DataObject::getById($methodDataId);
-                            $dataArray[$fertProducts->getId()][$exportAttribute['columnName']] = $obj->getName();
-                        } elseif (isset($exportAttribute['numberOfDecimalPoints'])) {
-                            $dataArray[$fertProducts->getId()][$exportAttribute['columnName']] = number_format((float) $methodData, 2, '.', '');
-                        } else {
-                            $dataArray[$fertProducts->getId()][$exportAttribute['columnName']] = $methodData;
-                        }
-                    } elseif ($fertProducts) {
-                        $getObjectBrickLocation = 'get' . $exportAttribute['objectBrickLocation'];
-                        $getObjectBrickName = 'get' . $exportAttribute['objectBrickName'];
-                        $getAttributeName = 'get' . $exportAttribute['fieldName'];
-                        if ($fertProducts->$getObjectBrickLocation()) {
-                            if ($fertProducts->$getObjectBrickLocation()->$getObjectBrickName()) {
-                                $attributeData = $fertProducts->$getObjectBrickLocation()->$getObjectBrickName()->$getAttributeName();
-                                if (is_array($attributeData)) {
-                                    $attributeDataId = $attributeData[0];
-                                    $obj = \Pimcore\Model\DataObject::getById($attributeDataId);
-                                    $dataArray[$fertProducts->getId()][$exportAttribute['columnName']] = $obj->getName();
-                                } elseif (isset($exportAttribute['numberOfDecimalPoints'])) {
-                                    $dataArray[$fertProducts->getId()][$exportAttribute['columnName']] = number_format((float) $attributeData, 2, '.', '');
-                                } else {
-                                    $dataArray[$fertProducts->getId()][$exportAttribute['columnName']] = $attributeData;
+                            if ($fertProducts->$getObjectBrickLocation()) {
+                                if ($fertProducts->$getObjectBrickLocation()->$getObjectBrickName()) {
+                                    $attributeData = $fertProducts->$getObjectBrickLocation()->$getObjectBrickName()->$getAttributeName();
+                                    if (is_array($attributeData)) {
+                                        $attributeDataId = $attributeData[0];
+                                        $obj = \Pimcore\Model\DataObject::getById($attributeDataId);
+                                        $dataArray[$fertProducts->getId()][$exportAttribute['columnName']] = $obj->getName();
+                                    } elseif (isset($exportAttribute['numberOfDecimalPoints'])) {
+                                        $dataArray[$fertProducts->getId()][$exportAttribute['columnName']] = number_format((float) $attributeData, 2, '.', '');
+                                    } else {
+                                        $dataArray[$fertProducts->getId()][$exportAttribute['columnName']] = $attributeData;
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
+            $assetId = $this->getPdfGeneration($dataArray, $productAttributesArr, $columnsDataWithImages, $subHeaderRequired, $iconRequired, $orderCode);
+            return $this->json(["data" => $assetId]);
+        } catch (\throwable $ex) {
+            return $this->json(["data" => '']);
         }
-        $assetId = $this->getPdfGeneration($dataArray, $productAttributesArr, $columnsDataWithImages, $subHeaderRequired, $iconRequired, $orderCode);
-        return $this->json(["data" => $assetId]);
     }
 
     public function getPdfGeneration($dataArray, $productAttributesArr, $columnsDataWithImages, $subHeaderRequired, $iconRequired, $orderCode)
@@ -630,9 +635,9 @@ class DefaultController extends FrontendController
             foreach ($columnsDataWithImages as $c4data) {
                 foreach ($c4data as $c4value) {
                     $colummName = $c4value['columnName'];
-                    if(isset($eachFert[$colummName])) {
+                    if (isset($eachFert[$colummName])) {
                         $html .= "<td class ='spaceRight'>$eachFert[$colummName]</td>";
-                    }else{
+                    } else {
                         $html .= "<td class ='spaceRight'></td>";
                     }
                 }
@@ -678,7 +683,7 @@ class DefaultController extends FrontendController
         $attributeImages = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['attributeImages'];
 
         $iconRequired = 'YES';
-        if(isset($columnsData)) {
+        if (isset($columnsData)) {
             foreach ($columnsData as $key => $value) {
                 $groupColumnName = $value['columnName'];
                 if (isset($value['groupName']) && $value['groupName']) {
