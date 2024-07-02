@@ -119,8 +119,17 @@ class PlantMaterialModel
 
         $allSuccess = true;
         $applicationLogMessage = '';
-        if(count($excelDataNewArray) > 1)
-        {
+        if(count($excelDataNewArray) > 1){
+            $flag = 1;
+            foreach($this->fileColumns as $column){
+                if(in_array($column, $this->mappingCsvColumn)) {
+                    $flag = 1;
+                } else {
+                    $flag = 0;
+                    break;
+                }
+            }
+            if($flag == 1){
             /**
              * getting csv or excel file column name
              */
@@ -216,12 +225,17 @@ class PlantMaterialModel
             echo $timediff4->format("Total {$deltaCount} replaced in master table takes %h hour %i minute %s second").PHP_EOL;
 
             $this->tableImportHelper->deleteFailedRecordsFromMaster($this->failedIDs);
+            } else {
+                $applicationLogMessage = "IFS-NA Plant - The uploaded file has wrong headers.";
+                $this->importProcessEmailNotificationObj->sendMailNotification($applicationLogMessage);
+            }
         }
         else
         {
             $applicationLogMessage = "IFS-NA Plant - No record found in file.";
             $this->importProcessEmailNotificationObj->sendMailNotification($applicationLogMessage);
         }
+
 
         /**
          * Move imported file from inbox to archive or failed as per status

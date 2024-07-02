@@ -2,7 +2,7 @@
 <html lang='en'>
 	<head>
 		<title>
-			Regular Import Process Failure Email
+			SAP File Data Regular Import Process Failure Email
 		</title>
 		<style>
 			body {
@@ -26,9 +26,8 @@
 
 	<body>
 		<div>
-			<h1>{{ pimcore_input('headline') }}</h1>
 			{{ pimcore_wysiwyg('content') }}
-			<p>&emsp;{{message|raw}}</p>
+			<p>{{message|raw}}</p>
 			{{ pimcore_wysiwyg('signature') }}
 		</div>
 	</body>

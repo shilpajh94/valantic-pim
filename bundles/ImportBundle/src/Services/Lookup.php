@@ -20,7 +20,7 @@ class Lookup
         which will load the object and return it back to its receiver
     */
     public $name;
-    public $fileType = ['csv', 'xlsx'];
+    public $fileType = 'csv';
     public $description;
     public $feederService;
     public $validatorService;
@@ -100,11 +100,11 @@ class Lookup
 
         } catch (Throwable $th) {
             echo $message = $th->getMessage();
+            Logger::error($this->logFileName, $th);
             if($this->monitoringItem->id){
                 $this->monitoringItem->setMessage($message)->save();
                 $this->monitoringItem->setStatus($this->monitoringItem::STATUS_FAILED)->save();
             }
-            Logger::error($this->logFileName, $th);
             die;
 
         }
@@ -162,17 +162,18 @@ class Lookup
                 $feederObj->config($params);
                 $this->objFailedRecords->managedFailedRecords($cmd, $this->scriptStartTime);
             } else {
-                $msg = "IFS-NA ".ucFirst($cmd)." - ".FILE_FORMAT_DOESNOT_SUPPORT." ".sprintf(ALLOWED_FILE_TYPES, implode(' and ', $this->fileType));
+                $msg = "IFS-NA ".ucFirst($cmd)." - ".FILE_FORMAT_DOESNOT_SUPPORT." ".sprintf(ALLOWED_FILE_TYPES, $this->fileType);
+                echo $msg;
                 $this->importProcessEmailNotificationObj->sendMailNotification($msg);
                 throw new Exception($msg);
             }
         } catch (Throwable $th) {
             $message = $th->getMessage();
+            Logger::error($this->logFileName, $th);
             if($this->monitoringItem->id){
                 $this->monitoringItem->setMessage($message)->save();
                 $this->monitoringItem->setStatus($this->monitoringItem::STATUS_FAILED)->save();
             }
-            Logger::error($this->logFileName, $th);
             die;
         }
     }
@@ -204,7 +205,7 @@ class Lookup
     {
         $ext = $this->common->getExt($this->filePath);
         try {
-            if (in_array($ext, $this->fileType)) {
+            if ($ext == $this->fileType) {
                 return true;
             }
         } catch (\Throwable $th) {

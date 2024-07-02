@@ -72,59 +72,79 @@ class PriceImportModel {
         $deletedPriceRecords = '';
         $csvData = $this->fetchDataFromDataSource();
         if (empty($csvData) || count($csvData)==0) {
+            $message = "IFS-NA Price - No record found in file.";
+            $this->importProcessEmailNotificationObj->sendMailNotification($message);
             return false;
         }
-        echo "Truncating Temp table.".PHP_EOL;
-        $this->tblImpHelper->truncateTempTable();
-        echo "Inserting data into temp table.".PHP_EOL;
-        $this->tblImpHelper->insertDataInTemp($csvData);
-        $deletedPriceRecords = $this->tblImpHelper->getDeletedPriceDataProducts();
-        echo "Price Deleted DELTA Count is: ".count($deletedPriceRecords).PHP_EOL;
-
-        $delta = $this->tblImpHelper->getDelta();
-        $deltaCount = count($delta);
-        echo "Price DELTA Count is: ".$deltaCount.PHP_EOL;
-
-        if (count($deletedPriceRecords)>0) {
-            foreach ($deletedPriceRecords as $data) {
-                $delta[] = $data;
+        $columnNames = ['Material Number','Sales Organization','Distribution Channel',
+            'Validity End Date','Validity Start Date','Condition Type','Rate','Rate Unit'];
+        $flag = 1;
+        foreach(array_keys($this->csvHeader) as $column){
+            p_r($column);
+            if(in_array($column, $columnNames)) {
+                $flag = 1;
+            } else {
+                $flag = 0;
+                break;
             }
         }
-        $deltaCount = count($delta);
-        echo "Total Price DELTA Count is: ".$deltaCount.PHP_EOL;
+        if($flag == 1){
+            echo "Truncating Temp table.".PHP_EOL;
+            $this->tblImpHelper->truncateTempTable();
+            echo "Inserting data into temp table.".PHP_EOL;
+            $this->tblImpHelper->insertDataInTemp($csvData);
+            $deletedPriceRecords = $this->tblImpHelper->getDeletedPriceDataProducts();
+            echo "Price Deleted DELTA Count is: ".count($deletedPriceRecords).PHP_EOL;
 
-        $productsData = $this->tblImpHelper->fetchArticles();
-        $queryTableData = $productsData['queryTableData'];
-        foreach ($queryTableData as $rec) {
-            $this->products[$rec['articleNumber']] = $rec;
-        }
+            $delta = $this->tblImpHelper->getDelta();
+            $deltaCount = count($delta);
+            echo "Price DELTA Count is: ".$deltaCount.PHP_EOL;
 
-        $this->logArray = [];
-        $i = 0;
-        $j = 1;
-        $length = 2000;
-        while ($i<$deltaCount) {
-            $a = time();
-            $offset = $i;
-            $diff = $deltaCount-$i;
-            if ($diff < $length) {
-                $length = $diff;
+            if (count($deletedPriceRecords)>0) {
+                foreach ($deletedPriceRecords as $data) {
+                    $delta[] = $data;
+                }
             }
-            $partialData = array_slice($delta, $i, $length);
-            $this->processPriceData($partialData);
-            $partialData = null;
-            unset($partialData);
-            $i = $i+$length;
-            echo "Record Processed: ".$i;
-            $b = time();
-            echo "Part ".$j." completed in time: ".$a."====".$b.PHP_EOL;
-            \Pimcore::collectGarbage();
-            gc_collect_cycles();
-            $j++;
-        }
-        $this->tblImpHelper->updateMasterTable();
+            $deltaCount = count($delta);
+            echo "Total Price DELTA Count is: ".$deltaCount.PHP_EOL;
 
-        \AppBundle\Helper\Common::endablePimCache();
+            $productsData = $this->tblImpHelper->fetchArticles();
+            $queryTableData = $productsData['queryTableData'];
+            foreach ($queryTableData as $rec) {
+                $this->products[$rec['articleNumber']] = $rec;
+            }
+
+            $this->logArray = [];
+            $i = 0;
+            $j = 1;
+            $length = 2000;
+            while ($i<$deltaCount) {
+                $a = time();
+                $offset = $i;
+                $diff = $deltaCount-$i;
+                if ($diff < $length) {
+                    $length = $diff;
+                }
+                $partialData = array_slice($delta, $i, $length);
+                $this->processPriceData($partialData);
+                $partialData = null;
+                unset($partialData);
+                $i = $i+$length;
+                echo "Record Processed: ".$i;
+                $b = time();
+                echo "Part ".$j." completed in time: ".$a."====".$b.PHP_EOL;
+                \Pimcore::collectGarbage();
+                gc_collect_cycles();
+                $j++;
+            }
+            $this->tblImpHelper->updateMasterTable();
+
+            \AppBundle\Helper\Common::endablePimCache();
+        } else {
+            $message = "IFS-NA Price - The uploaded file has wrong headers.";
+            echo $message;
+            $this->importProcessEmailNotificationObj->sendMailNotification($message);
+        }
     }
 
     public function processPriceData($sapPriceData) {
@@ -255,12 +275,12 @@ class PriceImportModel {
         $ext = $fileNameArray[1];
         $fileName = $fileNamePrefix."_".date("mdY").".".$ext;
         if (!$SFTPConObj->fileExists($ftpFilePath."/".$fileName)) {
-            $fileName = $fileNamePrefix."_".date('mdY',strtotime("-1 days")).".".$ext;
-            if (!$SFTPConObj->fileExists($ftpFilePath."/".$fileName)) {
-                $msg = "IFS-NA Price - Today's and yesterday's import file not uploaded.";
-                $this->importProcessEmailNotificationObj->sendMailNotification($msg);
-                return null;
-            }
+        $fileName = $fileNamePrefix."_".date('mdY',strtotime("-1 days")).".".$ext;
+        if (!$SFTPConObj->fileExists($ftpFilePath."/".$fileName)) {
+        $msg = "IFS-NA Price - Today's and yesterday's import file not uploaded.";
+        $this->importProcessEmailNotificationObj->sendMailNotification($msg);
+        return null;
+        }
         }
         $tmpFilePath = BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR. $fileName;
 

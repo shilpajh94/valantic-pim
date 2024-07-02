@@ -31,7 +31,7 @@ class ImportProcessEmailNotificationService
         foreach ($emailArray as $email) {
             $mail->addto($email);
         }
-        $mail->subject("Regular Import Process Failure");
+        $mail->subject(ucfirst(CUSTOM_ENV)." Regular SAP File Data Import Process Failure");
         $mail->setDocument('/Email/Import Process Failure Email');
         $mail->setParams($params);
         $mail->setIgnoreDebugMode(true);
