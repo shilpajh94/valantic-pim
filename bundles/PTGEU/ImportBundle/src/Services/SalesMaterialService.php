@@ -93,61 +93,74 @@ class SalesMaterialService
     public function importStart($excelDataNewArray, $time, $plantFolderId,
      $salesOrganizationsFolderId, $distributionChannelFolderId, $countryOfOriginFolderId) {
         if(count($excelDataNewArray) > 1) {
-
-            $this->tableImportConfig['fileColumns'] = $this->fileColumns;
-            $this->tableImportConfig['mappingCsvColumn'] = $this->mappingCsvColumn;
-            $this->tableImportHelper->init($this->tableImportConfig);
-
-            $csvRowCount = count($excelDataNewArray);
-            echo "Truncating temp table...".PHP_EOL;
-            $t = new \DateTime();
-            $this->tableImportHelper->truncateTempTable();
-            $td = $t->diff(new \DateTime());
-            echo $td->format("Truncating temp table takes %h hour %i minute %s second").PHP_EOL;
-
-            echo "Inserting temp table...".PHP_EOL;
-            $time1 = new \DateTime();
-            $this->tableImportHelper->insertDataInTemp($excelDataNewArray, $this->fileColumns);
-            $timediff1 = $time1->diff(new \DateTime());
-            echo $timediff1->format("Total {$csvRowCount} records inserted in temp table takes
-             %h hour %i minute %s second").PHP_EOL;
-            unset($excelDataNewArray);
-
-            echo "Getting deleted records...".PHP_EOL;
-            $time5 = new \DateTime();
-            $deletedRecords = $this->tableImportHelper->getDeletedRecords();
-            $deleteRecordCount = count($deletedRecords);
-            echo "Record {$deleteRecordCount} need to update deletion flag.".PHP_EOL;
-            $this->processDeletedRecords($deletedRecords);
-            unset($deletedRecords);
-            $timediff5 = $time5->diff(new \DateTime());
-            echo $timediff5->format("Delete flag updation takes %h hour %i minute %s second").PHP_EOL;
-
-            echo "Getting delta records...".PHP_EOL;
-            $t1 = new \DateTime();
-            $excelDataNewArray = $this->tableImportHelper->getDelta();
-            $td1 = $t1->diff(new \DateTime());
-            echo $td1->format("Getting delta takes %h hour %i minute %s second").PHP_EOL;
-
-            $this->monitoringItem->getLogger()->info("Total {$csvRowCount} records found in file.");
-            echo "Total {$csvRowCount} records found in csv file.".PHP_EOL;
-            $deltaCount = count($excelDataNewArray);
-            echo "Total {$deltaCount} Delta records found...".PHP_EOL;
-            if($deltaCount > 0) {
-                $applicationLogMessage = $this->countDelta($deltaCount, $excelDataNewArray,
-                 $plantFolderId, $salesOrganizationsFolderId, $distributionChannelFolderId, $countryOfOriginFolderId);
-            } else {
-                $applicationLogMessage = "No delta records found.";
+            $flag = 1;
+            foreach($this->fileColumns as $column) {
+                if(in_array($column, $this->mappingCsvColumn)) {
+                    $flag = 1;
+                } else {
+                    $flag = 0;
+                    break;
+                }
             }
+            if($flag == 1) {
 
-            $time4 = new \DateTime();
-            $this->tableImportHelper->updateMaster();
-            $timediff4 = $time4->diff(new \DateTime());
-            echo $timediff4->format("Total {$deltaCount} replaced in master table takes
-             %h hour %i minute %s second").PHP_EOL;
+                $this->tableImportConfig['fileColumns'] = $this->fileColumns;
+                $this->tableImportConfig['mappingCsvColumn'] = $this->mappingCsvColumn;
+                $this->tableImportHelper->init($this->tableImportConfig);
 
-            $this->tableImportHelper->deleteFailedRecordsFromMaster($this->failedIDs);
+                $csvRowCount = count($excelDataNewArray);
+                echo "Truncating temp table...".PHP_EOL;
+                $t = new \DateTime();
+                $this->tableImportHelper->truncateTempTable();
+                $td = $t->diff(new \DateTime());
+                echo $td->format("Truncating temp table takes %h hour %i minute %s second").PHP_EOL;
 
+                echo "Inserting temp table...".PHP_EOL;
+                $time1 = new \DateTime();
+                $this->tableImportHelper->insertDataInTemp($excelDataNewArray, $this->fileColumns);
+                $timediff1 = $time1->diff(new \DateTime());
+                echo $timediff1->format("Total {$csvRowCount} records inserted in temp table takes
+                %h hour %i minute %s second").PHP_EOL;
+                unset($excelDataNewArray);
+
+                echo "Getting deleted records...".PHP_EOL;
+                $time5 = new \DateTime();
+                $deletedRecords = $this->tableImportHelper->getDeletedRecords();
+                $deleteRecordCount = count($deletedRecords);
+                echo "Record {$deleteRecordCount} need to update deletion flag.".PHP_EOL;
+                $this->processDeletedRecords($deletedRecords);
+                unset($deletedRecords);
+                $timediff5 = $time5->diff(new \DateTime());
+                echo $timediff5->format("Delete flag updation takes %h hour %i minute %s second").PHP_EOL;
+
+                echo "Getting delta records...".PHP_EOL;
+                $t1 = new \DateTime();
+                $excelDataNewArray = $this->tableImportHelper->getDelta();
+                $td1 = $t1->diff(new \DateTime());
+                echo $td1->format("Getting delta takes %h hour %i minute %s second").PHP_EOL;
+
+                $this->monitoringItem->getLogger()->info("Total {$csvRowCount} records found in file.");
+                echo "Total {$csvRowCount} records found in csv file.".PHP_EOL;
+                $deltaCount = count($excelDataNewArray);
+                echo "Total {$deltaCount} Delta records found...".PHP_EOL;
+                if($deltaCount > 0) {
+                    $applicationLogMessage = $this->countDelta($deltaCount, $excelDataNewArray,
+                    $plantFolderId, $salesOrganizationsFolderId, $distributionChannelFolderId, $countryOfOriginFolderId);
+                } else {
+                    $applicationLogMessage = "No delta records found.";
+                }
+
+                $time4 = new \DateTime();
+                $this->tableImportHelper->updateMaster();
+                $timediff4 = $time4->diff(new \DateTime());
+                echo $timediff4->format("Total {$deltaCount} replaced in master table takes
+                %h hour %i minute %s second").PHP_EOL;
+
+                $this->tableImportHelper->deleteFailedRecordsFromMaster($this->failedIDs);
+            } else {
+                $applicationLogMessage = "PTGEU Sales - The uploaded file has wrong headers.";
+                $this->importProcessEmailNotificationObj->sendMailNotification($applicationLogMessage);
+            }
         } else {
             $applicationLogMessage = "PTGEU Sales - No record found in file.";
             $this->importProcessEmailNotificationObj->sendMailNotification($applicationLogMessage);

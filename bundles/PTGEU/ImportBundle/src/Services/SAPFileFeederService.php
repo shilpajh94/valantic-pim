@@ -17,7 +17,7 @@ class SAPFileFeederService
         which will load the object and return it back to its receiver
     */
     private $common;
-    public $fileType = ['csv', 'xlsx'];
+    public $fileType = 'csv';
     public $filePath;
     private $datetime;
     private $container;
@@ -52,8 +52,7 @@ class SAPFileFeederService
             $fileName = $fileNamePrefix . "_" . date("mdY") . "." . $ext;
 
             if (!$sftpConObj->fileExists($ftpFilePath . "/" . $fileName)) {
-            $fileName = $fileNamePrefix . "_" . date('mdY', strtotime("-1 days")) . "." . $ext;
-
+                $fileName = $fileNamePrefix . "_" . date('mdY', strtotime("-1 days")) . "." . $ext;
                 if (!$sftpConObj->fileExists($ftpFilePath . "/" . $fileName)) {
                     $msg = "PTGEU ".ucFirst($commandType)." - Today's and yesterday's import file not uploaded.";
                     $this->importProcessEmailNotificationObj->sendMailNotification($msg);
@@ -73,7 +72,7 @@ class SAPFileFeederService
             if ($this->validateAllowedFileType()) {
                 return realpath($this->filePath);
             } else {
-                $msg = "PTGEU ".ucFirst($commandType)." - ".FILE_FORMAT_DOESNOT_SUPPORT." ".sprintf(ALLOWED_FILE_TYPES, implode(' and ', $this->fileType));
+                $msg = "PTGEU ".ucFirst($commandType)." - ".FILE_FORMAT_DOESNOT_SUPPORT." ".sprintf(ALLOWED_FILE_TYPES, $this->fileType);
                 $this->importProcessEmailNotificationObj->sendMailNotification($msg);
                 throw new TypeError($msg);
             }
@@ -89,7 +88,7 @@ class SAPFileFeederService
     {
         $ext = $this->common->getExt($this->filePath);
         try {
-            if (in_array($ext, $this->fileType)) {
+            if ($ext == $this->fileType) {
                 return true;
             }
         } catch (\Throwable $th) {

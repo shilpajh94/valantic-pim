@@ -42,61 +42,82 @@ class PriceService
                 "PTGEU Price Import - Error occured while reading CSV \n".$e->getMessage()
             );
         }
-        $this->csvHeader= array_flip($csvInfo['header']);
-        $csvData        = $csvInfo['data'];
-
-        echo "Truncating temp table.".PHP_EOL;
-        $this->priceModel->truncateTempTable();
-        echo "Inserting data into temp table.".PHP_EOL;
-        $this->priceModel->insertDataInTemp($csvData);
-        $deletedPriceRecords = $this->priceModel->getDeletedPriceDataProducts();
-        echo "Price deleted DELTA count is: ".count($deletedPriceRecords).PHP_EOL;
-
-        $delta = $this->priceModel->getDelta();
-        $deltaCount = count($delta);
-        echo "Price DELTA count is: ".$deltaCount.PHP_EOL;
-
-        if (count($deletedPriceRecords)>0) {
-            foreach ($deletedPriceRecords as $data) {
-                $delta[] = $data;
+        $csvData = $csvInfo['data'];
+        if (!empty($csvData)) {
+            $this->csvHeader = array_flip($csvInfo['header']);
+            $columnNames = ['Material Number','Sales Organization','Distribution Channel',
+                'Validity End Date','Validity Start Date','Condition Type','Rate','Rate Unit'];
+            $flag = 1;
+            foreach(array_keys($this->csvHeader) as $column){
+                if(in_array($column, $columnNames)) {
+                    $flag = 1;
+                } else {
+                    $flag = 0;
+                    break;
+                }
             }
-        }
+            if ($flag == 1) {
 
-        $a = time();
-        $deltaCount = count($delta);
-        echo "Total price DELTA count is: ".$deltaCount.PHP_EOL;
+                echo "Truncating temp table.".PHP_EOL;
+                $this->priceModel->truncateTempTable();
+                echo "Inserting data into temp table.".PHP_EOL;
+                $this->priceModel->insertDataInTemp($csvData);
+                $deletedPriceRecords = $this->priceModel->getDeletedPriceDataProducts();
+                echo "Price deleted DELTA count is: ".count($deletedPriceRecords).PHP_EOL;
 
-        $productsData = $this->priceModel->getAllProducts();
-        $queryTableData = $productsData['queryTableData'];
-        foreach ($queryTableData as $rec) {
-            $this->products[$rec['articleNumber']] = $rec;
-        }
+                $delta = $this->priceModel->getDelta();
+                $deltaCount = count($delta);
+                echo "Price DELTA count is: ".$deltaCount.PHP_EOL;
 
+                if (count($deletedPriceRecords)>0) {
+                    foreach ($deletedPriceRecords as $data) {
+                        $delta[] = $data;
+                    }
+                }
 
-        $j = 1;
-        $this->logArray = [];
-        $i = 0;
-        $length = 2000;
-        while ($i<$deltaCount) {
-            $diff = $deltaCount-$i;
-            if ($diff < $length) {
-                $length = $diff;
+                $a = time();
+                $deltaCount = count($delta);
+                echo "Total price DELTA count is: ".$deltaCount.PHP_EOL;
+
+                $productsData = $this->priceModel->getAllProducts();
+                $queryTableData = $productsData['queryTableData'];
+                foreach ($queryTableData as $rec) {
+                    $this->products[$rec['articleNumber']] = $rec;
+                }
+
+                $j = 1;
+                $this->logArray = [];
+                $i = 0;
+                $length = 2000;
+                while ($i<$deltaCount) {
+                    $diff = $deltaCount-$i;
+                    if ($diff < $length) {
+                        $length = $diff;
+                    }
+                    $partialData = array_slice($delta, $i, $length);
+                    $this->processPriceData($partialData);
+                    $partialData = null;
+                    unset($partialData);
+                    $i = $i+$length;
+                    echo "Record Processed: ".$i;
+                    $b = time();
+                    echo "Part ".$j." completed in time: ".$a."====".$b.PHP_EOL;
+                    \Pimcore::collectGarbage();
+                    gc_collect_cycles();
+                    $a = time();
+                    $j++;
+                }
+                $this->priceModel->updateMasterTable();
+                \AppBundle\Helper\Common::endablePimCache();
+            } else {
+                $message = "PTGEU Price - The uploaded file has wrong headers.";
+                echo $message;
+                $this->importProcessEmailNotificationObj->sendMailNotification($message);
             }
-            $partialData = array_slice($delta, $i, $length);
-            $this->processPriceData($partialData);
-            $partialData = null;
-            unset($partialData);
-            $i = $i+$length;
-            echo "Record Processed: ".$i;
-            $b = time();
-            echo "Part ".$j." completed in time: ".$a."====".$b.PHP_EOL;
-            \Pimcore::collectGarbage();
-            gc_collect_cycles();
-            $a = time();
-            $j++;
+        } else {
+            $message = "PTGEU Price - No record found in file.";
+            $this->importProcessEmailNotificationObj->sendMailNotification($message);
         }
-        $this->priceModel->updateMasterTable();
-        \AppBundle\Helper\Common::endablePimCache();
     }
 
     public function processPriceData($sapPriceData) {
