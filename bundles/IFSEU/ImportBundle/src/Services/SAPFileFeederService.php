@@ -17,7 +17,7 @@ class SAPFileFeederService
         which will load the object and return it back to its receiver
     */
     private $common;
-    public $fileType = ['csv', 'xlsx'];
+    public $fileType = 'csv';
     public $filePath;
     private $datetime;
     private $container;
@@ -82,7 +82,7 @@ class SAPFileFeederService
             }
             else
             {
-                $msg = "IFSEU ".ucFirst($commandType)." - ".FILE_FORMAT_DOESNOT_SUPPORT." ".sprintf(ALLOWED_FILE_TYPES, implode(' and ', $this->fileType));
+                $msg = "IFSEU ".ucFirst($commandType)." - ".FILE_FORMAT_DOESNOT_SUPPORT." ".sprintf(ALLOWED_FILE_TYPES, $this->fileType);
                 $this->importProcessEmailNotificationObj->sendMailNotification($msg);
                 throw new TypeError($msg);
             }
@@ -101,7 +101,7 @@ class SAPFileFeederService
         $ext = $this->common->getExt($this->filePath);
         try
         {
-            if (in_array($ext, $this->fileType))
+            if ($ext == $this->fileType)
             {
                 return true;
             }

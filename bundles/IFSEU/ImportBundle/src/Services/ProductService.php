@@ -134,47 +134,68 @@ class ProductService
         $this->filePath = $sapFileFeeder->execFileFeeder('product');
         if($this->filePath){
             try{
-            $csvInfo = ImportService::getCSVData($this->filePath);
-            $this->csvHeader = array_flip($csvInfo['header']);
+                $csvInfo = ImportService::getCSVData($this->filePath);
+                $this->csvHeader = array_flip($csvInfo['header']);
+                if(!empty($csvInfo)) {
+                    $flag = 1;
+                    foreach(array_keys($this->csvHeader) as $column){
+                        if(in_array($column, $this->columnName)) {
+                            $flag = 1;
+                        } else {
+                            $flag = 0;
+                            break;
+                        }
+                    }
+                    if($flag == 1){
 
-            try {
-                $this->initImportTable();
-                Logger::log(self::LOGGER_MODULE)->info("SAP import started");
-                $this->productModel->truncateTempTable();
-                $this->productModel->insertDataInTemp($csvInfo['data']);
-                Logger::log(self::LOGGER_MODULE)->info("Data Sheet imported in temp table");
-                $this->productModel->processDeletedProducts();
-                Logger::log(self::LOGGER_MODULE)->info("Removed records in data sheet, marked as unpublished.");
-                Logger::log(self::LOGGER_MODULE)->info("Product import started");
-                $this->initiateProductsProcess();
-                Logger::log(self::LOGGER_MODULE)->info("Product import completed");
-                $this->productModel->updateMaster();
-                Logger::log(self::LOGGER_MODULE)->info("Data copied from temp table to master table");
+                        try {
+                            $this->initImportTable();
+                            Logger::log(self::LOGGER_MODULE)->info("SAP import started");
+                            $this->productModel->truncateTempTable();
+                            $this->productModel->insertDataInTemp($csvInfo['data']);
+                            Logger::log(self::LOGGER_MODULE)->info("Data Sheet imported in temp table");
+                            $this->productModel->processDeletedProducts();
+                            Logger::log(self::LOGGER_MODULE)->info("Removed records in data sheet, marked as unpublished.");
+                            Logger::log(self::LOGGER_MODULE)->info("Product import started");
+                            $this->initiateProductsProcess();
+                            Logger::log(self::LOGGER_MODULE)->info("Product import completed");
+                            $this->productModel->updateMaster();
+                            Logger::log(self::LOGGER_MODULE)->info("Data copied from temp table to master table");
 
-                if (!empty($this->updatedArticlesArray) && count($this->updatedArticlesArray)>0) {
-                    echo "Object Saving started for completeness.".PHP_EOL;
-                    $this->saveProducts($this->updatedArticlesArray);
-                    echo "Object Saving completed for completeness.".PHP_EOL;
+                            if (!empty($this->updatedArticlesArray) && count($this->updatedArticlesArray)>0) {
+                                echo "Object Saving started for completeness.".PHP_EOL;
+                                $this->saveProducts($this->updatedArticlesArray);
+                                echo "Object Saving completed for completeness.".PHP_EOL;
+                            }
+
+                            if (!empty($this->baseSiopMismatchLog) && count($this->baseSiopMismatchLog)>0) {
+                                $this->productModel->removeArticlesFromMaster($this->baseSiopMismatchLog);
+                                Logger::log(self::LOGGER_MODULE)->info("failed records removed from master table.");
+                                // $this->sendSkippedArticlesEmailNotification($this->baseSiopMismatchLog, $this->baseSiopMismatchEmailTemplate);
+                            }
+                        } catch (\Throwable $th) {
+                            p_r($th);
+                            Logger::error($this->logFileName, $th);
+                            die;
+                        }
+                    } else {
+                        $msg = "IFSEU Product - The uploaded file has wrong headers.";
+                        echo $msg;
+                        $this->importProcessEmailNotificationObj->sendMailNotification($msg);
+                    }
+                } else {
+                    $msg = "IFSEU Product - No record found in file.";
+                    echo $msg;
+                    $this->importProcessEmailNotificationObj->sendMailNotification($msg);
                 }
-
-                if (!empty($this->baseSiopMismatchLog) && count($this->baseSiopMismatchLog)>0) {
-                    $this->productModel->removeArticlesFromMaster($this->baseSiopMismatchLog);
-                    Logger::log(self::LOGGER_MODULE)->info("failed records removed from master table.");
-                    // $this->sendSkippedArticlesEmailNotification($this->baseSiopMismatchLog, $this->baseSiopMismatchEmailTemplate);
-                }
-            } catch (\Throwable $th) {
-                p_r($th);
+            } catch(\Throwable $th) {
+                Logger::log(self::LOGGER_MODULE)->error($th);
                 Logger::error($this->logFileName, $th);
+                $this->importProcessEmailNotificationObj->sendMailNotification(
+                    "IFSEU Product Import not performed - Error occured while reading CSV \n".$th->getMessage()
+                );
                 die;
             }
-        } catch(\Throwable $th) {
-            Logger::log(self::LOGGER_MODULE)->error($th);
-            Logger::error($this->logFileName, $th);
-            $this->importProcessEmailNotificationObj->sendMailNotification(
-                "IFSEU Product Import not performed - Error occured while reading CSV \n".$th->getMessage()
-            );
-            die;
-        }
 
         }else{
             die;
