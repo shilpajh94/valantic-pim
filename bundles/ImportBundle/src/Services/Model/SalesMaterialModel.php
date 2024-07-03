@@ -117,13 +117,9 @@ class SalesMaterialModel
             // $this->fileColumns = $excelDataNewArray[0];
             $flag = 1;
             foreach($this->fileColumns as $column){
-                if($column != 'Material Desc Langu' && $column != 'Deletion Flag'){
-                    if(in_array($column, $this->mappingCsvColumn)) {
-                        $flag = 1;
-                    } else {
-                        $flag = 0;
-                        break;
-                    }
+                if($column != 'Material Desc Langu' && $column != 'Deletion Flag' && !in_array($column, $this->mappingCsvColumn)){
+                    $flag = 0;
+                    break;
                 }
             }
             if($flag == 1){

@@ -80,10 +80,7 @@ class PriceImportModel {
             'Validity End Date','Validity Start Date','Condition Type','Rate','Rate Unit'];
         $flag = 1;
         foreach(array_keys($this->csvHeader) as $column){
-            p_r($column);
-            if(in_array($column, $columnNames)) {
-                $flag = 1;
-            } else {
+            if(!in_array($column, $columnNames)) {
                 $flag = 0;
                 break;
             }
