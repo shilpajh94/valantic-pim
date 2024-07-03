@@ -139,9 +139,7 @@ class ProductService
                 if(!empty($csvInfo)) {
                     $flag = 1;
                     foreach(array_keys($this->csvHeader) as $column){
-                        if(in_array($column, $this->columnName)) {
-                            $flag = 1;
-                        } else {
+                        if(!in_array($column, $this->columnName)) {
                             $flag = 0;
                             break;
                         }
