@@ -17,3 +17,9 @@ get_xliff_export:
 get_xliff_export_download:
     path: /admin/translation/xliff-export-download
     defaults: { _controller: RequiredAttributesBundle:CustomXliffTranslation:getxliffExportDownload }
+_pimcore_admin:
+    resource: "../../src/Controller/Admin/"
+    type:     annotation
+    prefix:   /admin
+    options:
+        expose: true
