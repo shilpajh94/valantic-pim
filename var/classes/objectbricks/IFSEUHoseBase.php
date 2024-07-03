@@ -144,12 +144,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'options' => NULL,
                          'maxItems' => 10,
                          'renderType' => 'tags',
                          'dynamicOptions' => false,
+                         'defaultValue' => 
+                        array (
+                          0 => '1',
+                        ),
                          'height' => 60,
                          'width' => 850,
+                         'defaultValueGenerator' => '',
                          'optionsProviderType' => NULL,
                          'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\StandardsOptionsProvider',
                          'optionsProviderData' => '',
@@ -274,8 +278,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'options' => NULL,
-                         'defaultValue' => '',
+                         'defaultValue' => '1',
                          'columnLength' => 190,
                          'dynamicOptions' => false,
                          'defaultValueGenerator' => '',
@@ -303,8 +306,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'options' => NULL,
-                         'defaultValue' => '',
+                         'defaultValue' => '1',
                          'columnLength' => 190,
                          'dynamicOptions' => false,
                          'defaultValueGenerator' => '',
@@ -332,8 +334,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'options' => NULL,
-                         'defaultValue' => '',
+                         'defaultValue' => '1',
                          'columnLength' => 190,
                          'dynamicOptions' => false,
                          'defaultValueGenerator' => '',
@@ -361,8 +362,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'options' => NULL,
-                         'defaultValue' => '',
+                         'defaultValue' => '1',
                          'columnLength' => 190,
                          'dynamicOptions' => false,
                          'defaultValueGenerator' => '',
@@ -420,12 +420,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'options' => NULL,
                          'maxItems' => NULL,
                          'renderType' => 'tags',
                          'dynamicOptions' => false,
+                         'defaultValue' => 
+                        array (
+                          0 => '1',
+                        ),
                          'height' => 10,
                          'width' => 300,
+                         'defaultValueGenerator' => '',
                          'optionsProviderType' => NULL,
                          'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
                          'optionsProviderData' => 'propertiesInn',
@@ -550,8 +554,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'options' => NULL,
-                         'defaultValue' => '',
+                         'defaultValue' => '1',
                          'columnLength' => 190,
                          'dynamicOptions' => false,
                          'defaultValueGenerator' => '',
@@ -579,8 +582,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'options' => NULL,
-                         'defaultValue' => '',
+                         'defaultValue' => '1',
                          'columnLength' => 190,
                          'dynamicOptions' => false,
                          'defaultValueGenerator' => '',
@@ -608,8 +610,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'options' => NULL,
-                         'defaultValue' => '',
+                         'defaultValue' => '1',
                          'columnLength' => 190,
                          'dynamicOptions' => false,
                          'defaultValueGenerator' => '',
@@ -637,12 +638,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'options' => NULL,
                          'maxItems' => NULL,
                          'renderType' => 'tags',
                          'dynamicOptions' => false,
+                         'defaultValue' => 
+                        array (
+                          0 => '1',
+                        ),
                          'height' => 10,
                          'width' => 300,
+                         'defaultValueGenerator' => '',
                          'optionsProviderType' => NULL,
                          'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
                          'optionsProviderData' => 'propertiesOut',
@@ -767,12 +772,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'options' => NULL,
                          'maxItems' => 10,
                          'renderType' => 'tags',
                          'dynamicOptions' => false,
+                         'defaultValue' => NULL,
                          'height' => 10,
                          'width' => 300,
+                         'defaultValueGenerator' => '',
                          'optionsProviderType' => NULL,
                          'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\ApplicationsOptionsProvider',
                          'optionsProviderData' => '',
@@ -897,12 +903,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'options' => NULL,
                          'maxItems' => NULL,
                          'renderType' => 'tags',
                          'dynamicOptions' => false,
+                         'defaultValue' => 
+                        array (
+                          0 => '1',
+                        ),
                          'height' => 10,
                          'width' => 300,
+                         'defaultValueGenerator' => '',
                          'optionsProviderType' => NULL,
                          'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\FlowMediumOptionsProvider',
                          'optionsProviderData' => '',
