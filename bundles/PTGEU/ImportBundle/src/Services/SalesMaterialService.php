@@ -95,9 +95,7 @@ class SalesMaterialService
         if(count($excelDataNewArray) > 1) {
             $flag = 1;
             foreach($this->fileColumns as $column) {
-                if(in_array($column, $this->mappingCsvColumn)) {
-                    $flag = 1;
-                } else {
+                if(!in_array($column, $this->mappingCsvColumn)) {
                     $flag = 0;
                     break;
                 }
