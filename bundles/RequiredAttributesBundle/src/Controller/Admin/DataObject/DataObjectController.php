@@ -51,7 +51,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Pimcore\Bundle\AdminBundle\Controller\Admin\DataObject\DataObjectActionsTrait;
-
+use AppBundle\Helper\Common;
 /**
  * @Route("/object", name="pimcore_admin_dataobject_dataobject_")
  *
@@ -1669,21 +1669,11 @@ class DataObjectController extends ElementControllerBase implements KernelContro
         LocaleServiceInterface $localeService,
         CsrfProtectionHandler $csrfProtection
     ): JsonResponse {
-        $data = json_decode($request->request->get('data'));
-        if (!empty($data)) {
-            $newData = [];
-            foreach ($data as $key => $val) {
-                if ($key == 'id') {
 
-                    $newData[$key] = $val;
-                } else if (getType($val) == "integer" || getType($val) == "double") {
-                    $newData[$key] = (string) $val;
-                } else {
-                    $newData[$key] =  $val;
-                }
-            }
-            $request->request->set('data', json_encode($newData));
-        }
+       $data = Common::updateDataIfDecimalPrecisionExist($request);
+       if(!empty(  $data)){
+                $request->request->set('data',$data);
+       }
 
         $allParams = array_merge($request->request->all(), $request->query->all());
         if (isset($allParams['context']) && $allParams['context']) {
