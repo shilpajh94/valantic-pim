@@ -149,7 +149,9 @@ class AppService
         /**
          * setting temperature range fields
          */
-        $this->updateTemperatureRangeService->getUpdatedTemperatureData($product, $updatedData);
+        if( array_key_exists('minimumTemperatureF', $updatedData) || array_key_exists('maximumTemperatureF', $updatedData)){
+            $this->updateTemperatureRangeService->getUpdatedTemperatureData($product, $updatedData);
+        }
         
         if($product->getFert()){
             /**
