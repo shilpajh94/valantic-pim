@@ -224,7 +224,6 @@ class Common
         return json_encode($newData);
 
         }catch(Exception $e){
-            dd($e);
             return $newData;
         }
     }
