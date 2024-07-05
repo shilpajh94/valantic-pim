@@ -167,7 +167,8 @@ class AppService
             /**
              * setting 'Total Weight (lbs) / Packaged Weight' in hose fert
              */
-            if( $hoseFert = $product->getFert()->getHoseFert() ){
+            $hoseFert = $product->getFert()->getHoseFert();
+            if( !empty($hoseFert) ){
                 $netWeight = $product->getNetWeight();
                 $hoseLengthFT = $hoseFert->getHoseLengthFT();
 
@@ -178,42 +179,21 @@ class AppService
                     } else {
                         $hoseFert->setTotalWeightPerPackage(null);
                     }
-
-                }catch (\Exception $exception){
-                    $hoseFert->setTotalWeightPerPackage(null);
+                }catch (\Exception $exception) {
+                    $exception;
                 }
             }
+            if( !empty($hoseFert) ){
 
-            /**
-             * setting 'Thrust Wire Nut (Y/N)' in hyd fittings fert
-             *
-             * Commented this code because we removed thrustwirenut attribute as per client
-             */
-            // if( $hydFittingFert = $product->getFert()->getHydFittingsFert() ){
-            //     $thrustWireComponentNumber = $hydFittingFert->getThrustWireComponentNumber();
-            //     if( $thrustWireComponentNumber && trim($thrustWireComponentNumber) !== '' ){
-            //         $hydFittingFert->setThrustWireNut(true);
-            //     }else{
-            //         $hydFittingFert->setThrustWireNut(false);
-            //     }
-            // }
-
-            /**
-             * setting 'Number of teeth' in synchronous fert
-             */
-            if( $syncFert = $product->getFert()->getSynchronousFert() ){
-                $pitchLenghIn = $syncFert->getPitchLengthIN();
-                $pitchIN = $syncFert->getPitchIN();
-
-                if($pitchLenghIn === null || $pitchIN === null){
-                    $syncFert->setNumberOfTeeth(null);
-                }else{
-                    try{
-                        $numberOfTeeth = $pitchLenghIn / $pitchIN;
-                        $syncFert->setNumberOfTeeth(round($numberOfTeeth, 0));
-                    }catch (\Exception $exception){
-                        $syncFert->setNumberOfTeeth(null);
+                try {
+                    if (!empty($hoseLengthFT) && !empty($netWeight)) {
+                        $totalWeightPerPackage = $netWeight * $hoseLengthFT;
+                        $hoseFert->setTotalWeightPerPackage(round($totalWeightPerPackage, 5));
+                    } else {
+                        $hoseFert->setTotalWeightPerPackage(null);
                     }
+                } catch (\Exception $exception) {
+                    $hoseFert->setTotalWeightPerPackage(null);
                 }
 
             }
