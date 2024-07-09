@@ -4,6 +4,7 @@ namespace IFSEU\ImportBundle\Model;
 
 use Pimcore\Db;
 use IFSEU\ImportBundle\Services\ImportConstants;
+use AppBundle\Helper\Common;
 
 class SalesMaterialModel
 {
@@ -338,5 +339,14 @@ class SalesMaterialModel
           PRIMARY KEY (`id`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
         $this->db->executeQuery($query);
+    }
+
+    /**
+     * Get failed records from ifseu_material_sales_import_log table
+     * @author Sandeep Bhardwaj Coder <sandeep@happiestminds.com>
+     * @return array
+     */ 
+    public function getFailedRecordFromLogTable():array{
+        return Common::getFailedRecordFromLogTable($this->logTable,$this->tempTable,$this->masterTable,'statusCode','FAILED');       
     }
 }

@@ -4,6 +4,7 @@ namespace AppBundle\Helper;
 
 use Pimcore\Db;
 use ImportBundle\Services\ImportConstants;
+use AppBundle\Helper\Common;
 
 class SalesMaterialImport
 {
@@ -355,21 +356,6 @@ class SalesMaterialImport
      * @return array
      */ 
     public function removeFailedRecordFromMaster():array{
-
-        $failedIds =[];
-        try{
-                $failedLogRecordQuery = "SELECT `id` FROM {$this->logTable} WHERE `statusCode` =?";
-                $failedLogRecordResult = $this->db->fetchAllAssociative($failedLogRecordQuery,['FAILED']);
-                if(count($failedLogRecordResult)>0){
-                    $failedIds = array_column($failedLogRecordResult,'id');
-                }
-                return $failedIds;
-        }catch(\Exception $e){
-
-            echo $e->getMessage();
-            return $failedIds;
-        }
-
-       
+       return Common::getFailedRecordFromLogTable($this->logTable,$this->tempTable,$this->masterTable,'statusCode','FAILED');
     }
 }

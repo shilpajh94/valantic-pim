@@ -151,9 +151,16 @@ class ProductService
                 if (!empty($this->baseSiopMismatchLog) && count($this->baseSiopMismatchLog)>0) {
                     $this->productModel->removeArticlesFromMaster($this->baseSiopMismatchLog);
                     Logger::log(self::LOGGER_MODULE)->info("failed records removed from master table.");
+                   
                     $this->sendSkippedArticlesEmailNotification($this->baseSiopMismatchLog,
                      $this->baseSiopMismatchEmailTemplate);
                 }
+                $faildRecords =  $this->productModel->getFailedRecordFromLogTable();
+                    if(count($faildRecords)>0){
+                        $this->productModel->removeArticlesFromMaster($faildRecords);
+                        Logger::log(self::LOGGER_MODULE)->info(count($faildRecords)."failed records removed from master table.");
+                        echo count($faildRecords)."failed records removed from master table.".PHP_EOL;
+                    }
             } catch (\Throwable $th) {
                 p_r($th);
                 \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($th);

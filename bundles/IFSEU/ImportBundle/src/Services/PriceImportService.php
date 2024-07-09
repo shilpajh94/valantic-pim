@@ -85,6 +85,12 @@ class PriceImportService {
             }
             \Pimcore\Cache::clearAll();
             $this->priceModel->updateMasterTable();
+            $failedRecords =$this->priceModel->getFailedRecordFromLogTable();
+            if(count( $failedRecords)>0){
+                $this->priceModel->deleteFailedRecordsFromMaster($failedRecords);
+                echo "Total ".count( $failedRecords)." faild record removed from master table".PHP_EOL;
+            }
+
             \AppBundle\Helper\Common::endablePimCache();
         }
      
