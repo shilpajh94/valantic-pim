@@ -128,12 +128,15 @@ class ProductService
         $this->filePath = $sapFileFeeder->execFileFeeder('product');
         if($this->filePath){
             try {
+                $brickAttributesConfigDataKeys = array_keys($this->configProviderService->getBrickAttributesConfig());
                 $csvInfo = ImportService::getCSVData($this->filePath);
                 $this->csvHeader = array_flip($csvInfo['header']);
                 if(!empty($csvInfo)) {
                     $flag = 1;
                     foreach(array_keys($this->csvHeader) as $column){
-                        if(!in_array($column, $this->columnName)) {
+                        if($column != 'SalesOrgCode' && $column != 'External ID'
+                         && !in_array($column, $this->columnName)
+                          && !in_array($column, $brickAttributesConfigDataKeys)) {
                             $flag = 0;
                             break;
                         }
