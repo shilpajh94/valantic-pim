@@ -64,7 +64,7 @@ class ProductApiController extends FrontendController implements ConstantsInterf
      *
      * @return Response Object
      *
-     * @Route("/api/get-product-groups", methods={"GET"}, requirements={
+     * @Route("/api/get-product-groups/restricted", methods={"GET"}, requirements={
      * "Content-Type" = "application/json"
      * })
      */
@@ -90,7 +90,7 @@ class ProductApiController extends FrontendController implements ConstantsInterf
      *
      * @return Response Object
      *
-     * @Route("/api/product-group-catalogs", methods={"GET"}, requirements={
+     * @Route("/api/product-group-catalogs/restricted", methods={"GET"}, requirements={
      * "Content-Type" = "application/json"
      * })
      */
@@ -126,7 +126,7 @@ class ProductApiController extends FrontendController implements ConstantsInterf
      *
      * @return Response Object
      *
-     * @Route("/api/get-regions", methods={"GET"}, requirements={
+     * @Route("/api/get-regions/restricted", methods={"GET"}, requirements={
      * "Content-Type" = "application/json"
      * })
      */
