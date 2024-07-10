@@ -65,7 +65,7 @@ class MaterialGroupMismatchINSheetAndPIMCommand extends AbstractCommand
             $columns[] = "Material Group in SAP File";
             $columns[] = "Material Group in PIM";
 
-            $fileName = "Product_MaterialGroup_" . date('mdY') . "_Logs" . '.csv';
+            $fileName = "Product_MaterialGroup_MismatchData_" .date('mdY') . '.csv';
 
             $fileResource = fopen(PIMCORE_SYSTEM_TEMP_DIRECTORY . '/' . $fileName, 'w');
             fputcsv($fileResource, $columns, ',');
@@ -132,7 +132,7 @@ class MaterialGroupMismatchINSheetAndPIMCommand extends AbstractCommand
 
                     $sql = "SELECT oo_id FROM object_21 WHERE code = '$code'";
                     $result = $this->db->fetchAllAssociative($sql);
-                    $materialGroupId = $result[0]['oo_id'];
+                    $materialGroupId = (!empty($result)) ? $result[0]['oo_id'] : 'NULL';
 
                     $queryTable = "UPDATE object_query_1
                                     SET materialGroup__id = $materialGroupId, materialGroup__type = 'object'
@@ -149,7 +149,7 @@ class MaterialGroupMismatchINSheetAndPIMCommand extends AbstractCommand
             }
             p_r("Import Completed for the above id's");
         } catch (\Throwable $th) {
-            p_r($th->getMessage());
+            p_r($th);
         }
     }
 
