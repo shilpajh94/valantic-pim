@@ -199,10 +199,10 @@ class SalesMaterialModel
             $timediff4 = $time4->diff(new \DateTime());
             echo $timediff4->format("Total {$deltaCount} replaced in master table takes %h hour %i minute %s second").PHP_EOL;
             $this->tableImportHelper->deleteFailedRecordsFromMaster($this->failedIDs);
-            $failedIDs = $this->tableImportHelper->removeFailedRecordFromMaster();
-            if(count($failedIDs)>0){
-                $this->tableImportHelper->deleteFailedRecordsFromMaster($failedIDs);
-                echo $timediff4->format("Total ".count($failedIDs)." failed record removed from master table takes %h hour %i minute %s second").PHP_EOL;
+            $failedRecords = $this->tableImportHelper->getFailedRecordFromLogTable();
+            if(count($failedRecords)>0){
+                $this->tableImportHelper->deleteFailedRecordsFromMaster($failedRecords);
+                echo $timediff4->format("Total ".count($failedRecords)." failed record removed from master table takes %h hour %i minute %s second").PHP_EOL;
             }
             
         }

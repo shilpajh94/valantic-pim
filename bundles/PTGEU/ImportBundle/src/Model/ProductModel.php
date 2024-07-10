@@ -361,10 +361,10 @@ class ProductModel
 
         /**
      * Get failed records from ptgeu_material_import_log table
-     * @author Sandeep Bhardwaj Coder <sandeep@happiestminds.com>
+     * @author Sandeep Bhardwaj <sandeep@happiestminds.com>
      * @return array
      */ 
     public function getFailedRecordFromLogTable():array{
-        return Common::getFailedRecordFromLogTable($this->logTable ,$this->tempTable ,$this->masterTable,'statusCode','Failed',$this->time);
+        return Common::getFailedRecordFromLogTable($this->logTable , $this->masterTable,'statusCode',$this->time);
     }
 }

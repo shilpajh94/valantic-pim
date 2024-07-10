@@ -15,6 +15,7 @@ class SalesMaterialImport
     private $keyColumns;
     private $mappingCsvColumn;
     private $db;
+    private $time;
 
     /**
      * Getting DB connection object
@@ -25,6 +26,8 @@ class SalesMaterialImport
         $this->tempTable = 'material_sales_import_temp';
         $this->masterTable = 'material_sales_import_master';
         $this->logTable = 'material_sales_import_log';
+        $this->time = time();
+        
     }
 
     /**
@@ -321,7 +324,7 @@ class SalesMaterialImport
             $rowCount = 1;
             $sql = "INSERT INTO {$this->logTable} (id, record, statusCode, failedReason, createdAt) VALUES";
             foreach ($data as $dataKey => $dataValue) {
-                $values .= '("'.$dataValue['id'].'", "'.addslashes($dataValue['record']).'", "'.$dataValue['statusCode'].'","'.$dataValue['failedReason'].'","'.time().'"),';
+                $values .= '("'.$dataValue['id'].'", "'.addslashes($dataValue['record']).'", "'.$dataValue['statusCode'].'","'.$dataValue['failedReason'].'","'.$this->time.'"),';
                 // inserting records in batch
                 if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
                     $query = $sql.rtrim($values, ',');
@@ -352,10 +355,10 @@ class SalesMaterialImport
     
     /**
      * Get failed records from material_sales_import_log table
-     * @author Sandeep Bhardwaj Coder <sandeep@happiestminds.com>
+     * @author Sandeep Bhardwaj <sandeep@happiestminds.com>
      * @return array
      */ 
-    public function removeFailedRecordFromMaster():array{
-       return Common::getFailedRecordFromLogTable($this->logTable,$this->tempTable,$this->masterTable,'statusCode','FAILED');
+    public function getFailedRecordFromLogTable():array{
+       return Common::getFailedRecordFromLogTable($this->logTable,$this->masterTable,'statusCode',$this->time);
     }
 }

@@ -218,16 +218,16 @@ class PriceModel
     }
     /**
      * Get failed records from ifseu_material_list_price_import_log table
-     * @author Sandeep Bhardwaj Coder <sandeep@happiestminds.com>
+     * @author Sandeep Bhardwaj<sandeep@happiestminds.com>
      * @return array
      */ 
-    public function getFailedRecordFromLogTable():array{
-        return Common::getFailedRecordFromLogTable($this->logTable,$this->tempTable,$this->masterTable,'status','Failed');       
+    public function getFailedRecordFromLogTable(int $time):array{
+        return Common::getFailedRecordFromLogTable($this->logTable,$this->masterTable,'status', $time);       
     }
 
     /**
      * remove failed recod from master table
-     * @author Sandeep Bhardwaj Coder <sandeep@happiestminds.com>
+     * @author Sandeep Bhardwaj <sandeep@happiestminds.com>
      * @return void
      */ 
     public function deleteFailedRecordsFromMaster($failedRecords):void {
