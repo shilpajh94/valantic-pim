@@ -9,6 +9,7 @@ use Symfony\Component\DependencyInjection\Loader;
 use Pimcore\Model\DataObject;
 use ImportBundle\Services\ImportConstants;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Pimcore\Db;
 
 class Common
 {
@@ -182,5 +183,43 @@ class Common
         $numerator && $denominator && $decimal += ($numerator/$denominator);
     
         return $decimal;
+    }
+
+    /**
+     * Get failed records from Log table
+     * @param string   $logTable  name of log table
+     * @param string   $tempTable  name of tmp table
+     * @param string   $masterTable  name of master table
+     * @param string   $statusColumn  status column name in log table
+     * @param string   $status  status column value (FAILED/SUCCESS/Failed/Success) for status column in log table
+     * @param int|null   $logCreatedAt  timestamp when log of current script created
+     * @author Sandeep Bhardwaj <sandeep@happiestminds.com>
+     * @return array
+     */
+    public static function getFailedRecordFromLogTable(string $logTable, string $tempTable, string $masterTable, string $statusColumn, string $status,int|null $logCreatedAt=null): array
+    {
+
+        $failedIds = [];
+        try {
+            $db = Db::get();
+            $failedLogRecordQuery = "SELECT DISTINCT log.id FROM {$tempTable}
+                                        t INNER JOIN {$logTable} log 
+                                        ON t.id = log.id INNER JOIN {$masterTable} as m ON  log.id = m.id
+                                        WHERE log.{$statusColumn}= ? AND ";
+            $prms =[$status];
+            if(!empty($logCreatedAt)){
+                $failedLogRecordQuery.= "log.createdAt = ? ";
+                $prms= [...$prms,$logCreatedAt];
+            }
+            $failedLogRecordResult = $db->fetchAllAssociative($failedLogRecordQuery, $prms);
+            if (count($failedLogRecordResult) > 0) {
+                $failedIds = array_column($failedLogRecordResult, 'id');
+            }
+            return $failedIds;
+        } catch (Exception $e) {
+
+            echo $e->getMessage();
+            return $failedIds;
+        }
     }
 }
