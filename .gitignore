@@ -26,8 +26,6 @@
 !/var/.gitkeep
 !/var/classes/
 /var/classes/DataObject
-!/var/admin/
-
 !/var/config
 /var/config/system.yml
 /var/config/debug-mode.php
@@ -85,3 +83,9 @@ composer.json
 composer.lock
 /public/bundles/
 /public/var/tmp/
+/config/local/*
+/config/packages/*
+/config/pimcore/*
+/config/bundles.php
+/composer.json
+/.env

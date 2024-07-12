@@ -42,7 +42,7 @@ services:
 
     B2BTranslationBundle\Command\PimDataExportCommand:
         tags:
-            - { name: 'console.command', command: 'contitech:b2b:pim-data-export-command' }
+            - { name: 'console.command', command: 'contitech:b2b:translation-data-export-command' }
 
     B2BTranslationBundle\OneTimeCommand\ImportExternalIDForCategoryCommand:
         tags:

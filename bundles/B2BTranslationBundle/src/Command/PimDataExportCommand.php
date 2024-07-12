@@ -19,7 +19,7 @@ class PimDataExportCommand extends AbstractCommand
 
     protected function configure()
     {
-        $this->setName('contitech:b2b:pim-data-export-command')
+        $this->setName('contitech:b2b:translation-data-export-command')
             ->setDescription('Create and send translation csv to ftp')
             ->addArgument(
                 'optionForBusinessUnit',

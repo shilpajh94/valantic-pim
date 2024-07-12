@@ -59,7 +59,7 @@ class DefaultController extends FrontendController
      */
     public function translationExportAction(Request $request)
     {
-        $cmd = PIMCORE_PROJECT_ROOT."/bin/console contitech:b2b:pim-data-export-command";
+        $cmd = PIMCORE_PROJECT_ROOT."/bin/console contitech:b2b:translation-data-export-command";
         shell_exec($cmd);
         return new Response('Executed');
     }
