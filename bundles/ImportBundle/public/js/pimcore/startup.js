@@ -180,6 +180,9 @@ pimcore.plugin.ImportBundle = Class.create({
                                 if (assetId) {
                                     pimcore.helpers.download("/admin/asset/download?id=" +assetId);
                                 }
+                                else {
+                                    Ext.Msg.alert('Action Required', 'Please Save & Publish the object before trying to generate a spec sheet');
+                                }
                             },
                         });
                     }
@@ -192,6 +195,7 @@ pimcore.plugin.ImportBundle = Class.create({
     },
 
     listAllFerts: function (tabObject, objectId) {
+        // console.log($objectId);
         if( Ext.getCmp('exportbtn_'+objectId) != undefined){
             Ext.getCmp('exportbtn_'+objectId).destroy();
         }
@@ -217,6 +221,8 @@ pimcore.plugin.ImportBundle = Class.create({
                         assetId = assetIdWithInvertedComma.replace(/['"]+/g, '');                    
                         if (assetId) {
                             pimcore.helpers.download("/admin/asset/download?id=" +assetId);
+                        }else{
+                            Ext.Msg.alert('Action Required', 'Please Save & Publish the object before trying to generate a spec sheet');
                         }
                     },
                 });
