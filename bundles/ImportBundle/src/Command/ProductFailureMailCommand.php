@@ -8,7 +8,7 @@ use Pimcore\Console\AbstractCommand;
 use ImportBundle\Model\Import\FailedRecords;
 use Pimcore\Model\Asset;
 
-class ProductFailureMailCommand   extends AbstractCommand {
+class ProductFailureMailCommand extends AbstractCommand {
 
     protected function configure()
     {
@@ -17,14 +17,14 @@ class ProductFailureMailCommand   extends AbstractCommand {
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
-    {   
+    {
         $year = date('Y');
         $monthName = date('F');
 
         $folderId = Asset::getByPath("/IFS PTG Private Folder/Import Failure Logs/$year/$monthName")->getId();
         $list = new \Pimcore\Model\Asset\Listing();
         $list->setCondition("parentId = $folderId");
-        $list->setOrder("DESC"); 
+        $list->setOrder("DESC");
         $list->load();
       
         $currentDate = date ('Y-m-d');
@@ -45,7 +45,7 @@ class ProductFailureMailCommand   extends AbstractCommand {
                     if ($currentDate == $fileDate) {
                         $todaysFile[] = $fileName;
                         $todaysFileId[] = $fileChilds->getId();
-                    }               
+                    }
                     if ($yesterdayDate == $fileDate) {
                         $yesterDaysFile[] = $fileName;
                         $yesterdaysFileId[] = $fileChilds->getId();
@@ -53,14 +53,15 @@ class ProductFailureMailCommand   extends AbstractCommand {
     
                 }
             }
-        } 
+        }
         if ($todaysFile ) {
             $sendMail = new FailedRecords;
             $sendMail->sendNotificationsEmail($todaysFileId);
-        } else if ($yesterDaysFile) {
+        } elseif ($yesterDaysFile) {
             $sendMail = new FailedRecords;
             $sendMail->sendNotificationsEmail($yesterdaysFileId);
-        }     
+        }
+        return 1;
     }
 
     private function getDateFromFileName($fileName)
@@ -73,7 +74,7 @@ class ProductFailureMailCommand   extends AbstractCommand {
 
             $date = explode(".",$end);
             if(is_array($date) && $date)
-            {   
+            {
                 $datestr = reset($date);
                 $month = substr($datestr,0,2);
                 $date = substr($datestr,2,2);
@@ -83,7 +84,5 @@ class ProductFailureMailCommand   extends AbstractCommand {
         }
         return $finalDate;
     }
-
-
 }
 
