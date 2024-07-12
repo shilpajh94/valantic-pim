@@ -24,6 +24,12 @@ class AppService
      */
     private $configProviderService;
 
+    /**
+     * @var UpdateTemperatureRangeService
+     */
+    private $updateTemperatureRangeService;
+
+
     private $db;
 
     /**
@@ -46,11 +52,15 @@ class AppService
      * AppService constructor.
      * @param UnitConverterService $unitConverterService
      * @param ConfigProviderService $configProviderService
+     * @param UpdateTemperatureRangeService $updateTemperatureRangeService
      */
-    public function __construct(UnitConverterService $unitConverterService,ConfigProviderService $configProviderService)
+    public function __construct(UnitConverterService $unitConverterService,
+    ConfigProviderService $configProviderService,
+    UpdateTemperatureRangeService $updateTemperatureRangeService)
     {
         $this->unitConverterService = $unitConverterService;
         $this->configProviderService = $configProviderService;
+        $this->updateTemperatureRangeService = $updateTemperatureRangeService;
         $this->db = \Pimcore\Db::get();
     }
 
@@ -134,35 +144,15 @@ class AppService
      *
      * @param Product $product
      */
-    public function updateCalcFields(Product $product)
+    public function updateCalcFields(Product $product, $updatedData)
     {
         /**
          * setting temperature range fields
          */
-        if($product->getMinimumTemperatureF() !== null && $product->getMaximumTemperatureF() !== null ){
-            $tempRangeF = $product->getMinimumTemperatureF() . "°F" .
-                            " to " . $product->getMaximumTemperatureF() . "°F";
-            $product->setRangeTemperatureF($tempRangeF);
-        }else{
-            $product->setRangeTemperatureF(null);
+        if( array_key_exists('minimumTemperatureF', $updatedData) || array_key_exists('maximumTemperatureF', $updatedData)){
+            $this->updateTemperatureRangeService->getUpdatedTemperatureData($product, $updatedData);
         }
-
-        if($product->getMinimumTemperatureC() !== null && $product->getMaximumTemperatureC() !== null){
-            $tempRangeF = $product->getMinimumTemperatureC() . "°C" .
-                            " to " . $product->getMaximumTemperatureC() . "°C";
-            $product->setRangeTemperatureC($tempRangeF);
-        }else{
-            $product->setRangeTemperatureC(null);
-        }
-
-        if($product->getRangeTemperatureF() && $product->getRangeTemperatureC()){
-            $tempRangeFAndC = strval($product->getRangeTemperatureF()) . " (" .
-                strval($product->getRangeTemperatureC()) .")" ;
-            $product->setTemperatureRangeFAndC($tempRangeFAndC);
-        }else{
-            $product->setTemperatureRangeFAndC(null);
-        }
-
+        
         if($product->getFert()){
             /**
              * setting 'Total Weight (lbs) / Packaged Weight' in hose fert

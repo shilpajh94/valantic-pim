@@ -130,7 +130,6 @@ class ObjectListener
             $object->setGetInheritedValues(true);
 
             if ($object instanceof DataObject\Product) {
-
                 /**
                  * update the unit conversion attributes
                  */
@@ -145,55 +144,13 @@ class ObjectListener
             /**
              * update the calculative logic value fields
              */
-            $currentRequestData = json_decode(
-                $this->requestStack->getCurrentRequest()->getPayload()->get('data'), true);
+            $requestStack = $this->requestStack;
+            // get the current http request
+            $currRequest = $requestStack->getCurrentRequest();
 
-
-            if (
-                strtoLower($object->getProductType()) == 'fert'
-                && (array_key_exists('minimumTemperatureF', $currentRequestData)
-                    || array_key_exists('maximumTemperatureF', $currentRequestData))
-            ) {
-                $minTempFFromBase = $object->getParent()->getParent()->getMinimumTemperatureF();
-                $maxTempFFromBase = $object->getParent()->getParent()->getMaximumTemperatureF();
-
-                $minTempFFromFert = $object->getMinimumTemperatureF();
-                $maxTempFFromFert = $object->getMaximumTemperatureF();
-                if (((string)$minTempFFromBase == (string)$minTempFFromFert)
-                && ((string)$maxTempFFromBase == (string)$maxTempFFromFert)) {
-                    $this->appService->updateCalcFields($object);
-                    $object->setRangeTemperatureF(null);
-                    $object->setRangeTemperatureC(null);
-                    $object->setTemperatureRangeFAndC(null);
-                } else {
-                    $this->appService->updateCalcFields($object);
-                }
-            } elseif (
-                strtoLower($object->getProductType()) == 'skeleton'
-                && (array_key_exists('minimumTemperatureF', $currentRequestData)
-                    || array_key_exists('maximumTemperatureF', $currentRequestData))
-            ) {
-                $minTempFFromSkeletonBase = $object->getParent()->getMinimumTemperatureF();
-                $maxTempFFromSkeletonBase = $object->getParent()->getMaximumTemperatureF();
-
-                $minTempFFromSkeleton = $object->getMinimumTemperatureF();
-                $maxTempFFromSkeleton = $object->getMaximumTemperatureF();
-                if (((string)$minTempFFromSkeletonBase == (string)$minTempFFromSkeleton)
-                    && ((string)$maxTempFFromSkeletonBase == (string)$maxTempFFromSkeleton)
-                ) {
-                    $this->appService->updateCalcFields($object);
-                    $object->setMinimumTemperatureF(null);
-                    $object->setMaximumTemperatureF(null);
-                    $object->setMinimumTemperatureC(null);
-                    $object->setMaximumTemperatureC(null);
-                    $object->setRangeTemperatureF(null);
-                    $object->setRangeTemperatureC(null);
-                    $object->setTemperatureRangeFAndC(null);
-                } else {
-                    $this->appService->updateCalcFields($object);
-                }
-            } else {
-                $this->appService->updateCalcFields($object);
+            if ($currRequest instanceof Request) {
+                $updatedData = json_decode($currRequest->get('data'), true);
+                $this->appService->updateCalcFields($object, $updatedData);
             }
 
             /**
