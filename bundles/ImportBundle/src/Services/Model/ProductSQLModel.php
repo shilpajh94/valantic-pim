@@ -234,22 +234,22 @@ class ProductSQLModel
                     fputcsv($fp, $article);
                 }
                 fclose($fp);
-                if (!empty($emailTemplate)) {                
-                    $doc = \Pimcore\Model\Document::getByPath($emailTemplate);
-                    if (!empty($doc)) {
-                        // Sending the mail
-                        $emailParams = [
-                            'templateName' => $emailTemplate,
-                            'attachment' => $logFilePath
-                        ];
-                        $this->emailService = $this->container->get('email.email_notification_service');
-                        $this->emailService->sendNotificationsEmail($emailParams);
-                    }else {
-                        throw new \Exception("Base SIOP mismatch email template not found.");
-                    }
-                } else {
-                    throw new \Exception("Base SIOP mismatch email template not configured.");
-                }
+                // if (!empty($emailTemplate)) {                
+                //     $doc = \Pimcore\Model\Document::getByPath($emailTemplate);
+                //     if (!empty($doc)) {
+                //         // Sending the mail
+                //         $emailParams = [
+                //             'templateName' => $emailTemplate,
+                //             'attachment' => $logFilePath
+                //         ];
+                //         $this->emailService = $this->container->get('email.email_notification_service');
+                //         $this->emailService->sendNotificationsEmail($emailParams);
+                //     }else {
+                //         throw new \Exception("Base SIOP mismatch email template not found.");
+                //     }
+                // } else {
+                //     throw new \Exception("Base SIOP mismatch email template not configured.");
+                // }
             }
         } catch (\Throwable $th) {
             p_r($th);
