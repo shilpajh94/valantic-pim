@@ -9,6 +9,7 @@ use Symfony\Component\DependencyInjection\Loader;
 use Pimcore\Model\DataObject;
 use ImportBundle\Services\ImportConstants;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class Common
 {
@@ -35,10 +36,11 @@ class Common
         }
     }
 
-    /**
-     * Clear and disbale Pimcore cache
-     * @return void
-     */
+/**
+ * Clear and disable pimcore cache
+ * @author sandeep bhardwaj <sandeep@happiestminds.com>
+ * @return void
+ */
     public static function clearAndDisablePimCache():void{
                 // clear the whole cache
                 \Pimcore\Cache::clearAll();
@@ -47,7 +49,8 @@ class Common
     }
     
     /**
-     * Enable Pimcore cache
+     * Enable pimcore cache
+     * @author sandeep bhardwaj <sandeep@happiestminds.com>
      * @return void
      */
     public static function endablePimCache():void{
@@ -182,5 +185,46 @@ class Common
         $numerator && $denominator && $decimal += ($numerator/$denominator);
     
         return $decimal;
+    }
+    
+    /**
+ * Check Decimal Precision Exist or not
+ *
+ * @param Request   $request  Current request
+ * @author Sandeep Bhardwaj <sandeep@happiestminds.com>
+ * @return string
+ */
+    public static function updateDataIfDecimalPrecisionExist(Request $request){
+        $newData = '';
+        try{
+            $objectClassName= $request->request->get('class');
+            $data = json_decode($request->request->get('data'));
+        if (!empty($data)) {
+            $newData = [];
+            foreach ($data as $key => $val) {
+                if ($key == 'id') {                   
+                    $newData[$key] = $val;
+                } else {
+                    if(str_contains($key, '~')){
+                        [$objectBricName,$attributeKey] = explode('~',$key);
+                        $brickDef = DataObject\Objectbrick\Definition::getByKey($objectBricName);
+                        $brickFields = $brickDef->getFieldDefinitions();
+                        if(!empty($brickFields[$attributeKey]->getDecimalPrecision())){
+                            $newData[$key] = (string) $val;
+                        }else{
+                            $newData[$key] = (float) $val;
+                        }
+                    }else{
+                    $newData[$key] =  $val;
+                    }
+                }
+            }
+           
+        }
+        return json_encode($newData);
+
+        }catch(Exception $e){
+            return $newData;
+        }
     }
 }
