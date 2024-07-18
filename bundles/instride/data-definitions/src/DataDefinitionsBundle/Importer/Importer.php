@@ -452,11 +452,11 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
                 $status = 'Success';
 
                 if($definition->getClass() == 'Product'){
-                    $primaryKey = $row['SAP Code / Material Number'];
+                    $primaryKey = $row['Material'];
 
                 }
                 elseif($definition->getClass() == 'PTGEUProduct'){
-                    $primaryKey = $row['SAPMaterialCode'];
+                    $primaryKey = $row['Material'];
                 }
                 elseif($definition->getClass() == 'IFSEUProduct'){
                     $primaryKey = $row['Material'];

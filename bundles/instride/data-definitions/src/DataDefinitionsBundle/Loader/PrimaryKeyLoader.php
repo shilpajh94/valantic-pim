@@ -25,6 +25,7 @@ use Instride\Bundle\DataDefinitionsBundle\Model\DataDefinitionInterface;
 
 class PrimaryKeyLoader implements LoaderInterface
 {
+    private $db;
     /**
      * {@inheritdoc}
      */
@@ -37,15 +38,11 @@ class PrimaryKeyLoader implements LoaderInterface
 
         $list = new $classList();
 
-        if ($list instanceof Listing && $class != 'CSProducts' && (!empty($data['SAP Code / Material Number']) || !empty($data['SAPMaterialCode']) || !empty($data['Material']) )) {
+        if ($list instanceof Listing && $class != 'CSProducts' && (!empty($data['Material']))) {
             $condition = [];
             $conditionValues = [];
-            if($class == 'PTGEUProduct'){
-                $conditionValues[] = $data['SAPMaterialCode'];
-                $condition[] = '`articleNumber` = ?';
-            }
-            elseif($class == 'Product'){
-                $conditionValues[] = $data['SAP Code / Material Number'];
+            if($class == 'PTGEUProduct' || $class == 'Product'){
+                $conditionValues[] = $data['Material'];
                 $condition[] = '`articleNumber` = ?';
             }
             elseif($class == 'IFSEUProduct'){
@@ -73,7 +70,7 @@ class PrimaryKeyLoader implements LoaderInterface
                 $obj = $objectData[0];
 
                 if ($definition->getForceLoadObject()) {
-                    $obj = DataObject::getById($obj->getId(), true);
+                    $obj = DataObject::getById($obj->getId());
 
                     if (!$obj instanceof $classObject) {
                         $obj = new $classObject();
@@ -127,7 +124,7 @@ class PrimaryKeyLoader implements LoaderInterface
                         $count = count($result);
 
                         if ($count > 0) {
-                            $obj = DataObject\CSProducts::getById($result[0], true);
+                            $obj = DataObject\CSProducts::getById($result[0]);
                             $obj->setParentId($parentId);
                             return $obj;
                         }
