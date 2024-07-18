@@ -294,7 +294,6 @@ class ExportCommand extends Command
                     $this->schedule->getId(),
                     $tmpFilePath,
                  ]));
-                p_r($command);
                 $process = new Process($command);
                 $process->setTimeout(3600);
                 $process->run();
