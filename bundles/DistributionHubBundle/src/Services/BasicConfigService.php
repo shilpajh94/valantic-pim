@@ -129,16 +129,16 @@ class BasicConfigService
         $asset = null;
         $fileName = basename($file);
 
-        $hyphenPos = strpos($fileName, '-');
+        // $hyphenPos = strpos($fileName, '-');
         // remove the custom random value added in file name
-        if ($hyphenPos !== false) {
-            $fileName = substr($fileName, ($hyphenPos + 1));
-        }
-        $pathinfo = pathinfo($fileName);
+        // if ($hyphenPos !== false) {
+        //     $fileName = substr($fileName, ($hyphenPos + 1));
+        // }
+        // $pathinfo = pathinfo($fileName);
         $parentAsset = $this->bundleService->getAssetFolderForUploadedTemplates();
 
         // add timestamp to the filename while uploading in assets
-        $fileName = $channelName.'-'.$pathinfo['filename'] .'.'. $pathinfo['extension'];
+        // $fileName = $channelName.'-'.$pathinfo['filename'] .'.'. $pathinfo['extension'];
         $fileName = Element\Service::getValidKey($fileName, 'asset');
         if (empty($fileName)) {
             throw new \Exception('The filename of the asset is empty');
