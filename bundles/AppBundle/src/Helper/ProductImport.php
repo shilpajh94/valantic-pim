@@ -245,7 +245,7 @@ class ProductImport
                 try {
                     $this->db->executeQuery($sql);
                 } catch (\Exception $e) {
-                    echo $e->getMessage(); 
+                    echo $e->getMessage();
                 }
             }
         }
@@ -366,17 +366,17 @@ class ProductImport
    $record = $this->db->fetchAllAssociative($sql);
    $this->insertSiopDigitsNot13And16And18DataToLogTable($record);
    $this->deleteSiopCodeDigitsNot13And16And18FromTemp($record);
-  } 
+  }
 
   public function insertSiopDigitsNot13And16And18DataToLogTable($data)
    {
         try {
             $value='';
-        $rowCount = 1;
-        $sql = "INSERT INTO {$this->logTable} (id, siopfullcode, record, statusCode, failedReason, createdAt) VALUES";
-        foreach ($data as $dataValue) {
-            $value .= '("'.$dataValue['id'].'", "'.$dataValue['siopfullcode'].'", "'.addslashes($dataValue['record']).'","'.self::STATUS_CODE.'","Length of SIOP full code is neither 13 nor 16 nor 18","'.time().'"),';
-          // inserting records in batch
+            $rowCount = 1;
+            $sql = "INSERT INTO {$this->logTable} (id, siopfullcode, record, statusCode, failedReason, createdAt) VALUES";
+            foreach ($data as $dataValue) {
+                $value .= '("'.$dataValue['id'].'", "'.$dataValue['siopfullcode'].'", "'.addslashes($dataValue['record']).'","'.self::STATUS_CODE.'","Length of SIOP full code is neither 13 nor 16 nor 18","'.time().'"),';
+            // inserting records in batch
                 if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
                     $query = $sql.rtrim($value, ',');
                     $this->db->executeQuery($query);
@@ -463,5 +463,36 @@ class ProductImport
     public function getObjectsTableData() {
         $query = "SELECT id, `key`, `path` FROM `objects` where type = 'object' AND classId = '1'";
         return $this->db->fetchAllAssociative($query);
+    }
+
+    public function getMrpControllerValueForAllPublishedPlantsMapped($articleNumber){
+
+        $sql = "SELECT object_1.oo_id,
+        object_1.articleNumber,
+        object_12.mrpController
+        from object_1
+        join
+        object_relations_12
+        ON
+        object_1.oo_id = object_relations_12.dest_id
+        JOIN
+        object_12
+        ON
+        object_relations_12.src_id = object_12.oo_id
+        where
+        object_12.published = 1
+        and
+        object_1.published = 1
+        and
+        object_1.articleNumber = $articleNumber
+        ";
+
+        return  $this->db->fetchAllAssociative($sql);
+    }
+
+    public function unpublishProductWhichContainsObsValueInMrpControllerForAllMappedPlants($id){
+
+        $updateQuery = "UPDATE objects set `published` = 0 where `id` = $id";
+        $this->db->executeQuery($updateQuery);
     }
 }

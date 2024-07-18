@@ -164,6 +164,10 @@ services:
         tags:
             - { name: 'console.command', command: 'conti:onetimeimport:update-unit-conversion-attributes-weightKg' }
 
+    ImportBundle\OneTimeImportCommand\InitialLoadForProductsAsPerMRPControllerDataCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:onetimeimport:product-activeness-wrt-plant-mrpControllerData' }
+
     import.asset_import_service:
         class: ImportBundle\Services\Model\AssetImportModel
         public: true
