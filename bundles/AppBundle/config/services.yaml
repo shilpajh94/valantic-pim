@@ -269,8 +269,12 @@ services:
     AppBundle\Services\AppService:
         public: true
 
-    AppBundle\Services\UpdateTemperatureRangeService:
+    AppBundle\Services\UpdateTemperatureFRangeService:
         public: true
+
+    AppBundle\Services\UpdateTemperatureCRangeService:
+        public: true
+
 
     AppBundle\Services\OptionProviderCacheService:
         public: true

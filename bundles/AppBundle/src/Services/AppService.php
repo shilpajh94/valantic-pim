@@ -25,9 +25,9 @@ class AppService
     private $configProviderService;
 
     /**
-     * @var UpdateTemperatureRangeService
+     * @var UpdateTemperatureFRangeService
      */
-    private $updateTemperatureRangeService;
+    private $UpdateTemperatureFRangeService;
 
 
     private $db;
@@ -52,15 +52,18 @@ class AppService
      * AppService constructor.
      * @param UnitConverterService $unitConverterService
      * @param ConfigProviderService $configProviderService
-     * @param UpdateTemperatureRangeService $updateTemperatureRangeService
+     * @param UpdateTemperatureFRangeService $updateTemperatureFRangeService
      */
     public function __construct(UnitConverterService $unitConverterService,
     ConfigProviderService $configProviderService,
-    UpdateTemperatureRangeService $updateTemperatureRangeService)
+    UpdateTemperatureFRangeService $updateTemperatureFRangeService,
+    UpdateTemperatureCRangeService $updateTemperatureCRangeService )
     {
         $this->unitConverterService = $unitConverterService;
         $this->configProviderService = $configProviderService;
-        $this->updateTemperatureRangeService = $updateTemperatureRangeService;
+        $this->updateTemperatureFRangeService = $updateTemperatureFRangeService;
+        $this->updateTemperatureCRangeService = $updateTemperatureCRangeService;
+
         $this->db = \Pimcore\Db::get();
     }
 
@@ -132,7 +135,6 @@ class AppService
      */
     public function updateAttributeGroup($object, string $attributeName, $value)
     {
-        // DataImportLogger::log(json_encode($attributeName));
         if ( (is_numeric($value) || $value === null ) && $this->unitConverterService->isAttributeExistInAttributeToGroupMapCache($attributeName)) {
             $this->unitConverterService->setGroupValueInObjectByAttribute($object, $attributeName, $value);
         }
@@ -150,8 +152,12 @@ class AppService
          * setting temperature range fields
          */
         if( array_key_exists('minimumTemperatureF', $updatedData) || array_key_exists('maximumTemperatureF', $updatedData)){
-            $this->updateTemperatureRangeService->getUpdatedTemperatureData($product, $updatedData);
+            $this->updateTemperatureFRangeService->getUpdatedTemperatureData($product, $updatedData);
         }
+        if( array_key_exists('minimumTemperatureC', $updatedData) || array_key_exists('maximumTemperatureC', $updatedData)){
+            $this->updateTemperatureCRangeService->getUpdatedTemperatureDataC($product, $updatedData);
+        }
+
         
         if($product->getFert()){
             /**
