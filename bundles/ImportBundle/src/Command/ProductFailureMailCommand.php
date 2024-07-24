@@ -39,7 +39,7 @@ class ProductFailureMailCommand extends AbstractCommand {
         if($countchilds > 0){
             foreach ($list as $fileChilds) {
                 $fileName = $fileChilds->getKey();
-                if(preg_match('/PIM_Material_/', $fileName)){
+                if(preg_match('/PIM_Material_/', $fileName) || preg_match('/PIM_MaterialPlant_/', $fileName)){
                     $fileDate = $this->getDateFromFileName($fileName);
 
                     if ($currentDate == $fileDate) {

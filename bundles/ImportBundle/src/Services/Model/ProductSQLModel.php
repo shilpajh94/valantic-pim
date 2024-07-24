@@ -672,7 +672,7 @@ class ProductSQLModel
                                     $sixDigitCode = substr($oldMaterialCode, 0, 6);
                                 }
                                 if (!empty($sixDigitCode) && !empty($this->baseSIOPMapping[$sixDigitCode]) && $this->baseSIOPMapping[$sixDigitCode] != $siopCode) {
-                                    $msg = 'SIOP Code does not match with previous records of same Six digit code. (Article Number: '.$this->baseSIOPArticleMapping[$sixDigitCode].' )';
+                                    $msg = 'All Part numbers under one 6 Digit Code '.$sixDigitCode.' must be under the same SIOP Product Hierarchy.';
                                     $this->baseSiopMismatchLog[$recData['0']] = [
                                         'articleNumber' => $recData['0'],
                                         'siop' => $siopCode,
