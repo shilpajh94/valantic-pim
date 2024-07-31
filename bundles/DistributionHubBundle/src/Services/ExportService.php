@@ -154,7 +154,7 @@ class ExportService
 
         $this->fields = $fields;
         $this->helperDefinition = $helperDefinition;
-        if($headers = 'headerMapping'){
+        if($headers == 'headerMapping'){
             return $fields;
         }
     }
