@@ -130,7 +130,7 @@ class ExportService
      *
      * @param array $columnAttributeMapping
      */
-    public function prepareFieldsAndHelperDefinition(array $columnAttributeMapping)
+    public function prepareFieldsAndHelperDefinition(array $columnAttributeMapping, $headers = null)
     {
         $selectedGridColumnAssoc = $columnAttributeMapping['selectedGridColumns'];
         $templateColumns = $columnAttributeMapping['templateAttribute'];
@@ -154,6 +154,9 @@ class ExportService
 
         $this->fields = $fields;
         $this->helperDefinition = $helperDefinition;
+        if($headers = 'headerMapping'){
+            return $fields;
+        }
     }
 
     /**
