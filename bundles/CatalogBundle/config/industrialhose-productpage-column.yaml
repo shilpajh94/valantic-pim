@@ -9,10 +9,11 @@ parameters:
       hoseLengthFT: '' 
       coverColor: '' 
       workingPressurePSI: '' 
-      workingPressureBAR: '' 
+      workingPressureBAR: ''
+      workingPressureMPA: '' 
       grossWeight: '' 
       weightKg : ''
-    columns: [articleNumber, HoseIDNominalIDFrac, hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, grossWeight, weightKg]
+    columns: [articleNumber, HoseIDNominalIDFrac, hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, workingPressureMPA, grossWeight, weightKg]
   Hose Attribute Table 2:
     widthSetting:
       articleNumber: 60
@@ -24,10 +25,11 @@ parameters:
       coverColor: '' 
       workingPressurePSI: '' 
       workingPressureBAR: '' 
+      workingPressureMPA: '' 
       grossWeight: '' 
       weightKg: '' 
       BendRadiusIN: ''
-    columns: [articleNumber, HoseIDNominalIDFrac, hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, grossWeight, weightKg, BendRadiusIN]
+    columns: [articleNumber, HoseIDNominalIDFrac, hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, workingPressureMPA, grossWeight, weightKg, BendRadiusIN]
   Hose Attribute Table 3:
     widthSetting:
       articleNumber: 60
@@ -39,11 +41,12 @@ parameters:
       coverColor: ''
       workingPressurePSI: ''
       workingPressureBAR: ''
+      workingPressureMPA: '' 
       grossWeight: ''
       weightKg: ''
       BendRadiusIN: ''
       VacuumIN: 50
-    columns: [articleNumber, HoseIDNominalIDFrac, hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, grossWeight, weightKg, BendRadiusIN, VacuumIN]
+    columns: [articleNumber, HoseIDNominalIDFrac, hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, workingPressureMPA, grossWeight, weightKg, BendRadiusIN, VacuumIN]
   Hose Attribute Table 4:
     widthSetting:
       articleNumber: 60
@@ -55,10 +58,11 @@ parameters:
       coverColor: ''
       workingPressurePSI: ''
       workingPressureBAR: ''
+      workingPressureMPA: '' 
       grossWeight: ''
       weightKg: ''
       VacuumIN: ''
-    columns: [articleNumber, HoseIDNominalIDFrac, hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, grossWeight, weightKg, VacuumIN]
+    columns: [articleNumber, HoseIDNominalIDFrac, hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, workingPressureMPA, grossWeight, weightKg, VacuumIN]
   Hose Attribute Table 5:
     widthSetting:
       articleNumber: 60
@@ -70,12 +74,13 @@ parameters:
       coverColor: ''
       workingPressurePSI: ''
       workingPressureBAR: ''
+      workingPressureMPA: '' 
       grossWeight: ''
       weightKg: ''
       BendRadiusIN: ''
       VacuumIN: 50
       tubeGaugeIN: ''
-    columns: [articleNumber, HoseIDNominalIDFrac, hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, grossWeight, weightKg, BendRadiusIN, VacuumIN, tubeGaugeIN]
+    columns: [articleNumber, HoseIDNominalIDFrac, hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, workingPressureMPA, grossWeight, weightKg, BendRadiusIN, VacuumIN, tubeGaugeIN]
   Hose Attribute Table 6:
     widthSetting:
       articleNumber: 60
@@ -87,10 +92,11 @@ parameters:
       coverColor: ''
       workingPressurePSI: ''
       workingPressureBAR: ''
+      workingPressureMPA: '' 
       grossWeight: ''
       weightKg: ''
       tubeGaugeIN: ''
-    columns: [articleNumber, HoseIDNominalIDFrac, hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, grossWeight, weightKg, tubeGaugeIN]
+    columns: [articleNumber, HoseIDNominalIDFrac, hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, workingPressureMPA, grossWeight, weightKg, tubeGaugeIN]
   Hose Attribute Table 7:
     widthSetting:
       articleNumber: 60
@@ -112,12 +118,13 @@ parameters:
       coverColor: ''
       workingPressurePSI: ''
       workingPressureBAR: ''
+      workingPressureMPA: '' 
       grossWeight: ''
       weightKg: ''
       InnerHoseIDFractional: ''
       InnerHoseOdInDec: ''
       InnerHoseWeightLbs: '' 
-    columns: [articleNumber, HoseIDNominalIDFrac,  hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, grossWeight, weightKg, InnerHoseIDFractional, InnerHoseOdInDec, InnerHoseWeightLbs]
+    columns: [articleNumber, HoseIDNominalIDFrac,  hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, workingPressureMPA, grossWeight, weightKg, InnerHoseIDFractional, InnerHoseOdInDec, InnerHoseWeightLbs]
   Hose Attribute Table 9:
     widthSetting:
       articleNumber: 60
@@ -127,9 +134,10 @@ parameters:
       hoseOdmm: ''
       workingPressurePSI: ''
       workingPressureBAR: ''
+      workingPressureMPA: '' 
       grossWeight: ''
       weightKg: ''
-    columns: [articleNumber, HoseIDNominalIDFrac,  hoseIdMM, hoseOdIn, hoseOdmm, workingPressurePSI, workingPressureBAR, grossWeight, weightKg]
+    columns: [articleNumber, HoseIDNominalIDFrac,  hoseIdMM, hoseOdIn, hoseOdmm, workingPressurePSI, workingPressureBAR, workingPressureMPA, grossWeight, weightKg]
   Hose Attribute Table 10:
     widthSetting:
       articleNumber: 60
