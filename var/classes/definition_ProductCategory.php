@@ -27,14 +27,14 @@
  * - image [image]
  */
 
-return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
+return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
    'id' => '2',
    'name' => 'ProductCategory',
    'title' => '',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1717393017,
+   'modificationDate' => 1722578124,
    'userOwner' => 0,
    'userModification' => 2,
    'parentClass' => '\\Pimcore\\Bundle\\EcommerceFrameworkBundle\\Model\\AbstractCategory',
@@ -50,7 +50,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'allowVariants' => false,
    'showVariants' => false,
    'layoutDefinitions' => 
-  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'name' => 'pimcore_root',
      'type' => NULL,
      'region' => NULL,
@@ -64,7 +64,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'children' => 
     array (
       0 => 
-      Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
+      \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
@@ -78,7 +78,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'children' => 
         array (
           0 => 
-          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Basic Data',
              'type' => NULL,
              'region' => '',
@@ -92,7 +92,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'children' => 
             array (
               0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+              \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                  'name' => 'Field Container',
                  'type' => NULL,
                  'region' => NULL,
@@ -106,7 +106,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                      'name' => 'Field Container',
                      'type' => NULL,
                      'region' => NULL,
@@ -120,7 +120,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                          'name' => 'BusinessUnit',
                          'title' => 'BusinessUnit',
                          'tooltip' => '',
@@ -150,18 +150,23 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                             'key' => 'PTG',
                             'value' => 'PTG',
                           ),
+                          2 => 
+                          array (
+                            'key' => 'CS',
+                            'value' => 'CS',
+                          ),
                         ),
                          'defaultValue' => '',
                          'columnLength' => 190,
                          'dynamicOptions' => false,
                          'defaultValueGenerator' => '',
                          'width' => 200,
-                         'optionsProviderType' => NULL,
+                         'optionsProviderType' => 'configure',
                          'optionsProviderClass' => '',
                          'optionsProviderData' => '',
                       )),
                       1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                          'name' => 'Industry',
                          'title' => 'Industry',
                          'tooltip' => '',
@@ -207,7 +212,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'optionsProviderData' => '',
                       )),
                       2 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'Level',
                          'title' => 'Level',
                          'tooltip' => '',
@@ -237,7 +242,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'defaultValueGenerator' => '',
                       )),
                       3 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                          'name' => 'nomenclatureHierarchy',
                          'title' => 'Maintain Nomenclature Hierarchy',
                          'tooltip' => '',
@@ -279,7 +284,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'width' => 200,
                       )),
                       4 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'SortOrder',
                          'title' => 'Sort Order',
                          'tooltip' => 'Attribute to sort this category in industrial hose catalog menu.',
@@ -309,7 +314,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'defaultValueGenerator' => '',
                       )),
                       5 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'ShowInMenu',
                          'title' => 'B2B Show In Menu',
                          'tooltip' => '',
@@ -342,7 +347,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'labelAlign' => 'left',
                   )),
                   1 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                      'name' => 'Field Container',
                      'type' => NULL,
                      'region' => NULL,
@@ -356,7 +361,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'ParentObjectId',
                          'title' => 'Parent Object Id',
                          'tooltip' => '',
@@ -386,7 +391,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'defaultValueGenerator' => '',
                       )),
                       1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'name' => 'ParentCategoryCode',
                          'title' => 'Parent Category Code',
                          'tooltip' => '',
@@ -416,7 +421,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'defaultValueGenerator' => '',
                       )),
                       2 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                          'name' => 'RelatedObjectBrick',
                          'title' => 'Related Classification Name',
                          'tooltip' => '',
@@ -449,7 +454,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'optionsProviderData' => '',
                       )),
                       3 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'name' => 'code',
                          'title' => 'SIOP Code',
                          'tooltip' => '',
@@ -479,7 +484,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'defaultValueGenerator' => '',
                       )),
                       4 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'name' => 'fullCode',
                          'title' => 'SIOP Full Code',
                          'tooltip' => '',
@@ -509,7 +514,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'defaultValueGenerator' => '',
                       )),
                       5 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'CatalogFlag',
                          'title' => 'Catalog Flag',
                          'tooltip' => 'Check to show this category in industrial hose catalog menu.',
@@ -531,7 +536,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'defaultValueGenerator' => '',
                       )),
                       6 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'name' => 'externalID',
                          'title' => 'External ID',
                          'tooltip' => '',
@@ -561,7 +566,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'defaultValueGenerator' => '',
                       )),
                       7 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'name' => 'SalesForce_ID',
                          'title' => 'Salesforce ID',
                          'tooltip' => '',
@@ -613,7 +618,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'labelAlign' => 'left',
               )),
               1 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                  'name' => 'localizedfields',
                  'title' => '',
                  'tooltip' => '',
@@ -634,7 +639,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                      'name' => 'description',
                      'title' => 'Description',
                      'tooltip' => '',
@@ -659,7 +664,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'width' => 300,
                   )),
                   1 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                      'name' => 'PrintedCatalogDescription',
                      'title' => 'Printed Catalog Description',
                      'tooltip' => '',
@@ -684,7 +689,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'width' => 300,
                   )),
                   2 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'ConstructionType',
                      'title' => 'Construction Type',
                      'tooltip' => '',
@@ -714,7 +719,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   3 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                      'name' => 'longDescription',
                      'title' => 'long Description',
                      'tooltip' => '',
@@ -770,7 +775,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelAlign' => 'left',
           )),
           1 => 
-          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Image',
              'type' => NULL,
              'region' => '',
@@ -784,7 +789,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'children' => 
             array (
               0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                  'name' => 'image',
                  'title' => 'Logo',
                  'tooltip' => '',

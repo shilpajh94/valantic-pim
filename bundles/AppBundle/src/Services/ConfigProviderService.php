@@ -32,6 +32,10 @@ class ConfigProviderService
     {
         return $this->getConfigFromYmlFile(CATEGORY_CONFIG_FILE_PATH);
     }
+    public function getCSHierarchyConfig()
+    {
+        return $this->getConfigFromYmlFile(CS_HIERARCHY_CONFIG_FILE_PATH);
+    }
     public function getPlantMaterialConfig()
     {
         return $this->getConfigFromYmlFile(PLANT_MATERIAL_CONFIG_FILE_PATH);
@@ -86,7 +90,7 @@ class ConfigProviderService
     {
         return $this->getConfigFromYmlFile(OPTION_PROVIDER_CACHE_CONFIG_FILE_PATH);
     }
-    
+
     public function getWorkFlowConfig()
     {
         return $this->getConfigFromYmlFile(WORKFLOW_CONFIG_FILE_PATH);
