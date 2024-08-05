@@ -196,32 +196,36 @@ class Common
  */
     public static function updateDataIfDecimalPrecisionExist(Request $request){
         $newData = '';
-        try{
-            $objectClassName= $request->request->get('class');
+        try {
+            $objectClassName = $request->request->get('class');
             $data = json_decode($request->request->get('data'));
-        if (!empty($data)) {
-            $newData = [];
-            foreach ($data as $key => $val) {
-                if ($key == 'id') {                   
-                    $newData[$key] = $val;
-                } else {
-                    if(str_contains($key, '~')){
-                        [$objectBricName,$attributeKey] = explode('~',$key);
-                        $brickDef = DataObject\Objectbrick\Definition::getByKey($objectBricName);
-                        $brickFields = $brickDef->getFieldDefinitions();
-                        if(!empty($brickFields[$attributeKey]->getDecimalPrecision())){
-                            $newData[$key] = (string) $val;
-                        }else{
-                            $newData[$key] = (float) $val;
+            if (!empty($data)) {
+                $newData = [];
+                foreach ($data as $key => $val) {
+                    if ($key == 'id') {
+                        $newData[$key] = $val;
+                    } else {
+                        if (str_contains($key, '~')) {
+                            [$objectBricName, $attributeKey] = explode('~', $key);
+                            $brickDef = DataObject\Objectbrick\Definition::getByKey($objectBricName);
+                            $brickFields = $brickDef->getFieldDefinitions();
+                            if (method_exists($brickFields[$attributeKey], 'getDecimalPrecision') && !empty($brickFields[$attributeKey]->getDecimalPrecision())) {
+                                $newData[$key] = (string) $val;
+                            } else {
+                                if (gettype($val) == 'string') {
+                                    $newData[$key] = (string) $val;
+                                } else {
+
+                                    $newData[$key] = (float) $val;
+                                }
+                            }
+                        } else {
+                            $newData[$key] =  $val;
                         }
-                    }else{
-                    $newData[$key] =  $val;
                     }
                 }
             }
-           
-        }
-        return json_encode($newData);
+            return json_encode($newData);
 
         }catch(Exception $e){
             return $newData;
