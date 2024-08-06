@@ -146,17 +146,85 @@ class Product
                 );
             }
         }
-        // p_r($levels);die;
-
         return array(
             'status'    =>  true,
             'levels'    =>  $levels
         );
     }
 
+    public function getLevelsForCS($code, $reader = array())
+    {
+        $buCode = '05';
+        $bu = 'cs';
+        /* Replace product hierarchy descrioption for level 1 with business unit*/
+        $reader['prodHier1Desc'] = $bu;
+        if (!$this->catHelper->isValideCodeLength($code)) {
+            return array(
+                'status' => false,
+                'message' => 'code "' . $code . '" length is not valid'
+            );
+        }
+        if (!$buCode) {
+            return array(
+                'status' => false,
+                'message' => 'code "' . $code . '" does not belong to any valid category'
+            );
+        }
+        $len = strlen($code);
+        $level = $this->catHelper->getLevelByLength($len);
+        $levels = array();
+        for ($i = $level; $i >= 1; $i--) {
+            $objectKey = empty($reader) ?:( isset($reader[$this->level[$i]['key']]) ? $reader[$this->level[$i]['key']] : NULL);
+            $parentLevel = $this->catHelper->getParentLevel($i);
+            $levelFullCode = $this->catHelper->extractFullCodeLevelWise($i, $code);
+            $parentFullCode = $this->catHelper->extractFullCodeLevelWise(($i - 1), $code);
+            $parentPath = $parentLevel ? $this->getParentPath($parentLevel, $buCode, $reader) : $this->root['fullPath'];
+            $objectPath = $parentPath . '/' . $objectKey; 
+            if($parentLevel){
+                $levels[$i] = array(
+                    'code'          =>  $this->catHelper->extractCodeLevelWise($i, $code),
+                    'parentCode'    =>  $this->catHelper->extractCodeLevelWise($parentLevel, $code),
+                    'fullCode'      =>  $code,
+                    'levelFullCode' =>  $levelFullCode,
+                    'parentFullCode' =>  $parentFullCode,
+                    'level'         =>  $i,
+                    'bu'            =>  $bu,
+                    'objectKey'     =>  $objectKey,
+                    'parentObjectKey'   =>  empty($reader) ?: ((isset($reader[$this->level[$parentLevel]['key']]) && isset($this->level[$parentLevel])) ? $reader[$this->level[$parentLevel]['key']] : NULL),
+                    'objectPath'    =>  $objectPath,
+                    'parentPath'    =>  $parentPath
+                );
+    
+            }else{
+                $levels[$i] = array(
+                    'code'          =>  $this->catHelper->extractCodeLevelWise($i, $code),
+                    'parentCode'    =>  '',
+                    'fullCode'      =>  $code,
+                    'levelFullCode' =>  $levelFullCode,
+                    'parentFullCode' =>  '',
+                    'level'         =>  $i,
+                    'bu'            =>  $bu,
+                    'objectKey'     =>  '',
+                    'parentObjectKey'   => null,
+                    'objectPath'    =>  $objectPath,
+                    'parentPath'    =>  $parentPath
+                );
+            }
+        }
+        return array(
+            'status'    =>  true,
+            'levels'    =>  $levels
+        );
+    }
+
+
     public function getParentPath($lvl, $buCode, $reader)
     {
+        if($buCode == '05'){
+            $bu = 'cs';
+        }else{
         $bu = $this->businessUnit[$buCode];
+        }
         $path = '';
         if ($lvl == 1) {
             $path = '';
@@ -187,35 +255,7 @@ class Product
      * In case of PTG it will create base and skeleton level after creating maximum allowed siop level
      * In case of PTG last 2 level of SIOP will be use as base and skeleton
      */
-    /* public function createCategoryHierarchy($fullCode)
-    {
-        $code = $fullCode;
-        $len = strlen($code);
-        $topLvl = $this->catHelper->getLevelByLength($len);
-        $buCode = $this->catHelper->isValidCategoryFormat($code);
-        $bu = $this->businessUnit[$buCode];
-        $allowedLevel = $this->common->getParameterItem($this->prdConfigData, 'allowedLevel', $bu);
-        if (!empty($allowedLevel) && $allowedLevel < $topLvl) {
-            $code = $this->catHelper->extractFullCodeLevelWise($allowedLevel, $fullCode);
-        }
-        $catObj = $this->catHelper->getObjectByFullCode($code, $bu);
-        if (!empty($catObj)) {
-            $fullPath = $catObj->getFullPath();
-            $extractedPath = $this->extractCategoryPath($fullPath, $bu);
-            $prdCatFullPath = $this->root['fullPath'] . '/' . $extractedPath;
-            $parentObj = DataObject\Service::createFolderByPath($prdCatFullPath);
-            $obj = "";
-            if ($allowedLevel < $topLvl) {
-                for ($l = ($allowedLevel + 1); $l <= $topLvl; $l++) {
-                    $code = $this->catHelper->extractFullCodeLevelWise($l, $fullCode);
-                    $parentObj = $this->createCategoryObjectHierarchy($code, $parentObj, $l, $bu);
-                }                
-            }
-            return $parentObj;
-        }
-        return false;
-    } */
-
+    
     public function createCategoryHierarchy($fullCode)
     {
         /** Loading list of siop code */
