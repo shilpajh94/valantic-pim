@@ -179,7 +179,7 @@ class FailedRecords {
               }
               $abcIndicator =  str_replace(['[', ']'], '', trim(str_replace('"',"",$record[20])));
               $material = trim(str_replace('"',"",$record[1]));
-              $sql = "SELECT sapDescription from object_localized_1_en where articleNumber = $material";
+              $sql = "SELECT sapDescription from object_localized_1_en where articleNumber = '$material'";
               $record = $this->db->fetchAllAssociative($sql);
               $sapDescription = $record ? $record[0]['sapDescription'] : '';
               $row    = [];
