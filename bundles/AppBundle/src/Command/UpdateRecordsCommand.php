@@ -36,8 +36,12 @@ class UpdateRecordsCommand extends AbstractCommand
                 $this->writeInfo("Save data for object :" . $record['SM_id']);
 
                 $PTGEUSalesMaterialObject = PTGEUSalesMaterialMaster::getById($record['SM_id']);
-                $PTGEUSalesMaterialObject->setSalesOrganization($salesOrgObject);
-                $PTGEUSalesMaterialObject->save();
+               
+                if(!empty( $PTGEUSalesMaterialObject) && method_exists( $PTGEUSalesMaterialObject,'setSalesOrganization')){
+                    $PTGEUSalesMaterialObject->setSalesOrganization($salesOrgObject);
+                    $PTGEUSalesMaterialObject->save();
+                }
+              
             }
         } catch (Exception $ex) {
             p_r($ex);
