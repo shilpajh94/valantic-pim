@@ -342,14 +342,16 @@ class DefaultController extends FrontendController
             if ($featuresId != null) {
                 foreach ($featuresId as $id) {
                     $parentObj = DataObject\Features::getById($id);
-                    $icon = $parentObj->getIcon();
-                    $iconS3Path = null;
-                    if ($icon) {
-                        $iconSrc = $icon->getPath() . $icon->getFileName();
-                        $iconS3Path = $this->getS3ImageSrc($iconSrc);
+                    if ($parentObj != null) {
+                        $icon = $parentObj->getIcon();
+                        $iconS3Path = null;
+                        if ($icon) {
+                            $iconSrc = $icon->getPath() . $icon->getFileName();
+                            $iconS3Path = $this->getS3ImageSrc($iconSrc);
+                        }
+                        $featureIcon[] = $iconS3Path;
+                        $features[] = $parentObj->getName();
                     }
-                    $featureIcon[] = $iconS3Path;
-                    $features[] = $parentObj->getName();
                 }
                 $featuresArr = array_combine($features, $featureIcon);
             }
