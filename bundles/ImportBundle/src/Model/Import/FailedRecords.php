@@ -147,7 +147,7 @@ class FailedRecords {
           $columns[] = "Plant";
           $columns[] = "Material";
           $columns[] = "Material Description";
-          $columns[] = "Profit Center";
+          $columns[] = "Plant Profit Center";
           $columns[] = "MRP Controller";
           $columns[] = "Stock Indicator";
           $columns[] = "Stock Indicator Description";
