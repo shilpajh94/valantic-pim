@@ -28,7 +28,7 @@ use Symfony\Component\Console\Output\BufferedOutput;
  */
  
 #[AsCommand(
-    name: 'contitech:Update_Records',
+    name: 'contitech:map_salesorg_with_salesmaterial_for_ptgeu',
     description: 'Command first remove duplicate entry from all classes and  map sales org with sales material',
 )]
 class UpdateRecordsCommand extends AbstractCommand
