@@ -43,6 +43,7 @@ class CSHierarchyService
 
             /* Create parent if it does not exist */
         } catch (\Throwable $th) {
+            p_r($th);
             Logger::error($this->logFileName, $th . ' ------- Trace -' . $th->getTraceAsString());
             die;
         }
@@ -93,6 +94,7 @@ class CSHierarchyService
                 command failed to import $failedCnt out of $totalRow.");
             }
         } catch (\Throwable $th) {
+            p_r($th);
             Logger::error($this->logFileName, $th . ' ------- Trace -' . $th->getTraceAsString());
             die;
         }
@@ -161,6 +163,7 @@ class CSHierarchyService
         $catObj->setLevel($levelInfo['level']);
         $catObj->setCode($levelInfo['code']);
         $catObj->setFullCode($levelInfo['levelFullCode']);
+        $catObj->setShowInMenu(true);
 
         if ($levelInfo['level'] == 1) {
             $parentId = $this->getLevelOneParentId();
@@ -187,7 +190,7 @@ class CSHierarchyService
             $catObj->setPrintedCatalogDescription($this->reader['description'], 'en');
             $catObj->setConstructionType($this->reader['description'], 'en');
         }
-
+        $catObj->setSortOrder($this->reader['sortOrder']);
         $catObj->setRelatedObjectBrick(null);
         $catObj->setPublished(1);
         $catObj->save();
