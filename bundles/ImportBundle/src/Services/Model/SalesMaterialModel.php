@@ -499,7 +499,7 @@ class SalesMaterialModel
                         $level = '';
                         $product = DataObject\Product::getById($objectId);
                         $currentPath = $product->getPath();
-                        $siopLevel3Path = $product->getSIOPLevel3()[0]->getFullpath();
+                        $siopLevel3Path = ($product->getSIOPLevel3()) ? $product->getSIOPLevel3()[0]->getFullpath() : null;
                         $siopProductPath = $this->convertCategoryPathToProduct($siopLevel3Path)."/Quote/";
                         if ($siopProductPath == $currentPath) {
                             $flag = true;
