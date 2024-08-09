@@ -106,7 +106,7 @@ class FailedRecords {
           $columns[] = self::LOG_ID;
           $columns[] = "Id";
           $columns[] = "SAP Material Description";
-          $columns[] = "6 Digit Code";
+          $columns[] = "Old Material Code";
           $columns[] = self::STATUS_CODE;
           $columns[] = self::FAILED_REASON;
           $columns[] = self::CREATED_AT;
@@ -120,12 +120,11 @@ class FailedRecords {
               $record = explode(",",$arr['record']);
               $sapDescription = str_replace('"',"",$record[2]); // if column number changes in the sap file for Material Description then we need to update it here as well.
               $oldMaterialCode = str_replace('"',"",$record[6]); // if column number changes in the sap file for Old Material then we need to update it here as well.
-              $sixDigitCode = substr($oldMaterialCode, 0, 6);
               $row    = [];
               $row[]  = $arr['logId'];
               $row[]  = $arr['id'];
               $row[]  = $sapDescription;
-              $row[]  = $sixDigitCode;
+              $row[]  = $oldMaterialCode;
               $row[]  = $arr['statusCode'];
               $row[]  = $arr['failedReason'];
               $row[]  = $arr['createdAt'];
