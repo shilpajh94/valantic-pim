@@ -93,7 +93,7 @@ class UpdateRecordsCommand extends AbstractCommand
             $records = $this->makeQuery();
             $salesOrgObject = PTGEUSalesOrg::getById(13334232);
             foreach ($records as $record) {
-                $this->writeInfo("Saveing data for object :" . $record['SM_id']);
+                $this->writeInfo("Saving data for object :" . $record['SM_id']);
 
                 $PTGEUSalesMaterialObject = PTGEUSalesMaterialMaster::getById($record['SM_id']);
 
