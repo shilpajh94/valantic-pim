@@ -47,7 +47,7 @@ class RemoveDuplicateEntryFromRelationsCommands extends AbstractCommand
      */
     protected function configure(): void
     {
-        $this->addArgument('tableName',  InputArgument::REQUIRED, 'Id of table or all means all tables');
+        $this->addArgument('tableName',  InputArgument::OPTIONAL, 'Id of table or all means all tables');
     }
 
     /**
@@ -61,7 +61,7 @@ class RemoveDuplicateEntryFromRelationsCommands extends AbstractCommand
     {
 
         try {
-            $tableName = $input->getArgument('tableName');
+            $tableName =empty($input->getArgument('tableName'))?'all': $input->getArgument('tableName');
             if ($tableName == 'all') {
                 $this->writeInfo("Starting process of remove duplicate entry from all classes");
                 $tablesIds = $this->getClassTableId();
@@ -77,7 +77,7 @@ class RemoveDuplicateEntryFromRelationsCommands extends AbstractCommand
                 }
             }
             return self::SUCCESS;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->writeError($e->getMessage());
             return self::FAILURE;
         }

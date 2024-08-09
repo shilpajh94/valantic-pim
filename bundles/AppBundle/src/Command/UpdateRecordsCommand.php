@@ -56,7 +56,7 @@ class UpdateRecordsCommand extends AbstractCommand
             $NeedToRemoveDuplicateEntry = boolval($input->getArgument('NeedToRemoveDuplicateEntry'));
 
             if ($NeedToRemoveDuplicateEntry) {
-                $this->runDublicateEntryCommand($output);
+                $this->runDuplicateEntryCommand($output);
             }
             $this->writeInfo('Start updating Record for PTGEUSalesMaterial SalesOrganization attribute');
             $this->runQuery();
@@ -67,13 +67,13 @@ class UpdateRecordsCommand extends AbstractCommand
         }
     }
     /**
-     * Run Duplicate Entry command 
+     * Run contitech:remove_duplicate_entry_from_relations_table to Duplicate Entry from object_relations_41 
      *
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @author Sandeep Bhardwaj <sandeep@happiestminds.com>
      * @return void
      */
-    function runDublicateEntryCommand(OutputInterface $output): void
+    function runDuplicateEntryCommand(OutputInterface $output): void
     {
 
         $removeDuplicateRelationsCommand = new ArrayInput([
@@ -110,7 +110,7 @@ class UpdateRecordsCommand extends AbstractCommand
     }
 
     /**
-     *  Make SQL query to get sales org attribute from salesMaterial where salesOrganization__id IS NULL AND SM.salesOrganization__type=object
+     *  Make SQL query to get sales org attribute from salesMaterial where salesOrganization__id IS NULL AND salesOrganization__type=object
      * @author Sandeep Bhardwaj <sandeep@happiestminds.com>
      * @return array
      */
