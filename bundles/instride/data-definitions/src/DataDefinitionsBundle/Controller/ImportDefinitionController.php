@@ -550,16 +550,6 @@ class ImportDefinitionController extends AbstractDefinitionController
             $alreadyTakenName =  in_array(strtolower($name), $existname);
         }
 
-        // $configArray = include PIMCORE_PROJECT_ROOT . '/var/config/importdefinitions.php';
-        // p_r($configArray);
-        // die;
-        // foreach ($configArray as $perConfig) {
-        //     $existname[] = strtolower($perConfig['name']);
-        // }
-        // if(is_array($existname)){
-        //     $alreadyTakenName =  in_array(strtolower($name), $existname);
-        // }
-
         if ($alreadyTakenName == true) {
             return $this->viewHandler->handle(['success' => false, 'msg' => $data_definition_config_exists]);
         } else {
@@ -586,7 +576,6 @@ class ImportDefinitionController extends AbstractDefinitionController
     // fucntion to start data definition import
     public function saveDataDefinitionImportAction(Request $request)
     {
-        // echo "sdsdsd"; die;
         $data_definition_already_exists = 'Data definition already exits! Please provide a different name.';
         $data_definition_not_found_relaod_admin = 'Data definition could not be found. Please reload the admin interface.';
         $data_definitions_file_not_uploaded = "Upload csv file in Provider Settings Tab";
@@ -624,16 +613,9 @@ class ImportDefinitionController extends AbstractDefinitionController
                 return $this->viewHandler->handle(['success' => false, 'msg' =>'Please map "To Column" with "From Column"']);
             }
         }
-        // $fullPath           = $asset->getFileSystemPath();
-        // $fullPath = PIMCORE_ASSET_DIRECTORY.$asset->getRealFullPath();
-        // p_r($fullPath);die;
         $fullPath = PIMCORE_PROJECT_ROOT . '/var/tmp/'.$fileName;
-        // p_r($filePath);die;
-
         $importFilePimcoreAssetId   = $asset->getId();
-
         $csvContent         = file_get_contents($fullPath);
-        // $tempFilePath       = PIMCORE_PROJECT_ROOT . '/var/tmp/'.$fileName;
         $fd                 = fopen($fullPath, "w");
         fputs($fd, $csvContent);
 

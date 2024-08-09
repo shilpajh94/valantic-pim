@@ -81,15 +81,8 @@ class CommonHelper
     {
         $asset = null;
         $fileName = basename($file);
-/*
-        $hyphenPos = strpos($fileName, '-');
-        // remove the custom random value added in file name
-        if ($hyphenPos !== false) {
-            $fileName = substr($fileName, ($hyphenPos + 1));
-        } */
         $pathinfo = pathinfo($fileName);
         $parentAsset = self::getDefaultAssetFolderForUploadedFiles();
-        // p_r($pathinfo);die;
 
         // add timestamp to the filename while uploading in assets
         $fileName = $pathinfo['filename'] . '.' . $pathinfo['extension'];
@@ -105,30 +98,11 @@ class CommonHelper
             $asset->setParent($parentAsset);
             $asset->setFilename($fileName);
         }
-
         $asset->setData(file_get_contents($file));
         $asset->save();
 
         return $asset;
     }
-
-    /**
-     * set asset id for uploaded file
-     *
-     */
-    // public function setAssetId($assetId)
-    // {
-    //     $this->assetId = $assetId;
-    // }
-
-    /**
-     * get asset id for uploaded file
-     *
-     */
-    // public function getAssetId()
-    // {
-    //     return isset($this->assetId) ? $this->assetId : "22222";
-    // }
 
     /**
      * get asset folder for exported files
@@ -215,8 +189,7 @@ class CommonHelper
             $config = Utils::getYmlConfig($filePath);
             Cache::save($config, $cacheKey);
         }
-        $returnConfig = $config;
-        return $returnConfig;
+        return $config;
     }
 
 
