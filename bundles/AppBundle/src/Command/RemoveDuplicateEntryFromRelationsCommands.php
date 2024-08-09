@@ -108,6 +108,7 @@ class RemoveDuplicateEntryFromRelationsCommands extends AbstractCommand
             $query = "DESC  $table";
             $this->db->executeQuery($query);
         } catch (Exception $e) {
+            $this->writeInfo("$table Not Found please check again table id that you gives ");
             return false;
         }
         return true;
@@ -139,7 +140,7 @@ class RemoveDuplicateEntryFromRelationsCommands extends AbstractCommand
             GROUP BY src_id, dest_id HAVING count(*)> 1";
 
                 $records = $this->db->fetchAllAssociative($sql);
-
+                $this->writeInfo("Removing duplicate entry from ".count($records)." records ");
                 if (count($records) > 0) {
                     foreach ($records as $eachRecord) {
                         array_push($allRelationIds, $eachRecord['id']);
