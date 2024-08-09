@@ -27,7 +27,7 @@ use Symfony\Component\Console\Input\InputArgument;
 
 #[AsCommand(
     name: 'contitech:remove_duplicate_entry_from_relations_table',
-    description: 'Command  remove duplicate entry from all classes ',
+    description: 'Command  remove duplicate entry from all classes if tableName parameter is `all` or if tableName parameter is `class_id` then it remove duplicate entry from object_relations_class_id table ',
 )]
 class RemoveDuplicateEntryFromRelationsCommands extends AbstractCommand
 {
