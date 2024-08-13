@@ -411,6 +411,7 @@ class DefaultController extends FrontendController
     }
     public function templatePtgEuProductPageAction(Request $request): Response
     {
+        $parameterBag['groupData'] = isset( $groupData)? $groupData:[];
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }

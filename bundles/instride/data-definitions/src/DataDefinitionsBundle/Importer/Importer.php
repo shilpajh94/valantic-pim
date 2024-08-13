@@ -872,7 +872,7 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
                 if ($setter instanceof LoggerAwareInterface) {
                     $setter->setLogger($this->logger);
                 }
-                if(!is_array($value) && (!is_numeric($value)) && empty(trim($value)) && (gettype($value) != 'boolean')){
+                if(!is_array($value) && (!is_numeric($value)) && (gettype($value) != 'boolean') && empty(trim($value))){
                     $value = null;
                 }
                 $setter->set($object, $value, $map, $data);
