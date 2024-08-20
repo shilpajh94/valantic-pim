@@ -1071,6 +1071,9 @@ class DefaultController extends FrontendController
                                         $workingPressureValueArray = explode('.', $element[$headerKeysIndex[$ckey]]);
                                         $element[$headerKeysIndex[$ckey]] = $workingPressureValueArray[0];
                                     }
+                                    elseif($ckey == 'workingPressureMPA'){
+                                        $element[$headerKeysIndex[$ckey]] = round($element[$headerKeysIndex[$ckey]]);
+                                    }
                                     $articlesData[$key][] = $element[$headerKeysIndex[$ckey]];
                                 }
                             }
