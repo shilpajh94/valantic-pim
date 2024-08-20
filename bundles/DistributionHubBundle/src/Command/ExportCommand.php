@@ -260,7 +260,13 @@ class ExportCommand extends Command
         try {
             $writer = Factory::getWriter($this->channel, $this->schedule, $tmpFilePath);
             $columnAttrMapping = json_decode($this->channel->getColumnAttributeMapping(), true);
-            $writer->writeHeaders($columnAttrMapping['templateAttribute']);
+            $headersArray = array();
+
+            $headersNames = $this->exportService->prepareFieldsAndHelperDefinition($columnAttrMapping, 'headerMapping');
+            foreach($headersNames as $headers => $value){
+                array_push($headersArray,$headers);
+            }
+            $writer->writeHeaders($headersArray);
             $writer->postWrite();
         } catch (\Exception $exception) {
             $this->handleProcessFailure($exception->getMessage());
