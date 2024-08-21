@@ -61,6 +61,7 @@
  * - nominalLength [input]
  * - skeleton [objectbricks]
  * - articleNumber [input]
+ * - sapCode [input]
  * - eanUpc [input]
  * - netWeight [numeric]
  * - weightUnit [select]
@@ -129,7 +130,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1718263972,
+   'modificationDate' => 1724236185,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -388,8 +389,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'maxItems' => 10,
                                      'renderType' => 'tags',
                                      'dynamicOptions' => false,
+                                     'defaultValue' => 
+                                    array (
+                                      0 => '1',
+                                    ),
                                      'height' => '',
                                      'width' => 250,
+                                     'defaultValueGenerator' => '',
                                      'optionsProviderType' => NULL,
                                      'optionsProviderClass' => '\\PTGEU\\ProductBundle\\OptionProvider\\PTGEUFeaturesAndBenefitsOptionProvider',
                                      'optionsProviderData' => '',
@@ -871,6 +877,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'permissionEdit' => NULL,
                              'labelWidth' => 250,
                              'labelAlign' => 'left',
+                             'width' => NULL,
+                             'height' => NULL,
                              'fieldDefinitionsCache' => NULL,
                           )),
                           1 => 
@@ -934,6 +942,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'permissionEdit' => NULL,
                              'labelWidth' => 200,
                              'labelAlign' => 'left',
+                             'width' => NULL,
+                             'height' => NULL,
                              'fieldDefinitionsCache' => NULL,
                           )),
                           2 => 
@@ -1062,6 +1072,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'permissionEdit' => NULL,
                              'labelWidth' => 200,
                              'labelAlign' => 'left',
+                             'width' => NULL,
+                             'height' => NULL,
                              'fieldDefinitionsCache' => NULL,
                           )),
                           3 => 
@@ -1155,6 +1167,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'permissionEdit' => NULL,
                              'labelWidth' => 200,
                              'labelAlign' => 'left',
+                             'width' => NULL,
+                             'height' => NULL,
                              'fieldDefinitionsCache' => NULL,
                           )),
                         ),
@@ -1162,6 +1176,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'permissionEdit' => NULL,
                          'labelWidth' => 0,
                          'labelAlign' => 'left',
+                         'width' => NULL,
+                         'height' => NULL,
                          'fieldDefinitionsCache' => NULL,
                       )),
                     ),
@@ -1520,8 +1536,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'maxItems' => 1,
                                  'renderType' => 'tags',
                                  'dynamicOptions' => false,
+                                 'defaultValue' => NULL,
                                  'height' => '',
                                  'width' => 250,
+                                 'defaultValueGenerator' => '',
                                  'optionsProviderType' => NULL,
                                  'optionsProviderClass' => '',
                                  'optionsProviderData' => '',
@@ -1963,6 +1981,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'permissionEdit' => NULL,
                              'labelWidth' => 250,
                              'labelAlign' => 'left',
+                             'width' => NULL,
+                             'height' => NULL,
                              'fieldDefinitionsCache' => NULL,
                           )),
                         ),
@@ -3155,7 +3175,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                               0 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'articleNumber',
-                                 'title' => 'SAP Code / Material Number',
+                                 'title' => 'Part Number',
                                  'tooltip' => '',
                                  'mandatory' => false,
                                  'noteditable' => true,
@@ -3183,6 +3203,36 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               1 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                 'name' => 'sapCode',
+                                 'title' => 'SAP Code / Material Number',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => true,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'defaultValue' => NULL,
+                                 'columnLength' => 190,
+                                 'regex' => '',
+                                 'regexFlags' => 
+                                array (
+                                ),
+                                 'unique' => false,
+                                 'showCharCount' => false,
+                                 'width' => 220,
+                                 'defaultValueGenerator' => '',
+                              )),
+                              2 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'eanUpc',
                                  'title' => 'EAN / UPC',
@@ -3212,7 +3262,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'width' => 220,
                                  'defaultValueGenerator' => '',
                               )),
-                              2 => 
+                              3 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'netWeight',
                                  'title' => 'Net Weight',
@@ -3242,7 +3292,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'width' => 220,
                                  'defaultValueGenerator' => '',
                               )),
-                              3 => 
+                              4 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                                  'name' => 'weightUnit',
                                  'title' => 'Weight Unit',
@@ -3288,7 +3338,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'optionsProviderClass' => '',
                                  'optionsProviderData' => '',
                               )),
-                              4 => 
+                              5 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'listPrice',
                                  'title' => 'List Price',
@@ -3318,7 +3368,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'width' => 220,
                                  'defaultValueGenerator' => '',
                               )),
-                              5 => 
+                              6 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'sapDescriptionLanguage',
                                  'title' => 'SAP Description Language',
@@ -3348,7 +3398,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'width' => 220,
                                  'defaultValueGenerator' => '',
                               )),
-                              6 => 
+                              7 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'manufacturer',
                                  'title' => 'Manufacturer',
@@ -3378,7 +3428,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'width' => 220,
                                  'defaultValueGenerator' => '',
                               )),
-                              7 => 
+                              8 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'manufacturerPartNumber',
                                  'title' => 'Manufacturer Part Number',
@@ -3408,7 +3458,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'width' => 220,
                                  'defaultValueGenerator' => '',
                               )),
-                              8 => 
+                              9 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'materialType',
                                  'title' => 'Material type',
@@ -3438,7 +3488,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'width' => 220,
                                  'defaultValueGenerator' => '',
                               )),
-                              9 => 
+                              10 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                                  'name' => 'vtlStatus',
                                  'title' => 'Status',
@@ -3864,6 +3914,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'permissionEdit' => NULL,
                              'labelWidth' => 200,
                              'labelAlign' => 'left',
+                             'width' => NULL,
+                             'height' => NULL,
                              'fieldDefinitionsCache' => NULL,
                           )),
                         ),
@@ -4428,6 +4480,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'permissionEdit' => NULL,
                              'labelWidth' => 200,
                              'labelAlign' => 'left',
+                             'width' => NULL,
+                             'height' => NULL,
                              'fieldDefinitionsCache' => NULL,
                           )),
                         ),
@@ -6190,6 +6244,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'permissionEdit' => NULL,
                  'labelWidth' => 200,
                  'labelAlign' => 'left',
+                 'width' => NULL,
+                 'height' => NULL,
                  'fieldDefinitionsCache' => NULL,
               )),
             ),

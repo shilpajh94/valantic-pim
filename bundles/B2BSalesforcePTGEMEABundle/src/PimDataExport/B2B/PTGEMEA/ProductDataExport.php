@@ -61,7 +61,7 @@ class ProductDataExport implements IDataExport
                             {
                                 # Product's non localized field
                                 $productNonLocalisedSelectFilteredAttribute = $this->getFilteredAttribute('class', 'PTGEUProduct', false);
-
+                                
                                 # Product's localized field
                                 $productFilteredAttribute = $this->getFilteredAttribute('class', 'PTGEUProduct');
 
@@ -174,6 +174,7 @@ class ProductDataExport implements IDataExport
                                         }
                                         $colorMastersList = $this->getColorMasterList();
                                         $staticConductiveMastersList = $this->getStaticConductiveMasterList();
+                                        $performanceMastersList = $this->getPerformanceMasterList();
                                         foreach($finalPritingList as $key=>$record){
                                             $record =  array_map(function($value) {
                                                 return trim($value,',');
@@ -200,6 +201,14 @@ class ProductDataExport implements IDataExport
                                                         $staticConductiveId = $record[$keyHeader];
                                                         if ($staticConductiveId != 1 && !empty($staticConductiveMastersList) && array_key_exists($staticConductiveId, $staticConductiveMastersList)) {
                                                             $mapping_record[$keyHeaderValue] = $staticConductiveMastersList[$staticConductiveId];
+                                                        } else {
+                                                            $mapping_record[$keyHeaderValue] = null;
+                                                        }
+                                                    }
+                                                    if ($keyHeader == 'performance' && $record[$keyHeader] != null  && is_numeric($record[$keyHeader])) {
+                                                        $performanceId = $record[$keyHeader];
+                                                        if ($performanceId != 1 && !empty($performanceMastersList) && array_key_exists($performanceId, $performanceMastersList)) {
+                                                            $mapping_record[$keyHeaderValue] = $performanceMastersList[$performanceId];
                                                         } else {
                                                             $mapping_record[$keyHeaderValue] = null;
                                                         }
@@ -285,6 +294,21 @@ class ProductDataExport implements IDataExport
         }
 
         return $nameIdInKeyValuePairArray;
+    }
+
+    public function getPerformanceMasterList(){
+        $stmt = "SELECT ooo_id, performance FROM object_localized_data_PTGEUPerformance WHERE language = 'en';";
+        $results = $this->db->fetchAllAssociative($stmt);
+
+        $nameIdInKeyValuePairArray = [];
+        if (isset($results)) {
+            foreach ($results as $eachResult) {
+                $nameIdInKeyValuePairArray[$eachResult['ooo_id']] = $eachResult['performance'];
+            }
+        }
+
+        return $nameIdInKeyValuePairArray;
+
     }
 
     public function getFilteredAttribute($fieldLocation, $className, $isLocalized=true)
