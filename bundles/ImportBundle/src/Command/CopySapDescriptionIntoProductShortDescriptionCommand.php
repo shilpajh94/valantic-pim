@@ -61,11 +61,11 @@ class CopySapDescriptionIntoProductShortDescriptionCommand extends AbstractComma
                         echo ++$i .' - '.$productObj->getArticleNumber();
                         echo PHP_EOL;
                     }
-                }    
+                }
             }catch (\Exception $exception){
                 Logger::error("Exception: " . $exception->getMessage());
             }
         }
-
+        return 1;
     }
 }

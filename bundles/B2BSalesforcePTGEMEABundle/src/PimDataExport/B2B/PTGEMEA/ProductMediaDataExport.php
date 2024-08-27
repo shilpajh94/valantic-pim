@@ -48,7 +48,7 @@ class ProductMediaDataExport implements IDataExport
                 $productMediaDataArray = $this->helper->getAllMediaDataForEachProduct($allB2BProductId, $mediaAttributes);
                 $i = 1;
 
-                echo $message = "{$this->bu}: B2B ptgeu product data csv file created\n";
+                echo $message = "{$this->bu}: B2B ptgeu product media data csv file created\n";
                 echo PHP_EOL;
                 $this->helper->logMessage($message, LogLevel::INFO());
 
@@ -68,7 +68,7 @@ class ProductMediaDataExport implements IDataExport
                     }
                 }
             } else {
-                echo $message = "{$this->bu}: B2B  PTGEU products not found to export";
+                echo $message = "{$this->bu}: B2B PTGEU products not found to export";
                 echo PHP_EOL;
                 $this->helper->logMessage($message, LogLevel::ERROR());
             }
@@ -105,10 +105,9 @@ class ProductMediaDataExport implements IDataExport
                         $displayType = self::B2B_PRODUCT_MEDIUM_IMAGE_DISPLAY_TYPE;
                     }
                     $url = str_replace("Â", "", $url);
+                    $altText = '';
                     if (!empty($asset->getMetadata("title"))) {
                         $altText = $asset->getMetadata("title");
-                    } else {
-                        $altText = strrev(explode('/', strrev($url))[0]);
                     }
                     $assetResultSet['Product2__c'] = '06-' . $articleNumber;
                     $assetResultSet['B2B_Media_Type__c'] = $asset->getType();
@@ -147,11 +146,7 @@ class ProductMediaDataExport implements IDataExport
                 if ($asset->hasProperty('media_type') && $asset->getProperties()['media_type']->getData() != null) {
                     $mediaType = $asset->getProperties()['media_type']->getData();
                 }
-                if (!empty($asset->getMetadata("title"))) {
-                    $altText = $asset->getMetadata("title");
-                } else {
-                    $altText = strrev(explode('/', strrev(Util::getAssetPublicPath($asset)))[0]);
-                }
+                $altText = strrev(explode('/', strrev(Util::getAssetPublicPath($asset)))[0]);
                 $assetResultSet['Product2__c'] = '06-' . $articleNumber;
                 $assetResultSet['B2B_Media_Type__c'] = $mediaType;
                 $assetResultSet['B2B_Display_Type__c'] = '';
