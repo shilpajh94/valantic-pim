@@ -808,7 +808,7 @@ class ImportDefinitionController extends AbstractDefinitionController
                 $fieldType =  $classFieldAttributes->getFieldType();
 
                 if ($fieldType == 'localizedfields') {
-                    foreach ($classFieldAttributes->getChilds() as $obj) {
+                    foreach ($classFieldAttributes->getChildren() as $obj) {
                         $localizedfieldsFields = $obj->getName();
                         $classFields[] = ['name'=>$localizedfieldsFields];
                     }
