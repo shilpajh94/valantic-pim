@@ -105,17 +105,13 @@ class ProductMediaDataExport implements IDataExport
                         $displayType = self::B2B_PRODUCT_MEDIUM_IMAGE_DISPLAY_TYPE;
                     }
                     $url = str_replace("Â", "", $url);
-                    $altText = '';
-                    if (!empty($asset->getMetadata("title"))) {
-                        $altText = $asset->getMetadata("title");
-                    }
                     $assetResultSet['Product2__c'] = '06-' . $articleNumber;
                     $assetResultSet['B2B_Media_Type__c'] = $asset->getType();
                     $assetResultSet['B2B_Display_Type__c'] = $displayType;
                     $assetResultSet['B2B_Media_URL__c'] = $url;
                     $assetResultSet['B2B_Description__c'] = substr($asset->getFilename(), 0, strpos($asset->getFilename(), "."));
                     $assetResultSet['B2B_IsAttachment__c'] = 'False';
-                    $assetResultSet['B2B_Alt_Text__c'] = $altText;
+                    $assetResultSet['B2B_Alt_Text__c'] = '';
                     // $assetResultSet['B2B_External_Id_c__c'] = $articleNumber.'_'.$assetId.'_'.$attributeName;
                     $assetResultSet['B2B_External_Id_c__c'] = $articleNumber . '_' . $this->createExternalId($attributeName, $eachImageType);
                     $assetResultSet['B2B_Sequence__c'] = isset($sequence[$attributeName]) ? $sequence[$attributeName] : '';
