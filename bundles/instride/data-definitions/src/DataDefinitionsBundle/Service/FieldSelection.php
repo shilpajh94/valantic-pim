@@ -94,7 +94,6 @@ class FieldSelection
                                         continue;
                                     }
                                     $resultField1 = $this->getFieldConfiguration($brickField);
-                                    // p_r($resultField1->getIdentifier());
                                     if(stristr($resultField1->getIdentifier(),"unit")!==FALSE){
                                         continue;
                                     }
