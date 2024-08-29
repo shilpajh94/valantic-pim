@@ -262,6 +262,10 @@ services:
         tags:
             - {name: 'console.command', command: 'contitech:workflow:reminder'}
 
+    AppBundle\Command\RemoveIFSNAMasterTableEntryOfNonExistentProductsCommand:
+        tags:
+            - {name: 'console.command', command: 'contitech:remove_ifs_na_master_table_entry_of_non_existent_products'}
+
            
     AppBundle\Services\UnitConverterService:
       public: true
