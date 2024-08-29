@@ -7,6 +7,20 @@ parameters:
             isLocalized: false
             isAsset: false
             level: fert
+        performance:
+            fieldName: performance
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            isAsset: false
+            level: base
+        matchMakerLL:
+            fieldName: matchMakerLL
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            isAsset: false
+            level: fert
         mainImage1:
             fieldName: mainImage1
             fieldLocation: class

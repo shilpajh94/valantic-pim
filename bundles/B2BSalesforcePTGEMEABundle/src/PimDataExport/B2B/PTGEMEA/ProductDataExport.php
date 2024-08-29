@@ -176,6 +176,7 @@ class ProductDataExport implements IDataExport
                                         }
                                         $colorMastersList = $this->getColorMasterList();
                                         $staticConductiveMastersList = $this->getStaticConductiveMasterList();
+                                        $performanceMastersList = $this->getPerformanceMasterList();
                                         foreach ($finalPritingList as $key => $record) {
                                             $record = array_map(function ($value) {
                                                 return trim($value, ',');
@@ -219,9 +220,17 @@ class ProductDataExport implements IDataExport
                                                             $mapping_record[$keyHeaderValue] = null;
                                                         }
                                                     }
-                                                } elseif ($keyHeaderValue == 'B2B_External_Id__c') {
-                                                    $mapping_record[$keyHeaderValue] = '06-' . $articleNumber;
-                                                } elseif ($keyHeaderValue == 'B2B_Part_Number__c') {
+                                                    if ($keyHeader == 'performance' && $record[$keyHeader] != null  && is_numeric($record[$keyHeader])) {
+                                                        $performanceId = $record[$keyHeader];
+                                                        if ($performanceId != 1 && !empty($performanceMastersList) && array_key_exists($performanceId, $performanceMastersList)) {
+                                                            $mapping_record[$keyHeaderValue] = $performanceMastersList[$performanceId];
+                                                        } else {
+                                                            $mapping_record[$keyHeaderValue] = null;
+                                                        }
+                                                    }
+                                                }elseif($keyHeaderValue == 'B2B_External_Id__c'){
+                                                    $mapping_record[$keyHeaderValue] = '06-'.$articleNumber;
+                                                }elseif($keyHeaderValue == 'B2B_Part_Number__c'){
                                                     $mapping_record[$keyHeaderValue] = $articleNumber;
                                                 } elseif ($keyHeaderValue == 'IsActive') {
                                                     $mapping_record[$keyHeaderValue] = 'true';
@@ -303,7 +312,22 @@ class ProductDataExport implements IDataExport
         return $nameIdInKeyValuePairArray;
     }
 
-    public function getFilteredAttribute($fieldLocation, $className, $isLocalized = true)
+    public function getPerformanceMasterList(){
+        $stmt = "SELECT ooo_id, performance FROM object_localized_data_PTGEUPerformance WHERE language = 'en';";
+        $results = $this->db->fetchAllAssociative($stmt);
+
+        $nameIdInKeyValuePairArray = [];
+        if (isset($results)) {
+            foreach ($results as $eachResult) {
+                $nameIdInKeyValuePairArray[$eachResult['ooo_id']] = $eachResult['performance'];
+            }
+        }
+
+        return $nameIdInKeyValuePairArray;
+
+    }
+
+    public function getFilteredAttribute($fieldLocation, $className, $isLocalized=true)
     {
         $filteredAttribute = [];
         if ($this->productAttributeConfig1) {

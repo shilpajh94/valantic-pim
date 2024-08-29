@@ -12,7 +12,7 @@ config:
           ]
         PrimaryKey:
           [
-              "articleNumber"
+              Material: "articleNumber"
           ]
     CBS:
         Class:
@@ -24,7 +24,7 @@ config:
           ]
         PrimaryKey:
           [
-              "Path"
+              Path: "Path"
           ]
     PTG_EU:
         Class:
@@ -39,7 +39,7 @@ config:
           ]
         PrimaryKey:
           [
-              "articleNumber"
+              Material: "articleNumber"
           ]
     IFS_EMEA:
         Class:
@@ -54,6 +54,6 @@ config:
           ]
         PrimaryKey:
           [
-              "materialNumber"
+              Material: "materialNumber"
           ]
 

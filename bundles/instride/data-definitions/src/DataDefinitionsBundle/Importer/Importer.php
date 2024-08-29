@@ -158,7 +158,6 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
     {
         /** @var ImportDataSetInterface|array $data */
         $data = $this->getData($definition, $params);
-
         foreach ($data as $row) {
             $this->bus->dispatch(
                 new ImportRowMessage(
@@ -209,6 +208,7 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
         }
         $dataImport->setTotalRecords($totalRowsWithData);
         $dataImport->save();
+
         list($objectIds, $exceptions, $logResult) =
                         $this->runImport($definition, $params, $totalRowsWithData, $filter, $data);
 
@@ -441,7 +441,6 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
         $logResult      = [];
         $importDataId   = $params['importDataId'];
         $i = 0;
-
         foreach ($dataSet as $row) {
             if($i== 0){
                 $i++;
@@ -450,10 +449,9 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
                 $i++;
                 $failedReason = '';
                 $status = 'Success';
-
+                $row = $this->convertToArray($row);
                 if($definition->getClass() == 'Product'){
                     $primaryKey = $row['Material'];
-
                 }
                 elseif($definition->getClass() == 'PTGEUProduct'){
                     $primaryKey = $row['Material'];
@@ -595,6 +593,35 @@ final class Importer implements ImporterInterface, AsyncImporterInterface
 
         return [$objectIds, $exceptions, $logResult];
     }
+
+    public function convertToArray($array){
+        // Clean the array
+        $cleanedArray = [];
+        foreach ($array as $key => $value) {
+            // Remove BOM from the key --> BOM = '\u{FEFF}'
+            $cleanedKey = $this->removeBOM($key);
+            // Copy the value as is (handling special characters)
+            $cleanedValue = $value;
+
+            // Store cleaned key and value in the new array
+            $cleanedArray[$cleanedKey] = $cleanedValue;
+        }
+
+        // Output the cleaned array
+        return $cleanedArray;
+    }
+
+    // Function to remove BOM from a string
+
+    public function removeBOM($string) {
+        // Check if the string starts with BOM and remove it
+        if (substr($string, 0, 3) === "\xEF\xBB\xBF") {
+            return substr($string, 3);
+        }
+        return $string;
+    }
+
+
     /**
      * @param ImportDefinitionInterface    $definition
      * @param array                        $data

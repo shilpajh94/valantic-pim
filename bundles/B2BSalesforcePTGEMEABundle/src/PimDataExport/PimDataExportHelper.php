@@ -84,13 +84,13 @@ class PimDataExportHelper
         $ids = [];
         if($table)
         {
-            // $sql = "SELECT `id` FROM $table WHERE productType='fert' AND published=1";
             $sql = "SELECT DISTINCT p.id FROM $table p JOIN $salesTable s ON p.id = SUBSTRING(s.Material,2,(LENGTH(s.Material) - 2))
               WHERE p.productType = 'fert' AND p.published = 1 AND s.published = 1 AND s.epixFlag = 1";
             $ids = $db->fetchFirstColumn($sql);
         }
 
         return $ids;
+        
     }
 
     public function getAllB2BCategory($bu)
