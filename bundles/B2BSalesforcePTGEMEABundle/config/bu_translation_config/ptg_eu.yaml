@@ -318,6 +318,12 @@ parameters:
             objectBrickClassName: PTGEUCommonFert
             isLocalized: false
             level: fert
+        nominalLength:
+            fieldName: nominalLength
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            level: skeleton
     Category: 
         description:
             fieldName: description

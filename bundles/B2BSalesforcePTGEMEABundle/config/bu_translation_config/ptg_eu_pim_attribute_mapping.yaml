@@ -32,6 +32,7 @@ parameters:
         toothPitchPtMM: B2B_PitchMm__c
         widthIN: B2B_WidthIn__c
         widthMM: B2B_WidthMm__c
+        nominalLength: B2B_Nominal_Length__c
         RecordTypeId: RecordTypeId
         matchMakerLL: B2B_Match_Maker_L_L_c 
         performance: B2B_Performance_c
