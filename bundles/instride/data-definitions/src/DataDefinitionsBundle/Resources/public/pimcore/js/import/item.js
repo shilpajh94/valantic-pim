@@ -105,7 +105,7 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                     rootProperty: 'data.primaryKeyData'
                 }
             },
-            fields: ["name"],
+            fields: ["displayName", "name"],
 
             sorters: [{
                 property: 'name',
@@ -272,7 +272,7 @@ pimcore.plugin.datadefinitions.import.item = Class.create(pimcore.plugin.datadef
                     blankText: 'Field is required',
                     forceSelection: true,
                     msgTarget: 'under',
-                    displayField: 'name',
+                    displayField: 'displayName',
                     valueField: 'name',
                     width: 500,
                     labelWidth: 200,

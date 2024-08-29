@@ -405,12 +405,13 @@ class ImportDefinitionController extends AbstractDefinitionController
 
         $primaryKeyData = [];
         $primaryKeyConfigData = array_key_exists($className, $arrPrimaryKey) ? $arrPrimaryKey[$className] : [];
+
         foreach ($primaryKeyConfigData as $primaryKey) {
             $fieldArrayTemp = array();
-            $fieldArrayTemp['name'] = $primaryKey;
+            $fieldArrayTemp['name'] = implode(array_values($primaryKey));
+            $fieldArrayTemp['displayName'] = implode(array_keys($primaryKey));
             $primaryKeyData[] = $fieldArrayTemp;
         }
-
         $data = ['primaryKeyData' => $primaryKeyData, 'importLevelData' => $importLevelData];
         return $this->json(["data" => $data]);
     }
