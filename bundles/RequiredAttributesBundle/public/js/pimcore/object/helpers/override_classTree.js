@@ -131,7 +131,7 @@ Ext.override(pimcore.object.helpers.classTree,{
             success: this.initLayoutFields.bind(this, tree)
         });
 
-        filterField.on("keyup", this.updateFilter.bind(this, tree, filterField));
+       // filterField.on("keyup", this.updateFilter.bind(this, tree, filterField));
         filterButton.on("click", this.updateFilter.bind(this, tree, filterField));
 
         return tree;
