@@ -213,7 +213,7 @@ class CustomTranslationController extends \Pimcore\Bundle\AdminBundle\Controller
      *
      * @return Response
      */
-    public function exportAction(Request $request):JsonResponse
+    public function exportAction(Request $request):Response
     {
         $domain = $request->get('domain', Translation::DOMAIN_DEFAULT);
         $admin = $domain == Translation::DOMAIN_ADMIN;
