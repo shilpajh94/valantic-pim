@@ -189,6 +189,11 @@ class PlantMaterialService
 
             $timediff = $time->diff(new \DateTime());
             echo $timediff->format('Total script time: %h hour %i minute %s second').PHP_EOL;
+            $failedrecords = $this->tableImportHelper->getFailedRecordFromLogTable();
+            if(count( $failedrecords)>0){
+                $this->tableImportHelper->deleteFailedRecordsFromMaster($failedrecords);
+                echo "Total ".count( $failedrecords)." faild record removed from master table".PHP_EOL;
+            }
             \Pimcore::collectGarbage();
             \AppBundle\Helper\Common::endablePimCache();
 

@@ -10,6 +10,7 @@ use Pimcore\Model\DataObject;
 use ImportBundle\Services\ImportConstants;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Pimcore\Db;
 
 class Common
 {
@@ -229,6 +230,40 @@ class Common
 
         }catch(Exception $e){
             return $newData;
+
+    /**
+     * Get failed records from Log table
+     * @param string   $logTable  name of log table
+     * @param string   $masterTable  name of master table
+     * @param string   $statusColumn  status column name in log table
+     * @param int|null   $logCreatedAt  timestamp when log of current script created
+     * @author Sandeep Bhardwaj <sandeep@happiestminds.com>
+     * @return array
+     */
+    public static function getFailedRecordFromLogTable(string $logTable,string $masterTable, string $statusColumn , int|null $logCreatedAt=null): array
+    {
+
+        $failedIds = [];
+        try {
+            $db = Db::get();
+            $failedLogRecordQuery = "SELECT DISTINCT log.id FROM {$logTable} AS log INNER JOIN {$masterTable} AS m ON  log.id = m.id
+                                        WHERE log.{$statusColumn} = ?";
+                                       
+            $prms =['failed'];
+            if(!empty($logCreatedAt)){
+                $failedLogRecordQuery.= " AND  log.createdAt = ? ";
+                $prms= [...$prms,$logCreatedAt];
+            }
+            $failedLogRecordResult = $db->fetchAllAssociative($failedLogRecordQuery, $prms);
+          
+            if (count($failedLogRecordResult) > 0) {
+                $failedIds = array_column($failedLogRecordResult, 'id');
+            }
+            return $failedIds;
+        } catch (Exception $e) {
+
+            echo $e->getMessage();
+            return $failedIds;
         }
     }
 }

@@ -80,6 +80,11 @@ class SalesMaterialService
 
         $this->importStart($excelDataNewArray, $time, $plantFolderId,
          $salesOrganizationsFolderId, $distributionChannelFolderId, $countryOfOriginFolderId);
+         $failedRecords =$this->tableImportHelper->getFailedRecordFromLogTable();
+         if(count( $failedRecords)>0){
+             $this->tableImportHelper->deleteFailedRecordsFromMaster($failedRecords);
+             echo "Total ".count( $failedRecords)." faild record removed from master table".PHP_EOL;
+         }
          \AppBundle\Helper\Common::endablePimCache();
     }
 

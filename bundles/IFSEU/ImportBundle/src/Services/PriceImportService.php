@@ -19,10 +19,12 @@ class PriceImportService {
         private $queryTableNewData;
         private $storeTableNewData;
         private $container;
+        private $time;
         public function __construct(ContainerInterface $container)
         {
             $this->container = $container;
             $this->priceModel       = new PriceModel;
+            $this->time = time();
         }
         
         public function import()
@@ -85,6 +87,12 @@ class PriceImportService {
             }
             \Pimcore\Cache::clearAll();
             $this->priceModel->updateMasterTable();
+            $failedRecords =$this->priceModel->getFailedRecordFromLogTable( $this->time);
+            if(count( $failedRecords)>0){
+                $this->priceModel->deleteFailedRecordsFromMaster($failedRecords);
+                echo "Total ".count( $failedRecords)." faild record removed from master table".PHP_EOL;
+            }
+
             \AppBundle\Helper\Common::endablePimCache();
         }
      
@@ -107,7 +115,7 @@ class PriceImportService {
                     'record' => isset($record['record']) ? $record['record'] : '',
                     'status' => $status,
                     'reason' => $msg,
-                    'createdAt' => time()
+                    'createdAt' => $this->time
                 ];
             }
             $this->insertDataInDB();

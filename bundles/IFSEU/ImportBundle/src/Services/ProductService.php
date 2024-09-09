@@ -153,11 +153,15 @@ class ProductService
                     $this->saveProducts($this->updatedArticlesArray);
                     echo "Object Saving completed for completeness.".PHP_EOL;
                 }
-    
                 if (!empty($this->baseSiopMismatchLog) && count($this->baseSiopMismatchLog)>0) {
                     $this->productModel->removeArticlesFromMaster($this->baseSiopMismatchLog);
                     Logger::log(self::LOGGER_MODULE)->info("failed records removed from master table.");
                     // $this->sendSkippedArticlesEmailNotification($this->baseSiopMismatchLog, $this->baseSiopMismatchEmailTemplate);
+                }
+                $failedRecords =$this->productModel->getFailedRecordFromLogTable();
+                if(count( $failedRecords)>0){
+                    $this->productModel->deleteFailedRecordsFromMaster($failedRecords);
+                    echo "Total ".count( $failedRecords)." faild record removed from master table".PHP_EOL;
                 }
             } catch (\Throwable $th) {
                 p_r($th);

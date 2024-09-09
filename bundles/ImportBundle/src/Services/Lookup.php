@@ -98,7 +98,7 @@ $this->filePath = '/home/susmita.mallick@happiestminds.com/Downloads/PIM_with-CS
 
         } catch (Throwable $th) {
             echo $message = $th->getMessage();
-            if($this->monitoringItem->id){
+            if(isset($this->monitoringItem->id)){
                 $this->monitoringItem->setMessage($message)->save();
                 $this->monitoringItem->setStatus($this->monitoringItem::STATUS_FAILED)->save();
             }
@@ -184,7 +184,7 @@ $this->filePath = '/home/susmita.mallick@happiestminds.com/Downloads/PIM_with-CS
             }
         } catch (Throwable $th) {
             $message = $th->getMessage();
-            if($this->monitoringItem->id){
+            if(isset($this->monitoringItem->id)){
                 $this->monitoringItem->setMessage($message)->save();
                 $this->monitoringItem->setStatus($this->monitoringItem::STATUS_FAILED)->save();
             }

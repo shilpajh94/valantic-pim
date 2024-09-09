@@ -4,6 +4,7 @@ namespace IFSEU\ImportBundle\Model;
 
 use Pimcore\Db;
 use IFSEU\ImportBundle\Services\ImportConstants;
+use AppBundle\Helper\Common;
 
 class PlantMaterialModel
 {
@@ -11,6 +12,7 @@ class PlantMaterialModel
     private $masterTable;
     private $logTable;
     private $db;
+    private $time;
 
     /**
      * Getting DB connection object
@@ -21,6 +23,7 @@ class PlantMaterialModel
         $this->tempTable = 'ifseu_material_plant_import_temp';
         $this->masterTable = 'ifseu_material_plant_import_master';
         $this->logTable = 'ifseu_material_plant_import_log';
+        $this->time = time();
     }
 
     public function insertIntoMaterialTable($dataArray, $tableName) {
@@ -236,7 +239,7 @@ class PlantMaterialModel
             $sql = "INSERT INTO {$this->logTable} (id, record, statusCode, failedReason, createdAt) VALUES";
             $values = '';
             foreach ($data as $dataValue) {
-                $values .= '("'.$dataValue['id'].'", "'.addslashes($dataValue['record']).'", "'.$dataValue['statusCode'].'","'.$dataValue['failedReason'].'","'.time().'"),';
+                $values .= '("'.$dataValue['id'].'", "'.addslashes($dataValue['record']).'", "'.$dataValue['statusCode'].'","'.$dataValue['failedReason'].'","'. $this->time.'"),';
                 // inserting records in batch
                 if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
                     $query = $sql.rtrim($values, ',');
@@ -286,4 +289,15 @@ class PlantMaterialModel
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
         $this->db->executeQuery($query);
     }
+
+    /**
+     * Get failed records from ifseu_material_plant_import_log table
+     * @author Sandeep Bhardwaj <sandeep@happiestminds.com>
+     * @return array
+     */ 
+    public function getFailedRecordFromLogTable():array{
+        return Common::getFailedRecordFromLogTable($this->logTable,$this->masterTable,'statusCode', $this->time);
+       
+    }
+
 }

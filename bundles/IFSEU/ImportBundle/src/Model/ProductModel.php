@@ -6,7 +6,7 @@ use Pimcore\Db;
 use Pimcore\Model\DataObject;
 use IFSEU\ImportBundle\Services\ImportConstants;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-
+use AppBundle\Helper\Common;
 class ProductModel
 {
     private $tempTable;
@@ -18,6 +18,7 @@ class ProductModel
     private $container;
     private $db;
     private $common;
+    private $time;
 
     /**
      * Getting DB connection object
@@ -28,6 +29,7 @@ class ProductModel
         $this->db = Db::get();
         $this->common = $this->container->get('ifs_eu_import.common_helper');
         $this->createImportTables();
+        $this->time = time();
     }
 
     /**
@@ -297,7 +299,7 @@ class ProductModel
             $sql        = "INSERT INTO {$this->logTable} (id, siopfullcode, record, statusCode, failedReason, createdAt) VALUES";
             $values     = '';
             foreach ($data as $dataValue) {
-                $values .= '("'.$dataValue['id'].'", "'.$dataValue['siopfullcode'].'", "'.addslashes($dataValue['record']).'", "'.$dataValue['statusCode'].'","'.$dataValue['failedReason'].'","'.time().'"),';
+                $values .= '("'.$dataValue['id'].'", "'.$dataValue['siopfullcode'].'", "'.addslashes($dataValue['record']).'", "'.$dataValue['statusCode'].'","'.$dataValue['failedReason'].'","'. $this->time.'"),';
                 // inserting records in batch
                 if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
                     $query = $sql.rtrim($values, ',');
@@ -505,5 +507,13 @@ class ProductModel
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
              $this->db->executeQuery($query);
         }
+    }
+        /**
+     * Get failed records from ifseu_material_list_price_import_log table
+     * @author Sandeep Bhardwaj <sandeep@happiestminds.com>
+     * @return array
+     */ 
+    public function getFailedRecordFromLogTable():array{
+        return Common::getFailedRecordFromLogTable($this->logTable,$this->masterTable,'statusCode',  $this->time);       
     }
 }
