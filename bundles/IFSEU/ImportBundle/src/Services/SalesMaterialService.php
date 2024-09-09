@@ -29,7 +29,6 @@ class SalesMaterialService
     private $materialArray = array();
     private $plantArray = array();
     private $salesOrgArray = array();
-    private $countryOfOriginArray = array();
     private $distributionChannelArray = array();
     private $productUpdateArray = array();
     private $failedIDs = [];
@@ -146,24 +145,15 @@ class SalesMaterialService
                     echo $timediff4->format("Total {$deltaCount} replaced in master table takes %h hour %i minute %s second").PHP_EOL;
 
                     $this->tableImportHelper->deleteFailedRecordsFromMaster($this->failedIDs);
-
+                    $failedRecords =  $this->tableImportHelper->getFailedRecordFromLogTable();
+                    if(count( $failedRecords)>0){
+                        $this->tableImportHelper->deleteFailedRecordsFromMaster($failedRecords);
+                        echo $timediff4->format("Total ".count( $failedRecords)." failed records removed from  master table takes %h hour %i minute %s second").PHP_EOL;
+                    }
                 } else {
                     $applicationLogMessage = "IFSEU Sales - The uploaded file has wrong headers.";
                     $this->importProcessEmailNotificationObj->sendMailNotification($applicationLogMessage);
                 }
-                
-                $time4 = new \DateTime();
-                $this->tableImportHelper->updateMaster();
-                $timediff4 = $time4->diff(new \DateTime());
-                echo $timediff4->format("Total {$deltaCount} replaced in master table takes %h hour %i minute %s second").PHP_EOL;
-                
-                $this->tableImportHelper->deleteFailedRecordsFromMaster($this->failedIDs);
-               $failedRecords =  $this->tableImportHelper->getFailedRecordFromLogTable();
-               if(count( $failedRecords)>0){
-                $this->tableImportHelper->deleteFailedRecordsFromMaster($failedRecords);
-                echo $timediff4->format("Total ".count( $failedRecords)." failed records removed from  master table takes %h hour %i minute %s second").PHP_EOL;
-            }
-                
             } else {
                 $applicationLogMessage = "IFSEU Sales - No record found in file.";
                 $this->importProcessEmailNotificationObj->sendMailNotification($applicationLogMessage);
@@ -171,23 +161,31 @@ class SalesMaterialService
 
             echo $applicationLogMessage;
 
+            echo $applicationLogMessage;
         } catch (\Throwable $th) {
             p_r($th->getMessage());
         }
 
         $timediff = $time->diff(new \DateTime());
-        echo $timediff->format('Total script time: %h hour %i minute %s second').PHP_EOL;
+        echo $timediff->format('Total script time: %h hour %i minute %s second') . PHP_EOL;
         \Pimcore::collectGarbage();
     }
 
-    public function countDelta($deltaCount, $excelDataNewArray, $plantFolderId, $salesOrganizationsFolderId, $distributionChannelFolderId, $countryOfOriginFolderId) {
+    public function countDelta(
+        $deltaCount,
+        $excelDataNewArray,
+        $plantFolderId,
+        $salesOrganizationsFolderId,
+        $distributionChannelFolderId,
+        $countryOfOriginFolderId
+    ) {
 
         $j = 1;
         $i = 0;
         $applicationLogMessage = '';
         $length = ImportConstants::IMPORT_BATCH_SIZE;
-        while ($i<$deltaCount) {
-            $diff = $deltaCount-$i;
+        while ($i < $deltaCount) {
+            $diff = $deltaCount - $i;
             if ($diff < $length) {
                 $length = $diff;
             }
@@ -203,14 +201,15 @@ class SalesMaterialService
             gc_collect_cycles();
             $j++;
         }
-        $countMsg = "\nTotal Processed Records:".$deltaCount.", ";
-        $countMsg .= "\nSuccess Records:".$this->successCount.", ";
-        $countMsg .= "\nFailed Records:".$this->failedCount.", ";
-        $countMsg .= "\nCreated Records:".$this->createdCount.", ";
-        $countMsg .= "\nUpdated Records:".$this->updatedCount."\n";
+        $countMsg = "\nTotal Processed Records:" . $deltaCount . ", ";
+        $countMsg .= "\nSuccess Records:" . $this->successCount . ", ";
+        $countMsg .= "\nFailed Records:" . $this->failedCount . ", ";
+        $countMsg .= "\nCreated Records:" . $this->createdCount . ", ";
+        $countMsg .= "\nUpdated Records:" . $this->updatedCount . "\n";
 
         if ($this->failedCount > 0) {
-            $applicationLogMessage = "Sales material command failed to import {$this->failedCount} Record(s) out of {$deltaCount} Record(s)";
+            $applicationLogMessage = "Sales material command failed to import {$this->failedCount} Record(s)
+             out of {$deltaCount} Record(s)";
         } else {
             $applicationLogMessage = "Sales Material Master Imported successfully.";
         }
@@ -219,17 +218,19 @@ class SalesMaterialService
         return $applicationLogMessage;
     }
 
-    private function processRowData($objectMaterial, $materialFolderId, $salesMaterialKey, $material) {
+    private function processRowData($objectMaterial, $materialFolderId, $salesMaterialKey, $material)
+    {
         $createdOrUpdated = 'Updated';
         if(!$objectMaterial){
             $createdOrUpdated = 'Created';
             $objectArr = [
                 'parentId' => $materialFolderId,
                 'key' => $salesMaterialKey,
-                'path' => "/".ImportConstants::IFSEU_MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER."/".$material."/",
+                'path' =>
+                "/" . ImportConstants::IFSEU_MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER . "/" . $material . "/",
             ];
             $this->createdCount++;
-        }else{
+        } else {
             $objectArr = [
                 'parentId' => $objectMaterial['parentId'],
                 'key' => $objectMaterial['key'],
@@ -273,7 +274,7 @@ class SalesMaterialService
         foreach ($data as $rowCount => $rowvalueRecord) {
 
             $rowvalue = json_decode($rowvalueRecord['record']);
-            if($rowvalue == null){
+            if ($rowvalue == null) {
                 continue;
             }
             $rowvalue = array_combine($this->fileColumns, $rowvalue);
@@ -309,31 +310,38 @@ class SalesMaterialService
                         $materialId = $this->materialArray[$material];
                     }
 
-                    if(!empty($this->materialArray[$material])) {
+                    if (!empty($this->materialArray[$material])) {
                         $materialObjId = $this->materialArray[$material];
 
                         $salesMaterialKey = $material.'-'.$salesOrg.'-'.$distributionChannel;
 
-                        $materialFolderId= DataObject\Service::createFolderByPath(ImportConstants::IFSEU_MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER."/".$material)->getId();
-                        $query = "SELECT oo_id, parentId, `key`, path FROM `object_IFSEUSalesMaterialMaster` WHERE `parentId` = '{$materialFolderId}' AND `key` LIKE '%{$salesMaterialKey}%' limit 1";
+                        $materialFolderId = DataObject\Service::createFolderByPath(
+                            ImportConstants::IFSEU_MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER . "/" . $material
+                        )->getId();
+                        $query = "SELECT oo_id, parentId, `key`, path FROM `object_IFSEUSalesMaterialMaster`
+                        WHERE `parentId` = '{$materialFolderId}' AND `key` LIKE '%{$salesMaterialKey}%' limit 1";
                         $objectMaterial = $this->db->fetchAssociative($query);
 
                         if(!empty(trim($plantName)) && !isset($this->plantArray[$plantName])) {
                             $plantId = $this->getPlantObject($plantName, $plantFolderId);
-                            if($plantId) {
+                            if ($plantId) {
                                 $this->plantArray[$plantName] = $plantId;
                             }
                         }
                         $plantObjId = '';
-                        if(isset($this->plantArray[$plantName])) {
+                        if (isset($this->plantArray[$plantName])) {
                             $plantObjId = $this->plantArray[$plantName];
                         }
 
                         if(!isset($this->salesOrgArray[$salesOrg])) {
                             $salesOrgDesc = $rowvalue[$columnSalesOrgDesc];
 
-                            $salesOrgId = $this->getSalesOrgObject($salesOrg, $salesOrgDesc, $salesOrganizationsFolderId);
-                            if($salesOrgId) {
+                            $salesOrgId = $this->getSalesOrgObject(
+                                $salesOrg,
+                                $salesOrgDesc,
+                                $salesOrganizationsFolderId
+                            );
+                            if ($salesOrgId) {
                                 $this->salesOrgArray[$salesOrg] = $salesOrgId;
                             }
                         }
@@ -367,7 +375,8 @@ class SalesMaterialService
 
                         $this->productUpdateArray[$materialId] = $material;
 
-                        $queryTableDataArray[] = ['oo_id' => $objId,
+                        $queryTableDataArray[] = [
+                            'oo_id' => $objId,
                             'oo_classId' => 'IFSEUSalesMaterialMaster',
                             'oo_className' => 'IFSEUSalesMaterialMaster',
                             'SalesOrganization__id' => $salesOrgCode,
@@ -380,7 +389,7 @@ class SalesMaterialService
                             'epixFlag' => (strtoupper(trim($epixFlag)) == 'X') ? 1 : -1,
                             'pricePageFlag' => (strtoupper(trim($pricePageFlag)) == 'X') ? 1 : -1,
                             'privateBrand' => $privateOrGenericBrand,
-                            'Material' => ",".$materialObjId.",",
+                            'Material' => "," . $materialObjId . ",",
                             'deletedFlagAtDistributionChainLevel' => $distChainStatus,
                             'MaterialGroup1' => $materialGroup1,
                             'MaterialGroup2' => $materialGroup2,
@@ -428,17 +437,17 @@ class SalesMaterialService
                 catch (\Exception $e) {
                     p_r($e);
                     /* return error massage if any exception found */
-                    $errorsData[] = "Sales Material Code: ".$salesMaterialKey. " - ".$e->getMessage();
+                    $errorsData[] = "Sales Material Code: " . $salesMaterialKey . " - " . $e->getMessage();
                 }
             }
             $statusCode = '';
-            if(isset($errorsData['SUCCESS'])) {
+            if (isset($errorsData['SUCCESS'])) {
                 $createdUpdatedCount++;
                 $this->successCount++;
-                $errorsString = "SUCCESS: ".$errorsData['SUCCESS'];
+                $errorsString = "SUCCESS: " . $errorsData['SUCCESS'];
                 $statusCode = 'SUCCESS';
                 $data[$rowCount]['failedReason'] = '';
-            } else if(count($errorsData)) {
+            } elseif (count($errorsData)) {
                 $errorsString = "FAILED: ";
                 $allErrorsInString = implode(' ', $errorsData);
                 $errorsString .= $allErrorsInString;
@@ -450,7 +459,12 @@ class SalesMaterialService
             $data[$rowCount]['statusCode'] = $statusCode;
         }
 
-        $this->insertDataInDB($queryTableDataArray, $storeTableDataArray, $relationTableDataArray, $dependencyTableDataArray);
+        $this->insertDataInDB(
+            $queryTableDataArray,
+            $storeTableDataArray,
+            $relationTableDataArray,
+            $dependencyTableDataArray
+        );
 
         $timediff2 = $time2->diff(new \DateTime());
         echo $timediff2->format("{$createdUpdatedCount} Object created out of {$dataCount} records in %h hour %i minute %s second").PHP_EOL;
@@ -458,7 +472,8 @@ class SalesMaterialService
         $time3 = new \DateTime();
         $this->tableImportHelper->insertDataToLogTable($data);
         $timediff3 = $time3->diff(new \DateTime());
-        echo $timediff3->format("Total {$dataCount} records inserted in log table takes %h hour %i minute %s second").PHP_EOL;
+        echo $timediff3->format("Total {$dataCount} records inserted in log table takes %h hour
+         %i minute %s second") . PHP_EOL;
 
         echo "Unset the temporary variable ...".PHP_EOL;
         unset($queryTableDataArray, $storeTableDataArray, $relationTableDataArray, $dependencyTableDataArray, $data);
@@ -469,44 +484,52 @@ class SalesMaterialService
         if(count($queryTableDataArray)) {
             $this->tableImportHelper->insertIntoSalesTable($queryTableDataArray, 'object_query_IFSEUSalesMaterialMaster');
         }
-        if(count($storeTableDataArray)) {
-            $this->tableImportHelper->insertIntoSalesTable($storeTableDataArray, 'object_store_IFSEUSalesMaterialMaster');
+        if (count($storeTableDataArray)) {
+            $this->tableImportHelper->insertIntoSalesTable(
+                $storeTableDataArray,
+                'object_store_IFSEUSalesMaterialMaster'
+            );
         }
         if(count($relationTableDataArray))  {
-            // $this->tableImportHelper->insertIntoSalesTable($relationTableDataArray, 'object_relations_IFSEUSalesMaterialMaster');
             $this->tableImportHelper->insertDataInRelationalTable($relationTableDataArray, 'object_relations_IFSEUSalesMaterialMaster');
 
         }
-        if(count($dependencyTableDataArray)) {
+        if (count($dependencyTableDataArray)) {
             $this->tableImportHelper->insertIntoSalesTable($dependencyTableDataArray, 'dependencies');
         }
     }
 
-    public function processDeletedRecords($deletedRecords) {
+    public function processDeletedRecords($deletedRecords)
+    {
         $deleteCount = 0;
-        if(count($deletedRecords) > 0) {
+        if (count($deletedRecords) > 0) {
             foreach ($deletedRecords as $key => $value) {
-                $keyArray = explode('$',$value['id']);
+                $keyArray = explode('$', $value['id']);
                 $material = $keyArray[0];
-                $key = str_replace('$','-',$value['id']);
-                $objDelete = DataObject\IFSEUSalesMaterialMaster::getByPath("/".ImportConstants::IFSEU_MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER."/".$material."/".$key);
+                $key = str_replace('$', '-', $value['id']);
+                $objDelete = DataObject\IFSEUSalesMaterialMaster::getByPath(
+                    "/" . ImportConstants::IFSEU_MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER . "/" .
+                        $material . "/" . $key
+                );
 
-                if($objDelete) {
+                if ($objDelete) {
                     $deleteCount++;
                     $objDelete->setDeletedFlagAtSalesLevel(1);
                     $objDelete->setPublished(false);
                     $objDelete->save();
                 }
             }
-        echo "Delete flag updated for {$deleteCount} objects in system.".PHP_EOL;
+            echo "Delete flag updated for {$deleteCount} objects in system." . PHP_EOL;
         }
     }
 
     /**
      * return material object or false
      */
-    public function getMaterialObject($MaterialKey) {
-        $query = "SELECT oo_id, `key`, path FROM `object_IFSEUProduct` WHERE `materialNumber` LIKE '%{$MaterialKey}%' limit 1";
+    public function getMaterialObject($materialKey)
+    {
+        $query = "SELECT oo_id, `key`, path FROM `object_IFSEUProduct` WHERE `materialNumber`
+        LIKE '%{$materialKey}%' limit 1";
         $objectMaterial = $this->db->fetchAllAssociative($query);
 
         foreach ($objectMaterial as $material) {
@@ -518,9 +541,10 @@ class SalesMaterialService
     /**
      * return plant object
      */
-    public function getPlantObject($plantKey, $plantFolderId) {
-        $objectPlant = DataObject\IFSEUPlant::getByPlant($plantKey,1);
-        if(empty($objectPlant)) {
+    public function getPlantObject($plantKey, $plantFolderId)
+    {
+        $objectPlant = DataObject\IFSEUPlant::getByPlant($plantKey, 1);
+        if (empty($objectPlant)) {
             $objectPlant = new DataObject\IFSEUPlant();
             $objectPlant->setKey($plantKey);
             $objectPlant->setPlant($plantKey);
@@ -535,9 +559,13 @@ class SalesMaterialService
     /**
      * return distribution channel object
      */
-    public function getDistributionChannelObject($distributionChannelKey, $distributionChannelDesc, $distributionChannelFolderId) {
+    public function getDistributionChannelObject(
+        $distributionChannelKey,
+        $distributionChannelDesc,
+        $distributionChannelFolderId
+    ) {
         $object = DataObject\IFSEUDistributionChannel::getByCode($distributionChannelKey, 1);
-        if(empty($object)) {
+        if (empty($object)) {
             $object = new DataObject\IFSEUDistributionChannel();
             $object->setKey($distributionChannelKey);
             $object->setCode($distributionChannelKey);
@@ -558,9 +586,10 @@ class SalesMaterialService
     /**
      * return sales organization object
      */
-    public function getSalesOrgObject($salesOrgKey, $salesOrgDesc, $salesOrganizationsFolderId) {
-        $object = DataObject\IFSEUSalesOrganisation::getByCode($salesOrgKey,1);
-        if(empty($object)) {
+    public function getSalesOrgObject($salesOrgKey, $salesOrgDesc, $salesOrganizationsFolderId)
+    {
+        $object = DataObject\IFSEUSalesOrganisation::getByCode($salesOrgKey, 1);
+        if (empty($object)) {
             $object = new DataObject\IFSEUSalesOrganisation();
             $object->setKey($salesOrgKey);
             $object->setCode($salesOrgKey);

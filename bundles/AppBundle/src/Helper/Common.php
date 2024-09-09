@@ -2,10 +2,6 @@
 
 namespace AppBundle\Helper;
 
-use Exception;
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader;
 use Pimcore\Model\DataObject;
 use ImportBundle\Services\ImportConstants;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -21,19 +17,23 @@ class Common
         $this->container = $container;
     }
 
-    public function getParameter($data, $key) {
-        if(!empty($data) && isset($data['parameters'])) {
-            return isset($data['parameters'][$key])?$data['parameters'][$key]:false;       
+    public function getParameter($data, $key)
+    {
+        if (!empty($data) && isset($data['parameters'])) {
+            return isset($data['parameters'][$key]) ? $data['parameters'][$key] : false;
         }
     }
 
-    public function getInstance($service) {
+    public function getInstance($service)
+    {
         return $this->container->get($service);
     }
 
-    public function getParameterItem($data, $key, $item) {
-        if(!empty($data) && isset($data['parameters'])) {
-            return isset($data['parameters'][$key])&&isset($data['parameters'][$key][$item])?$data['parameters'][$key][$item]:false;       
+    public function getParameterItem($data, $key, $item)
+    {
+        if (!empty($data) && isset($data['parameters'])) {
+            return isset($data['parameters'][$key]) && isset($data['parameters'][$key][$item]) ?
+                $data['parameters'][$key][$item] : false;
         }
     }
 
@@ -61,7 +61,7 @@ class Common
 
     public function moveFile($param)
     {
-        /* 
+        /*
             @$status: success or failed
             if success then move file to archive else move to failed folder
         */
@@ -92,9 +92,11 @@ class Common
                 $newAsset->setData(file_get_contents($fileObj->getFileSystemPath()));
                 break;
             default:
-                throw new Exception('Issue in file moving after import ');
+                throw new \UnexpectedValueException('Issue in file moving after import ');
         }
-        $newAsset->save(["versionNote" => "Import completed and status is $status, file path is: " . $fileObj->getFullPath()]);
+        $newAsset->save(
+            ["versionNote" => "Import completed and status is $status, file path is: " . $fileObj->getFullPath()]
+        );
         $fileObj->delete();
         return $newAsset;
     }
@@ -114,49 +116,43 @@ class Common
     public function getQuantityValueUnitId($qtyName)
     {
         $unit = DataObject\QuantityValue\Unit::getByAbbreviation($qtyName);
-        $unitId = (!is_null($unit)) ? $unit->getId() : '';
-        return $unitId;
+        return (!is_null($unit)) ? $unit->getId() : '';
     }
 
     /**
      *  return quantity value with quantity unit
      */
-    public function getDataQuantityValue($columnStdPackQty, $quantityValueUnitId){
-        $quantityValue = new DataObject\Data\QuantityValue($columnStdPackQty, $quantityValueUnitId);
-        return $quantityValue;
+    public function getDataQuantityValue($columnStdPackQty, $quantityValueUnitId)
+    {
+        return new DataObject\Data\QuantityValue($columnStdPackQty, $quantityValueUnitId);
     }
 
     /**
      *  return corresponding value of a key from an array
      */
-    public function getFieldValue($fileColumns, $rowvalue, $string){
-        // $value = ($checkNumber == 'NUMBER') ? 0 : '';
-        if(!empty($string))
-        {
-            if(in_array($string, $fileColumns))
-            {
-                $index = array_search($string, $fileColumns);
-                $value = $rowvalue[$index];
-                // $value = ($checkNumber == 'NUMBER' && ( strtoupper($rowvalue[$index]) == 'NULL' || is_null($rowvalue[$index]) || empty($rowvalue[$index]))) ? 0 :  $rowvalue[$index];
-            }
+    public function getFieldValue($fileColumns, $rowvalue, $string)
+    {
+        if (!empty($string) && in_array($string, $fileColumns)) {
+            $index = array_search($string, $fileColumns);
+            $value = $rowvalue[$index];
         }
         return $value;
     }
 
-    public function createKeyForObject($fileColumns, $data, $keyColumns, $mappingCsvColumn){
+    public function createKeyForObject($fileColumns, $data, $keyColumns, $mappingCsvColumn)
+    {
         $keyColumnValues = array();
-        foreach($keyColumns as $key =>$keyColumn)
-        {
+        foreach ($keyColumns as $key => $keyColumn) {
             $column = $mappingCsvColumn[$keyColumn];
-            $columnValue = $this->getFieldValue($fileColumns,$data,$column);
+            $columnValue = $this->getFieldValue($fileColumns, $data, $column);
             $keyColumnValues[] = $columnValue;
         }
 
-        $id = implode(ImportConstants::OBJECT_KEY_SEPARATOR, $keyColumnValues);
-        return $id;
+        return implode(ImportConstants::OBJECT_KEY_SEPARATOR, $keyColumnValues);
     }
 
-    public function getCatalogLanguage($object) {
+    public function getCatalogLanguage($object)
+    {
         if ($object instanceof \Pimcore\Model\DataObject\CatalogTables) {
             $lang = $object->getParent()->getParent()->getCatalogLanguage();
         }
@@ -166,13 +162,13 @@ class Common
         if ($object instanceof \Pimcore\Model\DataObject\Catalog) {
             $lang = $object->getCatalogLanguage();
         }
-        if(empty($lang)) {
+        if (empty($lang)) {
             $lang = \Pimcore\Tool::getDefaultLanguage();
         }
         return $lang;
     }
 
-    public function fractionToDecimal($fraction) 
+    public function fractionToDecimal($fraction)
     {
         // Split fraction into whole number and fraction components
         preg_match('/^(?P<whole>\d+)?\s?((?P<numerator>\d+)\/(?P<denominator>\d+))?$/', $fraction, $components);
@@ -180,11 +176,11 @@ class Common
         $whole = $components['whole'] ?: 0;
         $numerator = $components['numerator'] ?: 0;
         $denominator = $components['denominator'] ?: 0;
-    
+
         // Create decimal value
         $decimal = $whole;
-        $numerator && $denominator && $decimal += ($numerator/$denominator);
-    
+        $numerator && $denominator && $decimal += ($numerator / $denominator);
+
         return $decimal;
     }
     
@@ -230,6 +226,8 @@ class Common
 
         }catch(Exception $e){
             return $newData;
+        }
+    }
 
     /**
      * Get failed records from Log table

@@ -21,15 +21,11 @@ class PriceImportService {
         private $storeTableNewData;
         private $container;
         private $time;
-        private $importProcessEmailNotificationObj;
-
         public function __construct(ContainerInterface $container)
         {
             $this->container = $container;
-            $this->priceModel = new PriceModel;
+            $this->priceModel       = new PriceModel;
             $this->time = time();
-
-            $this->importProcessEmailNotificationObj = new ImportProcessEmailNotificationService;
         }
 
         public function import()
