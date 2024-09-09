@@ -746,54 +746,46 @@ class ProductSQLModel
         $levelArray = array();
         if (array_key_exists($siopCode, $this->categories)) {
             $buCatCode = substr($siopCode, 2, 4);
-            $record = array(
-                'code'  =>  $siopCode,
-                'description'   =>  $recData[$this->getRecordIndexByKey('description')],
-                'material'  =>  $recData[$this->getRecordIndexByKey('material')]
-            );
-            if($bu == 'cs'){
-                if($this->checkIfProductWillRemainPublishedOrNot($recData['0'])) {
-                    $levelInfo = $this->productHelper->getLevelsForCS($record['code'], $record);
-                    $folderIndex = count($levelInfo['levels']);
-                    $folderCode = $levelInfo['levels'][$folderIndex]['levelFullCode'];
-                    $folderPath = $this->categories[$folderCode]['fullPath'];
-                    $folderPath = $this->convertCategoryPathToProduct($folderPath);
-                    if (!array_key_exists($folderPath, $this->products)) {
-                        $folderId = $this->getFolderByPath($folderPath);
-                        $this->products[$folderPath] = $folderId;
-                    } else {
-                        $folderId = $this->products[$folderPath];
-                    }
-                    $levelArray = $this->createCSObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'fert', true);
-                        if (empty($levelArray[0])) {
-                        $msg = $levelArray[1];
-                    } else {
-                        $status = 'Success';
-                        $msg = 'Object Id is: '.$levelArray[0];
-                    }
-                    if (!$errorFlag) {
-                        $this->updatedArticlesArray[] = $levelArray[0]; //$recData[$this->getRecordIndexByKey('material')];
-                    }
-                }
-                else {
-                    $status = 'Marked Unpublished' ;
-                    $msg = "Product Unpublished as it's plants mapped has OBS value in MRPController field";
-                }
+            if ($this->isValidCategoryCode($buCatCode, $siopCode)) {
+                if (!empty(trim($recData[$this->getRecordIndexByKey('group')]))) {
+                    if($this->checkIfProductWillRemainPublishedOrNot($recData['0'])){
+                        echo $recData['0'].PHP_EOL;
+                        $record = array(
+                            'code'  =>  $siopCode,
+                            'description'   =>  $recData[$this->getRecordIndexByKey('description')],
+                            'material'  =>  $recData[$this->getRecordIndexByKey('material')]
+                        );
+                        $levelInfo = $this->productHelper->getLevels($record['code'], $record);
 
-            }
-             else {
-                if ($this->isValidCategoryCodeLength($buCatCode, $siopCode)) {
-                    if (!empty(trim($recData[$this->getRecordIndexByKey('group')]))) {
-                        if($this->checkIfProductWillRemainPublishedOrNot($recData['0'])){
-                            echo $recData['0'].PHP_EOL;
-                            $levelInfo = $this->productHelper->getLevels($record['code'], $record);
-
-                            if ($levelInfo['status']) {
-                                if (strtolower($bu) == 'ifs') {
-                                    $oldMaterialCode = trim($recData[6]);
-                                    if (empty($oldMaterialCode) || $oldMaterialCode == 'NA' || $oldMaterialCode == 'N/A' || (strlen($oldMaterialCode)!= 14) || strstr($oldMaterialCode,' ') || strstr($oldMaterialCode,'-')) {
-                                        $recData[6] = '';
-                                        $sixDigitCode = '';
+                        if ($levelInfo['status']) {
+                            if (strtolower($bu) == 'ifs') {
+                                $oldMaterialCode = trim($recData[6]);
+                                if (empty($oldMaterialCode) || $oldMaterialCode == 'NA' || $oldMaterialCode == 'N/A' || (strlen($oldMaterialCode)!= 14) || strstr($oldMaterialCode,' ') || strstr($oldMaterialCode,'-')) {
+                                    $recData[6] = '';
+                                    $sixDigitCode = '';
+                                } else {
+                                    $sixDigitCode = substr($oldMaterialCode, 0, 6);
+                                }
+                                if (!empty($sixDigitCode) && !empty($this->baseSIOPMapping[$sixDigitCode]) && $this->baseSIOPMapping[$sixDigitCode] != $siopCode) {
+                                    $msg = 'All Part numbers under one 6 Digit Code '.$sixDigitCode.' must be under the same SIOP Product Hierarchy.';
+                                    $this->baseSiopMismatchLog[$recData['0']] = [
+                                        'articleNumber' => $recData['0'],
+                                        'siop' => $siopCode,
+                                        '6digit' => $sixDigitCode,
+                                        'mismatchedSiopCode' => $this->baseSIOPMapping[$sixDigitCode],
+                                        'mismatchedArticleNumber' => $this->baseSIOPArticleMapping[$sixDigitCode]
+                                    ];
+                                    $errorFlag = true;
+                                } else {
+                                    $this->baseSIOPMapping[$sixDigitCode] = $siopCode;
+                                    $folderIndex = count($levelInfo['levels']);
+                                    $folderCode = $levelInfo['levels'][$folderIndex]['levelFullCode'];
+                                    $folderPath = $this->categories[$folderCode]['fullPath'];
+                                    $folderPath = $this->convertCategoryPathToProduct($folderPath);
+                                    $folderId = $this->getFolderByPath($folderPath);
+                                    if (!array_key_exists($folderPath, $this->products)) {
+                                        $folderId = $this->getFolderByPath($folderPath);
+                                        $this->products[$folderPath] = $folderId;
                                     } else {
                                         $sixDigitCode = substr($oldMaterialCode, 0, 6);
                                     }
