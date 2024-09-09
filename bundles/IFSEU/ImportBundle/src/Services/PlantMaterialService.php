@@ -9,6 +9,7 @@ use IFSEU\ImportBundle\Services\ImportService;
 use IFSEU\ImportBundle\Model\PlantMaterialModel;
 use IFSEU\ProductBundle\Services\ImportConstants as ServicesImportConstants;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use AppBundle\Services\ImportProcessEmailNotificationService;
 
 class PlantMaterialService
 {
@@ -35,6 +36,7 @@ class PlantMaterialService
     private $countryFolderId;
     private $failedIDs = [];
     private $container;
+    private $importProcessEmailNotificationObj;
 
 
     const LOGGER_MODULE = 'PLANT MATERIAL MASTER';
@@ -47,7 +49,7 @@ class PlantMaterialService
         $this->common               = $this->container->get('ifs_eu_import.common_helper');
         $this->tableImportHelper    = new PlantMaterialModel;
         $plantMaterialConfig        = $this->container->get('ifs_eu_import.config_provider_service')->getPlantMaterialConfig();
-
+        $this->importProcessEmailNotificationObj = new ImportProcessEmailNotificationService;
         $this->mappingCsvColumn     = $this->common->getParameter($plantMaterialConfig, 'mappingCsvColumn');
     }
 
@@ -55,17 +57,22 @@ class PlantMaterialService
     {
         try {
             \AppBundle\Helper\Common::clearAndDisablePimCache();
-        
+
             $sapFileFeeder      = $this->container->get('ifs_eu_import.sap_file_feeder_service');
             $this->filePath     = $sapFileFeeder->execFileFeeder('plantMaterial');
-
-            $csvInfo            = ImportService::getCSVData($this->filePath);
+            try {
+                $csvInfo = ImportService::getCSVData($this->filePath);
+            } catch(\Exception $e) {
+                $this->importProcessEmailNotificationObj->sendMailNotification(
+                    "IFSEU Plant Import not performed - Error occured while reading CSV \n".$e->getMessage()
+                );
+            }
             $this->fileColumns = $csvInfo['header'];
             $excelDataNewArray  = $csvInfo['data'];
 
             echo 'Importing File: ' . $this->filePath.PHP_EOL;
             $time = new \DateTime();
-            
+
             /**
              * get folder ids of Master List, MaterialMaster, Master List/Plants,
              * Master List/Sales Organizations, Master List/Distribution Channel
@@ -79,103 +86,116 @@ class PlantMaterialService
             $this->countryFolderId= DataObject\Service::createFolderByPath(ServicesImportConstants::IFS_EU_COUNTRY_MASTERDATA_FOLDER)->getId();
             DataObject\Service::createFolderByPath(ImportConstants::IFSEU_MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER);
 
-            $applicationLogMessage = "No record found in file.";
-            if(count($excelDataNewArray) > 1)
-            {
-                /**
-                 * remove column header from array excelDataNewArray. Only data remains.
-                 */
-                $csvRowCount = count($excelDataNewArray);
+            if(count($excelDataNewArray) > 1) {
+                $flag = 1;
+                foreach($this->fileColumns as $column){
+                    if(!in_array($column, $this->mappingCsvColumn)) {
+                        $flag = 0;
+                        break;
+                    }
+                }
+                if($flag == 1) {
+                    /**
+                     * remove column header from array excelDataNewArray. Only data remains.
+                     */
+                    $csvRowCount = count($excelDataNewArray);
 
-                echo "Creating IFS EU plant material tables...".PHP_EOL;
-                $t = new \DateTime();
-                $this->tableImportHelper->createPlantMaterialTable();
-                $td = $t->diff(new \DateTime());
-                echo $td->format("Creating IFS EU plant material tables takes %h hour %i minute %s second").PHP_EOL;
-                
-                echo "Truncating temp table...".PHP_EOL;
-                $t = new \DateTime();
-                $this->tableImportHelper->truncateTempTable();
-                $td = $t->diff(new \DateTime());
-                echo $td->format("Truncating temp table takes %h hour %i minute %s second").PHP_EOL;
-                
-                echo "Inserting temp table...".PHP_EOL;
-                $time1 = new \DateTime();
-                $this->tableImportHelper->insertDataInTemp($excelDataNewArray, $this->fileColumns);    // Insert csv file data in temp table
-                $timediff1 = $time1->diff(new \DateTime());
-                echo $timediff1->format("Total {$csvRowCount} records inserted in temp table takes %h hour %i minute %s second").PHP_EOL;
-                unset($excelDataNewArray);
+                    echo "Creating IFS EU plant material tables...".PHP_EOL;
+                    $t = new \DateTime();
+                    $this->tableImportHelper->createPlantMaterialTable();
+                    $td = $t->diff(new \DateTime());
+                    echo $td->format("Creating IFS EU plant material tables takes %h hour %i minute %s second").PHP_EOL;
 
-                echo "Getting deleted records...".PHP_EOL;
-                $time5 = new \DateTime();
-                $deletedRecords = $this->tableImportHelper->getDeletedRecords();
-                $deleteRecordCount = count($deletedRecords);
-                echo "Record {$deleteRecordCount} need to update deletion flag.".PHP_EOL;
-                $this->processDeletedRecords($deletedRecords);
-                unset($deletedRecords);
+                    echo "Truncating temp table...".PHP_EOL;
+                    $t = new \DateTime();
+                    $this->tableImportHelper->truncateTempTable();
+                    $td = $t->diff(new \DateTime());
+                    echo $td->format("Truncating temp table takes %h hour %i minute %s second").PHP_EOL;
 
-                $timediff5 = $time5->diff(new \DateTime());
-                echo $timediff5->format("Delete flag updation takes %h hour %i minute %s second").PHP_EOL;
+                    echo "Inserting temp table...".PHP_EOL;
+                    $time1 = new \DateTime();
+                    $this->tableImportHelper->insertDataInTemp($excelDataNewArray, $this->fileColumns);    // Insert csv file data in temp table
+                    $timediff1 = $time1->diff(new \DateTime());
+                    echo $timediff1->format("Total {$csvRowCount} records inserted in temp table takes %h hour %i minute %s second").PHP_EOL;
+                    unset($excelDataNewArray);
 
-                echo "Getting delta records...".PHP_EOL;
-                $t1 = new \DateTime();
-                $excelDataNewArray = $this->tableImportHelper->getDelta();         // Get delta data
-                $td1 = $t1->diff(new \DateTime());
-                echo $td1->format("Getting delta takes %h hour %i minute %s second").PHP_EOL;
+                    echo "Getting deleted records...".PHP_EOL;
+                    $time5 = new \DateTime();
+                    $deletedRecords = $this->tableImportHelper->getDeletedRecords();
+                    $deleteRecordCount = count($deletedRecords);
+                    echo "Record {$deleteRecordCount} need to update deletion flag.".PHP_EOL;
+                    $this->processDeletedRecords($deletedRecords);
+                    unset($deletedRecords);
 
-                echo "Total {$csvRowCount} records found in csv file.".PHP_EOL;
-                $deltaCount = count($excelDataNewArray);
-                echo "Total {$deltaCount} Delta records found...".PHP_EOL;
-                
-                $applicationLogMessage = "No delta records found.";
+                    $timediff5 = $time5->diff(new \DateTime());
+                    echo $timediff5->format("Delete flag updation takes %h hour %i minute %s second").PHP_EOL;
 
-                if($deltaCount > 0)
-                {
-                    $j = 1;
+                    echo "Getting delta records...".PHP_EOL;
+                    $t1 = new \DateTime();
+                    $excelDataNewArray = $this->tableImportHelper->getDelta();         // Get delta data
+                    $td1 = $t1->diff(new \DateTime());
+                    echo $td1->format("Getting delta takes %h hour %i minute %s second").PHP_EOL;
 
-                    $i = 0;
-                    $length = ImportConstants::IMPORT_BATCH_SIZE;
-                    while ($i<$deltaCount) {
+                    echo "Total {$csvRowCount} records found in csv file.".PHP_EOL;
+                    $deltaCount = count($excelDataNewArray);
+                    echo "Total {$deltaCount} Delta records found...".PHP_EOL;
 
-                        $diff = $deltaCount-$i;
-                        if ($diff < $length) {
-                            $length = $diff;
+                    $applicationLogMessage = "No delta records found.";
+
+                    if($deltaCount > 0)
+                    {
+                        $j = 1;
+
+                        $i = 0;
+                        $length = ImportConstants::IMPORT_BATCH_SIZE;
+                        while ($i<$deltaCount) {
+
+                            $diff = $deltaCount-$i;
+                            if ($diff < $length) {
+                                $length = $diff;
+                            }
+
+                            $partialData = array_slice($excelDataNewArray, $i, $length);
+                            $i = $i+$length;
+                            echo "Part {$j}, Record {$length}, Batch size ".ImportConstants::IMPORT_BATCH_SIZE.", ".PHP_EOL;
+                            $this->processSlicedData($partialData);
+                            $partialData = null;
+                            \Pimcore::collectGarbage();
+                            gc_collect_cycles();
+                            $j++;
+                        }
+                        $countMsg = "\nTotal Processed Records:".$deltaCount.", ";
+                        $countMsg .= "\nSuccess Records:".$this->successCount.", ";
+                        $countMsg .= "\nFailed Records:".$this->failedCount.", ";
+                        $countMsg .= "\nCreated Records:".$this->createdCount.", ";
+                        $countMsg .= "\nUpdated Records:".$this->updatedCount."\n";
+
+                        $applicationLogMessage = "Plant Material Master Imported successfully.";
+
+                        if ($this->failedCount > 0)
+                        {
+                            $applicationLogMessage = "Plant material command failed to import {$this->failedCount} Record(s) out of {$deltaCount} Record(s)";
                         }
 
-                        $partialData = array_slice($excelDataNewArray, $i, $length);
-                        $i = $i+$length;
-                        echo "Part {$j}, Record {$length}, Batch size ".ImportConstants::IMPORT_BATCH_SIZE.", ".PHP_EOL;
-                        $this->processSlicedData($partialData);
-                        $partialData = null;
-                        \Pimcore::collectGarbage();
-                        gc_collect_cycles();
-                        $j++;
-                    }
-                    $countMsg = "\nTotal Processed Records:".$deltaCount.", ";
-                    $countMsg .= "\nSuccess Records:".$this->successCount.", ";
-                    $countMsg .= "\nFailed Records:".$this->failedCount.", ";
-                    $countMsg .= "\nCreated Records:".$this->createdCount.", ";
-                    $countMsg .= "\nUpdated Records:".$this->updatedCount."\n";
-
-                    $applicationLogMessage = "Plant Material Master Imported successfully.";
-
-                    if ($this->failedCount > 0)
-                    {
-                        $applicationLogMessage = "Plant material command failed to import {$this->failedCount} Record(s) out of {$deltaCount} Record(s)";
+                        $applicationLogMessage .= $countMsg;
                     }
 
-                    $applicationLogMessage .= $countMsg;
+                    $time4 = new \DateTime();
+                    $this->tableImportHelper->updateMaster();
+                    $timediff4 = $time4->diff(new \DateTime());
+                    $masterListCount = $this->successCount;
+                    echo $timediff4->format("Total {$masterListCount} replaced in master table takes %h hour %i minute %s second").PHP_EOL;
+
+                    $this->tableImportHelper->deleteFailedRecordsFromMaster($this->failedIDs);
+                } else {
+                    $applicationLogMessage = "IFSEU Plant - The uploaded file has wrong headers.";
+                    $this->importProcessEmailNotificationObj->sendMailNotification($applicationLogMessage);
                 }
-
-                $time4 = new \DateTime();
-                $this->tableImportHelper->updateMaster();
-                $timediff4 = $time4->diff(new \DateTime());
-                $masterListCount = $this->successCount;
-                echo $timediff4->format("Total {$masterListCount} replaced in master table takes %h hour %i minute %s second").PHP_EOL;
-                
-                $this->tableImportHelper->deleteFailedRecordsFromMaster($this->failedIDs);
+            } else {
+                $applicationLogMessage = "IFSEU Plant - No record found in file.";
+                $this->importProcessEmailNotificationObj->sendMailNotification($applicationLogMessage);
             }
-        
+
             echo $applicationLogMessage;
 
             if ($this->failedCount > 0)
@@ -185,10 +205,15 @@ class PlantMaterialService
             else
             {
                 \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info($applicationLogMessage);
-            }           
+            }
 
             $timediff = $time->diff(new \DateTime());
             echo $timediff->format('Total script time: %h hour %i minute %s second').PHP_EOL;
+            $failedrecords = $this->tableImportHelper->getFailedRecordFromLogTable();
+            if(count( $failedrecords)>0){
+                $this->tableImportHelper->deleteFailedRecordsFromMaster($failedrecords);
+                echo "Total ".count( $failedrecords)." faild record removed from master table".PHP_EOL;
+            }
             \Pimcore::collectGarbage();
             \AppBundle\Helper\Common::endablePimCache();
 
@@ -196,7 +221,7 @@ class PlantMaterialService
             p_r($th->getMessage());
         }
 
-    }    
+    }
 
     public function processSlicedData($data) {
         $time2 = new \DateTime();
@@ -238,7 +263,7 @@ class PlantMaterialService
                         $createdOrUpdated   = $processedRowData['createdOrUpdated'];
                         $plantMaterialKey   = $processedRowData['plantMaterialKey'];
                         $objectArr          = $processedRowData['objectArr'];
-                        
+
                         $objId              = $this->tableImportHelper->insertInObjects($objectArr);
                         $prepareTableData = $this->prepareTableDataArray($objId, $materialObjId, $rowvalue);
 
@@ -246,7 +271,7 @@ class PlantMaterialService
                         $storeTableDataArray[] = $prepareTableData['storeTableData'];
                         $relationTableDataArray = array_merge($relationTableDataArray, $prepareTableData['objectRelationsTableData']);
                         $dependencyTableDataArray = array_merge($dependencyTableDataArray, $prepareTableData['dependencyTableData']);
-                        
+
                         unset($prepareTableData);
 
                         $errorsData['SUCCESS'] = "Plant Material Code: ".$plantMaterialKey." has been ".$createdOrUpdated.".";
@@ -286,7 +311,7 @@ class PlantMaterialService
         }
 
         $this->insertDataInDB($queryTableDataArray, $storeTableDataArray, $relationTableDataArray, $dependencyTableDataArray);
-            
+
         $timediff2 = $time2->diff(new \DateTime());
         echo $timediff2->format("{$createdUpdatedCount} Object created out of {$dataCount} records in %h hour %i minute %s second").PHP_EOL;
 
@@ -326,7 +351,7 @@ class PlantMaterialService
 
     /**
      * prepare dependency table array
-     * 
+     *
      */
 
     private function prepareTableDataArray($objId, $materialObjId, $rowvalue)
@@ -350,7 +375,7 @@ class PlantMaterialService
         $columnStockIndicator = $this->mappingCsvColumn['StockIndicator'];
         $columnUnitOfMeasure = $this->mappingCsvColumn['UnitOfMeasure'];
         // $columnABCIndicator = $this->mappingCsvColumn['ABCIndicator'];
-        
+
         $plantName = $rowvalue[$columnPlant];
         $countryName =  $rowvalue[$columnCountryOfOrigin];
         $plannedDeliveryTime =  $rowvalue[$columnPlannedDeliveryTime];
@@ -416,13 +441,13 @@ class PlantMaterialService
             $relationTableData[] = ['src_id' => $objId, 'dest_id' => $countryObjId, 'type' => 'object', 'fieldname' => 'CountryOfOrigin', 'ownertype' => 'object' ];
             $dependencyTableData[] = ['sourceid' => $objId, 'targetid' => $countryObjId, 'sourcetype' => 'object', 'targettype' => 'object'];
         }
-            
+
         if($plantObjId)
         {
             $relationTableData[] = ['src_id' => $objId, 'dest_id' => $plantObjId, 'type' => 'object', 'fieldname' => 'Plant', 'ownertype' => 'object' ];
             $dependencyTableData[] = ['sourceid' => $objId, 'targetid' => $plantObjId, 'sourcetype' => 'object', 'targettype' => 'object'];
         }
-            
+
         $relationTableData[] = ['src_id' => $objId, 'dest_id' => $salesOrgObjId, 'type' => 'object', 'fieldname' => 'SalesOrganization', 'ownertype' => 'object' ];
         $relationTableData[] = ['src_id' => $objId, 'dest_id' => $distributionChannelObjId, 'type' => 'object', 'fieldname' => 'DistributionChannel', 'ownertype' => 'object' ];
         $relationTableData[] = ['src_id' => $objId, 'dest_id' => $materialObjId, 'type' => 'object', 'fieldname' => 'Material', 'ownertype' => 'object' ];
@@ -438,7 +463,7 @@ class PlantMaterialService
 
     /**
      * validate Material, sales organization and Distributed channel values
-     * 
+     *
      */
     private function validateMaterialSalesDistributionValues($material, $salesOrg, $distributionChannel)
     {
@@ -447,12 +472,12 @@ class PlantMaterialService
         {
             $errorsData[] = 'Material should not be blank.';
         }
-            
+
         if(empty(trim($salesOrg)))
         {
             $errorsData[] = 'Sales organization should not be blank.';
         }
-        
+
         if(empty(trim($distributionChannel)))
         {
             $errorsData[] = 'Distribution channel should not be blank.';
@@ -462,7 +487,7 @@ class PlantMaterialService
     }
 
     /**
-     * 
+     *
      * Get material object id
      */
 
@@ -482,12 +507,12 @@ class PlantMaterialService
         {
             $materialObjId = $this->materialArray[$material];
         }
-        
+
         return $materialObjId;
     }
 
     /**
-     * 
+     *
      * Get plant object id
      */
 
@@ -500,7 +525,7 @@ class PlantMaterialService
             {
                 $this->plantArray[$plantName] = $plantId;
             }
-                
+
         }
 
         $plantObjId = '';
@@ -513,7 +538,7 @@ class PlantMaterialService
     }
 
     /**
-     * 
+     *
      * Get country object id
      */
 
@@ -537,7 +562,7 @@ class PlantMaterialService
     }
 
     /**
-     * 
+     *
      * Get sales organisation code object id
      */
 
@@ -550,13 +575,13 @@ class PlantMaterialService
             {
                 $this->salesOrgArray[$salesOrg] = $salesOrgId;
             }
-                
+
         }
         return $this->salesOrgArray[$salesOrg];
     }
 
     /**
-     * 
+     *
      * Get distribution channel code object id
      */
 
@@ -598,8 +623,8 @@ class PlantMaterialService
             $object->setKey($plantKey);
             $object->setPlant($plantKey);
             $object->setParentId($this->plantFolderId);
-            $object->setPublished(TRUE);   
-            $object->save(); 
+            $object->setPublished(TRUE);
+            $object->save();
         }
 
         return $object->getId();
@@ -616,8 +641,8 @@ class PlantMaterialService
             $object->setKey($distributionChannelKey);
             $object->setCode($distributionChannelKey);
             $object->setParentId($this->distributionChannelFolderId);
-            $object->setPublished(TRUE);   
-            $object->save(); 
+            $object->setPublished(TRUE);
+            $object->save();
         }
 
         return $object->getId();
@@ -633,8 +658,8 @@ class PlantMaterialService
             $object->setKey($salesOrgKey);
             $object->setCode($salesOrgKey);
             $object->setParentId($this->salesOrganizationsFolderId);
-            $object->setPublished(TRUE);   
-            $object->save(); 
+            $object->setPublished(TRUE);
+            $object->save();
         }
 
         return $object->getId();
@@ -643,15 +668,15 @@ class PlantMaterialService
      * return country object
      */
     public function getCountryObject($countryKey){
-     
+
         $object = DataObject\IFSEUCountries::getByCountryAbbr($countryKey, 1);
         if(empty($object)) {
             $object = new DataObject\IFSEUCountries();
             $object->setKey($countryKey);
             $object->setCountryAbbr($countryKey);
             $object->setParentId($this->countryFolderId);
-            $object->setPublished(TRUE);   
-            $object->save(); 
+            $object->setPublished(TRUE);
+            $object->save();
         }
 
         return $object->getId();
@@ -674,7 +699,7 @@ class PlantMaterialService
         $query = "SELECT oo_id, parentId, `key`, path FROM `object_IFSEUPlantMaterialMaster` WHERE `parentId` = '{$materialFolderId}' AND `key` LIKE '%{$plantMaterialKey}%' limit 1";
         $objectMaterial = $this->db->fetchAssociative($query);
 
-        
+
         $createdOrUpdated = 'Updated';
         if(!$objectMaterial){
             $createdOrUpdated = 'Created';
@@ -704,19 +729,19 @@ class PlantMaterialService
         {
             $this->tableImportHelper->insertIntoMaterialTable($queryTableDataArray, 'object_query_IFSEUPlantMaterialMaster');
         }
-            
+
         if(count($storeTableDataArray))
         {
             $this->tableImportHelper->insertIntoMaterialTable($storeTableDataArray, 'object_store_IFSEUPlantMaterialMaster');
         }
-            
+
         if(count($relationTableDataArray))
         {
             // $this->tableImportHelper->insertIntoMaterialTable($relationTableDataArray, 'object_relations_IFSEUPlantMaterialMaster');
             $this->tableImportHelper->insertDataInRelationalTable($relationTableDataArray, 'object_relations_IFSEUPlantMaterialMaster');
 
         }
-            
+
         if(count($dependencyTableDataArray))
         {
             $this->tableImportHelper->insertIntoMaterialTable($dependencyTableDataArray, 'dependencies');

@@ -26,6 +26,7 @@ class RequiredAttributesBundle extends AbstractPimcoreBundle implements PimcoreB
             '/bundles/requiredattributes/js/pimcore/search_override.js',
             '/bundles/requiredattributes/js/pimcore/pimcore_helpers_override.js',
             '/bundles/requiredattributes/js/pimcore/settings/override_translation.js',
+            '/bundles/requiredattributes/js/pimcore/object/override_objects_tree.js',
         ];
     }
 

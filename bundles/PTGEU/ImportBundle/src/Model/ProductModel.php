@@ -6,6 +6,7 @@ use Pimcore\Db;
 use Pimcore\Model\DataObject;
 use PTGEU\ImportBundle\Services\ImportConstants;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use AppBundle\Helper\Common;
 
 class ProductModel
 {
@@ -19,6 +20,7 @@ class ProductModel
 
     private $db;
     private $common;
+    private $time;
 
     /**
      * Getting DB connection object
@@ -28,6 +30,7 @@ class ProductModel
         $this->container = $container;
         $this->db = Db::get();
         $this->common = $this->container->get('import.common_helper');
+        $this->time = time();
     }
 
     /**
@@ -285,7 +288,7 @@ class ProductModel
             foreach ($data as $dataValue) {
                 $values .= '("'.$dataValue['id'].'", "'.$dataValue['siopfullcode'].
                 '", "'.addslashes($dataValue['record']).'", "'.$dataValue['statusCode'].
-                '","'.$dataValue['failedReason'].'","'.time().'"),';
+                '","'.$dataValue['failedReason'].'","'.$this->time.'"),';
                 // inserting records in batch
                 if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
                     $query = $sql.rtrim($values, ',');
@@ -354,5 +357,14 @@ class ProductModel
             return true;
         }
         return false;
+    }
+
+        /**
+     * Get failed records from ptgeu_material_import_log table
+     * @author Sandeep Bhardwaj <sandeep@happiestminds.com>
+     * @return array
+     */ 
+    public function getFailedRecordFromLogTable():array{
+        return Common::getFailedRecordFromLogTable($this->logTable , $this->masterTable,'statusCode',$this->time);
     }
 }

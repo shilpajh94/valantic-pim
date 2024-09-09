@@ -5,6 +5,7 @@ namespace IFSEU\ImportBundle\Model;
 use Pimcore\Db;
 use IFSEU\ImportBundle\Services\ImportConstants;
 use Exception;
+use AppBundle\Helper\Common;
 
 class PriceModel
 {
@@ -214,5 +215,33 @@ class PriceModel
           ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
         $this->db->executeQuery($query);
 
+    }
+    /**
+     * Get failed records from ifseu_material_list_price_import_log table
+     * @author Sandeep Bhardwaj<sandeep@happiestminds.com>
+     * @return array
+     */ 
+    public function getFailedRecordFromLogTable(int $time):array{
+        return Common::getFailedRecordFromLogTable($this->logTable,$this->masterTable,'status', $time);       
+    }
+
+    /**
+     * remove failed recod from master table
+     * @author Sandeep Bhardwaj <sandeep@happiestminds.com>
+     * @return void
+     */ 
+    public function deleteFailedRecordsFromMaster($failedRecords):void {
+        try {
+            if (!empty($failedRecords) && count($failedRecords)>0) {
+                $sql = "DELETE FROM {$this->masterTable} WHERE `id` IN (";
+                if (count($failedRecords)>0) {
+                    $str = "'" . implode ( "', '", $failedRecords ) . "'";
+                    $query = $sql.$str." )";
+                    $this->db->executeQuery($query);
+                }
+            }
+        }  catch (Exception $ex) {
+            echo $ex->getMessage();
+        }
     }
 }
