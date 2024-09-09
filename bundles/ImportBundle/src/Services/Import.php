@@ -60,7 +60,8 @@ class Import
             ]
 
         */
-        $reader->setLoadSheetsOnly($workSheet['workSheetName']);
+        $workSheetName = isset($workSheet['workSheetName']) ? $workSheet['workSheetName'] : $workSheet['worksheetName'];
+        $reader->setLoadSheetsOnly($workSheetName);
         $workSheet['startRow'] = self::$startRow ? : 0;
         $flag = $reader->setReadFilter(new MyReadFilter($workSheet));
 

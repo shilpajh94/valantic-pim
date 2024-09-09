@@ -49,6 +49,7 @@ define("LEVEL_ATTRIBUTE_MAPPING_FILE_PATH", APPBUNDLE_CONFIG_DIRECTORY . "/impor
 define('COMMAND_CONFIG_FILE_PATH', APPBUNDLE_CONFIG_DIRECTORY . "/commands.yaml");
 // Global Category Configuraction File Path
 define('CATEGORY_CONFIG_FILE_PATH', APPBUNDLE_CONFIG_DIRECTORY . "/category.yaml");
+define('CS_HIERARCHY_CONFIG_FILE_PATH', APPBUNDLE_CONFIG_DIRECTORY . "/csHierarchy.yaml");
 // Global Product Configuration File Path
 define('PRODUCT_CONFIG_FILE_PATH', APPBUNDLE_CONFIG_DIRECTORY . "/import/product.yaml");
 

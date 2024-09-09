@@ -11,6 +11,8 @@ use AppBundle\Logger\AppLogger as Logger;
 use ImportBundle\Services\ImportConstants;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use AppBundle\Helper\Common;
+use ImportBundle\Services\Model\CSImportModel;
+
 class ProductSQLModel
 {
 
@@ -20,34 +22,12 @@ class ProductSQLModel
     public $archiveDir;
     public $failedDir;
     public $configuredData; // We will pull the data from configured class for this variable
-    private $mappedService;
-    private $validatorService;
     private $logFileName;
-    private $monitoringItem;
-    private $totalSteps;
-    private $currentStep;
-    private $currentLevel;
-    private $errors;
-    private $reader;
-    private $level;
-    private $cek; // Current Error Key
-    private $productModel;
-    private $siop;
-    private $catInstance;
-    private $instance;
-    private $catHelper;
-    private $rowStatus;
     private $tblImpHelper;
-    private $prdHelper;
-    private $prdConfigData;
     private $common;
-    private $startRow;
     private $columnName;
     private $csvHeader;
-    private $data;
-    private $bricks;
     private $brickMappingService;
-    private $fileHandle;
     private $langArr;
     private $allBricksList;
     private $brickTablePrefixArray;
@@ -60,11 +40,9 @@ class ProductSQLModel
     private $baseSiopMismatchEmailTemplate;
     private $updatedArticlesArray;
     private $allBaseProducts;
-    private $appService;
     private $weightConversionService;
     private $container;
     private $productHelper;
-    private $emailService;
     private $logArray;
     private $objectsTableData;
     private $queryTableDataArray;
@@ -75,6 +53,8 @@ class ProductSQLModel
     private $bricksDataArray;
     private $relationTableDataArray;
     private $relationTableDataDeleteArray;
+    private $appService;
+    private $prdConfigData;
 
     const LOGGER_MODULE = 'SAP IMPORT SHEET';
     const FILE_LAST_COL = 'D';
@@ -99,11 +79,8 @@ class ProductSQLModel
         $this->appService = $this->container->get('AppBundle\Services\AppService');
         $this->tblImpHelper = $this->container->get('app.product_import_helper');
         $this->productHelper = $this->container->get('app.product_helper');
-//        $this->catHelper = $this->container->get('app.category_helper');
-//        $this->catInstance = $this->container->get('import.category_service');
         $this->prdConfigData = $this->container->get('app.config_provider_service')->getProductConfig();
         $this->brickMappingService = $this->container->get('AppBundle\Services\CategoryBrickMappingService');
-//        $this->startRow = $this->common->getParameterItem($this->prdConfigData, 'sheet', 'startRow');
         $this->columnName = $this->common->getParameterItem($this->prdConfigData, 'sheet', 'columnName');
         $this->weightConversionService = new UnitConversion\WeightPerLengthConverter();
         $this->baseSIOPMapping = [];
@@ -116,7 +93,6 @@ class ProductSQLModel
      */
     private function initImportTable()
     {
-        // $this->langArr = ['de', 'en', 'es_MX', 'fr_CA', 'pt'];
         $this->langArr = \Pimcore\Tool::getValidLanguages();
         $this->langArr = array_unique($this->langArr);
         $tables = $this->common->getParameter($this->prdConfigData, 'table');
@@ -160,16 +136,11 @@ class ProductSQLModel
     {
         try {
             $this->updateDefaults($param);
-            // $this->instance = $this->container->get($this->validatorService);
             /**
              * Get spreadsheet object by calling load function
              * Pass file path directly or send array with sheet configuration
              * eg: Start row to read, end row to read, number of columns to read etc.
              */
-            $sheetConfig = array(
-                'filePath' => $this->filePath,
-                'startRow'  =>  $this->startRow
-            );
             $csvInfo = Import::getCSVData($this->filePath);
 
             $this->csvHeader = array_flip($csvInfo['header']);
@@ -180,7 +151,6 @@ class ProductSQLModel
             $this->import($csvInfo['data']);
         } catch (\Throwable $th) {
             p_r($th);
-            //throw $th;
             Logger::error($this->logFileName, $th);
             die;
         }
@@ -202,8 +172,8 @@ class ProductSQLModel
         \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("IFS import started");
         $this->initiateIFSProductsProcess();
         \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("IFS import completed");
-        // $this->tblImpHelper->getRecordsSiopCodeDigitsNot13And18();
-        // \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("SIOP code other than 13 and 18 digit inserted in Log Table and delted from temp table");
+        $this->initiateCSProductsProcess();
+        \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("CS import completed");
         $this->tblImpHelper->getRecordsSiopCodeDigitsNot13And16And18();
         \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("SIOP code other than 13 and 16 and 18 digit inserted in Log Table and delted from temp table");
         $this->tblImpHelper->updateMaster();
@@ -234,7 +204,7 @@ class ProductSQLModel
                     fputcsv($fp, $article);
                 }
                 fclose($fp);
-                // if (!empty($emailTemplate)) {                
+                // if (!empty($emailTemplate)) {
                 //     $doc = \Pimcore\Model\Document::getByPath($emailTemplate);
                 //     if (!empty($doc)) {
                 //         // Sending the mail
@@ -254,7 +224,6 @@ class ProductSQLModel
         } catch (\Throwable $th) {
             p_r($th);
             \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($th);
-//            Logger::error("sap_import_log", $th);
         }
     }
 
@@ -300,8 +269,6 @@ class ProductSQLModel
     }
     public function getBaseSiopMapping() {
         $ifsData = $this->tblImpHelper->getIFSLoad();
-        $mappingArray = [];
-        $logArray = [];
         foreach ($ifsData as $row) {
             $recData =  (array) json_decode($row['record']);
             $oldMaterialCode = trim($recData[6]);
@@ -314,7 +281,6 @@ class ProductSQLModel
             }
         }
     }
-
 
     public function initiateIFSProductsProcess() {
         $a = time();
@@ -330,14 +296,13 @@ class ProductSQLModel
 
         $length = 1000;
         while ($i<$deltaCount) {
-            $offset = $i;
             $diff = $deltaCount-$i;
             if ($diff < $length) {
                 $length = $diff;
             }
             $this->setVariablesToEmpty();
             $partialData = array_slice($delta, $i, $length);
-            $this->processIFSProducts($partialData);
+            $this->processIFSorCSProducts($partialData, 'IFS');
             $partialData = null;
             $i = $i+$length;
             echo PHP_EOL;
@@ -350,7 +315,6 @@ class ProductSQLModel
             $j++;
         }
 
-//        print_r($this->baseSiopMismatchLog); die;
     }
 
     public function initiatePTGProductsProcess() {
@@ -365,7 +329,6 @@ class ProductSQLModel
         $i = 0;
         $length = 1000;
         while ($i<$deltaCount) {
-            $offset = $i;
             $diff = $deltaCount-$i;
             if ($diff < $length) {
                 $length = $diff;
@@ -385,6 +348,37 @@ class ProductSQLModel
         }
     }
 
+    public function initiateCSProductsProcess(){
+        $a = time();
+        $delta = $this->tblImpHelper->getDelta('cs');
+        $this->setVariablesToEmpty();
+        $deltaCount = is_array($delta)? count($delta) : 0;
+        \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("cs Delta count: ".$deltaCount);
+        $j = 1;
+        $this->logArray = [];
+        $i = 0;
+
+        $length = 1000;
+        while ($i<$deltaCount) {
+            $diff = $deltaCount-$i;
+            if ($diff < $length) {
+                $length = $diff;
+            }
+            $this->setVariablesToEmpty();
+            $partialData = array_slice($delta, $i, $length);
+            $this->processIFSorCSProducts($partialData, 'cs');
+            $partialData = null;
+            $i = $i+$length;
+            echo PHP_EOL;
+            echo "Record Processed: ".$i;
+            $b = time();
+            echo "Part ".$j." completed in time: ".$a."====".$b.PHP_EOL;
+            \Pimcore::collectGarbage();
+            gc_collect_cycles();
+            $a = time();
+            $j++;
+        }
+    }
 
     public function setVariablesToEmpty() {
         unset($this->products, $this->logArray, $this->objectsTableData, $this->queryTableDataArray, $this->storeTableDataArray, $this->localisedQueryTableDataArray, $this->localisedDataTableDataArray, $this->dependencyTableDataArray);
@@ -417,11 +411,11 @@ class ProductSQLModel
         }
     }
 
-    public function processIFSProducts($data) {
+    public function processIFSorCSProducts($data , $bu) {
         $i = 1;
         foreach ($data as $row) {
             echo "Index: ".$i.PHP_EOL;
-            $this->processSingleRecord($row['siopfullcode'], $row, 'IFS');
+            $this->processSingleRecord($row['siopfullcode'], $row, $bu);
             $i = $i + 1;
         }
         $this->insertDataInDB();
@@ -430,7 +424,6 @@ class ProductSQLModel
         unset($data, $row);
         $this->setVariablesToEmpty();
     }
-
 
     public function processPTGProducts($data) {
         foreach ($data as $row) {
@@ -441,7 +434,6 @@ class ProductSQLModel
         unset($data, $row);
         $this->setVariablesToEmpty();
     }
-
 
     public function insertDataInDB() {
         if(!empty($this->queryTableDataArray)) {
@@ -583,6 +575,108 @@ class ProductSQLModel
         return [$objId, $currentLevelPath];
     }
 
+    public function createCSObject($record, $parentId, $parentPath, $levelInfo, $type, $outsideProductFlag = false) {
+        $oldMaterialCode = $record[$this->getRecordIndexByKey('oldMaterial')];
+        if ($type=='base') {
+            $objectKey = substr($oldMaterialCode, 0,6);
+        } elseif ($type == 'skeleton') {
+            $objectKey = substr($oldMaterialCode, 0,9);
+        } else {
+            $objectKey = $record[$this->getRecordIndexByKey('material')];
+            $description = \Pimcore\File::getValidFilename($record[$this->getRecordIndexByKey('description')]);
+            if (!empty($description)) {
+                $objectKey = $objectKey."-".$description;
+            }
+        }
+        $objectArr = [
+            'parentId' => $parentId,
+            'key' => $objectKey,
+            'path' => $parentPath.'/',
+            'className' => PRODUCT_CLASS_NAME
+        ];
+        $currentLevelPath = $parentPath.'/'.$objectKey;
+        if (!array_key_exists($currentLevelPath, $this->products)) {
+            if ($type == 'fert') {
+                $articleNumber = $record[$this->getRecordIndexByKey('material')];
+		$data = $this->tblImpHelper->checkIfArticleExists($articleNumber);
+		if (!empty($data) && count($data)>0) {
+            $objId = $data[0]['oo_id'];
+            $objectArr['id'] = $objId;
+		    $distributionFlag = $this->tblImpHelper->getDistributionChainFlagByMaterial($objId);
+		    $fittingFamilyFlag = $this->tblImpHelper->getFittingFamilyFlagByMaterial($objId);
+                    var_dump($distributionFlag);
+                    var_dump($fittingFamilyFlag);
+                    if (!empty($distributionFlag) || !empty($fittingFamilyFlag)) {
+                        if (!empty($distributionFlag)) {
+                            $catCode = $levelInfo[3]['levelFullCode'];
+                            $catFullPath = $this->categories[$catCode]['fullPath'];
+                            $productPath = $this->convertCategoryPathToProduct($catFullPath);
+                            $quoteFolderPath = $productPath."/Quote/";
+                            $quoteFolderId = $this->getFolderByPath($quoteFolderPath);
+                            $objectArr['parentId'] = $quoteFolderId;
+                            $objectArr['path'] = $quoteFolderPath;
+                        } else {
+                            $pathArray = explode("/", $data[0]['path']);
+                            if (count($pathArray)>=6) {
+                                $fittingFamilyPathArray = array_slice($pathArray, 6);
+                                $subPath = '';
+                                if (!empty($fittingFamilyPathArray[0])) {
+                                    $subPath = implode("/", $fittingFamilyPathArray);
+                                }
+                                $catCode = $levelInfo[4]['levelFullCode'];
+                                $catFullPath = $this->categories[$catCode]['fullPath'];
+                                $productPath = $this->convertCategoryPathToProduct($catFullPath);
+                                $fittingFamilyFolderPath = $productPath."/".$subPath;
+                                $fittingFamilyFolderId = $this->getFolderByPath($fittingFamilyFolderPath);
+                                $objectArr['parentId'] = $fittingFamilyFolderId;
+                                $objectArr['path'] = $fittingFamilyFolderPath;
+                            }
+                        }
+                    }
+                }
+
+            } else {
+                if (array_key_exists($objectKey, $this->allBaseProducts)) {
+                    $objectArr['id'] = $this->allBaseProducts[$objectKey];
+                }
+            }
+
+            $objId = $this->tblImpHelper->insertInObjects($objectArr);
+            if (is_array($objId) && empty($objId[0])) {
+                return $objId;
+            }
+            $this->products[$currentLevelPath] = $objId;
+            $level = count($levelInfo);
+            $this->getQueryTableData($objId, $record, $levelInfo, $level, $type, 'cs');
+            $this->getStoreTableData($objId, $record, $levelInfo, $level, $type, 'cs');
+            $this->getRelationTableData($objId, $record, $levelInfo, $level, $type);
+            $this->getLocalizedQueryData($objId, $record, $type);
+            $this->getDependencyTableData($objId, $record, $levelInfo, $level);
+            $fertLevelCode = $levelInfo[array_key_first($levelInfo)]['levelFullCode'];
+            $groupNames = $this->categories[$fertLevelCode]['data']['RelatedObjectBrick'];
+            $groupNames = trim($groupNames, ',');
+            if (!empty($groupNames) && $groupNames != '1') {
+                $groupNamesArray = explode(',', $groupNames);
+                if (!empty($outsideProductFlag)) {
+                    $typeArray = ['base', 'skeleton', 'fert'];
+                    foreach ($typeArray as $typeS) {
+                        $bricksList = $this->brickMappingService->getMappedBrickKeys($groupNamesArray, $typeS);
+                        $this->setBricksData($objId, $bricksList, $typeS);
+                    }
+                } else {
+                    $bricksList = $this->brickMappingService->getMappedBrickKeys($groupNamesArray, $type);
+                    $this->setBricksData($objId, $bricksList, $type);
+                }
+                unset($groupNames, $groupNamesArray, $bricksList);
+            }
+        } else {
+            $objId = $this->products[$currentLevelPath];
+        }
+
+        echo "ID: = ".$objId.PHP_EOL;
+        return [$objId, $currentLevelPath];
+    }
+
     public function createPTGObject($record, $parentId, $parentPath, $levelInfo, $type) {
         if ($type == 'base' && strlen($levelInfo[1]['fullCode']) == 18) {
             $objectIndex = count($levelInfo)-1;
@@ -649,144 +743,174 @@ class ProductSQLModel
         $recData =  (array) json_decode($row['record']);
         $status = 'Failed';
         $errorFlag = false;
+        $levelArray = array();
         if (array_key_exists($siopCode, $this->categories)) {
             $buCatCode = substr($siopCode, 2, 4);
-            if ($this->isValidCategoryCode($buCatCode, $siopCode)) {
-                if (!empty(trim($recData[$this->getRecordIndexByKey('group')]))) {
-                    if($this->checkIfProductWillRemainPublishedOrNot($recData['0'])){
-                        echo $recData['0'].PHP_EOL;
-                        $record = array(
-                            'code'  =>  $siopCode,
-                            'description'   =>  $recData[$this->getRecordIndexByKey('description')],
-                            'material'  =>  $recData[$this->getRecordIndexByKey('material')]
-                        );
-                        $levelInfo = $this->productHelper->getLevels($record['code'], $record);
+            $record = array(
+                'code'  =>  $siopCode,
+                'description'   =>  $recData[$this->getRecordIndexByKey('description')],
+                'material'  =>  $recData[$this->getRecordIndexByKey('material')]
+            );
+            if($bu == 'cs'){
+                if($this->checkIfProductWillRemainPublishedOrNot($recData['0'])) {
+                    $levelInfo = $this->productHelper->getLevelsForCS($record['code'], $record);
+                    $folderIndex = count($levelInfo['levels']);
+                    $folderCode = $levelInfo['levels'][$folderIndex]['levelFullCode'];
+                    $folderPath = $this->categories[$folderCode]['fullPath'];
+                    $folderPath = $this->convertCategoryPathToProduct($folderPath);
+                    if (!array_key_exists($folderPath, $this->products)) {
+                        $folderId = $this->getFolderByPath($folderPath);
+                        $this->products[$folderPath] = $folderId;
+                    } else {
+                        $folderId = $this->products[$folderPath];
+                    }
+                    $levelArray = $this->createCSObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'fert', true);
+                        if (empty($levelArray[0])) {
+                        $msg = $levelArray[1];
+                    } else {
+                        $status = 'Success';
+                        $msg = 'Object Id is: '.$levelArray[0];
+                    }
+                    if (!$errorFlag) {
+                        $this->updatedArticlesArray[] = $levelArray[0]; //$recData[$this->getRecordIndexByKey('material')];
+                    }
+                }
+                else {
+                    $status = 'Marked Unpublished' ;
+                    $msg = "Product Unpublished as it's plants mapped has OBS value in MRPController field";
+                }
 
-                        if ($levelInfo['status']) {
-                            if (strtolower($bu) == 'ifs') {
-                                $oldMaterialCode = trim($recData[6]);
-                                if (empty($oldMaterialCode) || $oldMaterialCode == 'NA' || $oldMaterialCode == 'N/A' || (strlen($oldMaterialCode)!= 14) || strstr($oldMaterialCode,' ') || strstr($oldMaterialCode,'-')) {
-                                    $recData[6] = '';
-                                    $sixDigitCode = '';
-                                } else {
-                                    $sixDigitCode = substr($oldMaterialCode, 0, 6);
-                                }
-                                if (!empty($sixDigitCode) && !empty($this->baseSIOPMapping[$sixDigitCode]) && $this->baseSIOPMapping[$sixDigitCode] != $siopCode) {
-                                    $msg = 'SIOP Code does not match with previous records of same Six digit code. (Article Number: '.$this->baseSIOPArticleMapping[$sixDigitCode].' )';
-                                    $this->baseSiopMismatchLog[$recData['0']] = [
-                                        'articleNumber' => $recData['0'],
-                                        'siop' => $siopCode,
-                                        '6digit' => $sixDigitCode,
-                                        'mismatchedSiopCode' => $this->baseSIOPMapping[$sixDigitCode],
-                                        'mismatchedArticleNumber' => $this->baseSIOPArticleMapping[$sixDigitCode]
-                                    ];
-                                    $errorFlag = true;
-                                } else {
-                                    $this->baseSIOPMapping[$sixDigitCode] = $siopCode;
-                                    $folderIndex = count($levelInfo['levels']);
-                                    $folderCode = $levelInfo['levels'][$folderIndex]['levelFullCode'];
-                                    $folderPath = $this->categories[$folderCode]['fullPath'];
-                                    $folderPath = $this->convertCategoryPathToProduct($folderPath);
-                                    $folderId = $this->getFolderByPath($folderPath);
-                                    if (!array_key_exists($folderPath, $this->products)) {
-                                        $folderId = $this->getFolderByPath($folderPath);
-                                        $this->products[$folderPath] = $folderId;
-                                    } else {
-                                        $folderId = $this->products[$folderPath];
-                                    }
+            }
+             else {
+                if ($this->isValidCategoryCodeLength($buCatCode, $siopCode)) {
+                    if (!empty(trim($recData[$this->getRecordIndexByKey('group')]))) {
+                        if($this->checkIfProductWillRemainPublishedOrNot($recData['0'])){
+                            echo $recData['0'].PHP_EOL;
+                            $levelInfo = $this->productHelper->getLevels($record['code'], $record);
+
+                            if ($levelInfo['status']) {
+                                if (strtolower($bu) == 'ifs') {
+                                    $oldMaterialCode = trim($recData[6]);
                                     if (empty($oldMaterialCode) || $oldMaterialCode == 'NA' || $oldMaterialCode == 'N/A' || (strlen($oldMaterialCode)!= 14) || strstr($oldMaterialCode,' ') || strstr($oldMaterialCode,'-')) {
-                                        $levelArray = $this->createIFSObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'fert', true);
+                                        $recData[6] = '';
+                                        $sixDigitCode = '';
                                     } else {
-                                        $levelArray = $this->createIFSObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'base');
+                                        $sixDigitCode = substr($oldMaterialCode, 0, 6);
+                                    }
+                                    if (!empty($sixDigitCode) && !empty($this->baseSIOPMapping[$sixDigitCode]) && $this->baseSIOPMapping[$sixDigitCode] != $siopCode) {
+                                        $msg = 'SIOP Code does not match with previous records of same Six digit code. (Article Number: '.$this->baseSIOPArticleMapping[$sixDigitCode].' )';
+                                        $this->baseSiopMismatchLog[$recData['0']] = [
+                                            'articleNumber' => $recData['0'],
+                                            'siop' => $siopCode,
+                                            '6digit' => $sixDigitCode,
+                                            'mismatchedSiopCode' => $this->baseSIOPMapping[$sixDigitCode],
+                                            'mismatchedArticleNumber' => $this->baseSIOPArticleMapping[$sixDigitCode]
+                                        ];
+                                        $errorFlag = true;
+                                    } else {
+                                        $this->baseSIOPMapping[$sixDigitCode] = $siopCode;
+                                        $folderIndex = count($levelInfo['levels']);
+                                        $folderCode = $levelInfo['levels'][$folderIndex]['levelFullCode'];
+                                        $folderPath = $this->categories[$folderCode]['fullPath'];
+                                        $folderPath = $this->convertCategoryPathToProduct($folderPath);
+                                        if (!array_key_exists($folderPath, $this->products)) {
+                                            $folderId = $this->getFolderByPath($folderPath);
+                                            $this->products[$folderPath] = $folderId;
+                                        } else {
+                                            $folderId = $this->products[$folderPath];
+                                        }
+                                        if (empty($oldMaterialCode) || $oldMaterialCode == 'NA' || $oldMaterialCode == 'N/A' || (strlen($oldMaterialCode)!= 14) || strstr($oldMaterialCode,' ') || strstr($oldMaterialCode,'-')) {
+                                            $levelArray = $this->createIFSObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'fert', true);
+                                        } else {
+                                            $levelArray = $this->createIFSObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'base');
+                                            if (empty($levelArray[0])) {
+                                            } else {
+                                                $levelArray = $this->createIFSObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'skeleton');
+                                                if (empty($levelArray[0])) {
+                                                } else {
+                                                    $levelArray = $this->createIFSObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'fert');
+                                                }
+                                            }
+                                        }
                                         if (empty($levelArray[0])) {
                                             $msg = $levelArray[1];
                                         } else {
-                                            $levelArray = $this->createIFSObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'skeleton');
-                                            if (empty($levelArray[0])) {
-                                                $msg = $levelArray[1];
-                                            } else {
-                                                $levelArray = $this->createIFSObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'fert');
-                                            }
+                                            $status = 'Success';
+                                            $msg = 'Object Id is: '.$levelArray[0];
                                         }
                                     }
-                                    if (empty($levelArray[0])) {
-                                        $msg = $levelArray[1];
-                                    } else {
+                                } elseif (strtolower($bu) == 'ptg'
+                                ) {
+                                    if (strlen($levelInfo['levels'][1]['fullCode']) == 18) {
+                                        $folderIndex = count($levelInfo['levels']) - 2;
+                                        $folderCode = $levelInfo['levels'][$folderIndex]['levelFullCode'];
+                                        $folderPath = $this->categories[$folderCode]['fullPath'];
+                                        $folderPath = $this->convertCategoryPathToProduct($folderPath);
+                                        if (!array_key_exists($folderPath, $this->products)) {
+                                            $folderId = $this->getFolderByPath($folderPath);
+                                            $this->products[$folderPath] = $folderId;
+                                        } else {
+                                            $folderId = $this->products[$folderPath];
+                                        }
+
+                                        $levelArray = $this->createPTGObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'base');
+                                        $levelArray = $this->createPTGObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'skeleton');
+                                        $levelArray = $this->createPTGObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'fert');
                                         $status = 'Success';
-                                        $msg = 'Object Id is: '.$levelArray[0];
+                                        $msg = 'Object Id is: ' . $levelArray[0];
+                                    } elseif (strlen($levelInfo['levels'][1]['fullCode']) == 16) {
+                                        $folderIndex = count($levelInfo['levels']) - 1;
+                                        $folderCode = $levelInfo['levels'][$folderIndex]['levelFullCode'];
+                                        $folderPath = $this->categories[$folderCode]['fullPath'];
+                                        $folderPath = $this->convertCategoryPathToProduct($folderPath);
+                                        if (!array_key_exists($folderPath, $this->products)) {
+                                            $folderId = $this->getFolderByPath($folderPath);
+                                            $this->products[$folderPath] = $folderId;
+                                        } else {
+                                            $folderId = $this->products[$folderPath];
+                                        }
+
+                                        $levelArray = $this->createPTGObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'base');
+                                        $levelArray = $this->createPTGObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'fert');
+                                        $status = 'Success';
+                                        $msg = 'Object Id is: ' . $levelArray[0];
                                     }
+                                    elseif (strlen($levelInfo['levels'][1]['fullCode']) == 13) {
+                                        $folderIndex = count($levelInfo['levels']);
+                                        $folderCode = $levelInfo['levels'][$folderIndex]['levelFullCode'];
+                                        $folderPath = $this->categories[$folderCode]['fullPath'];
+                                        $folderPath = $this->convertCategoryPathToProduct($folderPath);
+                                        if (!array_key_exists($folderPath, $this->products)) {
+                                            $folderId = $this->getFolderByPath($folderPath);
+                                            $this->products[$folderPath] = $folderId;
+                                        } else {
+                                            $folderId = $this->products[$folderPath];
+                                        }
+
+                                        $levelArray = $this->createPTGObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'fert');
+                                        $status = 'Success';
+                                        $msg = 'Object Id is: ' . $levelArray[0];
+                                    }
+
                                 }
-                            } elseif (strtolower($bu) == 'ptg'
-                            ) {
-                                if (strlen($levelInfo['levels'][1]['fullCode']) == 18) {
-                                    $folderIndex = count($levelInfo['levels']) - 2;
-                                    $folderCode = $levelInfo['levels'][$folderIndex]['levelFullCode'];
-                                    $folderPath = $this->categories[$folderCode]['fullPath'];
-                                    $folderPath = $this->convertCategoryPathToProduct($folderPath);
-                                    if (!array_key_exists($folderPath, $this->products)) {
-                                        $folderId = $this->getFolderByPath($folderPath);
-                                        $this->products[$folderPath] = $folderId;
-                                    } else {
-                                        $folderId = $this->products[$folderPath];
-                                    }
-
-                                    $levelArray = $this->createPTGObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'base');
-                                    $levelArray = $this->createPTGObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'skeleton');
-                                    $levelArray = $this->createPTGObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'fert');
-                                    $status = 'Success';
-                                    $msg = 'Object Id is: ' . $levelArray[0];
-                                } elseif (strlen($levelInfo['levels'][1]['fullCode']) == 16) {
-                                    $folderIndex = count($levelInfo['levels']) - 1;
-                                    $folderCode = $levelInfo['levels'][$folderIndex]['levelFullCode'];
-                                    $folderPath = $this->categories[$folderCode]['fullPath'];
-                                    $folderPath = $this->convertCategoryPathToProduct($folderPath);
-                                    if (!array_key_exists($folderPath, $this->products)) {
-                                        $folderId = $this->getFolderByPath($folderPath);
-                                        $this->products[$folderPath] = $folderId;
-                                    } else {
-                                        $folderId = $this->products[$folderPath];
-                                    }
-
-                                    $levelArray = $this->createPTGObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'base');
-                                    $levelArray = $this->createPTGObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'fert');
-                                    $status = 'Success';
-                                    $msg = 'Object Id is: ' . $levelArray[0];
+                                if (!$errorFlag) {
+                                    $this->updatedArticlesArray[] = $levelArray[0];
                                 }
-                                elseif (strlen($levelInfo['levels'][1]['fullCode']) == 13) {
-                                    $folderIndex = count($levelInfo['levels']);
-                                    $folderCode = $levelInfo['levels'][$folderIndex]['levelFullCode'];
-                                    $folderPath = $this->categories[$folderCode]['fullPath'];
-                                    $folderPath = $this->convertCategoryPathToProduct($folderPath);
-                                    if (!array_key_exists($folderPath, $this->products)) {
-                                        $folderId = $this->getFolderByPath($folderPath);
-                                        $this->products[$folderPath] = $folderId;
-                                    } else {
-                                        $folderId = $this->products[$folderPath];
-                                    }
-
-                                    $levelArray = $this->createPTGObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'fert');
-                                    $status = 'Success';
-                                    $msg = 'Object Id is: ' . $levelArray[0];
-                                }
-
                             }
-                            if (!$errorFlag) {
-                                $this->updatedArticlesArray[] = $levelArray[0]; //$recData[$this->getRecordIndexByKey('material')];
-                            }
+                            unset($buCatCode, $record, $levelInfo, $folderIndex, $folderCode, $folderId, $folderPath, $levelArray);
+
+                        } else{
+                            $status = 'Marked Unpublished' ;
+                            $msg = "Product Unpublished as it's plants mapped has OBS value in MRPController field";
                         }
-                        unset($buCatCode, $record, $levelInfo, $folderIndex, $folderCode, $folderId, $folderPath, $levelArray);
-
-                    } else{
-                        $status = 'Marked Unpublished' ;
-                        $msg = "Product Unpublished as it's plants mapped has OBS value in MRPController field";
+                    } else {
+                        $msg = 'Material Group code can not be empty.';
                     }
                 } else {
-                    $msg = 'Material Group code can not be empty.';
+                    $msg = 'Siop Category code and its length does not match.';
                 }
-            } else {
-                $msg = 'Siop Category code and its length does not match.';
             }
-        } else {
+          }  else {
             $msg = 'SIOP Category not exists.';
         }
         $logRow = [
@@ -833,7 +957,7 @@ class ProductSQLModel
         return true;
     }
 
-    public function isValidCategoryCode($buCatCode, $siopCode) {
+    public function isValidCategoryCodeLength($buCatCode, $siopCode) {
         if ($buCatCode == 3000) {
             if (strlen($siopCode) == 18  || strlen($siopCode) == 16 || strlen($siopCode) == 13) {
                 return true;
@@ -865,7 +989,7 @@ class ProductSQLModel
         }
     }
 
-    public function getQueryTableData($objId, $record, $levelInfo, $level=4, $productType = 'fert', $businessUnit = 'IFS') {
+    public function getQueryTableData($objId, $record, $levelInfo, $level, $productType = 'fert', $businessUnit = 'IFS') {
         $siopData = [];
         for ($k=1; $k<=6; $k++) {
             $index = 'SIOPLevel'.$k;
@@ -930,10 +1054,6 @@ class ProductSQLModel
                     $queryTableData['weightKg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], UnitConversion\WeightPerLengthConverter::UNIT_KG_PER_M, $grossWeight);
                     $queryTableData['weightg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], UnitConversion\WeightPerLengthConverter::UNIT_G_PER_M, $grossWeight);
                     $queryTableData['WeightLbsPerFTUOM'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], UnitConversion\WeightPerLengthConverter::UNIT_LBS_PER_FT, $grossWeight);
-//                    $sourceUnit = new UnitConversion\WeightPerLengthConverter(self::GROSS_WEIGHT_UNITS[$weightUnit]);
-//                    $converter = UnitConversion\ConverterFactory::getConverterByUnit($grossWeight, $sourceUnit);
-//                    $queryTableData['weightKg'] = round($converter->getValue(new Unit(Unit::KG)), 5);
-//                    $queryTableData['weightg'] = round($converter->getValue(new Unit(Unit::G)), 5);
                 }
             } else {
                 $queryTableData['weightKg'] = null;
@@ -1000,10 +1120,6 @@ class ProductSQLModel
                     $storeTableDataArray['weightKg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], UnitConversion\WeightPerLengthConverter::UNIT_KG_PER_M, $grossWeight);
                     $storeTableDataArray['weightg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], UnitConversion\WeightPerLengthConverter::UNIT_G_PER_M, $grossWeight);
                     $storeTableDataArray['WeightLbsPerFTUOM'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], UnitConversion\WeightPerLengthConverter::UNIT_LBS_PER_FT, $grossWeight);
-//                    $sourceUnit = new UnitConversion\Unit(self::GROSS_WEIGHT_UNITS[$weightUnit]);
-//                    $converter = UnitConversion\ConverterFactory::getConverterByUnit($grossWeight, $sourceUnit);
-//                    $storeTableDataArray['weightKg'] = round($converter->getValue(new Unit(Unit::KG)), 5);
-//                    $storeTableDataArray['weightg'] = round($converter->getValue(new Unit(Unit::G)), 5);
                 }
             } else {
                 $storeTableDataArray['weightKg'] = null;
@@ -1050,7 +1166,6 @@ class ProductSQLModel
     }
     public function getDependencyTableData($objId, $record, $levelInfo, $level=4, $productType = 'fert') {
         for ($k=1; $k<=$level; $k++) {
-            $index = 'SIOPLevel'.$k;
             $catCode = $levelInfo[$k]['levelFullCode'];
             $targetId = $this->categories[$catCode]['id'];
             $this->dependencyTableDataArray[] = [
@@ -1089,7 +1204,12 @@ class ProductSQLModel
         }
     }
     public function convertCategoryPathToProduct($categoryPath) {
-        $search = '/Master List/SIOP Master List/SIOP Engineered Products';
+        if (str_contains($categoryPath, 'SIOP Engineered Products')) {
+            $search = '/Master List/SIOP Master List/SIOP Engineered Products';
+        }
+        elseif (str_contains($categoryPath, 'Conveyor Belt Group')) {
+            $search = '/Master List/SIOP Master List';
+        }
         $replace = '/Products Master';
         return str_replace($search, $replace, $categoryPath);
     }

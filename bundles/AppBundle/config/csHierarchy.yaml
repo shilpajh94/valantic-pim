@@ -1,0 +1,32 @@
+parameters:
+  # Csv header information
+  sheet:
+    columnName: ['code', 'level', 'description', 'sortOrder']
+    lastColName: 'E'
+  # Root information
+  root:
+    type: 'dataObject'
+    subType:  'object'
+    fullPath: '/Master List/SIOP Master List'
+    id: 2
+  # SIOP code length for each level
+  codeLength:
+    1:  2
+    2:  4
+    3:  4
+    4:  3
+    
+  # SIOP full code length for each level
+  levelLength:
+    1:  2
+    2:  6
+    3:  10
+    4:  13
+    
+  # Valid Business Unit
+  businessUnit:
+    05:  'CS'
+    
+  # SIOP relation field names in productClass
+  # these fields are managed in config to keep the system from performance issue
+  siopRelationFieldsInProductClass: ['SIOPLevel1', 'SIOPLevel2', 'SIOPLevel3', 'SIOPLevel4', 'SIOPLevel5', 'SIOPLevel6']
