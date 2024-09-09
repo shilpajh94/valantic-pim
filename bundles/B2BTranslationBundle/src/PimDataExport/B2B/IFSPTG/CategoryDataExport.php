@@ -342,7 +342,7 @@ class CategoryDataExport implements IDataExport
         else{
             $description = $this->getDescription($parentId, $lang);
             if(empty($description)){
-                $this->getParentIdDescription($parentId, $lang);
+                $description = $this->getParentIdDescription($parentId, $lang);
             }
         }
         return $description;
