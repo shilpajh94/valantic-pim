@@ -12,6 +12,7 @@ use AppBundle\Lib\UnitConversion;
 use PTGEU\ImportBundle\Model\ProductModel;
 use PTGEU\ProductBundle\Services\CompletenessPercentageService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use AppBundle\Services\ImportProcessEmailNotificationService;
 
 class ProductService
 {
@@ -53,9 +54,9 @@ class ProductService
     private $relationTableDataArray;
     private $relationTableDataDeleteArray;
     private $container;
+    private $importProcessEmailNotificationObj;
 
     const LOGGER_MODULE = 'SAP IMPORT SHEET';
-
 
     public function __construct(CompletenessPercentageService $percentageCompletionService,
      ContainerInterface $container)
@@ -74,6 +75,7 @@ class ProductService
         $this->columnName           = $this->common->getParameterItem($this->materialConfigData, 'sheet', 'columnName');
         $this->baseSiopMismatchLog  = [];
         $this->percentageCompletionService = $percentageCompletionService;
+        $this->importProcessEmailNotificationObj = new ImportProcessEmailNotificationService;
     }
 
     /**
@@ -125,53 +127,76 @@ class ProductService
         $sapFileFeeder  = $this->container->get('import.sap_file_feeder_service');
         $this->filePath = $sapFileFeeder->execFileFeeder('product');
         if($this->filePath){
-            $csvInfo = ImportService::getCSVData($this->filePath);
-            $this->csvHeader = array_flip($csvInfo['header']);
-
             try {
-                $this->initImportTable();
-                Logger::log(self::LOGGER_MODULE)->info("SAP import started");
-                $this->productModel->truncateTempTable();
-                $this->productModel->insertDataInTemp($csvInfo['data']);
-                Logger::log(self::LOGGER_MODULE)->info("Data Sheet imported in temp table");
-                $this->productModel->processDeletedProducts();
-                Logger::log(self::LOGGER_MODULE)->info("Removed records in data sheet, marked as unpublished.");
-                Logger::log(self::LOGGER_MODULE)->info("Product import started");
-                $this->initiateProductsProcess();
-                Logger::log(self::LOGGER_MODULE)->info("Product import completed");
-                $this->productModel->updateMaster();
-                Logger::log(self::LOGGER_MODULE)->info("Data copied from temp table to master table");
-
-                if (!empty($this->updatedArticlesArray) && count($this->updatedArticlesArray)>0) {
-                    echo "Object Saving started for completeness.".PHP_EOL;
-                    $this->saveProducts($this->updatedArticlesArray);
-                    echo "Object Saving completed for completeness.".PHP_EOL;
-                }
-
-                if (!empty($this->baseSiopMismatchLog) && count($this->baseSiopMismatchLog)>0) {
-                    $this->productModel->removeArticlesFromMaster($this->baseSiopMismatchLog);
-                    Logger::log(self::LOGGER_MODULE)->info("failed records removed from master table.");
-                   
-                    $this->sendSkippedArticlesEmailNotification($this->baseSiopMismatchLog,
-                     $this->baseSiopMismatchEmailTemplate);
-                }
-                $faildRecords =  $this->productModel->getFailedRecordFromLogTable();
-                    if(count($faildRecords)>0){
-                        $this->productModel->removeArticlesFromMaster($faildRecords);
-                        Logger::log(self::LOGGER_MODULE)->info(count($faildRecords)."failed records removed from master table.");
-                        echo count($faildRecords)."failed records removed from master table.".PHP_EOL;
+                $brickAttributesConfigDataKeys = array_keys($this->configProviderService->getBrickAttributesConfig());
+                $csvInfo = ImportService::getCSVData($this->filePath);
+                $this->csvHeader = array_flip($csvInfo['header']);
+                if(!empty($csvInfo)) {
+                    $flag = 1;
+                    foreach(array_keys($this->csvHeader) as $column){
+                        if($column != 'SalesOrgCode' && $column != 'External ID'
+                         && !in_array($column, $this->columnName)
+                          && !in_array($column, $brickAttributesConfigDataKeys)) {
+                            $flag = 0;
+                            break;
+                        }
                     }
-            } catch (\Throwable $th) {
+                    if($flag == 1){
+                        try {
+                            $this->initImportTable();
+                            Logger::log(self::LOGGER_MODULE)->info("SAP import started");
+                            $this->productModel->truncateTempTable();
+                            $this->productModel->insertDataInTemp($csvInfo['data']);
+                            Logger::log(self::LOGGER_MODULE)->info("Data Sheet imported in temp table");
+                            $this->productModel->processDeletedProducts();
+                            Logger::log(self::LOGGER_MODULE)->info("Removed records in data sheet, marked as unpublished.");
+                            Logger::log(self::LOGGER_MODULE)->info("Product import started");
+                            $this->initiateProductsProcess();
+                            Logger::log(self::LOGGER_MODULE)->info("Product import completed");
+                            $this->productModel->updateMaster();
+                            Logger::log(self::LOGGER_MODULE)->info("Data copied from temp table to master table");
+
+                            if (!empty($this->updatedArticlesArray) && count($this->updatedArticlesArray)>0) {
+                                echo "Object Saving started for completeness.".PHP_EOL;
+                                $this->saveProducts($this->updatedArticlesArray);
+                                echo "Object Saving completed for completeness.".PHP_EOL;
+                            }
+
+                            if (!empty($this->baseSiopMismatchLog) && count($this->baseSiopMismatchLog)>0) {
+                                $this->productModel->removeArticlesFromMaster($this->baseSiopMismatchLog);
+                                Logger::log(self::LOGGER_MODULE)->info("failed records removed from master table.");
+                                $this->sendSkippedArticlesEmailNotification($this->baseSiopMismatchLog,
+                                $this->baseSiopMismatchEmailTemplate);
+                            }
+                        } catch (Throwable $throwable) {
+                            p_r($throwable);
+                            Logger::log(self::LOGGER_MODULE)->error($throwable);
+                            Logger::error($this->logFileName, $throwable);
+                            die;
+                        }
+                    } else {
+                        $msg = "PTGEU Product - The uploaded file has wrong headers.";
+                        echo $msg;
+                        $this->importProcessEmailNotificationObj->sendMailNotification($msg);
+                    }
+                } else {
+                    $msg = "PTGEU Product - No record found in file.";
+                    echo $msg;
+                    $this->importProcessEmailNotificationObj->sendMailNotification($msg);
+                }
+            } catch (Throwable $th) {
                 p_r($th);
-                \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($th);
+                Logger::log(self::LOGGER_MODULE)->error($th);
                 Logger::error($this->logFileName, $th);
+                $this->importProcessEmailNotificationObj->sendMailNotification(
+                    "PTGEU Product Import not performed - Error occured while reading CSV \n".$th->getMessage()
+                );
                 die;
             }
 
         }else{
             die;
         }
-
         \AppBundle\Helper\Common::endablePimCache();
     }
 

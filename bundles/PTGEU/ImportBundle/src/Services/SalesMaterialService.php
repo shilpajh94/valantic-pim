@@ -2,6 +2,7 @@
 
 namespace PTGEU\ImportBundle\Services;
 
+use AppBundle\Services\ImportProcessEmailNotificationService;
 use PTGEU\ImportBundle\Model\SalesMaterialModel;
 use Elements\Bundle\ProcessManagerBundle;
 use Pimcore\Db;
@@ -35,6 +36,7 @@ class SalesMaterialService
     private $countryOfOriginCode;
     private $distributionChannelCode;
     private $container;
+    private $importProcessEmailNotificationObj;
 
     const LOGGER_MODULE = 'PTGEU SALES MATERIAL MASTER';
 
@@ -47,7 +49,7 @@ class SalesMaterialService
         $this->tableImportHelper = new SalesMaterialModel;
         $salesMaterialConfig = $this->container->get('import.config_provider_service')
         ->getSalesMaterialConfig();
-
+        $this->importProcessEmailNotificationObj = new ImportProcessEmailNotificationService();
         $this->mappingCsvColumn = $this->common->getParameter($salesMaterialConfig, 'mappingCsvColumn');
     }
 
@@ -55,8 +57,13 @@ class SalesMaterialService
         \AppBundle\Helper\Common::clearAndDisablePimCache();
         $sapFileFeeder  = $this->container->get('import.sap_file_feeder_service');
         $this->filePath = $sapFileFeeder->execFileFeeder('salesMaterial');
-
+        try{
         $csvImportedData = ImportService::getCSVData($this->filePath);
+        } catch (\Exception $e) {
+            $this->importProcessEmailNotificationObj->sendMailNotification(
+                "PTGEU Sales Import not performed - Error occured while reading CSV \n".$e->getMessage()
+            );
+        }
 
         $this->fileColumns = $csvImportedData['header'];
         $excelDataNewArray = $csvImportedData['data'];
@@ -91,63 +98,75 @@ class SalesMaterialService
     public function importStart($excelDataNewArray, $time, $plantFolderId,
      $salesOrganizationsFolderId, $distributionChannelFolderId, $countryOfOriginFolderId) {
         if(count($excelDataNewArray) > 1) {
-
-            $this->tableImportConfig['fileColumns'] = $this->fileColumns;
-            $this->tableImportConfig['mappingCsvColumn'] = $this->mappingCsvColumn;
-            $this->tableImportHelper->init($this->tableImportConfig);
-
-            $csvRowCount = count($excelDataNewArray);
-            echo "Truncating temp table...".PHP_EOL;
-            $t = new \DateTime();
-            $this->tableImportHelper->truncateTempTable();
-            $td = $t->diff(new \DateTime());
-            echo $td->format("Truncating temp table takes %h hour %i minute %s second").PHP_EOL;
-
-            echo "Inserting temp table...".PHP_EOL;
-            $time1 = new \DateTime();
-            $this->tableImportHelper->insertDataInTemp($excelDataNewArray, $this->fileColumns);
-            $timediff1 = $time1->diff(new \DateTime());
-            echo $timediff1->format("Total {$csvRowCount} records inserted in temp table takes
-             %h hour %i minute %s second").PHP_EOL;
-            unset($excelDataNewArray);
-
-            echo "Getting deleted records...".PHP_EOL;
-            $time5 = new \DateTime();
-            $deletedRecords = $this->tableImportHelper->getDeletedRecords();
-            $deleteRecordCount = count($deletedRecords);
-            echo "Record {$deleteRecordCount} need to update deletion flag.".PHP_EOL;
-            $this->processDeletedRecords($deletedRecords);
-            unset($deletedRecords);
-            $timediff5 = $time5->diff(new \DateTime());
-            echo $timediff5->format("Delete flag updation takes %h hour %i minute %s second").PHP_EOL;
-
-            echo "Getting delta records...".PHP_EOL;
-            $t1 = new \DateTime();
-            $excelDataNewArray = $this->tableImportHelper->getDelta();
-            $td1 = $t1->diff(new \DateTime());
-            echo $td1->format("Getting delta takes %h hour %i minute %s second").PHP_EOL;
-
-            $this->monitoringItem->getLogger()->info("Total {$csvRowCount} records found in file.");
-            echo "Total {$csvRowCount} records found in csv file.".PHP_EOL;
-            $deltaCount = count($excelDataNewArray);
-            echo "Total {$deltaCount} Delta records found...".PHP_EOL;
-            if($deltaCount > 0) {
-                $applicationLogMessage = $this->countDelta($deltaCount, $excelDataNewArray,
-                 $plantFolderId, $salesOrganizationsFolderId, $distributionChannelFolderId, $countryOfOriginFolderId);
-            } else {
-                $applicationLogMessage = "No delta records found.";
+            $flag = 1;
+            foreach($this->fileColumns as $column) {
+                if(!in_array($column, $this->mappingCsvColumn)) {
+                    $flag = 0;
+                    break;
+                }
             }
+            if($flag == 1) {
 
-            $time4 = new \DateTime();
-            $this->tableImportHelper->updateMaster();
-            $timediff4 = $time4->diff(new \DateTime());
-            echo $timediff4->format("Total {$deltaCount} replaced in master table takes
-             %h hour %i minute %s second").PHP_EOL;
+                $this->tableImportConfig['fileColumns'] = $this->fileColumns;
+                $this->tableImportConfig['mappingCsvColumn'] = $this->mappingCsvColumn;
+                $this->tableImportHelper->init($this->tableImportConfig);
 
-            $this->tableImportHelper->deleteFailedRecordsFromMaster($this->failedIDs);
+                $csvRowCount = count($excelDataNewArray);
+                echo "Truncating temp table...".PHP_EOL;
+                $t = new \DateTime();
+                $this->tableImportHelper->truncateTempTable();
+                $td = $t->diff(new \DateTime());
+                echo $td->format("Truncating temp table takes %h hour %i minute %s second").PHP_EOL;
 
+                echo "Inserting temp table...".PHP_EOL;
+                $time1 = new \DateTime();
+                $this->tableImportHelper->insertDataInTemp($excelDataNewArray, $this->fileColumns);
+                $timediff1 = $time1->diff(new \DateTime());
+                echo $timediff1->format("Total {$csvRowCount} records inserted in temp table takes
+                %h hour %i minute %s second").PHP_EOL;
+                unset($excelDataNewArray);
+
+                echo "Getting deleted records...".PHP_EOL;
+                $time5 = new \DateTime();
+                $deletedRecords = $this->tableImportHelper->getDeletedRecords();
+                $deleteRecordCount = count($deletedRecords);
+                echo "Record {$deleteRecordCount} need to update deletion flag.".PHP_EOL;
+                $this->processDeletedRecords($deletedRecords);
+                unset($deletedRecords);
+                $timediff5 = $time5->diff(new \DateTime());
+                echo $timediff5->format("Delete flag updation takes %h hour %i minute %s second").PHP_EOL;
+
+                echo "Getting delta records...".PHP_EOL;
+                $t1 = new \DateTime();
+                $excelDataNewArray = $this->tableImportHelper->getDelta();
+                $td1 = $t1->diff(new \DateTime());
+                echo $td1->format("Getting delta takes %h hour %i minute %s second").PHP_EOL;
+
+                $this->monitoringItem->getLogger()->info("Total {$csvRowCount} records found in file.");
+                echo "Total {$csvRowCount} records found in csv file.".PHP_EOL;
+                $deltaCount = count($excelDataNewArray);
+                echo "Total {$deltaCount} Delta records found...".PHP_EOL;
+                if($deltaCount > 0) {
+                    $applicationLogMessage = $this->countDelta($deltaCount, $excelDataNewArray,
+                    $plantFolderId, $salesOrganizationsFolderId, $distributionChannelFolderId, $countryOfOriginFolderId);
+                } else {
+                    $applicationLogMessage = "No delta records found.";
+                }
+
+                $time4 = new \DateTime();
+                $this->tableImportHelper->updateMaster();
+                $timediff4 = $time4->diff(new \DateTime());
+                echo $timediff4->format("Total {$deltaCount} replaced in master table takes
+                %h hour %i minute %s second").PHP_EOL;
+
+                $this->tableImportHelper->deleteFailedRecordsFromMaster($this->failedIDs);
+            } else {
+                $applicationLogMessage = "PTGEU Sales - The uploaded file has wrong headers.";
+                $this->importProcessEmailNotificationObj->sendMailNotification($applicationLogMessage);
+            }
         } else {
-            $applicationLogMessage = "No record found in file.";
+            $applicationLogMessage = "PTGEU Sales - No record found in file.";
+            $this->importProcessEmailNotificationObj->sendMailNotification($applicationLogMessage);
         }
 
         echo $applicationLogMessage;
