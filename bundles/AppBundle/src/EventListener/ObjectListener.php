@@ -293,7 +293,7 @@ class ObjectListener
             $appliicationAdminRole = Model\User\Role::getByName($roleName);
 
             $adminRoles = $adminUser->getRoles();
-            if (in_array($appliicationAdminRole->getId(), $adminRoles) || $adminUser->isAdmin()) {
+            if ($adminUser->isAdmin() || in_array($appliicationAdminRole->getId(), $adminRoles) ) {
                 return true;
             }
         }
