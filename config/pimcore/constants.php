@@ -67,7 +67,7 @@ define('CS_API_CONFIG_FILE_PATH', CS_APIBUNDLE_CONFIG_DIRECTORY
 define('INVALID_COMMAND', 'Invalid command: %s command not found');
 define('FILE_FORMAT_DOESNOT_SUPPORT', 'This command does not support the given file format.');
 define('IMPORT_FILE_NOT_FOUND', 'Please check the directory %s, File %s not found');
-define('ALLOWED_FILE_TYPES', 'Only %s files are allowed to uplod');
+define('ALLOWED_FILE_TYPES', 'Only %s file is allowed.');
 
 define("BRICK_MAPPING_CONFIG_FILE_PATH", APPBUNDLE_CONFIG_DIRECTORY . "/brick_mapping_config.yaml");
 

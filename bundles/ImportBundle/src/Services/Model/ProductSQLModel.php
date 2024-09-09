@@ -11,6 +11,7 @@ use AppBundle\Logger\AppLogger as Logger;
 use ImportBundle\Services\ImportConstants;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use AppBundle\Helper\Common;
+use AppBundle\Services\ImportProcessEmailNotificationService;
 use ImportBundle\Services\Model\CSImportModel;
 
 class ProductSQLModel
@@ -53,6 +54,8 @@ class ProductSQLModel
     private $bricksDataArray;
     private $relationTableDataArray;
     private $relationTableDataDeleteArray;
+    private $importProcessEmailNotificationObj;
+    private $csImportModel;
     private $appService;
     private $prdConfigData;
 
@@ -86,6 +89,7 @@ class ProductSQLModel
         $this->baseSIOPMapping = [];
         $this->baseSIOPArticleMapping = [];
         $this->baseSiopMismatchLog = [];
+        $this->importProcessEmailNotificationObj = new ImportProcessEmailNotificationService;
     }
 
     /**
@@ -141,8 +145,14 @@ class ProductSQLModel
              * Pass file path directly or send array with sheet configuration
              * eg: Start row to read, end row to read, number of columns to read etc.
              */
-            $csvInfo = Import::getCSVData($this->filePath);
-
+            try {
+                $csvInfo = Import::getCSVData($this->filePath);
+            } catch (Exception $e) {
+                p_r($e);
+                $this->importProcessEmailNotificationObj->sendMailNotification(
+                    "IFS-NA Product Import not performed - Error occured while reading CSV \n".$e->getMessage()
+                );
+            }
             $this->csvHeader = array_flip($csvInfo['header']);
             /**
              * Setting up import table
@@ -160,38 +170,55 @@ class ProductSQLModel
     {
         Common::clearAndDisablePimCache();
 
-        \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("SAP import started");
-        $this->tblImpHelper->truncateTempTable();
-        $this->tblImpHelper->insertDataInTemp($csvData);
-        \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("Data Sheet imported in temp table");
-        $this->processDeletedProducts();
-        \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("Removed records in data sheet, marked as unpublished.");
-        \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("PTG import started");
-        $this->initiatePTGProductsProcess();
-        \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("PTG import completed");
-        \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("IFS import started");
-        $this->initiateIFSProductsProcess();
-        \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("IFS import completed");
-        $this->initiateCSProductsProcess();
-        \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("CS import completed");
-        $this->tblImpHelper->getRecordsSiopCodeDigitsNot13And16And18();
-        \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("SIOP code other than 13 and 16 and 18 digit inserted in Log Table and delted from temp table");
-        $this->tblImpHelper->updateMaster();
-        \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("Data copied from temp table to master table");
+        if(!empty($csvData)) {
+            $flag = 1;
+            foreach(array_keys($this->csvHeader) as $column){
+                if(!in_array($column, $this->columnName)) {
+                    $flag = 0;
+                    break;
+                }
+            }
+            if($flag == 1){
+                \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("SAP import started");
+                $this->tblImpHelper->truncateTempTable();
+                $this->tblImpHelper->insertDataInTemp($csvData);
+                \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("Data Sheet imported in temp table");
+                $this->processDeletedProducts();
+                \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("Removed records in data sheet, marked as unpublished.");
+                \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("PTG import started");
+                $this->initiatePTGProductsProcess();
+                \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("PTG import completed");
+                \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("IFS import started");
+                $this->initiateIFSProductsProcess();
+                \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("IFS import completed");
+                $this->initiateCSProductsProcess();
+                \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("CS import completed");
 
-
-
-        if (!empty($this->updatedArticlesArray) && count($this->updatedArticlesArray)>0) {
-            echo "Object Saving started for completeness.";
-            $this->saveProducts($this->updatedArticlesArray);
-            echo "Object Saving completed for completeness.";
+                // $this->tblImpHelper->getRecordsSiopCodeDigitsNot13And18();
+                // \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("SIOP code other than 13 and 18 digit inserted in Log Table and delted from temp table");
+                $this->tblImpHelper->getRecordsSiopCodeDigitsNot13And16And18();
+                \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("SIOP code other than 13 and 16 and 18 digit inserted in Log Table and delted from temp table");
+                $this->tblImpHelper->updateMaster();
+                \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("Data copied from temp table to master table");
+                if (!empty($this->updatedArticlesArray) && count($this->updatedArticlesArray)>0) {
+                    echo "Object Saving started for completeness.";
+                    $this->saveProducts($this->updatedArticlesArray);
+                    echo "Object Saving completed for completeness.";
+                }
+                if (!empty($this->baseSiopMismatchLog) && count($this->baseSiopMismatchLog)>0) {
+                    $this->tblImpHelper->removeArticlesFromMaster($this->baseSiopMismatchLog);
+                    \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("failed records removed from master table.");
+                    $this->sendSkippedArticlesEmailNotification($this->baseSiopMismatchLog, $this->baseSiopMismatchEmailTemplate);
+                }
+                Common::endablePimCache();
+        } else {
+                $applicationLogMessage = "IFS-NA Product - The uploaded file has wrong headers.";
+                $this->importProcessEmailNotificationObj->sendMailNotification($applicationLogMessage);
+            }
+        } else {
+            $applicationLogMessage = "IFS-NA Product - No record found in file.";
+            $this->importProcessEmailNotificationObj->sendMailNotification($applicationLogMessage);
         }
-        if (!empty($this->baseSiopMismatchLog) && count($this->baseSiopMismatchLog)>0) {
-            $this->tblImpHelper->removeArticlesFromMaster($this->baseSiopMismatchLog);
-            \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("failed records removed from master table.");
-            $this->sendSkippedArticlesEmailNotification($this->baseSiopMismatchLog, $this->baseSiopMismatchEmailTemplate);
-        }
-        Common::endablePimCache();
     }
     public function sendSkippedArticlesEmailNotification($skippedArticles, $emailTemplate) {
         try {
@@ -746,51 +773,59 @@ class ProductSQLModel
         $levelArray = array();
         if (array_key_exists($siopCode, $this->categories)) {
             $buCatCode = substr($siopCode, 2, 4);
-            if ($this->isValidCategoryCode($buCatCode, $siopCode)) {
-                if (!empty(trim($recData[$this->getRecordIndexByKey('group')]))) {
-                    if($this->checkIfProductWillRemainPublishedOrNot($recData['0'])){
-                        echo $recData['0'].PHP_EOL;
-                        $record = array(
-                            'code'  =>  $siopCode,
-                            'description'   =>  $recData[$this->getRecordIndexByKey('description')],
-                            'material'  =>  $recData[$this->getRecordIndexByKey('material')]
-                        );
-                        $levelInfo = $this->productHelper->getLevels($record['code'], $record);
+            $record = array(
+                'code'  =>  $siopCode,
+                'description'   =>  $recData[$this->getRecordIndexByKey('description')],
+                'material'  =>  $recData[$this->getRecordIndexByKey('material')]
+            );
+            if($bu == 'cs'){
+                if($this->checkIfProductWillRemainPublishedOrNot($recData['0'])) {
+                    $levelInfo = $this->productHelper->getLevelsForCS($record['code'], $record);
+                    $folderIndex = count($levelInfo['levels']);
+                    $folderCode = $levelInfo['levels'][$folderIndex]['levelFullCode'];
+                    $folderPath = $this->categories[$folderCode]['fullPath'];
+                    $folderPath = $this->convertCategoryPathToProduct($folderPath);
+                    if (!array_key_exists($folderPath, $this->products)) {
+                        $folderId = $this->getFolderByPath($folderPath);
+                        $this->products[$folderPath] = $folderId;
+                    } else {
+                        $folderId = $this->products[$folderPath];
+                    }
+                    $levelArray = $this->createCSObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'fert', true);
+                        if (empty($levelArray[0])) {
+                        $msg = $levelArray[1];
+                    } else {
+                        $status = 'Success';
+                        $msg = 'Object Id is: '.$levelArray[0];
+                    }
+                    if (!$errorFlag) {
+                        $this->updatedArticlesArray[] = $levelArray[0]; //$recData[$this->getRecordIndexByKey('material')];
+                    }
+                }
+                else {
+                    $status = 'Marked Unpublished' ;
+                    $msg = "Product Unpublished as it's plants mapped has OBS value in MRPController field";
+                }
 
-                        if ($levelInfo['status']) {
-                            if (strtolower($bu) == 'ifs') {
-                                $oldMaterialCode = trim($recData[6]);
-                                if (empty($oldMaterialCode) || $oldMaterialCode == 'NA' || $oldMaterialCode == 'N/A' || (strlen($oldMaterialCode)!= 14) || strstr($oldMaterialCode,' ') || strstr($oldMaterialCode,'-')) {
-                                    $recData[6] = '';
-                                    $sixDigitCode = '';
-                                } else {
-                                    $sixDigitCode = substr($oldMaterialCode, 0, 6);
-                                }
-                                if (!empty($sixDigitCode) && !empty($this->baseSIOPMapping[$sixDigitCode]) && $this->baseSIOPMapping[$sixDigitCode] != $siopCode) {
-                                    $msg = 'All Part numbers under one 6 Digit Code '.$sixDigitCode.' must be under the same SIOP Product Hierarchy.';
-                                    $this->baseSiopMismatchLog[$recData['0']] = [
-                                        'articleNumber' => $recData['0'],
-                                        'siop' => $siopCode,
-                                        '6digit' => $sixDigitCode,
-                                        'mismatchedSiopCode' => $this->baseSIOPMapping[$sixDigitCode],
-                                        'mismatchedArticleNumber' => $this->baseSIOPArticleMapping[$sixDigitCode]
-                                    ];
-                                    $errorFlag = true;
-                                } else {
-                                    $this->baseSIOPMapping[$sixDigitCode] = $siopCode;
-                                    $folderIndex = count($levelInfo['levels']);
-                                    $folderCode = $levelInfo['levels'][$folderIndex]['levelFullCode'];
-                                    $folderPath = $this->categories[$folderCode]['fullPath'];
-                                    $folderPath = $this->convertCategoryPathToProduct($folderPath);
-                                    $folderId = $this->getFolderByPath($folderPath);
-                                    if (!array_key_exists($folderPath, $this->products)) {
-                                        $folderId = $this->getFolderByPath($folderPath);
-                                        $this->products[$folderPath] = $folderId;
+            }
+             else {
+                if ($this->isValidCategoryCodeLength($buCatCode, $siopCode)) {
+                    if (!empty(trim($recData[$this->getRecordIndexByKey('group')]))) {
+                        if($this->checkIfProductWillRemainPublishedOrNot($recData['0'])){
+                            echo $recData['0'].PHP_EOL;
+                            $levelInfo = $this->productHelper->getLevels($record['code'], $record);
+
+                            if ($levelInfo['status']) {
+                                if (strtolower($bu) == 'ifs') {
+                                    $oldMaterialCode = trim($recData[6]);
+                                    if (empty($oldMaterialCode) || $oldMaterialCode == 'NA' || $oldMaterialCode == 'N/A' || (strlen($oldMaterialCode)!= 14) || strstr($oldMaterialCode,' ') || strstr($oldMaterialCode,'-')) {
+                                        $recData[6] = '';
+                                        $sixDigitCode = '';
                                     } else {
                                         $sixDigitCode = substr($oldMaterialCode, 0, 6);
                                     }
                                     if (!empty($sixDigitCode) && !empty($this->baseSIOPMapping[$sixDigitCode]) && $this->baseSIOPMapping[$sixDigitCode] != $siopCode) {
-                                        $msg = 'SIOP Code does not match with previous records of same Six digit code. (Article Number: '.$this->baseSIOPArticleMapping[$sixDigitCode].' )';
+                                        $msg = "All Part numbers under one 6 Digit Code ($sixDigitCode) must be under the same SIOP Product Hierarchy.";
                                         $this->baseSiopMismatchLog[$recData['0']] = [
                                             'articleNumber' => $recData['0'],
                                             'siop' => $siopCode,
@@ -905,6 +940,7 @@ class ProductSQLModel
           }  else {
             $msg = 'SIOP Category not exists.';
         }
+
         $logRow = [
             'id' => $recData[$this->getRecordIndexByKey('material')],
             'siopfullcode' => $siopCode,
