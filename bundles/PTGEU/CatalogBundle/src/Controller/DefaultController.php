@@ -466,6 +466,7 @@ class DefaultController extends FrontendController
         $footerLogoSrc = '';
         $objectLevel5thId = '';
         $catalogCategoryTableObjectEditable = $this->document->getEditable('ptg_eu_product_page');
+        $groupData = array();
         if($catalogCategoryTableObjectEditable)
         {
             $catalogCategoryTableObject = $catalogCategoryTableObjectEditable->getElement();
@@ -538,7 +539,7 @@ class DefaultController extends FrontendController
                     }
                 }
 
-                $groupData = array();
+                
 
                 if($objectLevel5thId)
                 {
