@@ -235,12 +235,13 @@ class ProductDataExport implements IDataExport
 
                                                     $localizeData1[$fields['oo_id']][$fkey][$fields['language']] = (
                                                         $featureStringList) ? implode("|", $featureStringList) : '';
-                                                } elseif ($fkey == 'productShortDescription' && $field == '') {
-                                                    $productShortDescription_en =
-                                                        $this->getProductShortDescriptionValueInEnglish(
-                                                            $result1,
-                                                            $fields['oo_id']
-                                                        );
+                                                // } elseif ($fkey == 'productShortDescription' && $field == '') {
+                                                } elseif ($fkey == 'productShortDescription') {
+                                                    $productShortDescription_en = '';
+                                                        // $this->getProductShortDescriptionValueInEnglish(
+                                                        //     $result1,
+                                                        //     $fields['oo_id']
+                                                        // );
                                                     $localizeData1[$fields['oo_id']][$fkey][$fields['language']] =
                                                         $productShortDescription_en;
                                                 } else {
