@@ -167,6 +167,7 @@ class B2BProductRequestBodyGenerator extends AbstractB2BRequestBodyGenerator
         }
         $returnArray["IsActive"] = $tempTableData["epixFlag"] && $tempTableData["o_published"];
         $returnArray["RecordTypeId"] = (new B2BProductHelper())->getRecordTypeId();
+        $returnArray['ProductCode'] = $tempTableData['articleNumber'];
 
         return $returnArray;
     }
