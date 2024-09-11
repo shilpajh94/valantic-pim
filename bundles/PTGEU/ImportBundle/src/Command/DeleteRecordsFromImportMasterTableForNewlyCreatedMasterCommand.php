@@ -67,12 +67,23 @@ class DeleteRecordsFromImportMasterTableForNewlyCreatedMasterCommand extends Com
         foreach($ptgeuColorRecords as $key => $value){
             $newMasterRecords['Color'][] = $value['key'];
         }
+
+        // Master Data - VTL Status
+        $ptgeuVTLStatus = "SELECT *
+                FROM object_PTGEUVTL
+                WHERE creationDate >= UNIX_TIMESTAMP(NOW() - INTERVAL 1 DAY)";
+        $ptgeuVTLStatusRecords = $this->db->fetchAllAssociative($ptgeuVTLStatus);
+        foreach($ptgeuVTLStatusRecords as $key => $value){
+            $newMasterRecords['Status'][] = $value['key'];
+        }
+
         // dd($newMasterRecords);
         $masterArr = array(
             "Color" => 46,
             "Static Conductive" => 47,
             "Performance" => 56,
-            "Belt Type" => 57
+            "Belt Type" => 57,
+            "Status" => 100
         );
         foreach($newMasterRecords as $eachMaster => $newValues){
             $masterIndex = $masterArr[$eachMaster];
