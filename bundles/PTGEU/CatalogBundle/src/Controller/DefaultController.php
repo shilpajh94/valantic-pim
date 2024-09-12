@@ -539,7 +539,7 @@ class DefaultController extends FrontendController
                     }
                 }
 
-                
+
 
                 if($objectLevel5thId)
                 {
@@ -727,12 +727,12 @@ class DefaultController extends FrontendController
                     $salesAssociatedMaterialsString = '';
                     if($plantAssociatedMaterials)
                     {
-                        $plantAssociatedMaterialsString = implode(',', $plantAssociatedMaterials);
+                        $plantAssociatedMaterialsString = "'".implode("', '", $plantAssociatedMaterials)."'";
                     }
 
                     if($salesAssociatedMaterials)
                     {
-                        $salesAssociatedMaterialsString = implode(',', $salesAssociatedMaterials);
+                        $salesAssociatedMaterialsString = "'".implode("', '", $salesAssociatedMaterials)."'";
                     }
 
                     foreach ($row6ThLevelDetails as $objectLevel6) {

@@ -127,8 +127,8 @@
                                     {% for key, value in groupData['beltDesign'] %}
                                         {% set propertyKey = key|trans %}
                                         {% set beltDesignCombine = beltDesignCombine|merge([propertyKey~": "~value]) %}
-                                        {{ implodeBR(beltDesignCombine)| raw }}
                                     {% endfor %}
+                                    {{ implodeBR(beltDesignCombine)| raw }}
                                 </td>
                             </tr>
                         {% endif %}
@@ -199,8 +199,8 @@
                                     {% for key, value in groupData['properties'] %}
                                         {% set propertyKey = key|trans %}
                                         {% set propertiesCombine = propertiesCombine|merge([propertyKey ~" "~value]) %}
-                                        {{ implodeBR(propertiesCombine) }}
                                     {% endfor %}
+                                    {{ implodeBR(propertiesCombine) | raw }}
                                 </td>
                             </tr>
                         {% endif %}
