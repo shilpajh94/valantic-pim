@@ -806,7 +806,7 @@ class IndustrialHoseController extends FrontendController
                                 }
 
                                 $oldMaterialCodeStr = '';
-                                if ($oldMaterialCodeArr[$groupingFieldNameValue]) {
+                                if (!empty($oldMaterialCodeArr[$groupingFieldNameValue])) {
                                     $oldMaterialCodeStr = implode(', ', array_unique($oldMaterialCodeArr[$groupingFieldNameValue]));
                                 }
 
