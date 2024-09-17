@@ -87,7 +87,7 @@ class UpdateNonFixedRecordsCommand extends AbstractCommand
           $columns[] = 'TimeStamp';
           $fileName = "B2B_SalesForce_NonFixed_Records_".date('mdY').'.csv';
 
-          $fileResource = fopen(PIMCORE_SYSTEM_TEMP_DIRECTORY.'/'.$fileName, 'w');
+          $fileResource = fopen(PIMCORE_PROJECT_ROOT.'/var'.'/'.'B2B/'.$fileName, 'w');
           fputcsv($fileResource, $columns, ',');
             foreach($record as $arr)
             {
