@@ -110,7 +110,7 @@ class UpdateNonFixedRecordsCommand extends AbstractCommand
         $newAsset = new \Pimcore\Model\Asset();
         $newFilename = Element\Service::getSafeCopyName($fileName,\Pimcore\Model\Asset::getByPath("$parentFolder"));
         $newAsset->setFilename($newFilename);
-        $newAsset->setData(file_get_contents(PIMCORE_SYSTEM_TEMP_DIRECTORY.'/'.$fileName));
+        $newAsset->setData(file_get_contents(PIMCORE_PROJECT_ROOT.'/var/B2B/'.$fileName));
         $newAsset->setParent(\Pimcore\Model\Asset::getByPath("$parentFolder"));
         $newAsset->save();
         return $newAsset->getId();
