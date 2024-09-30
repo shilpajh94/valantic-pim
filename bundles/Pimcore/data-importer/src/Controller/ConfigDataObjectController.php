@@ -597,7 +597,8 @@ class ConfigDataObjectController extends UserAwareController
     {
         $configName = $request->request->get('config_name');
         $success = $importPreparationService->prepareImport($configName, true);
-
+        $cmd = PIMCORE_PROJECT_ROOT. '/bin/console datahub:data-importer:process-queue-parallel';
+        \Pimcore\Tool\Console::execInBackground($cmd);
         return new JsonResponse([
             'success' => $success
         ]);
