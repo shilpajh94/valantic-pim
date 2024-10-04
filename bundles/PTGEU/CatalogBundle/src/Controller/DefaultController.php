@@ -1806,6 +1806,1406 @@ class DefaultController extends FrontendController
         }
         return $this->render("ptgeucatalog/default/template_ptg_eu_product_page.html.twig", $parameterBag);
     }
+    public function templatePtgEuSectionPagePTSBeltsAction(Request $request): Response
+    {
+        $parameterBag['groupData'] = isset( $groupData)? $groupData:[];
+        if(!$request->get('contentDocument')->getPublished()){
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        }
+        else{
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
+
+        $initialSortList = array(
+            "profile",
+            "pitchLengthLpLwMM",
+            "pitchLengthLpLwIN",
+            "refLengthLrMM",
+            "refLengthLrIN",
+            "ribs",
+            "widthMM",
+            "insideLengthMM",
+            "insideLengthIN",
+            "datumLengthMM",
+            "datumLengthIN",
+            "effectiveLengthMM",
+            "effectiveLengthIN"
+        );
+
+        $decimalPlaceAttribute = array (
+            "effectiveLengthIN",
+            "pitchLengthLpLwIN",
+            "datumLengthIN",
+            "outsideLengthIN",
+            "insideLengthIN",
+            "heightIN",
+            "heightMM",
+            "widthMM",
+            "widthIN",
+            "toothPitchPtIN",
+            "refLineDiffHBIN",
+            "ProfileHeightHIN",
+            "beltThicknessHsIN",
+            "toothHeightHtIN",
+            "ribPitchIN",
+            "pitchWidthBDMM",
+            "pitchWidthBDIN",
+            "pitchHeightHduMM",
+            "pitchHeightHduIN",
+            "lowerBeltWidthBiIN",
+            "maxPulleyGroove"
+        );
+
+        $language = $this->document->getProperty('language');
+        $language = $language ? $language : 'en';
+        $footerLogoSrc = '';
+        $objectLevel5thId = '';
+        $catalogCategoryTableObjectEditable = $this->document->getEditable('ptg_eu_product_page');
+        $groupData = array();
+        if($catalogCategoryTableObjectEditable)
+        {
+            $catalogCategoryTableObject = $catalogCategoryTableObjectEditable->getElement();
+            if($catalogCategoryTableObject)
+            {
+                $commonHelper = $this->containerInterface->get(self::COMMON_HELPER);
+                $attributeImagesConfig = $this->getContainerConfig('AttributeImagesConfig');
+                $priceListTableConfig = $this->getContainerConfig('PriceListTableConfig');
+
+                $priceListTableColumn = $commonHelper->getParameter($priceListTableConfig, 'priceListTableColumn');
+                $priceListCurrency = $commonHelper->getParameter($priceListTableConfig, 'priceListCurrency');
+                $this->attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
+                $catalogImagesPTGFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesPTGFooter');
+
+                $catalogObj = DataObject\PTGEUCatalog::getById($catalogCategoryTableObject->getParentId());
+                $isPriceCatalog = $catalogObj->getIsPriceCatalog();
+                $distributionChannel = $catalogObj->getDistributionChannel();
+                $salesOrganisation = $catalogObj->getSalesOrganisation();
+                $deliveringPlant = $catalogObj->getDeliveringPlant();
+                $currency = $catalogObj->getCurrency();
+                $validFromDate = $catalogObj->getValidFromDate();
+                $objColumnsData = $catalogCategoryTableObject->getColumns();
+                $sortingColumnsData = $catalogCategoryTableObject->getSortingColumns();
+
+                $fifthLevelCategoryObj = $catalogCategoryTableObject->getFifthLevelCategory();
+                $sixSevenLevelCategoryObj = $catalogCategoryTableObject->getSixSevenLevelCategory();
+
+                $ptgEUProductHierarchy = DataObject\PTGEUProductHierarchy::getById($fifthLevelCategoryObj);
+                $siop5Category = ($ptgEUProductHierarchy != null)?$ptgEUProductHierarchy->getPrintedCatalogDescription():'';
+                $siop6siop7Category = '';
+                $objectLevel5thDetails = '';
+                $plantAssociatedMaterials = [];
+                $salesAssociatedMaterials = [];
+
+                # get All PlantMaterialMaster of the selected Delivery Plant
+                if(trim($deliveringPlant))
+                {
+                    $sql = "SELECT id FROM `object_PTGEUPlant` WHERE Plant = '$deliveringPlant' AND published = 1 ";
+                    $deliveringPlantID =  $this->db->fetchOne($sql);
+
+                    $sql = "SELECT TRIM(BOTH ',' FROM `Material`) AS `materialID` FROM `object_40` ";
+                    $sql .= " WHERE plant__id = '$deliveringPlantID' AND published = 1 ";
+
+                    $plantAssociatedMaterials =  $this->db->fetchFirstColumn($sql);
+                }
+
+                # get All SalesMaterialMaster of the selected Sales Organization
+                if(trim($salesOrganisation))
+                {
+                    $sql = "SELECT id FROM `object_PTGEUSalesOrg` ";
+                    $sql .= " WHERE salesOrgCode = '$salesOrganisation' AND published = 1 ";
+
+                    $salesOrganisationID =  $this->db->fetchOne($sql);
+
+                    $sql = "SELECT TRIM(BOTH ',' FROM `Material`) AS `materialID` FROM `object_41` ";
+                    $sql .= " WHERE salesOrganization__id = '$salesOrganisationID' AND published = 1 ";
+                    $salesAssociatedMaterials =  $this->db->fetchFirstColumn($sql);
+                }
+
+
+                if($ptgEUProductHierarchy)
+                {
+                    $sql = "SELECT * FROM `object_query_38` WHERE productType = 'base' ";
+                    $sql .= "AND hierarchyLevel5 LIKE '%$fifthLevelCategoryObj%' LIMIT 1";
+                    $objectLevel5thDetails =  $this->db->fetchAssociative($sql);
+
+                    if($objectLevel5thDetails)
+                    {
+                        $objectLevel5thId = $objectLevel5thDetails['oo_id'];
+                    }
+                }
+
+
+
+                if($objectLevel5thId)
+                {
+                    $seventhLevelProductList = [];
+
+                    if($sixSevenLevelCategoryObj)
+                    {
+                        foreach ($sixSevenLevelCategoryObj as $categoryId) {
+
+                            $sql = "SELECT oo_id FROM `object_query_38` WHERE productType = 'skeleton' ";
+                            $sql .= " AND hierarchyLevel7 LIKE '%$categoryId%' LIMIT 1";
+                            $objectLevel7thId =  $this->db->fetchOne($sql);
+
+                            if($objectLevel7thId)
+                            {
+                                $seventhLevelProductList[] = $objectLevel7thId;
+                            }
+                        }
+                    }
+
+                    $this->columnsData = json_decode($objColumnsData, true);
+                    $this->sortColumnsData = json_decode($sortingColumnsData, true);
+
+                    $columnDataArr = [];
+                    if($this->columnsData)
+                    {
+                        foreach ($this->columnsData as $key => $value) {
+                            $columnDataArr[] = $key;
+                        }
+                    }
+
+                    $result = [];
+                    if($this->sortColumnsData)
+                    {
+                        $result = array_diff($this->sortColumnsData, $columnDataArr);
+                    }
+
+                    foreach ($result as $key => $value) {
+                        if ((array_search($key, $this->sortColumnsData)) !== false) {
+                            unset($this->sortColumnsData[$key]);
+                        }
+                    }
+
+                    if(!isset($this->columnsData['articleNumber']))
+                    {
+                        $matchCodeData['articleNumber']['columnLabel'] = 'Match Code';
+                        $matchCodeData['articleNumber']['fieldType'] = 'Input';
+                        $matchCodeData['articleNumber']['groupName'] = 'articleNumber';
+                        $matchCodeData['articleNumber']['fieldLevel'] = 'class';
+                        $matchCodeData['articleNumber']['objectLevel'] = 'fert';
+                        $this->columnsData = array_merge($matchCodeData, $this->columnsData);
+                    }
+
+                    if($isPriceCatalog)
+                    {
+                        $this->columnsData['listPrice']['columnLabel'] = 'listPrice';
+                        $this->columnsData['listPrice']['unitName'] = $priceListCurrency[$currency];
+                    }
+
+                    $this->iconRequired = 'YES';
+                    $columnsDataWithImages = $this->getColumnHeadersForCatalog();
+
+                    $orderKeys = array();
+                    foreach ($columnsDataWithImages as $svalue) {
+                        if($svalue){
+                            foreach ($svalue as $vkey => $vvalue) {
+                                $orderKeys[] = $vkey;
+                            }
+                        }
+                        
+                    }
+
+                    $orderFieldNameList = [];
+
+                    if($this->columnsData)
+                    {
+                        foreach ($orderKeys as $fieldName) {
+                            $orderFieldNameList[$fieldName] = $this->columnsData[$fieldName];
+                        }
+                    }
+
+                    $this->subHeaderRequired = 'YES';
+                    $groupData['subHeaderRequired'] = $this->subHeaderRequired;
+                    $groupData['iconRequired'] = $this->iconRequired;
+                    $groupData['material'] = $objectLevel5thDetails['material'];
+                    $groupData['heatAndOilResistant'] = $objectLevel5thDetails['heatAndOilResistant'];
+                    $groupData['performance'] = '';
+                    if($objectLevel5thDetails['performance']) {
+                        $performanceId = $objectLevel5thDetails['performance'];
+                        $sql = "SELECT performance FROM object_localized_PTGEUPerformance_{$language} WHERE ooo_id = '$performanceId';";
+                        $result = $this->db->fetchOne($sql);
+                        $groupData['performance'] = $result;
+                    }
+                    $groupData['staticConductive'] = '';
+                    if($objectLevel5thDetails['staticConductive']){
+                        $sql = "SELECT staticConductive FROM `object_query_38` WHERE `oo_id` = '$objectLevel5thId'";
+                        $staticConductiveId =  $this->db->fetchOne($sql);
+                        $sql = "SELECT staticConductive FROM object_localized_PTGEUStaticConductive_{$language} WHERE ooo_id = '$staticConductiveId';";
+                        $result = $this->db->fetchOne($sql);
+                        $groupData['staticConductive'] = $result;
+                    }
+
+                    $reinforcementSelected = trim($objectLevel5thDetails['reinforcement'], ",");
+                    $groupData['reinforcement'] = $reinforcementSelected;
+
+                    $this->featuresList = $this->getFeaturesList($language);
+                    $safetyFeatures = array();
+                    $featuresBenefitsBulletPointSelected = $objectLevel5thDetails['FeaturesBenefitsBulletPoint'];
+                    $featuresBenefitsBulletPointSelectedList = explode(',',$featuresBenefitsBulletPointSelected);
+                    $featuresBenefitsBulletPointSelectedList = array_filter($featuresBenefitsBulletPointSelectedList);
+
+                    if($featuresBenefitsBulletPointSelectedList)
+                    {
+                        foreach ($featuresBenefitsBulletPointSelectedList as $feature) {
+                            array_push($safetyFeatures,$feature);
+                        }
+                    }
+
+                    $isAnyIconFeatureAvailable = 0;
+                    $safetyFeaturesList = $this->getFiveSortedFeaturesWithIconList($safetyFeatures);
+                    foreach ($safetyFeaturesList as $featureData) {
+                        if($featureData['iconSrc'])
+                        {
+                            $isAnyIconFeatureAvailable = 1;
+                            break;
+                        }
+                    }
+
+                    $groupData['safetyFeatures'] = $safetyFeaturesList;
+                    $groupData['isAnyIconFeatureAvailable'] = $isAnyIconFeatureAvailable;
+                    $mainImageObj = null;
+                    if($objectLevel5thDetails['mainImage1'])
+                    {
+                        $mainImageObj = \Pimcore\Model\Asset::getById($objectLevel5thDetails['mainImage1']);
+                    }
+                    $groupData['mainImageObj'] = $mainImageObj;
+
+                    $technicalDrawing1Obj = null;
+                    if($objectLevel5thDetails['technicalDrawing1'])
+                    {
+                        $technicalDrawing1Obj = \Pimcore\Model\Asset::getById($objectLevel5thDetails['technicalDrawing1']);
+                    }
+                    $groupData['technicalDrawing1Obj'] = $technicalDrawing1Obj;
+
+                    $sql = "SELECT longDescription FROM `object_localized_data_38` WHERE ooo_id = '$objectLevel5thId' AND `language` = '{$language}' LIMIT 1";
+                    $longDescription =  $this->db->fetchOne($sql);
+                    $groupData['longDescription'] = $longDescription;
+                    $groupData['temperatureRange'] = '';
+                    if($objectLevel5thDetails['minimumTemperatureF'] && $objectLevel5thDetails['maximumTemperatureF'] && $objectLevel5thDetails['minimumTemperatureC'] && $objectLevel5thDetails['maximumTemperatureC'])
+                    {
+                        $minTempF = round($objectLevel5thDetails['minimumTemperatureF']);
+                        $minTempC = round($objectLevel5thDetails['minimumTemperatureC']);
+
+                        if($objectLevel5thDetails['minimumTemperatureF'] > 0 || $objectLevel5thDetails['minimumTemperatureF'] < 0){
+                            $minTempF = '-'.round($objectLevel5thDetails['minimumTemperatureF']);
+                        }
+                        if($objectLevel5thDetails['minimumTemperatureC'] > 0 || $objectLevel5thDetails['minimumTemperatureC'] < 0){
+                            $minTempC = '-'.round($objectLevel5thDetails['minimumTemperatureC']);
+                        }
+                        $groupData['temperatureRange'] = $minTempF.'°F'.' to '.round($objectLevel5thDetails['maximumTemperatureF']).'°F '."(".$minTempC.'°C'.' to '.round($objectLevel5thDetails['maximumTemperatureC']).'°C'.")";
+                    }
+                    elseif($objectLevel5thDetails['minimumTemperatureF'] && $objectLevel5thDetails['maximumTemperatureF'])
+                    {
+                        $minTempF = round($objectLevel5thDetails['minimumTemperatureF']);
+
+                        if($objectLevel5thDetails['minimumTemperatureF'] > 0 || $objectLevel5thDetails['minimumTemperatureF'] < 0){
+                            $minTempF = '-'.round($objectLevel5thDetails['minimumTemperatureF']);
+                        }
+                        $groupData['temperatureRange'] = $minTempF.'°F'.' to '.round($objectLevel5thDetails['maximumTemperatureF']).'°F';
+                    }
+                    elseif($objectLevel5thDetails['minimumTemperatureC'] && $objectLevel5thDetails['maximumTemperatureC'])
+                    {
+                        $minTempC = round($objectLevel5thDetails['minimumTemperatureC']);
+
+                        if($objectLevel5thDetails['minimumTemperatureC'] > 0 || $objectLevel5thDetails['minimumTemperatureC'] < 0){
+                            $minTempC = '-'.round($objectLevel5thDetails['minimumTemperatureC']);
+                        }
+                        $groupData['temperatureRange'] = $minTempC.'°C'.' to '.round($objectLevel5thDetails['maximumTemperatureC']).'°C';
+                    }
+
+                    $groupData['brandName'] = $objectLevel5thDetails['ProductName'];
+
+                    $sql = "SELECT * FROM `object_38` WHERE `parentId` = '$objectLevel5thId' ORDER BY id ASC";
+                    $row6ThLevelDetails =  $this->db->fetchAllAssociative($sql);
+                    $notApplicableFields = [];
+                    $articles = [];
+                    $plantAssociatedMaterialsString = '';
+                    $salesAssociatedMaterialsString = '';
+                    if($plantAssociatedMaterials)
+                    {
+                        $plantAssociatedMaterialsString = "'".implode("', '", $plantAssociatedMaterials)."'";
+                    }
+
+                    if($salesAssociatedMaterials)
+                    {
+                        $salesAssociatedMaterialsString = "'".implode("', '", $salesAssociatedMaterials)."'";
+                    }
+
+                    foreach ($row6ThLevelDetails as $objectLevel6) {
+                        $objectLevel6thId = $objectLevel6['id'];
+                        if(empty($seventhLevelProductList) || in_array($objectLevel6thId, $seventhLevelProductList))
+                        {
+                            $appendWhereClauseSQL = '';
+                            if(trim($plantAssociatedMaterialsString) && trim($salesAssociatedMaterialsString))
+                            {
+                                $appendWhereClauseSQL = "AND `oo_id` IN ($plantAssociatedMaterialsString) ";
+                                $appendWhereClauseSQL .= "AND `oo_id` IN ($salesAssociatedMaterialsString)";
+                            }
+                            elseif(trim($plantAssociatedMaterialsString))
+                            {
+                                $appendWhereClauseSQL = "AND `oo_id` IN ($plantAssociatedMaterialsString)";
+                            }
+                            elseif(trim($salesAssociatedMaterialsString))
+                            {
+                                $appendWhereClauseSQL = "AND `oo_id` IN ($salesAssociatedMaterialsString)";
+                            }
+
+                            $sql = "SELECT * FROM `object_38` ";
+                            $sql .= " WHERE `parentId` = '$objectLevel6thId' $appendWhereClauseSQL ORDER BY id ASC";
+                            $productObjectLevel7List =  $this->db->fetchAllAssociative($sql);
+
+                            foreach ($productObjectLevel7List as $article) {
+                                if($article['printedCatalogFlag'] == '1')
+                                {
+                                    foreach ($orderFieldNameList as $fieldName => $fields) {
+                                        if(isset($fields['objectLevel']) && ($fields['objectLevel'] == 'fert') && ($fields['fieldLevel'] == 'class'))
+                                        {
+                                            if(ucfirst($fields['fieldType']) == 'Input')
+                                            {
+                                                $data[$fieldName] = $article[$fieldName];
+                                            }
+                                            elseif(trim($article[$fieldName]) && ucfirst($fields['fieldType']) == 'Number')
+                                            {
+                                                if($fieldName == 'netWeight' || $fieldName == 'grossWeight'){
+                                                    $data[$fieldName] = number_format($article[$fieldName],3,".","");
+                                                }
+                                                else{
+                                                        $data[$fieldName] = floatval($article[$fieldName]);
+                                                }
+                                            }
+                                        }
+                                        elseif(isset($fields['objectLevel']) &&  ($fields['objectLevel'] == 'base') && ($fields['fieldLevel'] == 'class'))
+                                        {
+                                            if(ucfirst($fields['fieldType']) == 'Input')
+                                            {
+                                                if($fieldName == 'beltType' || $fieldName == 'color'|| $fieldName == 'Color') {
+                                                    if($fieldName == 'Color') {
+                                                        $lcFieldName = lcfirst($fieldName);
+                                                        $sql = "SELECT $lcFieldName FROM object_localized_PTGEU".ucfirst($fieldName)."_{$language} WHERE ooo_id = '$objectLevel5thDetails[$lcFieldName]';";
+                                                    } else {
+                                                        $sql = "SELECT $fieldName FROM object_localized_PTGEU".ucfirst($fieldName)."_{$language} WHERE ooo_id = '$objectLevel5thDetails[$fieldName]';";
+                                                    }
+                                                    $result = $this->db->fetchFirstColumn($sql);
+                                                    if($result != null){
+                                                        $data[$fieldName] = $result[0];
+                                                    } else {
+                                                        $data[$fieldName] = null;
+                                                    }
+                                                } else {
+                                                    $data[$fieldName] = $objectLevel5thDetails[$fieldName];
+                                                }
+                                            }
+                                            elseif(trim($objectLevel5thDetails[$fieldName]) && ucfirst($fields['fieldType']) == 'Number')
+                                            {
+                                                    $data[$fieldName] = floatval($objectLevel5thDetails[$fieldName]);
+                                            }
+                                        }
+                                        elseif(isset($fields['objectLevel']) && ($fields['objectLevel'] == 'skeleton') && ($fields['fieldLevel'] == 'class'))
+                                        {
+                                            if(ucfirst($fields['fieldType']) == 'Input')
+                                            {
+                                                $data[$fieldName] = $objectLevel6[$fieldName];
+                                            }
+                                            elseif(trim($objectLevel6[$fieldName]) && ucfirst($fields['fieldType']) == 'Number')
+                                            {
+                                                    $data[$fieldName] = floatval($objectLevel6[$fieldName]);
+                                            }
+                                        }
+                                        elseif(isset($fields['objectLevel']) && ($fields['objectLevel'] == 'skeleton') && ($fields['fieldLevel'] == 'objectBrick'))
+                                        {
+                                            $inputOrNumber = false;
+                                            $isNumericField = false;
+                                            if(ucfirst($fields['fieldType']) == 'Input')
+                                            {
+                                                $inputOrNumber = true;
+                                            }
+                                            elseif(ucfirst($fields['fieldType']) == 'Number')
+                                            {
+                                                $inputOrNumber = true;
+                                                $isNumericField = true;
+                                            }
+
+                                            if($inputOrNumber)
+                                            {
+                                                $o_id = $objectLevel6['oo_id'];
+                                                $objectBrickName = $fields['objectBrickName'];
+                                                $sql = "SELECT * FROM `object_brick_query_{$objectBrickName}_38` WHERE `id` = '$o_id'";
+                                                $rowData =  $this->db->fetchAssociative($sql);
+                                                if($rowData)
+                                                {
+                                                    if(isset($rowData[$fieldName]) && trim($rowData[$fieldName]) && $isNumericField){
+                                                        if(in_array($fieldName, $decimalPlaceAttribute)){
+                                                            $data[$fieldName] = number_format($rowData[$fieldName],2,".","");
+                                                        }else{
+                                                            $data[$fieldName] = floatval($rowData[$fieldName]);
+                                                        }
+                                                    }else{
+                                                        if(isset($rowData[$fieldName]))
+                                                        {
+                                                            $data[$fieldName] = $rowData[$fieldName];
+                                                        }
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    $data[$fieldName]= '';
+                                                    $notApplicableFields[$fields['groupName']]= $fieldName;
+                                                }
+                                            }
+
+                                        }
+                                        elseif(isset($fields['objectLevel']) && $fields['objectLevel'] == 'fert' && ($fields['fieldLevel'] == 'objectBrick'))
+                                        {
+                                            $inputOrNumber = false;
+                                            $isNumericField = false;
+                                            if(ucfirst($fields['fieldType']) == 'Input')
+                                            {
+                                                $inputOrNumber = true;
+                                            }
+                                            elseif(ucfirst($fields['fieldType']) == 'Number')
+                                            {
+                                                $inputOrNumber = true;
+                                                $isNumericField = true;
+                                            }
+
+                                            if($inputOrNumber)
+                                            {
+                                                $o_id = $article['id'];
+                                                $objectBrickName = $fields['objectBrickName'];
+                                                $sql = "SELECT * FROM `object_brick_query_{$objectBrickName}_38` WHERE `id` = '$o_id'";
+                                                $rowData =  $this->db->fetchAssociative($sql);
+                                                if($rowData)
+                                                {
+                                                    if($fieldName == 'datumLengthMM' || $fieldName == 'effectiveLengthMM' || $fieldName == 'pitchLengthLpLwMM' || $fieldName == 'insideLengthMM' || $fieldName == 'refLengthLrMM'){
+                                                        $data[$fieldName] = round($rowData[$fieldName]);
+                                                    }
+                                                    elseif($isNumericField){
+                                                        if(in_array($fieldName, $decimalPlaceAttribute)){
+                                                            $data[$fieldName] = number_format($rowData[$fieldName],2,".","");
+                                                        }else{
+                                                            $data[$fieldName] = floatval($rowData[$fieldName]);
+                                                        }
+                                                    }else{
+                                                        $data[$fieldName] = $rowData[$fieldName];
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    $data[$fieldName]= '';
+                                                    $notApplicableFields[$fields['groupName']]= $fieldName;
+                                                }
+                                            }
+
+                                        }
+                                    }
+
+                                    if($isPriceCatalog)
+                                    {
+                                        $listPrice = '';
+                                        if($article['priceData'])
+                                        {
+                                            $recordArray = explode(PHP_EOL, $article['priceData']);
+
+                                            if(count($recordArray))
+                                            {
+                                                foreach ($recordArray as $rvalue) {
+                                                    $pvalue = explode('|', $rvalue);
+                                                    if(($pvalue[$priceListTableColumn['Rate Unit']] == $currency) && ($pvalue[$priceListTableColumn['Distribution Channel']] == $distributionChannel) && ($pvalue[$priceListTableColumn['Sales Organization']] == $salesOrganisation))
+                                                    {
+                                                        $validityStartDate = \Carbon\Carbon::createFromFormat('Y-m-d',$pvalue[$priceListTableColumn['Validity Start Date']]);
+                                                        $validityEndDate = \Carbon\Carbon::createFromFormat('Y-m-d',$pvalue[$priceListTableColumn['Validity End Date']]);
+
+                                                        if($validFromDate->between($validityStartDate, $validityEndDate)) {
+                                                            $listPrice = $pvalue[$priceListTableColumn['Rate']];
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        $data['listPrice'] = trim($listPrice) ? floatval($listPrice) : $listPrice;
+                                    }
+
+                                    $articles[] = $data;
+                                }
+                            }
+                        }
+                    }
+                    $sortedColums = [];
+                    if($this->sortColumnsData)
+                    {
+                        foreach ($this->sortColumnsData as $sortColumn) {
+                            $sortedColums[] = $sortColumn;
+                        }
+                    }
+
+                    $firstCol = isset($sortedColums[0])?array_column($articles, $sortedColums[0]):null;
+                    $secondCol = isset($sortedColums[1])?array_column($articles, $sortedColums[1]):null;
+                    $thirdCol = isset($sortedColums[2])?array_column($articles, $sortedColums[2]):null;
+                    $fourthCol = isset($sortedColums[3])?array_column($articles, $sortedColums[3]):null;
+                    $fifthCol = isset($sortedColums[4])?array_column($articles, $sortedColums[4]):null;
+                    $sixthCol = isset($sortedColums[5])?array_column($articles, $sortedColums[5]):null;
+                    $seventhCol = isset($sortedColums[6])?array_column($articles, $sortedColums[6]):null;
+                    $eighthCol = isset($sortedColums[7])?array_column($articles, $sortedColums[7]):null;
+                    $ninethCol = isset($sortedColums[8])?array_column($articles, $sortedColums[8]):null;
+                    $tenthCol = isset($sortedColums[9])?array_column($articles, $sortedColums[9]):null;
+                    $eleventhCol = isset($sortedColums[10])?array_column($articles, $sortedColums[10]):null;
+                    $twelthCol = isset($sortedColums[11])?array_column($articles, $sortedColums[11]):null;
+                    $thirtenthCol = isset($sortedColums[12])?array_column($articles, $sortedColums[12]):null;
+                    $fourtenthCol = isset($sortedColums[13])?array_column($articles, $sortedColums[13]):null;
+                    $fifteenthCol = isset($sortedColums[14])?array_column($articles, $sortedColums[14]):null;
+                    $sixteenthCol = isset($sortedColums[15])?array_column($articles, $sortedColums[15]):null;
+
+                    switch (count($sortedColums)) {
+                        case 16:
+                            array_multisort(
+                                $firstCol,
+                                SORT_ASC,
+                                SORT_NATURAL,
+                                $secondCol,
+                                SORT_ASC,
+                                $thirdCol,
+                                SORT_ASC,
+                                $fourthCol,
+                                SORT_ASC,
+                                $fifthCol,
+                                SORT_ASC,
+                                $sixthCol,
+                                SORT_ASC,
+                                $seventhCol,
+                                SORT_ASC,
+                                $eighthCol,
+                                SORT_ASC,
+                                $ninethCol,
+                                SORT_ASC,
+                                $tenthCol,
+                                SORT_ASC,
+                                $eleventhCol,
+                                SORT_ASC,
+                                $twelthCol,
+                                SORT_ASC,
+                                $thirtenthCol,
+                                SORT_ASC,
+                                $fourtenthCol,
+                                SORT_ASC,
+                                $fifteenthCol,
+                                SORT_ASC,
+                                $sixteenthCol,
+                                SORT_ASC,
+                                $articles
+                            );
+                            break;
+                        case 15:
+                            array_multisort(
+                                $firstCol,
+                                SORT_ASC,
+                                SORT_NATURAL,
+                                $secondCol,
+                                SORT_ASC,
+                                $thirdCol,
+                                SORT_ASC,
+                                $fourthCol,
+                                SORT_ASC,
+                                $fifthCol,
+                                SORT_ASC,
+                                $sixthCol,
+                                SORT_ASC,
+                                $seventhCol,
+                                SORT_ASC,
+                                $eighthCol,
+                                SORT_ASC,
+                                $ninethCol,
+                                SORT_ASC,
+                                $tenthCol,
+                                SORT_ASC,
+                                $eleventhCol,
+                                SORT_ASC,
+                                $twelthCol,
+                                SORT_ASC,
+                                $thirtenthCol,
+                                SORT_ASC,
+                                $fourtenthCol,
+                                SORT_ASC,
+                                $fifteenthCol,
+                                SORT_ASC,
+                                $articles
+                            );
+                            break;
+                        case 14:
+                            array_multisort(
+                                $firstCol,
+                                SORT_ASC,
+                                SORT_NATURAL,
+                                $secondCol,
+                                SORT_ASC,
+                                $thirdCol,
+                                SORT_ASC,
+                                $fourthCol,
+                                SORT_ASC,
+                                $fifthCol,
+                                SORT_ASC,
+                                $sixthCol,
+                                SORT_ASC,
+                                $seventhCol,
+                                SORT_ASC,
+                                $eighthCol,
+                                SORT_ASC,
+                                $ninethCol,
+                                SORT_ASC,
+                                $tenthCol,
+                                SORT_ASC,
+                                $eleventhCol,
+                                SORT_ASC,
+                                $twelthCol,
+                                SORT_ASC,
+                                $thirtenthCol,
+                                SORT_ASC,
+                                $fourtenthCol,
+                                SORT_ASC,
+                                $articles
+                            );
+                            break;
+                        case 13:
+                            array_multisort(
+                                $firstCol,
+                                SORT_ASC,
+                                SORT_NATURAL,
+                                $secondCol,
+                                SORT_ASC,
+                                $thirdCol,
+                                SORT_ASC,
+                                $fourthCol,
+                                SORT_ASC,
+                                $fifthCol,
+                                SORT_ASC,
+                                $sixthCol,
+                                SORT_ASC,
+                                $seventhCol,
+                                SORT_ASC,
+                                $eighthCol,
+                                SORT_ASC,
+                                $ninethCol,
+                                SORT_ASC,
+                                $tenthCol,
+                                SORT_ASC,
+                                $eleventhCol,
+                                SORT_ASC,
+                                $twelthCol,
+                                SORT_ASC,
+                                $thirtenthCol,
+                                SORT_ASC,
+                                $articles
+                            );
+                            break;
+                        case 12:
+                            array_multisort(
+                                $firstCol,
+                                SORT_ASC,
+                                SORT_NATURAL,
+                                $secondCol,
+                                SORT_ASC,
+                                $thirdCol,
+                                SORT_ASC,
+                                $fourthCol,
+                                SORT_ASC,
+                                $fifthCol,
+                                SORT_ASC,
+                                $sixthCol,
+                                SORT_ASC,
+                                $seventhCol,
+                                SORT_ASC,
+                                $eighthCol,
+                                SORT_ASC,
+                                $ninethCol,
+                                SORT_ASC,
+                                $tenthCol,
+                                SORT_ASC,
+                                $eleventhCol,
+                                SORT_ASC,
+                                $twelthCol,
+                                SORT_ASC,
+                                $articles
+                            );
+                            break;
+                        case 11:
+                            array_multisort(
+                                $firstCol,
+                                SORT_ASC,
+                                SORT_NATURAL,
+                                $secondCol,
+                                SORT_ASC,
+                                $thirdCol,
+                                SORT_ASC,
+                                $fourthCol,
+                                SORT_ASC,
+                                $fifthCol,
+                                SORT_ASC,
+                                $sixthCol,
+                                SORT_ASC,
+                                $seventhCol,
+                                SORT_ASC,
+                                $eighthCol,
+                                SORT_ASC,
+                                $ninethCol,
+                                SORT_ASC,
+                                $tenthCol,
+                                SORT_ASC,
+                                $eleventhCol,
+                                SORT_ASC,
+                                $articles
+                            );
+                            break;
+                        case 10:
+                            array_multisort(
+                                $firstCol,
+                                SORT_ASC,
+                                SORT_NATURAL,
+                                $secondCol,
+                                SORT_ASC,
+                                $thirdCol,
+                                SORT_ASC,
+                                $fourthCol,
+                                SORT_ASC,
+                                $fifthCol,
+                                SORT_ASC,
+                                $sixthCol,
+                                SORT_ASC,
+                                $seventhCol,
+                                SORT_ASC,
+                                $eighthCol,
+                                SORT_ASC,
+                                $ninethCol,
+                                SORT_ASC,
+                                $tenthCol,
+                                SORT_ASC,
+                                $articles
+                            );
+                            break;
+                        case 9:
+                            array_multisort(
+                                $firstCol,
+                                SORT_ASC,
+                                SORT_NATURAL,
+                                $secondCol,
+                                SORT_ASC,
+                                $thirdCol,
+                                SORT_ASC,
+                                $fourthCol,
+                                SORT_ASC,
+                                $fifthCol,
+                                SORT_ASC,
+                                $sixthCol,
+                                SORT_ASC,
+                                $seventhCol,
+                                SORT_ASC,
+                                $eighthCol,
+                                SORT_ASC,
+                                $ninethCol,
+                                SORT_ASC,
+                                $articles
+                            );
+                            break;
+                        case 8:
+                            array_multisort(
+                                $firstCol,
+                                SORT_ASC,
+                                SORT_NATURAL,
+                                $secondCol,
+                                SORT_ASC,
+                                $thirdCol,
+                                SORT_ASC,
+                                $fourthCol,
+                                SORT_ASC,
+                                $fifthCol,
+                                SORT_ASC,
+                                $sixthCol,
+                                SORT_ASC,
+                                $seventhCol,
+                                SORT_ASC,
+                                $eighthCol,
+                                SORT_ASC,
+                                $articles
+                            );
+                            break;
+                        case 7:
+                            array_multisort(
+                                $firstCol,
+                                SORT_ASC,
+                                SORT_NATURAL,
+                                $secondCol,
+                                SORT_ASC,
+                                $thirdCol,
+                                SORT_ASC,
+                                $fourthCol,
+                                SORT_ASC,
+                                $fifthCol,
+                                SORT_ASC,
+                                $sixthCol,
+                                SORT_ASC,
+                                $seventhCol,
+                                SORT_ASC,
+                                $articles
+                            );
+                            break;
+                        case 6:
+                            array_multisort(
+                                $firstCol,
+                                SORT_ASC,
+                                SORT_NATURAL,
+                                $secondCol,
+                                SORT_ASC,
+                                $thirdCol,
+                                SORT_ASC,
+                                $fourthCol,
+                                SORT_ASC,
+                                $fifthCol,
+                                SORT_ASC,
+                                $sixthCol,
+                                SORT_ASC,
+                                $articles
+                            );
+                            break;
+                        case 5:
+                            array_multisort(
+                                $firstCol,
+                                SORT_ASC,
+                                SORT_NATURAL,
+                                $secondCol,
+                                SORT_ASC,
+                                $thirdCol,
+                                SORT_ASC,
+                                $fourthCol,
+                                SORT_ASC,
+                                $fifthCol,
+                                SORT_ASC,
+                                $articles
+                            );
+                            break;
+                        case 4:
+                            array_multisort(
+                                $firstCol,
+                                SORT_ASC,
+                                SORT_NATURAL,
+                                $secondCol,
+                                SORT_ASC,
+                                $thirdCol,
+                                SORT_ASC,
+                                $fourthCol,
+                                SORT_ASC,
+                                $articles
+                            );
+                            break;
+                        case 3:
+                            array_multisort(
+                                $firstCol,
+                                SORT_ASC,
+                                SORT_NATURAL,
+                                $secondCol,
+                                SORT_ASC,
+                                $thirdCol,
+                                SORT_ASC,
+                                $articles
+                            );
+                            break;
+                        case 2:
+                            array_multisort(
+                                $firstCol,
+                                SORT_ASC,
+                                SORT_NATURAL,
+                                $secondCol,
+                                SORT_ASC,
+                                $articles
+                            );
+                            break;
+                        case 1:
+                            array_multisort(
+                                $firstCol,
+                                SORT_ASC,
+                                SORT_NATURAL,
+                                $articles
+                            );
+                            break;
+                        default:
+                            $result = array_diff($initialSortList, $columnDataArr);
+
+                            $firstCol = isset($initialSortList[0])?array_column($articles,$initialSortList[0]):null;
+                            $secondCol = isset($initialSortList[1])?array_column($articles,$initialSortList[1]):null;
+                            $thirdCol = isset($initialSortList[2])?array_column($articles,$initialSortList[2]):null;
+                            $fourthCol = isset($initialSortList[3])?array_column($articles,$initialSortList[3]):null;
+                            $fifthCol = isset($initialSortList[4])?array_column($articles,$initialSortList[4]):null;
+                            $sixthCol = isset($initialSortList[5])?array_column($articles,$initialSortList[5]):null;
+                            $seventhCol = isset($initialSortList[6])?array_column($articles,$initialSortList[6]):null;
+                            $eighthCol = isset($initialSortList[7])?array_column($articles,$initialSortList[7]):null;
+                            $ninethCol = isset($initialSortList[8])?array_column($articles,$initialSortList[8]):null;
+                            $tenthCol = isset($initialSortList[9])?array_column($articles,$initialSortList[9]):null;
+                            $eleventhCol =isset($initialSortList[10])?array_column($articles,$initialSortList[10]):null;
+                            $twelthCol = isset($initialSortList[11])?array_column($articles,$initialSortList[11]):null;
+                            $thirtenthCol=isset($initialSortList[12])?array_column($articles,$initialSortList[12]):null;
+                            $fourtenthCol=isset($initialSortList[13])?array_column($articles,$initialSortList[13]):null;
+                            $fifteenthCol=isset($initialSortList[14])?array_column($articles,$initialSortList[14]):null;
+                            $sixteenthCol=isset($initialSortList[15])?array_column($articles,$initialSortList[15]):null;
+
+                            if (count($result) == 0) {
+                                array_multisort(
+                                    $firstCol,
+                                    SORT_ASC,
+                                    SORT_NATURAL,
+                                    $secondCol,
+                                    SORT_ASC,
+                                    $thirdCol,
+                                    SORT_ASC,
+                                    $fourthCol,
+                                    SORT_ASC,
+                                    $fifthCol,
+                                    SORT_ASC,
+                                    $sixthCol,
+                                    SORT_ASC,
+                                    $seventhCol,
+                                    SORT_ASC,
+                                    $eighthCol,
+                                    SORT_ASC,
+                                    $ninethCol,
+                                    SORT_ASC,
+                                    $tenthCol,
+                                    SORT_ASC,
+                                    $eleventhCol,
+                                    SORT_ASC,
+                                    $twelthCol,
+                                    SORT_ASC,
+                                    $thirtenthCol,
+                                    SORT_ASC,
+                                    $fourtenthCol,
+                                    SORT_ASC,
+                                    $fifteenthCol,
+                                    SORT_ASC,
+                                    $sixteenthCol,
+                                    SORT_ASC,
+                                    $articles
+                                );
+                            } elseif (count($result) != 0) {
+
+                                foreach ($result as $key => $value) {
+                                    unset($initialSortList[$key]);
+                                }
+
+                                $remainingList = [];
+                                foreach ($initialSortList as $key => $value) {
+                                    $remainingList[] = $value;
+                                }
+
+                                $firstCol = isset($remainingList[0])?array_column($articles,$remainingList[0]):null;
+                                $secondCol = isset($remainingList[1])?array_column($articles,$remainingList[1]):null;
+                                $thirdCol = isset($remainingList[2])?array_column($articles,$remainingList[2]):null;
+                                $fourthCol = isset($remainingList[3])?array_column($articles,$remainingList[3]):null;
+                                $fifthCol = isset($remainingList[4])?array_column($articles,$remainingList[4]):null;
+                                $sixthCol = isset($remainingList[5])?array_column($articles,$remainingList[5]):null;
+                                $seventhCol = isset($remainingList[6])?array_column($articles,$remainingList[6]):null;
+                                $eighthCol = isset($remainingList[7])?array_column($articles,$remainingList[7]):null;
+                                $ninethCol = isset($remainingList[8])?array_column($articles,$remainingList[8]):null;
+                                $tenthCol = isset($remainingList[9])?array_column($articles,$remainingList[9]):null;
+                                $eleventhCol =isset($remainingList[10])?array_column($articles,$remainingList[10]):null;
+                                $twelthCol = isset($remainingList[11])?array_column($articles,$remainingList[11]):null;
+                                $thirtenthCol=isset($remainingList[12])?array_column($articles,$remainingList[12]):null;
+                                $fourtenthCol=isset($remainingList[13])?array_column($articles,$remainingList[13]):null;
+                                $fifteenthCol=isset($remainingList[14])?array_column($articles,$remainingList[14]):null;
+                                $sixteenthCol=isset($remainingList[15])?array_column($articles,$remainingList[15]):null;
+
+                                switch (count($remainingList)) {
+                                    case 1:
+                                        array_multisort(
+                                            $firstCol,
+                                            SORT_ASC,
+                                            SORT_NATURAL,
+                                            $articles
+                                        );
+                                        break;
+                                    case 2:
+                                        array_multisort(
+                                            $firstCol,
+                                            SORT_ASC,
+                                            SORT_NATURAL,
+                                            $secondCol,
+                                            SORT_ASC,
+                                            $articles
+                                        );
+                                        break;
+                                    case 3:
+                                        array_multisort(
+                                            $firstCol,
+                                            SORT_ASC,
+                                            SORT_NATURAL,
+                                            $secondCol,
+                                            SORT_ASC,
+                                            $thirdCol,
+                                            SORT_ASC,
+                                            $articles
+                                        );
+                                        break;
+                                    case 4:
+                                        array_multisort(
+                                            $firstCol,
+                                            SORT_ASC,
+                                            SORT_NATURAL,
+                                            $secondCol,
+                                            SORT_ASC,
+                                            $thirdCol,
+                                            SORT_ASC,
+                                            $fourthCol,
+                                            SORT_ASC,
+                                            $articles
+                                        );
+                                        break;
+                                    case 5:
+                                        array_multisort(
+                                            $firstCol,
+                                            SORT_ASC,
+                                            SORT_NATURAL,
+                                            $secondCol,
+                                            SORT_ASC,
+                                            $thirdCol,
+                                            SORT_ASC,
+                                            $fourthCol,
+                                            SORT_ASC,
+                                            $fifthCol,
+                                            SORT_ASC,
+                                            $articles
+                                        );
+                                        break;
+                                    case 6:
+                                        array_multisort(
+                                            $firstCol,
+                                            SORT_ASC,
+                                            SORT_NATURAL,
+                                            $secondCol,
+                                            SORT_ASC,
+                                            $thirdCol,
+                                            SORT_ASC,
+                                            $fourthCol,
+                                            SORT_ASC,
+                                            $fifthCol,
+                                            SORT_ASC,
+                                            $sixthCol,
+                                            SORT_ASC,
+                                            $articles
+                                        );
+                                        break;
+                                    case 7:
+                                        array_multisort(
+                                            $firstCol,
+                                            SORT_ASC,
+                                            SORT_NATURAL,
+                                            $secondCol,
+                                            SORT_ASC,
+                                            $thirdCol,
+                                            SORT_ASC,
+                                            $fourthCol,
+                                            SORT_ASC,
+                                            $fifthCol,
+                                            SORT_ASC,
+                                            $sixthCol,
+                                            SORT_ASC,
+                                            $seventhCol,
+                                            SORT_ASC,
+                                            $articles
+                                        );
+                                        break;
+                                    case 8:
+                                        array_multisort(
+                                            $firstCol,
+                                            SORT_ASC,
+                                            SORT_NATURAL,
+                                            $secondCol,
+                                            SORT_ASC,
+                                            $thirdCol,
+                                            SORT_ASC,
+                                            $fourthCol,
+                                            SORT_ASC,
+                                            $fifthCol,
+                                            SORT_ASC,
+                                            $sixthCol,
+                                            SORT_ASC,
+                                            $seventhCol,
+                                            SORT_ASC,
+                                            $eighthCol,
+                                            SORT_ASC,
+                                            $articles
+                                        );
+                                        break;
+                                    case 9:
+                                        array_multisort(
+                                            $firstCol,
+                                            SORT_ASC,
+                                            SORT_NATURAL,
+                                            $secondCol,
+                                            SORT_ASC,
+                                            $thirdCol,
+                                            SORT_ASC,
+                                            $fourthCol,
+                                            SORT_ASC,
+                                            $fifthCol,
+                                            SORT_ASC,
+                                            $sixthCol,
+                                            SORT_ASC,
+                                            $seventhCol,
+                                            SORT_ASC,
+                                            $eighthCol,
+                                            SORT_ASC,
+                                            $ninethCol,
+                                            SORT_ASC,
+                                            $articles
+                                        );
+                                        break;
+                                    case 10:
+                                        array_multisort(
+                                            $firstCol,
+                                            SORT_ASC,
+                                            SORT_NATURAL,
+                                            $secondCol,
+                                            SORT_ASC,
+                                            $thirdCol,
+                                            SORT_ASC,
+                                            $fourthCol,
+                                            SORT_ASC,
+                                            $fifthCol,
+                                            SORT_ASC,
+                                            $sixthCol,
+                                            SORT_ASC,
+                                            $seventhCol,
+                                            SORT_ASC,
+                                            $eighthCol,
+                                            SORT_ASC,
+                                            $ninethCol,
+                                            SORT_ASC,
+                                            $tenthCol,
+                                            SORT_ASC,
+                                            $articles
+                                        );
+                                        break;
+                                    case 11:
+                                        array_multisort(
+                                            $firstCol,
+                                            SORT_ASC,
+                                            SORT_NATURAL,
+                                            $secondCol,
+                                            SORT_ASC,
+                                            $thirdCol,
+                                            SORT_ASC,
+                                            $fourthCol,
+                                            SORT_ASC,
+                                            $fifthCol,
+                                            SORT_ASC,
+                                            $sixthCol,
+                                            SORT_ASC,
+                                            $seventhCol,
+                                            SORT_ASC,
+                                            $eighthCol,
+                                            SORT_ASC,
+                                            $ninethCol,
+                                            SORT_ASC,
+                                            $tenthCol,
+                                            SORT_ASC,
+                                            $eleventhCol,
+                                            SORT_ASC,
+                                            $articles
+                                        );
+                                        break;
+                                    case 12:
+                                        array_multisort(
+                                            $firstCol,
+                                            SORT_ASC,
+                                            SORT_NATURAL,
+                                            $secondCol,
+                                            SORT_ASC,
+                                            $thirdCol,
+                                            SORT_ASC,
+                                            $fourthCol,
+                                            SORT_ASC,
+                                            $fifthCol,
+                                            SORT_ASC,
+                                            $sixthCol,
+                                            SORT_ASC,
+                                            $seventhCol,
+                                            SORT_ASC,
+                                            $eighthCol,
+                                            SORT_ASC,
+                                            $ninethCol,
+                                            SORT_ASC,
+                                            $tenthCol,
+                                            SORT_ASC,
+                                            $eleventhCol,
+                                            SORT_ASC,
+                                            $twelthCol,
+                                            SORT_ASC,
+                                            $articles
+                                        );
+                                        break;
+                                    case 13:
+                                        array_multisort(
+                                            $firstCol,
+                                            SORT_ASC,
+                                            SORT_NATURAL,
+                                            $secondCol,
+                                            SORT_ASC,
+                                            $thirdCol,
+                                            SORT_ASC,
+                                            $fourthCol,
+                                            SORT_ASC,
+                                            $fifthCol,
+                                            SORT_ASC,
+                                            $sixthCol,
+                                            SORT_ASC,
+                                            $seventhCol,
+                                            SORT_ASC,
+                                            $eighthCol,
+                                            SORT_ASC,
+                                            $ninethCol,
+                                            SORT_ASC,
+                                            $tenthCol,
+                                            SORT_ASC,
+                                            $eleventhCol,
+                                            SORT_ASC,
+                                            $twelthCol,
+                                            SORT_ASC,
+                                            $thirtenthCol,
+                                            SORT_ASC,
+                                            $articles
+                                        );
+                                        break;
+                                    case 14:
+                                        array_multisort(
+                                            $firstCol,
+                                            SORT_ASC,
+                                            SORT_NATURAL,
+                                            $secondCol,
+                                            SORT_ASC,
+                                            $thirdCol,
+                                            SORT_ASC,
+                                            $fourthCol,
+                                            SORT_ASC,
+                                            $fifthCol,
+                                            SORT_ASC,
+                                            $sixthCol,
+                                            SORT_ASC,
+                                            $seventhCol,
+                                            SORT_ASC,
+                                            $eighthCol,
+                                            SORT_ASC,
+                                            $ninethCol,
+                                            SORT_ASC,
+                                            $tenthCol,
+                                            SORT_ASC,
+                                            $eleventhCol,
+                                            SORT_ASC,
+                                            $twelthCol,
+                                            SORT_ASC,
+                                            $thirtenthCol,
+                                            SORT_ASC,
+                                            $fourtenthCol,
+                                            SORT_ASC,
+                                            $articles
+                                        );
+                                        break;
+                                    case 15:
+                                        array_multisort(
+                                            $firstCol,
+                                            SORT_ASC,
+                                            SORT_NATURAL,
+                                            $secondCol,
+                                            SORT_ASC,
+                                            $thirdCol,
+                                            SORT_ASC,
+                                            $fourthCol,
+                                            SORT_ASC,
+                                            $fifthCol,
+                                            SORT_ASC,
+                                            $sixthCol,
+                                            SORT_ASC,
+                                            $seventhCol,
+                                            SORT_ASC,
+                                            $eighthCol,
+                                            SORT_ASC,
+                                            $ninethCol,
+                                            SORT_ASC,
+                                            $tenthCol,
+                                            SORT_ASC,
+                                            $eleventhCol,
+                                            SORT_ASC,
+                                            $twelthCol,
+                                            SORT_ASC,
+                                            $thirtenthCol,
+                                            SORT_ASC,
+                                            $fourtenthCol,
+                                            SORT_ASC,
+                                            $fifteenthCol,
+                                            SORT_ASC,
+                                            $articles
+                                        );
+                                        break;
+                                    case 16:
+                                        array_multisort(
+                                            $firstCol,
+                                            SORT_ASC,
+                                            SORT_NATURAL,
+                                            $secondCol,
+                                            SORT_ASC,
+                                            $thirdCol,
+                                            SORT_ASC,
+                                            $fourthCol,
+                                            SORT_ASC,
+                                            $fifthCol,
+                                            SORT_ASC,
+                                            $sixthCol,
+                                            SORT_ASC,
+                                            $seventhCol,
+                                            SORT_ASC,
+                                            $eighthCol,
+                                            SORT_ASC,
+                                            $ninethCol,
+                                            SORT_ASC,
+                                            $tenthCol,
+                                            SORT_ASC,
+                                            $eleventhCol,
+                                            SORT_ASC,
+                                            $twelthCol,
+                                            SORT_ASC,
+                                            $thirtenthCol,
+                                            SORT_ASC,
+                                            $fourtenthCol,
+                                            SORT_ASC,
+                                            $fifteenthCol,
+                                            SORT_ASC,
+                                            $sixteenthCol,
+                                            SORT_ASC,
+                                            $articles
+                                        );
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+
+                    }
+                    $articlesData['articlesData'] = $articles;
+                    $groupData['data'] = $articlesData;
+                    $groupData['columnsDataWithImages'] = $columnsDataWithImages;
+                    $groupData['siop6siop7Category'] = $siop6siop7Category;
+                    $groupData['siop5Category'] = $siop5Category;
+
+                    $footerLogoSrc = $catalogImagesPTGFooter['Orange'];
+                    $footerLogoSrc = $this->getS3ImageSrc($footerLogoSrc);
+                }
+            }
+            $parameterBag['footer_class'] = '';
+            $parameterBag['footer_logo_src'] = $footerLogoSrc;
+            $parameterBag['groupData'] = $groupData;
+        }
+        return $this->render("ptgeucatalog/default/template_ptg_eu_section_page_pts_belts.html.twig", $parameterBag);
+    }
 
     public function getFiveSortedFeaturesWithIconList($safetyFeatures): ?array
     {
