@@ -2512,6 +2512,286 @@ class DefaultController extends FrontendController
         $parameterBag['footer_logo_src'] = $footer_logo_src;
         return $this->render("catalog/default/template_ptg_product_page.html.twig", $parameterBag);
     }
+    public function templatePtgSectionPagePTSBeltsAction(Request $request): Response
+    {
+        $templateEditable = $this->document->getEditable('ptg_product_page');
+
+        if(!$request->get('contentDocument')->getPublished()){
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        }
+        else{
+            $documentPath = $this->document->getFullPath();
+            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        }
+
+        $groupData = array();
+        $footerBgColor = null;
+        $footer_logo_src = null;
+
+        if ($templateEditable && $templateEditable->getElement() != null) {
+            $template = $templateEditable->getElement();
+            $commonHelper = $this->containerInterface->get('app.common_helper');
+            $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
+            $priceListTableConfig = $this->containerInterface->get('app.config_provider_service')->getPriceListTableConfig();
+
+            $priceListTableColumn = $commonHelper->getParameter($priceListTableConfig, 'priceListTableColumn');
+            $priceListCurrency = $commonHelper->getParameter($priceListTableConfig, 'priceListCurrency');
+            $this->attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
+            $catalogImagesPTGFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesPTGFooter');
+
+            $catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());
+            $catalogObj = DataObject\Catalog::getById($catalogCategoryObj->getParentId());
+
+            $isPriceCatalog = $catalogObj->getIsPriceCatalog();
+            $catalogLanguage = $catalogObj->getCatalogLanguage();
+            $distributionChannel = $catalogObj->getDistributionChannel();
+            $salesOrganisation = $catalogObj->getSalesOrganisation();
+            $currency = $catalogObj->getCurrency();
+            $validFromDate = $catalogObj->getValidFromDate();
+
+            $footerBgColor = $template->getColor();
+            $productsData = $template->getProductsData();
+            $headerData = json_decode($template->getHeaderData(), true);
+
+            $headerKeys = array_keys($headerData);
+            $headerKeysIndex = array_flip($headerKeys);
+            $objColumnsData = $template->getColumns();
+
+
+            $this->iconRequired = 'YES';
+            $this->columnsData = json_decode($objColumnsData, true);
+
+            if ($isPriceCatalog) {
+                $this->columnsData['listPrice']['columnName'] = 'listPrice';
+                $this->columnsData['listPrice']['columnLabel'] = 'listPrice';
+                $this->columnsData['listPrice']['unitName'] = $priceListCurrency[$currency];
+            }
+
+            $this->subHeaderRequired = 'NO';
+
+            $columnsDataWithImages = $this->getColumnHeadersForCatalog(false, []);
+
+            unset($objColumnsData);
+
+            // Getting order of the keys
+            $orderKeys = array();
+            foreach ($columnsDataWithImages as $svalue) {
+                foreach ($svalue as $vvalue) {
+                    if ($vvalue['columnName'] == 'listPrice'){
+                        $orderKeys[$vvalue['columnName']] = count($headerKeysIndex);
+                    }else{
+                        if (isset($headerKeysIndex[$vvalue['columnName']])) {
+                            $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
+                        }
+                    }
+                }
+            }
+
+            $this->featuresList = $this->getFeaturesList($catalogLanguage);
+
+            $materialList = $this->getStandardMetHoseList('PTG~material', $catalogLanguage);
+
+            $query = "select oo_id, Level, description, PrintedCatalogDescription ";
+            $query .= "from object_localized_2_{$catalogLanguage} where level IN (3,4,5,6) ";
+
+            $categories = $this->db->fetchAllAssociative($query);
+
+            $categoriesList = array();
+
+            foreach ($categories as $value) {
+                $categoriesList[$value['oo_id']] = $value;
+            }
+            unset($categories);
+
+            $catagoryDescription = array();
+            $mainImageObj = '';
+            $profileDimensionImageObj = '';
+            $material = array();
+            $reinforcement = array();
+            $longDescription = '';
+            $temperatureRangeFAndC = '';
+            $virtualCatalogReinforcement = '';
+            $safetyFeatures = array();
+
+            if ($productsData) {
+                foreach ($productsData as $item) {
+                    $query = "select SIOPLevel3, SIOPLevel4, SIOPLevel5, SIOPLevel6, priceData from object_query_1 where oo_id = '" . $item[$headerKeysIndex['id']] . "'";
+
+                    $record = $this->db->fetchAssociative($query);
+                    $siopLevel3 = trim($record['SIOPLevel3'], ',');
+                    $siopLevel4 = trim($record['SIOPLevel4'], ',');
+                    $siopLevel5 = trim($record['SIOPLevel5'], ',');
+                    $siopLevel6 = trim($record['SIOPLevel6'], ',');
+
+                    $siop6Category = !empty($categoriesList[$siopLevel6]['PrintedCatalogDescription']) ? $categoriesList[$siopLevel6]['PrintedCatalogDescription'] : $categoriesList[$siopLevel6]['description'];
+                    $siop6Category = trim($siop6Category);
+
+                    if ($siop6Category) {
+                        if (!isset($catagoryDescription['SIOP3Description']) && $siopLevel3) {
+                            $catagoryDescription['SIOP3Description'] = !empty($categoriesList[$siopLevel3]['PrintedCatalogDescription']) ? $categoriesList[$siopLevel3]['PrintedCatalogDescription'] : $categoriesList[$siopLevel3]['description'];
+                        }
+
+                        if (!isset($catagoryDescription['SIOP4Description']) && $record['SIOPLevel4']) {
+                            $catagoryDescription['SIOP4Description'] = !empty($categoriesList[$siopLevel4]['PrintedCatalogDescription']) ? $categoriesList[$siopLevel4]['PrintedCatalogDescription'] : $categoriesList[$siopLevel4]['description'];
+                        }
+
+                        if (!isset($catagoryDescription['SIOP5Description']) && $record['SIOPLevel5']) {
+                            $catagoryDescription['SIOP5Description'] = !empty($categoriesList[$siopLevel5]['PrintedCatalogDescription']) ? $categoriesList[$siopLevel5]['PrintedCatalogDescription'] : $categoriesList[$siopLevel5]['description'];
+                        }
+
+                        $listPrice = '';
+
+                        if ($record['priceData']) {
+                            $recordArray = explode(PHP_EOL, $record['priceData']);
+
+                            if (count($recordArray)) {
+
+                                foreach ($recordArray as $rvalue) {
+                                    $pvalue = explode('|', $rvalue);
+                                    if (($pvalue[$priceListTableColumn['Rate Unit']] == $currency) && ($pvalue[$priceListTableColumn['Distribution Channel']] == $distributionChannel) && ($pvalue[$priceListTableColumn['Sales Organization']] == $salesOrganisation)) {
+                                        $validityStartDate = \Carbon\Carbon::createFromFormat('Y-m-d', $pvalue[$priceListTableColumn['Validity Start Date']]);
+                                        $validityEndDate = \Carbon\Carbon::createFromFormat('Y-m-d', $pvalue[$priceListTableColumn['Validity End Date']]);
+
+                                        if ($validFromDate->between($validityStartDate, $validityEndDate)) {
+                                            $listPrice = $pvalue[$priceListTableColumn['Rate']];
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        if (!$mainImageObj && $item[$headerKeysIndex['mainImage']]) {
+                            $mainImageObj = Asset::getByPath($item[$headerKeysIndex['mainImage']]);
+                        }
+
+                        if (!$profileDimensionImageObj && $item[$headerKeysIndex['ProfileDimensionImage']]) {
+                            $profileDimensionImageObj = Asset::getByPath($item[$headerKeysIndex['ProfileDimensionImage']]);
+                        }
+
+                        if ($item[$headerKeysIndex['material']]) {
+                            $arr_material = [];
+
+                            if (!is_array($item[$headerKeysIndex['material']])) {
+                                $arr_material = explode('||', $item[$headerKeysIndex['material']]);
+                            }
+                            $material = array_merge($material, $arr_material);
+                        }
+                        if ($item[$headerKeysIndex['reinforcement']]) {
+                            $arr_reinforcement = [];
+                            if (!is_array($item[$headerKeysIndex['reinforcement']])) {
+                                $arr_reinforcement = explode('||', $item[$headerKeysIndex['reinforcement']]);
+                            }
+                            $reinforcement = array_merge($reinforcement, $arr_reinforcement);
+                        }
+
+                        if ($item[$headerKeysIndex['VirtualCatalogReinforcement']] && empty($virtualCatalogReinforcement)) {
+                            $virtualCatalogReinforcement = $item[$headerKeysIndex['VirtualCatalogReinforcement']];
+                        }
+
+                        if ($item[$headerKeysIndex['longDescription']] && empty($longDescription)) {
+                            $longDescription = $item[$headerKeysIndex['longDescription']];
+                        }
+
+                        if ($item[$headerKeysIndex['temperatureRangeFAndC']] && empty($temperatureRangeFAndC)) {
+                            $temperatureRangeFAndC = $item[$headerKeysIndex['temperatureRangeFAndC']];
+                        }
+
+                        if ($item[$headerKeysIndex['FeaturesBenefitsBulletPoint']]) {
+                            $arr_FeaturesBenefitsBulletPoint = [];
+                            if (!is_array($item[$headerKeysIndex['FeaturesBenefitsBulletPoint']])) {
+                                $arr_FeaturesBenefitsBulletPoint = explode('||', $item[$headerKeysIndex['FeaturesBenefitsBulletPoint']]);
+                            }
+                            foreach ($arr_FeaturesBenefitsBulletPoint as $feature) {
+                                array_push($safetyFeatures, $feature);
+                            }
+                        }
+                        $item[] = $listPrice;
+
+                        foreach ($orderKeys as $cvalue) {
+                            $articlesData[] = $item[$cvalue];
+                        }
+
+                        $brandsData[$siop6Category][] = $articlesData;
+                        unset($articlesData);
+                    }
+                }
+
+                $brandsDataArr = array();
+                if ($brandsData) {
+                    foreach ($brandsData as $bkey => $bvalue) {
+
+                        if (isset($headerKeysIndex['pitchMM']) && isset($headerKeysIndex['widthmm'])) {
+                            array_multisort(array_column($bvalue, $headerKeysIndex['pitchMM']), SORT_ASC, array_column($bvalue, $headerKeysIndex['widthmm']), SORT_ASC, $bvalue);
+                        } elseif (isset($headerKeysIndex['outsideLengthIN']) && isset($headerKeysIndex['netWeight'])) {
+                            array_multisort(array_column($bvalue, $headerKeysIndex['outsideLengthIN']), SORT_ASC, array_column($bvalue, $headerKeysIndex['netWeight']), SORT_ASC, $bvalue);
+                        } elseif (isset($headerKeysIndex['insideLengthIN'])) {
+                            array_multisort(array_column($bvalue, $headerKeysIndex['insideLengthIN']), SORT_ASC, $bvalue);
+                        } elseif (isset($headerKeysIndex['pulleyDiameterIN']) && isset($headerKeysIndex['GroovesPerTooth'])) {
+                            array_multisort(array_column($bvalue, $headerKeysIndex['pulleyDiameterIN']), SORT_ASC, array_column($bvalue, $headerKeysIndex['GroovesPerTooth']), SORT_ASC, $bvalue);
+                        } elseif (isset($headerKeysIndex['numberOfTeeth']) && isset($headerKeysIndex['netWeight'])) {
+                            array_multisort(array_column($bvalue, $headerKeysIndex['numberOfTeeth']), SORT_ASC, array_column($bvalue, $headerKeysIndex['netWeight']), SORT_ASC, $bvalue);
+                        }
+                        $brandsDataArr[$bkey] = $bvalue;
+                    }
+                }
+                unset($brandsData);
+
+                $safetyFeaturesList = $this->getFiveSortedFeaturesWithIconList($safetyFeatures);
+
+                $reinforcement = array_unique($reinforcement);
+                $reinforcement = implode(', ', $reinforcement);
+
+                $material = array_unique($material);
+                $materialArray = array();
+                foreach ($material as $value) {
+                    if (isset($materialList[$value])) {
+                        $materialArray[] = $materialList[$value]['name'];
+                    }
+                }
+
+                $materialStr = implode(', ', $materialArray);
+
+                unset($material);
+                unset($safetyFeatures);
+                unset($materialArray);
+
+                $reinforcementStr = strip_tags($virtualCatalogReinforcement, "<ul><li><span><strong>");
+                if (empty($reinforcementStr)) {
+                    $reinforcementStr = $reinforcement;
+                }
+
+
+                $groupData['subHeaderRequired'] = $this->subHeaderRequired;
+                $groupData['iconRequired'] = $this->iconRequired;
+                $groupData['material'] = $materialStr;
+                $groupData['reinforcement'] = $reinforcementStr;
+                $groupData['safetyFeatures'] = $safetyFeaturesList;
+                $groupData['mainImageObj'] = $mainImageObj;
+                $groupData['columnsDataWithImages'] = $columnsDataWithImages;
+                $groupData['ProfileDimensionImageObj'] = $profileDimensionImageObj;
+                $groupData['longDescription'] = $longDescription;
+                $groupData['temperatureRange'] = $temperatureRangeFAndC;
+                $groupData['data'] = $brandsDataArr;
+                $groupData['brandName'] = $catagoryDescription['SIOP5Description'];
+                $groupData['siop4Category'] = $catagoryDescription['SIOP4Description'];
+                $groupData['siop3Category'] = $catagoryDescription['SIOP3Description'];
+                $groupData['IsPriceCatalog'] = $isPriceCatalog;
+                unset($brandsData);
+                unset($mainImageObj);
+                unset($profileDimensionImageObj);
+
+                $footer_logo_src = (strtolower($footerBgColor) == 'orange') ? $catalogImagesPTGFooter['Black'] : $catalogImagesPTGFooter['Orange'];
+                $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
+            }
+        }
+
+        $parameterBag['groupData'] = $groupData;
+        $parameterBag['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
+        $parameterBag['footer_logo_src'] = $footer_logo_src;
+        return $this->render("catalog/default/template_section_page_pts_belts.html.twig", $parameterBag);
+    }
 
     public function getFiveSortedFeaturesWithIconList($safetyFeatures): ?array
     {

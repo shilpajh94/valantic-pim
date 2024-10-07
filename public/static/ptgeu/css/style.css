@@ -159,9 +159,6 @@ max-height: 30px;
   .edit-prev-mode-mt-50{
     
   }
-  .footer1-logo-empty{
-    width:56.75%;
-  }
 }
 
 @page {
@@ -228,53 +225,4 @@ max-height: 30px;
         content: element(footer1);
         z-index: 1;
     }
-}
-
-/* Section Page for PTS Belts css */
-.description-and-image-container{
-  margin: 0 0px;
-}
-.belt-and-profile-container{
-  margin-top: 10px;
-} 
-.section-page-belts .footer .flex-center{
-  justify-content: normal;
-}
-
-.section-page-belts .footer .aligned{
-  width: auto!important;
-}
- .footer1-logo-text{
-  display: flex;
-    /* background: #e5e9ec;
-    line-height: 1.2;
-    font-size: 12px;
-    font-weight: normal;
-    font-family: 'ContinentalStagSansLCG-Light';
-    color: cmyk(0%, 0%, 0%, 100%);
-    overflow: visible;
-    letter-spacing: 0.5px; */
-}
-.footer1-logo .logo {
-  background-color: #000000;
-  /* padding: 15px 15px; */
-  background-color: cmyk(0%, 0%, 0%, 100%);
-  padding: 1em;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-} 
-
-.footer1-logo .logo img{
-  max-width: 100%;
-  height: 25px;
-  margin: 0.5em;
-}
-.footer1-text{
-  
-  margin: 0.5em;
-}
-.footer1-logo-empty{
-  width:81.7%;
 }
