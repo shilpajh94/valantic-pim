@@ -74,6 +74,11 @@ services:
         tags:
             - { name: 'console.command', command: 'contitech:delete_older_ptgeu_sap_files' }
 
+    # this command will delete records from ptgeu_material_import_master for newly created master
+    PTGEU\ImportBundle\Command\DeleteRecordsFromImportMasterTableForNewlyCreatedMasterCommand:
+        tags:
+            - { name: 'console.command', command: 'contitech:delete_records_from_import_master_table_for_newly_created_master' }
+
     # this command will move older files to S3
     PTGEU\ImportBundle\Command\MovePTGEUSAPFileToS3Command:
         tags:
