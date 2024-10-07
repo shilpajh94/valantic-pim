@@ -231,9 +231,9 @@
 									<h6>{{ 'features'|trans }}</h6>
 									<div>
 										{% for key, feature in groupData['safetyFeatures'] %}
-											<p class="flex center">
+											<p class="flex center " >
 												{% if feature['iconSrc'] %}
-													<img src="{{ feature['iconSrc'] }}"/>
+													<img src="{{ feature['iconSrc'] }}" style="margin-left: 0 !important;"/>
 												{% endif %}
 												{{ feature['name'] }}
 											</p>
@@ -276,7 +276,7 @@
 
 			{% set tableNoteCount = 0 %}
 			{% for articleGroupKey, articleGroupData in groupData['data'] %}
-				<table class="grid continueLable" cellpadding="0" cellspacing="0">
+				<table class="grid continueLable products-table" cellpadding="0" cellspacing="0">
 					<thead>
 						{% if groupData.iconRequired == 'YES' %}
 							<tr class="sub-head">
@@ -304,9 +304,7 @@
 								{% if first2Array['columnWidth'] %}
 									{% set columnWidth = "width=" ~ first2Array['columnWidth'] %}
 								{% endif %}
-								<td colspan="{{ g2count }}" {{ columnWidth }}>
-									{{first2Array['columnLabel']}}
-								</td>
+								<td class="{{first2Array['columnLabel']}}" colspan="{{ g2count }}" {{ columnWidth }}>{{first2Array['columnLabel']|trim}}</td>
 							{% endfor %}
 						</tr>
 
@@ -328,7 +326,7 @@
 						{% set incrRow = 1 %}
 						{% for key, element in articleGroupData %}
 							{% if incrRow is even %}
-								<tr class="tableNewFont">
+								<tr class="tableNewFont ">
 								{% else %}
 									<tr class="active tableNewFont">
 									{% endif %}
@@ -346,5 +344,18 @@
 			{% endfor %}
 		</section>
 	</article>
+	<style>
+
+		@media print {
+			
+  .products-table tbody tr td{
+    padding-left: 5px;
+  }
+  .grid .sub-head td{
+	padding-left: 5px;
+  }
+
+		}
+	</style>
 </section></div>{% if not isParentContainerRequest %}
 <script type="text/javascript" src="/static/js/tableContinueLable.js"></script>{% endif %}{% endif %}{% endblock %}

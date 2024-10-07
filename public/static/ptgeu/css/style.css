@@ -159,6 +159,9 @@ max-height: 30px;
   .edit-prev-mode-mt-50{
     
   }
+  .products-table tbody tr td{
+    padding-left: 5px;
+  }
 }
 
 @page {
