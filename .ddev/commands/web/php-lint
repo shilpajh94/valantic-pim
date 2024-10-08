@@ -1,0 +1,16 @@
+#!/bin/bash
+
+## Description: Run all the PHP code quality tools
+## Usage: php-lint
+## Example: ddev php-lint\nddev php-lint --dry-run
+## Flags: [{"Name":"dry-run","Usage":"Only runs checks without changing code"}]
+if [[ $* == *--dry-run* ]]
+then
+    /usr/local/composer/vendor/bin/rector process --dry-run
+    /usr/local/composer/vendor/bin/php-cs-fixer check -v --diff
+else
+    /usr/local/composer/vendor/bin/rector process
+    /usr/local/composer/vendor/bin/php-cs-fixer fix -v --diff
+fi
+
+/usr/local/composer/vendor/bin/phpstan analyse --memory-limit 1G

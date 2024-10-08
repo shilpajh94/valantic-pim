@@ -89,3 +89,6 @@ var/config/extensions.php
 /config/bundles.php
 /composer.json
 /.env
+
+# valantic added
+.php-cs-fixer.cache
