@@ -1,0 +1,16 @@
+hooks:
+    post-start:
+        - exec: echo "*/5 * * * * $(id -nu 501) XDEBUG_MODE=off /usr/bin/php /var/www/html/bin/console pimcore:maintenance" | sudo tee -a /etc/cron.d/pimcore
+        - exec: echo "*/5 * * * * $(id -nu 501) XDEBUG_MODE=off /usr/bin/php /var/www/html/bin/console copilot:automation-action:scheduled-actions" | sudo tee -a /etc/cron.d/pimcore
+        - exec: >
+              echo "*/1 * * * * $(id -nu 501) XDEBUG_MODE=off /usr/bin/php /var/www/html/bin/console messenger:consume
+              pimcore_core
+              pimcore_maintenance
+              pimcore_scheduled_tasks
+              pimcore_asset_update
+              pimcore_image_optimize
+              pimcore_job_execution_engine
+              pimcore_generic_data_index_queue
+              scheduler_generic_data_index
+              --time-limit=60" | sudo tee -a /etc/cron.d/pimcore
+        - exec: sudo chmod 0600 /etc/cron.d/pimcore && sudo service cron start

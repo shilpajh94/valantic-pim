@@ -1,0 +1,26 @@
+includes:
+    - phpstan-baseline.neon
+
+parameters:
+    bootstrapFiles:
+        - vendor/pimcore/pimcore/stubs/dynamic-constants.php
+    paths:
+        - src
+        - tests
+    excludePaths:
+        - src/Kernel.php
+    level: 6
+#    ignoreErrors:
+#        - "#^Call to an undefined method Symfony\\\\Component\\\\Console\\\\Helper\\\\HelperInterface\\:\\:ask\\(\\)\\.$#"
+
+    # checkGenericClassInNonGenericObjectType: true
+    # treatPhpDocTypesAsCertain: false
+
+    # strictRules:
+    #     disallowedConstructs: false
+
+# services:
+#     -
+#         class: \App\PHPStan\CalculatedValueExtension
+#         tags:
+#             - phpstan.broker.dynamicMethodReturnTypeExtension
