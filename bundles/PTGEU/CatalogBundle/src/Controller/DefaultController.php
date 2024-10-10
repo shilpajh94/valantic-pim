@@ -847,6 +847,8 @@ class DefaultController extends FrontendController
                                                         if(isset($rowData[$fieldName]))
                                                         {
                                                             $data[$fieldName] = $rowData[$fieldName];
+                                                        } else {
+                                                            $data[$fieldName] = '';
                                                         }
                                                     }
                                                 }

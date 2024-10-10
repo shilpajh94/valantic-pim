@@ -34,6 +34,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
+use Exception;
+use Pimcore\Cache\Symfony\CacheClearer;
 
 /**
  * @Route("/admin/pimcoredatahub/config")
@@ -44,6 +46,12 @@ class ConfigController extends \Pimcore\Controller\UserAwareController
 
     public const CONFIG_NAME = 'plugin_datahub_config';
 
+    private $cacheClearer;
+
+    public function __construct()
+    {
+        $this->cacheClearer = new CacheClearer();
+    }
     /**
      * @param Configuration $configuration
      *
@@ -67,6 +75,24 @@ class ConfigController extends \Pimcore\Controller\UserAwareController
                 'update' => $configuration->isAllowed('update'),
             ],
         ];
+    }
+
+    /**
+     * @Route("/clear-cache")
+     */
+    public function clearCacheAction(Request $request) {
+        try{
+            \Pimcore\Cache::clearAll();
+            $process = $this->cacheClearer->clear(CUSTOM_ENV);
+            $cacheCleared = $process->isTerminated();
+
+            if ($cacheCleared) {
+                return new JsonResponse(['success' => true]);
+            }
+
+        } catch (Exception $e) {
+            return new JsonResponse(['success' => false, 'error' => $e->getMessage()]);
+        }
     }
 
     /**

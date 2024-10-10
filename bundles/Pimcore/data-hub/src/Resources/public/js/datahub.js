@@ -73,10 +73,29 @@ pimcore.plugin.datahub = Class.create({
         }
     },
 
+    // openDataHub: function(e) {
+    //     try {
+    //         pimcore.globalmanager.get("plugin_pimcore_datahub_config").activate();
+    //     } catch (e) {
+    //         pimcore.globalmanager.add("plugin_pimcore_datahub_config", new pimcore.plugin.datahub.config());
+    //     }
+    // },
+
     openDataHub: function(e) {
         try {
-            pimcore.globalmanager.get("plugin_pimcore_datahub_config").activate();
+            pimcore.globalmanager.remove("plugin_pimcore_datahub_config");
+            Ext.Ajax.request({
+                url: '/admin/pimcoredatahub/config/clear-cache',
+                method: 'POST',
+                success: function(response) {
+                    const data = Ext.decode(response.responseText);
+                    if (data.success) {
+                        pimcore.globalmanager.add("plugin_pimcore_datahub_config", new pimcore.plugin.datahub.config());
+                    }
+                }
+            });
         } catch (e) {
+            console.log(e);
             pimcore.globalmanager.add("plugin_pimcore_datahub_config", new pimcore.plugin.datahub.config());
         }
     },

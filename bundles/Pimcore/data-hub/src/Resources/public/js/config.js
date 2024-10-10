@@ -83,27 +83,34 @@ pimcore.plugin.datahub.config = Class.create({
             let firstHandler;
 
             for (let key in pimcore.plugin.datahub.adapter) {
-                if( key !== 'abstract' && pimcore.plugin.datahub.adapter.hasOwnProperty( key ) && this.userIsAllowedToCreate(key)) {
+                if (key !== 'abstract' && key !== 'graphql' && pimcore.plugin.datahub.adapter.hasOwnProperty( key ) && this.userIsAllowedToCreate(key)) {
                     let adapter = new pimcore.plugin.datahub.adapter[key](this);
 
                     if (!firstHandler) {
                         firstHandler = adapter.addConfiguration.bind(adapter, key);
                     }
-                    menuItems.push(
-                    {
-                        text: t('plugin_pimcore_datahub_type_' + key),
-                        iconCls: "plugin_pimcore_datahub_icon_" + key,
-                        handler: adapter.addConfiguration.bind(adapter, key)
-                    });
+
+                    // menuItems.push({
+                    //     text: t('plugin_pimcore_datahub_type_' + key),
+                    //     iconCls: "plugin_pimcore_datahub_icon_" + key,
+                    //     handler: adapter.addConfiguration.bind(adapter, key)
+                    // });
                 }
             }
 
-            var addConfigButton = new Ext.SplitButton({
+            // var addConfigButton = new Ext.SplitButton({
+            //     text: t("plugin_pimcore_datahub_configpanel_add"),
+            //     iconCls: "pimcore_icon_add",
+            //     handler: firstHandler,
+            //     disabled:  !pimcore.settings['data-hub-writeable'] || !firstHandler,
+            //     menu: menuItems,
+            // });
+
+            var addConfigButton = new Ext.Button({
                 text: t("plugin_pimcore_datahub_configpanel_add"),
                 iconCls: "pimcore_icon_add",
                 handler: firstHandler,
                 disabled:  !pimcore.settings['data-hub-writeable'] || !firstHandler,
-                menu: menuItems,
             });
 
             const importButton = new Ext.Button({
@@ -149,7 +156,7 @@ pimcore.plugin.datahub.config = Class.create({
                 tbar: {
                     items: [
                         addConfigButton,
-                        importButton
+                        // importButton
                     ]
                 },
                 listeners: {
