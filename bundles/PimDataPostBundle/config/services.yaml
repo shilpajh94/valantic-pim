@@ -71,3 +71,6 @@ services:
     PimDataPostBundle\Command\InitialLoadCommand\B2CInitialLoadCommand:
         tags:
             - { name: 'console.command', command: 'conti:datapost:b2c-initial-load-command' }  
+    PimDataPostBundle\Command\UpdateNonFixedRecordsCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:datapost:send-email-and-update-nonfixed-records' }

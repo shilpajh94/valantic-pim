@@ -216,10 +216,7 @@ class SalesMaterialModel
                 echo $timediff4->format("Total {$deltaCount} replaced in master table takes %h hour %i minute %s second").PHP_EOL;
 
                 $this->tableImportHelper->deleteFailedRecordsFromMaster($this->failedIDs);
-                if(count($failedRecords)>0){
-                    $this->tableImportHelper->deleteFailedRecordsFromMaster($failedRecords);
-                    echo $timediff4->format("Total ".count($failedRecords)." failed record removed from master table takes %h hour %i minute %s second").PHP_EOL;
-                }
+                
             } else {
                 $applicationLogMessage = "IFS-NA Sales - The uploaded file has wrong headers.";
                 $this->importProcessEmailNotificationObj->sendMailNotification($applicationLogMessage);
@@ -551,7 +548,7 @@ class SalesMaterialModel
     }
     public function getParentObject($object, $level = '') {
         $currentParent = $object->getParent();
-        if ($level == 3) {
+        if ($level == 3 && $object->getBusinessUnit() != 'CS') {
             $siopLevel3 = $object->getSIOPLevel3()[0];
             $siopPath = $siopLevel3->getFullpath();
             $productPath = $this->convertCategoryPathToProduct($siopPath)."/Quote";
