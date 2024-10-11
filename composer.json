@@ -19,9 +19,10 @@
     "elements/process-manager-bundle": "*",
     "league/flysystem-aws-s3-v3": "^3.12.0",
     "php-http/discovery": "^1.19",
-    "pimcore/admin-ui-classic-bundle": "^1.3",
+    "pimcore/admin-ui-classic-bundle": "^1.4",
     "pimcore/bundle-generator": "^2.0",
     "pimcore/compatibility-bridge-v10": "^1.0",
+    "pimcore/data-importer": "^1.9",
     "pimcore/ecommerce-framework-bundle": "^1.0",
     "pimcore/file-explorer-bundle": "^1.0",
     "pimcore/google-marketing-bundle": "^1.0",
@@ -73,7 +74,9 @@
       "ContitechCS\\CatalogUIApiBundle\\": "bundles/ContitechCS/CatalogUIApiBundle/src",
       "Instride\\Bundle\\DataDefinitionsBundle\\": "bundles/instride/data-definitions/src/DataDefinitionsBundle",
       "SSOIntegrationBundle\\":"bundles/SSOIntegrationBundle",
-      "B2BSalesforcePTGEMEABundle\\": "bundles/B2BSalesforcePTGEMEABundle/src"
+      "B2BSalesforcePTGEMEABundle\\": "bundles/B2BSalesforcePTGEMEABundle/src",
+      "Pimcore\\Bundle\\DataHubBundle\\": "bundles/Pimcore/data-hub/src",
+      "Pimcore\\Bundle\\DataImporterBundle\\": "bundles/Pimcore/data-importer/src"
     }
   },
   "autoload-dev": {
