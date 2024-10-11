@@ -551,7 +551,7 @@ class SalesMaterialModel
     }
     public function getParentObject($object, $level = '') {
         $currentParent = $object->getParent();
-        if ($level == 3) {
+        if ($level == 3 && $object->getBusinessUnit() != 'CS') {
             $siopLevel3 = $object->getSIOPLevel3()[0];
             $siopPath = $siopLevel3->getFullpath();
             $productPath = $this->convertCategoryPathToProduct($siopPath)."/Quote";
