@@ -139,7 +139,7 @@ class DefaultController extends FrontendController
         $productList->setCondition('ProductType = "base"');
         $options = [];
         foreach ($productList as $item) {
-            $options[] = array('text' => $item->getSapDescription('en'), 'id' => $item->getId());
+            $options[] = array('text' => (!empty($item->getSapDescription('en'))?$item->getSapDescription('en'):$item->getKey()), 'id' => $item->getId());
         }
 
         return $this->json(['data' => $options]);
@@ -2514,7 +2514,7 @@ class DefaultController extends FrontendController
     }
     public function templatePtgSectionPagePTSBeltsAction(Request $request): Response
     {
-        $templateEditable = $this->document->getEditable('ptg_product_page');
+        $templateEditable = $this->document->getEditable('section_page_pts_belts');
 
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
@@ -2613,17 +2613,23 @@ class DefaultController extends FrontendController
             $temperatureRangeFAndC = '';
             $virtualCatalogReinforcement = '';
             $safetyFeatures = array();
+            $SIOPCategories = array();
 
             if ($productsData) {
                 foreach ($productsData as $item) {
-                    $query = "select SIOPLevel3, SIOPLevel4, SIOPLevel5, SIOPLevel6, priceData from object_query_1 where oo_id = '" . $item[$headerKeysIndex['id']] . "'";
+                    $query = "select SIOPLevel2,SIOPLevel3, SIOPLevel4, SIOPLevel5, SIOPLevel6, priceData from object_query_1 where oo_id = '" . $item[$headerKeysIndex['id']] . "'";
 
                     $record = $this->db->fetchAssociative($query);
+                    $siopLevel2 = trim($record['SIOPLevel2'], ',');
                     $siopLevel3 = trim($record['SIOPLevel3'], ',');
                     $siopLevel4 = trim($record['SIOPLevel4'], ',');
                     $siopLevel5 = trim($record['SIOPLevel5'], ',');
                     $siopLevel6 = trim($record['SIOPLevel6'], ',');
-
+                    if(!empty($siopLevel2)){
+                        $SIOPCategoryClassId = \Pimcore\Model\DataObject\ProductCategory::classId();
+                        $sql = "SELECT `key` FROM object_$SIOPCategoryClassId WHERE `ParentObjectId` = $siopLevel2 ORDER BY `SortOrder` ASC";
+                        $SIOPCategories= $this->db->fetchFirstColumn($sql);
+                    }
                     $siop6Category = !empty($categoriesList[$siopLevel6]['PrintedCatalogDescription']) ? $categoriesList[$siopLevel6]['PrintedCatalogDescription'] : $categoriesList[$siopLevel6]['description'];
                     $siop6Category = trim($siop6Category);
 
@@ -2778,6 +2784,7 @@ class DefaultController extends FrontendController
                 $groupData['siop4Category'] = $catagoryDescription['SIOP4Description'];
                 $groupData['siop3Category'] = $catagoryDescription['SIOP3Description'];
                 $groupData['IsPriceCatalog'] = $isPriceCatalog;
+                $groupData['SIOPCategories'] = $SIOPCategories;
                 unset($brandsData);
                 unset($mainImageObj);
                 unset($profileDimensionImageObj);
