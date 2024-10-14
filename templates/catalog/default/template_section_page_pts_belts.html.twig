@@ -3,455 +3,513 @@
 {% endif %}
 
 {% block _content %}
-<style>
-	.cellAttributes table {
-		padding: 0;
-		border-spacing: 0;
-	}
-	.section-page-pts-belts-features {
-		display: flex !important;
-        padding-top: 20px;
-	}
-   .section-page-pts-belts-features  .full, .section-page-pts-belts-features b{
-        font-size: 12px;
-    }
-    .section-page-pts-belts-features b{
-        padding-bottom: 5px;
-    }
-    .features .center::before{
-        color: transparent; 
-    content: ">";
-    margin-right: 10px;
-    padding: 0 10px 10px;
-    width: 10px;
-    height: 10px;
-    color: #ffa500;
-    }
-	.section-page-pts-belts-LongDescription {
-		background-color: #f0f0f0;
-		padding: 10px 30px;
-	}
-	.imageHolder.section-page-pts-belts-images,
-	.belts-Identification-and-profile-dimension-container {
-		display: flex !important;
-		height: 100%;
-	}
-	.belts-Identification-and-profile-dimension-container img {
-		height: 100px;
-		width: 400px;
-		display: inline-block;
-		align-self: flex-end;
-	}
-	header aside.feature-benefits-and-images {
-		background-color: transparent;
-	}
-	thead .section-page-pts-belts-head {
-		background-color: orange;
-	}
-	.section-page-pts-belts-head td {
-		border: none;
-        padding: 5px;
-	}
-	.section-page-pts-belts-head th {
-		padding: 5px 2px;
-		word-break: break-word;
-		font-size: 10px;
-		text-align: left;
-        font-weight: bold;
-		word-wrap: break-all;
-		text-wrap: normal;
-		white-space: normal;
-		border-bottom: 1px solid #737373;
-		height: 30px;
-	}
-	.content-section table {
-		border: 2px solid black;
-		width: 80%;
-		padding-bottom: 10px;
-	}
-	.belts-Identification-and-profile-dimension-container {
-		width: 80%;
-	}
-	.section-page-pts-belts-page {
-		position: relative;
-	}
-    .feature-benefits-and-images .content .flex .specs h6{
-        padding-left: 0px;
-    }
-	.section_page_pts_belts_Catalog_Asset_Right_Image img {
-        position: absolute;
-        width: 250px;
-        height: 300px;
-        max-height: 400px;
-        top: 300px;
-        right: 30px;
-        /* position: relative;
-        width: 250px;
-        height: 300px;
-        max-height: 400px;
-        top: 0px;
-        right: 500px; */
-	}
-	.all-child-taxonomy {
-		min-width: 100%;
-		height: 50px;
-		display: flex;
-		align-items: center;
-		/* justify-content: space-around; */
-		transform: rotate(90deg) translate(50%, 460px);
-	}
-    .all-child-taxonomy p {
-        border-bottom: 1px solid;
-        border-left: 1px solid;
-        border-right: none ;
-        border-top: 1px solid;
-        padding: 10px;
-        font-size: 12px;
-        font-weight: bold;
-    }
-    .all-child-taxonomy p:last-child {
-        
-        border-right: 1px solid;
-    }
-    .all-child-taxonomy p{
-        padding: 10px;
-        letter-spacing: 1px;
-    }
-    .all-child-taxonomy  .selected{
-        background-color: black;
-        color: #ffa500;
-    }
-    .section-page-pts-belts-page .segregate .content-section{
-        margin-left: 35px;
-    } 
-  .section-page-pts-belts-page   .footer1 footer .aligned > * {
-    text-align: left;
-    justify-content: flex-start;
-}  
+	<style>
+		.cellAttributes table {
+			padding: 0;
+			border-spacing: 0;
+		}
+		.section-page-pts-belts-features {
+			display: flex !important;
+			padding-top: 20px;
+		}
+		.section-page-pts-belts-features .full,
+		.section-page-pts-belts-features b {
+			font-size: 12px;
+		}
+		.section-page-pts-belts-features .features p {
+			padding-left: 0 !important;
+		}
+		.section-page-pts-belts-features b {
+			padding-bottom: 5px;
+		}
+		.features .center::before {
+			color: transparent;
+			content: ">";
+			margin-right: 0;
+			padding: 0 10px 10px;
+			width: 10px;
+			height: 10px;
+			color: #ffa500;
+		}
+		.section-page-pts-belts-LongDescription {
+			background-color: #f0f0f0;
+			padding: 10px 30px;
+		}
+		.imageHolder.section-page-pts-belts-images,
+		.belts-Identification-and-profile-dimension-container {
+			display: flex !important;
+			height: 100%;
+			height: 200px;
+		}
+		.belts-Identification-and-profile-dimension-container {
+			width: 70%;
+		}
+		.belts-Identification-and-profile-dimension-container,.section_page_pts_belts_table_container {
 
-	@media print {
-        marquee { 
-            -moz-binding: none; 
-        } 
-        body{
-            overflow:visible !important;
-        }
+			margin-left: 15px;
+		}
 		.belts-Identification-and-profile-dimension-container img {
 			height: 100px;
-			width: 200px;
+			width: 300px;
 			display: inline-block;
 			align-self: flex-end;
 		}
-		.section_page_pts_belts_Catalog_Asset_Right_Image img {
-			/* position: relative; */
-			width: 100px;
-			height: 400px;
-			top: 100px;
-			right: 20px;
-			z-index: 999;
-			overflow: hidden;
+		.section_page_pts_belts_Profile_Dimension_image {
+			margin-left: 10px;
+		}
+
+		header aside.feature-benefits-and-images {
+			background-color: transparent;
+		}
+		thead .section-page-pts-belts-table-head {
+			background-color: orange;
+		}
+		.section-page-pts-belts-table-body tr td {
+			border: none;
+			padding: 5px;
+		}
+		.section-page-pts-belts-table-head th {
+			padding: 5px 2px;
+			word-break: break-word;
+			font-size: 10px;
+			text-align: left;
+			font-weight: bold;
+			word-wrap: break-all;
+			text-wrap: normal;
+			white-space: normal;
+			border-bottom: 1px solid #737373;
+			height: 30px;
+		}
+		.content-section table {
+			border: 2px solid black;
+			width: 70%;
+			padding-bottom: 10px;
+		}
+
+		.section-page-pts-belts-page {
+			position: relative;
+		}
+		.feature-benefits-and-images .content .flex .specs h6 {
+			padding-left: 0;
+		}
+		.section_page_pts_belts_Catalog_Asset_Right_Image {
+			position: absolute;
+			width: 350px;
+			height: 300px;
+			max-height: 400px;
+			top: 380px;
+			right: 30px;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
+			background-blend-mode: multiply;
 		}
 		.all-child-taxonomy {
-			transform: rotate(90deg) translate(40%, 380px);
+			min-width: 100%;
+			height: 50px;
+			display: flex;
+			align-items: center;
+			/* justify-content: space-around; */
+			transform: rotate(90deg) translate(50%, 460px);
 		}
-	}
-</style>
-{% if editmode %}
-	{{ pimcore_relation("section_page_pts_belts", {
+		.all-child-taxonomy p {
+			border-bottom: 1px solid;
+			border-left: 1px solid;
+			border-right: none;
+			border-top: 1px solid;
+			padding: 10px;
+			font-size: 12px;
+			font-weight: bold;
+		}
+		.all-child-taxonomy p:last-child {
+
+			border-right: 1px solid;
+		}
+		.all-child-taxonomy p {
+			padding: 10px;
+			letter-spacing: 1px;
+		}
+		.all-child-taxonomy .selected {
+			background-color: black;
+			color: #ffa500;
+		}
+		.section-page-pts-belts-page .segregate .content-section {
+			margin-left: 35px;
+		}
+		.section-page-pts-belts-page .footer1 footer .aligned > * {
+			text-align: left;
+			justify-content: flex-start;
+		}
+
+		@media print {
+			body {
+				overflow: visible !important;
+			}
+			.belts-Identification-and-profile-dimension-container img {
+				height: 80px;
+				width: 100px !important;
+				display: inline-block;
+				align-self: flex-end;
+			}
+
+			.section_page_pts_belts_Catalog_Asset_Right_Image {
+				position: absolute;
+				width: 200px;
+				height: 300px;
+				max-height: 400px;
+				top: 400px;
+				right: 100px;
+				background-size: 100% 100%;
+
+
+			}
+			.all-child-taxonomy {
+				transform: rotate(90deg) translate(40%, 380px);
+			}
+		}
+	</style>
+	{% if editmode %}
+		{{ pimcore_relation("section_page_pts_belts", {
             "types": ["object"],
             "subtypes": {
                 "object": ["object"]
             },
             "classes": ["CatalogTables"]
         }) }}
-{% endif %}
+	{% endif %}
 
-{% if groupData %}
-	<div class="template section-page-pts-belts-page">
-		<section class="segregate">
-			<div id="pageHeader"></div>
-			<span class="pageName">
-				{{ groupData['siop3Category'] }}
-			</span>
+	{% if groupData %}
+		<div class="template section-page-pts-belts-page">
+			<section class="segregate">
+				<div id="pageHeader"></div>
+				<span class="pageName">
+					{{ groupData['siop3Category'] }}
+				</span>
 
-			<div class="footer ">
-				<footer class="flex-center {{ footer_class }}">
-					<span class="logo">
-						<img src="{{ footer_logo_src }}" alt="">
-					</span>
-					<div class="flex aligned">
-						{% set section_page_pts_belts_footer_brandName = pimcore_input("section_page_pts_belts_footer_brandName") %}
-						{% if  section_page_pts_belts_footer_brandName.isEmpty() %}
-							{% set section_page_pts_belts_footer_brandName = section_page_pts_belts_footer_brandName.setDataFromResource(groupData['brandName']) %}
-						{% endif %}
-						<h5>
-							{% if editmode %}
-								#{{section_page_pts_belts_footer_brandName|raw }}
-							{% else %}
-								#{{section_page_pts_belts_footer_brandName|raw }}
+				<div class="footer ">
+					<footer class="flex-center {{ footer_class }}">
+						<span class="logo">
+							<img src="{{ footer_logo_src }}" alt="">
+						</span>
+						<div class="flex aligned">
+							{% set section_page_pts_belts_footer_brandName = pimcore_input("section_page_pts_belts_footer_brandName") %}
+							{% if  section_page_pts_belts_footer_brandName.isEmpty() %}
+								{% set section_page_pts_belts_footer_brandName = section_page_pts_belts_footer_brandName.setDataFromResource(groupData['brandName']) %}
 							{% endif %}
-
-							<span>
-								{% set section_page_pts_belts_taxonomy_level_3 = pimcore_input("section_page_pts_belts_taxonomy_level_3") %}
-								{% if  section_page_pts_belts_taxonomy_level_3.isEmpty() %}
-									{% set section_page_pts_belts_taxonomy_level_3 = section_page_pts_belts_taxonomy_level_3.setDataFromResource(groupData['siop3Category']) %}
-								{% endif %}
-
-
-								{% set section_page_pts_belts_taxonomy_level_4 = pimcore_input("section_page_pts_belts_taxonomy_level_4") %}
-								{% if  section_page_pts_belts_taxonomy_level_4.isEmpty() %}
-									{% set section_page_pts_belts_taxonomy_level_4 = section_page_pts_belts_taxonomy_level_4.setDataFromResource(groupData['siop4Category']) %}
-
-								{% endif %}
+							<h5>
 								{% if editmode %}
-									#{{ section_page_pts_belts_taxonomy_level_3 | raw}}
-									#{{section_page_pts_belts_taxonomy_level_4|raw}}
+									#{{section_page_pts_belts_footer_brandName|raw }}
 								{% else %}
-									#{{ section_page_pts_belts_taxonomy_level_3|raw }}
-									#{{ section_page_pts_belts_taxonomy_level_4|raw }}
+									#{{section_page_pts_belts_footer_brandName|raw }}
 								{% endif %}
-							</span>
-						</h5>
 
-						<div class="compatible">
-							{% set section_page_pts_belts_compatibility = pimcore_input("section_page_pts_belts_compatibility") %}
-							{% if section_page_pts_belts_compatibility.isEmpty() %}
-								{% set section_page_pts_belts_compatibility = section_page_pts_belts_compatibility .setDataFromResource('Compatible fittings')%}
-							{% endif %}
-							<b>
-								Compatible #{{section_page_pts_belts_compatibility|raw}}
-							</b>
-							Details based on export?
-
-						</div>
-					</div>
-				</footer>
-			</div>
-
-
-		{% if not editmode %}
-            <div class="footer1 ">
-				<footer class="flex-center {{ footer_class }}">
-					<span class="logo">
-						<img src="{{ footer_logo_src }}" alt="">
-					</span>
-					<div class="flex aligned">
-                        <h5>{{section_page_pts_belts_footer_brandName|raw }}
-							<span>
-									#{{ section_page_pts_belts_taxonomy_level_3|raw}}
-									{{section_page_pts_belts_taxonomy_level_4|raw}}
-							</span>
-						</h5>
-
-						<div class="compatible">
-							{% set section_page_pts_belts_compatibility = pimcore_input("section_page_pts_belts_compatibility") %}
-							{% if section_page_pts_belts_compatibility.isEmpty() %}
-								{% set section_page_pts_belts_compatibility = section_page_pts_belts_compatibility .setDataFromResource('Compatible fittings')%}
-							{% endif %}
-							<b>
-								Compatible #{{section_page_pts_belts_compatibility|raw}}
-							</b>
-							Details based on export?
-
-						</div>
-					</div>
-				</footer>
-			</div>
-            {% endif %}
-			<div class="content-container right-side-container">
-				{% if groupData.SIOPCategories is not empty %}
-				<div class="all-child-taxonomy">
-					{% for SIOPCategory in groupData.SIOPCategories %}
-					<p>{{SIOPCategory}}</p>
-					{% endfor %}
-				</div>
-				{% endif %}
-
-				<div class="content-section">
-					<header class="content white">
-						<h1>
-							{% set section_page_pts_belts_BrandName = pimcore_input("section_page_pts_belts_BrandName") %}
-
-							{% if section_page_pts_belts_BrandName.isEmpty() %}
-								{% set section_page_pts_belts_BrandName = section_page_pts_belts_BrandName.setDataFromResource(groupData['brandName']) %}
-							{% endif %}
-							{% if editmode %}
-								{{section_page_pts_belts_BrandName|raw}}
-							{% else %}
-								{{section_page_pts_belts_BrandName|raw}}
-							{% endif %}
-						</h1>
-						<div class="section-page-pts-belts-LongDescription">
-							{% set section_page_pts_belts_LongDescription = pimcore_wysiwyg("section_page_pts_belts_LongDescription") %}
-							{% if  section_page_pts_belts_LongDescription.isEmpty() %}
-								{% set section_page_pts_belts_LongDescription = section_page_pts_belts_LongDescription.setDataFromResource(groupData['longDescription']) %}
-							{% endif %}
-							{% if editmode %}
-								{{section_page_pts_belts_LongDescription|raw}}
-							{% else %}
-								{{section_page_pts_belts_LongDescription|raw}}
-							{% endif %}
-						</div>
-						<aside
-							class="feature-benefits-and-images">
-							{# key feature and benifit start #}
-							<section class="content single ptg">
-								{% if groupData.safetyFeatures or ((groupData['material'])|trim is not empty) or ((groupData['reinforcement'])|trim is not empty) or ((groupData['temperatureRange'])|trim is not empty) %}
-									<menu
-										class="flex">
-										{# {% if groupData['safetyFeatures'] %} #}
-										<div class="specs">
-											<h6>{{ 'section_page_pts_belts_features'|trans }}</h6>
-											<div class="section-page-pts-belts-features ">
-												<div class="features">
-													{% for key, feature in groupData['safetyFeatures'] %}
-														<p
-															class="flex center">
-															{# {% if feature['iconSrc'] %}
-																																																										<img src="{{ feature['iconSrc'] }}" alt=""/>
-																																																									{% endif %} #}
-															{{ feature['name'] }}
-														</p>
-													{% endfor %}
-												</div>
-												{% if ((groupData['material'])|trim is not empty) or ((groupData['reinforcement'])|trim is not empty) or ((groupData['temperatureRange'])|trim is not empty) %}
-													<div>
-														{% if groupData['material'] %}
-															<div class="full">
-																<b>{{ 'Material'|trans }}:</b>
-																{{ groupData['material'] }}
-															</div>
-														{% endif %}
-														{% if groupData['reinforcement'] %}
-															<div class="full">
-																<b>{{ 'Reinforcement'|trans }}:</b>
-																{{ groupData['reinforcement'] }}
-															</div>
-														{% endif %}
-														{% if groupData['temperatureRange'] %}
-															<div class="full">
-																<b>{{ 'Temperature Range'|trans }}:</b>
-																{{ groupData['temperatureRange'] }}
-															</div>
-														{% endif %}
-													</div>
-												{% endif %}
-											</div>
-										</div>
-
-									</menu>
-								{% endif %}
-							</section>
-
-							{# key feature and benifit end #}
-							<div class="imageHolder section-page-pts-belts-images">
-								<div class="left-image-and-table">
-
-									<div class="belts-Identification-and-profile-dimension-container">
-										{% set section_page_pts_belts_Identification_Image = pimcore_image("section_page_pts_belts_Identification_Image", {"width": 400, "height": 100}) %}
-										{% set section_page_pts_belts_Profile_Dimension_image  = pimcore_image("section_page_pts_belts_Profile_Dimension_image", {"width": 400, "height": 100}) %}
-
-										{% if groupData['ProfileDimensionImageObj'] %}
-											{% set section_page_pts_belts_Identification_Image = section_page_pts_belts_Identification_Image.setImage(groupData['ProfileDimensionImageObj']) %}
-										{% endif %}
-
-										{% if groupData['ProfileDimensionImageObj'] %}
-											{% set section_page_pts_belts_Profile_Dimension_image = section_page_pts_belts_Profile_Dimension_image.setImage(groupData['ProfileDimensionImageObj']) %}
-										{% endif %}
-										{% if editmode %}
-											{{section_page_pts_belts_Identification_Image|raw}}
-											{{section_page_pts_belts_Profile_Dimension_image|raw}}
-										{% else %}
-
-											{% if section_page_pts_belts_Identification_Image %}
-												{# <img src="{{getImageThumbnail(section_page_pts_belts_Identification_Image, imageWidth)}}" width="400" height="100" alt=""/> #}
-												<img src="/Product%20Assets/PTG/PTP/Synchronous%20Belts/CTD/Synchrochain%20Carbon/11850/image-thumb__11850__catalog_thumb/Synchrochain_Carbon.07694ff1.png" alt=""/>
-											{% endif %}
-											{% if section_page_pts_belts_Profile_Dimension_image %}
-												{# <img src="{{getImageThumbnail(section_page_pts_belts_Profile_Dimension_image, imageWidth)}}" width="400" height="100" alt=""/> #}
-												<img src="/Product%20Assets/PTG/PTP/Synchronous%20Belts/CTD/Synchrochain%20Carbon/11850/image-thumb__11850__catalog_thumb/Synchrochain_Carbon.07694ff1.png" alt=""/>
-											{% endif %}
-										{% endif %}
-									</div>
-								</div>
-
-
-								{% set section_page_pts_belts_Catalog_Asset_Right_Image = pimcore_image("section_page_pts_belts_Catalog_Asset_Right_Image", {"width": 400, "height": 200}) %}
-								{% if groupData['mainImageObj'] %}
-									{% set section_page_pts_belts_Catalog_Asset_Right_Image = section_page_pts_belts_Catalog_Asset_Right_Image.setImage(groupData['mainImageObj']) %}
-								{% endif %}
-								{% if editmode %}
-									{{section_page_pts_belts_Catalog_Asset_Right_Image|raw}}
-								{% else %}
-
-									{% if section_page_pts_belts_Catalog_Asset_Right_Image %}
-										<div class="section_page_pts_belts_Catalog_Asset_Right_Image">
-
-											<img src="{{getImageThumbnail(section_page_pts_belts_Catalog_Asset_Right_Image, imageWidth)}}" alt=""/>
-										</div>
+								<span>
+									{% set section_page_pts_belts_taxonomy_level_3 = pimcore_input("section_page_pts_belts_taxonomy_level_3") %}
+									{% if  section_page_pts_belts_taxonomy_level_3.isEmpty() %}
+										{% set section_page_pts_belts_taxonomy_level_3 = section_page_pts_belts_taxonomy_level_3.setDataFromResource(groupData['siop3Category']) %}
 									{% endif %}
+
+
+									{% set section_page_pts_belts_taxonomy_level_4 = pimcore_input("section_page_pts_belts_taxonomy_level_4") %}
+									{% if  section_page_pts_belts_taxonomy_level_4.isEmpty() %}
+										{% set section_page_pts_belts_taxonomy_level_4 = section_page_pts_belts_taxonomy_level_4.setDataFromResource(groupData['siop4Category']) %}
+
+									{% endif %}
+									{% if editmode %}
+										#{{ section_page_pts_belts_taxonomy_level_3 | raw}}
+										#{{section_page_pts_belts_taxonomy_level_4|raw}}
+									{% else %}
+										#{{ section_page_pts_belts_taxonomy_level_3|raw }}
+										#{{ section_page_pts_belts_taxonomy_level_4|raw }}
+									{% endif %}
+								</span>
+							</h5>
+
+							<div class="compatible">
+								{% set section_page_pts_belts_compatibility = pimcore_input("section_page_pts_belts_compatibility") %}
+								{% if section_page_pts_belts_compatibility.isEmpty() %}
+									{% set section_page_pts_belts_compatibility = section_page_pts_belts_compatibility .setDataFromResource('Compatible fittings')%}
+								{% endif %}
+								<b>
+									Compatible #{{section_page_pts_belts_compatibility|raw}}
+								</b>
+								Details based on export?
+
+							</div>
+						</div>
+					</footer>
+				</div>
+
+
+				{% if not editmode %}
+					<div class="footer1 ">
+						<footer class="flex-center {{ footer_class }}">
+							<span class="logo">
+								<img src="{{ footer_logo_src }}" alt="">
+							</span>
+							<div class="flex aligned">
+								<h5>{{section_page_pts_belts_footer_brandName|raw }}
+									<span>
+										#{{ section_page_pts_belts_taxonomy_level_3|raw}}
+										{{section_page_pts_belts_taxonomy_level_4|raw}}
+									</span>
+								</h5>
+
+								<div class="compatible">
+									{% set section_page_pts_belts_compatibility = pimcore_input("section_page_pts_belts_compatibility") %}
+									{% if section_page_pts_belts_compatibility.isEmpty() %}
+										{% set section_page_pts_belts_compatibility = section_page_pts_belts_compatibility .setDataFromResource('Compatible fittings')%}
+									{% endif %}
+									<b>
+										Compatible #{{section_page_pts_belts_compatibility|raw}}
+									</b>
+									Details based on export?
+
+								</div>
+							</div>
+						</footer>
+					</div>
+				{% endif %}
+				<div class="content-container right-side-container">
+					{% if groupData.SIOPCategories is not empty %}
+						<div class="all-child-taxonomy">
+							{% for SIOPCategory,selected in groupData.SIOPCategories %}
+								<p class="{{selected}}">{{SIOPCategory}}</p>
+							{% endfor %}
+						</div>
+					{% endif %}
+
+					<div class="content-section">
+						<header class="content white">
+							<h1>
+								{% set section_page_pts_belts_BrandName = pimcore_input("section_page_pts_belts_BrandName") %}
+
+								{% if section_page_pts_belts_BrandName.isEmpty() %}
+									{% set section_page_pts_belts_BrandName = section_page_pts_belts_BrandName.setDataFromResource(groupData['brandName']) %}
+								{% endif %}
+								{% if editmode %}
+									{{section_page_pts_belts_BrandName|raw}}
+								{% else %}
+									{{section_page_pts_belts_BrandName|raw}}
+								{% endif %}
+							</h1>
+							<div class="section-page-pts-belts-LongDescription">
+								{% set section_page_pts_belts_LongDescription = pimcore_wysiwyg("section_page_pts_belts_LongDescription") %}
+								{% if  section_page_pts_belts_LongDescription.isEmpty() %}
+									{% set section_page_pts_belts_LongDescription = section_page_pts_belts_LongDescription.setDataFromResource(groupData['longDescription']) %}
+								{% endif %}
+								{% if editmode %}
+									{{section_page_pts_belts_LongDescription|raw}}
+								{% else %}
+									{{section_page_pts_belts_LongDescription|raw}}
 								{% endif %}
 							</div>
-						</aside>
-					</header>
-					<article class="fullcontainer">
-						<section class="content single ptg">
-							{% set tableNoteCount = 0 %}
-							{% for articleGroupKey, articleGroupData in groupData['data'] %}
-								<table class="grid continueLable cellAttributes" aria-hidden="true" cellpadding="0" cellspacing="0" border="0">
+							<aside
+								class="feature-benefits-and-images">
+								{# key feature and benifit start #}
+								<section class="content single ptg">
+									{% if groupData.safetyFeatures or ((groupData['material'])|trim is not empty) or ((groupData['reinforcement'])|trim is not empty) or ((groupData['temperatureRange'])|trim is not empty) %}
+										<menu
+											class="flex">
+											{# {% if groupData['safetyFeatures'] %} #}
+											<div class="specs">
+												<h6>{{ 'section_page_pts_belts_features'|trans }}</h6>
+												<div class="section-page-pts-belts-features ">
+													<div class="features">
+														{% for key, feature in groupData['safetyFeatures'] %}
+															<p
+																class="flex center">
+																{# {% if feature['iconSrc'] %}
+																																																																																									<img src="{{ feature['iconSrc'] }}" alt=""/>
+																																																																																								{% endif %} #}
+																{{ feature['name'] }}
+															</p>
+														{% endfor %}
+													</div>
+													{% if ((groupData['material'])|trim is not empty) or ((groupData['reinforcement'])|trim is not empty) or ((groupData['temperatureRange'])|trim is not empty) %}
+														<div>
+															{% if groupData['material'] %}
+																<div class="full">
+																	<b>{{ 'Material'|trans }}:</b>
+																	{{ groupData['material'] }}
+																</div>
+															{% endif %}
+															{% if groupData['reinforcement'] %}
+																<div class="full">
+																	<b>{{ 'Reinforcement'|trans }}:</b>
+																	{{ groupData['reinforcement'] }}
+																</div>
+															{% endif %}
+															{% if groupData['temperatureRange'] %}
+																<div class="full">
+																	<b>{{ 'Temperature Range'|trans }}:</b>
+																	{{ groupData['temperatureRange'] }}
+																</div>
+															{% endif %}
+														</div>
+													{% endif %}
+												</div>
+											</div>
+
+										</menu>
+									{% endif %}
+								</section>
+
+								{# key feature and benifit end #}
+								<div class="imageHolder section-page-pts-belts-images">
+									<div class="left-image-and-table">
+
+										<div class="belts-Identification-and-profile-dimension-container">
+											{% set section_page_pts_belts_Identification_Image = pimcore_image("section_page_pts_belts_Identification_Image", {"width": 400, "height": 100}) %}
+											{% set section_page_pts_belts_Profile_Dimension_image  = pimcore_image("section_page_pts_belts_Profile_Dimension_image", {"width": 400, "height": 100}) %}
+
+											{% if groupData['beltIdentificationImage'] %}
+												{% set section_page_pts_belts_Identification_Image = section_page_pts_belts_Identification_Image.setImage(groupData['beltIdentificationImage']) %}
+											{% endif %}
+
+											{% if groupData['profileDimensionPtsBelts'] %}
+												{% set section_page_pts_belts_Profile_Dimension_image = section_page_pts_belts_Profile_Dimension_image.setImage(groupData['profileDimensionPtsBelts']) %}
+											{% endif %}
+											{% if editmode %}
+												{{section_page_pts_belts_Identification_Image|raw}}
+												{{section_page_pts_belts_Profile_Dimension_image|raw}}
+											{% else %}
+
+												{% if section_page_pts_belts_Identification_Image %}
+													<img class="section_page_pts_belts_Identification_Image" src="{{getImageThumbnail(section_page_pts_belts_Identification_Image, imageWidth)}}" alt=""/>
+												{% endif %}
+												{% if section_page_pts_belts_Profile_Dimension_image %}
+													<img class="section_page_pts_belts_Profile_Dimension_image" src="{{getImageThumbnail(section_page_pts_belts_Profile_Dimension_image, imageWidth)}}" alt=""/>
+												{% endif %}
+											{% endif %}
+										</div>
+									</div>
+
+
+									{% set section_page_pts_belts_Catalog_Asset_Right_Image = pimcore_image("section_page_pts_belts_Catalog_Asset_Right_Image", {"width": 400, "height": 200}) %}
+									{% if groupData['mainImageObj'] %}
+										{% set section_page_pts_belts_Catalog_Asset_Right_Image = section_page_pts_belts_Catalog_Asset_Right_Image.setImage(groupData['mainImageObj']) %}
+									{% endif %}
+									{% if editmode %}
+										{{section_page_pts_belts_Catalog_Asset_Right_Image|raw}}
+									{% else %}
+
+										{% if section_page_pts_belts_Catalog_Asset_Right_Image %}
+											<div
+												class="section_page_pts_belts_Catalog_Asset_Right_Image" style="background-image:  url('{{getImageThumbnail(section_page_pts_belts_Catalog_Asset_Right_Image, imageWidth)}}');">{# <img src="{{getImageThumbnail(section_page_pts_belts_Catalog_Asset_Right_Image, imageWidth)}}" alt=""/> #}
+											</div>
+										{% endif %}
+									{% endif %}
+								</div>
+							</aside>
+						</header>
+						<article class="fullcontainer">
+							<section class="section_page_pts_belts_table_container">
+
+								<table class="cellAttributes" aria-hidden="true" cellpadding="0" cellspacing="0" border="0">
 									<thead>
 
-										<tr class="section-page-pts-belts-head">
-											{% for key, c2data in groupData['columnsDataWithImages'] %}
-												{% set columnWidth = '' %}
-												{% set g2count = c2data|length %}
-												{% set first2Array = c2data|first %}
-												{% if first2Array['columnWidth'] %}
-													{% set columnWidth = "width=" ~ first2Array['columnWidth'] %}
-												{% endif %}
-												<th colspan="{{ g2count }}" {{ columnWidth }}>
-													<b>{{first2Array['columnLabel']}}</b>
-												</th>
-											{% endfor %}
+										<tr class="section-page-pts-belts-table-head">
+											<th colspan="1">
+												<b>Pitch</b>
+											</th>
+											<th colspan="1">
+												<b>Standard Width (mm)</b>
+											</th>
+											<th colspan="1">
+												<b>Pitch Length (mm)</b>
+											</th>
+											<th colspan="1">
+												<b>A</b>
+											</th>
+											<th colspan="1">
+												<b>B</b>
+											</th>
+											<th colspan="1">
+												<b>C</b>
+											</th>
 										</tr>
 
-										{# {% if groupData['subHeaderRequired'] == 'YES' %}
-										                                    <tr class="sub-head">
-										                                        {% for key, c3data in groupData['columnsDataWithImages'] %}
-										                                            {% for c3key, c3value in c3data %}
-										                                                {% if c3value['unitName'] %}
-										                                                    <td>{{ c3value['unitName'] }}</td>
-										                                                {% else %}
-										                                                    <td></td>
-										                                                {% endif %}
-										                                            {% endfor %}
-										                                        {% endfor %}
-										                                    </tr>
-										                                {% endif %} #}
 									</thead>
-									<tbody>
-										{% set incrRow = 1 %}
-										{% for key, element in articleGroupData %}
-											<tr class="section-page-pts-belts-head">
-												{% for ekey, value in element %}
-													<td>{{ value }}</td>
-												{% endfor %}
-											</tr>
-											{% set incrRow = incrRow + 1 %}
-										{% endfor %}
+									<tbody class="section-page-pts-belts-table-body">
+										<tr class="">
+											<td>8M</td>
+											<td>12, 21, 36, 62</td>
+											<td>640-2800</td>
+											<td>8.0</td>
+											<td>5.6</td>
+											<td>3.6</td>
+										</tr>
+										<tr>
+											<td>14M</td>
+											<td>20, 37, 68, 90, 125</td>
+											<td>994-5502</td>
+											<td>14.0</td>
+											<td>10.0</td>
+											<td>4.1</td>
+										</tr>
 									</tbody>
-								</tbody>
-							</table>
-							<div class="small relative">{{ pimcore_input('PTG_Note_' ~ tableNoteCount, {'placeholder': 'Enter comment'}) }}</div>
-							{% set tableNoteCount = tableNoteCount + 1 %}
-						{% endfor %}
-					</section>
-				</article>
-			</div>
-		</div>
 
-	</section>
-</div>
-{% if not isParentContainerRequest %}
-	<script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
-{% endif %}{% endif %}{% endblock %}
+								</table>
+
+								{# {% set tableNoteCount = 0 %}
+															{% for articleGroupKey, articleGroupData in groupData['data'] %}
+																<table class="grid continueLable cellAttributes" aria-hidden="true" cellpadding="0" cellspacing="0" border="0">
+																	<thead>
+								
+																		<tr class="section-page-pts-belts-head">
+																			{% for key, c2data in groupData['columnsDataWithImages'] %}
+																				{% set columnWidth = '' %}
+																				{% set g2count = c2data|length %}
+																				{% set first2Array = c2data|first %}
+																				{% if first2Array['columnWidth'] %}
+																					{% set columnWidth = "width=" ~ first2Array['columnWidth'] %}
+																				{% endif %}
+																				<th colspan="{{ g2count }}" {{ columnWidth }}>
+																					<b>{{first2Array['columnLabel']}}</b>
+																				</th>
+																			{% endfor %}
+																		</tr> #}
+
+							{# {% if groupData['subHeaderRequired'] == 'YES' %}
+																											                                    <tr class="sub-head">
+																											                                        {% for key, c3data in groupData['columnsDataWithImages'] %}
+																											                                            {% for c3key, c3value in c3data %}
+																											                                                {% if c3value['unitName'] %}
+																											                                                    <td>{{ c3value['unitName'] }}</td>
+																											                                                {% else %}
+																											                                                    <td></td>
+																											                                                {% endif %}
+																											                                            {% endfor %}
+																											                                        {% endfor %}
+																											                                    </tr>
+																											                                {% endif %} #}
+								{# </thead>
+																	<tbody>
+																		{% set incrRow = 1 %}
+																		{% for key, element in articleGroupData %}
+																			<tr class="section-page-pts-belts-head">
+																				{% for ekey, value in element %}
+																					<td>{{ value }}</td>
+																				{% endfor %}
+																			</tr>
+																			{% set incrRow = incrRow + 1 %}
+																		{% endfor %}
+																	</tbody>
+																</tbody>
+															</table>
+															<div class="small relative">{{ pimcore_input('PTG_Note_' ~ tableNoteCount, {'placeholder': 'Enter comment'}) }}</div>
+															{% set tableNoteCount = tableNoteCount + 1 %}
+														{% endfor %} #}
+							</section>
+						</article>
+					</div>
+				</div>
+
+			</section>
+		</div>
+		{% if not isParentContainerRequest %}
+			<script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
+		{% endif %}
+	{% endif %}
+{% endblock %}

@@ -2606,7 +2606,8 @@ class DefaultController extends FrontendController
 
             $catagoryDescription = array();
             $mainImageObj = '';
-            $profileDimensionImageObj = '';
+            $profileDimensionPtsBelts = '';
+            $beltIdentificationImage = '';
             $material = array();
             $reinforcement = array();
             $longDescription = '';
@@ -2627,8 +2628,8 @@ class DefaultController extends FrontendController
                     $siopLevel6 = trim($record['SIOPLevel6'], ',');
                     if(!empty($siopLevel2)){
                         $SIOPCategoryClassId = \Pimcore\Model\DataObject\ProductCategory::classId();
-                        $sql = "SELECT `key` FROM object_$SIOPCategoryClassId WHERE `ParentObjectId` = $siopLevel2 ORDER BY `SortOrder` ASC";
-                        $SIOPCategories= $this->db->fetchFirstColumn($sql);
+                        $sql = "SELECT `key`,IF(oo_id=$siopLevel3, 'selected', '') as `selected` FROM object_$SIOPCategoryClassId WHERE `ParentObjectId` = $siopLevel2 ORDER BY `SortOrder` ASC";
+                        $SIOPCategories= $this->db->fetchAllKeyValue($sql);
                     }
                     $siop6Category = !empty($categoriesList[$siopLevel6]['PrintedCatalogDescription']) ? $categoriesList[$siopLevel6]['PrintedCatalogDescription'] : $categoriesList[$siopLevel6]['description'];
                     $siop6Category = trim($siop6Category);
@@ -2667,13 +2668,15 @@ class DefaultController extends FrontendController
                                 }
                             }
                         }
-
                         if (!$mainImageObj && $item[$headerKeysIndex['mainImage']]) {
                             $mainImageObj = Asset::getByPath($item[$headerKeysIndex['mainImage']]);
                         }
 
-                        if (!$profileDimensionImageObj && $item[$headerKeysIndex['ProfileDimensionImage']]) {
-                            $profileDimensionImageObj = Asset::getByPath($item[$headerKeysIndex['ProfileDimensionImage']]);
+                        if (!$profileDimensionPtsBelts && $item[$headerKeysIndex['profileDimensionPtsBelts']]) {
+                            $profileDimensionPtsBelts = Asset::getByPath($item[$headerKeysIndex['profileDimensionPtsBelts']]);
+                        }
+                        if (!$beltIdentificationImage && $item[$headerKeysIndex['beltIdentificationImage']]) {
+                            $beltIdentificationImage = Asset::getByPath($item[$headerKeysIndex['beltIdentificationImage']]);
                         }
 
                         if ($item[$headerKeysIndex['material']]) {
@@ -2775,8 +2778,10 @@ class DefaultController extends FrontendController
                 $groupData['reinforcement'] = $reinforcementStr;
                 $groupData['safetyFeatures'] = $safetyFeaturesList;
                 $groupData['mainImageObj'] = $mainImageObj;
+                $groupData['profileDimensionPtsBelts'] = $profileDimensionPtsBelts;
+                $groupData['beltIdentificationImage'] = $beltIdentificationImage; 
                 $groupData['columnsDataWithImages'] = $columnsDataWithImages;
-                $groupData['ProfileDimensionImageObj'] = $profileDimensionImageObj;
+                // $groupData['ProfileDimensionImageObj'] = $profileDimensionImageObj;
                 $groupData['longDescription'] = $longDescription;
                 $groupData['temperatureRange'] = $temperatureRangeFAndC;
                 $groupData['data'] = $brandsDataArr;
