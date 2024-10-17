@@ -566,7 +566,7 @@ class ProductModelService {
                                     } else {
 
                                         $objectIndv = DataObject::getById($mvalue);
-                                        if ($objectIndv) {
+                                        if ($objectIndv && $objectIndv->getType() != 'folder') {
                                             $bDataIds[] = $mvalue;
                                             $bData[] = $objectIndv->getName();
                                         }
