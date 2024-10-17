@@ -2628,7 +2628,7 @@ class DefaultController extends FrontendController
                     $siopLevel6 = trim($record['SIOPLevel6'], ',');
                     if(!empty($siopLevel2)){
                         $SIOPCategoryClassId = \Pimcore\Model\DataObject\ProductCategory::classId();
-                        $sql = "SELECT `key`,IF(oo_id=$siopLevel3, 'selected', '') as `selected` FROM object_$SIOPCategoryClassId WHERE `ParentObjectId` = $siopLevel2 ORDER BY `SortOrder` ASC";
+                        $sql = "SELECT `key`,IF(oo_id=$siopLevel3, 'selected', '') as `selected` FROM object_$SIOPCategoryClassId WHERE `ParentObjectId` = $siopLevel2 AND `CatalogFlag` = 1 ORDER BY `SortOrder` ASC";
                         $SIOPCategories= $this->db->fetchAllKeyValue($sql);
                     }
                     $siop6Category = !empty($categoriesList[$siopLevel6]['PrintedCatalogDescription']) ? $categoriesList[$siopLevel6]['PrintedCatalogDescription'] : $categoriesList[$siopLevel6]['description'];
