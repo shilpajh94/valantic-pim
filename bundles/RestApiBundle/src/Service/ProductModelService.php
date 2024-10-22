@@ -465,11 +465,13 @@ class ProductModelService {
 
     public function getSiopData($siopDetail, $productCat, $v1, $key){
         $tempArray = [];
-        if (isset($productCat) && empty($productCat)) {
+        if (isset($productCat) && !empty($productCat)) {
             $productCategory = $productCat[0];
             foreach ($v1["Fields"] as $fvalue) {
                 $fCommand = "get" . $fvalue;
+
                 $tempArray[strtolower($fvalue) ] = $productCategory->$fCommand();
+
             }
             $siopDetail[$key][] = $tempArray;
         }
@@ -512,14 +514,19 @@ class ProductModelService {
         foreach ($imagesFields as $ivalue) {
             if (isset($value[$ivalue]) && !empty($value[$ivalue])) {
                 if ((!isset($imageDetail[$value[$ivalue]]) || empty($imageDetail[$value[$ivalue]]))
-                && ($propertyAssetData = $this->getPropertyAssetData($value[$ivalue])) ) {
-                        $imageDetail[$value[$ivalue]] = $propertyAssetData;
+                && ($propertyAssetData = $this->getPropertyAssetData($value[$ivalue],true,$variantId)) ) {
+                        // $imageDetail[$value[$ivalue]] = $propertyAssetData;
+
+                        $imageDetail[] = $propertyAssetData;
                 }
-                if ($this->getPropertyAssetData($value[$ivalue])) {
-                    $imageDetail[$value[$ivalue]]["variant_ids"][] = $variantId;
-                    $imageDetail[$value[$ivalue]]["variant_ids"] = array_unique
-                    ($imageDetail[$value[$ivalue]]["variant_ids"]);
-                }
+                // if ($this->getPropertyAssetData($value[$ivalue])) {
+                //     // $imageDetail[$value[$ivalue]]["variant_ids"][] = $variantId;
+                //     // $imageDetail[$value[$ivalue]]["variant_ids"] = array_unique
+                //     // ($imageDetail[$value[$ivalue]]["variant_ids"]);
+                //         $imageDetail[]["variant_ids"] = $variantId;
+                //         // $imageDetail[]["variant_ids"][] = array_unique
+                //         // ($imageDetail["variant_ids"]);
+                // }
             }
         }
         return $imageDetail;
@@ -611,7 +618,7 @@ class ProductModelService {
      * @throws
      */
 
-    private function getPropertyAssetData($assetIdPath, $assetIdflag = true) {
+    private function getPropertyAssetData($assetIdPath, $assetIdflag = true, $variantId = null) {
         $assetId = "";
         if ($assetIdflag) {
             $asset = Asset::getById($assetIdPath);
@@ -633,6 +640,7 @@ class ProductModelService {
         $data["updated_at"] = date("Y-m-d H:i:s", $asset->getModificationDate());
         $assetUrl = $this->getImageGalleryPaths($assetId);
         $data["src"] = $assetUrl;
+        $data["variant_ids"] = $variantId;
         return $data;
     }
 
