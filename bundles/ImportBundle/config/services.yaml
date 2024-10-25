@@ -171,6 +171,10 @@ services:
     ImportBundle\OneTimeImportCommand\CSHierarchyImportCommand:
         tags:
             - { name: 'console.command', command: 'conti:onetimeimport:product-cs-hierarchy-import' }
+    
+    ImportBundle\Command\BaseObjectSaveForVersionsCommand:
+        tags:
+            - { name: 'console.command', command: 'ifsna-base-object-save-for-version' }
 
     import.asset_import_service:
         class: ImportBundle\Services\Model\AssetImportModel
