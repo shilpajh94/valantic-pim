@@ -18,7 +18,15 @@
 
         <div class="footer3">
             <p>
-                {{pimcore_textarea("PTGEU_disclaimer_")}}
+            {% set  PTGEU_disclaimer = pimcore_textarea("PTGEU_disclaimer_")%}
+                 {% if editmode %}
+                 {{pimcore_textarea("PTGEU_disclaimer_")}}
+                    {% else %}
+                    {% if not PTGEU_disclaimer.Empty %}
+                    {{pimcore_textarea("PTGEU_disclaimer_")}}
+                    {% endif %}
+                    
+                     {% endif %}
             </p>
             <hr/>
             <div class="mt-10">
@@ -119,8 +127,8 @@
                                     {% for key, value in groupData['beltDesign'] %}
                                         {% set propertyKey = key|trans %}
                                         {% set beltDesignCombine = beltDesignCombine|merge([propertyKey~": "~value]) %}
-                                        {{ implodeBR(beltDesignCombine) }}
                                     {% endfor %}
+                                    {{ implodeBR(beltDesignCombine)| raw }}
                                 </td>
                             </tr>
                         {% endif %}
@@ -191,8 +199,8 @@
                                     {% for key, value in groupData['properties'] %}
                                         {% set propertyKey = key|trans %}
                                         {% set propertiesCombine = propertiesCombine|merge([propertyKey ~" "~value]) %}
-                                        {{ implodeBR(propertiesCombine) }}
                                     {% endfor %}
+                                    {{ implodeBR(propertiesCombine) | raw }}
                                 </td>
                             </tr>
                         {% endif %}

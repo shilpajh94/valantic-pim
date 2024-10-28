@@ -5,13 +5,14 @@ namespace PTGEU\ImportBundle\Model;
 use Exception;
 use Pimcore\Db;
 use PTGEU\ImportBundle\Services\ImportConstants;
-
+use AppBundle\Helper\Common;
 class PlantMaterialModel
 {
     private $tempTable;
     private $masterTable;
     private $logTable;
     private $db;
+    private $time;
 
     /**
      * Getting DB connection object
@@ -22,6 +23,8 @@ class PlantMaterialModel
         $this->tempTable = 'ptgeu_material_plant_import_temp';
         $this->masterTable = 'ptgeu_material_plant_import_master';
         $this->logTable = 'ptgeu_material_plant_import_log';
+        $this->time = time();
+        
     }
 
     public function insertIntoMaterialTable($dataArray, $tableName) {
@@ -244,7 +247,7 @@ class PlantMaterialModel
             $values = '';
             foreach ($data as $dataValue) {
                 $values .= '("'.$dataValue['id'].'", "'.addslashes($dataValue['record']).'", "'.
-                $dataValue['statusCode'].'","'.$dataValue['failedReason'].'","'.time().'"),';
+                $dataValue['statusCode'].'","'.$dataValue['failedReason'].'","'.$this->time.'"),';
                 // inserting records in batch
                 if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
                     $query = $sql.rtrim($values, ',');
@@ -274,5 +277,14 @@ class PlantMaterialModel
     public function getDistributionChannel() {
         $query = "SELECT code, oo_id FROM `object_8` ";
         return \Pimcore\Db\Helper::fetchPairs($this->db, $query, ['code','oo_id']);
+    }
+
+    /**
+     * Get failed records from ptgeu_material_import_log table
+     * @author Sandeep Bhardwaj <sandeep@happiestminds.com>
+     * @return array
+     */ 
+    public function getFailedRecordFromLogTable():array{
+        return Common::getFailedRecordFromLogTable($this->logTable , $this->masterTable,'statusCode',$this->time);
     }
 }

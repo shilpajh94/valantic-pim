@@ -49,8 +49,8 @@ class ProductImport
     public function getDistributionChainFlagByMaterial($materialObjId) {
         $sql = "SELECT * from object_query_10 where `Material` = ".$this->db->quote(",".$materialObjId.","); //." AND deletedFlagAtDistributionChainLevel != 0 AND deletedFlagAtDistributionChainLevel != '' AND deletedFlagAtDistributionChainLevel IS NOT NULL";
         $salesData = $this->db->fetchAllAssociative($sql);
-	$flag = true;
-	if (count($salesData) > 0) {
+        $flag = true;
+        if (count($salesData) > 0) {
             foreach ($salesData as $rec) {
                 if (empty($rec['deletedFlagAtDistributionChainLevel'])) {
                     $flag = false;
@@ -66,7 +66,7 @@ class ProductImport
     public function getFittingFamilyFlagByMaterial($materialObjId) {
         $sql = "SELECT * from object_brick_query_HydFittingsFert_1 where `id` = ".$this->db->quote($materialObjId)." AND (`HydFittingFamily` is not null OR `HydFittingFamily` != '') ";
         $data = $this->db->fetchAllAssociative($sql);
-	$flag = false;
+        $flag = false;
         if (count($data)>0) {
             $flag = true;
         }
@@ -173,8 +173,6 @@ class ProductImport
         }
     }
 
-
-
     public function insertDataInTemp($arrData)
     {
         $rowCount = 1;
@@ -225,13 +223,17 @@ class ProductImport
                 $catLength13 = 13;
                 $sql   = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE (LENGTH(t.siopfullcode) = '".$catLength13."' OR LENGTH(t.siopfullcode) = '".$catLength16."' OR LENGTH(t.siopfullcode) = '".$catLength18."') AND (t.siopFullCode LIKE '043000%') AND (t.hash != m.hash OR m.id is null) ";
             }
-            else{
+            elseif($bu == 'ifs'){
                 $catLength = 13;
-                $sql   = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE LENGTH(t.siopfullcode) = '".$catLength."' AND (t.siopFullCode NOT LIKE '043000%') AND (t.hash != m.hash OR m.id is null) ";
+                $sql   = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE LENGTH(t.siopfullcode) = '".$catLength."' AND (t.siopFullCode NOT LIKE '043000%') AND (t.siopFullCode NOT LIKE '05%') AND (t.hash != m.hash OR m.id is null) ";
             }
-            $delta = $this->db->fetchAllAssociative($sql);
+            elseif($bu == 'cs'){
+                $catLength = 13;
+                $sql   = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE LENGTH(t.siopfullcode) <= '".$catLength."' AND (t.siopFullCode LIKE '05%') AND (t.hash != m.hash OR m.id is null) ";
 
-            return $delta;
+            }
+            return $this->db->fetchAllAssociative($sql);
+
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
@@ -266,6 +268,16 @@ class ProductImport
         }
     }
 
+    public function getCSLoad()
+    {
+        try {
+            $sql = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t WHERE LENGTH(t.siopfullcode) = '13' AND (t.siopFullCode LIKE '05%')";
+            return $this->db->fetchAllAssociative($sql);
+        } catch (\Exception $ex) {
+            echo $ex->getMessage();
+        }
+    }
+
     public function getBaseSiopMapping() {
         $sql = "SELECT Substring(`oldMaterialCode`,1,6) as materialCode, siopFullCode from object_query_1 where oldMaterialCode != '' AND oldMaterialCode != 'NA' AND oldMaterialCode != 'N/A' AND (siopFullCode like '041000%' OR siopFullCode like '041500%')";
         $mappingData = $this->db->fetchAllAssociative($sql);
@@ -283,22 +295,6 @@ class ProductImport
         $sql   = "SELECT m.id FROM {$this->masterTable} m LEFT JOIN {$this->tempTable} t ON t.id = m.id WHERE t.id is null";
         return $this->db->fetchAllAssociative($sql);
     }
-
-    /**
-     * Function to find the Delta record(s)
-     *
-     * @return array
-     */
-//    public function getPTGBaseDataDelta() {
-//        try {
-//            $sql   = "SELECT DISTINCT(t.siopfullcode) FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE LENGTH(t.siopfullcode) = 18 AND (t.hash != m.hash OR m.id is null) ";
-//            $delta = $this->db->fetchAllAssociative($sql);
-//
-//            return $delta;
-//        } catch (\Exception $ex) {
-//            echo $ex->getMessage();
-//        }
-//    }
 
     /**
      * Function to truncate article temp table
@@ -337,7 +333,7 @@ class ProductImport
                 }
             }
         }  catch (\Exception $ex) {
-
+            p_r($ex);
         }
     }
 
@@ -356,17 +352,13 @@ class ProductImport
 
     }
 
-  //    public function getRecordsSiopCodeDigitsNot13And18()
-  public function getRecordsSiopCodeDigitsNot13And16And18()
-
-  {
-   // $sql = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t WHERE  LENGTH(t.siopfullcode) NOT IN (13,18)";
-   $sql = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t WHERE  LENGTH(t.siopfullcode) NOT IN (13,18,16)";
-
-   $record = $this->db->fetchAllAssociative($sql);
-   $this->insertSiopDigitsNot13And16And18DataToLogTable($record);
-   $this->deleteSiopCodeDigitsNot13And16And18FromTemp($record);
-  }
+    public function getRecordsSiopCodeDigitsNot13And16And18()
+    {
+        $sql = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t WHERE LENGTH(t.siopfullcode) NOT IN (13,18,16) AND t.siopfullcode NOT LIKE '05%'";
+        $record = $this->db->fetchAllAssociative($sql);
+        $this->insertSiopDigitsNot13And16And18DataToLogTable($record);
+        $this->deleteSiopCodeDigitsNot13And16And18FromTemp($record);
+    }
 
   public function insertSiopDigitsNot13And16And18DataToLogTable($data)
    {

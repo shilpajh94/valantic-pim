@@ -596,6 +596,10 @@ class CustomAssetController extends \Pimcore\Bundle\AdminBundle\Controller\Admin
     public function replaceAssetAction(Request $request, TranslatorInterface $translator): JsonResponse
     {
         $asset = Asset::getById((int) $request->get('id'));
+        
+        // converting file extensions in lowercase
+        $_FILES['Filedata']['name'] = pathinfo( $_FILES['Filedata']['name'], PATHINFO_FILENAME) . '.' . strtolower(pathinfo( $_FILES['Filedata']['name'], PATHINFO_EXTENSION));
+        $_FILES['Filedata']['full_path'] = pathinfo( $_FILES['Filedata']['full_path'], PATHINFO_FILENAME) . '.' . strtolower(pathinfo( $_FILES['Filedata']['full_path'], PATHINFO_EXTENSION));
 
         $newFilename = Element\Service::getValidKey($_FILES['Filedata']['name'], 'asset');
         $mimetype = MimeTypes::getDefault()->guessMimeType($_FILES['Filedata']['tmp_name']);

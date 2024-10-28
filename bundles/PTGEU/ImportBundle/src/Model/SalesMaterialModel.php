@@ -4,6 +4,7 @@ namespace PTGEU\ImportBundle\Model;
 
 use Pimcore\Db;
 use ImportBundle\Services\ImportConstants;
+use AppBundle\Helper\Common;
 
 class SalesMaterialModel
 {
@@ -15,6 +16,8 @@ class SalesMaterialModel
     private $db;
     const ON_DUPLICATE_KEY_UPDATE = " ON DUPLICATE KEY UPDATE ";
 
+    private $time;
+
     /**
      * Getting DB connection object
      */
@@ -24,6 +27,7 @@ class SalesMaterialModel
         $this->tempTable = 'ptgeu_material_sales_import_temp';
         $this->masterTable = 'ptgeu_material_sales_import_master';
         $this->logTable = 'ptgeu_material_sales_import_log';
+        $this->time = time();
     }
 
     /**
@@ -313,7 +317,7 @@ class SalesMaterialModel
             $values = '';
             foreach ($data as $dataValue) {
                 $values .= '("'.$dataValue['id'].'", "'.addslashes($dataValue['record']).
-                '", "'.$dataValue['statusCode'].'","'.$dataValue['failedReason'].'","'.time().'"),';
+                '", "'.$dataValue['statusCode'].'","'.$dataValue['failedReason'].'","'.$this->time.'"),';
                 // inserting records in batch
                 if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
                     $query = $sql.rtrim($values, ',');
@@ -340,5 +344,13 @@ class SalesMaterialModel
     public function getDistributionChannel() {
         $query = "SELECT code, oo_id FROM `object_8` ";
         return \Pimcore\Db\Helper::fetchPairs($this->db, $query, ['code','oo_id']);
+    }
+    /**
+     * Get failed records from ptgeu_material_sales_import_log table
+     * @author Sandeep Bhardwaj <sandeep@happiestminds.com>
+     * @return array
+     */ 
+    public function getFailedRecordFromLogTable():array{
+        return Common::getFailedRecordFromLogTable($this->logTable ,$this->masterTable,'statusCode',$this->time);
     }
 }

@@ -24,7 +24,10 @@ class RequiredAttributesBundle extends AbstractPimcoreBundle implements PimcoreB
             '/bundles/requiredattributes/js/pimcore/pdf_preview_override.js',
             '/bundles/requiredattributes/js/pimcore/override_xliff.js',
             '/bundles/requiredattributes/js/pimcore/search_override.js',
-            '/bundles/requiredattributes/js/pimcore/pimcore_helpers_override.js'
+            '/bundles/requiredattributes/js/pimcore/pimcore_helpers_override.js',
+            '/bundles/requiredattributes/js/pimcore/settings/override_translation.js',
+            '/bundles/requiredattributes/js/pimcore/object/override_objects_tree.js',
+            '/bundles/requiredattributes/js/pimcore/object/helpers/override_classTree.js'
         ];
     }
 

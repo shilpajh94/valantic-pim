@@ -31,11 +31,11 @@ class StripTag extends AbstractOperator
             if($c instanceof DefaultValue){
                 $customDefaultValue = new CustomDefaultValue($c);
                 $childResult = $customDefaultValue->getLabeledValue($element);
-                $value = strip_tags($childResult->value);
+                $value = html_entity_decode(strip_tags($childResult->value));
             }elseif ($c instanceof AnyGetter || $c instanceof \DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator\AnyGetter){
                 $customDefaultValue = $this->getCustomAnyGetter($c);
                 $childResult = $customDefaultValue->getLabeledValue($element);
-                $value = strip_tags($childResult->value[0]);
+                $value = html_entity_decode(strip_tags($childResult->value[0]));
             }
         }
         $result->value = $value;

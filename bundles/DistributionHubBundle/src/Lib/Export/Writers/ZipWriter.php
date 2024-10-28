@@ -225,12 +225,10 @@ class ZipWriter implements Writer
                 if (is_dir($file) === true) {
                     $zip->addEmptyDir(str_replace($source . '/', '', $file . '/'));
                 } elseif (is_file($file) === true) {
-                    DHubLogger::log('here 3');
                     $zip->addFromString(str_replace($source . '/', '', $file), file_get_contents($file));
                 }
             }
         } elseif (is_file($source) === true) {
-            DHubLogger::log('here 4');
             $zip->addFromString(basename($source), file_get_contents($source));
         }
         return $zip->close();

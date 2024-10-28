@@ -9,6 +9,7 @@ use Pimcore\Model\DataObject;
 use PTGEU\ImportBundle\Services\ImportService;
 use PTGEU\ImportBundle\Model\PriceModel;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use AppBundle\Services\ImportProcessEmailNotificationService;
 
 class PriceService
 {
@@ -20,79 +21,106 @@ class PriceService
     private $queryTableNewData;
     private $storeTableNewData;
     private $container;
- 
+    private $importProcessEmailNotificationObj;
+
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
         $this->priceModel = new PriceModel;
+        $this->importProcessEmailNotificationObj = new ImportProcessEmailNotificationService;
     }
-    
+
     public function import()
     {
         \AppBundle\Helper\Common::clearAndDisablePimCache();
         $sapFileFeeder  = $this->container->get('import.sap_file_feeder_service');
         $this->filePath = $sapFileFeeder->execFileFeeder('price');
-        $csvInfo        = ImportService::getCSVData($this->filePath);
-        $this->csvHeader= array_flip($csvInfo['header']);
-        $csvData        = $csvInfo['data'];
-
-        echo "Truncating temp table.".PHP_EOL;
-        $this->priceModel->truncateTempTable();
-        echo "Inserting data into temp table.".PHP_EOL;
-        $this->priceModel->insertDataInTemp($csvData);
-        $deletedPriceRecords = $this->priceModel->getDeletedPriceDataProducts();
-        echo "Price deleted DELTA count is: ".count($deletedPriceRecords).PHP_EOL;
-        
-        $delta = $this->priceModel->getDelta();
-        $deltaCount = count($delta);
-        echo "Price DELTA count is: ".$deltaCount.PHP_EOL;
-        
-        if (count($deletedPriceRecords)>0) {
-            foreach ($deletedPriceRecords as $data) {
-                $delta[] = $data;
+        try{
+            $csvInfo = ImportService::getCSVData($this->filePath);
+        } catch (Exception $e) {
+            $this->importProcessEmailNotificationObj->sendMailNotification(
+                "PTGEU Price Import - Error occured while reading CSV \n".$e->getMessage()
+            );
+        }
+        $csvData = $csvInfo['data'];
+        if (!empty($csvData)) {
+            $this->csvHeader = array_flip($csvInfo['header']);
+            $columnNames = ['Material Number','Sales Organization','Distribution Channel',
+                'Validity End Date','Validity Start Date','Condition Type','Rate','Rate Unit'];
+            $flag = 1;
+            foreach(array_keys($this->csvHeader) as $column){
+                if(!in_array($column, $columnNames)) {
+                    $flag = 0;
+                    break;
+                }
             }
-        }
+            if ($flag == 1) {
 
-        $a = time();
-        $deltaCount = count($delta);
-        echo "Total price DELTA count is: ".$deltaCount.PHP_EOL;
-        
-        $productsData = $this->priceModel->getAllProducts();
-        $queryTableData = $productsData['queryTableData'];
-        foreach ($queryTableData as $rec) {
-            $this->products[$rec['articleNumber']] = $rec;
-        }
-        
-        
-        $j = 1;
-        $this->logArray = [];
-        $i = 0;
-        $length = 2000;
-        while ($i<$deltaCount) {
-            $diff = $deltaCount-$i;
-            if ($diff < $length) {
-                $length = $diff;
+                echo "Truncating temp table.".PHP_EOL;
+                $this->priceModel->truncateTempTable();
+                echo "Inserting data into temp table.".PHP_EOL;
+                $this->priceModel->insertDataInTemp($csvData);
+                $deletedPriceRecords = $this->priceModel->getDeletedPriceDataProducts();
+                echo "Price deleted DELTA count is: ".count($deletedPriceRecords).PHP_EOL;
+
+                $delta = $this->priceModel->getDelta();
+                $deltaCount = count($delta);
+                echo "Price DELTA count is: ".$deltaCount.PHP_EOL;
+
+                if (count($deletedPriceRecords)>0) {
+                    foreach ($deletedPriceRecords as $data) {
+                        $delta[] = $data;
+                    }
+                }
+
+                $a = time();
+                $deltaCount = count($delta);
+                echo "Total price DELTA count is: ".$deltaCount.PHP_EOL;
+
+                $productsData = $this->priceModel->getAllProducts();
+                $queryTableData = $productsData['queryTableData'];
+                foreach ($queryTableData as $rec) {
+                    $this->products[$rec['articleNumber']] = $rec;
+                }
+
+                $j = 1;
+                $this->logArray = [];
+                $i = 0;
+                $length = 2000;
+                while ($i<$deltaCount) {
+                    $diff = $deltaCount-$i;
+                    if ($diff < $length) {
+                        $length = $diff;
+                    }
+                    $partialData = array_slice($delta, $i, $length);
+                    $this->processPriceData($partialData);
+                    $partialData = null;
+                    unset($partialData);
+                    $i = $i+$length;
+                    echo "Record Processed: ".$i;
+                    $b = time();
+                    echo "Part ".$j." completed in time: ".$a."====".$b.PHP_EOL;
+                    \Pimcore::collectGarbage();
+                    gc_collect_cycles();
+                    $a = time();
+                    $j++;
+                }
+                $this->priceModel->updateMasterTable();
+                \AppBundle\Helper\Common::endablePimCache();
+            } else {
+                $message = "PTGEU Price - The uploaded file has wrong headers.";
+                echo $message;
+                $this->importProcessEmailNotificationObj->sendMailNotification($message);
             }
-            $partialData = array_slice($delta, $i, $length);
-            $this->processPriceData($partialData);
-            $partialData = null;
-            unset($partialData);
-            $i = $i+$length;
-            echo "Record Processed: ".$i;
-            $b = time();
-            echo "Part ".$j." completed in time: ".$a."====".$b.PHP_EOL;
-            \Pimcore::collectGarbage();
-            gc_collect_cycles();
-            $a = time();
-            $j++;
+        } else {
+            $message = "PTGEU Price - No record found in file.";
+            $this->importProcessEmailNotificationObj->sendMailNotification($message);
         }
-        $this->priceModel->updateMasterTable();
-        \AppBundle\Helper\Common::endablePimCache();
     }
- 
+
     public function processPriceData($sapPriceData) {
         $i = $j = 0;
-        
+
         foreach ($sapPriceData as $record) {
             $artNo = $record['id'];
             if (!empty($this->products[$artNo])) {
@@ -119,7 +147,7 @@ class PriceService
         $this->logArray = [];
         $this->queryTableNewData = [];
         $this->storeTableNewData = [];
-        
+
     }
     public function processSingleRecord($record) {
         $artNo = $record['id'];
@@ -169,7 +197,7 @@ class PriceService
         ];
         return ['status' => 'Success', 'msg' => ''];
     }
-    
+
     public function insertDataInDB() {
         if(!empty($this->queryTableNewData)) {
             $this->priceModel->insertDataIntoTable($this->queryTableNewData, 'object_query_38');
@@ -177,7 +205,7 @@ class PriceService
         if(!empty($this->storeTableNewData)) {
             $this->priceModel->insertDataIntoTable($this->storeTableNewData, 'object_store_38');
         }
-        
+
         if(!empty($this->logArray)) {
             $this->priceModel->insertDataIntoTable($this->logArray, 'ptgeu_material_list_price_import_log');
         }
