@@ -191,7 +191,9 @@ class DefaultController extends FrontendController
                 if ($designfactorId) {
                     foreach ($designfactorId as $id) {
                         $parentObj = \Pimcore\Model\DataObject::getById($id);
-                        $designfactor[] = $parentObj->getName();
+                        if($parentObj->getType() != 'folder'){
+                            $designfactor[] = $parentObj->getName();
+                        }
                     }
                 }
                 $featuresId = $firstFertProduct->getFeaturesBenefitsBulletPoint();
@@ -335,7 +337,9 @@ class DefaultController extends FrontendController
             if ($designfactorId) {
                 foreach ($designfactorId as $id) {
                     $parentObj = \Pimcore\Model\DataObject::getById($id);
-                    $designfactor[] = $parentObj->getName();
+                    if($parentObj->getType() != 'folder'){
+                        $designfactor[] = $parentObj->getName();
+                    }
                 }
             }
             $featuresId = $firstFertProduct->getFeaturesBenefitsBulletPoint();
