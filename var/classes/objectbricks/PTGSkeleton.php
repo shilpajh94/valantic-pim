@@ -5,12 +5,14 @@
  * - profile [input]
  * - heightIn [numeric]
  * - staticConductive [input]
+ * - totalBeltThickness [numeric]
  * - beltAngle [numeric]
  * - heightMm [numeric]
  * - heatOilResistant [input]
+ * - totalToothThickness [numeric]
  */
 
-return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
+return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'dao' => NULL,
    'key' => 'PTGSkeleton',
    'parentClass' => '',
@@ -18,7 +20,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'title' => '',
    'group' => 'PTG',
    'layoutDefinitions' => 
-  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'name' => NULL,
      'type' => NULL,
      'region' => NULL,
@@ -32,7 +34,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
      'children' => 
     array (
       0 => 
-      Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+      \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
@@ -46,7 +48,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'children' => 
         array (
           0 => 
-          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
              'name' => 'Flange',
              'type' => NULL,
              'region' => NULL,
@@ -60,7 +62,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'children' => 
             array (
               0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+              \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                  'name' => 'Field Container',
                  'type' => NULL,
                  'region' => NULL,
@@ -74,7 +76,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'profile',
                      'title' => 'Profile',
                      'tooltip' => '',
@@ -104,7 +106,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   1 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'name' => 'heightIn',
                      'title' => 'Height (in)',
                      'tooltip' => '',
@@ -134,7 +136,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   2 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'staticConductive',
                      'title' => 'Static Conductive',
                      'tooltip' => '',
@@ -163,6 +165,36 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'width' => 300,
                      'defaultValueGenerator' => '',
                   )),
+                  3 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                     'name' => 'totalBeltThickness',
+                     'title' => 'Total Belt Thickness',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'defaultValue' => NULL,
+                     'integer' => false,
+                     'unsigned' => true,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => 1,
+                     'width' => 300,
+                     'defaultValueGenerator' => '',
+                  )),
                 ),
                  'locked' => false,
                  'blockedVarsForExport' => 
@@ -175,7 +207,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'labelAlign' => 'left',
               )),
               1 => 
-              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+              \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                  'name' => 'Field Container',
                  'type' => NULL,
                  'region' => NULL,
@@ -189,7 +221,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'name' => 'beltAngle',
                      'title' => 'Belt Angle',
                      'tooltip' => '',
@@ -219,7 +251,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   1 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'name' => 'heightMm',
                      'title' => 'Height (mm)',
                      'tooltip' => '',
@@ -249,7 +281,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   2 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'heatOilResistant',
                      'title' => 'Heat & Oil Resistant',
                      'tooltip' => '',
@@ -275,6 +307,36 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
+                     'width' => 300,
+                     'defaultValueGenerator' => '',
+                  )),
+                  3 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                     'name' => 'totalToothThickness',
+                     'title' => 'Total Tooth Thickness',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'margin-left:20px;',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'defaultValue' => NULL,
+                     'integer' => false,
+                     'unsigned' => true,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => 1,
                      'width' => 300,
                      'defaultValueGenerator' => '',
                   )),
