@@ -231,26 +231,26 @@
             "subtypes": {
                 "object": ["object"]
             },
-            "classes": ["CatalogTables"]
+            "classes": ["CatalogPTS"]
         }) }}
 	{% endif %}
-	{% if groupdata %}
+	{% if data is not empty %}
 		<div class="template section-page-pts-belts-page">
 			<section class="segregate">
 				<div id="pageHeader"></div>
 				<span class="pageName">
-					{{ SIOPLEVEL3 }}
+					{{ data.SIOPLEVEL3 }}
 				</span>
 
 				<div class="footer ">
-					<footer class="flex-center {{ footer_class }}">
+					<footer class="flex-center {{ data.footer_class }}">
 						<span class="logo">
-							<img src="{{ footer_logo_src }}" alt="footer log">
+							<img src="{{ data.footer_logo_src }}" alt="footer log">
 						</span>
 						<div class="flex aligned">
 							{% set section_page_pts_belts_footer_brandName = pimcore_input("section_page_pts_belts_footer_brandName") %}
 							{% if  section_page_pts_belts_footer_brandName.isEmpty() %}
-								{% set section_page_pts_belts_footer_brandName = section_page_pts_belts_footer_brandName.setDataFromResource(brandName) %}
+								{% set section_page_pts_belts_footer_brandName = section_page_pts_belts_footer_brandName.setDataFromResource(data.brandName) %}
 							{% endif %}
 							<h5>
 								{% if editmode %}
@@ -262,13 +262,13 @@
 								<span>
 									{% set section_page_pts_belts_SIOP_level_3 = pimcore_input("section_page_pts_belts_SIOP_level_3") %}
 									{% if  section_page_pts_belts_SIOP_level_3.isEmpty() %}
-										{% set section_page_pts_belts_SIOP_level_3 = section_page_pts_belts_SIOP_level_3.setDataFromResource(SIOPLEVEL3) %}
+										{% set section_page_pts_belts_SIOP_level_3 = section_page_pts_belts_SIOP_level_3.setDataFromResource(data.SIOPLEVEL3) %}
 									{% endif %}
 
 
 									{% set section_page_pts_belts_SIOP_level_4 = pimcore_input("section_page_pts_belts_SIOP_level_4") %}
 									{% if  section_page_pts_belts_SIOP_level_4.isEmpty() %}
-										{% set section_page_pts_belts_SIOP_level_4 = section_page_pts_belts_SIOP_level_4.setDataFromResource(SIOPLEVEL4) %}
+										{% set section_page_pts_belts_SIOP_level_4 = section_page_pts_belts_SIOP_level_4.setDataFromResource(data.SIOPLEVEL4) %}
 
 									{% endif %}
 									{% if editmode %}
@@ -299,9 +299,9 @@
 
 				{% if not editmode %}
 					<div class="footer1 ">
-						<footer class="flex-center {{ footer_class }}">
+						<footer class="flex-center {{ data.footer_class }}">
 							<span class="logo">
-								<img src="{{ footer_logo_src }}" alt="">
+								<img src="{{ data.footer_logo_src }}" alt="">
 							</span>
 							<div class="flex aligned">
 								<h5>{{section_page_pts_belts_footer_brandName|raw }}
@@ -327,9 +327,9 @@
 					</div>
 				{% endif %}
 				<div class="content-container right-side-container">
-					{% if SIOPCategories is not empty %}
+					{% if data.SIOPCategories is not empty %}
 						<div class="all-child-taxonomy">
-							{% for SIOPCategory,selected in SIOPCategories %}
+							{% for SIOPCategory,selected in data.SIOPCategories %}
 								<p class="{{selected}}">{{SIOPCategory}}</p>
 							{% endfor %}
 						</div>
@@ -341,7 +341,7 @@
 								{% set section_page_pts_belts_BrandName = pimcore_input("section_page_pts_belts_BrandName") %}
 
 								{% if section_page_pts_belts_BrandName.isEmpty() %}
-									{% set section_page_pts_belts_BrandName = section_page_pts_belts_BrandName.setDataFromResource(brandName) %}
+									{% set section_page_pts_belts_BrandName = section_page_pts_belts_BrandName.setDataFromResource(data.brandName) %}
 								{% endif %}
 								{% if editmode %}
 									{{section_page_pts_belts_BrandName|raw}}
@@ -352,7 +352,7 @@
 							<div class="section-page-pts-belts-LongDescription">
 								{% set section_page_pts_belts_LongDescription = pimcore_wysiwyg("section_page_pts_belts_LongDescription") %}
 								{% if  section_page_pts_belts_LongDescription.isEmpty() %}
-									{% set section_page_pts_belts_LongDescription = section_page_pts_belts_LongDescription.setDataFromResource(longDescription) %}
+									{% set section_page_pts_belts_LongDescription = section_page_pts_belts_LongDescription.setDataFromResource(data.longDescription) %}
 								{% endif %}
 								{% if editmode %}
 									{{section_page_pts_belts_LongDescription|raw}}
@@ -364,7 +364,7 @@
 								class="feature-benefits-and-images">
 								{# key feature and benifit start #}
 								<section class="content single ptg">
-									{% if FeaturesBenefitsBulletPoint or ((material)|trim is not empty) or ((reinforcement)|trim is not empty) or ((temperatureRangeFAndC)|trim is not empty) %}
+									{% if data.FeaturesBenefitsBulletPoint or ((data.material)|trim is not empty) or ((data.reinforcement)|trim is not empty) or ((data.temperatureRangeFAndC)|trim is not empty) %}
 										<menu
 											class="flex">
 											{# {% if groupData['safetyFeatures'] %} #}
@@ -372,34 +372,30 @@
 												<h6>{{ 'section_page_pts_belts_features'|trans }}</h6>
 												<div class="section-page-pts-belts-features ">
 													<div class="features">
-														{% for key, feature in FeaturesBenefitsBulletPoint %}
-															<p
-																class="flex center">
-																{# {% if feature['iconSrc'] %}
-																																																																																																																																									<img src="{{ feature['iconSrc'] }}" alt=""/>
-																																																																																																																																								{% endif %} #}
+														{% for key, feature in data.FeaturesBenefitsBulletPoint %}
+															<p class="flex center">
 																{{ feature['name'] }}
 															</p>
 														{% endfor %}
 													</div>
-													{% if ((material)|trim is not empty) or ((reinforcement)|trim is not empty) or ((temperatureRangeFAndC)|trim is not empty) %}
+													{% if ((data.material)|trim is not empty) or ((data.reinforcement)|trim is not empty) or ((data.temperatureRangeFAndC)|trim is not empty) %}
 														<div>
-															{% if material %}
+															{% if data.material %}
 																<p class="full">
 																	<b>{{ 'Material'|trans }}:</b>
-																	{{ material }}
+																	{{ data.material }}
 																</p>
 															{% endif %}
-															{% if reinforcement %}
+															{% if data.reinforcement %}
 																<p class="full">
 																	<b>{{ 'Reinforcement'|trans }}:</b>
-																	{{ reinforcement }}
+																	{{ data.reinforcement }}
 																</p>
 															{% endif %}
-															{% if temperatureRangeFAndC %}
+															{% if data.temperatureRangeFAndC %}
 																<p class="full">
 																	<b>{{ 'Temperature Range'|trans }}:</b>
-																	{{ temperatureRangeFAndC }}
+																	{{ data.temperatureRangeFAndC }}
 																</p>
 															{% endif %}
 														</div>
@@ -419,12 +415,12 @@
 											{% set section_page_pts_belts_Identification_Image = pimcore_image("section_page_pts_belts_Identification_Image", {"width": 400, "height": 100}) %}
 											{% set section_page_pts_belts_Profile_Dimension_image  = pimcore_image("section_page_pts_belts_Profile_Dimension_image", {"width": 400, "height": 100}) %}
 
-											{% if beltIdentificationImage %}
-												{% set section_page_pts_belts_Identification_Image = section_page_pts_belts_Identification_Image.setImage(beltIdentificationImage) %}
+											{% if data.beltIdentificationImage %}
+												{% set section_page_pts_belts_Identification_Image = section_page_pts_belts_Identification_Image.setImage(data.beltIdentificationImage) %}
 											{% endif %}
 
-											{% if profileDimensionPtsBelts %}
-												{% set section_page_pts_belts_Profile_Dimension_image = section_page_pts_belts_Profile_Dimension_image.setImage(profileDimensionPtsBelts) %}
+											{% if data.profileDimensionPtsBelts %}
+												{% set section_page_pts_belts_Profile_Dimension_image = section_page_pts_belts_Profile_Dimension_image.setImage(data.profileDimensionPtsBelts) %}
 											{% endif %}
 											{% if editmode %}
 												{{section_page_pts_belts_Identification_Image|raw}}
@@ -443,8 +439,8 @@
 
 
 									{% set section_page_pts_belts_Catalog_Asset_Right_Image = pimcore_image("section_page_pts_belts_Catalog_Asset_Right_Image", {"width": 400, "height": 200}) %}
-									{% if mainImage %}
-										{% set section_page_pts_belts_Catalog_Asset_Right_Image = section_page_pts_belts_Catalog_Asset_Right_Image.setImage(mainImage) %}
+									{% if data.mainImage %}
+										{% set section_page_pts_belts_Catalog_Asset_Right_Image = section_page_pts_belts_Catalog_Asset_Right_Image.setImage(data.mainImage) %}
 									{% endif %}
 									{% if editmode %}
 										{{section_page_pts_belts_Catalog_Asset_Right_Image|raw}}
@@ -488,72 +484,21 @@
 
 									</thead>
 									<tbody class="section-page-pts-belts-table-body">
-										{% for key, products in groupdata %}
-										<tr class="">
+										{% for key, products in data.groupData %}
+											<tr class="">
 
-											<td>{{key}}</td>
-											<td>{{products.standardWidthmm}}</td>
-											<td>{{products.pitchLengthMM}}</td>
-											<td>{{products.A}}</td>
-											<td>{{products.B}}</td>
-											<td>{{products.C}}</td>
+												<td>{{key}}</td>
+												<td>{{products.standardWidthmm}}</td>
+												<td>{{products.pitchLengthMM}}</td>
+												<td>{{products.A}}</td>
+												<td>{{products.B}}</td>
+												<td>{{products.C}}</td>
 											</tr>
-															</p>
-														{% endfor %}
+										{% endfor %}
 									</tbody>
 
 								</table>
-
-								{# {% set tableNoteCount = 0 %}
-																																							{% for articleGroupKey, articleGroupData in groupData['data'] %}
-																																								<table class="grid continueLable cellAttributes" aria-hidden="true" cellpadding="0" cellspacing="0" border="0">
-																																									<thead>
-																																
-																																										<tr class="section-page-pts-belts-head">
-																																											{% for key, c2data in groupData['columnsDataWithImages'] %}
-																																												{% set columnWidth = '' %}
-																																												{% set g2count = c2data|length %}
-																																												{% set first2Array = c2data|first %}
-																																												{% if first2Array['columnWidth'] %}
-																																													{% set columnWidth = "width=" ~ first2Array['columnWidth'] %}
-																																												{% endif %}
-																																												<th colspan="{{ g2count }}" {{ columnWidth }}>
-																																													<b>{{first2Array['columnLabel']}}</b>
-																																												</th>
-																																											{% endfor %}
-																																										</tr> #}
-
-							{# {% if groupData['subHeaderRequired'] == 'YES' %}
-																																																                                    <tr class="sub-head">
-																																																                                        {% for key, c3data in groupData['columnsDataWithImages'] %}
-																																																                                            {% for c3key, c3value in c3data %}
-																																																                                                {% if c3value['unitName'] %}
-																																																                                                    <td>{{ c3value['unitName'] }}</td>
-																																																                                                {% else %}
-																																																                                                    <td></td>
-																																																                                                {% endif %}
-																																																                                            {% endfor %}
-																																																                                        {% endfor %}
-																																																                                    </tr>
-																																																                                {% endif %} #}
-								{# </thead>
-																																									<tbody>
-																																										{% set incrRow = 1 %}
-																																										{% for key, element in articleGroupData %}
-																																											<tr class="section-page-pts-belts-head">
-																																												{% for ekey, value in element %}
-																																													<td>{{ value }}</td>
-																																												{% endfor %}
-																																											</tr>
-																																											{% set incrRow = incrRow + 1 %}
-																																										{% endfor %}
-																																									</tbody>
-																																								</tbody>
-																																							</table>
-																																							<div class="small relative">{{ pimcore_input('PTG_Note_' ~ tableNoteCount, {'placeholder': 'Enter comment'}) }}</div>
-																																							{% set tableNoteCount = tableNoteCount + 1 %}
-																																						{% endfor %} #}
-							</section>
+								</section>
 						</article>
 					</div>
 				</div>

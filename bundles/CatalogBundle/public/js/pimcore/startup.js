@@ -83,6 +83,72 @@ pimcore.plugin.CatalogBundle = Class.create({
             categoryOptionsStore.load();
         }
         //let helper = new pimcore.plugin.lpeHelper();
+
+        if (objectClassName == 'CatalogPTS') {
+            var baseOptionsStore = Ext.create('Ext.data.Store', {
+                fields: ['key', 'value'],
+                proxy: {
+                    type: 'ajax',
+                    url: '/catalog/get-base-products',
+                    //  method:'POST',
+                    extraParams: {
+                        catId: e.detail.object.data.general.parentId,
+                        objId: e.detail.object.data.general.id,
+
+                    },
+                    reader: {
+                        type: 'json',
+                        rootProperty: 'data'
+                    }
+                },
+
+            });
+
+            baseOptionsStore.load();
+
+            e.detail.object.edit.dataFields.BaseProduct.component.setStore(baseOptionsStore);
+
+            baseOptionsStore.load();
+            if (e.detail.object.data.data.BaseProduct !== null)
+            {
+            console.log(e.detail.object.edit.dataFields.BaseProduct.component,e.detail.object.data.data.BaseProduct);
+            setTimeout((component,componentValue)=>{
+
+                component.setValue(componentValue);
+            }, 1000,  e.detail.object.edit.dataFields.BaseProduct.component,e.detail.object.data.data.BaseProduct)
+            }
+            // e.detail.object.edit.dataFields.BaseProduct.component.on('blur', function (e) {
+
+            //     var skeletonOptionsStore = Ext.create('Ext.data.Store', {
+            //         fields: ['id', 'text'],
+            //         proxy: {
+            //             type: 'ajax',
+            //             url: '/catalog/get-skeleton-products',
+            //             //  method:'POST',
+            //             extraParams: {
+            //                 products: Ext.JSON.encode(e.value),
+
+            //             },
+            //             reader: {
+            //                 type: 'json',
+            //                 rootProperty: 'data'
+            //             }
+            //         },
+
+            //     });
+
+            //     skeletonOptionsStore.load();
+            //     e.detail.object.edit.dataFields.SkeletonProduct.component.setStore(skeletonOptionsStore);
+                
+            //      if (e.detail.object.data.data.SkeletonProduct !== null)
+            // {
+            //     console.log(e.detail.object.data.data.SkeletonProduct);
+            //     e.detail.object.edit.dataFields.SkeletonProduct.component.setValue(e.detail.object.data.data.SkeletonProduct);
+            // }
+            // skeletonOptionsStore.load();
+            // });
+        } // end CatalogPTS
+
         if (objectClassName == 'CatalogTables') {
 
             var colComp = Ext.getCmp(e.detail.object.edit.dataFields.Columns.component.id);
@@ -152,6 +218,7 @@ pimcore.plugin.CatalogBundle = Class.create({
                     //  method:'POST',
                     extraParams: {
                         catId: e.detail.object.data.general.parentId,
+                        objId: e.detail.object.data.general.id,
 
                     },
                     reader: {
@@ -194,7 +261,6 @@ pimcore.plugin.CatalogBundle = Class.create({
                 });
 
                 skeletonOptionsStore.load();
-
                 e.detail.object.edit.dataFields.SkeletonProduct.component.setStore(skeletonOptionsStore);
                 
                  if (e.detail.object.data.data.SkeletonProduct !== null)
