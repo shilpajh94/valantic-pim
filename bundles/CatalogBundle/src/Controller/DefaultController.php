@@ -2592,10 +2592,8 @@ class DefaultController extends FrontendController
             $temperatureRangeFAndC = array_unique(array_column($SQLResults, 'temperatureRangeFAndC'))[0];
             $longDescription = array_unique(array_column($SQLResults, 'longDescription'))[0];
             $skeltons = array_values(array_unique(array_column($SQLResults, 'Pitch')));
-            // dd($siopLevel3);
             $result = [];
             foreach ($SQLResults as $SQLResult) {
-                // dd($SQLResult);
                 unset($SQLResult['SIOPLevel2']);
                 unset($SQLResult['SIOPLevel3']);
                 unset($SQLResult['SIOPLevel4']);
@@ -2633,15 +2631,15 @@ class DefaultController extends FrontendController
                 $SIOPCategories = $this->db->fetchAllKeyValue($sql);
             }
             if (!empty($siopLevel3)) {
-                $sql = "SELECT `key` FROM object_$SIOPCategoryClassId WHERE `oo_id` = $siopLevel3 AND `CatalogFlag` = 1 ORDER BY `SortOrder` ASC";
+                $sql = "SELECT `key` FROM object_$SIOPCategoryClassId WHERE `oo_id` = $siopLevel3 ";
                 $siopLevel3 = $this->db->fetchOne($sql);
             }
             if (!empty($siopLevel4)) {
-                $sql = "SELECT `key` FROM object_$SIOPCategoryClassId WHERE `oo_id` = $siopLevel4 AND `CatalogFlag` = 1 ORDER BY `SortOrder` ASC";
+                $sql = "SELECT `key` FROM object_$SIOPCategoryClassId WHERE `oo_id` = $siopLevel4 ";
                 $siopLevel4 = $this->db->fetchOne($sql);
             }
             if (!empty($siopLevel5)) {
-                $sql = "SELECT `key` FROM object_$SIOPCategoryClassId WHERE `oo_id` = $siopLevel5 AND `CatalogFlag` = 1 ORDER BY `SortOrder` ASC";
+                $sql = "SELECT `key` FROM object_$SIOPCategoryClassId WHERE `oo_id` = $siopLevel5 ";
                 $siopLevel5 = $this->db->fetchOne($sql);
             }
 
@@ -2673,14 +2671,13 @@ class DefaultController extends FrontendController
             $data['longDescription'] = isset($longDescription)?$longDescription:'';    
             
             $data['FeaturesBenefitsBulletPoint'] = isset($FeaturesBenefitsBulletPoint)?$FeaturesBenefitsBulletPoint:[] ; 
-            // $parameterBag['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '',
             $data['footer_class'] = '';
             $footer_logo_src = (strtolower($footerBgColor) == 'orange') ? $catalogImagesPTGFooter['Black'] : $catalogImagesPTGFooter['Orange'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
             $data['footer_logo_src'] = $footer_logo_src;
 
         }//end check element
-        $parameterBag['data']=isset($data)?$data:[];;
+        $parameterBag['data']=isset($data)?$data:[];
         return $this->render("catalog/default/template_section_page_pts_belts.html.twig", $parameterBag);
 
     }
