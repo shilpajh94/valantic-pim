@@ -18,7 +18,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1730704834,
+   'modificationDate' => 1730784140,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -108,13 +108,16 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
+                     'options' => 
+                    array (
+                    ),
                      'defaultValue' => '1',
                      'columnLength' => 190,
                      'dynamicOptions' => false,
                      'defaultValueGenerator' => '',
                      'width' => '',
                      'optionsProviderType' => 'class',
-                     'optionsProviderClass' => 'CatalogBundle\\OptionProvider\\PTSCatalogOptionProvider',
+                     'optionsProviderClass' => '',
                      'optionsProviderData' => 'base',
                   )),
                   1 => 
@@ -164,6 +167,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
+                     'options' => 
+                    array (
+                    ),
                      'maxItems' => NULL,
                      'renderType' => 'tags',
                      'dynamicOptions' => false,
@@ -175,7 +181,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'width' => '',
                      'defaultValueGenerator' => '',
                      'optionsProviderType' => 'class',
-                     'optionsProviderClass' => 'CatalogBundle\\OptionProvider\\PTSCatalogOptionProvider',
+                     'optionsProviderClass' => '',
                      'optionsProviderData' => 'skelton',
                   )),
                   3 => 
