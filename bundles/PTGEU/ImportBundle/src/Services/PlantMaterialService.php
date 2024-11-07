@@ -629,7 +629,7 @@ class PlantMaterialService
      * return material object or false
      */
     public function getMaterialObject($materialKey){
-        $query = "SELECT oo_id, `key`, `path` FROM `object_38` WHERE `articleNumber` LIKE '%{$materialKey}%' limit 1";
+        $query = "SELECT oo_id, `key`, `path` FROM `object_38` WHERE `articleNumber` = '{$materialKey}'";
         $objectMaterial = $this->db->fetchAllAssociative($query);
 
         foreach ($objectMaterial as $material) {
@@ -744,7 +744,7 @@ class PlantMaterialService
         $materialFolderId= DataObject\Service::createFolderByPath(ImportConstants::
         PTGEU_MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER."/".$material)->getId();
         $query = "SELECT oo_id, parentId, `key`, `path` FROM `object_40`
-        WHERE `parentId` = '{$materialFolderId}' AND `key` LIKE '%{$plantMaterialKey}%' limit 1";
+        WHERE `parentId` = '{$materialFolderId}' AND `key` = '{$plantMaterialKey}'";
         $objectMaterial = $this->db->fetchAssociative($query);
 
 
