@@ -216,7 +216,7 @@ class SalesMaterialModel
                 echo $timediff4->format("Total {$deltaCount} replaced in master table takes %h hour %i minute %s second").PHP_EOL;
 
                 $this->tableImportHelper->deleteFailedRecordsFromMaster($this->failedIDs);
-                
+
             } else {
                 $applicationLogMessage = "IFS-NA Sales - The uploaded file has wrong headers.";
                 $this->importProcessEmailNotificationObj->sendMailNotification($applicationLogMessage);
@@ -329,7 +329,7 @@ class SalesMaterialModel
                         // $salesMaterialKey = $this->createKeyForObject($rowvalue, $this->keyColumns, $this->mappingCsvColumn);
 
                         $materialFolderId= DataObject\Service::createFolderByPath(ImportConstants::MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER."/".$material)->getId();
-                        $query = "SELECT oo_id, parentId, `key`, `path` FROM `object_10` WHERE `parentId` = '{$materialFolderId}' AND `key` LIKE '%{$salesMaterialKey}%' limit 1";
+                        $query = "SELECT oo_id, parentId, `key`, `path` FROM `object_10` WHERE `parentId` = '{$materialFolderId}' AND `key` = '{$salesMaterialKey}'";
                         $objectMaterial = $this->db->fetchAssociative($query);
 
                         if(!empty(trim($plantName)) && !isset($this->plantArray[$plantName]))
@@ -649,7 +649,7 @@ class SalesMaterialModel
      * return material object or false
      */
     public function getMaterialObject($MaterialKey){
-        $query = "SELECT oo_id, `key`, `path` FROM `object_1` WHERE `articleNumber` LIKE '%{$MaterialKey}%' limit 1";
+        $query = "SELECT oo_id, `key`, `path` FROM `object_1` WHERE `articleNumber` = '{$MaterialKey}'";
         $objectMaterial = $this->db->fetchAllAssociative($query);
 
         foreach ($objectMaterial as $material) {
