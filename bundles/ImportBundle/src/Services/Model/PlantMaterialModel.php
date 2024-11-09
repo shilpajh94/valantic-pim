@@ -356,7 +356,7 @@ class PlantMaterialModel
                         // $plantMaterialKey = $this->createKeyForObject($rowvalue, $this->keyColumns, $this->mappingCsvColumn);
 
                         $materialFolderId= DataObject\Service::createFolderByPath(ImportConstants::MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER."/".$material)->getId();
-                        $query = "SELECT oo_id, parentId, `key`, `path` FROM `object_12` WHERE `parentId` = '{$materialFolderId}' AND `key` LIKE '%{$plantMaterialKey}%' limit 1";
+                        $query = "SELECT oo_id, parentId, `key`, `path` FROM `object_12` WHERE `parentId` = '{$materialFolderId}' AND `key` = '{$plantMaterialKey}'";
                         $objectMaterial = $this->db->fetchAssociative($query);
 
                         if(!empty(trim($plantName)) && !isset($this->plantArray[$plantName]))
@@ -651,7 +651,7 @@ class PlantMaterialModel
      * return material object or false
      */
     public function getMaterialObject($MaterialKey){
-        $query = "SELECT oo_id, `key`, `path` FROM `object_1` WHERE `articleNumber` LIKE '%{$MaterialKey}%' limit 1";
+        $query = "SELECT oo_id, `key`, `path` FROM `object_1` WHERE `articleNumber` = '{$MaterialKey}'";
         $objectMaterial = $this->db->fetchAllAssociative($query);
 
         foreach ($objectMaterial as $material) {

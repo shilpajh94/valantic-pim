@@ -2547,6 +2547,7 @@ class DefaultController extends FrontendController
                 'fertPTGBricks.widthmm as standardWidthmm',
                 'fertSynchronousBricks.pitchLengthMM' ,
                 'fertSynchronousBricks.pitchMM ',
+                'baseProducts.brandName',
                 'baseProducts.SIOPLevel2',
                 'baseProducts.SIOPLevel3', 
                 'baseProducts.SIOPLevel4', 
@@ -2557,7 +2558,7 @@ class DefaultController extends FrontendController
                 'baseProducts.mainImage',
                 'baseProducts.beltIdentificationImage',    
                 'baseProducts.profileDimensionPtsBelts',    
-                'baseLocalized.longDescription', 
+                'baseLocalized.shortDescription', 
                 'baseLocalized.FeaturesBenefitsBulletPoint',
                 'skeltonProducts.key AS Pitch',
                 'skeltonBricks.totalBeltThickness', 
@@ -2590,7 +2591,8 @@ class DefaultController extends FrontendController
             $reinforcement = trim(array_unique(array_column($SQLResults, 'reinforcement'))[0], ',');
             $material = trim(array_unique(array_column($SQLResults, 'material'))[0],',');
             $temperatureRangeFAndC = array_unique(array_column($SQLResults, 'temperatureRangeFAndC'))[0];
-            $longDescription = array_unique(array_column($SQLResults, 'longDescription'))[0];
+            $longDescription = array_unique(array_column($SQLResults, 'shortDescription'))[0];
+            $brandName = array_unique(array_column($SQLResults, 'brandName'))[0];
             $skeltons = array_values(array_unique(array_column($SQLResults, 'Pitch')));
             $result = [];
             foreach ($SQLResults as $SQLResult) {
@@ -2602,6 +2604,7 @@ class DefaultController extends FrontendController
                 unset($SQLResult['beltIdentificationImage']);
                 unset($SQLResult['profileDimensionPtsBelts']);
                 unset($SQLResult['FeaturesBenefitsBulletPoint']);
+                unset($SQLResult['brandName']);
                 switch ($SQLResult['Pitch']) {
                     case $skeltons[0]:
                         $result[$skeltons[0]][] = $SQLResult;
@@ -2642,6 +2645,23 @@ class DefaultController extends FrontendController
                 $sql = "SELECT `key` FROM object_$SIOPCategoryClassId WHERE `oo_id` = $siopLevel5 ";
                 $siopLevel5 = $this->db->fetchOne($sql);
             }
+            if (!empty($brandName)) {
+                $brandClassId = \Pimcore\Model\DataObject\Brand::classId();
+                $sql = "SELECT `name` FROM object_$brandClassId WHERE `oo_id` = $brandName ";
+                $brandName = $this->db->fetchOne($sql);
+            }
+            if (!empty($reinforcement)) {
+                $reinforcementClassId = \Pimcore\Model\DataObject\MultiselectMaster::classId();
+                $reinforcementLocalizedClassId = $reinforcementClassId."_".$language;
+                $sql = "SELECT `Description` FROM object_localized_$reinforcementLocalizedClassId WHERE `oo_id` = $reinforcement ";
+                $reinforcement = $this->db->fetchOne($sql);
+            }
+            if (!empty($material)) {
+                $brandClassId = \Pimcore\Model\DataObject\MultiselectMaster::classId();
+                $brandLocalizedClassId = $brandClassId."_".$language;
+                $sql = "SELECT `Description` FROM object_localized_$brandLocalizedClassId WHERE `oo_id` = $material ";
+                $material = $this->db->fetchOne($sql);
+            }
 
             if(isset($mainImage)){
                 $mainImage = Asset::getById($mainImage);
@@ -2667,7 +2687,8 @@ class DefaultController extends FrontendController
             $data['SIOPLEVEL2'] = isset($siopLevel2)?$siopLevel2:'';
             $data['SIOPLEVEL3'] = isset($siopLevel3)?$siopLevel3:'';
             $data['SIOPLEVEL4'] = isset($siopLevel4)?$siopLevel4:'';
-            $data['brandName'] = isset($siopLevel5)?$siopLevel5:'';
+            $data['SIOPLEVEL5'] = isset($siopLevel5)?$siopLevel5:'';
+            $data['brandName'] = isset($brandName)?$brandName:'';
             $data['longDescription'] = isset($longDescription)?$longDescription:'';    
             
             $data['FeaturesBenefitsBulletPoint'] = isset($FeaturesBenefitsBulletPoint)?$FeaturesBenefitsBulletPoint:[] ; 
