@@ -2284,7 +2284,7 @@ margin-right:20px;
 .borders h5{ font-size:14px;}
 
 .borders > *{ margin:0;}
-.continueRow{text-align: right; display:inline-flex; justify-content: flex-end; width: 100%;  }
+.continueRow{text-align: right; display:inline-flex; justify-content: flex-end; width: 100%; padding: 0 !important; margin: 0 !important; }
 
 
 .inh-section-break .grid{
