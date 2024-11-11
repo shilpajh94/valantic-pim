@@ -16,6 +16,82 @@ use Pimcore\Model\DataObject;
 class ExportPIMAttributesToCSV extends AbstractCommand
 {
     const ITEMS_TO_EXPORT = [
+        "IFS_PTG_US" => [
+            "classes" => [
+                "Product" => [
+                    "bricks" => [
+                        // "HoseBase",
+                        // "HoseSkeleton",
+                        // "HoseFert",
+                        // "HydFittingsFert",
+                        // "INHFittingsFert",
+                        "PTGBase",
+                        "PTGSkeleton",
+                        "PTGFert",
+                        "AccessoriesFert",
+                        "BeltsFert",
+                        "MetalFert",
+                        "SynchronousFert"
+                    ]
+                ],
+                // "ProductCategory" => [],
+                // "Brand" => [],
+                // "Chemical" => [],
+                // "Country" => [],
+                // "DistributionChannel" => [],
+                // "Features" => [],
+                // "MaterialGroup" => [],
+                // "Plant" => [],
+                // "SalesOrganisation" => [],
+                "PlantMaterialMaster" => [],
+                "SalesMaterialMaster" => [],
+                // "Category" => [],
+                // "FittingCategory" => [],
+                // "FittingSubCategory" => [],
+                // "SubCategory" => [],
+                // "Competitor" => [],
+                // "CompetitorParts" => [],
+                // "FittingEndFamilyType" => [],
+                // "FittingFamily" => [],
+                // "NomenClature" => [],
+                // "Thread" => []
+            
+            ],
+        ],
+        "CBS" => [
+            "classes" => [
+                "CSProducts" => [
+                    "bricks" => [
+                        "BeltData",
+                        "DigitalSolution",
+                        "Functionality",
+                        "LoadSupport",
+                        "Material",
+                        "OptionsStandards",
+                        "Performance1",
+                        "Performance2",
+                        "ProdDimentions",
+                        "ProdSpec",
+                        "SalesOrga",
+                        "SpliceData",
+                        "TensionElevatorBelt",
+                        "TypeOfIdler",
+                        "WidthLength"
+                    ]
+                ],
+                "CSHierarchy" => [],
+                "CSApplications" => [],
+                "CSAvailableBeltWidths" => [],
+                "CSAvailablePatternWidths" => [],
+                "CSCoverCompounds" => [],
+                "CSFeaturesAndBenefits" => [],
+                "CSIndustries" => [],
+                "CSMaterial" => [],
+                "CSPerformanceCategories" => [],
+                "CSRegion" => [],
+                "CSSegment" => []
+            ]
+            ],
         "IFSEU" => [
             "classes" => [
                 "IFSEUProduct" => [
@@ -308,7 +384,14 @@ class ExportPIMAttributesToCSV extends AbstractCommand
                 $localizedFields = $attribute->getFieldDefinitions();
                 foreach ($localizedFields as $localizedField) {
                     $level = $this->getLevelForAttribute($localizedField->getName());
-                    $attributeData = [$localizedField->getName(), $localizedField->getTitle(), $level];
+                    if ($className === 'IFSEUProduct') {
+                        // For localized fields in IFSEUProduct class, include Level
+                        $attributeData = [$localizedField->getName(), $localizedField->getTitle(), $level];
+                    } else {
+                        // For other classes, don't include Level
+                        $attributeData = [$localizedField->getName(), $localizedField->getTitle()];
+                    }
+                    
                     $this->generateCSV($csvFileHandle, $attributeData);
                 }
             }
@@ -318,8 +401,13 @@ class ExportPIMAttributesToCSV extends AbstractCommand
                 continue;
             }
     
-            // For regular fields
-            $attributeData = [$attribute->getName(), $attribute->getTitle(), $level];
+            if ($className === 'IFSEUProduct') {
+                // If class is IFSEUProduct, include Level
+                $attributeData = [$attribute->getName(), $attribute->getTitle(), $level];
+            } else {
+                // For other classes, don't include Level
+                $attributeData = [$attribute->getName(), $attribute->getTitle()];
+            }
             $this->generateCSV($csvFileHandle, $attributeData);
         }
     }
