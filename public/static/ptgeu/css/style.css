@@ -133,6 +133,7 @@ max-height: 30px;
   display:inline-flex; 
   justify-content: flex-end; 
   width: 100%;  
+  padding: 0 !important; margin: 0 !important;
 }
 
 .display-float-left{
