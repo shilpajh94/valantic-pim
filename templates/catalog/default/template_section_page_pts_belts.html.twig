@@ -15,10 +15,6 @@
         }) }}
 	{% endif %}
 	{% if data is not empty %}
-	{% set beltIdentificationImagePositionFromTop ='10' %}
-	{% if condition %}
-	
-	{% endif %}
 	
 		<style>
 		.cellAttributes table {
@@ -510,6 +506,19 @@
 
 			</section>
 		</div>
+		<script>
+		function getOffset( el ) {
+				var _x = 0;
+				var _y = 0;
+				while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
+					_x += el.offsetLeft - el.scrollLeft;
+					_y += el.offsetTop - el.scrollTop;
+					el = el.offsetParent;
+				}
+				return { top: _y, left: _x };
+		}
+		document.querySelector('.section_page_pts_belts_Catalog_Asset_Right_Image').style.top=getOffset( document.querySelector('.cellAttributes') ).top-300+"px";
+		</script>
 		{% if not isParentContainerRequest %}
 			<script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
 		{% endif %}
