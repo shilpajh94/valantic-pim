@@ -65,7 +65,7 @@ for (var i = 0; i < tables.length; i++) {
     //     CONTINUED_TEXT2 = (table.getAttribute("data-brandname"));
 
         // determine number of columns
-        var cells = table.querySelectorAll("tbody tr:first-child td");
+        var cells = table.querySelectorAll("tbody tr:last-child td");
         // var cells = table.firstElementChild.querySelectorAll("tr:first-child td");
         var colspan = cells.length;
 
@@ -90,12 +90,13 @@ for (var i = 0; i < tables.length; i++) {
                 var bd = ro.layout.getBoxDescriptions(row);
 
                 if (bd) {
-
                     // check if a page break occurs
                     if (bd[0].pageIndex > currentPage) {
+                        let p = (bd[0].pageIndex > currentPage);
 
+                       
+                        let p1 = bd[0].pageIndex +" "+currentPage;
                         currentPage = bd[0].pageIndex;
-
                         if (j > 0) {
                         
                             var previousRow = rows[j - 1];
@@ -103,11 +104,16 @@ for (var i = 0; i < tables.length; i++) {
                             var continueRow = document.createElement("tr");
                             var continueCell = document.createElement("td");
                             continueCell.setAttribute("colspan", colspan);
+                            // continueCell.textContent = CONTINUED_TEXT+" "+p+" "+p1+" "+rows.length+" "+ j;
                             continueCell.textContent = CONTINUED_TEXT;
+
                             continueCell.className = "continueRow";
                             // continueRow.className = "continueRow";
                             continueRow.appendChild(continueCell);
+                            if(previousRow.querySelector('td').innerHTML != CONTINUED_TEXT){
+
                             previousRow.parentNode.insertBefore(continueRow, previousRow);
+                            }
                         }
                     }
                 }

@@ -27,7 +27,10 @@ services:
 
     ADAuthBundle\EventListener\AuthenticateListener:
         tags:
-                - { name: kernal.event_user_login, event: pimcore.admin.login.credentials, method: onLoginCredentials}    
+                - { name: kernal.event_user_login, event: pimcore.admin.login.credentials, method: onLoginCredentials}  
+    AppBundle\Command\ExportPIMAttributesToCSV:
+        tags:
+            - {name: 'console.command', command: 'contitech:export-pim-attributes-to-csv'}  
     #
     # CONTROLLERS
     #
