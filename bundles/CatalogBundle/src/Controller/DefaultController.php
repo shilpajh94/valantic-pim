@@ -2689,7 +2689,7 @@ class DefaultController extends FrontendController
             $data['SIOPLEVEL4'] = isset($siopLevel4)?$siopLevel4:'';
             $data['SIOPLEVEL5'] = isset($siopLevel5)?$siopLevel5:'';
             $data['brandName'] = isset($brandName)?$brandName:'';
-            $data['longDescription'] = isset($longDescription)?$longDescription:'';    
+            $data['shortDescription'] = isset($longDescription)?$longDescription:'';    
             
             $data['FeaturesBenefitsBulletPoint'] = isset($FeaturesBenefitsBulletPoint)?$FeaturesBenefitsBulletPoint:[] ; 
             $data['footer_class'] = '';

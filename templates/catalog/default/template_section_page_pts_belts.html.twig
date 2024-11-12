@@ -3,7 +3,20 @@
 {% endif %}
 
 {% block _content %}
-	<style>
+
+	{% if editmode %}
+		{{ pimcore_relation("section_page_pts_belts", {
+            "types": ["object"],
+            "subtypes": {
+                "object": ["object"]
+            },
+            "classes": ["CatalogPTS"],
+			"reload": true
+        }) }}
+	{% endif %}
+	{% if data is not empty %}
+	
+		<style>
 		.cellAttributes table {
 			padding: 0;
 			border-spacing: 0;
@@ -20,17 +33,14 @@
 		.section-page-pts-belts-features .features p {
 			padding-left: 0 !important;
 		}
-		.section-page-pts-belts-features b {
-			/* padding-bottom: 5px; */
+		div.features > ul {
+			margin-left: 40px;
 		}
-		.features .center::before {
-			color: transparent;
-			content: ">";
-			margin-right: 0;
+		.features ul li {
+			font-size: 14px;
 			padding: 0 10px 10px;
-			width: 10px;
-			height: 10px;
-			color: #ffa500;
+			display: list-item !important;
+			list-style: disc !important;
 		}
 		.section-page-pts-belts-LongDescription {
 			background-color: #f0f0f0;
@@ -224,17 +234,6 @@
 			}
 		}
 	</style>
-	{% if editmode %}
-		{{ pimcore_relation("section_page_pts_belts", {
-            "types": ["object"],
-            "subtypes": {
-                "object": ["object"]
-            },
-            "classes": ["CatalogPTS"],
-			"reload": true
-        }) }}
-	{% endif %}
-	{% if data is not empty %}
 		<div class="template section-page-pts-belts-page">
 			<section class="segregate">
 				<div id="pageHeader"></div>
@@ -350,14 +349,14 @@
 								{% endif %}
 							</h1>
 							<div class="section-page-pts-belts-LongDescription">
-								{% set section_page_pts_belts_LongDescription = pimcore_wysiwyg("section_page_pts_belts_LongDescription") %}
-								{% if  section_page_pts_belts_LongDescription.isEmpty() %}
-									{% set section_page_pts_belts_LongDescription = section_page_pts_belts_LongDescription.setDataFromResource(data.longDescription) %}
+								{% set section_page_pts_belts_ShortDescription = pimcore_wysiwyg("section_page_pts_belts_ShortDescription") %}
+								{% if  section_page_pts_belts_ShortDescription.isEmpty() %}
+									{% set section_page_pts_belts_ShortDescription = section_page_pts_belts_ShortDescription.setDataFromResource(data.shortDescription) %}
 								{% endif %}
 								{% if editmode %}
-									{{section_page_pts_belts_LongDescription|raw}}
+									{{section_page_pts_belts_ShortDescription|raw}}
 								{% else %}
-									{{section_page_pts_belts_LongDescription|raw}}
+									{{section_page_pts_belts_ShortDescription|raw}}
 								{% endif %}
 							</div>
 							<aside
@@ -372,11 +371,13 @@
 												<h6>{{ 'section_page_pts_belts_features'|trans }}</h6>
 												<div class="section-page-pts-belts-features ">
 													<div class="features">
-														{% for key, feature in data.FeaturesBenefitsBulletPoint %}
-															<p class="flex center">
-																{{ feature['name'] }}
-															</p>
-														{% endfor %}
+														<ul>
+															{% for key, feature in data.FeaturesBenefitsBulletPoint %}
+																<li class="flex center">
+																	{{ feature['name'] }}
+																</li>
+															{% endfor %}
+														</ul>
 													</div>
 													{% if ((data.material)|trim is not empty) or ((data.reinforcement)|trim is not empty) or ((data.temperatureRangeFAndC)|trim is not empty) %}
 														<div>
@@ -498,13 +499,26 @@
 									</tbody>
 
 								</table>
-								</section>
+							</section>
 						</article>
 					</div>
 				</div>
 
 			</section>
 		</div>
+		<script>
+		function getOffset( el ) {
+				var _x = 0;
+				var _y = 0;
+				while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
+					_x += el.offsetLeft - el.scrollLeft;
+					_y += el.offsetTop - el.scrollTop;
+					el = el.offsetParent;
+				}
+				return { top: _y, left: _x };
+		}
+		document.querySelector('.section_page_pts_belts_Catalog_Asset_Right_Image').style.top=getOffset( document.querySelector('.cellAttributes') ).top-300+"px";
+		</script>
 		{% if not isParentContainerRequest %}
 			<script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
 		{% endif %}
