@@ -921,10 +921,14 @@ class DefaultController extends FrontendController
                                                         $validityStartDate = \Carbon\Carbon::createFromFormat('Y-m-d',$pvalue[$priceListTableColumn['Validity Start Date']]);
                                                         $validityEndDate = \Carbon\Carbon::createFromFormat('Y-m-d',$pvalue[$priceListTableColumn['Validity End Date']]);
 
-                                                        if($validFromDate->between($validityStartDate, $validityEndDate)) {
+                                                        if(isset($validFromDate) && isset($validityStartDate) && isset($validityEndDate) && $validFromDate->between($validityStartDate, $validityEndDate)) {
+                                                            $listPrice = $pvalue[$priceListTableColumn['Rate']];
+                                                            break;
+                                                        } else {
                                                             $listPrice = $pvalue[$priceListTableColumn['Rate']];
                                                             break;
                                                         }
+
                                                     }
                                                 }
                                             }
