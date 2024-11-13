@@ -1004,6 +1004,12 @@ class ProductSQLModel
             if ($lang == 'en' && strtolower($productType) == 'fert') {
                 $value = $record['2'];
             }
+            elseif($lang == 'es' && strtolower($productType) == 'fert'){
+                $value = $record['28'];
+            }
+            elseif($lang == 'pt' && strtolower($productType) == 'fert'){
+                $value = $record['29'];
+            }
             $this->localisedDataTableDataArray[] = [
                 'ooo_id' => $objId,
                 'language' => $lang,

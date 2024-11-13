@@ -42,7 +42,10 @@ parameters:
       netWeight:  'Net Weight'
       weightUnit: 'Weight Unit'
       externalID: 'External ID'
-    lastColName: 'AC'
+      descriptionS: 'Material Desc S'
+      descriptionP: 'Material Desc  P'
+
+    lastColName: 'AE'
     startRow: 1
     readFrom: 2
     keyColumns: ['material']
