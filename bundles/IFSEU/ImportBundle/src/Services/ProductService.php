@@ -63,6 +63,7 @@ class ProductService
         "KG" => UnitConversion\WeightPerLengthConverter::UNIT_KG_PER_M,
         "G" => UnitConversion\WeightPerLengthConverter::UNIT_G_PER_FT
     ];
+    const BU_TYPE = 'IFSEU Product';
 
     public function __construct(CompletenessPercentageService $percentageCompletionService, ContainerInterface $container)
     {
@@ -186,20 +187,21 @@ class ProductService
                             die;
                         }
                     } else {
-                        $msg = "IFSEU Product - The uploaded file has wrong headers.";
+                        $msg = self::BU_TYPE." - The uploaded file has wrong headers.";
                         echo $msg;
-                        $this->importProcessEmailNotificationObj->sendMailNotification($msg);
+                        $this->importProcessEmailNotificationObj->sendMailNotification(self::BU_TYPE, $msg);
                     }
                 } else {
-                    $msg = "IFSEU Product - No record found in file.";
+                    $msg = self::BU_TYPE." - No record found in file.";
                     echo $msg;
-                    $this->importProcessEmailNotificationObj->sendMailNotification($msg);
+                    $this->importProcessEmailNotificationObj->sendMailNotification(self::BU_TYPE, $msg);
                 }
             } catch(\Throwable $th) {
                 Logger::log(self::LOGGER_MODULE)->error($th);
                 Logger::error($this->logFileName, $th);
                 $this->importProcessEmailNotificationObj->sendMailNotification(
-                    "IFSEU Product Import not performed - Error occured while reading CSV \n".$th->getMessage()
+                    self::BU_TYPE,
+                    self::BU_TYPE." Import not performed - Error occured while reading CSV \n".$th->getMessage()
                 );
                 die;
             }
