@@ -140,6 +140,7 @@ define("MAINTAIN_OPTION_PROVIDER_DATA_IN_MEMORY", true);
 define('BW_SAP_DELETED_FILE_OLDER_THAN_DAYS', 30);
 
 define('FAILURE_RECORDS_FOLDER','/IFS PTG Private Folder/Import Failure Logs');
+define('FAILURE_RECORDS_FOLDER_PTGEU', '/PTGEU Private Folder/Import Failure Logs');
 
 // PTG_EU Constants
 define("PTG_EU_WORKFLOW_CONFIG",PTG_EU_PRODUCTBUNDLE_CONFIG_DIRECTORY."/workflow/workflow.yaml");
