@@ -39,6 +39,7 @@ class SalesMaterialService
     private $importProcessEmailNotificationObj;
 
     const LOGGER_MODULE = 'PTGEU SALES MATERIAL MASTER';
+    const BU_TYPE = 'PTGEU Sales';
 
     public function __construct(ContainerInterface $container)
     {
@@ -62,7 +63,8 @@ class SalesMaterialService
         $csvImportedData = ImportService::getCSVData($this->filePath);
         } catch (\Exception $e) {
             $this->importProcessEmailNotificationObj->sendMailNotification(
-                "PTGEU Sales Import not performed - Error occured while reading CSV \n".$e->getMessage()
+                self::BU_TYPE,
+                self::BU_TYPE." Import not performed - Error occured while reading CSV \n".$e->getMessage()
             );
         }
 
@@ -162,12 +164,12 @@ class SalesMaterialService
 
                 $this->tableImportHelper->deleteFailedRecordsFromMaster($this->failedIDs);
             } else {
-                $applicationLogMessage = "PTGEU Sales - The uploaded file has wrong headers.";
-                $this->importProcessEmailNotificationObj->sendMailNotification($applicationLogMessage);
+                $applicationLogMessage = self::BU_TYPE." - The uploaded file has wrong headers.";
+                $this->importProcessEmailNotificationObj->sendMailNotification(self::BU_TYPE, $applicationLogMessage);
             }
         } else {
-            $applicationLogMessage = "PTGEU Sales - No record found in file.";
-            $this->importProcessEmailNotificationObj->sendMailNotification($applicationLogMessage);
+            $applicationLogMessage = self::BU_TYPE." - No record found in file.";
+            $this->importProcessEmailNotificationObj->sendMailNotification(self::BU_TYPE, $applicationLogMessage);
         }
 
         echo $applicationLogMessage;

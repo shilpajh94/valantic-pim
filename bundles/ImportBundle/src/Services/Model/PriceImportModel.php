@@ -32,7 +32,7 @@ class PriceImportModel {
     private $storeTableNewData;
     private $csvHeader;
     private $importProcessEmailNotificationObj;
-
+    const BU_TYPE = 'IFS-PTG NA Price';
 
     /**
      * @var Pimcore\Model\DataObject
@@ -72,8 +72,8 @@ class PriceImportModel {
         $deletedPriceRecords = '';
         $csvData = $this->fetchDataFromDataSource();
         if (empty($csvData) || count($csvData)==0) {
-            $message = "IFS-NA Price - No record found in file.";
-            $this->importProcessEmailNotificationObj->sendMailNotification($message);
+            $message = self::BU_TYPE." - No record found in file.";
+            $this->importProcessEmailNotificationObj->sendMailNotification(self::BU_TYPE, $message);
             return false;
         }
         $columnNames = ['Material Number','Sales Organization','Distribution Channel',
@@ -138,9 +138,9 @@ class PriceImportModel {
 
             \AppBundle\Helper\Common::endablePimCache();
         } else {
-            $message = "IFS-NA Price - The uploaded file has wrong headers.";
+            $message = self::BU_TYPE." - The uploaded file has wrong headers.";
             echo $message;
-            $this->importProcessEmailNotificationObj->sendMailNotification($message);
+            $this->importProcessEmailNotificationObj->sendMailNotification(self::BU_TYPE, $message);
         }
     }
 
@@ -252,7 +252,8 @@ class PriceImportModel {
                 $csvInfo = Import::getCSVData($sysFilePath);
             } catch (Exception $e) {
                 $this->importProcessEmailNotificationObj->sendMailNotification(
-                    "IFS-NA Price Import not performed - Error occured while reading CSV \n".$e->getMessage()
+                    self::BU_TYPE,
+                    self::BU_TYPE." Import not performed - Error occured while reading CSV \n".$e->getMessage()
                 );
             }
             $this->csvHeader = array_flip($csvInfo['header']);
@@ -272,12 +273,12 @@ class PriceImportModel {
         $ext = $fileNameArray[1];
         $fileName = $fileNamePrefix."_".date("mdY").".".$ext;
         if (!$SFTPConObj->fileExists($ftpFilePath."/".$fileName)) {
-        $fileName = $fileNamePrefix."_".date('mdY',strtotime("-1 days")).".".$ext;
-        if (!$SFTPConObj->fileExists($ftpFilePath."/".$fileName)) {
-        $msg = "IFS-NA Price - Today's and yesterday's import file not uploaded.";
-        $this->importProcessEmailNotificationObj->sendMailNotification($msg);
-        return null;
-        }
+            $fileName = $fileNamePrefix."_".date('mdY',strtotime("-1 days")).".".$ext;
+                if (!$SFTPConObj->fileExists($ftpFilePath."/".$fileName)) {
+                $msg = self::BU_TYPE." - Today's and yesterday's import file not uploaded.";
+                $this->importProcessEmailNotificationObj->sendMailNotification(self::BU_TYPE, $msg);
+                return null;
+            }
         }
         $tmpFilePath = BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR. $fileName;
 
