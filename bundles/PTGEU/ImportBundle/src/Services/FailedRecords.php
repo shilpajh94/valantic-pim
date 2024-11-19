@@ -151,14 +151,6 @@ class FailedRecords
         if ($record) {
           $columns[] = self::LOG_ID;
           $columns[] = "Id";
-          $columns[] = "Plant";
-          $columns[] = "Material";
-          $columns[] = "Material Description";
-          $columns[] = "Plant Profit Center";
-          $columns[] = "MRP Controller";
-          $columns[] = "Stock Indicator";
-          $columns[] = "Stock Indicator Description";
-          $columns[] = "ABC Indicator";
           $columns[] = self::STATUS_CODE;
           $columns[] = self::FAILED_REASON;
           $columns[] = self::CREATED_AT;
@@ -175,34 +167,9 @@ class FailedRecords
                   we need to update it here as well.
               */
               $record = explode(",", $arr['record']);
-              $profitCentre = trim(str_replace('"', "", $record[4]));
-              $mrpController = trim(str_replace('"', "", $record[5]));
-              $plant = str_replace(['[', ']'], '', trim(str_replace('"', "", $record[0])));
-              $stockIndicator = trim(str_replace('"', "", $record[17]));
-              $stockIndicatorDescription = '';
-              if (strtolower($stockIndicator) == 's') {
-                  $stockIndicatorDescription = 'Stock';
-              } elseif (strtolower($stockIndicator) == 'ns') {
-                  $stockIndicatorDescription = 'Non-Stock';
-              } elseif (strtolower($stockIndicator) == 'sp') {
-                  $stockIndicatorDescription = 'Special Stock';
-              }
-              $abcIndicator =  str_replace(['[', ']'], '', trim(str_replace('"', "", $record[20])));
-              $material = trim(str_replace('"', "", $record[1]));
-              $sql = "SELECT sapDescription from object_localized_1_en where articleNumber = '$material'";
-              $record = $this->db->fetchAllAssociative($sql);
-              $sapDescription = $record ? $record[0]['sapDescription'] : '';
               $row    = [];
               $row[]  = $arr['logId'];
               $row[]  = $arr['id'];
-              $row[]  = $plant;
-              $row[]  = $material;
-              $row[]  = $sapDescription;
-              $row[]  = $profitCentre;
-              $row[]  = $mrpController;
-              $row[]  = $stockIndicator;
-              $row[]  = $stockIndicatorDescription;
-              $row[]  = $abcIndicator;
               $row[]  = $arr['statusCode'];
               $row[]  = $arr['failedReason'];
               $row[]  = $arr['createdAt'];
