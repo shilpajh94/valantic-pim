@@ -38,8 +38,8 @@ class PlantMaterialService
     private $container;
     private $importProcessEmailNotificationObj;
 
-
     const LOGGER_MODULE = 'PLANT MATERIAL MASTER';
+    const BU_TYPE = 'IFSEU Plant';
 
     public function __construct(ContainerInterface $container)
     {
@@ -64,7 +64,8 @@ class PlantMaterialService
                 $csvInfo = ImportService::getCSVData($this->filePath);
             } catch(\Exception $e) {
                 $this->importProcessEmailNotificationObj->sendMailNotification(
-                    "IFSEU Plant Import not performed - Error occured while reading CSV \n".$e->getMessage()
+                    self::BU_TYPE,
+                    self::BU_TYPE." Import not performed - Error occured while reading CSV \n".$e->getMessage()
                 );
             }
             $this->fileColumns = $csvInfo['header'];
@@ -188,12 +189,12 @@ class PlantMaterialService
 
                     $this->tableImportHelper->deleteFailedRecordsFromMaster($this->failedIDs);
                 } else {
-                    $applicationLogMessage = "IFSEU Plant - The uploaded file has wrong headers.";
-                    $this->importProcessEmailNotificationObj->sendMailNotification($applicationLogMessage);
+                    $applicationLogMessage = self::BU_TYPE." - The uploaded file has wrong headers.";
+                    $this->importProcessEmailNotificationObj->sendMailNotification(self::BU_TYPE, $applicationLogMessage);
                 }
             } else {
-                $applicationLogMessage = "IFSEU Plant - No record found in file.";
-                $this->importProcessEmailNotificationObj->sendMailNotification($applicationLogMessage);
+                $applicationLogMessage = self::BU_TYPE." - No record found in file.";
+                $this->importProcessEmailNotificationObj->sendMailNotification(self::BU_TYPE, $applicationLogMessage);
             }
 
             echo $applicationLogMessage;
