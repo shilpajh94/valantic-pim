@@ -1189,6 +1189,8 @@ class DefaultController extends FrontendController
                 $parameterBag['branding_image_src'] = $branding_image_src;
                 $parameterBag['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
                 $parameterBag['footer_logo_src'] = $footer_logo_src;
+                $tableClass = \AppBundle\Helper\Common::cleanString( $this->document->getKey());
+                $parameterBag['table_class']= $tableClass;
             }
         }
         return $this->render("catalog/default/template_hose_product_page.html.twig", $parameterBag);
@@ -2510,6 +2512,9 @@ class DefaultController extends FrontendController
         $parameterBag['groupData'] = $groupData;
         $parameterBag['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
         $parameterBag['footer_logo_src'] = $footer_logo_src;
+        $tableClass = \AppBundle\Helper\Common::cleanString( $this->document->getKey());
+
+$parameterBag['table_class']= $tableClass;
         return $this->render("catalog/default/template_ptg_product_page.html.twig", $parameterBag);
     }
 
