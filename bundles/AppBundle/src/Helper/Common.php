@@ -16,6 +16,16 @@ class Common
     {
         $this->container = $container;
     }
+    /**
+     * Remove characters that aren't letters and numbers, replace space with a underscore
+     * @author sandeep bhardwaj <sandeep@happiestminds.com>
+     * @return string
+     */
+    public static function cleanString($string):String{
+        $string = str_replace(' ', '_', $string); // Replaces all spaces with hyphens.
+
+        return strtolower(preg_replace('/[^A-Za-z0-9\_]/', '', $string)); // Removes special chars.
+    }
 
     public function getParameter($data, $key)
     {
