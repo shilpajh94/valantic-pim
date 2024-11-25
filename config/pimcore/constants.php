@@ -168,6 +168,8 @@ define('IFS_EU_ASSET_CONFIG_FILE_PATH', IFS_EU_IMPORTBUNDLE_CONFIG_DIRECTORY . "
 
 
 define('FAILURE_RECORDS_EMAIL_TEMPLATE','/FailureRecordEmail/ProductFailedRecordEmailTemplates');
+define('PTGEU_FAILURE_RECORDS_EMAIL_TEMPLATE','/FailureRecordEmail/PTGEUProductFailedRecordEmailTemplates');
+
 
 // define constants used in PTGEU
 define("PTG_EU_IMPORTBUNDLE_CONFIG_DIRECTORY", PIMCORE_PROJECT_ROOT . "/bundles/PTGEU/ImportBundle/config");
