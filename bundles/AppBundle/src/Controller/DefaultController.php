@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 class DefaultController extends FrontendController
 {
     /**
-     * @Route("/test")
+     * @Route("/check")
      *
      * @param Request $request
      */
@@ -21,7 +21,7 @@ class DefaultController extends FrontendController
 
     /**
      * http://contitechdev.com.local/show-cached-option-provider-keys
-     * 
+     *
      * @Route("/show-cached-option-provider-keys")
      *
      * @param Request $request
@@ -37,7 +37,7 @@ class DefaultController extends FrontendController
 
     /**
      * http://contitechdev.com.local/show-cached-option-provider-data?cacheKey=option_provider_Features
-     * 
+     *
      * @Route("/show-cached-option-provider-data")
      *
      * @param Request $request
@@ -53,7 +53,7 @@ class DefaultController extends FrontendController
 
     /**
      * http://contitechdev.com.local/delete-cached-option-provider-keys?cacheKey=option_provider_Features
-     * 
+     *
      * @Route("/delete-cached-option-provider-keys")
      *
      * @param Request $request

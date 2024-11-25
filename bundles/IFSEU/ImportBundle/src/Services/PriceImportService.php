@@ -21,11 +21,15 @@ class PriceImportService {
         private $storeTableNewData;
         private $container;
         private $time;
+        private $importProcessEmailNotificationObj;
+        const BU_TYPE = 'IFSEU Price';
+
         public function __construct(ContainerInterface $container)
         {
             $this->container = $container;
             $this->priceModel       = new PriceModel;
             $this->time = time();
+            $this->importProcessEmailNotificationObj = new ImportProcessEmailNotificationService;
         }
 
         public function import()
@@ -37,7 +41,8 @@ class PriceImportService {
                 $csvInfo = ImportService::getCSVData($this->filePath);
             } catch (Exception $e) {
                 $this->importProcessEmailNotificationObj->sendMailNotification(
-                    "IFSEU Price Import not performed - Error occured while reading CSV \n".$e->getMessage()
+                    self::BU_TYPE,
+                    self::BU_TYPE." Import not performed - Error occured while reading CSV \n".$e->getMessage()
                 ); die;
             }
             $csvData = $csvInfo['data'];
@@ -107,13 +112,13 @@ class PriceImportService {
                     $this->priceModel->updateMasterTable();
                     \AppBundle\Helper\Common::endablePimCache();
                 } else {
-                    $message = "IFSEU Price - The uploaded file has wrong headers.";
+                    $message = self::BU_TYPE." - The uploaded file has wrong headers.";
                     echo $message;
-                    $this->importProcessEmailNotificationObj->sendMailNotification($message);
+                    $this->importProcessEmailNotificationObj->sendMailNotification(self::BU_TYPE, $message);
                 }
             } else {
-                $message = "IFSEU Price - No record found in file.";
-                $this->importProcessEmailNotificationObj->sendMailNotification($message);
+                $message = self::BU_TYPE." - No record found in file.";
+                $this->importProcessEmailNotificationObj->sendMailNotification(self::BU_TYPE, $message);
             }
             \Pimcore\Cache::clearAll();
             $this->priceModel->updateMasterTable();
