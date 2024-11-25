@@ -222,7 +222,6 @@ class FailedRecords
             foreach ($emailId as $eachBccEmailID) {
               $mail->addBcc($eachBccEmailID);
           }
-          $mail->to('1903480100052cs@gmail.com');
           $mail->Subject("SAP BW - Failure SKU(s) list");
           $mail->setDocument($document);
           $mail->setIgnoreDebugMode(true);
