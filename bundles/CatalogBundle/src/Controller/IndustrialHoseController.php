@@ -500,13 +500,15 @@ class IndustrialHoseController extends FrontendController
                                     }
                                 }
                             }
-                            if(isset($data[$uniqueId]['data'][$brandName])){
+                            if (isset($data[$uniqueId]['data'][$brandName]['SortOrder'])) {
+                                if (array_key_exists($brandName,$data[$uniqueId]['data']) && isset($data[$uniqueId]['data'][$brandName])) {
+                                        
+                                    $data[$uniqueId]['data'][$brandName]['SortOrder'] = $brandsList[$brandName]['SortOrder'];
+                                }
 
-                            $data[$uniqueId]['data'][$brandName]['SortOrder'] = $brandsList[$brandName]['SortOrder'];
-                            }
-
-                            if (isset($data[$uniqueId]['data']['SortOrder'])) {
-                                array_multisort(array_column($data[$uniqueId]['data'], 'SortOrder'), SORT_ASC, $data[$uniqueId]['data']);
+                                if (isset($data[$uniqueId]['data']['SortOrder'])) {
+                                    array_multisort(array_column($data[$uniqueId]['data'], 'SortOrder'), SORT_ASC, $data[$uniqueId]['data']);
+                                }
                             }
                         }
                     }
