@@ -26,18 +26,18 @@ class ImportProcessEmailNotificationService
             ];
             if (str_contains($buType, 'PTGEU')) {
                 $emailArray = [
-                    'kenichi.ban@contitech.de',
-                    'anthony.miller@contitech.de',
-                    'max.oliver.umali@contitech.ph',
+                    // 'kenichi.ban@contitech.de',
+                    // 'anthony.miller@contitech.de',
+                    // 'max.oliver.umali@contitech.ph',
                     'rajesh.kumar4@happiestminds.com',
                     'gaurav.tyagi@happiestminds.com',
-                    'amit.rajput@ptg.contitech.in'
+                    // 'amit.rajput@ptg.contitech.in'
                 ];
             } else {
                 $emailArray = [
-                    'kenichi.ban@contitech.de',
-                    'anthony.miller@contitech.de',
-                    'max.oliver.umali@contitech.ph',
+                    // 'kenichi.ban@contitech.de',
+                    // 'anthony.miller@contitech.de',
+                    // 'max.oliver.umali@contitech.ph',
                     'rajesh.kumar4@happiestminds.com',
                     'gaurav.tyagi@happiestminds.com',
                 ];
