@@ -36,6 +36,7 @@ class SalesMaterialService
     private $importProcessEmailNotificationObj;
 
     const LOGGER_MODULE = 'IFSEU SALES MATERIAL MASTER';
+    const BU_TYPE = 'IFSEU Sales';
 
     public function __construct(ContainerInterface $container)
     {
@@ -57,7 +58,8 @@ class SalesMaterialService
             $csvImportedData = ImportService::getCSVData($this->filePath);
         } catch(\Exception $e) {
             $this->importProcessEmailNotificationObj->sendMailNotification(
-                "IFSEU Sales Import not performed - Error occured while reading CSV \n".$e->getMessage()
+                self::BU_TYPE,
+                self::BU_TYPE. " Import not performed - Error occured while reading CSV \n".$e->getMessage()
             );
         }
 
@@ -151,17 +153,16 @@ class SalesMaterialService
                         echo $timediff4->format("Total ".count( $failedRecords)." failed records removed from  master table takes %h hour %i minute %s second").PHP_EOL;
                     }
                 } else {
-                    $applicationLogMessage = "IFSEU Sales - The uploaded file has wrong headers.";
-                    $this->importProcessEmailNotificationObj->sendMailNotification($applicationLogMessage);
+                    $applicationLogMessage = self::BU_TYPE." - The uploaded file has wrong headers.";
+                    $this->importProcessEmailNotificationObj->sendMailNotification(self::BU_TYPE, $applicationLogMessage);
                 }
             } else {
-                $applicationLogMessage = "IFSEU Sales - No record found in file.";
-                $this->importProcessEmailNotificationObj->sendMailNotification($applicationLogMessage);
+                $applicationLogMessage = self::BU_TYPE." - No record found in file.";
+                $this->importProcessEmailNotificationObj->sendMailNotification(self::BU_TYPE, $applicationLogMessage);
             }
 
             echo $applicationLogMessage;
 
-            echo $applicationLogMessage;
         } catch (\Throwable $th) {
             p_r($th->getMessage());
         }
@@ -319,7 +320,7 @@ class SalesMaterialService
                             ImportConstants::IFSEU_MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER . "/" . $material
                         )->getId();
                         $query = "SELECT oo_id, parentId, `key`, path FROM `object_IFSEUSalesMaterialMaster`
-                        WHERE `parentId` = '{$materialFolderId}' AND `key` LIKE '%{$salesMaterialKey}%' limit 1";
+                        WHERE `parentId` = '{$materialFolderId}' AND `key` = '{$salesMaterialKey}'";
                         $objectMaterial = $this->db->fetchAssociative($query);
 
                         if(!empty(trim($plantName)) && !isset($this->plantArray[$plantName])) {
@@ -528,8 +529,7 @@ class SalesMaterialService
      */
     public function getMaterialObject($materialKey)
     {
-        $query = "SELECT oo_id, `key`, path FROM `object_IFSEUProduct` WHERE `materialNumber`
-        LIKE '%{$materialKey}%' limit 1";
+        $query = "SELECT oo_id, `key`, path FROM `object_IFSEUProduct` WHERE `materialNumber` = '{$materialKey}'";
         $objectMaterial = $this->db->fetchAllAssociative($query);
 
         foreach ($objectMaterial as $material) {

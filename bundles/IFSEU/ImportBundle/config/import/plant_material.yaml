@@ -45,4 +45,5 @@ parameters:
     'StockIndicator': 'Stock Indicator'
     'UnitOfMeasure': 'Unit of measure'
     'ABCIndicator': 'ABC Indicator'
+    'productHier': 'Product Hier'
   keyColumns: ['material','plant','salesOrg','distributionChannel'] 

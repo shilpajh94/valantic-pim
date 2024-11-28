@@ -1805,6 +1805,9 @@ class DefaultController extends FrontendController
             $parameterBag['footer_class'] = '';
             $parameterBag['footer_logo_src'] = $footerLogoSrc;
             $parameterBag['groupData'] = $groupData;
+            $tableClass = \AppBundle\Helper\Common::cleanString( $this->document->getKey());
+
+            $parameterBag['table_class']= $tableClass;
         }
         return $this->render("ptgeucatalog/default/template_ptg_eu_product_page.html.twig", $parameterBag);
     }

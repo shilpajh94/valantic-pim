@@ -52,6 +52,7 @@ class PlantMaterialModel
     private $importProcessEmailNotificationObj;
 
     const LOGGER_MODULE = 'PLANT MATERIAL MASTER';
+    const BU_TYPE = 'IFS-PTG NA Plant';
 
     public function __construct(ContainerInterface $container)
     {
@@ -71,7 +72,8 @@ class PlantMaterialModel
                 $csvImportedData = Import::getCSVData($this->filePath);
             } catch(Exception $e) {
                 $this->importProcessEmailNotificationObj->sendMailNotification(
-                    "IFS-NA Plant Import not performed - Error occured while reading CSV \n".$e->getMessage()
+                    self::BU_TYPE,
+                    self::BU_TYPE." Import not performed - Error occured while reading CSV \n".$e->getMessage()
                 );
             }
             $this->fileColumns = $csvImportedData['header'];
@@ -224,14 +226,14 @@ class PlantMaterialModel
 
             $this->tableImportHelper->deleteFailedRecordsFromMaster($this->failedIDs);
             } else {
-                $applicationLogMessage = "IFS-NA Plant - The uploaded file has wrong headers.";
-                $this->importProcessEmailNotificationObj->sendMailNotification($applicationLogMessage);
+                $applicationLogMessage = self::BU_TYPE." - The uploaded file has wrong headers.";
+                $this->importProcessEmailNotificationObj->sendMailNotification(self::BU_TYPE, $applicationLogMessage);
             }
         }
         else
         {
-            $applicationLogMessage = "IFS-NA Plant - No record found in file.";
-            $this->importProcessEmailNotificationObj->sendMailNotification($applicationLogMessage);
+            $applicationLogMessage = self::BU_TYPE." - No record found in file.";
+            $this->importProcessEmailNotificationObj->sendMailNotification(self::BU_TYPE, $applicationLogMessage);
         }
 
 
@@ -356,7 +358,7 @@ class PlantMaterialModel
                         // $plantMaterialKey = $this->createKeyForObject($rowvalue, $this->keyColumns, $this->mappingCsvColumn);
 
                         $materialFolderId= DataObject\Service::createFolderByPath(ImportConstants::MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER."/".$material)->getId();
-                        $query = "SELECT oo_id, parentId, `key`, `path` FROM `object_12` WHERE `parentId` = '{$materialFolderId}' AND `key` LIKE '%{$plantMaterialKey}%' limit 1";
+                        $query = "SELECT oo_id, parentId, `key`, `path` FROM `object_12` WHERE `parentId` = '{$materialFolderId}' AND `key` = '{$plantMaterialKey}'";
                         $objectMaterial = $this->db->fetchAssociative($query);
 
                         if(!empty(trim($plantName)) && !isset($this->plantArray[$plantName]))
@@ -651,7 +653,7 @@ class PlantMaterialModel
      * return material object or false
      */
     public function getMaterialObject($MaterialKey){
-        $query = "SELECT oo_id, `key`, `path` FROM `object_1` WHERE `articleNumber` LIKE '%{$MaterialKey}%' limit 1";
+        $query = "SELECT oo_id, `key`, `path` FROM `object_1` WHERE `articleNumber` = '{$MaterialKey}'";
         $objectMaterial = $this->db->fetchAllAssociative($query);
 
         foreach ($objectMaterial as $material) {

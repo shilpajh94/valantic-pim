@@ -6,12 +6,13 @@
 		</title>
 		<style>
 			body {
-				padding: 0;
-				margin: 0;
+				padding: 5px;
+				margin: 5px;
 				font-family: "Lucida Sans Unicode", Arial;
 				font-size: 14px;
 				float: left;
 				color: black;
+				width: 700px;
 			}
 
 			h1 {
@@ -27,7 +28,6 @@
 	<body>
 		<div>
 			{{ pimcore_wysiwyg('content') }}
-			<p>{{message|raw}}</p>
 			{{ pimcore_wysiwyg('signature') }}
 		</div>
 	</body>

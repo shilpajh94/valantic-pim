@@ -7,7 +7,13 @@
 	{% if editmode %}
 		{{ pimcore_relation("inh-printcatalogproduct") }}
 	{% endif %}
-
+<style>
+ div.inhRight > section > div > table > tbody > tr>td{
+	margin:0px !important;
+	padding:0px !important;
+	height: 20px;
+ }
+</style>
 
 	{% if info['brandsData'] is defined %}
 		{% set industrial_hose_data = [] %}
@@ -347,8 +353,10 @@
 																	</div>
 																{% endif %}
 															</aside>
-
-															<table class="grid special inh marginBottom5 continueLable cellAttributes" aria-hidden="true">
+<style>
+	.continueRow{padding: 0 !important; margin: 0 !important;}
+</style>
+															<table class="grid special inh  continueLable cellAttributes {{table_class}}" aria-hidden="true">
 																<thead>
 																	{% if info['iconRequired'] == 'YES' %}
 																		<tr class="sub-head">
