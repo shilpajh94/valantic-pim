@@ -287,6 +287,8 @@ class HydraulicFittingController extends FrontendController
             $parameterBag['skiveTypeSortKeys'] = $skiveTypeSortKeys;
             $parameterBag['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
             $parameterBag['footer_logo_src'] = $footer_logo_src;
+            $tableClass = \AppBundle\Helper\Common::cleanString( $this->document->getKey());
+            $parameterBag['table_class']= $tableClass;
         }
         return $this->render("catalog/fitting//hydraulic_fitting.html.twig", $parameterBag);
     }

@@ -581,7 +581,7 @@ class DefaultController extends FrontendController
                                     $orderCode
                                 </div>
                                 <div class='inh-section-break'>
-                                    <table class='grid special inh marginBottom5 continueLable' cellspacing='0' cellpadding='0'>
+                                    <table class='grid special inh marginBottom5 continueLable dynamic-table' cellspacing='0' cellpadding='0'>
                                         <thead>";
         if ($iconRequired == 'YES') {
             $html .= "

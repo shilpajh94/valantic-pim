@@ -293,7 +293,7 @@
                 <div class="page-break-after-always"></div>
                 {% for articleGroupKey, articleGroupData in groupData['data'] %}
 
-                    <table aria-describedby="articleTable" class="table page-break-inside-always continueLable">
+                    <table aria-describedby="articleTable" class="table page-break-inside-always continueLable  {{table_class}}">
                         <thead>
                             {% if groupData['iconRequired'] == 'YES' %}
                                 <tr>

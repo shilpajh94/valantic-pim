@@ -548,7 +548,7 @@ class IndustrialHoseController extends FrontendController
             $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
             $parameterBag = $this->getRequestedParameter($request, $documentId);
         }
-
+        $tableClass = \AppBundle\Helper\Common::cleanString( $this->document->getKey());
         $templateEditable = $this->document->getEditable('inh-printcatalogproduct');
 
         if ($templateEditable && $templateEditable->getElement() != null) {
@@ -899,7 +899,7 @@ class IndustrialHoseController extends FrontendController
                     'footer_class' => (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '',
                     'footer_logo_src' => $footer_logo_src,
                 );
-
+                $parameterBag['table_class']= $tableClass;
             }
         }
         return $this->render("catalog/inh/inhprintcatalogproductpage.html.twig", $parameterBag);
@@ -1099,6 +1099,8 @@ class IndustrialHoseController extends FrontendController
             $parameterBag['groupData'] = $groupData;
             $parameterBag['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
             $parameterBag['footer_logo_src'] = $footer_logo_src;
+            $tableClass = \AppBundle\Helper\Common::cleanString( $this->document->getKey());
+            $parameterBag['table_class']= $tableClass;
         }
         return $this->render("catalog/inh/inhfitting.html.twig", $parameterBag);
     }
