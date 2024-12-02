@@ -529,7 +529,7 @@ class SalesMaterialService
      */
     public function getMaterialObject($materialKey)
     {
-        $query = "SELECT oo_id, `key`, path FROM `object_IFSEUProduct` WHERE `materialNumber` = '{$materialKey}";
+        $query = "SELECT oo_id, `key`, path FROM `object_IFSEUProduct` WHERE `materialNumber` = '{$materialKey}'";
         $objectMaterial = $this->db->fetchAllAssociative($query);
 
         foreach ($objectMaterial as $material) {
