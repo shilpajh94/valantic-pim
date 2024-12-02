@@ -222,6 +222,7 @@ class FailedRecords
             foreach ($emailId as $eachBccEmailID) {
               $mail->addBcc($eachBccEmailID);
           }
+          $document = Document\Email::getByPath(PTGEU_FAILURE_RECORDS_EMAIL_TEMPLATE);
           $mail->Subject("SAP BW - Failure SKU(s) list");
           $mail->setDocument($document);
           $mail->setIgnoreDebugMode(true);
