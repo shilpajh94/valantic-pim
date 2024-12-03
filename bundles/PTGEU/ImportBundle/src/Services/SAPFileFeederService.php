@@ -22,6 +22,7 @@ class SAPFileFeederService
     private $datetime;
     private $container;
     private $importProcessEmailNotificationObj;
+    const BU_TYPE = "PTGEU ";
 
     public function __construct(ContainerInterface $container)
     {
@@ -54,8 +55,8 @@ class SAPFileFeederService
             if (!$sftpConObj->fileExists($ftpFilePath . "/" . $fileName)) {
                 $fileName = $fileNamePrefix . "_" . date('mdY', strtotime("-1 days")) . "." . $ext;
                 if (!$sftpConObj->fileExists($ftpFilePath . "/" . $fileName)) {
-                    $msg = "PTGEU ".ucFirst($commandType)." - Today's and yesterday's import file not uploaded.";
-                    $this->importProcessEmailNotificationObj->sendMailNotification($msg);
+                    $msg = self::BU_TYPE.ucFirst($commandType)." - Today's and yesterday's import file not uploaded.";
+                    $this->importProcessEmailNotificationObj->sendMailNotification(self::BU_TYPE.ucFirst($commandType), $msg);
                     throw new Exception($msg);
                 }
             }
@@ -72,8 +73,8 @@ class SAPFileFeederService
             if ($this->validateAllowedFileType()) {
                 return realpath($this->filePath);
             } else {
-                $msg = "PTGEU ".ucFirst($commandType)." - ".FILE_FORMAT_DOESNOT_SUPPORT." ".sprintf(ALLOWED_FILE_TYPES, $this->fileType);
-                $this->importProcessEmailNotificationObj->sendMailNotification($msg);
+                $msg = self::BU_TYPE.ucFirst($commandType)." - ".FILE_FORMAT_DOESNOT_SUPPORT." ".sprintf(ALLOWED_FILE_TYPES, $this->fileType);
+                $this->importProcessEmailNotificationObj->sendMailNotification(self::BU_TYPE.ucFirst($commandType), $msg);
                 throw new TypeError($msg);
             }
         } catch (Throwable $th) {

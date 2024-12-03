@@ -70,6 +70,7 @@ class ProductSQLModel
         "KG" => UnitConversion\WeightPerLengthConverter::UNIT_KG_PER_M,
         "G" => UnitConversion\WeightPerLengthConverter::UNIT_G_PER_FT,
     ];
+    const BU_TYPE = "IFS-PTG NA Product";
 
     public function __construct(ContainerInterface $container)
     {
@@ -150,7 +151,8 @@ class ProductSQLModel
             } catch (Exception $e) {
                 p_r($e);
                 $this->importProcessEmailNotificationObj->sendMailNotification(
-                    "IFS-NA Product Import not performed - Error occured while reading CSV \n".$e->getMessage()
+                    self::BU_TYPE,
+                    self::BU_TYPE." Import not performed - Error occured while reading CSV \n".$e->getMessage()
                 );
             }
             $this->csvHeader = array_flip($csvInfo['header']);
@@ -212,12 +214,12 @@ class ProductSQLModel
                 }
                 Common::endablePimCache();
         } else {
-                $applicationLogMessage = "IFS-NA Product - The uploaded file has wrong headers.";
-                $this->importProcessEmailNotificationObj->sendMailNotification($applicationLogMessage);
+                $applicationLogMessage = self::BU_TYPE." - The uploaded file has wrong headers.";
+                $this->importProcessEmailNotificationObj->sendMailNotification(self::BU_TYPE, $applicationLogMessage);
             }
         } else {
-            $applicationLogMessage = "IFS-NA Product - No record found in file.";
-            $this->importProcessEmailNotificationObj->sendMailNotification($applicationLogMessage);
+            $applicationLogMessage = self::BU_TYPE." - No record found in file.";
+            $this->importProcessEmailNotificationObj->sendMailNotification(self::BU_TYPE, $applicationLogMessage);
         }
     }
     public function sendSkippedArticlesEmailNotification($skippedArticles, $emailTemplate) {
@@ -336,10 +338,23 @@ class ProductSQLModel
             echo "Record Processed: ".$i;
             $b = time();
             echo "Part ".$j." completed in time: ".$a."====".$b.PHP_EOL;
+
+            // if($j > 9){  // 20 denotes that delta till 20 batches had been processed and you want to start from 21st batch
+
+            //     $this->processIFSorCSProducts($partialData, 'IFS');
+            //     $partialData = null;
+            //     $i = $i+$length;
+            //     echo PHP_EOL;
+            //     echo "Record Processed: ".$i;
+            //     $b = time();
+            //     echo "Part ".$j." completed in time: ".$a."====".$b.PHP_EOL;
+
+            // }
             \Pimcore::collectGarbage();
             gc_collect_cycles();
             $a = time();
             $j++;
+
         }
 
     }
@@ -361,13 +376,15 @@ class ProductSQLModel
                 $length = $diff;
             }
             $partialData = array_slice($delta, $i, $length);
-            $this->processPTGProducts($partialData);
-            $partialData = null;
-            unset($partialData);
-            $i = $i+$length;
-            echo "Record Processed: ".$i;
-            $b = time();
-            echo "Part ".$j." completed in time: ".$a."====".$b.PHP_EOL;
+            // if($j > 9){
+                $this->processPTGProducts($partialData);
+                $partialData = null;
+                unset($partialData);
+                $i = $i+$length;
+                echo "Record Processed: ".$i;
+                $b = time();
+                echo "Part ".$j." completed in time: ".$a."====".$b.PHP_EOL;
+            // }
             \Pimcore::collectGarbage();
             gc_collect_cycles();
             $a = time();

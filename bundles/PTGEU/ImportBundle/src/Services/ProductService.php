@@ -54,6 +54,7 @@ class ProductService
     private $importProcessEmailNotificationObj;
 
     const LOGGER_MODULE = 'SAP IMPORT SHEET';
+    const BU_TYPE = 'PTGEU Product';
 
     public function __construct(CompletenessPercentageService $percentageCompletionService,
      ContainerInterface $container)
@@ -174,28 +175,29 @@ class ProductService
                                 Logger::log(self::LOGGER_MODULE)->info(count($faildRecords)."failed records removed from master table.");
                                 echo count($faildRecords)."failed records removed from master table.".PHP_EOL;
                             }
-                        } catch (Throwable $throwable) {
+                        } catch (\Throwable $throwable) {
                             p_r($throwable);
                             Logger::log(self::LOGGER_MODULE)->error($throwable);
                             Logger::error($this->logFileName, $throwable);
                             die;
                         }
                     } else {
-                        $msg = "PTGEU Product - The uploaded file has wrong headers.";
+                        $msg = self::BU_TYPE." - The uploaded file has wrong headers.";
                         echo $msg;
-                        $this->importProcessEmailNotificationObj->sendMailNotification($msg);
+                        $this->importProcessEmailNotificationObj->sendMailNotification(self::BU_TYPE, $msg);
                     }
                 } else {
-                    $msg = "PTGEU Product - No record found in file.";
+                    $msg = self::BU_TYPE." - No record found in file.";
                     echo $msg;
-                    $this->importProcessEmailNotificationObj->sendMailNotification($msg);
+                    $this->importProcessEmailNotificationObj->sendMailNotification(self::BU_TYPE, $msg);
                 }
-            } catch (Throwable $th) {
+            } catch (\Throwable $th) {
                 p_r($th);
                 Logger::log(self::LOGGER_MODULE)->error($th);
                 Logger::error($this->logFileName, $th);
                 $this->importProcessEmailNotificationObj->sendMailNotification(
-                    "PTGEU Product Import not performed - Error occured while reading CSV \n".$th->getMessage()
+                    self::BU_TYPE,
+                    self::BU_TYPE." Import not performed - Error occured while reading CSV \n".$th->getMessage()
                 );
                 die;
             }

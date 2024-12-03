@@ -78,6 +78,7 @@ class DefaultController extends FrontendController
     {
         $parameterBag = [
             'message'=>(!empty($request->get('message')))?$request->get('message'):'',
+            'env'=>(!empty($request->get('env')))?$request->get('env'):''
         ];
         return $this->render("email_notification/default/ImportProcessEmail.html.twig", $parameterBag);
     }
