@@ -101,7 +101,7 @@ class B2BCategoryRequestBodyGenerator extends AbstractB2BRequestBodyGenerator {
                         }
 
                         if($key == "o_parentId" && $type == "salesForceId"){
-                            $returnArray[$attributeConfig['sf_attribute_name']] = $this->getParentSalesForceId($value, $tempTableData["Level"], $config[$key], $language);
+                            $returnArray[$attributeConfig['sf_attribute_name']] = $this->getParentSalesForceId($value, $tempTableData["Level"], $config[$key], $tempTableData["PrintedCatalogDescription"], $language);
                         }elseif (method_exists($this->requestBodyGeneratorHelper, $fnc)) {
                             $returnArray[$attributeConfig['sf_attribute_name']] = $this->requestBodyGeneratorHelper->$fnc($value, $config[$key], $language);
                         }
@@ -115,11 +115,18 @@ class B2BCategoryRequestBodyGenerator extends AbstractB2BRequestBodyGenerator {
         return $returnArray;
     }
 
-    public function getParentSalesForceId($parentPimId, $level, array $config, $language = null) {
+    public function getParentSalesForceId($parentPimId, $level, array $config, $printedCatalogDescription, $language = null) {
         // PIM level 2 categories needs to be root level categories in SF
         // if($level == 1){
         //     return null;
         // }
+
+        if($level == 1 && $printedCatalogDescription == 'Conveyor Belt Group'){
+            $parentObj = \Pimcore\Model\DataObject\ProductCategory::getByPath(
+                '/Master List/SIOP Master List/SIOP Engineered Products'
+            );
+            $parentPimId = $parentObj->getId();
+        }
 
         $parentType = $this->b2bProductRequestBodyGeneratorDao->getObjectType($parentPimId);
 
