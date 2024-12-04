@@ -256,7 +256,7 @@ class FailedRecords {
     {
       $emailValidator = new EmailValidator();
       $roleClass = new \Pimcore\Model\User\Role\Listing();
-      $roleClass->setCondition("name IN ('ProductManager','ApplicationAdmin')");
+      $roleClass->setCondition("name IN ('ApplicationAdmin')");
       $userRoles = $roleClass->getRoles();
       $role_id = [];
 
