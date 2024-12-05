@@ -378,6 +378,9 @@ article {
     article {
         padding: 8px 0;
     }
+    table.continueLable {
+        border-spacing: 0px;
+    }
 }
 
 article figure {
