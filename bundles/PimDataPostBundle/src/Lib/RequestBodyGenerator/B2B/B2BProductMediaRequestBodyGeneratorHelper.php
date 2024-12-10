@@ -113,7 +113,7 @@ class B2BProductMediaRequestBodyGeneratorHelper
                 "B2B_Description__c" => $videoAsset->getFileName(),
                 "B2B_Media_URL__c" => Util::getAssetPublicPath($videoAsset),
                 "B2B_Sequence__c" => $sequence,
-                "B2B_IsAttachment__c" => "True"
+                "B2B_IsAttachment__c" => true
          );
         $request['body'] = $body;
         $returnArr[]=$request;  // push video request
@@ -166,7 +166,7 @@ class B2BProductMediaRequestBodyGeneratorHelper
                     "B2B_Description__c" => $documentAsset->getFileName(),
                     "B2B_Media_URL__c" => Util::getAssetPublicPath($documentAsset),
                     "B2B_Sequence__c" => $sequence,
-                    "B2B_IsAttachment__c" => "True"
+                    "B2B_IsAttachment__c" => true
                     );
                 $request['body'] = $body;
                 $request['externalId'] = $this->productMediaHelper->getExternalIdForMedia($b2bProductRelationChange->productId,
