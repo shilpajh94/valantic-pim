@@ -297,7 +297,7 @@ class PlantMaterialService
                 }
                 catch (\Exception $e) {
                     p_r($e);
-                    \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($e);
+                    \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error(sprintf('Exception of type %s occurred: %s', get_class($e), $e->getMessage()));
                     /* return error massage if any exception found */
                     $errorsData[] = "Plant Material Code: ".$plantMaterialKey. " - ".$e->getMessage();
                 }
