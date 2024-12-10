@@ -26,6 +26,9 @@
 			padding-top: 15px;
 			padding-left: 5px !important;
 		}
+		.section-page-pts-belts-features  .features{
+			width: 540px;
+		}
 		.section-page-pts-belts-features .full,
 		.section-page-pts-belts-features b {
 			font-size: 12px;
@@ -42,10 +45,18 @@
 			display: list-item !important;
 			list-style: disc !important;
 		}
+		.section-page-pts-belts-page header h1{
+			font-size:50px;
+		}
 		.section-page-pts-belts-LongDescription {
 			background-color: #f0f0f0;
 			padding: 10px 30px;
+			line-height: 20px;
+			font-size: 12pt;
+			letter-spacing: 1px;
 		}
+
+
 		.imageHolder.section-page-pts-belts-images,
 		.belts-Identification-and-profile-dimension-container {
 			display: flex !important;
@@ -69,6 +80,30 @@
 		.section_page_pts_belts_Profile_Dimension_image {
 			margin-left: 10px;
 		}
+		.belts-Identification-and-profile-dimension-container img , .section_page_pts_belts_Profile_Dimension_image {
+			width:214px;
+			height:84px;
+			min-width: 214px;
+    		min-height: 84px;
+		}
+		.section_page_pts_belts_Catalog_Asset_Right_Image {
+			position: absolute;
+			width: 350px;
+			height: 300px;
+			max-height: 400px;
+			top: 450px;
+			right: 10px;
+
+		}
+		{# .section_page_pts_belts_Catalog_Asset_Right_Image_bottom{
+        width: 100%;
+        height: 100px;
+        position: absolute;
+        bottom: 0;
+    	right: 0;
+        background: linear-gradient(#f1f1f114, #ffffff), rgb(255 255 255 / 46%);
+
+		} #}
 
 		header aside.feature-benefits-and-images {
 			background-color: transparent;
@@ -216,22 +251,16 @@
 				align-self: flex-end;
 			}
 
-			.section_page_pts_belts_Catalog_Asset_Right_Image {
-				position: absolute;
-				width: 350px;
-				height: 300px;
-				max-height: 400px;
-				top: 450px;
-				right: 10px;
 
-
-			}
 			.all-child-taxonomy {
 				transform: rotate(90deg) translate(38%, 380px);
 			}
 			.section-page-pts-belts-page .segregate .content-section {
 				margin-top: -50px;
 			}
+					.section-page-pts-belts-features  .features{
+			width: 500px;
+		}
 		}
 	</style>
 		<div class="template section-page-pts-belts-page">
@@ -450,6 +479,7 @@
 										{% if section_page_pts_belts_Catalog_Asset_Right_Image %}
 											<div class="section_page_pts_belts_Catalog_Asset_Right_Image">
 												<img id="section_page_pts_belts_Catalog_Asset_Image" src="{{getImageThumbnail(section_page_pts_belts_Catalog_Asset_Right_Image, imageWidth)}}" alt="section_page_pts_belts_Catalog_Asset_Right_Image"/>
+												<div class="section_page_pts_belts_Catalog_Asset_Right_Image_bottom"></div>
 											</div>
 										{% endif %}
 									{% endif %}
@@ -517,7 +547,7 @@
 				}
 				return { top: _y, left: _x };
 		}
-		document.querySelector('.section_page_pts_belts_Catalog_Asset_Right_Image').style.top=getOffset( document.querySelector('.cellAttributes') ).top-300+"px";
+		document.querySelector('.section_page_pts_belts_Catalog_Asset_Right_Image').style.top=getOffset( document.querySelector('.cellAttributes') ).top-270+"px";
 		</script>
 		{% if not isParentContainerRequest %}
 			<script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
