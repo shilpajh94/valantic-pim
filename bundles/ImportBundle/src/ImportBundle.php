@@ -20,6 +20,7 @@ class ImportBundle extends AbstractPimcoreBundle implements PimcoreBundleAdminCl
         return [
             '/bundles/import/js/pimcore/startup.js',
             '/bundles/import/js/pimcore/csheaderSelection.js',
+            '/bundles/import/js/pimcore/AssetMetaDataButton.js',
         ];
     }
 }
