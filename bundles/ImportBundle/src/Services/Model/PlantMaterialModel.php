@@ -178,6 +178,7 @@ class PlantMaterialModel
             echo "Total {$csvRowCount} records found in csv file.".PHP_EOL;
             $deltaCount = count($excelDataNewArray);
             echo "Total {$deltaCount} Delta records found...".PHP_EOL;
+            \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("PlantMaterial delta count : ".$deltaCount);
             if($deltaCount > 0)
             {
                 $j = 1;
