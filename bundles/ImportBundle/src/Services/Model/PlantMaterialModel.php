@@ -92,7 +92,7 @@ class PlantMaterialModel
             \AppBundle\Helper\Common::endablePimCache();
         } catch (\Throwable $th) {
             p_r($th);
-            \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($th);
+            \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($th->__toString());  // Logs the full exception details as a string
             Logger::error($this->logFileName, $th);
             die;
         }
@@ -178,6 +178,7 @@ class PlantMaterialModel
             echo "Total {$csvRowCount} records found in csv file.".PHP_EOL;
             $deltaCount = count($excelDataNewArray);
             echo "Total {$deltaCount} Delta records found...".PHP_EOL;
+            \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("PlantMaterial delta count : ".$deltaCount);
             if($deltaCount > 0)
             {
                 $j = 1;
@@ -554,7 +555,7 @@ class PlantMaterialModel
                 }
                 catch (\Exception $e) {
                     /* return error massage if any exception found */
-                    \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($e);
+                    \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error(sprintf('Exception of type %s occurred: %s', get_class($e), $e->getMessage()));
                     $errorsData[] = "Plant Material Code: ".$plantMaterialKey. " - ".$e->getMessage();
                 }
             }

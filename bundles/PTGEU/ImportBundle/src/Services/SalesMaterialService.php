@@ -149,6 +149,7 @@ class SalesMaterialService
                 echo "Total {$csvRowCount} records found in csv file.".PHP_EOL;
                 $deltaCount = count($excelDataNewArray);
                 echo "Total {$deltaCount} Delta records found...".PHP_EOL;
+                \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("SalesMaterial delta count : ".$deltaCount);
                 if($deltaCount > 0) {
                     $applicationLogMessage = $this->countDelta($deltaCount, $excelDataNewArray,
                     $plantFolderId, $salesOrganizationsFolderId, $distributionChannelFolderId, $countryOfOriginFolderId);
@@ -538,7 +539,7 @@ class SalesMaterialService
                 }
                 catch (\Exception $e) {
                     p_r($e);
-                    \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($e);
+                    \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error(sprintf('Exception of type %s occurred: %s', get_class($e), $e->getMessage()));
                     /* return error massage if any exception found */
                     $errorsData[] = "Sales Material Code: " . $salesMaterialKey . " - " . $e->getMessage();
                 }

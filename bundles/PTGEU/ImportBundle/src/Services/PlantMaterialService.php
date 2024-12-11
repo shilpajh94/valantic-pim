@@ -149,7 +149,7 @@ class PlantMaterialService
                 echo "Total {$csvRowCount} records found in csv file.".PHP_EOL;
                 $deltaCount = count($excelDataNewArray);
                 echo "Total {$deltaCount} Delta records found...".PHP_EOL;
-
+                \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("PlantMaterial delta count : ".$deltaCount);
                 $applicationLogMessage = "No delta records found.";
 
                 if($deltaCount > 0)
@@ -297,7 +297,7 @@ class PlantMaterialService
                 }
                 catch (\Exception $e) {
                     p_r($e);
-                    \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($e);
+                    \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error(sprintf('Exception of type %s occurred: %s', get_class($e), $e->getMessage()));
                     /* return error massage if any exception found */
                     $errorsData[] = "Plant Material Code: ".$plantMaterialKey. " - ".$e->getMessage();
                 }
