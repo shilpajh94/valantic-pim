@@ -9,6 +9,7 @@ use PTGEU\ImportBundle\Services\ImportService;
 use PTGEU\ImportBundle\Model\PlantMaterialModel;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use AppBundle\Services\ImportProcessEmailNotificationService;
+use PTGEU\ImportBundle\Services\FailedRecords;
 
 class PlantMaterialService
 {
@@ -38,6 +39,9 @@ class PlantMaterialService
     private $failedIDs = [];
     private $container;
     private $importProcessEmailNotificationObj;
+    private $objFailedRecords;
+    private $scriptStartTime;
+
 
     const LOGGER_MODULE = 'PLANT MATERIAL MASTER';
     const BU_TYPE = 'PTGEU Plant';
@@ -57,6 +61,7 @@ class PlantMaterialService
 
         /* Initilize monitoring item and set the number of steps will take to complete the task */
         $this->monitoringItem = ProcessManagerBundle\ElementsProcessManagerBundle::getMonitoringItem();
+        $this->objFailedRecords = new FailedRecords();
     }
 
     public function import()
@@ -206,6 +211,7 @@ class PlantMaterialService
             $applicationLogMessage = self::BU_TYPE." - No record found in file.";
             $this->importProcessEmailNotificationObj->sendMailNotification(self::BU_TYPE, $applicationLogMessage);
         }
+        $this->objFailedRecords->managedFailedRecords('plantMaterial', $this->scriptStartTime);
 
         echo $applicationLogMessage;
 

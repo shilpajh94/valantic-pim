@@ -37,6 +37,9 @@ class SalesMaterialService
     private $distributionChannelCode;
     private $container;
     private $importProcessEmailNotificationObj;
+    private $objFailedRecords;
+    private $scriptStartTime;
+
 
     const LOGGER_MODULE = 'PTGEU SALES MATERIAL MASTER';
     const BU_TYPE = 'PTGEU Sales';
@@ -53,12 +56,14 @@ class SalesMaterialService
         ->getSalesMaterialConfig();
         $this->importProcessEmailNotificationObj = new ImportProcessEmailNotificationService();
         $this->mappingCsvColumn = $this->common->getParameter($salesMaterialConfig, 'mappingCsvColumn');
+        $this->objFailedRecords = new FailedRecords();
     }
 
     public function import() {
         \AppBundle\Helper\Common::clearAndDisablePimCache();
         $sapFileFeeder  = $this->container->get('import.sap_file_feeder_service');
         $this->filePath = $sapFileFeeder->execFileFeeder('salesMaterial');
+        $this->scriptStartTime = time();
         try{
         $csvImportedData = ImportService::getCSVData($this->filePath);
         } catch (\Exception $e) {
@@ -95,6 +100,7 @@ class SalesMaterialService
              $this->tableImportHelper->deleteFailedRecordsFromMaster($failedRecords);
              echo "Total ".count( $failedRecords)." faild record removed from master table".PHP_EOL;
          }
+        $this->objFailedRecords->managedFailedRecords('salesMaterial', $this->scriptStartTime);
          \AppBundle\Helper\Common::endablePimCache();
     }
 
