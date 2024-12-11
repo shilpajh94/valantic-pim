@@ -177,7 +177,7 @@ class ProductService
                             }
                         } catch (\Throwable $throwable) {
                             p_r($throwable);
-                            Logger::log(self::LOGGER_MODULE)->error($throwable);
+                            Logger::log(self::LOGGER_MODULE)->error($throwable->__toString());
                             Logger::error($this->logFileName, $throwable);
                             die;
                         }
@@ -193,8 +193,8 @@ class ProductService
                 }
             } catch (\Throwable $th) {
                 p_r($th);
-                Logger::log(self::LOGGER_MODULE)->error($th);
-                Logger::error($this->logFileName, $th);
+                Logger::log(self::LOGGER_MODULE)->error($th->__toString());
+                Logger::error($this->logFileName, $th->__toString());
                 $this->importProcessEmailNotificationObj->sendMailNotification(
                     self::BU_TYPE,
                     self::BU_TYPE." Import not performed - Error occured while reading CSV \n".$th->getMessage()
@@ -239,7 +239,7 @@ class ProductService
             }
         } catch (\Throwable $th) {
             p_r($th);
-            Logger::log(self::LOGGER_MODULE)->error($th);
+            Logger::log(self::LOGGER_MODULE)->error($th->__toString());
         }
     }
 

@@ -243,7 +243,7 @@ class ProductService
             }
         } catch (\Throwable $th) {
             p_r($th);
-            \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($th);
+            \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($th->__toString());  // Logs the full exception details as a string
         }
     }
 
