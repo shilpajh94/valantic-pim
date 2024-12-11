@@ -17,6 +17,9 @@
 	{% if data is not empty %}
 	
 		<style>
+		body, h1, h2, h3, h4, h5, h6{
+			    font-family: 'ContinentalStagSans-Book';
+		}
 		.cellAttributes table {
 			padding: 0;
 			border-spacing: 0;
@@ -29,31 +32,51 @@
 		.section-page-pts-belts-features  .features{
 			width: 540px;
 		}
-		.section-page-pts-belts-features .full,
-		.section-page-pts-belts-features b {
-			font-size: 12px;
-		}
 		.section-page-pts-belts-features .features p {
 			padding-left: 0 !important;
 		}
-		div.features > ul {
+		{# div.features > ul {
 			margin-left: 40px;
+		} #}
+		div.features	ul li {
+			display: flex;
+			align-items: center; /* Vertically align the content */
+			position: relative; /* Establish a positioning context for the pseudo-element */
+			padding-left: 30px; /* Add padding to the left to make space for the > sign */
+			margin-bottom: 30px; /* Optional: space between list items */
 		}
-		.features ul li {
-			font-size: 14px;
+		.features ul li ,.section-page-pts-belts-features .full,
+		.section-page-pts-belts-features b,.section-page-pts-belts-LongDescription{
+			font-size: 12pt;
+		}
+		.section-page-pts-belts-features .full{
+			padding-bottom: 15px !important;
+		}
+		.features .center::before{
+			color: transparent; 
+			content: ">";
+			margin-right: 10px;
 			padding: 0 10px 10px;
-			display: list-item !important;
-			list-style: disc !important;
+			width: 10px;
+			height: 10px;
+			color: #ffa500;
+			position: absolute; /* Position it absolutely inside the li */
+			left: 0; /* Align to the left edge of the li */
+			top: 0; /* Align the > sign to the top */
 		}
+
 		.section-page-pts-belts-page header h1{
-			font-size:50px;
+			font-size:34.99px;
 		}
 		.section-page-pts-belts-LongDescription {
 			background-color: #f0f0f0;
 			padding: 10px 30px;
 			line-height: 20px;
-			font-size: 12pt;
-			letter-spacing: 1px;
+			letter-spacing: 0.5px;
+		}
+		.specs h6{
+			letter-spacing: normal;
+			font-size: 12pt !important;
 		}
 
 
@@ -129,9 +152,14 @@
 			border-bottom: 1px solid #737373;
 			height: 30px;
 		}
+		.section-page-pts-belts-table-head th{
+			height:0.25in;
+		}
 		.content-section table {
 			border: 2px solid black;
-			width: 70%;
+			/*width: 70%;*/
+			min-width: 5.49in;
+			width: 5.49in;
 			padding-bottom: 10px;
 		}
 
@@ -148,15 +176,17 @@
 		}
 		.section_page_pts_belts_Catalog_Asset_Right_Image {
 			position: absolute;
-			width: 350px;
-			height: 300px;
-			max-height: 400px;
+			width: 3.75in;
+    		height: 4.4in;
+			max-height: auto;
 			top: 380px;
 			right: 30px;
 		}
 		#section_page_pts_belts_Catalog_Asset_Image {
 			min-height: 100%;
 			min-width: 100%;
+			width: 3.75in;
+    		height: 4.4in;
 		}
 		.all-child-taxonomy {
 			min-width: 100%;
@@ -172,8 +202,14 @@
 			border-right: none;
 			border-top: 1px solid;
 			padding: 10px;
-			font-size: 12px;
+			font-size: 7.76pt;
 			font-weight: bold;
+			/*width: 120px;*/
+			/*width:0.35in;
+			height: 1.23in;*/
+			height:0.35in;
+			width: 1.23in;
+    		text-align: center;
 		}
 		.all-child-taxonomy p:last-child {
 
@@ -197,14 +233,31 @@
 		.pageName {
 			/* string-set: pageName content(); */
 			string-set: pageName self;
-			font-size: 10px;
+			font-size: 8pt;
 			font-family: 'ContinentalStagSansLCG-Book';
 			letter-spacing: 0.05em;
 			margin-left: 10px;
 			left: 100px;
 		}
+		.footer1 {
+			min-height:0.99in;
+		}
+		.footer1 .logo {
+			width: 1.85in;
+			height: 1.5in;
+			padding: auto;
+		}
+		footer .logo img {
+			/* max-width: 100%; */
+			/* height: 25px; */
+			width: 1.85in;
+			height: 0.57in;
+		}
+		.flex.aligned h5,.flex.aligned h5 span{
+			font-size: 16pt;
+		} 
 		@page {
-			margin: 50px 0 75px;
+			margin: 50px 0 120px;
 		}
 
 
@@ -215,7 +268,8 @@
 			}
 
 			@top-left {
-				content: counter(page);
+				/*content: counter(page);*/
+				content: '' !important;
 				font-family: 'ContinentalStagSansLCG-Light';
 				float: left;
 				font-size: 10px;
@@ -227,7 +281,7 @@
 				content: string(pageName);
 				font-family: 'ContinentalStagSansLCG-Light';
 				float: right;
-				font-size: 10px;
+				font-size: 8pt !important;
 				margin-right: 50px;
 				z-index: 10;
 				color: #000;
@@ -236,10 +290,11 @@
 
 		@page:left {
 
-			@top-left-corner {
-				content: counter(page);
+			 @top-left-corner {
+				/*content: counter(page);*/
+				content: '' !important;
 				padding-left: 50px;
-			}
+			} 
 
 
 		}
@@ -311,14 +366,19 @@
 							</h5>
 
 							<div class="compatible">
-								{% set section_page_pts_belts_compatibility = pimcore_input("section_page_pts_belts_compatibility") %}
-								{% if section_page_pts_belts_compatibility.isEmpty() %}
+								{% set section_page_pts_belts_compatibility = pimcore_input("section_page_pts_belts_compatibility",{
+									width:200
+								}) %}
+								{% set section_page_pts_belts_export_details = pimcore_input("section_page_pts_belts_export_details",{
+									width:200
+								}) %}
+								{# {% if section_page_pts_belts_compatibility.isEmpty() %}
 									{% set section_page_pts_belts_compatibility = section_page_pts_belts_compatibility .setDataFromResource('Compatible fittings')%}
-								{% endif %}
+								{% endif %} #}
 								<b>
-									Compatible #{{section_page_pts_belts_compatibility|raw}}
+									{{section_page_pts_belts_compatibility|raw}}
 								</b>
-								Details based on export?
+								{{section_page_pts_belts_export_details|raw}}
 
 							</div>
 						</div>
@@ -335,20 +395,17 @@
 							<div class="flex aligned">
 								<h5>{{section_page_pts_belts_footer_SIOP5|raw }}
 									<span>
-										#{{ section_page_pts_belts_SIOP_level_3|raw}}
+										{{ section_page_pts_belts_SIOP_level_3|raw}}
 										{{section_page_pts_belts_SIOP_level_4|raw}}
 									</span>
 								</h5>
 
 								<div class="compatible">
-									{% set section_page_pts_belts_compatibility = pimcore_input("section_page_pts_belts_compatibility") %}
-									{% if section_page_pts_belts_compatibility.isEmpty() %}
-										{% set section_page_pts_belts_compatibility = section_page_pts_belts_compatibility .setDataFromResource('Compatible fittings')%}
-									{% endif %}
 									<b>
-										Compatible #{{section_page_pts_belts_compatibility|raw}}
+										{{section_page_pts_belts_compatibility|raw}}
 									</b>
-									Details based on export?
+									{{section_page_pts_belts_export_details|raw}}
+									
 
 								</div>
 							</div>
@@ -403,7 +460,7 @@
 													<div class="features">
 														<ul>
 															{% for key, feature in data.FeaturesBenefitsBulletPoint %}
-																<li class="flex center">
+																<li class="center">
 																	{{ feature['name'] }}
 																</li>
 															{% endfor %}
@@ -548,7 +605,7 @@
 				}
 				return { top: _y, left: _x };
 		}
-		document.querySelector('.section_page_pts_belts_Catalog_Asset_Right_Image').style.top=getOffset( document.querySelector('.cellAttributes') ).top-270+"px";
+		document.querySelector('.section_page_pts_belts_Catalog_Asset_Right_Image').style.top=getOffset( document.querySelector('.cellAttributes') ).top-320+"px";
 		</script>
 		{% if not isParentContainerRequest %}
 			<script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
