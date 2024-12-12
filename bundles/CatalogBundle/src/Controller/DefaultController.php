@@ -2603,7 +2603,7 @@ $parameterBag['table_class']= $tableClass;
             $maximumTemperatureF ="+". intval(array_unique(array_column($SQLResults, 'maximumTemperatureF'))[0]); 
             $longDescription = array_unique(array_column($SQLResults, 'shortDescription'))[0];
             $brandName = array_unique(array_column($SQLResults, 'brandName'))[0];
-            $skeltons = ($template->getSkeletonProduct() !=null )?$template->getSkeletonProduct():array_slice(array_values(array_unique(array_column($SQLResults, 'Pitch'))),0,4);
+            $skeltons = array_slice(($template->getSkeletonProduct() !=null )?$template->getSkeletonProduct():array_values(array_unique(array_column($SQLResults, 'Pitch'))),0,4);
             $result = [];
             foreach ($SQLResults as $SQLResult) {
                 unset($SQLResult['SIOPLevel2']);
@@ -2618,7 +2618,7 @@ $parameterBag['table_class']= $tableClass;
                 unset($SQLResult['maximumTemperatureF']);
                 unset($SQLResult['temperatureRangeFAndC']);
                 unset($SQLResult['brandName']);
-                
+
                 for ($i = 0; $i < count($skeltons); $i++) {
                     $result[$skeltons[$i]][] = $SQLResult;
                 }

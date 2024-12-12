@@ -124,6 +124,17 @@ pimcore.plugin.CatalogBundle = Class.create({
                     e.detail.object.data.data.BaseProduct
                 );
             }
+            if (e.detail.object.data.data.BaseProduct !== null) {
+
+                setTimeout(
+                    (component, componentValue) => {
+                        component.setValue(componentValue);
+                    },
+                    1000,
+                    e.detail.object.edit.dataFields.SkeletonProduct.component,
+                    e.detail.object.data.data.SkeletonProduct
+                );
+            }
             setTimeout(
                 () => {
                     e.detail.object.edit.dataFields.BaseProduct.component.addListener(
