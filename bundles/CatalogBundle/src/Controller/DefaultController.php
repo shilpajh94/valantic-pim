@@ -2618,19 +2618,9 @@ $parameterBag['table_class']= $tableClass;
                 unset($SQLResult['maximumTemperatureF']);
                 unset($SQLResult['temperatureRangeFAndC']);
                 unset($SQLResult['brandName']);
-                switch ($SQLResult['Pitch']) {
-                    case $skeltons[0]:
-                        $result[$skeltons[0]][] = $SQLResult;
-                        break;
-                    case $skeltons[1]:
-                        $result[$skeltons[1]][] = $SQLResult;
-                        break;
-                    case $skeltons[2]:
-                        $result[$skeltons[2]][] = $SQLResult;
-                        break;
-                    case $skeltons[3]:
-                        $result[$skeltons[3]][] = $SQLResult;
-                        break;
+                
+                for ($i = 0; $i < count($skeltons); $i++) {
+                    $result[$skeltons[$i]][] = $SQLResult;
                 }
             }
             
