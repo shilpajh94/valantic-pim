@@ -2559,7 +2559,9 @@ $parameterBag['table_class']= $tableClass;
                 'baseProducts.SIOPLevel5',
                 'baseProducts.reinforcement', 
                 'baseBricks.material', 
-                'baseProducts.temperatureRangeFAndC', 
+                'baseProducts.temperatureRangeFAndC',
+                'baseProducts.minimumTemperatureF',
+                'baseProducts.maximumTemperatureF', 
                 'baseProducts.mainImage',
                 'baseProducts.beltIdentificationImage',    
                 'baseProducts.profileDimensionPtsBelts',    
@@ -2596,6 +2598,8 @@ $parameterBag['table_class']= $tableClass;
             $reinforcement = trim(array_unique(array_column($SQLResults, 'reinforcement'))[0], ',');
             $material = trim(array_unique(array_column($SQLResults, 'material'))[0],',');
             $temperatureRangeFAndC = array_unique(array_column($SQLResults, 'temperatureRangeFAndC'))[0];
+            $minimumTemperatureF = intval(array_unique(array_column($SQLResults, 'minimumTemperatureF'))[0]);
+            $maximumTemperatureF ="+". intval(array_unique(array_column($SQLResults, 'maximumTemperatureF'))[0]); 
             $longDescription = array_unique(array_column($SQLResults, 'shortDescription'))[0];
             $brandName = array_unique(array_column($SQLResults, 'brandName'))[0];
             $skeltons = array_values(array_unique(array_column($SQLResults, 'Pitch')));
@@ -2609,6 +2613,9 @@ $parameterBag['table_class']= $tableClass;
                 unset($SQLResult['beltIdentificationImage']);
                 unset($SQLResult['profileDimensionPtsBelts']);
                 unset($SQLResult['FeaturesBenefitsBulletPoint']);
+                unset($SQLResult['minimumTemperatureF']);
+                unset($SQLResult['maximumTemperatureF']);
+                unset($SQLResult['temperatureRangeFAndC']);
                 unset($SQLResult['brandName']);
                 switch ($SQLResult['Pitch']) {
                     case $skeltons[0]:
@@ -2616,6 +2623,12 @@ $parameterBag['table_class']= $tableClass;
                         break;
                     case $skeltons[1]:
                         $result[$skeltons[1]][] = $SQLResult;
+                        break;
+                    case $skeltons[2]:
+                        $result[$skeltons[2]][] = $SQLResult;
+                        break;
+                    case $skeltons[3]:
+                        $result[$skeltons[3]][] = $SQLResult;
                         break;
                 }
             }
@@ -2684,6 +2697,8 @@ $parameterBag['table_class']= $tableClass;
 
             $data['SIOPCategories'] = isset($SIOPCategories)?$SIOPCategories:[];
             $data['temperatureRangeFAndC'] = isset($temperatureRangeFAndC)?$temperatureRangeFAndC:'';
+            $data['minimumTemperatureF'] = isset($minimumTemperatureF)?$minimumTemperatureF:'';
+            $data['maximumTemperatureF'] = isset($maximumTemperatureF)?$maximumTemperatureF:'';
             $data['material'] = isset($material)?$material:'';
             $data['reinforcement'] = isset($reinforcement)?$reinforcement:''; 
             $data['mainImage'] = isset($mainImage)?$mainImage:'';
