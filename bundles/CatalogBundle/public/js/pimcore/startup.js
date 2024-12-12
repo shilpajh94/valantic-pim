@@ -109,14 +109,63 @@ pimcore.plugin.CatalogBundle = Class.create({
             e.detail.object.edit.dataFields.BaseProduct.component.setStore(baseOptionsStore);
 
             baseOptionsStore.load();
-            if (e.detail.object.data.data.BaseProduct !== null)
-            {
-            console.log(e.detail.object.edit.dataFields.BaseProduct.component,e.detail.object.data.data.BaseProduct);
-            setTimeout((component,componentValue)=>{
+            if (e.detail.object.data.data.BaseProduct !== null) {
 
-                component.setValue(componentValue);
-            }, 1000,  e.detail.object.edit.dataFields.BaseProduct.component,e.detail.object.data.data.BaseProduct)
+                setTimeout(
+                    (component, componentValue) => {
+                        component.setValue(componentValue);
+
+                    updateSkeltonProducts(
+                        componentValue
+                    );
+                    },
+                    1000,
+                    e.detail.object.edit.dataFields.BaseProduct.component,
+                    e.detail.object.data.data.BaseProduct
+                );
             }
+            setTimeout(
+                () => {
+                    e.detail.object.edit.dataFields.BaseProduct.component.addListener(
+                        "change",
+                        () => {
+                            updateSkeltonProducts(
+                                e.detail.object.edit.dataFields.BaseProduct
+                                    .component.value
+                            );
+                        }
+                    );
+                },
+                1005,
+                e.detail.object.edit.dataFields.BaseProduct.component.value
+            );
+
+            const updateSkeltonProducts = (baseProductId) => {
+                var SkeletonProductStore = Ext.create("Ext.data.Store", {
+                    fields: ["key", "value"],
+                    proxy: {
+                        type: "ajax",
+                        url: "/catalog/get-skeleton-products",
+                        //  method:'POST',
+                        extraParams: {
+                            products: baseProductId,
+                            needKey: true,
+                        },
+                        reader: {
+                            type: "json",
+                            rootProperty: "data",
+                        },
+                    },
+                });
+
+                SkeletonProductStore.load();
+
+                e.detail.object.edit.dataFields.SkeletonProduct.component.setStore(
+                    SkeletonProductStore
+                );
+
+                SkeletonProductStore.load();
+            };
             // e.detail.object.edit.dataFields.BaseProduct.component.on('blur', function (e) {
 
             //     var skeletonOptionsStore = Ext.create('Ext.data.Store', {

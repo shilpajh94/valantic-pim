@@ -189,6 +189,7 @@ class DefaultController extends FrontendController
     public function getSkeletonProductsAction(Request $request): JsonResponse
     {
         $baseProducts = json_decode($request->get('products'), 1);
+        $needKey = $request->get('needKey')? filter_var($request->get('needKey'), FILTER_VALIDATE_BOOLEAN):false;
         $productList = new DataObject\Product\Listing();
 
         $productList->addConditionParam('parentId IN (?)', [$baseProducts], 'AND');
@@ -196,7 +197,7 @@ class DefaultController extends FrontendController
 
         $options = [];
         foreach ($productList as $item) {
-            $options[] = array('text' => $item->getSapDescription('en'), 'id' => $item->getId());
+            $options[] = array('text' => ($needKey)?$item->getKey():$item->getSapDescription('en'), 'id' => ($needKey)?$item->getKey():$item->getId());
         }
 
         return $this->json(['data' => $options]);
@@ -2602,7 +2603,7 @@ $parameterBag['table_class']= $tableClass;
             $maximumTemperatureF ="+". intval(array_unique(array_column($SQLResults, 'maximumTemperatureF'))[0]); 
             $longDescription = array_unique(array_column($SQLResults, 'shortDescription'))[0];
             $brandName = array_unique(array_column($SQLResults, 'brandName'))[0];
-            $skeltons = array_values(array_unique(array_column($SQLResults, 'Pitch')));
+            $skeltons = ($template->getSkeletonProduct() !=null )?$template->getSkeletonProduct():array_slice(array_values(array_unique(array_column($SQLResults, 'Pitch'))),0,4);
             $result = [];
             foreach ($SQLResults as $SQLResult) {
                 unset($SQLResult['SIOPLevel2']);
