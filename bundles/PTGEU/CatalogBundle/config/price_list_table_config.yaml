@@ -12,4 +12,4 @@ parameters:
     "USD": '$'
     "CAD": '$'
     "MXN": '$'
-    "EUR": '$'  
+    "EUR": '€'  
