@@ -166,7 +166,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1729848016,
+   'modificationDate' => 1734499026,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -6928,6 +6928,14 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           array (
                             'assetTypes' => 'video',
                           ),
+                          3 => 
+                          array (
+                            'assetTypes' => 'text',
+                          ),
+                          4 => 
+                          array (
+                            'assetTypes' => 'unknown',
+                          ),
                         ),
                          'documentsAllowed' => false,
                          'documentTypes' => 
@@ -6935,7 +6943,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         ),
                          'enableTextSelection' => false,
                          'width' => '',
-                         'height' => '',
+                         'height' => NULL,
                          'columns' => 
                         array (
                           0 => 
@@ -6943,7 +6951,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                             'type' => 'text',
                             'position' => 1,
                             'key' => 'DrawingNumber',
-                            'id' => 'extModel2946-1',
                             'label' => 'Drawing Number',
                           ),
                           1 => 
@@ -6951,7 +6958,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                             'type' => 'number',
                             'position' => 2,
                             'key' => 'DrawingRevisionNumber',
-                            'id' => 'extModel2946-2',
                             'label' => 'Drawing Revision number',
                           ),
                           2 => 
@@ -6959,7 +6965,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                             'type' => 'text',
                             'position' => 3,
                             'key' => 'DrawingRevisionDate',
-                            'id' => 'extModel2946-3',
                             'label' => 'Drawing Revision Date',
                             'width' => NULL,
                           ),
@@ -6968,7 +6973,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                             'type' => 'bool',
                             'position' => 4,
                             'key' => 'CertificationDocument',
-                            'id' => 'extModel7263-1',
                             'label' => 'Certification Document',
                           ),
                         ),
