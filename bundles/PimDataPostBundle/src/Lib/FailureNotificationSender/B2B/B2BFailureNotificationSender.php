@@ -62,11 +62,11 @@ class B2BFailureNotificationSender extends AbstractB2BFailureNotificationSender
 
         $mail->setIgnoreDebugMode(true);
         $B2B_B2C_Users_Email = array(
-            'Mark.Dario@continental.com',
-            'amit.rajput@ptg.contitech.in',
-            'kenichi.ban@contitech.de',
-            'anthony.miller@contitech.de',
-            'arun.10.kumar@continental.com',
+            // 'Mark.Dario@continental.com',
+            // 'amit.rajput@ptg.contitech.in',
+            // 'kenichi.ban@contitech.de',
+            // 'anthony.miller@contitech.de',
+            // 'arun.10.kumar@continental.com',
             'rajesh.kumar4@happiestminds.com',
             'gaurav.tyagi@happiestminds.com',
             'aman.sharma2@happiestminds.com'
@@ -80,7 +80,14 @@ class B2BFailureNotificationSender extends AbstractB2BFailureNotificationSender
         //     $mail->addTo($email);
         // }
 
-        $mail->Subject(Constants::B2B_FAILURE_TEMPLATE_SUBJECT_NAME);
+        if(CUSTOM_ENV == "stage"){
+            $subject = "Stage ".Constants::B2B_FAILURE_TEMPLATE_SUBJECT_NAME;
+        }
+        else if(CUSTOM_ENV == "prod"){
+            $subject = "Production ".Constants::B2B_FAILURE_TEMPLATE_SUBJECT_NAME;
+        }
+
+        $mail->Subject($subject);
         $mail->setDocument(Constants::B2B_FAILURE_TEMPLATE_NAME);
         $mail->setParams($params);
         $mail->send();
