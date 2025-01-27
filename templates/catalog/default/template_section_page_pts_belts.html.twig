@@ -42,8 +42,8 @@
 			display: flex;
 			align-items: center; /* Vertically align the content */
 			position: relative; /* Establish a positioning context for the pseudo-element */
-			padding-left: 30px; /* Add padding to the left to make space for the > sign */
-			margin-bottom: 30px; /* Optional: space between list items */
+			padding-left: 10px; /* Add padding to the left to make space for the > sign */
+			margin-bottom: 40px; /* Optional: space between list items */
 		}
 		.features ul li ,.section-page-pts-belts-features .full,
 		.section-page-pts-belts-features b,.section-page-pts-belts-LongDescription{
@@ -51,9 +51,10 @@
 		}
 		.section-page-pts-belts-features .full{
 			padding-bottom: 15px !important;
+			padding-left: 50px !important;
 		}
 		.features .center::before{
-			color: transparent; 
+		/*	color: transparent; 
 			content: ">";
 			margin-right: 10px;
 			padding: 0 10px 10px;
@@ -61,16 +62,21 @@
 			height: 10px;
 			color: #ffa500;
 			position: absolute; /* Position it absolutely inside the li */
-			left: 0; /* Align to the left edge of the li */
-			top: 0; /* Align the > sign to the top */
+	/*		left: 0; /* Align to the left edge of the li */
+	/*		top: 0; /* Align the > sign to the top */  
+
+	content: "›"; /* Add bullet arrow */
+    color: #f5a623;
+    margin-right: 13px;
+	font-weight: bolder;
 		}
 
 		.section-page-pts-belts-page header h1{
-			font-size:34.99px;
+			font-size:40.99px;
 		}
 		.section-page-pts-belts-LongDescription {
 			background-color: #f0f0f0;
-			padding: 10px 30px;
+			padding: 10px 20px;
 			line-height: 20px;
 			letter-spacing: 0.5px;
 		}
@@ -145,7 +151,7 @@
 			word-break: break-word;
 			font-size: 12px;
 			text-align: center;
-			font-weight: bold;
+			font-weight: 10;
 			word-wrap: break-all;
 			text-wrap: normal;
 			white-space: normal;
@@ -173,6 +179,7 @@
 		.feature-benefits-and-images .content .flex .specs h6 {
 			padding-left: 0;
 			font-size: 18px;
+			padding-bottom: 10px;
 		}
 		.section_page_pts_belts_Catalog_Asset_Right_Image {
 			position: absolute;
@@ -190,7 +197,7 @@
 		}
 		.all-child-taxonomy {
 			min-width: 100%;
-			height: 50px;
+			height: 90px;
 			display: flex;
 			align-items: center;
 			/* justify-content: space-around; */
@@ -254,8 +261,12 @@
 			height: 0.57in;
 		}
 		.flex.aligned h5,.flex.aligned h5 span{
-			font-size: 16pt;
+			font-size: 12pt;
 		} 
+
+		.ptg{
+			padding:0px 22px !important
+		}
 		@page {
 			margin: 50px 0 120px;
 		}
@@ -500,7 +511,7 @@
 									<div class="left-image-and-table">
 
 										<div class="belts-Identification-and-profile-dimension-container">
-											{% set section_page_pts_belts_Identification_Image = pimcore_image("section_page_pts_belts_Identification_Image", {"width": 400, "height": 100}) %}
+											{% set section_page_pts_belts_Identification_Image = pimcore_image("section_page_pts_belts_Identification_Image", {"width": 400, "height": 100, "border-style": "2px solid #333"}) %}
 											{% set section_page_pts_belts_Profile_Dimension_image  = pimcore_image("section_page_pts_belts_Profile_Dimension_image", {"width": 400, "height": 100}) %}
 
 											{% if data.beltIdentificationImage %}
