@@ -90,7 +90,7 @@
 		.belts-Identification-and-profile-dimension-container {
 			display: flex !important;
 			height: 100%;
-			height: 200px;
+			height: 160px;
 		}
 		.belts-Identification-and-profile-dimension-container {
 			width: 70%;
@@ -249,17 +249,22 @@
 		.footer1 {
 			min-height:0.99in;
 		}
-		.footer1 .logo {
+		.footer1 .ptslogo {
 			width: 1.85in;
 			height: 1.5in;
 			padding: auto;
 		}
-		footer .logo img {
-			/* max-width: 100%; */
-			/* height: 25px; */
+		footer .ptslogo img {
 			width: 1.85in;
-			height: 0.57in;
+			height: 2in;
+			object-fit: contain;
+			display: flex;
+			align-items: flex-end;
+			background-color: black;
+			overflow: hidden;
+			padding: 0 9px 9px 9px;
 		}
+
 		.flex.aligned h5,.flex.aligned h5 span{
 			font-size: 12pt;
 		} 
@@ -267,6 +272,18 @@
 		.ptg{
 			padding:0px 22px !important
 		}
+
+		.section_page_pts_belts_Identification_Image{
+			border: solid 2px;
+       }
+
+		.section_page_pts_belts_Profile_Dimension_image{
+				border: solid 2px;
+		}
+		.fullcontainer{
+			margin-bottom: 20px;
+		}
+
 		@page {
 			margin: 50px 0 120px;
 		}
@@ -312,7 +329,7 @@
 
 		@media print {
 			.belts-Identification-and-profile-dimension-container img {
-				height: 80px;
+				height: 50px;
 				width: 100px !important;
 				display: inline-block;
 				align-self: flex-end;
@@ -328,6 +345,10 @@
 			.section-page-pts-belts-features  .features{
 			    width: 400px;
 		    }
+
+			.fullcontainer{
+			margin-bottom: 20px;
+		}
 		}
 	</style>
 		<div class="template section-page-pts-belts-page">
@@ -339,7 +360,7 @@
 
 				<div class="footer ">
 					<footer class="flex-center {{ data.footer_class }}">
-						<span class="logo">
+						<span class="ptslogo">
 							<img src="{{ data.footer_logo_src }}" alt="footer log">
 						</span>
 						<div class="flex aligned">
@@ -400,7 +421,7 @@
 				{% if not editmode %}
 					<div class="footer1 ">
 						<footer class="flex-center {{ data.footer_class }}">
-							<span class="logo">
+							<span class="ptslogo">
 								<img src="{{ data.footer_logo_src }}" alt="">
 							</span>
 							<div class="flex aligned">
