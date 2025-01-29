@@ -196,12 +196,12 @@
     		height: 4.4in;
 		}
 		.all-child-taxonomy {
-			min-width: 100%;
+			min-width: 120%;
 			height: 90px;
 			display: flex;
 			align-items: center;
 			/* justify-content: space-around; */
-			transform: rotate(90deg) translate(50%, 460px);
+			transform: rotate(90deg) translate(40%, 459px) !important;
 		}
 		.all-child-taxonomy p {
 			border-bottom: 1px solid;
@@ -215,7 +215,7 @@
 			/*width:0.35in;
 			height: 1.23in;*/
 			height:0.35in;
-			width: 1.50in;
+			width: 1.57in;
     		text-align: center;
 		}
 		.all-child-taxonomy p:last-child {
@@ -444,14 +444,15 @@
 						</footer>
 					</div>
 				{% endif %}
+				{% if data.SIOPCategories is not empty %}
+					<div class="all-child-taxonomy">
+						{% for SIOPCategory,selected in data.SIOPCategories %}
+							<p class="{{selected}}">{{SIOPCategory}}</p>
+						{% endfor %}
+					</div>
+				{% endif %}
 				<div class="content-container right-side-container">
-					{% if data.SIOPCategories is not empty %}
-						<div class="all-child-taxonomy">
-							{% for SIOPCategory,selected in data.SIOPCategories %}
-								<p class="{{selected}}">{{SIOPCategory}}</p>
-							{% endfor %}
-						</div>
-					{% endif %}
+					
 
 					<div class="content-section">
 						<header class="content white">

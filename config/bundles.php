@@ -47,7 +47,7 @@ return [
     \Pimcore\Bundle\FileExplorerBundle\PimcoreFileExplorerBundle::class => ['all' => true],
     \Pimcore\Bundle\SystemInfoBundle\PimcoreSystemInfoBundle::class => ['all' => true],
     \SSOIntegrationBundle\SSOIntegrationBundle::class => ['all' => true],
-    Pimcore\Bundle\DataImporterBundle\PimcoreDataImporterBundle::class => ['all' => true],
+    //Pimcore\Bundle\DataImporterBundle\PimcoreDataImporterBundle::class => ['all' => true],
     // Pimcore\Bundle\PimcoreDataHubBundle\PimcoreDataHubBundle::class => ['all' => true],
     // Pimcore\Bundle\DataImporterBundle\DataImporterBundle::class => ['all' => true],
 
