@@ -43,7 +43,7 @@
 			align-items: center; /* Vertically align the content */
 			position: relative; /* Establish a positioning context for the pseudo-element */
 			padding-left: 10px; /* Add padding to the left to make space for the > sign */
-			margin-bottom: 40px; /* Optional: space between list items */
+			margin-bottom: 50px; /* Optional: space between list items */
 		}
 		.features ul li ,.section-page-pts-belts-features .full,
 		.section-page-pts-belts-features b,.section-page-pts-belts-LongDescription{
@@ -99,6 +99,7 @@
 		.section_page_pts_belts_table_container {
 
 			margin-left: 15px;
+			margin-top: 45px;
 		}
 		.belts-Identification-and-profile-dimension-container img {
 			height: 100px;
@@ -196,12 +197,12 @@
     		height: 4.4in;
 		}
 		.all-child-taxonomy {
-			min-width: 100%;
-			height: 90px;
+			min-width: 120%;
+			height: 30px;
 			display: flex;
 			align-items: center;
 			/* justify-content: space-around; */
-			transform: rotate(90deg) translate(50%, 460px);
+			transform: rotate(90deg) translate(40%, 459px) !important;
 		}
 		.all-child-taxonomy p {
 			border-bottom: 1px solid;
@@ -215,7 +216,7 @@
 			/*width:0.35in;
 			height: 1.23in;*/
 			height:0.35in;
-			width: 1.50in;
+			width: 1.57in;
     		text-align: center;
 		}
 		.all-child-taxonomy p:last-child {
@@ -352,6 +353,10 @@
 		.flex-center {
 			margin-top: 30px;
 		}
+		.right-side-container{
+			padding-top: 35px;
+
+		}
 
 
 		}
@@ -449,14 +454,15 @@
 						</footer>
 					</div>
 				{% endif %}
+				{% if data.SIOPCategories is not empty %}
+					<div class="all-child-taxonomy">
+						{% for SIOPCategory,selected in data.SIOPCategories %}
+							<p class="{{selected}}">{{SIOPCategory}}</p>
+						{% endfor %}
+					</div>
+				{% endif %}
 				<div class="content-container right-side-container">
-					{% if data.SIOPCategories is not empty %}
-						<div class="all-child-taxonomy">
-							{% for SIOPCategory,selected in data.SIOPCategories %}
-								<p class="{{selected}}">{{SIOPCategory}}</p>
-							{% endfor %}
-						</div>
-					{% endif %}
+					
 
 					<div class="content-section">
 						<header class="content white">
