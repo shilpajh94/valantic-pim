@@ -136,7 +136,7 @@
 
 		header aside.feature-benefits-and-images {
 			background-color: transparent;
-			margin-bottom: 20px;
+			margin-bottom: 6px;
 		}
 		thead .section-page-pts-belts-table-head {
 			background-color: orange;
@@ -256,7 +256,7 @@
 		}
 		footer .ptslogo img {
 			width: 1.85in;
-			height: 2in;
+			height: 1in;
 			object-fit: contain;
 			display: flex;
 			align-items: flex-end;
@@ -349,6 +349,11 @@
 			.fullcontainer{
 			margin-bottom: 20px;
 		}
+		.flex-center {
+			margin-top: 30px;
+		}
+
+
 		}
 	</style>
 		<div class="template section-page-pts-belts-page">
@@ -425,7 +430,7 @@
 								<img src="{{ data.footer_logo_src }}" alt="">
 							</span>
 							<div class="flex aligned">
-								<h5>{{section_page_pts_belts_footer_SIOP5|raw }}
+								<h5 style="padding-bottom:70px;">{{section_page_pts_belts_footer_SIOP5|raw }}
 									<span>
 										{{ section_page_pts_belts_SIOP_level_3|raw}}
 										{{section_page_pts_belts_SIOP_level_4|raw}}
@@ -533,7 +538,7 @@
 
 										<div class="belts-Identification-and-profile-dimension-container">
 											{% set section_page_pts_belts_Identification_Image = pimcore_image("section_page_pts_belts_Identification_Image", {"width": 400, "height": 100, "border-style": "2px solid #333"}) %}
-											{% set section_page_pts_belts_Profile_Dimension_image  = pimcore_image("section_page_pts_belts_Profile_Dimension_image", {"width": 400, "height": 100}) %}
+											{% set section_page_pts_belts_Profile_Dimension_image  = pimcore_image("section_page_pts_belts_Profile_Dimension_image", {"width": 300, "height": 100}) %}
 
 											{% if data.beltIdentificationImage %}
 												{% set section_page_pts_belts_Identification_Image = section_page_pts_belts_Identification_Image.setImage(data.beltIdentificationImage) %}
