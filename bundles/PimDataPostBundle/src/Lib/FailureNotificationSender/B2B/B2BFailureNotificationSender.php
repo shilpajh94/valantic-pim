@@ -62,14 +62,11 @@ class B2BFailureNotificationSender extends AbstractB2BFailureNotificationSender
 
         $mail->setIgnoreDebugMode(true);
         $B2B_B2C_Users_Email = array(
-            // 'Mark.Dario@continental.com',
-            // 'amit.rajput@ptg.contitech.in',
-            // 'kenichi.ban@contitech.de',
-            // 'anthony.miller@contitech.de',
-            // 'arun.10.kumar@continental.com',
-            'rajesh.kumar4@happiestminds.com',
-            'gaurav.tyagi@happiestminds.com',
-            'aman.sharma2@happiestminds.com'
+            'Mark.Dario@continental.com',
+            'amit.rajput@ptg.contitech.in',
+            'kenichi.ban@contitech.de',
+            'anthony.miller@contitech.de',
+            'arun.10.kumar@continental.com',
         );
 
         foreach ($B2B_B2C_Users_Email as $email) {
