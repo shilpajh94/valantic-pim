@@ -40,7 +40,7 @@
 		} #}
 		div.features	ul li {
 			display: flex;
-			align-items: center; /* Vertically align the content */
+			align-items: flex-start; /* Vertically align the content */
 			position: relative; /* Establish a positioning context for the pseudo-element */
 			padding-left: 10px; /* Add padding to the left to make space for the > sign */
 			/*margin-bottom: 50px; /* Optional: space between list items */
@@ -92,7 +92,8 @@
 		.belts-Identification-and-profile-dimension-container {
 			display: flex !important;
 			height: 100%;
-			/*height: 160px;*/
+			height: 155px;
+			margin-bottom: 6px;
 		}
 		.belts-Identification-and-profile-dimension-container {
 			width: 70%;
@@ -101,7 +102,6 @@
 		.section_page_pts_belts_table_container {
 
 			margin-left: 15px;
-			margin-top: 20px;
 		}
 		.belts-Identification-and-profile-dimension-container img {
 			height: 100px;
@@ -265,7 +265,7 @@
 			align-items: flex-end;
 			background-color: black;
 			overflow: hidden;
-			padding: 0 9px 9px 9px;
+			padding: 37px 9px 9px 9px;
 		}
 
 		.flex.aligned h5,.flex.aligned h5 span{
@@ -278,13 +278,14 @@
 
 		.section_page_pts_belts_Identification_Image{
 			border: solid 2px;
+			margin-right: 9px;
        }
 
 		.section_page_pts_belts_Profile_Dimension_image{
 				border: solid 2px;
 		}
 		.fullcontainer{
-			margin-bottom: 10px;
+			margin-bottom: 0px;
 		}
 
 		@page {
@@ -350,17 +351,18 @@
 		    }
 
 			.fullcontainer{
-			margin-bottom: 20px;
-		}
-		.flex-center {
-			margin-top: 30px;
-		}
-		.right-side-container{
-			padding-top: 35px;
+			margin-bottom: 0px;
+			}
+			.flex-center {
+				margin-top: 30px;
+			}
+			.right-side-container{
+				padding-top: 0;
 
-		}
-
-
+			}
+			.content.single.ptg{
+				min-height: 480px;
+			}
 		}
 	</style>
 		<div class="template section-page-pts-belts-page">
@@ -657,3 +659,4 @@
 		{% endif %}
 	{% endif %}
 {% endblock %}
+
