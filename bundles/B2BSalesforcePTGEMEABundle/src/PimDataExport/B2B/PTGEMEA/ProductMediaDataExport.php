@@ -144,7 +144,7 @@ class ProductMediaDataExport implements IDataExport
                 }
                 $altText = strrev(explode('/', strrev(Util::getAssetPublicPath($asset)))[0]);
                 $assetResultSet['Product2__c'] = '06-' . $articleNumber;
-                $assetResultSet['B2B_Media_Type__c'] = $mediaType;
+                $assetResultSet['B2B_Media_Type__c'] = 'Catalogues';
                 $assetResultSet['B2B_Display_Type__c'] = '';
                 $assetResultSet['B2B_Media_URL__c'] = Util::getAssetPublicPath($asset);
                 $assetResultSet['B2B_Description__c'] = substr($asset->getFilename(), 0, strpos($asset->getFilename(), "."));
