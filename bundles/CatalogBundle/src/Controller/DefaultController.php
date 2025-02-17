@@ -99,11 +99,17 @@ class DefaultController extends FrontendController
     public function getTablesAction(Request $request): JsonResponse
     {
         $parentCat = $request->get('catId');
-        $parentObj = DataObject\CatalogCategory::getById($parentCat);
-        $parent = $parentObj->getParentId();
-
-        $categoryObj = DataObject\Catalog::getById($parent);
-        $category = $categoryObj->getCatalogType();
+		$className = $request->get('className');
+		$category = "";
+		if($className == "SpecSheetCatalog"){
+			$category = $parentCat;
+		} else {
+			$parentObj = DataObject\CatalogCategory::getById($parentCat);
+			$parent = $parentObj->getParentId();
+			$categoryObj = DataObject\Catalog::getById($parent);
+			$category = $categoryObj->getCatalogType();
+		}
+        
 
         $commonHelper = $this->containerInterface->get('app.common_helper');
 
@@ -210,7 +216,7 @@ class DefaultController extends FrontendController
         $objectId = $request->get('id');
         $table = $request->get('table');
         $template = $request->get('template');
-        $obj = DataObject\CatalogTables::getById($objectId);
+        $obj = DataObject::getById($objectId);
 
         if ($template == null) {
             $template = $obj->getTemplate();
@@ -222,8 +228,7 @@ class DefaultController extends FrontendController
         $columns = array();
         $arr = [];
 
-        if ($template && $table) {
-
+        if ($template && $table) { 
             $tableColumns = isset($this->tableColumns[$template][$table]) ? $this->tableColumns[$template][$table] : null;
 
             if ($tableColumns !== null) {
@@ -688,7 +693,10 @@ class DefaultController extends FrontendController
     public function getInitialData(Request $request): Response
     {
         $objId = $request->get('objId');
-        $data = DataObject\CatalogTables::getById($objId);
+		$className = $request->get('className');
+
+		$data = DataObject::getById($objId);
+        
         $tableData = $data->getProductsData();
         $fieldData = json_decode($data->getHeaderData(), 1);
 
