@@ -25,3 +25,7 @@ services:
     ADAuthBundle\EventListner\AuthenticateListner:
             tags:
             - { name: kernel.event_listener, event: pimcore.admin.login.credentials, method: onLoginCredentials }
+    
+    ADAuthBundle\EventListner\UserLoginListener:
+        tags:
+            - { name: 'kernel.event_subscriber', method: onUserLogin}

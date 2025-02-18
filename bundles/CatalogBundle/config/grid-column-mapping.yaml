@@ -176,6 +176,18 @@ parameters:
                 fieldLabel: Profile Dimension Image
                 parent: 
                     name: Product
+            beltIdentificationImage:
+                fieldLevel: class
+                fieldType: Media
+                fieldLabel: Belt Identification Image
+                parent: 
+                    name: Product
+            profileDimensionPtsBelts:
+                fieldLevel: class
+                fieldType: Media
+                fieldLabel: PTS belts Profile Dimension Image
+                parent: 
+                    name: Product
             longDescription:
                 fieldLevel: class
                 fieldType: Input

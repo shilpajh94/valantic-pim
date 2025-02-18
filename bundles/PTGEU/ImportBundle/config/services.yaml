@@ -74,6 +74,10 @@ services:
         tags:
             - { name: 'console.command', command: 'contitech:delete_older_ptgeu_sap_files' }
 
+    PTGEU\ImportBundle\Command\ProductFailureMailCommand:
+        tags:
+            - { name: 'console.command', command:   'conti:ptgeu-product-failure-mail'}
+
     # this command will delete records from ptgeu_material_import_master for newly created master
     PTGEU\ImportBundle\Command\DeleteRecordsFromImportMasterTableForNewlyCreatedMasterCommand:
         tags:
@@ -193,4 +197,8 @@ services:
 
     import.editables_service:
         class: PTGEU\ImportBundle\Services\EditablesService
+        public: true
+    
+    import.failed_records:
+        class:  PTGEU\ImportBundle\Services\FailedRecords
         public: true

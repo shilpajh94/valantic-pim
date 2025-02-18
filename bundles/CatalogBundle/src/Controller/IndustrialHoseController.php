@@ -500,11 +500,15 @@ class IndustrialHoseController extends FrontendController
                                     }
                                 }
                             }
+                            if (isset($data[$uniqueId]['data'][$brandName]['SortOrder'])) {
+                                if (array_key_exists($brandName,$data[$uniqueId]['data']) && isset($data[$uniqueId]['data'][$brandName])) {
+                                        
+                                    $data[$uniqueId]['data'][$brandName]['SortOrder'] = $brandsList[$brandName]['SortOrder'];
+                                }
 
-                            $data[$uniqueId]['data'][$brandName]['SortOrder'] = $brandsList[$brandName]['SortOrder'];
-
-                            if (isset($data[$uniqueId]['data'])) {
-                                array_multisort(array_column($data[$uniqueId]['data'], 'SortOrder'), SORT_ASC, $data[$uniqueId]['data']);
+                                if (isset($data[$uniqueId]['data']['SortOrder'])) {
+                                    array_multisort(array_column($data[$uniqueId]['data'], 'SortOrder'), SORT_ASC, $data[$uniqueId]['data']);
+                                }
                             }
                         }
                     }
@@ -548,7 +552,7 @@ class IndustrialHoseController extends FrontendController
             $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
             $parameterBag = $this->getRequestedParameter($request, $documentId);
         }
-
+        $tableClass = \AppBundle\Helper\Common::cleanString( $this->document->getKey());
         $templateEditable = $this->document->getEditable('inh-printcatalogproduct');
 
         if ($templateEditable && $templateEditable->getElement() != null) {
@@ -899,7 +903,7 @@ class IndustrialHoseController extends FrontendController
                     'footer_class' => (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '',
                     'footer_logo_src' => $footer_logo_src,
                 );
-
+                $parameterBag['table_class']= $tableClass;
             }
         }
         return $this->render("catalog/inh/inhprintcatalogproductpage.html.twig", $parameterBag);
@@ -1099,6 +1103,8 @@ class IndustrialHoseController extends FrontendController
             $parameterBag['groupData'] = $groupData;
             $parameterBag['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
             $parameterBag['footer_logo_src'] = $footer_logo_src;
+            $tableClass = \AppBundle\Helper\Common::cleanString( $this->document->getKey());
+            $parameterBag['table_class']= $tableClass;
         }
         return $this->render("catalog/inh/inhfitting.html.twig", $parameterBag);
     }
@@ -1280,7 +1286,10 @@ class IndustrialHoseController extends FrontendController
 
                     $safetyFeaturesListWithImage[] = array('name' => $this->featuresList[$fvalue]['name'], 'iconSrc' => $fvalue, 'SortOrder' => $this->featuresList[$fvalue]['SortOrder']);
                 } else {
-                    $safetyFeaturesListWithOutImage[] = array('name' => $this->featuresList[$fvalue]['name'], 'iconSrc' => $fIcon, 'SortOrder' => $this->featuresList[$fvalue]['SortOrder']);
+                    if(isset($this->featuresList[$fvalue])){
+                        $safetyFeaturesListWithOutImage[] = array('name' => $this->featuresList[$fvalue]['name'], 'iconSrc' => $fIcon, 'SortOrder' => $this->featuresList[$fvalue]['SortOrder']);
+
+                    }
                 }
             }
         }

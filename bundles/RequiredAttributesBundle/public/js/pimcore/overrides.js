@@ -949,6 +949,20 @@ pimcore.plugin.RequiredAttributesBundle.overrides = Class.create({
                 } else {
                     this.component = Ext.create('Ext.ux.form.MultiSelect', options);
                 }
+                if (this.component) {
+                   
+                    setTimeout((component) => {
+                        let focusElement = component.focusEl;
+                       
+                        let id = focusElement.id;
+                        id = id.replace("inputEl", "labelEl")
+                        let element = document.querySelector("#" + id);
+ 
+                        element.setAttribute('for','');
+                        
+                            
+                    }, 3000,this.component);
+                }
         
                 return this.component;
             },

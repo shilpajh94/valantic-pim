@@ -7,7 +7,56 @@
 	{% if editmode %}
 		{{ pimcore_relation("inh-printcatalogproduct") }}
 	{% endif %}
+<style>
+ div.inhRight > section > div > table.transfer__product_page > tbody > tr>td{
+	margin:0px !important;
+	padding:0px !important;
+	height: 20px;
+	
+ }
+   div.inhRight > section > div > table.abrasive_transfer__product_page > tbody > tr>td{
+     margin:0px !important;
+	padding:0px !important;
+	height: 30px;
+ }
+    div.inhRight > section > div > table.petroleum > tbody > tr>td{
+     margin:0px !important;
+	padding:0px !important;
+	height:35px;
+ }
+     div.inhRight > section > div > table.material_handling > tbody > tr>td{
+     margin:0px !important;
+	padding:0px !important;
+	height:17px;
+ }
+      div.inhRight > section > div > table.water > tbody > tr>td{
+     margin:0px !important;
+	padding:0px !important;
+	height:35px;
+ }
+ 
+       div.inhRight > section > div > table.food_and_beverage > tbody > tr>td{
+     margin:0px !important;
+	padding:0px !important;
+	height:35px;
+ }
+          div.inhRight > section > div > table.chemical > tbody > tr>td{
+     margin:0px !important;
+	padding:0px !important;
+	height:35px;
+ }
+     table.heavy_duty___product_page > tbody > tr>td{
+     margin:0px !important;
+	padding:0px !important;
+	height:40px;
+ }
 
+ table.aircraft_refueling__product_page > tbody > tr>td{
+     margin:0px !important;
+	padding:0px !important;
+	height:40px;
+}
+</style>
 
 	{% if info['brandsData'] is defined %}
 		{% set industrial_hose_data = [] %}
@@ -350,7 +399,7 @@
 <style>
 	.continueRow{padding: 0 !important; margin: 0 !important;}
 </style>
-															<table class="grid special inh  continueLable cellAttributes" aria-hidden="true">
+															<table class="grid special inh  continueLable cellAttributes {{table_class}}" aria-hidden="true">
 																<thead>
 																	{% if info['iconRequired'] == 'YES' %}
 																		<tr class="sub-head">

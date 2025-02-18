@@ -10,6 +10,7 @@ use PTGEU\ImportBundle\Model\ProductModel;
 use PTGEU\ProductBundle\Services\CompletenessPercentageService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use AppBundle\Services\ImportProcessEmailNotificationService;
+use PTGEU\ImportBundle\Services\FailedRecords;
 
 class ProductService
 {
@@ -52,6 +53,14 @@ class ProductService
     private $relationTableDataDeleteArray;
     private $container;
     private $importProcessEmailNotificationObj;
+    public $scriptStartTime;
+    public $objFailedRecords;
+    const LOG_ID = "Log Id";
+    const STATUS_CODE = "Status Code";
+    const FAILED_REASON = "Failed Reason";
+    const CREATED_AT = "Created At";
+    const LOGS = "_Logs";
+
 
     const LOGGER_MODULE = 'SAP IMPORT SHEET';
     const BU_TYPE = 'PTGEU Product';
@@ -74,6 +83,7 @@ class ProductService
         $this->baseSiopMismatchLog = [];
         $this->percentageCompletionService = $percentageCompletionService;
         $this->importProcessEmailNotificationObj = new ImportProcessEmailNotificationService;
+        $this->objFailedRecords = new FailedRecords();
     }
 
     /**
@@ -127,6 +137,7 @@ class ProductService
         \AppBundle\Helper\Common::clearAndDisablePimCache();
         $sapFileFeeder  = $this->container->get('import.sap_file_feeder_service');
         $this->filePath = $sapFileFeeder->execFileFeeder('product');
+        $this->scriptStartTime = time();
         if($this->filePath){
             try {
                 $brickAttributesConfigDataKeys = array_keys($this->configProviderService->getBrickAttributesConfig());
@@ -143,6 +154,7 @@ class ProductService
                         }
                     }
                     if($flag == 1){
+                       
                         try {
                             $this->initImportTable();
                             Logger::log(self::LOGGER_MODULE)->info("SAP import started");
@@ -177,7 +189,7 @@ class ProductService
                             }
                         } catch (\Throwable $throwable) {
                             p_r($throwable);
-                            Logger::log(self::LOGGER_MODULE)->error($throwable);
+                            Logger::log(self::LOGGER_MODULE)->error($throwable->__toString());
                             Logger::error($this->logFileName, $throwable);
                             die;
                         }
@@ -191,10 +203,12 @@ class ProductService
                     echo $msg;
                     $this->importProcessEmailNotificationObj->sendMailNotification(self::BU_TYPE, $msg);
                 }
+               
+                $this->objFailedRecords->managedFailedRecords('product', $this->scriptStartTime);
             } catch (\Throwable $th) {
                 p_r($th);
-                Logger::log(self::LOGGER_MODULE)->error($th);
-                Logger::error($this->logFileName, $th);
+                Logger::log(self::LOGGER_MODULE)->error($th->__toString());
+                Logger::error($this->logFileName, $th->__toString());
                 $this->importProcessEmailNotificationObj->sendMailNotification(
                     self::BU_TYPE,
                     self::BU_TYPE." Import not performed - Error occured while reading CSV \n".$th->getMessage()
@@ -239,7 +253,7 @@ class ProductService
             }
         } catch (\Throwable $th) {
             p_r($th);
-            Logger::log(self::LOGGER_MODULE)->error($th);
+            Logger::log(self::LOGGER_MODULE)->error($th->__toString());
         }
     }
 

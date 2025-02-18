@@ -921,7 +921,10 @@ class DefaultController extends FrontendController
                                                         $validityStartDate = \Carbon\Carbon::createFromFormat('Y-m-d',$pvalue[$priceListTableColumn['Validity Start Date']]);
                                                         $validityEndDate = \Carbon\Carbon::createFromFormat('Y-m-d',$pvalue[$priceListTableColumn['Validity End Date']]);
 
-                                                        if($validFromDate->between($validityStartDate, $validityEndDate)) {
+                                                        if(isset($validFromDate) && $validFromDate->between($validityStartDate, $validityEndDate)) {
+                                                            $listPrice = $pvalue[$priceListTableColumn['Rate']];
+                                                            break;
+                                                        } else {
                                                             $listPrice = $pvalue[$priceListTableColumn['Rate']];
                                                             break;
                                                         }
@@ -930,7 +933,7 @@ class DefaultController extends FrontendController
                                             }
                                         }
 
-                                        $data['listPrice'] = trim($listPrice) ? floatval($listPrice) : $listPrice;
+                                        $data['listPrice'] = trim($listPrice) ? number_format(floatval($listPrice), 2, '.', '') : $listPrice;
                                     }
 
                                     $articles[] = $data;
@@ -1805,6 +1808,9 @@ class DefaultController extends FrontendController
             $parameterBag['footer_class'] = '';
             $parameterBag['footer_logo_src'] = $footerLogoSrc;
             $parameterBag['groupData'] = $groupData;
+            $tableClass = \AppBundle\Helper\Common::cleanString( $this->document->getKey());
+
+            $parameterBag['table_class']= $tableClass;
         }
         return $this->render("ptgeucatalog/default/template_ptg_eu_product_page.html.twig", $parameterBag);
     }

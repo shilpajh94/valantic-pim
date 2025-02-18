@@ -293,7 +293,7 @@
                 <div class="page-break-after-always"></div>
                 {% for articleGroupKey, articleGroupData in groupData['data'] %}
 
-                    <table aria-describedby="articleTable" class="table page-break-inside-always continueLable">
+                    <table aria-describedby="articleTable" class="table page-break-inside-always continueLable  {{table_class}}">
                         <thead>
                             {% if groupData['iconRequired'] == 'YES' %}
                                 <tr>
@@ -366,7 +366,7 @@
         </article>
 
         {% if not isParentContainerRequest %}
-            <script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
+            <script type="text/javascript" src="/static/ptgeu/js/tableContinueLable.js"></script>
         {% endif %}
     {% endif %}     
 {% endblock %}

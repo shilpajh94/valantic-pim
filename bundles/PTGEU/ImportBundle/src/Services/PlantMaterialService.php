@@ -9,6 +9,7 @@ use PTGEU\ImportBundle\Services\ImportService;
 use PTGEU\ImportBundle\Model\PlantMaterialModel;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use AppBundle\Services\ImportProcessEmailNotificationService;
+use PTGEU\ImportBundle\Services\FailedRecords;
 
 class PlantMaterialService
 {
@@ -38,6 +39,9 @@ class PlantMaterialService
     private $failedIDs = [];
     private $container;
     private $importProcessEmailNotificationObj;
+    private $objFailedRecords;
+    private $scriptStartTime;
+
 
     const LOGGER_MODULE = 'PLANT MATERIAL MASTER';
     const BU_TYPE = 'PTGEU Plant';
@@ -57,6 +61,7 @@ class PlantMaterialService
 
         /* Initilize monitoring item and set the number of steps will take to complete the task */
         $this->monitoringItem = ProcessManagerBundle\ElementsProcessManagerBundle::getMonitoringItem();
+        $this->objFailedRecords = new FailedRecords();
     }
 
     public function import()
@@ -149,7 +154,7 @@ class PlantMaterialService
                 echo "Total {$csvRowCount} records found in csv file.".PHP_EOL;
                 $deltaCount = count($excelDataNewArray);
                 echo "Total {$deltaCount} Delta records found...".PHP_EOL;
-
+                \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("PlantMaterial delta count : ".$deltaCount);
                 $applicationLogMessage = "No delta records found.";
 
                 if($deltaCount > 0)
@@ -206,6 +211,7 @@ class PlantMaterialService
             $applicationLogMessage = self::BU_TYPE." - No record found in file.";
             $this->importProcessEmailNotificationObj->sendMailNotification(self::BU_TYPE, $applicationLogMessage);
         }
+        $this->objFailedRecords->managedFailedRecords('plantMaterial', $this->scriptStartTime);
 
         echo $applicationLogMessage;
 
@@ -297,7 +303,7 @@ class PlantMaterialService
                 }
                 catch (\Exception $e) {
                     p_r($e);
-                    \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($e);
+                    \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error(sprintf('Exception of type %s occurred: %s', get_class($e), $e->getMessage()));
                     /* return error massage if any exception found */
                     $errorsData[] = "Plant Material Code: ".$plantMaterialKey. " - ".$e->getMessage();
                 }

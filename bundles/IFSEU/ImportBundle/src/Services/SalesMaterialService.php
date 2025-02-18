@@ -135,6 +135,7 @@ class SalesMaterialService
                     echo "Total {$csvRowCount} records found in csv file.".PHP_EOL;
                     $deltaCount = count($excelDataNewArray);
                     echo "Total {$deltaCount} Delta records found...".PHP_EOL;
+                    \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("SalesMaterial delta count : ".$deltaCount);
                     if($deltaCount > 0) {
                         $applicationLogMessage = $this->countDelta($deltaCount, $excelDataNewArray, $plantFolderId, $salesOrganizationsFolderId, $distributionChannelFolderId, $countryOfOriginFolderId);
                     } else {
@@ -529,7 +530,7 @@ class SalesMaterialService
      */
     public function getMaterialObject($materialKey)
     {
-        $query = "SELECT oo_id, `key`, path FROM `object_IFSEUProduct` WHERE `materialNumber` = '{$materialKey}";
+        $query = "SELECT oo_id, `key`, path FROM `object_IFSEUProduct` WHERE `materialNumber` = '{$materialKey}'";
         $objectMaterial = $this->db->fetchAllAssociative($query);
 
         foreach ($objectMaterial as $material) {
