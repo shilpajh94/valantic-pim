@@ -921,7 +921,10 @@ class DefaultController extends FrontendController
                                                         $validityStartDate = \Carbon\Carbon::createFromFormat('Y-m-d',$pvalue[$priceListTableColumn['Validity Start Date']]);
                                                         $validityEndDate = \Carbon\Carbon::createFromFormat('Y-m-d',$pvalue[$priceListTableColumn['Validity End Date']]);
 
-                                                        if($validFromDate->between($validityStartDate, $validityEndDate)) {
+                                                        if(isset($validFromDate) && $validFromDate->between($validityStartDate, $validityEndDate)) {
+                                                            $listPrice = $pvalue[$priceListTableColumn['Rate']];
+                                                            break;
+                                                        } else {
                                                             $listPrice = $pvalue[$priceListTableColumn['Rate']];
                                                             break;
                                                         }
@@ -930,7 +933,7 @@ class DefaultController extends FrontendController
                                             }
                                         }
 
-                                        $data['listPrice'] = trim($listPrice) ? floatval($listPrice) : $listPrice;
+                                        $data['listPrice'] = trim($listPrice) ? number_format(floatval($listPrice), 2, '.', '') : $listPrice;
                                     }
 
                                     $articles[] = $data;
