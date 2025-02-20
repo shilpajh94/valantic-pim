@@ -189,6 +189,7 @@ class DefaultController extends FrontendController
     public function getSkeletonProductsAction(Request $request): JsonResponse
     {
         $baseProducts = json_decode($request->get('products'), 1);
+        $needKey = $request->get('needKey')? filter_var($request->get('needKey'), FILTER_VALIDATE_BOOLEAN):false;
         $productList = new DataObject\Product\Listing();
 
         $productList->addConditionParam('parentId IN (?)', [$baseProducts], 'AND');
@@ -196,7 +197,7 @@ class DefaultController extends FrontendController
 
         $options = [];
         foreach ($productList as $item) {
-            $options[] = array('text' => $item->getSapDescription('en'), 'id' => $item->getId());
+            $options[] = array('text' => ($needKey)?$item->getKey():$item->getSapDescription('en'), 'id' => ($needKey)?$item->getKey():$item->getId());
         }
 
         return $this->json(['data' => $options]);
@@ -2596,10 +2597,15 @@ $parameterBag['table_class']= $tableClass;
             $reinforcement = trim(array_unique(array_column($SQLResults, 'reinforcement'))[0], ',');
             $material = trim(array_unique(array_column($SQLResults, 'material'))[0],',');
             $temperatureRangeFAndC = array_unique(array_column($SQLResults, 'temperatureRangeFAndC'))[0];
+            $minimumTemperatureF = intval(array_unique(array_column($SQLResults, 'minimumTemperatureF'))[0]);
+            $maximumTemperatureF ="+". intval(array_unique(array_column($SQLResults, 'maximumTemperatureF'))[0]); 
             $longDescription = array_unique(array_column($SQLResults, 'shortDescription'))[0];
             $brandName = array_unique(array_column($SQLResults, 'brandName'))[0];
-            $skeltons = array_values(array_unique(array_column($SQLResults, 'Pitch')));
+            $skeltons = array_slice(($template->getSkeletonProduct() !=null )?$template->getSkeletonProduct():array_values(array_unique(array_column($SQLResults, 'Pitch'))),0,4);
+
             $result = [];
+            $skeltonSet = array_flip($skeltons); // This creates an associative array where keys are skelton values
+
             foreach ($SQLResults as $SQLResult) {
                 unset($SQLResult['SIOPLevel2']);
                 unset($SQLResult['SIOPLevel3']);
@@ -2609,27 +2615,27 @@ $parameterBag['table_class']= $tableClass;
                 unset($SQLResult['beltIdentificationImage']);
                 unset($SQLResult['profileDimensionPtsBelts']);
                 unset($SQLResult['FeaturesBenefitsBulletPoint']);
+                unset($SQLResult['minimumTemperatureF']);
+                unset($SQLResult['maximumTemperatureF']);
+                unset($SQLResult['temperatureRangeFAndC']);
                 unset($SQLResult['brandName']);
-                switch ($SQLResult['Pitch']) {
-                    case $skeltons[0]:
-                        $result[$skeltons[0]][] = $SQLResult;
-                        break;
-                    case $skeltons[1]:
-                        $result[$skeltons[1]][] = $SQLResult;
-                        break;
+
+                // Storing results on basis of unique pitch value (pitch value contains keys of skeleton objects)
+                if (isset($SQLResult['Pitch']) && isset($skeltonSet[$SQLResult['Pitch']])) {
+                    $result[$SQLResult['Pitch']][] = $SQLResult;
                 }
             }
 
             for ($i = 0; $i < count($skeltons); $i++) {
                 $data['groupData'][$skeltons[$i]]['standardWidthmm'] = implode(',', array_map('intval',array_unique(array_column($result[$skeltons[$i]], 'standardWidthmm'))));
-
                 $data['groupData'][$skeltons[$i]]['pitchLengthMM'] =(int) min(array_column($result[$skeltons[$i]], 'pitchLengthMM')) . '-' .(int) max(array_column($result[$skeltons[$i]], 'pitchLengthMM'));
-                $data['groupData'][$skeltons[$i]]['A'] = array_unique(array_column($result[$skeltons[$i]], 'pitchMM'))[0];
-                $data['groupData'][$skeltons[$i]]['B'] = array_unique(array_column($result[$skeltons[$i]], 'totalBeltThickness'))[0];
-                $data['groupData'][$skeltons[$i]]['C'] = array_unique(array_column($result[$skeltons[$i]], 'totalToothThickness'))[0];
+                $data['groupData'][$skeltons[$i]]['A'] = array_values(array_unique(array_column($result[$skeltons[$i]], 'pitchMM')))[0];
+                $data['groupData'][$skeltons[$i]]['B'] = array_values(array_unique(array_column($result[$skeltons[$i]], 'totalBeltThickness')))[0];
+                $data['groupData'][$skeltons[$i]]['C'] = array_values(array_unique(array_column($result[$skeltons[$i]], 'totalToothThickness')))[0];
 
 
             }
+
             $SIOPCategories = array();
 
             $SIOPCategoryClassId = \Pimcore\Model\DataObject\ProductCategory::classId();
@@ -2684,6 +2690,8 @@ $parameterBag['table_class']= $tableClass;
 
             $data['SIOPCategories'] = isset($SIOPCategories)?$SIOPCategories:[];
             $data['temperatureRangeFAndC'] = isset($temperatureRangeFAndC)?$temperatureRangeFAndC:'';
+            $data['minimumTemperatureF'] = isset($minimumTemperatureF)?$minimumTemperatureF:'';
+            $data['maximumTemperatureF'] = isset($maximumTemperatureF)?$maximumTemperatureF:'';
             $data['material'] = isset($material)?$material:'';
             $data['reinforcement'] = isset($reinforcement)?$reinforcement:'';
             $data['mainImage'] = isset($mainImage)?$mainImage:'';
