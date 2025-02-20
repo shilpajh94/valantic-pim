@@ -22,6 +22,7 @@ class B2BDataPosterHelper
         $firstBatchIndex = 1;
         $totalBatches = $requestGenerator->getTotalBatches($operationType);
         for($i = $firstBatchIndex; $i <= $totalBatches; $i++){
+            p_r('Batch '.$i.'/'.$totalBatches);
             $request = $requestGenerator->getRequest($i, $operationType);
             try{
                 $response = Util::sendRequestWithConnectionRetries($client, $request, Constants::REQUEST_TIMEOUT_FOR_DATA_REQUESTS);
