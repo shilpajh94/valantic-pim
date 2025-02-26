@@ -46,15 +46,19 @@ class B2BProductDataPoster implements IDataPoster
             $productIdsForFailureEntry = [];
 
             try{
+                p_r('Deleting Relation Change Objects Records from Table');
                 $this->deleteAllRelationChangeObjects();
+                p_r('Truncating Temp Table');
                 $tempTablePopulator->truncateTempTable();
                 $pimModifiedRecords = $tempTablePopulator->getPimModifiedRecordIds();
+                p_r('Pim Modified Records --- '.count($pimModifiedRecords));
                 $productIdsForFailureEntry = $pimModifiedRecords;
                 $this->insertProductIdsInTempTable($tempTablePopulator, $pimModifiedRecords);
 
                 $pimFailedRecordsToResend = $pimFailedRecordHandler->getFixedPimFailedRecord(B2BSalesForceObjectType::PRODUCT());
                 $pimFailedRecordIdsToResend = $helper->getPimFailedRecordIdsFromObjects($pimFailedRecordsToResend);
                 $productIdsForFailureEntry = array_merge($productIdsForFailureEntry, $pimFailedRecordIdsToResend);
+                p_r('Failed Records --- '.count($productIdsForFailureEntry));
                 $this->insertProductIdsInTempTable($tempTablePopulator, $pimFailedRecordIdsToResend);
                 $pimFailedRecordHandler->deleteFixedPimFailedRecord($pimFailedRecordsToResend);
 
@@ -62,11 +66,12 @@ class B2BProductDataPoster implements IDataPoster
                 $deltaManager->removeHashNotChangedRecordsFromTempTable();
                 $productEnforcedToPushForUpdate = $enforcedRecordProvier->getRecordsToUpdate();
                 /**
-                 * to capture the product for which the masters in dynamic dropdonw,
+                 * to capture the product for which the masters in dynamic dropdown,
                  * nomenclature,fittingfamily and thread updated.
                  */
                 $productIdsForUpdatedMasters = $deltaManager->getProductIdsForUpdatedMaster();
                 $productEnforcedToPushForUpdate = array_merge($productIdsForUpdatedMasters, $productEnforcedToPushForUpdate);
+                p_r('Master Updated Records --- '.count($productEnforcedToPushForUpdate));
                 if(count($productEnforcedToPushForUpdate) > 0){
                     /**
                      * need to push the enforced records to the temp table because after successfull push to salesforce

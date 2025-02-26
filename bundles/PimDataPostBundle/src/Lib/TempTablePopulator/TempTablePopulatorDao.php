@@ -107,6 +107,27 @@ class TempTablePopulatorDao
 
             $query = "SELECT {$selectString} FROM {$tableName} {$joinOnString} WHERE {$tableName}.id IN (".$productIds.")";
             $resultSet = $this->db->fetchAllAssociative($query);
+
+            if (isset($resultSet) && $tableName == Constants::B2B_CATEGORY_OBJECT_TABLE_NAME) {
+                $resultArr = [];
+                foreach ($resultSet as $result) {
+                    $level = $result["Level"];
+                    $printedCatalogDescription = $result["PrintedCatalogDescription"];
+                    $pimId = $result["o_id"];
+
+                    if (
+                        ($level == 1 || $level == "1.0") && $printedCatalogDescription != 'Products' &&
+                        \Pimcore\Model\DataObject\ProductCategory::getById($pimId)->getParent()->getType() == 'folder'
+                    ) {
+                        $parentObj = \Pimcore\Model\DataObject\ProductCategory::getByPath(
+                            '/Master List/SIOP Master List/SIOP Engineered Products'
+                        );
+                        $result['o_parentId'] = $parentObj->getId();
+                    }
+                    $resultArr[] = $result;
+                }
+                return $resultArr;
+            }
         }
         return ($resultSet) ? $resultSet : [];
     }

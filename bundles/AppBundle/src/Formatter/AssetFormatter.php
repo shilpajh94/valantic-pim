@@ -28,7 +28,7 @@ class AssetFormatter implements PathFormatterInterface {
 
         foreach ($targets as $key => $item) {
             $newPath = ((isset( $item["fullpath"]))? $item["fullpath"]: $item["path"]);
-            
+            $thumb = '';
             if ($item["type"] == "asset") {
                 $asset = Asset::getById($item["id"]);
                 if ($asset) {
@@ -38,7 +38,9 @@ class AssetFormatter implements PathFormatterInterface {
                     } elseif($asset instanceof \Pimcore\Model\Asset\Document) {
                         $thumb = $asset->getImageThumbnail(["height" => 80,"width" => 80,"contain" => true]);
                     }
-
+                    if($thumb == ''){
+                        $thumb = "/static/images/STP_Extension_Thumbnail.png";
+                    }
 //                    if (!$title) {
 //                        $title = "this guy does not have a title, use " . $newPath . " instead";
 //                    }
