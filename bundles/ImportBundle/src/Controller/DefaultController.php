@@ -196,6 +196,7 @@ class DefaultController extends FrontendController
                         }
                     }
                 }
+                $features = $featureIcon = array();
                 $featuresId = $firstFertProduct->getFeaturesBenefitsBulletPoint();
                 if ($featuresId != null) {
                     foreach ($featuresId as $id) {
@@ -211,7 +212,9 @@ class DefaultController extends FrontendController
                             $features[] = $parentObj->getName();
                         }
                     }
-                    $featuresArr = array_combine($features, $featureIcon);
+                    if(!empty($features) && !empty($featureIcon)){
+                        $featuresArr = array_combine($features, $featureIcon);    
+                    }
                 }
                 $brandingLayline = $firstFertProduct->getBrandingLayline();
 
@@ -342,6 +345,7 @@ class DefaultController extends FrontendController
                     }
                 }
             }
+            $features = $featureIcon = array();
             $featuresId = $firstFertProduct->getFeaturesBenefitsBulletPoint();
             if ($featuresId != null) {
                 foreach ($featuresId as $id) {
@@ -357,7 +361,10 @@ class DefaultController extends FrontendController
                         $features[] = $parentObj->getName();
                     }
                 }
-                $featuresArr = array_combine($features, $featureIcon);
+                if(!empty($features) && !empty($featureIcon)){
+                    $featuresArr = array_combine($features, $featureIcon);    
+                }
+                
             }
             $brandingLayline = $firstFertProduct->getBrandingLayline();
 
@@ -378,7 +385,6 @@ class DefaultController extends FrontendController
             $columnsDataWithImages = $this->getColumnHeadersForCatalog($columnsData);
             $subHeaderRequired = 'YES';
             $iconRequired = 'YES';
-
             $footer_logo_src = $catalogImagesINHFooter['Orange'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
