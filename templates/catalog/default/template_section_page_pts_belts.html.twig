@@ -30,7 +30,7 @@
 			padding-left: 5px !important;
 		}
 		.section-page-pts-belts-features  .features{
-			width: 500px;
+			width: 720px;
 		}
 		.section-page-pts-belts-features .features p {
 			padding-left: 0 !important;
@@ -38,13 +38,12 @@
 		{# div.features > ul {
 			margin-left: 40px;
 		} #}
-		div.features	ul li {
+		div.features ul li {
 			display: flex;
 			align-items: flex-start; /* Vertically align the content */
 			position: relative; /* Establish a positioning context for the pseudo-element */
 			padding-left: 10px; /* Add padding to the left to make space for the > sign */
-			/*margin-bottom: 50px; /* Optional: space between list items */
-			margin-bottom: 45px; /* Optional: space between list items */
+			margin-bottom: 40px; /* Optional: space between list items */
 		}
 		.features ul li ,.section-page-pts-belts-features .full,
 		.section-page-pts-belts-features b,.section-page-pts-belts-LongDescription{
@@ -52,7 +51,7 @@
 		}
 		.section-page-pts-belts-features .full{
 			padding-bottom: 15px !important;
-			padding-left: 50px !important;
+			padding-left: 40px !important;
 		}
 		.features .center::before{
 		/*	color: transparent; 
@@ -74,7 +73,7 @@
 
 		.section-page-pts-belts-page header h1{
 			font-size:40.99px;
-			margin-top: 10px !important;
+			padding-left: 20px !important;
 		}
 		.section-page-pts-belts-LongDescription {
 			background-color: #f0f0f0;
@@ -92,7 +91,7 @@
 		.belts-Identification-and-profile-dimension-container {
 			display: flex !important;
 			height: 100%;
-			height: 155px;
+			height: 150px;
 			margin-bottom: 6px;
 		}
 		.belts-Identification-and-profile-dimension-container {
@@ -117,12 +116,13 @@
 			height:84px;
 			min-width: 214px;
     		min-height: 84px;
+    		object-fit: contain;
 		}
 		.section_page_pts_belts_Catalog_Asset_Right_Image {
 			position: absolute;
 			width: 350px;
 			height: 300px;
-			max-height: 400px;
+			max-height: 450px;
 			top: 450px;
 			right: 10px;
 
@@ -139,7 +139,8 @@
 
 		header aside.feature-benefits-and-images {
 			background-color: transparent;
-			margin-bottom: 6px;
+			margin-bottom: 0;
+			padding-bottom:0;
 		}
 		thead .section-page-pts-belts-table-head {
 			background-color: orange;
@@ -186,7 +187,7 @@
 		}
 		.section_page_pts_belts_Catalog_Asset_Right_Image {
 			position: absolute;
-			width: 3.75in;
+			width: 2.75in !important;
     		height: 4.4in;
 			max-height: auto;
 			top: 380px;
@@ -257,6 +258,10 @@
 			height: 1.5in;
 			padding: auto;
 		}
+		.section_page_pts_belts_Catalog_Asset_Right_Image{
+		    /*bottom: 220px !important;*/
+    /*top: auto !important;*/
+		}
 		footer .ptslogo img {
 			width: 1.85in;
 			height: 1in;
@@ -285,11 +290,16 @@
 				border: solid 2px;
 		}
 		.fullcontainer{
-			margin-bottom: 0px;
+			margin-top: 20px;
+			/*top: 20px;*/
+            /*position: relative;*/
+            /*width: auto;*/
+            background: transparent;
+            /*margin-bottom:-20px;*/
 		}
 
 		@page {
-			margin: 50px 0 120px;
+			margin: 50px 0  120px;
 		}
 
 
@@ -347,7 +357,7 @@
 				margin-top: -50px;
 			}
 			.section-page-pts-belts-features  .features{
-			    width: 400px;
+			    width: 580px;
 		    }
 
 			.fullcontainer{
@@ -361,7 +371,7 @@
 
 			}
 			.content.single.ptg{
-				min-height: 480px;
+				min-height: 490px;
 			}
 		}
 	</style>
@@ -516,22 +526,22 @@
 													{% if ((data.material)|trim is not empty) or ((data.reinforcement)|trim is not empty) or ((data.temperatureRangeFAndC)|trim is not empty) %}
 														<div>
 															{% if data.material %}
-																<p class="full">
+																<div class="full">
 																	<b>{{ 'Material'|trans }}:</b>
 																	{{ data.material }}
-																</p>
+																</div>
 															{% endif %}
 															{% if data.reinforcement %}
-																<p class="full">
+																<div class="full">
 																	<b>{{ 'Reinforcement'|trans }}:</b>
 																	{{ data.reinforcement }}
-																</p>
+																</div>
 															{% endif %}
 															{% if data.temperatureRangeFAndC %}
-																<p class="full">
+																<div class="full">
 																	<b>{{ 'Temperature Range'|trans }}:</b>
 																	{{ data.minimumTemperatureF }}&deg;F to {{ data.maximumTemperatureF }}&deg;F
-																</p>
+																</div>
 															{% endif %}
 														</div>
 													{% endif %}
@@ -589,9 +599,9 @@
 										{% endif %}
 									{% endif %}
 								</div>
-							</aside>
-						</header>
-						<article class="fullcontainer">
+							
+						
+						        <article class="fullcontainer">
 							<section class="section_page_pts_belts_table_container">
 
 								<table class="cellAttributes" aria-hidden="true" cellpadding="0" cellspacing="0" border="0">
@@ -636,6 +646,8 @@
 								</table>
 							</section>
 						</article>
+						    </aside>
+						</header>
 					</div>
 				</div>
 
@@ -652,7 +664,7 @@
 				}
 				return { top: _y, left: _x };
 		}
-		document.querySelector('.section_page_pts_belts_Catalog_Asset_Right_Image').style.top=getOffset( document.querySelector('.cellAttributes') ).top-320+"px";
+		document.querySelector('.section_page_pts_belts_Catalog_Asset_Right_Image').style.top=getOffset( document.querySelector('.cellAttributes') ).top-335+"px";
 		</script>
 		{% if not isParentContainerRequest %}
 			<script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
