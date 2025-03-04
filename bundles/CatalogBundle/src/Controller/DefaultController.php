@@ -2629,8 +2629,8 @@ $parameterBag['table_class']= $tableClass;
             }
 
             for ($i = 0; $i < count($skeltons); $i++) {
-                $data['groupData'][$skeltons[$i]]['standardWidthmm'] = implode(',', array_map('intval',array_unique(array_column($result[$skeltons[$i]], 'standardWidthmm'))));
-                $data['groupData'][$skeltons[$i]]['pitchLengthMM'] =(int) min(array_column($result[$skeltons[$i]], 'pitchLengthMM')) . '-' .(int) max(array_column($result[$skeltons[$i]], 'pitchLengthMM'));
+                $data['groupData'][$skeltons[$i]]['standardWidthmm'] = implode(', ', array_map('intval',array_unique(array_column($result[$skeltons[$i]], 'standardWidthmm'))));
+                $data['groupData'][$skeltons[$i]]['pitchLengthMM'] =(int) min(array_column($result[$skeltons[$i]], 'pitchLengthMM')) . ' - ' .(int) max(array_column($result[$skeltons[$i]], 'pitchLengthMM'));
                 $data['groupData'][$skeltons[$i]]['A'] = array_values(array_unique(array_column($result[$skeltons[$i]], 'pitchMM')))[0];
                 $data['groupData'][$skeltons[$i]]['B'] = array_values(array_unique(array_column($result[$skeltons[$i]], 'totalBeltThickness')))[0];
                 $data['groupData'][$skeltons[$i]]['C'] = array_values(array_unique(array_column($result[$skeltons[$i]], 'totalToothThickness')))[0];
