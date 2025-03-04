@@ -148,7 +148,7 @@ class DefaultController extends FrontendController
 
             $options[] = array('text' => (!empty($item->getSapDescription('en'))?$item->getSapDescription('en'):$item->getKey()), 'id' => $item->getId());
             }
-
+            
         }
 
         return $this->json(['data' => $options]);
@@ -300,7 +300,7 @@ class DefaultController extends FrontendController
         }
         $conditionArray[] = "ProductType = 'fert' ";
 
-        if ($brand != null && count($brand) > 0 && !in_array("1", $brand) ) {
+        if ($brand != null && count($brand) > 0) {
             $productList->addConditionParam('brandName IN (:brand)', ['brand' => $brand], 'AND');
         }
 
@@ -2538,7 +2538,7 @@ $parameterBag['table_class']= $tableClass;
         $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
         $catalogImagesPTGFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesPTGFooter');
         $this->featuresList = $this->getFeaturesList($language);
-
+        
         if (!$request->get('contentDocument')->getPublished()) {
             $parameterBag = $this->getRequestedParameter($request, 0);
         } else {
@@ -2555,27 +2555,29 @@ $parameterBag['table_class']= $tableClass;
                 'fertSynchronousBricks.pitchMM ',
                 'baseProducts.brandName',
                 'baseProducts.SIOPLevel2',
-                'baseProducts.SIOPLevel3',
-                'baseProducts.SIOPLevel4',
+                'baseProducts.SIOPLevel3', 
+                'baseProducts.SIOPLevel4', 
                 'baseProducts.SIOPLevel5',
-                'baseProducts.reinforcement',
-                'baseBricks.material',
+                'baseProducts.reinforcement', 
+                'baseBricks.material', 
                 'baseProducts.temperatureRangeFAndC',
+                'baseProducts.minimumTemperatureF',
+                'baseProducts.maximumTemperatureF', 
                 'baseProducts.mainImage',
-                'baseProducts.beltIdentificationImage',
-                'baseProducts.profileDimensionPtsBelts',
-                'baseLocalized.shortDescription',
+                'baseProducts.beltIdentificationImage',    
+                'baseProducts.profileDimensionPtsBelts',    
+                'baseLocalized.shortDescription', 
                 'baseLocalized.FeaturesBenefitsBulletPoint',
                 'skeltonProducts.key AS Pitch',
-                'skeltonBricks.totalBeltThickness',
-                'skeltonBricks.totalToothThickness'
-
+                'skeltonBricks.totalBeltThickness', 
+                'skeltonBricks.totalToothThickness' 
+                
             ];
             $baseProductID = $template->getBaseproduct();
             $sql = "SELECT DISTINCT ".implode(',',$defaultColumns)."
-                FROM object_1 AS baseProducts
+                FROM object_1 AS baseProducts 
                 LEFT JOIN object_brick_query_PTGBase_1 AS baseBricks ON  baseProducts.oo_id = baseBricks.id
-                LEFT JOIN object_localized_1_$language AS baseLocalized
+                LEFT JOIN object_localized_1_$language AS baseLocalized 
                 ON baseProducts.oo_id= baseLocalized.oo_id
                 LEFT JOIN object_1 AS skeltonProducts ON baseProducts.oo_id = skeltonProducts.parentId
                 LEFT JOIN object_brick_query_PTGSkeleton_1 AS skeltonBricks ON skeltonProducts.oo_id = skeltonBricks.id
@@ -2627,8 +2629,8 @@ $parameterBag['table_class']= $tableClass;
             }
 
             for ($i = 0; $i < count($skeltons); $i++) {
-                $data['groupData'][$skeltons[$i]]['standardWidthmm'] = implode(',', array_map('intval',array_unique(array_column($result[$skeltons[$i]], 'standardWidthmm'))));
-                $data['groupData'][$skeltons[$i]]['pitchLengthMM'] =(int) min(array_column($result[$skeltons[$i]], 'pitchLengthMM')) . '-' .(int) max(array_column($result[$skeltons[$i]], 'pitchLengthMM'));
+                $data['groupData'][$skeltons[$i]]['standardWidthmm'] = implode(', ', array_map('intval',array_unique(array_column($result[$skeltons[$i]], 'standardWidthmm'))));
+                $data['groupData'][$skeltons[$i]]['pitchLengthMM'] =(int) min(array_column($result[$skeltons[$i]], 'pitchLengthMM')) . ' - ' .(int) max(array_column($result[$skeltons[$i]], 'pitchLengthMM'));
                 $data['groupData'][$skeltons[$i]]['A'] = array_values(array_unique(array_column($result[$skeltons[$i]], 'pitchMM')))[0];
                 $data['groupData'][$skeltons[$i]]['B'] = array_values(array_unique(array_column($result[$skeltons[$i]], 'totalBeltThickness')))[0];
                 $data['groupData'][$skeltons[$i]]['C'] = array_values(array_unique(array_column($result[$skeltons[$i]], 'totalToothThickness')))[0];
@@ -2641,7 +2643,7 @@ $parameterBag['table_class']= $tableClass;
             $SIOPCategoryClassId = \Pimcore\Model\DataObject\ProductCategory::classId();
             if (!empty($siopLevel2)) {
                 $sql = "SELECT `key`,IF(oo_id=$siopLevel3, 'selected', '') as `selected` FROM object_$SIOPCategoryClassId WHERE `ParentObjectId` = $siopLevel2 AND `CatalogFlag` = 1 ORDER BY `SortOrder` ASC";
-
+            
                 $SIOPCategories = $this->db->fetchAllKeyValue($sql);
             }
             if (!empty($siopLevel3)) {
@@ -2693,18 +2695,18 @@ $parameterBag['table_class']= $tableClass;
             $data['minimumTemperatureF'] = isset($minimumTemperatureF)?$minimumTemperatureF:'';
             $data['maximumTemperatureF'] = isset($maximumTemperatureF)?$maximumTemperatureF:'';
             $data['material'] = isset($material)?$material:'';
-            $data['reinforcement'] = isset($reinforcement)?$reinforcement:'';
+            $data['reinforcement'] = isset($reinforcement)?$reinforcement:''; 
             $data['mainImage'] = isset($mainImage)?$mainImage:'';
-            $data['beltIdentificationImage'] = isset($beltIdentificationImage)?$beltIdentificationImage:'';
-            $data['profileDimensionPtsBelts'] = isset($profileDimensionPtsBelts)?$profileDimensionPtsBelts:'';
+            $data['beltIdentificationImage'] = isset($beltIdentificationImage)?$beltIdentificationImage:''; 
+            $data['profileDimensionPtsBelts'] = isset($profileDimensionPtsBelts)?$profileDimensionPtsBelts:'';  
             $data['SIOPLEVEL2'] = isset($siopLevel2)?$siopLevel2:'';
             $data['SIOPLEVEL3'] = isset($siopLevel3)?$siopLevel3:'';
             $data['SIOPLEVEL4'] = isset($siopLevel4)?$siopLevel4:'';
             $data['SIOPLEVEL5'] = isset($siopLevel5)?$siopLevel5:'';
             $data['brandName'] = isset($brandName)?$brandName:'';
-            $data['shortDescription'] = isset($longDescription)?$longDescription:'';
-
-            $data['FeaturesBenefitsBulletPoint'] = isset($FeaturesBenefitsBulletPoint)?$FeaturesBenefitsBulletPoint:[] ;
+            $data['shortDescription'] = isset($longDescription)?$longDescription:'';    
+            
+            $data['FeaturesBenefitsBulletPoint'] = isset($FeaturesBenefitsBulletPoint)?$FeaturesBenefitsBulletPoint:[] ; 
             $data['footer_class'] = '';
             $footer_logo_src = (strtolower($footerBgColor) == 'orange') ? $catalogImagesPTGFooter['Black'] : $catalogImagesPTGFooter['Orange'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
