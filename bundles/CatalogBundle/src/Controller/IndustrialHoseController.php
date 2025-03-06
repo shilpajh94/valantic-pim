@@ -427,6 +427,7 @@ class IndustrialHoseController extends FrontendController
             $siop = $template->getSiopLevel4();
             $siopObj = $this->getSiopObject($siop);
             $configTableName = $tableName = "0410001010";
+            $siop4Description = '';
             if ($siopObj != null) {
                 $tableName = $siopObj->getParent()->getFullCode();
                 $siop4Description = ($siopObj->getPrintedCatalogDescription($lang)) ? $siopObj->getPrintedCatalogDescription($lang) : $siopObj->getDescription($lang);
