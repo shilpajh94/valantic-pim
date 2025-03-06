@@ -886,7 +886,7 @@ class IndustrialHoseController extends FrontendController
                     array_multisort(array_column($newBrandArray, 'SortOrder'), SORT_ASC, $newBrandArray);
                 }
 
-                $categories = $this->getSIOP($catalogLanguage);
+                $categories = $this->getSIOP($catalogLanguage, 'IFS');
                 $footer_logo_src = (strtolower($footerBgColor) == 'orange') ? $catalogImagesINHFooter['Black'] : $catalogImagesINHFooter['Orange'];
                 $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
@@ -1197,17 +1197,23 @@ class IndustrialHoseController extends FrontendController
             $parameterBag['featuresMaterials'] = $featuresMaterials;
             $parameterBag['templateBrandDtata'] = $templateBrandDtata;
             $parameterBag['categories'] = $menuCategories;
-            $parameterBag['selectedCategory'] = ((isset($catagoryDescription['SIOP3Description']))?$catagoryDescription['SIOP3Description']:'');            $parameterBag['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
+            $parameterBag['selectedCategory'] = ((isset($catagoryDescription['SIOP3Description']))?$catagoryDescription['SIOP3Description']:'');            
+            $parameterBag['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
             $parameterBag['footer_logo_src'] = $footer_logo_src;
 
         }
         return $this->render("catalog/inh/inhfitting_cover.html.twig", $parameterBag);
     }
 
-    private function getSIOP($language)
+    private function getSIOP($language, $bu = '')
     {
         $listing = new \Pimcore\Model\DataObject\ProductCategory\Listing;
-        $listing->setCondition("CatalogFlag = :catFlag", ["catFlag" => 1]);
+        if($bu == 'IFS'){
+            $listing->setCondition("CatalogFlag = :catFlag AND BusinessUnit = :bu", ["catFlag" => 1, "bu" => $bu]);
+        }
+        else{
+            $listing->setCondition("CatalogFlag = :catFlag", ["catFlag" => 1]);
+        }
         $listing->load();
         $categories = array();
         foreach ($listing as $category) {
