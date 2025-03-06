@@ -173,7 +173,7 @@
 
 							{% set compatibility_description = "" %}
 							{% if editmode %}
-								{% if not pimcore_input("PTG_Footer_Compatibility1_Description").isEmpty() %}
+								{% if not pimcore_wysiwyg("PTG_Footer_Compatibility1_Description").isEmpty() %}
 									{{ pimcore_wysiwyg("PTG_Footer_Compatibility1_Description") }}
 								{% else %}
 									{{ pimcore_wysiwyg("PTG_Footer_Compatibility1_Description", {"width": 100,"placeholder" : "eg: Enter Text"}).setDataFromResource(compatibility_description) | raw}}
