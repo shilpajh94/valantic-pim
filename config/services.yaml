@@ -13,7 +13,19 @@ services:
         public: false
 
     Symfony\Component\DependencyInjection\ContainerInterface: '@service_container'
-    
+
+    App\EventListener\Admin\AdminStyleListener:
+        tags:
+            - { name: kernel.event_listener, event: pimcore.admin.resolve.elementAdminStyle, method: onResolveElementAdminStyle }
+
+    App\EventListener\Admin\AdminAssetsListener:
+        tags:
+            - { name: kernel.event_listener, event: pimcore.bundle_manager.paths.js, method: onJsPaths }
+
+    App\Model\CalculatedValue\ProductManagement\:
+        resource: '../src/Model/CalculatedValue/ProductManagement'
+        public: true
+
     # Example custom templating helper
     # AppBundle\Templating\Helper\Example:
     #     # templating helpers need to be public as they
