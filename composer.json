@@ -35,7 +35,8 @@
     "symfony/dotenv": "^6.2",
     "symfony/http-client": "^6.4",
     "symfony/http-foundation": "^6.4",
-    "symfony/runtime": "^6.2"
+    "symfony/runtime": "^6.2",
+    "valantic/pimcore-elastica-bridge": "*"
   },
   "require-dev": {
     "codeception/codeception": "^5.0.3",

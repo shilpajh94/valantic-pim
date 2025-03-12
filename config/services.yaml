@@ -26,6 +26,10 @@ services:
         resource: '../src/Model/CalculatedValue/ProductManagement'
         public: true
 
+    App\Elasticsearch\:
+        resource: '../src/Elasticsearch'
+
+
     # Example custom templating helper
     # AppBundle\Templating\Helper\Example:
     #     # templating helpers need to be public as they
