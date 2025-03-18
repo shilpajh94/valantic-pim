@@ -3,6 +3,7 @@
 namespace App\Model\AdminStyle;
 
 use App\Enum\ProductCategoryLevel;
+use App\Model\DataObject\AbstractProductGroupSpecificData;
 use Pimcore\Model\DataObject\UniBaseProduct;
 use Pimcore\Model\DataObject\UniProductCategoryInternal;
 use Pimcore\Model\Element\AdminStyle;
@@ -14,7 +15,11 @@ class InternalStructureStyle extends AdminStyle
     {
         parent::__construct($element);
 
-        if (!in_array(get_class($element), [UniBaseProduct::class, UniProductCategoryInternal::class])) {
+        if (
+            !$element instanceof UniBaseProduct &&
+            !$element instanceof UniProductCategoryInternal &&
+            !$element instanceof AbstractProductGroupSpecificData
+        ) {
             return;
         }
 
@@ -22,11 +27,18 @@ class InternalStructureStyle extends AdminStyle
         $template = '/bundles/pimcoreadmin/img/icon/tag_%s.png';
 
         if ($element instanceof UniBaseProduct) {
-            $this->elementIcon = sprintf($template, 'green');
             $this->elementText = sprintf('%s - %s', $element->getSapMaterialNumber(), $element->getSapDescription());
+            $this->elementIcon = sprintf($template, 'green');
             return;
         }
 
+        if ($element instanceof AbstractProductGroupSpecificData) {
+            $this->elementText = $element->getClass()->getTitle();
+            $this->elementIcon = sprintf($template, 'blue_add');
+            return;
+        }
+
+        $this->elementText = $element->getName();
         $this->elementIcon = match ((int) $element->getLevel()) {
             ProductCategoryLevel::PRODUCT_LINE->value => sprintf($template, 'yellow'),
             ProductCategoryLevel::PRODUCT_VARIANT->value => sprintf($template, 'blue'),
