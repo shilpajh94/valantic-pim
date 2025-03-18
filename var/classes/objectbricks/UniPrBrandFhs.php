@@ -2,18 +2,17 @@
 
 /**
  * Fields Summary:
- * - marketingDescriptionLong [wysiwyg]
- * - productDescriptionShort [textarea]
- * - industrialStandard [input]
- * - mainImage [image]
+ * - tubeMaterialExportVersion [input]
+ * - tubeMaterialInnerLining [select]
+ * - tubeStandard [input]
  */
 
 return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'dao' => NULL,
-   'key' => 'UniProductBrandData',
-   'parentClass' => '',
+   'key' => 'UniPrBrandFhs',
+   'parentClass' => 'App\\Model\\DataObject\\Objectbrick\\AbstractUniPrBrand',
    'implementsInterfaces' => '',
-   'title' => 'Brand Data',
+   'title' => 'Brand Data (FHS)',
    'group' => 'UniProductManagement',
    'layoutDefinitions' => 
   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -44,60 +43,10 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'children' => 
         array (
           0 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
-             'name' => 'marketingDescriptionLong',
-             'title' => 'Marketing Description - Long',
-             'tooltip' => '',
-             'mandatory' => false,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'toolbarConfig' => '',
-             'excludeFromSearchIndex' => false,
-             'maxCharacters' => '',
-             'height' => '',
-             'width' => '',
-          )),
-          1 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-             'name' => 'productDescriptionShort',
-             'title' => 'Product Description - Short',
-             'tooltip' => '',
-             'mandatory' => false,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'maxLength' => NULL,
-             'showCharCount' => false,
-             'excludeFromSearchIndex' => false,
-             'height' => '',
-             'width' => '',
-          )),
-          2 => 
           \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-             'name' => 'industrialStandard',
-             'title' => 'Industrial Standard',
-             'tooltip' => '',
+             'name' => 'tubeMaterialExportVersion',
+             'title' => 'Tube Material / Export Version',
+             'tooltip' => 'Material of the Hose Tube for output, Printed Catalog / Export',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
@@ -123,11 +72,11 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'width' => '',
              'defaultValueGenerator' => '',
           )),
-          3 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
-             'name' => 'mainImage',
-             'title' => 'Main Image',
-             'tooltip' => '',
+          1 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+             'name' => 'tubeMaterialInnerLining',
+             'title' => 'Tube Material / Inner Lining',
+             'tooltip' => 'Material of the Hose Tube',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
@@ -142,9 +91,52 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'blockedVarsForExport' => 
             array (
             ),
-             'uploadPath' => '',
+             'options' => 
+            array (
+              0 => 
+              array (
+                'key' => 'Nitrile (NBR)',
+                'value' => 'Nitrile (NBR)',
+              ),
+            ),
+             'defaultValue' => '',
+             'columnLength' => 190,
+             'dynamicOptions' => false,
+             'defaultValueGenerator' => '',
              'width' => '',
-             'height' => '',
+             'optionsProviderType' => 'configure',
+             'optionsProviderClass' => '',
+             'optionsProviderData' => '',
+          )),
+          2 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+             'name' => 'tubeStandard',
+             'title' => 'Standard Met; Tube',
+             'tooltip' => 'What industry standard does the Tube meet',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'defaultValue' => NULL,
+             'columnLength' => 190,
+             'regex' => '',
+             'regexFlags' => 
+            array (
+            ),
+             'unique' => false,
+             'showCharCount' => false,
+             'width' => '',
+             'defaultValueGenerator' => '',
           )),
         ),
          'locked' => false,
@@ -155,7 +147,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'layout' => NULL,
          'border' => false,
          'icon' => '',
-         'labelWidth' => 100,
+         'labelWidth' => 250,
          'labelAlign' => 'left',
       )),
     ),

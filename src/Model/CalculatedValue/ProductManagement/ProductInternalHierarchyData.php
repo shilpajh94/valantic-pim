@@ -4,6 +4,7 @@ namespace App\Model\CalculatedValue\ProductManagement;
 
 use Pimcore\Model\Asset;
 use Pimcore\Model\DataObject\ClassDefinition\Data\Image;
+use Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields;
 use Pimcore\Model\DataObject\ClassDefinition\Layout\DynamicTextLabelInterface;
 use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\Objectbrick\Data\AbstractData;
@@ -18,45 +19,64 @@ class ProductInternalHierarchyData implements DynamicTextLabelInterface
             return 'Unsupported data object... 🤷🏼‍♂️';
         }
 
-        $brandData = $this->resolveObjectBrick($object, $data);
-        $values = $brandData instanceof AbstractData ? $this->getBrandDataValues($brandData) : [];
+        $objectBricks = $this->resolveObjectBricks($object, $data);
 
+        if ($objectBricks === []) {
+            return '';
+        }
+
+        // TODO: How to add support for tabs and other layout options?
+        $values = array_reduce($objectBricks, fn(?array $carry, AbstractData $objectBrick) => array_merge($carry ?? [], $this->getValues($objectBrick)));
         $table = array_map(fn(array $row): string => $this->renderRow($row), $values);
         $table = array_reduce($table, fn(?string $carry, string $row) => $carry . $row);
-        $link = $this->renderLink($brandData->getObject()->getId(), 'pimcore_icon_right', 'Go to object');
-
-        // TODO: How to add support for tabs?
+        $link = $this->renderLink($objectBricks[0]->getObject()->getId(), 'pimcore_icon_right', 'Go to object');
 
         return sprintf('<table>%s</table><br>%s', $table, $link);
     }
 
-    private function resolveObjectBrick(UniBaseProduct|UniProductCategoryInternal $object, string $objectBrickClass): ?AbstractData
+    private function resolveObjectBricks(UniBaseProduct|UniProductCategoryInternal $object, string $objectBrickClass): array
     {
         $parent = $object->getParent();
 
         if (!$parent instanceof UniProductCategoryInternal) {
-            return null;
+            return [];
         }
 
-        // Note: max. items of Objectbricks container must be set to 1.
-        $objectBrick = $parent->getLevelSpecificData()->getItems()[0] ?? null;
+        $result = [];
+        foreach ($parent->getLevelSpecificData()->getItems() as $objectBrick) {
+            if ($objectBrick instanceof $objectBrickClass) {
+                $result[] = $objectBrick;
+            }
+        }
 
-        return $objectBrick instanceof $objectBrickClass ? $objectBrick : $this->resolveObjectBrick($parent, $objectBrickClass);
+        // Note: This returns all Objectbricks from a parent that Match the given abstract class.
+        //       If there are instances on multiple levels, only the on the closest parent are returned.
+
+        return $result === [] ? $this->resolveObjectBricks($parent, $objectBrickClass) : $result;
     }
 
-    private function getBrandDataValues(AbstractData $brandData): array
+    private function getValues(AbstractData $dataObject): array
+    {
+        return $this->getValuesImpl($dataObject, $dataObject->getDefinition()?->getFieldDefinitions() ?? []);
+    }
+
+    private function getValuesImpl(AbstractData $brandData, array $definitions): array
     {
         $result = []; // TODO: (anonymous) Class?
 
-        foreach ($brandData->getDefinition()?->getFieldDefinitions() ?? [] as $definition) {
-            $name = $definition->getName();
-            $accessor = sprintf('get%s', $name);
-            $result[] = [
-                'key' => $name,
-                'title' => $definition->getTitle(),
-                'value' => $brandData->$accessor(),
-                'type' => get_class($definition),
-            ];
+        foreach ($definitions as $definition) {
+            if ($definition instanceof Localizedfields) {
+                $result = array_merge($result, $this->getValuesImpl($brandData, $definition->getFieldDefinitions() ?? []));
+            } else {
+                $name = $definition->getName();
+                $accessor = sprintf('get%s', ucfirst($name));
+                $result[] = [
+                    'key' => $name,
+                    'title' => $definition->getTitle(),
+                    'value' => $brandData->$accessor(),
+                    'type' => get_class($definition),
+                ];
+            }
         }
 
         return $result;
@@ -66,7 +86,7 @@ class ProductInternalHierarchyData implements DynamicTextLabelInterface
     {
         return sprintf(
             '<tr id="row-%s" class="x-form-item-default x-form-readonly">' .
-                '<td class="x-form-item-label x-form-item-label-default x-unselectable">' .
+                '<td class="x-form-item-label x-form-item-label-default x-unselectable" style="width: 250px;">' .
                     '<span class="x-form-item-label-text">' . '%s <span class="pimcore_object_label_icon pimcore_icon_gray_lock"></span>:</span>' .
                 '</td>' .
                 '<td>%s</td>' .
@@ -99,7 +119,7 @@ class ProductInternalHierarchyData implements DynamicTextLabelInterface
         $url = sprintf('/admin/asset/get-image-thumbnail?id=%s&amp;width=290&amp;height=240&amp;contain=true', $value->getId());
 
         return sprintf(
-            '<div class="x-panel-body pimcore_image_container x-panel-body-default x-noborder-t x-panel-default-outer-border-rbl" style="width: 300px; height: 253px; left: 0; top: 37px;border-top-width: 1px !important;">'.
+            '<div class="x-panel-body pimcore_image_container x-panel-body-default x-noborder-t x-panel-default-outer-border-rbl" style="width: 300px; height: 253px; border-top-width: 1px !important;">'.
                 '<div class="x-autocontainer-outerCt" role="presentation" style="width: 100%%; table-layout: fixed; height: 100%%;">'.
                     '<div style="background-image: url(%s); background-position: center center; background-repeat: no-repeat;" role="presentation" class="x-autocontainer-innerCt"></div>'.
                 '</div>'.
