@@ -2,15 +2,15 @@
 
 /**
  * Fields Summary:
- * - internalCategory [manyToOneRelation]
+ * - Products [manyToManyObjectRelation]
  */
 
 return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
    'dao' => NULL,
-   'key' => 'UniPrFilterIntCat',
+   'key' => 'UniPrInclPr',
    'parentClass' => '',
    'implementsInterfaces' => '',
-   'title' => 'Map internal category',
+   'title' => 'Include products',
    'group' => '',
    'layoutDefinitions' => 
   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -41,11 +41,11 @@ return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
          'children' => 
         array (
           0 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-             'name' => 'internalCategory',
-             'title' => 'Internal Category',
+          \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+             'name' => 'Products',
+             'title' => 'Products',
              'tooltip' => '',
-             'mandatory' => true,
+             'mandatory' => false,
              'noteditable' => false,
              'index' => false,
              'locked' => false,
@@ -63,24 +63,22 @@ return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
             array (
               0 => 
               array (
-                'classes' => 'UniProductCategoryInternal',
+                'classes' => 'UniBaseProduct',
               ),
             ),
-             'displayMode' => 'combo',
+             'displayMode' => 'grid',
              'pathFormatterClass' => '',
-             'assetInlineDownloadAllowed' => false,
-             'assetUploadPath' => '',
+             'maxItems' => NULL,
+             'visibleFields' => 'sapDescription,sapMaterialNumber,ghpFullCode',
+             'allowToCreateNewObject' => false,
              'allowToClearRelation' => true,
-             'objectsAllowed' => true,
-             'assetsAllowed' => false,
-             'assetTypes' => 
-            array (
-            ),
-             'documentsAllowed' => false,
-             'documentTypes' => 
+             'optimizedAdminLoading' => false,
+             'enableTextSelection' => false,
+             'visibleFieldDefinitions' => 
             array (
             ),
              'width' => '',
+             'height' => '',
           )),
         ),
          'locked' => false,

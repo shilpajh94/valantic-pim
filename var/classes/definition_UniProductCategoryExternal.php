@@ -8,7 +8,9 @@
  * - localizedfields [localizedfields]
  * -- name [input]
  * - level [calculatedValue]
+ * - productInclude [fieldcollections]
  * - productFilters [fieldcollections]
+ * - productExcludes [fieldcollections]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -18,7 +20,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1741689700,
+   'modificationDate' => 1741950385,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -139,7 +141,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'permissionView' => NULL,
                  'permissionEdit' => NULL,
-                 'labelWidth' => 100,
+                 'labelWidth' => 250,
                  'labelAlign' => 'left',
                  'width' => '',
                  'height' => '',
@@ -180,7 +182,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'layout' => NULL,
              'border' => false,
              'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/overlay-download.svg',
-             'labelWidth' => 100,
+             'labelWidth' => 250,
              'labelAlign' => 'left',
           )),
           1 => 
@@ -198,6 +200,38 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'children' => 
             array (
               0 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
+                 'name' => 'productInclude',
+                 'title' => 'Include Products',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'allowedTypes' => 
+                array (
+                  0 => 'UniPrInclCat',
+                  1 => 'UniPrInclPr',
+                ),
+                 'lazyLoading' => true,
+                 'maxItems' => NULL,
+                 'disallowAddRemove' => false,
+                 'disallowReorder' => false,
+                 'collapsed' => false,
+                 'collapsible' => false,
+                 'border' => false,
+              )),
+              1 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
                  'name' => 'productFilters',
                  'title' => 'Product Filters',
@@ -218,8 +252,38 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'allowedTypes' => 
                 array (
-                  0 => 'UniPrFilterInclPr',
-                  1 => 'UniPrFilterIntCat',
+                  0 => 'UniPrFilterAttr',
+                ),
+                 'lazyLoading' => true,
+                 'maxItems' => NULL,
+                 'disallowAddRemove' => false,
+                 'disallowReorder' => false,
+                 'collapsed' => false,
+                 'collapsible' => false,
+                 'border' => false,
+              )),
+              2 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
+                 'name' => 'productExcludes',
+                 'title' => 'Product Excludes',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'allowedTypes' => 
+                array (
+                  0 => 'UniPrExclPr',
                 ),
                  'lazyLoading' => true,
                  'maxItems' => NULL,
@@ -238,7 +302,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'layout' => NULL,
              'border' => false,
              'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/filled_filter.svg',
-             'labelWidth' => 100,
+             'labelWidth' => 250,
              'labelAlign' => 'left',
           )),
           2 => 
@@ -264,7 +328,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'layout' => NULL,
              'border' => false,
              'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/inspection.svg',
-             'labelWidth' => 100,
+             'labelWidth' => 250,
              'labelAlign' => 'left',
           )),
         ),
@@ -321,36 +385,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
-    0 => 
-    \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-       'name' => 'productBrandName',
-       'title' => 'Product Brand Name',
-       'tooltip' => '',
-       'mandatory' => false,
-       'noteditable' => false,
-       'index' => true,
-       'locked' => false,
-       'style' => '',
-       'permissions' => NULL,
-       'fieldtype' => '',
-       'relationType' => false,
-       'invisible' => false,
-       'visibleGridView' => false,
-       'visibleSearch' => false,
-       'blockedVarsForExport' => 
-      array (
-      ),
-       'defaultValue' => NULL,
-       'columnLength' => 190,
-       'regex' => '',
-       'regexFlags' => 
-      array (
-      ),
-       'unique' => false,
-       'showCharCount' => false,
-       'width' => '',
-       'defaultValueGenerator' => '',
-    )),
   ),
    'blockedVarsForExport' => 
   array (
