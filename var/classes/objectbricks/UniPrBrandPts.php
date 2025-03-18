@@ -2,15 +2,15 @@
 
 /**
  * Fields Summary:
- * - placeholder [input]
+ * - ptsSpecificExample [input]
  */
 
 return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'dao' => NULL,
-   'key' => 'UniProductSkeletonData',
-   'parentClass' => '',
+   'key' => 'UniPrBrandPts',
+   'parentClass' => 'App\\Model\\DataObject\\Objectbrick\\AbstractUniPrBrand',
    'implementsInterfaces' => '',
-   'title' => 'Skeleton Data',
+   'title' => 'Brand Data (PTS)',
    'group' => 'UniProductManagement',
    'layoutDefinitions' => 
   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -42,9 +42,9 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
         array (
           0 => 
           \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-             'name' => 'placeholder',
-             'title' => 'Placeholder Field',
-             'tooltip' => '',
+             'name' => 'ptsSpecificExample',
+             'title' => 'PTS Specific Example',
+             'tooltip' => 'This is just a placeholder',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
@@ -79,7 +79,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'layout' => NULL,
          'border' => false,
          'icon' => '',
-         'labelWidth' => 100,
+         'labelWidth' => 250,
          'labelAlign' => 'left',
       )),
     ),
