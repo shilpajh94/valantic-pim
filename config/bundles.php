@@ -51,4 +51,5 @@ return [
     // Pimcore\Bundle\PimcoreDataHubBundle\PimcoreDataHubBundle::class => ['all' => true],
     // Pimcore\Bundle\DataImporterBundle\DataImporterBundle::class => ['all' => true],
     \Valantic\ElasticaBridgeBundle\ValanticElasticaBridgeBundle::class => ['all' => true],
+    \Pimcore\Bundle\PerspectiveEditorBundle\PimcorePerspectiveEditorBundle::class => ['all' => true],
 ];
