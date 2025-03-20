@@ -2,12 +2,12 @@
 
 namespace Test\Model\CalculatedValue\ProductManagement;
 
-use App\Model\CalculatedValue\ProductManagement\ProductCategoryFullCode;
+use App\Model\CalculatedValue\UniProductManagement\UniProductCategoryFullCode;
 use PHPUnit\Framework\TestCase;
 use Pimcore\Model\DataObject\Data\CalculatedValue;
 use Pimcore\Model\DataObject\UniProductCategoryInternal;
 
-class ProductCategoryFullCodeTest extends TestCase
+class UniProductCategoryFullCodeTest extends TestCase
 {
     public function testParentConcatenation(): void
     {
@@ -19,7 +19,7 @@ class ProductCategoryFullCodeTest extends TestCase
 
         $bb->setParent($aa);
 
-        $implementation = new ProductCategoryFullCode();
+        $implementation = new UniProductCategoryFullCode();
         $context = new CalculatedValue('fullCode');
 
         $this->assertEquals('AA', $implementation->compute($aa, $context));

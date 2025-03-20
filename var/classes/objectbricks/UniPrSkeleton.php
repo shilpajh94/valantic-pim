@@ -8,7 +8,7 @@
 return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'dao' => NULL,
    'key' => 'UniPrSkeleton',
-   'parentClass' => 'App\\Model\\DataObject\\Objectbrick\\AbstractUniPrSkeleton',
+   'parentClass' => 'App\\Model\\DataObject\\UniProductManagement\\Objectbrick\\AbstractUniPrSkeleton',
    'implementsInterfaces' => '',
    'title' => 'Skeleton Data',
    'group' => 'UniProductManagement',

@@ -6,7 +6,7 @@ use Pimcore\Model\DataObject\UniProductCategoryExternal;
 use Pimcore\Model\Element\AdminStyle;
 use Pimcore\Model\Element\ElementInterface;
 
-class ExternalStructureStyle extends AdminStyle
+class UniProductStructureExternalStyle extends AdminStyle
 {
     public function __construct(ElementInterface $element)
     {

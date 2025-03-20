@@ -20,7 +20,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1741950385,
+   'modificationDate' => 1742472996,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -169,7 +169,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'elementType' => 'numeric',
                  'calculatorType' => 'class',
                  'calculatorExpression' => '',
-                 'calculatorClass' => 'App\\Model\\CalculatedValue\\ProductManagement\\ProductCategoryLevel',
+                 'calculatorClass' => 'App\\Model\\UniCalculatedValue\\UniProductManagement\\UniProductCategoryLevel',
                  'columnLength' => 190,
                  'width' => '',
               )),
@@ -200,6 +200,31 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'children' => 
             array (
               0 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+                 'name' => 'filterIntro',
+                 'type' => NULL,
+                 'region' => NULL,
+                 'title' => '',
+                 'width' => '',
+                 'height' => '',
+                 'collapsible' => false,
+                 'collapsed' => false,
+                 'bodyStyle' => '',
+                 'datatype' => 'layout',
+                 'children' => 
+                array (
+                ),
+                 'locked' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'fieldtype' => 'text',
+                 'html' => '<div class="alert alert-info"><b>About this tab<br></b><br>This tab allows you to configure, which products are assigned to an external hierarchy. Each category level can define it\'s own rules.<br><br>"Include Products" defines a broad definition of where products come from. You can then narrow them down using the product filters and finally exclude specific products by using product excludes.<br><br><b>Note: </b>While these definitions can be created on each category level, each level will only include products, that are also included in the parent categories. If you just want to narrow down the parent category products, you can also leave the "Include products" section empty.</div>',
+                 'renderingClass' => '',
+                 'renderingData' => '',
+                 'border' => false,
+              )),
+              1 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
                  'name' => 'productInclude',
                  'title' => 'Include Products',
@@ -231,7 +256,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'collapsible' => false,
                  'border' => false,
               )),
-              1 => 
+              2 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
                  'name' => 'productFilters',
                  'title' => 'Product Filters',
@@ -262,7 +287,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'collapsible' => false,
                  'border' => false,
               )),
-              2 => 
+              3 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
                  'name' => 'productExcludes',
                  'title' => 'Product Excludes',

@@ -2,12 +2,12 @@
 
 namespace App\EventListener\Admin;
 
-use App\Model\AdminStyle\ExternalStructureStyle;
-use App\Model\AdminStyle\InternalStructureStyle;
-use App\Model\DataObject\AbstractProductGroupSpecificData;
+use App\Model\AdminStyle\UniProductStructureExternalStyle;
+use App\Model\AdminStyle\UniProductStructureInternalStyle;
+use App\Model\DataObject\UniProductManagement\AbstractUniProductGroupSpecificData;
 use Pimcore\Bundle\AdminBundle\Event\AdminEvents;
 use Pimcore\Bundle\AdminBundle\Event\ElementAdminStyleEvent;
-use Pimcore\Model\DataObject\UniBaseProduct;
+use Pimcore\Model\DataObject\UniProductBase;
 use Pimcore\Model\DataObject\UniProductCategoryExternal;
 use Pimcore\Model\DataObject\UniProductCategoryInternal;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -18,12 +18,12 @@ class AdminStyleListener implements EventSubscriberInterface
     {
         $element = $event->getElement();
 
-        if ($element instanceof UniBaseProduct || $element instanceof UniProductCategoryInternal || $element instanceof AbstractProductGroupSpecificData) {
-            $event->setAdminStyle(new InternalStructureStyle($element));
+        if ($element instanceof UniProductBase || $element instanceof UniProductCategoryInternal || $element instanceof AbstractUniProductGroupSpecificData) {
+            $event->setAdminStyle(new UniProductStructureInternalStyle($element));
         }
 
         if ($element instanceof UniProductCategoryExternal) {
-            $event->setAdminStyle(new ExternalStructureStyle($element));
+            $event->setAdminStyle(new UniProductStructureExternalStyle($element));
         }
     }
 

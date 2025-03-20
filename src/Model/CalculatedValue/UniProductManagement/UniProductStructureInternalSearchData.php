@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Model\CalculatedValue\ProductManagement;
+namespace App\Model\CalculatedValue\UniProductManagement;
 
 use Pimcore\Model\DataObject\ClassDefinition\CalculatorClassInterface;
 use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\Data\CalculatedValue;
 use Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrand;
-use Pimcore\Model\DataObject\UniBaseProduct;
+use Pimcore\Model\DataObject\UniProductBase;
 use Pimcore\Model\DataObject\UniProductCategoryInternal;
 
-class ProductInternalHierarchySearchData implements CalculatorClassInterface
+class UniProductStructureInternalSearchData implements CalculatorClassInterface
 {
     public function compute(Concrete $object, CalculatedValue $context): string
     {
-        if (!$object instanceof UniBaseProduct) {
+        if (!$object instanceof UniProductBase) {
             return '';
         }
 

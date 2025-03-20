@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\CalculatedValue\ProductManagement;
+namespace App\Model\CalculatedValue\UniProductManagement;
 
 use Pimcore\Model\Asset;
 use Pimcore\Model\DataObject\ClassDefinition\Data\Image;
@@ -8,14 +8,14 @@ use Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields;
 use Pimcore\Model\DataObject\ClassDefinition\Layout\DynamicTextLabelInterface;
 use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\Objectbrick\Data\AbstractData;
-use Pimcore\Model\DataObject\UniBaseProduct;
+use Pimcore\Model\DataObject\UniProductBase;
 use Pimcore\Model\DataObject\UniProductCategoryInternal;
 
-class ProductInternalHierarchyData implements DynamicTextLabelInterface
+class UniProductStructureInternalData implements DynamicTextLabelInterface
 {
     public function renderLayoutText(string $data, ?Concrete $object, array $params): string
     {
-        if (!$object instanceof UniBaseProduct) {
+        if (!$object instanceof UniProductBase) {
             return 'Unsupported data object... 🤷🏼‍♂️';
         }
 
@@ -34,7 +34,7 @@ class ProductInternalHierarchyData implements DynamicTextLabelInterface
         return sprintf('<table>%s</table><br>%s', $table, $link);
     }
 
-    private function resolveObjectBricks(UniBaseProduct|UniProductCategoryInternal $object, string $objectBrickClass): array
+    private function resolveObjectBricks(UniProductBase|UniProductCategoryInternal $object, string $objectBrickClass): array
     {
         $parent = $object->getParent();
 
