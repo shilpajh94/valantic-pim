@@ -4,7 +4,6 @@ namespace App\Enum;
 
 enum ProductCategoryLevel: string
 {
-
     case PRODUCT_GROUP = '1';
     case CATEGORY = '2';
     case SUB_CATEGORY = '3';

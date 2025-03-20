@@ -14,13 +14,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class AdminStyleListener implements EventSubscriberInterface
 {
-    public static function getSubscribedEvents(): array
-    {
-        return [
-            AdminEvents::RESOLVE_ELEMENT_ADMIN_STYLE => 'onResolveElementAdminStyle',
-        ];
-    }
-
     public function onResolveElementAdminStyle(ElementAdminStyleEvent $event): void
     {
         $element = $event->getElement();
@@ -32,5 +25,12 @@ class AdminStyleListener implements EventSubscriberInterface
         if ($element instanceof UniProductCategoryExternal) {
             $event->setAdminStyle(new ExternalStructureStyle($element));
         }
+    }
+
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            AdminEvents::RESOLVE_ELEMENT_ADMIN_STYLE => 'onResolveElementAdminStyle',
+        ];
     }
 }

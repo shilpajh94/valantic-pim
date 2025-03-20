@@ -26,9 +26,9 @@ class ProductInternalHierarchyData implements DynamicTextLabelInterface
         }
 
         // TODO: How to add support for tabs and other layout options?
-        $values = array_reduce($objectBricks, fn(?array $carry, AbstractData $objectBrick) => array_merge($carry ?? [], $this->getValues($objectBrick)));
+        $values = array_reduce($objectBricks, fn(?array $carry, AbstractData $objectBrick): array => array_merge($carry ?? [], $this->getValues($objectBrick)));
         $table = array_map(fn(array $row): string => $this->renderRow($row), $values);
-        $table = array_reduce($table, fn(?string $carry, string $row) => $carry . $row);
+        $table = array_reduce($table, fn(?string $carry, string $row): string => $carry . $row);
         $link = $this->renderLink($objectBricks[0]->getObject()->getId(), 'pimcore_icon_right', 'Go to object');
 
         return sprintf('<table>%s</table><br>%s', $table, $link);
@@ -43,6 +43,7 @@ class ProductInternalHierarchyData implements DynamicTextLabelInterface
         }
 
         $result = [];
+
         foreach ($parent->getLevelSpecificData()->getItems() as $objectBrick) {
             if ($objectBrick instanceof $objectBrickClass) {
                 $result[] = $objectBrick;
@@ -74,7 +75,7 @@ class ProductInternalHierarchyData implements DynamicTextLabelInterface
                     'key' => $name,
                     'title' => $definition->getTitle(),
                     'value' => $brandData->$accessor(),
-                    'type' => get_class($definition),
+                    'type' => $definition::class,
                 ];
             }
         }
@@ -87,7 +88,7 @@ class ProductInternalHierarchyData implements DynamicTextLabelInterface
         return sprintf(
             '<tr id="row-%s" class="x-form-item-default x-form-readonly">' .
                 '<td class="x-form-item-label x-form-item-label-default x-unselectable" style="width: 250px;">' .
-                    '<span class="x-form-item-label-text">' . '%s <span class="pimcore_object_label_icon pimcore_icon_gray_lock"></span>:</span>' .
+                    '<span class="x-form-item-label-text">%s <span class="pimcore_object_label_icon pimcore_icon_gray_lock"></span>:</span>' .
                 '</td>' .
                 '<td>%s</td>' .
             '</tr>',
@@ -99,7 +100,7 @@ class ProductInternalHierarchyData implements DynamicTextLabelInterface
 
     private function renderValue(array $row): string
     {
-        return match($row['type']) {
+        return match ($row['type']) {
             Image::class => $this->renderValueImage($row['value']),
             default => $this->renderValueString($row['value'] ?? ''),
         };
@@ -119,16 +120,16 @@ class ProductInternalHierarchyData implements DynamicTextLabelInterface
         $url = sprintf('/admin/asset/get-image-thumbnail?id=%s&amp;width=290&amp;height=240&amp;contain=true', $value->getId());
 
         return sprintf(
-            '<div class="x-panel-body pimcore_image_container x-panel-body-default x-noborder-t x-panel-default-outer-border-rbl" style="width: 300px; height: 253px; border-top-width: 1px !important;">'.
-                '<div class="x-autocontainer-outerCt" role="presentation" style="width: 100%%; table-layout: fixed; height: 100%%;">'.
-                    '<div style="background-image: url(%s); background-position: center center; background-repeat: no-repeat;" role="presentation" class="x-autocontainer-innerCt"></div>'.
-                '</div>'.
+            '<div class="x-panel-body pimcore_image_container x-panel-body-default x-noborder-t x-panel-default-outer-border-rbl" style="width: 300px; height: 253px; border-top-width: 1px !important;">' .
+                '<div class="x-autocontainer-outerCt" role="presentation" style="width: 100%%; table-layout: fixed; height: 100%%;">' .
+                    '<div style="background-image: url(%s); background-position: center center; background-repeat: no-repeat;" role="presentation" class="x-autocontainer-innerCt"></div>' .
+                '</div>' .
             '</div>',
             $url
         );
     }
 
-    public function renderLink(int $objectId, string $icon, string $text): string
+    private function renderLink(int $objectId, string $icon, string $text): string
     {
         return sprintf(
             '<a href="#" data-pimcore-open-id="%s" data-pimcore-open-type="object" class="x-btn x-unselectable x-btn-default-small" style="min-width: 75px;" hidefocus="on" unselectable="on" role="button" aria-hidden="false" aria-disabled="false">' .
