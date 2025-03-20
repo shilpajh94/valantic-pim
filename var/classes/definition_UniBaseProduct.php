@@ -12,6 +12,7 @@
  * - sapMaterialNumber [input]
  * - ghpFullCode [input]
  * - skeletonGhpCode [calculatedValue]
+ * - hierarchySearchData [calculatedValue]
  * - weightMetric [numeric]
  * - weightMetricUnit [select]
  * - weightImperial [numeric]
@@ -27,7 +28,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1742283768,
+   'modificationDate' => 1742465846,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -616,6 +617,32 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'calculatorExpression' => '',
                          'calculatorClass' => 'App\\Model\\CalculatedValue\\ProductManagement\\ProductCategoryFullCode',
                          'columnLength' => 190,
+                         'width' => '250px',
+                      )),
+                      2 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
+                         'name' => 'hierarchySearchData',
+                         'title' => 'Hierarchy Search Data',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => true,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => true,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'elementType' => 'textarea',
+                         'calculatorType' => 'class',
+                         'calculatorExpression' => '',
+                         'calculatorClass' => '@App\\Model\\CalculatedValue\\ProductManagement\\ProductInternalHierarchySearchData',
+                         'columnLength' => 20000,
                          'width' => '250px',
                       )),
                     ),

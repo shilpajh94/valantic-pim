@@ -14,8 +14,8 @@ services:
 
     Symfony\Component\DependencyInjection\ContainerInterface: '@service_container'
 
-    App\Model\CalculatedValue\ProductManagement\:
-        resource: '../src/Model/CalculatedValue/ProductManagement'
+    App\Model\CalculatedValue\:
+        resource: '../src/Model/CalculatedValue'
         public: true
 
     App\Elasticsearch\:
