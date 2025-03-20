@@ -16,9 +16,9 @@ class InternalStructureStyle extends AdminStyle
         parent::__construct($element);
 
         if (
-            !$element instanceof UniBaseProduct &&
-            !$element instanceof UniProductCategoryInternal &&
-            !$element instanceof AbstractProductGroupSpecificData
+            !$element instanceof UniBaseProduct
+            && !$element instanceof UniProductCategoryInternal
+            && !$element instanceof AbstractProductGroupSpecificData
         ) {
             return;
         }
@@ -32,12 +32,14 @@ class InternalStructureStyle extends AdminStyle
             $level = $parent instanceof UniProductCategoryInternal ? $parent->getLevel() + 1 : 0;
             $this->elementText = sprintf($levelTemplate . ' %s - %s', $level, $element->getSapMaterialNumber(), $element->getSapDescription());
             $this->elementIcon = sprintf($iconPathTemplate, 'green');
+
             return;
         }
 
         if ($element instanceof AbstractProductGroupSpecificData) {
             $this->elementText = $element->getClass()->getTitle();
             $this->elementIcon = sprintf($iconPathTemplate, 'blue_add');
+
             return;
         }
 

@@ -2,7 +2,6 @@
 
 namespace Test\Model\CalculatedValue\ProductManagement;
 
-use App\Model\CalculatedValue\ProductManagement\ProductCategoryFullCode;
 use App\Model\CalculatedValue\ProductManagement\ProductCategoryLevel;
 use PHPUnit\Framework\TestCase;
 use Pimcore\Model\DataObject\Data\CalculatedValue;
