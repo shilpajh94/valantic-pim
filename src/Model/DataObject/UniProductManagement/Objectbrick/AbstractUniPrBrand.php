@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\DataObject\Objectbrick;
+namespace App\Model\DataObject\UniProductManagement\Objectbrick;
 
 use Pimcore\Model\DataObject\Objectbrick\Data\AbstractData;
 

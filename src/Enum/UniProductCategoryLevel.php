@@ -2,7 +2,7 @@
 
 namespace App\Enum;
 
-enum ProductCategoryLevel: string
+enum UniProductCategoryLevel: string
 {
     case PRODUCT_GROUP = '1';
     case CATEGORY = '2';

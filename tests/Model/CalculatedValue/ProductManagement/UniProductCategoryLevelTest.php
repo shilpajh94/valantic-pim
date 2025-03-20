@@ -2,12 +2,12 @@
 
 namespace Test\Model\CalculatedValue\ProductManagement;
 
-use App\Model\CalculatedValue\ProductManagement\ProductCategoryLevel;
+use App\Model\CalculatedValue\UniProductManagement\UniProductCategoryLevel;
 use PHPUnit\Framework\TestCase;
 use Pimcore\Model\DataObject\Data\CalculatedValue;
 use Pimcore\Model\DataObject\UniProductCategoryInternal;
 
-class ProductCategoryLevelTest extends TestCase
+class UniProductCategoryLevelTest extends TestCase
 {
     public function testParentConcatenation(): void
     {
@@ -15,7 +15,7 @@ class ProductCategoryLevelTest extends TestCase
         $bb = new UniProductCategoryInternal();
         $bb->setParent($aa);
 
-        $implementation = new ProductCategoryLevel();
+        $implementation = new UniProductCategoryLevel();
         $context = new CalculatedValue('level');
 
         $this->assertEquals('1', $implementation->compute($aa, $context));

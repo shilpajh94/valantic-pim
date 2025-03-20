@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Elasticsearch\Index\ProductManagement;
+namespace App\Elasticsearch\Index\UniProductManagement;
 
 use App\Elasticsearch\SiteAwareTenantTrait;
 use Valantic\ElasticaBridgeBundle\Index\AbstractIndex;

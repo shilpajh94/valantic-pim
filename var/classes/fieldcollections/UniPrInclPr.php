@@ -63,7 +63,7 @@ return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
             array (
               0 => 
               array (
-                'classes' => 'UniBaseProduct',
+                'classes' => 'UniProductBase',
               ),
             ),
              'displayMode' => 'grid',

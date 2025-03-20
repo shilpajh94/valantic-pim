@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Elasticsearch\Index\ProductManagement;
+namespace App\Elasticsearch\Index\UniProductManagement;
 
 use Pimcore\Model\DataObject\ProductCategory;
-use Pimcore\Model\DataObject\UniBaseProduct;
+use Pimcore\Model\DataObject\UniProductBase;
 use Pimcore\Model\DataObject\UniProductCategoryInternal;
 use Pimcore\Model\Element\AbstractElement;
 use Valantic\ElasticaBridgeBundle\Document\AbstractDocument;
@@ -13,7 +13,7 @@ use Valantic\ElasticaBridgeBundle\Document\DataObjectNormalizerTrait;
 use Valantic\ElasticaBridgeBundle\Enum\DocumentType;
 
 /**
- * @extends AbstractDocument<UniBaseProduct>
+ * @extends AbstractDocument<UniProductBase>
  */
 class UniBaseProductIndexDocument extends AbstractDocument
 {
@@ -27,20 +27,20 @@ class UniBaseProductIndexDocument extends AbstractDocument
 
     public function getSubType(): ?string
     {
-        return UniBaseProduct::class;
+        return UniProductBase::class;
     }
 
     public function getNormalized(AbstractElement $element): array
     {
         return [
             ...$this->plainAttributes($element, [
-                UniBaseProductIndex::ATTRIBUTE_PRODUCT_BRAND_NAME => UniBaseProduct::FIELD_PRODUCT_BRAND_NAME,
-                UniBaseProductIndex::ATTRIBUTE_GHP_FULL_CODE => UniBaseProduct::FIELD_GHP_FULL_CODE,
-                UniBaseProductIndex::ATTRIBUTE_SAP_MATERIAL_NUMBER => UniBaseProduct::FIELD_SAP_MATERIAL_NUMBER,
+                UniBaseProductIndex::ATTRIBUTE_PRODUCT_BRAND_NAME => UniProductBase::FIELD_PRODUCT_BRAND_NAME,
+                UniBaseProductIndex::ATTRIBUTE_GHP_FULL_CODE => UniProductBase::FIELD_GHP_FULL_CODE,
+                UniBaseProductIndex::ATTRIBUTE_SAP_MATERIAL_NUMBER => UniProductBase::FIELD_SAP_MATERIAL_NUMBER,
             ]),
             ...$this->localizedAttributes($element, [
-                UniBaseProductIndex::ATTRIBUTE_SAP_DESCRIPTION => UniBaseProduct::FIELD_SAP_DESCRIPTION,
-                UniBaseProductIndex::ATTRIBUTE_PRODUCT_SUB_CATEGORY => UniBaseProduct::FIELD_PRODUCT_SUB_CATEGORY,
+                UniBaseProductIndex::ATTRIBUTE_SAP_DESCRIPTION => UniProductBase::FIELD_SAP_DESCRIPTION,
+                UniBaseProductIndex::ATTRIBUTE_PRODUCT_SUB_CATEGORY => UniProductBase::FIELD_PRODUCT_SUB_CATEGORY,
             ]),
             UniBaseProductIndex::ATTRIBUTE_INTERNAL_HIERARCHY => $this->getInternalHierarchy($element->getParent()),
             UniBaseProductIndex::ATTRIBUTE_EXTERNAL_HIERARCHY => [],

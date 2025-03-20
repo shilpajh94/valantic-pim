@@ -12,7 +12,7 @@
 return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'dao' => NULL,
    'key' => 'UniPrBrand',
-   'parentClass' => 'App\\Model\\DataObject\\Objectbrick\\AbstractUniPrBrand',
+   'parentClass' => 'App\\Model\\DataObject\\UniProductManagement\\Objectbrick\\AbstractUniPrBrand',
    'implementsInterfaces' => '',
    'title' => 'Brand Data',
    'group' => 'UniProductManagement',
