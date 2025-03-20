@@ -39,7 +39,7 @@ class InternalStructureStyle extends AdminStyle
         }
 
         $this->elementText = $element->getName();
-        $this->elementIcon = match ((int) $element->getLevel()) {
+        $this->elementIcon = match ($element->getLevel()) {
             ProductCategoryLevel::PRODUCT_LINE->value => sprintf($template, 'yellow'),
             ProductCategoryLevel::PRODUCT_VARIANT->value => sprintf($template, 'blue'),
             default => sprintf($template, 'orange'),
