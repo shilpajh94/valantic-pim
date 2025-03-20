@@ -10,17 +10,15 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class AdminAssetsListener implements EventSubscriberInterface
 {
-    public function onJsPaths(PathsEvent $event): void
-    {
-        $event->setPaths(array_merge($event->getPaths(), [
-            '/admin/js/open.js',
-        ]));
-    }
-
     public static function getSubscribedEvents(): array
     {
         return [
             BundleManagerEvents::JS_PATHS => 'onJsPaths',
         ];
+    }
+
+    public function onJsPaths(PathsEvent $event): void
+    {
+        $event->addPaths(['/admin/js/open.js']);
     }
 }

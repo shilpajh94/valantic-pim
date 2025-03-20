@@ -14,20 +14,15 @@ services:
 
     Symfony\Component\DependencyInjection\ContainerInterface: '@service_container'
 
-    App\EventListener\Admin\AdminStyleListener:
-        tags:
-            - { name: kernel.event_listener, event: pimcore.admin.resolve.elementAdminStyle, method: onResolveElementAdminStyle }
-
-    App\EventListener\Admin\AdminAssetsListener:
-        tags:
-            - { name: kernel.event_listener, event: pimcore.bundle_manager.paths.js, method: onJsPaths }
-
     App\Model\CalculatedValue\ProductManagement\:
         resource: '../src/Model/CalculatedValue/ProductManagement'
         public: true
 
     App\Elasticsearch\:
         resource: '../src/Elasticsearch'
+
+    App\EventListener\:
+        resource: '../src/EventListener'
 
 
     # Example custom templating helper
