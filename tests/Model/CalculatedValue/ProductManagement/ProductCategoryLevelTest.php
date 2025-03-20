@@ -19,7 +19,7 @@ class ProductCategoryLevelTest extends TestCase
         $implementation = new ProductCategoryLevel();
         $context = new CalculatedValue('level');
 
-        $this->assertEquals(1, $implementation->compute($aa, $context));
-        $this->assertEquals(2, $implementation->compute($bb, $context));
+        $this->assertEquals('1', $implementation->compute($aa, $context));
+        $this->assertEquals('2', $implementation->compute($bb, $context));
     }
 }
