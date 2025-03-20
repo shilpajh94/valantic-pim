@@ -6,13 +6,15 @@ namespace App\Elasticsearch\Index\ProductManagement;
 
 use Pimcore\Model\DataObject\ProductCategory;
 use Pimcore\Model\DataObject\UniBaseProduct;
-use Pimcore\Model\DataObject\UniProductCategoryExternal;
 use Pimcore\Model\DataObject\UniProductCategoryInternal;
 use Pimcore\Model\Element\AbstractElement;
 use Valantic\ElasticaBridgeBundle\Document\AbstractDocument;
 use Valantic\ElasticaBridgeBundle\Document\DataObjectNormalizerTrait;
 use Valantic\ElasticaBridgeBundle\Enum\DocumentType;
 
+/**
+ * @extends AbstractDocument<UniBaseProduct>
+ */
 class UniBaseProductIndexDocument extends AbstractDocument
 {
     /** @use DataObjectNormalizerTrait<ProductCategory> */
@@ -41,8 +43,8 @@ class UniBaseProductIndexDocument extends AbstractDocument
                 UniBaseProductIndex::ATTRIBUTE_PRODUCT_SUB_CATEGORY => UniBaseProduct::FIELD_PRODUCT_SUB_CATEGORY,
             ]),
             UniBaseProductIndex::ATTRIBUTE_INTERNAL_HIERARCHY => $this->getInternalHierarchy($element->getParent()),
-            UniBaseProductIndex::ATTRIBUTE_EXTERNAL_HIERARCHY => $this->getExternalHierarchy($element),
-            UniBaseProductIndex::ATTRIBUTE_EXTERNAL_HIERARCHY_FULL => $this->getExternalHierarchyFull($element),
+            UniBaseProductIndex::ATTRIBUTE_EXTERNAL_HIERARCHY => [],
+            UniBaseProductIndex::ATTRIBUTE_EXTERNAL_HIERARCHY_FULL => [],
             // TODO: Add more fields
             // TODO: Make dynamic for product group specific data?
         ];
@@ -63,33 +65,5 @@ class UniBaseProductIndexDocument extends AbstractDocument
         $next = $parent->getParent();
 
         return $next instanceof UniProductCategoryInternal ? $this->getInternalHierarchy($next, $carry) : $carry;
-    }
-
-    private function getExternalHierarchy(AbstractElement $element): array
-    {
-        if (!$element instanceof UniBaseProduct) {
-            return [];
-        }
-
-        return [];
-        //return array_map(fn(UniProductCategoryExternal $category): int => $category->getId(), $element->getExternalCategories());
-    }
-
-    private function getExternalHierarchyFull(AbstractElement $element, array $carry = []): array
-    {
-        if (!$element instanceof UniBaseProduct) {
-            return [];
-        }
-
-        return [];
-        //return array_map(fn(UniProductCategoryExternal $category): array => $this->getExternalHierarchyPart($category), $element->getExternalCategories());
-    }
-
-    private function getExternalHierarchyPart(UniProductCategoryExternal $category, array $carry = []): array
-    {
-        $carry[] = $category->getId();
-        $next = $category->getParent();
-
-        return $next instanceof UniProductCategoryExternal ? $this->getExternalHierarchyPart($next, $carry) : $carry;
     }
 }
