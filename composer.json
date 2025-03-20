@@ -27,7 +27,8 @@
     "pimcore/file-explorer-bundle": "^1.0",
     "pimcore/google-marketing-bundle": "^1.0",
     "pimcore/personalization-bundle": "^1.0",
-    "pimcore/pimcore": "^11.0",
+    "pimcore/perspective-editor": "^1.8",
+    "pimcore/pimcore": "11.2.*",
     "pimcore/system-info-bundle": "^1.0",
     "pimcore/web-to-print-bundle": "^1.1",
     "psr/http-factory-implementation": "*",
@@ -101,5 +102,8 @@
       "Pimcore\\Composer::clearCache",
       "Pimcore\\Composer::installAssets"
     ]
+  },
+  "extra": {
+    "symfony-assets-install": "relative"
   }
 }

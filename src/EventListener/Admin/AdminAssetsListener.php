@@ -19,6 +19,9 @@ class AdminAssetsListener implements EventSubscriberInterface
 
     public function onJsPaths(PathsEvent $event): void
     {
-        $event->addPaths(['/admin/js/open.js']);
+        $event->addPaths([
+            '/admin/js/open.js',
+            '/admin/js/perspective.js',
+        ]);
     }
 }
