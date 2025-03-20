@@ -24,25 +24,28 @@ class InternalStructureStyle extends AdminStyle
         }
 
         $this->elementIconClass = null;
-        $template = '/bundles/pimcoreadmin/img/icon/tag_%s.png';
+        $iconPathTemplate = '/bundles/pimcoreadmin/img/icon/tag_%s.png';
+        $levelTemplate = '<span style="color: gray;">[L%s]</span>';
 
         if ($element instanceof UniBaseProduct) {
-            $this->elementText = sprintf('%s - %s', $element->getSapMaterialNumber(), $element->getSapDescription());
-            $this->elementIcon = sprintf($template, 'green');
+            $parent = $element->getParent();
+            $level = $parent instanceof UniProductCategoryInternal ? $parent->getLevel() + 1 : 0;
+            $this->elementText = sprintf($levelTemplate . ' %s - %s', $level, $element->getSapMaterialNumber(), $element->getSapDescription());
+            $this->elementIcon = sprintf($iconPathTemplate, 'green');
             return;
         }
 
         if ($element instanceof AbstractProductGroupSpecificData) {
             $this->elementText = $element->getClass()->getTitle();
-            $this->elementIcon = sprintf($template, 'blue_add');
+            $this->elementIcon = sprintf($iconPathTemplate, 'blue_add');
             return;
         }
 
-        $this->elementText = $element->getName();
+        $this->elementText = sprintf($levelTemplate . ' %s', $element->getLevel(), $element->getName());
         $this->elementIcon = match ($element->getLevel()) {
-            ProductCategoryLevel::PRODUCT_LINE->value => sprintf($template, 'yellow'),
-            ProductCategoryLevel::PRODUCT_VARIANT->value => sprintf($template, 'blue'),
-            default => sprintf($template, 'orange'),
+            ProductCategoryLevel::PRODUCT_LINE->value => sprintf($iconPathTemplate, 'yellow'),
+            ProductCategoryLevel::PRODUCT_VARIANT->value => sprintf($iconPathTemplate, 'blue'),
+            default => sprintf($iconPathTemplate, 'orange'),
         };
     }
 }
