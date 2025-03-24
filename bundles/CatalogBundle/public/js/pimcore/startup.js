@@ -85,6 +85,23 @@ pimcore.plugin.CatalogBundle = Class.create({
         //let helper = new pimcore.plugin.lpeHelper();
 
         if (objectClassName == 'CatalogPTS') {
+
+
+            // if((e.detail.object.data.data.AttributeTable !== null && trim(e.detail.object.data.data.AttributeTable) !== "")){
+            //     var ptsCatalogHeaderSelection = new pimcore.plugin.ptsCatalogHeaderSelection();
+            //     ptsCatalogHeaderSelection.attachPtsCatlogHeader(e);
+            // }
+
+            // e.detail.object.edit.dataFields.AttributeTable.component.on('select', function(event){
+            //         //console.log(e.detail.object.data.data.AttributeTable);
+            //       if(e.detail.object.data.data.AttributeTable != event.value)
+            //     {
+            //         var ptsCatalogHeaderSelection = new pimcore.plugin.ptsCatalogHeaderSelection();
+            //         ptsCatalogHeaderSelection.attachPtsCatlogHeader(e);
+            //     }
+            // });
+
+
             var baseOptionsStore = Ext.create('Ext.data.Store', {
                 fields: ['key', 'value'],
                 proxy: {
@@ -268,6 +285,9 @@ pimcore.plugin.CatalogBundle = Class.create({
                     headerSelection.attachHeader(e.detail.object, event,template);
                 }
              });
+
+            
+                    
              
 
             var baseOptionsStore = Ext.create('Ext.data.Store', {
@@ -417,6 +437,8 @@ pimcore.plugin.CatalogBundle = Class.create({
 
 
         }
+
+        
     },
     postOpenDocument: function(e){
 

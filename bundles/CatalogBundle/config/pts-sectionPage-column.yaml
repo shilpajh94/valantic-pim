@@ -1,0 +1,36 @@
+Pitch:
+  fieldName: printedCatalogDescription
+  fieldLevel: class
+  columnName: printedCatalogDescription
+  fieldLabel: Pitch
+  className: object_2
+pitchLengthMM:
+    fieldName: pitchLengthMM
+    fieldLocation: objectbrick
+    objectBrickClassName: SynchronousFert
+    fieldLabel: Pitch Length (mm)
+    isLocalized: false
+pitchMM:
+    fieldName: pitchMM
+    fieldLocation: objectbrick
+    objectBrickClassName: SynchronousFert
+    fieldLabel: A (Pitch MM)
+    isLocalized: false
+totalBeltThickness:
+    fieldName: totalBeltThickness
+    fieldLocation: objectbrick
+    objectBrickClassName: PTGSkeleton
+    fieldLabel: B (Total Belt Thickness)
+    isLocalized: false
+totalToothThickness:
+    fieldName: totalToothThickness
+    fieldLocation: objectbrick
+    objectBrickClassName: PTGSkeleton
+    fieldLabel: B (Total Tooth Thickness)
+    isLocalized: false
+standardWidth:
+    fieldName: widthmm
+    fieldLocation: objectbrick
+    objectBrickClassName: SynchronousFert
+    fieldLabel: Standard With (mm)
+    isLocalized: false

@@ -9,6 +9,7 @@
  * - Brand [select]
  * - SkeletonProduct [multiselect]
  * - Color [select]
+ * - Columns [textarea]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -18,7 +19,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1730784140,
+   'modificationDate' => 1742542636,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -233,6 +234,54 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'fieldtype' => 'fieldset',
                  'labelWidth' => 100,
                  'labelAlign' => 'left',
+              )),
+              1 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
+                 'name' => 'Headers',
+                 'type' => NULL,
+                 'region' => NULL,
+                 'title' => 'Print Columns',
+                 'width' => '',
+                 'height' => '',
+                 'collapsible' => false,
+                 'collapsed' => false,
+                 'bodyStyle' => '',
+                 'datatype' => 'layout',
+                 'children' => 
+                array (
+                ),
+                 'locked' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'fieldtype' => 'fieldset',
+                 'labelWidth' => 100,
+                 'labelAlign' => 'left',
+              )),
+              2 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                 'name' => 'Columns',
+                 'title' => 'Columns',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'maxLength' => NULL,
+                 'showCharCount' => false,
+                 'excludeFromSearchIndex' => false,
+                 'height' => '',
+                 'width' => '',
               )),
             ),
              'locked' => false,
