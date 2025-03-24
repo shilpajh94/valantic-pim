@@ -9,11 +9,11 @@
  * - Template [select]
  * - AttributeTable [select]
  * - Color [select]
+ * - Category [multiselect]
  * - CatalogLanguage [language]
- * - brand [multiselect]
- * - FittingFamily [multiselect]
- * - thread [multiselect]
- * - elbowAngle [multiselect]
+ * - Brand [multiselect]
+ * - NomenClature [multiselect]
+ * - SAPRange [select]
  * - Columns [textarea]
  * - ProductsData [table]
  * - headerData [textarea]
@@ -26,7 +26,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1739440572,
+   'modificationDate' => 1741690682,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -135,7 +135,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'defaultValueGenerator' => '',
                      'width' => '',
                      'optionsProviderType' => 'configure',
-                     'optionsProviderClass' => '',
+                     'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
                      'optionsProviderData' => '',
                   )),
                   1 => 
@@ -158,12 +158,30 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
+                     'options' => 
+                    array (
+                      0 => 
+                      array (
+                        'key' => 'Hose Product Page',
+                        'value' => 'Hose Product Page',
+                      ),
+                      1 => 
+                      array (
+                        'key' => 'Hydraulic Fitting',
+                        'value' => 'Hydraulic Fitting',
+                      ),
+                      2 => 
+                      array (
+                        'key' => 'Industrial Hose Product Page',
+                        'value' => 'Industrial Hose Product Page',
+                      ),
+                    ),
                      'defaultValue' => '1',
                      'columnLength' => 190,
                      'dynamicOptions' => false,
                      'defaultValueGenerator' => '',
                      'width' => 250,
-                     'optionsProviderType' => 'class',
+                     'optionsProviderType' => 'configure',
                      'optionsProviderClass' => 'CatalogBundle\\OptionProvider\\DocumentOptionsProvider',
                      'optionsProviderData' => '',
                   )),
@@ -172,7 +190,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'name' => 'AttributeTable',
                      'title' => 'Attribute Table',
                      'tooltip' => '',
-                     'mandatory' => false,
+                     'mandatory' => true,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
@@ -195,7 +213,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'defaultValueGenerator' => '',
                      'width' => '',
                      'optionsProviderType' => 'configure',
-                     'optionsProviderClass' => '',
+                     'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
                      'optionsProviderData' => '',
                   )),
                   3 => 
@@ -240,6 +258,39 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'optionsProviderData' => '',
                   )),
                   4 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                     'name' => 'Category',
+                     'title' => 'Category',
+                     'tooltip' => '',
+                     'mandatory' => true,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'options' => 
+                    array (
+                    ),
+                     'maxItems' => NULL,
+                     'renderType' => 'tags',
+                     'dynamicOptions' => false,
+                     'defaultValue' => NULL,
+                     'height' => '',
+                     'width' => 250,
+                     'defaultValueGenerator' => '',
+                     'optionsProviderType' => 'configure',
+                     'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
+                     'optionsProviderData' => '',
+                  )),
+                  5 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Language::__set_state(array(
                      'name' => 'CatalogLanguage',
                      'title' => 'Language',
@@ -294,7 +345,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 array (
                   0 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                     'name' => 'brand',
+                     'name' => 'Brand',
                      'title' => 'Brand',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -327,8 +378,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   )),
                   1 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                     'name' => 'FittingFamily',
-                     'title' => ' Fitting Family',
+                     'name' => 'NomenClature',
+                     'title' => 'Nomen Clature',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -356,14 +407,15 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'defaultValueGenerator' => '',
                      'optionsProviderType' => 'class',
                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
-                     'optionsProviderData' => 'FittingFamily|Name',
+                     'optionsProviderData' => 'NomenClature|key',
                   )),
                   2 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                     'name' => 'thread',
-                     'title' => 'Thread',
-                     'tooltip' => '',
-                     'mandatory' => false,
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                     'name' => 'SAPRange',
+                     'title' => 'SAP Range',
+                     'tooltip' => '
+',
+                     'mandatory' => true,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
@@ -377,52 +429,32 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'maxItems' => NULL,
-                     'renderType' => 'tags',
+                     'options' => 
+                    array (
+                      0 => 
+                      array (
+                        'key' => 'Virtual Catalog',
+                        'value' => 'Virtual Catalog',
+                      ),
+                      1 => 
+                      array (
+                        'key' => 'Printed Catalog',
+                        'value' => 'Printed Catalog',
+                      ),
+                      2 => 
+                      array (
+                        'key' => 'Custom Selection',
+                        'value' => 'Custom Selection',
+                      ),
+                    ),
+                     'defaultValue' => '1',
+                     'columnLength' => 190,
                      'dynamicOptions' => false,
-                     'defaultValue' => 
-                    array (
-                      0 => '1',
-                    ),
-                     'height' => '',
-                     'width' => 250,
                      'defaultValueGenerator' => '',
-                     'optionsProviderType' => 'class',
-                     'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
-                     'optionsProviderData' => 'Thread|Name',
-                  )),
-                  3 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                     'name' => 'elbowAngle',
-                     'title' => 'Elbow Angle',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'margin:-42px 0px 10px 570px',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'maxItems' => NULL,
-                     'renderType' => 'tags',
-                     'dynamicOptions' => false,
-                     'defaultValue' => 
-                    array (
-                      0 => '1',
-                    ),
-                     'height' => '',
                      'width' => 250,
-                     'defaultValueGenerator' => '',
-                     'optionsProviderType' => 'class',
-                     'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
-                     'optionsProviderData' => 'NomenClature|elbowAngle1',
+                     'optionsProviderType' => 'configure',
+                     'optionsProviderClass' => '',
+                     'optionsProviderData' => '',
                   )),
                 ),
                  'locked' => false,

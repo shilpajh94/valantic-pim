@@ -558,17 +558,43 @@ class IndustrialHoseController extends FrontendController
         if ($templateEditable && $templateEditable->getElement() != null) {
             $template = $templateEditable->getElement();
             if($template){
+				
+			$className = $template->getClassName();
+			$productsData = $template->getProductsData();
+			$headerData = json_decode($template->getHeaderData(), true);
+            $headerKeys = array_keys($headerData);
+            $headerKeysIndex = array_flip($headerKeys); 
+			$catalogLanguage = "";
+			if($className == "SpecSheetCatalog"){
+				$catalogLanguage = $template->getCatalogLanguage();
+				
+				$SAPRange = $template->getSAPRange();
+				$id = $template->getId();
+				if($SAPRange == "Custom Selection"){
+					$query = "Select * from specsheet_custom_selection where object_id=$id";
+					$row = $this->db->fetchAllAssociative($query);
+					if(isset($row[0])){
+					$exCludes = $row[0]['data'];
+					$includeArticles = explode(",",$exCludes);
 
-                $catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());
-                $catalogObj = DataObject\Catalog::getById($catalogCategoryObj->getParentId());
-                $catalogLanguage = $catalogObj->getCatalogLanguage();
+					foreach ($productsData as $key => $productItem) {
+						if(!in_array($productItem[$headerKeysIndex['articleNumber']], $includeArticles)){
+							unset($productsData[$key]);
+						}
+					}
+					
+					}
+				}
+				
+			} else {
+				$catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());
+				$catalogObj = DataObject\Catalog::getById($catalogCategoryObj->getParentId());
+				$catalogLanguage = $catalogObj->getCatalogLanguage();
+			}
 
                 $footerBgColor = $template->getColor();
 
-                $headerData = json_decode($template->getHeaderData(), true);
-
-                $headerKeys = array_keys($headerData);
-                $headerKeysIndex = array_flip($headerKeys);
+               
 
                 $objColumnsData = $template->getColumns();
                 $this->columnsData = json_decode($objColumnsData, true);
@@ -578,7 +604,6 @@ class IndustrialHoseController extends FrontendController
                 $brandsList = $this->getBrandsList();
                 $this->featuresList = $this->getFeaturesList('', $catalogLanguage);
 
-                $productsData = $template->getProductsData();
 
                 $query = "select oo_id, Level, description, PrintedCatalogDescription from object_localized_2_{$catalogLanguage} where level IN (3,4) ";
 
@@ -884,8 +909,10 @@ class IndustrialHoseController extends FrontendController
                 if ($newBrandArray) {
                     array_multisort(array_column($newBrandArray, 'SortOrder'), SORT_ASC, $newBrandArray);
                 }
-
-                $categories = $this->getSIOP($catalogLanguage);
+				$categories = [];
+				if($className == "CatalogTables"){
+					$categories = $this->getSIOP($catalogLanguage);
+				}
                 $footer_logo_src = (strtolower($footerBgColor) == 'orange') ? $catalogImagesINHFooter['Black'] : $catalogImagesINHFooter['Orange'];
                 $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 

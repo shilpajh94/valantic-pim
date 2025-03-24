@@ -87,11 +87,31 @@ class HydraulicFittingController extends FrontendController
             $productsData = $obj->getProductsData();
             $nomenClatureList = $this->getNomenClatureList();
             $brandsList = $this->getBrandsList();
+			
+			$className = $obj->getClassName();
+			$SAPRange = "";
+			if($className == "SpecSheetCatalog") {
+				$SAPRange = $obj->getSAPRange();
+				if($SAPRange == "Custom Selection"){
+					$query = "Select * from specsheet_custom_selection where object_id=$id";
+					$row = $this->db->fetchAllAssociative($query);
+					if(isset($row[0])){
+					$exCludes = $row[0]['data'];
+					$includeArticles = explode(",",$exCludes);
+
+					foreach ($productsData as $key => $productItem) {
+						if(!in_array($productItem[$headerKeysIndex['articleNumber']], $includeArticles)){
+							unset($productsData[$key]);
+						}
+					}
+					
+					}
+				}
+			}
 
             $brandsDataList = array();
             $sortedBrandsData = [];
             if ($productsData) {
-                // HoseID1InFract field value to decimal and add a new field in product data
                 foreach ($productsData as $key => $productItem) {
                     $hoseID1InFract = $productItem[$headerKeysIndex['HoseID1InFract']];
                     $hoseID1InDecimal = '';
@@ -100,6 +120,7 @@ class HydraulicFittingController extends FrontendController
                     }
                     $productsData[$key][$headerKeysIndex['HoseID1InFract']] = trim($hoseID1InFract, ' ');
                     $productsData[$key][] = $hoseID1InDecimal;
+					
                 }
 
                 $hoseID1InFractSortKey = array_key_last($productsData[0]);
