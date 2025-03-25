@@ -6,6 +6,9 @@ namespace App\Elasticsearch;
 
 trait SiteAwareTenantTrait
 {
+    /**
+     * @return string[]
+     */
     public function getTenants(): array
     {
         return ['main'];
