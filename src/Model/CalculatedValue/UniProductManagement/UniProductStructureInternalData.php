@@ -2,58 +2,35 @@
 
 namespace App\Model\CalculatedValue\UniProductManagement;
 
+use App\Model\DataObject\AbstractUniProductBase;
 use Pimcore\Model\Asset;
 use Pimcore\Model\DataObject\ClassDefinition\Data\Image;
 use Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields;
 use Pimcore\Model\DataObject\ClassDefinition\Layout\DynamicTextLabelInterface;
 use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\Objectbrick\Data\AbstractData;
-use Pimcore\Model\DataObject\UniProductBase;
-use Pimcore\Model\DataObject\UniProductCategoryInternal;
 
 class UniProductStructureInternalData implements DynamicTextLabelInterface
 {
     public function renderLayoutText(string $data, ?Concrete $object, array $params): string
     {
-        if (!$object instanceof UniProductBase) {
+        if (!$object instanceof AbstractUniProductBase) {
             return 'Unsupported data object... 🤷🏼‍♂️';
         }
 
-        $objectBricks = $this->resolveObjectBricks($object, $data);
+        $objectbricks = $object->resolveObjectbricksInHierarchy($data);
 
-        if ($objectBricks === []) {
+        if ($objectbricks === []) {
             return '';
         }
 
         // TODO: How to add support for tabs and other layout options?
-        $values = array_reduce($objectBricks, fn(?array $carry, AbstractData $objectBrick): array => array_merge($carry ?? [], $this->getValues($objectBrick)));
+        $values = array_reduce($objectbricks, fn(?array $carry, AbstractData $objectBrick): array => array_merge($carry ?? [], $this->getValues($objectBrick)));
         $table = array_map(fn(array $row): string => $this->renderRow($row), $values);
         $table = array_reduce($table, fn(?string $carry, string $row): string => $carry . $row);
-        $link = $this->renderLink($objectBricks[0]->getObject()->getId(), 'pimcore_icon_right', 'Go to object');
+        $link = $this->renderLink($objectbricks[0]->getObject()->getId(), 'pimcore_icon_right', 'Go to object');
 
         return sprintf('<table>%s</table><br>%s', $table, $link);
-    }
-
-    private function resolveObjectBricks(UniProductBase|UniProductCategoryInternal $object, string $objectBrickClass): array
-    {
-        $parent = $object->getParent();
-
-        if (!$parent instanceof UniProductCategoryInternal) {
-            return [];
-        }
-
-        $result = [];
-
-        foreach ($parent->getLevelSpecificData()->getItems() as $objectBrick) {
-            if ($objectBrick instanceof $objectBrickClass) {
-                $result[] = $objectBrick;
-            }
-        }
-
-        // Note: This returns all Objectbricks from a parent that Match the given abstract class.
-        //       If there are instances on multiple levels, only the on the closest parent are returned.
-
-        return $result === [] ? $this->resolveObjectBricks($parent, $objectBrickClass) : $result;
     }
 
     private function getValues(AbstractData $dataObject): array
@@ -63,6 +40,8 @@ class UniProductStructureInternalData implements DynamicTextLabelInterface
 
     private function getValuesImpl(AbstractData $brandData, array $definitions): array
     {
+        // TODO: Get from Elasticsearch Index?
+
         $result = []; // TODO: (anonymous) Class?
 
         foreach ($definitions as $definition) {
@@ -70,11 +49,10 @@ class UniProductStructureInternalData implements DynamicTextLabelInterface
                 $result = array_merge($result, $this->getValuesImpl($brandData, $definition->getFieldDefinitions() ?? []));
             } else {
                 $name = $definition->getName();
-                $accessor = sprintf('get%s', ucfirst($name));
                 $result[] = [
                     'key' => $name,
                     'title' => $definition->getTitle(),
-                    'value' => $brandData->$accessor(),
+                    'value' => $brandData->get($name),
                     'type' => $definition::class,
                 ];
             }

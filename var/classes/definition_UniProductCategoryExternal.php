@@ -20,7 +20,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1742472996,
+   'modificationDate' => 1742909975,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -169,7 +169,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'elementType' => 'numeric',
                  'calculatorType' => 'class',
                  'calculatorExpression' => '',
-                 'calculatorClass' => 'App\\Model\\UniCalculatedValue\\UniProductManagement\\UniProductCategoryLevel',
+                 'calculatorClass' => 'App\\Model\\CalculatedValue\\UniProductManagement\\UniProductCategoryLevel',
                  'columnLength' => 190,
                  'width' => '',
               )),
@@ -344,6 +344,29 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'datatype' => 'layout',
              'children' => 
             array (
+              0 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Layout\Iframe::__set_state(array(
+                 'name' => 'Layout',
+                 'type' => NULL,
+                 'region' => NULL,
+                 'title' => '',
+                 'width' => '100%',
+                 'height' => '',
+                 'collapsible' => false,
+                 'collapsed' => false,
+                 'bodyStyle' => NULL,
+                 'datatype' => 'layout',
+                 'children' => 
+                array (
+                ),
+                 'locked' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'fieldtype' => 'iframe',
+                 'iframeUrl' => '/admin/uni/product-management/output-channel/products-iframe',
+                 'renderingData' => '',
+              )),
             ),
              'locked' => false,
              'blockedVarsForExport' => 
@@ -377,7 +400,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'labelWidth' => 100,
      'labelAlign' => 'left',
   )),
-   'icon' => '',
+   'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/external.svg',
    'group' => 'UniProductManagement',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',

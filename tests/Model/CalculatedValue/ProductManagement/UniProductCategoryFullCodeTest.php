@@ -12,10 +12,10 @@ class UniProductCategoryFullCodeTest extends TestCase
     public function testParentConcatenation(): void
     {
         $aa = new UniProductCategoryInternal();
-        $aa->setCode('AA');
+        $aa->setGhpCode('AA');
 
         $bb = new UniProductCategoryInternal();
-        $bb->setCode('BB');
+        $bb->setGhpCode('BB');
 
         $bb->setParent($aa);
 

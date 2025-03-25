@@ -11,7 +11,7 @@
  * -- sapDescription [input]
  * - sapMaterialNumber [input]
  * - ghpFullCode [input]
- * - skeletonGhpCode [calculatedValue]
+ * - skeletonPimInternalHiearchyCode [calculatedValue]
  * - hierarchySearchData [calculatedValue]
  * - weightMetric [quantityValue]
  * - weightImperial [quantityValue]
@@ -27,10 +27,10 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1742472989,
+   'modificationDate' => 1742566417,
    'userOwner' => 2,
    'userModification' => 2,
-   'parentClass' => '',
+   'parentClass' => 'App\\Model\\DataObject\\AbstractUniProductBase',
    'implementsInterfaces' => '',
    'listingParentClass' => '',
    'useTraits' => '',
@@ -594,8 +594,8 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       )),
                       1 => 
                       \Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
-                         'name' => 'skeletonGhpCode',
-                         'title' => 'Skeleton GHP Code',
+                         'name' => 'skeletonPimInternalHiearchyCode',
+                         'title' => 'Skeleton PIM Internal Hierarchy Code',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
@@ -788,7 +788,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'name' => 'region',
                      'type' => NULL,
                      'region' => NULL,
-                     'title' => 'Region',
+                     'title' => 'Regions',
                      'width' => '',
                      'height' => '',
                      'collapsible' => false,
@@ -823,7 +823,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                             'classes' => 'UniRegion',
                           ),
                         ),
-                         'displayMode' => 'combo',
+                         'displayMode' => 'grid',
                          'pathFormatterClass' => '',
                          'maxItems' => NULL,
                          'visibleFields' => 'name',
@@ -1041,6 +1041,32 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
+    0 => 
+    \Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
+       'name' => 'skeletonGhpCode',
+       'title' => 'Skeleton GHP Code',
+       'tooltip' => '',
+       'mandatory' => false,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => false,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'elementType' => 'input',
+       'calculatorType' => 'class',
+       'calculatorExpression' => '',
+       'calculatorClass' => 'App\\Model\\CalculatedValue\\UniProductManagement\\UniProductCategoryFullCode',
+       'columnLength' => 190,
+       'width' => '250px',
+    )),
   ),
    'blockedVarsForExport' => 
   array (
