@@ -6,7 +6,7 @@
  *
  * Fields Summary:
  * - ghpCode [input]
- * - ghpFullCode [calculatedValue]
+ * - pimInternalHiearchyCode [calculatedValue]
  * - name [input]
  * - level [calculatedValue]
  * - localizedfields [localizedfields]
@@ -20,7 +20,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1742472999,
+   'modificationDate' => 1742909983,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -109,11 +109,11 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               )),
               1 => 
               \Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
-                 'name' => 'ghpFullCode',
-                 'title' => 'Product Hierarchy Full Code (GHP)',
-                 'tooltip' => 'SAP code including parent code on order of hierarchy.',
+                 'name' => 'pimInternalHiearchyCode',
+                 'title' => 'PIM Internal Hierarchy Code',
+                 'tooltip' => 'Equivalent of GHP product code, but based on PIM hierarchy',
                  'mandatory' => false,
-                 'noteditable' => false,
+                 'noteditable' => true,
                  'index' => true,
                  'locked' => false,
                  'style' => '',
@@ -317,7 +317,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'labelWidth' => 100,
      'labelAlign' => 'left',
   )),
-   'icon' => '/bundles/pimcoreadmin/img/icon/tag_orange.png',
+   'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/internal.svg',
    'group' => 'UniProductManagement',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
