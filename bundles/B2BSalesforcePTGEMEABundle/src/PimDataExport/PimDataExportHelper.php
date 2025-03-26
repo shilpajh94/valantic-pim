@@ -41,7 +41,7 @@ class PimDataExportHelper
     {
         $uploaded = false; // RJ
         $tries = 0; // RJ
-        while (!$uploaded && $tries <= 5) { // RJ
+        while (!$uploaded && $tries <= 7) { // RJ
             $tries++; // RJ
             echo "Trying to upload file in ".$tries." attempt\n\n"; // RJ
             $remotefile = PTGEU_B2B_EXPORT_SFTP_INBOUND_FOLDER_PATH.'/'.$customFileName;
