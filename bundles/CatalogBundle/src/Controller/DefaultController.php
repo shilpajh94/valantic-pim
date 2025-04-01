@@ -2542,8 +2542,9 @@ $parameterBag['table_class']= $tableClass;
         if (!$request->get('contentDocument')->getPublished()) {
             $parameterBag = $this->getRequestedParameter($request, 0);
         } else {
-            $documentPath = $this->document->getFullPath();
-            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            // $documentPath = $this->document->getFullPath();
+            // $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
+            $documentId   = $this->document->getEditables()['section_page_pts_belts']->getDocumentId();
             $parameterBag = $this->getRequestedParameter($request, $documentId);
         }
         if ($templateEditable && $templateEditable->getElement() != null) {
@@ -2568,7 +2569,8 @@ $parameterBag['table_class']= $tableClass;
                 'baseProducts.profileDimensionPtsBelts',    
                 'baseLocalized.shortDescription', 
                 'baseLocalized.FeaturesBenefitsBulletPoint',
-                'skeltonProducts.key AS Pitch',
+                'object_localized_2_en.PrintedCatalogDescription AS Pitch',  // Added this line to select printedCatalogDescription
+                'skeltonProducts.SIOPLevel6',
                 'skeltonBricks.totalBeltThickness', 
                 'skeltonBricks.totalToothThickness' 
                 
@@ -2584,6 +2586,7 @@ $parameterBag['table_class']= $tableClass;
                 LEFT JOIN object_1 AS fertProducts ON skeltonProducts.oo_id = fertProducts.parentId
                 LEFT JOIN object_brick_query_PTGFert_1 AS fertPTGBricks ON fertProducts.oo_id = fertPTGBricks.id
                 LEFT JOIN object_brick_query_SynchronousFert_1 AS fertSynchronousBricks ON fertProducts.oo_id = fertSynchronousBricks.id
+                LEFT JOIN object_localized_2_en ON REPLACE(skeltonProducts.SIOPLevel6, ',', '') = object_localized_2_en.oo_id  -- Added join on skeltonProducts.SIOPLevel6
                 WHERE baseProducts.oo_id = $baseProductID AND fertProducts.printedCatalogFlag =1 ORDER BY fertPTGBricks.widthmm ASC ";
             // $SIOPQuery = "select SIOPLevel2,SIOPLevel3, SIOPLevel4, SIOPLevel5, SIOPLevel6 from object_query_1 where oo_id = '" . $baseProductID[0] . "'";
 
