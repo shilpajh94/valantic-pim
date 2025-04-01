@@ -27,7 +27,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1742566417,
+   'modificationDate' => 1743511302,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => 'App\\Model\\DataObject\\AbstractUniProductBase',
@@ -366,7 +366,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'fieldtype' => '',
                                  'relationType' => false,
                                  'invisible' => false,
-                                 'visibleGridView' => false,
+                                 'visibleGridView' => true,
                                  'visibleSearch' => false,
                                  'blockedVarsForExport' => 
                                 array (
@@ -450,7 +450,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'fieldtype' => '',
                          'relationType' => false,
                          'invisible' => false,
-                         'visibleGridView' => false,
+                         'visibleGridView' => true,
                          'visibleSearch' => false,
                          'blockedVarsForExport' => 
                         array (
@@ -501,7 +501,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'fieldtype' => '',
                              'relationType' => false,
                              'invisible' => false,
-                             'visibleGridView' => false,
+                             'visibleGridView' => true,
                              'visibleSearch' => false,
                              'blockedVarsForExport' => 
                             array (
@@ -576,7 +576,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'fieldtype' => '',
                          'relationType' => false,
                          'invisible' => false,
-                         'visibleGridView' => false,
+                         'visibleGridView' => true,
                          'visibleSearch' => false,
                          'blockedVarsForExport' => 
                         array (
@@ -766,7 +766,8 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         ),
                          'allowedTypes' => 
                         array (
-                          0 => 'UniPrPgsTechFhs',
+                          0 => 'UniPrGsTechDss',
+                          1 => 'UniPrGsTechPts',
                         ),
                          'maxItems' => NULL,
                          'border' => false,
@@ -1041,32 +1042,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
-    0 => 
-    \Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
-       'name' => 'skeletonGhpCode',
-       'title' => 'Skeleton GHP Code',
-       'tooltip' => '',
-       'mandatory' => false,
-       'noteditable' => false,
-       'index' => false,
-       'locked' => false,
-       'style' => '',
-       'permissions' => NULL,
-       'fieldtype' => '',
-       'relationType' => false,
-       'invisible' => false,
-       'visibleGridView' => false,
-       'visibleSearch' => false,
-       'blockedVarsForExport' => 
-      array (
-      ),
-       'elementType' => 'input',
-       'calculatorType' => 'class',
-       'calculatorExpression' => '',
-       'calculatorClass' => 'App\\Model\\CalculatedValue\\UniProductManagement\\UniProductCategoryFullCode',
-       'columnLength' => 190,
-       'width' => '250px',
-    )),
   ),
    'blockedVarsForExport' => 
   array (

@@ -2,17 +2,17 @@
 
 /**
  * Fields Summary:
- * - tubeMaterialExportVersion [input]
- * - tubeMaterialInnerLining [select]
- * - tubeStandard [input]
+ * - bellowOnly [booleanSelect]
+ * - minimumHeightMetric [numeric]
+ * - maximumBellowDiameterMetric [numeric]
  */
 
 return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'dao' => NULL,
-   'key' => 'UniPrBrandFhs',
-   'parentClass' => 'App\\Model\\DataObject\\UniProductManagement\\Objectbrick\\AbstractUniPrBrand',
+   'key' => 'UniPrGsTechDss',
+   'parentClass' => '',
    'implementsInterfaces' => '',
-   'title' => 'Brand Data (FHS)',
+   'title' => '',
    'group' => 'UniProductManagement',
    'layoutDefinitions' => 
   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -43,10 +43,10 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'children' => 
         array (
           0 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-             'name' => 'tubeMaterialExportVersion',
-             'title' => 'Tube Material / Export Version',
-             'tooltip' => 'Material of the Hose Tube for output, Printed Catalog / Export',
+          \Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+             'name' => 'bellowOnly',
+             'title' => 'Bellow Only',
+             'tooltip' => '',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
@@ -61,58 +61,34 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'blockedVarsForExport' => 
             array (
             ),
-             'defaultValue' => NULL,
-             'columnLength' => 190,
-             'regex' => '',
-             'regexFlags' => 
-            array (
-            ),
-             'unique' => false,
-             'showCharCount' => false,
-             'width' => '',
-             'defaultValueGenerator' => '',
-          )),
-          1 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-             'name' => 'tubeMaterialInnerLining',
-             'title' => 'Tube Material / Inner Lining',
-             'tooltip' => 'Material of the Hose Tube',
-             'mandatory' => false,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
-             'blockedVarsForExport' => 
-            array (
-            ),
+             'yesLabel' => 'Yes',
+             'noLabel' => 'No',
+             'emptyLabel' => 'Empty',
              'options' => 
             array (
               0 => 
               array (
-                'key' => 'Nitrile (NBR)',
-                'value' => 'Nitrile (NBR)',
+                'key' => 'Empty',
+                'value' => 0,
+              ),
+              1 => 
+              array (
+                'key' => 'Yes',
+                'value' => 1,
+              ),
+              2 => 
+              array (
+                'key' => 'No',
+                'value' => -1,
               ),
             ),
-             'defaultValue' => '',
-             'columnLength' => 190,
-             'dynamicOptions' => false,
-             'defaultValueGenerator' => '',
              'width' => '',
-             'optionsProviderType' => 'configure',
-             'optionsProviderClass' => '',
-             'optionsProviderData' => '',
           )),
-          2 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-             'name' => 'tubeStandard',
-             'title' => 'Standard Met; Tube',
-             'tooltip' => 'What industry standard does the Tube meet',
+          1 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+             'name' => 'minimumHeightMetric',
+             'title' => 'Minimum Height (mm)',
+             'tooltip' => '',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
@@ -128,13 +104,43 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
             array (
             ),
              'defaultValue' => NULL,
-             'columnLength' => 190,
-             'regex' => '',
-             'regexFlags' => 
+             'integer' => false,
+             'unsigned' => false,
+             'minValue' => NULL,
+             'maxValue' => NULL,
+             'unique' => false,
+             'decimalSize' => NULL,
+             'decimalPrecision' => NULL,
+             'width' => '',
+             'defaultValueGenerator' => '',
+          )),
+          2 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+             'name' => 'maximumBellowDiameterMetric',
+             'title' => 'Maximum Bellow Diameter (mm)',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
             array (
             ),
+             'defaultValue' => NULL,
+             'integer' => false,
+             'unsigned' => false,
+             'minValue' => NULL,
+             'maxValue' => NULL,
              'unique' => false,
-             'showCharCount' => false,
+             'decimalSize' => NULL,
+             'decimalPrecision' => NULL,
              'width' => '',
              'defaultValueGenerator' => '',
           )),
@@ -147,7 +153,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'layout' => NULL,
          'border' => false,
          'icon' => '',
-         'labelWidth' => 250,
+         'labelWidth' => 100,
          'labelAlign' => 'left',
       )),
     ),
@@ -170,8 +176,8 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
   array (
     0 => 
     array (
-      'classname' => 'UniProductCategoryInternal',
-      'fieldname' => 'levelSpecificData',
+      'classname' => 'UniProductBase',
+      'fieldname' => 'technicalProductGroupSpecific',
     ),
   ),
    'activeDispatchingEvents' => 
