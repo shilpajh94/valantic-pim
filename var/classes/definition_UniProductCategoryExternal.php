@@ -15,12 +15,12 @@
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
-   'id' => 'UNI_PR_CAT_EXT',
+   'id' => 'UNI_PRCE',
    'name' => 'UniProductCategoryExternal',
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1742909975,
+   'modificationDate' => 1743493031,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',

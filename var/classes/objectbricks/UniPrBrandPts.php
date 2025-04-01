@@ -2,7 +2,6 @@
 
 /**
  * Fields Summary:
- * - ptsSpecificExample [input]
  */
 
 return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
@@ -40,36 +39,6 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'datatype' => 'layout',
          'children' => 
         array (
-          0 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-             'name' => 'ptsSpecificExample',
-             'title' => 'PTS Specific Example',
-             'tooltip' => 'This is just a placeholder',
-             'mandatory' => false,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'defaultValue' => NULL,
-             'columnLength' => 190,
-             'regex' => '',
-             'regexFlags' => 
-            array (
-            ),
-             'unique' => false,
-             'showCharCount' => false,
-             'width' => '',
-             'defaultValueGenerator' => '',
-          )),
         ),
          'locked' => false,
          'blockedVarsForExport' => 
