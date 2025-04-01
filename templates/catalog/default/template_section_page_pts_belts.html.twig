@@ -20,9 +20,11 @@
 		body, h1, h2, h3, h4, h5, h6{
 			 /*   font-family: 'ContinentalStagSans-Book';*/
 		}
-		.cellAttributes table {
+		.cellAttributes {
 			padding: 0;
 			border-spacing: 0;
+            margin-top: 20px;
+            border: 2px solid black;
 		}
 		.section-page-pts-belts-features {
 			display: flex !important;
@@ -30,7 +32,7 @@
 			padding-left: 5px !important;
 		}
 		.section-page-pts-belts-features  .features{
-			width: 720px;
+			/*width: 50%;*/
 		}
 		.section-page-pts-belts-features .features p {
 			padding-left: 0 !important;
@@ -51,7 +53,7 @@
 		}
 		.section-page-pts-belts-features .full{
 			padding-bottom: 15px !important;
-			padding-left: 40px !important;
+			padding-left: 45px !important;
 		}
 		.features .center::before{
 		/*	color: transparent; 
@@ -80,6 +82,7 @@
 			padding: 10px 20px;
 			line-height: 20px;
 			letter-spacing: 0.5px;
+            width: 100%;
 		}
 		.specs h6{
 			letter-spacing: normal;
@@ -118,7 +121,7 @@
     		min-height: 84px;
     		object-fit: contain;
 		}
-		.section_page_pts_belts_Catalog_Asset_Right_Image {
+		/*.section_page_pts_belts_Catalog_Asset_Right_Image {
 			position: absolute;
 			width: 350px;
 			height: 300px;
@@ -126,7 +129,7 @@
 			top: 450px;
 			right: 10px;
 
-		}
+		} */
 		{# .section_page_pts_belts_Catalog_Asset_Right_Image_bottom{
         width: 100%;
         height: 100px;
@@ -185,7 +188,7 @@
 			font-size: 18px;
 			padding-bottom: 10px;
 		}
-		.section_page_pts_belts_Catalog_Asset_Right_Image {
+		/* .section_page_pts_belts_Catalog_Asset_Right_Image {
 			position: absolute;
 			width: 2.75in !important;
     		height: 4.4in;
@@ -198,7 +201,7 @@
 			min-width: 100%;
 			width: 3.75in;
     		height: 4.4in;
-		}
+		} */
 		.all-child-taxonomy {
 			min-width: 120%;
 			height: 30px;
@@ -357,7 +360,7 @@
 				margin-top: -50px;
 			}
 			.section-page-pts-belts-features  .features{
-			    width: 580px;
+			    width: 400px;
 		    }
 
 			.fullcontainer{
@@ -371,9 +374,58 @@
 
 			}
 			.content.single.ptg{
-				min-height: 490px;
+			/*	min-height: 490px; */
 			}
 		}
+		
+		 .wrapper{
+              
+                max-width: 1160px;
+                margin: 0 auto;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                position: relative;
+                min-height: 900px;
+            }
+
+            .wrapper > *{
+                position: relative;
+            }
+            .wrapper .header{}
+            .wrapper .section{}
+
+            .wrapper .footers{}
+
+            .sideimg{
+                
+            }
+
+            .wrapper .footers{
+                display: flex;
+                align-items: flex-end;
+                padding-left: 40px;
+            }
+
+            .contents{
+                width: 70%;
+            }
+            .sideimg{
+                /*width: 30%; */
+                position: absolute;
+                bottom: 0;
+                right: 0;
+            }
+
+            .wrapper .footers img{
+                /* max-width: 100%; */
+                height: auto;
+            }
+
+            .section_page_pts_belts_Catalog_Asset_Right_Image img{
+                width: 330px;
+            }
 	</style>
 		<div class="template section-page-pts-belts-page">
 			<section class="segregate">
@@ -477,82 +529,86 @@
 				{% endif %}
 				<div class="content-container right-side-container">
 					
+						
 
-					<div class="content-section">
-						<header class="content white">
-							<h1>
-								{% set section_page_pts_belts_BrandName = pimcore_input("section_page_pts_belts_BrandName") %}
+						<div class="wrapper">
+							<div class="wrapperContainer content-section">
+								<header class="content white">
+									<h1>
+										{% set section_page_pts_belts_BrandName = pimcore_input("section_page_pts_belts_BrandName") %}
 
-								{% if section_page_pts_belts_BrandName.isEmpty() %}
-									{% set section_page_pts_belts_BrandName = section_page_pts_belts_BrandName.setDataFromResource(data.brandName) %}
-								{% endif %}
-								{% if editmode %}
-									{{section_page_pts_belts_BrandName|raw}}
-								{% else %}
-									{{section_page_pts_belts_BrandName|raw}}
-								{% endif %}
-							</h1>
-							<div class="section-page-pts-belts-LongDescription">
-								{% set section_page_pts_belts_ShortDescription = pimcore_wysiwyg("section_page_pts_belts_ShortDescription") %}
-								{% if  section_page_pts_belts_ShortDescription.isEmpty() %}
-									{% set section_page_pts_belts_ShortDescription = section_page_pts_belts_ShortDescription.setDataFromResource(data.shortDescription) %}
-								{% endif %}
-								{% if editmode %}
-									{{section_page_pts_belts_ShortDescription|raw}}
-								{% else %}
-									{{section_page_pts_belts_ShortDescription|raw}}
-								{% endif %}
-							</div>
-							<aside
-								class="feature-benefits-and-images">
-								{# key feature and benifit start #}
-								<section class="content single ptg">
-									{% if data.FeaturesBenefitsBulletPoint or ((data.material)|trim is not empty) or ((data.reinforcement)|trim is not empty) or ((data.temperatureRangeFAndC)|trim is not empty) %}
-										<menu
-											class="flex">
-											{# {% if groupData['safetyFeatures'] %} #}
-											<div class="specs">
-												<h6>{{ 'section_page_pts_belts_features'|trans }}</h6>
-												<div class="section-page-pts-belts-features ">
-													<div class="features">
-														<ul>
-															{% for key, feature in data.FeaturesBenefitsBulletPoint %}
-																<li class="center">
-																	{{ feature['name'] }}
-																</li>
-															{% endfor %}
-														</ul>
-													</div>
-													{% if ((data.material)|trim is not empty) or ((data.reinforcement)|trim is not empty) or ((data.temperatureRangeFAndC)|trim is not empty) %}
-														<div>
-															{% if data.material %}
-																<div class="full">
-																	<b>{{ 'Material'|trans }}:</b>
-																	{{ data.material }}
+										{% if section_page_pts_belts_BrandName.isEmpty() %}
+											{% set section_page_pts_belts_BrandName = section_page_pts_belts_BrandName.setDataFromResource(data.brandName) %}
+										{% endif %}
+										{% if editmode %}
+											{{section_page_pts_belts_BrandName|raw}}
+										{% else %}
+											{{section_page_pts_belts_BrandName|raw}}
+										{% endif %}
+									</h1>
+									<div class="section-page-pts-belts-LongDescription">
+										{% set section_page_pts_belts_ShortDescription = pimcore_wysiwyg("section_page_pts_belts_ShortDescription") %}
+										{% if  section_page_pts_belts_ShortDescription.isEmpty() %}
+											{% set section_page_pts_belts_ShortDescription = section_page_pts_belts_ShortDescription.setDataFromResource(data.shortDescription) %}
+										{% endif %}
+										{% if editmode %}
+											{{section_page_pts_belts_ShortDescription|raw}}
+										{% else %}
+											{{section_page_pts_belts_ShortDescription|raw}}
+										{% endif %}
+									</div>
+								</header>
+								
+								<div class="section feature-benefits-and-images">
+									<section class="content single ptg">
+												{% if data.FeaturesBenefitsBulletPoint or ((data.material)|trim is not empty) or ((data.reinforcement)|trim is not empty) or ((data.temperatureRangeFAndC)|trim is not empty) %}
+													<menu
+														class="flex">
+														{# {% if groupData['safetyFeatures'] %} #}
+														<div class="specs">
+															<h6>{{ 'section_page_pts_belts_features'|trans }}</h6>
+															<div class="section-page-pts-belts-features ">
+																<div class="features">
+																	<ul>
+																		{% for key, feature in data.FeaturesBenefitsBulletPoint %}
+																			<li class="center">
+																				{{ feature['name'] }}
+																			</li>
+																		{% endfor %}
+																	</ul>
 																</div>
-															{% endif %}
-															{% if data.reinforcement %}
-																<div class="full">
-																	<b>{{ 'Reinforcement'|trans }}:</b>
-																	{{ data.reinforcement }}
-																</div>
-															{% endif %}
-															{% if data.temperatureRangeFAndC %}
-																<div class="full">
-																	<b>{{ 'Temperature Range'|trans }}:</b>
-																	{{ data.minimumTemperatureF }}&deg;F to {{ data.maximumTemperatureF }}&deg;F
-																</div>
-															{% endif %}
+																{% if ((data.material)|trim is not empty) or ((data.reinforcement)|trim is not empty) or ((data.temperatureRangeFAndC)|trim is not empty) %}
+																	<div>
+																		{% if data.material %}
+																			<div class="full">
+																				<b>{{ 'Material'|trans }}:</b>
+																				{{ data.material }}
+																			</div>
+																		{% endif %}
+																		{% if data.reinforcement %}
+																			<div class="full">
+																				<b>{{ 'Reinforcement'|trans }}:</b>
+																				{{ data.reinforcement }}
+																			</div>
+																		{% endif %}
+																		{% if data.temperatureRangeFAndC %}
+																			<div class="full">
+																				<b>{{ 'Temperature Range'|trans }}:</b>
+																				{{ data.minimumTemperatureF }}&deg;F to {{ data.maximumTemperatureF }}&deg;F
+																			</div>
+																		{% endif %}
+																	</div>
+																{% endif %}
+															</div>
 														</div>
-													{% endif %}
-												</div>
-											</div>
 
-										</menu>
-									{% endif %}
-								</section>
-
-								{# key feature and benifit end #}
+													</menu>
+												{% endif %}
+									</section>
+								</div>
+							</div>
+							<div class="footers">
+								<div class="contents">
 								<div class="imageHolder section-page-pts-belts-images">
 									<div class="left-image-and-table">
 
@@ -583,48 +639,31 @@
 									</div>
 
 
-									{% set section_page_pts_belts_Catalog_Asset_Right_Image = pimcore_image("section_page_pts_belts_Catalog_Asset_Right_Image", {"width": 400, "height": 200}) %}
-									{% if data.mainImage %}
-										{% set section_page_pts_belts_Catalog_Asset_Right_Image = section_page_pts_belts_Catalog_Asset_Right_Image.setImage(data.mainImage) %}
-									{% endif %}
-									{% if editmode %}
-										{{section_page_pts_belts_Catalog_Asset_Right_Image|raw}}
-									{% else %}
+									
+								</div> 
+								<section class="section_page_pts_belts_table_container">
 
-										{% if section_page_pts_belts_Catalog_Asset_Right_Image %}
-											<div class="section_page_pts_belts_Catalog_Asset_Right_Image">
-												<img id="section_page_pts_belts_Catalog_Asset_Image" src="{{getImageThumbnail(section_page_pts_belts_Catalog_Asset_Right_Image, imageWidth)}}" alt="section_page_pts_belts_Catalog_Asset_Right_Image"/>
-												<div class="section_page_pts_belts_Catalog_Asset_Right_Image_bottom"></div>
-											</div>
-										{% endif %}
-									{% endif %}
-								</div>
-							
-						
-						        <article class="fullcontainer">
-							<section class="section_page_pts_belts_table_container">
-
-								<table class="cellAttributes" aria-hidden="true" cellpadding="0" cellspacing="0" border="0">
+								<table class="cellAttributes" aria-hidden="true" cellpadding="0" cellspacing="0" border="0" width = "100%">
 									<thead>
 
 										<tr class="section-page-pts-belts-table-head">
 											<th>
-												<b>Pitch</b>
+												<b>{{ pimcore_input("Pitch").setDataFromResource('Pitch') | raw }}</b>
 											</th>
 											<th>
-												<b>Standard Width (mm)</b>
+												<b>{{ pimcore_input("standardWidthmm").setDataFromResource('Standard Width (mm)') | raw }}</b>
 											</th>
 											<th>
-												<b>Pitch Length (mm)</b>
+												<b>{{ pimcore_input("pitchLengthMM").setDataFromResource('Pitch Length (mm)') | raw }}</b>
 											</th>
 											<th>
-												<b>A</b>
+												<b>{{ pimcore_input("A").setDataFromResource('A') | raw }}</b>
 											</th>
 											<th>
-												<b>B</b>
+												<b>{{ pimcore_input("B").setDataFromResource('B') | raw }}</b>
 											</th>
 											<th>
-												<b>C</b>
+												<b>{{ pimcore_input("C").setDataFromResource('C') | raw }}</b>
 											</th>
 										</tr>
 
@@ -645,10 +684,28 @@
 
 								</table>
 							</section>
-						</article>
-						    </aside>
-						</header>
-					</div>
+								
+								</div>
+								<div class="sideimg">
+									{% set section_page_pts_belts_Catalog_Asset_Right_Image = pimcore_image("section_page_pts_belts_Catalog_Asset_Right_Image", {"width": 400, "height": 200}) %}
+									{% if data.mainImage %}
+										{% set section_page_pts_belts_Catalog_Asset_Right_Image = section_page_pts_belts_Catalog_Asset_Right_Image.setImage(data.mainImage) %}
+									{% endif %}
+									{% if editmode %}
+										{{section_page_pts_belts_Catalog_Asset_Right_Image|raw}}
+									{% else %}
+
+										{% if section_page_pts_belts_Catalog_Asset_Right_Image %}
+											<div class="section_page_pts_belts_Catalog_Asset_Right_Image">
+												<img id="section_page_pts_belts_Catalog_Asset_Image" src="{{getImageThumbnail(section_page_pts_belts_Catalog_Asset_Right_Image, imageWidth)}}" alt="section_page_pts_belts_Catalog_Asset_Right_Image"/>
+												<div class="section_page_pts_belts_Catalog_Asset_Right_Image_bottom"></div>
+											</div>
+										{% endif %}
+									{% endif %}
+								</div>
+							</div>
+						</div>
+
 				</div>
 
 			</section>
@@ -671,4 +728,3 @@
 		{% endif %}
 	{% endif %}
 {% endblock %}
-
