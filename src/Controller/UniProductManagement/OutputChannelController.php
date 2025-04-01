@@ -28,11 +28,11 @@ class OutputChannelController extends AbstractController
         return $this->json($this->externalHierarchyService->getProductsForExternalCategory($category));
     }
 
-    #[Route('/products-iframe', name: 'uni_product_management_output_channel_products_iframe', methods: ['GET'])]
-    public function productsIframe(Request $request): Response
+    #[Route('/products-iframe/{objectId}', name: 'uni_product_management_output_channel_products_iframe', methods: ['GET'])]
+    public function productsIframe(Request $request, ?int $objectId = null): Response
     {
         $context = json_decode($request->query->getString('context'), true);
-        $objectId = $context['objectId'] ?? null;
+        $objectId ??= $context['objectId'] ?? null;
 
         if ($objectId === null) {
             throw new NotFoundHttpException();

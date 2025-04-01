@@ -12,7 +12,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'key' => 'UniPrGsTechPts',
    'parentClass' => '',
    'implementsInterfaces' => '',
-   'title' => '',
+   'title' => 'Technical Attributes (PTS)',
    'group' => 'UniProductManagement',
    'layoutDefinitions' => 
   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -138,10 +138,10 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
         array (
         ),
          'fieldtype' => 'panel',
-         'layout' => NULL,
+         'layout' => '',
          'border' => false,
          'icon' => '',
-         'labelWidth' => 100,
+         'labelWidth' => 250,
          'labelAlign' => 'left',
       )),
     ),
