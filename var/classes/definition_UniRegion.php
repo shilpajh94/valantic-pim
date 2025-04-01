@@ -7,7 +7,6 @@
  *
  * Fields Summary:
  * - name [input]
- * - locale [language]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -17,7 +16,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Region',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1742473006,
+   'modificationDate' => 1743513468,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -90,36 +89,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'width' => '',
              'defaultValueGenerator' => '',
           )),
-          1 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Language::__set_state(array(
-             'name' => 'locale',
-             'title' => 'Locale',
-             'tooltip' => '',
-             'mandatory' => false,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'options' => NULL,
-             'defaultValue' => NULL,
-             'columnLength' => 190,
-             'dynamicOptions' => false,
-             'defaultValueGenerator' => '',
-             'width' => NULL,
-             'optionsProviderType' => NULL,
-             'optionsProviderClass' => NULL,
-             'optionsProviderData' => NULL,
-             'onlySystemLanguages' => true,
-          )),
         ),
          'locked' => false,
          'blockedVarsForExport' => 
@@ -177,6 +146,133 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
+    0 => 
+    \Pimcore\Model\DataObject\ClassDefinition\Data\Language::__set_state(array(
+       'name' => 'locale',
+       'title' => 'Locale',
+       'tooltip' => '',
+       'mandatory' => false,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => false,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'options' => 
+      array (
+        0 => 
+        array (
+          'key' => 'Chinese',
+          'value' => 'zh',
+        ),
+        1 => 
+        array (
+          'key' => 'Chinese (China)',
+          'value' => 'zh_Hans_CN',
+        ),
+        2 => 
+        array (
+          'key' => 'Danish',
+          'value' => 'da',
+        ),
+        3 => 
+        array (
+          'key' => 'Dutch (Netherlands)',
+          'value' => 'nl_NL',
+        ),
+        4 => 
+        array (
+          'key' => 'English',
+          'value' => 'en',
+        ),
+        5 => 
+        array (
+          'key' => 'English (United Kingdom)',
+          'value' => 'en_GB',
+        ),
+        6 => 
+        array (
+          'key' => 'Finnish (Finland)',
+          'value' => 'fi_FI',
+        ),
+        7 => 
+        array (
+          'key' => 'French',
+          'value' => 'fr',
+        ),
+        8 => 
+        array (
+          'key' => 'German',
+          'value' => 'de',
+        ),
+        9 => 
+        array (
+          'key' => 'Italian (Italy)',
+          'value' => 'it_IT',
+        ),
+        10 => 
+        array (
+          'key' => 'Japanese (Japan)',
+          'value' => 'ja_JP',
+        ),
+        11 => 
+        array (
+          'key' => 'Korean (North Korea)',
+          'value' => 'ko_KP',
+        ),
+        12 => 
+        array (
+          'key' => 'Norwegian Nynorsk (Norway)',
+          'value' => 'nn_NO',
+        ),
+        13 => 
+        array (
+          'key' => 'Polish (Poland)',
+          'value' => 'pl_PL',
+        ),
+        14 => 
+        array (
+          'key' => 'Portuguese',
+          'value' => 'pt',
+        ),
+        15 => 
+        array (
+          'key' => 'Romanian (Romania)',
+          'value' => 'ro_RO',
+        ),
+        16 => 
+        array (
+          'key' => 'Russian (Russia)',
+          'value' => 'ru_RU',
+        ),
+        17 => 
+        array (
+          'key' => 'Spanish',
+          'value' => 'es',
+        ),
+        18 => 
+        array (
+          'key' => 'Swedish (Sweden)',
+          'value' => 'sv_SE',
+        ),
+      ),
+       'defaultValue' => NULL,
+       'columnLength' => 190,
+       'dynamicOptions' => false,
+       'defaultValueGenerator' => '',
+       'width' => NULL,
+       'optionsProviderType' => NULL,
+       'optionsProviderClass' => NULL,
+       'optionsProviderData' => NULL,
+       'onlySystemLanguages' => true,
+    )),
   ),
    'blockedVarsForExport' => 
   array (

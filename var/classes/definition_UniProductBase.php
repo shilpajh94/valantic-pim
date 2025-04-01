@@ -17,6 +17,7 @@
  * - weightImperial [quantityValue]
  * - technicalProductGroupSpecific [objectbricks]
  * - regionalAvailability [manyToManyObjectRelation]
+ * - regions [calculatedValue]
  * - internalCategories [manyToManyObjectRelation]
  */
 
@@ -27,7 +28,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1743511302,
+   'modificationDate' => 1743514399,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => 'App\\Model\\DataObject\\AbstractUniProductBase',
@@ -837,6 +838,32 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         ),
                          'width' => '',
                          'height' => '',
+                      )),
+                      1 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
+                         'name' => 'regions',
+                         'title' => 'Regions',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => true,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'elementType' => 'input',
+                         'calculatorType' => 'class',
+                         'calculatorExpression' => '',
+                         'calculatorClass' => 'App\\Model\\CalculatedValue\\UniProductManagement\\UniProductRegion',
+                         'columnLength' => 190,
+                         'width' => '',
                       )),
                     ),
                      'locked' => false,

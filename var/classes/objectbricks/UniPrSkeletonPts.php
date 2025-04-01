@@ -234,7 +234,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'layout' => NULL,
          'border' => false,
          'icon' => '',
-         'labelWidth' => 100,
+         'labelWidth' => 250,
          'labelAlign' => 'left',
       )),
     ),
