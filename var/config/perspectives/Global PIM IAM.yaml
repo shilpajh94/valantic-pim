@@ -1,7 +1,7 @@
 pimcore:
     perspectives:
         definitions:
-            Unified_Main:
+            'Global PIM IAM':
                 elementTree:
                     -
                         type: customview
@@ -9,7 +9,7 @@ pimcore:
                         sort: 0
                         expanded: true
                         hidden: false
-                        id: 7c168adb-9b73-fc73-d93c-945956d6f4c1
+                        id: 42d048ce-5152-72aa-80eb-c42bc45afe4d
                     -
                         type: customview
                         position: left
