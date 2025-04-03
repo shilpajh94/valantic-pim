@@ -29,11 +29,14 @@ class ContentController extends FrontendController {
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{
-            $documentPath = $this->document->getFullPath();
-            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-            $parameterBag = $this->getRequestedParameter($request, $documentId);
-        }
+        else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->getRequestedParameter($request, $documentId); 
+            } 
+        } 
 
         $showPDFInput = false;
 
@@ -53,10 +56,13 @@ class ContentController extends FrontendController {
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{
-            $documentPath = $this->document->getFullPath();
-            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->getRequestedParameter($request, $documentId); 
+            } 
         }
 
         $showPDFInput = false;
