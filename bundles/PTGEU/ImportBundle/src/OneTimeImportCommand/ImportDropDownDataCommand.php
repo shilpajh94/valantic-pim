@@ -41,6 +41,7 @@ class ImportDropDownDataCommand extends AbstractCommand
             p_r('--------------Total Execution Time---------------');
             p_r('Script completed after: ' . (abs(time() - $this->t) / 60) . ' mnt');
         }
+        return 1;
     }
 
 
@@ -50,7 +51,7 @@ class ImportDropDownDataCommand extends AbstractCommand
             $results = $this->getCSVData($filePath);
             $csvData = $results['data'];
             unset($result);
-            $i=2;
+            $i=1;
             foreach($csvData as $rowData){
 
                 $fertObj = DataObject\PTGEUProduct::getByArticleNumber($rowData['SAPMaterialCode'], true);
@@ -120,18 +121,36 @@ class ImportDropDownDataCommand extends AbstractCommand
 
 
                     }
-
-
-                    p_r($i.'. '.$rowData['SAPMaterialCode']);
-                    $i++;
+                    if(isset($rowData['Status'])){
+                        $productClassData['vtlStatus'] = $this->getVtlStatus($rowData['Status']);
+                        $this->insertProductclassData($productClassData, 'object_store_38', $fertObj->getId());
+                        $this->insertProductclassData($productClassData, 'object_query_38', $fertObj->getId());
+                        $this->percentageCompletionService->completenessPercentage($fertObj, 'import');
+                        p_r($i++.') '. $rowData['SAPMaterialCode']);
+                    }
                 }
+
             }
 
         }
-        catch(Exception $e){
+        catch(\Exception $e){
             p_r($e);
         }
     }
+
+    private function getVtlStatus(string $value)
+    {
+        $objVtl = new DataObject\PTGEUVTL\Listing();
+        $objVtl->setCondition("description = ?", $value);
+        if(!empty($objVtl))
+        {
+            foreach ($objVtl as $object) {
+                return $object->getId();
+            }
+        }
+        return '';
+    }
+
 
     private function insertProductclassData($dataArray, $tableName, $objId){
         $cols = array();
@@ -139,7 +158,7 @@ class ImportDropDownDataCommand extends AbstractCommand
             $cols[] = "$key = '$val'";
         }
         $sql = "UPDATE $tableName SET " . implode(', ', $cols) . " WHERE oo_id =  $objId";
-        $this->db->executeUpdate($sql);
+        $this->db->executeQuery($sql);
     }
 
     private function insertBrickData($dataArray, $tableName, $objId){
@@ -148,7 +167,7 @@ class ImportDropDownDataCommand extends AbstractCommand
             $cols[] = "$key = '$val'";
         }
         $sql = "UPDATE $tableName SET " . implode(', ', $cols) . " WHERE id =  $objId";
-        $this->db->executeUpdate($sql);
+        $this->db->executeQuery($sql);
     }
 
 

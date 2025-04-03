@@ -1,13 +1,16 @@
 parameters:
-    s3.bucket: 'pimcorex-contitech-assets-prod-latest'
+    s3.bucket: 'megha-pim'
 
 services:
     assets_s3:
         class: 'Aws\S3\S3Client'
         arguments:
-            -  endpoint: 'https://s3.eu-central-1.amazonaws.com'
-               region: 'eu-central-1'
+            -  endpoint: 'https://s3.us-east-1.amazonaws.com'
+               region: 'us-east-1'
                version: 'latest'
+               credentials:
+                   key: 'AKIAZI2LIJSNHSLUSOAZ'
+                   secret: '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'
 flysystem:
     storages:
         pimcore.asset.storage:
@@ -15,34 +18,5 @@ flysystem:
             visibility: private
             options:
                 client: 'assets_s3'
-                bucket: 'pimcorex-contitech-assets-prod-latest'
+                bucket: 'megha-pim'
                 prefix: assets
-
-
-
-
-
-
-
-# parameters:
-#     s3.bucket: 'megha-pim'
-
-# services:
-#     assets_s3:
-#         class: 'Aws\S3\S3Client'
-#         arguments:
-#             -  endpoint: 'https://s3.us-east-1.amazonaws.com'
-#                region: 'us-east-1'
-#                version: 'latest'
-#                credentials:
-#                    key: 'AKIAZ6MFIGPTWVTS2K6D'
-#                    secret: '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'
-# flysystem:
-#     storages:
-#         pimcore.asset.storage:
-#             adapter: 'S3CustomizationBundle\Lib\AwsCustomAdapter'
-#             visibility: private
-#             options:
-#                 client: 'assets_s3'
-#                 bucket: 'megha-pim'
-#                 prefix: assets

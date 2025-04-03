@@ -29,8 +29,6 @@ class ImportProcessEmailNotificationService
                     'kenichi.ban@contitech.de',
                     'anthony.miller@contitech.de',
                     'max.oliver.umali@contitech.ph',
-                    'rajesh.kumar4@happiestminds.com',
-                    'gaurav.tyagi@happiestminds.com',
                     'amit.rajput@ptg.contitech.in'
                 ];
             } else {
@@ -38,8 +36,6 @@ class ImportProcessEmailNotificationService
                     'kenichi.ban@contitech.de',
                     'anthony.miller@contitech.de',
                     'max.oliver.umali@contitech.ph',
-                    'rajesh.kumar4@happiestminds.com',
-                    'gaurav.tyagi@happiestminds.com',
                 ];
             }
             $mail = new \Pimcore\Mail();
