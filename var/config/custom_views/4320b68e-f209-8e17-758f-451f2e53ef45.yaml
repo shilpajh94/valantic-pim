@@ -2,7 +2,7 @@ pimcore:
     custom_views:
         definitions:
             4320b68e-f209-8e17-758f-451f2e53ef45:
-                name: 'Unified PIM External Categories'
+                name: 'External Categories'
                 treetype: object
                 position: left
                 rootfolder: '/Unified PIM/Product Management/External Categories'
