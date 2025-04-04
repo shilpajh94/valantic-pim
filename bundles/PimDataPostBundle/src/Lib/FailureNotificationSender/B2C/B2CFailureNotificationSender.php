@@ -62,13 +62,13 @@ class B2CFailureNotificationSender extends AbstractB2CFailureNotificationSender
         $mail = new \Pimcore\Mail();
 
         $B2B_B2C_Users_Email = array(
-            'Mark.Dario@continental.com',
-            'don.2.salandanan@continental.com',
-            'amit.rajput@ptg.contitech.in',
-            'malte.schickedanz@contitech.de',
-            'sachin.baluja@ptg.contitech.in',
-            'kenichi.ban@contitech.de',
-            'anthony.miller@contitech.de'
+            // 'Mark.Dario@continental.com',
+            // 'don.2.salandanan@continental.com',
+            // 'amit.rajput@ptg.contitech.in',
+            // 'malte.schickedanz@contitech.de',
+            // 'sachin.baluja@ptg.contitech.in',
+            // 'kenichi.ban@contitech.de',
+            // 'anthony.miller@contitech.de'
         );
 
         foreach ($B2B_B2C_Users_Email as $email) {

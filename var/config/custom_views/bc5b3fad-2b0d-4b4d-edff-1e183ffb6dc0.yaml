@@ -1,0 +1,34 @@
+pimcore:
+    custom_views:
+        definitions:
+            bc5b3fad-2b0d-4b4d-edff-1e183ffb6dc0:
+                name: UnifiedPIM
+                treetype: object
+                position: left
+                rootfolder: '/Unified PIM'
+                showroot: true
+                sort: 0
+                treeContextMenu:
+                    object:
+                        items:
+                            add: true
+                            addFolder: true
+                            importCsv: true
+                            cut: true
+                            copy: true
+                            paste: true
+                            delete: true
+                            rename: true
+                            reload: true
+                            publish: true
+                            unpublish: true
+                            searchAndMove: true
+                            lock: true
+                            unlock: true
+                            lockAndPropagate: true
+                            unlockAndPropagate: true
+                            changeChildrenSortBy: true
+                classes: ''
+                icon: /bundles/pimcoreadmin/img/flat-color-icons/globe.svg
+                joins: {  }
+                id: bc5b3fad-2b0d-4b4d-edff-1e183ffb6dc0

@@ -132,22 +132,22 @@
 									{% if not pimcore_input("PTG_Footer_Compatibility").isEmpty() %}
 										{{ pimcore_input("PTG_Footer_Compatibility") }}
 									{% else %}
-										{{ pimcore_input("PTG_Footer_Compatibility").setDataFromResource('Compatible fittings') | raw}}
+										{{ pimcore_input("PTG_Footer_Compatibility").setDataFromResource('') | raw}}
 									{% endif %}
 								{% else %}
 									{{ pimcore_input("PTG_Footer_Compatibility") }}
 								{% endif %}
 							</b>
 
-							{% set compatibility_description = "All fittings compatible with " ~ groupData['brandName'] ~ " are listed in Section 1 (starting on page 131)." %}
+							{% set compatibility_description = "" %}
 							{% if editmode %}
-								{% if not pimcore_input("PTG_Footer_Compatibility_Description").isEmpty() %}
-									{{ pimcore_input("PTG_Footer_Compatibility_Description") }}
+								{% if not pimcore_wysiwyg("PTG_Footer_Compatibility_Description").isEmpty() %}
+									{{ pimcore_wysiwyg("PTG_Footer_Compatibility_Description") }}
 								{% else %}
-									{{ pimcore_input("PTG_Footer_Compatibility_Description").setDataFromResource(compatibility_description) | raw}}
+									{{ pimcore_wysiwyg("PTG_Footer_Compatibility_Description", {"width": 100,"placeholder" : "eg: Enter Text"}).setDataFromResource(compatibility_description) | raw}}
 								{% endif %}
 							{% else %}
-								{{ pimcore_input("PTG_Footer_Compatibility_Description") }}
+								{{ pimcore_wysiwyg("PTG_Footer_Compatibility_Description") }}
 							{% endif %}
 
 						</div>
@@ -164,22 +164,22 @@
 									{% if not pimcore_input("PTG_Footer_Compatibility1").isEmpty() %}
 										{{ pimcore_input("PTG_Footer_Compatibility1") }}
 									{% else %}
-										{{ pimcore_input("PTG_Footer_Compatibility1").setDataFromResource('Compatible fittings') | raw}}
+										{{ pimcore_input("PTG_Footer_Compatibility1").setDataFromResource('') | raw}}
 									{% endif %}
 								{% else %}
 									{{ pimcore_input("PTG_Footer_Compatibility1") }}
 								{% endif %}
 							</b>
 
-							{% set compatibility_description = "All fittings compatible with " ~ groupData['brandName'] ~ " are listed in Section 1 (starting on page 131)." %}
+							{% set compatibility_description = "" %}
 							{% if editmode %}
-								{% if not pimcore_input("PTG_Footer_Compatibility1_Description").isEmpty() %}
-									{{ pimcore_input("PTG_Footer_Compatibility1_Description") }}
+								{% if not pimcore_wysiwyg("PTG_Footer_Compatibility1_Description").isEmpty() %}
+									{{ pimcore_wysiwyg("PTG_Footer_Compatibility1_Description") }}
 								{% else %}
-									{{ pimcore_input("PTG_Footer_Compatibility1_Description").setDataFromResource(compatibility_description) | raw}}
+									{{ pimcore_wysiwyg("PTG_Footer_Compatibility1_Description", {"width": 100,"placeholder" : "eg: Enter Text"}).setDataFromResource(compatibility_description) | raw}}
 								{% endif %}
 							{% else %}
-								{{ pimcore_input("PTG_Footer_Compatibility1_Description") }}
+								{{ pimcore_wysiwyg("PTG_Footer_Compatibility1_Description") }}
 							{% endif %}
 						</div>
 						<h5>

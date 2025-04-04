@@ -1,0 +1,27 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\EventListener\Admin;
+
+use Pimcore\Event\BundleManager\PathsEvent;
+use Pimcore\Event\BundleManagerEvents;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+
+class AdminAssetsListener implements EventSubscriberInterface
+{
+    public function onJsPaths(PathsEvent $event): void
+    {
+        $event->addPaths([
+            '/admin/js/open.js',
+            '/admin/js/perspective.js',
+        ]);
+    }
+
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            BundleManagerEvents::JS_PATHS => 'onJsPaths',
+        ];
+    }
+}
