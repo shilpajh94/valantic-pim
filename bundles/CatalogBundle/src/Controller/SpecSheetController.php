@@ -50,9 +50,38 @@ class SpecSheetController extends FrontendController
         $tableData = $tableObj->getColumns();
         $template = $tableObj->getTemplate();
         $table = $tableObj->getAttributeTable();
+		$sapRange = $tableObj->getSAPRange();
         $brand = $tableObj->getBrand();
         $nomenClature = $tableObj->getNomenClature();
-        $sapRange = $tableObj->getSAPRange();
+//echo "<pre>"; print_r($brand); print_r($nomenClature); die;
+		$brandAndNomenClatureValueCheck = false;
+		if ($brand == null || ($brand != null && count($brand) == 1)) {
+			if($brand == null){
+				$brandAndNomenClatureValueCheck = false;
+			} else if($brand[0] == 1){
+			    $brandAndNomenClatureValueCheck = false;
+			} else {
+				
+			}
+		}
+		if ($nomenClature == null || ($nomenClature != null && count($nomenClature) == 1)) {
+			if($nomenClature == null){
+				$brandAndNomenClatureValueCheck = false;
+			} else if($nomenClature[0] == 1){
+			    $brandAndNomenClatureValueCheck = false;
+			}
+		}
+		 
+		 if($brandAndNomenClatureValueCheck == true){
+		    $arr = array(
+                 'brandAndNomenClatureValueCheck' => false,
+
+            );
+			 
+			 return $this->json($arr);
+			 
+		 }
+        
         $skeletonIds = [];
         $tableColumns = json_decode($tableData, 1);
 		
@@ -87,10 +116,12 @@ class SpecSheetController extends FrontendController
         $conditionArray[] = "ProductType = 'fert' ";
 
         if ($brand != null && count($brand) > 0) {
-            $productList->addConditionParam('brandName IN (:brand)', ['brand' => $brand], 'AND');
-        }
-	
+			if($brand[0] != 1){
+				$productList->addConditionParam('brandName IN (:brand)', ['brand' => $brand], 'AND');
+			}
+	   }
 		if (is_array($nomenClature) && count($nomenClature)) {
+			if($nomenClature[0] != 1){
 			$productList->setObjectbricks(['HydFittingsFert']);
             $nomenClatureConditonArray = [];
             foreach ($nomenClature as $nClature) {
@@ -103,6 +134,7 @@ class SpecSheetController extends FrontendController
                 $nomenClatureString = " ( " . implode(' OR ', $nomenClatureConditonArray) . " ) ";
                 $conditionArray[] = $nomenClatureString;
             }
+			}
         }
 
 		if(!empty($sapRange) && $sapRange == "Virtual Catalog"){
@@ -464,7 +496,8 @@ class SpecSheetController extends FrontendController
             'articlesData' => $pData,
             'data' => $articleData,
             'headerData' => json_encode($headers),
-			'customRecords' => $gridIndexes
+			'customRecords' => $gridIndexes,
+			'brandAndNomenClatureValueCheck' => true
         );
 
         return $this->json($arr);

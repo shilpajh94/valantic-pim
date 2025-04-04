@@ -69,6 +69,10 @@ pimcore.plugin.formattedGridHandler = Class.create({
                             params:{'objId' : e.detail.object.id, className : objectClassName},
                             success: function (response) {
                                 response = Ext.decode(response.responseText);
+								if(response.brandAndNomenClatureCheck == false){
+									Ext.Msg.alert("Status","Please Select atleast any one field value from Brand or Nomen Clature.");
+									return false;
+								}
 
                                 var store = Ext.create('Ext.data.Store', {
                                     fields  : response.fieldData,

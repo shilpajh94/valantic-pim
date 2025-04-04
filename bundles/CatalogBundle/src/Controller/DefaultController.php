@@ -712,8 +712,13 @@ class DefaultController extends FrontendController
         
         $tableData = $data->getProductsData();
         $fieldData = json_decode($data->getHeaderData(), 1);
-		$headerKeys = array_keys($fieldData);
-        $headerKeysIndex = array_flip($headerKeys);
+		$headerKeys = "";
+		$headerKeysIndex = [];
+		if(isset($fieldData)){
+			$headerKeys = array_keys($fieldData);
+			$headerKeysIndex = array_flip($headerKeys);
+
+		}
 
         $columnData = array();
         if ($fieldData !== null) {
