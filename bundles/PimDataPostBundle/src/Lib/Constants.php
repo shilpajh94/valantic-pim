@@ -57,7 +57,7 @@ class Constants
 
     const B2B_FAILURE_TEMPLATE_NAME = "/Email/B2B Saleforce Integration Failure Email";
 
-    const B2B_FAILURE_TEMPLATE_SUBJECT_NAME = "Stage PIM 11 B2B Saleforce Integration Failure Email";
+    const B2B_FAILURE_TEMPLATE_SUBJECT_NAME = "PIM 11 B2B Saleforce Integration Failure Email";
 
     const MAX_HTTP_CONNECTION_RETRIES = 5;
 

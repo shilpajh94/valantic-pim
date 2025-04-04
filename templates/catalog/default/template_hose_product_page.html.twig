@@ -92,7 +92,7 @@
 										<b>
 											{% if editmode %}
 												{% if pimcore_input("HHPP_Footer_Compatibility_" ~ md5key ~ "_" ~ incr).isEmpty() %}
-													{{ pimcore_input("HHPP_Footer_Compatibility_" ~ md5key ~ "_" ~ incr).setDataFromResource('Compatible fittings') | raw}}
+													{{ pimcore_input("HHPP_Footer_Compatibility_" ~ md5key ~ "_" ~ incr).setDataFromResource('') | raw}}
 												{% else %}
 													{{ pimcore_input("HHPP_Footer_Compatibility_" ~ md5key ~ "_" ~ incr) }}
 												{% endif %}
@@ -102,18 +102,18 @@
 										</b>
 
                                         {% if brandData['brandName'][0] is defined %}
-                                            {% set compatibility_description = "All fittings compatible with " ~ brandData['brandName'][0] ~ " are listed in Section 1 (starting on page 131)." %}
+                                            {% set compatibility_description = "" %}
                                         {% else %}
-                                            {% set compatibility_description = "All fittings compatible with " ~ brandData['brandName'] ~ " are listed in Section 1 (starting on page 131)." %}
+                                            {% set compatibility_description = "" %}
                                         {% endif %}
 										{% if editmode %}
-											{% if pimcore_input("HHPP_Footer_Compatibility_Description_" ~ md5key ~ "_" ~ incr).isEmpty() %}
-												{{ pimcore_input("HHPP_Footer_Compatibility_Description_" ~ md5key ~ "_" ~ incr).setDataFromResource(compatibility_description) | raw}}
+											{% if pimcore_wysiwyg("HHPP_Footer_Compatibility_Description_" ~ md5key ~ "_" ~ incr).isEmpty() %}
+												{{ pimcore_wysiwyg("HHPP_Footer_Compatibility_Description_" ~ md5key ~ "_" ~ incr, {"width": 100,"placeholder" : "eg: Enter Text"}).setDataFromResource(compatibility_description) | raw}}
 											{% else %}
-												{{ pimcore_input("HHPP_Footer_Compatibility_Description_" ~ md5key ~ "_" ~ incr) }}
+												{{ pimcore_wysiwyg("HHPP_Footer_Compatibility_Description_" ~ md5key ~ "_" ~ incr) }}
 											{% endif %}
 										{% else %}
-											{{ pimcore_input("HHPP_Footer_Compatibility_Description_" ~ md5key ~ "_" ~ incr) }}
+											{{ pimcore_wysiwyg("HHPP_Footer_Compatibility_Description_" ~ md5key ~ "_" ~ incr) }}
 										{% endif %}
 									</div>
 								</div>
@@ -127,7 +127,7 @@
 										<b>
 											{% if editmode %}
 												{% if pimcore_input("HHPP_Footer_Compatibility1_" ~ md5key ~ "_" ~ incr2).isEmpty() %}
-													{{ pimcore_input("HHPP_Footer_Compatibility1_" ~ md5key ~ "_" ~ incr2).setDataFromResource('Compatible fittings') | raw}}
+													{{ pimcore_input("HHPP_Footer_Compatibility1_" ~ md5key ~ "_" ~ incr2).setDataFromResource('') | raw}}
 												{% else %}
 													{{ pimcore_input("HHPP_Footer_Compatibility1_" ~ md5key ~ "_" ~ incr2) }}
 												{% endif %}
@@ -137,13 +137,13 @@
 										</b>
 
 										{% if editmode %}
-											{% if pimcore_input("HHPP_Footer_Compatibility_Description1_" ~ md5key ~ "_" ~ incr2).isEmpty() %}
-												{{ pimcore_input("HHPP_Footer_Compatibility_Description1_" ~ md5key ~ "_" ~ incr2).setDataFromResource(compatibility_description) | raw}}
+											{% if pimcore_wysiwyg("HHPP_Footer_Compatibility_Description1_" ~ md5key ~ "_" ~ incr2).isEmpty() %}
+												{{ pimcore_wysiwyg("HHPP_Footer_Compatibility_Description1_" ~ md5key ~ "_" ~ incr2, {"width": 100,"placeholder" : "eg: Enter Text"}).setDataFromResource(compatibility_description) | raw}}
 											{% else %}
-												{{ pimcore_input("HHPP_Footer_Compatibility_Description1_" ~ md5key ~ "_" ~ incr2) }}
+												{{ pimcore_wysiwyg("HHPP_Footer_Compatibility_Description1_" ~ md5key ~ "_" ~ incr2) }}
 											{% endif %}
 										{% else %}
-											{{ pimcore_input("HHPP_Footer_Compatibility_Description1_" ~ md5key ~ "_" ~ incr2) }}
+											{{ pimcore_wysiwyg("HHPP_Footer_Compatibility_Description1_" ~ md5key ~ "_" ~ incr2) }}
 										{% endif %}
 									</div>
 									<h5>
