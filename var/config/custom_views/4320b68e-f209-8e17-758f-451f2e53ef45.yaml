@@ -1,0 +1,34 @@
+pimcore:
+    custom_views:
+        definitions:
+            4320b68e-f209-8e17-758f-451f2e53ef45:
+                name: 'External Categories'
+                treetype: object
+                position: left
+                rootfolder: '/Unified PIM/Product Management/External Categories'
+                showroot: true
+                sort: 0
+                treeContextMenu:
+                    object:
+                        items:
+                            add: true
+                            addFolder: true
+                            importCsv: true
+                            cut: true
+                            copy: true
+                            paste: true
+                            delete: true
+                            rename: true
+                            reload: true
+                            publish: true
+                            unpublish: true
+                            searchAndMove: true
+                            lock: true
+                            unlock: true
+                            lockAndPropagate: true
+                            unlockAndPropagate: true
+                            changeChildrenSortBy: true
+                classes: ''
+                joins: {  }
+                id: 4320b68e-f209-8e17-758f-451f2e53ef45
+                icon: /bundles/pimcoreadmin/img/flat-color-icons/external.svg
