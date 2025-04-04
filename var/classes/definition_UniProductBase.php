@@ -9,6 +9,10 @@
  * - localizedfields [localizedfields]
  * -- productSubCategory [input]
  * -- sapDescription [input]
+ * -- completenessPercentage [input]
+ * -- emptyFieldsBrand [textarea]
+ * -- emptyFieldsSkeleton [textarea]
+ * -- emptyFieldsFinishedGood [textarea]
  * - sapMaterialNumber [input]
  * - ghpFullCode [input]
  * - skeletonPimInternalHiearchyCode [calculatedValue]
@@ -21,14 +25,14 @@
  * - internalCategories [manyToManyObjectRelation]
  */
 
-return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
+return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
    'id' => 'UNI_PR',
    'name' => 'UniProductBase',
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1743514399,
+   'modificationDate' => 1743779773,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => 'App\\Model\\DataObject\\AbstractUniProductBase',
@@ -44,7 +48,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'allowVariants' => false,
    'showVariants' => false,
    'layoutDefinitions' => 
-  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'name' => 'pimcore_root',
      'type' => NULL,
      'region' => NULL,
@@ -58,7 +62,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'children' => 
     array (
       0 => 
-      \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
+      Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
@@ -72,7 +76,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'children' => 
         array (
           0 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'brandData',
              'type' => NULL,
              'region' => NULL,
@@ -86,7 +90,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'children' => 
             array (
               0 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                  'name' => 'brandDataInclude',
                  'type' => NULL,
                  'region' => NULL,
@@ -123,7 +127,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelAlign' => 'left',
           )),
           1 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'skeletonData',
              'type' => NULL,
              'region' => NULL,
@@ -137,7 +141,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'children' => 
             array (
               0 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                  'name' => 'skeletonDataInclude',
                  'type' => NULL,
                  'region' => NULL,
@@ -174,7 +178,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelAlign' => 'left',
           )),
           2 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'finishedGoodData',
              'type' => NULL,
              'region' => NULL,
@@ -188,7 +192,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'children' => 
             array (
               0 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
                  'region' => NULL,
@@ -202,7 +206,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'productBrandingAttributes',
                      'type' => NULL,
                      'region' => NULL,
@@ -216,7 +220,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'name' => 'productBrandName',
                          'title' => 'Product Brand Name',
                          'tooltip' => '',
@@ -258,7 +262,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'labelAlign' => 'left',
                   )),
                   1 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'category',
                      'type' => NULL,
                      'region' => NULL,
@@ -272,7 +276,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                          'name' => 'localizedfields',
                          'title' => '',
                          'tooltip' => NULL,
@@ -293,7 +297,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'name' => 'productSubCategory',
                              'title' => 'Product Sub Category',
                              'tooltip' => '',
@@ -333,7 +337,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'referencedFields' => 
                         array (
                           0 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                              'name' => 'localizedfields',
                              'title' => '',
                              'tooltip' => NULL,
@@ -354,7 +358,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'sapDescription',
                                  'title' => 'SAP Description',
                                  'tooltip' => '',
@@ -402,6 +406,151 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'height' => '',
                              'fieldDefinitionsCache' => NULL,
                           )),
+                          1 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+                             'name' => 'localizedfields',
+                             'title' => '',
+                             'tooltip' => NULL,
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => NULL,
+                             'permissions' => NULL,
+                             'fieldtype' => '',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => true,
+                             'visibleSearch' => true,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'children' => 
+                            array (
+                              0 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                 'name' => 'completenessPercentage',
+                                 'title' => 'Completeness Percentage',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => true,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'padding: 10px; background-color: #d9edf7; border-color: #bce8f1 !important; color: #31708f;border-radius:5px;',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'defaultValue' => NULL,
+                                 'columnLength' => 190,
+                                 'regex' => '',
+                                 'regexFlags' => 
+                                array (
+                                ),
+                                 'unique' => false,
+                                 'showCharCount' => false,
+                                 'width' => 600,
+                                 'defaultValueGenerator' => '',
+                              )),
+                              1 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                                 'name' => 'emptyFieldsBrand',
+                                 'title' => 'Empty Fields Brand',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => true,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'padding: 10px; background-color: pink; border-color: #bce8f1 !important; color: #31708f;border-radius:5px;',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'maxLength' => NULL,
+                                 'showCharCount' => false,
+                                 'excludeFromSearchIndex' => false,
+                                 'height' => 150,
+                                 'width' => 600,
+                              )),
+                              2 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                                 'name' => 'emptyFieldsSkeleton',
+                                 'title' => 'Empty Fields Skeleton',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => true,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'padding: 10px; background-color: pink; border-color: #bce8f1 !important; color: #31708f;border-radius:5px;',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'maxLength' => NULL,
+                                 'showCharCount' => false,
+                                 'excludeFromSearchIndex' => false,
+                                 'height' => 150,
+                                 'width' => 600,
+                              )),
+                              3 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                                 'name' => 'emptyFieldsFinishedGood',
+                                 'title' => 'Empty Fields Finished Good',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => true,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'padding: 10px; background-color: pink; border-color: #bce8f1 !important; color: #31708f;border-radius:5px;',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'maxLength' => NULL,
+                                 'showCharCount' => false,
+                                 'excludeFromSearchIndex' => false,
+                                 'height' => 150,
+                                 'width' => 600,
+                              )),
+                            ),
+                             'region' => NULL,
+                             'layout' => NULL,
+                             'maxTabs' => NULL,
+                             'border' => false,
+                             'provideSplitView' => false,
+                             'tabPosition' => 'top',
+                             'hideLabelsWhenTabsReached' => NULL,
+                             'referencedFields' => 
+                            array (
+                            ),
+                             'permissionView' => NULL,
+                             'permissionEdit' => NULL,
+                             'labelWidth' => 250,
+                             'labelAlign' => 'left',
+                             'width' => '',
+                             'height' => '',
+                             'fieldDefinitionsCache' => NULL,
+                          )),
                         ),
                          'permissionView' => NULL,
                          'permissionEdit' => NULL,
@@ -424,7 +573,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'labelAlign' => 'left',
                   )),
                   2 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'itemAttributes',
                      'type' => NULL,
                      'region' => NULL,
@@ -438,7 +587,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'name' => 'sapMaterialNumber',
                          'title' => 'SAP Material Number',
                          'tooltip' => '',
@@ -468,7 +617,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'defaultValueGenerator' => '',
                       )),
                       1 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                          'name' => 'localizedfields',
                          'title' => '',
                          'tooltip' => NULL,
@@ -489,7 +638,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'name' => 'sapDescription',
                              'title' => 'SAP Description',
                              'tooltip' => '',
@@ -550,7 +699,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'labelAlign' => 'left',
                   )),
                   3 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'hierarchyAttributes',
                      'type' => NULL,
                      'region' => NULL,
@@ -564,7 +713,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'name' => 'ghpFullCode',
                          'title' => 'Product Hierarchy Full Code (GHP)',
                          'tooltip' => '',
@@ -594,7 +743,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'defaultValueGenerator' => '',
                       )),
                       1 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
                          'name' => 'skeletonPimInternalHiearchyCode',
                          'title' => 'Skeleton PIM Internal Hierarchy Code',
                          'tooltip' => '',
@@ -620,7 +769,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'width' => '250px',
                       )),
                       2 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
                          'name' => 'hierarchySearchData',
                          'title' => 'Hierarchy Search Data',
                          'tooltip' => '',
@@ -658,7 +807,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'labelAlign' => 'left',
                   )),
                   4 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'technicalAttributes',
                      'type' => NULL,
                      'region' => NULL,
@@ -672,7 +821,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                          'name' => 'weightMetric',
                          'title' => 'Weight (Metric)',
                          'tooltip' => '',
@@ -710,7 +859,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'decimalPrecision' => NULL,
                       )),
                       1 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                          'name' => 'weightImperial',
                          'title' => 'Weight (Imperial)',
                          'tooltip' => '',
@@ -747,7 +896,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'decimalPrecision' => NULL,
                       )),
                       2 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\Objectbricks::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Objectbricks::__set_state(array(
                          'name' => 'technicalProductGroupSpecific',
                          'title' => '',
                          'tooltip' => '',
@@ -786,7 +935,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'labelAlign' => 'left',
                   )),
                   5 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'region',
                      'type' => NULL,
                      'region' => NULL,
@@ -800,7 +949,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                          'name' => 'regionalAvailability',
                          'title' => 'Available in',
                          'tooltip' => '',
@@ -840,7 +989,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'height' => '',
                       )),
                       1 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
                          'name' => 'regions',
                          'title' => 'Regions',
                          'tooltip' => '',
@@ -899,7 +1048,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelAlign' => 'left',
           )),
           3 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'internalCategory',
              'type' => NULL,
              'region' => NULL,
@@ -913,7 +1062,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'children' => 
             array (
               0 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                  'name' => 'internalCategories',
                  'title' => 'Internal Categories',
                  'tooltip' => '',
@@ -965,7 +1114,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelAlign' => 'left',
           )),
           4 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'externalCategories',
              'type' => NULL,
              'region' => NULL,
@@ -979,7 +1128,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'children' => 
             array (
               0 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
                  'region' => NULL,
@@ -1012,6 +1161,177 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'layout' => NULL,
              'border' => false,
              'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/external.svg',
+             'labelWidth' => 100,
+             'labelAlign' => 'left',
+          )),
+          5 => 
+          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+             'name' => 'completeness',
+             'type' => NULL,
+             'region' => NULL,
+             'title' => 'Completeness',
+             'width' => '',
+             'height' => '',
+             'collapsible' => false,
+             'collapsed' => false,
+             'bodyStyle' => '',
+             'datatype' => 'layout',
+             'children' => 
+            array (
+              0 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+                 'name' => 'localizedfields',
+                 'title' => '',
+                 'tooltip' => NULL,
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => NULL,
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => true,
+                 'visibleSearch' => true,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'children' => 
+                array (
+                  0 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'name' => 'completenessPercentage',
+                     'title' => 'Completeness Percentage',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => true,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'padding: 10px; background-color: #d9edf7; border-color: #bce8f1 !important; color: #31708f;border-radius:5px;',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'defaultValue' => NULL,
+                     'columnLength' => 190,
+                     'regex' => '',
+                     'regexFlags' => 
+                    array (
+                    ),
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'width' => 600,
+                     'defaultValueGenerator' => '',
+                  )),
+                  1 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                     'name' => 'emptyFieldsBrand',
+                     'title' => 'Empty Fields Brand',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => true,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'padding: 10px; background-color: pink; border-color: #bce8f1 !important; color: #31708f;border-radius:5px;',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'maxLength' => NULL,
+                     'showCharCount' => false,
+                     'excludeFromSearchIndex' => false,
+                     'height' => 150,
+                     'width' => 600,
+                  )),
+                  2 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                     'name' => 'emptyFieldsSkeleton',
+                     'title' => 'Empty Fields Skeleton',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => true,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'padding: 10px; background-color: pink; border-color: #bce8f1 !important; color: #31708f;border-radius:5px;',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'maxLength' => NULL,
+                     'showCharCount' => false,
+                     'excludeFromSearchIndex' => false,
+                     'height' => 150,
+                     'width' => 600,
+                  )),
+                  3 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                     'name' => 'emptyFieldsFinishedGood',
+                     'title' => 'Empty Fields Finished Good',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => true,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'padding: 10px; background-color: pink; border-color: #bce8f1 !important; color: #31708f;border-radius:5px;',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'maxLength' => NULL,
+                     'showCharCount' => false,
+                     'excludeFromSearchIndex' => false,
+                     'height' => 150,
+                     'width' => 600,
+                  )),
+                ),
+                 'region' => NULL,
+                 'layout' => NULL,
+                 'maxTabs' => NULL,
+                 'border' => false,
+                 'provideSplitView' => false,
+                 'tabPosition' => 'top',
+                 'hideLabelsWhenTabsReached' => NULL,
+                 'referencedFields' => 
+                array (
+                ),
+                 'permissionView' => NULL,
+                 'permissionEdit' => NULL,
+                 'labelWidth' => 250,
+                 'labelAlign' => 'left',
+                 'width' => '',
+                 'height' => '',
+                 'fieldDefinitionsCache' => NULL,
+              )),
+            ),
+             'locked' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'fieldtype' => 'panel',
+             'layout' => NULL,
+             'border' => false,
+             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/accept_database.svg',
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
