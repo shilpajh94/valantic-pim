@@ -13,7 +13,7 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-#[AsCommand(name: 'app:uni:product:dummy-data:delete')]
+#[AsCommand(name: 'app:uni:product:dummy-data:delete', description: 'Deletes previously generated dummy data.')]
 class DeleteCommand extends AbstractDummyDataCommand
 {
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -21,7 +21,6 @@ class DeleteCommand extends AbstractDummyDataCommand
         Version::disable();
         $dirtyDetectionDisabled = DataObject::isDirtyDetectionDisabled();
         DataObject::disableDirtyDetection();
-
 
         $condition = '`key` LIKE ?';
 
@@ -32,13 +31,20 @@ class DeleteCommand extends AbstractDummyDataCommand
             ->setCondition($condition, [self::OBJECT_KEY_PREFIX . '%'])
             ->setUnpublished(true);
 
+        $total = $products->count() + $categories->count();
+
+        if ($total === 0) {
+            $output->writeln('<info>No products or categories found</info>');
+            return self::SUCCESS;
+        }
+
         $output->writeln(sprintf(
             '<info>Deleting %s dummy products and %s dummy categories...</info>',
             $products->count(),
             $categories->count()
         ));
 
-        $progress = new ProgressBar($output, $products->count() + $categories->count());
+        $progress = new ProgressBar($output, $total);
         $progress->start();
 
         Db::get()->beginTransaction();
