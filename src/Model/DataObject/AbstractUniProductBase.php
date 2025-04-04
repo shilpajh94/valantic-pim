@@ -7,6 +7,8 @@ use Pimcore\Model\DataObject\UniProductCategoryInternal;
 
 abstract class AbstractUniProductBase extends Concrete
 {
+    use PerformanceSaveTrait;
+
     /**
      * @template TObjectBrick
      *
