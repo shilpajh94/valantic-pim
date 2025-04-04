@@ -14,24 +14,21 @@ pimcore.plugin.ptsCatalogHeaderSelection = Class.create({
      * @constructor
      */
     initialize: function () {
-        // console.log('ptsCatalogHeaderSelection plugin initialized.');
     },
 
     attachPtsCatlogHeader: function (e) {
-        var object = e.detail;
+        var tabIndexContainingConfiguration = 0;
+        var object = e.detail.object;
         var headerDataFieldName = 'Columns';
         var dataFields = object.edit.dataFields;
         var headerDataComponent = dataFields[headerDataFieldName].component;
-        // console.log(headerDataComponent);
         var objectEditParentPanel = object.edit.layout.items.items[0];
         
         var objectEditParentPanelItems = objectEditParentPanel.items;
-        console.log(objectEditParentPanelItems);
         var panelContainingConfiguration = objectEditParentPanelItems.items[tabIndexContainingConfiguration];
-        console.log(panelContainingConfiguration.items.getRange())
         var panelContainingConfigurationItems = panelContainingConfiguration.items.getRange();
         var filterFieldSet = panelContainingConfigurationItems[0];
-        var headerFieldSet = panelContainingConfigurationItems[2];
+        var headerFieldSet = panelContainingConfigurationItems[1];
         var headerData = [];
 
             Ext.Ajax.request({
@@ -81,6 +78,10 @@ pimcore.plugin.ptsCatalogHeaderSelection = Class.create({
                 listeners: {
                     change: function (field, newValue, oldValue, eOpts) {
                         let selectedHeaders = my_item_selector_instance.getValue();
+                        let valueToCheck = "Pitch";
+                        if (!selectedHeaders.includes(valueToCheck)) {
+                            Ext.Msg.alert(t("error"), t("Select Pitch for Selected Columns"));
+                        }
                         let formatedSelectedHeaders = this.formatHeaderDataForSave(selectedHeaders, completeData);
                         formatedSelectedHeaders = JSON.stringify(formatedSelectedHeaders);
                         headerDataComponent.setValue(formatedSelectedHeaders);
@@ -106,7 +107,7 @@ pimcore.plugin.ptsCatalogHeaderSelection = Class.create({
             head.setStore(my_array_store);
             head.setValue(this.getValuesForItemSelector(headerDataComponent));
             }
-        }
+        
 
     }, getHeaderData: function (headerDataComponent) {
 
@@ -135,11 +136,11 @@ pimcore.plugin.ptsCatalogHeaderSelection = Class.create({
           
             var completeHeaderData = completeData[data[i]];
             header = {
-                "columnName": data[i],
-                "columnLabel": completeHeaderData.fieldLabel,
-                "groupName": completeHeaderData.groupName,
-                "unitName": completeHeaderData.unitName,
-                "columnWidth": completeHeaderData.columnWidth,
+                "fieldName": data[i],
+                "sqlQuery": completeHeaderData.sql,
+                "columnName": completeHeaderData.columnName,
+                "fieldLabel": completeHeaderData.fieldLabel,
+                "columnHeader": completeHeaderData.columnHeader,
             };
             returnData[data[i]] = header;
         }

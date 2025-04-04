@@ -40,11 +40,10 @@ class PtsSectionPageController extends FrontendController
         /* Initilize monitoring item and set the number of steps will take to complete the task */
     }
 
-    public function templatePtgSectionPagePTSBeltsAction(Request $request): Response
+    public function getColumnsData($request, $template, $selectedColumns)
     {
         $parameterBag = array();
         $footerBgColor='';
-        $templateEditable = $this->document->getEditable('section_page_pts_belts');
         $commonHelper = $this->containerInterface->get('app.common_helper');
         $language = (isset($this->document->getProperties()['language'])) ? ($this->document->getProperties()['language'])->getData() : 'en';
         $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
@@ -52,56 +51,31 @@ class PtsSectionPageController extends FrontendController
         $this->featuresList = $this->defaultController->getFeaturesList($language);
         if (!$request->get('contentDocument')->getPublished()) {
             $parameterBag = $this->defaultController->getRequestedParameter($request, 0);
-        } else {
-            // $documentPath = $this->document->getFullPath();
-            // $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-            $documentId   = $this->document->getEditables()['section_page_pts_belts']->getDocumentId();
-            $parameterBag = $this->defaultController->getRequestedParameter($request, $documentId);
-        }
-        if ($templateEditable && $templateEditable->getElement() != null) {
-            $template = $templateEditable->getElement();
-            $footerBgColor = $template->getColor();
-            $defaultColumns = [
-                'fertPTGBricks.widthmm as standardWidthmm',
-                'fertSynchronousBricks.pitchLengthMM' ,
-                'fertSynchronousBricks.pitchMM ',
-                'baseProducts.brandName',
-                'baseProducts.SIOPLevel2',
-                'baseProducts.SIOPLevel3', 
-                'baseProducts.SIOPLevel4', 
-                'baseProducts.SIOPLevel5',
-                'baseProducts.reinforcement', 
-                'baseBricks.material', 
-                'baseProducts.temperatureRangeFAndC',
-                'baseProducts.minimumTemperatureF',
-                'baseProducts.maximumTemperatureF', 
-                'baseProducts.mainImage',
-                'baseProducts.beltIdentificationImage',    
-                'baseProducts.profileDimensionPtsBelts',    
-                'baseLocalized.shortDescription', 
-                'baseLocalized.FeaturesBenefitsBulletPoint',
-                // 'skeltonProducts.key AS Pitch',
-                'skeltonProducts.SIOPLevel6',
-                'skeltonBricks.totalBeltThickness', 
-                'skeltonBricks.totalToothThickness',
-                'object_localized_2_en.PrintedCatalogDescription AS Pitch'  // Added this line to select printedCatalogDescription
+        } else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->defaultController->getRequestedParameter($request, $documentId); 
+                } 
+            } 
 
-                
-            ];
             $baseProductID = $template->getBaseproduct();
+
+            $sqlQueries = array_map(function($item) {
+                return $item['sqlQuery'];
+            }, $selectedColumns);
+            
             if($template->getBrand()){
                 $brandName = $template->getBrand();
                 $defaultColumns = [
-                    'fertPTGBricks.widthmm as standardWidthmm',
-                    'fertSynchronousBricks.pitchLengthMM' ,
-                    'fertSynchronousBricks.pitchMM ',
                     'fertProducts.brandName',
                     'fertProducts.SIOPLevel2',
                     'fertProducts.SIOPLevel3', 
                     'fertProducts.SIOPLevel4', 
                     'fertProducts.SIOPLevel5',
                     'fertProducts.reinforcement', 
-                    'baseBricksInFertLevel.material', 
+                    'object_brick_query_PTGBase_1.material', 
                     'fertProducts.temperatureRangeFAndC',
                     'fertProducts.minimumTemperatureF',
                     'fertProducts.maximumTemperatureF', 
@@ -110,43 +84,62 @@ class PtsSectionPageController extends FrontendController
                     'fertProducts.profileDimensionPtsBelts',    
                     'fertLocalized.shortDescription', 
                     'fertLocalized.FeaturesBenefitsBulletPoint',
-                    'skeltonProducts.SIOPLevel6',
-                    'skeltonBricks.totalBeltThickness', 
-                    'skeltonBricks.totalToothThickness',
-                    'object_localized_2_en.PrintedCatalogDescription AS Pitch'  // Added this line to select printedCatalogDescription
-    
+                    'skeltonProducts.SIOPLevel6',    
                     
                 ];
+                $allColumns = array_merge($defaultColumns, $sqlQueries);
     
-                $sql = "SELECT DISTINCT ".implode(',',$defaultColumns)."
+                $sql = "SELECT DISTINCT ".implode(',',$allColumns)."
                 FROM object_1 AS baseProducts 
                 LEFT JOIN object_1 AS skeltonProducts ON baseProducts.oo_id = skeltonProducts.parentId
-                LEFT JOIN object_brick_query_PTGSkeleton_1 AS skeltonBricks ON skeltonProducts.oo_id = skeltonBricks.id
+                LEFT JOIN object_brick_query_PTGSkeleton_1 ON skeltonProducts.oo_id = object_brick_query_PTGSkeleton_1.id
                 LEFT JOIN object_1 AS fertProducts ON skeltonProducts.oo_id = fertProducts.parentId
                 LEFT JOIN object_localized_1_$language AS fertLocalized 
                 ON fertProducts.oo_id= fertLocalized.oo_id
-                LEFT JOIN object_brick_query_PTGBase_1 AS baseBricksInFertLevel ON  fertProducts.oo_id = baseBricksInFertLevel.id
-                LEFT JOIN object_brick_query_PTGFert_1 AS fertPTGBricks ON fertProducts.oo_id = fertPTGBricks.id
-                LEFT JOIN object_brick_query_SynchronousFert_1 AS fertSynchronousBricks ON fertProducts.oo_id = fertSynchronousBricks.id
+                LEFT JOIN object_brick_query_PTGBase_1 ON  fertProducts.oo_id = object_brick_query_PTGBase_1.id
+                LEFT JOIN object_brick_query_PTGFert_1 ON fertProducts.oo_id = object_brick_query_PTGFert_1.id
+                LEFT JOIN object_brick_query_SynchronousFert_1 ON fertProducts.oo_id = object_brick_query_SynchronousFert_1.id
                 LEFT JOIN object_localized_2_en ON REPLACE(skeltonProducts.SIOPLevel6, ',', '') = object_localized_2_en.oo_id  -- Added join on skeltonProducts.SIOPLevel6
-                WHERE baseProducts.oo_id = $baseProductID AND fertProducts.brandName = $brandName AND fertProducts.printedCatalogFlag =1 ORDER BY fertPTGBricks.widthmm ASC ";
+                WHERE baseProducts.oo_id = $baseProductID AND fertProducts.brandName = $brandName AND fertProducts.printedCatalogFlag =1 ORDER BY object_brick_query_PTGFert_1.widthmm ASC ";
 
 
             }
             else{
-                $sql = "SELECT DISTINCT ".implode(',',$defaultColumns)."
+                $defaultColumns = [
+                    'baseProducts.brandName',
+                    'baseProducts.SIOPLevel2',
+                    'baseProducts.SIOPLevel3', 
+                    'baseProducts.SIOPLevel4', 
+                    'baseProducts.SIOPLevel5',
+                    'baseProducts.reinforcement', 
+                    'baseBricks.material', 
+                    'baseProducts.temperatureRangeFAndC',
+                    'baseProducts.minimumTemperatureF',
+                    'baseProducts.maximumTemperatureF', 
+                    'baseProducts.mainImage',
+                    'baseProducts.beltIdentificationImage',    
+                    'baseProducts.profileDimensionPtsBelts',    
+                    'baseLocalized.shortDescription', 
+                    'baseLocalized.FeaturesBenefitsBulletPoint',
+                    'skeltonProducts.SIOPLevel6',
+    
+                    
+                ];
+                $allColumns = array_merge($defaultColumns, $sqlQueries);
+
+    
+                $sql = "SELECT DISTINCT ".implode(',',$allColumns)."
                     FROM object_1 AS baseProducts 
                     LEFT JOIN object_brick_query_PTGBase_1 AS baseBricks ON  baseProducts.oo_id = baseBricks.id
                     LEFT JOIN object_localized_1_$language AS baseLocalized 
                     ON baseProducts.oo_id= baseLocalized.oo_id
                     LEFT JOIN object_1 AS skeltonProducts ON baseProducts.oo_id = skeltonProducts.parentId
-                    LEFT JOIN object_brick_query_PTGSkeleton_1 AS skeltonBricks ON skeltonProducts.oo_id = skeltonBricks.id
+                    LEFT JOIN object_brick_query_PTGSkeleton_1 AS object_brick_query_PTGSkeleton_1 ON skeltonProducts.oo_id = object_brick_query_PTGSkeleton_1.id
                     LEFT JOIN object_1 AS fertProducts ON skeltonProducts.oo_id = fertProducts.parentId
-                    LEFT JOIN object_brick_query_PTGFert_1 AS fertPTGBricks ON fertProducts.oo_id = fertPTGBricks.id
-                    LEFT JOIN object_brick_query_SynchronousFert_1 AS fertSynchronousBricks ON fertProducts.oo_id = fertSynchronousBricks.id
+                    LEFT JOIN object_brick_query_PTGFert_1 AS object_brick_query_PTGFert_1 ON fertProducts.oo_id = object_brick_query_PTGFert_1.id
+                    LEFT JOIN object_brick_query_SynchronousFert_1 AS object_brick_query_SynchronousFert_1 ON fertProducts.oo_id = object_brick_query_SynchronousFert_1.id
                     LEFT JOIN object_localized_2_en ON REPLACE(skeltonProducts.SIOPLevel6, ',', '') = object_localized_2_en.oo_id  -- Added join on skeltonProducts.SIOPLevel6
-                    WHERE baseProducts.oo_id = $baseProductID AND fertProducts.printedCatalogFlag =1 ORDER BY fertPTGBricks.widthmm ASC ";
-                // $SIOPQuery = "select SIOPLevel2,SIOPLevel3, SIOPLevel4, SIOPLevel5, SIOPLevel6 from object_query_1 where oo_id = '" . $baseProductID[0] . "'";
+                    WHERE baseProducts.oo_id = $baseProductID AND fertProducts.printedCatalogFlag =1 ORDER BY object_brick_query_PTGFert_1.widthmm ASC ";
             }
             $SQLResults = $this->db->fetchAllAssociative($sql);
             $siopLevel2 = trim(array_column($SQLResults, 'SIOPLevel2')[0], ',');
@@ -167,9 +160,7 @@ class PtsSectionPageController extends FrontendController
             $brandName = array_unique(array_column($SQLResults, 'brandName'))[0];
             $skeltons = array_slice(($template->getSkeletonProduct() !=null )?$template->getSkeletonProduct():array_values(array_unique(array_column($SQLResults, 'Pitch'))),0,4);
             $result = [];
-            // p_r($skeltons);
             $skeltonSet = array_flip($skeltons); // This creates an associative array where keys are skelton values
-        //    p_r($skeltonSet);
             foreach ($SQLResults as $SQLResult) {
                 $a1[] = $SQLResult['SIOPLevel6'];
 
@@ -185,21 +176,18 @@ class PtsSectionPageController extends FrontendController
                 unset($SQLResult['maximumTemperatureF']);
                 unset($SQLResult['temperatureRangeFAndC']);
                 unset($SQLResult['brandName']);
-                // p_r($SQLResult['Pitch']);
                 // Storing results on basis of unique pitch value (pitch value contains printed catalog description present in hierarchy for the skeleton level)
                 if (isset($SQLResult['Pitch']) && isset($skeltonSet[$SQLResult['Pitch']])) {
                     $result[$SQLResult['Pitch']][] = $SQLResult;
                 }
             }
-
             for ($i = 0; $i < count($skeltons); $i++) {
-                $data['groupData'][$skeltons[$i]]['standardWidthmm'] = implode(', ', array_map('intval',array_unique(array_column($result[$skeltons[$i]], 'standardWidthmm'))));
-                $data['groupData'][$skeltons[$i]]['pitchLengthMM'] =(int) min(array_column($result[$skeltons[$i]], 'pitchLengthMM')) . ' - ' .(int) max(array_column($result[$skeltons[$i]], 'pitchLengthMM'));
-                $data['groupData'][$skeltons[$i]]['A'] = array_values(array_unique(array_column($result[$skeltons[$i]], 'pitchMM')))[0];
-                $data['groupData'][$skeltons[$i]]['B'] = array_values(array_unique(array_column($result[$skeltons[$i]], 'totalBeltThickness')))[0];
-                $data['groupData'][$skeltons[$i]]['C'] = array_values(array_unique(array_column($result[$skeltons[$i]], 'totalToothThickness')))[0];
 
-
+                $data['groupData'][$skeltons[$i]]['standardWidthmm'] = isset($SQLResult['standardWidthmm']) ? implode(', ', array_map('intval',array_unique(array_column($result[$skeltons[$i]], 'standardWidthmm')))) : null;
+                $data['groupData'][$skeltons[$i]]['pitchLengthMM'] = isset($SQLResult['pitchLengthMM']) ? (int) min(array_column($result[$skeltons[$i]], 'pitchLengthMM')) . ' - ' .(int) max(array_column($result[$skeltons[$i]], 'pitchLengthMM')) : null;
+                $data['groupData'][$skeltons[$i]]['A'] = isset($SQLResult['pitchMM']) ? array_values(array_unique(array_column($result[$skeltons[$i]], 'pitchMM')))[0] : null;
+                $data['groupData'][$skeltons[$i]]['B'] = isset(array_values(array_unique(array_column($result[$skeltons[$i]], 'totalBeltThickness')))[0]) ? array_values(array_unique(array_column($result[$skeltons[$i]], 'totalBeltThickness')))[0] : null;
+                $data['groupData'][$skeltons[$i]]['C'] = isset(array_values(array_unique(array_column($result[$skeltons[$i]], 'totalToothThickness')))[0]) ? array_values(array_unique(array_column($result[$skeltons[$i]], 'totalToothThickness')))[0] : null;
             }
 
             $SIOPCategories = array();
@@ -276,9 +264,14 @@ class PtsSectionPageController extends FrontendController
             $footer_logo_src = $this->defaultController->getS3ImageSrc($footer_logo_src);
             $data['footer_logo_src'] = $footer_logo_src;
 
-        }//end check element
+            foreach($selectedColumns as $col){
+                $data['headers'][] = array(
+                    'columnHeaders' => $col['columnHeader'],
+                    'attributeName' => $col['columnName'],
+                );
+            }
         $parameterBag['data']=isset($data)?$data:[];
-        return $this->render("catalog/default/template_section_page_pts_belts.html.twig", $parameterBag);
+        return $parameterBag;
 
     }
 
@@ -356,6 +349,17 @@ class PtsSectionPageController extends FrontendController
         die;
     }
 
+    public function templatePtgSectionPagePTSBeltsAction(Request $request)
+    {
+        $templateEditable = $this->document->getEditable('section_page_pts_belts');
+        if ($templateEditable && $templateEditable->getElement() != null) {
+            $template = $templateEditable->getElement();
+            $footerBgColor = $template->getColor();
+            $selectedColumns = json_decode($template->getColumns(), true);
+        }
 
+        $parameterBag =  $this->getColumnsData($request, $template, $selectedColumns);
 
+        return $this->render("catalog/default/template_section_page_pts_belts.html.twig", $parameterBag);
+    }
 }
