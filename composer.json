@@ -7,8 +7,9 @@
     "sort-packages": true,
     "process-timeout": 0,
     "allow-plugins": {
-      "symfony/runtime": true,
-      "php-http/discovery": true
+      "cweagans/composer-patches": true,
+      "php-http/discovery": true,
+      "symfony/runtime": true
     }
   },
   "prefer-stable": true,
@@ -16,6 +17,7 @@
     "coreshop/pimcore-bundle": "*",
     "coreshop/resource-bundle": "*",
     "coreshop/rule-bundle": "*",
+    "cweagans/composer-patches": "^2.0.0-beta2",
     "elements/process-manager-bundle": "*",
     "league/flysystem-aws-s3-v3": "^3.12.0",
     "php-http/discovery": "^1.19",
@@ -76,7 +78,7 @@
       "ContitechCS\\CatalogBundle\\": "bundles/ContitechCS/CatalogBundle/src",
       "ContitechCS\\CatalogUIApiBundle\\": "bundles/ContitechCS/CatalogUIApiBundle/src",
       "Instride\\Bundle\\DataDefinitionsBundle\\": "bundles/instride/data-definitions/src/DataDefinitionsBundle",
-      "SSOIntegrationBundle\\":"bundles/SSOIntegrationBundle",
+      "SSOIntegrationBundle\\": "bundles/SSOIntegrationBundle",
       "B2BSalesforcePTGEMEABundle\\": "bundles/B2BSalesforcePTGEMEABundle/src",
       "Pimcore\\Bundle\\DataHubBundle\\": "bundles/Pimcore/data-hub/src",
       "Pimcore\\Bundle\\DataImporterBundle\\": "bundles/Pimcore/data-importer/src"
@@ -104,6 +106,11 @@
     ]
   },
   "extra": {
-    "symfony-assets-install": "relative"
+    "symfony-assets-install": "relative",
+    "patches": {
+      "pimcore/admin-ui-classic-bundle": {
+        "Flag for English language": "./vendor-patches/pimcore/admin-ui-classic-bundle/english_language_flag.patch"
+      }
+    }
   }
 }
