@@ -44,8 +44,11 @@ class SSOIntegrationExtension extends Extension implements PrependExtensionInter
                 case 'prod':
                     $loader->load('saml-sp_prod.yml');
                     break;
-                default:
+                case 'stage':
                     $loader->load('saml-sp_stage.yml');
+                    break;
+                default:
+                    $loader->load('saml-sp_qc.yml');
                     break;
             }
         }
