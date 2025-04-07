@@ -53,35 +53,25 @@ class SpecSheetController extends FrontendController
 		$sapRange = $tableObj->getSAPRange();
         $brand = $tableObj->getBrand();
         $nomenClature = $tableObj->getNomenClature();
-//echo "<pre>"; print_r($brand); print_r($nomenClature); die;
-		$brandAndNomenClatureValueCheck = false;
-		if ($brand == null || ($brand != null && count($brand) == 1)) {
-			if($brand == null){
-				$brandAndNomenClatureValueCheck = false;
-			} else if($brand[0] == 1){
-			    $brandAndNomenClatureValueCheck = false;
-			} else {
-				
+		if($brand != null && count($brand) == 1){
+			if($brand[0] == 1) {
+				$brand = null;
 			}
 		}
-		if ($nomenClature == null || ($nomenClature != null && count($nomenClature) == 1)) {
-			if($nomenClature == null){
-				$brandAndNomenClatureValueCheck = false;
-			} else if($nomenClature[0] == 1){
-			    $brandAndNomenClatureValueCheck = false;
+		if($nomenClature != null && count($nomenClature) == 1){
+			if($nomenClature[0] == 1) {
+				$nomenClature = null;
 			}
 		}
-		 
-		 if($brandAndNomenClatureValueCheck == true){
-		    $arr = array(
+		if ($brand == null && $nomenClature == null) {
+			 $arr = array(
                  'brandAndNomenClatureValueCheck' => false,
-
             );
 			 
 			 return $this->json($arr);
-			 
-		 }
-        
+		}
+		
+		
         $skeletonIds = [];
         $tableColumns = json_decode($tableData, 1);
 		
