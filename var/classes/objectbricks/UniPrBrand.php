@@ -9,7 +9,7 @@
  * - mainImage [image]
  */
 
-return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
+return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'dao' => NULL,
    'key' => 'UniPrBrand',
    'parentClass' => 'App\\Model\\DataObject\\UniProductManagement\\Objectbrick\\AbstractUniPrBrand',
@@ -17,7 +17,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'title' => 'Brand Data',
    'group' => 'UniProductManagement',
    'layoutDefinitions' => 
-  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'name' => NULL,
      'type' => NULL,
      'region' => NULL,
@@ -31,7 +31,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
      'children' => 
     array (
       0 => 
-      \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+      Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
@@ -45,7 +45,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'children' => 
         array (
           0 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+          Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
              'name' => 'localizedfields',
              'title' => '',
              'tooltip' => NULL,
@@ -66,7 +66,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'children' => 
             array (
               0 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                  'name' => 'marketingDescriptionLong',
                  'title' => 'Marketing Description - Long',
                  'tooltip' => '',
@@ -91,7 +91,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'width' => '',
               )),
               1 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                  'name' => 'productDescriptionShort',
                  'title' => 'Product Description - Short',
                  'tooltip' => '',
@@ -135,7 +135,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'fieldDefinitionsCache' => NULL,
           )),
           1 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'name' => 'industrialStandard',
              'title' => 'Industrial Standard',
              'tooltip' => '',
@@ -165,7 +165,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'defaultValueGenerator' => '',
           )),
           2 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+          Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
              'name' => 'mainImage',
              'title' => 'Main Image',
              'tooltip' => '',
@@ -221,6 +221,11 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
     array (
       'classname' => 'UniProductCategoryInternal',
       'fieldname' => 'levelSpecificData',
+    ),
+    1 => 
+    array (
+      'classname' => 'UniProductBase',
+      'fieldname' => 'brandData',
     ),
   ),
    'activeDispatchingEvents' => 

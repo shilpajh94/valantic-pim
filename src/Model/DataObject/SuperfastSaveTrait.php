@@ -2,8 +2,6 @@
 
 namespace App\Model\DataObject;
 
-use Pimcore\Cache\RuntimeCache;
-
 trait SuperfastSaveTrait
 {
     public function superfastSave(array $parameters = []): static

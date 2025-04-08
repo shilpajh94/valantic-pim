@@ -5,7 +5,7 @@
  * - placeholder [input]
  */
 
-return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
+return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'dao' => NULL,
    'key' => 'UniPrSkeleton',
    'parentClass' => 'App\\Model\\DataObject\\UniProductManagement\\Objectbrick\\AbstractUniPrSkeleton',
@@ -13,7 +13,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'title' => 'Skeleton Data',
    'group' => 'UniProductManagement',
    'layoutDefinitions' => 
-  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'name' => NULL,
      'type' => NULL,
      'region' => NULL,
@@ -27,7 +27,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
      'children' => 
     array (
       0 => 
-      \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+      Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
@@ -41,7 +41,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'children' => 
         array (
           0 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'name' => 'placeholder',
              'title' => 'Placeholder Field',
              'tooltip' => '',
@@ -104,6 +104,11 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
     array (
       'classname' => 'UniProductCategoryInternal',
       'fieldname' => 'levelSpecificData',
+    ),
+    1 => 
+    array (
+      'classname' => 'UniProductBase',
+      'fieldname' => 'skeletonData',
     ),
   ),
    'activeDispatchingEvents' => 
