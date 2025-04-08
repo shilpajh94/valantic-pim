@@ -5,6 +5,8 @@
  * Variants: no
  *
  * Fields Summary:
+ * - brandData [objectbricks]
+ * - skeletonData [objectbricks]
  * - productBrandName [input]
  * - localizedfields [localizedfields]
  * -- productSubCategory [input]
@@ -32,7 +34,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1743779773,
+   'modificationDate' => 1744108890,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => 'App\\Model\\DataObject\\AbstractUniProductBase',
@@ -91,7 +93,32 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             array (
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
-                 'name' => 'brandDataInclude',
+                 'name' => 'brandDataInfo',
+                 'type' => NULL,
+                 'region' => NULL,
+                 'title' => '',
+                 'width' => '',
+                 'height' => '',
+                 'collapsible' => false,
+                 'collapsed' => false,
+                 'bodyStyle' => '',
+                 'datatype' => 'layout',
+                 'children' => 
+                array (
+                ),
+                 'locked' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'fieldtype' => 'text',
+                 'html' => '<div class="alert alert-info" style="margin:0"><strong>Hint:</strong> Data on this panel is not editable, because it is inherited from the product line brand level.</div>',
+                 'renderingClass' => '',
+                 'renderingData' => '',
+                 'border' => false,
+              )),
+              1 => 
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+                 'name' => 'brandDataLink',
                  'type' => NULL,
                  'region' => NULL,
                  'title' => '',
@@ -110,8 +137,36 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'fieldtype' => 'text',
                  'html' => '',
-                 'renderingClass' => '@App\\Model\\CalculatedValue\\UniProductManagement\\UniProductStructureInternalData',
+                 'renderingClass' => '@App\\Model\\CalculatedValue\\UniProductManagement\\UniProductCategoryLink',
                  'renderingData' => 'App\\Model\\DataObject\\UniProductManagement\\Objectbrick\\AbstractUniPrBrand',
+                 'border' => false,
+              )),
+              2 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Objectbricks::__set_state(array(
+                 'name' => 'brandData',
+                 'title' => '',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'allowedTypes' => 
+                array (
+                  0 => 'UniPrBrand',
+                  1 => 'UniPrBrandDss',
+                  2 => 'UniPrBrandPts',
+                ),
+                 'maxItems' => NULL,
                  'border' => false,
               )),
             ),
@@ -142,7 +197,32 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             array (
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
-                 'name' => 'skeletonDataInclude',
+                 'name' => 'skeletonDataInfo',
+                 'type' => NULL,
+                 'region' => NULL,
+                 'title' => '',
+                 'width' => '',
+                 'height' => '',
+                 'collapsible' => false,
+                 'collapsed' => false,
+                 'bodyStyle' => '',
+                 'datatype' => 'layout',
+                 'children' => 
+                array (
+                ),
+                 'locked' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'fieldtype' => 'text',
+                 'html' => '<div class="alert alert-info" style="margin:0"><strong>Hint:</strong> Data on this panel is not editable, because it is inherited from the skeleton level.</div>',
+                 'renderingClass' => '',
+                 'renderingData' => '',
+                 'border' => false,
+              )),
+              1 => 
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+                 'name' => 'skeletonDataLink',
                  'type' => NULL,
                  'region' => NULL,
                  'title' => '',
@@ -161,8 +241,36 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'fieldtype' => 'text',
                  'html' => '',
-                 'renderingClass' => '@App\\Model\\CalculatedValue\\UniProductManagement\\UniProductStructureInternalData',
+                 'renderingClass' => '@App\\Model\\CalculatedValue\\UniProductManagement\\UniProductCategoryLink',
                  'renderingData' => 'App\\Model\\DataObject\\UniProductManagement\\Objectbrick\\AbstractUniPrSkeleton',
+                 'border' => false,
+              )),
+              2 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Objectbricks::__set_state(array(
+                 'name' => 'skeletonData',
+                 'title' => '',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'allowedTypes' => 
+                array (
+                  0 => 'UniPrSkeletonDss',
+                  1 => 'UniPrSkeleton',
+                  2 => 'UniPrSkeletonPts',
+                ),
+                 'maxItems' => NULL,
                  'border' => false,
               )),
             ),
@@ -994,7 +1102,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'title' => 'Regions',
                          'tooltip' => '',
                          'mandatory' => false,
-                         'noteditable' => false,
+                         'noteditable' => true,
                          'index' => false,
                          'locked' => false,
                          'style' => '',
@@ -1067,7 +1175,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'title' => 'Internal Categories',
                  'tooltip' => '',
                  'mandatory' => false,
-                 'noteditable' => false,
+                 'noteditable' => true,
                  'index' => false,
                  'locked' => false,
                  'style' => '',
