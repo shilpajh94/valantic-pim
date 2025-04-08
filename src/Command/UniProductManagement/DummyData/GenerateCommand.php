@@ -63,7 +63,7 @@ class GenerateCommand extends AbstractDummyDataCommand
         $dirtyDetectionDisabled = DataObject::isDirtyDetectionDisabled();
         DataObject::disableDirtyDetection();
 
-        $this->now = time();
+        $this->now = \Carbon\Carbon::now()->timestamp;
         $this->maxLevel = count(self::OBJECT_COUNTS) + 1;
         $this->output = $output;
 

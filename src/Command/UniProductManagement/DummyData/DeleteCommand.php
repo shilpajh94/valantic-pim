@@ -35,6 +35,7 @@ class DeleteCommand extends AbstractDummyDataCommand
 
         if ($total === 0) {
             $output->writeln('<info>No products or categories found</info>');
+
             return self::SUCCESS;
         }
 

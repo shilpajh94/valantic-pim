@@ -6,5 +6,5 @@ use Pimcore\Model\DataObject\Concrete;
 
 abstract class AbstractUniProductCategoryInternal extends Concrete
 {
-    use PerformanceSaveTrait;
+    use SuperfastSaveTrait;
 }
