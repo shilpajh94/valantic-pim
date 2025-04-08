@@ -176,42 +176,11 @@
 
                 <aside class="row justify-between ">
                     <div class="col-8">
-                        {% if editmode %}
-                            {% if pimcore_wysiwyg("PTG_LongDescription").isEmpty() %}
-                                {{ pimcore_wysiwyg("PTG_LongDescription").setDataFromResource(groupData['longDescription']) | raw }}
-                            {% else %}
-                                {{ pimcore_wysiwyg("PTG_LongDescription") }}
-                            {% endif %}
-                        {% else %}
-                            {{ pimcore_wysiwyg("PTG_LongDescription") }}
-                        {% endif %}
+                        <p>{{groupData['longDescription'] | striptags}}</p>
                     </div>
                     <div class="col-4 d-flex flex-column">
-                        {% if editmode %}
-                            {% if pimcore_image("HHPP_Image_Left").isEmpty() %}
-                                {{ pimcore_image("HHPP_Image_Left", {"width" : 200, "height" : 200}).setImage(groupData['mainImageObj']) | raw }}
-                            {% else %}
-                                {{ pimcore_image("HHPP_Image_Left", {"width" : 200, "height" : 200}) }}
-                            {% endif %}
-                        {% else %}
-                            {% set imgSrcObj1 = pimcore_image("HHPP_Image_Left") %}
-                            {% if getImageThumbnail(imgSrcObj1, imageWidth) %}
-                                <img src="{{ getImageThumbnail(imgSrcObj1, imageWidth) }}" width="200" height="200" alt="product image"/>
-                            {% endif %}
-                        {% endif %}
-                                
-                        {% if editmode %}
-                            {% if pimcore_image("Drawing_Picture").isEmpty() %}
-                                {{ pimcore_image("Drawing_Picture", {"width" : 200, "height" : 200}).setImage(groupData['technicalDrawing1Obj']) | raw }}
-                            {% else %}
-                                {{ pimcore_image("Drawing_Picture", {"width" : 200, "height" : 200}) }}
-                            {% endif %}
-                        {% else %}
-                            {% set imgSrcObj2 = pimcore_image("Drawing_Picture") %}
-                            {% if getImageThumbnail(imgSrcObj2, imageWidth) %}
-                                <img src="{{ getImageThumbnail(imgSrcObj2, imageWidth) }}" width="200" height="200" alt="technical drawring"/>
-                            {% endif %}
-                        {% endif %}
+                        <img src="{{getImageThumbnail(groupData['mainImageObj'], imageWidth)}}" width="200" height="200"/>
+						<img src="{{getImageThumbnail(groupData['technicalDrawing1Obj'], imageWidth)}}" width="200" height="200"/>
                     </div>
                 </aside>
             </header>
