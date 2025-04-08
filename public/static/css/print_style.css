@@ -240,6 +240,10 @@ header.dark img {
     flex-wrap: wrap;
 }
 
+.centerAlign {
+    text-align: center !important;
+}
+
 .justify-between {
     justify-content: space-between !important;
 }
@@ -920,9 +924,32 @@ font-family: 'Nunito Sans';
     background-color: #f0f0f0;
 }
 
+/*.grid td:first-child {*/
+/*    text-align: left !important;*/
+    /* min-width: 100px;*/
+/*}*/
+
 .grid td:first-child {
     text-align: left !important;
-    /* min-width: 100px;*/
+    /*max-width: 102px !important;*/
+    width: 95px !important;
+
+}
+
+.grid td:nth-child(2) {
+    /*max-width: 80px !important;*/
+    width: 80px !important;
+
+}
+.grid td:nth-child(3) {
+    max-width: 70px !important;
+    width: 70px !important;
+
+}
+.grid td:nth-child(5) {
+    max-width: 80px !important;
+    width: 80px !important;
+
 }
 
 .grid .sshead td:first-child {

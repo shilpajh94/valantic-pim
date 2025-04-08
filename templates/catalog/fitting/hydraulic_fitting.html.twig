@@ -348,7 +348,7 @@
 																			{% set columnWidth = "width="~firstArray['columnWidth'] %}
 																		{% endif %}
 
-																		<td colspan="{{g1count}}" {{columnWidth}}>
+																		<td colspan="{{g1count}}" {{columnWidth}} class="centerAlign">
 																			{% if ( firstArray['columnIcon'] is defined and firstArray['columnIcon']) %}
 																				<img src="{{firstArray['columnIcon']}}" width="45" height="45"/>
 																			{% endif %}
@@ -365,7 +365,7 @@
 																	{% if (first2Array['columnWidth']) %}
 																		{% set columnWidth = "width="~first2Array['columnWidth'] %}
 																	{% endif %}
-																	<td colspan="{{g2count}}" {{columnWidth}}>{{first2Array['columnLabel']|raw}}</td>
+																	<td class="centerAlign" colspan="{{g2count}}" {{columnWidth}}>{{first2Array['columnLabel']|raw}}</td>
 																{% endfor %}
 															</tr>
 															{% if tableRows['articleData']['subHeaderRequired'] == 'YES' %}
@@ -373,7 +373,7 @@
 																	{% for key, c3data in tableRows['articleData']['columnsDataWithImages'] %}
 																		{% for c3key, c3value in c3data %}
 																			{% set columnList = columnList|merge([c3key]) %}
-																			<td>{{ c3value['unitName'] ?? '' }}</td>
+																			<td class="centerAlign">{{ c3value['unitName'] ?? '' }}</td>
 																		{% endfor %}
 																	{% endfor %}
 																</tr>
@@ -449,7 +449,7 @@
 																				<td>{{ value }}<sup>{{ partNumberSuperText }}</sup>
 																				</td>
 																			{% else %}
-																				<td>{{ value | raw}}</td>
+																				<td class="centerAlign">{{ value | raw}}</td>
 																			{% endif %}
 																		{% endfor %}
 																	</tr>
