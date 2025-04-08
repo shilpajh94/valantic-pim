@@ -1,6 +1,5 @@
 document.addEventListener('click', function (event) {
     const target = event.target;
-    console.log(target);
 
     if (target.tagName.toLowerCase() === 'a' && target.hasAttribute('data-pimcore-open-id')) {
         pimcore.helpers.openElement(
