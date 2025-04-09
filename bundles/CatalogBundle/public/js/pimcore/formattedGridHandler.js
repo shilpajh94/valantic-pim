@@ -70,7 +70,7 @@ pimcore.plugin.formattedGridHandler = Class.create({
                             success: function (response) {
                                 response = Ext.decode(response.responseText);
 								if(response.brandAndNomenClatureValueCheck == false){
-									Ext.Msg.alert("Status","Please Select atleast any one field value from Brand or Nomen Clature.");
+									Ext.Msg.alert("Status","Please select at least one field value from either Brand or Nomenclature.");
 									return false;
 								}
 
