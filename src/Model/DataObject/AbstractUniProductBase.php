@@ -38,7 +38,7 @@ abstract class AbstractUniProductBase extends Concrete
 
     private function resolveObjectbricks(AbstractUniProductBase|UniProductCategoryInternal $object, string $objectbrickClass): array
     {
-        $ancestor = $this->resolveAncestorCategoryByObjectbrick($object, $objectbrickClass);
+        $ancestor = $this->resolveAncestorCategory($object, $objectbrickClass);
 
         if (!$ancestor instanceof UniProductCategoryInternal) {
             return [];
