@@ -7,15 +7,15 @@
  * - maximumBellowDiameterMetric [numeric]
  */
 
-return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
+return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'dao' => NULL,
    'key' => 'UniPrGsTechDss',
    'parentClass' => '',
    'implementsInterfaces' => '',
-   'title' => 'Technical Attributes (DSS)',
+   'title' => 'Product Group Specific Technical Attributes',
    'group' => 'UniProductManagement',
    'layoutDefinitions' => 
-  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'name' => NULL,
      'type' => NULL,
      'region' => NULL,
@@ -29,7 +29,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
      'children' => 
     array (
       0 => 
-      \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+      Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
@@ -43,7 +43,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'children' => 
         array (
           0 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+          Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
              'name' => 'bellowOnly',
              'title' => 'Bellow Only',
              'tooltip' => '',
@@ -85,7 +85,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'width' => '',
           )),
           1 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
              'name' => 'minimumHeightMetric',
              'title' => 'Minimum Height (mm)',
              'tooltip' => '',
@@ -115,7 +115,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'defaultValueGenerator' => '',
           )),
           2 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
              'name' => 'maximumBellowDiameterMetric',
              'title' => 'Maximum Bellow Diameter (mm)',
              'tooltip' => '',

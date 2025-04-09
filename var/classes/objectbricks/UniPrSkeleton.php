@@ -10,7 +10,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'key' => 'UniPrSkeleton',
    'parentClass' => 'App\\Model\\DataObject\\UniProductManagement\\Objectbrick\\AbstractUniPrSkeleton',
    'implementsInterfaces' => '',
-   'title' => 'Skeleton Data',
+   'title' => 'Skeleton Base Product Data',
    'group' => 'UniProductManagement',
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(

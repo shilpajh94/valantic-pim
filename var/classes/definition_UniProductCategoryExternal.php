@@ -3,6 +3,7 @@
 /**
  * Inheritance: no
  * Variants: no
+ * Title: External Category
  *
  * Fields Summary:
  * - localizedfields [localizedfields]
@@ -13,14 +14,14 @@
  * - productExcludes [fieldcollections]
  */
 
-return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
+return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
    'id' => 'UNI_PRCE',
    'name' => 'UniProductCategoryExternal',
-   'title' => '',
+   'title' => 'External Category',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1743521004,
+   'modificationDate' => 1744191770,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -36,7 +37,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'allowVariants' => false,
    'showVariants' => false,
    'layoutDefinitions' => 
-  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'name' => 'pimcore_root',
      'type' => NULL,
      'region' => NULL,
@@ -50,7 +51,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'children' => 
     array (
       0 => 
-      \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
+      Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
@@ -64,11 +65,11 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'children' => 
         array (
           0 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-             'name' => 'erpData',
+          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+             'name' => 'generalInformation',
              'type' => NULL,
              'region' => NULL,
-             'title' => 'ERP Data',
+             'title' => 'External Category General Information',
              'width' => '',
              'height' => '',
              'collapsible' => false,
@@ -78,7 +79,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'children' => 
             array (
               0 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                  'name' => 'localizedfields',
                  'title' => '',
                  'tooltip' => NULL,
@@ -99,7 +100,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'name',
                      'title' => 'Name',
                      'tooltip' => '',
@@ -148,7 +149,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'fieldDefinitionsCache' => NULL,
               )),
               1 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
                  'name' => 'level',
                  'title' => 'Level',
                  'tooltip' => '',
@@ -181,12 +182,12 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'fieldtype' => 'panel',
              'layout' => NULL,
              'border' => false,
-             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/overlay-download.svg',
+             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/info-gray.svg',
              'labelWidth' => 250,
              'labelAlign' => 'left',
           )),
           1 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'productFilterRules',
              'type' => NULL,
              'region' => NULL,
@@ -200,7 +201,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'children' => 
             array (
               0 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                  'name' => 'filterIntro',
                  'type' => NULL,
                  'region' => NULL,
@@ -225,7 +226,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'border' => false,
               )),
               1 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
                  'name' => 'productInclude',
                  'title' => 'Include Products',
                  'tooltip' => '',
@@ -257,7 +258,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'border' => false,
               )),
               2 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
                  'name' => 'productFilters',
                  'title' => 'Product Filters',
                  'tooltip' => '',
@@ -288,7 +289,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'border' => false,
               )),
               3 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
                  'name' => 'productExcludes',
                  'title' => 'Product Excludes',
                  'tooltip' => '',
@@ -331,7 +332,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelAlign' => 'left',
           )),
           2 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'productPreview',
              'type' => NULL,
              'region' => NULL,
@@ -345,7 +346,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'children' => 
             array (
               0 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Iframe::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Iframe::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
                  'region' => NULL,

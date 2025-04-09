@@ -44,7 +44,7 @@ class UniProductStructureInternalStyle extends AdminStyle
         }
 
         $this->elementText = sprintf($levelTemplate . ' %s', $element->getLevel(), $element->getName());
-        $this->elementIcon = match ($element->getLevel()) {
+        $this->elementIcon = match ($element->getCategoryLevel()) {
             UniProductCategoryLevel::PRODUCT_LINE->value => sprintf($iconPathTemplate, 'yellow'),
             UniProductCategoryLevel::PRODUCT_VARIANT->value => sprintf($iconPathTemplate, 'blue'),
             default => sprintf($iconPathTemplate, 'orange'),
