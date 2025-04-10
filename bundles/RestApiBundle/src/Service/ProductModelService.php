@@ -589,8 +589,10 @@ class ProductModelService {
                             $decimalPoints = $fieldConfig[0]["numeric"]??DEFAULT_DECIMAL_PLACES_IN_VIRTUAL_CATALOG_API;
                             $bData = round(strval($bData), $decimalPoints);
                         }
-                        $productObjectBricksData[$fieldName] = $bData;
+                        //$productObjectBricksData[$fieldName] = $bData;
                     }
+
+                    $productObjectBricksData[$fieldName] = $bData;
 
                     if(isset($this->customFields[$fieldName]))
                     {
