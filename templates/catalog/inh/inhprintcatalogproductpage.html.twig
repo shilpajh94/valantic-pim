@@ -220,7 +220,28 @@
 												<div>
 													<p>{{brand['brandData']['longDescription'] | striptags}}</p>
 												</div>
-													<img src="{{getImageThumbnail(brand['brandData']['mainImage'], imageWidth)}}" width="1067" height="128"/>
+												{% if editmode %}
+													{% if not pimcore_image('INH_MAIN_IMAGE_'~uniqueId).isEmpty() %}
+														{% set imgSrcObj = pimcore_image('INH_MAIN_IMAGE_'~uniqueId) %}
+													{% else %}
+														{% set imgSrcObj = brand['brandData']['mainImage'] %}
+													{% endif %}
+
+													{% if imgSrcObj %}
+														<img src="{{getImageThumbnail(imgSrcObj,imageWidth)}}" width="1067" height="128"/>
+													{% endif %}
+
+												{% else %}
+													{% if not pimcore_image('INH_MAIN_IMAGE_'~uniqueId).isEmpty() %}
+														{% set imgSrcObj = pimcore_image('INH_MAIN_IMAGE_'~uniqueId) %}
+													{% else %}
+														{% set imgSrcObj = brand['brandData']['mainImage'] %}
+													{% endif %}
+
+													{% if imgSrcObj %}
+														<img src="{{getImageThumbnail(imgSrcObj,imageWidth)}}" width="1067" height="128"/>
+													{% endif %}
+												{% endif %}
 											</aside>
 										</header>
 										<section class="content">
