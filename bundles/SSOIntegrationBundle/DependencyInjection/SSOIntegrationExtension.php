@@ -108,8 +108,11 @@ class SSOIntegrationExtension extends Extension implements PrependExtensionInter
                 case 'prod':
                     $idpFile=XmlUtils::loadFile(__DIR__ . '/../Resources/config/saml-idp-prod.xml');
                     break;
+                case 'stage':
+                    $idpFile=XmlUtils::loadFile(__DIR__ . '/../Resources/config/saml-idp-stage.xml');
+                    break;
                 default:
-                $idpFile=XmlUtils::loadFile(__DIR__ . '/../Resources/config/saml-idp-stage.xml');
+                    $idpFile=XmlUtils::loadFile(__DIR__ . '/../Resources/config/saml-idp-qc.xml');
                     break;
             }
         }
