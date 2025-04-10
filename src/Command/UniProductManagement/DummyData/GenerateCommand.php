@@ -22,8 +22,8 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-#[AsCommand(name: 'app:uni:product:dummy-data:create')]
-class CreateCommand extends AbstractDummyDataCommand
+#[AsCommand(name: 'app:uni:product:dummy-data:generate', description: 'Generates dummy products including hierarchy.')]
+class GenerateCommand extends AbstractDummyDataCommand
 {
     protected const BATCH_SIZE = 2000;
     private const OBJECT_KEY_TEMPLATE = self::OBJECT_KEY_PREFIX . '%s %03d';
@@ -55,6 +55,7 @@ class CreateCommand extends AbstractDummyDataCommand
     private ?Asset $mainImage;
     private array $regions;
     private int $committableObjects = 0;
+    private int $now;
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
@@ -62,10 +63,11 @@ class CreateCommand extends AbstractDummyDataCommand
         $dirtyDetectionDisabled = DataObject::isDirtyDetectionDisabled();
         DataObject::disableDirtyDetection();
 
+        $this->now = \Carbon\Carbon::now()->timestamp;
         $this->maxLevel = count(self::OBJECT_COUNTS) + 1;
         $this->output = $output;
 
-        $totalObjects = 2 * array_reduce(self::OBJECT_COUNTS, static fn(?int $carry, int $count): int => $count * ($carry ?? 1));
+        $totalObjects = 5 * array_reduce(self::OBJECT_COUNTS, static fn(?int $carry, int $count): int => $count * ($carry ?? 1));
         $this->output->writeln(sprintf('<info>Creating %s dummy objects over %s levels...</info>', self::nf($totalObjects), count(self::OBJECT_COUNTS)));
 
         $this->progress = new ProgressBar($output, $totalObjects);
@@ -130,6 +132,8 @@ class CreateCommand extends AbstractDummyDataCommand
         $result->setParent($parent);
         $result->setPublished(true);
         $result->setKey(sprintf(self::OBJECT_KEY_TEMPLATE, $prefix, $i + 1));
+        $result->setCreationDate($this->now);
+        $result->setModificationDate($this->now);
 
         $name = sprintf(self::OBJECT_NAME_TEMPLATE, $prefix, $i + 1);
 

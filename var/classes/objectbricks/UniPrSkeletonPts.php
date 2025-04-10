@@ -10,7 +10,7 @@
  * - maxSpeed [input]
  */
 
-return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
+return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'dao' => NULL,
    'key' => 'UniPrSkeletonPts',
    'parentClass' => 'App\\Model\\DataObject\\UniProductManagement\\Objectbrick\\AbstractUniPrSkeleton',
@@ -18,7 +18,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'title' => 'Skeleton Data (PTS)',
    'group' => 'UniProductManagement',
    'layoutDefinitions' => 
-  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'name' => NULL,
      'type' => NULL,
      'region' => NULL,
@@ -32,7 +32,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
      'children' => 
     array (
       0 => 
-      \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+      Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
@@ -46,7 +46,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'children' => 
         array (
           0 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
              'name' => 'beltThicknessMetric',
              'title' => 'Belt Thickness (hs) (mm)',
              'tooltip' => '',
@@ -76,7 +76,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'defaultValueGenerator' => '',
           )),
           1 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
              'name' => 'profileHeightMetric',
              'title' => 'Profile Height (H) (mm)',
              'tooltip' => '',
@@ -106,7 +106,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'defaultValueGenerator' => '',
           )),
           2 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
              'name' => 'toothHeightMetric',
              'title' => 'Tooth Height (ht) (mm)',
              'tooltip' => '',
@@ -136,7 +136,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'defaultValueGenerator' => '',
           )),
           3 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
              'name' => 'pitchMetric',
              'title' => 'Pitch Metric',
              'tooltip' => '',
@@ -166,7 +166,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'defaultValueGenerator' => '',
           )),
           4 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
              'name' => 'beltAngle',
              'title' => 'Belt Angle',
              'tooltip' => '',
@@ -196,7 +196,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'defaultValueGenerator' => '',
           )),
           5 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'name' => 'maxSpeed',
              'title' => 'Max Speed',
              'tooltip' => '',
@@ -259,6 +259,11 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
     array (
       'classname' => 'UniProductCategoryInternal',
       'fieldname' => 'levelSpecificData',
+    ),
+    1 => 
+    array (
+      'classname' => 'UniProductBase',
+      'fieldname' => 'skeletonData',
     ),
   ),
    'activeDispatchingEvents' => 

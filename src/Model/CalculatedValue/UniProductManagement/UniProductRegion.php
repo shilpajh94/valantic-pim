@@ -37,13 +37,4 @@ class UniProductRegion implements CalculatorClassInterface
     {
         return $this->compute($object, $context);
     }
-
-    private function calculateLevel(UniProductCategoryInternal|UniProductCategoryExternal $object, int $carry = 1): string
-    {
-        $parent = $object->getParent();
-
-        return $parent instanceof UniProductCategoryInternal || $parent instanceof UniProductCategoryExternal
-            ? $this->calculateLevel($parent, ++$carry)
-            : $carry;
-    }
 }

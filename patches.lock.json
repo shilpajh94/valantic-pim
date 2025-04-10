@@ -1,0 +1,17 @@
+{
+    "_hash": "f636bb1d46ef3d9efacefeb8c07ffa623d06afbb1920b34412df77cca52b7a99",
+    "patches": {
+        "pimcore/admin-ui-classic-bundle": [
+            {
+                "package": "pimcore/admin-ui-classic-bundle",
+                "description": "Flag for English language",
+                "url": "./vendor-patches/pimcore/admin-ui-classic-bundle/english_language_flag.patch",
+                "sha256": "c659e6fdb5f1df15faa0f6a9cb2d612b52ddc8e376e3b5291430af78855aa260",
+                "depth": 1,
+                "extra": {
+                    "provenance": "root"
+                }
+            }
+        ]
+    }
+}
