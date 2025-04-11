@@ -237,10 +237,37 @@
 						<p>{{groupData['longDescription'] | striptags}}</p>
 					</div>
 					<span class="imageHolder">
-						{% if groupData['mainImageObj'] %}
-							<img src="{{getImageThumbnail(groupData['mainImageObj'], imageWidth)}}" width="400" height="200"/>
-						{% if groupData['ProfileDimensionImageObj'] %}
-							<img src="{{getImageThumbnail(groupData['ProfileDimensionImageObj'], imageWidth)}}" width="400" height="200"/>
+						{% if editmode %}
+                        	{% if not pimcore_image("HHPP_Image_Left").isEmpty() %}
+                        		{% set imgSrcObj1 = pimcore_image("HHPP_Image_Left") %}
+                        	{% else %}
+                        		{% set imgSrcObj1 = groupData['mainImageObj'] %}
+                        	{% endif %}
+                        	{% if imgSrcObj1 %}
+                        		<img src="{{getImageThumbnail(imgSrcObj1,imageWidth)}}" width="400" height="200"/>
+                        	{% endif %}
+                        	{% else %}
+                        	{% set imgSrcObj1 = pimcore_image("HHPP_Image_Left") %}
+                        	{% if imgSrcObj1 %}
+                        		<img src="{{getImageThumbnail(imgSrcObj1, imageWidth)}}" width="400" height="200"/>
+                        	{% endif %}
+                        {% endif %}
+                        
+                        {% if editmode %}
+                        	{% if not pimcore_image("Drawing_Picture").isEmpty() %}
+                        		{% set imgSrcObj2 = pimcore_image("Drawing_Picture") %}
+                        	{% else %}
+                        		{% set imgSrcObj2 = groupData['ProfileDimensionImageObj'] %}
+                        	{% endif %}
+                        	{% if imgSrcObj2 %}
+                        		<img src="{{getImageThumbnail(imgSrcObj2,imageWidth)}}" width="400" height="200"/>
+                        	{% endif %}
+                        	{% else %}
+                        	{% set imgSrcObj2 = pimcore_image("Drawing_Picture") %}
+                        	{% if imgSrcObj2 %}
+                        		<img src="{{getImageThumbnail(imgSrcObj2, imageWidth)}}" width="400" height="200"/>
+                        	{% endif %}
+                        {% endif %}
 					</span>
 				</aside>
 			</header>
