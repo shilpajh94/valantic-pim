@@ -317,6 +317,10 @@ sup {
     margin-bottom: 15px;
 }
 
+.marginBottom17 {
+    margin-bottom: 17px;
+}
+
 .marginBottom10 {
     margin-bottom: 10px;
 }
@@ -2326,6 +2330,11 @@ margin-right:20px;
 .page-break-inside-avoid{
     page-break-inside: avoid;
 }
+
+.page-break-inside-auto{
+    page-break-inside: auto;
+}
+
 .brandingLaylineStyle
 {
     letter-spacing: 0.15em;
