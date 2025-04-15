@@ -27,6 +27,8 @@ class UniProductCompletenessService
     private int $totalFieldCount = 0;
     private int $nonEmptyFieldCount = 0;
     private string $locale;
+
+    /** @var array<string, array<string>> */
     private array $emptyFields;
 
     public function updateCompleteness(UniProductBase $finishedGood): void
@@ -54,9 +56,14 @@ class UniProductCompletenessService
         $this->processCategory($finishedGood, AbstractUniPrBrand::class);
         $finishedGood->setEmptyFieldsBrand($this->formatEmptyFields(), $locale);
 
-        $finishedGood->setCompletenessPercentage($this->calculateCompleteness(), $locale);
+        $finishedGood->setCompletenessPercentage((string) $this->calculateCompleteness(), $locale);
     }
 
+    /**
+     * @template TObjectbrickClassname
+     * *
+     * @param class-string<TObjectbrickClassname> $objectbrickClass
+     */
     private function processCategory(UniProductBase $object, string $objectbrickClass): void
     {
         foreach ($object->resolveObjectbricksInHierarchy($objectbrickClass) as $brick) {
@@ -64,22 +71,22 @@ class UniProductCompletenessService
         }
     }
 
+    /** @param array<Data> $definitions */
     private function processObject(AbstractModel|AbstractData $object, array $definitions, string $key = self::NON_LOCALIZED_ATTR_HEADING, string $prefix = ''): void
     {
-        /** @var Data $definition */
         foreach ($definitions as $definition) {
             if ($definition instanceof Localizedfields) {
-                $this->processObject($object, $definition->getFieldDefinitions() ?? [], self::LOCALIZED_ATTR_HEADING, $prefix);
+                $this->processObject($object, $definition->getFieldDefinitions(), self::LOCALIZED_ATTR_HEADING, $prefix);
 
                 continue;
             }
 
-            if ($definition instanceof Objectbricks) {
+            if ($definition instanceof Objectbricks && $object instanceof AbstractData) {
                 /** @var AbstractData $brick */
                 foreach ($object->get($definition->getName())->getItems() as $brick) {
                     $this->processObject(
                         $brick,
-                        $brick->getDefinition()?->getFieldDefinitions() ?? [],
+                        $brick->getDefinition()->getFieldDefinitions(),
                         self::NON_LOCALIZED_ATTR_HEADING,
                         sprintf('%s%s → ', $prefix, $brick->getDefinition()->getTitle() ?? $brick->getType())
                     );
@@ -90,6 +97,10 @@ class UniProductCompletenessService
 
             if (in_array($definition->getName(), self::IGNORED_FIELDS, true)) {
                 continue;
+            }
+
+            if (!$object instanceof AbstractData) {
+                throw new \RuntimeException(sprintf('Unsupported object type: %s^', $object::class));
             }
 
             $this->totalFieldCount++;

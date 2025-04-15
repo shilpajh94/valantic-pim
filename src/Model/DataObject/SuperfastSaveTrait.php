@@ -4,6 +4,7 @@ namespace App\Model\DataObject;
 
 trait SuperfastSaveTrait
 {
+    /** @param array<mixed> $parameters */
     public function superfastSave(array $parameters = []): static
     {
         if ($this->getId() !== null) {
