@@ -10,7 +10,7 @@
  * - ghpCode [input]
  * - categoryLevel [select]
  * - level [calculatedValue]
- * - pimInternalHiearchyCode [calculatedValue]
+ * - pimInternalHierarchyCode [calculatedValue]
  * - levelSpecificData [objectbricks]
  */
 
@@ -21,7 +21,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Internal Category',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1744616384,
+   'modificationDate' => 1744703411,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => 'App\\Model\\DataObject\\AbstractUniProductCategoryInternal',
@@ -233,7 +233,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   )),
                   1 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
-                     'name' => 'pimInternalHiearchyCode',
+                     'name' => 'pimInternalHierarchyCode',
                      'title' => 'PIM Internal Hierarchy Code',
                      'tooltip' => 'Equivalent of GHP product code, but based on PIM hierarchy',
                      'mandatory' => false,
