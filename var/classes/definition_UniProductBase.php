@@ -18,7 +18,7 @@
  * -- emptyFieldsFinishedGood [textarea]
  * - sapMaterialNumber [input]
  * - ghpFullCode [input]
- * - skeletonPimInternalHiearchyCode [calculatedValue]
+ * - skeletonPimInternalHierarchyCode [calculatedValue]
  * - hierarchySearchData [calculatedValue]
  * - weightMetric [quantityValue]
  * - weightImperial [quantityValue]
@@ -35,7 +35,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Product',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1744628052,
+   'modificationDate' => 1744703797,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => 'App\\Model\\DataObject\\AbstractUniProductBase',
@@ -853,7 +853,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       )),
                       1 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
-                         'name' => 'skeletonPimInternalHiearchyCode',
+                         'name' => 'skeletonPimInternalHierarchyCode',
                          'title' => 'Skeleton PIM Internal Hierarchy Code',
                          'tooltip' => '',
                          'mandatory' => false,

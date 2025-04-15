@@ -145,7 +145,7 @@ class GenerateCommand extends AbstractDummyDataCommand
             $result->setSapMaterialNumber(uniqid('', true));
 
             if ($parent instanceof UniProductCategoryInternal) {
-                $result->setGhpFullCode($parent->getPimInternalHiearchyCode() . $ghpCode);
+                $result->setGhpFullCode($parent->getPimInternalHierarchyCode() . $ghpCode);
             }
         } else {
             $result->setGhpCode($ghpCode);
