@@ -424,7 +424,8 @@
             }
 
             .section_page_pts_belts_Catalog_Asset_Right_Image img{
-                width: 330px;
+                width: 275px;
+                padding-right: 15px;
             }
 	</style>
 		<div class="template section-page-pts-belts-page">
@@ -613,7 +614,7 @@
 									<div class="left-image-and-table">
 
 										<div class="belts-Identification-and-profile-dimension-container">
-											{% set section_page_pts_belts_Identification_Image = pimcore_image("section_page_pts_belts_Identification_Image", {"width": 400, "height": 100, "border-style": "2px solid #333"}) %}
+											{% set section_page_pts_belts_Identification_Image = pimcore_image("section_page_pts_belts_Identification_Image", {"width": 580, "height": 100, "border-style": "2px solid #333"}) %}
 											{% set section_page_pts_belts_Profile_Dimension_image  = pimcore_image("section_page_pts_belts_Profile_Dimension_image", {"width": 300, "height": 100}) %}
 
 											{% if data.beltIdentificationImage %}
@@ -646,28 +647,38 @@
 								<table class="cellAttributes" aria-hidden="true" cellpadding="0" cellspacing="0" border="0" width = "100%">
 									<thead>
 
-										<tr class="section-page-pts-belts-table-head">											
-											{% for key, value in data.headers %}
-												<th>
-													<b>{{ pimcore_input(value.attributeName).setDataFromResource(value.columnHeaders) | raw}}</b>
-												</th>
-
-											{% endfor %}
+										<tr class="section-page-pts-belts-table-head">
+											<th>
+												<b>{{ pimcore_input("Pitch").setDataFromResource('Pitch') | raw }}</b>
+											</th>
+											<th>
+												<b>{{ pimcore_input("standardWidthmm").setDataFromResource('Standard Width (mm)') | raw }}</b>
+											</th>
+											<th>
+												<b>{{ pimcore_input("pitchLengthMM").setDataFromResource('Pitch Length (mm)') | raw }}</b>
+											</th>
+											<th>
+												<b>{{ pimcore_input("A").setDataFromResource('A') | raw }}</b>
+											</th>
+											<th>
+												<b>{{ pimcore_input("B").setDataFromResource('B') | raw }}</b>
+											</th>
+											<th>
+												<b>{{ pimcore_input("C").setDataFromResource('C') | raw }}</b>
+											</th>
 										</tr>
 
 									</thead>
 									<tbody class="section-page-pts-belts-table-body">
-										{% for key, products in data.groupData %}	
+										{% for key, products in data.groupData %}
 											<tr class="">
-												{% set headerCount = data.headers|length %}
 
-												{% for i in 0..headerCount - 1 %}
-													{% if data.headers[i].attributeName == 'Pitch' %}
-														<td>{{key}}</td>
-													{% else %}
-														<td>{{  attribute(products, data.headers[i].attributeName) }}</td>
-													{% endif %}
-												{% endfor %}
+												<td>{{key}}</td>
+												<td>{{products.standardWidthmm}}</td>
+												<td>{{products.pitchLengthMM}}</td>
+												<td>{{products.A}}</td>
+												<td>{{products.B}}</td>
+												<td>{{products.C}}</td>
 											</tr>
 										{% endfor %}
 									</tbody>
