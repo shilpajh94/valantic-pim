@@ -9,6 +9,13 @@ abstract class AbstractUniProductBase extends Concrete
 {
     use SuperfastSaveTrait;
 
+    /**
+     * @template TObjectbrickClassname
+     *
+     * @param class-string<TObjectbrickClassname> $objectbrickClass
+     *
+     * @return array<TObjectbrickClassname>
+     */
     public function resolveObjectbricksInHierarchy(string $objectbrickClass): array
     {
         return $this->resolveObjectbricks($this, $objectbrickClass);
@@ -36,6 +43,13 @@ abstract class AbstractUniProductBase extends Concrete
         return $this->resolveAncestorCategory($parent, $objectbrickClass);
     }
 
+    /**
+     * @template TObjectbrickClassname
+     *
+     * @param class-string<TObjectbrickClassname> $objectbrickClass
+     *
+     * @return array<TObjectbrickClassname>
+     */
     private function resolveObjectbricks(AbstractUniProductBase|UniProductCategoryInternal $object, string $objectbrickClass): array
     {
         $ancestor = $this->resolveAncestorCategory($object, $objectbrickClass);

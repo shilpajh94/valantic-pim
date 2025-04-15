@@ -19,16 +19,23 @@ class UniProductExternalHierarchyService
 {
     public function __construct(private readonly UniBaseProductIndex $productIndex) {}
 
+    /** @return array<mixed> */
     public function getProductsForExternalCategory(UniProductCategoryExternal $categoryExternal): array
     {
         return $this->getProductsById($this->resolveProductFilter($categoryExternal));
     }
 
+    /**
+     * @param array<int> $ids
+     *
+     * @return array<mixed>
+     */
     public function getProductsById(array $ids): array
     {
         return $this->queryProductsPaginated(new Query(new Terms('__id', $ids)), fn(Result $item) => $item->getData());
     }
 
+    /** @return array<mixed> */
     public function resolveProductFilter(UniProductCategoryExternal $categoryExternal): array
     {
         $includes = $categoryExternal->getProductInclude()?->getItems() ?? [];
@@ -45,7 +52,7 @@ class UniProductExternalHierarchyService
         $searchQuery = (new Query($mainQuery))
             ->setSource(false);
 
-        return $result = $this->queryProductsPaginated($searchQuery, fn(Result $item): int => substr($item->getId(), 6));
+        return $result = $this->queryProductsPaginated($searchQuery, fn(Result $item): int => (int) substr($item->getId(), 6));
         // TODO: To be determined: If parent has no product include rules, use included products of parent instead.
         //       Or create specific "products from parent" include rule and add it by default? What happens if this is missing?
 
@@ -95,7 +102,8 @@ class UniProductExternalHierarchyService
         return new BoolQuery();
     }
 
-    private function queryProductsPaginated(Query $query, callable $callback): array // TODO Query signature
+    /** @return array<mixed> */
+    private function queryProductsPaginated(Query $query, callable $callback): array
     {
         $result = [];
 

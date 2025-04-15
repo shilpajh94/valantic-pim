@@ -3,8 +3,9 @@
 namespace App\Command\UniProductManagement\DummyData;
 
 use App\Enum\UniProductCategoryLevel;
+use Carbon\Carbon;
 use Pimcore\Db;
-use Pimcore\Model\Asset;
+use Pimcore\Model\Asset\Image;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\AbstractObject;
 use Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrand;
@@ -16,6 +17,7 @@ use Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeletonDss;
 use Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeletonPts;
 use Pimcore\Model\DataObject\UniProductBase;
 use Pimcore\Model\DataObject\UniProductCategoryInternal;
+use Pimcore\Model\DataObject\UniRegion;
 use Pimcore\Model\Version;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -53,7 +55,9 @@ class GenerateCommand extends AbstractDummyDataCommand
     private OutputInterface $output;
     private ProgressBar $progress;
     private int $maxLevel;
-    private ?Asset $mainImage;
+    private ?Image $mainImage;
+
+    /** @var UniRegion[] */
     private array $regions;
     private int $committableObjects = 0;
     private int $now;
@@ -64,32 +68,53 @@ class GenerateCommand extends AbstractDummyDataCommand
         $dirtyDetectionDisabled = DataObject::isDirtyDetectionDisabled();
         DataObject::disableDirtyDetection();
 
-        $this->now = \Carbon\Carbon::now()->timestamp;
-        $this->maxLevel = count(self::OBJECT_COUNTS) + 1;
         $this->output = $output;
+
+        try {
+            $this->generateObjects();
+        } catch (\Throwable $e) {
+            Version::enable();
+            $this->output->writeln('');
+            $this->output->writeln(sprintf('<error>%s</error>', $e->getMessage()));
+
+            return Command::FAILURE;
+        }
+
+        Version::enable();
+        DataObject::setDisableDirtyDetection($dirtyDetectionDisabled);
+
+        return Command::SUCCESS;
+    }
+
+    private function generateObjects(): void
+    {
+        $this->now = Carbon::now()->timestamp;
+        $this->maxLevel = count(self::OBJECT_COUNTS) + 1;
 
         $totalObjects = 5 * array_reduce(self::OBJECT_COUNTS, static fn(?int $carry, int $count): int => $count * ($carry ?? 1));
         $this->output->writeln(sprintf('<info>Creating %s dummy objects over %s levels...</info>', self::nf($totalObjects), count(self::OBJECT_COUNTS)));
 
-        $this->progress = new ProgressBar($output, $totalObjects);
+        $this->progress = new ProgressBar($this->output, $totalObjects);
         $this->progress->setFormat(ProgressBar::getFormatDefinition(ProgressBar::FORMAT_DEBUG));
         $this->progress->start();
 
-        $this->mainImage = Asset::getByPath(self::MAIN_IMAGE_PATH);
+        $this->mainImage = Image::getByPath(self::MAIN_IMAGE_PATH);
         $parent = DataObject::getByPath(self::PARENT_PATH);
 
         $this->regions = [];
 
         foreach (['CN', 'HK', 'JP', 'KR'] as $country) {
-            $this->regions[] = DataObject::getByPath(sprintf('%s/IAPAC/%s', self::REGION_PATH, $country));
+            $region = UniRegion::getByPath(sprintf('%s/IAPAC/%s', self::REGION_PATH, $country));
+
+            if (!$region instanceof UniRegion) {
+                throw new \RuntimeException(sprintf('Region "%s" not found.', $country));
+            }
+
+            $this->regions[] = $region;
         }
 
-        if ($parent === null || $this->mainImage === null || in_array(null, $this->regions, true)) {
-            Version::enable();
-            $this->output->writeln('');
-            $this->output->writeln('<error>Error: At least one static object not found</error>');
-
-            return Command::FAILURE;
+        if ($parent === null || $this->mainImage === null) {
+            throw new \RuntimeException('Error: At least one static object not found');
         }
 
         Db::get()->beginTransaction();
@@ -102,13 +127,12 @@ class GenerateCommand extends AbstractDummyDataCommand
 
         $this->progress->finish();
         $this->output->writeln(''); // Newline required
-
-        Version::enable();
-        DataObject::setDisableDirtyDetection($dirtyDetectionDisabled);
-
-        return Command::SUCCESS;
     }
 
+    /**
+     * @param int[]    $objectCounts
+     * @param string[] $objectPrefixes
+     */
     private function createObjects(array $objectCounts, array $objectPrefixes, AbstractObject $parent): void
     {
         if ($objectCounts === []) {

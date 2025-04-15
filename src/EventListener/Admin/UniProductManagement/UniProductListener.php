@@ -87,6 +87,7 @@ class UniProductListener implements EventSubscriberInterface
         ];
     }
 
+    /** @return array<mixed> */
     private function getCategoryBrickData(?UniProductCategoryInternal $category): ?array
     {
         $fields = $category?->getClass()?->getFieldDefinitions()[UniProductCategoryInternal::FIELD_LEVEL_SPECIFIC_DATA] ?? null; // 🤮
@@ -102,6 +103,7 @@ class UniProductListener implements EventSubscriberInterface
         );
     }
 
+    /** @param array<Layout|Data> $layoutDefinitions */
     private function makeChildrenReadonly(array $layoutDefinitions, int $level = 0): void
     {
         foreach ($layoutDefinitions as $name => $layoutDefinition) {
