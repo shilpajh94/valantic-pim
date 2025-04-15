@@ -100,7 +100,7 @@ class PtsSectionPageController extends FrontendController
                 LEFT JOIN object_brick_query_PTGFert_1 ON fertProducts.oo_id = object_brick_query_PTGFert_1.id
                 LEFT JOIN object_brick_query_SynchronousFert_1 ON fertProducts.oo_id = object_brick_query_SynchronousFert_1.id
                 LEFT JOIN object_localized_2_en ON REPLACE(skeltonProducts.SIOPLevel6, ',', '') = object_localized_2_en.oo_id  -- Added join on skeltonProducts.SIOPLevel6
-                WHERE baseProducts.oo_id = $baseProductID AND fertProducts.brandName = $brandName AND fertProducts.printedCatalogFlag =1 ORDER BY object_brick_query_PTGFert_1.widthmm ASC ";
+                WHERE baseProducts.oo_id = $baseProductID AND fertProducts.brandName = $brandName AND fertProducts.printedCatalogFlag =1 AND fertProducts.published = 1 ORDER BY object_brick_query_PTGFert_1.widthmm ASC ";
 
 
             }
@@ -139,7 +139,7 @@ class PtsSectionPageController extends FrontendController
                     LEFT JOIN object_brick_query_PTGFert_1 AS object_brick_query_PTGFert_1 ON fertProducts.oo_id = object_brick_query_PTGFert_1.id
                     LEFT JOIN object_brick_query_SynchronousFert_1 AS object_brick_query_SynchronousFert_1 ON fertProducts.oo_id = object_brick_query_SynchronousFert_1.id
                     LEFT JOIN object_localized_2_en ON REPLACE(skeltonProducts.SIOPLevel6, ',', '') = object_localized_2_en.oo_id  -- Added join on skeltonProducts.SIOPLevel6
-                    WHERE baseProducts.oo_id = $baseProductID AND fertProducts.printedCatalogFlag =1 ORDER BY object_brick_query_PTGFert_1.widthmm ASC ";
+                    WHERE baseProducts.oo_id = $baseProductID AND fertProducts.printedCatalogFlag =1 AND fertProducts.published = 1 ORDER BY object_brick_query_PTGFert_1.widthmm ASC ";
             }
             $SQLResults = $this->db->fetchAllAssociative($sql);
             $siopLevel2 = trim(array_column($SQLResults, 'SIOPLevel2')[0], ',');
