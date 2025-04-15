@@ -13,14 +13,27 @@
  * @license    http://www.pimcore.org/license     GPLv3 and PEL
  */
 
-ob_get_clean();
+use Pimcore\Bootstrap;
+use Pimcore\Console\Application;
 
-include __DIR__ . "/../vendor/autoload.php";
-\Pimcore\Bootstrap::setProjectRoot();
+if (file_exists($a = getcwd() . '/vendor/autoload_runtime.php')) {
+    require_once $a;
+} elseif (file_exists($a = __DIR__ . '/../vendor/autoload_runtime.php')) {
+    require_once $a;
+} elseif (file_exists($a = __DIR__ . '/../../../../vendor/autoload_runtime.php')) {
+    require_once $a;
+} elseif (file_exists($a = __DIR__ . '/../autoload_runtime.php')) {
+    require_once $a;
+} else {
+    throw new LogicException('Symfony Runtime is missing. Try running "composer require symfony/runtime".');
+}
 
 define('PIMCORE_CONSOLE', true);
 
-/** @var \Pimcore\Kernel $kernel */
-$kernel = \Pimcore\Bootstrap::startupCli();
-$application = new \Pimcore\Console\Application($kernel);
-$application->run();
+Bootstrap::setProjectRoot();
+
+return function (array $context) {
+    $kernel = Bootstrap::startupCli();
+
+    return new Application($kernel);
+};
