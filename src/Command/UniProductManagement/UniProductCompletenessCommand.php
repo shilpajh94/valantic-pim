@@ -6,13 +6,14 @@ use App\Service\UniProductManagement\UniProductCompletenessService;
 use Pimcore\Model\DataObject\UniProductBase\Listing;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(name: 'app:uni:product:completeness:update')]
 class UniProductCompletenessCommand extends Command
 {
-    protected const PARENT_PATH = '/Unified PIM/Product Management/Products';
+    protected const BASE_PATH = '/Unified PIM/Product Management/Products';
 
     public function __construct(private readonly UniProductCompletenessService $completenessService)
     {
@@ -23,14 +24,22 @@ class UniProductCompletenessCommand extends Command
     {
         $start = microtime(true);
 
-        // TODO: Potentially filter listing by base path
-        foreach (new Listing() as $object) {
-            $output->writeln(sprintf('Processing %s...', $object->getFullPath()));
+        $listing = new Listing();
+        $listing->setCondition('path LIKE ?', [self::BASE_PATH . '%']);
+
+        $progress = new ProgressBar($output, $listing->count());
+        $progress->setFormat(ProgressBar::getFormatDefinition(ProgressBar::FORMAT_DEBUG));
+        $progress->start();
+
+        foreach ($listing as $object) {
             $this->completenessService->updateCompleteness($object);
             $object->save();
+            $progress->advance();
         }
 
-        $output->writeln(sprintf('<info>Finished calculating in %s ms</info>', microtime(true) - $start));
+        $progress->finish();
+        $output->writeln('');
+        $output->writeln(sprintf('<info>Finished calculating in %s s</info>', round(microtime(true) - $start, 2)));
 
         return self::SUCCESS;
     }
