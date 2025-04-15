@@ -25,7 +25,8 @@
 /var/*
 !/var/.gitkeep
 !/var/classes/
-/var/classes/DataObject
+/var/classes/DataObject/**/*.php
+!/var/classes/DataObject/Uni*/*.php
 !/var/config
 /var/config/system.yml
 /var/config/debug-mode.php
