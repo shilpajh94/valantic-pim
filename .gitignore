@@ -80,8 +80,6 @@ siop-import-error-log
 
 config/local/database.yaml
 var/config/extensions.php
-composer.json
-composer.lock
 /public/bundles/
 /public/var/tmp/
 /config/local/*
