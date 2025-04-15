@@ -14,7 +14,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'key' => 'UniPrBrand',
    'parentClass' => 'App\\Model\\DataObject\\UniProductManagement\\Objectbrick\\AbstractUniPrBrand',
    'implementsInterfaces' => '',
-   'title' => 'Brand Data',
+   'title' => 'Brand Base Product Data',
    'group' => 'UniProductManagement',
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(

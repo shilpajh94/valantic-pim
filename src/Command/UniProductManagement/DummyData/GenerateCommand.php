@@ -2,6 +2,7 @@
 
 namespace App\Command\UniProductManagement\DummyData;
 
+use App\Enum\UniProductCategoryLevel;
 use Pimcore\Db;
 use Pimcore\Model\Asset;
 use Pimcore\Model\DataObject;
@@ -144,11 +145,23 @@ class GenerateCommand extends AbstractDummyDataCommand
             $result->setSapMaterialNumber(uniqid('', true));
 
             if ($parent instanceof UniProductCategoryInternal) {
-                $result->setGhpFullCode($parent->getPimInternalHiearchyCode() . $ghpCode);
+                $result->setGhpFullCode($parent->getPimInternalHierarchyCode() . $ghpCode);
             }
         } else {
             $result->setGhpCode($ghpCode);
             $result->setName($name);
+        }
+
+        if ($level < $this->maxLevel) {
+            $result->setCategoryLevel(match ($level - 1) {
+                1 => UniProductCategoryLevel::PRODUCT_GROUP->value,
+                2 => UniProductCategoryLevel::CATEGORY->value,
+                3 => UniProductCategoryLevel::SUB_CATEGORY->value,
+                4 => UniProductCategoryLevel::HIGH_LEVEL_BRAND->value,
+                5 => UniProductCategoryLevel::PRODUCT_LINE->value,
+                6 => UniProductCategoryLevel::PRODUCT_VARIANT->value,
+                default => null,
+            });
         }
 
         if ($level === $this->maxLevel - 2) {

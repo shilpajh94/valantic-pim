@@ -6,8 +6,6 @@ use Pimcore\Model\DataObject\ClassDefinition\CalculatorClassInterface;
 use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\Data\CalculatedValue;
 use Pimcore\Model\DataObject\UniProductBase;
-use Pimcore\Model\DataObject\UniProductCategoryExternal;
-use Pimcore\Model\DataObject\UniProductCategoryInternal;
 use Pimcore\Model\DataObject\UniRegion;
 
 class UniProductRegion implements CalculatorClassInterface

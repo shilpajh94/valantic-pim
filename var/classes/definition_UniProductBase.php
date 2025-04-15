@@ -3,6 +3,7 @@
 /**
  * Inheritance: no
  * Variants: no
+ * Title: Product
  *
  * Fields Summary:
  * - brandData [objectbricks]
@@ -17,7 +18,7 @@
  * -- emptyFieldsFinishedGood [textarea]
  * - sapMaterialNumber [input]
  * - ghpFullCode [input]
- * - skeletonPimInternalHiearchyCode [calculatedValue]
+ * - skeletonPimInternalHierarchyCode [calculatedValue]
  * - hierarchySearchData [calculatedValue]
  * - weightMetric [quantityValue]
  * - weightImperial [quantityValue]
@@ -31,10 +32,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
    'id' => 'UNI_PR',
    'name' => 'UniProductBase',
-   'title' => '',
+   'title' => 'Product',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1744108890,
+   'modificationDate' => 1744703797,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => 'App\\Model\\DataObject\\AbstractUniProductBase',
@@ -480,7 +481,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'relationType' => false,
                                  'invisible' => false,
                                  'visibleGridView' => true,
-                                 'visibleSearch' => false,
+                                 'visibleSearch' => true,
                                  'blockedVarsForExport' => 
                                 array (
                                 ),
@@ -760,7 +761,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'relationType' => false,
                              'invisible' => false,
                              'visibleGridView' => true,
-                             'visibleSearch' => false,
+                             'visibleSearch' => true,
                              'blockedVarsForExport' => 
                             array (
                             ),
@@ -852,7 +853,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       )),
                       1 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
-                         'name' => 'skeletonPimInternalHiearchyCode',
+                         'name' => 'skeletonPimInternalHierarchyCode',
                          'title' => 'Skeleton PIM Internal Hierarchy Code',
                          'tooltip' => '',
                          'mandatory' => false,
@@ -1198,7 +1199,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'displayMode' => 'grid',
                  'pathFormatterClass' => '',
                  'maxItems' => NULL,
-                 'visibleFields' => 'level,name,ghpFullCode',
+                 'visibleFields' => 'level,name,categoryLevel',
                  'allowToCreateNewObject' => false,
                  'allowToClearRelation' => true,
                  'optimizedAdminLoading' => false,
@@ -1255,7 +1256,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 array (
                 ),
                  'fieldtype' => 'text',
-                 'html' => '<b>🚩 ​TODO:</b> Add preview of external categories that match this product?',
+                 'html' => '<div class="alert alert-info"><strong>Preview:</strong> In the MVP this tab might show a preview of all external categories this product is related to.</div>
+',
                  'renderingClass' => '',
                  'renderingData' => '',
                  'border' => false,
