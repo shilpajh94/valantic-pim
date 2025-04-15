@@ -37,20 +37,8 @@ class Kernel extends PimcoreKernel
             $collection->addBundle(new \Pimcore\Bundle\LegacyBundle\PimcoreLegacyBundle());
         }
 
-        if (file_exists($this->getProjectDir() . '/.env')) {
-            $dotenv = new \Symfony\Component\Dotenv\Dotenv();
-            $dotenv->load(dirname(__DIR__) . '/.env');
-        }
-
         // if (class_exists('\\IFSEU\\ImportBundle\\IFSEUImportBundle')) {
         //     $collection->addBundle(new IFSEU\ImportBundle\IFSEUImportBundle());
         // }
-
-        // To read .env contents
-
-        if (file_exists($this->getProjectDir() . '/.env')) {
-            $dotenv = new \Symfony\Component\Dotenv\Dotenv();
-            $dotenv->load(dirname(__DIR__) . '/.env');
-        }
     }
 }
