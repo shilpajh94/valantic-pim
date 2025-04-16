@@ -28,7 +28,7 @@ pimcore:
                             lockAndPropagate: true
                             unlockAndPropagate: true
                             changeChildrenSortBy: true
-                classes: ''
+                classes: UNI_PRCE
                 joins: {  }
                 id: 4320b68e-f209-8e17-758f-451f2e53ef45
                 icon: /bundles/pimcoreadmin/img/flat-color-icons/external.svg
