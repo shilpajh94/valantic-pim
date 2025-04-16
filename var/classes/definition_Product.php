@@ -166,7 +166,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1744264407,
+   'modificationDate' => 1744699842,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -7083,7 +7083,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         array (
                         ),
                          'uploadPath' => '',
-                         'width' => 300,
+                         'width' => 325,
                          'height' => '',
                       )),
                       1 => 
@@ -7106,7 +7106,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         array (
                         ),
                          'uploadPath' => '/Continental Aftermarket/Products/IAM ATE/Disc/Brake Disc',
-                         'width' => 300,
+                         'width' => 325,
                          'height' => '',
                       )),
                       2 => 
@@ -7129,7 +7129,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         array (
                         ),
                          'uploadPath' => '',
-                         'width' => 300,
+                         'width' => 550,
                          'height' => '',
                       )),
                       3 => 
@@ -7152,7 +7152,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         array (
                         ),
                          'uploadPath' => '',
-                         'width' => 300,
+                         'width' => 325,
                          'height' => '',
                       )),
                       4 => 
@@ -7175,7 +7175,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         array (
                         ),
                          'uploadPath' => '/Continental Aftermarket/Products/IAM ATE/Disc/Brake Disc',
-                         'width' => 300,
+                         'width' => 325,
                          'height' => '',
                       )),
                       5 => 
@@ -7198,7 +7198,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         array (
                         ),
                          'uploadPath' => '',
-                         'width' => 300,
+                         'width' => 400,
                          'height' => '',
                       )),
                     ),
