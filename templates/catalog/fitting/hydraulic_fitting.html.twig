@@ -357,7 +357,9 @@
 																</tr>
 															{% endif %}
 															<tr class="head">
+																{% set count = 0 %}
 																{% for key, c2data in tableRows['articleData']['columnsDataWithImages'] %}
+																	{% set firstTDClass = 'left-align' %}
 																	{% set columnWidth = '' %}
 																	{% set g2count = c2data|length %}
 																	{% set first2Array = c2data|first %}
@@ -365,7 +367,11 @@
 																	{% if (first2Array['columnWidth']) %}
 																		{% set columnWidth = "width="~first2Array['columnWidth'] %}
 																	{% endif %}
-																	<td class="centerAlign" colspan="{{g2count}}" {{columnWidth}}>{{first2Array['columnLabel']|raw}}</td>
+																	{% if (count > 0) %}
+																		{% set firstTDClass = 'centerAlign' %}
+																	{% endif %}	
+																	<td class = "{{ firstTDClass }}" colspan="{{g2count}}" {{columnWidth}}>{{first2Array['columnLabel']|raw}}</td>
+																	{% set count = count + 1 %}
 																{% endfor %}
 															</tr>
 															{% if tableRows['articleData']['subHeaderRequired'] == 'YES' %}
