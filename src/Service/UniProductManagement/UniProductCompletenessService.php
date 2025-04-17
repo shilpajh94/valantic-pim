@@ -57,9 +57,9 @@ class UniProductCompletenessService
         $finishedGood->setCompletenessPercentage($this->calculateCompleteness(), $locale);
     }
 
-    private function processCategory(UniProductBase $object, string $fqdn): void
+    private function processCategory(UniProductBase $object, string $objectbrickClass): void
     {
-        foreach ($object->resolveObjectbricksInHierarchy($fqdn) as $brick) {
+        foreach ($object->resolveObjectbricksInHierarchy($objectbrickClass) as $brick) {
             $this->processObject($brick, $brick->getDefinition()?->getFieldDefinitions() ?? []);
         }
     }
