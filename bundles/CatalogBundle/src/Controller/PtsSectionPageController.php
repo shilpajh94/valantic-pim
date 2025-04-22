@@ -271,12 +271,9 @@ class PtsSectionPageController extends FrontendController
                         'attributeName' => $col['columnName'],
                     );
                 }
-                $parameterBag['data']=isset($data)?$data:[];
-                return $parameterBag;
             }
-            else{
-                return 0;
-            }
+            $parameterBag['data']=isset($data)?$data:[];
+            return $parameterBag;
     }
 
     public function getFiveSortedFeaturesWithIconList($safetyFeatures): ?array
@@ -363,10 +360,8 @@ class PtsSectionPageController extends FrontendController
         }
 
         $parameterBag =  $this->getColumnsData($request, $template, $selectedColumns);
-        if($parameterBag)
-            return $this->render("catalog/default/template_section_page_pts_belts.html.twig", $parameterBag);
-        else{
-            return new Response('No Records Found');
-        }
+        $html = '<div><b style="font-size: 16px;">No Records Found</b></div>';
+        $parameterBag['data'] ? : print_r($html);
+        return $this->render("catalog/default/template_section_page_pts_belts.html.twig", $parameterBag);
     }
 }
