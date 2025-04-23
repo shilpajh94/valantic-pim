@@ -45,7 +45,7 @@ class UniProductListener implements EventSubscriberInterface
     {
         $obj = $event->getArgument('object');
 
-        if (!$obj instanceof UniProductBase) {
+        if (!$obj instanceof UniProductBase || !array_key_exists($event->getArgument('fieldName'), self::CATEGORY_LEVELS)) {
             return;
         }
 

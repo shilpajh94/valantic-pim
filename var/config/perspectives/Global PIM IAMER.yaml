@@ -1,7 +1,7 @@
 pimcore:
     perspectives:
         definitions:
-            'Global PIM IAM':
+            'Global PIM IAMER':
                 elementTree:
                     -
                         type: customview
