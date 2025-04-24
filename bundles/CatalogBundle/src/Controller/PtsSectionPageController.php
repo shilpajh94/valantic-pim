@@ -353,15 +353,30 @@ class PtsSectionPageController extends FrontendController
     public function templatePtgSectionPagePTSBeltsAction(Request $request)
     {
         $templateEditable = $this->document->getEditable('section_page_pts_belts');
+        if(!$request->get('contentDocument')->getPublished()){
+            $parameterBag = $this->defaultController->getRequestedParameter($request, 0);
+        }
+        else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->defaultController->getRequestedParameter($request, $documentId); 
+            } 
+        }
+
         if ($templateEditable && $templateEditable->getElement() != null) {
             $template = $templateEditable->getElement();
             $footerBgColor = $template->getColor();
             $selectedColumns = json_decode($template->getColumns(), true);
+            $parameterBag =  $this->getColumnsData($request, $template, $selectedColumns);
+            $html = '<div><b style="font-size: 16px;">No Records Found</b></div>';
+            $parameterBag['data'] ? : print_r($html);
+    
         }
-
-        $parameterBag =  $this->getColumnsData($request, $template, $selectedColumns);
-        $html = '<div><b style="font-size: 16px;">No Records Found</b></div>';
-        $parameterBag['data'] ? : print_r($html);
+        else{
+            $parameterBag['data'] = [];
+        }
         return $this->render("catalog/default/template_section_page_pts_belts.html.twig", $parameterBag);
     }
 }
