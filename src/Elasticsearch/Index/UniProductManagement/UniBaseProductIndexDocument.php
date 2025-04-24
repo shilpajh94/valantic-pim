@@ -56,10 +56,14 @@ class UniBaseProductIndexDocument extends AbstractDocument
         return $element->isPublished();
     }
 
-    /** @return array<string, mixed> */
+    /**
+     * @return array<string,mixed>
+     *
+     * @throws \Exception
+     */
     private function getNormalizedFinishedGood(UniProductBase $element): array
     {
-        $result = [
+        $result = [[
             // TODO: Add more fields. Make dynamic as well? Probably not for base model
             ...$this->plainAttributes($element, [
                 UniBaseProductIndex::ATTRIBUTE_PRODUCT_BRAND_NAME => UniProductBase::FIELD_PRODUCT_BRAND_NAME,
@@ -73,13 +77,13 @@ class UniBaseProductIndexDocument extends AbstractDocument
             ...$this->relationAttributes($element, [
                 UniBaseProductIndex::ATTRIBUTE_REGIONAL_AVAILABILITY => UniProductBase::FIELD_REGIONAL_AVAILABILITY,
             ]),
-        ];
+        ]];
 
-        foreach ($element->getTechnicalProductGroupSpecific()->getItems() as $objectBrick) {
-            $result = array_merge($result, $this->getNormalizedObjectbrick($objectBrick, self::PRODUCT_GROUP_SPECIFIC_TECHNICAL_PREFIX));
+        foreach ($element->getTechnicalProductGroupSpecific()?->getItems() ?? [] as $objectBrick) {
+            $result[] = $this->getNormalizedObjectbrick($objectBrick, self::PRODUCT_GROUP_SPECIFIC_TECHNICAL_PREFIX);
         }
 
-        return $result;
+        return array_merge(...$result);
     }
 
     /** @return array<string, mixed> */
@@ -106,10 +110,10 @@ class UniBaseProductIndexDocument extends AbstractDocument
         // Hint: This loop overwrites data when multiple object bricks use the same key.
         /** @var TObjectbrickClassname $objectbrick */
         foreach ($element->resolveObjectbricksInHierarchy($class) as $objectbrick) {
-            $result = array_merge($result, $this->getNormalizedObjectbrick($objectbrick, $prefix));
+            $result[] = $this->getNormalizedObjectbrick($objectbrick, $prefix);
         }
 
-        return $result;
+        return array_merge(...$result);
     }
 
     /**

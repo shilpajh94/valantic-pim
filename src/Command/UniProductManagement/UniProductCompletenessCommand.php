@@ -4,6 +4,7 @@ namespace App\Command\UniProductManagement;
 
 use App\Service\UniProductManagement\UniProductCompletenessService;
 use Pimcore\Model\DataObject\UniProductBase\Listing;
+use Pimcore\Model\Version;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -23,6 +24,7 @@ class UniProductCompletenessCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $start = microtime(true);
+        Version::disable();
 
         $listing = new Listing();
         $listing->setCondition('path LIKE ?', [self::BASE_PATH . '%']);
@@ -40,6 +42,7 @@ class UniProductCompletenessCommand extends Command
         $progress->finish();
         $output->writeln('');
         $output->writeln(sprintf('<info>Finished calculating in %s s</info>', round(microtime(true) - $start, 2)));
+        Version::enable();
 
         return self::SUCCESS;
     }

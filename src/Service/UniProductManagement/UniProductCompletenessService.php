@@ -8,6 +8,7 @@ use Pimcore\Model\AbstractModel;
 use Pimcore\Model\DataObject\ClassDefinition\Data;
 use Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields;
 use Pimcore\Model\DataObject\ClassDefinition\Data\Objectbricks;
+use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\Objectbrick\Data\AbstractData;
 use Pimcore\Model\DataObject\UniProductBase;
 use Pimcore\Tool;
@@ -99,7 +100,7 @@ class UniProductCompletenessService
                 continue;
             }
 
-            if (!$object instanceof AbstractData) {
+            if (!$object instanceof AbstractData && !$object instanceof Concrete) {
                 throw new \RuntimeException(sprintf('Unsupported object type: %s^', $object::class));
             }
 

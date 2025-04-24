@@ -3,6 +3,8 @@
 namespace App\Service\UniProductManagement;
 
 use App\Elasticsearch\Index\UniProductManagement\UniBaseProductIndex;
+use Elastic\Elasticsearch\Exception\ClientResponseException;
+use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Elastica\Query;
 use Elastica\Query\AbstractQuery;
 use Elastica\Query\BoolQuery;
@@ -19,23 +21,36 @@ class UniProductExternalHierarchyService
 {
     public function __construct(private readonly UniBaseProductIndex $productIndex) {}
 
-    /** @return array<mixed> */
+    /**
+     * @return array<array<string, mixed>>
+     *
+     * @throws ClientResponseException
+     * @throws ServerResponseException
+     */
     public function getProductsForExternalCategory(UniProductCategoryExternal $categoryExternal): array
     {
         return $this->getProductsById($this->resolveProductFilter($categoryExternal));
     }
 
     /**
-     * @param array<int> $ids
+     * @param int[] $ids
      *
-     * @return array<mixed>
+     * @return array<array<string, mixed>>
+     *
+     * @throws ClientResponseException
+     * @throws ServerResponseException
      */
     public function getProductsById(array $ids): array
     {
-        return $this->queryProductsPaginated(new Query(new Terms('__id', $ids)), fn(Result $item) => $item->getData());
+        return $this->queryProductsPaginated(new Query(new Terms(DocumentInterface::META_ID, $ids)), fn(Result $item) => $item->getData());
     }
 
-    /** @return array<mixed> */
+    /**
+     * @return array<int>
+     *
+     * @throws ClientResponseException
+     * @throws ServerResponseException
+     */
     public function resolveProductFilter(UniProductCategoryExternal $categoryExternal): array
     {
         $includes = $categoryExternal->getProductInclude()?->getItems() ?? [];
@@ -102,10 +117,16 @@ class UniProductExternalHierarchyService
         return new BoolQuery();
     }
 
-    /** @return array<mixed> */
-    private function queryProductsPaginated(Query $query, callable $callback): array
+    /**
+     * @return array<mixed>
+     *
+     * @throws ClientResponseException
+     * @throws ServerResponseException
+     */
+    private function queryProductsPaginated(Query $query, callable $callback): array // TODO Query signature
     {
         $result = [];
+        $total = 0;
 
         do {
             $count = count($result);
@@ -113,8 +134,11 @@ class UniProductExternalHierarchyService
 
             $queryResult = $this->productIndex->getElasticaIndex()->search($query);
             $hits = $queryResult->getTotalHits();
-            $result = array_merge($result, $queryResult->getResults());
-        } while (count($result) < $hits);
+            $total += $hits;
+            $result[] = $queryResult->getResults();
+        } while ($total < $hits);
+
+        $result = array_merge(...$result);
 
         return array_map($callback, $result);
     }
@@ -128,12 +152,12 @@ class UniProductExternalHierarchyService
 
         foreach ($category?->getChildren() ?? [] as $child) {
             if ($child instanceof UniProductBase) {
-                $result[] = $child;
+                $result[] = [$child];
             } elseif ($child instanceof UniProductCategoryInternal) {
-                $result = array_merge($result, $this->resolveCategoryInternalProducts($child));
+                $result[] = $this->resolveCategoryInternalProducts($child);
             }
         }
 
-        return $result;
+        return array_merge(...$result);
     }
 }

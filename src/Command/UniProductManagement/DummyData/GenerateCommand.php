@@ -199,7 +199,7 @@ class GenerateCommand extends AbstractDummyDataCommand
         }
 
         $this->committableObjects++;
-        $result->save();
+        $result->superfastSave();
 
         if ($this->committableObjects > self::BATCH_SIZE) {
             Db::get()->commit();
@@ -255,7 +255,7 @@ class GenerateCommand extends AbstractDummyDataCommand
                         ->setBeltThicknessMetric(random_int(5, 10))
                         ->setProfileHeightMetric(random_int(2, 5))
                         ->setToothHeightMetric(random_int(2, 5))
-                        ->setPitchMetric(random_int(2, 5))
+                        ->setPitchHeightMetric(random_int(2, 5))
                         ->setBeltAngle(10 * random_int(5, 8))
                         ->setMaxSpeed(10 * random_int(1, 5) . ' m/s')
                 );
