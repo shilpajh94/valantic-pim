@@ -63,6 +63,14 @@ class OutPutChannelExportController extends FrontendController
       }
        return true;
    }
+   
+   
+   /*public function jsonSerialize(): mixed {
+        return [
+            'name' => $this->name,
+            'description' => $this->description
+        ]
+    }*/
 
    
 }
