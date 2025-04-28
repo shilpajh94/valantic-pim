@@ -44,12 +44,14 @@ class IndustrialHoseController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{
-            $documentPath = $this->document->getFullPath();
-            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-            $parameterBag = $this->getRequestedParameter($request, $documentId);
-        }
-        try {
+        else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->getRequestedParameter($request, $documentId); 
+            } 
+        }        try {
             $folderId = $this->document->getParent()->getId();
             $listing = new \Pimcore\Model\Document\Listing();
             $listing->setCondition("parentId = $folderId");
@@ -175,12 +177,14 @@ class IndustrialHoseController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{
-            $documentPath = $this->document->getFullPath();
-            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-            $parameterBag = $this->getRequestedParameter($request, $documentId);
-        }
-        try {
+        else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->getRequestedParameter($request, $documentId); 
+            } 
+        }        try {
             $folderId = $this->document->getParent()->getId();
             $listing = new \Pimcore\Model\Document\Listing();
             $listing->setCondition("parentId = $folderId");
@@ -303,12 +307,14 @@ class IndustrialHoseController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{
-            $documentPath = $this->document->getFullPath();
-            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->getRequestedParameter($request, $documentId); 
+            } 
         }
-
         try {
             $folderId = $this->document->getParent()->getId();
             $listing = new \Pimcore\Model\Document\Listing();
@@ -407,12 +413,14 @@ class IndustrialHoseController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{
-            $documentPath = $this->document->getFullPath();
-            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->getRequestedParameter($request, $documentId); 
+            } 
         }
-
         $templateEditable = $this->document->getEditable('inh-printcatalog');
 
         if ($templateEditable && $templateEditable->getElement() != null) {
@@ -427,6 +435,7 @@ class IndustrialHoseController extends FrontendController
             $siop = $template->getSiopLevel4();
             $siopObj = $this->getSiopObject($siop);
             $configTableName = $tableName = "0410001010";
+            $siop4Description = '';
             if ($siopObj != null) {
                 $tableName = $siopObj->getParent()->getFullCode();
                 $siop4Description = ($siopObj->getPrintedCatalogDescription($lang)) ? $siopObj->getPrintedCatalogDescription($lang) : $siopObj->getDescription($lang);
@@ -547,12 +556,14 @@ class IndustrialHoseController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{
-            $documentPath = $this->document->getFullPath();
-            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-            $parameterBag = $this->getRequestedParameter($request, $documentId);
-        }
-        $tableClass = \AppBundle\Helper\Common::cleanString( $this->document->getKey());
+        else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->getRequestedParameter($request, $documentId); 
+            } 
+        }        $tableClass = \AppBundle\Helper\Common::cleanString( $this->document->getKey());
         $templateEditable = $this->document->getEditable('inh-printcatalogproduct');
 
         if ($templateEditable && $templateEditable->getElement() != null) {
@@ -909,9 +920,10 @@ class IndustrialHoseController extends FrontendController
                 if ($newBrandArray) {
                     array_multisort(array_column($newBrandArray, 'SortOrder'), SORT_ASC, $newBrandArray);
                 }
+				
 				$categories = [];
 				if($className == "CatalogTables"){
-					$categories = $this->getSIOP($catalogLanguage);
+					$categories = $this->getSIOP($catalogLanguage, 'IFS');
 				}
                 $footer_logo_src = (strtolower($footerBgColor) == 'orange') ? $catalogImagesINHFooter['Black'] : $catalogImagesINHFooter['Orange'];
                 $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
@@ -947,12 +959,14 @@ class IndustrialHoseController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{
-            $documentPath = $this->document->getFullPath();
-            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->getRequestedParameter($request, $documentId); 
+            } 
         }
-
         $templateEditable = $this->document->getEditable('inh_fitting_page');
         if ($templateEditable && $templateEditable->getElement() != null) {
             $template = $templateEditable->getElement();
@@ -1143,12 +1157,14 @@ class IndustrialHoseController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{
-            $documentPath = $this->document->getFullPath();
-            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->getRequestedParameter($request, $documentId); 
+            } 
         }
-
         if ($templatesEditable && $templatesEditable->getElements() != null) {
             $templates = $templatesEditable->getElements();
             $commonHelper = $this->containerInterface->get('app.common_helper');
@@ -1223,17 +1239,23 @@ class IndustrialHoseController extends FrontendController
             $parameterBag['featuresMaterials'] = $featuresMaterials;
             $parameterBag['templateBrandDtata'] = $templateBrandDtata;
             $parameterBag['categories'] = $menuCategories;
-            $parameterBag['selectedCategory'] = ((isset($catagoryDescription['SIOP3Description']))?$catagoryDescription['SIOP3Description']:'');            $parameterBag['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
+            $parameterBag['selectedCategory'] = ((isset($catagoryDescription['SIOP3Description']))?$catagoryDescription['SIOP3Description']:'');            
+            $parameterBag['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
             $parameterBag['footer_logo_src'] = $footer_logo_src;
 
         }
         return $this->render("catalog/inh/inhfitting_cover.html.twig", $parameterBag);
     }
 
-    private function getSIOP($language)
+    private function getSIOP($language, $bu = '')
     {
         $listing = new \Pimcore\Model\DataObject\ProductCategory\Listing;
-        $listing->setCondition("CatalogFlag = :catFlag", ["catFlag" => 1]);
+        if($bu == 'IFS'){
+            $listing->setCondition("CatalogFlag = :catFlag AND BusinessUnit = :bu", ["catFlag" => 1, "bu" => $bu]);
+        }
+        else{
+            $listing->setCondition("CatalogFlag = :catFlag", ["catFlag" => 1]);
+        }
         $listing->load();
         $categories = array();
         foreach ($listing as $category) {
@@ -1502,7 +1524,7 @@ class IndustrialHoseController extends FrontendController
         $isParentContainerRequest = $request->get('isParentContainerRequest');
         $parameterBag['isParentContainerRequest'] = $isParentContainerRequest ? $isParentContainerRequest : false;
         $parameterBag['printermarks'] = $request->get('printermarks');
-
+ 
         $imageWidth = null;
         $imageRecompression = null;
         $printConfigFile = Processor::getJobConfigFile($documentId);

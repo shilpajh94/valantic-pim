@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                90f471da-65f9-48ec-8081-9578ee658275:
+                    name: 'PTS Section Page'
+                    group: 'PTG Template'
+                    controller: null
+                    template: null
+                    type: printpage
+                    priority: 0
+                    creationDate: 1742288236
+                    modificationDate: 1742899130
+                    staticGeneratorEnabled: false

@@ -132,22 +132,22 @@
 									{% if not pimcore_input("PTG_Footer_Compatibility").isEmpty() %}
 										{{ pimcore_input("PTG_Footer_Compatibility") }}
 									{% else %}
-										{{ pimcore_input("PTG_Footer_Compatibility").setDataFromResource('Compatible fittings') | raw}}
+										{{ pimcore_input("PTG_Footer_Compatibility").setDataFromResource('') | raw}}
 									{% endif %}
 								{% else %}
 									{{ pimcore_input("PTG_Footer_Compatibility") }}
 								{% endif %}
 							</b>
 
-							{% set compatibility_description = "All fittings compatible with " ~ groupData['brandName'] ~ " are listed in Section 1 (starting on page 131)." %}
+							{% set compatibility_description = "" %}
 							{% if editmode %}
-								{% if not pimcore_input("PTG_Footer_Compatibility_Description").isEmpty() %}
-									{{ pimcore_input("PTG_Footer_Compatibility_Description") }}
+								{% if not pimcore_wysiwyg("PTG_Footer_Compatibility_Description").isEmpty() %}
+									{{ pimcore_wysiwyg("PTG_Footer_Compatibility_Description") }}
 								{% else %}
-									{{ pimcore_input("PTG_Footer_Compatibility_Description").setDataFromResource(compatibility_description) | raw}}
+									{{ pimcore_wysiwyg("PTG_Footer_Compatibility_Description", {"width": 100,"placeholder" : "eg: Enter Text"}).setDataFromResource(compatibility_description) | raw}}
 								{% endif %}
 							{% else %}
-								{{ pimcore_input("PTG_Footer_Compatibility_Description") }}
+								{{ pimcore_wysiwyg("PTG_Footer_Compatibility_Description") }}
 							{% endif %}
 
 						</div>
@@ -164,22 +164,22 @@
 									{% if not pimcore_input("PTG_Footer_Compatibility1").isEmpty() %}
 										{{ pimcore_input("PTG_Footer_Compatibility1") }}
 									{% else %}
-										{{ pimcore_input("PTG_Footer_Compatibility1").setDataFromResource('Compatible fittings') | raw}}
+										{{ pimcore_input("PTG_Footer_Compatibility1").setDataFromResource('') | raw}}
 									{% endif %}
 								{% else %}
 									{{ pimcore_input("PTG_Footer_Compatibility1") }}
 								{% endif %}
 							</b>
 
-							{% set compatibility_description = "All fittings compatible with " ~ groupData['brandName'] ~ " are listed in Section 1 (starting on page 131)." %}
+							{% set compatibility_description = "" %}
 							{% if editmode %}
-								{% if not pimcore_input("PTG_Footer_Compatibility1_Description").isEmpty() %}
-									{{ pimcore_input("PTG_Footer_Compatibility1_Description") }}
+								{% if not pimcore_wysiwyg("PTG_Footer_Compatibility1_Description").isEmpty() %}
+									{{ pimcore_wysiwyg("PTG_Footer_Compatibility1_Description") }}
 								{% else %}
-									{{ pimcore_input("PTG_Footer_Compatibility1_Description").setDataFromResource(compatibility_description) | raw}}
+									{{ pimcore_wysiwyg("PTG_Footer_Compatibility1_Description", {"width": 100,"placeholder" : "eg: Enter Text"}).setDataFromResource(compatibility_description) | raw}}
 								{% endif %}
 							{% else %}
-								{{ pimcore_input("PTG_Footer_Compatibility1_Description") }}
+								{{ pimcore_wysiwyg("PTG_Footer_Compatibility1_Description") }}
 							{% endif %}
 						</div>
 						<h5>
@@ -234,56 +234,40 @@
 				</h1>
 				<aside class="ptgHead">
 					<div>
-						{% if editmode %}
-							{% if not pimcore_wysiwyg("PTG_LongDescription").isEmpty() %}
-								{{ pimcore_wysiwyg("PTG_LongDescription") }}
-							{% else %}
-								{{ pimcore_wysiwyg("PTG_LongDescription").setDataFromResource(groupData['longDescription']) | raw}}
-							{% endif %}
-						{% else %}
-							{{ pimcore_wysiwyg("PTG_LongDescription") }}
-						{% endif %}
+						<p>{{groupData['longDescription'] | striptags}}</p>
 					</div>
 					<span class="imageHolder">
 						{% if editmode %}
-							{% if not pimcore_image("HHPP_Image_Left").isEmpty() %}
-								{{ pimcore_image("HHPP_Image_Left", {"width": 400, "height": 200}) }}
-							{% else %}
-
-								{% if groupData['mainImageObj'] %}
-									{{ pimcore_image("HHPP_Image_Left", {"width": 400, "height": 200}).setImage(groupData['mainImageObj']) | raw}}
-								{% else %}
-									{{ pimcore_image("HHPP_Image_Left", {"width": 400, "height": 200}) }}
-								{% endif %}
-
-							{% endif %}
-						{% else %}
-							{% set imgSrcObj1 = pimcore_image("HHPP_Image_Left") %}
-
-							{% if imgSrcObj1 %}
-								<img src="{{getImageThumbnail(imgSrcObj1, imageWidth)}}" width="400" height="200"/>
-							{% endif %}
-						{% endif %}
-
-						{% if editmode %}
-							{% if not pimcore_image("Drawing_Picture").isEmpty() %}
-								{{ pimcore_image("Drawing_Picture", {"width": 400, "height": 200}) }}
-							{% else %}
-
-								{% if groupData['ProfileDimensionImageObj'] %}
-									{{ pimcore_image("Drawing_Picture", {"width": 400, "height": 200}).setImage(groupData['ProfileDimensionImageObj']) | raw}}
-								{% else %}
-									{{ pimcore_image("Drawing_Picture", {"width": 400, "height": 200}) }}
-								{% endif %}
-
-							{% endif %}
-						{% else %}
-							{% set imgSrcObj2 = pimcore_image("Drawing_Picture") %}
-
-							{% if imgSrcObj2 %}
-								<img src="{{getImageThumbnail(imgSrcObj2, imageWidth)}}" width="400" height="200"/>
-							{% endif %}
-						{% endif %}
+                        	{% if not pimcore_image("HHPP_Image_Left").isEmpty() %}
+                        		{% set imgSrcObj1 = pimcore_image("HHPP_Image_Left") %}
+                        	{% else %}
+                        		{% set imgSrcObj1 = groupData['mainImageObj'] %}
+                        	{% endif %}
+                        	{% if imgSrcObj1 %}
+                        		<img src="{{getImageThumbnail(imgSrcObj1,imageWidth)}}" width="400" height="200"/>
+                        	{% endif %}
+                        	{% else %}
+                        	{% set imgSrcObj1 = pimcore_image("HHPP_Image_Left") %}
+                        	{% if imgSrcObj1 %}
+                        		<img src="{{getImageThumbnail(imgSrcObj1, imageWidth)}}" width="400" height="200"/>
+                        	{% endif %}
+                        {% endif %}
+                        
+                        {% if editmode %}
+                        	{% if not pimcore_image("Drawing_Picture").isEmpty() %}
+                        		{% set imgSrcObj2 = pimcore_image("Drawing_Picture") %}
+                        	{% else %}
+                        		{% set imgSrcObj2 = groupData['ProfileDimensionImageObj'] %}
+                        	{% endif %}
+                        	{% if imgSrcObj2 %}
+                        		<img src="{{getImageThumbnail(imgSrcObj2,imageWidth)}}" width="400" height="200"/>
+                        	{% endif %}
+                        	{% else %}
+                        	{% set imgSrcObj2 = pimcore_image("Drawing_Picture") %}
+                        	{% if imgSrcObj2 %}
+                        		<img src="{{getImageThumbnail(imgSrcObj2, imageWidth)}}" width="400" height="200"/>
+                        	{% endif %}
+                        {% endif %}
 					</span>
 				</aside>
 			</header>

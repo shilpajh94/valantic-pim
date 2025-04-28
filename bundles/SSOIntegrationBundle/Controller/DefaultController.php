@@ -70,12 +70,12 @@ class DefaultController extends FrontendController
                 'email' => $email,
                 'name'=>$username
             ];
-
             if (!$user instanceof AbstractUser) {
                 $userData['parentId'] = 0;
                 $userData['active'] = true;
                 $user = $userService->save($username, $userData);
             } 
+            $userService->userObjsave($username, $userData);
 
             $token = Authentication::generateToken($user->getName());
             $loginUrl = 'https://' . $_SERVER['HTTP_HOST'] . '/admin/login/login?username=' . $username . '&token=' . $token;

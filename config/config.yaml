@@ -16,13 +16,13 @@ pimcore:
     objects: 
         auto_save_interval: 0 # saving interval in seconds, default 60s, set to 0 to disable it
 
-    email:
-        sender:
-            name: 'Pimcore 11'
-            email: pim@continental.com
-        return:
-            name: ''
-            email: ''
+    # email:
+    #     sender:
+    #         name: 'Pimcore 11'
+    #         email: pim@continental.com
+    #     return:
+    #         name: ''
+    #         email: ''
     # IMPORTANT Notice!
     # Following there are only some examples listed, for a full list of possible options, please run the following command:
     # ./bin/console debug:config pimcore
@@ -92,10 +92,10 @@ pimcore:
 framework:
     profiler:  
         enabled: false
-    mailer:
-        transports:
-            main: smtp://smtphubeu.contiwan.com:2525?verify_peer=0
-            pimcore_newsletter: smtp://smtphubeu.contiwan.com:2525?verify_peer=0
+    # mailer:
+    #     transports:
+    #         main: smtp://smtphubeu.contiwan.com:2525?verify_peer=0
+    #         pimcore_newsletter: smtp://smtphubeu.contiwan.com:2525?verify_peer=0
 
 
 #### USE SESSION HANDLER CONFIGURED IN php.ini

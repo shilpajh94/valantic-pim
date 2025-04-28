@@ -25,3 +25,6 @@ services:
     EmailNotificationBundle\Command\NewProductImportEmailCommand:
         tags:
             - { name: 'console.command', command: 'conti:newproducts-importreport' }
+
+    Pimcore\Bundle\AdminBundle\Controller\Admin\EmailController:
+        class: EmailNotificationBundle\Controller\CustomEmailController

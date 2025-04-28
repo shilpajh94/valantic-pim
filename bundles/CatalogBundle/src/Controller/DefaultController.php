@@ -204,6 +204,7 @@ class DefaultController extends FrontendController
     public function getSkeletonProductsAction(Request $request): JsonResponse
     {
         $baseProducts = json_decode($request->get('products'), 1);
+        $needKey = $request->get('needKey')? filter_var($request->get('needKey'), FILTER_VALIDATE_BOOLEAN):false;
         $productList = new DataObject\Product\Listing();
 
         $productList->addConditionParam('parentId IN (?)', [$baseProducts], 'AND');
@@ -211,7 +212,7 @@ class DefaultController extends FrontendController
 
         $options = [];
         foreach ($productList as $item) {
-            $options[] = array('text' => $item->getSapDescription('en'), 'id' => $item->getId());
+            $options[] = array('text' => ($needKey)?$item->getKey():$item->getSapDescription('en'), 'id' => ($needKey)?$item->getKey():$item->getId());
         }
 
         return $this->json(['data' => $options]);
@@ -783,10 +784,13 @@ class DefaultController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{
-            $documentPath = $this->document->getFullPath();
-            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->getRequestedParameter($request, $documentId); 
+            } 
         }
 
         $templateEditable = $this->document->getEditable('tiletemplate');
@@ -921,10 +925,13 @@ class DefaultController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{
-            $documentPath = $this->document->getFullPath();
-            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->getRequestedParameter($request, $documentId); 
+            } 
         }
 
         $templateEditable = $this->document->getEditable('inh_template_hose_product_page');
@@ -1289,10 +1296,13 @@ class DefaultController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{
-            $documentPath = $this->document->getFullPath();
-            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->getRequestedParameter($request, $documentId); 
+            } 
         }
 
         $templateEditable = $this->document->getEditable('template_hose_accessories_sleeving');
@@ -1462,10 +1472,13 @@ class DefaultController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{
-            $documentPath = $this->document->getFullPath();
-            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->getRequestedParameter($request, $documentId); 
+            } 
         }
 
         $templateEditable = $this->document->getEditable('template_hose_accessories_clamps');
@@ -1573,12 +1586,14 @@ class DefaultController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{
-            $documentPath = $this->document->getFullPath();
-            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->getRequestedParameter($request, $documentId); 
+            } 
         }
-
         $templateEditable = $this->document->getEditable('template_hose_accessories_oring');
 
         if ($templateEditable && $templateEditable->getElement() != null) {
@@ -1707,12 +1722,14 @@ class DefaultController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{
-            $documentPath = $this->document->getFullPath();
-            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-            $parameterBag = $this->getRequestedParameter($request, $documentId);
-        }
-        return $this->render('catalog/default/template_table_of_contents.html.twig', $parameterBag);
+        else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->getRequestedParameter($request, $documentId); 
+            } 
+        }        return $this->render('catalog/default/template_table_of_contents.html.twig', $parameterBag);
     }
 
     public function templateHydraulicTableOfContentsDynamicAction(Request $request)
@@ -1721,12 +1738,14 @@ class DefaultController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{
-            $documentPath = $this->document->getFullPath();
-            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->getRequestedParameter($request, $documentId); 
+            } 
         }
-
         try {
             $folderId = $this->document->getParent()->getId();
             $listing = new \Pimcore\Model\Document\Listing();
@@ -1879,12 +1898,14 @@ class DefaultController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{
-            $documentPath = $this->document->getFullPath();
-            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->getRequestedParameter($request, $documentId); 
+            } 
         }
-
         $templatesEditable = $this->document->getEditable('page_number_designations');
 
         $hydraulic_hose_data = [];
@@ -1946,12 +1967,14 @@ class DefaultController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{
-            $documentPath = $this->document->getFullPath();
-            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->getRequestedParameter($request, $documentId); 
+            } 
         }
-
         $templateEditable = $this->document->getEditable('template_hose_product_page');
 
         if ($templateEditable && $templateEditable->getElement() != null) {
@@ -2150,12 +2173,14 @@ class DefaultController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{
-            $documentPath = $this->document->getFullPath();
-            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->getRequestedParameter($request, $documentId); 
+            } 
         }
-
         $catalogTableObject = $this->document->getEditable('template_hose_accessories_flanges');
         $footer_logo_src = '';
         $footerBgColor = '';
@@ -2260,12 +2285,14 @@ class DefaultController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{
-            $documentPath = $this->document->getFullPath();
-            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->getRequestedParameter($request, $documentId); 
+            } 
         }
-
         $allChildren = [];
 
         //prepare children for include
@@ -2325,12 +2352,14 @@ class DefaultController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{
-            $documentPath = $this->document->getFullPath();
-            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->getRequestedParameter($request, $documentId); 
+            } 
         }
-
         $groupData = array();
         $footerBgColor = null;
         $footer_logo_src = null;
@@ -2601,190 +2630,10 @@ class DefaultController extends FrontendController
         $parameterBag['footer_logo_src'] = $footer_logo_src;
         $tableClass = \AppBundle\Helper\Common::cleanString( $this->document->getKey());
 
-$parameterBag['table_class']= $tableClass;
+        $parameterBag['table_class']= $tableClass;
         return $this->render("catalog/default/template_ptg_product_page.html.twig", $parameterBag);
     }
 
-    public function templatePtgSectionPagePTSBeltsAction(Request $request): Response
-    {
-        $parameterBag = array();
-        $footerBgColor='';
-        $templateEditable = $this->document->getEditable('section_page_pts_belts');
-        $commonHelper = $this->containerInterface->get('app.common_helper');
-        $language = (isset($this->document->getProperties()['language'])) ? ($this->document->getProperties()['language'])->getData() : 'en';
-        $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
-        $catalogImagesPTGFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesPTGFooter');
-        $this->featuresList = $this->getFeaturesList($language);
-        
-        if (!$request->get('contentDocument')->getPublished()) {
-            $parameterBag = $this->getRequestedParameter($request, 0);
-        } else {
-            $documentPath = $this->document->getFullPath();
-            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-            $parameterBag = $this->getRequestedParameter($request, $documentId);
-        }
-        if ($templateEditable && $templateEditable->getElement() != null) {
-            $template = $templateEditable->getElement();
-            $footerBgColor = $template->getColor();
-            $defaultColumns = [
-                'fertPTGBricks.widthmm as standardWidthmm',
-                'fertSynchronousBricks.pitchLengthMM' ,
-                'fertSynchronousBricks.pitchMM ',
-                'baseProducts.brandName',
-                'baseProducts.SIOPLevel2',
-                'baseProducts.SIOPLevel3', 
-                'baseProducts.SIOPLevel4', 
-                'baseProducts.SIOPLevel5',
-                'baseProducts.reinforcement', 
-                'baseBricks.material', 
-                'baseProducts.temperatureRangeFAndC', 
-                'baseProducts.mainImage',
-                'baseProducts.beltIdentificationImage',    
-                'baseProducts.profileDimensionPtsBelts',    
-                'baseLocalized.shortDescription', 
-                'baseLocalized.FeaturesBenefitsBulletPoint',
-                'skeltonProducts.key AS Pitch',
-                'skeltonBricks.totalBeltThickness', 
-                'skeltonBricks.totalToothThickness' 
-                
-            ];
-            $baseProductID = $template->getBaseproduct();
-            $sql = "SELECT DISTINCT ".implode(',',$defaultColumns)."
-                FROM object_1 AS baseProducts 
-                LEFT JOIN object_brick_query_PTGBase_1 AS baseBricks ON  baseProducts.oo_id = baseBricks.id
-                LEFT JOIN object_localized_1_$language AS baseLocalized 
-                ON baseProducts.oo_id= baseLocalized.oo_id
-                LEFT JOIN object_1 AS skeltonProducts ON baseProducts.oo_id = skeltonProducts.parentId
-                LEFT JOIN object_brick_query_PTGSkeleton_1 AS skeltonBricks ON skeltonProducts.oo_id = skeltonBricks.id
-                LEFT JOIN object_1 AS fertProducts ON skeltonProducts.oo_id = fertProducts.parentId
-                LEFT JOIN object_brick_query_PTGFert_1 AS fertPTGBricks ON fertProducts.oo_id = fertPTGBricks.id
-                LEFT JOIN object_brick_query_SynchronousFert_1 AS fertSynchronousBricks ON fertProducts.oo_id = fertSynchronousBricks.id
-                WHERE baseProducts.oo_id = $baseProductID AND fertProducts.printedCatalogFlag =1 ORDER BY fertPTGBricks.widthmm ASC ";
-            // $SIOPQuery = "select SIOPLevel2,SIOPLevel3, SIOPLevel4, SIOPLevel5, SIOPLevel6 from object_query_1 where oo_id = '" . $baseProductID[0] . "'";
-
-            $SQLResults = $this->db->fetchAllAssociative($sql);
-            $siopLevel2 = trim(array_column($SQLResults, 'SIOPLevel2')[0], ',');
-            $siopLevel3 = trim(array_column($SQLResults, 'SIOPLevel3')[0], ',');
-            $siopLevel4 = trim(array_column($SQLResults, 'SIOPLevel4')[0], ',');
-            $siopLevel5 = trim(array_column($SQLResults, 'SIOPLevel5')[0], ',');
-            $mainImage = trim(array_column($SQLResults, 'mainImage')[0], ',');
-            $beltIdentificationImage = array_column($SQLResults, 'beltIdentificationImage')[0];
-            $profileDimensionPtsBelts = array_column($SQLResults, 'profileDimensionPtsBelts')[0];
-            $FeaturesBenefitsBulletPoint = trim(array_unique(array_column($SQLResults, 'FeaturesBenefitsBulletPoint'))[0],',');
-            $reinforcement = trim(array_unique(array_column($SQLResults, 'reinforcement'))[0], ',');
-            $material = trim(array_unique(array_column($SQLResults, 'material'))[0],',');
-            $temperatureRangeFAndC = array_unique(array_column($SQLResults, 'temperatureRangeFAndC'))[0];
-            $longDescription = array_unique(array_column($SQLResults, 'shortDescription'))[0];
-            $brandName = array_unique(array_column($SQLResults, 'brandName'))[0];
-            $skeltons = array_values(array_unique(array_column($SQLResults, 'Pitch')));
-            $result = [];
-            foreach ($SQLResults as $SQLResult) {
-                unset($SQLResult['SIOPLevel2']);
-                unset($SQLResult['SIOPLevel3']);
-                unset($SQLResult['SIOPLevel4']);
-                unset($SQLResult['SIOPLevel5']);
-                unset($SQLResult['mainImage']);
-                unset($SQLResult['beltIdentificationImage']);
-                unset($SQLResult['profileDimensionPtsBelts']);
-                unset($SQLResult['FeaturesBenefitsBulletPoint']);
-                unset($SQLResult['brandName']);
-                switch ($SQLResult['Pitch']) {
-                    case $skeltons[0]:
-                        $result[$skeltons[0]][] = $SQLResult;
-                        break;
-                    case $skeltons[1]:
-                        $result[$skeltons[1]][] = $SQLResult;
-                        break;
-                }
-            }
-            
-            for ($i = 0; $i < count($skeltons); $i++) {
-                $data['groupData'][$skeltons[$i]]['standardWidthmm'] = implode(',', array_map('intval',array_unique(array_column($result[$skeltons[$i]], 'standardWidthmm'))));
-
-                $data['groupData'][$skeltons[$i]]['pitchLengthMM'] =(int) min(array_column($result[$skeltons[$i]], 'pitchLengthMM')) . '-' .(int) max(array_column($result[$skeltons[$i]], 'pitchLengthMM'));
-                $data['groupData'][$skeltons[$i]]['A'] = array_unique(array_column($result[$skeltons[$i]], 'pitchMM'))[0];
-                $data['groupData'][$skeltons[$i]]['B'] = array_unique(array_column($result[$skeltons[$i]], 'totalBeltThickness'))[0];
-                $data['groupData'][$skeltons[$i]]['C'] = array_unique(array_column($result[$skeltons[$i]], 'totalToothThickness'))[0];
-
-
-            }
-            $SIOPCategories = array();
-
-            $SIOPCategoryClassId = \Pimcore\Model\DataObject\ProductCategory::classId();
-            if (!empty($siopLevel2)) {
-                $sql = "SELECT `key`,IF(oo_id=$siopLevel3, 'selected', '') as `selected` FROM object_$SIOPCategoryClassId WHERE `ParentObjectId` = $siopLevel2 AND `CatalogFlag` = 1 ORDER BY `SortOrder` ASC";
-            
-                $SIOPCategories = $this->db->fetchAllKeyValue($sql);
-            }
-            if (!empty($siopLevel3)) {
-                $sql = "SELECT `key` FROM object_$SIOPCategoryClassId WHERE `oo_id` = $siopLevel3 ";
-                $siopLevel3 = $this->db->fetchOne($sql);
-            }
-            if (!empty($siopLevel4)) {
-                $sql = "SELECT `key` FROM object_$SIOPCategoryClassId WHERE `oo_id` = $siopLevel4 ";
-                $siopLevel4 = $this->db->fetchOne($sql);
-            }
-            if (!empty($siopLevel5)) {
-                $sql = "SELECT `key` FROM object_$SIOPCategoryClassId WHERE `oo_id` = $siopLevel5 ";
-                $siopLevel5 = $this->db->fetchOne($sql);
-            }
-            if (!empty($brandName)) {
-                $brandClassId = \Pimcore\Model\DataObject\Brand::classId();
-                $sql = "SELECT `name` FROM object_$brandClassId WHERE `oo_id` = $brandName ";
-                $brandName = $this->db->fetchOne($sql);
-            }
-            if (!empty($reinforcement)) {
-                $reinforcementClassId = \Pimcore\Model\DataObject\MultiselectMaster::classId();
-                $reinforcementLocalizedClassId = $reinforcementClassId."_".$language;
-                $sql = "SELECT `Description` FROM object_localized_$reinforcementLocalizedClassId WHERE `oo_id` = $reinforcement ";
-                $reinforcement = $this->db->fetchOne($sql);
-            }
-            if (!empty($material)) {
-                $brandClassId = \Pimcore\Model\DataObject\MultiselectMaster::classId();
-                $brandLocalizedClassId = $brandClassId."_".$language;
-                $sql = "SELECT `Description` FROM object_localized_$brandLocalizedClassId WHERE `oo_id` = $material ";
-                $material = $this->db->fetchOne($sql);
-            }
-
-            if(isset($mainImage)){
-                $mainImage = Asset::getById($mainImage);
-            }
-            if(isset($beltIdentificationImage)){
-                $beltIdentificationImage = Asset::getById($beltIdentificationImage);
-            }
-            if(isset($profileDimensionPtsBelts)){
-                $profileDimensionPtsBelts = Asset::getById($profileDimensionPtsBelts);
-            }
-            if(isset($FeaturesBenefitsBulletPoint)){
-                $FeaturesBenefitsBulletPoint = explode(',',$FeaturesBenefitsBulletPoint);
-                $FeaturesBenefitsBulletPoint = $this->getFiveSortedFeaturesWithIconList($FeaturesBenefitsBulletPoint);
-            }
-
-            $data['SIOPCategories'] = isset($SIOPCategories)?$SIOPCategories:[];
-            $data['temperatureRangeFAndC'] = isset($temperatureRangeFAndC)?$temperatureRangeFAndC:'';
-            $data['material'] = isset($material)?$material:'';
-            $data['reinforcement'] = isset($reinforcement)?$reinforcement:''; 
-            $data['mainImage'] = isset($mainImage)?$mainImage:'';
-            $data['beltIdentificationImage'] = isset($beltIdentificationImage)?$beltIdentificationImage:''; 
-            $data['profileDimensionPtsBelts'] = isset($profileDimensionPtsBelts)?$profileDimensionPtsBelts:'';  
-            $data['SIOPLEVEL2'] = isset($siopLevel2)?$siopLevel2:'';
-            $data['SIOPLEVEL3'] = isset($siopLevel3)?$siopLevel3:'';
-            $data['SIOPLEVEL4'] = isset($siopLevel4)?$siopLevel4:'';
-            $data['SIOPLEVEL5'] = isset($siopLevel5)?$siopLevel5:'';
-            $data['brandName'] = isset($brandName)?$brandName:'';
-            $data['shortDescription'] = isset($longDescription)?$longDescription:'';    
-            
-            $data['FeaturesBenefitsBulletPoint'] = isset($FeaturesBenefitsBulletPoint)?$FeaturesBenefitsBulletPoint:[] ; 
-            $data['footer_class'] = '';
-            $footer_logo_src = (strtolower($footerBgColor) == 'orange') ? $catalogImagesPTGFooter['Black'] : $catalogImagesPTGFooter['Orange'];
-            $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
-            $data['footer_logo_src'] = $footer_logo_src;
-
-        }//end check element
-        $parameterBag['data']=isset($data)?$data:[];
-        return $this->render("catalog/default/template_section_page_pts_belts.html.twig", $parameterBag);
-
-    }
     public function getFiveSortedFeaturesWithIconList($safetyFeatures): ?array
     {
         $safetyFeatures = array_unique($safetyFeatures);
@@ -2949,12 +2798,14 @@ $parameterBag['table_class']= $tableClass;
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{
-            $documentPath = $this->document->getFullPath();
-            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-            $parameterBag = $this->getRequestedParameter($request, $documentId);
-        }
-        return $this->render("catalog/default/template_index_descriptive_number.html.twig", $parameterBag);
+        else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->getRequestedParameter($request, $documentId); 
+            } 
+        }        return $this->render("catalog/default/template_index_descriptive_number.html.twig", $parameterBag);
     }
 
     public function templateHydraulicAlphanumericIndexByDescriptiveNumberDynamicAction(Request $request): Response
@@ -2962,12 +2813,14 @@ $parameterBag['table_class']= $tableClass;
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{
-            $documentPath = $this->document->getFullPath();
-            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-            $parameterBag = $this->getRequestedParameter($request, $documentId);
-        }
-        try {
+        else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->getRequestedParameter($request, $documentId); 
+            } 
+        }        try {
             $folderId = $this->document->getParent()->getId();
             $listing = new \Pimcore\Model\Document\Listing();
             $listing->setCondition("parentId = $folderId");
@@ -3034,12 +2887,14 @@ $parameterBag['table_class']= $tableClass;
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{
-            $documentPath = $this->document->getFullPath();
-            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-            $parameterBag = $this->getRequestedParameter($request, $documentId);
-        }
-        try {
+        else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->getRequestedParameter($request, $documentId); 
+            } 
+        }        try {
             $folderId = $this->document->getParent()->getId();
             $listing = new \Pimcore\Model\Document\Listing();
             $listing->setCondition("parentId = $folderId");
@@ -3106,12 +2961,14 @@ $parameterBag['table_class']= $tableClass;
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{
-            $documentPath = $this->document->getFullPath();
-            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-            $parameterBag = $this->getRequestedParameter($request, $documentId);
-        }
-        return $this->render("catalog/default/template_index_product_number.html.twig", $parameterBag);
+        else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->getRequestedParameter($request, $documentId); 
+            } 
+        }        return $this->render("catalog/default/template_index_product_number.html.twig", $parameterBag);
     }
 
     public function replaceYellowCode($string): string
