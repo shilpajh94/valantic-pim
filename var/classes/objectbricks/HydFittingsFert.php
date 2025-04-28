@@ -272,10 +272,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'maxItems' => NULL,
                      'renderType' => 'tags',
                      'dynamicOptions' => false,
-                     'defaultValue' => 
-                    array (
-                      0 => '1',
-                    ),
+                     'defaultValue' => NULL,
                      'height' => '',
                      'width' => 200,
                      'defaultValueGenerator' => '',
@@ -961,7 +958,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'blockedVarsForExport' => 
                                 array (
                                 ),
-                                 'defaultValue' => '1',
+                                 'defaultValue' => '',
                                  'columnLength' => 150,
                                  'dynamicOptions' => false,
                                  'defaultValueGenerator' => '',
