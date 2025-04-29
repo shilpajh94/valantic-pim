@@ -105,13 +105,12 @@ pimcore.plugin.formattedGridHandler = Class.create({
                                 headerComp.setValue(response.headerData);
 								if(objectClassName == 'SpecSheetCatalog'){
 								let SAPRange = e.detail.object.edit.dataFields.SAPRange.data; 
-								if(SAPRange == "Custom Selection"){
-									console.log(response.customRecords);
+								//if(SAPRange == "Custom Selection"){
 									 response.customRecords.forEach(function (item) {
 										Ext.getCmp('CatalogDataGrid_'+e.detail.object.id).getSelectionModel().select(item,true,false);
 
 									});			
-								}
+								//}
 								}
                                 
                             }.bind(this)
@@ -122,16 +121,16 @@ pimcore.plugin.formattedGridHandler = Class.create({
 				 panelContainingFormattedTable.insert(0, this.updateTableButton);
 				if(objectClassName == 'SpecSheetCatalog'){
 				let SAPRange = e.detail.object.edit.dataFields.SAPRange.data; 
-				let ButtonDisplay = "none";
+				/*let ButtonDisplay = "none";
 				if(SAPRange == "Custom Selection"){
 					ButtonDisplay = "inline-block";
-				}
+				}*/
 				  this.updateCustomSelectionButton = Ext.create('Ext.Button', {
                     text: 'Update Custom Products',
                     tooltip: 'Save Custom Products Selection',
                     style: {
                         'margin-bottom': '10px',
-						'display': ButtonDisplay
+						//'display': ButtonDisplay
                     },
                     // scale:"medium",
                     iconCls: "plt_icon_plt_generate_button_icon",

@@ -135,11 +135,7 @@ class SpecSheetController extends FrontendController
 			
 			$conditionArray[] = "printedCatalogFlag = '1' ";
 			
-		} else if(!empty($sapRange) && $sapRange == "Custom Selection"){
-			
-			//$conditionArray[] = "printedCatalogFlag = '1' ";
-			
-		}
+		} 
       
        
         $productList->setCondition(implode(' AND ', $conditionArray));
@@ -473,7 +469,8 @@ class SpecSheetController extends FrontendController
 		$gridIndexes = [];
 		$i = 0;
 		foreach ($pData as $key => $productItem) {
-			if(in_array($productItem['articleNumber'], $customRecords)){
+			echo "<pre>"; print_r($productItem); die;
+			if(isset($productItem['articleNumber']) && in_array($productItem['articleNumber'], $customRecords)){
 				$gridIndexes[] = $i;
 			}
 			$i ++;
