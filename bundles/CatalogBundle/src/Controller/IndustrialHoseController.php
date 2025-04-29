@@ -581,28 +581,29 @@ class IndustrialHoseController extends FrontendController
 				
 				$SAPRange = $template->getSAPRange();
 				$id = $template->getId();
-				//if($SAPRange == "Custom Selection"){
 					$query = "Select * from specsheet_custom_selection where object_id=$id";
 					$row = $this->db->fetchAllAssociative($query);
 					if(isset($row[0])){
-					$exCludes = $row[0]['data'];
-					$includeArticles = explode(",",$exCludes);
+						$exCludes = $row[0]['data'];
+						if(!empty($exCludes)) {
+						$includeArticles = explode(",",$exCludes);
 
-					foreach ($productsData as $key => $productItem) {
-						if(!in_array($productItem[$headerKeysIndex['articleNumber']], $includeArticles)){
-							unset($productsData[$key]);
+						foreach ($productsData as $key => $productItem) {
+							if(!in_array($productItem[$headerKeysIndex['articleNumber']], $includeArticles)){
+								unset($productsData[$key]);
+							}
+						}
 						}
 					}
-					
-					}
-				//}
 				
 			} else {
 				$catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());
 				$catalogObj = DataObject\Catalog::getById($catalogCategoryObj->getParentId());
 				$catalogLanguage = $catalogObj->getCatalogLanguage();
 			}
-
+			if(empty($catalogLanguage)){
+				$catalogLanguage = "en";
+			}
                 $footerBgColor = $template->getColor();
 
                

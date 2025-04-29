@@ -975,11 +975,11 @@ class DefaultController extends FrontendController
 				
 					$SAPRange = $template->getSAPRange();
 					$id = $template->getId();
-					if($SAPRange == "Custom Selection"){
 						$query = "Select * from specsheet_custom_selection where object_id=$id";
 						$row = $this->db->fetchAllAssociative($query);
 						if(isset($row[0])){
 						$exCludes = $row[0]['data'];
+						if(!empty($exCludes)){
 						$includeArticles = explode(",",$exCludes);
 
 						foreach ($productsData as $key => $productItem) {
@@ -987,9 +987,9 @@ class DefaultController extends FrontendController
 								unset($productsData[$key]);
 							}
 						}
+						}
 						
 						}
-					}
 				
 			}
 
@@ -1012,7 +1012,6 @@ class DefaultController extends FrontendController
 
                 foreach ($productsData as $key => $item) {
                     if(gettype($item[$headerKeysIndex['brandName']]) == 'string') {
-						//echo '<pre>'; print_r($item); print_r($headerKeysIndex); die;
                         if (isset($item[$headerKeysIndex['CatalogGrouping']]) && isset($item[$headerKeysIndex['brandName']]) && !empty(trim($item[$headerKeysIndex['CatalogGrouping']])) && !empty(trim($item[$headerKeysIndex['brandName']]))) {
                             $catalogGrouping[$item[$headerKeysIndex['CatalogGrouping']]][$item[$headerKeysIndex['brandName']]][] = $item;
                         }
@@ -1022,7 +1021,7 @@ class DefaultController extends FrontendController
                         }
                     }
                 }
-
+				$catalogGroupData = [];
                 foreach ($catalogGrouping as $catalogKey => $brandsData) {
                     foreach ($brandsData as $brandKey => $brandArray) {
                         $uniqueId = md5($brandKey);

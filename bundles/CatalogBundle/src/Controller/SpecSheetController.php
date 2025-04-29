@@ -469,7 +469,6 @@ class SpecSheetController extends FrontendController
 		$gridIndexes = [];
 		$i = 0;
 		foreach ($pData as $key => $productItem) {
-			echo "<pre>"; print_r($productItem); die;
 			if(isset($productItem['articleNumber']) && in_array($productItem['articleNumber'], $customRecords)){
 				$gridIndexes[] = $i;
 			}
