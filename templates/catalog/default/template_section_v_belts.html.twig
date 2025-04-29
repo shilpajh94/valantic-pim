@@ -1,0 +1,581 @@
+{% if not isParentContainerRequest %}
+	{% extends "catalog/layouts/layout.html.twig" %}
+{% endif %}
+
+{% block _content %}
+
+	{# {% if editmode %}
+		{{ pimcore_relation("section_page_pts_belts", {
+            "types": ["object"],
+            "subtypes": {
+                "object": ["object"]
+            },
+            "classes": ["CatalogPTS"],
+			"reload": true
+        }) }}
+	{% endif %}
+	{% if data is not empty %}
+	 #}
+		<style>
+		body, h1, h2, h3, h4, h5, h6{
+			 /*   font-family: 'ContinentalStagSans-Book';*/
+		}
+		.cellAttributes {
+			padding: 0;
+			border-spacing: 0;
+            margin-top: 20px;
+            border: 2px solid black;
+		}
+		.section-page-pts-belts-features {
+			display: flex !important;
+			padding-top: 15px;
+			padding-left: 5px !important;
+		}
+		.section-page-pts-belts-features  .features{
+			/*width: 50%;*/
+		}
+		.section-page-pts-belts-features .features p {
+			padding-left: 0 !important;
+		}
+		{# div.features > ul {
+			margin-left: 40px;
+		} #}
+		div.features ul li {
+			display: flex;
+			align-items: flex-start; /* Vertically align the content */
+			position: relative; /* Establish a positioning context for the pseudo-element */
+			padding-left: 10px; /* Add padding to the left to make space for the > sign */
+			margin-bottom: 40px; /* Optional: space between list items */
+		}
+		.features ul li ,.section-page-pts-belts-features .full,
+		.section-page-pts-belts-features b,.section-page-pts-belts-LongDescription{
+			font-size: 12pt;
+		}
+		.section-page-pts-belts-features .full{
+			padding-bottom: 15px !important;
+			padding-left: 45px !important;
+		}
+		.features .center::before{
+
+	content: "›"; /* Add bullet arrow */
+    color: #f5a623;
+    margin-right: 13px;
+	font-weight: bolder;
+		}
+
+		.section-page-pts-belts-page header h1{
+			font-size:40.99px;
+			padding-left: 20px !important;
+		}
+		.section-page-pts-belts-LongDescription {
+			background-color: #f0f0f0;
+			padding: 10px 20px;
+			line-height: 20px;
+			letter-spacing: 0.5px;
+            width: 100%;
+		}
+		.specs h6{
+			letter-spacing: normal;
+			font-size: 12pt !important;
+		}
+
+
+		 .imageHolder.section-page-pts-belts-images,
+		.belts-Identification-and-profile-dimension-container {
+			display: flex !important;
+			height: 150px;
+			margin-left: 7px;
+		}
+
+		{# .imageHolder {
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-start;
+			padding: 20px;
+		}
+
+		.image-container {
+			position: relative;
+			width: 300px;
+		}
+ #}
+		.belt-image {
+			width: 100%;
+			height: auto;
+			display: block;
+		}
+		.belts-Identification-and-profile-dimension-container img {
+			width: 406px;
+			display: inline-block;
+			align-self: flex-end;
+		}
+		.section_page_pts_belts_Profile_Dimension_image {
+			margin-left: 10px;
+		}
+
+		header aside.feature-benefits-and-images {
+			background-color: transparent;
+			margin-bottom: 0;
+			padding-bottom:0;
+		}
+
+		table {
+			width: 420px;
+			border-collapse: collapse;
+			font-family: Arial, sans-serif;
+			padding-left: 5px;
+			}
+		th, td {
+			border: 1px solid #999;
+			padding: 4px;
+			text-align: center;
+		}
+		th {
+			background-color: #f9b000;
+		}
+		.highlight {
+			background-color: #f1f1f1;
+			font-weight: bold;
+		}
+
+		.section-page-pts-belts-page {
+			position: relative;
+		}
+		.feature-benefits-and-images .content .flex {
+			margin-top: 5px;
+			margin-bottom:20px;
+		}
+		.feature-benefits-and-images .content .flex .specs h6 {
+			padding-left: 0;
+			font-size: 18px;
+			padding-bottom: 10px;
+		}
+		.all-child-taxonomy {
+			min-width: 120%;
+			height: 30px;
+			display: flex;
+			align-items: center;
+			transform: rotate(90deg) translate(40%, 459px) !important;
+		}
+		.all-child-taxonomy p {
+			border-bottom: 1px solid;
+			border-left: 1px solid;
+			border-right: none;
+			border-top: 1px solid;
+			padding: 10px;
+			font-size: 7.76pt;
+			font-weight: bold;
+			height:0.35in;
+			width: 1.57in;
+    		text-align: center;
+		}
+		.all-child-taxonomy p:last-child {
+
+			border-right: 1px solid;
+		}
+		.all-child-taxonomy p {
+			padding: 10px;
+			letter-spacing: 1px;
+		}
+		.all-child-taxonomy .selected {
+			background-color: black;
+			color: #ffa500;
+		}
+		.section-page-pts-belts-page .segregate .content-section {
+			margin-left: 35px;
+		}
+		.section-page-pts-belts-page .footer1 footer .aligned > * {
+			text-align: left;
+			justify-content: flex-start;
+		}
+		.pageName {
+			string-set: pageName self;
+			font-size: 8pt;
+			letter-spacing: 0.05em;
+			margin-left: 10px;
+			left: 100px;
+		}
+		.footer1 {
+			min-height:0.99in;
+		}
+		.footer1 .ptslogo {
+			width: 1.85in;
+			height: 1.5in;
+			padding: auto;
+		}
+		.section_page_pts_belts_Catalog_Asset_Right_Image{
+		}
+		footer .ptslogo img {
+			width: 1.85in;
+			height: 1in;
+			object-fit: contain;
+			display: flex;
+			align-items: flex-end;
+			background-color: black;
+			overflow: hidden;
+			padding: 37px 9px 9px 9px;
+		}
+
+		.flex.aligned h5,.flex.aligned h5 span{
+			font-size: 12pt;
+		} 
+
+		.ptg{
+			padding:0px 22px !important
+		}
+
+		.section_page_pts_belts_Identification_Image{
+			border: solid 2px;
+			margin-right: 9px;
+       }
+
+		.section_page_pts_belts_Profile_Dimension_image{
+				border: solid 2px;
+		}
+		.fullcontainer{
+			margin-top: 20px;
+            background: transparent;
+		}
+		.section_page_pts_belts_table_container{
+			margin-left: 20px;
+		}
+
+		@page {
+			margin: 50px 0  120px;
+		}
+
+
+		@page:right {
+			@top-right-corner {
+				padding-right: 50px;
+				/* content: string(pageName); */
+			}
+
+			@top-left {
+				/*content: counter(page);*/
+				content: '' !important;
+				/*font-family: 'ContinentalStagSansLCG-Light';*/
+				float: left;
+				font-size: 10px;
+				margin-left: 65px;
+				z-index: 10;
+				color: #000;
+			}
+			@top-right {
+				content: string(pageName);
+				/*font-family: 'ContinentalStagSansLCG-Light';*/
+				float: right;
+				font-size: 8pt !important;
+				margin-right: 50px;
+				z-index: 10;
+				color: #000;
+			}
+		}
+
+		@page:left {
+
+			 @top-left-corner {
+				/*content: counter(page);*/
+				content: '' !important;
+				padding-left: 50px;
+			} 
+
+
+		}
+
+		@media print {
+			.belts-Identification-and-profile-dimension-container img {
+				height: 100px;
+				width: 406px !important;
+				display: inline-block;
+				align-self: flex-end;
+				margin-left: 7px;
+			}
+
+
+			.all-child-taxonomy {
+				transform: rotate(90deg) translate(38%, 380px);
+			}
+			.section-page-pts-belts-page .segregate .content-section {
+				margin-top: -50px;
+			}
+			.section-page-pts-belts-features  .features{
+			    width: 400px;
+		    }
+
+			.fullcontainer{
+			margin-bottom: 0px;
+			}
+			.flex-center {
+				margin-top: 30px;
+			}
+			.right-side-container{
+				padding-top: 0;
+
+			}
+			.content.single.ptg{
+			/*	min-height: 490px; */
+			}
+		}
+		
+		 .wrapper{
+              
+                max-width: 1160px;
+                margin: 0 auto;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                position: relative;
+                min-height: 900px;
+            }
+
+            .wrapper > *{
+                position: relative;
+            }
+            .wrapper .header{}
+            .wrapper .section{}
+
+            .wrapper .footers{}
+
+            .sideimg{
+                
+            }
+
+            .wrapper .footers{
+                display: flex;
+                align-items: flex-end;
+                padding-left: 40px;
+            }
+
+            .contents{
+                width: 70%;
+            }
+            .sideimg{
+                /*width: 30%; */
+                position: absolute;
+                bottom: 0;
+                right: 0;
+            }
+
+            .wrapper .footers img{
+                /* max-width: 100%; */
+                height: auto;
+            }
+
+            .section_page_pts_belts_Catalog_Asset_Right_Image img{
+                width: 275px;
+                padding-right: 15px;
+            }
+	</style>
+<div class="template section-page-pts-belts-page">
+	<section class="segregate">
+		<div id="pageHeader"></div>
+		<span class="pageName">
+			Synchronous Belts
+		</span>
+
+		<div class="footer ">
+			<footer class="flex-center ">
+				<span class="ptslogo">
+					<img src="/CatalogImages/PTG/Footer/6126/image-thumb__6126__catalog_thumb/Continental_Logo_Master_yellow.480f288b.png" alt="footer log">
+				</span>
+				<div class="flex aligned">
+					<h5>
+						#Synchrochain
+
+						<span>
+
+
+							#Synchronous Belts
+							#CTD
+						</span>
+					</h5>
+
+					<div class="compatible">
+						<b>
+
+						</b>
+
+
+					</div>
+				</div>
+			</footer>
+		</div>
+
+
+		<div class="footer1 ">
+			<footer class="flex-center ">
+				<span class="ptslogo">
+					<img src="/CatalogImages/PTG/Footer/6126/image-thumb__6126__catalog_thumb/Continental_Logo_Master_yellow.480f288b.png" alt="">
+				</span>
+				<div class="flex aligned">
+					<h5 style="padding-bottom:70px;">Synchrochain
+						<span>
+							Synchronous Belts
+							CTD
+						</span>
+					</h5>
+
+					<div class="compatible">
+						<b>
+
+						</b>
+
+
+
+					</div>
+				</div>
+			</footer>
+		</div>
+		<div class="all-child-taxonomy">
+			<p class="">Accessories - Misc</p>
+			<p class="">Auto Belts</p>
+			<p class="">Banded Belts</p>
+			<p class="">RP Hose</p>
+			<p class="">Specialty Belts</p>
+			<p class="selected">Synchronous Belts</p>
+			<p class="">V-Belts</p>
+		</div>
+		<div class="content-container right-side-container">
+
+
+			<div class="content-section">
+				<header class="content white">
+					<h1>
+
+						Conti® Synchrochain Carbon
+					</h1>
+					<div class="section-page-pts-belts-LongDescription">
+						Conti® Synchrochain Carbon combines high-tensile polyurethane with carbon cords for superior performance. It delivers 5x more power than conventional rubber timing belts, reduces belt width by 80%, and offersextreme wear resistance, zero tension loss, and up to 100% longer life for virtually maintenance-free reliability.
+					</div>
+					<aside
+						class="feature-benefits-and-images">
+						<section class="content single ptg">
+							<menu
+								class="flex">
+								<div class="specs">
+									<h6>KEY FEATURES AND BENEFITS</h6>
+									<div class="section-page-pts-belts-features ">
+										<div class="features">
+											<ul>
+												<li class="center">
+													Pin Pricked, Allowing Release Of Gasses Or Vapors Which May Permeate Tube Of The Hose
+												</li>
+												<li class="center">
+													Fire resistant cover provides minimum 2-1/2 minute fire resistivity for USCG type A service
+												</li>
+												<li class="center">
+													Meets EPA requirements for low permeation Class A1-15 marine fuel lines
+												</li>
+												<li class="center">
+													Non Conductive - Minimum Electric Resistance Greater Than 1 Megohm Per Inch At 1000 Volts Dc
+												</li>
+											</ul>
+										</div>
+										<div>
+											<div class="full">
+												<b>Material:</b>
+												HNBR
+											</div>
+											<div class="full">
+												<b>Reinforcement:</b>
+												Aramid
+											</div>
+											<div class="full">
+												<b>Temperature Range:</b>
+												-50&deg;F to +200&deg;F
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</menu>
+						</section>
+
+						<div class="imageHolder section-page-pts-belts-images">
+							<div class="left-image-and-table">
+								<div class="belts-Identification-and-profile-dimension-container">
+									<img src="/_default_upload_bucket/40705/image-thumb__40705__catalog_thumb/Screenshot.6ac0a112.png" alt="" />
+								</div>
+							</div>
+							<div class="section_page_pts_belts_Catalog_Asset_Right_Image">
+								<img id="section_page_pts_belts_Catalog_Asset_Image" src="/Product%20Assets/PTG/PTP/Synchronous%20Belts/CTD/Synchrochain%20Carbon/11850/image-thumb__11850__catalog_thumb/Synchrochain_Carbon_old.07694ff1.png" alt="section_page_pts_belts_Catalog_Asset_Right_Image" />
+								<div class="section_page_pts_belts_Catalog_Asset_Right_Image_bottom"></div> 
+							</div>
+
+							
+						</div>
+						<article class="fullcontainer">
+							<section class="section_page_pts_belts_table_container">
+								<table>
+								<tr>
+									<th colspan="4">Belt Identification</th>
+								</tr>
+								<tr>
+									<td class="highlight">Singles</td>
+									<td>5V750</td>
+									<td class="highlight">Banded</td>
+									<td>4/5V750</td>
+								</tr>
+								<tr>
+									<td class="highlight">Cross Section</td>
+									<td>5V</td>
+									<td class="highlight"># Ribs</td>
+									<td>4</td>
+								</tr>
+								<tr>
+									<td class="highlight">Length (in)</td>
+									<td>750</td>
+									<td class="highlight">Cross Section</td>
+									<td>5V</td>
+								</tr>
+								<tr>
+									<th colspan="2" >Available Length Range</th>
+									<th colspan="2" >Available Length Range</th>
+								</tr>
+								<tr>
+									<td>3V</td>
+									<td>25-140 (in)</td>
+									<td>3V</td>
+									<td>40-160 (in)</td>
+								</tr>
+								<tr>
+									<td>5V</td>
+									<td>50-355 (in)</td>
+									<td>5V</td>
+									<td>63-375 (in)</td>
+								</tr>
+								<tr>
+									<td>8V</td>
+									<td>100-600 (in)</td>
+									<td>8V</td>
+									<td>110-635 (in)</td>
+								</tr>
+								</table>
+							</section>
+						</article>
+					</aside>
+				</header>
+			</div>
+		</div>
+
+	</section>
+</div>		<script>
+		function getOffset( el ) {
+				var _x = 0;
+				var _y = 0;
+				while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
+					_x += el.offsetLeft - el.scrollLeft;
+					_y += el.offsetTop - el.scrollTop;
+					el = el.offsetParent;
+				}
+				return { top: _y, left: _x };
+		}
+		document.querySelector('.section_page_pts_belts_Catalog_Asset_Right_Image').style.top=getOffset( document.querySelector('.cellAttributes') ).top-335+"px";
+		</script>
+		{% if not isParentContainerRequest %}
+			<script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
+		{% endif %}
+	{# {% endif %} #}
+{% endblock %}
