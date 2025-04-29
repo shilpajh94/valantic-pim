@@ -3,11 +3,13 @@
 namespace App\Controller\UniProductManagement;
 
 use App\Service\UniProductManagement\UniProductExternalHierarchyService;
+use Elastic\Elasticsearch\Exception\ClientResponseException;
+use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Pimcore\Model\DataObject\UniProductCategoryExternal;
+use Symfony\Bridge\Twig\Attribute\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -28,10 +30,18 @@ class OutputChannelController extends AbstractController
         return $this->json($this->externalHierarchyService->getProductsForExternalCategory($category));
     }
 
+    /**
+     * @return array<string, mixed>
+     *
+     * @throws ClientResponseException
+     * @throws ServerResponseException
+     * @throws \JsonException
+     */
     #[Route('/products-iframe/{objectId}', name: 'uni_product_management_output_channel_products_iframe', methods: ['GET'])]
-    public function productsIframe(Request $request, ?int $objectId = null): Response
+    #[Template('uni/product_management/output_channel/products.html.twig')]
+    public function productsIframe(Request $request, ?int $objectId = null): array
     {
-        $context = json_decode($request->query->getString('context'), true);
+        $context = json_decode($request->query->getString('context'), true, 512, JSON_THROW_ON_ERROR);
         $objectId ??= $context['objectId'] ?? null;
 
         if ($objectId === null) {
@@ -46,11 +56,9 @@ class OutputChannelController extends AbstractController
 
         $result = $this->externalHierarchyService->getProductsForExternalCategory($category);
 
-        $data = [
+        return [
             'products' => $result,
             'language' => 'en', // TODO
         ];
-
-        return $this->render('uni/product_management/output_channel/products.html.twig', $data);
     }
 }

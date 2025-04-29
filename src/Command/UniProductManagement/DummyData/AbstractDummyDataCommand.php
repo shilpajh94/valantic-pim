@@ -11,6 +11,7 @@ abstract class AbstractDummyDataCommand extends Command
     protected const MAIN_IMAGE_PATH = '/UniProductManagement/Continental_20025641.jpg';
     protected const REGION_PATH = '/Unified PIM/Master Data/Regions';
 
+    /** @var array<string, float> */
     protected array $timer = [];
     protected float $timeStart;
 
