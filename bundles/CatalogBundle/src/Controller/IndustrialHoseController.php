@@ -44,12 +44,14 @@ class IndustrialHoseController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{
-            $documentPath = $this->document->getFullPath();
-            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-            $parameterBag = $this->getRequestedParameter($request, $documentId);
-        }
-        try {
+        else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->getRequestedParameter($request, $documentId); 
+            } 
+        }        try {
             $folderId = $this->document->getParent()->getId();
             $listing = new \Pimcore\Model\Document\Listing();
             $listing->setCondition("parentId = $folderId");
@@ -175,12 +177,14 @@ class IndustrialHoseController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{
-            $documentPath = $this->document->getFullPath();
-            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-            $parameterBag = $this->getRequestedParameter($request, $documentId);
-        }
-        try {
+        else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->getRequestedParameter($request, $documentId); 
+            } 
+        }        try {
             $folderId = $this->document->getParent()->getId();
             $listing = new \Pimcore\Model\Document\Listing();
             $listing->setCondition("parentId = $folderId");
@@ -303,12 +307,14 @@ class IndustrialHoseController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{
-            $documentPath = $this->document->getFullPath();
-            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->getRequestedParameter($request, $documentId); 
+            } 
         }
-
         try {
             $folderId = $this->document->getParent()->getId();
             $listing = new \Pimcore\Model\Document\Listing();
@@ -407,12 +413,14 @@ class IndustrialHoseController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{
-            $documentPath = $this->document->getFullPath();
-            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->getRequestedParameter($request, $documentId); 
+            } 
         }
-
         $templateEditable = $this->document->getEditable('inh-printcatalog');
 
         if ($templateEditable && $templateEditable->getElement() != null) {
@@ -548,12 +556,14 @@ class IndustrialHoseController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{
-            $documentPath = $this->document->getFullPath();
-            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-            $parameterBag = $this->getRequestedParameter($request, $documentId);
-        }
-        $tableClass = \AppBundle\Helper\Common::cleanString( $this->document->getKey());
+        else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->getRequestedParameter($request, $documentId); 
+            } 
+        }        $tableClass = \AppBundle\Helper\Common::cleanString( $this->document->getKey());
         $templateEditable = $this->document->getEditable('inh-printcatalogproduct');
 
         if ($templateEditable && $templateEditable->getElement() != null) {
@@ -921,12 +931,14 @@ class IndustrialHoseController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{
-            $documentPath = $this->document->getFullPath();
-            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->getRequestedParameter($request, $documentId); 
+            } 
         }
-
         $templateEditable = $this->document->getEditable('inh_fitting_page');
         if ($templateEditable && $templateEditable->getElement() != null) {
             $template = $templateEditable->getElement();
@@ -1117,12 +1129,14 @@ class IndustrialHoseController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{
-            $documentPath = $this->document->getFullPath();
-            $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
-            $parameterBag = $this->getRequestedParameter($request, $documentId);
+        else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->getRequestedParameter($request, $documentId); 
+            } 
         }
-
         if ($templatesEditable && $templatesEditable->getElements() != null) {
             $templates = $templatesEditable->getElements();
             $commonHelper = $this->containerInterface->get('app.common_helper');
