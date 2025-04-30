@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace App\Elasticsearch\Index\UniProductManagement;
 
-use App\Model\DataObject\AbstractUniProductBase;
 use App\Model\DataObject\UniProductManagement\Objectbrick\AbstractUniPrBrand;
 use App\Model\DataObject\UniProductManagement\Objectbrick\AbstractUniPrSkeleton;
 use Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields;
 use Pimcore\Model\DataObject\Objectbrick\Data\AbstractData;
-use Pimcore\Model\DataObject\ProductCategory;
 use Pimcore\Model\DataObject\UniProductBase;
 use Pimcore\Model\DataObject\UniProductCategoryInternal;
 use Pimcore\Model\Element\AbstractElement;
@@ -19,11 +17,11 @@ use Valantic\ElasticaBridgeBundle\Document\DocumentInterface;
 use Valantic\ElasticaBridgeBundle\Enum\DocumentType;
 
 /**
- * @extends AbstractDocument<AbstractUniProductBase>
+ * @extends AbstractDocument<UniProductBase>
  */
 class UniBaseProductIndexDocument extends AbstractDocument
 {
-    /** @use DataObjectNormalizerTrait<ProductCategory> */
+    /** @use DataObjectNormalizerTrait<UniProductBase> */
     use DataObjectNormalizerTrait;
 
     private const SKELETON_PREFIX = 'skeleton_';
@@ -58,9 +56,14 @@ class UniBaseProductIndexDocument extends AbstractDocument
         return $element->isPublished();
     }
 
-    private function getNormalizedFinishedGood(AbstractUniProductBase $element): array
+    /**
+     * @return array<string,mixed>
+     *
+     * @throws \Exception
+     */
+    private function getNormalizedFinishedGood(UniProductBase $element): array
     {
-        $result = [
+        $result = [[
             // TODO: Add more fields. Make dynamic as well? Probably not for base model
             ...$this->plainAttributes($element, [
                 UniBaseProductIndex::ATTRIBUTE_PRODUCT_BRAND_NAME => UniProductBase::FIELD_PRODUCT_BRAND_NAME,
@@ -74,19 +77,17 @@ class UniBaseProductIndexDocument extends AbstractDocument
             ...$this->relationAttributes($element, [
                 UniBaseProductIndex::ATTRIBUTE_REGIONAL_AVAILABILITY => UniProductBase::FIELD_REGIONAL_AVAILABILITY,
             ]),
-        ];
+        ]];
 
-        foreach ($element->getTechnicalProductGroupSpecific()->getItems() as $objectBrick) {
-            $result = array_merge($result, $this->getNormalizedObjectbrick($objectBrick, self::PRODUCT_GROUP_SPECIFIC_TECHNICAL_PREFIX));
+        foreach ($element->getTechnicalProductGroupSpecific()?->getItems() ?? [] as $objectBrick) {
+            $result[] = $this->getNormalizedObjectbrick($objectBrick, self::PRODUCT_GROUP_SPECIFIC_TECHNICAL_PREFIX);
         }
 
-        return $result;
+        return array_merge(...$result);
     }
 
-    /**
-     * @return array<string, mixed>
-     */
-    private function getNormalizedHierarchy(AbstractUniProductBase $element): array
+    /** @return array<string, mixed> */
+    private function getNormalizedHierarchy(UniProductBase $element): array
     {
         return [
             UniBaseProductIndex::ATTRIBUTE_INTERNAL_HIERARCHY => $this->getInternalHierarchy($element->getParent()),
@@ -96,21 +97,29 @@ class UniBaseProductIndexDocument extends AbstractDocument
     }
 
     /**
+     * @template TObjectbrickClassname
+     *
+     * @param class-string<TObjectbrickClassname> $class
+     *
      * @return array<string, mixed>
      */
-    private function getNormalizedParent(AbstractUniProductBase $element, string $class, string $prefix): array
+    private function getNormalizedParent(UniProductBase $element, string $class, string $prefix): array
     {
         $result = [];
 
         // Hint: This loop overwrites data when multiple object bricks use the same key.
+        /** @var TObjectbrickClassname $objectbrick */
         foreach ($element->resolveObjectbricksInHierarchy($class) as $objectbrick) {
-            $result = array_merge($result, $this->getNormalizedObjectbrick($objectbrick, $prefix));
+            $result[] = $this->getNormalizedObjectbrick($objectbrick, $prefix);
         }
 
-        return $result;
+        return array_merge(...$result);
     }
 
     /**
+     * @param array<string, mixed> $result
+     * @param array<string, mixed> $data
+     *
      * @return array<string, mixed>
      */
     private function mergeNormalized(array $result, array $data): array
@@ -130,6 +139,11 @@ class UniBaseProductIndexDocument extends AbstractDocument
         return $result;
     }
 
+    /**
+     * @param array<int> $carry
+     *
+     * @return array<int>
+     */
     private function getInternalHierarchy(?AbstractElement $parent, array $carry = []): array
     {
         if (!$parent instanceof UniProductCategoryInternal) {
@@ -142,9 +156,7 @@ class UniBaseProductIndexDocument extends AbstractDocument
         return $next instanceof UniProductCategoryInternal ? $this->getInternalHierarchy($next, $carry) : $carry;
     }
 
-    /**
-     * @return array<string, mixed>
-     */
+    /** @return array<string, mixed> */
     private function getNormalizedObjectbrick(AbstractData $objectBrick, string $prefix): array
     {
         $result = [];

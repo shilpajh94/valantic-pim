@@ -21,7 +21,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'External Category',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1744191770,
+   'modificationDate' => 1744817540,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
