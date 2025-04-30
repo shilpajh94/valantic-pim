@@ -778,7 +778,7 @@ class DefaultController extends FrontendController
                     if (!isset($data[$baseId])) {
                         $data[$baseId] = array();
                         $fertId[$baseId] = $row['id'];
-                        $images[$baseId] = $row['mainImage'];
+                        $images[$baseId] = $row['altImage7'];
                     }
 
                     if (isset($data[$baseId]) && empty($data[$baseId])) {
@@ -789,7 +789,7 @@ class DefaultController extends FrontendController
                         $data[$baseId]['BrandShortText'][2] = isset($data[$baseId]['BrandShortText3'][2]) && !empty($data[$baseId]['BrandShortText3'][2]) ? $data[$baseId]['BrandShortText3'][2] : $row['BrandShortText3'];
                         $data[$baseId]['BrandShortText'][3] = isset($data[$baseId]['BrandShortText4'][3]) && !empty($data[$baseId]['BrandShortText4'][3]) ? $data[$baseId]['BrandShortText4'][3] : $row['BrandShortText4'];
                         $data[$baseId]['BrandShortText'][4] = isset($data[$baseId]['BrandShortText5'][4]) && !empty($data[$baseId]['BrandShortText5'][4]) ? $data[$baseId]['BrandShortText5'][4] : $row['BrandShortText5'];
-                        $data[$baseId]['mainImage'] = isset($row['mainImage']) && !empty($row['mainImage']) ? Asset::getByPath($row['mainImage']) : null;
+                        $data[$baseId]['altImage7'] = isset($row['altImage7']) && !empty($row['altImage7']) ? Asset::getByPath($row['altImage7']) : null;
                         if(is_array($data[$baseId]['brandName'])){
                             if(array_key_exists($data[$baseId]['brandName'][0],$brandsList) && !empty($brandsList[$data[$baseId]['brandName'][0]])){
                                 $data[$baseId]['SortOrder'] = $brandsList[$data[$baseId]['brandName'][0]];
