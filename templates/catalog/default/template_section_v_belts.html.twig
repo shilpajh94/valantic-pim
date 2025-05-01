@@ -4,7 +4,7 @@
 
 {% block _content %}
 
-	{# {% if editmode %}
+	{#{% if editmode %}
 		{{ pimcore_relation("section_page_pts_belts", {
             "types": ["object"],
             "subtypes": {
@@ -14,8 +14,8 @@
 			"reload": true
         }) }}
 	{% endif %}
-	{% if data is not empty %}
-	 #}
+	{% if data is not empty %}#}
+	
 		<style>
 		body, h1, h2, h3, h4, h5, h6{
 			 /*   font-family: 'ContinentalStagSans-Book';*/
@@ -56,6 +56,16 @@
 			padding-left: 45px !important;
 		}
 		.features .center::before{
+		/*	color: transparent; 
+			content: ">";
+			margin-right: 10px;
+			padding: 0 10px 10px;
+			width: 10px;
+			height: 10px;
+			color: #ffa500;
+			position: absolute; /* Position it absolutely inside the li */
+	/*		left: 0; /* Align to the left edge of the li */
+	/*		top: 0; /* Align the > sign to the top */  
 
 	content: "›"; /* Add bullet arrow */
     color: #f5a623;
@@ -80,37 +90,44 @@
 		}
 
 
-		 .imageHolder.section-page-pts-belts-images,
+		.imageHolder.section-page-pts-belts-images,
 		.belts-Identification-and-profile-dimension-container {
 			display: flex !important;
+			height: 100%;
 			height: 150px;
-			margin-left: 7px;
+			margin-bottom: 6px;
 		}
+		.belts-Identification-and-profile-dimension-container {
+			width: 70%;
+		}
+		.belts-Identification-and-profile-dimension-container,
+		.section_page_pts_belts_table_container {
 
-		{# .imageHolder {
-			display: flex;
-			justify-content: space-between;
-			align-items: flex-start;
-			padding: 20px;
-		}
-
-		.image-container {
-			position: relative;
-			width: 300px;
-		}
- #}
-		.belt-image {
-			width: 100%;
-			height: auto;
-			display: block;
+			margin-left: 0px;
 		}
 		.belts-Identification-and-profile-dimension-container img {
-			width: 406px;
+			height: 100px;
+			width: 300px;
 			display: inline-block;
 			align-self: flex-end;
 		}
 		.section_page_pts_belts_Profile_Dimension_image {
 			margin-left: 10px;
+		}
+		.belts-Identification-and-profile-dimension-container img , .section_page_pts_belts_Profile_Dimension_image {
+			width:500px;
+			height:84px;
+			min-width: 500px;
+    		min-height: 84px;
+    		object-fit: contain;
+		}
+
+		.belts-Identification-and-profile-dimension-container table {
+			margin-top: 10px;
+			width:420px !important;
+			min-width: 420px !important;
+			height:110px;
+			min-height:110px;
 		}
 
 		header aside.feature-benefits-and-images {
@@ -118,7 +135,6 @@
 			margin-bottom: 0;
 			padding-bottom:0;
 		}
-
 		table {
 			width: 420px;
 			border-collapse: collapse;
@@ -137,6 +153,36 @@
 			background-color: #f1f1f1;
 			font-weight: bold;
 		}
+		thead .section-page-pts-belts-table-head {
+			background-color: orange;
+		}
+		.section-page-pts-belts-table-body tr td {
+			border: none;
+			padding: 5px;
+			text-align: center;
+		}
+		.section-page-pts-belts-table-head th {
+			padding: 5px;
+			word-break: break-word;
+			font-size: 12px;
+			text-align: center;
+			font-weight: 10;
+			word-wrap: break-all;
+			text-wrap: normal;
+			white-space: normal;
+			border-bottom: 1px solid #737373;
+			height: 30px;
+		}
+		.section-page-pts-belts-table-head th{
+			height:0.25in;
+		}
+		.content-section table {
+			border: 2px solid black;
+			/*width: 70%;*/
+			min-width: 5.49in;
+			width: 5.49in;
+			padding-bottom: 10px;
+		}
 
 		.section-page-pts-belts-page {
 			position: relative;
@@ -150,11 +196,26 @@
 			font-size: 18px;
 			padding-bottom: 10px;
 		}
+		/* .section_page_pts_belts_Catalog_Asset_Right_Image {
+			position: absolute;
+			width: 2.75in !important;
+    		height: 4.4in;
+			max-height: auto;
+			top: 380px;
+			right: 30px;
+		}
+		#section_page_pts_belts_Catalog_Asset_Image {
+			min-height: 100%;
+			min-width: 100%;
+			width: 3.75in;
+    		height: 4.4in;
+		} */
 		.all-child-taxonomy {
 			min-width: 120%;
 			height: 30px;
 			display: flex;
 			align-items: center;
+			/* justify-content: space-around; */
 			transform: rotate(90deg) translate(40%, 459px) !important;
 		}
 		.all-child-taxonomy p {
@@ -165,6 +226,9 @@
 			padding: 10px;
 			font-size: 7.76pt;
 			font-weight: bold;
+			/*width: 120px;*/
+			/*width:0.35in;
+			height: 1.23in;*/
 			height:0.35in;
 			width: 1.57in;
     		text-align: center;
@@ -189,8 +253,10 @@
 			justify-content: flex-start;
 		}
 		.pageName {
+			/* string-set: pageName content(); */
 			string-set: pageName self;
 			font-size: 8pt;
+			/* font-family: 'ContinentalStagSansLCG-Book'; */
 			letter-spacing: 0.05em;
 			margin-left: 10px;
 			left: 100px;
@@ -204,6 +270,8 @@
 			padding: auto;
 		}
 		.section_page_pts_belts_Catalog_Asset_Right_Image{
+		    top: 140px !important;
+			position:relative;
 		}
 		footer .ptslogo img {
 			width: 1.85in;
@@ -234,10 +302,11 @@
 		}
 		.fullcontainer{
 			margin-top: 20px;
+			/*top: 20px;*/
+            /*position: relative;*/
+            /*width: auto;*/
             background: transparent;
-		}
-		.section_page_pts_belts_table_container{
-			margin-left: 20px;
+            /*margin-bottom:-20px;*/
 		}
 
 		@page {
@@ -285,11 +354,10 @@
 
 		@media print {
 			.belts-Identification-and-profile-dimension-container img {
-				height: 100px;
-				width: 406px !important;
+				height: 50px;
+				width: 100px !important;
 				display: inline-block;
 				align-self: flex-end;
-				margin-left: 7px;
 			}
 
 
@@ -300,7 +368,7 @@
 				margin-top: -50px;
 			}
 			.section-page-pts-belts-features  .features{
-			    width: 400px;
+			    width: 450px;
 		    }
 
 			.fullcontainer{
@@ -345,7 +413,7 @@
             .wrapper .footers{
                 display: flex;
                 align-items: flex-end;
-                padding-left: 40px;
+                padding-left: 22px;
             }
 
             .contents{
@@ -365,203 +433,198 @@
 
             .section_page_pts_belts_Catalog_Asset_Right_Image img{
                 width: 275px;
-                padding-right: 15px;
             }
 	</style>
-<div class="template section-page-pts-belts-page">
-	<section class="segregate">
-		<div id="pageHeader"></div>
-		<span class="pageName">
-			Synchronous Belts
-		</span>
-
-		<div class="footer ">
-			<footer class="flex-center ">
-				<span class="ptslogo">
-					<img src="/CatalogImages/PTG/Footer/6126/image-thumb__6126__catalog_thumb/Continental_Logo_Master_yellow.480f288b.png" alt="footer log">
+		<div class="template section-page-pts-belts-page">
+			<section class="segregate">
+				<div id="pageHeader"></div>
+				<span class="pageName">
+					PTS V Belt
 				</span>
-				<div class="flex aligned">
-					<h5>
-						#Synchrochain
 
-						<span>
-
-
-							#Synchronous Belts
-							#CTD
+				<div class="footer ">
+					<footer class="flex-center">
+						<span class="ptslogo">
+							<img src="/CatalogImages/PTG/Footer/6126/image-thumb__6126__catalog_thumb/Continental_Logo_Master_yellow.480f288b.png" alt="footer log">
 						</span>
-					</h5>
+						<div class="flex aligned">
+							
+							<h5>
+								#Synchrochain
 
-					<div class="compatible">
-						<b>
-
-						</b>
+								<span>
 
 
-					</div>
+									#Synchronous Belts
+									#CTD
+								</span>
+							</h5>
+
+							<div class="compatible">
+								<b>
+									
+								</b>
+
+							</div>
+						</div>
+					</footer>
 				</div>
-			</footer>
-		</div>
 
-
-		<div class="footer1 ">
-			<footer class="flex-center ">
-				<span class="ptslogo">
-					<img src="/CatalogImages/PTG/Footer/6126/image-thumb__6126__catalog_thumb/Continental_Logo_Master_yellow.480f288b.png" alt="">
-				</span>
-				<div class="flex aligned">
-					<h5 style="padding-bottom:70px;">Synchrochain
-						<span>
-							Synchronous Belts
-							CTD
+				<div class="footer1 ">
+					<footer class="flex-center ">
+						<span class="ptslogo">
+							<img src="/CatalogImages/PTG/Footer/6126/image-thumb__6126__catalog_thumb/Continental_Logo_Master_yellow.480f288b.png" alt="">
 						</span>
-					</h5>
+						<div class="flex aligned">
+							<h5 style="padding-bottom:70px;">
+								<span>
+								</span>
+							</h5>
 
-					<div class="compatible">
-						<b>
+							<div class="compatible">
+								<b>
+									
+								</b>
 
-						</b>
-
-
-
-					</div>
+							</div>
+						</div>
+					</footer>
 				</div>
-			</footer>
-		</div>
-		<div class="all-child-taxonomy">
-			<p class="">Accessories - Misc</p>
-			<p class="">Auto Belts</p>
-			<p class="">Banded Belts</p>
-			<p class="">RP Hose</p>
-			<p class="">Specialty Belts</p>
-			<p class="selected">Synchronous Belts</p>
-			<p class="">V-Belts</p>
-		</div>
-		<div class="content-container right-side-container">
+				<div class="all-child-taxonomy">
+					<p class="">Accessories - Misc</p>
+					<p class="">Auto Belts</p>
+					<p class="">Banded Belts</p>
+					<p class="">RP Hose</p>
+					<p class="">Specialty Belts</p>
+					<p class="selected">Synchronous Belts</p>
+					<p class="">V-Belts</p>
+				</div>
 
-
-			<div class="content-section">
-				<header class="content white">
-					<h1>
-
-						Conti® Synchrochain Carbon
-					</h1>
-					<div class="section-page-pts-belts-LongDescription">
-						Conti® Synchrochain Carbon combines high-tensile polyurethane with carbon cords for superior performance. It delivers 5x more power than conventional rubber timing belts, reduces belt width by 80%, and offersextreme wear resistance, zero tension loss, and up to 100% longer life for virtually maintenance-free reliability.
-					</div>
-					<aside
-						class="feature-benefits-and-images">
-						<section class="content single ptg">
-							<menu
-								class="flex">
-								<div class="specs">
-									<h6>KEY FEATURES AND BENEFITS</h6>
-									<div class="section-page-pts-belts-features ">
-										<div class="features">
-											<ul>
-												<li class="center">
-													Pin Pricked, Allowing Release Of Gasses Or Vapors Which May Permeate Tube Of The Hose
-												</li>
-												<li class="center">
-													Fire resistant cover provides minimum 2-1/2 minute fire resistivity for USCG type A service
-												</li>
-												<li class="center">
-													Meets EPA requirements for low permeation Class A1-15 marine fuel lines
-												</li>
-												<li class="center">
-													Non Conductive - Minimum Electric Resistance Greater Than 1 Megohm Per Inch At 1000 Volts Dc
-												</li>
-											</ul>
-										</div>
-										<div>
-											<div class="full">
-												<b>Material:</b>
-												HNBR
+				<div class="content-container right-side-container">
+					<div class="wrapper">
+						<div class="wrapperContainer content-section">
+							<header class="content white">
+								<h1>
+									Conti® V - Classical Profile
+								</h1>
+								<div class="section-page-pts-belts-LongDescription">
+									Conti® Synchrochain Carbon combines high-tensile polyurethane with carbon cords for superior performance. It delivers 5x more power than conventional rubber timing belts, reduces belt width by 80%, and offersextreme wear resistance, zero tension loss, and up to 100% longer life for virtually maintenance-free reliability.
+								</div>
+							</header>
+									
+							<div class="section feature-benefits-and-images">
+								<section class="content single ptg">
+								<menu class="flex">
+									<div class="specs">
+										<h6>KEY FEATURES AND BENEFITS</h6>
+										<div class="section-page-pts-belts-features ">
+											<div class="features">
+												<ul>
+													<li class="center">
+														Pin Pricked, Allowing Release Of Gasses Or Vapors Which May Permeate Tube Of The Hose
+													</li>
+													<li class="center">
+														Fire resistant cover provides minimum 2-1/2 minute fire resistivity for USCG type A service
+													</li>
+													<li class="center">
+														Meets EPA requirements for low permeation Class A1-15 marine fuel lines
+													</li>
+													<li class="center">
+														Non Conductive - Minimum Electric Resistance Greater Than 1 Megohm Per Inch At 1000 Volts Dc
+													</li>
+												</ul>
 											</div>
-											<div class="full">
-												<b>Reinforcement:</b>
-												Aramid
-											</div>
-											<div class="full">
-												<b>Temperature Range:</b>
-												-50&deg;F to +200&deg;F
+											<div>
+												<div class="full">
+													<b>Material:</b>
+													HNBR
+												</div>
+												<div class="full">
+													<b>Reinforcement:</b>
+													Aramid
+												</div>
+												<div class="full">
+													<b>Temperature Range:</b>
+													-50&deg;F to +200&deg;F
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-
-							</menu>
-						</section>
-
-						<div class="imageHolder section-page-pts-belts-images">
-							<div class="left-image-and-table">
-								<div class="belts-Identification-and-profile-dimension-container">
-									<img src="/_default_upload_bucket/40705/image-thumb__40705__catalog_thumb/Screenshot.6ac0a112.png" alt="" />
-								</div>
+								</menu>
+								</section>
 							</div>
-							<div class="section_page_pts_belts_Catalog_Asset_Right_Image">
-								<img id="section_page_pts_belts_Catalog_Asset_Image" src="/Product%20Assets/PTG/PTP/Synchronous%20Belts/CTD/Synchrochain%20Carbon/11850/image-thumb__11850__catalog_thumb/Synchrochain_Carbon_old.07694ff1.png" alt="section_page_pts_belts_Catalog_Asset_Right_Image" />
-								<div class="section_page_pts_belts_Catalog_Asset_Right_Image_bottom"></div> 
-							</div>
-
 							
-						</div>
-						<article class="fullcontainer">
-							<section class="section_page_pts_belts_table_container">
-								<table>
-								<tr>
-									<th colspan="4">Belt Identification</th>
-								</tr>
-								<tr>
-									<td class="highlight">Singles</td>
-									<td>5V750</td>
-									<td class="highlight">Banded</td>
-									<td>4/5V750</td>
-								</tr>
-								<tr>
-									<td class="highlight">Cross Section</td>
-									<td>5V</td>
-									<td class="highlight"># Ribs</td>
-									<td>4</td>
-								</tr>
-								<tr>
-									<td class="highlight">Length (in)</td>
-									<td>750</td>
-									<td class="highlight">Cross Section</td>
-									<td>5V</td>
-								</tr>
-								<tr>
-									<th colspan="2" >Available Length Range</th>
-									<th colspan="2" >Available Length Range</th>
-								</tr>
-								<tr>
-									<td>3V</td>
-									<td>25-140 (in)</td>
-									<td>3V</td>
-									<td>40-160 (in)</td>
-								</tr>
-								<tr>
-									<td>5V</td>
-									<td>50-355 (in)</td>
-									<td>5V</td>
-									<td>63-375 (in)</td>
-								</tr>
-								<tr>
-									<td>8V</td>
-									<td>100-600 (in)</td>
-									<td>8V</td>
-									<td>110-635 (in)</td>
-								</tr>
-								</table>
-							</section>
-						</article>
-					</aside>
-				</header>
-			</div>
-		</div>
+							<div class="footers">
+								<div class="contents">
+									<div class="imageHolder section-page-pts-belts-images">
+										<div class="left-image-and-table">
 
-	</section>
-</div>		<script>
+											<div class="belts-Identification-and-profile-dimension-container">
+												<img src="https://dnc8pccxs8g3.cloudfront.net/assets/vbelt.PNG" alt="" />
+											</div>
+										</div>
+									</div> 
+									<div class="belts-Identification-and-profile-dimension-container">
+										<table>
+											<tr>
+												<th colspan="4">Belt Identification</th>
+											</tr>
+											<tr>
+												<td class="highlight">Singles</td>
+												<td>5V750</td>
+												<td class="highlight">Banded</td>
+												<td>4/5V750</td>
+											</tr>
+											<tr>
+												<td class="highlight">Cross Section</td>
+												<td>5V</td>
+												<td class="highlight"># Ribs</td>
+												<td>4</td>
+											</tr>
+											<tr>
+												<td class="highlight">Length (in)</td>
+												<td>750</td>
+												<td class="highlight">Cross Section</td>
+												<td>5V</td>
+											</tr>
+											<tr>
+												<th colspan="2" >Available Length Range</th>
+												<th colspan="2" >Available Length Range</th>
+											</tr>
+											<tr>
+												<td>3V</td>
+												<td>25-140 (in)</td>
+												<td>3V</td>
+												<td>40-160 (in)</td>
+											</tr>
+											<tr>
+												<td>5V</td>
+												<td>50-355 (in)</td>
+												<td>5V</td>
+												<td>63-375 (in)</td>
+											</tr>
+											<tr>
+												<td>8V</td>
+												<td>100-600 (in)</td>
+												<td>8V</td>
+												<td>110-635 (in)</td>
+											</tr>
+
+										</table>
+									</div>
+								</div>
+								<div class="sideimg">
+									<div class="section_page_pts_belts_Catalog_Asset_Right_Image">
+										<img id="section_page_pts_belts_Catalog_Asset_Image" src="/Product%20Assets/PTG/PTP/Synchronous%20Belts/CTD/Synchrochain%20Carbon/11850/image-thumb__11850__catalog_thumb/Synchrochain_Carbon_old.07694ff1.png" alt="section_page_pts_belts_Catalog_Asset_Right_Image" />
+									</div>
+								</div>
+							</div>
+						</div>
+				</div>
+
+			</section>
+		</div>
+		<script>
 		function getOffset( el ) {
 				var _x = 0;
 				var _y = 0;
@@ -577,5 +640,5 @@
 		{% if not isParentContainerRequest %}
 			<script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
 		{% endif %}
-	{# {% endif %} #}
+	{#{% endif %}#}
 {% endblock %}
