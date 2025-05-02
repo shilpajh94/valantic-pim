@@ -10,19 +10,22 @@ imports:
     - { resource: ifs_eu_product_enrichment_workflow.yaml }
 
 pimcore:
-    documents: 
-        auto_save_interval: 0 # saving interval in seconds, default 60s, set to 0 to disable it
-    
-    objects: 
+    assets:
+        document:
+            scan_pdf: false #disable scanning PDF documents for unsafe JavaScript.
+    documents:
         auto_save_interval: 0 # saving interval in seconds, default 60s, set to 0 to disable it
 
-    # email:
-    #     sender:
-    #         name: 'Pimcore 11'
-    #         email: pim@continental.com
-    #     return:
-    #         name: ''
-    #         email: ''
+    objects:
+        auto_save_interval: 0 # saving interval in seconds, default 60s, set to 0 to disable it
+
+    email:
+        sender:
+            name: '%env(EMAIL_SENDER_NAME)%'
+            email: '%env(EMAIL_SENDER_ID)%'
+        return:
+            name: ''
+            email: ''
     # IMPORTANT Notice!
     # Following there are only some examples listed, for a full list of possible options, please run the following command:
     # ./bin/console debug:config pimcore
@@ -76,7 +79,6 @@ pimcore:
 #            data:
 #                map:
 #                  myDataType: \AppBundle\Model\DataObject\Data\MyDataType
-
 #### ASSET CUSTOM SETTINGS
 #    assets:
 #        versions:
@@ -90,15 +92,23 @@ pimcore:
 
 #### SYMFONY OVERRIDES
 framework:
-    profiler:  
+    profiler:
         enabled: false
-    # mailer:
-    #     transports:
-    #         main: smtp://smtphubeu.contiwan.com:2525?verify_peer=0
-    #         pimcore_newsletter: smtp://smtphubeu.contiwan.com:2525?verify_peer=0
+    mailer:
+        transports:
+            main: '%env(SMTP_MAIL_CONFIG)%'
+            pimcore_newsletter: '%env(SMTP_PIMCORE_NEWSLETTER)%'
 
 
 #### USE SESSION HANDLER CONFIGURED IN php.ini
 #    session:
 #        handler_id: null
+    cache:
+        pools:
+            pimcore.cache.pool:
+                public: true
+                default_lifetime: 31536000  # 1 year
+                adapter: cache.adapter.redis_tag_aware
+                provider: '%env(REDIS_PROVIDER)%' # Redis DNS, see: https://symfony.com/doc/current/components/cache/adapters/redis_adapter.html#configure-the-connection
+#### ASSET CUSTOM SETTINGS
 
