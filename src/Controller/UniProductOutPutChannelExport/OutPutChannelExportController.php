@@ -24,14 +24,14 @@ class OutPutChannelExportController extends FrontendController
 {
 	private $security; 
 
-    public function __construct(private readonly UniProductOutPutChannelExportService $externalHierarchyService) {
+    public function __construct(private readonly UniProductOutPutChannelExportService $outputChannelService) {
 		$this->security = new ApiKeyUserProvider();
 
 		
 	}
 	
 /*
-  This function exposing all products data from Uni product Data Model 
+  This function exposing all products data from Uni product Data Model via end point
 */
     #[Route('products', name: 'get_products', methods: ['GET'])]
     public function getProducts(Request $request): JsonResponse
@@ -39,7 +39,7 @@ class OutPutChannelExportController extends FrontendController
 		$valid = $this->validateApiKey($request);
         if($valid) {
 
-        return $this->json($this->externalHierarchyService->getAllProducts());
+        return $this->json($this->outputChannelService->getAllProducts());
 
 		} else {
           return $this->json('Api key is not valid!');
