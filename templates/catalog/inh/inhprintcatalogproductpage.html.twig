@@ -221,10 +221,10 @@
 													<p>{{brand['brandData']['longDescription'] | striptags}}</p>
 												</div>
 												{% if editmode %}
-													{% if not pimcore_image('INH_MAIN_IMAGE_'~uniqueId).isEmpty() %}
-														{% set imgSrcObj = pimcore_image('INH_MAIN_IMAGE_'~uniqueId) %}
+													{% if not pimcore_image('INH_LEFT_IMAGE_'~uniqueId).isEmpty() %}
+														{% set imgSrcObj = pimcore_image('INH_LEFT_IMAGE_'~uniqueId) %}
 													{% else %}
-														{% set imgSrcObj = brand['brandData']['mainImage'] %}
+														{% set imgSrcObj = brand['brandData']['LeftPrintCatalogImage'] %}
 													{% endif %}
 
 													{% if imgSrcObj %}
@@ -232,10 +232,10 @@
 													{% endif %}
 
 												{% else %}
-													{% if not pimcore_image('INH_MAIN_IMAGE_'~uniqueId).isEmpty() %}
-														{% set imgSrcObj = pimcore_image('INH_MAIN_IMAGE_'~uniqueId) %}
+													{% if not pimcore_image('INH_LEFT_IMAGE_'~uniqueId).isEmpty() %}
+														{% set imgSrcObj = pimcore_image('INH_LEFT_IMAGE_'~uniqueId) %}
 													{% else %}
-														{% set imgSrcObj = brand['brandData']['mainImage'] %}
+														{% set imgSrcObj = brand['brandData']['LeftPrintCatalogImage'] %}
 													{% endif %}
 
 													{% if imgSrcObj %}
