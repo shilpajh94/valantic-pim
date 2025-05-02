@@ -764,6 +764,8 @@ class DefaultController extends FrontendController
 
             $brandsList = $this->getBrandsList();
 
+            $this->featuresList = $this->getFeaturesList('en');
+
             if (is_array($template->getProductsData()) && !empty($template->getProductsData())) {
                 foreach ($template->getProductsData() as $k => $row) {
                     $productsData[] = array_combine($headerKeys, $row);
@@ -809,12 +811,14 @@ class DefaultController extends FrontendController
                             $featureObj = null;
 
                             if (is_array($features) && !empty($features)) {
-                                foreach ($features as $featureId) {
-                                    $featureObj = \Pimcore\Model\DataObject\Features::getById($featureId);
-                                    $data[$baseId]['featureIcon'][$featureId] = array(
-                                        'icon' => $featureObj->getIcon(),
-                                        'name' => $featureObj->getName()
-                                    );
+                                $featuresObj = $this->getFiveSortedFeaturesWithIconList($features);
+                                foreach($featuresObj as $f){
+                                    if($f['iconSrc']){
+                                        $featureId = $f['iconSrc']->getAsset()->getId();
+                                        $data[$baseId]['featureIcon'][$featureId] = array(
+                                            $featuresObj
+                                        );
+                                    }
                                 }
                             }
                             unset(
@@ -830,7 +834,6 @@ class DefaultController extends FrontendController
                         $data[$baseId]['hoseIdDec'][] = isset($data[$baseId]['hoseIdDec'][$k]) && !empty($data[$baseId]['hoseIdDec'][$k]) ? $data[$baseId]['hoseIdDec'][$k] : $row['hoseIdDec'];
                     }
                 }
-
 
                 /**
                  * $baseId is Base Level Object (Brand information)
@@ -852,13 +855,12 @@ class DefaultController extends FrontendController
                         $data[$baseId]['range'] = $range;
                     }
                 }
-
                 if ($data) {
                     array_multisort(array_column($data, 'SortOrder'), SORT_ASC, $data);
                 }
-
                 $footer_logo_src = (strtolower($footerBgColor) == 'orange') ? $catalogImagesHYDFooter['Black'] : $catalogImagesHYDFooter['Orange'];
                 $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
+                
 
                 $parameterBag['info'] = array(
                     'brandsInfo' => $data,
@@ -1096,9 +1098,7 @@ class DefaultController extends FrontendController
                         $reinforcement = array_unique($reinforcement);
                         $coverMaterial = array_unique($coverMaterial);
                         $coverAttribute = array_unique($coverAttribute);
-
                         $safetyFeaturesList = $this->getFiveSortedFeaturesWithIconList($safetyFeatures);
-
                         $standardMetHoseListData = array();
                         $standardMetHoseMeetFlameResistence = array();
                         if ($standardsMetHose) {
@@ -2723,7 +2723,6 @@ $parameterBag['table_class']= $tableClass;
         $safetyFeaturesList  = array();
         $safetyFeaturesListWithImage = array();
         $safetyFeaturesListWithOutImage = array();
-
         if ($safetyFeatures) {
             foreach ($safetyFeatures as $fvalue) {
                 $fIcon = isset($this->featuresList[$fvalue]['icon']) ? $this->featuresList[$fvalue]['icon'] : null;
@@ -2762,7 +2761,6 @@ $parameterBag['table_class']= $tableClass;
 
         unset($safetyFeaturesListWithImage);
         unset($safetyFeaturesListWithOutImage);
-
         return $safetyFeaturesList;
     }
 

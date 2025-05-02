@@ -323,6 +323,7 @@
 													{% for key, feature in brandData['safetyFeatures'] %}
 														<p class="flex">
 															{% if feature['iconSrc'] %}
+															{{feature['iconSrc']}}
 																<img src="{{ feature['iconSrc'] }}"/>
 															{% endif %}
 															<font>{{ feature['name'] | raw}}</font>
