@@ -16,7 +16,7 @@ class SecretManager
     {
         // Initialize AWS Secrets Manager client
 
-        $this->secretId = 'pimcore-stage-secrets'; // this is the vault name that you have given in AWS Secret manager
+        $this->secretId = 'pimcore-prod-secrets'; // this is the vault name that you have given in AWS Secret manager
         $this->client = new SecretsManagerClient([
             'version' => 'latest',
             'region' => 'eu-central-1'      // your aws region
