@@ -427,6 +427,7 @@ class IndustrialHoseController extends FrontendController
             $siop = $template->getSiopLevel4();
             $siopObj = $this->getSiopObject($siop);
             $configTableName = $tableName = "0410001010";
+            $siop4Description = '';
             if ($siopObj != null) {
                 $tableName = $siopObj->getParent()->getFullCode();
                 $siop4Description = ($siopObj->getPrintedCatalogDescription($lang)) ? $siopObj->getPrintedCatalogDescription($lang) : $siopObj->getDescription($lang);
@@ -500,11 +501,15 @@ class IndustrialHoseController extends FrontendController
                                     }
                                 }
                             }
+                            if (isset($data[$uniqueId]['data'][$brandName]['SortOrder'])) {
+                                if (array_key_exists($brandName,$data[$uniqueId]['data']) && isset($data[$uniqueId]['data'][$brandName])) {
+                                        
+                                    $data[$uniqueId]['data'][$brandName]['SortOrder'] = $brandsList[$brandName]['SortOrder'];
+                                }
 
-                            $data[$uniqueId]['data'][$brandName]['SortOrder'] = $brandsList[$brandName]['SortOrder'];
-
-                            if (isset($data[$uniqueId]['data'])) {
-                                array_multisort(array_column($data[$uniqueId]['data'], 'SortOrder'), SORT_ASC, $data[$uniqueId]['data']);
+                                if (isset($data[$uniqueId]['data']['SortOrder'])) {
+                                    array_multisort(array_column($data[$uniqueId]['data'], 'SortOrder'), SORT_ASC, $data[$uniqueId]['data']);
+                                }
                             }
                         }
                     }
@@ -548,7 +553,7 @@ class IndustrialHoseController extends FrontendController
             $documentId = \Pimcore\Model\Document::getByPath($documentPath)->getId();
             $parameterBag = $this->getRequestedParameter($request, $documentId);
         }
-
+        $tableClass = \AppBundle\Helper\Common::cleanString( $this->document->getKey());
         $templateEditable = $this->document->getEditable('inh-printcatalogproduct');
 
         if ($templateEditable && $templateEditable->getElement() != null) {
@@ -634,7 +639,7 @@ class IndustrialHoseController extends FrontendController
                         $virtualCatalogReinforcement = '';
                         $virtualCatalogTubeMaterial = '';
                         $virtualCatalogCoverMaterial = '';
-                        $mainImage = '';
+                        $leftImage = '';
                         $temperatureRangeFAndC = '';
                         $coupling = '';
                         $packaging = '';
@@ -741,8 +746,8 @@ class IndustrialHoseController extends FrontendController
                                     $virtualCatalogCoverMaterial = $bvalue[$headerKeysIndex['VirtualCatalogCoverMaterial']];
                                 }
 
-                                if (!$mainImage && $bvalue[$headerKeysIndex['mainImage']]) {
-                                    $mainImage = \Pimcore\Model\Asset::getByPath($bvalue[$headerKeysIndex['mainImage']]);
+                                if (!$leftImage && $bvalue[$headerKeysIndex['LeftPrintCatalogImage']]) {
+                                    $leftImage = \Pimcore\Model\Asset::getByPath($bvalue[$headerKeysIndex['LeftPrintCatalogImage']]);
                                 }
 
                                 if (!$temperatureRangeFAndC && $bvalue[$headerKeysIndex['temperatureRangeFAndC']]) {
@@ -852,7 +857,7 @@ class IndustrialHoseController extends FrontendController
 
                         $newBrandArray[$key]['brandData']['tubeMaterial'] = $tubeMaterialStr;
                         $newBrandArray[$key]['brandData']['coverMaterial'] = $coverMaterialStr;
-                        $newBrandArray[$key]['brandData']['mainImage'] = $mainImage;
+                        $newBrandArray[$key]['brandData']['LeftPrintCatalogImage'] = $leftImage;
                         $newBrandArray[$key]['brandData']['temperatureRangeFAndC'] = $temperatureRangeFAndC;
                         $newBrandArray[$key]['brandData']['Coupling'] = $coupling;
                         $newBrandArray[$key]['brandData']['Packaging'] = $packaging;
@@ -881,7 +886,7 @@ class IndustrialHoseController extends FrontendController
                     array_multisort(array_column($newBrandArray, 'SortOrder'), SORT_ASC, $newBrandArray);
                 }
 
-                $categories = $this->getSIOP($catalogLanguage);
+                $categories = $this->getSIOP($catalogLanguage, 'IFS');
                 $footer_logo_src = (strtolower($footerBgColor) == 'orange') ? $catalogImagesINHFooter['Black'] : $catalogImagesINHFooter['Orange'];
                 $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
@@ -899,7 +904,7 @@ class IndustrialHoseController extends FrontendController
                     'footer_class' => (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '',
                     'footer_logo_src' => $footer_logo_src,
                 );
-
+                $parameterBag['table_class']= $tableClass;
             }
         }
         return $this->render("catalog/inh/inhprintcatalogproductpage.html.twig", $parameterBag);
@@ -1099,6 +1104,8 @@ class IndustrialHoseController extends FrontendController
             $parameterBag['groupData'] = $groupData;
             $parameterBag['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
             $parameterBag['footer_logo_src'] = $footer_logo_src;
+            $tableClass = \AppBundle\Helper\Common::cleanString( $this->document->getKey());
+            $parameterBag['table_class']= $tableClass;
         }
         return $this->render("catalog/inh/inhfitting.html.twig", $parameterBag);
     }
@@ -1190,17 +1197,23 @@ class IndustrialHoseController extends FrontendController
             $parameterBag['featuresMaterials'] = $featuresMaterials;
             $parameterBag['templateBrandDtata'] = $templateBrandDtata;
             $parameterBag['categories'] = $menuCategories;
-            $parameterBag['selectedCategory'] = ((isset($catagoryDescription['SIOP3Description']))?$catagoryDescription['SIOP3Description']:'');            $parameterBag['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
+            $parameterBag['selectedCategory'] = ((isset($catagoryDescription['SIOP3Description']))?$catagoryDescription['SIOP3Description']:'');            
+            $parameterBag['footer_class'] = (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '';
             $parameterBag['footer_logo_src'] = $footer_logo_src;
 
         }
         return $this->render("catalog/inh/inhfitting_cover.html.twig", $parameterBag);
     }
 
-    private function getSIOP($language)
+    private function getSIOP($language, $bu = '')
     {
         $listing = new \Pimcore\Model\DataObject\ProductCategory\Listing;
-        $listing->setCondition("CatalogFlag = :catFlag", ["catFlag" => 1]);
+        if($bu == 'IFS'){
+            $listing->setCondition("CatalogFlag = :catFlag AND BusinessUnit = :bu", ["catFlag" => 1, "bu" => $bu]);
+        }
+        else{
+            $listing->setCondition("CatalogFlag = :catFlag", ["catFlag" => 1]);
+        }
         $listing->load();
         $categories = array();
         foreach ($listing as $category) {
@@ -1280,7 +1293,10 @@ class IndustrialHoseController extends FrontendController
 
                     $safetyFeaturesListWithImage[] = array('name' => $this->featuresList[$fvalue]['name'], 'iconSrc' => $fvalue, 'SortOrder' => $this->featuresList[$fvalue]['SortOrder']);
                 } else {
-                    $safetyFeaturesListWithOutImage[] = array('name' => $this->featuresList[$fvalue]['name'], 'iconSrc' => $fIcon, 'SortOrder' => $this->featuresList[$fvalue]['SortOrder']);
+                    if(isset($this->featuresList[$fvalue])){
+                        $safetyFeaturesListWithOutImage[] = array('name' => $this->featuresList[$fvalue]['name'], 'iconSrc' => $fIcon, 'SortOrder' => $this->featuresList[$fvalue]['SortOrder']);
+
+                    }
                 }
             }
         }

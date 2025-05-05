@@ -143,7 +143,7 @@
 									{% set firstKey = tableRowsSkiveType|keys|first %}
 									{% set uniqueIdTemp = uniqueId %}
 									{% set uniqueId = md5Twig(uniqueId ~ shortDescrioptionKey ~ tableName) %}
-									<article class="container page-break-inside-avoid">
+									<article class="container page-break-inside-avoid ">
 										<figure class="headingSection">
 											{% if tableRowsSkiveType['NS'] is defined and tableRowsSkiveType['DG'] is defined %}
 												<span>
@@ -335,7 +335,7 @@
 														</h1>
 													{% endif %}
 
-													<table class="grid inh fitting marginBottom5 continueLable" cellspacing="0" cellpadding="0">
+													<table class="grid inh fitting marginBottom17  continueLable  {{table_class}}" cellspacing="0" cellpadding="0">
 														<thead>
 															{% if iconRequired == 'YES' %}
 																<tr class="sub-head">
@@ -348,7 +348,7 @@
 																			{% set columnWidth = "width="~firstArray['columnWidth'] %}
 																		{% endif %}
 
-																		<td colspan="{{g1count}}" {{columnWidth}}>
+																		<td colspan="{{g1count}}" {{columnWidth}} class="centerAlign">
 																			{% if ( firstArray['columnIcon'] is defined and firstArray['columnIcon']) %}
 																				<img src="{{firstArray['columnIcon']}}" width="45" height="45"/>
 																			{% endif %}
@@ -357,7 +357,9 @@
 																</tr>
 															{% endif %}
 															<tr class="head">
+																{% set count = 0 %}
 																{% for key, c2data in tableRows['articleData']['columnsDataWithImages'] %}
+																	{% set firstTDClass = 'left-align' %}
 																	{% set columnWidth = '' %}
 																	{% set g2count = c2data|length %}
 																	{% set first2Array = c2data|first %}
@@ -365,7 +367,11 @@
 																	{% if (first2Array['columnWidth']) %}
 																		{% set columnWidth = "width="~first2Array['columnWidth'] %}
 																	{% endif %}
-																	<td colspan="{{g2count}}" {{columnWidth}}>{{first2Array['columnLabel']|raw}}</td>
+																	{% if (count > 0) %}
+																		{% set firstTDClass = 'centerAlign' %}
+																	{% endif %}	
+																	<td class = "{{ firstTDClass }}" colspan="{{g2count}}" {{columnWidth}}>{{first2Array['columnLabel']|raw}}</td>
+																	{% set count = count + 1 %}
 																{% endfor %}
 															</tr>
 															{% if tableRows['articleData']['subHeaderRequired'] == 'YES' %}
@@ -373,13 +379,13 @@
 																	{% for key, c3data in tableRows['articleData']['columnsDataWithImages'] %}
 																		{% for c3key, c3value in c3data %}
 																			{% set columnList = columnList|merge([c3key]) %}
-																			<td>{{ c3value['unitName'] ?? '' }}</td>
+																			<td class="centerAlign">{{ c3value['unitName'] ?? '' }}</td>
 																		{% endfor %}
 																	{% endfor %}
 																</tr>
 															{% endif %}
 														</thead>
-														<tbody class="tableNewFont">
+														<tbody class="tableNewFont container">
 															{% if tableRows['articleData']['articles'] is defined and tableRows['articleData']['articles'] is iterable %}
 																{% set HoseID1InFractIndex = tableRows['articleData']['HoseID1InFractIndex'] %}
 																{% set oldValue = '' %}
@@ -405,7 +411,7 @@
 																			{% set singleHexSuperText = '1' %}
 																		{% endif %}
 
-																		{% set partNumberSuperText = nutTypeSuperText ~ ',' ~ singleHexSuperText %}
+																		{% set partNumberSuperText = nutTypeSuperText ~ '' ~ singleHexSuperText %}
 
 																		{% if 'DescriptivePartNumber' in columnList %}
 																			{% set columnKey = null %}
@@ -449,7 +455,7 @@
 																				<td>{{ value }}<sup>{{ partNumberSuperText }}</sup>
 																				</td>
 																			{% else %}
-																				<td>{{ value | raw}}</td>
+																				<td class="centerAlign">{{ value | raw}}</td>
 																			{% endif %}
 																		{% endfor %}
 																	</tr>
@@ -496,6 +502,18 @@
 		</div>
 		{% if not isParentContainerRequest %}
 			<script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
+
+			<script>
+				const article = document.querySelector("article");
+				const firstTable = article.querySelector("table");
+
+				if (firstTable) {
+					const rowCount = firstTable.querySelectorAll("tr").length;
+					if (rowCount > 17) {
+						article.classList.add("page-break-inside-auto");
+					}
+				}
+			</script>
 		{% endif %}
 	{% endif %}
 {% endblock %}

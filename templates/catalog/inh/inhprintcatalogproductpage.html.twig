@@ -7,7 +7,56 @@
 	{% if editmode %}
 		{{ pimcore_relation("inh-printcatalogproduct") }}
 	{% endif %}
+<style>
+ div.inhRight > section > div > table.transfer__product_page > tbody > tr>td{
+	margin:0px !important;
+	padding:0px !important;
+	height: 20px;
+	
+ }
+   div.inhRight > section > div > table.abrasive_transfer__product_page > tbody > tr>td{
+     margin:0px !important;
+	padding:0px !important;
+	height: 30px;
+ }
+    div.inhRight > section > div > table.petroleum > tbody > tr>td{
+     margin:0px !important;
+	padding:0px !important;
+	height:35px;
+ }
+     div.inhRight > section > div > table.material_handling > tbody > tr>td{
+     margin:0px !important;
+	padding:0px !important;
+	height:17px;
+ }
+      div.inhRight > section > div > table.water > tbody > tr>td{
+     margin:0px !important;
+	padding:0px !important;
+	height:35px;
+ }
+ 
+       div.inhRight > section > div > table.food_and_beverage > tbody > tr>td{
+     margin:0px !important;
+	padding:0px !important;
+	height:35px;
+ }
+          div.inhRight > section > div > table.chemical > tbody > tr>td{
+     margin:0px !important;
+	padding:0px !important;
+	height:35px;
+ }
+     table.heavy_duty___product_page > tbody > tr>td{
+     margin:0px !important;
+	padding:0px !important;
+	height:40px;
+ }
 
+ table.aircraft_refueling__product_page > tbody > tr>td{
+     margin:0px !important;
+	padding:0px !important;
+	height:40px;
+}
+</style>
 
 	{% if info['brandsData'] is defined %}
 		{% set industrial_hose_data = [] %}
@@ -61,7 +110,7 @@
 										<div class="compatible">
 											{% if editmode %}
 												{% if pimcore_wysiwyg("INH_PP_FOOTER_COMP_FITTING_"~uniqueId).isEmpty() %}
-													{{ pimcore_wysiwyg("INH_PP_FOOTER_COMP_FITTING_"~uniqueId, {"placeholder" : "eg: Enter Product Category"}).setDataFromResource("<b>Compatible Fitting</b><p>Meets or exceeds the performance requirements of</p>") | raw }}
+													{{ pimcore_wysiwyg("INH_PP_FOOTER_COMP_FITTING_"~uniqueId, {"placeholder" : "eg: Enter Product Category"}).setDataFromResource("") | raw }}
 												{% else %}
 													{{ pimcore_wysiwyg("INH_PP_FOOTER_COMP_FITTING_"~uniqueId, {"placeholder" : "eg: Enter Product Category"}) }}
 												{% endif %}
@@ -80,7 +129,7 @@
 										<div class="compatible">
 											{% if editmode %}
 												{% if pimcore_wysiwyg("INH_PP_FOOTER_COMP_FITTING1_"~uniqueId).isEmpty() %}
-													{{ pimcore_wysiwyg("INH_PP_FOOTER_COMP_FITTING1_"~uniqueId, {"placeholder" : "eg: Enter Product Category"}).setDataFromResource("<b>Compatible Fitting</b><p>Meets or exceeds the performance requirements of</p>") | raw }}
+													{{ pimcore_wysiwyg("INH_PP_FOOTER_COMP_FITTING1_"~uniqueId, {"placeholder" : "eg: Enter Product Category"}).setDataFromResource("") | raw }}
 												{% else %}
 													{{ pimcore_wysiwyg("INH_PP_FOOTER_COMP_FITTING1_"~uniqueId, {"placeholder" : "eg: Enter Product Category"}) }}
 												{% endif %}
@@ -169,35 +218,24 @@
 											</h1>
 											<aside>
 												<div>
-													{% if editmode %}
-														{% if pimcore_wysiwyg("INH_LONG_DESCRIPTION_"~uniqueId).isEmpty() %}
-															{{ pimcore_wysiwyg("INH_LONG_DESCRIPTION_"~uniqueId, {"placeholder" : "eg: Enter Brand Description"}).setDataFromResource(brand['brandData']['longDescription']) | raw }}
-														{% else %}
-															{{ pimcore_wysiwyg("INH_LONG_DESCRIPTION_"~uniqueId, {"placeholder" : "eg: Enter Brand Description"}) }}
-														{% endif %}
-													{% else %}
-														{{ pimcore_wysiwyg("INH_LONG_DESCRIPTION_"~uniqueId, {"placeholder" : "eg: Enter Brand Description"}) }}
-													{% endif %}
+													<p>{{brand['brandData']['longDescription'] | striptags}}</p>
 												</div>
-
 												{% if editmode %}
-													{% if pimcore_image('INH_MAIN_IMAGE_'~uniqueId).isEmpty() %}
-														{% if brand['brandData']['mainImage'] %}
-															{{ pimcore_image('INH_MAIN_IMAGE_'~uniqueId, {'width': 1067, 'height': 128}).setImage(brand['brandData']['mainImage']) | raw }}
-														{% else %}
-															{{ pimcore_image('INH_MAIN_IMAGE_'~uniqueId, {'width': 1067, 'height': 128}) }}
-														{% endif %}
+													{% if not pimcore_image('INH_LEFT_IMAGE_'~uniqueId).isEmpty() %}
+														{% set imgSrcObj = pimcore_image('INH_LEFT_IMAGE_'~uniqueId) %}
 													{% else %}
-														{{ pimcore_image('INH_MAIN_IMAGE_'~uniqueId, {'width': 1067, 'height': 128}) }}
+														{% set imgSrcObj = brand['brandData']['LeftPrintCatalogImage'] %}
 													{% endif %}
 
+													{% if imgSrcObj %}
+														<img src="{{getImageThumbnail(imgSrcObj,imageWidth)}}" width="1067" height="128"/>
+													{% endif %}
 
 												{% else %}
-
-													{% if not pimcore_image('INH_MAIN_IMAGE_'~uniqueId).isEmpty() %}
-														{% set imgSrcObj = pimcore_image('INH_MAIN_IMAGE_'~uniqueId) %}
+													{% if not pimcore_image('INH_LEFT_IMAGE_'~uniqueId).isEmpty() %}
+														{% set imgSrcObj = pimcore_image('INH_LEFT_IMAGE_'~uniqueId) %}
 													{% else %}
-														{% set imgSrcObj = "" %}
+														{% set imgSrcObj = brand['brandData']['LeftPrintCatalogImage'] %}
 													{% endif %}
 
 													{% if imgSrcObj %}
@@ -350,7 +388,7 @@
 <style>
 	.continueRow{padding: 0 !important; margin: 0 !important;}
 </style>
-															<table class="grid special inh  continueLable cellAttributes" aria-hidden="true">
+															<table class="grid special inh  continueLable cellAttributes {{table_class}}" aria-hidden="true">
 																<thead>
 																	{% if info['iconRequired'] == 'YES' %}
 																		<tr class="sub-head">

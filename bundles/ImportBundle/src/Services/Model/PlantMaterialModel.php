@@ -52,6 +52,7 @@ class PlantMaterialModel
     private $importProcessEmailNotificationObj;
 
     const LOGGER_MODULE = 'PLANT MATERIAL MASTER';
+    const BU_TYPE = 'IFS-PTG NA Plant';
 
     public function __construct(ContainerInterface $container)
     {
@@ -71,7 +72,8 @@ class PlantMaterialModel
                 $csvImportedData = Import::getCSVData($this->filePath);
             } catch(Exception $e) {
                 $this->importProcessEmailNotificationObj->sendMailNotification(
-                    "IFS-NA Plant Import not performed - Error occured while reading CSV \n".$e->getMessage()
+                    self::BU_TYPE,
+                    self::BU_TYPE." Import not performed - Error occured while reading CSV \n".$e->getMessage()
                 );
             }
             $this->fileColumns = $csvImportedData['header'];
@@ -90,7 +92,7 @@ class PlantMaterialModel
             \AppBundle\Helper\Common::endablePimCache();
         } catch (\Throwable $th) {
             p_r($th);
-            \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($th);
+            \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($th->__toString());  // Logs the full exception details as a string
             Logger::error($this->logFileName, $th);
             die;
         }
@@ -176,6 +178,7 @@ class PlantMaterialModel
             echo "Total {$csvRowCount} records found in csv file.".PHP_EOL;
             $deltaCount = count($excelDataNewArray);
             echo "Total {$deltaCount} Delta records found...".PHP_EOL;
+            \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("PlantMaterial delta count : ".$deltaCount);
             if($deltaCount > 0)
             {
                 $j = 1;
@@ -224,14 +227,14 @@ class PlantMaterialModel
 
             $this->tableImportHelper->deleteFailedRecordsFromMaster($this->failedIDs);
             } else {
-                $applicationLogMessage = "IFS-NA Plant - The uploaded file has wrong headers.";
-                $this->importProcessEmailNotificationObj->sendMailNotification($applicationLogMessage);
+                $applicationLogMessage = self::BU_TYPE." - The uploaded file has wrong headers.";
+                $this->importProcessEmailNotificationObj->sendMailNotification(self::BU_TYPE, $applicationLogMessage);
             }
         }
         else
         {
-            $applicationLogMessage = "IFS-NA Plant - No record found in file.";
-            $this->importProcessEmailNotificationObj->sendMailNotification($applicationLogMessage);
+            $applicationLogMessage = self::BU_TYPE." - No record found in file.";
+            $this->importProcessEmailNotificationObj->sendMailNotification(self::BU_TYPE, $applicationLogMessage);
         }
 
 
@@ -552,7 +555,7 @@ class PlantMaterialModel
                 }
                 catch (\Exception $e) {
                     /* return error massage if any exception found */
-                    \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($e);
+                    \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error(sprintf('Exception of type %s occurred: %s', get_class($e), $e->getMessage()));
                     $errorsData[] = "Plant Material Code: ".$plantMaterialKey. " - ".$e->getMessage();
                 }
             }

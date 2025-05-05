@@ -83,6 +83,122 @@ pimcore.plugin.CatalogBundle = Class.create({
             categoryOptionsStore.load();
         }
         //let helper = new pimcore.plugin.lpeHelper();
+
+        if (objectClassName == 'CatalogPTS') {
+
+            var colComp = Ext.getCmp(e.detail.object.edit.dataFields.Columns.component.id);
+            colComp.hide();
+
+            if((e.detail.object.data.data.AttributeTable !== null && trim(e.detail.object.data.data.AttributeTable) !== "")){
+                var ptsCatalogHeaderSelection = new pimcore.plugin.ptsCatalogHeaderSelection();
+                ptsCatalogHeaderSelection.attachPtsCatlogHeader(e);
+            }
+
+            // e.detail.object.edit.dataFields.AttributeTable.component.on('select', function(event){
+            //         //console.log(e.detail.object.data.data.AttributeTable);
+            //       if(e.detail.object.data.data.AttributeTable != event.value)
+            //     {
+            //         var ptsCatalogHeaderSelection = new pimcore.plugin.ptsCatalogHeaderSelection();
+            //         ptsCatalogHeaderSelection.attachPtsCatlogHeader(e);
+            //     }
+            // });
+
+
+            var baseOptionsStore = Ext.create('Ext.data.Store', {
+                fields: ['key', 'value'],
+                proxy: {
+                    type: 'ajax',
+                    url: '/catalog/get-base-products',
+                    //  method:'POST',
+                    extraParams: {
+                        catId: e.detail.object.data.general.parentId,
+                        objId: e.detail.object.data.general.id,
+
+                    },
+                    reader: {
+                        type: 'json',
+                        rootProperty: 'data'
+                    }
+                },
+
+            });
+
+            baseOptionsStore.load();
+
+            e.detail.object.edit.dataFields.BaseProduct.component.setStore(baseOptionsStore);
+
+            baseOptionsStore.load();
+            if (e.detail.object.data.data.BaseProduct !== null) {
+
+                setTimeout(
+                    (component, componentValue) => {
+                        component.setValue(componentValue);
+
+                    updateSkeltonProducts(
+                        componentValue
+                    );
+                    },
+                    1000,
+                    e.detail.object.edit.dataFields.BaseProduct.component,
+                    e.detail.object.data.data.BaseProduct
+                );
+            }
+            if (e.detail.object.data.data.BaseProduct !== null) {
+
+                setTimeout(
+                    (component, componentValue) => {
+                        component.setValue(componentValue);
+                    },
+                    1000,
+                    e.detail.object.edit.dataFields.SkeletonProduct.component,
+                    e.detail.object.data.data.SkeletonProduct
+                );
+            }
+            setTimeout(
+                () => {
+                    e.detail.object.edit.dataFields.BaseProduct.component.addListener(
+                        "change",
+                        () => {
+                            updateSkeltonProducts(
+                                e.detail.object.edit.dataFields.BaseProduct
+                                    .component.value
+                            );
+                        }
+                    );
+                },
+                1005,
+                e.detail.object.edit.dataFields.BaseProduct.component.value
+            );
+
+            const updateSkeltonProducts = (baseProductId) => {
+                var SkeletonProductStore = Ext.create("Ext.data.Store", {
+                    fields: ["key", "value"],
+                    proxy: {
+                        type: "ajax",
+                        url: "/catalog/get-skeleton-products",
+                        //  method:'POST',
+                        extraParams: {
+                            products: baseProductId,
+                            needKey: true,
+                        },
+                        reader: {
+                            type: "json",
+                            rootProperty: "data",
+                        },
+                    },
+                });
+
+                SkeletonProductStore.load();
+
+                e.detail.object.edit.dataFields.SkeletonProduct.component.setStore(
+                    SkeletonProductStore
+                );
+
+                SkeletonProductStore.load();
+    
+            };
+        } // end CatalogPTS
+
         if (objectClassName == 'CatalogTables') {
 
             var colComp = Ext.getCmp(e.detail.object.edit.dataFields.Columns.component.id);
@@ -142,6 +258,9 @@ pimcore.plugin.CatalogBundle = Class.create({
                     headerSelection.attachHeader(e.detail.object, event,template);
                 }
              });
+
+            
+                    
              
 
             var baseOptionsStore = Ext.create('Ext.data.Store', {
@@ -152,6 +271,7 @@ pimcore.plugin.CatalogBundle = Class.create({
                     //  method:'POST',
                     extraParams: {
                         catId: e.detail.object.data.general.parentId,
+                        objId: e.detail.object.data.general.id,
 
                     },
                     reader: {
@@ -194,7 +314,6 @@ pimcore.plugin.CatalogBundle = Class.create({
                 });
 
                 skeletonOptionsStore.load();
-
                 e.detail.object.edit.dataFields.SkeletonProduct.component.setStore(skeletonOptionsStore);
                 
                  if (e.detail.object.data.data.SkeletonProduct !== null)
@@ -291,6 +410,8 @@ pimcore.plugin.CatalogBundle = Class.create({
 
 
         }
+
+        
     },
     postOpenDocument: function(e){
 

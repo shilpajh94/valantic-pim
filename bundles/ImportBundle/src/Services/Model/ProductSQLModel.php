@@ -70,6 +70,7 @@ class ProductSQLModel
         "KG" => UnitConversion\WeightPerLengthConverter::UNIT_KG_PER_M,
         "G" => UnitConversion\WeightPerLengthConverter::UNIT_G_PER_FT,
     ];
+    const BU_TYPE = "IFS-PTG NA Product";
 
     public function __construct(ContainerInterface $container)
     {
@@ -150,7 +151,8 @@ class ProductSQLModel
             } catch (Exception $e) {
                 p_r($e);
                 $this->importProcessEmailNotificationObj->sendMailNotification(
-                    "IFS-NA Product Import not performed - Error occured while reading CSV \n".$e->getMessage()
+                    self::BU_TYPE,
+                    self::BU_TYPE." Import not performed - Error occured while reading CSV \n".$e->getMessage()
                 );
             }
             $this->csvHeader = array_flip($csvInfo['header']);
@@ -212,12 +214,12 @@ class ProductSQLModel
                 }
                 Common::endablePimCache();
         } else {
-                $applicationLogMessage = "IFS-NA Product - The uploaded file has wrong headers.";
-                $this->importProcessEmailNotificationObj->sendMailNotification($applicationLogMessage);
+                $applicationLogMessage = self::BU_TYPE." - The uploaded file has wrong headers.";
+                $this->importProcessEmailNotificationObj->sendMailNotification(self::BU_TYPE, $applicationLogMessage);
             }
         } else {
-            $applicationLogMessage = "IFS-NA Product - No record found in file.";
-            $this->importProcessEmailNotificationObj->sendMailNotification($applicationLogMessage);
+            $applicationLogMessage = self::BU_TYPE." - No record found in file.";
+            $this->importProcessEmailNotificationObj->sendMailNotification(self::BU_TYPE, $applicationLogMessage);
         }
     }
     public function sendSkippedArticlesEmailNotification($skippedArticles, $emailTemplate) {
@@ -250,7 +252,7 @@ class ProductSQLModel
             }
         } catch (\Throwable $th) {
             p_r($th);
-            \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($th);
+            \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($th->__toString());  // Logs the full exception details as a string
         }
     }
 
@@ -336,10 +338,23 @@ class ProductSQLModel
             echo "Record Processed: ".$i;
             $b = time();
             echo "Part ".$j." completed in time: ".$a."====".$b.PHP_EOL;
+
+            // if($j > 9){  // 20 denotes that delta till 20 batches had been processed and you want to start from 21st batch
+
+            //     $this->processIFSorCSProducts($partialData, 'IFS');
+            //     $partialData = null;
+            //     $i = $i+$length;
+            //     echo PHP_EOL;
+            //     echo "Record Processed: ".$i;
+            //     $b = time();
+            //     echo "Part ".$j." completed in time: ".$a."====".$b.PHP_EOL;
+
+            // }
             \Pimcore::collectGarbage();
             gc_collect_cycles();
             $a = time();
             $j++;
+
         }
 
     }
@@ -361,13 +376,15 @@ class ProductSQLModel
                 $length = $diff;
             }
             $partialData = array_slice($delta, $i, $length);
-            $this->processPTGProducts($partialData);
-            $partialData = null;
-            unset($partialData);
-            $i = $i+$length;
-            echo "Record Processed: ".$i;
-            $b = time();
-            echo "Part ".$j." completed in time: ".$a."====".$b.PHP_EOL;
+            // if($j > 9){
+                $this->processPTGProducts($partialData);
+                $partialData = null;
+                unset($partialData);
+                $i = $i+$length;
+                echo "Record Processed: ".$i;
+                $b = time();
+                echo "Part ".$j." completed in time: ".$a."====".$b.PHP_EOL;
+            // }
             \Pimcore::collectGarbage();
             gc_collect_cycles();
             $a = time();
@@ -623,50 +640,50 @@ class ProductSQLModel
         ];
         $currentLevelPath = $parentPath.'/'.$objectKey;
         if (!array_key_exists($currentLevelPath, $this->products)) {
-            if ($type == 'fert') {
-                $articleNumber = $record[$this->getRecordIndexByKey('material')];
-		$data = $this->tblImpHelper->checkIfArticleExists($articleNumber);
-		if (!empty($data) && count($data)>0) {
-            $objId = $data[0]['oo_id'];
-            $objectArr['id'] = $objId;
-		    $distributionFlag = $this->tblImpHelper->getDistributionChainFlagByMaterial($objId);
-		    $fittingFamilyFlag = $this->tblImpHelper->getFittingFamilyFlagByMaterial($objId);
-                    var_dump($distributionFlag);
-                    var_dump($fittingFamilyFlag);
-                    if (!empty($distributionFlag) || !empty($fittingFamilyFlag)) {
-                        if (!empty($distributionFlag)) {
-                            $catCode = $levelInfo[3]['levelFullCode'];
-                            $catFullPath = $this->categories[$catCode]['fullPath'];
-                            $productPath = $this->convertCategoryPathToProduct($catFullPath);
-                            $quoteFolderPath = $productPath."/Quote/";
-                            $quoteFolderId = $this->getFolderByPath($quoteFolderPath);
-                            $objectArr['parentId'] = $quoteFolderId;
-                            $objectArr['path'] = $quoteFolderPath;
-                        } else {
-                            $pathArray = explode("/", $data[0]['path']);
-                            if (count($pathArray)>=6) {
-                                $fittingFamilyPathArray = array_slice($pathArray, 6);
-                                $subPath = '';
-                                if (!empty($fittingFamilyPathArray[0])) {
-                                    $subPath = implode("/", $fittingFamilyPathArray);
-                                }
-                                $catCode = $levelInfo[4]['levelFullCode'];
-                                $catFullPath = $this->categories[$catCode]['fullPath'];
-                                $productPath = $this->convertCategoryPathToProduct($catFullPath);
-                                $fittingFamilyFolderPath = $productPath."/".$subPath;
-                                $fittingFamilyFolderId = $this->getFolderByPath($fittingFamilyFolderPath);
-                                $objectArr['parentId'] = $fittingFamilyFolderId;
-                                $objectArr['path'] = $fittingFamilyFolderPath;
-                            }
-                        }
-                    }
-                }
+            // if ($type == 'fert') {
+            //     $articleNumber = $record[$this->getRecordIndexByKey('material')];
+		// $data = $this->tblImpHelper->checkIfArticleExists($articleNumber);
+		// if (!empty($data) && count($data)>0) {
+            // $objId = $data[0]['oo_id'];
+            // $objectArr['id'] = $objId;
+		    // $distributionFlag = $this->tblImpHelper->getDistributionChainFlagByMaterial($objId);
+		    // $fittingFamilyFlag = $this->tblImpHelper->getFittingFamilyFlagByMaterial($objId);
+            //         var_dump($distributionFlag);
+            //         var_dump($fittingFamilyFlag);
+                    // if (!empty($distributionFlag) || !empty($fittingFamilyFlag)) {
+                    //     if (!empty($distributionFlag)) {
+                    //         $catCode = $levelInfo[3]['levelFullCode'];
+                    //         $catFullPath = $this->categories[$catCode]['fullPath'];
+                    //         $productPath = $this->convertCategoryPathToProduct($catFullPath);
+                    //         $quoteFolderPath = $productPath."/Quote/";
+                    //         $quoteFolderId = $this->getFolderByPath($quoteFolderPath);
+                    //         $objectArr['parentId'] = $quoteFolderId;
+                    //         $objectArr['path'] = $quoteFolderPath;
+                    //     } else {
+                    //         $pathArray = explode("/", $data[0]['path']);
+                    //         if (count($pathArray)>=6) {
+                    //             $fittingFamilyPathArray = array_slice($pathArray, 6);
+                    //             $subPath = '';
+                    //             if (!empty($fittingFamilyPathArray[0])) {
+                    //                 $subPath = implode("/", $fittingFamilyPathArray);
+                    //             }
+                    //             $catCode = $levelInfo[4]['levelFullCode'];
+                    //             $catFullPath = $this->categories[$catCode]['fullPath'];
+                    //             $productPath = $this->convertCategoryPathToProduct($catFullPath);
+                    //             $fittingFamilyFolderPath = $productPath."/".$subPath;
+                    //             $fittingFamilyFolderId = $this->getFolderByPath($fittingFamilyFolderPath);
+                    //             $objectArr['parentId'] = $fittingFamilyFolderId;
+                    //             $objectArr['path'] = $fittingFamilyFolderPath;
+                    //         }
+                    //     }
+                    // }
+                // }
 
-            } else {
+            // } else {
                 if (array_key_exists($objectKey, $this->allBaseProducts)) {
                     $objectArr['id'] = $this->allBaseProducts[$objectKey];
                 }
-            }
+            // }
 
             $objId = $this->tblImpHelper->insertInObjects($objectArr);
             if (is_array($objId) && empty($objId[0])) {

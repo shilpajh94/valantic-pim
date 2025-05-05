@@ -21,6 +21,8 @@ use Pimcore\Model\DataObject\ClassDefinition\Data;
 
 class PTGEUBeltTypeOptionProvider implements SelectOptionsProviderInterface
 {
+    private $optionProvider;
+
     /**
      * @param array $context
      * @param Data $fieldDefinition
@@ -64,7 +66,7 @@ class PTGEUBeltTypeOptionProvider implements SelectOptionsProviderInterface
      */
     public function getDefaultValue(array $context, Data $fieldDefinition): ?string
     {
-        return true;
+        return false;
     }
     
     /**

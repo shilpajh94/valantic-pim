@@ -1,0 +1,47 @@
+Pitch:
+  columnName: Pitch
+  fieldLocation: class
+  fieldLabel: Pitch
+  columnHeader: Pitch
+  className: object_2
+  sql: 'object_localized_2_en.PrintedCatalogDescription AS Pitch'
+pitchLengthMM:
+    columnName: pitchLengthMM
+    fieldLocation: objectbrick
+    objectBrickClassName: SynchronousFert
+    fieldLabel: Pitch Length (mm)
+    columnHeader: Pitch Length (mm)
+    isLocalized: false
+    sql: 'object_brick_query_SynchronousFert_1.pitchLengthMM'
+pitchMM:
+    columnName: A
+    fieldLocation: objectbrick
+    objectBrickClassName: SynchronousFert
+    fieldLabel: A (Pitch MM)
+    columnHeader: A
+    isLocalized: false
+    sql: 'object_brick_query_SynchronousFert_1.pitchMM '
+totalBeltThickness:
+    columnName: B
+    fieldLocation: objectbrick
+    objectBrickClassName: PTGSkeleton
+    fieldLabel: B (Total Belt Thickness)
+    columnHeader: B
+    isLocalized: false
+    sql: 'object_brick_query_PTGSkeleton_1.totalBeltThickness'
+totalToothThickness:
+    columnName: C
+    fieldLocation: objectbrick
+    objectBrickClassName: PTGSkeleton
+    fieldLabel: C (Total Tooth Thickness)
+    columnHeader: C
+    isLocalized: false
+    sql: 'object_brick_query_PTGSkeleton_1.totalToothThickness'
+standardWidth:
+    columnName: standardWidthmm
+    fieldLocation: objectbrick
+    objectBrickClassName: SynchronousFert
+    fieldLabel: Standard With (mm)
+    columnHeader: Standard With (mm)
+    isLocalized: false
+    sql: 'object_brick_query_PTGFert_1.widthmm as standardWidthmm'

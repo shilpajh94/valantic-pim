@@ -39,6 +39,7 @@ class Lookup
     private $container;
     private $approvedSalesOrg;
     private $importProcessEmailNotificationObj;
+    const BU_TYPE = 'IFS-PTG NA ';
 
     public function __construct(ContainerInterface $container)
     {
@@ -79,8 +80,8 @@ class Lookup
             if (!$sftpConObj->fileExists($ftpFilePath."/".$fileName)) {
                 $fileName = $fileNamePrefix."_".date('mdY',strtotime("-1 days")).".".$ext;
                 if (!$sftpConObj->fileExists($ftpFilePath."/".$fileName)) {
-                    $msg = "IFS-NA ".ucFirst($cmd)." - Today's and yesterday's import file not uploaded.";
-                    $this->importProcessEmailNotificationObj->sendMailNotification($msg);
+                    $msg = self::BU_TYPE.ucFirst($cmd)." - Today's and yesterday's import file not uploaded.";
+                    $this->importProcessEmailNotificationObj->sendMailNotification(self::BU_TYPE.ucFirst($cmd), $msg);
                     throw new Exception($msg);
                 }
             }
@@ -157,9 +158,9 @@ class Lookup
                 $feederObj->config($params);
                 $this->objFailedRecords->managedFailedRecords($cmd, $this->scriptStartTime);
             } else {
-                $msg = "IFS-NA ".ucFirst($cmd)." - ".FILE_FORMAT_DOESNOT_SUPPORT." ".sprintf(ALLOWED_FILE_TYPES, $this->fileType);
+                $msg = self::BU_TYPE.ucFirst($cmd)." - ".FILE_FORMAT_DOESNOT_SUPPORT." ".sprintf(ALLOWED_FILE_TYPES, $this->fileType);
                 echo $msg;
-                $this->importProcessEmailNotificationObj->sendMailNotification($msg);
+                $this->importProcessEmailNotificationObj->sendMailNotification(self::BU_TYPE.ucFirst($cmd), $msg);
                 throw new Exception($msg);
             }
         } catch (Throwable $th) {

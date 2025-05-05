@@ -22,6 +22,7 @@ class SAPFileFeederService
     private $datetime;
     private $container;
     private $importProcessEmailNotificationObj;
+    const BU_TYPE = "IFSEU ";
 
     public function __construct(ContainerInterface $container)
     {
@@ -58,8 +59,8 @@ class SAPFileFeederService
 
                 if (!$SFTPConObj->fileExists($ftpFilePath."/".$fileName))
                 {
-                    $msg = "IFSEU ".ucFirst($commandType)." - Today's and yesterday's import file not uploaded.";
-                    $this->importProcessEmailNotificationObj->sendMailNotification($msg);
+                    $msg = self::BU_TYPE.ucFirst($commandType)." - Today's and yesterday's import file not uploaded.";
+                    $this->importProcessEmailNotificationObj->sendMailNotification(self::BU_TYPE.ucFirst($commandType), $msg);
                     throw new Exception($msg);
                 }
             }
@@ -82,8 +83,8 @@ class SAPFileFeederService
             }
             else
             {
-                $msg = "IFSEU ".ucFirst($commandType)." - ".FILE_FORMAT_DOESNOT_SUPPORT." ".sprintf(ALLOWED_FILE_TYPES, $this->fileType);
-                $this->importProcessEmailNotificationObj->sendMailNotification($msg);
+                $msg = self::BU_TYPE.ucFirst($commandType)." - ".FILE_FORMAT_DOESNOT_SUPPORT." ".sprintf(ALLOWED_FILE_TYPES, $this->fileType);
+                $this->importProcessEmailNotificationObj->sendMailNotification(self::BU_TYPE.ucFirst($commandType), $msg);
                 throw new TypeError($msg);
             }
         }

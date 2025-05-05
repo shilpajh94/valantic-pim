@@ -10,6 +10,8 @@ use PTGEU\ImportBundle\Model\ProductModel;
 use PTGEU\ProductBundle\Services\CompletenessPercentageService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use AppBundle\Services\ImportProcessEmailNotificationService;
+use PTGEU\ImportBundle\Services\FailedRecords;
+
 
 class ProductService
 {
@@ -52,8 +54,17 @@ class ProductService
     private $relationTableDataDeleteArray;
     private $container;
     private $importProcessEmailNotificationObj;
+    public $scriptStartTime;
+    public $objFailedRecords;
+    const LOG_ID = "Log Id";
+    const STATUS_CODE = "Status Code";
+    const FAILED_REASON = "Failed Reason";
+    const CREATED_AT = "Created At";
+    const LOGS = "_Logs";
+
 
     const LOGGER_MODULE = 'SAP IMPORT SHEET';
+    const BU_TYPE = 'PTGEU Product';
 
     public function __construct(CompletenessPercentageService $percentageCompletionService,
      ContainerInterface $container)
@@ -73,6 +84,7 @@ class ProductService
         $this->baseSiopMismatchLog = [];
         $this->percentageCompletionService = $percentageCompletionService;
         $this->importProcessEmailNotificationObj = new ImportProcessEmailNotificationService;
+        $this->objFailedRecords = new FailedRecords();
     }
 
     /**
@@ -126,6 +138,7 @@ class ProductService
         \AppBundle\Helper\Common::clearAndDisablePimCache();
         $sapFileFeeder  = $this->container->get('import.sap_file_feeder_service');
         $this->filePath = $sapFileFeeder->execFileFeeder('product');
+        $this->scriptStartTime = time();
         if($this->filePath){
             try {
                 $brickAttributesConfigDataKeys = array_keys($this->configProviderService->getBrickAttributesConfig());
@@ -142,6 +155,7 @@ class ProductService
                         }
                     }
                     if($flag == 1){
+                       
                         try {
                             $this->initImportTable();
                             Logger::log(self::LOGGER_MODULE)->info("SAP import started");
@@ -174,28 +188,31 @@ class ProductService
                                 Logger::log(self::LOGGER_MODULE)->info(count($faildRecords)."failed records removed from master table.");
                                 echo count($faildRecords)."failed records removed from master table.".PHP_EOL;
                             }
-                        } catch (Throwable $throwable) {
+                        } catch (\Throwable $throwable) {
                             p_r($throwable);
-                            Logger::log(self::LOGGER_MODULE)->error($throwable);
+                            Logger::log(self::LOGGER_MODULE)->error($throwable->__toString());
                             Logger::error($this->logFileName, $throwable);
                             die;
                         }
                     } else {
-                        $msg = "PTGEU Product - The uploaded file has wrong headers.";
+                        $msg = self::BU_TYPE." - The uploaded file has wrong headers.";
                         echo $msg;
-                        $this->importProcessEmailNotificationObj->sendMailNotification($msg);
+                        $this->importProcessEmailNotificationObj->sendMailNotification(self::BU_TYPE, $msg);
                     }
                 } else {
-                    $msg = "PTGEU Product - No record found in file.";
+                    $msg = self::BU_TYPE." - No record found in file.";
                     echo $msg;
-                    $this->importProcessEmailNotificationObj->sendMailNotification($msg);
+                    $this->importProcessEmailNotificationObj->sendMailNotification(self::BU_TYPE, $msg);
                 }
-            } catch (Throwable $th) {
+               
+                $this->objFailedRecords->managedFailedRecords('product', $this->scriptStartTime);
+            } catch (\Throwable $th) {
                 p_r($th);
-                Logger::log(self::LOGGER_MODULE)->error($th);
-                Logger::error($this->logFileName, $th);
+                Logger::log(self::LOGGER_MODULE)->error($th->__toString());
+                Logger::error($this->logFileName, $th->__toString());
                 $this->importProcessEmailNotificationObj->sendMailNotification(
-                    "PTGEU Product Import not performed - Error occured while reading CSV \n".$th->getMessage()
+                    self::BU_TYPE,
+                    self::BU_TYPE." Import not performed - Error occured while reading CSV \n".$th->getMessage()
                 );
                 die;
             }
@@ -237,7 +254,7 @@ class ProductService
             }
         } catch (\Throwable $th) {
             p_r($th);
-            Logger::log(self::LOGGER_MODULE)->error($th);
+            Logger::log(self::LOGGER_MODULE)->error($th->__toString());
         }
     }
 
@@ -708,7 +725,7 @@ class ProductService
             'sapDescriptionLanguage' => null,
             'materialType' => null,
             'priceRef' => null,
-            // 'vtlStatus' => null
+            'vtlStatus' => null
         ];
 
         if (strtolower($productType) == 'base') {
@@ -814,9 +831,28 @@ class ProductService
                     }
                 }
             }
+
+            $vtlstatus = trim($record[$this->getRecordIndexByKey('vtlStatus')]);
+            $vtlObject = $this->getVtlStatus($vtlstatus);
+            if($vtlObject !=''){
+                $queryTableData['vtlStatus'] = trim($vtlObject);
+            }
         }
 
         $this->queryTableDataArray[] = array_merge($queryTableData, $siopData);
+    }
+
+    private function getVtlStatus(string $value)
+    {
+        $objVtl = new DataObject\PTGEUVTL\Listing();
+        $objVtl->setCondition("description = ?", $value);
+        if(!empty($objVtl))
+        {
+            foreach ($objVtl as $object) {
+                return $object->getId();
+            }
+        }
+        return '';
     }
 
     public function getStoreTableData(
@@ -872,7 +908,8 @@ class ProductService
             'minOutsidePulleyDia' => null,
             'sapDescriptionLanguage' => null,
             'materialType' => null,
-            'priceRef' => null
+            'priceRef' => null,
+            'vtlStatus' => null
 
         ];
 
@@ -983,6 +1020,11 @@ class ProductService
                         $storeTableDataArray['weightUnit'] = trim($record[$this->getRecordIndexByKey('weightUnit')]);
                     }
                 }
+            }
+            $vtlstatus = trim($record[$this->getRecordIndexByKey('vtlStatus')]);
+            $vtlObject = $this->getVtlStatus($vtlstatus);
+            if($vtlObject !=''){
+                $storeTableDataArray['vtlStatus'] = trim($vtlObject);
             }
         }
 

@@ -176,6 +176,18 @@ parameters:
                 fieldLabel: Profile Dimension Image
                 parent: 
                     name: Product
+            beltIdentificationImage:
+                fieldLevel: class
+                fieldType: Media
+                fieldLabel: Belt Identification Image
+                parent: 
+                    name: Product
+            profileDimensionPtsBelts:
+                fieldLevel: class
+                fieldType: Media
+                fieldLabel: PTS belts Profile Dimension Image
+                parent: 
+                    name: Product
             longDescription:
                 fieldLevel: class
                 fieldType: Input
@@ -285,7 +297,7 @@ parameters:
                 fieldLevel: class
                 fieldType: Multiselection
                 fieldLabel: Features Benefits & Bullet Points
-            mainImage:
+            altImage7:
                 fieldLevel: class
                 fieldType: Media
                 fieldLabel: Product Image
@@ -493,10 +505,10 @@ parameters:
                 parent:
                     name: Product
         Industrial Hose Product Page:
-            mainImage:
+            LeftPrintCatalogImage:
                 fieldLevel: class
                 fieldType: Media
-                fieldLabel: Main Image
+                fieldLabel: Left Image
                 parent: 
                     name: Product
             safetyFactor:

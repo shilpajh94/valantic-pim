@@ -101,7 +101,7 @@ class B2BCategoryRequestBodyGenerator extends AbstractB2BRequestBodyGenerator {
                         }
 
                         if($key == "o_parentId" && $type == "salesForceId"){
-                            $returnArray[$attributeConfig['sf_attribute_name']] = $this->getParentSalesForceId($value, $tempTableData["Level"], $config[$key], $language);
+                            $returnArray[$attributeConfig['sf_attribute_name']] = $this->getParentSalesForceId($value, $tempTableData, $config[$key], $language);
                         }elseif (method_exists($this->requestBodyGeneratorHelper, $fnc)) {
                             $returnArray[$attributeConfig['sf_attribute_name']] = $this->requestBodyGeneratorHelper->$fnc($value, $config[$key], $language);
                         }
@@ -115,11 +115,22 @@ class B2BCategoryRequestBodyGenerator extends AbstractB2BRequestBodyGenerator {
         return $returnArray;
     }
 
-    public function getParentSalesForceId($parentPimId, $level, array $config, $language = null) {
+    public function getParentSalesForceId($parentPimId, $tempTableData, array $config, $language = null) {
         // PIM level 2 categories needs to be root level categories in SF
         // if($level == 1){
         //     return null;
         // }
+        $level = $tempTableData["Level"];
+        $printedCatalogDescription = $tempTableData["PrintedCatalogDescription"];
+        $pimId = $tempTableData["o_id"];
+
+        if($level == 1 && $printedCatalogDescription != 'Products' &&
+         \Pimcore\Model\DataObject\ProductCategory::getById($pimId)->getParent()->getType() == 'folder' ){
+            $parentObj = \Pimcore\Model\DataObject\ProductCategory::getByPath(
+                '/Master List/SIOP Master List/SIOP Engineered Products'
+            );
+            $parentPimId = $parentObj->getId();
+        }
 
         $parentType = $this->b2bProductRequestBodyGeneratorDao->getObjectType($parentPimId);
 

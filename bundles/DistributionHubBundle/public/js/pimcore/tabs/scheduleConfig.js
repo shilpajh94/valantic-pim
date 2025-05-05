@@ -381,6 +381,8 @@ pimcore.plugin.distributionhub.tabs.scheduleConfig = Class.create(pimcore.elemen
                     maxLengthText: t('dHub_max_allowed_length_100'),
                     allowBlank: false,
                     blankText: t('dHub_field_is_required'),
+                    regex: /^[A-Za-z0-9_-]+$/,
+                    regexText: t('dHub_only_alphanumeric_and_underscore-hyphen_allowed'),
                     msgTarget: 'under'
                 },
                 {
@@ -390,8 +392,8 @@ pimcore.plugin.distributionhub.tabs.scheduleConfig = Class.create(pimcore.elemen
                     name: 'downloadFileName',
                     maxLength: 100,
                     maxLengthText: t('dHub_max_allowed_length_100'),
-                    regex: /^[A-Za-z0-9 _-]+$/,
-                    regexText: t('dHub_only_alphanumeric_space_and_underscore-hyphen_allowed'),
+                    regex: /^[A-Za-z0-9_-]+$/,
+                    regexText: t('dHub_only_alphanumeric_and_underscore-hyphen_allowed'),
                     msgTarget: 'under'
                 },
                 {

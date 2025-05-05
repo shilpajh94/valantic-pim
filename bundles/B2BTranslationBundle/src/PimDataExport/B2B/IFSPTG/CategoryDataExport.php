@@ -217,6 +217,39 @@ class CategoryDataExport implements IDataExport
                                                     }
                                                     $mapping_record[$keyHeaderValue] = $description;
                                                 }
+                                                if ($keyHeader === 'longDescription' &&
+                                                ($record['longDescription']) === "" && isset($record['parentId'])) {
+                                                   
+                                                    $longDescription = $this->getIFSNALongDescription(
+                                                        $record['parentId'],
+                                                        $lang
+                                                    );
+                                                    if (empty($longDescription)) {
+                                                        $longDescription = $this->getIFSNAParentIdDescription(
+                                                            $record['parentId'],
+                                                            $lang
+                                                        );
+                                                        
+                                                    }
+                                                    if (empty($longDescription)) {
+                                                        $longDescription = $this->getIFSNALongDescription(
+                                                            $record['parentId'],
+                                                            'en'
+                                                        );
+                                                        if (empty($longDescription)) {
+                                                            $longDescription = $this->getIFSNAParentIdDescription(
+                                                                $record['parentId'],
+                                                                'en'
+                                                            );
+                                                            
+                                                        }
+                                                    }
+                                                    $longDescription = strip_tags($longDescription);
+    
+                                                    $mapping_record['Description'] = $longDescription;
+                                        
+                                            
+                                                }
                                                 if ($keyHeader != 'SalesForce_ID') {
                                                     unset($record[$keyHeader]);
                                                 }
@@ -347,4 +380,50 @@ class CategoryDataExport implements IDataExport
         }
         return $description;
     }
+
+    public function getIFSNALongDescription($id, $lang) {
+        $parentId = $id;
+        $sql = "SELECT longDescription FROM object_localized_data_2 WHERE ooo_id = :parentId AND language = :lang";
+        
+        // Use prepared statements to prevent SQL injection and pass parameters
+        $parentDescription = $this->db->fetchAllAssociative($sql, ['parentId' => $parentId, 'lang' => $lang]);
+    
+        // Check if any result is returned before accessing the array
+        if (!empty($parentDescription) && isset($parentDescription[0]['longDescription'])) {
+            $description = $parentDescription[0]['longDescription'];
+        } else {
+            $description = ''; // Return empty if no description is found
+        }
+    
+        return $description;
+    }
+    
+
+    public function getIFSNAParentIdDescription($id, $lang) {
+        $sql = "SELECT ParentObjectId FROM object_2 WHERE oo_id = :id";
+        
+        // Use prepared statements to prevent SQL injection
+        $parentObjectId = $this->db->fetchAllAssociative($sql, ['id' => $id]);
+        
+        // Check if we have results from the query
+        if (!empty($parentObjectId) && isset($parentObjectId[0]['ParentObjectId'])) {
+            $parentId = $parentObjectId[0]['ParentObjectId'];
+            
+            if (empty($parentId)) {
+                $description = '';
+            } else {
+                $description = $this->getIFSNALongDescription($parentId, $lang);
+                
+                // If description is empty, fetch the parent's description recursively
+                if (empty($description)) {
+                    $description = $this->getIFSNAParentIdDescription($parentId, $lang);
+                }
+            }
+        } else {
+            $description = '';  // If no parentObjectId is found, return empty description
+        }
+    
+        return $description;
+    }
+
 }

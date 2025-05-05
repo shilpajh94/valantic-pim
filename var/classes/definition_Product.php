@@ -151,6 +151,8 @@
  * - RightPrintCatalogImage [image]
  * - DrawingPictureForCatalog [image]
  * - ProfileDimensionImage [image]
+ * - beltIdentificationImage [image]
+ * - profileDimensionPtsBelts [image]
  * - priceData [table]
  * - CatalogGrouping [input]
  * - FittingTableName [select]
@@ -164,7 +166,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1721712741,
+   'modificationDate' => 1744699842,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -341,7 +343,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'dynamicOptions' => false,
                                      'defaultValueGenerator' => '',
                                      'width' => 300,
-                                     'optionsProviderType' => NULL,
+                                     'optionsProviderType' => 'class',
                                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
                                      'optionsProviderData' => 'Brand|Name',
                                   )),
@@ -374,7 +376,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'height' => '',
                                      'width' => 300,
                                      'defaultValueGenerator' => '',
-                                     'optionsProviderType' => NULL,
+                                     'optionsProviderType' => 'class',
                                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
                                      'optionsProviderData' => 'ProductClass',
                                   )),
@@ -452,7 +454,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'dynamicOptions' => false,
                                      'defaultValueGenerator' => '',
                                      'width' => 300,
-                                     'optionsProviderType' => NULL,
+                                     'optionsProviderType' => 'class',
                                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
                                      'optionsProviderData' => 'Brand|Name',
                                   )),
@@ -643,7 +645,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'height' => 270,
                                          'width' => 300,
                                          'defaultValueGenerator' => '',
-                                         'optionsProviderType' => NULL,
+                                         'optionsProviderType' => 'class',
                                          'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
                                          'optionsProviderData' => 'Features|Name',
                                       )),
@@ -2530,7 +2532,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'dynamicOptions' => false,
                          'defaultValueGenerator' => '',
                          'width' => 300,
-                         'optionsProviderType' => NULL,
+                         'optionsProviderType' => 'configure',
                          'optionsProviderClass' => '',
                          'optionsProviderData' => '',
                       )),
@@ -2571,7 +2573,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'dynamicOptions' => false,
                          'defaultValueGenerator' => '',
                          'width' => 300,
-                         'optionsProviderType' => NULL,
+                         'optionsProviderType' => 'configure',
                          'optionsProviderClass' => '',
                          'optionsProviderData' => '',
                       )),
@@ -3677,7 +3679,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'dynamicOptions' => false,
                                      'defaultValueGenerator' => '',
                                      'width' => 200,
-                                     'optionsProviderType' => NULL,
+                                     'optionsProviderType' => 'configure',
                                      'optionsProviderClass' => '',
                                      'optionsProviderData' => '',
                                   )),
@@ -3862,7 +3864,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'dynamicOptions' => false,
                                      'defaultValueGenerator' => '',
                                      'width' => 100,
-                                     'optionsProviderType' => NULL,
+                                     'optionsProviderType' => 'configure',
                                      'optionsProviderClass' => '',
                                      'optionsProviderData' => '',
                                   )),
@@ -4412,7 +4414,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'dynamicOptions' => false,
                                      'defaultValueGenerator' => '',
                                      'width' => 100,
-                                     'optionsProviderType' => NULL,
+                                     'optionsProviderType' => 'configure',
                                      'optionsProviderClass' => '',
                                      'optionsProviderData' => '',
                                   )),
@@ -5202,7 +5204,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'height' => '',
                                      'width' => 220,
                                      'defaultValueGenerator' => '',
-                                     'optionsProviderType' => NULL,
+                                     'optionsProviderType' => 'configure',
                                      'optionsProviderClass' => '',
                                      'optionsProviderData' => '',
                                   )),
@@ -5655,7 +5657,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'dynamicOptions' => false,
                              'defaultValueGenerator' => '',
                              'width' => 730,
-                             'optionsProviderType' => NULL,
+                             'optionsProviderType' => 'configure',
                              'optionsProviderClass' => '',
                              'optionsProviderData' => '',
                           )),
@@ -5996,7 +5998,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'dynamicOptions' => false,
                              'defaultValueGenerator' => '',
                              'width' => 730,
-                             'optionsProviderType' => NULL,
+                             'optionsProviderType' => 'configure',
                              'optionsProviderClass' => '',
                              'optionsProviderData' => '',
                           )),
@@ -6167,7 +6169,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'dynamicOptions' => false,
                                      'defaultValueGenerator' => '',
                                      'width' => 220,
-                                     'optionsProviderType' => NULL,
+                                     'optionsProviderType' => 'class',
                                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
                                      'optionsProviderData' => 'Chemical|Name',
                                   )),
@@ -6195,7 +6197,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'dynamicOptions' => false,
                                      'defaultValueGenerator' => '',
                                      'width' => 220,
-                                     'optionsProviderType' => NULL,
+                                     'optionsProviderType' => 'class',
                                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
                                      'optionsProviderData' => 'Chemical|Name',
                                   )),
@@ -6223,7 +6225,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'dynamicOptions' => false,
                                      'defaultValueGenerator' => '',
                                      'width' => 220,
-                                     'optionsProviderType' => NULL,
+                                     'optionsProviderType' => 'class',
                                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
                                      'optionsProviderData' => 'Chemical|Name',
                                   )),
@@ -6926,6 +6928,14 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           array (
                             'assetTypes' => 'video',
                           ),
+                          3 => 
+                          array (
+                            'assetTypes' => 'text',
+                          ),
+                          4 => 
+                          array (
+                            'assetTypes' => 'unknown',
+                          ),
                         ),
                          'documentsAllowed' => false,
                          'documentTypes' => 
@@ -6933,7 +6943,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         ),
                          'enableTextSelection' => false,
                          'width' => '',
-                         'height' => '',
+                         'height' => NULL,
                          'columns' => 
                         array (
                           0 => 
@@ -6941,7 +6951,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                             'type' => 'text',
                             'position' => 1,
                             'key' => 'DrawingNumber',
-                            'id' => 'extModel2946-1',
                             'label' => 'Drawing Number',
                           ),
                           1 => 
@@ -6949,7 +6958,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                             'type' => 'number',
                             'position' => 2,
                             'key' => 'DrawingRevisionNumber',
-                            'id' => 'extModel2946-2',
                             'label' => 'Drawing Revision number',
                           ),
                           2 => 
@@ -6957,7 +6965,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                             'type' => 'text',
                             'position' => 3,
                             'key' => 'DrawingRevisionDate',
-                            'id' => 'extModel2946-3',
                             'label' => 'Drawing Revision Date',
                             'width' => NULL,
                           ),
@@ -6966,7 +6973,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                             'type' => 'bool',
                             'position' => 4,
                             'key' => 'CertificationDocument',
-                            'id' => 'extModel7263-1',
                             'label' => 'Certification Document',
                           ),
                         ),
@@ -7077,7 +7083,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         array (
                         ),
                          'uploadPath' => '',
-                         'width' => 300,
+                         'width' => 325,
                          'height' => '',
                       )),
                       1 => 
@@ -7100,7 +7106,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         array (
                         ),
                          'uploadPath' => '/Continental Aftermarket/Products/IAM ATE/Disc/Brake Disc',
-                         'width' => 300,
+                         'width' => 325,
                          'height' => '',
                       )),
                       2 => 
@@ -7123,7 +7129,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         array (
                         ),
                          'uploadPath' => '',
-                         'width' => 300,
+                         'width' => 550,
                          'height' => '',
                       )),
                       3 => 
@@ -7146,7 +7152,53 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         array (
                         ),
                          'uploadPath' => '',
-                         'width' => 300,
+                         'width' => 325,
+                         'height' => '',
+                      )),
+                      4 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                         'name' => 'beltIdentificationImage',
+                         'title' => 'Belt Identification Image',
+                         'tooltip' => 'Belt Identification Image',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'float:left;',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'uploadPath' => '/Continental Aftermarket/Products/IAM ATE/Disc/Brake Disc',
+                         'width' => 325,
+                         'height' => '',
+                      )),
+                      5 => 
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                         'name' => 'profileDimensionPtsBelts',
+                         'title' => 'PTS belts Profile Dimension Image',
+                         'tooltip' => 'Profile dimension image for PTS belt catalog.',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'float:left; margin-right:20px; clear:left;',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'uploadPath' => '',
+                         'width' => 400,
                          'height' => '',
                       )),
                     ),
@@ -7650,7 +7702,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'dynamicOptions' => false,
                  'defaultValueGenerator' => '',
                  'width' => 220,
-                 'optionsProviderType' => NULL,
+                 'optionsProviderType' => 'configure',
                  'optionsProviderClass' => '',
                  'optionsProviderData' => '',
               )),
