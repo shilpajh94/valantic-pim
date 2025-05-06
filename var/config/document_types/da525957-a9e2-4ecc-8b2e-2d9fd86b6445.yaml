@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                da525957-a9e2-4ecc-8b2e-2d9fd86b6445:
+                    name: 'Hose Product Page'
+                    group: 'Hydraulic Template'
+                    controller: 'CatalogBundle\Controller\DefaultController::templateHoseProductPageAction'
+                    template: catalog/default/template_hose_product_page.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710333562
+                    modificationDate: 1710333869
+                    staticGeneratorEnabled: false

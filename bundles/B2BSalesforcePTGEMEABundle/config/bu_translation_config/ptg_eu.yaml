@@ -324,6 +324,12 @@ parameters:
             className: PTGEUProduct
             isLocalized: false
             level: skeleton
+        netWeight:
+            fieldName: netWeight
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            level: fert
     Category: 
         description:
             fieldName: description
