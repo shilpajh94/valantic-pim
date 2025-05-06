@@ -978,6 +978,7 @@ h3 .pimcore_tag_input.empty {
     justify-content: space-between;
     font-size: 12px;
     max-width: 75%;
+    padding-left: 5px;
 }
 
 aside.first p {
@@ -1058,7 +1059,10 @@ section.spacing {
     max-width: 100%;
     height: auto;
 }
-
+.img-placeholder2 img {
+    max-width: 43px !important;
+    max-height: 151px !important;
+}
 aside p {
     padding: 1em;
 }
