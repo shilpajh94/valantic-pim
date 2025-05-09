@@ -142,7 +142,7 @@ class DefaultController extends FrontendController
         $productList->setCondition('ProductType = "base"');
         $options = [];
         foreach ($productList as $item) {
-            if($className == "CatalogPTS"){
+            if($className == "CatalogPTS" || $className == "CatalogVBelts"){
                 $options[] = array('key' => (!empty($item->getSapDescription('en'))?$item->getSapDescription('en'):$item->getKey()), 'value' => $item->getId());
             }else{
 

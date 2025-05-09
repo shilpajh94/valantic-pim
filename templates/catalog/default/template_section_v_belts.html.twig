@@ -4,17 +4,17 @@
 
 {% block _content %}
 
-	{#{% if editmode %}
-		{{ pimcore_relation("section_page_pts_belts", {
+	{% if editmode %}
+		{{ pimcore_relation("section_page_v_belts", {
             "types": ["object"],
             "subtypes": {
                 "object": ["object"]
             },
-            "classes": ["CatalogPTS"],
+            "classes": ["CatalogVBelts"],
 			"reload": true
         }) }}
 	{% endif %}
-	{% if data is not empty %}#}
+	{% if data is not empty %}
 	
 		<style>
 		body, h1, h2, h3, h4, h5, h6{
@@ -445,114 +445,172 @@
 				<div class="footer ">
 					<footer class="flex-center">
 						<span class="ptslogo">
-							<img src="/CatalogImages/PTG/Footer/6126/image-thumb__6126__catalog_thumb/Continental_Logo_Master_yellow.480f288b.png" alt="footer log">
+							<img src="{{ data.footer_logo_src }}" alt="footer log">
 						</span>
 						<div class="flex aligned">
-							
+							{% set section_page_pts_belts_footer_SIOP5 = pimcore_input("section_page_pts_belts_footer_SIOP5") %}
+							{% if  section_page_pts_belts_footer_SIOP5.isEmpty() %}
+								{% set section_page_pts_belts_footer_SIOP5 = section_page_pts_belts_footer_SIOP5.setDataFromResource(data.SIOPLEVEL5) %}
+							{% endif %}
 							<h5>
-								#Synchrochain
+								{% if editmode %}
+									#{{section_page_pts_belts_footer_SIOP5|raw }}
+								{% else %}
+									#{{section_page_pts_belts_footer_SIOP5|raw }}
+								{% endif %}
 
 								<span>
+									{% set section_page_pts_belts_SIOP_level_3 = pimcore_input("section_page_pts_belts_SIOP_level_3") %}
+									{% if  section_page_pts_belts_SIOP_level_3.isEmpty() %}
+										{% set section_page_pts_belts_SIOP_level_3 = section_page_pts_belts_SIOP_level_3.setDataFromResource(data.SIOPLEVEL3) %}
+									{% endif %}
 
 
-									#Synchronous Belts
-									#CTD
+									{% set section_page_pts_belts_SIOP_level_4 = pimcore_input("section_page_pts_belts_SIOP_level_4") %}
+									{% if  section_page_pts_belts_SIOP_level_4.isEmpty() %}
+										{% set section_page_pts_belts_SIOP_level_4 = section_page_pts_belts_SIOP_level_4.setDataFromResource(data.SIOPLEVEL4) %}
+
+									{% endif %}
+									{% if editmode %}
+										#{{ section_page_pts_belts_SIOP_level_3 | raw}}
+										#{{section_page_pts_belts_SIOP_level_4|raw}}
+									{% else %}
+										#{{ section_page_pts_belts_SIOP_level_3|raw }}
+										#{{ section_page_pts_belts_SIOP_level_4|raw }}
+									{% endif %}
 								</span>
 							</h5>
 
 							<div class="compatible">
+								{% set section_page_pts_belts_compatibility = pimcore_input("section_page_pts_belts_compatibility",{
+									width:200
+								}) %}
+								{% set section_page_pts_belts_export_details = pimcore_input("section_page_pts_belts_export_details",{
+									width:200
+								}) %}
+								{# {% if section_page_pts_belts_compatibility.isEmpty() %}
+									{% set section_page_pts_belts_compatibility = section_page_pts_belts_compatibility .setDataFromResource('Compatible fittings')%}
+								{% endif %} #}
 								<b>
-									
+									{{section_page_pts_belts_compatibility|raw}}
 								</b>
+								{{section_page_pts_belts_export_details|raw}}
 
 							</div>
 						</div>
 					</footer>
 				</div>
 
-				<div class="footer1 ">
-					<footer class="flex-center ">
-						<span class="ptslogo">
-							<img src="/CatalogImages/PTG/Footer/6126/image-thumb__6126__catalog_thumb/Continental_Logo_Master_yellow.480f288b.png" alt="">
-						</span>
-						<div class="flex aligned">
-							<h5 style="padding-bottom:70px;">
-								<span>
-								</span>
-							</h5>
+				{% if not editmode %}
+					<div class="footer1 ">
+						<footer class="flex-center {{ data.footer_class }}">
+							<span class="ptslogo">
+								<img src="{{ data.footer_logo_src }}" alt="">
+							</span>
+							<div class="flex aligned">
+								<h5 style="padding-bottom:70px;">{{section_page_pts_belts_footer_SIOP5|raw }}
+									<span>
+										{{ section_page_pts_belts_SIOP_level_3|raw}}
+										{{section_page_pts_belts_SIOP_level_4|raw}}
+									</span>
+								</h5>
 
-							<div class="compatible">
-								<b>
+								<div class="compatible">
+									<b>
+										{{section_page_pts_belts_compatibility|raw}}
+									</b>
+									{{section_page_pts_belts_export_details|raw}}
 									
-								</b>
 
+								</div>
 							</div>
-						</div>
-					</footer>
-				</div>
-				<div class="all-child-taxonomy">
-					<p class="">Accessories - Misc</p>
-					<p class="">Auto Belts</p>
-					<p class="">Banded Belts</p>
-					<p class="">RP Hose</p>
-					<p class="">Specialty Belts</p>
-					<p class="selected">Synchronous Belts</p>
-					<p class="">V-Belts</p>
-				</div>
+						</footer>
+					</div>
+				{% endif %}
+				{% if data.SIOPCategories is not empty %}
+					<div class="all-child-taxonomy">
+						{% for SIOPCategory,selected in data.SIOPCategories %}
+							<p class="{{selected}}">{{SIOPCategory}}</p>
+						{% endfor %}
+					</div>
+				{% endif %}
 
 				<div class="content-container right-side-container">
 					<div class="wrapper">
 						<div class="wrapperContainer content-section">
-							<header class="content white">
-								<h1>
-									Conti® V - Classical Profile
-								</h1>
-								<div class="section-page-pts-belts-LongDescription">
-									Conti® Synchrochain Carbon combines high-tensile polyurethane with carbon cords for superior performance. It delivers 5x more power than conventional rubber timing belts, reduces belt width by 80%, and offersextreme wear resistance, zero tension loss, and up to 100% longer life for virtually maintenance-free reliability.
-								</div>
-							</header>
-									
-							<div class="section feature-benefits-and-images">
-								<section class="content single ptg">
-								<menu class="flex">
-									<div class="specs">
-										<h6>KEY FEATURES AND BENEFITS</h6>
-										<div class="section-page-pts-belts-features ">
-											<div class="features">
-												<ul>
-													<li class="center">
-														Pin Pricked, Allowing Release Of Gasses Or Vapors Which May Permeate Tube Of The Hose
-													</li>
-													<li class="center">
-														Fire resistant cover provides minimum 2-1/2 minute fire resistivity for USCG type A service
-													</li>
-													<li class="center">
-														Meets EPA requirements for low permeation Class A1-15 marine fuel lines
-													</li>
-													<li class="center">
-														Non Conductive - Minimum Electric Resistance Greater Than 1 Megohm Per Inch At 1000 Volts Dc
-													</li>
-												</ul>
-											</div>
-											<div>
-												<div class="full">
-													<b>Material:</b>
-													HNBR
-												</div>
-												<div class="full">
-													<b>Reinforcement:</b>
-													Aramid
-												</div>
-												<div class="full">
-													<b>Temperature Range:</b>
-													-50&deg;F to +200&deg;F
-												</div>
-											</div>
-										</div>
+								<header class="content white">
+									<h1>
+										{% set section_page_pts_belts_BrandName = pimcore_input("section_page_pts_belts_BrandName") %}
+
+										{% if section_page_pts_belts_BrandName.isEmpty() %}
+											{% set section_page_pts_belts_BrandName = section_page_pts_belts_BrandName.setDataFromResource(data.brandName) %}
+										{% endif %}
+										{% if editmode %}
+											{{section_page_pts_belts_BrandName|raw}}
+										{% else %}
+											{{section_page_pts_belts_BrandName|raw}}
+										{% endif %}
+									</h1>
+									<div class="section-page-pts-belts-LongDescription">
+										{% set section_page_pts_belts_ShortDescription = pimcore_wysiwyg("section_page_pts_belts_ShortDescription") %}
+										{% if  section_page_pts_belts_ShortDescription.isEmpty() %}
+											{% set section_page_pts_belts_ShortDescription = section_page_pts_belts_ShortDescription.setDataFromResource(data.shortDescription) %}
+										{% endif %}
+										{% if editmode %}
+											{{section_page_pts_belts_ShortDescription|raw}}
+										{% else %}
+											{{section_page_pts_belts_ShortDescription|raw}}
+										{% endif %}
 									</div>
-								</menu>
-								</section>
-							</div>
+								</header>
+								
+								<div class="section feature-benefits-and-images">
+									<section class="content single ptg">
+												{% if data.FeaturesBenefitsBulletPoint or ((data.material)|trim is not empty) or ((data.reinforcement)|trim is not empty) or ((data.temperatureRangeFAndC)|trim is not empty) %}
+													<menu
+														class="flex">
+														{# {% if groupData['safetyFeatures'] %} #}
+														<div class="specs">
+															<h6>{{ 'section_page_pts_belts_features'|trans }}</h6>
+															<div class="section-page-pts-belts-features ">
+																<div class="features">
+																	<ul>
+																		{% for key, feature in data.FeaturesBenefitsBulletPoint %}
+																			<li class="center">
+																				{{ feature['name'] }}
+																			</li>
+																		{% endfor %}
+																	</ul>
+																</div>
+																{% if ((data.material)|trim is not empty) or ((data.reinforcement)|trim is not empty) or ((data.temperatureRangeFAndC)|trim is not empty) %}
+																	<div>
+																		{% if data.material %}
+																			<div class="full">
+																				<b>{{ 'Material'|trans }}:</b>
+																				{{ data.material }}
+																			</div>
+																		{% endif %}
+																		{% if data.reinforcement %}
+																			<div class="full">
+																				<b>{{ 'Reinforcement'|trans }}:</b>
+																				{{ data.reinforcement }}
+																			</div>
+																		{% endif %}
+																		{% if data.temperatureRangeFAndC %}
+																			<div class="full">
+																				<b>{{ 'Temperature Range'|trans }}:</b>
+																				{{ data.minimumTemperatureF }}&deg;F to {{ data.maximumTemperatureF }}&deg;F
+																			</div>
+																		{% endif %}
+																	</div>
+																{% endif %}
+															</div>
+														</div>
+
+													</menu>
+												{% endif %}
+									</section>
+								</div>
 							
 							<div class="footers">
 								<div class="contents">
@@ -560,7 +618,17 @@
 										<div class="left-image-and-table">
 
 											<div class="belts-Identification-and-profile-dimension-container">
-												<img src="https://dnc8pccxs8g3.cloudfront.net/assets/vbelt.PNG" alt="" />
+												{% set section_page_pts_belts_Identification_Image = pimcore_image("section_page_pts_belts_Identification_Image", {"width": 580, "height": 100, "border-style": "2px solid #333"}) %}
+												{% if data.beltIdentificationImage %}
+													{% set section_page_pts_belts_Identification_Image = section_page_pts_belts_Identification_Image.setImage(data.beltIdentificationImage) %}
+												{% endif %}
+												{% if editmode %}
+													{{section_page_pts_belts_Identification_Image|raw}}
+													{% else %}
+													{% if section_page_pts_belts_Identification_Image %}
+														<img class="section_page_pts_belts_Identification_Image" src="{{getImageThumbnail(section_page_pts_belts_Identification_Image, imageWidth)}}" alt=""/>
+													{% endif %}
+												{% endif %}
 											</div>
 										</div>
 									</div> 
@@ -614,9 +682,20 @@
 									</div>
 								</div>
 								<div class="sideimg">
-									<div class="section_page_pts_belts_Catalog_Asset_Right_Image">
-										<img id="section_page_pts_belts_Catalog_Asset_Image" src="/Product%20Assets/PTG/PTP/Synchronous%20Belts/CTD/Synchrochain%20Carbon/11850/image-thumb__11850__catalog_thumb/Synchrochain_Carbon_old.07694ff1.png" alt="section_page_pts_belts_Catalog_Asset_Right_Image" />
-									</div>
+									{% set section_page_pts_belts_Catalog_Asset_Right_Image = pimcore_image("section_page_pts_belts_Catalog_Asset_Right_Image", {"width": 400, "height": 200}) %}
+									{% if data.mainImage %}
+										{% set section_page_pts_belts_Catalog_Asset_Right_Image = section_page_pts_belts_Catalog_Asset_Right_Image.setImage(data.mainImage) %}
+									{% endif %}
+									{% if editmode %}
+										{{section_page_pts_belts_Catalog_Asset_Right_Image|raw}}
+									{% else %}
+
+										{% if section_page_pts_belts_Catalog_Asset_Right_Image %}
+											<div class="section_page_pts_belts_Catalog_Asset_Right_Image">
+												<img id="section_page_pts_belts_Catalog_Asset_Image" src="{{getImageThumbnail(section_page_pts_belts_Catalog_Asset_Right_Image, imageWidth)}}" alt="section_page_pts_belts_Catalog_Asset_Right_Image"/>
+											</div>
+										{% endif %}
+									{% endif %}
 								</div>
 							</div>
 						</div>
@@ -640,5 +719,5 @@
 		{% if not isParentContainerRequest %}
 			<script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
 		{% endif %}
-	{#{% endif %}#}
+	{% endif %}
 {% endblock %}

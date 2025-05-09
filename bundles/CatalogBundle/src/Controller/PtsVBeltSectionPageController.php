@@ -61,9 +61,10 @@ class PtsVBeltSectionPageController extends FrontendController
 
             $baseProductID = $template->getBaseproduct();
 
-            $sqlQueries = array_map(function($item) {
-                return $item['sqlQuery'];
-            }, $selectedColumns);
+            // $sqlQueries = array_map(function($item) {
+            //     return $item['sqlQuery'];
+            // }, $selectedColumns);
+            $sqlQueries =[];
             
             if($template->getBrand()){
                 $brandName = $template->getBrand();
@@ -141,6 +142,7 @@ class PtsVBeltSectionPageController extends FrontendController
                     WHERE baseProducts.oo_id = $baseProductID AND fertProducts.printedCatalogFlag =1 AND fertProducts.published = 1 ORDER BY object_brick_query_PTGFert_1.widthmm ASC ";
             }
             $SQLResults = $this->db->fetchAllAssociative($sql);
+            // p_r($SQLResults);die;
             if($SQLResults){
                 $siopLevel2 = trim(array_column($SQLResults, 'SIOPLevel2')[0], ',');
                 $siopLevel3 = trim(array_column($SQLResults, 'SIOPLevel3')[0], ',');
@@ -158,9 +160,9 @@ class PtsVBeltSectionPageController extends FrontendController
                 $maximumTemperatureF ="+". intval(array_unique(array_column($SQLResults, 'maximumTemperatureF'))[0]); 
                 $longDescription = array_unique(array_column($SQLResults, 'shortDescription'))[0];
                 $brandName = array_unique(array_column($SQLResults, 'brandName'))[0];
-                $skeltons = array_slice(($template->getSkeletonProduct() !=null )?$template->getSkeletonProduct():array_values(array_unique(array_column($SQLResults, 'Pitch'))),0,4);
+                // $skeltons = array_slice(($template->getSkeletonProduct() !=null )?$template->getSkeletonProduct():array_values(array_unique(array_column($SQLResults, 'Pitch'))),0,4);
                 $result = [];
-                $skeltonSet = array_flip($skeltons); // This creates an associative array where keys are skelton values
+                // $skeltonSet = array_flip($skeltons); // This creates an associative array where keys are skelton values
                 foreach ($SQLResults as $SQLResult) {
                     $a1[] = $SQLResult['SIOPLevel6'];
 
@@ -177,18 +179,18 @@ class PtsVBeltSectionPageController extends FrontendController
                     unset($SQLResult['temperatureRangeFAndC']);
                     unset($SQLResult['brandName']);
                     // Storing results on basis of unique pitch value (pitch value contains printed catalog description present in hierarchy for the skeleton level)
-                    if (isset($SQLResult['Pitch']) && isset($skeltonSet[$SQLResult['Pitch']])) {
-                        $result[$SQLResult['Pitch']][] = $SQLResult;
-                    }
+                    // if (isset($SQLResult['Pitch']) && isset($skeltonSet[$SQLResult['Pitch']])) {
+                    //     $result[$SQLResult['Pitch']][] = $SQLResult;
+                    // }
                 }
-                for ($i = 0; $i < count($skeltons); $i++) {
+                // for ($i = 0; $i < count($skeltons); $i++) {
 
-                    $data['groupData'][$skeltons[$i]]['standardWidthmm'] = isset($SQLResult['standardWidthmm']) ? implode(', ', array_map('intval',array_unique(array_column($result[$skeltons[$i]], 'standardWidthmm')))) : null;
-                    $data['groupData'][$skeltons[$i]]['pitchLengthMM'] = isset($SQLResult['pitchLengthMM']) ? (int) min(array_column($result[$skeltons[$i]], 'pitchLengthMM')) . ' - ' .(int) max(array_column($result[$skeltons[$i]], 'pitchLengthMM')) : null;
-                    $data['groupData'][$skeltons[$i]]['A'] = isset($SQLResult['pitchMM']) ? array_values(array_unique(array_column($result[$skeltons[$i]], 'pitchMM')))[0] : null;
-                    $data['groupData'][$skeltons[$i]]['B'] = isset(array_values(array_unique(array_column($result[$skeltons[$i]], 'totalBeltThickness')))[0]) ? array_values(array_unique(array_column($result[$skeltons[$i]], 'totalBeltThickness')))[0] : null;
-                    $data['groupData'][$skeltons[$i]]['C'] = isset(array_values(array_unique(array_column($result[$skeltons[$i]], 'totalToothThickness')))[0]) ? array_values(array_unique(array_column($result[$skeltons[$i]], 'totalToothThickness')))[0] : null;
-                }
+                //     $data['groupData'][$skeltons[$i]]['standardWidthmm'] = isset($SQLResult['standardWidthmm']) ? implode(', ', array_map('intval',array_unique(array_column($result[$skeltons[$i]], 'standardWidthmm')))) : null;
+                //     $data['groupData'][$skeltons[$i]]['pitchLengthMM'] = isset($SQLResult['pitchLengthMM']) ? (int) min(array_column($result[$skeltons[$i]], 'pitchLengthMM')) . ' - ' .(int) max(array_column($result[$skeltons[$i]], 'pitchLengthMM')) : null;
+                //     $data['groupData'][$skeltons[$i]]['A'] = isset($SQLResult['pitchMM']) ? array_values(array_unique(array_column($result[$skeltons[$i]], 'pitchMM')))[0] : null;
+                //     $data['groupData'][$skeltons[$i]]['B'] = isset(array_values(array_unique(array_column($result[$skeltons[$i]], 'totalBeltThickness')))[0]) ? array_values(array_unique(array_column($result[$skeltons[$i]], 'totalBeltThickness')))[0] : null;
+                //     $data['groupData'][$skeltons[$i]]['C'] = isset(array_values(array_unique(array_column($result[$skeltons[$i]], 'totalToothThickness')))[0]) ? array_values(array_unique(array_column($result[$skeltons[$i]], 'totalToothThickness')))[0] : null;
+                // }
 
                 $SIOPCategories = array();
 
@@ -264,12 +266,12 @@ class PtsVBeltSectionPageController extends FrontendController
                 $footer_logo_src = $this->defaultController->getS3ImageSrc($footer_logo_src);
                 $data['footer_logo_src'] = $footer_logo_src;
 
-                foreach($selectedColumns as $col){
-                    $data['headers'][] = array(
-                        'columnHeaders' => $col['columnHeader'],
-                        'attributeName' => $col['columnName'],
-                    );
-                }
+                // foreach($selectedColumns as $col){
+                //     $data['headers'][] = array(
+                //         'columnHeaders' => $col['columnHeader'],
+                //         'attributeName' => $col['columnName'],
+                //     );
+                // }
             }
             $parameterBag['data']=isset($data)?$data:[];
             return $parameterBag;
@@ -327,7 +329,7 @@ class PtsVBeltSectionPageController extends FrontendController
     /**
      * @Route("/get-ptsCatalog-available-headers")
      */
-    public function getSpecSheetAvailableHeaders(Request $request)
+    public function getVBeltsAvailableHeaders(Request $request)
     {
         $tableColumns = Yaml::parseFile(PIMCORE_PROJECT_ROOT . '/bundles/CatalogBundle/config/pts-sectionPage-column.yaml');
         
@@ -351,7 +353,7 @@ class PtsVBeltSectionPageController extends FrontendController
 
     public function templatePtgVBeltSectionPageAction(Request $request)
     {
-        $templateEditable = $this->document->getEditable('section_page_pts_belts');
+        $templateEditable = $this->document->getEditable('section_page_v_belts');
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->defaultController->getRequestedParameter($request, 0);
         }
