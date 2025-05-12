@@ -813,6 +813,8 @@ class DefaultController extends FrontendController
 
             $brandsList = $this->getBrandsList();
 
+            $this->featuresList = $this->getFeaturesList('en');
+
             if (is_array($template->getProductsData()) && !empty($template->getProductsData())) {
                 foreach ($template->getProductsData() as $k => $row) {
                     $productsData[] = array_combine($headerKeys, $row);
@@ -827,18 +829,21 @@ class DefaultController extends FrontendController
                     if (!isset($data[$baseId])) {
                         $data[$baseId] = array();
                         $fertId[$baseId] = $row['id'];
-                        $images[$baseId] = $row['mainImage'];
+                        $images[$baseId] = $row['altImage7'];
                     }
 
                     if (isset($data[$baseId]) && empty($data[$baseId])) {
                         $data[$baseId]['brandName'] = isset($data[$baseId]['brandName']) && !empty($data[$baseId]['brandName']) ? $data[$baseId]['brandName'] : $row['brandName'];
-                        $data[$baseId]['industryStandard'] = isset($data[$baseId]['industryStandard']) && !empty($data[$baseId]['industryStandard']) ? $data[$baseId]['industryStandard'] : $row['industryStandard'];
+                       // Picking the first Standard Met Hose (Multiple data is coming pipe separated { || })
+                        $data[$baseId]['standardMetHose'] = isset($data[$baseId]['standardMetHose']) && !empty($data[$baseId]['standardMetHose']) 
+                        ? explode('||', $data[$baseId]['standardMetHose'])[0] 
+                        : explode('||', $row['standardMetHose'])[0];
                         $data[$baseId]['BrandShortText'][0] = isset($data[$baseId]['BrandShortText1'][0]) && !empty($data[$baseId]['BrandShortText1'][0]) ? $data[$baseId]['BrandShortText1'][0] : $row['BrandShortText1'];
                         $data[$baseId]['BrandShortText'][1] = isset($data[$baseId]['BrandShortText2'][1]) && !empty($data[$baseId]['BrandShortText2'][1]) ? $data[$baseId]['BrandShortText2'][1] : $row['BrandShortText2'];
                         $data[$baseId]['BrandShortText'][2] = isset($data[$baseId]['BrandShortText3'][2]) && !empty($data[$baseId]['BrandShortText3'][2]) ? $data[$baseId]['BrandShortText3'][2] : $row['BrandShortText3'];
                         $data[$baseId]['BrandShortText'][3] = isset($data[$baseId]['BrandShortText4'][3]) && !empty($data[$baseId]['BrandShortText4'][3]) ? $data[$baseId]['BrandShortText4'][3] : $row['BrandShortText4'];
                         $data[$baseId]['BrandShortText'][4] = isset($data[$baseId]['BrandShortText5'][4]) && !empty($data[$baseId]['BrandShortText5'][4]) ? $data[$baseId]['BrandShortText5'][4] : $row['BrandShortText5'];
-                        $data[$baseId]['mainImage'] = isset($row['mainImage']) && !empty($row['mainImage']) ? Asset::getByPath($row['mainImage']) : null;
+                        $data[$baseId]['altImage7'] = isset($row['altImage7']) && !empty($row['altImage7']) ? Asset::getByPath($row['altImage7']) : null;
                         if(is_array($data[$baseId]['brandName'])){
                             if(array_key_exists($data[$baseId]['brandName'][0],$brandsList) && !empty($brandsList[$data[$baseId]['brandName'][0]])){
                                 $data[$baseId]['SortOrder'] = $brandsList[$data[$baseId]['brandName'][0]];
@@ -858,12 +863,13 @@ class DefaultController extends FrontendController
                             $featureObj = null;
 
                             if (is_array($features) && !empty($features)) {
-                                foreach ($features as $featureId) {
-                                    $featureObj = \Pimcore\Model\DataObject\Features::getById($featureId);
-                                    $data[$baseId]['featureIcon'][$featureId] = array(
-                                        'icon' => $featureObj->getIcon(),
-                                        'name' => $featureObj->getName()
-                                    );
+                                $featuresObj = $this->getFiveSortedFeaturesWithIconList($features);
+                                foreach($featuresObj as $f){
+                                    if($f['iconSrc']){
+                                        $data[$baseId]['featureIcon'] = array(
+                                            $featuresObj
+                                        );
+                                    }
                                 }
                             }
                             unset(
@@ -873,13 +879,27 @@ class DefaultController extends FrontendController
                             );
                         }
                     }
-
                     if (isset($data[$baseId])) {
                         $data[$baseId]['HoseIDNominalIDFrac'][] = isset($data[$baseId]['HoseIDNominalIDFrac'][$k]) && !empty($data[$baseId]['HoseIDNominalIDFrac'][$k]) ? $data[$baseId]['HoseIDNominalIDFrac'][$k] : $row['HoseIDNominalIDFrac'];
                         $data[$baseId]['hoseIdDec'][] = isset($data[$baseId]['hoseIdDec'][$k]) && !empty($data[$baseId]['hoseIdDec'][$k]) ? $data[$baseId]['hoseIdDec'][$k] : $row['hoseIdDec'];
                     }
                 }
 
+                // data set wrt non-repeating brands
+                $uniqueBrandData = [];
+                $seenBrands = [];
+
+                foreach ($data as $baseId => $details) {
+                    $brand = is_array($details['brandName']) ? $details['brandName'][0] : $details['brandName'];
+                    
+                    if (!in_array($brand, $seenBrands)) {
+                        $uniqueBrandData[$baseId] = $details;
+                        $seenBrands[] = $brand;
+                    }
+                }
+
+                // Replace original data with filtered one
+                $data = $uniqueBrandData;
 
                 /**
                  * $baseId is Base Level Object (Brand information)
@@ -901,13 +921,12 @@ class DefaultController extends FrontendController
                         $data[$baseId]['range'] = $range;
                     }
                 }
-
                 if ($data) {
                     array_multisort(array_column($data, 'SortOrder'), SORT_ASC, $data);
                 }
-
                 $footer_logo_src = (strtolower($footerBgColor) == 'orange') ? $catalogImagesHYDFooter['Black'] : $catalogImagesHYDFooter['Orange'];
                 $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
+                
 
                 $parameterBag['info'] = array(
                     'brandsInfo' => $data,
@@ -916,7 +935,7 @@ class DefaultController extends FrontendController
                     'footer_logo_src' => (strtolower($footerBgColor) == 'orange') ? $catalogImagesHYDFooter['Black'] : $catalogImagesHYDFooter['Orange']
                 );
             }
-        }
+        }        
         return $this->render("catalog/default/template_hose_line_tile_template.html.twig", $parameterBag);
     }
 
@@ -1176,9 +1195,7 @@ class DefaultController extends FrontendController
                         $reinforcement = array_unique($reinforcement);
                         $coverMaterial = array_unique($coverMaterial);
                         $coverAttribute = array_unique($coverAttribute);
-
                         $safetyFeaturesList = $this->getFiveSortedFeaturesWithIconList($safetyFeatures);
-
                         $standardMetHoseListData = array();
                         $standardMetHoseMeetFlameResistence = array();
                         if ($standardsMetHose) {
@@ -2639,7 +2656,6 @@ class DefaultController extends FrontendController
         $safetyFeaturesList  = array();
         $safetyFeaturesListWithImage = array();
         $safetyFeaturesListWithOutImage = array();
-
         if ($safetyFeatures) {
             foreach ($safetyFeatures as $fvalue) {
                 $fIcon = isset($this->featuresList[$fvalue]['icon']) ? $this->featuresList[$fvalue]['icon'] : null;
@@ -2678,7 +2694,6 @@ class DefaultController extends FrontendController
 
         unset($safetyFeaturesListWithImage);
         unset($safetyFeaturesListWithOutImage);
-
         return $safetyFeaturesList;
     }
 

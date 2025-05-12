@@ -21,6 +21,8 @@ use Pimcore\Model\DataObject\ClassDefinition\Data;
 
 class NoteInformationBelowTableOptionsProvider implements SelectOptionsProviderInterface {
 
+    private $optionProvider;
+
     /**
      * @param array $context
      * @param Data $fieldDefinition
@@ -68,7 +70,7 @@ class NoteInformationBelowTableOptionsProvider implements SelectOptionsProviderI
      */
     public function getDefaultValue(array $context, Data $fieldDefinition): ?string
     {
-        return true; //return $fieldDefinition->getDefaultValue();
+        return false;
     }
 
     /**
