@@ -548,15 +548,7 @@
 										{% endif %}
 									</h1>
 									<div class="section-page-pts-belts-LongDescription">
-										{% set section_page_pts_belts_ShortDescription = pimcore_wysiwyg("section_page_pts_belts_ShortDescription") %}
-										{% if  section_page_pts_belts_ShortDescription.isEmpty() %}
-											{% set section_page_pts_belts_ShortDescription = section_page_pts_belts_ShortDescription.setDataFromResource(data.shortDescription) %}
-										{% endif %}
-										{% if editmode %}
-											{{section_page_pts_belts_ShortDescription|raw}}
-										{% else %}
-											{{section_page_pts_belts_ShortDescription|raw}}
-										{% endif %}
+										<p>{{data.shortDescription | striptags}}</p>
 									</div>
 								</header>
 								
