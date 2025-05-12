@@ -139,7 +139,6 @@
 													<span class="productName">
 														{% if pimcore_input("brandName" ~ k).isEmpty() and row['brandName'] is not empty %}
 													<pre>
-														{# {{ dump(row['brandName']) }} #}
 													</pre>
 															{{ pimcore_input("brandName" ~ k, {'class': 'productName'}).setDataFromResource(row['brandName']) | raw }}
 														{% else %}
@@ -147,10 +146,10 @@
 														{% endif %}
 													</span>
 													<span class="productTitle">
-														{% if pimcore_input("industryStandard" ~ k).isEmpty() and row['industryStandard'] is not empty %}
-															{{ pimcore_input("industryStandard" ~ k, {'class': 'productTitle'}).setDataFromResource(row['industryStandard']) | raw }}
+														{% if pimcore_input("standardMetHose" ~ k).isEmpty() and row['standardMetHose'] is not empty %}
+															{{ pimcore_input("standardMetHose" ~ k, {'class': 'productTitle'}).setDataFromResource(row['standardMetHose']) | raw }}
 														{% else %}
-															{{ pimcore_input("industryStandard" ~ k, {'class': 'productTitle'}) }}
+															{{ pimcore_input("standardMetHose" ~ k, {'class': 'productTitle'}) }}
 														{% endif %}
 													</span>
 													<ul>
@@ -184,52 +183,38 @@
 												<div class="bottomText">
 													<span class="productImage">
 														{% set iccnt = 0 %}
-														{% if  row.featureIcon is defined and  row.featureIcon is iterable %}
-															{% for icntKey, featureIcon in row['featureIcon'] %}
-																{% for iccntKey,feature in featureIcon[0] %}
-																	{% if editmode and iccnt <= 3 %}
-																		{% if pimcore_input("productLogo" ~ key ~ iccnt).isEmpty() and feature['iconSrc'] is not null %}
-																			{{ pimcore_image("productLogo" ~ key ~ iccnt, {
-																			'width': feature['iconSrc'].getWidth(),
-																			'height': feature['iconSrc'].getHeight(),
-																			'aspectratio': true,
-																			'interlace': true,
-																			'quality': 95,
-																			'format': 'PNG'
-																		}).setImage(feature['iconSrc'].getAsset()) | raw }}
-																		{% else %}
-																			{{ pimcore_image("productLogo" ~ key ~ iccnt, {
-																			'width': 91,
-																			'height': 53,
-																			'aspectratio': true,
-																			'interlace': true,
-																			'quality': 95,
-																			'format': 'PNG'
-																		}) }}
+														{% if row.featureIcon is defined and row.featureIcon[0] is iterable %}
+    														{% for feature in row.featureIcon[0] %}
+																{% if editmode and iccnt <= 2 %}
+																	{% if pimcore_input("productLogo" ~ key ~ iccnt).isEmpty() and feature['iconSrc'] is not null %}
+																		{{ pimcore_image("productLogo" ~ key ~ iccnt, {
+																		'width': feature['iconSrc'].getWidth(),
+																		'height': feature['iconSrc'].getHeight(),
+																		'aspectratio': true,
+																		'interlace': true,
+																		'quality': 95,
+																		'format': 'PNG'
+																	}).setImage(feature['iconSrc'].getAsset()) | raw }}
+																	{% else %}
+																		{{ pimcore_image("productLogo" ~ key ~ iccnt, {
+																		'width': 91,
+																		'height': 53,
+																		'aspectratio': true,
+																		'interlace': true,
+																		'quality': 95,
+																		'format': 'PNG'
+																	}) }}
+																	{% endif %}
+																	{% set iccnt = iccnt + 1 %}
+																{% else %}
+																	{% if iccnt <= 2 %}
+																		{% set imgSrcObj2 = pimcore_image("productLogo" ~ key ~ iccnt) %}
+																		{% if imgSrcObj2 %}
+																			<img src="{{ feature['iconSrc']}}" width="91" height="53"/>
 																		{% endif %}
 																		{% set iccnt = iccnt + 1 %}
-																	{% else %}
-																		{% if iccnt <= 3 %}
-																			{% set imgSrcObj2 = pimcore_image("productLogo" ~ key ~ iccnt) %}
-																			{% if imgSrcObj2 %}
-																				<img src="{{ feature['iconSrc']}}" width="91" height="53"/>
-																			{% endif %}
-																			{% set iccnt = iccnt + 1 %}
-																		{% endif %}
 																	{% endif %}
-																{% endfor %}
-															{% endfor %}
-														{% endif %}
-														{% if (iccnt < 3) %}
-															{% for iccnt in iccnt..3 %}
-																{{ pimcore_image("productLogo" ~ key ~ iccnt, {
-																'width': 91,
-																'height': 53,
-																'aspectratio': true,
-																'interlace': true,
-																'quality': 95,
-																'format': 'PNG'
-															}) }}
+																{% endif %}
 															{% endfor %}
 														{% endif %}
 													</span>
