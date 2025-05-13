@@ -156,7 +156,7 @@
 														{% set bstCnt = 1 %}
 														{% for i, bst in row['BrandShortText'] %}
 															{% if bst is not empty %}
-																<li>
+																<li class="li-wrap">
 																	{% if pimcore_input("brandShortText" ~ key ~ i).isEmpty() %}
 																		{{ pimcore_input("brandShortText" ~ key ~ i).setDataFromResource(bst) | raw }}
 																	{% else %}

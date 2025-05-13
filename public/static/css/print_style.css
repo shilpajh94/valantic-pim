@@ -1016,6 +1016,12 @@ aside.first p {
     margin-right: 0.2em;
 }
 
+.li-wrap {
+    white-space: normal;      /* Allow wrapping */
+    word-wrap: break-word;    /* Break long words if needed */
+    overflow-wrap: break-word;/* Same as above, but modern */
+}
+
 .details {
     color: #969696;
     font-style: italic;
