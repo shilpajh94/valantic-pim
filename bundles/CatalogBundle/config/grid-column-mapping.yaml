@@ -514,10 +514,10 @@ parameters:
                 parent:
                     name: Product
         Industrial Hose Product Page:
-            mainImage:
+            LeftPrintCatalogImage:
                 fieldLevel: class
                 fieldType: Media
-                fieldLabel: Main Image
+                fieldLabel: Left Image
                 parent: 
                     name: Product
             safetyFactor:
