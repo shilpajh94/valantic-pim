@@ -1102,10 +1102,10 @@ parameters:
                 fieldLevel: class
                 fieldLabel: ID
                 fieldType: Input
-            mainImage:
+            LeftPrintCatalogImage:
                 fieldLevel: class
                 fieldType: Media
-                fieldLabel: Main Image
+                fieldLabel: Left Image
                 parent: 
                     name: Product
             oldMaterialCode:

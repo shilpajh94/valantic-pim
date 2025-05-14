@@ -32,3 +32,7 @@ services:
                   name: "console.command",
                   command: "restApi:virtual-catalog-save-sorted-product",
               }
+
+    RestApiBundle\EventListener\ObjectListener:
+        tags:
+            - { name: kernel.event_listener, event: pimcore.dataobject.postAdd, method: postAdd }

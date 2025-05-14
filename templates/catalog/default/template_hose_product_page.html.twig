@@ -208,39 +208,20 @@
 							</h1>
 							<aside>
 								<p>
-									{% if editmode %}
-										{% if pimcore_wysiwyg("HHPP_LongDescription_" ~ md5key ~ "_" ~ incr2).isEmpty() %}
-											{{ pimcore_wysiwyg("HHPP_LongDescription_" ~ md5key ~ "_" ~ incr2).setDataFromResource(brandData['longDescription']) | raw}}
-										{% else %}
-											{{ pimcore_wysiwyg("HHPP_LongDescription_" ~ md5key ~ "_" ~ incr2) }}
-										{% endif %}
-									{% else %}
-										{{ pimcore_wysiwyg("HHPP_LongDescription_" ~ md5key ~ "_" ~ incr2) }}
-									{% endif %}
+									{{brandData['longDescription'] | striptags}}
 								</p>
 								{% if editmode %}
-									{% set imgSrcObj1 = pimcore_image("HHPP_Image_Left_" ~ md5key ~ "_" ~ incr2) %}
-									{% if not imgSrcObj1.isEmpty() %}
-										{{ pimcore_image("HHPP_Image_Left_" ~ md5key ~ "_" ~ incr2, {"class": "leftImg", "width": 600, "height": 200}) }}
-									{% else %}
-										{{ pimcore_image("HHPP_Image_Left_" ~ md5key ~ "_" ~ incr2, {"class": "leftImg", "width": 600, "height": 200}).setImage(brandData['LeftPrintCatalogImageObj']) | raw}}
-									{% endif %}
-
-									{% set imgSrcObj2 = pimcore_image("HHPP_Image_Right_" ~ md5key ~ "_" ~ incr2) %}
-									{% if not imgSrcObj2.isEmpty() %}
-										{{ pimcore_image("HHPP_Image_Right_" ~ md5key ~ "_" ~ incr2, {"class": "rightImg", "width": 600, "height": 200}) }}
-									{% else %}
-										{{ pimcore_image("HHPP_Image_Right_" ~ md5key ~ "_" ~ incr2, {"class": "rightImg", "width": 600, "height": 200}).setImage(brandData['RightPrintCatalogImageObj']) | raw}}
-									{% endif %}
+										<img src="{{ getImageThumbnail(brandData['LeftPrintCatalogImageObj'], imageWidth) }}" class="leftImg" width="600" height="200"/>
+										<img src="{{ getImageThumbnail(brandData['RightPrintCatalogImageObj'], imageWidth) }}" class="rightImg" width="600" height="200"/>
 								{% else %}
 									{% set imgSrcObj1 = pimcore_image("HHPP_Image_Left_" ~ md5key ~ "_" ~ incr2, {"class": "leftImg", "width": 600, "height": 200}) %}
 									{% if imgSrcObj1 %}
-										<img src="{{ getImageThumbnail(imgSrcObj1, imageWidth) }}" class="leftImg" width="600" height="200"/>
+										<img src="{{ getImageThumbnail(brandData['LeftPrintCatalogImageObj'], imageWidth) }}" class="leftImg" width="600" height="200"/>
 									{% endif %}
 
 									{% set imgSrcObj2 = pimcore_image("HHPP_Image_Right_" ~ md5key ~ "_" ~ incr2, {"class": "rightImg", "width": 600, "height": 200}) %}
 									{% if imgSrcObj2 %}
-										<img src="{{ getImageThumbnail(imgSrcObj2, imageWidth) }}" class="rightImg" width="600" height="200"/>
+										<img src="{{ getImageThumbnail(brandData['RightPrintCatalogImageObj'], imageWidth) }}" class="rightImg" width="600" height="200"/>
 									{% endif %}
 								{% endif %}
 							</aside>

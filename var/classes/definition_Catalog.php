@@ -15,14 +15,14 @@
  * - SalesOrganisation [select]
  */
 
-return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
+return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
    'id' => '26',
    'name' => 'Catalog',
    'title' => '',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1706469124,
+   'modificationDate' => 1745817991,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -38,7 +38,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'allowVariants' => false,
    'showVariants' => false,
    'layoutDefinitions' => 
-  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'name' => 'pimcore_root',
      'type' => NULL,
      'region' => NULL,
@@ -52,7 +52,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'children' => 
     array (
       0 => 
-      Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+      \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
@@ -66,7 +66,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'children' => 
         array (
           0 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+          \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
              'name' => 'CatalogType',
              'title' => 'Catalog Type',
              'tooltip' => '',
@@ -107,12 +107,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'dynamicOptions' => false,
              'defaultValueGenerator' => '',
              'width' => '',
-             'optionsProviderType' => NULL,
+             'optionsProviderType' => 'configure',
              'optionsProviderClass' => '',
              'optionsProviderData' => '',
           )),
           1 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
+          \Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
              'name' => 'ValidFromDate',
              'title' => 'Valid From Date',
              'tooltip' => '',
@@ -136,7 +136,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'defaultValueGenerator' => '',
           )),
           2 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'name' => 'CatalogName',
              'title' => 'Catalog Name',
              'tooltip' => '',
@@ -166,7 +166,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'defaultValueGenerator' => '',
           )),
           3 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+          \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
              'name' => 'Currency',
              'title' => 'Currency',
              'tooltip' => '',
@@ -197,12 +197,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'dynamicOptions' => false,
              'defaultValueGenerator' => '',
              'width' => '',
-             'optionsProviderType' => NULL,
+             'optionsProviderType' => 'configure',
              'optionsProviderClass' => '',
              'optionsProviderData' => '',
           )),
           4 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Language::__set_state(array(
+          \Pimcore\Model\DataObject\ClassDefinition\Data\Language::__set_state(array(
              'name' => 'CatalogLanguage',
              'title' => 'Language',
              'tooltip' => '',
@@ -220,6 +220,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'blockedVarsForExport' => 
             array (
             ),
+             'options' => NULL,
              'defaultValue' => NULL,
              'columnLength' => 190,
              'dynamicOptions' => false,
@@ -231,7 +232,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'onlySystemLanguages' => true,
           )),
           5 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+          \Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
              'name' => 'IsPriceCatalog',
              'title' => 'Is Price Catalog',
              'tooltip' => '',
@@ -273,7 +274,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'width' => '',
           )),
           6 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+          \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
              'name' => 'DistributionChannel',
              'title' => 'Distribution Channel',
              'tooltip' => '',
@@ -291,18 +292,17 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'blockedVarsForExport' => 
             array (
             ),
-             'options' => NULL,
-             'defaultValue' => '',
+             'defaultValue' => '1',
              'columnLength' => 190,
              'dynamicOptions' => false,
              'defaultValueGenerator' => '',
              'width' => '',
-             'optionsProviderType' => NULL,
+             'optionsProviderType' => 'class',
              'optionsProviderClass' => 'CatalogBundle\\OptionProvider\\DistributionAndSalesOptionsProvider',
              'optionsProviderData' => 'DistributionChannel|name+code|code',
           )),
           7 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+          \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
              'name' => 'SalesOrganisation',
              'title' => 'Sales Organisation',
              'tooltip' => '',
@@ -320,13 +320,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'blockedVarsForExport' => 
             array (
             ),
-             'options' => NULL,
-             'defaultValue' => '',
+             'defaultValue' => '1',
              'columnLength' => 190,
              'dynamicOptions' => false,
              'defaultValueGenerator' => '',
              'width' => '',
-             'optionsProviderType' => NULL,
+             'optionsProviderType' => 'class',
              'optionsProviderClass' => 'CatalogBundle\\OptionProvider\\DistributionAndSalesOptionsProvider',
              'optionsProviderData' => 'SalesOrganisation|name+code|code',
           )),
@@ -358,7 +357,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'group' => '',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
-   'previewGeneratorReference' => NULL,
+   'previewGeneratorReference' => '',
    'compositeIndices' => 
   array (
   ),
