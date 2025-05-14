@@ -157,7 +157,7 @@ class PtsSectionPageController extends FrontendController
                 $temperatureRangeFAndC = array_unique(array_column($SQLResults, 'temperatureRangeFAndC'))[0];
                 $minimumTemperatureF = intval(array_unique(array_column($SQLResults, 'minimumTemperatureF'))[0]);
                 $maximumTemperatureF ="+". intval(array_unique(array_column($SQLResults, 'maximumTemperatureF'))[0]); 
-                $longDescription = array_unique(array_column($SQLResults, 'shortDescription'))[0];
+                $shortDescription = array_unique(array_column($SQLResults, 'shortDescription'))[0];
                 $brandName = array_unique(array_column($SQLResults, 'brandName'))[0];
                 $skeltons = array_slice(($template->getSkeletonProduct() !=null )?$template->getSkeletonProduct():array_values(array_unique(array_column($SQLResults, 'Pitch'))),0,4);
                 $result = [];
@@ -257,7 +257,7 @@ class PtsSectionPageController extends FrontendController
                 $data['SIOPLEVEL4'] = isset($siopLevel4)?$siopLevel4:'';
                 $data['SIOPLEVEL5'] = isset($siopLevel5)?$siopLevel5:'';
                 $data['brandName'] = isset($brandName)?$brandName:'';
-                $data['shortDescription'] = isset($longDescription)?$longDescription:'';    
+                $data['shortDescription'] = isset($shortDescription)?$shortDescription:'';    
                 
                 $data['FeaturesBenefitsBulletPoint'] = isset($FeaturesBenefitsBulletPoint)?$FeaturesBenefitsBulletPoint:[] ; 
                 $data['footer_class'] = '';
