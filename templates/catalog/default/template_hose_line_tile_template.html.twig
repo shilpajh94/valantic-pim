@@ -100,16 +100,16 @@
 										{% endif %}
 
 										{% if k == 0 %}
-											<p>
+											{# <p>
 												{% if pimcore_input('prodDesc' ~ k).isEmpty() %}
 													{{ pimcore_input("prodDesc" ~ k, {'width': 540}).setDataFromResource(info['blockDes']) | raw }}
 												{% else %}
 													{{ pimcore_input("prodDesc" ~ k, {'width': 540}) }}
 												{% endif %}
-											</p>
+											</p> #}
 										{% endif %}
 
-										<figure class="products">
+										<figure class="products-hose-tile">
 											<span class="img-placeholder2">
 												{% if pimcore_input('productImage' ~ k).isEmpty() and row['altImage7'] is not empty %}
 													{{ pimcore_image('productImage' ~ k, {
@@ -140,18 +140,41 @@
 														{% if pimcore_input("brandName" ~ k).isEmpty() and row['brandName'] is not empty %}
 													<pre>
 													</pre>
-															{{ pimcore_input("brandName" ~ k, {'class': 'productName'}).setDataFromResource(row['brandName']) | raw }}
+														{{ pimcore_input("brandName" ~ k, {'class': 'productName'}).setDataFromResource(row['brandName']) | raw }}
 														{% else %}
-															{{ pimcore_input("brandName" ~ k, {'class': 'productName'}) }}
+														{{ pimcore_input("brandName" ~ k, {'class': 'productName'}) }}
 														{% endif %}
 													</span>
-													<span class="productTitle">
-														{% if pimcore_input("standardMetHose" ~ k).isEmpty() and row['standardMetHose'] is not empty %}
-															{{ pimcore_input("standardMetHose" ~ k, {'class': 'productTitle'}).setDataFromResource(row['standardMetHose']) | raw }}
-														{% else %}
-															{{ pimcore_input("standardMetHose" ~ k, {'class': 'productTitle'}) }}
+
+
+													<ul class="metHose">
+														{% set smhCnt = 0 %}
+														{% if row.standardMetHose is defined and row.standardMetHose is iterable %}
+															{% for smh in row.standardMetHose %}
+																{% if editmode and smhCnt < 2 %}
+																	<li class="li-wrap bold">
+																		{% if pimcore_input("standardMetHose" ~ key ~ smhCnt).isEmpty() %}
+																			{{ pimcore_input("standardMetHose" ~ key ~ smhCnt).setDataFromResource(smh) | raw }}
+																		{% else %}
+																			{{ pimcore_input("standardMetHose" ~ key ~ smhCnt) }}
+																		{% endif %}
+																		{% set smhCnt = smhCnt + 1 %}
+																	</li>
+																{% else %}
+																	{% if smhCnt < 2 %}
+																		{% if not pimcore_input("standardMetHose" ~ key ~ smhCnt).isEmpty() %}
+																			<li class="li-wrap bold">
+																				{{ pimcore_input("standardMetHose" ~ key ~ smhCnt) }}
+																			</li>
+																		{% endif %}
+																	{% endif %}
+																{% endif %}
+																{% set smhCnt = smhCnt + 1 %}
+															{% endfor %}
 														{% endif %}
-													</span>
+													</ul>
+
+
 													<ul>
 														{% set bstCnt = 1 %}
 														{% for i, bst in row['BrandShortText'] %}
