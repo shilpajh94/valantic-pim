@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
-use RestApiBundle\Security\ApiKeyUserProvider;
+use App\Model\Security\ApiKeyProvider;
 
 
 /*
@@ -25,7 +25,7 @@ class OutPutChannelExportController extends FrontendController
 	private $security; 
 
     public function __construct(private readonly UniProductOutPutChannelExportService $outputChannelService) {
-		$this->security = new ApiKeyUserProvider();
+		$this->security = new ApiKeyProvider();
 
 		
 	}
@@ -55,10 +55,10 @@ class OutPutChannelExportController extends FrontendController
      *
      * @throws \Exception
      */
-    private function validateApiKey($request){
-      $apiKey = htmlspecialchars($request->headers->get('apiKey'));
+    private function validateApiKey($request){ 
+      $apiKey = $request->headers->get('apiKey');
       if(!empty($apiKey)){
-       $userName = $this->security->getUsernameForApiKey($apiKey);
+       $userName = $this->security->getUserForApiKey($apiKey);
 	  
        if(empty($userName)){   
            return false;

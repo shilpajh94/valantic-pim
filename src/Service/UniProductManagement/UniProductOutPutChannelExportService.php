@@ -24,7 +24,6 @@ class UniProductOutPutChannelExportService
 	
 	/**
      * @return array<array<string, mixed>>
-     *
      * @throws ClientResponseException
      * @throws ServerResponseException
      */
@@ -51,7 +50,10 @@ class UniProductOutPutChannelExportService
 
     /**
      * @return array<mixed>
-     *
+	 *
+     * This function fetch fetch all prodcuts from elastic search. It fetch data from 
+	 * Brand, skelton and fert level fields
+	 *
      * @throws ClientResponseException
      * @throws ServerResponseException
      */
