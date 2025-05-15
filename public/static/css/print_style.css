@@ -1001,7 +1001,7 @@ h3 .pimcore_tag_input.empty {
 }
 
 .products-hose-tile {
-    min-height: 155px;
+    min-height: 165px;
 }
 
 /* .products-hose-tile figcaption{
@@ -1121,7 +1121,7 @@ section.spacing {
 }
 .img-placeholder2 img {
     max-width: 43px !important;
-    max-height: 151px !important;
+    max-height: 165px !important;
 }
 aside p {
     padding: 1em;
