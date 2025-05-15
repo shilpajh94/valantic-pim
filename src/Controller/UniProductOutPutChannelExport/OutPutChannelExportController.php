@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
-use App\Model\Security\ApiKeyProvider;
+use App\Model\APIAuth\ApiKeyProvider;
 
 
 /*
@@ -55,7 +55,7 @@ class OutPutChannelExportController extends FrontendController
      *
      * @throws \Exception
      */
-    private function validateApiKey($request){ 
+    private function validateApiKey($request){
       $apiKey = $request->headers->get('apiKey');
       if(!empty($apiKey)){
        $userName = $this->security->getUserForApiKey($apiKey);

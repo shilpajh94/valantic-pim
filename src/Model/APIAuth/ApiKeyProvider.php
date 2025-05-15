@@ -1,5 +1,5 @@
 <?php
-namespace App\Model\Security;
+namespace App\Model\APIAuth;
 
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
