@@ -625,7 +625,7 @@ class PlantMaterialModel
                 $key = str_replace('$','-',$value['id']);
                 $objDelete = DataObject\PlantMaterialMaster::getByPath("/".ImportConstants::MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER."/".$material."/".$key);
 
-                if($objDelete->getPublished())
+                if($objDelete && $objDelete->getPublished())
                 {
                     $deleteCount++;
                     $objDelete->setDeletedFlagAtPlantLevel(1);
