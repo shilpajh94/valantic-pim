@@ -1004,6 +1004,21 @@ h3 .pimcore_tag_input.empty {
     margin: 15px 8px;
 }
 
+.products-hose-tile {
+    min-height: 155px;
+}
+
+/* .products-hose-tile figcaption{
+    margin-left: 5px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 12px;
+    max-width: 75%;
+    padding-left: 5px;
+} */
+
 .products figcaption {
     margin-left: 5px;
     position: relative;
@@ -1048,6 +1063,21 @@ aside.first p {
     content: " > ";
     display: inline-block;
     margin-right: 0.2em;
+}
+
+.products ul.metHose li:before {
+    display: none;
+    padding-left: 0px !important;
+}
+
+.li-wrap {
+    white-space: normal;      /* Allow wrapping */
+    word-wrap: break-word;    /* Break long words if needed */
+    overflow-wrap: break-word;/* Same as above, but modern */
+}
+
+.bold {
+    font-weight: bold;
 }
 
 .details {
