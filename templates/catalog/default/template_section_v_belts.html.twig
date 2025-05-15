@@ -635,25 +635,25 @@
 									<div class="belts-Identification-and-profile-dimension-container">
 										<table>
 											<tr>
-												<th colspan="4">Belt Identification</th>
+												<th colspan="4"><b>{{ pimcore_input("BeltIdentification").setDataFromResource('Belt Identification') | raw }}</b></th>
 											</tr>
 											<tr>
-												<td class="highlight">Singles</td>
-												<td>5V750</td>
-												<td class="highlight">Banded</td>
-												<td>4/5V750</td>
+												<td class="highlight"><b>{{ pimcore_input("Singles").setDataFromResource('Singles') | raw }}</b></td>
+												<td>{{ pimcore_input("Singles_value").setDataFromResource('') | raw }}</td>
+												<td class="highlight"><b>{{ pimcore_input("Banded").setDataFromResource('Banded') | raw }}</b></td>
+												<td>{{ pimcore_input("Banded_value").setDataFromResource('') | raw }}</td>
 											</tr>
 											<tr>
-												<td class="highlight">Cross Section</td>
-												<td>5V</td>
-												<td class="highlight"># Ribs</td>
-												<td>4</td>
+												<td class="highlight"><b>{{ pimcore_input("CrossSection1").setDataFromResource('Cross Section') | raw }}</b></td>
+												<td>{{ pimcore_input("CrossSection_value1").setDataFromResource('') | raw }}</td>
+												<td class="highlight"><b>{{ pimcore_input("Ribs").setDataFromResource('# Ribs') | raw }}</b></td>
+												<td>{{ pimcore_input("Ribs_value").setDataFromResource('') | raw }}</td>
 											</tr>
 											<tr>
-												<td class="highlight">Length (in)</td>
-												<td>750</td>
-												<td class="highlight">Cross Section</td>
-												<td>5V</td>
+												<td class="highlight"><b>{{ pimcore_input("Length").setDataFromResource('Length (in)') | raw }}</b></td>
+												<td>{{ pimcore_input("Length_value").setDataFromResource('') | raw }}</td>
+												<td class="highlight"><b>{{ pimcore_input("CrossSection2").setDataFromResource('Cross Section') | raw }}</b></td>
+												<td>{{ pimcore_input("CrossSection_value2").setDataFromResource('') | raw }}</td>
 											</tr>
 											<tr>
 												<th colspan="2" >Available Length Range</th>

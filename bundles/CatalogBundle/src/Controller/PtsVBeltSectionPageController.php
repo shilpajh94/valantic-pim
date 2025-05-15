@@ -98,9 +98,15 @@ class PtsVBeltSectionPageController extends FrontendController
                 ON fertProducts.oo_id= fertLocalized.oo_id
                 LEFT JOIN object_brick_query_PTGBase_1 ON  fertProducts.oo_id = object_brick_query_PTGBase_1.id
                 LEFT JOIN object_brick_query_PTGFert_1 ON fertProducts.oo_id = object_brick_query_PTGFert_1.id
-                LEFT JOIN object_brick_query_SynchronousFert_1 ON fertProducts.oo_id = object_brick_query_SynchronousFert_1.id
+                LEFT JOIN object_brick_query_BeltsFert_1 ON fertProducts.oo_id = object_brick_query_BeltsFert_1.id
                 LEFT JOIN object_localized_2_en ON REPLACE(skeltonProducts.SIOPLevel6, ',', '') = object_localized_2_en.oo_id  -- Added join on skeltonProducts.SIOPLevel6
-                WHERE baseProducts.oo_id = $baseProductID AND fertProducts.brandName = $brandName AND fertProducts.printedCatalogFlag =1 AND fertProducts.published = 1 ORDER BY object_brick_query_PTGFert_1.widthmm ASC ";
+                WHERE 
+                baseProducts.oo_id = $baseProductID AND 
+                fertProducts.brandName = $brandName AND 
+                fertProducts.printedCatalogFlag =1 AND 
+                fertProducts.published = 1 AND
+                (fertProducts.path LIKE '/Products Master/PTG/PTP/V-Belts/%' OR
+                fertProducts.path LIKE '/Products Master/PTG/PTP/Banded Belts/%')";
 
 
             }
@@ -134,12 +140,16 @@ class PtsVBeltSectionPageController extends FrontendController
                     LEFT JOIN object_localized_1_$language AS baseLocalized 
                     ON baseProducts.oo_id= baseLocalized.oo_id
                     LEFT JOIN object_1 AS skeltonProducts ON baseProducts.oo_id = skeltonProducts.parentId
-                    LEFT JOIN object_brick_query_PTGSkeleton_1 AS object_brick_query_PTGSkeleton_1 ON skeltonProducts.oo_id = object_brick_query_PTGSkeleton_1.id
                     LEFT JOIN object_1 AS fertProducts ON skeltonProducts.oo_id = fertProducts.parentId
                     LEFT JOIN object_brick_query_PTGFert_1 AS object_brick_query_PTGFert_1 ON fertProducts.oo_id = object_brick_query_PTGFert_1.id
-                    LEFT JOIN object_brick_query_SynchronousFert_1 AS object_brick_query_SynchronousFert_1 ON fertProducts.oo_id = object_brick_query_SynchronousFert_1.id
-                    LEFT JOIN object_localized_2_en ON REPLACE(skeltonProducts.SIOPLevel6, ',', '') = object_localized_2_en.oo_id  -- Added join on skeltonProducts.SIOPLevel6
-                    WHERE baseProducts.oo_id = $baseProductID AND fertProducts.printedCatalogFlag =1 AND fertProducts.published = 1 ORDER BY object_brick_query_PTGFert_1.widthmm ASC ";
+                    LEFT JOIN object_brick_query_BeltsFert_1 AS object_brick_query_BeltsFert_1 ON fertProducts.oo_id = object_brick_query_BeltsFert_1.id
+                    WHERE 
+                    baseProducts.oo_id = $baseProductID AND 
+                    fertProducts.printedCatalogFlag =1 AND 
+                    fertProducts.published = 1 AND
+                    (fertProducts.path LIKE '/Products Master/PTG/PTP/V-Belts/%' OR
+                    fertProducts.path LIKE '/Products Master/PTG/PTP/Banded Belts/%')";
+
             }
             $SQLResults = $this->db->fetchAllAssociative($sql);
             // p_r($SQLResults);die;
