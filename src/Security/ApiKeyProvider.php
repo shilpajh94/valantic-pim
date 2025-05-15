@@ -1,5 +1,5 @@
 <?php
-namespace App\Model\APIAuth;
+namespace App\Security;
 
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -7,25 +7,20 @@ use Symfony\Component\Security\Core\User\User;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Pimcore\Model\User as PimUser;
 use Pimcore\Db;
-
-/*
- @Author : Arun kumar
- This class is use to authenticate the Apikey
-*/
+use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 
 class ApiKeyProvider implements UserProviderInterface
 {
     private $db;
 
-    Public function getUserForApiKey($apiKey)
+    public function getUserForApiKey($apiKey)
     {
         $this->db = Db::get();
-		$apiKey = $this->db->quote($apiKey);
-        $sql = "Select user_id from user_api_key where api_key = $apiKey";
+        $sql = "Select user_id from user_api_key where api_key = '{$apiKey}'";
         return $this->db->fetchAllAssociative($sql);
     }
-	
-	Public function refreshUser(UserInterface $user)
+
+    public function refreshUser(UserInterface $user)
     {
         throw new UnsupportedUserException();
     }
@@ -39,13 +34,12 @@ class ApiKeyProvider implements UserProviderInterface
      *
      * @throws UserNotFoundException
      */
-    Public function loadUserByIdentifier(string $identifier): UserInterface{
+    public function loadUserByIdentifier(string $identifier): UserInterface{
         throw new UserNotFoundException();
     }
 
-    Public function supportsClass($class)
+    public function supportsClass($class)
     {
         return User::class === $class;
     }
-
 }
