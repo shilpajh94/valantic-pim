@@ -18,7 +18,7 @@
  * - flowMedium [multiselect]
  */
 
-return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
+return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'dao' => NULL,
    'key' => 'IFSEUHoseBase',
    'parentClass' => '',
@@ -26,7 +26,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'title' => 'Technical Data',
    'group' => 'IFSEU_Bricks',
    'layoutDefinitions' => 
-  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'name' => NULL,
      'type' => NULL,
      'region' => NULL,
@@ -40,7 +40,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
      'children' => 
     array (
       0 => 
-      Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+      \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
@@ -54,7 +54,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'children' => 
         array (
           0 => 
-          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
              'name' => 'Field Container',
              'type' => NULL,
              'region' => NULL,
@@ -68,7 +68,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'children' => 
             array (
               0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+              \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                  'name' => 'Field Container',
                  'type' => NULL,
                  'region' => NULL,
@@ -82,7 +82,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'BaseBrickMapping',
                      'title' => 'BaseBrickMapping',
                      'tooltip' => '',
@@ -112,7 +112,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   1 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Layout',
                      'type' => NULL,
                      'region' => '',
@@ -126,7 +126,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                          'name' => 'standards',
                          'title' => 'Standards',
                          'tooltip' => '',
@@ -147,14 +147,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'maxItems' => 10,
                          'renderType' => 'tags',
                          'dynamicOptions' => false,
-                         'defaultValue' => 
-                        array (
-                          0 => '1',
-                        ),
+                         'defaultValue' => NULL,
                          'height' => 60,
                          'width' => 850,
                          'defaultValueGenerator' => '',
-                         'optionsProviderType' => NULL,
+                         'optionsProviderType' => 'class',
                          'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\StandardsOptionsProvider',
                          'optionsProviderData' => '',
                       )),
@@ -193,7 +190,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'labelAlign' => 'left',
           )),
           1 => 
-          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
              'name' => 'Field Container',
              'type' => NULL,
              'region' => NULL,
@@ -207,7 +204,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'children' => 
             array (
               0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+              \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                  'name' => 'Field Container',
                  'type' => NULL,
                  'region' => NULL,
@@ -221,7 +218,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                      'name' => 'Layout',
                      'type' => NULL,
                      'region' => NULL,
@@ -246,7 +243,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'border' => false,
                   )),
                   1 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Layout',
                      'type' => NULL,
                      'region' => '',
@@ -260,7 +257,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                          'name' => 'InnerLining',
                          'title' => 'Inner Lining',
                          'tooltip' => '',
@@ -278,17 +275,17 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'defaultValue' => '1',
+                         'defaultValue' => '',
                          'columnLength' => 190,
                          'dynamicOptions' => false,
                          'defaultValueGenerator' => '',
                          'width' => 300,
-                         'optionsProviderType' => NULL,
+                         'optionsProviderType' => 'class',
                          'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
                          'optionsProviderData' => 'innerlining',
                       )),
                       1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                          'name' => 'colorInnerLining',
                          'title' => 'Color',
                          'tooltip' => '',
@@ -306,17 +303,17 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'defaultValue' => '1',
+                         'defaultValue' => '',
                          'columnLength' => 190,
                          'dynamicOptions' => false,
                          'defaultValueGenerator' => '',
                          'width' => 300,
-                         'optionsProviderType' => NULL,
+                         'optionsProviderType' => 'class',
                          'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
                          'optionsProviderData' => 'colorInn',
                       )),
                       2 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                          'name' => 'Reinforcement',
                          'title' => 'Reinforcement',
                          'tooltip' => '',
@@ -334,17 +331,17 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'defaultValue' => '1',
+                         'defaultValue' => '',
                          'columnLength' => 190,
                          'dynamicOptions' => false,
                          'defaultValueGenerator' => '',
                          'width' => 300,
-                         'optionsProviderType' => NULL,
+                         'optionsProviderType' => 'class',
                          'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
                          'optionsProviderData' => 'reinforcements',
                       )),
                       3 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                          'name' => 'Helix',
                          'title' => 'Helix',
                          'tooltip' => '',
@@ -362,17 +359,17 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'defaultValue' => '1',
+                         'defaultValue' => '',
                          'columnLength' => 190,
                          'dynamicOptions' => false,
                          'defaultValueGenerator' => '',
                          'width' => 300,
-                         'optionsProviderType' => NULL,
+                         'optionsProviderType' => 'class',
                          'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
                          'optionsProviderData' => 'helix',
                       )),
                       4 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'numberOfHelixWires',
                          'title' => 'Number of Helix Wires',
                          'tooltip' => '',
@@ -402,7 +399,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'defaultValueGenerator' => '',
                       )),
                       5 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                          'name' => 'propertiesInnerLayer',
                          'title' => 'Properties',
                          'tooltip' => '',
@@ -423,14 +420,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'maxItems' => NULL,
                          'renderType' => 'tags',
                          'dynamicOptions' => false,
-                         'defaultValue' => 
-                        array (
-                          0 => '1',
-                        ),
+                         'defaultValue' => NULL,
                          'height' => 10,
                          'width' => 300,
                          'defaultValueGenerator' => '',
-                         'optionsProviderType' => NULL,
+                         'optionsProviderType' => 'class',
                          'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
                          'optionsProviderData' => 'propertiesInn',
                       )),
@@ -458,7 +452,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'labelAlign' => 'left',
               )),
               1 => 
-              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+              \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                  'name' => 'Field Container',
                  'type' => NULL,
                  'region' => NULL,
@@ -483,7 +477,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'labelAlign' => 'left',
               )),
               2 => 
-              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+              \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                  'name' => 'Field Container',
                  'type' => NULL,
                  'region' => NULL,
@@ -497,7 +491,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                      'name' => 'Layout',
                      'type' => NULL,
                      'region' => NULL,
@@ -522,7 +516,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'border' => false,
                   )),
                   1 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Layout',
                      'type' => NULL,
                      'region' => '',
@@ -536,7 +530,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                          'name' => 'CoverOuterLayer',
                          'title' => 'Cover ',
                          'tooltip' => '',
@@ -554,17 +548,17 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'defaultValue' => '1',
+                         'defaultValue' => '',
                          'columnLength' => 190,
                          'dynamicOptions' => false,
                          'defaultValueGenerator' => '',
                          'width' => 300,
-                         'optionsProviderType' => NULL,
+                         'optionsProviderType' => 'class',
                          'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
                          'optionsProviderData' => 'cover',
                       )),
                       1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                          'name' => 'ColorOuterLayer',
                          'title' => 'Color',
                          'tooltip' => '',
@@ -582,17 +576,17 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'defaultValue' => '1',
+                         'defaultValue' => '',
                          'columnLength' => 190,
                          'dynamicOptions' => false,
                          'defaultValueGenerator' => '',
                          'width' => 300,
-                         'optionsProviderType' => NULL,
+                         'optionsProviderType' => 'class',
                          'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
                          'optionsProviderData' => 'colorOut',
                       )),
                       2 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                          'name' => 'Haptic',
                          'title' => 'Haptic',
                          'tooltip' => '',
@@ -610,17 +604,17 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'defaultValue' => '1',
+                         'defaultValue' => '',
                          'columnLength' => 190,
                          'dynamicOptions' => false,
                          'defaultValueGenerator' => '',
                          'width' => 300,
-                         'optionsProviderType' => NULL,
+                         'optionsProviderType' => 'class',
                          'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
                          'optionsProviderData' => 'haptic',
                       )),
                       3 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                          'name' => 'PropertiesOuterLayer',
                          'title' => 'Properties',
                          'tooltip' => '',
@@ -641,14 +635,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'maxItems' => NULL,
                          'renderType' => 'tags',
                          'dynamicOptions' => false,
-                         'defaultValue' => 
-                        array (
-                          0 => '1',
-                        ),
+                         'defaultValue' => NULL,
                          'height' => 10,
                          'width' => 300,
                          'defaultValueGenerator' => '',
-                         'optionsProviderType' => NULL,
+                         'optionsProviderType' => 'class',
                          'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\PropertiesOptionsProvider',
                          'optionsProviderData' => 'propertiesOut',
                       )),
@@ -687,7 +678,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'labelAlign' => 'left',
           )),
           2 => 
-          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
              'name' => 'Field Container',
              'type' => NULL,
              'region' => NULL,
@@ -701,7 +692,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'children' => 
             array (
               0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+              \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                  'name' => 'Field Container',
                  'type' => NULL,
                  'region' => NULL,
@@ -715,7 +706,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                      'name' => 'Layout',
                      'type' => NULL,
                      'region' => NULL,
@@ -740,7 +731,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'border' => false,
                   )),
                   1 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Layout',
                      'type' => NULL,
                      'region' => '',
@@ -754,7 +745,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                          'name' => 'FieldsOfApplication',
                          'title' => 'Fields Of Application',
                          'tooltip' => '',
@@ -779,7 +770,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'height' => 10,
                          'width' => 300,
                          'defaultValueGenerator' => '',
-                         'optionsProviderType' => NULL,
+                         'optionsProviderType' => 'class',
                          'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\ApplicationsOptionsProvider',
                          'optionsProviderData' => '',
                       )),
@@ -807,7 +798,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'labelAlign' => 'left',
               )),
               1 => 
-              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+              \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                  'name' => 'Field Container',
                  'type' => NULL,
                  'region' => NULL,
@@ -832,7 +823,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'labelAlign' => 'left',
               )),
               2 => 
-              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+              \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                  'name' => 'Field Container',
                  'type' => NULL,
                  'region' => NULL,
@@ -846,7 +837,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                      'name' => 'Layout',
                      'type' => NULL,
                      'region' => NULL,
@@ -871,7 +862,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'border' => false,
                   )),
                   1 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'name' => 'Layout',
                      'type' => NULL,
                      'region' => '',
@@ -885,7 +876,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                      \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                          'name' => 'flowMedium',
                          'title' => 'Suitable Flow Medium',
                          'tooltip' => '',
@@ -906,14 +897,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'maxItems' => NULL,
                          'renderType' => 'tags',
                          'dynamicOptions' => false,
-                         'defaultValue' => 
-                        array (
-                          0 => '1',
-                        ),
+                         'defaultValue' => NULL,
                          'height' => 10,
                          'width' => 300,
                          'defaultValueGenerator' => '',
-                         'optionsProviderType' => NULL,
+                         'optionsProviderType' => 'class',
                          'optionsProviderClass' => 'IFSEU\\ImportBundle\\OptionProvider\\FlowMediumOptionsProvider',
                          'optionsProviderData' => '',
                       )),

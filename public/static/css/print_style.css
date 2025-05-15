@@ -240,6 +240,10 @@ header.dark img {
     flex-wrap: wrap;
 }
 
+.centerAlign {
+    text-align: center !important;
+}
+
 .justify-between {
     justify-content: space-between !important;
 }
@@ -920,9 +924,35 @@ font-family: 'Nunito Sans';
     background-color: #f0f0f0;
 }
 
-.grid td:first-child {
-    text-align: left !important;
+/*.grid td:first-child {*/
+/*    text-align: left !important;*/
     /* min-width: 100px;*/
+/*}*/
+.left-align {
+    text-align: left;
+}
+
+.grid td:first-child {
+    /* text-align: left !important; */
+    /*max-width: 102px !important;*/
+    width: 102px !important;
+
+}
+
+.grid td:nth-child(2) {
+    /*max-width: 80px !important;*/
+    width: 80px !important;
+
+}
+.grid td:nth-child(3) {
+    max-width: 70px !important;
+    width: 70px !important;
+
+}
+.grid td:nth-child(5) {
+    max-width: 80px !important;
+    width: 80px !important;
+
 }
 
 .grid .sshead td:first-child {
@@ -970,6 +1000,21 @@ h3 .pimcore_tag_input.empty {
     margin: 15px 8px;
 }
 
+.products-hose-tile {
+    min-height: 155px;
+}
+
+/* .products-hose-tile figcaption{
+    margin-left: 5px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 12px;
+    max-width: 75%;
+    padding-left: 5px;
+} */
+
 .products figcaption {
     margin-left: 5px;
     position: relative;
@@ -978,6 +1023,7 @@ h3 .pimcore_tag_input.empty {
     justify-content: space-between;
     font-size: 12px;
     max-width: 75%;
+    padding-left: 5px;
 }
 
 aside.first p {
@@ -1013,6 +1059,21 @@ aside.first p {
     content: " > ";
     display: inline-block;
     margin-right: 0.2em;
+}
+
+.products ul.metHose li:before {
+    display: none;
+    padding-left: 0px !important;
+}
+
+.li-wrap {
+    white-space: normal;      /* Allow wrapping */
+    word-wrap: break-word;    /* Break long words if needed */
+    overflow-wrap: break-word;/* Same as above, but modern */
+}
+
+.bold {
+    font-weight: bold;
 }
 
 .details {
@@ -1058,7 +1119,10 @@ section.spacing {
     max-width: 100%;
     height: auto;
 }
-
+.img-placeholder2 img {
+    max-width: 43px !important;
+    max-height: 151px !important;
+}
 aside p {
     padding: 1em;
 }
@@ -2287,7 +2351,8 @@ margin-right:20px;
 .borders h5{ font-size:14px;}
 
 .borders > *{ margin:0;}
-.continueRow{text-align: right; display:inline-flex; justify-content: flex-end; width: 100%; padding: 0 !important; margin: 0 !important; }
+/* .continueRow{text-align: right; display:inline-flex; justify-content: flex-end; width: 100%; padding: 0 !important; margin: 0 !important; } */
+.continueRow{text-align: right !important; padding: 0 !important; margin: 0 !important;}
 
 
 .inh-section-break .grid{

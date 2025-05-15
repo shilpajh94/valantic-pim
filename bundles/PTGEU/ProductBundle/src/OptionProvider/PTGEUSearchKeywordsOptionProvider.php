@@ -21,6 +21,7 @@ use Pimcore\Model\DataObject\ClassDefinition\Data;
 
 class PTGEUSearchKeywordsOptionProvider  implements SelectOptionsProviderInterface
 {
+    private $optionProvider;
     /**
      * @param array $context
      * @param Data $fieldDefinition
@@ -64,7 +65,7 @@ class PTGEUSearchKeywordsOptionProvider  implements SelectOptionsProviderInterfa
      */
     public function getDefaultValue(array $context, Data $fieldDefinition): ?string
     {
-        return true;
+        return false;
     }
 
     /**

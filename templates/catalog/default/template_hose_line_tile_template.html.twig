@@ -100,37 +100,37 @@
 										{% endif %}
 
 										{% if k == 0 %}
-											<p>
+											{# <p>
 												{% if pimcore_input('prodDesc' ~ k).isEmpty() %}
 													{{ pimcore_input("prodDesc" ~ k, {'width': 540}).setDataFromResource(info['blockDes']) | raw }}
 												{% else %}
 													{{ pimcore_input("prodDesc" ~ k, {'width': 540}) }}
 												{% endif %}
-											</p>
+											</p> #}
 										{% endif %}
 
-										<figure class="products">
-											<span class="img-placeholder">
-												{% if pimcore_input('productImage' ~ k).isEmpty() and row['mainImage'] is not empty %}
+										<figure class="products products-hose-tile">
+											<span class="img-placeholder2">
+												{% if pimcore_input('productImage' ~ k).isEmpty() and row['altImage7'] is not empty %}
 													{{ pimcore_image('productImage' ~ k, {
-                                                'width': row['mainImage'].getWidth(),
-                                                'height': row['mainImage'].getHeight(),
-                                                'aspectratio': true,
+                                                'width': 43,
+                                                'max-height': 151,
+                                                'aspectratio': false,
                                                 'interlace': true,
                                                 'quality': 95,
                                                 'format': 'PNG'
-                                            }).setImage(row['mainImage']) | raw }}
+                                            }).setImage(row['altImage7']) | raw }}
 												{% else %}
 													{% set imgSrcObj1 = pimcore_image('productImage' ~ k, {
-                                                'width': 92,
-                                                'height': 240,
+                                                'width': 43,
+                                                'height': 151,
                                                 'aspectratio': true,
                                                 'interlace': true,
                                                 'quality': 95,
                                                 'format': 'PNG'
                                             }) %}
 													{% if imgSrcObj1 %}
-														<img src="{{ getImageThumbnail(imgSrcObj1, imageWidth) }}" width="92" height="240"/>
+														<img src="{{ getImageThumbnail(imgSrcObj1, imageWidth) }}" width="43" height="151"/>
 													{% endif %}
 												{% endif %}
 											</span>
@@ -139,25 +139,47 @@
 													<span class="productName">
 														{% if pimcore_input("brandName" ~ k).isEmpty() and row['brandName'] is not empty %}
 													<pre>
-														{# {{ dump(row['brandName']) }} #}
 													</pre>
-															{{ pimcore_input("brandName" ~ k, {'class': 'productName'}).setDataFromResource(row['brandName']) | raw }}
+														{{ pimcore_input("brandName" ~ k, {'class': 'productName'}).setDataFromResource(row['brandName']) | raw }}
 														{% else %}
-															{{ pimcore_input("brandName" ~ k, {'class': 'productName'}) }}
+														{{ pimcore_input("brandName" ~ k, {'class': 'productName'}) }}
 														{% endif %}
 													</span>
-													<span class="productTitle">
-														{% if pimcore_input("industryStandard" ~ k).isEmpty() and row['industryStandard'] is not empty %}
-															{{ pimcore_input("industryStandard" ~ k, {'class': 'productTitle'}).setDataFromResource(row['industryStandard']) | raw }}
-														{% else %}
-															{{ pimcore_input("industryStandard" ~ k, {'class': 'productTitle'}) }}
+
+
+													<ul class="metHose">
+														{% set smhCnt = 0 %}
+														{% if row.standardMetHose is defined and row.standardMetHose is iterable %}
+															{% for smh in row.standardMetHose %}
+																{% if editmode and smhCnt < 2 %}
+																	<li class="li-wrap bold">
+																		{% if pimcore_input("standardMetHose" ~ key ~ smhCnt).isEmpty() %}
+																			{{ pimcore_input("standardMetHose" ~ key ~ smhCnt).setDataFromResource(smh) | raw }}
+																		{% else %}
+																			{{ pimcore_input("standardMetHose" ~ key ~ smhCnt) }}
+																		{% endif %}
+																		{% set smhCnt = smhCnt + 1 %}
+																	</li>
+																{% else %}
+																	{% if smhCnt < 2 %}
+																		{% if not pimcore_input("standardMetHose" ~ key ~ smhCnt).isEmpty() %}
+																			<li class="li-wrap bold">
+																				{{ pimcore_input("standardMetHose" ~ key ~ smhCnt) }}
+																			</li>
+																		{% endif %}
+																	{% endif %}
+																{% endif %}
+																{% set smhCnt = smhCnt + 1 %}
+															{% endfor %}
 														{% endif %}
-													</span>
+													</ul>
+
+
 													<ul>
 														{% set bstCnt = 1 %}
 														{% for i, bst in row['BrandShortText'] %}
 															{% if bst is not empty %}
-																<li>
+																<li class="li-wrap">
 																	{% if pimcore_input("brandShortText" ~ key ~ i).isEmpty() %}
 																		{{ pimcore_input("brandShortText" ~ key ~ i).setDataFromResource(bst) | raw }}
 																	{% else %}
@@ -184,18 +206,18 @@
 												<div class="bottomText">
 													<span class="productImage">
 														{% set iccnt = 0 %}
-														{% if  row.featureIcon is defined and  row.featureIcon is iterable %}
-															{% for iccntKey, featureIcon in row['featureIcon'] %}
-																{% if editmode and iccnt <= 3 %}
-																	{% if pimcore_input("productLogo" ~ key ~ iccnt).isEmpty() and featureIcon['icon'] is not null %}
+														{% if row.featureIcon is defined and row.featureIcon[0] is iterable %}
+    														{% for feature in row.featureIcon[0] %}
+																{% if editmode and iccnt <= 2 %}
+																	{% if pimcore_input("productLogo" ~ key ~ iccnt).isEmpty() and feature['iconSrc'] is not null %}
 																		{{ pimcore_image("productLogo" ~ key ~ iccnt, {
-																		'width': featureIcon['icon'].getWidth(),
-																		'height': featureIcon['icon'].getHeight(),
+																		'width': feature['iconSrc'].getWidth(),
+																		'height': feature['iconSrc'].getHeight(),
 																		'aspectratio': true,
 																		'interlace': true,
 																		'quality': 95,
 																		'format': 'PNG'
-																	}).setImage(featureIcon['icon']) | raw }}
+																	}).setImage(feature['iconSrc'].getAsset()) | raw }}
 																	{% else %}
 																		{{ pimcore_image("productLogo" ~ key ~ iccnt, {
 																		'width': 91,
@@ -208,26 +230,14 @@
 																	{% endif %}
 																	{% set iccnt = iccnt + 1 %}
 																{% else %}
-																	{% if iccnt <= 3 %}
+																	{% if iccnt <= 2 %}
 																		{% set imgSrcObj2 = pimcore_image("productLogo" ~ key ~ iccnt) %}
 																		{% if imgSrcObj2 %}
-																			<img src="{{ getImageThumbnail(imgSrcObj2, imageWidth) }}" width="91" height="53"/>
+																			<img src="{{ feature['iconSrc']}}" width="91" height="53"/>
 																		{% endif %}
 																		{% set iccnt = iccnt + 1 %}
 																	{% endif %}
 																{% endif %}
-															{% endfor %}
-														{% endif %}
-														{% if (iccnt < 3) %}
-															{% for iccnt in iccnt..3 %}
-																{{ pimcore_image("productLogo" ~ key ~ iccnt, {
-																'width': 91,
-																'height': 53,
-																'aspectratio': true,
-																'interlace': true,
-																'quality': 95,
-																'format': 'PNG'
-															}) }}
 															{% endfor %}
 														{% endif %}
 													</span>

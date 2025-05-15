@@ -218,35 +218,24 @@
 											</h1>
 											<aside>
 												<div>
-													{% if editmode %}
-														{% if pimcore_wysiwyg("INH_LONG_DESCRIPTION_"~uniqueId).isEmpty() %}
-															{{ pimcore_wysiwyg("INH_LONG_DESCRIPTION_"~uniqueId, {"placeholder" : "eg: Enter Brand Description"}).setDataFromResource(brand['brandData']['longDescription']) | raw }}
-														{% else %}
-															{{ pimcore_wysiwyg("INH_LONG_DESCRIPTION_"~uniqueId, {"placeholder" : "eg: Enter Brand Description"}) }}
-														{% endif %}
-													{% else %}
-														{{ pimcore_wysiwyg("INH_LONG_DESCRIPTION_"~uniqueId, {"placeholder" : "eg: Enter Brand Description"}) }}
-													{% endif %}
+													<p>{{brand['brandData']['longDescription'] | striptags}}</p>
 												</div>
-
 												{% if editmode %}
-													{% if pimcore_image('INH_MAIN_IMAGE_'~uniqueId).isEmpty() %}
-														{% if brand['brandData']['mainImage'] %}
-															{{ pimcore_image('INH_MAIN_IMAGE_'~uniqueId, {'width': 1067, 'height': 128}).setImage(brand['brandData']['mainImage']) | raw }}
-														{% else %}
-															{{ pimcore_image('INH_MAIN_IMAGE_'~uniqueId, {'width': 1067, 'height': 128}) }}
-														{% endif %}
+													{% if not pimcore_image('INH_LEFT_IMAGE_'~uniqueId).isEmpty() %}
+														{% set imgSrcObj = pimcore_image('INH_LEFT_IMAGE_'~uniqueId) %}
 													{% else %}
-														{{ pimcore_image('INH_MAIN_IMAGE_'~uniqueId, {'width': 1067, 'height': 128}) }}
+														{% set imgSrcObj = brand['brandData']['LeftPrintCatalogImage'] %}
 													{% endif %}
 
+													{% if imgSrcObj %}
+														<img src="{{getImageThumbnail(imgSrcObj,imageWidth)}}" width="1067" height="128"/>
+													{% endif %}
 
 												{% else %}
-
-													{% if not pimcore_image('INH_MAIN_IMAGE_'~uniqueId).isEmpty() %}
-														{% set imgSrcObj = pimcore_image('INH_MAIN_IMAGE_'~uniqueId) %}
+													{% if not pimcore_image('INH_LEFT_IMAGE_'~uniqueId).isEmpty() %}
+														{% set imgSrcObj = pimcore_image('INH_LEFT_IMAGE_'~uniqueId) %}
 													{% else %}
-														{% set imgSrcObj = "" %}
+														{% set imgSrcObj = brand['brandData']['LeftPrintCatalogImage'] %}
 													{% endif %}
 
 													{% if imgSrcObj %}

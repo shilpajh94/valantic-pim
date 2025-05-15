@@ -104,15 +104,16 @@ for (var i = 0; i < tables.length; i++) {
                             var continueRow = document.createElement("tr");
                             var continueCell = document.createElement("td");
                             continueCell.setAttribute("colspan", colspan);
+                            //console.log(continueRow);
                             // continueCell.textContent = CONTINUED_TEXT+" "+p+" "+p1+" "+rows.length+" "+ j;
                             continueCell.textContent = CONTINUED_TEXT;
 
                             continueCell.className = "continueRow";
-                            // continueRow.className = "continueRow";
+                            
                             continueRow.appendChild(continueCell);
+                            
                             if(previousRow.querySelector('td').innerHTML != CONTINUED_TEXT){
-
-                            previousRow.parentNode.insertBefore(continueRow, previousRow);
+                                console.log(previousRow.parentNode.insertBefore(continueRow, previousRow));
                             }
                         }
                     }
