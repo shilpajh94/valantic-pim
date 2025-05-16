@@ -143,7 +143,7 @@
 									{% set firstKey = tableRowsSkiveType|keys|first %}
 									{% set uniqueIdTemp = uniqueId %}
 									{% set uniqueId = md5Twig(uniqueId ~ shortDescrioptionKey ~ tableName) %}
-									<article class="container page-break-inside-avoid">
+									<article class="container page-break-inside-avoid ">
 										<figure class="headingSection">
 											{% if tableRowsSkiveType['NS'] is defined and tableRowsSkiveType['DG'] is defined %}
 												<span>
@@ -335,7 +335,7 @@
 														</h1>
 													{% endif %}
 
-													<table class="grid inh fitting marginBottom5 continueLable  {{table_class}}" cellspacing="0" cellpadding="0">
+													<table class="grid inh fitting marginBottom17  continueLable  {{table_class}}" cellspacing="0" cellpadding="0">
 														<thead>
 															{% if iconRequired == 'YES' %}
 																<tr class="sub-head">
@@ -385,7 +385,7 @@
 																</tr>
 															{% endif %}
 														</thead>
-														<tbody class="tableNewFont">
+														<tbody class="tableNewFont container">
 															{% if tableRows['articleData']['articles'] is defined and tableRows['articleData']['articles'] is iterable %}
 																{% set HoseID1InFractIndex = tableRows['articleData']['HoseID1InFractIndex'] %}
 																{% set oldValue = '' %}
@@ -502,6 +502,18 @@
 		</div>
 		{% if not isParentContainerRequest %}
 			<script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
+
+			<script>
+				const article = document.querySelector("article");
+				const firstTable = article.querySelector("table");
+
+				if (firstTable) {
+					const rowCount = firstTable.querySelectorAll("tr").length;
+					if (rowCount > 17) {
+						article.classList.add("page-break-inside-auto");
+					}
+				}
+			</script>
 		{% endif %}
 	{% endif %}
 {% endblock %}
