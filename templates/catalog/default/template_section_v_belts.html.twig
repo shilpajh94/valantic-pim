@@ -656,27 +656,34 @@
 												<td>{{ pimcore_input("CrossSection_value2").setDataFromResource('') | raw }}</td>
 											</tr>
 											<tr>
+												<td </td>
+												<td></td>
+												<td class="highlight"><b>{{ pimcore_input("Length2").setDataFromResource('Length (in)') | raw }}</b></td>
+												<td>{{ pimcore_input("Length2_value").setDataFromResource('') | raw }}</td>											</tr>
+											<tr>
 												<th colspan="2" >Available Length Range</th>
 												<th colspan="2" >Available Length Range</th>
 											</tr>
-											<tr>
-												<td>3V</td>
-												<td>25-140 (in)</td>
-												<td>3V</td>
-												<td>40-160 (in)</td>
-											</tr>
-											<tr>
-												<td>5V</td>
-												<td>50-355 (in)</td>
-												<td>5V</td>
-												<td>63-375 (in)</td>
-											</tr>
-											<tr>
-												<td>8V</td>
-												<td>100-600 (in)</td>
-												<td>8V</td>
-												<td>110-635 (in)</td>
-											</tr>
+
+											{# Find max row count for iteration #}
+											
+											{% set banded = data.EffectiveLengths.banded|default({}) %}
+											{% set vbelts = data.EffectiveLengths.vbelts|default({}) %}
+											{% set bandedCount = banded|length %}
+											{% set vbeltsCount = vbelts|length %}
+											{% set maxRows = bandedCount > vbeltsCount ? bandedCount : vbeltsCount %}
+
+											{% for i in 0..(maxRows - 1) %}
+												<tr>
+													{% set bandedKey = banded|keys[i]|default('') %}
+													<td>{{ bandedKey }}</td>
+													<td>{{ banded[bandedKey]|default('') }}</td>
+
+													{% set vbeltsKey = vbelts|keys[i]|default('') %}
+													<td>{{ vbeltsKey }}</td>
+													<td>{{ vbelts[vbeltsKey]|default('') }}</td>
+												</tr>
+											{% endfor %}
 
 										</table>
 									</div>
