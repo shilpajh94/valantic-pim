@@ -77,13 +77,12 @@ pimcore.plugin.CatalogBundle = Class.create({
             e.detail.object.edit.dataFields.Category.component.setStore(categoryOptionsStore);
             if (e.detail.object.data.data.Category !== null)
             {
-                console.log(e.detail.object.data.data.Category);
                 e.detail.object.edit.dataFields.Category.component.setValue(e.detail.object.data.data.Category);
             }
             categoryOptionsStore.load();
         }
 
-        if (objectClassName == 'CatalogPTS' || objectClassName == 'CatalogVBelts') {
+        if (objectClassName == 'CatalogPTS') {
 
             var colComp = Ext.getCmp(e.detail.object.edit.dataFields.Columns.component.id);
             colComp.hide();
@@ -187,6 +186,31 @@ pimcore.plugin.CatalogBundle = Class.create({
             };
         } // end CatalogPTS
 
+        if(objectClassName == 'CatalogVBelts'){
+            var baseOptionsStore = Ext.create('Ext.data.Store', {
+                fields: ['key', 'value'],
+                proxy: {
+                    type: 'ajax',
+                    url: '/catalog/get-base-products',
+                    extraParams: {
+                        catId: e.detail.object.data.general.parentId,
+                        objId: e.detail.object.data.general.id,
+
+                    },
+                    reader: {
+                        type: 'json',
+                        rootProperty: 'data'
+                    }
+                },
+
+            });
+
+            baseOptionsStore.load();
+
+            e.detail.object.edit.dataFields.BaseProduct.component.setStore(baseOptionsStore);
+
+        }
+
         if (objectClassName == 'CatalogTables') {
 
             var colComp = Ext.getCmp(e.detail.object.edit.dataFields.Columns.component.id);
@@ -239,8 +263,6 @@ pimcore.plugin.CatalogBundle = Class.create({
             }
 
              e.detail.object.edit.dataFields.AttributeTable.component.on('select', function(event){
-                 //console.log(e.detail.object.data.data.AttributeTable);
-              //   if(e.detail.object.data.data.AttributeTable != event.value)
                 {
                     var headerSelection = new pimcore.plugin.headerSelection();
                     headerSelection.attachHeader(e.detail.object, event,template);
@@ -276,7 +298,6 @@ pimcore.plugin.CatalogBundle = Class.create({
 
             if (e.detail.object.data.data.BaseProduct !== null)
             {
-               // console.log(e.detail.object.data.data.BaseProduct);
                 e.detail.object.edit.dataFields.BaseProduct.component.setValue(e.detail.object.data.data.BaseProduct);
             }
             baseOptionsStore.load();
@@ -306,7 +327,6 @@ pimcore.plugin.CatalogBundle = Class.create({
                 
                  if (e.detail.object.data.data.SkeletonProduct !== null)
             {
-                console.log(e.detail.object.data.data.SkeletonProduct);
                 e.detail.object.edit.dataFields.SkeletonProduct.component.setValue(e.detail.object.data.data.SkeletonProduct);
             }
             skeletonOptionsStore.load();
@@ -344,7 +364,6 @@ pimcore.plugin.CatalogBundle = Class.create({
            
             if (e.detail.object.data.data.SIOPLevel4 !== null)
             {
-               // console.log(e.detail.object.data.data.BaseProduct);
                 e.detail.object.edit.dataFields.SIOPLevel4.component.setValue(e.detail.object.data.data.SIOPLevel4);
             }
             

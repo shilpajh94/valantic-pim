@@ -150,7 +150,6 @@ class DefaultController extends FrontendController
             }
             
         }
-
         return $this->json(['data' => $options]);
     }
     /**

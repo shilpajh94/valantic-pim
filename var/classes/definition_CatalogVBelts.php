@@ -5,11 +5,9 @@
  * Variants: no
  *
  * Fields Summary:
- * - BaseProduct [select]
- * - Brand [select]
- * - SkeletonProduct [multiselect]
+ * - BaseProduct [multiselect]
  * - Color [select]
- * - Columns [textarea]
+ * - Brand [multiselect]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -19,7 +17,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1746688370,
+   'modificationDate' => 1747388731,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -91,68 +89,9 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                      'name' => 'BaseProduct',
                      'title' => 'Base Product',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'options' => 
-                    array (
-                    ),
-                     'defaultValue' => '',
-                     'columnLength' => 190,
-                     'dynamicOptions' => false,
-                     'defaultValueGenerator' => '',
-                     'width' => '',
-                     'optionsProviderType' => 'class',
-                     'optionsProviderClass' => '',
-                     'optionsProviderData' => 'base',
-                  )),
-                  1 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                     'name' => 'Brand',
-                     'title' => 'Brand',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'margin:-42px 0px 10px 570px',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'defaultValue' => '',
-                     'columnLength' => 190,
-                     'dynamicOptions' => false,
-                     'defaultValueGenerator' => '',
-                     'width' => '',
-                     'optionsProviderType' => 'class',
-                     'optionsProviderClass' => 'CatalogBundle\\OptionProvider\\BrandOptionsProvider',
-                     'optionsProviderData' => '',
-                  )),
-                  2 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                     'name' => 'SkeletonProduct',
-                     'title' => 'Skeleton Product',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -174,18 +113,15 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'maxItems' => NULL,
                      'renderType' => 'tags',
                      'dynamicOptions' => false,
-                     'defaultValue' => 
-                    array (
-                      0 => '1',
-                    ),
+                     'defaultValue' => NULL,
                      'height' => '',
                      'width' => '',
                      'defaultValueGenerator' => '',
-                     'optionsProviderType' => 'class',
+                     'optionsProviderType' => 'configure',
                      'optionsProviderClass' => '',
-                     'optionsProviderData' => 'skelton',
+                     'optionsProviderData' => 'base',
                   )),
-                  3 => 
+                  1 => 
                   \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                      'name' => 'Color',
                      'title' => 'Color',
@@ -194,7 +130,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
-                     'style' => 'margin:-42px 0px 10px 570px',
+                     'style' => 'margin:-42px 5px 10px 570px',
                      'permissions' => NULL,
                      'fieldtype' => '',
                      'relationType' => false,
@@ -226,6 +162,36 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'optionsProviderClass' => '',
                      'optionsProviderData' => '',
                   )),
+                  2 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                     'name' => 'Brand',
+                     'title' => 'Brand',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'maxItems' => NULL,
+                     'renderType' => 'tags',
+                     'dynamicOptions' => false,
+                     'defaultValue' => NULL,
+                     'height' => 100,
+                     'width' => '',
+                     'defaultValueGenerator' => '',
+                     'optionsProviderType' => 'class',
+                     'optionsProviderClass' => 'CatalogBundle\\OptionProvider\\BrandOptionsProvider',
+                     'optionsProviderData' => '',
+                  )),
                 ),
                  'locked' => false,
                  'blockedVarsForExport' => 
@@ -234,54 +200,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'fieldtype' => 'fieldset',
                  'labelWidth' => 100,
                  'labelAlign' => 'left',
-              )),
-              1 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
-                 'name' => 'Headers',
-                 'type' => NULL,
-                 'region' => NULL,
-                 'title' => 'Print Columns',
-                 'width' => '',
-                 'height' => '',
-                 'collapsible' => false,
-                 'collapsed' => false,
-                 'bodyStyle' => '',
-                 'datatype' => 'layout',
-                 'children' => 
-                array (
-                ),
-                 'locked' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'fieldtype' => 'fieldset',
-                 'labelWidth' => 100,
-                 'labelAlign' => 'left',
-              )),
-              2 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                 'name' => 'Columns',
-                 'title' => 'Columns',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'maxLength' => NULL,
-                 'showCharCount' => false,
-                 'excludeFromSearchIndex' => false,
-                 'height' => '',
-                 'width' => '',
               )),
             ),
              'locked' => false,
