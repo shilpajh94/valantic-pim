@@ -39,7 +39,7 @@ class PtsVBeltSectionPageController extends FrontendController
         /* Initilize monitoring item and set the number of steps will take to complete the task */
     }
 
-    public function getColumnsData($request, $template, $selectedColumns)
+    public function getColumnsData($request, $template)
     {
         $parameterBag = array();
         $footerBgColor='';
@@ -59,11 +59,12 @@ class PtsVBeltSectionPageController extends FrontendController
                 } 
             } 
 
-            $baseProductID = $template->getBaseproduct();
-
+            // $baseProductID = $template->getBaseproduct();
+            $baseProductID = array('1980396', '7739121');
+            $baseProductIDs = implode(", ", $baseProductID); // base product ids in comma separated way
             
             if($template->getBrand()){
-                $brandName = $template->getBrand();
+                $brandName = implode(", ", $template->getBrand());
                 $defaultColumns = [
                     'fertProducts.path',
                     'fertProducts.brandName',
@@ -87,7 +88,13 @@ class PtsVBeltSectionPageController extends FrontendController
                 ];
     
                 $sql = "SELECT DISTINCT ".implode(',',$defaultColumns)."
-                        FROM object_1 as fertProducts
+                        FROM object_1 AS baseProducts 
+                        JOIN 
+                            object_1 AS skeltonProducts 
+                            ON baseProducts.oo_id = skeltonProducts.parentId
+                        JOIN 
+                            object_1 AS fertProducts 
+                            ON skeltonProducts.oo_id = fertProducts.parentId
                         JOIN
                             object_localized_1_en AS fertLocalized 
                             ON fertProducts.oo_id= fertLocalized.oo_id
@@ -98,59 +105,68 @@ class PtsVBeltSectionPageController extends FrontendController
                             object_brick_query_PTGBase_1
                             ON  fertProducts.oo_id = object_brick_query_PTGBase_1.id
                         JOIN
-                            object_1 AS skeltonProducts ON fertProducts.parentId = skeltonProducts.oo_id
-                        JOIN
                             object_localized_2_en ON REPLACE(skeltonProducts.SIOPLevel6, ',', '') = object_localized_2_en.oo_id  -- Added join on skeltonProducts.SIOPLevel6
-                        WHERE 
+                        WHERE
+                            baseProducts.oo_id IN ($baseProductIDs) AND
                             (fertProducts.path LIKE '/Products Master/PTG/PTP/V-Belts/%' OR fertProducts.path LIKE '/Products Master/PTG/PTP/Banded Belts/%') AND
-                            fertProducts.brandName = $brandName AND 
+                            fertProducts.brandName IN ($brandName) AND 
                             fertProducts.printedCatalogFlag =1 AND 
                             fertProducts.published = 1";
             }
-            // p_r($sql);
-            // else{
-            //     $defaultColumns = [
-            //         'baseProducts.brandName',
-            //         'baseProducts.SIOPLevel2',
-            //         'baseProducts.SIOPLevel3', 
-            //         'baseProducts.SIOPLevel4', 
-            //         'baseProducts.SIOPLevel5',
-            //         'baseProducts.reinforcement', 
-            //         'baseBricks.material', 
-            //         'baseProducts.temperatureRangeFAndC',
-            //         'baseProducts.minimumTemperatureF',
-            //         'baseProducts.maximumTemperatureF', 
-            //         'baseProducts.mainImage',
-            //         'baseProducts.beltIdentificationImage',    
-            //         'baseProducts.profileDimensionPtsBelts',    
-            //         'baseLocalized.shortDescription', 
-            //         'baseLocalized.FeaturesBenefitsBulletPoint',
-            //         'skeltonProducts.SIOPLevel6',
-    
+            else{
+                $defaultColumns = [
+                    'fertProducts.path',
+                    'baseProducts.brandName',
+                    'baseProducts.SIOPLevel2',
+                    'baseProducts.SIOPLevel3', 
+                    'baseProducts.SIOPLevel4', 
+                    'baseProducts.SIOPLevel5',
+                    'baseProducts.reinforcement', 
+                    'object_brick_query_PTGBase_1.material',
+                    'baseProducts.temperatureRangeFAndC',
+                    'baseProducts.minimumTemperatureF',
+                    'baseProducts.maximumTemperatureF', 
+                    'baseProducts.mainImage',
+                    'baseProducts.beltIdentificationImage',    
+                    'baseProducts.profileDimensionPtsBelts',    
+                    'baseLocalized.shortDescription', 
+                    'baseLocalized.FeaturesBenefitsBulletPoint',
+                    'object_brick_query_BeltsFert_1.productEffectiveLengthIN',
+                    'object_localized_2_en.PrintedCatalogDescription AS SkeletonKey'
                     
-            //     ];
-            //     $allColumns = array_merge($defaultColumns, $sqlQueries);
+                ];
 
     
-            //     $sql = "SELECT DISTINCT ".implode(',',$allColumns)."
-            //         FROM object_1 AS baseProducts 
-            //         LEFT JOIN object_brick_query_PTGBase_1 AS baseBricks ON  baseProducts.oo_id = baseBricks.id
-            //         LEFT JOIN object_localized_1_$language AS baseLocalized 
-            //         ON baseProducts.oo_id= baseLocalized.oo_id
-            //         LEFT JOIN object_1 AS skeltonProducts ON baseProducts.oo_id = skeltonProducts.parentId
-            //         LEFT JOIN object_1 AS fertProducts ON skeltonProducts.oo_id = fertProducts.parentId
-            //         LEFT JOIN object_brick_query_PTGFert_1 AS object_brick_query_PTGFert_1 ON fertProducts.oo_id = object_brick_query_PTGFert_1.id
-            //         LEFT JOIN object_brick_query_BeltsFert_1 AS object_brick_query_BeltsFert_1 ON fertProducts.oo_id = object_brick_query_BeltsFert_1.id
-            //         WHERE 
-            //         baseProducts.oo_id = $baseProductID AND 
-            //         fertProducts.printedCatalogFlag =1 AND 
-            //         fertProducts.published = 1 AND
-            //         (fertProducts.path LIKE '/Products Master/PTG/PTP/V-Belts/%' OR
-            //         fertProducts.path LIKE '/Products Master/PTG/PTP/Banded Belts/%')";
+                $sql = "SELECT DISTINCT ".implode(',',$defaultColumns)."
+                        FROM object_1 AS baseProducts
+                        JOIN 
+                            object_localized_1_en AS baseLocalized 
+                            ON baseProducts.oo_id= baseLocalized.oo_id
+                        JOIN 
+                            object_1 AS skeltonProducts 
+                            ON baseProducts.oo_id = skeltonProducts.parentId
+                        JOIN 
+                            object_1 AS fertProducts 
+                            ON skeltonProducts.oo_id = fertProducts.parentId
+                        JOIN
+                            object_localized_1_en AS fertLocalized 
+                            ON fertProducts.oo_id= fertLocalized.oo_id
+                        JOIN
+                            object_brick_query_BeltsFert_1
+                            ON fertProducts.oo_id = object_brick_query_BeltsFert_1.id
+                        JOIN
+                            object_brick_query_PTGBase_1
+                            ON  fertProducts.oo_id = object_brick_query_PTGBase_1.id
+                        JOIN
+                            object_localized_2_en ON REPLACE(skeltonProducts.SIOPLevel6, ',', '') = object_localized_2_en.oo_id  -- Added join on skeltonProducts.SIOPLevel6
+                        WHERE
+                            baseProducts.oo_id IN ($baseProductIDs) AND
+                            (fertProducts.path LIKE '/Products Master/PTG/PTP/V-Belts/%' OR fertProducts.path LIKE '/Products Master/PTG/PTP/Banded Belts/%') AND
+                            fertProducts.printedCatalogFlag =1 AND 
+                            fertProducts.published = 1";       
+            }
 
-            // }
             $SQLResults = $this->db->fetchAllAssociative($sql);
-            // p_r($SQLResults);die;
 
             if($SQLResults){
                 $grouped = [
@@ -399,8 +415,7 @@ class PtsVBeltSectionPageController extends FrontendController
         if ($templateEditable && $templateEditable->getElement() != null) {
             $template = $templateEditable->getElement();
             $footerBgColor = $template->getColor();
-            $selectedColumns = json_decode($template->getColumns(), true);
-            $parameterBag =  $this->getColumnsData($request, $template, $selectedColumns);
+            $parameterBag =  $this->getColumnsData($request, $template);
             $html = '<div><b style="font-size: 16px;">No Records Found</b></div>';
             $parameterBag['data'] ? : print_r($html);
     

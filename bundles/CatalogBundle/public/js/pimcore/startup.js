@@ -74,6 +74,7 @@ pimcore.plugin.CatalogBundle = Class.create({
 
             categoryOptionsStore.load();
 
+
             e.detail.object.edit.dataFields.Category.component.setStore(categoryOptionsStore);
             if (e.detail.object.data.data.Category !== null)
             {
@@ -186,16 +187,18 @@ pimcore.plugin.CatalogBundle = Class.create({
             };
         } // end CatalogPTS
 
-        if(objectClassName == 'CatalogVBelts'){
-            var baseOptionsStore = Ext.create('Ext.data.Store', {
-                fields: ['key', 'value'],
+
+        if (objectClassName == 'CatalogVBelts') {
+
+            var productsOptionStore = Ext.create('Ext.data.Store', {
+                fields: ['key', 'Value'],
                 proxy: {
                     type: 'ajax',
                     url: '/catalog/get-base-products',
+                    method:'POST',
                     extraParams: {
                         catId: e.detail.object.data.general.parentId,
                         objId: e.detail.object.data.general.id,
-
                     },
                     reader: {
                         type: 'json',
@@ -205,11 +208,16 @@ pimcore.plugin.CatalogBundle = Class.create({
 
             });
 
-            baseOptionsStore.load();
+            productsOptionStore.load();
 
-            e.detail.object.edit.dataFields.BaseProduct.component.setStore(baseOptionsStore);
-
+            e.detail.object.edit.dataFields.BaseProduct.component.setStore(productsOptionStore);
+            if (e.detail.object.data.data.BaseProduct !== null)
+            {
+                e.detail.object.edit.dataFields.BaseProduct.component.setValue(e.detail.object.data.data.BaseProduct);
+            }
+            productsOptionStore.load();
         }
+
 
         if (objectClassName == 'CatalogTables') {
 
@@ -269,9 +277,6 @@ pimcore.plugin.CatalogBundle = Class.create({
                 }
              });
 
-            
-                    
-             
 
             var baseOptionsStore = Ext.create('Ext.data.Store', {
                 fields: ['id', 'text'],
@@ -355,12 +360,12 @@ pimcore.plugin.CatalogBundle = Class.create({
             siopStore.load();
             e.detail.object.edit.dataFields.SIOPLevel4.component.setStore(siopStore);
              
-           siopStore.on('load', function(store, records, successful){
-   if(store.getCount() == 0)
+            siopStore.on('load', function(store, records, successful){
+            if(store.getCount() == 0)
             {
                 e.detail.object.edit.dataFields.SIOPLevel4.component.setDisabled(true);
             }
-});
+        });
            
             if (e.detail.object.data.data.SIOPLevel4 !== null)
             {
