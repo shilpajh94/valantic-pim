@@ -519,7 +519,7 @@ class IndustrialHoseController extends FrontendController
             $footer_logo_src = (strtolower($footerBgColor) == 'orange') ? $catalogImagesINHFooter['Black'] : $catalogImagesINHFooter['Orange'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
-            $categories = $this->getSIOP($lang);
+            $categories = $this->getSIOP($lang, 'IFS');
             $parameterBag['info'] = array(
                 'configTableName' => $configTableName,
                 'siop4Description' => $siop4Description,
