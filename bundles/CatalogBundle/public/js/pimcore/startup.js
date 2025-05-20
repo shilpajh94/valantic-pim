@@ -191,7 +191,7 @@ pimcore.plugin.CatalogBundle = Class.create({
         if (objectClassName == 'CatalogVBelts') {
 
             var productsOptionStore = Ext.create('Ext.data.Store', {
-                fields: ['key', 'Value'],
+                fields: ["text", "id"],
                 proxy: {
                     type: 'ajax',
                     url: '/catalog/get-base-products',
@@ -201,15 +201,14 @@ pimcore.plugin.CatalogBundle = Class.create({
                         objId: e.detail.object.data.general.id,
                     },
                     reader: {
-                        type: 'json',
-                        rootProperty: 'data'
+                        type: "json",
+                        rootProperty: "data"
                     }
                 },
 
             });
 
             productsOptionStore.load();
-
             e.detail.object.edit.dataFields.BaseProduct.component.setStore(productsOptionStore);
             if (e.detail.object.data.data.BaseProduct !== null)
             {

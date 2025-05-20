@@ -143,14 +143,14 @@ class DefaultController extends FrontendController
         $options = [];
         foreach ($productList as $item) {
             if($className == "CatalogPTS" || $className == "CatalogVBelts"){
-                $options[] = array('key' => (!empty($item->getSapDescription('en'))?$item->getSapDescription('en'):$item->getKey()), 'value' => $item->getId());
+                $options[] = array('text' => (!empty($item->getSapDescription('en'))?$item->getSapDescription('en'):$item->getKey()), 'id' => $item->getId());
             }else{
 
             $options[] = array('text' => (!empty($item->getSapDescription('en'))?$item->getSapDescription('en'):$item->getKey()), 'id' => $item->getId());
             }
             
         }
-        return $this->json(['data' => $options]);
+        return $this->json(["data" => $options]);
     }
     /**
      * @Route("/catalog/get-siop-data")
