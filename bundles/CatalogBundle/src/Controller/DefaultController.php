@@ -2216,13 +2216,13 @@ class DefaultController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{ 
-            $documentPath = $this->document->getFullPath(); 
-            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
-            if($doc) { 
-                $documentId = $doc->getId(); 
-                $parameterBag = $this->getRequestedParameter($request, $documentId); 
-            } 
+        else{
+            $documentPath = $this->document->getFullPath();
+            $doc = \Pimcore\Model\Document::getByPath($documentPath);
+            if($doc) {
+                $documentId = $doc->getId();
+                $parameterBag = $this->getRequestedParameter($request, $documentId);
+            }
         }
         $allChildren = [];
 
@@ -2283,13 +2283,13 @@ class DefaultController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{ 
-            $documentPath = $this->document->getFullPath(); 
-            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
-            if($doc) { 
-                $documentId = $doc->getId(); 
-                $parameterBag = $this->getRequestedParameter($request, $documentId); 
-            } 
+        else{
+            $documentPath = $this->document->getFullPath();
+            $doc = \Pimcore\Model\Document::getByPath($documentPath);
+            if($doc) {
+                $documentId = $doc->getId();
+                $parameterBag = $this->getRequestedParameter($request, $documentId);
+            }
         }
         $groupData = array();
         $footerBgColor = null;
@@ -2729,13 +2729,13 @@ class DefaultController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{ 
-            $documentPath = $this->document->getFullPath(); 
-            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
-            if($doc) { 
-                $documentId = $doc->getId(); 
-                $parameterBag = $this->getRequestedParameter($request, $documentId); 
-            } 
+        else{
+            $documentPath = $this->document->getFullPath();
+            $doc = \Pimcore\Model\Document::getByPath($documentPath);
+            if($doc) {
+                $documentId = $doc->getId();
+                $parameterBag = $this->getRequestedParameter($request, $documentId);
+            }
         }        return $this->render("catalog/default/template_index_descriptive_number.html.twig", $parameterBag);
     }
 
@@ -2744,13 +2744,13 @@ class DefaultController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{ 
-            $documentPath = $this->document->getFullPath(); 
-            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
-            if($doc) { 
-                $documentId = $doc->getId(); 
-                $parameterBag = $this->getRequestedParameter($request, $documentId); 
-            } 
+        else{
+            $documentPath = $this->document->getFullPath();
+            $doc = \Pimcore\Model\Document::getByPath($documentPath);
+            if($doc) {
+                $documentId = $doc->getId();
+                $parameterBag = $this->getRequestedParameter($request, $documentId);
+            }
         }        try {
             $folderId = $this->document->getParent()->getId();
             $listing = new \Pimcore\Model\Document\Listing();
@@ -2818,11 +2818,11 @@ class DefaultController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{ 
+        else{
             $documentPath = $this->document->getFullPath(); 
             $doc = \Pimcore\Model\Document::getByPath($documentPath); 
-            if($doc) { 
-                $documentId = $doc->getId(); 
+            if($doc) {
+                $documentId = $doc->getId();
                 $parameterBag = $this->getRequestedParameter($request, $documentId); 
             } 
         }        try {

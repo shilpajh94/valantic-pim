@@ -50,14 +50,14 @@ class PtsVBeltSectionPageController extends FrontendController
         $this->featuresList = $this->defaultController->getFeaturesList($language);
         if (!$request->get('contentDocument')->getPublished()) {
             $parameterBag = $this->defaultController->getRequestedParameter($request, 0);
-        } else{ 
-            $documentPath = $this->document->getFullPath(); 
-            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
-            if($doc) { 
-                $documentId = $doc->getId(); 
-                $parameterBag = $this->defaultController->getRequestedParameter($request, $documentId); 
-                } 
-            } 
+        } else{
+            $documentPath = $this->document->getFullPath();
+            $doc = \Pimcore\Model\Document::getByPath($documentPath);
+            if($doc) {
+                $documentId = $doc->getId();
+                $parameterBag = $this->defaultController->getRequestedParameter($request, $documentId);
+                }
+            }
 
             $baseProductID = $template->getBaseproduct();
             $baseProductIDs = implode(", ", $baseProductID); // base product ids in comma separated way
@@ -67,18 +67,18 @@ class PtsVBeltSectionPageController extends FrontendController
                     'fertProducts.path',
                     'fertProducts.brandName',
                     'fertProducts.SIOPLevel2',
-                    'fertProducts.SIOPLevel3', 
-                    'fertProducts.SIOPLevel4', 
+                    'fertProducts.SIOPLevel3',
+                    'fertProducts.SIOPLevel4',
                     'fertProducts.SIOPLevel5',
-                    'fertProducts.reinforcement', 
-                    'object_brick_query_PTGBase_1.material', 
+                    'fertProducts.reinforcement',
+                    'object_brick_query_PTGBase_1.material',
                     'fertProducts.temperatureRangeFAndC',
                     'fertProducts.minimumTemperatureF',
-                    'fertProducts.maximumTemperatureF', 
+                    'fertProducts.maximumTemperatureF',
                     'fertProducts.mainImage',
-                    'fertProducts.beltIdentificationImage',    
-                    'fertProducts.profileDimensionPtsBelts',    
-                    'fertLocalized.shortDescription', 
+                    'fertProducts.beltIdentificationImage',
+                    'fertProducts.profileDimensionPtsBelts',
+                    'fertLocalized.shortDescription',
                     'fertLocalized.FeaturesBenefitsBulletPoint',
                     'object_brick_query_BeltsFert_1.productEffectiveLengthIN',
                     'object_localized_2_en.PrintedCatalogDescription AS SkeletonKey'
@@ -86,15 +86,15 @@ class PtsVBeltSectionPageController extends FrontendController
                 ];
     
                 $sql = "SELECT DISTINCT ".implode(',',$defaultColumns)."
-                        FROM object_1 AS baseProducts 
-                        JOIN 
-                            object_1 AS skeltonProducts 
+                        FROM object_1 AS baseProducts
+                        JOIN
+                            object_1 AS skeltonProducts
                             ON baseProducts.oo_id = skeltonProducts.parentId
-                        JOIN 
-                            object_1 AS fertProducts 
+                        JOIN
+                            object_1 AS fertProducts
                             ON skeltonProducts.oo_id = fertProducts.parentId
                         JOIN
-                            object_localized_1_en AS fertLocalized 
+                            object_localized_1_en AS fertLocalized
                             ON fertProducts.oo_id= fertLocalized.oo_id
                         JOIN
                             object_brick_query_BeltsFert_1
@@ -107,8 +107,8 @@ class PtsVBeltSectionPageController extends FrontendController
                         WHERE
                             baseProducts.oo_id IN ($baseProductIDs) AND
                             (fertProducts.path LIKE '/Products Master/PTG/PTP/V-Belts/%' OR fertProducts.path LIKE '/Products Master/PTG/PTP/Banded Belts/%') AND
-                            fertProducts.brandName IN ($brandName) AND 
-                            fertProducts.printedCatalogFlag =1 AND 
+                            fertProducts.brandName IN ($brandName) AND
+                            fertProducts.printedCatalogFlag =1 AND
                             fertProducts.published = 1";
             }
             else{
@@ -116,18 +116,18 @@ class PtsVBeltSectionPageController extends FrontendController
                     'fertProducts.path',
                     'baseProducts.brandName',
                     'baseProducts.SIOPLevel2',
-                    'baseProducts.SIOPLevel3', 
-                    'baseProducts.SIOPLevel4', 
+                    'baseProducts.SIOPLevel3',
+                    'baseProducts.SIOPLevel4',
                     'baseProducts.SIOPLevel5',
-                    'baseProducts.reinforcement', 
+                    'baseProducts.reinforcement',
                     'object_brick_query_PTGBase_1.material',
                     'baseProducts.temperatureRangeFAndC',
                     'baseProducts.minimumTemperatureF',
-                    'baseProducts.maximumTemperatureF', 
+                    'baseProducts.maximumTemperatureF',
                     'baseProducts.mainImage',
-                    'baseProducts.beltIdentificationImage',    
-                    'baseProducts.profileDimensionPtsBelts',    
-                    'baseLocalized.shortDescription', 
+                    'baseProducts.beltIdentificationImage',
+                    'baseProducts.profileDimensionPtsBelts',
+                    'baseLocalized.shortDescription',
                     'baseLocalized.FeaturesBenefitsBulletPoint',
                     'object_brick_query_BeltsFert_1.productEffectiveLengthIN',
                     'object_localized_2_en.PrintedCatalogDescription AS SkeletonKey'
@@ -137,17 +137,17 @@ class PtsVBeltSectionPageController extends FrontendController
     
                 $sql = "SELECT DISTINCT ".implode(',',$defaultColumns)."
                         FROM object_1 AS baseProducts
-                        JOIN 
-                            object_localized_1_en AS baseLocalized 
+                        JOIN
+                            object_localized_1_en AS baseLocalized
                             ON baseProducts.oo_id= baseLocalized.oo_id
-                        JOIN 
-                            object_1 AS skeltonProducts 
+                        JOIN
+                            object_1 AS skeltonProducts
                             ON baseProducts.oo_id = skeltonProducts.parentId
-                        JOIN 
-                            object_1 AS fertProducts 
+                        JOIN
+                            object_1 AS fertProducts
                             ON skeltonProducts.oo_id = fertProducts.parentId
                         JOIN
-                            object_localized_1_en AS fertLocalized 
+                            object_localized_1_en AS fertLocalized
                             ON fertProducts.oo_id= fertLocalized.oo_id
                         JOIN
                             object_brick_query_BeltsFert_1
@@ -160,25 +160,32 @@ class PtsVBeltSectionPageController extends FrontendController
                         WHERE
                             baseProducts.oo_id IN ($baseProductIDs) AND
                             (fertProducts.path LIKE '/Products Master/PTG/PTP/V-Belts/%' OR fertProducts.path LIKE '/Products Master/PTG/PTP/Banded Belts/%') AND
-                            fertProducts.printedCatalogFlag =1 AND 
-                            fertProducts.published = 1";       
+                            fertProducts.printedCatalogFlag =1 AND
+                            fertProducts.published = 1";
             }
 
-            $SQLResults = $this->db->fetchAllAssociative($sql);
+            $sqlResults = $this->db->fetchAllAssociative($sql);
 
-            if($SQLResults){
+            if($sqlResults){
                 $grouped = [
                     'banded' => [],
                     'vbelts' => [],
                 ];
 
                 // Step 1: Categorize by belt type and group by SkeletonKey
-                foreach ($SQLResults as $item) {
+                foreach ($sqlResults as $item) {
                     $path = strtolower($item['path']);
-                    $category = str_contains($path, 'banded belts') ? 'banded' : (str_contains($path, 'v-belts') ? 'vbelts' : null);
-                    
-                    if (!$category) continue;
+                    $category = null;
 
+                    if (str_contains($path, 'banded belts')) {
+                        $category = 'banded';
+                    } elseif (str_contains($path, 'v-belts')) {
+                        $category = 'vbelts';
+                    }
+                    
+                    if (!$category){
+                        continue;
+                    }
                     $skeletonKey = $item['SkeletonKey'];
                     $length = $item['productEffectiveLengthIN'];
 
@@ -236,23 +243,22 @@ class PtsVBeltSectionPageController extends FrontendController
                 }
                 $data['EffectiveLengths'] = $final;
 
-                $siopLevel2 = trim(array_column($SQLResults, 'SIOPLevel2')[0], ',');
-                $siopLevel3 = trim(array_column($SQLResults, 'SIOPLevel3')[0], ',');
-                $siopLevel4 = trim(array_column($SQLResults, 'SIOPLevel4')[0], ',');
-                $siopLevel5 = trim(array_column($SQLResults, 'SIOPLevel5')[0], ',');
-                $mainImage = trim(array_column($SQLResults, 'mainImage')[0], ',');
-                $beltIdentificationImage = array_column($SQLResults, 'beltIdentificationImage')[0];
-                $profileDimensionPtsBelts = array_column($SQLResults, 'profileDimensionPtsBelts')[0];
-                $FeaturesBenefitsBulletPoint = trim(array_unique(array_column($SQLResults, 'FeaturesBenefitsBulletPoint'))[0],',');
-                $reinforcement = trim(array_unique(array_column($SQLResults, 'reinforcement'))[0], ',');
-                $material = trim(array_unique(array_column($SQLResults, 'material'))[0],',');
-                $temperatureRangeFAndC = array_unique(array_column($SQLResults, 'temperatureRangeFAndC'))[0];
-                $minimumTemperatureF = intval(array_unique(array_column($SQLResults, 'minimumTemperatureF'))[0]);
-                $maximumTemperatureF ="+". intval(array_unique(array_column($SQLResults, 'maximumTemperatureF'))[0]); 
-                $shortDescription = array_unique(array_column($SQLResults, 'shortDescription'))[0];
-                $brandName = array_unique(array_column($SQLResults, 'brandName'))[0];
-                $result = [];
-                foreach ($SQLResults as $SQLResult) {
+                $siopLevel2 = trim(array_column($sqlResults, 'SIOPLevel2')[0], ',');
+                $siopLevel3 = trim(array_column($sqlResults, 'SIOPLevel3')[0], ',');
+                $siopLevel4 = trim(array_column($sqlResults, 'SIOPLevel4')[0], ',');
+                $siopLevel5 = trim(array_column($sqlResults, 'SIOPLevel5')[0], ',');
+                $mainImage = trim(array_column($sqlResults, 'mainImage')[0], ',');
+                $beltIdentificationImage = array_column($sqlResults, 'beltIdentificationImage')[0];
+                $profileDimensionPtsBelts = array_column($sqlResults, 'profileDimensionPtsBelts')[0];
+                $featuresBenefitsBulletPoint = trim(array_unique(array_column($sqlResults, 'FeaturesBenefitsBulletPoint'))[0],',');
+                $reinforcement = trim(array_unique(array_column($sqlResults, 'reinforcement'))[0], ',');
+                $material = trim(array_unique(array_column($sqlResults, 'material'))[0],',');
+                $temperatureRangeFAndC = array_unique(array_column($sqlResults, 'temperatureRangeFAndC'))[0];
+                $minimumTemperatureF = intval(array_unique(array_column($sqlResults, 'minimumTemperatureF'))[0]);
+                $maximumTemperatureF ="+". intval(array_unique(array_column($sqlResults, 'maximumTemperatureF'))[0]);
+                $shortDescription = array_unique(array_column($sqlResults, 'shortDescription'))[0];
+                $brandName = array_unique(array_column($sqlResults, 'brandName'))[0];
+                foreach ($sqlResults as $SQLResult) {
 
                     unset($SQLResult['SIOPLevel2']);
                     unset($SQLResult['SIOPLevel3']);
@@ -267,24 +273,24 @@ class PtsVBeltSectionPageController extends FrontendController
                     unset($SQLResult['temperatureRangeFAndC']);
                     unset($SQLResult['brandName']);
                 }
-                $SIOPCategories = array();
+                $siopCategories = array();
 
-                $SIOPCategoryClassId = \Pimcore\Model\DataObject\ProductCategory::classId();
+                $siopCategoryClassId = \Pimcore\Model\DataObject\ProductCategory::classId();
                 if (!empty($siopLevel2)) {
-                    $sql = "SELECT `key`,IF(oo_id=$siopLevel3, 'selected', '') as `selected` FROM object_$SIOPCategoryClassId WHERE `ParentObjectId` = $siopLevel2 AND `CatalogFlag` = 1 ORDER BY `SortOrder` ASC";
+                    $sql = "SELECT `key`,IF(oo_id=$siopLevel3, 'selected', '') as `selected` FROM object_$siopCategoryClassId WHERE `ParentObjectId` = $siopLevel2 AND `CatalogFlag` = 1 ORDER BY `SortOrder` ASC";
                 
-                    $SIOPCategories = $this->db->fetchAllKeyValue($sql);
+                    $siopCategories = $this->db->fetchAllKeyValue($sql);
                 }
                 if (!empty($siopLevel3)) {
-                    $sql = "SELECT `key` FROM object_$SIOPCategoryClassId WHERE `oo_id` = $siopLevel3 ";
+                    $sql = "SELECT `key` FROM object_$siopCategoryClassId WHERE `oo_id` = $siopLevel3 ";
                     $siopLevel3 = $this->db->fetchOne($sql);
                 }
                 if (!empty($siopLevel4)) {
-                    $sql = "SELECT `key` FROM object_$SIOPCategoryClassId WHERE `oo_id` = $siopLevel4 ";
+                    $sql = "SELECT `key` FROM object_$siopCategoryClassId WHERE `oo_id` = $siopLevel4 ";
                     $siopLevel4 = $this->db->fetchOne($sql);
                 }
                 if (!empty($siopLevel5)) {
-                    $sql = "SELECT `key` FROM object_$SIOPCategoryClassId WHERE `oo_id` = $siopLevel5 ";
+                    $sql = "SELECT `key` FROM object_$siopCategoryClassId WHERE `oo_id` = $siopLevel5 ";
                     $siopLevel5 = $this->db->fetchOne($sql);
                 }
                 if (!empty($brandName)) {
@@ -314,28 +320,28 @@ class PtsVBeltSectionPageController extends FrontendController
                 if(isset($profileDimensionPtsBelts)){
                     $profileDimensionPtsBelts = Asset::getById($profileDimensionPtsBelts);
                 }
-                if(isset($FeaturesBenefitsBulletPoint)){
-                    $FeaturesBenefitsBulletPoint = explode(',',$FeaturesBenefitsBulletPoint);
-                    $FeaturesBenefitsBulletPoint = $this->getFiveSortedFeaturesWithIconList($FeaturesBenefitsBulletPoint);
+                if(isset($featuresBenefitsBulletPoint)){
+                    $featuresBenefitsBulletPoint = explode(',',$featuresBenefitsBulletPoint);
+                    $featuresBenefitsBulletPoint = $this->getFiveSortedFeaturesWithIconList($featuresBenefitsBulletPoint);
                 }
 
-                $data['SIOPCategories'] = isset($SIOPCategories)?$SIOPCategories:[];
+                $data['SIOPCategories'] = isset($siopCategories)?$siopCategories:[];
                 $data['temperatureRangeFAndC'] = isset($temperatureRangeFAndC)?$temperatureRangeFAndC:'';
                 $data['minimumTemperatureF'] = isset($minimumTemperatureF)?$minimumTemperatureF:'';
                 $data['maximumTemperatureF'] = isset($maximumTemperatureF)?$maximumTemperatureF:'';
                 $data['material'] = isset($material)?$material:'';
-                $data['reinforcement'] = isset($reinforcement)?$reinforcement:''; 
+                $data['reinforcement'] = isset($reinforcement)?$reinforcement:'';
                 $data['mainImage'] = isset($mainImage)?$mainImage:'';
-                $data['beltIdentificationImage'] = isset($beltIdentificationImage)?$beltIdentificationImage:''; 
-                $data['profileDimensionPtsBelts'] = isset($profileDimensionPtsBelts)?$profileDimensionPtsBelts:'';  
+                $data['beltIdentificationImage'] = isset($beltIdentificationImage)?$beltIdentificationImage:'';
+                $data['profileDimensionPtsBelts'] = isset($profileDimensionPtsBelts)?$profileDimensionPtsBelts:'';
                 $data['SIOPLEVEL2'] = isset($siopLevel2)?$siopLevel2:'';
                 $data['SIOPLEVEL3'] = isset($siopLevel3)?$siopLevel3:'';
                 $data['SIOPLEVEL4'] = isset($siopLevel4)?$siopLevel4:'';
                 $data['SIOPLEVEL5'] = isset($siopLevel5)?$siopLevel5:'';
                 $data['brandName'] = isset($brandName)?$brandName:'';
-                $data['shortDescription'] = isset($shortDescription)?$shortDescription:'';    
+                $data['shortDescription'] = isset($shortDescription)?$shortDescription:'';
                 
-                $data['FeaturesBenefitsBulletPoint'] = isset($FeaturesBenefitsBulletPoint)?$FeaturesBenefitsBulletPoint:[] ; 
+                $data['FeaturesBenefitsBulletPoint'] = isset($featuresBenefitsBulletPoint)?$featuresBenefitsBulletPoint:[] ;
                 $data['footer_class'] = '';
                 $footer_logo_src = (strtolower($footerBgColor) == 'orange') ? $catalogImagesPTGFooter['Black'] : $catalogImagesPTGFooter['Orange'];
                 $footer_logo_src = $this->defaultController->getS3ImageSrc($footer_logo_src);
@@ -348,52 +354,66 @@ class PtsVBeltSectionPageController extends FrontendController
 
     public function getFiveSortedFeaturesWithIconList($safetyFeatures): ?array
     {
-        $safetyFeatures = array_unique($safetyFeatures);
-        $safetyFeaturesList  = array();
-        $safetyFeaturesListWithImage = array();
-        $safetyFeaturesListWithOutImage = array();
+        if (empty($safetyFeatures)) {
+            return null;
+        }
 
-        if ($safetyFeatures) {
-            foreach ($safetyFeatures as $fvalue) {
-                $fIcon = isset($this->featuresList[$fvalue]['icon']) ? $this->featuresList[$fvalue]['icon'] : null;
-                if ($fIcon) {
-                    if (!isset($this->s3srcArr[$fvalue])) {
-                        $this->s3srcArr[$fvalue] = $this->defaultController->getS3ImageSrc($fIcon);
-                    }
+        $uniqueFeatures = array_unique($safetyFeatures);
 
-                    $safetyFeaturesListWithImage[] = array('name' => $this->featuresList[$fvalue]['name'], 'iconSrc' => $fvalue, 'SortOrder' => $this->featuresList[$fvalue]['SortOrder']);
-                } else {
-                    $safetyFeaturesListWithOutImage[] = array('name' => (isset($this->featuresList[$fvalue]['name']))?$this->featuresList[$fvalue]['name']: null, 'iconSrc' => $fIcon, 'SortOrder' => (isset($this->featuresList[$fvalue]['SortOrder']))?$this->featuresList[$fvalue]['SortOrder']: null);
-                }
+        $featuresWithIcons = [];
+        $featuresWithoutIcons = [];
+
+        foreach ($uniqueFeatures as $featureKey) {
+            $featureData = $this->featuresList[$featureKey] ?? null;
+
+            if (!$featureData) {
+                continue;
+            }
+
+            $hasIcon = !empty($featureData['icon']);
+
+            $featureItem = [
+                'name' => $featureData['name'] ?? null,
+                'iconSrc' => $hasIcon ? $featureKey : null,
+                'SortOrder' => $featureData['SortOrder'] ?? null,
+            ];
+
+            if ($hasIcon) {
+                $this->cacheS3Image($featureKey, $featureData['icon']);
+                $featuresWithIcons[] = $featureItem;
+            } else {
+                $featuresWithoutIcons[] = $featureItem;
             }
         }
 
-        if ($safetyFeaturesListWithImage) {
-            array_multisort(array_column($safetyFeaturesListWithImage, 'SortOrder'), SORT_ASC, $safetyFeaturesListWithImage);
-        }
+        $sortedFeatures = array_merge(
+            $this->sortFeaturesByOrder($featuresWithIcons),
+            $this->sortFeaturesByOrder($featuresWithoutIcons)
+        );
 
-        if ($safetyFeaturesListWithOutImage) {
-            array_multisort(array_column($safetyFeaturesListWithOutImage, 'SortOrder'), SORT_ASC, $safetyFeaturesListWithOutImage);
-        }
+        $topFive = array_slice($sortedFeatures, 0, 5);
 
-        $safetyFeaturesList = array_merge_recursive($safetyFeaturesListWithImage, $safetyFeaturesListWithOutImage);
-
-        if ($safetyFeaturesList) {
-            $safetyFeaturesList = array_slice($safetyFeaturesList, 0, 5);
-
-            foreach ($safetyFeaturesList as $key => $value) {
-
-                if (isset($this->s3srcArr[$value['iconSrc']])) {
-                    $safetyFeaturesList[$key]['iconSrc'] = $this->s3srcArr[$value['iconSrc']];
-                }
+        foreach ($topFive as &$feature) {
+            if (isset($this->s3srcArr[$feature['iconSrc']])) {
+                $feature['iconSrc'] = $this->s3srcArr[$feature['iconSrc']];
             }
         }
 
-        unset($safetyFeaturesListWithImage);
-        unset($safetyFeaturesListWithOutImage);
-
-        return $safetyFeaturesList;
+        return $topFive;
     }
+
+    private function sortFeaturesByOrder(array $features): array
+    {
+        usort($features, fn($a, $b) => $a['SortOrder'] <=> $b['SortOrder']);
+        return $features;
+    }
+
+private function cacheS3Image(string $key, string $icon): void
+{
+    if (!isset($this->s3srcArr[$key])) {
+        $this->s3srcArr[$key] = $this->defaultController->getS3ImageSrc($icon);
+    }
+}
 
     public function templatePtgVBeltSectionPageAction(Request $request)
     {
@@ -401,18 +421,17 @@ class PtsVBeltSectionPageController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->defaultController->getRequestedParameter($request, 0);
         }
-        else{ 
-            $documentPath = $this->document->getFullPath(); 
-            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
-            if($doc) { 
-                $documentId = $doc->getId(); 
-                $parameterBag = $this->defaultController->getRequestedParameter($request, $documentId); 
-            } 
+        else{
+            $documentPath = $this->document->getFullPath();
+            $doc = \Pimcore\Model\Document::getByPath($documentPath);
+            if($doc) {
+                $documentId = $doc->getId();
+                $parameterBag = $this->defaultController->getRequestedParameter($request, $documentId);
+            }
         }
 
         if ($templateEditable && $templateEditable->getElement() != null) {
             $template = $templateEditable->getElement();
-            $footerBgColor = $template->getColor();
             $parameterBag =  $this->getColumnsData($request, $template);
             $html = '<div><b style="font-size: 16px;">No Records Found</b></div>';
             $parameterBag['data'] ? : print_r($html);
