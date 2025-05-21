@@ -682,13 +682,15 @@
 
 											{% for i in 0..(maxRows - 1) %}
 												<tr>
+													{% set vbeltsKey = vbelts|keys[i]|default('') %}
+													<td>{{ vbeltsKey }}</td>
+													<td>{{ vbelts[vbeltsKey]|default('') }}</td>
+													
 													{% set bandedKey = banded|keys[i]|default('') %}
 													<td>{{ bandedKey }}</td>
 													<td>{{ banded[bandedKey]|default('') }}</td>
 
-													{% set vbeltsKey = vbelts|keys[i]|default('') %}
-													<td>{{ vbeltsKey }}</td>
-													<td>{{ vbelts[vbeltsKey]|default('') }}</td>
+													
 												</tr>
 											{% endfor %}
 

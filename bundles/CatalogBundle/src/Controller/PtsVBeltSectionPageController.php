@@ -59,10 +59,8 @@ class PtsVBeltSectionPageController extends FrontendController
                 } 
             } 
 
-            // $baseProductID = $template->getBaseproduct();
-            $baseProductID = array('1980396', '7739121');
+            $baseProductID = $template->getBaseproduct();
             $baseProductIDs = implode(", ", $baseProductID); // base product ids in comma separated way
-            
             if($template->getBrand()){
                 $brandName = implode(", ", $template->getBrand());
                 $defaultColumns = [
@@ -230,7 +228,7 @@ class PtsVBeltSectionPageController extends FrontendController
                             $max = max($lengths);
                             $range = "{$min} - {$max}";
                         } else {
-                            $range = "No lengths available";
+                            $range = "";
                         }
 
                         $final[$category][$key] = $range;
