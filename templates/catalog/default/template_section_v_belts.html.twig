@@ -218,6 +218,10 @@
 			/* justify-content: space-around; */
 			transform: rotate(90deg) translate(40%, 459px) !important;
 		}
+
+		.all-child-taxonomy.edit {
+			transform: rotate(90deg) translate(50%, 559px) !important;
+		}
 		.all-child-taxonomy p {
 			border-bottom: 1px solid;
 			border-left: 1px solid;
@@ -527,12 +531,23 @@
 						</footer>
 					</div>
 				{% endif %}
-				{% if data.SIOPCategories is not empty %}
-					<div class="all-child-taxonomy">
-						{% for SIOPCategory,selected in data.SIOPCategories %}
-							<p class="{{selected}}">{{SIOPCategory}}</p>
-						{% endfor %}
-					</div>
+				
+				{% if not editmode %}
+					{% if data.SIOPCategories is not empty %}
+						<div class="all-child-taxonomy">
+							{% for SIOPCategory,selected in data.SIOPCategories %}
+								<p class="{{selected}}">{{SIOPCategory}}</p>
+							{% endfor %}
+						</div>
+					{% endif %}
+				{% else %}
+					{% if data.SIOPCategories is not empty %}
+						<div class="all-child-taxonomy edit">
+							{% for SIOPCategory,selected in data.SIOPCategories %}
+								<p class="{{selected}}">{{SIOPCategory}}</p>
+							{% endfor %}
+						</div>
+					{% endif %}
 				{% endif %}
 
 				<div class="content-container right-side-container">
