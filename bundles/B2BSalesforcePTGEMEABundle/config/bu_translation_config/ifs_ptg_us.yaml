@@ -881,12 +881,12 @@ parameters:
         pitchIN:
             fieldName: pitchIN
             fieldLocation: objectbrick
-            objectBrickClassName: SynchronousFert
+            objectBrickClassName: PTGSkeleton
             isLocalized: false
         pitchMM:
             fieldName: pitchMM
             fieldLocation: objectbrick
-            objectBrickClassName: SynchronousFert
+            objectBrickClassName: PTGSkeleton
             isLocalized: false
         pitchLengthIN:
             fieldName: pitchLengthIN

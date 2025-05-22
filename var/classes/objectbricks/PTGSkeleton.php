@@ -6,10 +6,13 @@
  * - heightIn [numeric]
  * - staticConductive [input]
  * - totalBeltThickness [numeric]
+ * - pitchIN [numeric]
+ * - pitchUOM [select]
  * - beltAngle [numeric]
  * - heightMm [numeric]
  * - heatOilResistant [input]
  * - totalToothThickness [numeric]
+ * - pitchMM [numeric]
  */
 
 return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
@@ -195,6 +198,77 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'width' => 300,
                      'defaultValueGenerator' => '',
                   )),
+                  4 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                     'name' => 'pitchIN',
+                     'title' => 'Pitch (in)',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'defaultValue' => NULL,
+                     'integer' => false,
+                     'unsigned' => true,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => 3,
+                     'width' => 300,
+                     'defaultValueGenerator' => '',
+                  )),
+                  5 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                     'name' => 'pitchUOM',
+                     'title' => 'Pitch UOM',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'options' => 
+                    array (
+                      0 => 
+                      array (
+                        'key' => 'IN',
+                        'value' => 'IN',
+                      ),
+                      1 => 
+                      array (
+                        'key' => 'MM',
+                        'value' => 'MM',
+                      ),
+                    ),
+                     'defaultValue' => '',
+                     'columnLength' => 190,
+                     'dynamicOptions' => false,
+                     'defaultValueGenerator' => '',
+                     'width' => 300,
+                     'optionsProviderType' => 'configure',
+                     'optionsProviderClass' => '',
+                     'optionsProviderData' => '',
+                  )),
                 ),
                  'locked' => false,
                  'blockedVarsForExport' => 
@@ -314,6 +388,36 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'name' => 'totalToothThickness',
                      'title' => 'Total Tooth Thickness',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'margin-left:20px;',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'defaultValue' => NULL,
+                     'integer' => false,
+                     'unsigned' => true,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => 1,
+                     'width' => 300,
+                     'defaultValueGenerator' => '',
+                  )),
+                  4 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                     'name' => 'pitchMM',
+                     'title' => 'Pitch (MM)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
