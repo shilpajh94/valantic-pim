@@ -92,6 +92,7 @@ class HydraulicFittingController extends FrontendController
 			
 			$className = $obj->getClassName();
 			$SAPRange = "";
+			$firstElementkey = 0;
 			if($className == "SpecSheetCatalog") {
 				$SAPRange = $obj->getSAPRange();
 					$query = "Select * from specsheet_custom_selection where object_id=$id";
@@ -104,7 +105,9 @@ class HydraulicFittingController extends FrontendController
 					foreach ($productsData as $key => $productItem) {
 						if(!in_array($productItem[$headerKeysIndex['articleNumber']], $includeArticles)){
 							unset($productsData[$key]);
+							continue;
 						}
+						$firstElementkey = $key;
 					}
 					}
 					
@@ -124,8 +127,7 @@ class HydraulicFittingController extends FrontendController
                     $productsData[$key][] = $hoseID1InDecimal;
 					
                 }
-
-                $hoseID1InFractSortKey = array_key_last($productsData[0]);
+                $hoseID1InFractSortKey = array_key_last($productsData[$firstElementkey]);
                 $hoseID1InDecimalCustom = array_column($productsData, $hoseID1InFractSortKey);
 
                 array_multisort($hoseID1InDecimalCustom, SORT_ASC, $productsData);
