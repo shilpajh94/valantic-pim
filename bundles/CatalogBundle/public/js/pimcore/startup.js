@@ -63,34 +63,6 @@ pimcore.plugin.CatalogBundle = Class.create({
 			if(catalogId){
 				var categoryOptionsStore = this.loadCategories(catalogId, objectClassName, e);
 			}
-
-            var categoryOptionsStore = Ext.create('Ext.data.Store', {
-                fields: ['id', 'text'],
-                proxy: {
-                    type: 'ajax',
-                    url: '/catalog/get-category',
-                    //  method:'POST',
-                    extraParams: {
-                        catId: e.detail.object.data.general.parentId,
-
-                    },
-                    reader: {
-                        type: 'json',
-                        rootProperty: 'data'
-                    }
-                },
-
-            });
-
-            categoryOptionsStore.load();
-
-
-            e.detail.object.edit.dataFields.Category.component.setStore(categoryOptionsStore);
-            if (e.detail.object.data.data.Category !== null)
-            {
-                e.detail.object.edit.dataFields.Category.component.setValue(e.detail.object.data.data.Category);
-            }
-            categoryOptionsStore.load();
         }
 
         if (objectClassName == 'CatalogPTS') {
