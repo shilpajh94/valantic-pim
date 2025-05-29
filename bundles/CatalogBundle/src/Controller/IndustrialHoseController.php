@@ -580,6 +580,7 @@ class IndustrialHoseController extends FrontendController
 				$catalogLanguage = $template->getCatalogLanguage();
 				
 				$SAPRange = $template->getSAPRange();
+				if($SAPRange == "Custom Selection") {
 				$id = $template->getId();
 					$query = "Select * from specsheet_custom_selection where object_id=$id";
 					$row = $this->db->fetchAllAssociative($query);
@@ -595,6 +596,7 @@ class IndustrialHoseController extends FrontendController
 						}
 						}
 					}
+				}
 				
 			} else {
 				$catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());

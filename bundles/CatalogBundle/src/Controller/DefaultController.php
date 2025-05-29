@@ -991,8 +991,8 @@ class DefaultController extends FrontendController
                 unset($objColumnsData);
 				
 				if($className == "SpecSheetCatalog"){
-				
 					$SAPRange = $template->getSAPRange();
+					if($SAPRange == "Custom Selection") {
 					$id = $template->getId();
 						$query = "Select * from specsheet_custom_selection where object_id=$id";
 						$row = $this->db->fetchAllAssociative($query);
@@ -1009,7 +1009,7 @@ class DefaultController extends FrontendController
 						}
 						
 						}
-				
+					}
 			}
 
                 // Getting order of the keys

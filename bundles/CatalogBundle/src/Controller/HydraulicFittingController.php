@@ -95,6 +95,7 @@ class HydraulicFittingController extends FrontendController
 			$firstElementkey = 0;
 			if($className == "SpecSheetCatalog") {
 				$SAPRange = $obj->getSAPRange();
+				if($SAPRange == "Custom Selection") {
 					$query = "Select * from specsheet_custom_selection where object_id=$id";
 					$row = $this->db->fetchAllAssociative($query);
 					if(isset($row[0])){
@@ -109,9 +110,9 @@ class HydraulicFittingController extends FrontendController
 						}
 						$firstElementkey = $key;
 					}
-					}
-					
-					}
+				  }
+				}
+			  }
 			}
 
             $brandsDataList = array();
