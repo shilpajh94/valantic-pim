@@ -296,10 +296,18 @@ class HydraulicFittingController extends FrontendController
                         $newBrandArray[$brandKey]['SortOrder'] = null;
                     }
 
+
+                    // if(isset($brandsList[$brandKey])){
+                    //     $newBrandArray[$brandKey]['SortOrder'] = $brandsList[$brandKey];
+                    // }else{
+                    //     $newBrandArray[$brandKey]['SortOrder'] = null;
+                    // }
+
+                    
+
                     unset($sortedBrandsData[$brandKey]);
                     $count++;
                 }
-                
                 if ($newBrandArray) {
                     array_multisort(array_column($newBrandArray, 'SortOrder'), SORT_ASC, $newBrandArray);
                 }
@@ -357,6 +365,12 @@ class HydraulicFittingController extends FrontendController
             $brandNameSortOrderArray = array_combine($brandNameArray, $brandSortOrderArray);
         }
         return $brandNameSortOrderArray;
+
+
+
+        // $query = "select name, SortOrder from object_query_3";
+        // return $this->db->fetchAllAssociative($query);
+
     }
 
     public function getColumnHeadersForCatalog($fittingTableColWidths, $isTableNameColumnRequired = false, $tableNameColumns = []): array

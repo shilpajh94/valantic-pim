@@ -625,12 +625,13 @@ class PlantMaterialModel
                 $key = str_replace('$','-',$value['id']);
                 $objDelete = DataObject\PlantMaterialMaster::getByPath("/".ImportConstants::MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER."/".$material."/".$key);
 
-                if($objDelete)
+                if($objDelete && $objDelete->getPublished())
                 {
                     $deleteCount++;
                     $objDelete->setDeletedFlagAtPlantLevel(1);
                     $objDelete->setPublished(FALSE);
                     $objDelete->save();
+                    echo "Plant with Key - ".$objDelete->getKey(). " has been unpublished".PHP_EOL;
                 }
             }
 
