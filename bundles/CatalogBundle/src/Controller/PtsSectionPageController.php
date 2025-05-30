@@ -69,6 +69,7 @@ class PtsSectionPageController extends FrontendController
             if($template->getBrand()){
                 $brandName = $template->getBrand();
                 $defaultColumns = [
+                    'fertProducts.oo_id',
                     'fertProducts.brandName',
                     'fertProducts.SIOPLevel2',
                     'fertProducts.SIOPLevel3', 
@@ -106,6 +107,7 @@ class PtsSectionPageController extends FrontendController
             }
             else{
                 $defaultColumns = [
+                    'fertProducts.oo_id',
                     'baseProducts.brandName',
                     'baseProducts.SIOPLevel2',
                     'baseProducts.SIOPLevel3', 
@@ -186,9 +188,10 @@ class PtsSectionPageController extends FrontendController
 
                     $data['groupData'][$skeltons[$i]]['standardWidthmm'] = isset($SQLResult['standardWidthmm']) ? implode(', ', array_map('intval',array_unique(array_column($result[$skeltons[$i]], 'standardWidthmm')))) : null;
                     $data['groupData'][$skeltons[$i]]['pitchLengthMM'] = isset($SQLResult['pitchLengthMM']) ? (int) min(array_column($result[$skeltons[$i]], 'pitchLengthMM')) . ' - ' .(int) max(array_column($result[$skeltons[$i]], 'pitchLengthMM')) : null;
-                    $data['groupData'][$skeltons[$i]]['A'] = isset($SQLResult['pitchMM']) ? array_values(array_unique(array_column($result[$skeltons[$i]], 'pitchMM')))[0] : null;
+                    $data['groupData'][$skeltons[$i]]['A'] =  isset(array_values(array_unique(array_column($result[$skeltons[$i]], 'pitchMM')))[0]) ? array_values(array_unique(array_column($result[$skeltons[$i]], 'pitchMM')))[0] : null;
                     $data['groupData'][$skeltons[$i]]['B'] = isset(array_values(array_unique(array_column($result[$skeltons[$i]], 'totalBeltThickness')))[0]) ? array_values(array_unique(array_column($result[$skeltons[$i]], 'totalBeltThickness')))[0] : null;
                     $data['groupData'][$skeltons[$i]]['C'] = isset(array_values(array_unique(array_column($result[$skeltons[$i]], 'totalToothThickness')))[0]) ? array_values(array_unique(array_column($result[$skeltons[$i]], 'totalToothThickness')))[0] : null;
+
                 }
 
                 $SIOPCategories = array();
