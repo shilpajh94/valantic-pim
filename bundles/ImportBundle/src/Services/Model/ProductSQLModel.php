@@ -301,7 +301,7 @@ class ProductSQLModel
         foreach ($ifsData as $row) {
             $recData =  (array) json_decode($row['record']);
             $oldMaterialCode = trim($recData[6]);
-            if (!empty($oldMaterialCode) && $oldMaterialCode != 'NA' && $oldMaterialCode != 'N/A' && strlen($oldMaterialCode) == 14 && (!strstr($oldMaterialCode,' ')) && (!strstr($oldMaterialCode,'-'))) {
+            if (!empty($oldMaterialCode) && is_numeric($oldMaterialCode) && $oldMaterialCode != 'NA' && $oldMaterialCode != 'N/A' && strlen($oldMaterialCode) == 14 && (!strstr($oldMaterialCode,' ')) && (!strstr($oldMaterialCode,'-'))) {
                 $sixDigitCode = substr($oldMaterialCode, 0, 6);
                 if (empty($this->baseSIOPMapping[$sixDigitCode])) {
                     $this->baseSIOPMapping[$sixDigitCode] = $row['siopfullcode'];
@@ -338,18 +338,6 @@ class ProductSQLModel
             echo "Record Processed: ".$i;
             $b = time();
             echo "Part ".$j." completed in time: ".$a."====".$b.PHP_EOL;
-
-            // if($j > 9){  // 20 denotes that delta till 20 batches had been processed and you want to start from 21st batch
-
-            //     $this->processIFSorCSProducts($partialData, 'IFS');
-            //     $partialData = null;
-            //     $i = $i+$length;
-            //     echo PHP_EOL;
-            //     echo "Record Processed: ".$i;
-            //     $b = time();
-            //     echo "Part ".$j." completed in time: ".$a."====".$b.PHP_EOL;
-
-            // }
             \Pimcore::collectGarbage();
             gc_collect_cycles();
             $a = time();
@@ -541,9 +529,8 @@ class ProductSQLModel
                 $articleNumber = $record[$this->getRecordIndexByKey('material')];
 		$data = $this->tblImpHelper->checkIfArticleExists($articleNumber);
 		if (!empty($data) && count($data)>0) {
-                    $objId = $data[0]['oo_id'];
-                    $objectArr['id'] = $objId;
-                    //if ($oldMaterialCode != $data[0]['oldMaterialCode']) {
+            $objId = $data[0]['oo_id'];
+            $objectArr['id'] = $objId;
 		    $distributionFlag = $this->tblImpHelper->getDistributionChainFlagByMaterial($objId);
 		    $fittingFamilyFlag = $this->tblImpHelper->getFittingFamilyFlagByMaterial($objId);
                     var_dump($distributionFlag);
@@ -640,51 +627,9 @@ class ProductSQLModel
         ];
         $currentLevelPath = $parentPath.'/'.$objectKey;
         if (!array_key_exists($currentLevelPath, $this->products)) {
-            // if ($type == 'fert') {
-            //     $articleNumber = $record[$this->getRecordIndexByKey('material')];
-		// $data = $this->tblImpHelper->checkIfArticleExists($articleNumber);
-		// if (!empty($data) && count($data)>0) {
-            // $objId = $data[0]['oo_id'];
-            // $objectArr['id'] = $objId;
-		    // $distributionFlag = $this->tblImpHelper->getDistributionChainFlagByMaterial($objId);
-		    // $fittingFamilyFlag = $this->tblImpHelper->getFittingFamilyFlagByMaterial($objId);
-            //         var_dump($distributionFlag);
-            //         var_dump($fittingFamilyFlag);
-                    // if (!empty($distributionFlag) || !empty($fittingFamilyFlag)) {
-                    //     if (!empty($distributionFlag)) {
-                    //         $catCode = $levelInfo[3]['levelFullCode'];
-                    //         $catFullPath = $this->categories[$catCode]['fullPath'];
-                    //         $productPath = $this->convertCategoryPathToProduct($catFullPath);
-                    //         $quoteFolderPath = $productPath."/Quote/";
-                    //         $quoteFolderId = $this->getFolderByPath($quoteFolderPath);
-                    //         $objectArr['parentId'] = $quoteFolderId;
-                    //         $objectArr['path'] = $quoteFolderPath;
-                    //     } else {
-                    //         $pathArray = explode("/", $data[0]['path']);
-                    //         if (count($pathArray)>=6) {
-                    //             $fittingFamilyPathArray = array_slice($pathArray, 6);
-                    //             $subPath = '';
-                    //             if (!empty($fittingFamilyPathArray[0])) {
-                    //                 $subPath = implode("/", $fittingFamilyPathArray);
-                    //             }
-                    //             $catCode = $levelInfo[4]['levelFullCode'];
-                    //             $catFullPath = $this->categories[$catCode]['fullPath'];
-                    //             $productPath = $this->convertCategoryPathToProduct($catFullPath);
-                    //             $fittingFamilyFolderPath = $productPath."/".$subPath;
-                    //             $fittingFamilyFolderId = $this->getFolderByPath($fittingFamilyFolderPath);
-                    //             $objectArr['parentId'] = $fittingFamilyFolderId;
-                    //             $objectArr['path'] = $fittingFamilyFolderPath;
-                    //         }
-                    //     }
-                    // }
-                // }
-
-            // } else {
-                if (array_key_exists($objectKey, $this->allBaseProducts)) {
-                    $objectArr['id'] = $this->allBaseProducts[$objectKey];
-                }
-            // }
-
+            if (array_key_exists($objectKey, $this->allBaseProducts)) {
+                $objectArr['id'] = $this->allBaseProducts[$objectKey];
+            }
             $objId = $this->tblImpHelper->insertInObjects($objectArr);
             if (is_array($objId) && empty($objId[0])) {
                 return $objId;
@@ -836,7 +781,7 @@ class ProductSQLModel
                                 if ($levelInfo['status']) {
                                     if (strtolower($bu) == 'ifs') {
                                         $oldMaterialCode = trim($recData[6]);
-                                        if (empty($oldMaterialCode) || $oldMaterialCode == 'NA' || $oldMaterialCode == 'N/A' || (strlen($oldMaterialCode)!= 14) || strstr($oldMaterialCode,' ') || strstr($oldMaterialCode,'-')) {
+                                        if (empty($oldMaterialCode) || !is_numeric($oldMaterialCode) || $oldMaterialCode == 'NA' || $oldMaterialCode == 'N/A' || (strlen($oldMaterialCode)!= 14) || strstr($oldMaterialCode,' ') || strstr($oldMaterialCode,'-')) {
                                             $recData[6] = '';
                                             $sixDigitCode = '';
                                         } else {
@@ -864,7 +809,7 @@ class ProductSQLModel
                                             } else {
                                                 $folderId = $this->products[$folderPath];
                                             }
-                                            if (empty($oldMaterialCode) || $oldMaterialCode == 'NA' || $oldMaterialCode == 'N/A' || (strlen($oldMaterialCode)!= 14) || strstr($oldMaterialCode,' ') || strstr($oldMaterialCode,'-')) {
+                                            if (empty($oldMaterialCode) || !is_numeric($oldMaterialCode)  || $oldMaterialCode == 'NA' || $oldMaterialCode == 'N/A' || (strlen($oldMaterialCode)!= 14) || strstr($oldMaterialCode,' ') || strstr($oldMaterialCode,'-')) {
                                                 $levelArray = $this->createIFSObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'fert', true);
                                             } else {
                                                 $levelArray = $this->createIFSObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'base');
