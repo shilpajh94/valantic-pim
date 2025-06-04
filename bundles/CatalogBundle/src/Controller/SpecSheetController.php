@@ -569,6 +569,25 @@ class SpecSheetController extends FrontendController
             echo $ex->getMessage();
         }
     }
+	
+	/**
+     * @Route("/specsheet/getSAPRange")
+	 *
+	 * This function is use to fetch SAPRange value for hiding and showing the grid checkbox and update custom product buttons
+     */
+	Public function getSAPRange(Request $request){
+		$values = '';
+        try {
+			$objId = $request->get('objectId');
+			$specSheetObj = DataObject\SpecSheetCatalog::getById($objId);
+			$SAPRange = $specSheetObj->getSAPRange();
+			
+           return $this->json($SAPRange);
+        } catch (\Exception $ex) {
+            echo $ex->getMessage();
+        }
+		
+	}
 }
 	
 	?>
