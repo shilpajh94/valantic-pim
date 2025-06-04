@@ -101,36 +101,36 @@ pimcore.plugin.CatalogBundle = Class.create({
                 component.setValue(componentValue);
             }, 1000,  e.detail.object.edit.dataFields.BaseProduct.component,e.detail.object.data.data.BaseProduct)
             }
-            // e.detail.object.edit.dataFields.BaseProduct.component.on('blur', function (e) {
+				 e.detail.object.edit.dataFields.BaseProduct.component.on('blur', function (e) {
 
-            //     var skeletonOptionsStore = Ext.create('Ext.data.Store', {
-            //         fields: ['id', 'text'],
-            //         proxy: {
-            //             type: 'ajax',
-            //             url: '/catalog/get-skeleton-products',
-            //             //  method:'POST',
-            //             extraParams: {
-            //                 products: Ext.JSON.encode(e.value),
+				     var skeletonOptionsStore = Ext.create('Ext.data.Store', {
+				         fields: ['id', 'text'],
+				         proxy: {
+				             type: 'ajax',
+				             url: '/catalog/get-skeleton-products',
+				             //  method:'POST',
+				             extraParams: {
+				                 products: Ext.JSON.encode(e.value),
 
-            //             },
-            //             reader: {
-            //                 type: 'json',
-            //                 rootProperty: 'data'
-            //             }
-            //         },
+				             },
+				             reader: {
+				                 type: 'json',
+				                 rootProperty: 'data'
+				             }
+                     },
 
-            //     });
+                 });
 
-            //     skeletonOptionsStore.load();
-            //     e.detail.object.edit.dataFields.SkeletonProduct.component.setStore(skeletonOptionsStore);
+                 skeletonOptionsStore.load();
+                 e.detail.object.edit.dataFields.SkeletonProduct.component.setStore(skeletonOptionsStore);
                 
-            //      if (e.detail.object.data.data.SkeletonProduct !== null)
-            // {
-            //     console.log(e.detail.object.data.data.SkeletonProduct);
-            //     e.detail.object.edit.dataFields.SkeletonProduct.component.setValue(e.detail.object.data.data.SkeletonProduct);
-            // }
-            // skeletonOptionsStore.load();
-            // });
+                  if (e.detail.object.data.data.SkeletonProduct !== null)
+             {
+                 console.log(e.detail.object.data.data.SkeletonProduct);
+                 e.detail.object.edit.dataFields.SkeletonProduct.component.setValue(e.detail.object.data.data.SkeletonProduct);
+             }
+             skeletonOptionsStore.load();
+             });
         } // end CatalogPTS
 		
 
