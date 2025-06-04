@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                933d4721-7905-43c0-aca3-88a28d336941:
+                    name: 'Container Page'
+                    group: 'Spec Sheet'
+                    controller: 'CatalogBundle\Controller\DefaultController::containerAction'
+                    template: null
+                    type: printcontainer
+                    priority: 0
+                    creationDate: 1710326766
+                    modificationDate: 1710327006
+                    staticGeneratorEnabled: false

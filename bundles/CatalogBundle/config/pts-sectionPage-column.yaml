@@ -16,11 +16,11 @@ pitchLengthMM:
 pitchMM:
     columnName: A
     fieldLocation: objectbrick
-    objectBrickClassName: SynchronousFert
+    objectBrickClassName: PTGSkeleton
     fieldLabel: A (Pitch MM)
     columnHeader: A
     isLocalized: false
-    sql: 'object_brick_query_SynchronousFert_1.pitchMM '
+    sql: 'object_brick_query_PTGSkeleton_1.pitchMM '
 totalBeltThickness:
     columnName: B
     fieldLocation: objectbrick

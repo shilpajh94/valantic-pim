@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                7c3f0ef4-2831-49e7-b69d-142933e4d694:
+                    name: 'Spec Sheet Industrial Hose Product Page'
+                    group: 'Spec Sheet'
+                    controller: 'CatalogBundle\Controller\IndustrialHoseController::inhPrintCatalogProductPageAction'
+                    template: catalog/inh/inhprintcatalogproductpage.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710334210
+                    modificationDate: 1710334288
+                    staticGeneratorEnabled: false

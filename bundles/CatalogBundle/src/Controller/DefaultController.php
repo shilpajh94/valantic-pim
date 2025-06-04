@@ -15,6 +15,7 @@ use \Exception;
 use Pimcore\Controller\FrontendController;
 use Pimcore\Bundle\WebToPrintBundle\Processor;
 use Pimcore\Model\Asset;
+use CatalogBundle\Model\Catalog;
 
 class DefaultController extends FrontendController
 {
@@ -55,9 +56,17 @@ class DefaultController extends FrontendController
     public function getCategory(Request $request): JsonResponse
     {
         $parentCat = $request->get('catId');
-        $catalogObj = DataObject\Catalog::getById($parentCat);
-        $category = $catalogObj->getCatalogType();
-
+		$className = $request->get('className');
+		
+		
+		$category = "";
+		if($className == "SpecSheetCatalog"){
+			$category = $parentCat;
+		} else {
+			$catalogObj = DataObject\Catalog::getById($parentCat);
+            $category = $catalogObj->getCatalogType();
+		}
+		
         $categoryList = new DataObject\ProductCategory\Listing();
         $categoryList->addConditionParam("fullCode LIKE ?", ["" . $category . "%"], 'AND');
         if ($category == '041500') {
@@ -99,11 +108,17 @@ class DefaultController extends FrontendController
     public function getTablesAction(Request $request): JsonResponse
     {
         $parentCat = $request->get('catId');
-        $parentObj = DataObject\CatalogCategory::getById($parentCat);
-        $parent = $parentObj->getParentId();
-
-        $categoryObj = DataObject\Catalog::getById($parent);
-        $category = $categoryObj->getCatalogType();
+		$className = $request->get('className');
+		$category = "";
+		if($className == "SpecSheetCatalog"){
+			$category = $parentCat;
+		} else {
+			$parentObj = DataObject\CatalogCategory::getById($parentCat);
+			$parent = $parentObj->getParentId();
+			$categoryObj = DataObject\Catalog::getById($parent);
+			$category = $categoryObj->getCatalogType();
+		}
+        
 
         $commonHelper = $this->containerInterface->get('app.common_helper');
 
@@ -143,15 +158,24 @@ class DefaultController extends FrontendController
         $options = [];
         foreach ($productList as $item) {
             if($className == "CatalogPTS"){
-                $options[] = array('key' => (!empty($item->getSapDescription('en'))?$item->getSapDescription('en'):$item->getKey()), 'value' => $item->getId());
-            }else{
+                $options[] = array('key' => $item->getParent()->getParent()->getType() == 'folder' ? $item->getParent()->getParent()->getKey(). ' - '.$item->getParent()->getKey(). ' - '.$item->getKey() : $item->getKey(), 'value' => $item->getId());
+            }
+            else if($className == "CatalogVBelts"){
+                $options[] = array(
+                                    'text' => (
+                                                $item->getParent()->getParent()->getType() == 'folder' ? $item->getParent()->getParent()->getKey(). ' - '.$item->getParent()->getKey(). ' - '.$item->getKey() : $item->getKey()
+                                            ), 
+                                    'id' =>     $item->getId()
+                                );
 
-            $options[] = array('text' => (!empty($item->getSapDescription('en'))?$item->getSapDescription('en'):$item->getKey()), 'id' => $item->getId());
+
+            }
+            else{
+                $options[] = array('text' => (!empty($item->getSapDescription('en'))?$item->getSapDescription('en'):$item->getKey()), 'id' => $item->getId());
             }
             
         }
-
-        return $this->json(['data' => $options]);
+        return $this->json(["data" => $options]);
     }
     /**
      * @Route("/catalog/get-siop-data")
@@ -211,7 +235,7 @@ class DefaultController extends FrontendController
         $objectId = $request->get('id');
         $table = $request->get('table');
         $template = $request->get('template');
-        $obj = DataObject\CatalogTables::getById($objectId);
+        $obj = DataObject::getById($objectId);
 
         if ($template == null) {
             $template = $obj->getTemplate();
@@ -223,8 +247,7 @@ class DefaultController extends FrontendController
         $columns = array();
         $arr = [];
 
-        if ($template && $table) {
-
+        if ($template && $table) { 
             $tableColumns = isset($this->tableColumns[$template][$table]) ? $this->tableColumns[$template][$table] : null;
 
             if ($tableColumns !== null) {
@@ -276,11 +299,13 @@ class DefaultController extends FrontendController
         $productList = new DataObject\Product\Listing();
         $conditionArray = [];
         $x = array();
+		if(isset($siopCategory)){
         for ($i = 0; $i < count($siopCategory); $i++) {
             $y = "," . $siopCategory[$i] . ",";
             array_push($x, $y);
             array_push($x, $siopCategory[$i]);
         }
+		}
 
         $catalogObj = DataObject\Catalog::getById($catalogCategory->getParentId());
 
@@ -343,6 +368,7 @@ class DefaultController extends FrontendController
         $bricksList['fert'] = [];
         $bricksList['skeleton'] = [];
         $bricksList['base'] = [];
+		if(isset($siopCategory)){
         foreach ($siopCategory as $cat) {
             $siopData = DataObject\ProductCategory::getById($cat);
 
@@ -364,6 +390,7 @@ class DefaultController extends FrontendController
                 }
             }
         }
+		}
 
         $pData = [];
         $headers = [];
@@ -689,9 +716,19 @@ class DefaultController extends FrontendController
     public function getInitialData(Request $request): Response
     {
         $objId = $request->get('objId');
-        $data = DataObject\CatalogTables::getById($objId);
+		$className = $request->get('className');
+
+		$data = DataObject::getById($objId);
+        
         $tableData = $data->getProductsData();
         $fieldData = json_decode($data->getHeaderData(), 1);
+		$headerKeys = "";
+		$headerKeysIndex = [];
+		if(isset($fieldData)){
+			$headerKeys = array_keys($fieldData);
+			$headerKeysIndex = array_flip($headerKeys);
+
+		}
 
         $columnData = array();
         if ($fieldData !== null) {
@@ -702,20 +739,38 @@ class DefaultController extends FrontendController
                     'Text' => $value,
                     'header' => $value,
                     'dataIndex' => $value,
-                    'flex' => 1
+                    'flex' => 1,
+					'filter' => array(
+					'type' => 'string',
+					)
                 );
             }
         }
+		$catalogModel = new Catalog;
+		$customRecords = $catalogModel->getCustomRecords($objId);
+		
+
+		$gridIndexes = [];
+		$i = 0;
+		foreach ($tableData as $key => $productItem) {
+						if(in_array($productItem[$headerKeysIndex['articleNumber']], $customRecords)){
+							$gridIndexes[] = $i;
+						}
+						$i ++;
+					}
 
         $data = array(
             'brandData' => [],
             'columnData' => $columnData,
             'fieldData' => $fieldData,
-            'data' => $tableData
+            'data' => $tableData,
+			'customRecords' => $gridIndexes
         );
 
         return $this->json($data);
     }
+	
+	
 
     public function getTableColumns(): void
     {
@@ -918,10 +973,16 @@ class DefaultController extends FrontendController
             $this->attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
             $catalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
             $catalogImagesHYDProduct = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDProduct');
-
-            $catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());
-            $catalogObj = DataObject\Catalog::getById($catalogCategoryObj->getParentId());
-            $catalogLanguage = $catalogObj->getCatalogLanguage();
+			
+			$className = $template->getClassName();
+			$catalogLanguage = "";
+			if($className == "SpecSheetCatalog"){
+				$catalogLanguage = $template->getCatalogLanguage();
+			} else {
+				$catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());
+				$catalogObj = DataObject\Catalog::getById($catalogCategoryObj->getParentId());
+				$catalogLanguage = $catalogObj->getCatalogLanguage();
+			}
 
             $footerBgColor = $template->getColor();
             $productsData = $template->getProductsData();
@@ -938,6 +999,28 @@ class DefaultController extends FrontendController
                 $columnsDataWithImages = $this->getColumnHeadersForCatalog(false, []);
 
                 unset($objColumnsData);
+				
+				if($className == "SpecSheetCatalog"){
+				
+					$SAPRange = $template->getSAPRange();
+					$id = $template->getId();
+						$query = "Select * from specsheet_custom_selection where object_id=$id";
+						$row = $this->db->fetchAllAssociative($query);
+						if(isset($row[0])){
+						$exCludes = $row[0]['data'];
+						if(!empty($exCludes)){
+						$includeArticles = explode(",",$exCludes);
+
+						foreach ($productsData as $key => $productItem) {
+							if(!in_array($productItem[$headerKeysIndex['articleNumber']], $includeArticles)){
+								unset($productsData[$key]);
+							}
+						}
+						}
+						
+						}
+				
+			}
 
                 // Getting order of the keys
                 $orderKeys = array();
@@ -958,7 +1041,7 @@ class DefaultController extends FrontendController
 
                 foreach ($productsData as $key => $item) {
                     if(gettype($item[$headerKeysIndex['brandName']]) == 'string') {
-                        if (!empty(trim($item[$headerKeysIndex['CatalogGrouping']])) && !empty(trim($item[$headerKeysIndex['brandName']]))) {
+                        if (isset($item[$headerKeysIndex['CatalogGrouping']]) && isset($item[$headerKeysIndex['brandName']]) && !empty(trim($item[$headerKeysIndex['CatalogGrouping']])) && !empty(trim($item[$headerKeysIndex['brandName']]))) {
                             $catalogGrouping[$item[$headerKeysIndex['CatalogGrouping']]][$item[$headerKeysIndex['brandName']]][] = $item;
                         }
                     }elseif(gettype($item[$headerKeysIndex['brandName']]) == 'array') {
@@ -967,7 +1050,7 @@ class DefaultController extends FrontendController
                         }
                     }
                 }
-
+				$catalogGroupData = [];
                 foreach ($catalogGrouping as $catalogKey => $brandsData) {
                     foreach ($brandsData as $brandKey => $brandArray) {
                         $uniqueId = md5($brandKey);
@@ -1190,7 +1273,8 @@ class DefaultController extends FrontendController
                         $data[$uniqueId]['subHeaderRequired'] = $this->subHeaderRequired;
                         $data[$uniqueId]['columnsDataWithImages'] = $columnsDataWithImages;
 
-                        if ($articlesData) {
+
+                        if ($articlesData && $className != "SpecSheetCatalog") {
                             array_multisort(array_column($articlesData, $headerKeysIndex['hoseOdIn']), SORT_ASC, $articlesData);
                         }
 
@@ -1227,6 +1311,8 @@ class DefaultController extends FrontendController
                 $parameterBag['table_class']= $tableClass;
             }
         }
+								//echo "<pre/>"; print_r($parameterBag); die;
+
         return $this->render("catalog/default/template_hose_product_page.html.twig", $parameterBag);
     }
 
@@ -2225,13 +2311,13 @@ class DefaultController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{ 
-            $documentPath = $this->document->getFullPath(); 
-            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
-            if($doc) { 
-                $documentId = $doc->getId(); 
-                $parameterBag = $this->getRequestedParameter($request, $documentId); 
-            } 
+        else{
+            $documentPath = $this->document->getFullPath();
+            $doc = \Pimcore\Model\Document::getByPath($documentPath);
+            if($doc) {
+                $documentId = $doc->getId();
+                $parameterBag = $this->getRequestedParameter($request, $documentId);
+            }
         }
         $allChildren = [];
 
@@ -2292,13 +2378,13 @@ class DefaultController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{ 
-            $documentPath = $this->document->getFullPath(); 
-            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
-            if($doc) { 
-                $documentId = $doc->getId(); 
-                $parameterBag = $this->getRequestedParameter($request, $documentId); 
-            } 
+        else{
+            $documentPath = $this->document->getFullPath();
+            $doc = \Pimcore\Model\Document::getByPath($documentPath);
+            if($doc) {
+                $documentId = $doc->getId();
+                $parameterBag = $this->getRequestedParameter($request, $documentId);
+            }
         }
         $groupData = array();
         $footerBgColor = null;
@@ -2736,13 +2822,13 @@ class DefaultController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{ 
-            $documentPath = $this->document->getFullPath(); 
-            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
-            if($doc) { 
-                $documentId = $doc->getId(); 
-                $parameterBag = $this->getRequestedParameter($request, $documentId); 
-            } 
+        else{
+            $documentPath = $this->document->getFullPath();
+            $doc = \Pimcore\Model\Document::getByPath($documentPath);
+            if($doc) {
+                $documentId = $doc->getId();
+                $parameterBag = $this->getRequestedParameter($request, $documentId);
+            }
         }        return $this->render("catalog/default/template_index_descriptive_number.html.twig", $parameterBag);
     }
 
@@ -2751,13 +2837,13 @@ class DefaultController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{ 
-            $documentPath = $this->document->getFullPath(); 
-            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
-            if($doc) { 
-                $documentId = $doc->getId(); 
-                $parameterBag = $this->getRequestedParameter($request, $documentId); 
-            } 
+        else{
+            $documentPath = $this->document->getFullPath();
+            $doc = \Pimcore\Model\Document::getByPath($documentPath);
+            if($doc) {
+                $documentId = $doc->getId();
+                $parameterBag = $this->getRequestedParameter($request, $documentId);
+            }
         }        try {
             $folderId = $this->document->getParent()->getId();
             $listing = new \Pimcore\Model\Document\Listing();
@@ -2825,11 +2911,11 @@ class DefaultController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{ 
+        else{
             $documentPath = $this->document->getFullPath(); 
             $doc = \Pimcore\Model\Document::getByPath($documentPath); 
-            if($doc) { 
-                $documentId = $doc->getId(); 
+            if($doc) {
+                $documentId = $doc->getId();
                 $parameterBag = $this->getRequestedParameter($request, $documentId); 
             } 
         }        try {

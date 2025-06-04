@@ -3119,8 +3119,8 @@ parameters:
             value_formatter_for_push:
         pitchIN:
             pim_attribute_name: pitchIN
-            pim_table_name: object_brick_query_SynchronousFert_1
-            joinOn: LEFT JOIN object_brick_query_SynchronousFert_1 ON object_brick_query_SynchronousFert_1.id = object_1.id
+            pim_table_name: object_brick_query_PTGSkeleton_1
+            joinOn: LEFT JOIN object_brick_query_PTGSkeleton_1 ON object_brick_query_PTGSkeleton_1.id = object_1.id
             sendToSF: true
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(12) NULL
@@ -3130,7 +3130,7 @@ parameters:
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name: SynchronousFert
+            container_pim_class_or_brick_name: PTGSkeleton
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
@@ -3138,8 +3138,8 @@ parameters:
             value_formatter_for_push:
         pitchMM:
             pim_attribute_name: pitchMM
-            pim_table_name: object_brick_query_SynchronousFert_1
-            joinOn: LEFT JOIN object_brick_query_SynchronousFert_1 ON object_brick_query_SynchronousFert_1.id = object_1.id
+            pim_table_name: object_brick_query_PTGSkeleton_1
+            joinOn: LEFT JOIN object_brick_query_PTGSkeleton_1 ON object_brick_query_PTGSkeleton_1.id = object_1.id
             sendToSF: true
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(12) NULL
@@ -3149,7 +3149,7 @@ parameters:
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name: SynchronousFert
+            container_pim_class_or_brick_name: PTGSkeleton
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
@@ -3214,8 +3214,8 @@ parameters:
             value_formatter_for_push:
         pitchUOM:
             pim_attribute_name: pitchUOM
-            pim_table_name: object_brick_query_SynchronousFert_1
-            joinOn: LEFT JOIN object_brick_query_SynchronousFert_1 ON object_brick_query_SynchronousFert_1.id = object_1.id
+            pim_table_name: object_brick_query_PTGSkeleton_1
+            joinOn: LEFT JOIN object_brick_query_PTGSkeleton_1 ON object_brick_query_PTGSkeleton_1.id = object_1.id
             sendToSF: true
             temp_master_table_attr: true
             temp_master_table_column_type: VARCHAR(12) NULL
@@ -3225,7 +3225,7 @@ parameters:
             sf_relational_attribute:
             allowed_object_class_name:
             is_multilingual_for_sf:
-            container_pim_class_or_brick_name: SynchronousFert
+            container_pim_class_or_brick_name: PTGSkeleton
             pim_attribute_for_sf_in_allowed_object_class_name:
             pim_id_to_sf_id_mapping_model:
             update_product_if_master_updated:
