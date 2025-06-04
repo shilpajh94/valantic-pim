@@ -737,11 +737,12 @@ class DefaultController extends FrontendController
                 );
             }
         }
+		$gridIndexes = [];
+		if($className == "SpecSheetCatalog"){
 		$catalogModel = new Catalog;
 		$customRecords = $catalogModel->getCustomRecords($objId);
 		
 
-		$gridIndexes = [];
 		$i = 0;
 		foreach ($tableData as $key => $productItem) {
 						if(in_array($productItem[$headerKeysIndex['articleNumber']], $customRecords)){
@@ -749,6 +750,7 @@ class DefaultController extends FrontendController
 						}
 						$i ++;
 					}
+		}
 
         $data = array(
             'brandData' => [],
@@ -836,8 +838,8 @@ class DefaultController extends FrontendController
                         $data[$baseId]['brandName'] = isset($data[$baseId]['brandName']) && !empty($data[$baseId]['brandName']) ? $data[$baseId]['brandName'] : $row['brandName'];
                        // Picking the first Standard Met Hose (Multiple data is coming pipe separated { || })
                         $data[$baseId]['standardMetHose'] = isset($data[$baseId]['standardMetHose']) && !empty($data[$baseId]['standardMetHose']) 
-                        ? explode('||', $data[$baseId]['standardMetHose'])
-                        : explode('||', $row['standardMetHose']);
+                        ? explode('||', $data[$baseId]['standardMetHose'])[0] 
+                        : explode('||', $row['standardMetHose'])[0];
                         $data[$baseId]['BrandShortText'][0] = isset($data[$baseId]['BrandShortText1'][0]) && !empty($data[$baseId]['BrandShortText1'][0]) ? $data[$baseId]['BrandShortText1'][0] : $row['BrandShortText1'];
                         $data[$baseId]['BrandShortText'][1] = isset($data[$baseId]['BrandShortText2'][1]) && !empty($data[$baseId]['BrandShortText2'][1]) ? $data[$baseId]['BrandShortText2'][1] : $row['BrandShortText2'];
                         $data[$baseId]['BrandShortText'][2] = isset($data[$baseId]['BrandShortText3'][2]) && !empty($data[$baseId]['BrandShortText3'][2]) ? $data[$baseId]['BrandShortText3'][2] : $row['BrandShortText3'];
@@ -936,7 +938,6 @@ class DefaultController extends FrontendController
                 );
             }
         }        
-        //p_r($parameterBag);
         return $this->render("catalog/default/template_hose_line_tile_template.html.twig", $parameterBag);
     }
 
