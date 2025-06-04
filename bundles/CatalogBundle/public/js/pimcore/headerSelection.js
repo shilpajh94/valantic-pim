@@ -27,7 +27,7 @@ pimcore.plugin.headerSelection = Class.create({
         var objectClassName = object.data.general.className;
 
 
-        if (objectClassName == 'CatalogTables') {
+        if (objectClassName == 'CatalogTables' || objectClassName == 'SpecSheetCatalog') {
             var headerDataFieldName = 'Columns';
             var dataFields = object.edit.dataFields;
             var headerDataComponent = dataFields[headerDataFieldName].component;

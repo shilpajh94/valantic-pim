@@ -119,7 +119,7 @@ parameters:
                 numberOfDecimalPoints: 0
                 fieldLabel: Pitch (mm)
                 parent:
-                    name: SynchronousFert
+                    name: PTGSkeleton
             pitchLengthIN:
                 fieldLevel: objectBrick
                 fieldType: Input
@@ -278,7 +278,7 @@ parameters:
                 numberOfDecimalPoints: 0
                 fieldLabel: Pitch (mm)
                 parent:
-                    name: SynchronousFert
+                    name: PTGSkeleton
             numberOfTeeth:
                 fieldLevel: objectBrick
                 fieldType: Input
@@ -1102,10 +1102,10 @@ parameters:
                 fieldLevel: class
                 fieldLabel: ID
                 fieldType: Input
-            mainImage:
+            LeftPrintCatalogImage:
                 fieldLevel: class
                 fieldType: Media
-                fieldLabel: Main Image
+                fieldLabel: Left Image
                 parent: 
                     name: Product
             oldMaterialCode:

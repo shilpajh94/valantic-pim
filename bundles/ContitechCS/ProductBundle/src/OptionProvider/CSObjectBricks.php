@@ -65,7 +65,7 @@ class CSObjectBricks implements SelectOptionsProviderInterface
      */
     public function getDefaultValue(array $context, Data $fieldDefinition): ?string
     {
-        return true; //return $fieldDefinition->getDefaultValue();
+        return false; //return $fieldDefinition->getDefaultValue();
     }
     
     /**

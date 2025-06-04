@@ -51,7 +51,7 @@ class HierarchyOptionProvider implements SelectOptionsProviderInterface
      */
     public function getDefaultValue(array $context, Data $fieldDefinition): ?string
     {
-        return true;
+        return false;
     }
     
     /**

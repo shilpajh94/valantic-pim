@@ -21,6 +21,8 @@ use Pimcore\Model\DataObject\ClassDefinition\DynamicOptionsProvider\SelectOption
 
 class StandardsOptionsProvider implements SelectOptionsProviderInterface {
 
+    private $optionProvider;
+
     /**
      * @param array $context
      * @param Data $fieldDefinition
@@ -28,6 +30,7 @@ class StandardsOptionsProvider implements SelectOptionsProviderInterface {
      */
     public function getOptions(array $context, Data $fieldDefinition): array
     {
+        
         $this->optionProvider = \Pimcore::getKernel()->getContainer()->get('AppBundle\Services\OptionProviderCacheService');
         $optionsData = array();
         $className = 'IFSEUNorm';
@@ -68,7 +71,7 @@ class StandardsOptionsProvider implements SelectOptionsProviderInterface {
      */
     public function getDefaultValue(array $context, Data $fieldDefinition): ?string
     {
-        return true; //return $fieldDefinition->getDefaultValue();
+        return false;
     }
 
     /**

@@ -79,7 +79,7 @@ class DistributionAndSalesOptionsProvider implements SelectOptionsProviderInterf
      */
     public function getDefaultValue(array $context, Data $fieldDefinition): ?string
     {
-        return true;
+        return false;
     }
 
     /**

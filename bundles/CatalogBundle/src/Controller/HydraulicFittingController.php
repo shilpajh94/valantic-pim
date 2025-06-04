@@ -89,11 +89,34 @@ class HydraulicFittingController extends FrontendController
             $productsData = $obj->getProductsData();
             $nomenClatureList = $this->getNomenClatureList();
             $brandsList = $this->getBrandsList();
+			
+			$className = $obj->getClassName();
+			$SAPRange = "";
+			$firstElementkey = 0;
+			if($className == "SpecSheetCatalog") {
+				$SAPRange = $obj->getSAPRange();
+					$query = "Select * from specsheet_custom_selection where object_id=$id";
+					$row = $this->db->fetchAllAssociative($query);
+					if(isset($row[0])){
+					$exCludes = $row[0]['data'];
+					if(!empty($exCludes)){
+					$includeArticles = explode(",",$exCludes);
+
+					foreach ($productsData as $key => $productItem) {
+						if(!in_array($productItem[$headerKeysIndex['articleNumber']], $includeArticles)){
+							unset($productsData[$key]);
+							continue;
+						}
+						$firstElementkey = $key;
+					}
+					}
+					
+					}
+			}
 
             $brandsDataList = array();
             $sortedBrandsData = [];
             if ($productsData) {
-                // HoseID1InFract field value to decimal and add a new field in product data
                 foreach ($productsData as $key => $productItem) {
                     $hoseID1InFract = $productItem[$headerKeysIndex['HoseID1InFract']];
                     $hoseID1InDecimal = '';
@@ -102,9 +125,9 @@ class HydraulicFittingController extends FrontendController
                     }
                     $productsData[$key][$headerKeysIndex['HoseID1InFract']] = trim($hoseID1InFract, ' ');
                     $productsData[$key][] = $hoseID1InDecimal;
+					
                 }
-
-                $hoseID1InFractSortKey = array_key_last($productsData[0]);
+                $hoseID1InFractSortKey = array_key_last($productsData[$firstElementkey]);
                 $hoseID1InDecimalCustom = array_column($productsData, $hoseID1InFractSortKey);
 
                 array_multisort($hoseID1InDecimalCustom, SORT_ASC, $productsData);
@@ -119,7 +142,6 @@ class HydraulicFittingController extends FrontendController
                         $brandsDataList[$brandName][$shortDescription][$fittingTableName][] = $item;
                     }
                 }
-
                 # Sort talbes using short table description
                 if ($brandsDataList) {
                     foreach ($brandsDataList as $brandNameKey => $brandInfo) {
@@ -144,10 +166,10 @@ class HydraulicFittingController extends FrontendController
 
                 unset($brandsDataList);
             }
-
             $newBrandArray = array();
             $hydFittingFamilyArr = array();
             if ($sortedBrandsData) {
+                $count = 0;
                 foreach ($sortedBrandsData as $brandKey => $sortDescriptionTables) {
                     foreach ($sortDescriptionTables as $sortDescriptionTableslist => $fittingTables) {
                         foreach ($fittingTables as $fittingTableName => $articlesGroups) {
@@ -266,18 +288,30 @@ class HydraulicFittingController extends FrontendController
                         }
                     }
 
-                    if(isset($brandsList[$brandKey])){
+                    
+                    if(array_key_exists($brandKey, $brandsList)){
                         $newBrandArray[$brandKey]['SortOrder'] = $brandsList[$brandKey];
-                    }else{
+                    } else {
                         $newBrandArray[$brandKey]['SortOrder'] = null;
                     }
 
+
+                    // if(isset($brandsList[$brandKey])){
+                    //     $newBrandArray[$brandKey]['SortOrder'] = $brandsList[$brandKey];
+                    // }else{
+                    //     $newBrandArray[$brandKey]['SortOrder'] = null;
+                    // }
+
+                    
+
                     unset($sortedBrandsData[$brandKey]);
+                    $count++;
                 }
                 if ($newBrandArray) {
                     array_multisort(array_column($newBrandArray, 'SortOrder'), SORT_ASC, $newBrandArray);
                 }
             }
+            
             unset($objColumnsData);
 
             $footer_logo_src = (strtolower($footerBgColor) == 'orange') ? $catalogImagesHYDFooter['Black'] : $catalogImagesHYDFooter['Orange'];
@@ -322,7 +356,20 @@ class HydraulicFittingController extends FrontendController
     public function getBrandsList(): mixed
     {
         $query = "select name, SortOrder from object_query_3";
-        return $this->db->fetchAllAssociative($query);
+        $brandData = $this->db->fetchAllAssociative($query);
+        foreach($brandData as $data){
+            
+            $brandNameArray[] = $data['name'];
+            $brandSortOrderArray[] = $data['SortOrder'];
+            $brandNameSortOrderArray = array_combine($brandNameArray, $brandSortOrderArray);
+        }
+        return $brandNameSortOrderArray;
+
+
+
+        // $query = "select name, SortOrder from object_query_3";
+        // return $this->db->fetchAllAssociative($query);
+
     }
 
     public function getColumnHeadersForCatalog($fittingTableColWidths, $isTableNameColumnRequired = false, $tableNameColumns = []): array

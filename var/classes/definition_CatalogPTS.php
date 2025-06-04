@@ -19,7 +19,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1745581180,
+   'modificationDate' => 1745818018,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -112,7 +112,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'options' => 
                     array (
                     ),
-                     'defaultValue' => '1',
+                     'defaultValue' => '',
                      'columnLength' => 190,
                      'dynamicOptions' => false,
                      'defaultValueGenerator' => '',
@@ -222,7 +222,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'dynamicOptions' => false,
                      'defaultValueGenerator' => '',
                      'width' => 300,
-                     'optionsProviderType' => NULL,
+                     'optionsProviderType' => 'configure',
                      'optionsProviderClass' => '',
                      'optionsProviderData' => '',
                   )),

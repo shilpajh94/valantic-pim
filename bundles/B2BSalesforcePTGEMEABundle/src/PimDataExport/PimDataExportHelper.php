@@ -98,6 +98,7 @@ class PimDataExportHelper
         }
 
         return $ids;
+        
     }
 
     public function getAllB2BCategory($bu)
