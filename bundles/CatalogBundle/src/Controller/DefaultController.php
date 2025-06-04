@@ -143,7 +143,7 @@ class DefaultController extends FrontendController
         $options = [];
         foreach ($productList as $item) {
             if($className == "CatalogPTS"){
-                $options[] = array('text' => (!empty($item->getSapDescription('en'))?$item->getSapDescription('en'):$item->getKey()), 'id' => $item->getId());
+                $options[] = array('key' => (!empty($item->getSapDescription('en'))?$item->getSapDescription('en'):$item->getKey()), 'value' => $item->getId());
             }
             else if($className == "CatalogVBelts"){
                 $options[] = array(
