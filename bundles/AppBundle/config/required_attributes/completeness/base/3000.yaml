@@ -240,6 +240,15 @@ object_bricks:
                     heatOilResistant:
                         type: 'input'
                         label: 'Heat & Oil Resistant'
+                    pitchUOM:
+                        type: 'select'
+                        label: 'Pitch UOM'
+                    pitchIN:
+                        type: 'numeric'
+                        label: 'Pitch (in)'
+                    pitchMM:
+                        type: 'numeric'
+                        label: 'Pitch (MM)'
 
 
     Fert:
@@ -272,15 +281,6 @@ object_bricks:
             SynchronousFert:
                 label: 'Synchronous Fert'
                 non_localized:
-                    pitchUOM:
-                        type: 'select'
-                        label: 'Pitch UOM'
-                    pitchIN:
-                        type: 'numeric'
-                        label: 'Pitch (in)'
-                    pitchMM:
-                        type: 'numeric'
-                        label: 'Pitch (MM)'
                     pitchLengthUOM:
                         type: 'select'
                         label: 'Pitch Length UOM'
