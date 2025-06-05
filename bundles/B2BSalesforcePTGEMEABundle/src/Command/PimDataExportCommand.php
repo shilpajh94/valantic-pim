@@ -48,32 +48,32 @@ class PimDataExportCommand extends AbstractCommand
 
     private function exportDataForB2BShop()
     {
-        echo $msg = "{$this->bu}: Product category Product data export started.\n".PHP_EOL;
-        $this->helper->logMessage($msg, LogLevel::INFO());
-        $executor = new PTGEMEA\ProductCategoryProductDataExport($this->bu);
-        $executor->exportData();
-        $executor->uploadFile();
-        echo $msg = "{$this->bu}: Product categories data export stopped.\n".PHP_EOL;
-        $this->helper->logMessage($msg, LogLevel::INFO());
-        echo PHP_EOL;
+        // echo $msg = "{$this->bu}: Product category Product data export started.\n".PHP_EOL;
+        // $this->helper->logMessage($msg, LogLevel::INFO());
+        // $executor = new PTGEMEA\ProductCategoryProductDataExport($this->bu);
+        // $executor->exportData();
+        // $executor->uploadFile();
+        // echo $msg = "{$this->bu}: Product categories data export stopped.\n".PHP_EOL;
+        // $this->helper->logMessage($msg, LogLevel::INFO());
+        // echo PHP_EOL;
 
-        echo $msg = "{$this->bu}: Product media data export started.\n".PHP_EOL;
-        $this->helper->logMessage($msg, LogLevel::INFO());
-        $executor = new PTGEMEA\ProductMediaDataExport($this->bu);
-        $executor->exportData();
-        $executor->uploadFile();
-        echo $msg = "{$this->bu}: Product media data export stopped.\n".PHP_EOL;
-        $this->helper->logMessage($msg, LogLevel::INFO());
-        echo PHP_EOL;
+        // echo $msg = "{$this->bu}: Product media data export started.\n".PHP_EOL;
+        // $this->helper->logMessage($msg, LogLevel::INFO());
+        // $executor = new PTGEMEA\ProductMediaDataExport($this->bu);
+        // $executor->exportData();
+        // $executor->uploadFile();
+        // echo $msg = "{$this->bu}: Product media data export stopped.\n".PHP_EOL;
+        // $this->helper->logMessage($msg, LogLevel::INFO());
+        // echo PHP_EOL;
 
-        echo $msg = "{$this->bu}: Product categories data export started.\n".PHP_EOL;
-        $this->helper->logMessage($msg, LogLevel::INFO());
-        $executor = new PTGEMEA\ProductCategoryDataExport($this->bu);
-        $executor->exportData();
-        $executor->uploadFile();
-        echo $msg = "{$this->bu}: Product categories data export stopped.\n".PHP_EOL;
-        $this->helper->logMessage($msg, LogLevel::INFO());
-        echo PHP_EOL;
+        // echo $msg = "{$this->bu}: Product categories data export started.\n".PHP_EOL;
+        // $this->helper->logMessage($msg, LogLevel::INFO());
+        // $executor = new PTGEMEA\ProductCategoryDataExport($this->bu);
+        // $executor->exportData();
+        // $executor->uploadFile();
+        // echo $msg = "{$this->bu}: Product categories data export stopped.\n".PHP_EOL;
+        // $this->helper->logMessage($msg, LogLevel::INFO());
+        // echo PHP_EOL;
 
         echo $msg = "{$this->bu}: Products data export started.\n".PHP_EOL;
         $this->helper->logMessage($msg, LogLevel::INFO());

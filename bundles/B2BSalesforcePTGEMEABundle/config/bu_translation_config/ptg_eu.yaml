@@ -330,6 +330,13 @@ parameters:
             className: PTGEUProduct
             isLocalized: false
             level: fert
+        beltType:
+            fieldName: beltType
+            fieldLocation: class
+            className: PTGEUProduct
+            isLocalized: false
+            isAsset: false
+            level: base
     Category: 
         description:
             fieldName: description

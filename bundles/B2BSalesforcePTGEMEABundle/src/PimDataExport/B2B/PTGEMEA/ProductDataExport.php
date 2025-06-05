@@ -177,6 +177,7 @@ class ProductDataExport implements IDataExport
                                         $colorMastersList = $this->getColorMasterList();
                                         $staticConductiveMastersList = $this->getStaticConductiveMasterList();
                                         $performanceMastersList = $this->getPerformanceMasterList();
+                                        $beltTypeMastersList = $this->getbeltTypeMastersList();
                                         foreach ($finalPritingList as $key => $record) {
                                             $record = array_map(function ($value) {
                                                 return trim($value, ',');
@@ -207,6 +208,18 @@ class ProductDataExport implements IDataExport
                                                             $mapping_record[$keyHeaderValue] = null;
                                                         }
                                                     }
+                                                    if ($keyHeader == 'beltType' && $record[$keyHeader] != null &&
+                                                     is_numeric($record[$keyHeader])) {
+                                                        $beltTypeId = $record[$keyHeader];
+                                                        if ($beltTypeId != 1 && !empty($beltTypeMastersList) &&
+                                                         array_key_exists($beltTypeId, $beltTypeMastersList)) {
+                                                            $mapping_record[$keyHeaderValue] =
+                                                            $beltTypeMastersList[$beltTypeId];
+                                                        } else {
+                                                            $mapping_record[$keyHeaderValue] = null;
+                                                        }
+                                                    }
+                                                    
                                                     if ($keyHeader == 'staticConductive' && $record[$keyHeader] != null
                                                      && is_numeric($record[$keyHeader])) {
                                                         $staticConductiveId = $record[$keyHeader];
@@ -325,6 +338,19 @@ class ProductDataExport implements IDataExport
 
         return $nameIdInKeyValuePairArray;
 
+    }
+
+    public function getbeltTypeMastersList(){
+        $stmt = "SELECT ooo_id, beltType FROM object_localized_data_PTGEUBeltType WHERE language = 'en';";
+        $results = $this->db->fetchAllAssociative($stmt);
+
+        $nameIdInKeyValuePairArray = [];
+        if (isset($results)) {
+            foreach ($results as $eachResult) {
+                $nameIdInKeyValuePairArray[$eachResult['ooo_id']] = $eachResult['beltType'];
+            }
+        }
+        return $nameIdInKeyValuePairArray;
     }
 
     public function getFilteredAttribute($fieldLocation, $className, $isLocalized=true)
