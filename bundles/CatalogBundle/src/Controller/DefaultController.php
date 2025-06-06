@@ -722,21 +722,37 @@ class DefaultController extends FrontendController
 		}
 
         $columnData = array();
-        if ($fieldData !== null) {
+		$columnToSetCustomWidth = [];
+		$widthByAttribute = [];
+		$autoSize = false;
+		if($className == "SpecSheetCatalog"){
+			$columnToSetCustomWidth = ["SAP Number", "SAP #", "Old Material Code", "Marketing Short Description"];
+            $widthByAttribute = ["SAP Number" => 130, "SAP #" => 130, "Old Material Code" => 180, "Marketing Short Description" => 220];
+		    $autoSize = true;
+		}
+		if ($fieldData !== null) {
             foreach ($fieldData as $value) {
-                $columnData[] = array(
+                $column = array(
                     'xtype' => 'gridcolumn',
                     'name' => $value,
                     'Text' => $value,
                     'header' => $value,
                     'dataIndex' => $value,
-                    'flex' => 1,
+                    //'flex' => 1,
 					'filter' => array(
 					'type' => 'string',
 					)
                 );
+				if($autoSize == true && in_array($value, $columnToSetCustomWidth)) {
+					$column["width"] = $widthByAttribute[$value];
+					$column["autoSizeColumn"] =  true;
+				} else if($className != "SpecSheetCatalog") {
+					$column["flex"] = 1;
+				}
+				$columnData[] = $column;
             }
         }
+
 		$gridIndexes = [];
 		if($className == "SpecSheetCatalog"){
 		$catalogModel = new Catalog;

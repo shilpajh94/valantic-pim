@@ -438,21 +438,29 @@ class SpecSheetController extends FrontendController
         }
 
         $columnData = array();
+		$columnToSetCustomWidth = ["SAP Number", "SAP #", "Old Material Code", "Marketing Short Description"];
+        $widthByAttribute = ["SAP Number" => 130, "SAP #" => 130, "Old Material Code" => 180, "Marketing Short Description" => 220];
 
-        foreach ($headers as $value) {
-            $columnData[] = array(
+		foreach ($headers as $value) {
+            $column = array(
                 'xtype' => 'gridcolumn',
                 'name' => $value,
                 'Text' => $value,
                 'header' => $value,
                 'dataIndex' => $value,
-                'flex' => 1,
+                //'flex' => 1,
 				'filter' => array(
 					'type' => 'string',
 					)
             );
+			
+			if(in_array($value, $columnToSetCustomWidth)){
+				$column["width"] = $widthByAttribute[$value];
+				$column["autoSizeColumn"] =  true;
+			} 
+			$columnData[] = $column;
         }
-
+		
         $articleData = [];
         $i = 0;
 
