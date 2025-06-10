@@ -16,7 +16,6 @@
     "coreshop/pimcore-bundle": "*",
     "coreshop/resource-bundle": "*",
     "coreshop/rule-bundle": "*",
-    "elasticsearch/elasticsearch": "^9.0",
     "elements/process-manager-bundle": "*",
     "league/flysystem-aws-s3-v3": "^3.12.0",
     "php-http/discovery": "^1.19",
