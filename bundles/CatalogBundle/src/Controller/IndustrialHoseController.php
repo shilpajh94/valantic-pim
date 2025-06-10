@@ -708,7 +708,12 @@ class IndustrialHoseController extends FrontendController
                                 $fittingTableColWidths = $inhProductPageConfig[$fittingTableName]['widthSetting'];
                             }
 
-                            if ($fittingTableName && is_array($fittingTableKeys)) {
+                            if (
+                                $fittingTableName &&
+                                is_array($fittingTableKeys) &&
+                                isset($headerKeysIndex['id']) &&
+                                isset($bvalue[$headerKeysIndex['id']])
+                            ) {
                                 $query = "select SIOPLevel3, SIOPLevel4 from object_query_1 where oo_id = '" . $bvalue[$headerKeysIndex['id']] . "'";
 
                                 $record = $this->db->fetchAssociative($query);
