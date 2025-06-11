@@ -469,7 +469,7 @@ class IndustrialHoseController extends FrontendController
                         $productsData[] = $newRow;
 
                         if (isset($newRow['brandName'][0])) {
-                            $productMinMaxPressure[$newRow['brandName']][] = $newRow['workingPressurePSI'];
+                            $productMinMaxPressure[$newRow['brandName']][] = $newRow['workingPressurePSI'] ?? null;
                         }
                     }
 
@@ -570,6 +570,7 @@ class IndustrialHoseController extends FrontendController
 				$catalogLanguage = $template->getCatalogLanguage();
 				
 				$SAPRange = $template->getSAPRange();
+				if($SAPRange == "Custom Selection") {
 				$id = $template->getId();
 					$query = "Select * from specsheet_custom_selection where object_id=$id";
 					$row = $this->db->fetchAllAssociative($query);
@@ -585,6 +586,7 @@ class IndustrialHoseController extends FrontendController
 						}
 						}
 					}
+				}
 				
 			} else {
 				$catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());
@@ -622,8 +624,7 @@ class IndustrialHoseController extends FrontendController
                 if ($productsData) {
                     $brandsData = array();
                     foreach ($productsData as $key => $item) {
-                        if (isset($item[$headerKeysIndex['brandName']])) {
-
+                        if (isset($headerKeysIndex['brandName']) && isset($item[$headerKeysIndex['brandName']])) {
                             if(is_array($item[$headerKeysIndex['brandName']])){
                                 if(isset($item[$headerKeysIndex['brandName']][0])){
                                     $brandsData[$item[$headerKeysIndex['brandName']][0]][] = $item;
@@ -647,7 +648,16 @@ class IndustrialHoseController extends FrontendController
                     // Sorting Array by HoseIDMm
                     foreach ($brandsData as $sortKey => $sortBrand) {
                         if (isset($brandsData[$sortKey])) {
-                            array_multisort(array_column($brandsData[$sortKey], $headerKeysIndex['hoseIdMM']), SORT_ASC, array_column($brandsData[$sortKey], $headerKeysIndex['hoseLengthFT']), SORT_ASC, $brandsData[$sortKey]);
+                            if (isset($headerKeysIndex['hoseIdMM'], $headerKeysIndex['hoseLengthFT'])) {
+                                $hoseIdMMValues = array_column($brandsData[$sortKey], $headerKeysIndex['hoseIdMM']);
+                                $hoseLengthFTValues = array_column($brandsData[$sortKey], $headerKeysIndex['hoseLengthFT']);
+
+                                array_multisort(
+                                    $hoseIdMMValues, SORT_ASC,
+                                    $hoseLengthFTValues, SORT_ASC,
+                                    $brandsData[$sortKey]
+                                );
+                            }
                         }
                     }
 
@@ -690,13 +700,22 @@ class IndustrialHoseController extends FrontendController
 
                             $fittingTableName = null;
                             $fittingTableKeys = null;
-                            if (isset($bvalue[$headerKeysIndex['FittingTableName']]) && $bvalue[$headerKeysIndex['FittingTableName']]) {
+                            if (
+                                isset($headerKeysIndex['FittingTableName']) &&
+                                isset($bvalue[$headerKeysIndex['FittingTableName']]) &&
+                                $bvalue[$headerKeysIndex['FittingTableName']]
+                            ) {
                                 $fittingTableName = $bvalue[$headerKeysIndex['FittingTableName']];
                                 $fittingTableKeys = $inhProductPageConfig[$fittingTableName]['columns'];
                                 $fittingTableColWidths = $inhProductPageConfig[$fittingTableName]['widthSetting'];
                             }
 
-                            if ($fittingTableName && is_array($fittingTableKeys)) {
+                            if (
+                                $fittingTableName &&
+                                is_array($fittingTableKeys) &&
+                                isset($headerKeysIndex['id']) &&
+                                isset($bvalue[$headerKeysIndex['id']])
+                            ) {
                                 $query = "select SIOPLevel3, SIOPLevel4 from object_query_1 where oo_id = '" . $bvalue[$headerKeysIndex['id']] . "'";
 
                                 $record = $this->db->fetchAssociative($query);
@@ -738,11 +757,19 @@ class IndustrialHoseController extends FrontendController
                                     $designFactorArr = array_merge($designFactorArr, $arr_safetyFactor);
                                 }
 
-                                if (!$brandingLayline && $bvalue[$headerKeysIndex['BrandingLayline']]) {
+                                if (
+                                    !$brandingLayline &&
+                                    isset($headerKeysIndex['BrandingLayline']) &&
+                                    !empty($bvalue[$headerKeysIndex['BrandingLayline']])
+                                ) {
                                     $brandingLayline = $bvalue[$headerKeysIndex['BrandingLayline']];
                                 }
 
-                                if (!$virtualCatalogReinforcement && $bvalue[$headerKeysIndex['VirtualCatalogReinforcement']]) {
+                                if (
+                                    !$virtualCatalogReinforcement &&
+                                    isset($headerKeysIndex['VirtualCatalogReinforcement']) &&
+                                    !empty($bvalue[$headerKeysIndex['VirtualCatalogReinforcement']])
+                                ) {
                                     $virtualCatalogReinforcement = $bvalue[$headerKeysIndex['VirtualCatalogReinforcement']];
                                 }
 
@@ -755,7 +782,11 @@ class IndustrialHoseController extends FrontendController
                                     $tubeMaterialArr = array_merge($tubeMaterialArr, $arr_tubeMaterial);
                                 }
 
-                                if (!$virtualCatalogTubeMaterial && $bvalue[$headerKeysIndex['VirtualCatalogTubeMaterial']]) {
+                                if (
+                                    !$virtualCatalogTubeMaterial &&
+                                    isset($headerKeysIndex['VirtualCatalogTubeMaterial']) &&
+                                    !empty($bvalue[$headerKeysIndex['VirtualCatalogTubeMaterial']])
+                                ) {
                                     $virtualCatalogTubeMaterial = $bvalue[$headerKeysIndex['VirtualCatalogTubeMaterial']];
                                 }
 
@@ -768,27 +799,51 @@ class IndustrialHoseController extends FrontendController
                                     $coverMaterialArr = array_merge($tubeMaterialArr, $arr_coverMaterial);
                                 }
 
-                                if (!$virtualCatalogCoverMaterial && $bvalue[$headerKeysIndex['VirtualCatalogCoverMaterial']]) {
+                                if (
+                                    !$virtualCatalogCoverMaterial &&
+                                    isset($headerKeysIndex['VirtualCatalogCoverMaterial']) &&
+                                    !empty($bvalue[$headerKeysIndex['VirtualCatalogCoverMaterial']])
+                                ) {
                                     $virtualCatalogCoverMaterial = $bvalue[$headerKeysIndex['VirtualCatalogCoverMaterial']];
                                 }
 
-                                if (!$leftImage && $bvalue[$headerKeysIndex['LeftPrintCatalogImage']]) {
+                                if (
+                                    !$leftImage &&
+                                    isset($headerKeysIndex['LeftPrintCatalogImage']) &&
+                                    isset($bvalue[$headerKeysIndex['LeftPrintCatalogImage']])
+                                ) {
                                     $leftImage = \Pimcore\Model\Asset::getByPath($bvalue[$headerKeysIndex['LeftPrintCatalogImage']]);
                                 }
 
-                                if (!$temperatureRangeFAndC && $bvalue[$headerKeysIndex['temperatureRangeFAndC']]) {
+                                if (
+                                    !$temperatureRangeFAndC &&
+                                    isset($headerKeysIndex['temperatureRangeFAndC']) &&
+                                    !empty($bvalue[$headerKeysIndex['temperatureRangeFAndC']])
+                                ) {
                                     $temperatureRangeFAndC = "<ul><li>" . $bvalue[$headerKeysIndex['temperatureRangeFAndC']];
                                 }
 
-                                if (!$coupling && $bvalue[$headerKeysIndex['Coupling']]) {
+                                if (
+                                    !$coupling &&
+                                    isset($headerKeysIndex['Coupling']) &&
+                                    !empty($bvalue[$headerKeysIndex['Coupling']])
+                                ) {
                                     $coupling = nl2br($bvalue[$headerKeysIndex['Coupling']]);
                                 }
 
-                                if (!$packaging && $bvalue[$headerKeysIndex['Packaging']]) {
+                                if (
+                                    !$packaging &&
+                                    isset($headerKeysIndex['Packaging']) &&
+                                    !empty($bvalue[$headerKeysIndex['Packaging']])
+                                ) {
                                     $packaging = nl2br($bvalue[$headerKeysIndex['Packaging']]);
                                 }
 
-                                if (!$longDescription && $bvalue[$headerKeysIndex['longDescription']]) {
+                                if (
+                                    !$longDescription &&
+                                    isset($headerKeysIndex['longDescription']) &&
+                                    isset($bvalue[$headerKeysIndex['longDescription']])
+                                ) {
                                     $longDescription = $bvalue[$headerKeysIndex['longDescription']];
                                 }
 
