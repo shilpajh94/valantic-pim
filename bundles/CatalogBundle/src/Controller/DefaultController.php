@@ -746,11 +746,12 @@ class DefaultController extends FrontendController
                 );
             }
         }
+		$gridIndexes = [];
+		if($className == "SpecSheetCatalog"){
 		$catalogModel = new Catalog;
 		$customRecords = $catalogModel->getCustomRecords($objId);
 		
 
-		$gridIndexes = [];
 		$i = 0;
 		foreach ($tableData as $key => $productItem) {
 						if (
@@ -762,6 +763,7 @@ class DefaultController extends FrontendController
 						}
 						$i ++;
 					}
+		}
 
         $data = array(
             'brandData' => [],
@@ -950,7 +952,6 @@ class DefaultController extends FrontendController
                 );
             }
         }        
-        //p_r($parameterBag);
         return $this->render("catalog/default/template_hose_line_tile_template.html.twig", $parameterBag);
     }
 
@@ -1006,8 +1007,8 @@ class DefaultController extends FrontendController
                 unset($objColumnsData);
 				
 				if($className == "SpecSheetCatalog"){
-				
 					$SAPRange = $template->getSAPRange();
+					if($SAPRange == "Custom Selection") {
 					$id = $template->getId();
 						$query = "Select * from specsheet_custom_selection where object_id=$id";
 						$row = $this->db->fetchAllAssociative($query);
@@ -1024,7 +1025,7 @@ class DefaultController extends FrontendController
 						}
 						
 						}
-				
+					}
 			}
 
                 // Getting order of the keys
