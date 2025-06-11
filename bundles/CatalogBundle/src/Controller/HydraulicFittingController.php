@@ -95,6 +95,7 @@ class HydraulicFittingController extends FrontendController
 			$firstElementkey = 0;
 			if($className == "SpecSheetCatalog") {
 				$SAPRange = $obj->getSAPRange();
+				if($SAPRange == "Custom Selection") {
 					$query = "Select * from specsheet_custom_selection where object_id=$id";
 					$row = $this->db->fetchAllAssociative($query);
 					if(isset($row[0])){
@@ -109,21 +110,27 @@ class HydraulicFittingController extends FrontendController
 						}
 						$firstElementkey = $key;
 					}
-					}
-					
-					}
+				  }
+				}
+			  }
 			}
 
             $brandsDataList = array();
             $sortedBrandsData = [];
             if ($productsData) {
                 foreach ($productsData as $key => $productItem) {
-                    $hoseID1InFract = $productItem[$headerKeysIndex['HoseID1InFract']];
+                    $hoseID1InFract = isset($headerKeysIndex['HoseID1InFract'], $productItem[$headerKeysIndex['HoseID1InFract']])
+                                        ? $productItem[$headerKeysIndex['HoseID1InFract']]
+                                        : null;
+
                     $hoseID1InDecimal = '';
                     if ($hoseID1InFract) {
                         $hoseID1InDecimal = $this->convertFranctionToDecimal($hoseID1InFract);
                     }
-                    $productsData[$key][$headerKeysIndex['HoseID1InFract']] = trim($hoseID1InFract, ' ');
+                    if (isset($headerKeysIndex['HoseID1InFract'])) {
+                        $productsData[$key][$headerKeysIndex['HoseID1InFract']] = trim((string)($hoseID1InFract ?? ''), ' ');
+                    }
+
                     $productsData[$key][] = $hoseID1InDecimal;
 					
                 }
@@ -133,11 +140,20 @@ class HydraulicFittingController extends FrontendController
                 array_multisort($hoseID1InDecimalCustom, SORT_ASC, $productsData);
 
                 foreach ($productsData as $key => $item) {
-                    $brandName = ((is_array($item[$headerKeysIndex['brandName']]))?$item[$headerKeysIndex['brandName']][0]:$item[$headerKeysIndex['brandName']]) ;
-                    $shortDescription = strip_tags($item[$headerKeysIndex['shortDescription']]);
-                    $shortDescription = str_replace(array(" ", "-", "°", "/", PHP_EOL), "", $shortDescription);
-                    $fittingTableName = $item[$headerKeysIndex['FittingTableName']];
-
+                    $brandName = '';
+                    $shortDescription = '';
+                    $fittingTableName = '';
+                    if (isset($headerKeysIndex['brandName'], $item[$headerKeysIndex['brandName']])) {
+                        $value = $item[$headerKeysIndex['brandName']];
+                        $brandName = is_array($value) ? ($value[0] ?? '') : $value;
+                    }
+                    if (isset($headerKeysIndex['shortDescription'], $item[$headerKeysIndex['shortDescription']])) {
+                        $shortDescription = strip_tags($item[$headerKeysIndex['shortDescription']]);
+                        $shortDescription = str_replace([" ", "-", "°", "/", PHP_EOL], "", $shortDescription);
+                    }
+                    if (isset($headerKeysIndex['FittingTableName'], $item[$headerKeysIndex['FittingTableName']])) {
+                        $fittingTableName = $item[$headerKeysIndex['FittingTableName']];
+                    }
                     if (!empty($brandName) && !empty($fittingTableName)) {
                         $brandsDataList[$brandName][$shortDescription][$fittingTableName][] = $item;
                     }
@@ -294,16 +310,6 @@ class HydraulicFittingController extends FrontendController
                     } else {
                         $newBrandArray[$brandKey]['SortOrder'] = null;
                     }
-
-
-                    // if(isset($brandsList[$brandKey])){
-                    //     $newBrandArray[$brandKey]['SortOrder'] = $brandsList[$brandKey];
-                    // }else{
-                    //     $newBrandArray[$brandKey]['SortOrder'] = null;
-                    // }
-
-                    
-
                     unset($sortedBrandsData[$brandKey]);
                     $count++;
                 }

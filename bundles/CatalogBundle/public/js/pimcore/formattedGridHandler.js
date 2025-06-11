@@ -98,13 +98,11 @@ pimcore.plugin.formattedGridHandler = Class.create({
                                // console.log(e.detail.object.edit.dataFields.ProductsData.component.id);
                                 var comp = Ext.getCmp(e.detail.object.edit.dataFields.ProductsData.component.id);
                                // console.log(comp);
-                                table.initStore(response.data,comp,e.detail.object.edit.dataFields.ProductsData,columns, objectClassName, e.detail.object.id);
-                               // console.log(e.detail.object);
+                                table.initStore(response.data,comp,e.detail.object.edit.dataFields.ProductsData,columns, objectClassName, e);
                                 var headerComp = Ext.getCmp(e.detail.object.edit.dataFields.headerData.component.id);
                                
                                 headerComp.setValue(response.headerData);
 								if(objectClassName == 'SpecSheetCatalog'){
-								
 									 response.customRecords.forEach(function (item) {
 										Ext.getCmp('CatalogDataGrid_'+e.detail.object.id).getSelectionModel().select(item,true,false);
 
