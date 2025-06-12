@@ -761,7 +761,11 @@ class DefaultController extends FrontendController
 
 		$i = 0;
 		foreach ($tableData as $key => $productItem) {
-						if(in_array($productItem[$headerKeysIndex['articleNumber']], $customRecords)){
+						if (
+                            isset($headerKeysIndex['articleNumber']) &&
+                            isset($productItem[$headerKeysIndex['articleNumber']]) &&
+                            in_array($productItem[$headerKeysIndex['articleNumber']], $customRecords)
+                        ) {
 							$gridIndexes[] = $i;
 						}
 						$i ++;
@@ -847,15 +851,16 @@ class DefaultController extends FrontendController
                     if (!isset($data[$baseId])) {
                         $data[$baseId] = array();
                         $fertId[$baseId] = $row['id'];
-                        $images[$baseId] = $row['altImage7'];
+                        $images[$baseId] = isset($row['altImage7']) ? $row['altImage7'] : null;
                     }
 
                     if (isset($data[$baseId]) && empty($data[$baseId])) {
                         $data[$baseId]['brandName'] = isset($data[$baseId]['brandName']) && !empty($data[$baseId]['brandName']) ? $data[$baseId]['brandName'] : $row['brandName'];
                        // Picking the first Standard Met Hose (Multiple data is coming pipe separated { || })
-                        $data[$baseId]['standardMetHose'] = isset($data[$baseId]['standardMetHose']) && !empty($data[$baseId]['standardMetHose']) 
-                        ? explode('||', $data[$baseId]['standardMetHose'])[0] 
-                        : explode('||', $row['standardMetHose'])[0];
+                        $data[$baseId]['standardMetHose'] =
+                            !empty($data[$baseId]['standardMetHose'])
+                                ? explode('||', $data[$baseId]['standardMetHose'])
+                                : (isset($row['standardMetHose']) ? explode('||', $row['standardMetHose']) : []);
                         $data[$baseId]['BrandShortText'][0] = isset($data[$baseId]['BrandShortText1'][0]) && !empty($data[$baseId]['BrandShortText1'][0]) ? $data[$baseId]['BrandShortText1'][0] : $row['BrandShortText1'];
                         $data[$baseId]['BrandShortText'][1] = isset($data[$baseId]['BrandShortText2'][1]) && !empty($data[$baseId]['BrandShortText2'][1]) ? $data[$baseId]['BrandShortText2'][1] : $row['BrandShortText2'];
                         $data[$baseId]['BrandShortText'][2] = isset($data[$baseId]['BrandShortText3'][2]) && !empty($data[$baseId]['BrandShortText3'][2]) ? $data[$baseId]['BrandShortText3'][2] : $row['BrandShortText3'];
@@ -1283,7 +1288,7 @@ class DefaultController extends FrontendController
                         $data[$uniqueId]['columnsDataWithImages'] = $columnsDataWithImages;
 
 
-                        if ($articlesData && $className != "SpecSheetCatalog") {
+                        if ($articlesData && $className != "SpecSheetCatalog" && (isset($headerKeysIndex['hoseOdIn']))) {
                             array_multisort(array_column($articlesData, $headerKeysIndex['hoseOdIn']), SORT_ASC, $articlesData);
                         }
 
@@ -2579,7 +2584,7 @@ class DefaultController extends FrontendController
                         }
 
                         $item[] = $listPrice;
-
+                        $articlesData = [];
                         foreach ($orderKeys as $cvalue) {
                             $articlesData[] = $item[$cvalue];
                         }
