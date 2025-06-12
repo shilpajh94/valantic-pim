@@ -63,18 +63,23 @@ pimcore.plugin.CatalogBundle = Class.create({
 			if(catalogId){
 				var categoryOptionsStore = this.loadCategories(catalogId, objectClassName, e);
 			}
-
-           
         }
-        //let helper = new pimcore.plugin.lpeHelper();
 
         if (objectClassName == 'CatalogPTS') {
+
+            var colComp = Ext.getCmp(e.detail.object.edit.dataFields.Columns.component.id);
+            colComp.hide();
+
+            if((e.detail.object.data.data.AttributeTable !== null && trim(e.detail.object.data.data.AttributeTable) !== "")){
+                var ptsCatalogHeaderSelection = new pimcore.plugin.ptsCatalogHeaderSelection();
+                ptsCatalogHeaderSelection.attachPtsCatlogHeader(e);
+            }
+
             var baseOptionsStore = Ext.create('Ext.data.Store', {
                 fields: ['key', 'value'],
                 proxy: {
                     type: 'ajax',
                     url: '/catalog/get-base-products',
-                    //  method:'POST',
                     extraParams: {
                         catId: e.detail.object.data.general.parentId,
                         objId: e.detail.object.data.general.id,
@@ -134,7 +139,38 @@ pimcore.plugin.CatalogBundle = Class.create({
         } // end CatalogPTS
 		
 
-        if (objectClassName == 'CatalogTables' || objectClassName == 'SpecSheetCatalog') {
+
+        if (objectClassName == 'CatalogVBelts') {
+
+            var productsOptionStore = Ext.create('Ext.data.Store', {
+                fields: ["text", "id"],
+                proxy: {
+                    type: 'ajax',
+                    url: '/catalog/get-base-products',
+                    method:'POST',
+                    extraParams: {
+                        catId: e.detail.object.data.general.parentId,
+                        objId: e.detail.object.data.general.id,
+                    },
+                    reader: {
+                        type: "json",
+                        rootProperty: "data"
+                    }
+                },
+
+            });
+
+            productsOptionStore.load();
+            e.detail.object.edit.dataFields.BaseProduct.component.setStore(productsOptionStore);
+            if (e.detail.object.data.data.BaseProduct !== null)
+            {
+                e.detail.object.edit.dataFields.BaseProduct.component.setValue(e.detail.object.data.data.BaseProduct);
+            }
+            productsOptionStore.load();
+        }
+
+
+        if (objectClassName == 'CatalogTables'  || objectClassName == 'SpecSheetCatalog') {
 
             var colComp = Ext.getCmp(e.detail.object.edit.dataFields.Columns.component.id);
             colComp.hide();
@@ -176,7 +212,6 @@ pimcore.plugin.CatalogBundle = Class.create({
             }
 
              e.detail.object.edit.dataFields.AttributeTable.component.on('select', function(event){
-              //   if(e.detail.object.data.data.AttributeTable != event.value)
                 {
                     var headerSelection = new pimcore.plugin.headerSelection();
                     headerSelection.attachHeader(e.detail.object, event,template);
@@ -209,7 +244,6 @@ pimcore.plugin.CatalogBundle = Class.create({
 
             if (e.detail.object.data.data.BaseProduct !== null)
             {
-               // console.log(e.detail.object.data.data.BaseProduct);
                 e.detail.object.edit.dataFields.BaseProduct.component.setValue(e.detail.object.data.data.BaseProduct);
             }
             baseOptionsStore.load();
@@ -239,7 +273,6 @@ pimcore.plugin.CatalogBundle = Class.create({
                 
                  if (e.detail.object.data.data.SkeletonProduct !== null)
             {
-                console.log(e.detail.object.data.data.SkeletonProduct);
                 e.detail.object.edit.dataFields.SkeletonProduct.component.setValue(e.detail.object.data.data.SkeletonProduct);
             }
             skeletonOptionsStore.load();
@@ -268,16 +301,15 @@ pimcore.plugin.CatalogBundle = Class.create({
             siopStore.load();
             e.detail.object.edit.dataFields.SIOPLevel4.component.setStore(siopStore);
              
-           siopStore.on('load', function(store, records, successful){
-   if(store.getCount() == 0)
+            siopStore.on('load', function(store, records, successful){
+            if(store.getCount() == 0)
             {
                 e.detail.object.edit.dataFields.SIOPLevel4.component.setDisabled(true);
             }
-});
+        });
            
             if (e.detail.object.data.data.SIOPLevel4 !== null)
             {
-               // console.log(e.detail.object.data.data.BaseProduct);
                 e.detail.object.edit.dataFields.SIOPLevel4.component.setValue(e.detail.object.data.data.SIOPLevel4);
             }
 		}

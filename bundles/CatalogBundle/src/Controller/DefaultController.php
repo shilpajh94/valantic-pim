@@ -726,8 +726,8 @@ class DefaultController extends FrontendController
 		$widthByAttribute = [];
 		$autoSize = false;
 		if($className == "SpecSheetCatalog"){
-			$columnToSetCustomWidth = ["SAP Number", "SAP #", "Old Material Code", "Marketing Short Description"];
-            $widthByAttribute = ["SAP Number" => 130, "SAP #" => 130, "Old Material Code" => 180, "Marketing Short Description" => 220];
+			$columnToSetCustomWidth = ["SAP Number", "SAP #", "Old Material Code", "Product Short Description", "SAP Description"];
+            $widthByAttribute = ["SAP Number" => 130, "SAP #" => 130, "Old Material Code" => 180, "Product Short Description" => 320, "SAP Description"=> 320];
 		    $autoSize = true;
 		}
 		if ($fieldData !== null) {
@@ -1003,7 +1003,6 @@ class DefaultController extends FrontendController
                 $this->iconRequired = 'YES';
                 $this->subHeaderRequired = 'NO';
                 $this->columnsData = json_decode($objColumnsData, true);
-
                 $columnsDataWithImages = $this->getColumnHeadersForCatalog(false, []);
 
                 unset($objColumnsData);
@@ -1186,14 +1185,14 @@ class DefaultController extends FrontendController
 
                             endforeach;
 
-                            foreach ($orderKeys as $ckey => $cvalue) {
+                            foreach ($orderKeys as $ckey => $cvalue) { 
                                 if ($ckey == 'HoseFittingFamily') {
                                     $hoseFittingFamilyArr = [];
                                     if (!is_array($element[$headerKeysIndex[$ckey]])) {
                                         $hoseFittingFamilyArr = explode('||', $element[$headerKeysIndex[$ckey]]);
                                     }
                                     $articlesData[$key][] = ($hoseFittingFamilyArr) ? implode(',', ($hoseFittingFamilyArr)) : '';
-                                } else {
+                                } else { //echo $ckey. PHP_EOL;
                                     if ($ckey == 'workingPressurePSI') {
                                         $workingPressureValueArray = explode('.', $element[$headerKeysIndex[$ckey]]);
                                         $element[$headerKeysIndex[$ckey]] = $workingPressureValueArray[0];
@@ -1201,12 +1200,14 @@ class DefaultController extends FrontendController
                                     elseif($ckey == 'workingPressureMPA'){
                                         $element[$headerKeysIndex[$ckey]] = round($element[$headerKeysIndex[$ckey]]);
                                     }
+									elseif(in_array($ckey, array('sapDescription','productShortDescription'))){
+										continue;
+									}
                                     $articlesData[$key][] = $element[$headerKeysIndex[$ckey]];
                                 }
                             }
 
                         endforeach;
-
                         $standardsMetHose = array_unique($standardsMetHose);
                         $tubeMaterial = array_unique($tubeMaterial);
                         $tubeAttribute = array_unique($tubeAttribute);
@@ -1301,7 +1302,6 @@ class DefaultController extends FrontendController
                     if ($data) {
                         array_multisort(array_column($data, 'SortOrder'), SORT_ASC, $data);
                     }
-
                     $catalogGroupData[$catalogKey] = $data;
                     unset($data);
                 }
@@ -1319,7 +1319,6 @@ class DefaultController extends FrontendController
                 $parameterBag['table_class']= $tableClass;
             }
         }
-								//echo "<pre/>"; print_r($parameterBag); die;
 
         return $this->render("catalog/default/template_hose_product_page.html.twig", $parameterBag);
     }
@@ -2775,7 +2774,9 @@ class DefaultController extends FrontendController
             }
         } else {
             foreach ($this->columnsData as $key => $value) {
-
+				if(in_array($key, array("sapDescription","productShortDescription"))){
+					continue;
+				}
                 $groupColumnName = $value['columnName'];
                 $groupName = '';
 

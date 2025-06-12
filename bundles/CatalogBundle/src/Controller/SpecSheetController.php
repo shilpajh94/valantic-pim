@@ -438,8 +438,8 @@ class SpecSheetController extends FrontendController
         }
 
         $columnData = array();
-		$columnToSetCustomWidth = ["SAP Number", "SAP #", "Old Material Code", "Marketing Short Description"];
-        $widthByAttribute = ["SAP Number" => 130, "SAP #" => 130, "Old Material Code" => 180, "Marketing Short Description" => 220];
+		$columnToSetCustomWidth = ["SAP Number", "SAP #", "Old Material Code", "Product Short Description", "SAP Description"];
+        $widthByAttribute = ["SAP Number" => 130, "SAP #" => 130, "Old Material Code" => 180, "Product Short Description" => 320, "SAP Description"=> 320];
 
 		foreach ($headers as $value) {
             $column = array(

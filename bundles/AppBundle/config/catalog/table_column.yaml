@@ -2,19 +2,37 @@ parameters:
   tableColumns:
     Hose Product Page:
         Hose:
-            descriptive: 
-                fieldLevel: objectBrick
-                fieldLabel: 'Part Number'
-                fieldType: Input
-                columnWidth: 100
-                parent:
-                    name: HoseFert  
             articleNumber:
                 fieldLevel: class
                 fieldLabel: 'SAP Number'
                 fieldType: Input
                 parent:
                     name: Product
+            oldMaterialCode:
+                fieldLevel: class
+                fieldLabel: Old Material Code
+                fieldType: Input
+                parent:
+                    name: Product
+            sapDescription:
+                fieldLevel: class
+                fieldLabel: SAP Description
+                fieldType: Textarea
+                parent:
+                    name: Product
+            productShortDescription:
+                fieldLevel: class
+                fieldLabel: Product Short Description
+                fieldType: Textarea
+                parent:
+                    name: Product
+            descriptive: 
+                fieldLevel: objectBrick
+                fieldLabel: 'Part Number'
+                fieldType: Input
+                columnWidth: 100
+                parent:
+                    name: HoseFert
             HoseIDNominalIDFrac:
                 fieldLevel: objectBrick
                 fieldLabel: Hose ID (in Fract) Nominal ID'
@@ -489,6 +507,23 @@ parameters:
                     name: AccessoriesFert 
     Hydraulic Fitting:
         Fittings:
+            articleNumber:
+                fieldLevel: class
+                fieldLabel: SAP Number
+                fieldType: Input
+                # columnWidth: 65
+            oldMaterialCode:
+                fieldLevel: class
+                fieldLabel: Old Material Code
+                fieldType: Input
+            sapDescription:
+                fieldLevel: class
+                fieldLabel: SAP Description
+                fieldType: Textarea
+            productShortDescription:
+                fieldLevel: class
+                fieldLabel: Product Short Description
+                fieldType: Textarea
             id:
                 fieldLevel: class
                 fieldLabel: ID
@@ -551,11 +586,6 @@ parameters:
                 # columnWidth: 75
                 parent: 
                     name: Product
-            articleNumber:
-                fieldLevel: class
-                fieldLabel: SAP Number
-                fieldType: Input
-                # columnWidth: 65
             HoseID1InFract:
                 fieldLevel: objectBrick
                 fieldLabel: Hose ID 1 In Fract
@@ -1098,6 +1128,25 @@ parameters:
                 fieldType: Input
     Industrial Hose Product Page:
         INHPrintCatalogProductPage:
+            articleNumber:
+                fieldLevel: class
+                fieldLabel: 'SAP #'
+                fieldType: Input
+                columnWidth: 100
+                parent:
+                    name: Product
+            oldMaterialCode:
+                fieldLevel: class
+                fieldLabel: Old Material Code
+                fieldType: Input
+            sapDescription:
+                fieldLevel: class
+                fieldLabel: SAP Description
+                fieldType: Textarea
+            productShortDescription:
+                fieldLevel: class
+                fieldLabel: Product Short Description
+                fieldType: Textarea
             id:
                 fieldLevel: class
                 fieldLabel: ID
@@ -1108,10 +1157,6 @@ parameters:
                 fieldLabel: Left Image
                 parent: 
                     name: Product
-            oldMaterialCode:
-                fieldLevel: class
-                fieldLabel: Old Material Code
-                fieldType: Input
             sixDigitVirtualCatalogDescription:
                 fieldLevel: objectBrick
                 fieldLabel: Six Digit Virtual Catalog Description
@@ -1127,13 +1172,6 @@ parameters:
                     class:
                         name: Brand
                         fieldName: Name
-            articleNumber:
-                fieldLevel: class
-                fieldLabel: 'SAP #'
-                fieldType: Input
-                columnWidth: 100
-                parent:
-                    name: Product
             temperatureRangeFAndC:
                 fieldLevel: class
                 fieldType: Input

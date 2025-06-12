@@ -37,6 +37,7 @@ parameters:
         matchMakerLL: B2B_Match_Maker_L_L_c 
         performance: B2B_Performance_c
         netWeight: B2B_Net_Weight_c
+        beltType: B2B_Belt_Type_c
     Category:
         description: Name
         CatalogId: CatalogId
