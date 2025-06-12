@@ -7,19 +7,19 @@
  * Fields Summary:
  * - FeatureType [select]
  * - localizedfields [localizedfields]
- * -- Name [input]
+ * -- Name [textarea]
  * - SortOrder [numeric]
  * - Icon [image]
  */
 
-return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
+return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
    'id' => '29',
    'name' => 'Features',
    'title' => '',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1707302603,
+   'modificationDate' => 1749713755,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -35,7 +35,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'allowVariants' => false,
    'showVariants' => false,
    'layoutDefinitions' => 
-  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'name' => 'pimcore_root',
      'type' => NULL,
      'region' => NULL,
@@ -49,7 +49,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'children' => 
     array (
       0 => 
-      Pimcore\Model\DataObject\ClassDefinition\Layout\Region::__set_state(array(
+      \Pimcore\Model\DataObject\ClassDefinition\Layout\Region::__set_state(array(
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
@@ -63,7 +63,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'children' => 
         array (
           0 => 
-          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Basic',
              'type' => NULL,
              'region' => NULL,
@@ -77,7 +77,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'children' => 
             array (
               0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                  'name' => 'FeatureType',
                  'title' => 'Type',
                  'tooltip' => '',
@@ -118,7 +118,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'optionsProviderData' => '',
               )),
               1 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                  'name' => 'localizedfields',
                  'title' => '',
                  'tooltip' => '',
@@ -139,7 +139,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                      'name' => 'Name',
                      'title' => 'Name',
                      'tooltip' => '',
@@ -157,16 +157,11 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'defaultValue' => NULL,
-                     'columnLength' => 190,
-                     'regex' => '',
-                     'regexFlags' => 
-                    array (
-                    ),
-                     'unique' => false,
+                     'maxLength' => NULL,
                      'showCharCount' => false,
-                     'width' => NULL,
-                     'defaultValueGenerator' => '',
+                     'excludeFromSearchIndex' => false,
+                     'height' => 250,
+                     'width' => 340,
                   )),
                 ),
                  'region' => NULL,
@@ -183,10 +178,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'permissionEdit' => NULL,
                  'labelWidth' => 0,
                  'labelAlign' => 'left',
+                 'width' => NULL,
+                 'height' => NULL,
                  'fieldDefinitionsCache' => NULL,
               )),
               2 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'SortOrder',
                  'title' => 'Sort Order',
                  'tooltip' => 'Attribute to sort features in catalog.',
@@ -228,7 +225,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelAlign' => 'left',
           )),
           1 => 
-          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Layout',
              'type' => NULL,
              'region' => 'east',
@@ -242,7 +239,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'children' => 
             array (
               0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                  'name' => 'Icon',
                  'title' => 'Icon',
                  'tooltip' => '',
