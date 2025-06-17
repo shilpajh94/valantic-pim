@@ -143,7 +143,7 @@
 									{% set firstKey = tableRowsSkiveType|keys|first %}
 									{% set uniqueIdTemp = uniqueId %}
 									{% set uniqueId = md5Twig(uniqueId ~ shortDescrioptionKey ~ tableName) %}
-									<article class="container page-break-inside-avoid ">
+									<article class="container  page-break-inside-avoid">
 										<figure class="headingSection">
 											{% if tableRowsSkiveType['NS'] is defined and tableRowsSkiveType['DG'] is defined %}
 												<span>
@@ -312,7 +312,7 @@
 													{% endif %}
 												</p>
 											</figcaption>
-										</figure>
+										</figure></article>
 										{% for skiveTypekey, skiveTypekValue in skiveTypeSortKeys %}
 											{% set showTitle = tableRowsSkiveType|length > 1 %}
 											{% if tableRowsSkiveType[skiveTypekValue] is defined %}
@@ -335,7 +335,7 @@
 														</h1>
 													{% endif %}
 
-													<table class="grid inh fitting marginBottom17  continueLable  {{table_class}}" cellspacing="0" cellpadding="0">
+													<table class="grid inh fitting marginBottom15 continueLable {{table_class}}" cellspacing="0" cellpadding="0">
 														<thead>
 															{% if iconRequired == 'YES' %}
 																<tr class="sub-head">
@@ -470,7 +470,7 @@
 												{% endif %}
 											{% endif %}
 										{% endfor %}
-									</article>
+									{#</article>#}
 								{% endfor %}
 							{% endif %}
 						{% endfor %}
@@ -504,15 +504,15 @@
 			<script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
 
 			<script>
-				const article = document.querySelector("article");
-				const firstTable = article.querySelector("table");
+				// const article = document.querySelector("article");
+				// const firstTable = article.querySelector("table");
 
-				if (firstTable) {
-					const rowCount = firstTable.querySelectorAll("tr").length;
-					if (rowCount > 17) {
-						article.classList.add("page-break-inside-auto");
-					}
-				}
+				// if (firstTable) {
+				// 	const rowCount = firstTable.querySelectorAll("tr").length;
+				// 	if (rowCount > 17) {
+				// 		article.classList.add("page-break-inside-auto");
+				// 	}
+				// }
 			</script>
 		{% endif %}
 	{% endif %}
