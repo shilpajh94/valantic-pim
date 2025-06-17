@@ -22,7 +22,9 @@ class CatalogBundle extends AbstractPimcoreBundle implements PimcoreBundleAdminC
             '/bundles/catalog/js/pimcore/headerSelection.js',
             '/bundles/catalog/js/pimcore/formattedGridHandler.js',
             '/bundles/catalog/js/pimcore/resetTableOfContent.js',
-            '/bundles/catalog/js/pimcore/ptsCatalogHeaderSelection.js'
+            '/bundles/catalog/js/pimcore/ptsCatalogHeaderSelection.js',
+            '/bundles/catalog/js/pimcore/brandsortingOrder.js',
+
         ];
     }
 

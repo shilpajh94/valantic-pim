@@ -227,6 +227,10 @@ pimcore.plugin.CatalogBundle = Class.create({
 				}
 			} else {
 				tableOptionsStore = this.loadAttributeTables(e.detail.object.data.general.parentId, objectClassName, e);
+                if((e.detail.object.data.data.AttributeTable !== null && trim(e.detail.object.data.data.AttributeTable) !== "")){
+                    var brandsortingOrder = new pimcore.plugin.brandsortingOrder();
+                    brandsortingOrder.attachbrandSortingHeader(e);
+                }
 			}
 
           
