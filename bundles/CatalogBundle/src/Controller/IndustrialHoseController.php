@@ -458,9 +458,13 @@ class IndustrialHoseController extends FrontendController
                     foreach ($template->getProductsData() as $row) {
                         $row[] = '';
                         $newRow = array_combine($headerKeys, $row);
-
-                        $query = "select TRIM( BOTH ',' FROM SIOPLevel4)  from object_query_1 where oo_id IN (" . $newRow['id'] . ") ";
-                        $siopLevel4Id = $this->db->fetchOne($query);
+                        if (isset($newRow['id'])) {
+                            $query = "SELECT TRIM(BOTH ',' FROM SIOPLevel4) FROM object_query_1 WHERE oo_id IN (" . $newRow['id'] . ")";
+                            $siopLevel4Id = $this->db->fetchOne($query);
+                        }
+                        else{
+                            $siopLevel4Id = null;
+                        }
 
                         if (isset($constructionTypeList[$siopLevel4Id])) {
                             $newRow['ConstructionType'] = $constructionTypeList[$siopLevel4Id];
@@ -1101,31 +1105,55 @@ class IndustrialHoseController extends FrontendController
                                 $catagoryDescription['SIOP4Description'] = !empty($categoriesList[$siopLevel4]['PrintedCatalogDescription']) ? $categoriesList[$siopLevel4]['PrintedCatalogDescription'] : $categoriesList[$siopLevel4]['description'];
                             }
 
-                            if (!$pressureRating && $item[$headerKeysIndex['PressureRatingPSI']]) {
+                            if (
+                                !$pressureRating &&
+                                isset($headerKeysIndex['PressureRatingPSI']) &&
+                                isset($item[$headerKeysIndex['PressureRatingPSI']])
+                            ) {
                                 $pressureRating = $item[$headerKeysIndex['PressureRatingPSI']];
                             }
 
-                            if (!$mainImageObj && $item[$headerKeysIndex['mainImage']]) {
+                            if (
+                                !$mainImageObj &&
+                                isset($headerKeysIndex['mainImage']) &&
+                                isset($item[$headerKeysIndex['mainImage']])
+                            ) {
                                 $mainImageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['mainImage']]);
                             }
 
-                            if (!$profileDimensionImageObj && $item[$headerKeysIndex['ProfileDimensionImage']]) {
+                            if (
+                                !$profileDimensionImageObj &&
+                                isset($headerKeysIndex['ProfileDimensionImage']) &&
+                                isset($item[$headerKeysIndex['ProfileDimensionImage']])
+                            ) {
                                 $profileDimensionImageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['ProfileDimensionImage']]);
                             }
 
-                            if ($item[$headerKeysIndex['FittingMaterial']]) {
+                            if (isset($headerKeysIndex['FittingMaterial']) && isset($item[$headerKeysIndex['FittingMaterial']])) {
                                 $material[] = $item[$headerKeysIndex['FittingMaterial']];
-                            }
+                            }                           
 
-                            if ($item[$headerKeysIndex['BrandingLayline']] && empty($brandingLayline)) {
+                            if (
+                                isset($headerKeysIndex['BrandingLayline']) &&
+                                isset($item[$headerKeysIndex['BrandingLayline']]) &&
+                                empty($brandingLayline)
+                            ) {
                                 $brandingLayline = $item[$headerKeysIndex['BrandingLayline']];
                             }
 
-                            if ($item[$headerKeysIndex['longDescription']] && empty($longDescription)) {
+                            if (
+                                isset($headerKeysIndex['longDescription']) &&
+                                isset($item[$headerKeysIndex['longDescription']]) &&
+                                empty($longDescription)
+                            ) {
                                 $longDescription = $item[$headerKeysIndex['longDescription']];
                             }
 
-                            if ($item[$headerKeysIndex['FeaturesBenefitsBulletPoint']]) {
+                            if ( 
+                                isset($headerKeysIndex['FeaturesBenefitsBulletPoint']) &&
+                                isset($item[$headerKeysIndex['FeaturesBenefitsBulletPoint']]) &&
+                                !empty($item[$headerKeysIndex['FeaturesBenefitsBulletPoint']])
+                            ) {
                                 foreach ($item[$headerKeysIndex['FeaturesBenefitsBulletPoint']] as $feature) {
                                     array_push($safetyFeatures, $feature);
                                 }
@@ -1135,7 +1163,7 @@ class IndustrialHoseController extends FrontendController
                                 $articlesData[] = $item[$cvalue];
                             }
 
-                            $brandsData[] = $articlesData;
+                            $brandsData[] = $articlesData ?? [];
                             unset($articlesData);
                         }
                     }
@@ -1447,7 +1475,7 @@ class IndustrialHoseController extends FrontendController
         return $brandslist;
     }
 
-    public function getColumnHeadersForCatalog($isTableNameColumnRequired = FALSE, $tableNameColumns = [], $fittingTableColWidths)
+    public function getColumnHeadersForCatalog($isTableNameColumnRequired = FALSE, $tableNameColumns = [], $fittingTableColWidths = [])
 
     {
 
