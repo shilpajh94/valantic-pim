@@ -261,6 +261,10 @@ services:
         tags:
             - {name: 'console.command', command: 'Unpublish-Date-And-User-Command'}
 
+    AppBundle\Command\UnpublishRecordsCommand:
+        tags:
+            - {name: 'console.command', command: 'Unpublish-Records-Command'}
+
     AppBundle\Command\WorkflowReminderCommand:
         tags:
             - {name: 'console.command', command: 'contitech:workflow:reminder'}
