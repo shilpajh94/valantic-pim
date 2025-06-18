@@ -627,8 +627,15 @@ class ProductSQLModel
         ];
         $currentLevelPath = $parentPath.'/'.$objectKey;
         if (!array_key_exists($currentLevelPath, $this->products)) {
-            if (array_key_exists($objectKey, $this->allBaseProducts)) {
-                $objectArr['id'] = $this->allBaseProducts[$objectKey];
+            // if (array_key_exists($objectKey, $this->allBaseProducts)) {
+            //     $objectArr['id'] = $this->allBaseProducts[$objectKey];
+            // }
+
+            $articleNumber = $record[$this->getRecordIndexByKey('material')];
+            $data = $this->tblImpHelper->checkIfArticleExists($articleNumber);
+            if (!empty($data) && count($data)>0) {
+                $objId = $data[0]['oo_id'];
+                $objectArr['id'] = $objId;
             }
             $objId = $this->tblImpHelper->insertInObjects($objectArr);
             if (is_array($objId) && empty($objId[0])) {
