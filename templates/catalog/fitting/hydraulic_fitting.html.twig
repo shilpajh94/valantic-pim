@@ -392,13 +392,18 @@
 																{% set activeClass = '' %}
 																{% for key, shortedRows in tableRows['articleData']['articles'] %}
 																	{% if key == shortedRows|keys|first %}
-																		{% set oldValue = shortedRows[HoseID1InFractIndex] %}
+																		{% if HoseID1InFractIndex is defined and HoseID1InFractIndex is not empty and shortedRows[HoseID1InFractIndex] is defined %}
+                                                                            {% set oldValue = shortedRows[HoseID1InFractIndex] %}
+                                                                        {% else %}
+                                                                            {% set oldValue = '' %}
+                                                                        {% endif %}
 																	{% endif %}
-																	{% if oldValue != shortedRows[HoseID1InFractIndex] %}
+																	{% if oldValue != shortedRows[HoseID1InFractIndex]|default('') %}
 																		{% set oldValue = shortedRows[HoseID1InFractIndex] %}
 																		{% set activeClass = (activeClass == 'active') ? '' : 'active' %}
 																	{% endif %}
-																	<tr class="{{ activeClass }}" data-id="{{ oldValue == shortedRows[HoseID1InFractIndex] }}">
+																    <tr class="{{ activeClass }}" data-id="{{ oldValue == shortedRows[HoseID1InFractIndex]|default('') }}">
+
 																		{% set nutTypeSuperText = '' %}
 																		{% set nutType = tableRows['articleData']['NutType'] %}
 																		{% if 'Thrust Nut' in nutType %}
@@ -421,14 +426,15 @@
 																				{% endif %}
 																			{% endfor %}
 
-																			{% set descriptiveNumberText = shortedRows[columnKey] %}
+																			{% set descriptiveNumberText = shortedRows[columnKey]|default('') %}
+
 																			{% set descriptiveNumberList = descriptiveNumberText | split('-') %}
 
 																			{% if descriptiveNumberList|length > 1 %}
 																				{% set descriptiveText = descriptiveNumberList[0] ~ '-' ~ descriptiveNumberList[1] %}
 																			{% endif %}
-																			{% if descriptiveText not in partNumbers %}
-																				{% set partNumbers = partNumbers|merge([descriptiveText]) %}
+																			{% if descriptiveText|default('') not in partNumbers %}
+																				{% set partNumbers = partNumbers|merge([descriptiveText|default('')]) %}
 																			{% endif %}
 
 																		{% endif %}
@@ -441,7 +447,7 @@
 																				{% endif %}
 																			{% endfor %}
 
-																			{% set industryStandardText = shortedRows[columnKey] %}
+																			{% set industryStandardText = shortedRows[columnKey]|default('') %}
 																			{% set industryStandardList = industryStandardText | split('-') %}
 
 																			{% if industryStandardList[0] not in productNumbers %}

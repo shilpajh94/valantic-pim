@@ -267,7 +267,10 @@
 													{% if firstArray['columnWidth'] %}
 														{% set columnWidth = 'width=' ~ firstArray['columnWidth'] %}
 													{% endif %}
-													<td colspan="{{ c1data|length }}" {{ columnWidth }}><img src="{{ firstArray['columnIcon'] }}" width="45" height="45"/></td>
+													<td colspan="{{ c1data|length }}" {{ columnWidth }}>
+														{# <img src="{{ firstArray['columnIcon'] }}" width="45" height="45"/> #}
+														<img src="{{ firstArray['columnIcon']|default('') }}" width="45" height="45"/>
+													</td>
 												{% endfor %}
 											</tr>
 										{% endif %}
