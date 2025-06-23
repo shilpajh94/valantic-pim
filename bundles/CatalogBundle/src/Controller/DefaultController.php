@@ -696,48 +696,6 @@ class DefaultController extends FrontendController
         return $this->json($arr);
     }
 
-    /**
-     * @Route("/catalog/get-inBrand-sorting-list")
-    */
-    public function getSortedList(Request $request): JsonResponse
-    {   
-        $objId = $request->get('objId');
-        $tableObj = DataObject\CatalogTables::getById($objId);
-        $headerData = json_decode($tableObj->getHeaderData(), true); // true to get an associative array
-        $tableData = $tableObj->getProductsData(); // this is an array of arrays
-
-        // Get only the keys (preserve order)
-        $headers = array_keys($headerData);
-
-        // Merge headers with each row
-        $mergedData = [];
-        foreach ($tableData as $row) {
-            $mergedData[] = array_combine($headers, $row);
-        }
-        // concatenate unique brandName-coverMaterial, sort them alphabetically
-        $uniqueBrandIds = [];
-
-        foreach ($mergedData as $item) {
-            $brand = isset($item['brandName']) ? trim($item['brandName']) : '';
-            $cover = isset($item['coverMaterial']) ? trim($item['coverMaterial']) : '';
-            
-            $key = $brand . '-' . $cover;
-
-            if (!in_array($key, $uniqueBrandIds)) {
-                $uniqueBrandIds[] = $key;
-            }
-        }
-        sort($uniqueBrandIds);   
-        if($uniqueBrandIds){ 
-            $arr = array('storeData' => $uniqueBrandIds, 'completeData' => $uniqueBrandIds, 'success' => true);
-        } else {
-            $arr = array('storeData' => [], 'completeData' => [], 'success' => true);
-        }
-        p_r($arr);
-        echo json_encode($arr);
-        die;
-    }
-
     public function convertValueToDecimal($needUpdateValue, $value, $numberOfDecimalPoints): mixed
     {
         if (is_array($value)) {

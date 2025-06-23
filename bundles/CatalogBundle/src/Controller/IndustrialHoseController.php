@@ -895,7 +895,7 @@ class IndustrialHoseController extends FrontendController
                                 if (!empty($oldMaterialCodeArr[$groupingFieldNameValue])) {
                                     $oldMaterialCodeStr = implode(', ', array_unique($oldMaterialCodeArr[$groupingFieldNameValue]));
                                 }
-
+                                
                                 $newBrandArray[$key]['articleData'][$groupingFieldNameValue][$fittingTableName]['orderCodes'] = $oldMaterialCodeStr;
                                 $newBrandArray[$key]['articleData'][$groupingFieldNameValue][$fittingTableName]['subHeaderRequired'] = $this->subHeaderRequired;
                                 $newBrandArray[$key]['articleData'][$groupingFieldNameValue][$fittingTableName]['columnsDataWithImages'] = $columnsDataWithImages;
@@ -978,6 +978,38 @@ class IndustrialHoseController extends FrontendController
                 $brandingImageSrc = $this->getS3ImageSrc($brandingImageSrc);
 
                 unset($objColumnsData);
+
+
+                if($template->getSortingColumns()){
+                    // Step 1: Get desired sorting order from JSON
+                    $jsonString = $template->getSortingColumns(); // JSON with keys like BrandName-ArticleName
+                    $decodedJson = json_decode($jsonString, true);
+
+                    // Step 2: Extract only article names (i.e., after the dash)
+                    $desiredOrder = [];
+                    foreach ($decodedJson as $fullKey => $entry) {
+                        $parts = explode('-', $fullKey, 2);
+                        if (isset($parts[1])) {
+                            $desiredOrder[] = trim($parts[1]);
+                        }
+                    }
+
+                    // Step 3: Sort articleData inside $newBrandArray using desiredOrder
+                    foreach ($newBrandArray as $brand => &$brandData) {
+                        if (isset($brandData['articleData']) && is_array($brandData['articleData'])) {
+                            uksort($brandData['articleData'], function ($a, $b) use ($desiredOrder) {
+                                $posA = array_search($a, $desiredOrder);
+                                $posB = array_search($b, $desiredOrder);
+
+                                // If article not found in desiredOrder, push it to the end
+                                $posA = $posA === false ? PHP_INT_MAX : $posA;
+                                $posB = $posB === false ? PHP_INT_MAX : $posB;
+
+                                return $posA - $posB;
+                            });
+                        }
+                    }
+                }
 
                 $parameterBag['info'] = array(
                     'iconRequired' => $this->iconRequired,
