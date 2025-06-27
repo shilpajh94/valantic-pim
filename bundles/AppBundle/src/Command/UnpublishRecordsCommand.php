@@ -7,6 +7,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Pimcore\Model\DataObject;
+use Pimcore\Model\DataObject\Product;
 
 /*
     Below script is unpublishing and deleting records 
@@ -33,22 +34,26 @@ class UnpublishRecordsCommand extends AbstractCommand
         $activity = $input->getArgument('activity');
 
         $results = $this->getCSVData($filePath);
+        $data = $results['data'];
 
         if($activity == 'unpublish'){
-            $this->unpublishRecords($results);
+            $this->unpublishRecords($data);
         }else if($activity == 'delete'){
-            $this->deleteRecords($results);
-        }       
+            $this->deleteRecords($data);
+        }else if($activity == 'compareAndDelete'){
+            $this->compareAndDeleteNotRequiredOnes($data);
+        }else if($activity == 'compareAndPublish'){
+            $this->compareAndPublishRequiredOnes($data);
+        }
+
+
         return 1;
     }
 
-    public function unpublishRecords($results){
+    public function unpublishRecords($data){
         try {
             $db = \Pimcore\Db::get();
-
-            $data = $results['data'];
             $chunkSize = 100;
-
             $totalChunks = ceil(count($data) / $chunkSize);
             $currentChunk = 1;
 
@@ -84,14 +89,13 @@ class UnpublishRecordsCommand extends AbstractCommand
 
     }
 
-    public function deleteRecords($results){
+    public function deleteRecords($data){
         try{
-            $data = $results['data'];
             foreach ($data  as $result) {
                 $productId = $result['oo_id'];
                 $obj    = DataObject::getById($productId);
                 if($obj){
-                    echo $obj->getId()." is deleting \n";
+                    echo $obj->getId()." ===== ".$obj->getArticleNumber()." is deleting \n";
                     $obj->delete();
                 }
             }
@@ -99,8 +103,6 @@ class UnpublishRecordsCommand extends AbstractCommand
         catch(\Exception $ex){
             p_r($ex);
         }
-
-
     }
 
     public function getCSVData($fileName)
@@ -148,6 +150,78 @@ class UnpublishRecordsCommand extends AbstractCommand
                 'error' => $e->getMessage()
             );
         }
+    }
+
+    public function compareAndDeleteNotRequiredOnes($data){
+        try{
+            $db = \Pimcore\Db::get();
+            foreach ($data  as $result) {
+                $articleNumber = $result['SAP Number'];
+                $sapDescription = $result['Description'];
+                $sql = "SELECT object_query_1.oo_id 
+                        FROM object_query_1 
+                        JOIN object_localized_query_1_en 
+                        ON object_query_1.oo_id = object_localized_query_1_en.ooo_id 
+                        WHERE object_query_1.articleNumber = :articleNumber 
+                        AND object_localized_query_1_en.sapDescription != :sapDescription";
+
+                $stmt = $db->prepare($sql);
+                $result = $stmt->executeQuery([
+                    'articleNumber' => $articleNumber,
+                    'sapDescription' => $sapDescription,
+                ]);
+
+                $results = $result->fetchAllAssociative(); 
+                if($results){
+                    if($sapDescription != "#N/A"){
+                        $this->deleteRecords($results);
+                    }else{
+                        $ids = implode(',', array_column($results, 'oo_id'));
+                        $timestamp = time();
+                        $upadteQuery = "UPDATE objects set published = 0, modificationDate = $timestamp where id IN ($ids)";
+                        $db->executeQuery($upadteQuery);
+                        echo "Unpublished Ids ==== $ids ===== articleNumber $articleNumber".PHP_EOL;
+                    }
+                }
+            }
+        }catch(\Exception $ex){
+            p_r($ex);
+        }
+
+    }
+
+        public function compareAndPublishRequiredOnes($data){
+            try{
+                $db = \Pimcore\Db::get();
+                foreach ($data  as $result) {
+                    $articleNumber = $result['SAP Number'];
+                    $sapDescription = $result['Description'];
+                    $sql = "SELECT object_query_1.oo_id 
+                            FROM object_query_1 
+                            JOIN object_localized_query_1_en 
+                            ON object_query_1.oo_id = object_localized_query_1_en.ooo_id 
+                            WHERE object_query_1.articleNumber = :articleNumber 
+                            AND object_localized_query_1_en.sapDescription = :sapDescription";
+
+                    $stmt = $db->prepare($sql);
+                    $result = $stmt->executeQuery([
+                        'articleNumber' => $articleNumber,
+                        'sapDescription' => $sapDescription,
+                    ]);
+
+                    $results = $result->fetchAllAssociative(); 
+                    $ids = implode(',', array_column($results, 'oo_id'));
+                    $timestamp = time();
+                    if($results){
+                        $upadteQuery = "UPDATE objects set published = 1, modificationDate = $timestamp where id IN ($ids)";
+                        $db->executeQuery($upadteQuery);
+                        echo "Published Ids ==== $ids ===== articleNumber $articleNumber".PHP_EOL;
+                    }
+                }
+            }catch(\Exception $ex){
+                p_r($ex);
+            }
+
     }
 
 }
