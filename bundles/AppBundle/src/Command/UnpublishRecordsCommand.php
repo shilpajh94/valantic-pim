@@ -24,26 +24,31 @@ class UnpublishRecordsCommand extends AbstractCommand
         $this->setName('Unpublish-Records-Command')
         ->setDescription('Unpublish records provided in the file')
         ->addArgument('activity', InputArgument::REQUIRED, 'Enter Required Activity: unpublish or delete')
-        ->addArgument('filePath', InputArgument::REQUIRED, 'Enter File Path: ');
+        ->addArgument('filePath', InputArgument::OPTIONAL, 'Enter File Path: ');
 
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        $filePath = $input->getArgument('filePath');
         $activity = $input->getArgument('activity');
 
-        $results = $this->getCSVData($filePath);
-        $data = $results['data'];
+        if($activity == 'deleteOlderCreatedProducts'){
+            $this->deleteOlderCreatedProducts();
+        }else{
 
-        if($activity == 'unpublish'){
-            $this->unpublishRecords($data);
-        }else if($activity == 'delete'){
-            $this->deleteRecords($data);
-        }else if($activity == 'compareAndDelete'){
-            $this->compareAndDeleteNotRequiredOnes($data);
-        }else if($activity == 'compareAndPublish'){
-            $this->compareAndPublishRequiredOnes($data);
+            $filePath = $input->getArgument('filePath');
+
+            $results = $this->getCSVData($filePath);
+            $data = $results['data'];
+            if($activity == 'unpublish'){
+                $this->unpublishRecords($data);
+            }else if($activity == 'delete'){
+                $this->deleteRecords($data);
+            }else if($activity == 'compareAndDelete'){
+                $this->compareAndDeleteNotRequiredOnes($data);
+            }else if($activity == 'compareAndPublish'){
+                $this->compareAndPublishRequiredOnes($data);
+            }
         }
 
 
@@ -190,7 +195,7 @@ class UnpublishRecordsCommand extends AbstractCommand
 
     }
 
-        public function compareAndPublishRequiredOnes($data){
+    public function compareAndPublishRequiredOnes($data){
             try{
                 $db = \Pimcore\Db::get();
                 foreach ($data  as $result) {
@@ -222,6 +227,18 @@ class UnpublishRecordsCommand extends AbstractCommand
                 p_r($ex);
             }
 
+    }
+
+    public function deleteOlderCreatedProducts(){
+
+        $db = \Pimcore\Db::get();
+        $sql = "SELECT obj.oo_id, obj.articleNumber FROM object_1 obj JOIN ( 
+                SELECT oo_id, articleNumber, MIN(creationDate) AS oldest_date 
+                FROM object_1 where BusinessUnit = 'CS' GROUP BY articleNumber HAVING COUNT(articleNumber) > 1) oldest ON obj.articleNumber = oldest.articleNumber AND obj.creationDate = oldest.oldest_date;"; 
+        $records = $db->fetchAllAssociative($sql); 
+        $this->deleteRecords($records);
+
+ 
     }
 
 }
