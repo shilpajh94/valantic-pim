@@ -272,6 +272,10 @@ services:
     AppBundle\Command\RemoveIFSNAMasterTableEntryOfNonExistentProductsCommand:
         tags:
             - {name: 'console.command', command: 'contitech:remove_ifs_na_master_table_entry_of_non_existent_products'}
+    
+    AppBundle\Command\DeleteWrongPathsCommand:
+        tags:
+            - {name: 'console.command', command: 'contitech:wrong_paths'}
 
            
     AppBundle\Services\UnitConverterService:
