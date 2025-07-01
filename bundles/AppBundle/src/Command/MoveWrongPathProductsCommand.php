@@ -19,7 +19,7 @@ use Pimcore\Model\DataObject;
  * Class S3WrongPathsCommand
  * @package AppBundle\Command
  */
-class DeleteWrongPathsCommand extends Command
+class MoveWrongPathProductsCommand extends Command
 {
 
     /**
@@ -42,16 +42,27 @@ class DeleteWrongPathsCommand extends Command
 
         $data = $results['data'];
         foreach ($data  as $result) {
-            $product = Product::getByArticleNumber($result['articleNumber'], 1);
-            if($product){
-                $currentPathWithoutKey = $product->getPath();
-                $replacedPath = str_replace('/Master List/SIOP Master List/', '/Products Master/', $currentPathWithoutKey);
-                $parentFolder = DataObject::getByPath($replacedPath);
-                if($parentFolder && $parentFolder->getType() == 'folder'){
-                    $product->setParentId($parentFolder->getId());
-                    $product->setPath($replacedPath);
-                    $product->save();
-                    p_r($product->getId()." ==== new path ==== ".$replacedPath);
+            $list = new \Pimcore\Model\DataObject\Product\Listing();
+            $list->setCondition("articleNumber LIKE :articleNumber", ["articleNumber" => $result['articleNumber']]);
+            $list->setCondition("path LIKE :path", ["path" => "/Master List/SIOP Master List/%"]);
+            $list->setUnpublished(true);
+            if($list){
+                foreach($list as $product){
+                    
+                    $productFullPath = $product->getFullPath();
+                    $replacedPath = str_replace('/Master List/SIOP Master List/', '/Products Master/', $productFullPath);
+                    $existingProductCheck = DataObject::getByPath($replacedPath);
+                    if(!$existingProductCheck){
+                        $currentPathWithoutKey = $product->getPath();
+                        $replacedPathForParent = str_replace('/Master List/SIOP Master List/', '/Products Master/', $currentPathWithoutKey);
+                        $parentFolder = DataObject::getByPath($replacedPathForParent);
+                        if($parentFolder && $parentFolder->getType() == 'folder'){
+                            $product->setParentId($parentFolder->getId());
+                            $product->setPath($replacedPathForParent);
+                            $product->save();
+                            p_r($product->getId()." ==== new path ==== ".$replacedPathForParent);
+                        }
+                    }
                 }
 
             }
