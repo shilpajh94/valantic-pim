@@ -158,24 +158,15 @@ class DefaultController extends FrontendController
         $options = [];
         foreach ($productList as $item) {
             if($className == "CatalogPTS"){
-                $options[] = array('key' => $item->getParent()->getParent()->getType() == 'folder' ? $item->getParent()->getParent()->getKey(). ' - '.$item->getParent()->getKey(). ' - '.$item->getKey() : $item->getKey(), 'value' => $item->getId());
-            }
-            else if($className == "CatalogVBelts"){
-                $options[] = array(
-                                    'text' => (
-                                                $item->getParent()->getParent()->getType() == 'folder' ? $item->getParent()->getParent()->getKey(). ' - '.$item->getParent()->getKey(). ' - '.$item->getKey() : $item->getKey()
-                                            ), 
-                                    'id' =>     $item->getId()
-                                );
+                $options[] = array('key' => (!empty($item->getSapDescription('en'))?$item->getSapDescription('en'):$item->getKey()), 'value' => $item->getId());
+            }else{
 
-
-            }
-            else{
-                $options[] = array('text' => (!empty($item->getSapDescription('en'))?$item->getSapDescription('en'):$item->getKey()), 'id' => $item->getId());
+            $options[] = array('text' => (!empty($item->getSapDescription('en'))?$item->getSapDescription('en'):$item->getKey()), 'id' => $item->getId());
             }
             
         }
-        return $this->json(["data" => $options]);
+
+        return $this->json(['data' => $options]);
     }
     /**
      * @Route("/catalog/get-siop-data")
@@ -783,21 +774,37 @@ class DefaultController extends FrontendController
 		}
 
         $columnData = array();
-        if ($fieldData !== null) {
+		$columnToSetCustomWidth = [];
+		$widthByAttribute = [];
+		$autoSize = false;
+		if($className == "SpecSheetCatalog"){
+			$columnToSetCustomWidth = ["SAP Number", "SAP #", "Old Material Code", "Product Short Description", "SAP Description"];
+            $widthByAttribute = ["SAP Number" => 130, "SAP #" => 130, "Old Material Code" => 180, "Product Short Description" => 320, "SAP Description"=> 320];
+		    $autoSize = true;
+		}
+		if ($fieldData !== null) {
             foreach ($fieldData as $value) {
-                $columnData[] = array(
+                $column = array(
                     'xtype' => 'gridcolumn',
                     'name' => $value,
                     'Text' => $value,
                     'header' => $value,
                     'dataIndex' => $value,
-                    'flex' => 1,
+                    //'flex' => 1,
 					'filter' => array(
 					'type' => 'string',
 					)
                 );
+				if($autoSize == true && in_array($value, $columnToSetCustomWidth)) {
+					$column["width"] = $widthByAttribute[$value];
+					$column["autoSizeColumn"] =  true;
+				} else if($className != "SpecSheetCatalog") {
+					$column["flex"] = 1;
+				}
+				$columnData[] = $column;
             }
         }
+
 		$gridIndexes = [];
 		if($className == "SpecSheetCatalog"){
 		$catalogModel = new Catalog;
@@ -1053,7 +1060,6 @@ class DefaultController extends FrontendController
                 $this->iconRequired = 'YES';
                 $this->subHeaderRequired = 'NO';
                 $this->columnsData = json_decode($objColumnsData, true);
-
                 $columnsDataWithImages = $this->getColumnHeadersForCatalog(false, []);
 
                 unset($objColumnsData);
@@ -1236,14 +1242,14 @@ class DefaultController extends FrontendController
 
                             endforeach;
 
-                            foreach ($orderKeys as $ckey => $cvalue) {
+                            foreach ($orderKeys as $ckey => $cvalue) { 
                                 if ($ckey == 'HoseFittingFamily') {
                                     $hoseFittingFamilyArr = [];
                                     if (!is_array($element[$headerKeysIndex[$ckey]])) {
                                         $hoseFittingFamilyArr = explode('||', $element[$headerKeysIndex[$ckey]]);
                                     }
                                     $articlesData[$key][] = ($hoseFittingFamilyArr) ? implode(',', ($hoseFittingFamilyArr)) : '';
-                                } else {
+                                } else { //echo $ckey. PHP_EOL;
                                     if ($ckey == 'workingPressurePSI') {
                                         $workingPressureValueArray = explode('.', $element[$headerKeysIndex[$ckey]]);
                                         $element[$headerKeysIndex[$ckey]] = $workingPressureValueArray[0];
@@ -1251,12 +1257,14 @@ class DefaultController extends FrontendController
                                     elseif($ckey == 'workingPressureMPA'){
                                         $element[$headerKeysIndex[$ckey]] = round($element[$headerKeysIndex[$ckey]]);
                                     }
+									elseif(in_array($ckey, array('sapDescription','productShortDescription'))){
+										continue;
+									}
                                     $articlesData[$key][] = $element[$headerKeysIndex[$ckey]];
                                 }
                             }
 
                         endforeach;
-
                         $standardsMetHose = array_unique($standardsMetHose);
                         $tubeMaterial = array_unique($tubeMaterial);
                         $tubeAttribute = array_unique($tubeAttribute);
@@ -1351,7 +1359,6 @@ class DefaultController extends FrontendController
                     if ($data) {
                         array_multisort(array_column($data, 'SortOrder'), SORT_ASC, $data);
                     }
-
                     $catalogGroupData[$catalogKey] = $data;
                     unset($data);
                 }
@@ -1369,7 +1376,6 @@ class DefaultController extends FrontendController
                 $parameterBag['table_class']= $tableClass;
             }
         }
-								//echo "<pre/>"; print_r($parameterBag); die;
 
         return $this->render("catalog/default/template_hose_product_page.html.twig", $parameterBag);
     }
@@ -2369,13 +2375,13 @@ class DefaultController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{
-            $documentPath = $this->document->getFullPath();
-            $doc = \Pimcore\Model\Document::getByPath($documentPath);
-            if($doc) {
-                $documentId = $doc->getId();
-                $parameterBag = $this->getRequestedParameter($request, $documentId);
-            }
+        else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->getRequestedParameter($request, $documentId); 
+            } 
         }
         $allChildren = [];
 
@@ -2436,13 +2442,13 @@ class DefaultController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{
-            $documentPath = $this->document->getFullPath();
-            $doc = \Pimcore\Model\Document::getByPath($documentPath);
-            if($doc) {
-                $documentId = $doc->getId();
-                $parameterBag = $this->getRequestedParameter($request, $documentId);
-            }
+        else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->getRequestedParameter($request, $documentId); 
+            } 
         }
         $groupData = array();
         $footerBgColor = null;
@@ -2825,7 +2831,9 @@ class DefaultController extends FrontendController
             }
         } else {
             foreach ($this->columnsData as $key => $value) {
-
+				if(in_array($key, array("sapDescription","productShortDescription"))){
+					continue;
+				}
                 $groupColumnName = $value['columnName'];
                 $groupName = '';
 
@@ -2880,13 +2888,13 @@ class DefaultController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{
-            $documentPath = $this->document->getFullPath();
-            $doc = \Pimcore\Model\Document::getByPath($documentPath);
-            if($doc) {
-                $documentId = $doc->getId();
-                $parameterBag = $this->getRequestedParameter($request, $documentId);
-            }
+        else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->getRequestedParameter($request, $documentId); 
+            } 
         }        return $this->render("catalog/default/template_index_descriptive_number.html.twig", $parameterBag);
     }
 
@@ -2895,13 +2903,13 @@ class DefaultController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{
-            $documentPath = $this->document->getFullPath();
-            $doc = \Pimcore\Model\Document::getByPath($documentPath);
-            if($doc) {
-                $documentId = $doc->getId();
-                $parameterBag = $this->getRequestedParameter($request, $documentId);
-            }
+        else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->getRequestedParameter($request, $documentId); 
+            } 
         }        try {
             $folderId = $this->document->getParent()->getId();
             $listing = new \Pimcore\Model\Document\Listing();
@@ -2969,11 +2977,11 @@ class DefaultController extends FrontendController
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
-        else{
+        else{ 
             $documentPath = $this->document->getFullPath(); 
             $doc = \Pimcore\Model\Document::getByPath($documentPath); 
-            if($doc) {
-                $documentId = $doc->getId();
+            if($doc) { 
+                $documentId = $doc->getId(); 
                 $parameterBag = $this->getRequestedParameter($request, $documentId); 
             } 
         }        try {
