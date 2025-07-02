@@ -2361,9 +2361,9 @@ margin-right:20px;
 
 .inh-section-break .grid{
     /* break-before: avoid; */
-    break-before: auto;
+    break-before: avoid;
     break-after: avoid;
-    break-inside: avoid;
+    break-inside: auto;
 }
 
 /*.continueLable{ border:1px solid red;}*/
