@@ -1119,6 +1119,11 @@ section.spacing {
     max-width: 100%;
     height: auto;
 }
+
+.img-placeholder2 {
+    transform: rotate(90deg) !important;
+}
+
 .img-placeholder2 img {
     max-width: 43px !important;
     max-height: 165px !important;
