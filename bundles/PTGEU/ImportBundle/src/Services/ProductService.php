@@ -171,9 +171,13 @@ class ProductService
                             Logger::log(self::LOGGER_MODULE)->info("Data copied from temp table to master table");
 
                             if (!empty($this->updatedArticlesArray) && count($this->updatedArticlesArray)>0) {
+                                $this->productModel->storeRecordsInPimcoreSaveTable($this->updatedArticlesArray, 'PTGEU');
+                                echo "Records inserted in Pimcore Save Table".PHP_EOL;
                                 echo "Object Saving started for completeness.".PHP_EOL;
                                 $this->saveProducts($this->updatedArticlesArray);
                                 echo "Object Saving completed for completeness.".PHP_EOL;
+                                $this->productModel->deleteBuRecordsInPimcoreSaveTable('PTGEU');
+                                echo "Delete records from pimcore_save table verified";
                             }
 
                             if (!empty($this->baseSiopMismatchLog) && count($this->baseSiopMismatchLog)>0) {
@@ -1130,6 +1134,7 @@ class ProductService
                 $object = DataObject\PTGEUProduct::getById($objectId);
                 if (!empty($object) && $object instanceof \Pimcore\Model\DataObject\PTGEUProduct) {
                     $object->save();
+                    $this->productModel->changeStatusFromPimcoreSaveTableForRecords($objectId);
                 }
             }
         }

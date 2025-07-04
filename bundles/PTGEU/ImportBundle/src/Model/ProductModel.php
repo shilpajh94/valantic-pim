@@ -367,4 +367,49 @@ class ProductModel
     public function getFailedRecordFromLogTable():array{
         return Common::getFailedRecordFromLogTable($this->logTable , $this->masterTable,'statusCode',$this->time);
     }
+
+    public function storeRecordsInPimcoreSaveTable($updatedArticlesIdArray, $bu){
+        try{
+            $now = time();
+            $chunks = array_chunk($updatedArticlesIdArray, 100);
+            foreach ($chunks as $chunk) {
+                $values = [];
+                foreach ($chunk as $row) {
+                    $id = $row;
+                    $values[] = "($id, '$bu', '0', $now, 'PTGEU', 'object_38')";
+                }
+
+                $sql = "INSERT INTO pimcore_save
+                        (oo_id, businessUnit, status, creationDate, className, objectTableName)
+                        VALUES " . implode(", ", $values) . "
+                        ON DUPLICATE KEY UPDATE
+                            businessUnit = VALUES(businessUnit),
+                            status = VALUES(status),
+                            creationDate = VALUES(creationDate),
+                            className = VALUES(className),
+                            objectTableName = VALUES(objectTableName)";
+                
+                $this->db->executeQuery($sql);
+                
+            }
+        }catch(Exception $ex){
+            p_r($ex);
+        }
+    }
+
+    public function deleteBuRecordsInPimcoreSaveTable($bu){
+
+        $sql = "SELECT oo_id from pimcore_save where status = 0 and businessUnit = '$bu'" ;
+        $result = $this->db->fetchAllAssociative($sql);
+        if(count($result) == 0){
+            $deleteQuery = "DELETE from pimcore_save where businessUnit = '$bu'";
+            $this->db->executeQuery($deleteQuery);
+            echo "Deleted all records for ".$bu. " from pimcore_save table";
+        }
+    }
+
+    public function changeStatusFromPimcoreSaveTableForRecords($objId){
+        $sql = "UPDATE pimcore_save set status = 1 where oo_id = $objId";
+        $this->db->executeQuery($sql);
+    }
 }
