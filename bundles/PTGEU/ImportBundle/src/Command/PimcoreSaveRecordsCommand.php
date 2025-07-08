@@ -28,6 +28,9 @@ class PimcoreSaveRecordsCommand extends AbstractCommand
         $this->productModel = new ProductModel($this->container);
         $this->db = Db::get();
     }
+    /*
+    * activity can be either -- save or delete
+    */
     protected function configure()
     {
         $this->setName('conti:pimcore_save_records')

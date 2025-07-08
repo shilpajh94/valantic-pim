@@ -16,39 +16,6 @@ class DefaultController extends FrontendController
      */
     public function defaultAction(Request $request)
     {
-        $db = \Pimcore\Db::get();
-        $sql = "SELECT count(*) from object_brick_store_HoseBase_1
-WHERE tubeMaterial = 1 OR tubeCharacteristic = 1 OR tubeColor = 1 OR StandardMetCover = 1 OR standardMetHose = 1 OR coverMaterial = 1 OR coverCharacteristic = 1 OR coverColor = 1 OR agencyCompliance = 1 OR safetyFactor = 1 OR acceptableHoseMedia = 1 OR StandardMetTube = 1;
-
-
-SELECT count(*) from object_brick_query_HoseBase_1
-WHERE tubeMaterial = 1 OR tubeCharacteristic = 1 OR tubeColor = 1 OR StandardMetCover = 1 OR standardMetHose = 1 OR coverMaterial = 1 OR coverCharacteristic = 1 OR coverColor = 1 OR agencyCompliance = 1 OR safetyFactor = 1 OR acceptableHoseMedia = 1 OR StandardMetTube = 1;
- 
-
-SELECT count(*) from object_brick_query_AccessoriesFert_1
-where Color = 1 OR MaterialType = 1;
-
-
--- 18
-SELECT count(*) from object_brick_store_AccessoriesFert_1
-where Color = 1 OR MaterialType = 1;
-
-SELECT count(*) from object_brick_query_PTGBase_1
-where material = 1;
-
-
-SELECT count(*) from object_brick_store_PTGBase_1
-where material = 1;
-
--- 1
-SELECT count(*) from object_store_1
-where brandName = 1 OR brandConstruction = 1 OR californiaProposition65ChemicalName1 =1 OR californiaProposition65ChemicalName2 = 1 OR californiaProposition65ChemicalName3 = 1 OR reinforcement = 1;
-
--- 1
-SELECT count(*) from object_query_1
-where brandName = 1 OR brandConstruction = 1 OR californiaProposition65ChemicalName1 =1 OR californiaProposition65ChemicalName2 = 1 OR californiaProposition65ChemicalName3 = 1 OR reinforcement = 1;";
-        $records = $db->fetchAllAssociative($sql);
-        dd($records);
         return new Response('Hello world from app');
     }
 

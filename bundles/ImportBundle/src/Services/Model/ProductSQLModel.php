@@ -195,17 +195,19 @@ class ProductSQLModel
                 \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("IFS import completed");
                 $this->initiateCSProductsProcess();
                 \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("CS import completed");
-
-                // $this->tblImpHelper->getRecordsSiopCodeDigitsNot13And18();
-                // \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("SIOP code other than 13 and 18 digit inserted in Log Table and delted from temp table");
                 $this->tblImpHelper->getRecordsSiopCodeDigitsNot13And16And18();
                 \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("SIOP code other than 13 and 16 and 18 digit inserted in Log Table and delted from temp table");
                 $this->tblImpHelper->updateMaster();
                 \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("Data copied from temp table to master table");
                 if (!empty($this->updatedArticlesArray) && count($this->updatedArticlesArray)>0) {
+                    $this->tblImpHelper->storeRecordsInPimcoreSaveTable($this->updatedArticlesArray, 'IFSNA');
+                    echo "Records inserted in Pimcore Save Table".PHP_EOL;
                     echo "Object Saving started for completeness.";
                     $this->saveProducts($this->updatedArticlesArray);
                     echo "Object Saving completed for completeness.";
+                    $this->tblImpHelper->deleteBuRecordsInPimcoreSaveTable('IFSNA');
+                    echo "Delete records from pimcore_save table verified";
+
                 }
                 if (!empty($this->baseSiopMismatchLog) && count($this->baseSiopMismatchLog)>0) {
                     $this->tblImpHelper->removeArticlesFromMaster($this->baseSiopMismatchLog);
@@ -274,6 +276,7 @@ class ProductSQLModel
                 $object = DataObject\Product::getById($objectId);
                 if (!empty($object) && $object instanceof \Pimcore\Model\DataObject\Product) {
                     $object->save();
+                    $this->tblImpHelper->changeStatusFromPimcoreSaveTableForRecords($objectId);
                 }
             }
         }
