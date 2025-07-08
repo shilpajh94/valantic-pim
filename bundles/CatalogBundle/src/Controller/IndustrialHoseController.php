@@ -544,7 +544,7 @@ class IndustrialHoseController extends FrontendController
         $catalogImagesINHProduct = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHProduct'];
 
         $brandsData = array();
-
+		$className = "";
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
@@ -986,15 +986,13 @@ class IndustrialHoseController extends FrontendController
                     'branding_image_src' => $brandingImageSrc,
                     'footer_class' => (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '',
                     'footer_logo_src' => $footer_logo_src,
+					'className' => $className
                 );
                 $parameterBag['table_class']= $tableClass;
             }
         }
-		$templatePath = "catalog/inh/inhprintcatalogproductpage.html.twig";
-		if($className == "SpecSheetCatalog"){
-			$templatePath = "catalog/inh/inhprintspecsheetproductpage.html.twig";
-		} 
-        return $this->render($templatePath, $parameterBag);
+		
+        return $this->render("catalog/inh/inhprintspecsheetproductpage.html.twig", $parameterBag);
     }
 
 
