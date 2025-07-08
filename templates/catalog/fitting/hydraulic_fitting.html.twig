@@ -143,7 +143,7 @@
 									{% set firstKey = tableRowsSkiveType|keys|first %}
 									{% set uniqueIdTemp = uniqueId %}
 									{% set uniqueId = md5Twig(uniqueId ~ shortDescrioptionKey ~ tableName) %}
-									<article class="container page-break-inside-avoid ">
+									<article class="container  page-break-inside-avoid">
 										<figure class="headingSection">
 											{% if tableRowsSkiveType['NS'] is defined and tableRowsSkiveType['DG'] is defined %}
 												<span>
@@ -312,7 +312,7 @@
 													{% endif %}
 												</p>
 											</figcaption>
-										</figure>
+										</figure></article>
 										{% for skiveTypekey, skiveTypekValue in skiveTypeSortKeys %}
 											{% set showTitle = tableRowsSkiveType|length > 1 %}
 											{% if tableRowsSkiveType[skiveTypekValue] is defined %}
@@ -335,7 +335,7 @@
 														</h1>
 													{% endif %}
 
-													<table class="grid inh fitting marginBottom17  continueLable  {{table_class}}" cellspacing="0" cellpadding="0">
+													<table class="grid inh fitting marginBottom15 continueLable {{table_class}}" cellspacing="0" cellpadding="0">
 														<thead>
 															{% if iconRequired == 'YES' %}
 																<tr class="sub-head">
@@ -392,13 +392,18 @@
 																{% set activeClass = '' %}
 																{% for key, shortedRows in tableRows['articleData']['articles'] %}
 																	{% if key == shortedRows|keys|first %}
-																		{% set oldValue = shortedRows[HoseID1InFractIndex] %}
+																		{% if HoseID1InFractIndex is defined and HoseID1InFractIndex is not empty and shortedRows[HoseID1InFractIndex] is defined %}
+                                                                            {% set oldValue = shortedRows[HoseID1InFractIndex] %}
+                                                                        {% else %}
+                                                                            {% set oldValue = '' %}
+                                                                        {% endif %}
 																	{% endif %}
-																	{% if oldValue != shortedRows[HoseID1InFractIndex] %}
+																	{% if oldValue != shortedRows[HoseID1InFractIndex]|default('') %}
 																		{% set oldValue = shortedRows[HoseID1InFractIndex] %}
 																		{% set activeClass = (activeClass == 'active') ? '' : 'active' %}
 																	{% endif %}
-																	<tr class="{{ activeClass }}" data-id="{{ oldValue == shortedRows[HoseID1InFractIndex] }}">
+																    <tr class="{{ activeClass }}" data-id="{{ oldValue == shortedRows[HoseID1InFractIndex]|default('') }}">
+
 																		{% set nutTypeSuperText = '' %}
 																		{% set nutType = tableRows['articleData']['NutType'] %}
 																		{% if 'Thrust Nut' in nutType %}
@@ -421,14 +426,15 @@
 																				{% endif %}
 																			{% endfor %}
 
-																			{% set descriptiveNumberText = shortedRows[columnKey] %}
+																			{% set descriptiveNumberText = shortedRows[columnKey]|default('') %}
+
 																			{% set descriptiveNumberList = descriptiveNumberText | split('-') %}
 
 																			{% if descriptiveNumberList|length > 1 %}
 																				{% set descriptiveText = descriptiveNumberList[0] ~ '-' ~ descriptiveNumberList[1] %}
 																			{% endif %}
-																			{% if descriptiveText not in partNumbers %}
-																				{% set partNumbers = partNumbers|merge([descriptiveText]) %}
+																			{% if descriptiveText|default('') not in partNumbers %}
+																				{% set partNumbers = partNumbers|merge([descriptiveText|default('')]) %}
 																			{% endif %}
 
 																		{% endif %}
@@ -441,7 +447,7 @@
 																				{% endif %}
 																			{% endfor %}
 
-																			{% set industryStandardText = shortedRows[columnKey] %}
+																			{% set industryStandardText = shortedRows[columnKey]|default('') %}
 																			{% set industryStandardList = industryStandardText | split('-') %}
 
 																			{% if industryStandardList[0] not in productNumbers %}
@@ -470,7 +476,7 @@
 												{% endif %}
 											{% endif %}
 										{% endfor %}
-									</article>
+									{#</article>#}
 								{% endfor %}
 							{% endif %}
 						{% endfor %}
@@ -504,15 +510,15 @@
 			<script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
 
 			<script>
-				const article = document.querySelector("article");
-				const firstTable = article.querySelector("table");
+				// const article = document.querySelector("article");
+				// const firstTable = article.querySelector("table");
 
-				if (firstTable) {
-					const rowCount = firstTable.querySelectorAll("tr").length;
-					if (rowCount > 17) {
-						article.classList.add("page-break-inside-auto");
-					}
-				}
+				// if (firstTable) {
+				// 	const rowCount = firstTable.querySelectorAll("tr").length;
+				// 	if (rowCount > 17) {
+				// 		article.classList.add("page-break-inside-auto");
+				// 	}
+				// }
 			</script>
 		{% endif %}
 	{% endif %}

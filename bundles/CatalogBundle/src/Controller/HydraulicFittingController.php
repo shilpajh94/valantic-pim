@@ -238,7 +238,7 @@ class HydraulicFittingController extends FrontendController
 
                                     foreach ($columnsDataWithImages as $svalue) {
                                         foreach ($svalue as $vvalue) {
-                                            if(isset($vvalue['columnName'])){
+                                           if(isset($vvalue['columnName']) && isset($headerKeysIndex[$vvalue['columnName']])){
                                                 $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
                                             }
                                         }
@@ -281,7 +281,7 @@ class HydraulicFittingController extends FrontendController
                                         }
                                     }
 
-                                    if ($orderKeys['HoseID1InFract']) {
+                                    if (isset($orderKeys['HoseID1InFract'])) {
                                         $originalHoseID1InFractIndex = array_search("HoseID1InFract", array_keys($orderKeys));
                                     }
 
@@ -292,7 +292,8 @@ class HydraulicFittingController extends FrontendController
                                     $newBrandArray[$brandKey][$sortDescriptionTableslist][$fittingTableName][$skiveType]['articleData']['articles'][] = $articlesData;
                                     $newBrandArray[$brandKey][$sortDescriptionTableslist][$fittingTableName][$skiveType]['articleData']['NutType'][] = $nutType;
                                     $newBrandArray[$brandKey][$sortDescriptionTableslist][$fittingTableName][$skiveType]['articleData']['SingleHexYN'][] = $singleHex;
-                                    $newBrandArray[$brandKey][$sortDescriptionTableslist][$fittingTableName][$skiveType]['articleData']['HoseID1InFractIndex'] = $originalHoseID1InFractIndex;
+                                   $originalHoseID1InFractIndex = $orderKeys['HoseID1InFract'] ?? null;
+                                        $newBrandArray[$brandKey][$sortDescriptionTableslist][$fittingTableName][$skiveType]['articleData']['HoseID1InFractIndex'] = $originalHoseID1InFractIndex;
                                     $newBrandArray[$brandKey][$sortDescriptionTableslist][$fittingTableName][$skiveType]['articleData']['subHeaderRequired'] = $this->subHeaderRequired;
                                     $newBrandArray[$brandKey][$sortDescriptionTableslist][$fittingTableName][$skiveType]['articleData']['columnsDataWithImages'] = $columnsDataWithImages;
                                     $newBrandArray[$brandKey][$sortDescriptionTableslist][$fittingTableName][$skiveType]['brandData']['brandName'] = $brandKey;

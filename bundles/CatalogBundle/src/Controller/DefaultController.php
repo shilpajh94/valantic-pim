@@ -417,7 +417,7 @@ class DefaultController extends FrontendController
                         $dataValues = [];
                         $getter = 'get' . ucfirst($fieldName);
                         $value = $item->$getter();
-                        if ($item->$getter() !== null) {
+                        if ($item->$getter() !== null && (isset($printColumns[$fieldName]['parent']['class']['name']) && !empty($printColumns[$fieldName]['parent']['class']['name']))) {
                             $class = 'Pimcore\Model\DataObject\\' . $printColumns[$fieldName]['parent']['class']['name'] . '\\Listing';
                             $classObj = new $class();
                             $classObj->setCondition('id IN (?)', [$value]);
@@ -429,7 +429,17 @@ class DefaultController extends FrontendController
                         }
 
                         $pData[$item->getId()][$fieldName] = $this->convertValueToDecimal($needUpdateValue, $dataValues, $numberOfDecimalPoints);
-                    } elseif ($printColumns[$fieldName]['fieldLevel'] == 'objectBrick' && in_array($printColumns[$fieldName]['parent']['name'], $bricksList['fert']) && strtolower($printColumns[$fieldName]['fieldType']) !== 'relation') {
+                    } 
+                    elseif (
+                        isset($printColumns[$fieldName]['fieldLevel']) &&
+                        $printColumns[$fieldName]['fieldLevel'] === 'objectBrick' &&
+                        
+                        isset($printColumns[$fieldName]['parent']['name']) &&
+                        in_array($printColumns[$fieldName]['parent']['name'], $bricksList['fert']) &&
+                        
+                        isset($printColumns[$fieldName]['fieldType']) &&
+                        strtolower($printColumns[$fieldName]['fieldType']) !== 'relation'
+                    ) {                        
                         $brickGetter = 'get' . ucfirst($printColumns[$fieldName]['parent']['name']);
                         $getter = 'get' . ucfirst($fieldName);
                         if ($item->getFert()->$brickGetter() !== null) {
@@ -437,7 +447,17 @@ class DefaultController extends FrontendController
                         } else {
                             $pData[$item->getId()][$fieldName] = "";
                         }
-                    } elseif ($printColumns[$fieldName]['fieldLevel'] == 'objectBrick' && in_array($printColumns[$fieldName]['parent']['name'], $bricksList['skeleton']) && strtolower($printColumns[$fieldName]['fieldType']) !== 'relation') {
+                    } 
+                    elseif (
+                        isset($printColumns[$fieldName]['fieldLevel']) &&
+                        $printColumns[$fieldName]['fieldLevel'] === 'objectBrick' &&
+                        
+                        isset($printColumns[$fieldName]['parent']['name']) &&
+                        in_array($printColumns[$fieldName]['parent']['name'], $bricksList['skeleton']) &&
+                        
+                        isset($printColumns[$fieldName]['fieldType']) &&
+                        strtolower($printColumns[$fieldName]['fieldType']) !== 'relation'
+                    ) {                        
                         $brickGetter = 'get' . ucfirst($printColumns[$fieldName]['parent']['name']);
                         $getter = 'get' . ucfirst($fieldName);
                         if ($item->getSkeleton()->$brickGetter() != null) {
@@ -445,8 +465,13 @@ class DefaultController extends FrontendController
                         } else {
                             $pData[$item->getId()][$fieldName] = "";
                         }
-                    } elseif ($printColumns[$fieldName]['fieldLevel'] == 'objectBrick' && in_array($printColumns[$fieldName]['parent']['name'], $bricksList['base']) && strtolower($printColumns[$fieldName]['fieldType']) !== 'relation') {
-
+                    } 
+                    elseif (
+                        isset($printColumns[$fieldName]['fieldLevel'], $printColumns[$fieldName]['parent']['name'], $printColumns[$fieldName]['fieldType'], $bricksList['base']) &&
+                        $printColumns[$fieldName]['fieldLevel'] === 'objectBrick' &&
+                        in_array($printColumns[$fieldName]['parent']['name'], $bricksList['base']) &&
+                        strtolower($printColumns[$fieldName]['fieldType']) !== 'relation'
+                    ) {
                         $brickGetter = 'get' . ucfirst($printColumns[$fieldName]['parent']['name']);
                         $getter = 'get' . ucfirst($fieldName);
                         if ($item->getBase()->$brickGetter() !== null) {
@@ -454,8 +479,14 @@ class DefaultController extends FrontendController
                         } else {
                             $pData[$item->getId()][$fieldName] = '';
                         }
-                    } elseif ($printColumns[$fieldName]['fieldLevel'] == 'objectBrick' && in_array($printColumns[$fieldName]['parent']['name'], $bricksList['fert']) && strtolower($printColumns[$fieldName]['fieldType']) == 'relation') {
-                        $dataValues = [];
+                    } 
+                    elseif (
+                        isset($printColumns[$fieldName]['fieldLevel'], $printColumns[$fieldName]['parent']['name'], $printColumns[$fieldName]['fieldType']) &&
+                        $printColumns[$fieldName]['fieldLevel'] === 'objectBrick' &&
+                        in_array($printColumns[$fieldName]['parent']['name'], $bricksList['fert']) &&
+                        strtolower($printColumns[$fieldName]['fieldType']) === 'relation'
+                    ){                        
+                    $dataValues = [];
                         $brickGetter = 'get' . ucfirst($printColumns[$fieldName]['parent']['name']);
                         $getter = 'get' . ucfirst($fieldName);
                         if ($item->getFert()->$brickGetter() !== null) {
@@ -473,7 +504,17 @@ class DefaultController extends FrontendController
                         } else {
                             $pData[$item->getId()][$fieldName] = '';
                         }
-                    } elseif ($printColumns[$fieldName]['fieldLevel'] == 'objectBrick' && in_array($printColumns[$fieldName]['parent']['name'], $bricksList['skeleton']) && strtolower($printColumns[$fieldName]['fieldType']) == 'relation') {
+                    } 
+                    elseif (
+                        isset($printColumns[$fieldName]['fieldLevel']) &&
+                        $printColumns[$fieldName]['fieldLevel'] === 'objectBrick' &&
+
+                        isset($printColumns[$fieldName]['parent']['name']) &&
+                        in_array($printColumns[$fieldName]['parent']['name'], $bricksList['skeleton']) &&
+
+                        isset($printColumns[$fieldName]['fieldType']) &&
+                        strtolower($printColumns[$fieldName]['fieldType']) === 'relation'
+                    ) {
                         $dataValues = [];
                         $brickGetter = 'get' . ucfirst($printColumns[$fieldName]['parent']['name']);
                         $getter = 'get' . ucfirst($fieldName);
@@ -492,7 +533,18 @@ class DefaultController extends FrontendController
                         } else {
                             $pData[$item->getId()][$fieldName] = '';
                         }
-                    } elseif ($printColumns[$fieldName]['fieldLevel'] == 'objectBrick' && in_array($printColumns[$fieldName]['parent']['name'], $bricksList['base']) && strtolower($printColumns[$fieldName]['fieldType']) == 'relation') {
+                    } 
+                    elseif (
+                        isset(
+                            $printColumns[$fieldName]['fieldLevel'],
+                            $printColumns[$fieldName]['parent']['name'],
+                            $printColumns[$fieldName]['fieldType'],
+                            $bricksList['base']
+                        ) &&
+                        $printColumns[$fieldName]['fieldLevel'] === 'objectBrick' &&
+                        in_array($printColumns[$fieldName]['parent']['name'], $bricksList['base']) &&
+                        strtolower($printColumns[$fieldName]['fieldType']) === 'relation'
+                    ) {                        
                         $dataValues = [];
                         $brickGetter = 'get' . ucfirst($printColumns[$fieldName]['parent']['name']);
                         $getter = 'get' . ucfirst($fieldName);
