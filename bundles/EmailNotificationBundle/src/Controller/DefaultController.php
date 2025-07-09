@@ -82,4 +82,20 @@ class DefaultController extends FrontendController
         ];
         return $this->render("email_notification/default/ImportProcessEmail.html.twig", $parameterBag);
     }
+    /**
+     * Failed Pimcore Save Email Template Action
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function failedPimcoreSaveProductsEmailAction(Request $request)
+    {
+        $parameterBag = [
+            'totalCount'=>(!empty($request->get('totalCount')))?$request->get('totalCount'):'',
+        ];
+        return $this->render("default/failedPimcoreSaveEmail.html.twig", $parameterBag);
+    }
+
+
+
 }

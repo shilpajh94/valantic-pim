@@ -25,6 +25,10 @@ services:
     EmailNotificationBundle\Command\NewProductImportEmailCommand:
         tags:
             - { name: 'console.command', command: 'conti:newproducts-importreport' }
+    
+    EmailNotificationBundle\Command\FailedPimcoreSaveEmailCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:failed-pimcore-save-products-email-notification' }
 
     Pimcore\Bundle\AdminBundle\Controller\Admin\EmailController:
         class: EmailNotificationBundle\Controller\CustomEmailController
