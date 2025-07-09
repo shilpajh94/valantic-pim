@@ -1,0 +1,34 @@
+variables:
+  PROJECT_SCRIPTS_DIR: $CI_PROJECT_DIR/.ci/scripts
+  PHP_VERSION: "8.1"
+
+default:
+  before_script:
+    # - apk add --update bash # uncomment if not using customized images
+    - $PROJECT_SCRIPTS_DIR/$CI_JOB_STAGE/$CI_JOB_NAME/before_script.sh
+  after_script:
+    - $PROJECT_SCRIPTS_DIR/$CI_JOB_STAGE/$CI_JOB_NAME/after_script.sh
+
+stages:
+  - lint
+  - build
+
+debug:
+  stage: .pre
+  image: git.cec.valantic.com:5050/contitech/docker-images/alpine
+  before_script:
+    - echo "skipped"
+  script:
+    - $PROJECT_SCRIPTS_DIR/debug.sh
+  after_script:
+    - echo "done"
+  rules:
+    - exists:
+        - .ci/scripts/debug.sh
+  variables:
+    CI_DEBUG_TRACE: "true"
+
+include:
+  - local: ".ci/.gitlab-ci.lint.yml"
+  - local: ".ci/.gitlab-ci.build.yml"
+
