@@ -996,7 +996,7 @@ class IndustrialHoseController extends FrontendController
             }
         }
 		
-        return $this->render("catalog/inh/inhprintspecsheetproductpage.html.twig", $parameterBag);
+        return $this->render("catalog/inh/inhprintcatalogproductpage.html.twig", $parameterBag);
     }
 
 
