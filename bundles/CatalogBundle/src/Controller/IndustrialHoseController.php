@@ -548,7 +548,7 @@ class IndustrialHoseController extends FrontendController
         $catalogImagesINHProduct = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHProduct'];
 
         $brandsData = array();
-
+		$className = "";
         if(!$request->get('contentDocument')->getPublished()){
             $parameterBag = $this->getRequestedParameter($request, 0);
         }
@@ -559,7 +559,6 @@ class IndustrialHoseController extends FrontendController
         }
         $tableClass = \AppBundle\Helper\Common::cleanString( $this->document->getKey());
         $templateEditable = $this->document->getEditable('inh-printcatalogproduct');
-
         if ($templateEditable && $templateEditable->getElement() != null) {
             $template = $templateEditable->getElement();
             if($template){
@@ -991,10 +990,12 @@ class IndustrialHoseController extends FrontendController
                     'branding_image_src' => $brandingImageSrc,
                     'footer_class' => (strtolower($footerBgColor) == 'orange') ? 'reverseColor' : '',
                     'footer_logo_src' => $footer_logo_src,
+					'className' => $className
                 );
                 $parameterBag['table_class']= $tableClass;
             }
         }
+		
         return $this->render("catalog/inh/inhprintcatalogproductpage.html.twig", $parameterBag);
     }
 
