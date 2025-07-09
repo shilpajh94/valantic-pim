@@ -1,0 +1,7 @@
+#!/bin/bash
+
+## Description: Run Symfony Console (bin/console)
+## Usage: console <command>
+## Example: ddev console cache:clear
+
+bin/console "$@"
