@@ -32,25 +32,27 @@ class FailedPimcoreSaveEmailCommand extends AbstractCommand
                 GROUP BY businessUnit;";
 
         $failedProductsWhilePimcoreSave = $this->db->fetchAllAssociative($sql);
-        // Start with the header line
-        $htmlTable = '<table border="1" cellpadding="4" cellspacing="0">';
-        $htmlTable .= '<tr><th>Business Unit</th><th>Total Records</th></tr>';
-
-        foreach ($failedProductsWhilePimcoreSave as $row) {
-            $htmlTable .= '<tr>';
-            $htmlTable .= '<td>' . htmlspecialchars($row['businessUnit']) . '</td>';
-            $htmlTable .= '<td>' . htmlspecialchars($row['total_records']) . '</td>';
-            $htmlTable .= '</tr>';
-        }
-
-        $htmlTable .= '</table>';
-
-        // wrap in Markup so Twig treats it as safe
-        $params = [
-            'totalCount' => new Markup($htmlTable, 'UTF-8'),
-        ];      
 
         if(count($failedProductsWhilePimcoreSave) > 0){
+            
+            // Start with the header line
+            $htmlTable = '<table border="1" cellpadding="4" cellspacing="0">';
+            $htmlTable .= '<tr><th>Business Unit</th><th>Total Records</th></tr>';
+
+            foreach ($failedProductsWhilePimcoreSave as $row) {
+                $htmlTable .= '<tr>';
+                $htmlTable .= '<td>' . htmlspecialchars($row['businessUnit']) . '</td>';
+                $htmlTable .= '<td>' . htmlspecialchars($row['total_records']) . '</td>';
+                $htmlTable .= '</tr>';
+            }
+
+            $htmlTable .= '</table>';
+
+            // wrap in Markup so Twig treats it as safe
+            $params = [
+                'totalCount' => new Markup($htmlTable, 'UTF-8'),
+            ];      
+
             $this->sendNotificationsEmail($params);
         }
         
