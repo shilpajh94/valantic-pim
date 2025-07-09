@@ -1,0 +1,18 @@
+#!/bin/bash
+
+## Refresh Pimcore instance
+## Usage: pimcore-refresh
+## Example: "ddev pimcore-refresh"
+
+set -o xtrace
+
+composer install
+composer patches-repatch --no-scripts
+
+console cache:clear --no-warmup -v
+console pimcore:cache:clear -v
+console assets:install --symlink --relative
+console doctrine:migrations:migrate -n
+console pimcore:deployment:classes-rebuild --create-classes -v
+
+console valantic:elastica-bridge:index --populate
