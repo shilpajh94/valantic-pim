@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c64faf3532a493a1c5e98a0aee33246c",
+    "content-hash": "09d08664706cab511eebf44cb3d2f5c9",
     "packages": [
         {
             "name": "amnuts/opcache-gui",
@@ -16140,16 +16140,16 @@
         },
         {
             "name": "valantic/pimcore-elastica-bridge",
-            "version": "4.3.0",
+            "version": "4.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/valantic/pimcore-elastica-bridge.git",
-                "reference": "591f1ed823d3b96eb2db8fc63c883123c79ce0ad"
+                "reference": "ed63fcae08d4f9d8218b9cdcf6993082810a1c4c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/valantic/pimcore-elastica-bridge/zipball/591f1ed823d3b96eb2db8fc63c883123c79ce0ad",
-                "reference": "591f1ed823d3b96eb2db8fc63c883123c79ce0ad",
+                "url": "https://api.github.com/repos/valantic/pimcore-elastica-bridge/zipball/ed63fcae08d4f9d8218b9cdcf6993082810a1c4c",
+                "reference": "ed63fcae08d4f9d8218b9cdcf6993082810a1c4c",
                 "shasum": ""
             },
             "require": {
@@ -16163,14 +16163,14 @@
             },
             "require-dev": {
                 "bamarni/composer-bin-plugin": "^1.8.2",
-                "phpstan/extension-installer": "^1.3.1",
-                "phpstan/phpstan": "^1.11.2",
-                "phpstan/phpstan-deprecation-rules": "^1.2.0",
-                "phpstan/phpstan-strict-rules": "^1.6.0",
-                "rector/rector": "^1.1.0",
+                "phpstan/extension-installer": "^1.4.3",
+                "phpstan/phpstan": "^1.12.27",
+                "phpstan/phpstan-deprecation-rules": "^1.2.1",
+                "phpstan/phpstan-strict-rules": "^1.6.2",
+                "rector/rector": "^1.2.10",
                 "roave/security-advisories": "dev-latest",
-                "sentry/sentry": "^4.7",
-                "symfony/http-client": "^6.4.7"
+                "sentry/sentry": "^4.14.1",
+                "symfony/http-client": "^6.4.19"
             },
             "type": "pimcore-bundle",
             "extra": {
@@ -16194,10 +16194,6 @@
                     "email": "linus.metzler@cec.valantic.com"
                 },
                 {
-                    "name": "Florian Völker",
-                    "email": "florian.voelker@antiloop.com"
-                },
-                {
                     "name": "Patrick Ryser",
                     "email": "patrick.ryser@cec.valantic.com"
                 }
@@ -16205,9 +16201,9 @@
             "description": "Elastica bridge for Pimcore",
             "support": {
                 "issues": "https://github.com/valantic/pimcore-elastica-bridge/issues",
-                "source": "https://github.com/valantic/pimcore-elastica-bridge/tree/v4.3.0"
+                "source": "https://github.com/valantic/pimcore-elastica-bridge/tree/v4.3.3"
             },
-            "time": "2024-06-04T08:55:24+00:00"
+            "time": "2025-06-26T13:08:44+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -18652,7 +18648,9 @@
     },
     "prefer-stable": true,
     "prefer-lowest": false,
-    "platform": {},
+    "platform": {
+        "php": "^8.1"
+    },
     "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }

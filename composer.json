@@ -14,6 +14,7 @@
   },
   "prefer-stable": true,
   "require": {
+    "php": "^8.1",
     "coreshop/pimcore-bundle": "*",
     "coreshop/resource-bundle": "*",
     "coreshop/rule-bundle": "*",
@@ -39,7 +40,7 @@
     "symfony/http-client": "^6.4",
     "symfony/http-foundation": "^6.4",
     "symfony/runtime": "^6.2",
-    "valantic/pimcore-elastica-bridge": "*"
+    "valantic/pimcore-elastica-bridge": "^4.3"
   },
   "require-dev": {
     "codeception/codeception": "^5.0.3",
