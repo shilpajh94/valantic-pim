@@ -26,7 +26,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1743586068,
+   'modificationDate' => 1749122663,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -284,7 +284,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'dynamicOptions' => false,
                      'defaultValue' => NULL,
                      'height' => '',
-                     'width' => 250,
+                     'width' => 820,
                      'defaultValueGenerator' => '',
                      'optionsProviderType' => 'configure',
                      'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
@@ -365,10 +365,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'maxItems' => NULL,
                      'renderType' => 'tags',
                      'dynamicOptions' => false,
-                     'defaultValue' => 
-                    array (
-                      0 => '1',
-                    ),
+                     'defaultValue' => NULL,
                      'height' => '',
                      'width' => 250,
                      'defaultValueGenerator' => '',
@@ -398,10 +395,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'maxItems' => NULL,
                      'renderType' => 'tags',
                      'dynamicOptions' => false,
-                     'defaultValue' => 
-                    array (
-                      0 => '1',
-                    ),
+                     'defaultValue' => NULL,
                      'height' => '',
                      'width' => 250,
                      'defaultValueGenerator' => '',

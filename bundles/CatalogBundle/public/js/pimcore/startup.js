@@ -65,7 +65,7 @@ pimcore.plugin.CatalogBundle = Class.create({
 			}
         }
 
-        if (objectClassName == 'CatalogPTS') {
+       if (objectClassName == 'CatalogPTS') {
 
             var colComp = Ext.getCmp(e.detail.object.edit.dataFields.Columns.component.id);
             colComp.hide();
@@ -622,10 +622,9 @@ Ext.define('Catalog.pimcore.object.tags.table', {
                 mode: 'SIMPLE',
 				name:'checkit'
                 }
-				Ext.getCmp('customButton_'+e.detail.object.id).getEl().show();
+				Ext.getCmp('customButton_'+e.detail.object.id).show();
 			} else {
-			
-				Ext.getCmp('customButton_'+e.detail.object.id).getEl().hide();
+				Ext.getCmp('customButton_'+e.detail.object.id).hide();
 			}
 		} 
 
