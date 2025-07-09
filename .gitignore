@@ -72,6 +72,7 @@ siop-import-error-log
 
 # cache.sh command
 *.sh
+!.ci/scripts/**/*.sh
 
 # Ignore gitignore
 *.gitignore

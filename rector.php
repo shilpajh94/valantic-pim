@@ -55,7 +55,6 @@ return RectorConfig::configure()
     ->withSkip([
         __DIR__ . '/src/Pimcore',
         __DIR__ . '/src/Kernel.php',
-        CommandConfigureToAttributeRector::class,
     ])
     ->withParallel(
         timeoutSeconds: $isCI ? 10 * 60 : null,
