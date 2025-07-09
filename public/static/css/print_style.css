@@ -1121,12 +1121,18 @@ section.spacing {
 }
 
 .img-placeholder2 {
-    transform: rotate(90deg) !important;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: rotate(-90deg);
+    transform-origin: left bottom;
 }
 
 .img-placeholder2 img {
-    max-width: 43px !important;
-    max-height: 165px !important;
+    /* max-width: 43px !important;
+    max-height: 165px !important; */
+    max-width: 165px !important;
+    max-height: 43px !important;
 }
 aside p {
     padding: 1em;
