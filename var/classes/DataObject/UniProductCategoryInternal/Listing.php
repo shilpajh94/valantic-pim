@@ -14,7 +14,7 @@ use Pimcore\Model\DataObject;
 
 class Listing extends DataObject\Listing\Concrete
 {
-protected $classId = "UNI_PRCI";
+protected $classId = "UNI_PR_CAT_INT";
 protected $className = "UniProductCategoryInternal";
 
 
