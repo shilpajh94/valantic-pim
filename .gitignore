@@ -28,6 +28,8 @@
 /var/classes/DataObject/**/*.php
 !/var/classes/DataObject/Uni*/*.php
 !/var/classes/DataObject/Uni*.php
+!/var/classes/DataObject/Fieldcollection/Data/Uni*.php
+!/var/classes/DataObject/Objectbrick/Data/Uni*.php
 !/var/config
 /var/config/system.yml
 /var/config/debug-mode.php

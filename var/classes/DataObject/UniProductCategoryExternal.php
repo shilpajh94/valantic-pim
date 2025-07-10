@@ -32,7 +32,7 @@ public const FIELD_PRODUCT_INCLUDE = 'productInclude';
 public const FIELD_PRODUCT_FILTERS = 'productFilters';
 public const FIELD_PRODUCT_EXCLUDES = 'productExcludes';
 
-protected $classId = "UNI_PRCE";
+protected $classId = "UNI_PR_CAT_EXT";
 protected $className = "UniProductCategoryExternal";
 protected $localizedfields;
 protected $productInclude;
