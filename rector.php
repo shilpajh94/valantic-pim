@@ -3,13 +3,9 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
-use Rector\Php81\Rector\FuncCall\NullToStrictStringFuncCallArgRector;
 use Rector\Doctrine\Set\DoctrineSetList;
-use Rector\Symfony\Set\FOSRestSetList;
-use Rector\Symfony\Set\JMSSetList;
-use Rector\Symfony\Set\SensiolabsSetList;
+use Rector\Symfony\Configs\Rector\Closure\MergeServiceNameTypeRector;
 use Rector\Symfony\Set\SymfonySetList;
-use Rector\Symfony\Symfony61\Rector\Class_\CommandConfigureToAttributeRector;
 
 $isCI = array_key_exists('CI', $_ENV);
 

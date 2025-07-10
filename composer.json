@@ -43,8 +43,12 @@
     "valantic/pimcore-elastica-bridge": "^4.3"
   },
   "require-dev": {
-    "codeception/codeception": "^5.0.3",
-    "codeception/module-symfony": "^3.1.0"
+    "codeception/codeception": "^5.1.2",
+    "codeception/module-symfony": "^3.3.2",
+    "friendsofphp/php-cs-fixer": "^3.66",
+    "phpstan/phpstan": "^1.12.27",
+    "rector/rector": "^1.2.10",
+    "valantic/php-cs-fixer-config": "^2.0"
   },
   "suggest": {
     "pimcore/data-hub": "Universal data interface for GraphQL, CSV and other formats"
@@ -104,7 +108,11 @@
     "pimcore-scripts": [
       "Pimcore\\Composer::clearCache",
       "Pimcore\\Composer::installAssets"
-    ]
+    ],
+    "php-cs-fixer": "./vendor/bin/php-cs-fixer fix -v --diff",
+    "php-cs-fixer-check": "./vendor/bin/php-cs-fixer fix --dry-run --diff",
+    "phpstan": "./vendor/bin/phpstan analyse --memory-limit 1G",
+    "rector": "./vendor/bin/rector process"
   },
   "extra": {
     "symfony-assets-install": "relative",
