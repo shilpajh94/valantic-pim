@@ -4,13 +4,14 @@
 ## Usage: php-lint
 ## Example: ddev php-lint\nddev php-lint --dry-run
 ## Flags: [{"Name":"dry-run","Usage":"Only runs checks without changing code"}]
+
 if [[ $* == *--dry-run* ]]
 then
-    /usr/local/composer/vendor/bin/rector process --dry-run
-    /usr/local/composer/vendor/bin/php-cs-fixer check -v --diff
+    composer run rector -- --dry-run
+    composer run php-cs-fixer-check
+    composer run phpstan
 else
-    /usr/local/composer/vendor/bin/rector process
-    /usr/local/composer/vendor/bin/php-cs-fixer fix -v --diff
+    composer run rector
+    composer run php-cs-fixer
+    composer run phpstan
 fi
-
-/usr/local/composer/vendor/bin/phpstan analyse --memory-limit 1G
