@@ -220,7 +220,7 @@
 											</h1>
 											<aside>
 												<div>
-													<p>{{brand['brandData']['longDescription'] | striptags}}</p>
+													<p>{{brand['brandData']['longDescription'] | striptags | raw}}</p>
 												</div>
 												{% if editmode %}
 													{% if not pimcore_image('INH_LEFT_IMAGE_'~uniqueId).isEmpty() %}
