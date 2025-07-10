@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Command\UniProductManagement\DummyData;
 
 use Symfony\Component\Console\Command\Command;
@@ -15,6 +17,12 @@ abstract class AbstractDummyDataCommand extends Command
     protected array $timer = [];
     protected float $timeStart;
 
+    // Sorry Linus ;-)
+    protected static function nf(int $number): string
+    {
+        return number_format($number, 0, '.', '\'');
+    }
+
     protected function start(): void
     {
         $this->timeStart = microtime(true);
@@ -24,11 +32,5 @@ abstract class AbstractDummyDataCommand extends Command
     {
         $this->timer[$key] ??= 0;
         $this->timer[$key] += microtime(true) - $this->timeStart;
-    }
-
-    // Sorry Linus ;-)
-    protected static function nf(int $number): string
-    {
-        return number_format($number, 0, '.', '\'');
     }
 }

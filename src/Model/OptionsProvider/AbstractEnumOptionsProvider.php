@@ -11,6 +11,9 @@ use Pimcore\Model\DataObject\ClassDefinition\DynamicOptionsProvider\SelectOption
 /** @template TEnum of OptionsProviderSupport */
 abstract class AbstractEnumOptionsProvider implements SelectOptionsProviderInterface
 {
+    /** @return class-string<TEnum> */
+    abstract protected function getEnumClass(): string;
+
     /**
      * @param array<mixed> $context
      *
@@ -20,11 +23,11 @@ abstract class AbstractEnumOptionsProvider implements SelectOptionsProviderInter
     {
         return array_map(
             /** @var TEnum $case */
-            static fn(OptionsProviderSupport $case): array => [
+            static fn (OptionsProviderSupport $case): array => [
                 'key' => $case->label(),
                 'value' => $case->value,
             ],
-            $this->getEnumClass()::cases()
+            $this->getEnumClass()::cases(),
         );
     }
 
@@ -43,7 +46,4 @@ abstract class AbstractEnumOptionsProvider implements SelectOptionsProviderInter
     {
         return null;
     }
-
-    /** @return class-string<TEnum> */
-    abstract protected function getEnumClass(): string;
 }

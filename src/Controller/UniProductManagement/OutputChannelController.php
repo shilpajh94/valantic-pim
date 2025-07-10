@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\UniProductManagement;
 
 use App\Service\UniProductManagement\UniProductExternalHierarchyService;
@@ -16,7 +18,9 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/admin/uni/product-management/output-channel', name: 'uni_product_management_output_channel')]
 class OutputChannelController extends AbstractController
 {
-    public function __construct(private readonly UniProductExternalHierarchyService $externalHierarchyService) {}
+    public function __construct(private readonly UniProductExternalHierarchyService $externalHierarchyService)
+    {
+    }
 
     #[Route('/{id}/products', name: 'uni_product_management_output_channel_get_products', methods: ['GET'])]
     public function getProducts(int $id): JsonResponse

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\EventListener\Admin\UniProductManagement;
 
 use App\Model\DataObject\UniProductManagement\Objectbrick\AbstractUniPrBrand;
@@ -22,6 +24,16 @@ class UniProductListener implements EventSubscriberInterface
         UniProductBase::FIELD_BRAND_DATA => AbstractUniPrBrand::class,
         UniProductBase::FIELD_SKELETON_DATA => AbstractUniPrSkeleton::class,
     ];
+
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            AdminEvents::OBJECT_GET_PRE_SEND_DATA => 'addCategoryBricksToFinishedGood',
+            AdminEvents::CLASS_OBJECTBRICK_LIST_PRE_SEND_DATA => 'processObjectbrickDefinitions',
+            DataObjectEvents::PRE_ADD => 'validateObjectSave',
+            DataObjectEvents::PRE_UPDATE => 'validateObjectSave',
+        ];
+    }
 
     public function addCategoryBricksToFinishedGood(GenericEvent $event): void
     {
@@ -73,18 +85,8 @@ class UniProductListener implements EventSubscriberInterface
         throw new ValidationException(
             'Manually adding category data Objectbricks is not allowed. ' .
             'These get dynamically added as read-only elements for the admin view. ' .
-            'Please remove Brand and Skeleton data Objectbricks and try again.'
+            'Please remove Brand and Skeleton data Objectbricks and try again.',
         );
-    }
-
-    public static function getSubscribedEvents(): array
-    {
-        return [
-            AdminEvents::OBJECT_GET_PRE_SEND_DATA => 'addCategoryBricksToFinishedGood',
-            AdminEvents::CLASS_OBJECTBRICK_LIST_PRE_SEND_DATA => 'processObjectbrickDefinitions',
-            DataObjectEvents::PRE_ADD => 'validateObjectSave',
-            DataObjectEvents::PRE_UPDATE => 'validateObjectSave',
-        ];
     }
 
     /** @return array<mixed> */
@@ -99,7 +101,7 @@ class UniProductListener implements EventSubscriberInterface
         return $fields->getDataForEditMode(
             $category->getLevelSpecificData(),
             $category,
-            ['objectFromVersion' => false]
+            ['objectFromVersion' => false],
         );
     }
 
@@ -109,7 +111,7 @@ class UniProductListener implements EventSubscriberInterface
         foreach ($layoutDefinitions as $name => $layoutDefinition) {
             $shouldProcess = array_reduce(
                 self::CATEGORY_LEVELS,
-                static fn(?bool $carry, string $class): bool => $carry || is_a(self::BRICK_NAMESPACE . $name, $class, true)
+                static fn (?bool $carry, string $class): bool => $carry || is_a(self::BRICK_NAMESPACE . $name, $class, true),
             );
 
             if ($level === 0 && !$shouldProcess) {

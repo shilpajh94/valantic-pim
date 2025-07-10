@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Model\CalculatedValue\UniProductManagement;
 
 use Pimcore\Model\DataObject\ClassDefinition\CalculatorClassInterface;

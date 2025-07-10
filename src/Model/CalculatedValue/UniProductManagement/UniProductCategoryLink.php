@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Model\CalculatedValue\UniProductManagement;
 
 use App\Model\DataObject\AbstractUniProductBase;
@@ -38,7 +40,7 @@ class UniProductCategoryLink implements DynamicTextLabelInterface
             '</a>',
             $objectId,
             $icon,
-            $text
+            $text,
         );
     }
 }
