@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Service\UniProductManagement;
 
 use App\Elasticsearch\Index\UniProductManagement\UniBaseProductIndex;
@@ -19,7 +21,9 @@ use Valantic\ElasticaBridgeBundle\Document\DocumentInterface;
 
 class UniProductExternalHierarchyService
 {
-    public function __construct(private readonly UniBaseProductIndex $productIndex) {}
+    public function __construct(private readonly UniBaseProductIndex $productIndex)
+    {
+    }
 
     /**
      * @return array<array<string, mixed>>
@@ -42,7 +46,7 @@ class UniProductExternalHierarchyService
      */
     public function getProductsById(array $ids): array
     {
-        return $this->queryProductsPaginated(new Query(new Terms(DocumentInterface::META_ID, $ids)), fn(Result $item) => $item->getData());
+        return $this->queryProductsPaginated(new Query(new Terms(DocumentInterface::META_ID, $ids)), fn (Result $item) => $item->getData());
     }
 
     /**
@@ -62,12 +66,14 @@ class UniProductExternalHierarchyService
         $mainQuery = (new BoolQuery())
             ->addMust($this->buildIncludeQuery($categoryExternal))
             ->addFilter($this->buildFilterQuery())
-            ->addFilter($this->buildExcludeQuery());
+            ->addFilter($this->buildExcludeQuery())
+        ;
 
         $searchQuery = (new Query($mainQuery))
-            ->setSource(false);
+            ->setSource(false)
+        ;
 
-        return $result = $this->queryProductsPaginated($searchQuery, fn(Result $item): int => (int) substr($item->getId(), 6));
+        return $result = $this->queryProductsPaginated($searchQuery, fn (Result $item): int => (int) substr($item->getId(), 6));
         // TODO: To be determined: If parent has no product include rules, use included products of parent instead.
         //       Or create specific "products from parent" include rule and add it by default? What happens if this is missing?
 
@@ -86,14 +92,14 @@ class UniProductExternalHierarchyService
 
         foreach ($categoryExternal->getProductInclude()?->getItems() ?? [] as $item) {
             if ($item instanceof UniPrInclPr) {
-                $productIds = array_map(fn(UniProductBase $product): ?int => $product->getId(), $item->getProducts());
+                $productIds = array_map(fn (UniProductBase $product): ?int => $product->getId(), $item->getProducts());
                 $query->addShould(new Terms(DocumentInterface::META_ID, $productIds));
 
                 continue;
             }
 
             if ($item instanceof UniPrInclCat) {
-                $productIds = array_map(fn(UniProductBase $product): ?int => $product->getId(), $this->resolveCategoryInternalProducts($item->getInternalCategory()));
+                $productIds = array_map(fn (UniProductBase $product): ?int => $product->getId(), $this->resolveCategoryInternalProducts($item->getInternalCategory()));
                 $query->addShould(new Terms(DocumentInterface::META_ID, $productIds));
 
                 continue;
