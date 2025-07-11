@@ -212,7 +212,9 @@
 								</p>
 								{% if editmode %}
 										<img src="{{ getImageThumbnail(brandData['LeftPrintCatalogImageObj'], imageWidth) }}" class="leftImg" width="600" height="200"/>
-										<img src="{{ getImageThumbnail(brandData['RightPrintCatalogImageObj'], imageWidth) }}" class="rightImg" width="600" height="200"/>
+										{% if brandData['RightPrintCatalogImageObj'] %}
+											<img src="{{ getImageThumbnail(brandData['RightPrintCatalogImageObj'], imageWidth) }}" class="rightImg" width="600" height="200"/>
+										{% endif %}
 								{% else %}
 									{% set imgSrcObj1 = pimcore_image("HHPP_Image_Left_" ~ md5key ~ "_" ~ incr2, {"class": "leftImg", "width": 600, "height": 200}) %}
 									{% if imgSrcObj1 %}
