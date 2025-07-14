@@ -181,6 +181,9 @@ class ProductSQLModel
                 }
             }
             if($flag == 1){
+                $time = new \DateTime();
+                echo 'Importing File: ' . $this->filePath." || Time -> $time".PHP_EOL;
+
                 \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("SAP import started");
                 $this->tblImpHelper->truncateTempTable();
                 $this->tblImpHelper->insertDataInTemp($csvData);
