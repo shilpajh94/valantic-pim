@@ -1,12 +1,12 @@
 parameters:
-    s3.bucket: 'pimcore11-contitech-assets-prod'
+    s3.bucket: '%env(resolve:S3_BUCKET)%'
 
 services:
     assets_s3:
         class: 'Aws\S3\S3Client'
         arguments:
-            -  endpoint: 'https://s3.eu-central-1.amazonaws.com'
-               region: 'eu-central-1'
+            -  endpoint: '%env(resolve:S3_HOST)%'
+               region: '%env(resolve:S3_REGION)%'
                version: 'latest'
 flysystem:
     storages:
@@ -15,5 +15,5 @@ flysystem:
             visibility: private
             options:
                 client: 'assets_s3'
-                bucket: 'pimcore11-contitech-assets-prod'
+                bucket: '%env(resolve:S3_BUCKET)%'
                 prefix: assets

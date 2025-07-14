@@ -17,6 +17,7 @@ namespace App;
 use Pimcore\Bundle\AdminBundle\PimcoreAdminBundle;
 use Pimcore\HttpKernel\BundleCollection\BundleCollection;
 use Pimcore\Kernel as PimcoreKernel;
+use App\Services\SecretManager;
 
 class Kernel extends PimcoreKernel
 {
@@ -42,15 +43,8 @@ class Kernel extends PimcoreKernel
             $dotenv->load(dirname(__DIR__) . "/.env");
         }
 
-        // if (class_exists('\\IFSEU\\ImportBundle\\IFSEUImportBundle')) {
-        //     $collection->addBundle(new IFSEU\ImportBundle\IFSEUImportBundle());
-        // }
+        $secretManager = new SecretManager();
+        $secretManager->retrieveSecret();
 
-        // To read .env contents
-        
-        if(file_exists($this->getProjectDir().'/.env')){
-            $dotenv = new \Symfony\Component\Dotenv\Dotenv();
-            $dotenv->load(dirname(__DIR__) . "/.env");
-        }
     }
 }
