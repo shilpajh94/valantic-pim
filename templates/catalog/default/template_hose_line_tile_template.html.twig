@@ -111,7 +111,7 @@
 
 										<figure class="products products-hose-tile">
 											<span class="img-placeholder2">
-												{% if pimcore_input('productImage' ~ k).isEmpty() and row['altImage7'] is not empty %}
+												{% if pimcore_input('productImage' ~ k).isEmpty() and row['LeftPrintCatalogImage'] is not empty %}
 													{{ pimcore_image('productImage' ~ k, {
                                                 'width': 43,
                                                 'max-height': 115,
@@ -119,7 +119,7 @@
                                                 'interlace': true,
                                                 'quality': 95,
                                                 'format': 'PNG'
-                                            }).setImage(row['altImage7']) | raw }}
+                                            }).setImage(row['LeftPrintCatalogImage']) | raw }}
 												{% else %}
 													{% set imgSrcObj1 = pimcore_image('productImage' ~ k, {
                                                 'width': 43,
@@ -233,7 +233,7 @@
 																	{% if iccnt <= 2 %}
 																		{% set imgSrcObj2 = pimcore_image("productLogo" ~ key ~ iccnt) %}
 																		{% if imgSrcObj2 %}
-																			<img src="{{ feature['iconSrc']}}" width="91" height="53"/>
+																			<img src="{{ feature['iconSrc']}}" width="91" height="53" style="margin: 0 2px;"/>
 																		{% endif %}
 																		{% set iccnt = iccnt + 1 %}
 																	{% endif %}
