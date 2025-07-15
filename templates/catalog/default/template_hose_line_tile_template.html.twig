@@ -233,7 +233,7 @@
 																	{% if iccnt <= 2 %}
 																		{% set imgSrcObj2 = pimcore_image("productLogo" ~ key ~ iccnt) %}
 																		{% if imgSrcObj2 %}
-																			<img src="{{ feature['iconSrc']}}" width="91" height="53" style="margin: 0 4px;"/>
+																			<img src="{{ feature['iconSrc']}}" width="91" height="53" style="margin: 0 2px;"/>
 																		{% endif %}
 																		{% set iccnt = iccnt + 1 %}
 																	{% endif %}
