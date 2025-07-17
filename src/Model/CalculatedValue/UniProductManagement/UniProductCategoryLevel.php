@@ -13,29 +13,30 @@ use Pimcore\Model\DataObject\UniProductCategoryInternal;
 class UniProductCategoryLevel implements CalculatorClassInterface
 {
     public function compute(Concrete $object, CalculatedValue $context): string
-{
-    if ($object instanceof UniProductCategoryInternal || $object instanceof UniProductCategoryExternal) {
-        $level = $this->calculateLevel($object);
-        return (string) $level; 
+    {
+        if ($object instanceof UniProductCategoryInternal || $object instanceof UniProductCategoryExternal) {
+            $level = $this->calculateLevel($object);
+
+            return (string) $level;
+        }
+
+        return '';
     }
 
-    return '';
-}
+    public function getCalculatedValueForEditMode(Concrete $object, CalculatedValue $context): string
+    {
+        return $this->compute($object, $context);
+    }
 
-public function getCalculatedValueForEditMode(Concrete $object, CalculatedValue $context): string
-{
-    return $this->compute($object, $context);
-}
+    /**
+     * Recursive function to calculate the level of the category.
+     */
+    private function calculateLevel(UniProductCategoryInternal|UniProductCategoryExternal $object, int $carry = 1): int
+    {
+        $parent = $object->getParent();
 
-/**
- * Recursive function to calculate the level of the category.
- */
-private function calculateLevel(UniProductCategoryInternal|UniProductCategoryExternal $object, int $carry = 1): int
-{
-    $parent = $object->getParent();
-    
-    return ($parent instanceof UniProductCategoryInternal || $parent instanceof UniProductCategoryExternal)
-        ? $this->calculateLevel($parent, $carry + 1) // Pass the incremented carry
-        : $carry;
-}
+        return ($parent instanceof UniProductCategoryInternal || $parent instanceof UniProductCategoryExternal)
+            ? $this->calculateLevel($parent, $carry + 1) // Pass the incremented carry
+            : $carry;
+    }
 }
