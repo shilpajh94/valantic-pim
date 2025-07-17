@@ -14,9 +14,13 @@ class UniProductCategoryLevel implements CalculatorClassInterface
 {
     public function compute(Concrete $object, CalculatedValue $context): string
     {
-        return $object instanceof UniProductCategoryInternal || $object instanceof UniProductCategoryExternal
-            ? $this->calculateLevel($object)
-            : '';
+        if ($object instanceof UniProductCategoryInternal || $object instanceof UniProductCategoryExternal) {
+            $level = $this->calculateLevel($object);
+
+            return (string) $level;
+        }
+
+        return '';
     }
 
     public function getCalculatedValueForEditMode(Concrete $object, CalculatedValue $context): string
@@ -24,12 +28,15 @@ class UniProductCategoryLevel implements CalculatorClassInterface
         return $this->compute($object, $context);
     }
 
-    private function calculateLevel(UniProductCategoryInternal|UniProductCategoryExternal $object, int $carry = 1): string
+    /**
+     * Recursive function to calculate the level of the category.
+     */
+    private function calculateLevel(UniProductCategoryInternal|UniProductCategoryExternal $object, int $carry = 1): int
     {
         $parent = $object->getParent();
 
-        return $parent instanceof UniProductCategoryInternal || $parent instanceof UniProductCategoryExternal
-            ? $this->calculateLevel($parent, ++$carry)
+        return ($parent instanceof UniProductCategoryInternal || $parent instanceof UniProductCategoryExternal)
+            ? $this->calculateLevel($parent, $carry + 1) // Pass the incremented carry
             : $carry;
     }
 }
