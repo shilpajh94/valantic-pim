@@ -287,13 +287,13 @@ class ProductSQLModel
     public function processDeletedProducts() {
         $deletedProducts = $this->tblImpHelper->getDeletedProducts();
         if (!empty($deletedProducts) && count($deletedProducts)>0) {
+            echo count($deletedRecords).' records found to be unpublished'.PHP_EOL;
             $keysArray = [];
             foreach ($deletedProducts as $product) {
                 $keysArray[] = $product['id'];
             }
             $obj = new DataObject\Product\Listing();
             $obj->setCondition("articleNumber IN (". implode(', ' , $keysArray).")");
-            $obj->setUnpublished(true);
             $obj->load();
             foreach($obj as $product) {
                 echo "Mark Product unpublished for id = ".$product->getId()." and article number = ".$product->getArticleNumber().PHP_EOL;

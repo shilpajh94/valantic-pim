@@ -618,6 +618,7 @@ class PlantMaterialModel
         $deleteCount = 0;
         if(count($deletedRecords) > 0)
         {
+            echo count($deletedRecords).' records found to be unpublished'.PHP_EOL;
             foreach ($deletedRecords as $key => $value)
             {
                 $keyArray = explode('$',$value['id']);
@@ -632,6 +633,10 @@ class PlantMaterialModel
                     $objDelete->setPublished(FALSE);
                     $objDelete->save();
                     echo "Plant with Key - ".$objDelete->getKey(). " has been unpublished".PHP_EOL;
+                    if($deleteCount % 1000 == 0){
+                        echo PHP_EOL;
+                        echo $deleteCount .'/'.count($deletedRecords).' unpublished'.PHP_EOL;
+                    }
                 }
             }
 

@@ -623,6 +623,7 @@ class SalesMaterialService
     {
         $deleteCount = 0;
         if (count($deletedRecords) > 0) {
+            echo count($deletedRecords).' records found to be unpublished'.PHP_EOL;
             foreach ($deletedRecords as $key => $value) {
                 $keyArray = explode('$', $value['id']);
                 $material = $keyArray[0];
@@ -630,11 +631,14 @@ class SalesMaterialService
                 $objDelete = DataObject\PTGEUSalesMaterialMaster::getByPath("/" .
                     ImportConstants::PTGEU_MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER . "/" . $material . "/" . $key);
 
-                if ($objDelete) {
+                if ($objDelete && $objDelete->getPublished()) {
                     $deleteCount++;
                     $objDelete->setDeletedFlagAtSalesLevel(1);
                     $objDelete->setPublished(false);
                     $objDelete->save();
+                    if($deleteCount % 1000 == 0){
+                        echo $deleteCount .'/'.count($deletedRecords).' unpublished'.PHP_EOL;
+                    }
                 }
             }
             echo "Delete flag updated for {$deleteCount} objects in system." . PHP_EOL;
