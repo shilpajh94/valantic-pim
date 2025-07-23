@@ -332,6 +332,7 @@ class ProductModel
     public function processDeletedProducts() {
         $deletedProducts = $this->getDeletedProducts();
         if (!empty($deletedProducts) && count($deletedProducts)>0) {
+            echo count($deletedRecords).' records found to be unpublished'.PHP_EOL;
             $keysArray = [];
             foreach ($deletedProducts as $product) {
                 $keysArray[] = "'".$product['id']."'";

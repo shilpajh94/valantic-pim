@@ -182,7 +182,7 @@ class ProductSQLModel
             }
             if($flag == 1){
                 $time = new \DateTime();
-                echo 'Importing File: ' . $this->filePath." || Time -> $time".PHP_EOL;
+                echo 'Importing File: ' . $this->filePath.PHP_EOL. "Time -> ".date("Y-m-d H:i:s").PHP_EOL;
 
                 \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("SAP import started");
                 $this->tblImpHelper->truncateTempTable();
@@ -274,12 +274,17 @@ class ProductSQLModel
     }
 
     public function saveProducts($updatedArticlesArray) {
+        echo "Products to be saved for completeness -- ". count($updatedArticlesArray);
+        $i=1;
         foreach ($updatedArticlesArray as $objectId) {
             if (!empty($objectId)) {
                 $object = DataObject\Product::getById($objectId);
                 if (!empty($object) && $object instanceof \Pimcore\Model\DataObject\Product) {
                     $object->save();
                     $this->tblImpHelper->changeStatusFromPimcoreSaveTableForRecords($objectId);
+                    if($i%1000 == 0){
+                        echo $i. "/".count($updatedArticlesArray)." Saved";
+                    }
                 }
             }
         }
@@ -287,13 +292,13 @@ class ProductSQLModel
     public function processDeletedProducts() {
         $deletedProducts = $this->tblImpHelper->getDeletedProducts();
         if (!empty($deletedProducts) && count($deletedProducts)>0) {
+            echo count($deletedRecords).' records found to be unpublished'.PHP_EOL;
             $keysArray = [];
             foreach ($deletedProducts as $product) {
                 $keysArray[] = $product['id'];
             }
             $obj = new DataObject\Product\Listing();
             $obj->setCondition("articleNumber IN (". implode(', ' , $keysArray).")");
-            $obj->setUnpublished(true);
             $obj->load();
             foreach($obj as $product) {
                 echo "Mark Product unpublished for id = ".$product->getId()." and article number = ".$product->getArticleNumber().PHP_EOL;

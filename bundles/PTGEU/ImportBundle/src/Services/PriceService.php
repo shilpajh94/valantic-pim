@@ -137,7 +137,7 @@ class PriceService
             }
             $this->logArray[] = [
                 'id' => $artNo,
-                'record' => $record['record'],
+                'record' => isset($record['record']) ? $record['record'] : NULL,
                 'status' => $status,
                 'reason' => $msg,
                 'createdAt' => time()
