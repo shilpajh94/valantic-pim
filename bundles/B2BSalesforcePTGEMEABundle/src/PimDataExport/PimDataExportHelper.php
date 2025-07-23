@@ -39,47 +39,55 @@ class PimDataExportHelper
 
     public function uploadFile($customFileName)
     {
-        $uploaded = false; // RJ
-        $tries = 0; // RJ
-        while (!$uploaded && $tries <= 7) { // RJ
-            $tries++; // RJ
-            echo "Trying to upload file in ".$tries." attempt\n\n"; // RJ
-            $remotefile = PTGEU_B2B_EXPORT_SFTP_INBOUND_FOLDER_PATH.'/'.$customFileName;
-            $localfile =  PTGEU_B2B_SFTP_DOWNLOAD_TEMP_DIR.$customFileName;
-            try
-            {
-                $conn = ftp_connect(PTGEU_B2B_SFTP_HOST);
-                if(!$conn) {
-                    echo 'Error: could not connect to ftp server';
-                    exit;
+        $uploaded = false;
+        $tries = 0;
+
+        $remotefile = PTGEU_B2B_EXPORT_SFTP_INBOUND_FOLDER_PATH . '/' . $customFileName;
+        $localfile  = PTGEU_B2B_SFTP_DOWNLOAD_TEMP_DIR . $customFileName;
+
+        while (!$uploaded && $tries < 7) {
+            $tries++;
+            echo "Trying to upload file — attempt {$tries}". PHP_EOL;
+
+            try {
+                $conn = ftp_connect(PTGEU_B2B_SFTP_HOST, 21, 30);
+                if (!$conn) {
+                    echo "Error: could not connect to FTP server". PHP_EOL;
+                    sleep(2); // wait before retry
+                    continue;
                 }
-    
-                $login = ftp_login($conn, PTGEU_B2B_SFTP_USERNAME, PTGEU_B2B_SFTP_PASSWORD);
-                $mode = ftp_pasv($conn, TRUE);
-                ftp_set_option($conn, FTP_TIMEOUT_SEC, 120); // RJ
-    
-                if ((!$conn) || (!$login) || (!$mode)) {
-                    die("FTP connection has failed !");
+
+                if (!ftp_login($conn, PTGEU_B2B_SFTP_USERNAME, PTGEU_B2B_SFTP_PASSWORD)) {
+                    echo "Error: could not login to FTP server". PHP_EOL;
+                    ftp_close($conn);
+                    sleep(2);
+                    continue;
                 }
-    
-                if (ftp_put($conn, $remotefile, $localfile, FTP_ASCII)) {
-                    $uploaded = true; // RJ
-                    echo "Successfully uploaded file - '$remotefile'";
+
+                ftp_pasv($conn, true);
+                ftp_set_option($conn, FTP_TIMEOUT_SEC, 120);
+
+                if (ftp_put($conn, $remotefile, $localfile, FTP_BINARY)) {
+                    $uploaded = true;
+                    echo "Successfully uploaded file: {$remotefile}". PHP_EOL;
                 } else {
-                    echo "There was a problem while uploading '$remotefile'\n";
-                    ftp_quit($conn);
-                    exit;
+                    echo "Upload failed for {$remotefile}". PHP_EOL;
                 }
-    
+
                 ftp_close($conn);
-    
+
+                if (!$uploaded) {
+                    sleep(2); // wait before retry
+                }
+
             } catch (\Throwable $th) {
-                echo PHP_EOL;
-                echo "ERROR: File not uploaded to the server.";
-                echo PHP_EOL;
-                echo "ERROR: ". $th->getMessage();
-                echo PHP_EOL;
+                echo "ERROR: " . $th->getMessage() . PHP_EOL;
+                sleep(2); // wait before retry
             }
+        }
+
+        if (!$uploaded) {
+            echo "Failed to upload file after {$tries} attempts.". PHP_EOL;
         }
     }
 
