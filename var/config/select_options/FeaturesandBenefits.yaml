@@ -1,0 +1,22 @@
+pimcore:
+    objects:
+        select_options:
+            definitions:
+                FeaturesandBenefits:
+                    id: FeaturesandBenefits
+                    group: ''
+                    useTraits: ''
+                    implementsInterfaces: ''
+                    selectOptions:
+                        -
+                            value: highlyFlexible
+                            label: 'Highly Flexible'
+                            name: ''
+                        -
+                            value: 'extremeResistance '
+                            label: 'Extreme Resistance '
+                            name: ''
+                        -
+                            value: dustProof
+                            label: 'Dust Proof'
+                            name: ''
