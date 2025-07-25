@@ -22,6 +22,7 @@ class AdminAssetsListener implements EventSubscriberInterface
         $event->addPaths([
             '/admin/js/open.js',
             '/admin/js/perspective.js',
+            '/admin/js/CategoryExportPanel.js',
         ]);
     }
 }
