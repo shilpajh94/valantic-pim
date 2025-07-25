@@ -27,7 +27,7 @@ class ProductModel
     public function getBrandInfo($brandId)
     {
         $sql = "select name, VirtualCatalogApiSorter__id, VirtualCatalogApiMapper__id from " .
-        $this->brandTable . "where oo_id =" . $brandId;
+            $this->brandTable . "where oo_id =" . $brandId;
         $brand = $this->db->fetchAllAssociative($sql);
 
         if (!empty($brand)) {
@@ -40,7 +40,7 @@ class ProductModel
     public function getVirtualCatalogApiSorter($id)
     {
         $sql = "select GroupingField, Columns, `Order` from " .
-        $this->virtualCatalogSorterTable . " where oo_id = " . $id;
+            $this->virtualCatalogSorterTable . " where oo_id = " . $id;
         $sorter = $this->db->fetchAllAssociative($sql);
         if (!empty($sorter)) {
             return $sorter[0];
@@ -127,10 +127,9 @@ class ProductModel
             }
             if (isset($conditionArray['updatedFrom']) && !empty($conditionArray['updatedFrom'])) {
                 $conditionString    .=   " modificationDate >= " . strtotime($conditionArray['updatedFrom']) .
-                " AND modificationDate <=" . strtotime(date('Y-m-d H:i:s')) . "AND";
+                    " AND modificationDate <=" . strtotime(date('Y-m-d H:i:s')) . "AND";
             }
-        }
-        else {
+        } else {
             if (isset($conditionArray['ids']) && !empty($conditionArray['ids'])) {
                 $conditionString    .=   "oo_id = " . $conditionArray['ids'];
             }
@@ -158,7 +157,7 @@ class ProductModel
             return $conditionString;
         }
 
-        if($productType == 'fert') {
+        if ($productType == 'fert') {
             $conditionString .= " `objlocal`.`virtualCatalogFlag`=1 AND ";
 
             if (isset($conditionArray['ids']) && !empty($conditionArray['ids'])) {
@@ -170,10 +169,9 @@ class ProductModel
             }
             if (isset($conditionArray['updatedFrom']) && !empty($conditionArray['updatedFrom'])) {
                 $conditionString    .=   " `vc`.updatedAt >= " . strtotime($conditionArray['updatedFrom']) .
-                " AND  modificationDate <=" . strtotime(date('Y-m-d H:i:s')) . "AND ";
+                    " AND  modificationDate <=" . strtotime(date('Y-m-d H:i:s')) . "AND ";
             }
-        }
-        else {
+        } else {
             if (isset($conditionArray['ids']) && !empty($conditionArray['ids'])) {
                 $conditionString    .=   " oo_id = " . $conditionArray['ids'];
             }
@@ -296,7 +294,7 @@ class ProductModel
     public function getProductsInSortedFormat($brandId, $groupingFieldNameForSorting, $sortingData, $brickName)
     {
         $select = "SELECT * from `object_1` INNER JOIN `object_brick_query_" . $brickName .
-        "_1` ON object_1.oo_id = object_brick_query_" . $brickName . "_1.id
+            "_1` ON object_1.oo_id = object_brick_query_" . $brickName . "_1.id
         where `object_1`.`brandName` = " . $brandId . " and `ProductType` = 'fert' " . " ORDER BY ";
         if (is_array($sortingData)) {
             $condition = '';
@@ -306,23 +304,23 @@ class ProductModel
                 $eachSortingData = trim($eachSortingData, "'");
                 if ($groupingFieldNameForSorting == 'reinforcement') {
                     $condition = $condition . " WHEN " . $groupingFieldNameForSorting . " = '," .
-                    $eachSortingData . ",' THEN " . $i;
+                        $eachSortingData . ",' THEN " . $i;
                 } else {
                     $condition = $condition . " WHEN `object_brick_query_" . $brickName . "_1`." .
-                    $groupingFieldNameForSorting . " = '," . $eachSortingData . ",' THEN " . $i;
+                        $groupingFieldNameForSorting . " = '," . $eachSortingData . ",' THEN " . $i;
                 }
                 $i++;
             }
             $else = ' ELSE ' . $i++ . ' END';
             if ($groupingFieldNameForSorting == 'reinforcement') {
                 $sql = "SELECT * from `object_1` where `brandName` = " . $brandId .
-                " and `ProductType` = 'fert' " . " ORDER BY " . $case . $condition . $else;
+                    " and `ProductType` = 'fert' " . " ORDER BY " . $case . $condition . $else;
             } else {
                 $sql = $select . $case . $condition . $else;
             }
         } else {
             $sql = $select . ' `object_brick_query_' . $brickName . '_1`.' .
-            $groupingFieldNameForSorting . ' ' . $sortingData;
+                $groupingFieldNameForSorting . ' ' . $sortingData;
         }
         return $this->db->fetchAllAssociative($sql);
     }
@@ -479,21 +477,24 @@ class ProductModel
         ON oq_mapper.oo_id = oq3.VirtualCatalogApiMapper__id
         WHERE oq3.oo_id = ' . $id;
         $brand = $this->db->fetchAssociative($query);
+        if ($brand) {
+            if ($brand['originalValues']) {
+                $originalValuesList = explode(PHP_EOL, $brand['originalValues']);
+                $fieldValues = [];
+                foreach ($originalValuesList as $originalValues) {
 
-        if ($brand['originalValues']) {
-            $originalValuesList = explode(PHP_EOL, $brand['originalValues']);
-            $fieldValues = [];
-            foreach ($originalValuesList as $originalValues) {
+                    $fieldOriginalValues = explode('|', $originalValues);
+                    $fieldValues[$fieldOriginalValues[0]]['original'] = $fieldOriginalValues[1];
+                    $fieldValues[$fieldOriginalValues[0]]['alias'] = $fieldOriginalValues[2];
+                }
 
-                $fieldOriginalValues = explode('|', $originalValues);
-                $fieldValues[$fieldOriginalValues[0]]['original'] = $fieldOriginalValues[1];
-                $fieldValues[$fieldOriginalValues[0]]['alias'] = $fieldOriginalValues[2];
+                $brand['originalValues'] = $fieldValues;
             }
 
-            $brand['originalValues'] = $fieldValues;
+            return $brand;
+        } else {
+            return $brand['originalValues'] = [];
         }
-
-        return $brand;
     }
 
     /**
@@ -538,4 +539,3 @@ class ProductModel
         }
     }
 }
-
