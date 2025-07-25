@@ -2,13 +2,13 @@
 
 /**
  * Fields Summary:
- * - Competitor [input]
+ * - competitor [input]
  * - partNumber [input]
  */
 
 return Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
    'dao' => NULL,
-   'key' => 'competitorCrossReference',
+   'key' => 'UniBasePrCompetitorCrossReference',
    'parentClass' => '',
    'implementsInterfaces' => '',
    'title' => '',
@@ -29,7 +29,7 @@ return Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
     array (
       0 => 
       Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
-         'name' => 'competitorCrossReference',
+         'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
          'title' => '',
@@ -43,7 +43,7 @@ return Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
         array (
           0 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-             'name' => 'Competitor',
+             'name' => 'competitor',
              'title' => 'Competitor',
              'tooltip' => '',
              'mandatory' => true,

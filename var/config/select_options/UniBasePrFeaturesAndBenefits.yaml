@@ -2,8 +2,8 @@ pimcore:
     objects:
         select_options:
             definitions:
-                FeaturesandBenefits:
-                    id: FeaturesandBenefits
+                UniBasePrFeaturesAndBenefits:
+                    id: UniBasePrFeaturesAndBenefits
                     group: ''
                     useTraits: ''
                     implementsInterfaces: ''
@@ -13,7 +13,7 @@ pimcore:
                             label: 'Highly Flexible'
                             name: ''
                         -
-                            value: 'extremeResistance '
+                            value: extremeResistance
                             label: 'Extreme Resistance '
                             name: ''
                         -

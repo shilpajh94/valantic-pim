@@ -74,7 +74,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Product',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1753264356,
+   'modificationDate' => 1753426412,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => 'App\\Model\\DataObject\\AbstractUniProductBase',
@@ -647,6 +647,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                             ),
                              'classes' => 
                             array (
+                              0 => 
+                              array (
+                                'classes' => '',
+                              ),
                             ),
                              'displayMode' => 'grid',
                              'pathFormatterClass' => '',
@@ -982,7 +986,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'width' => '',
                                  'optionsProviderType' => 'select_options',
                                  'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
-                                 'optionsProviderData' => 'FeaturesandBenefits',
+                                 'optionsProviderData' => 'UniBasePrFeaturesAndBenefits',
                               )),
                               3 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
@@ -2481,7 +2485,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'width' => '',
                              'optionsProviderType' => 'select_options',
                              'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
-                             'optionsProviderData' => 'FeaturesandBenefits',
+                             'optionsProviderData' => 'UniBasePrFeaturesAndBenefits',
                           )),
                           3 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
@@ -2699,7 +2703,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         ),
                          'allowedTypes' => 
                         array (
-                          0 => 'CustomerReferernce',
+                          0 => 'UniBasePrCompetitorCrossReference',
                         ),
                          'lazyLoading' => true,
                          'maxItems' => NULL,
@@ -2730,7 +2734,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         ),
                          'allowedTypes' => 
                         array (
-                          0 => 'CustomerReferernce',
+                          0 => 'UniBasePrCustomerReferernce',
                         ),
                          'lazyLoading' => true,
                          'maxItems' => NULL,
@@ -2761,7 +2765,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         ),
                          'allowedTypes' => 
                         array (
-                          0 => 'OEMCrossReference',
+                          0 => 'UniBasePrOemCrossReference',
                         ),
                          'lazyLoading' => true,
                          'maxItems' => NULL,

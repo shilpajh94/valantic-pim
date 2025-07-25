@@ -2,13 +2,13 @@
 
 /**
  * Fields Summary:
- * - OEM [input]
+ * - customer [input]
  * - partNumber [input]
  */
 
 return Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
    'dao' => NULL,
-   'key' => 'OEMCrossReference',
+   'key' => 'UniBasePrCustomerReferernce',
    'parentClass' => '',
    'implementsInterfaces' => '',
    'title' => '',
@@ -43,8 +43,8 @@ return Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
         array (
           0 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-             'name' => 'OEM',
-             'title' => 'OEM  ',
+             'name' => 'customer',
+             'title' => 'Customer',
              'tooltip' => '',
              'mandatory' => true,
              'noteditable' => false,
