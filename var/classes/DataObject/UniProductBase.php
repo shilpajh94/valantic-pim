@@ -17,20 +17,20 @@
  * -- b2bSubCategory [manyToManyObjectRelation]
  * -- sapDescription [input]
  * -- sapDescriptionLanguage [select]
- * -- PlantProduced [select]
+ * -- plantProduced [select]
  * -- unitOfMeasure [quantityValue]
  * -- weight [numeric]
  * -- marketingDescriptionLong [wysiwyg]
- * -- MarketingDescriptionShort [wysiwyg]
+ * -- marketingDescriptionShort [wysiwyg]
  * -- featuresAndBenefits [select]
  * -- productDescriptionShort [textarea]
  * -- productDescriptionLong [textarea]
  * -- productDescriptionExtended [wysiwyg]
  * -- productMarking1 [textarea]
- * -- ProductMarking2 [textarea]
- * -- Applications [textarea]
+ * -- productMarking2 [textarea]
+ * -- applications [textarea]
  * -- hazardousSubstanceClassification [multiselect]
- * -- REACH [select]
+ * -- reach [select]
  * -- prop65 [select]
  * -- roHS [select]
  * -- gprs [select]
@@ -96,7 +96,7 @@ use Pimcore\Model\DataObject\PreGetValueHookInterface;
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByProductMarking2(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByApplications(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByHazardousSubstanceClassification(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByREACH(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByReach(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByProp65(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByRoHS(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByGprs(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
@@ -136,20 +136,20 @@ public const FIELD_PRODUCT_CATEGORY = 'productCategory';
 public const FIELD_B2B_SUB_CATEGORY = 'b2bSubCategory';
 public const FIELD_SAP_DESCRIPTION = 'sapDescription';
 public const FIELD_SAP_DESCRIPTION_LANGUAGE = 'sapDescriptionLanguage';
-public const FIELD_PLANT_PRODUCED = 'PlantProduced';
+public const FIELD_PLANT_PRODUCED = 'plantProduced';
 public const FIELD_UNIT_OF_MEASURE = 'unitOfMeasure';
 public const FIELD_WEIGHT = 'weight';
 public const FIELD_MARKETING_DESCRIPTION_LONG = 'marketingDescriptionLong';
-public const FIELD_MARKETING_DESCRIPTION_SHORT = 'MarketingDescriptionShort';
+public const FIELD_MARKETING_DESCRIPTION_SHORT = 'marketingDescriptionShort';
 public const FIELD_FEATURES_AND_BENEFITS = 'featuresAndBenefits';
 public const FIELD_PRODUCT_DESCRIPTION_SHORT = 'productDescriptionShort';
 public const FIELD_PRODUCT_DESCRIPTION_LONG = 'productDescriptionLong';
 public const FIELD_PRODUCT_DESCRIPTION_EXTENDED = 'productDescriptionExtended';
 public const FIELD_PRODUCT_MARKING1 = 'productMarking1';
-public const FIELD_PRODUCT_MARKING2 = 'ProductMarking2';
-public const FIELD_APPLICATIONS = 'Applications';
+public const FIELD_PRODUCT_MARKING2 = 'productMarking2';
+public const FIELD_APPLICATIONS = 'applications';
 public const FIELD_HAZARDOUS_SUBSTANCE_CLASSIFICATION = 'hazardousSubstanceClassification';
-public const FIELD_REACH = 'REACH';
+public const FIELD_REACH = 'reach';
 public const FIELD_PROP65 = 'prop65';
 public const FIELD_RO_HS = 'roHS';
 public const FIELD_GPRS = 'gprs';
@@ -511,7 +511,7 @@ public function getProductCategory(?string $language = null): ?\Pimcore\Model\El
 
 /**
 * Get b2bSubCategory - B2b Sub Category
-* @return \Pimcore\Model\DataObject\[]
+* @return \Pimcore\Model\DataObject\AbstractObject[]
 */
 public function getB2bSubCategory(?string $language = null): array
 {
@@ -573,14 +573,14 @@ public function getSapDescriptionLanguage(?string $language = null): ?string
 }
 
 /**
-* Get PlantProduced - Plant Produced
+* Get plantProduced - Plant Produced
 * @return string|null
 */
 public function getPlantProduced(?string $language = null): ?string
 {
-	$data = $this->getLocalizedfields()->getLocalizedValue("PlantProduced", $language);
+	$data = $this->getLocalizedfields()->getLocalizedValue("plantProduced", $language);
 	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("PlantProduced");
+		$preValue = $this->preGetValue("plantProduced");
 		if ($preValue !== null) {
 			return $preValue;
 		}
@@ -657,14 +657,14 @@ public function getMarketingDescriptionLong(?string $language = null): ?string
 }
 
 /**
-* Get MarketingDescriptionShort - Marketing Description - Short
+* Get marketingDescriptionShort - Marketing Description - Short
 * @return string|null
 */
 public function getMarketingDescriptionShort(?string $language = null): ?string
 {
-	$data = $this->getLocalizedfields()->getLocalizedValue("MarketingDescriptionShort", $language);
+	$data = $this->getLocalizedfields()->getLocalizedValue("marketingDescriptionShort", $language);
 	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("MarketingDescriptionShort");
+		$preValue = $this->preGetValue("marketingDescriptionShort");
 		if ($preValue !== null) {
 			return $preValue;
 		}
@@ -783,14 +783,14 @@ public function getProductMarking1(?string $language = null): ?string
 }
 
 /**
-* Get ProductMarking2 - Product Marking - 2
+* Get productMarking2 - Product Marking - 2
 * @return string|null
 */
 public function getProductMarking2(?string $language = null): ?string
 {
-	$data = $this->getLocalizedfields()->getLocalizedValue("ProductMarking2", $language);
+	$data = $this->getLocalizedfields()->getLocalizedValue("productMarking2", $language);
 	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("ProductMarking2");
+		$preValue = $this->preGetValue("productMarking2");
 		if ($preValue !== null) {
 			return $preValue;
 		}
@@ -804,14 +804,14 @@ public function getProductMarking2(?string $language = null): ?string
 }
 
 /**
-* Get Applications - Applications
+* Get applications - Applications
 * @return string|null
 */
 public function getApplications(?string $language = null): ?string
 {
-	$data = $this->getLocalizedfields()->getLocalizedValue("Applications", $language);
+	$data = $this->getLocalizedfields()->getLocalizedValue("applications", $language);
 	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("Applications");
+		$preValue = $this->preGetValue("applications");
 		if ($preValue !== null) {
 			return $preValue;
 		}
@@ -846,14 +846,14 @@ public function getHazardousSubstanceClassification(?string $language = null): ?
 }
 
 /**
-* Get REACH - REACH  
+* Get reach - REACH  
 * @return string|null
 */
-public function getREACH(?string $language = null): ?string
+public function getReach(?string $language = null): ?string
 {
-	$data = $this->getLocalizedfields()->getLocalizedValue("REACH", $language);
+	$data = $this->getLocalizedfields()->getLocalizedValue("reach", $language);
 	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("REACH");
+		$preValue = $this->preGetValue("reach");
 		if ($preValue !== null) {
 			return $preValue;
 		}
@@ -1118,7 +1118,7 @@ public function setProductCategory (?\Pimcore\Model\Element\AbstractElement $pro
 
 /**
 * Set b2bSubCategory - B2b Sub Category
-* @param \Pimcore\Model\DataObject\[] $b2bSubCategory
+* @param \Pimcore\Model\DataObject\AbstractObject[] $b2bSubCategory
 * @return $this
 */
 public function setB2bSubCategory (?array $b2bSubCategory, ?string $language = null): static
@@ -1164,14 +1164,14 @@ public function setSapDescriptionLanguage (?string $sapDescriptionLanguage, ?str
 }
 
 /**
-* Set PlantProduced - Plant Produced
-* @param string|null $PlantProduced
+* Set plantProduced - Plant Produced
+* @param string|null $plantProduced
 * @return $this
 */
-public function setPlantProduced (?string $PlantProduced, ?string $language = null): static
+public function setPlantProduced (?string $plantProduced, ?string $language = null): static
 {
 	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("PlantProduced", $PlantProduced, $language, !$isEqual);
+	$this->getLocalizedfields()->setLocalizedValue("plantProduced", $plantProduced, $language, !$isEqual);
 
 	return $this;
 }
@@ -1216,14 +1216,14 @@ public function setMarketingDescriptionLong (?string $marketingDescriptionLong, 
 }
 
 /**
-* Set MarketingDescriptionShort - Marketing Description - Short
-* @param string|null $MarketingDescriptionShort
+* Set marketingDescriptionShort - Marketing Description - Short
+* @param string|null $marketingDescriptionShort
 * @return $this
 */
-public function setMarketingDescriptionShort (?string $MarketingDescriptionShort, ?string $language = null): static
+public function setMarketingDescriptionShort (?string $marketingDescriptionShort, ?string $language = null): static
 {
 	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("MarketingDescriptionShort", $MarketingDescriptionShort, $language, !$isEqual);
+	$this->getLocalizedfields()->setLocalizedValue("marketingDescriptionShort", $marketingDescriptionShort, $language, !$isEqual);
 
 	return $this;
 }
@@ -1294,27 +1294,27 @@ public function setProductMarking1 (?string $productMarking1, ?string $language 
 }
 
 /**
-* Set ProductMarking2 - Product Marking - 2
-* @param string|null $ProductMarking2
+* Set productMarking2 - Product Marking - 2
+* @param string|null $productMarking2
 * @return $this
 */
-public function setProductMarking2 (?string $ProductMarking2, ?string $language = null): static
+public function setProductMarking2 (?string $productMarking2, ?string $language = null): static
 {
 	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("ProductMarking2", $ProductMarking2, $language, !$isEqual);
+	$this->getLocalizedfields()->setLocalizedValue("productMarking2", $productMarking2, $language, !$isEqual);
 
 	return $this;
 }
 
 /**
-* Set Applications - Applications
-* @param string|null $Applications
+* Set applications - Applications
+* @param string|null $applications
 * @return $this
 */
-public function setApplications (?string $Applications, ?string $language = null): static
+public function setApplications (?string $applications, ?string $language = null): static
 {
 	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("Applications", $Applications, $language, !$isEqual);
+	$this->getLocalizedfields()->setLocalizedValue("applications", $applications, $language, !$isEqual);
 
 	return $this;
 }
@@ -1333,14 +1333,14 @@ public function setHazardousSubstanceClassification (?array $hazardousSubstanceC
 }
 
 /**
-* Set REACH - REACH  
-* @param string|null $REACH
+* Set reach - REACH  
+* @param string|null $reach
 * @return $this
 */
-public function setREACH (?string $REACH, ?string $language = null): static
+public function setReach (?string $reach, ?string $language = null): static
 {
 	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("REACH", $REACH, $language, !$isEqual);
+	$this->getLocalizedfields()->setLocalizedValue("reach", $reach, $language, !$isEqual);
 
 	return $this;
 }

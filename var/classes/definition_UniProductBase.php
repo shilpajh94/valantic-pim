@@ -18,20 +18,20 @@
  * -- b2bSubCategory [manyToManyObjectRelation]
  * -- sapDescription [input]
  * -- sapDescriptionLanguage [select]
- * -- PlantProduced [select]
+ * -- plantProduced [select]
  * -- unitOfMeasure [quantityValue]
  * -- weight [numeric]
  * -- marketingDescriptionLong [wysiwyg]
- * -- MarketingDescriptionShort [wysiwyg]
+ * -- marketingDescriptionShort [wysiwyg]
  * -- featuresAndBenefits [select]
  * -- productDescriptionShort [textarea]
  * -- productDescriptionLong [textarea]
  * -- productDescriptionExtended [wysiwyg]
  * -- productMarking1 [textarea]
- * -- ProductMarking2 [textarea]
- * -- Applications [textarea]
+ * -- productMarking2 [textarea]
+ * -- applications [textarea]
  * -- hazardousSubstanceClassification [multiselect]
- * -- REACH [select]
+ * -- reach [select]
  * -- prop65 [select]
  * -- roHS [select]
  * -- gprs [select]
@@ -74,7 +74,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Product',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1753426412,
+   'modificationDate' => 1753684377,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => 'App\\Model\\DataObject\\AbstractUniProductBase',
@@ -647,10 +647,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                             ),
                              'classes' => 
                             array (
-                              0 => 
-                              array (
-                                'classes' => '',
-                              ),
                             ),
                              'displayMode' => 'grid',
                              'pathFormatterClass' => '',
@@ -772,7 +768,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                               )),
                               2 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                                 'name' => 'PlantProduced',
+                                 'name' => 'plantProduced',
                                  'title' => 'Plant Produced',
                                  'tooltip' => '',
                                  'mandatory' => true,
@@ -937,7 +933,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                               )),
                               1 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
-                                 'name' => 'MarketingDescriptionShort',
+                                 'name' => 'marketingDescriptionShort',
                                  'title' => 'Marketing Description - Short',
                                  'tooltip' => '',
                                  'mandatory' => true,
@@ -1090,7 +1086,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                               )),
                               7 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                                 'name' => 'ProductMarking2',
+                                 'name' => 'productMarking2',
                                  'title' => 'Product Marking - 2',
                                  'tooltip' => '',
                                  'mandatory' => false,
@@ -1115,7 +1111,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                               )),
                               8 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                                 'name' => 'Applications',
+                                 'name' => 'applications',
                                  'title' => 'Applications',
                                  'tooltip' => '',
                                  'mandatory' => false,
@@ -1213,7 +1209,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                               )),
                               1 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                                 'name' => 'REACH',
+                                 'name' => 'reach',
                                  'title' => 'REACH  ',
                                  'tooltip' => '',
                                  'mandatory' => false,
@@ -1768,7 +1764,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           )),
                           2 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                             'name' => 'PlantProduced',
+                             'name' => 'plantProduced',
                              'title' => 'Plant Produced',
                              'tooltip' => '',
                              'mandatory' => true,
@@ -2436,7 +2432,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           )),
                           1 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
-                             'name' => 'MarketingDescriptionShort',
+                             'name' => 'marketingDescriptionShort',
                              'title' => 'Marketing Description - Short',
                              'tooltip' => '',
                              'mandatory' => true,
@@ -2589,7 +2585,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           )),
                           7 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                             'name' => 'ProductMarking2',
+                             'name' => 'productMarking2',
                              'title' => 'Product Marking - 2',
                              'tooltip' => '',
                              'mandatory' => false,
@@ -2614,7 +2610,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           )),
                           8 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                             'name' => 'Applications',
+                             'name' => 'applications',
                              'title' => 'Applications',
                              'tooltip' => '',
                              'mandatory' => false,
@@ -2943,7 +2939,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           )),
                           1 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                             'name' => 'REACH',
+                             'name' => 'reach',
                              'title' => 'REACH  ',
                              'tooltip' => '',
                              'mandatory' => false,

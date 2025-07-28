@@ -15,7 +15,7 @@ enum UniBasePrFeaturesAndBenefits: string implements \Pimcore\Model\DataObject\S
     {
         return match ($this) {
             self::HighlyFlexible => 'Highly Flexible',
-            self::ExtremeResistance => 'Extreme Resistance ',
+            self::ExtremeResistance => 'Extreme Resistance',
             self::DustProof => 'Dust Proof',
         };
     }
