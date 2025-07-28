@@ -127,14 +127,14 @@ public function filterBySapDescriptionLanguage ($data, $operator = '='): static
 }
 
 /**
-* Filter by PlantProduced (Plant Produced)
+* Filter by plantProduced (Plant Produced)
 * @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
 * @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
 * @return $this
 */
 public function filterByPlantProduced ($data, $operator = '='): static
 {
-	$this->getClass()->getFieldDefinition("PlantProduced")->addListingFilter($this, $data, $operator);
+	$this->getClass()->getFieldDefinition("plantProduced")->addListingFilter($this, $data, $operator);
 	return $this;
 }
 
@@ -175,14 +175,14 @@ public function filterByMarketingDescriptionLong ($data, $operator = '='): stati
 }
 
 /**
-* Filter by MarketingDescriptionShort (Marketing Description - Short)
+* Filter by marketingDescriptionShort (Marketing Description - Short)
 * @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
 * @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
 * @return $this
 */
 public function filterByMarketingDescriptionShort ($data, $operator = '='): static
 {
-	$this->getClass()->getFieldDefinition("MarketingDescriptionShort")->addListingFilter($this, $data, $operator);
+	$this->getClass()->getFieldDefinition("marketingDescriptionShort")->addListingFilter($this, $data, $operator);
 	return $this;
 }
 
@@ -247,26 +247,26 @@ public function filterByProductMarking1 ($data, $operator = '='): static
 }
 
 /**
-* Filter by ProductMarking2 (Product Marking - 2)
+* Filter by productMarking2 (Product Marking - 2)
 * @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
 * @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
 * @return $this
 */
 public function filterByProductMarking2 ($data, $operator = '='): static
 {
-	$this->getClass()->getFieldDefinition("ProductMarking2")->addListingFilter($this, $data, $operator);
+	$this->getClass()->getFieldDefinition("productMarking2")->addListingFilter($this, $data, $operator);
 	return $this;
 }
 
 /**
-* Filter by Applications (Applications)
+* Filter by applications (Applications)
 * @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
 * @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
 * @return $this
 */
 public function filterByApplications ($data, $operator = '='): static
 {
-	$this->getClass()->getFieldDefinition("Applications")->addListingFilter($this, $data, $operator);
+	$this->getClass()->getFieldDefinition("applications")->addListingFilter($this, $data, $operator);
 	return $this;
 }
 
@@ -283,14 +283,14 @@ public function filterByHazardousSubstanceClassification ($data, $operator = '='
 }
 
 /**
-* Filter by REACH (REACH  )
+* Filter by reach (REACH  )
 * @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
 * @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
 * @return $this
 */
-public function filterByREACH ($data, $operator = '='): static
+public function filterByReach ($data, $operator = '='): static
 {
-	$this->getClass()->getFieldDefinition("REACH")->addListingFilter($this, $data, $operator);
+	$this->getClass()->getFieldDefinition("reach")->addListingFilter($this, $data, $operator);
 	return $this;
 }
 

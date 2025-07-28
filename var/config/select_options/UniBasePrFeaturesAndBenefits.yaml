@@ -14,7 +14,7 @@ pimcore:
                             name: ''
                         -
                             value: extremeResistance
-                            label: 'Extreme Resistance '
+                            label: 'Extreme Resistance'
                             name: ''
                         -
                             value: dustProof
