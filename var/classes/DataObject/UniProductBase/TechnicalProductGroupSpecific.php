@@ -8,7 +8,6 @@ class TechnicalProductGroupSpecific extends \Pimcore\Model\DataObject\Objectbric
 
 protected $brickGetters = ['UniPrFgFhs','UniPrGsTechDss','UniPrGsTechPts'];
 
-
 protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrFgFhs|null $UniPrFgFhs = null;
 
 /**
