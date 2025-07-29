@@ -90,6 +90,7 @@ var/config/extensions.php
 /config/packages/*
 /config/pimcore/*
 /config/bundles.php
+!/config/packages/doctrine_migrations.yaml
 /.env
 
 # valantic added
