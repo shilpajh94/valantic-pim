@@ -5,6 +5,8 @@
  * - localizedfields [localizedfields]
  * -- modelType [input]
  * -- bellowCompoundMaterial [input]
+ * -- internalBumper [checkbox]
+ * -- airInletLocation [select]
  * -- basePlateMaterial [input]
  * - bellowOnly [checkbox]
  * - minimumHeight [quantityValue]
@@ -12,9 +14,7 @@
  * - maximumBellowDiameter [quantityValue]
  * - maximumStroke [quantityValue]
  * - workingPressure [quantityValue]
- * - internalBumper [checkbox]
  * - airInlet [input]
- * - airInletLocation [select]
  * - airInletThread [input]
  * - rollingLobePistonMaterial [select]
  * - permissableInstallationSpace [image]
@@ -168,6 +168,28 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'width' => '',
                      'defaultValueGenerator' => '',
                   )),
+                  1 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                     'name' => 'internalBumper',
+                     'title' => 'Internal Bumper (Y/N)',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => true,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'defaultValue' => NULL,
+                     'defaultValueGenerator' => '',
+                  )),
                 ),
                  'region' => NULL,
                  'layout' => NULL,
@@ -188,6 +210,74 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'fieldDefinitionsCache' => NULL,
               )),
               1 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+                 'name' => 'localizedfields',
+                 'title' => '',
+                 'tooltip' => NULL,
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => NULL,
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => true,
+                 'visibleSearch' => true,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'children' => 
+                array (
+                  0 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                     'name' => 'airInletLocation',
+                     'title' => 'Air Inlet Location',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => true,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'defaultValue' => '',
+                     'columnLength' => 190,
+                     'dynamicOptions' => false,
+                     'defaultValueGenerator' => '',
+                     'width' => '',
+                     'optionsProviderType' => 'select_options',
+                     'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
+                     'optionsProviderData' => 'AirInletLocation',
+                  )),
+                ),
+                 'region' => NULL,
+                 'layout' => NULL,
+                 'maxTabs' => NULL,
+                 'border' => false,
+                 'provideSplitView' => false,
+                 'tabPosition' => 'top',
+                 'hideLabelsWhenTabsReached' => NULL,
+                 'referencedFields' => 
+                array (
+                ),
+                 'permissionView' => NULL,
+                 'permissionEdit' => NULL,
+                 'labelWidth' => 100,
+                 'labelAlign' => 'left',
+                 'width' => '',
+                 'height' => '',
+                 'fieldDefinitionsCache' => NULL,
+              )),
+              2 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                  'name' => 'localizedfields',
                  'title' => '',
@@ -605,6 +695,28 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'width' => '',
                  'defaultValueGenerator' => '',
               )),
+              1 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                 'name' => 'internalBumper',
+                 'title' => 'Internal Bumper (Y/N)',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => true,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'defaultValue' => NULL,
+                 'defaultValueGenerator' => '',
+              )),
             ),
              'region' => NULL,
              'layout' => NULL,
@@ -625,28 +737,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'fieldDefinitionsCache' => NULL,
           )),
           4 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-             'name' => 'internalBumper',
-             'title' => 'Internal Bumper (Y/N)',
-             'tooltip' => '',
-             'mandatory' => false,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => true,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'defaultValue' => NULL,
-             'defaultValueGenerator' => '',
-          )),
-          5 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'name' => 'airInlet',
              'title' => 'Air Inlet - Inside Thread / Stud Bolt',
@@ -676,35 +766,75 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'width' => '',
              'defaultValueGenerator' => '',
           )),
-          6 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-             'name' => 'airInletLocation',
-             'title' => 'Air Inlet Location',
-             'tooltip' => '',
+          5 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+             'name' => 'localizedfields',
+             'title' => '',
+             'tooltip' => NULL,
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
              'locked' => false,
-             'style' => '',
+             'style' => NULL,
              'permissions' => NULL,
              'fieldtype' => '',
              'relationType' => false,
              'invisible' => false,
-             'visibleGridView' => false,
+             'visibleGridView' => true,
              'visibleSearch' => true,
              'blockedVarsForExport' => 
             array (
             ),
-             'defaultValue' => '',
-             'columnLength' => 190,
-             'dynamicOptions' => false,
-             'defaultValueGenerator' => '',
+             'children' => 
+            array (
+              0 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                 'name' => 'airInletLocation',
+                 'title' => 'Air Inlet Location',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => true,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'defaultValue' => '',
+                 'columnLength' => 190,
+                 'dynamicOptions' => false,
+                 'defaultValueGenerator' => '',
+                 'width' => '',
+                 'optionsProviderType' => 'select_options',
+                 'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
+                 'optionsProviderData' => 'AirInletLocation',
+              )),
+            ),
+             'region' => NULL,
+             'layout' => NULL,
+             'maxTabs' => NULL,
+             'border' => false,
+             'provideSplitView' => false,
+             'tabPosition' => 'top',
+             'hideLabelsWhenTabsReached' => NULL,
+             'referencedFields' => 
+            array (
+            ),
+             'permissionView' => NULL,
+             'permissionEdit' => NULL,
+             'labelWidth' => 100,
+             'labelAlign' => 'left',
              'width' => '',
-             'optionsProviderType' => 'select_options',
-             'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
-             'optionsProviderData' => 'AirInletLocation',
+             'height' => '',
+             'fieldDefinitionsCache' => NULL,
           )),
-          7 => 
+          6 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'name' => 'airInletThread',
              'title' => 'Air Inlet Thread',
@@ -734,7 +864,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'width' => '',
              'defaultValueGenerator' => '',
           )),
-          8 => 
+          7 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
              'name' => 'rollingLobePistonMaterial',
              'title' => 'Rolling Lobe - Piston Material',
@@ -762,7 +892,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
              'optionsProviderData' => 'MaterialOptions',
           )),
-          9 => 
+          8 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
              'name' => 'permissableInstallationSpace',
              'title' => 'Permissable Installation Space',
@@ -785,7 +915,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'width' => 500,
              'height' => '',
           )),
-          10 => 
+          9 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
              'name' => 'localizedfields',
              'title' => '',
@@ -855,7 +985,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'height' => '',
              'fieldDefinitionsCache' => NULL,
           )),
-          11 => 
+          10 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
              'name' => 'numberOfConvolutions',
              'title' => 'Number of Convolutions',

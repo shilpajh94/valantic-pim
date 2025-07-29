@@ -5,6 +5,8 @@
  * - localizedfields [localizedfields]
  * -- modelType [input]
  * -- bellowCompoundMaterial [input]
+ * -- internalBumper [checkbox]
+ * -- airInletLocation [select]
  * -- basePlateMaterial [input]
  * - bellowOnly [checkbox]
  * - minimumHeight [quantityValue]
@@ -12,9 +14,7 @@
  * - maximumBellowDiameter [quantityValue]
  * - maximumStroke [quantityValue]
  * - workingPressure [quantityValue]
- * - internalBumper [checkbox]
  * - airInlet [input]
- * - airInletLocation [select]
  * - airInletThread [input]
  * - rollingLobePistonMaterial [select]
  * - permissableInstallationSpace [image]
@@ -32,6 +32,8 @@ class UniPrFinDss extends \App\Model\DataObject\UniProductManagement\Objectbrick
 {
 public const FIELD_MODEL_TYPE = 'modelType';
 public const FIELD_BELLOW_COMPOUND_MATERIAL = 'bellowCompoundMaterial';
+public const FIELD_INTERNAL_BUMPER = 'internalBumper';
+public const FIELD_AIR_INLET_LOCATION = 'airInletLocation';
 public const FIELD_BASE_PLATE_MATERIAL = 'basePlateMaterial';
 public const FIELD_BELLOW_ONLY = 'bellowOnly';
 public const FIELD_MINIMUM_HEIGHT = 'minimumHeight';
@@ -39,9 +41,7 @@ public const FIELD_MAXIMUM_HEIGHT = 'maximumHeight';
 public const FIELD_MAXIMUM_BELLOW_DIAMETER = 'maximumBellowDiameter';
 public const FIELD_MAXIMUM_STROKE = 'maximumStroke';
 public const FIELD_WORKING_PRESSURE = 'workingPressure';
-public const FIELD_INTERNAL_BUMPER = 'internalBumper';
 public const FIELD_AIR_INLET = 'airInlet';
-public const FIELD_AIR_INLET_LOCATION = 'airInletLocation';
 public const FIELD_AIR_INLET_THREAD = 'airInletThread';
 public const FIELD_ROLLING_LOBE_PISTON_MATERIAL = 'rollingLobePistonMaterial';
 public const FIELD_PERMISSABLE_INSTALLATION_SPACE = 'permissableInstallationSpace';
@@ -55,9 +55,7 @@ protected $maximumHeight;
 protected $maximumBellowDiameter;
 protected $maximumStroke;
 protected $workingPressure;
-protected $internalBumper;
 protected $airInlet;
-protected $airInletLocation;
 protected $airInletThread;
 protected $rollingLobePistonMaterial;
 protected $permissableInstallationSpace;
@@ -117,6 +115,34 @@ public function getModelType(?string $language = null): ?string
 public function getBellowCompoundMaterial(?string $language = null): ?string
 {
 	$data = $this->getLocalizedfields()->getLocalizedValue("bellowCompoundMaterial", $language);
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get internalBumper - Internal Bumper (Y/N)
+* @return bool|null
+*/
+public function getInternalBumper(?string $language = null): ?bool
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("internalBumper", $language);
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get airInletLocation - Air Inlet Location
+* @return string|null
+*/
+public function getAirInletLocation(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("airInletLocation", $language);
 	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
 		return $data->getPlain();
 	}
@@ -185,6 +211,32 @@ public function setBellowCompoundMaterial (?string $bellowCompoundMaterial, ?str
 {
 	$isEqual = false;
 	$this->getLocalizedfields()->setLocalizedValue("bellowCompoundMaterial", $bellowCompoundMaterial, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set internalBumper - Internal Bumper (Y/N)
+* @param bool|null $internalBumper
+* @return $this
+*/
+public function setInternalBumper (?bool $internalBumper, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("internalBumper", $internalBumper, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set airInletLocation - Air Inlet Location
+* @param string|null $airInletLocation
+* @return $this
+*/
+public function setAirInletLocation (?string $airInletLocation, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("airInletLocation", $airInletLocation, $language, !$isEqual);
 
 	return $this;
 }
@@ -401,39 +453,6 @@ public function setWorkingPressure (?\Pimcore\Model\DataObject\Data\QuantityValu
 }
 
 /**
-* Get internalBumper - Internal Bumper (Y/N)
-* @return bool|null
-*/
-public function getInternalBumper(): ?bool
-{
-	$data = $this->internalBumper;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("internalBumper")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("internalBumper");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set internalBumper - Internal Bumper (Y/N)
-* @param bool|null $internalBumper
-* @return $this
-*/
-public function setInternalBumper (?bool $internalBumper): static
-{
-	$this->internalBumper = $internalBumper;
-
-	return $this;
-}
-
-/**
 * Get airInlet - Air Inlet - Inside Thread / Stud Bolt
 * @return string|null
 */
@@ -462,39 +481,6 @@ public function getAirInlet(): ?string
 public function setAirInlet (?string $airInlet): static
 {
 	$this->airInlet = $airInlet;
-
-	return $this;
-}
-
-/**
-* Get airInletLocation - Air Inlet Location
-* @return string|null
-*/
-public function getAirInletLocation(): ?string
-{
-	$data = $this->airInletLocation;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("airInletLocation")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("airInletLocation");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set airInletLocation - Air Inlet Location
-* @param string|null $airInletLocation
-* @return $this
-*/
-public function setAirInletLocation (?string $airInletLocation): static
-{
-	$this->airInletLocation = $airInletLocation;
 
 	return $this;
 }
