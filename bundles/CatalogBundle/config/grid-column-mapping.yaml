@@ -1,11 +1,11 @@
 parameters:
     headers:
-        Hose Product Page:   
+        Hose Product Page:
             standardMetHose:
                 fieldLevel: objectBrick
                 fieldType: Relation
                 fieldLabel: Standard Met- Hose
-                parent: 
+                parent:
                     name: HoseBase
                     class:
                         name: MultiselectMaster
@@ -14,49 +14,49 @@ parameters:
                 fieldLevel: class
                 fieldType: Input
                 fieldLabel: Application Long Text
-                parent: 
+                parent:
                     name: Product
             mainImage:
                 fieldLevel: class
                 fieldType: Media
                 fieldLabel: Hose Rendering
-                parent: 
+                parent:
                     name: Product
             LeftPrintCatalogImage:
                 fieldLevel: class
                 fieldType: Media
                 fieldLabel: Left Print Catalog Image
-                parent: 
+                parent:
                     name: Product
             RightPrintCatalogImage:
                 fieldLevel: class
                 fieldType: Media
                 fieldLabel: Right Print Catalog Image
-                parent: 
+                parent:
                     name: Product
             industryStandard:
                 fieldLevel: class
                 fieldType: Input
                 fieldLabel: Industry Standard
-                parent: 
+                parent:
                     name: Product
             Packaging:
                 fieldLevel: objectBrick
                 fieldType: Input
                 fieldLabel: Catalog Packaging
-                parent: 
+                parent:
                     name: HoseBase
             VirtualCatalogTubeMaterial:
                 fieldLevel: objectBrick
                 fieldType: Wysiwyg
                 fieldLabel: Virtual Catalog Tube Material
-                parent: 
+                parent:
                     name: HoseBase
             tubeMaterial:
                 fieldLevel: objectBrick
                 fieldType: Relation
                 fieldLabel: Tube Material
-                parent: 
+                parent:
                     name: HoseBase
                     class:
                         name: MultiselectMaster
@@ -65,7 +65,7 @@ parameters:
                 fieldLevel: objectBrick
                 fieldType: Relation
                 fieldLabel: Tube Attributes
-                parent: 
+                parent:
                     name: HoseBase
                     class:
                         name: MultiselectMaster
@@ -74,13 +74,13 @@ parameters:
                 fieldLevel: objectBrick
                 fieldType: Wysiwyg
                 fieldLabel: Virtual Catalog Cover Material
-                parent: 
+                parent:
                     name: HoseBase
             coverMaterial:
                 fieldLevel: objectBrick
                 fieldType: Relation
                 fieldLabel: Cover Material
-                parent: 
+                parent:
                     name: HoseBase
                     class:
                         name: MultiselectMaster
@@ -89,7 +89,7 @@ parameters:
                 fieldLevel: objectBrick
                 fieldType: Relation
                 fieldLabel: Cover Attributes
-                parent: 
+                parent:
                     name: HoseBase
                     class:
                         name: MultiselectMaster
@@ -98,16 +98,16 @@ parameters:
                 fieldLevel: class
                 fieldType: Input
                 fieldLabel: Virtual Catalog Reinforcement
-                parent: 
+                parent:
                     name: Product
             reinforcement:
                 fieldLevel: class
                 fieldType: Relation
                 fieldLabel: Reinforcement
-                parent: 
+                parent:
                     name: Product
-                    class: 
-                        name : MultiselectMaster
+                    class:
+                        name: MultiselectMaster
                         fieldName: Name
             CatalogGrouping:
                 fieldLevel: class
@@ -156,7 +156,7 @@ parameters:
                 fieldType: Input
                 fieldLabel: Branding
                 parent:
-                   name: Product
+                    name: Product
             id:
                 fieldLevel: class
                 fieldType: Input
@@ -168,37 +168,37 @@ parameters:
                 fieldLevel: class
                 fieldType: Media
                 fieldLabel: Hose Rendering
-                parent: 
+                parent:
                     name: Product
             ProfileDimensionImage:
                 fieldLevel: class
                 fieldType: Media
                 fieldLabel: Profile Dimension Image
-                parent: 
+                parent:
                     name: Product
             beltIdentificationImage:
                 fieldLevel: class
                 fieldType: Media
                 fieldLabel: Belt Identification Image
-                parent: 
+                parent:
                     name: Product
             profileDimensionPtsBelts:
                 fieldLevel: class
                 fieldType: Media
                 fieldLabel: PTS belts Profile Dimension Image
-                parent: 
+                parent:
                     name: Product
             longDescription:
                 fieldLevel: class
                 fieldType: Input
                 fieldLabel: Long Description
-                parent: 
+                parent:
                     name: Product
             material:
                 fieldLevel: objectBrick
                 fieldType: Multiselection
                 fieldLabel: Material
-                parent: 
+                parent:
                     name: PTGBase
                     class:
                         name: MultiselectMaster
@@ -207,16 +207,16 @@ parameters:
                 fieldLevel: class
                 fieldType: Input
                 fieldLabel: Virtual Catalog Reinforcement
-                parent: 
+                parent:
                     name: Product
             reinforcement:
                 fieldLevel: class
                 fieldType: Relation
                 fieldLabel: Reinforcement
-                parent: 
+                parent:
                     name: Product
-                    class: 
-                        name : MultiselectMaster
+                    class:
+                        name: MultiselectMaster
                         fieldName: Name
             temperatureRangeFAndC:
                 fieldLevel: class
@@ -265,7 +265,7 @@ parameters:
                 fieldLevel: objectBrick
                 fieldType: Relation
                 fieldLabel: Standard Met- Hose
-                parent: 
+                parent:
                     name: HoseBase
                     class:
                         name: MultiselectMaster
@@ -310,18 +310,18 @@ parameters:
                 fieldLevel: class
                 fieldType: Media
                 fieldLabel: Product Image
-        Hose Accessories Sleeving: 
+        Hose Accessories Sleeving:
             longDescription:
                 fieldLevel: class
                 fieldType: Input
                 fieldLabel: Application Long Text
-                parent: 
+                parent:
                     name: Product
             mainImage:
                 fieldLevel: class
                 fieldType: Media
                 fieldLabel: Hose Rendering
-                parent: 
+                parent:
                     name: Product
             brandName:
                 fieldLevel: class
@@ -342,7 +342,7 @@ parameters:
                 fieldLevel: objectBrick
                 fieldType: Relation
                 fieldLabel: MaterialType
-                parent: 
+                parent:
                     name: AccessoriesFert
                     class:
                         name: MultiselectMaster
@@ -351,7 +351,7 @@ parameters:
                 fieldLevel: objectBrick
                 fieldType: Relation
                 fieldLabel: Color
-                parent: 
+                parent:
                     name: AccessoriesFert
                     class:
                         name: MultiselectMaster
@@ -359,7 +359,7 @@ parameters:
             LengthIN:
                 fieldLevel: objectBrick
                 fieldType: Input
-                fieldLabel: 'Length'
+                fieldLabel: "Length"
                 parent:
                     name: AccessoriesFert
             FeaturesBenefitsBulletPoint:
@@ -371,18 +371,18 @@ parameters:
                     class:
                         name: Features
                         fieldName: id
-        Hose Accessories Clamps: 
+        Hose Accessories Clamps:
             longDescription:
                 fieldLevel: class
                 fieldType: Input
                 fieldLabel: Application Long Text
-                parent: 
+                parent:
                     name: Product
             mainImage:
                 fieldLevel: class
                 fieldType: Media
                 fieldLabel: Hose Rendering
-                parent: 
+                parent:
                     name: Product
             brandName:
                 fieldLevel: class
@@ -397,12 +397,12 @@ parameters:
                 fieldLevel: objectBrick
                 fieldType: Relation
                 fieldLabel: MaterialType
-                parent: 
+                parent:
                     name: AccessoriesFert
                     class:
                         name: MultiselectMaster
                         fieldName: Name
-        Hose Accessories Flanges: 
+        Hose Accessories Flanges:
             brandName:
                 fieldLevel: class
                 fieldType: Relation
@@ -416,26 +416,26 @@ parameters:
                 fieldLevel: class
                 fieldType: Input
                 fieldLabel: Marketing Short Description
-                parent: 
+                parent:
                     name: Product
         Hose Accessories Orings:
             MaterialType:
                 fieldLevel: objectBrick
                 fieldType: Input
-                fieldLabel: 'Material'
+                fieldLabel: "Material"
                 parent:
                     name: AccessoriesFert
             Hardness:
                 fieldLevel: objectBrick
                 fieldType: Input
-                fieldLabel: 'Hardness'
+                fieldLabel: "Hardness"
                 parent:
                     name: AccessoriesFert
             mainImage:
                 fieldLevel: class
                 fieldType: Media
                 fieldLabel: Hose Rendering
-                parent: 
+                parent:
                     name: Product
             brandName:
                 fieldLevel: class
@@ -463,13 +463,13 @@ parameters:
                 fieldLevel: class
                 fieldType: Media
                 fieldLabel: Hose Rendering
-                parent: 
+                parent:
                     name: Product
             ProfileDimensionImage:
                 fieldLevel: class
                 fieldType: Media
                 fieldLabel: Profile Dimension Image
-                parent: 
+                parent:
                     name: Product
             brandName:
                 fieldLevel: class
@@ -484,7 +484,7 @@ parameters:
                 fieldLevel: class
                 fieldType: Input
                 fieldLabel: Marketing Long Description
-                parent: 
+                parent:
                     name: Product
             FeaturesBenefitsBulletPoint:
                 fieldLevel: class
@@ -499,13 +499,13 @@ parameters:
                 fieldLevel: objectBrick
                 fieldType: Number
                 fieldLabel: Pressure Rating
-                parent: 
+                parent:
                     name: INHFittingsFert
-            BrandingLayline: 
+            BrandingLayline:
                 fieldLevel: class
                 fieldType: Input
                 fieldLabel: Branding / Layline
-                parent: 
+                parent:
                     name: Product
             id:
                 fieldLevel: class
@@ -518,13 +518,13 @@ parameters:
                 fieldLevel: class
                 fieldType: Media
                 fieldLabel: Main Image
-                parent: 
+                parent:
                     name: Product
             safetyFactor:
                 fieldLevel: objectBrick
                 fieldType: Relation
                 fieldLabel: Design Factor
-                parent: 
+                parent:
                     name: HoseBase
                     class:
                         name: MultiselectMaster
@@ -534,16 +534,11 @@ parameters:
                 fieldLevel: class
                 fieldType: Media
                 fieldLabel: Product Right Image
-                parent: 
+                parent:
                     name: Product
-            LeftPrintCatalogImage:
+            altImage7:
                 fieldLevel: class
                 fieldType: Media
-                fieldLabel: Product Left Image
-                parent: 
+                fieldLabel: HYD Hose Tile
+                parent:
                     name: Product
-
-
-       
-    
-    
