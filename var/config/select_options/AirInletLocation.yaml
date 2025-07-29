@@ -1,0 +1,18 @@
+pimcore:
+    objects:
+        select_options:
+            definitions:
+                AirInletLocation:
+                    id: AirInletLocation
+                    group: UniProductDropdowns
+                    useTraits: ''
+                    implementsInterfaces: ''
+                    selectOptions:
+                        -
+                            value: 'Offset location'
+                            label: 'Offset location'
+                            name: OS
+                        -
+                            value: 'Center Air Location'
+                            label: 'Center Air Location'
+                            name: CA
