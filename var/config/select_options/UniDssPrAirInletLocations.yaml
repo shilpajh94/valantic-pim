@@ -2,17 +2,17 @@ pimcore:
     objects:
         select_options:
             definitions:
-                AirInletLocation:
-                    id: AirInletLocation
+                UniDssPrAirInletLocations:
+                    id: UniDssPrAirInletLocations
                     group: UniProductDropdowns
                     useTraits: ''
                     implementsInterfaces: ''
                     selectOptions:
                         -
-                            value: 'Offset location'
+                            value: offsetLocation
                             label: 'Offset location'
-                            name: OS
+                            name: ''
                         -
-                            value: 'Center Air Location'
+                            value: centerAirLocation
                             label: 'Center Air Location'
-                            name: CA
+                            name: ''

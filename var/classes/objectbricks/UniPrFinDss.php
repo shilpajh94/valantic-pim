@@ -256,7 +256,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'width' => '',
                      'optionsProviderType' => 'select_options',
                      'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
-                     'optionsProviderData' => 'AirInletLocation',
+                     'optionsProviderData' => 'UniDssPrAirInletLocations',
                   )),
                 ),
                  'region' => NULL,
@@ -813,7 +813,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'width' => '',
                  'optionsProviderType' => 'select_options',
                  'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
-                 'optionsProviderData' => 'AirInletLocation',
+                 'optionsProviderData' => 'UniDssPrAirInletLocations',
               )),
             ),
              'region' => NULL,
@@ -890,7 +890,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'width' => '',
              'optionsProviderType' => 'select_options',
              'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
-             'optionsProviderData' => 'MaterialOptions',
+             'optionsProviderData' => 'UniDssPrMaterialOptions',
           )),
           8 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
