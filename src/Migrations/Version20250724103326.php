@@ -13,6 +13,7 @@ final class Version20250724103326 extends AbstractMigration
     public function up(Schema $schema): void
     {
         $settingsObject = SettingsStore::get('system_settings', 'pimcore_system_settings');
+
         if (!$settingsObject instanceof SettingsStore) {
             return;
         }
@@ -22,7 +23,8 @@ final class Version20250724103326 extends AbstractMigration
         // Define languages to add
         $languages = ['ja', 'ko'];
 
-        $data['general']['valid_languages'] = $data['general']['valid_languages'] ?? [];
+        $data['general']['valid_languages'] ??= [];
+
         foreach ($languages as $language) {
             if (!in_array($language, $data['general']['valid_languages'], true)) {
                 $data['general']['valid_languages'][] = $language;
@@ -38,7 +40,8 @@ final class Version20250724103326 extends AbstractMigration
     public function down(Schema $schema): void
     {
         $settingsObject = SettingsStore::get('system_settings', 'pimcore_system_settings');
-        if (!$settingsObject) {
+
+        if (!$settingsObject instanceof SettingsStore) {
             return;
         }
 
@@ -49,7 +52,7 @@ final class Version20250724103326 extends AbstractMigration
 
         $data['general']['valid_languages'] = array_filter(
             $data['general']['valid_languages'] ?? [],
-            fn($lang): bool => !in_array($lang, $languages, true),
+            fn ($lang): bool => !in_array($lang, $languages, true),
             ARRAY_FILTER_USE_BOTH,
         );
         $data['general']['valid_languages'] = array_values($data['general']['valid_languages']);
