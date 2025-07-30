@@ -18,6 +18,11 @@ services:
         resource: '../src/Model/CalculatedValue'
         public: true
 
+    App\Website\LinkGenerator\ExternalCategoryLinkGenerator:
+        public: true
+        tags:
+            - { name: pimcore.link_generator }
+
     App\Elasticsearch\:
         resource: '../src/Elasticsearch'
 
