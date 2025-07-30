@@ -107,7 +107,7 @@ class ScheduleController extends UserAwareController
             $exportTime = "00:00";
         }
         $completeDateString = $exportDate.' '.$exportTime;
-        $completeExportDate = \DateTime::createFromFormat('m/d/y H:i', $completeDateString);
+        $completeExportDate = \DateTime::createFromFormat('Y-m-d H:i', $completeDateString);
 
         $schedule  = new Schedule();
         $schedule->setName($name);
