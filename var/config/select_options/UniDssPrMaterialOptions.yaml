@@ -2,21 +2,21 @@ pimcore:
     objects:
         select_options:
             definitions:
-                MaterialOptions:
-                    id: MaterialOptions
+                UniDssPrMaterialOptions:
+                    id: UniDssPrMaterialOptions
                     group: UniProductDropdowns
                     useTraits: ''
                     implementsInterfaces: ''
                     selectOptions:
                         -
-                            value: Plastic
+                            value: plastic
                             label: Plastic
-                            name: P
+                            name: ''
                         -
-                            value: Aluminum
+                            value: aluminum
                             label: Aluminum
-                            name: A
+                            name: ''
                         -
-                            value: Steel
+                            value: steel
                             label: Steel
-                            name: S
+                            name: ''
