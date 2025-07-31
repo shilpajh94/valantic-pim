@@ -11,12 +11,12 @@ namespace Pimcore\Model\DataObject\Fieldcollection\Data;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\PreGetValueHookInterface;
 
-class UniBasePrCustomerReferernce extends DataObject\Fieldcollection\Data\AbstractData
+class UniBasePrCustomerReference extends DataObject\Fieldcollection\Data\AbstractData
 {
 public const FIELD_CUSTOMER = 'customer';
 public const FIELD_PART_NUMBER = 'partNumber';
 
-protected string $type = "UniBasePrCustomerReferernce";
+protected string $type = "UniBasePrCustomerReference";
 protected $customer;
 protected $partNumber;
 
