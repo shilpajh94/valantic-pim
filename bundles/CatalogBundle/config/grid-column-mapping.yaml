@@ -306,10 +306,10 @@ parameters:
                 fieldLevel: class
                 fieldType: Multiselection
                 fieldLabel: Features Benefits & Bullet Points
-            LeftPrintCatalogImage:
+            altImage7:
                 fieldLevel: class
                 fieldType: Media
-                fieldLabel: Product Image
+                fieldLabel: HYD Hose Tile
         Hose Accessories Sleeving:
             longDescription:
                 fieldLevel: class
@@ -536,9 +536,9 @@ parameters:
                 fieldLabel: Product Right Image
                 parent:
                     name: Product
-            altImage7:
+            LeftPrintCatalogImage:
                 fieldLevel: class
                 fieldType: Media
-                fieldLabel: HYD Hose Tile
+                fieldLabel: Product Left Image
                 parent:
                     name: Product

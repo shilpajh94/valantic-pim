@@ -746,11 +746,11 @@ class DefaultController extends FrontendController
 
         $commonHelper = $this->containerInterface->get('app.common_helper');
         $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
+
         $catalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
 
         if ($templateEditable && $templateEditable->getElement() != null) {
             $template = $templateEditable->getElement();
-
             $footerBgColor = $template->getColor();
             $data = array();
             $blockDes = "";
