@@ -95,3 +95,4 @@ var/config/extensions.php
 
 # valantic added
 .php-cs-fixer.cache
+.DS_Store
