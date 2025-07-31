@@ -8,7 +8,7 @@
 
 return Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
    'dao' => NULL,
-   'key' => 'UniBasePrCustomerReferernce',
+   'key' => 'UniBasePrCustomerReference',
    'parentClass' => '',
    'implementsInterfaces' => '',
    'title' => '',
