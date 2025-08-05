@@ -8,6 +8,7 @@ parameters:
     '0644': '0644-Mexico'
     '0623': '0623-Australia'
     '0753': '0753-Brazil'
+    '2035': '2035-Bayswater'
   privateMaterialGroup: 
     '004': '004'
   mappingCsvColumn: 

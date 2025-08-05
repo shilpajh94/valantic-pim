@@ -292,7 +292,7 @@ class ProductSQLModel
     public function processDeletedProducts() {
         $deletedProducts = $this->tblImpHelper->getDeletedProducts();
         if (!empty($deletedProducts) && count($deletedProducts)>0) {
-            echo count($deletedRecords).' records found to be unpublished'.PHP_EOL;
+            echo count($deletedProducts).' records found to be unpublished'.PHP_EOL;
             $keysArray = [];
             foreach ($deletedProducts as $product) {
                 $keysArray[] = $product['id'];
