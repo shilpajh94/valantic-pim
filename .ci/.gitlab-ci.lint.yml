@@ -27,7 +27,6 @@ lint_php:
 lint_yaml:
   extends: .lint
   image: git.cec.valantic.com:5050/contitech/docker-images/python:3-alpine
-  allow_failure: true
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never

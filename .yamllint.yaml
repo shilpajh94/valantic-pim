@@ -1,0 +1,35 @@
+---
+
+extends: relaxed
+
+rules:
+    line-length: disable
+
+ignore:
+    - config/pim_data_post_configs/dev/B2B_auth.yaml
+    - config/pim_data_post_configs/dev/B2C_data_api.yaml
+    - config/pim_data_post_configs/dev/B2B_data_api.yaml
+    - config/pim_data_post_configs/dev/B2C_auth.yaml
+    - config/pim_data_post_configs/stage/B2C_data_api.yaml
+    - config/pim_data_post_configs/stage/B2B_auth.yaml
+    - config/pim_data_post_configs/stage/B2B_data_api.yaml
+    - config/pim_data_post_configs/prod/B2B_auth.yaml
+    - config/pim_data_post_configs/prod/B2B_data_api.yaml
+    - config/pim_data_post_configs/stage/B2C_auth.yaml
+    - config/pim_data_post_configs/prod/B2C_auth.yaml
+    - config/config.yaml
+    - config/ifs_eu_product_enrichment_workflow.yaml
+    - config/config_dev.yaml
+    - config/config_stage.yaml
+    - config/cs_product_enrichment_workflow.yaml
+    - config/packages/messenger.yaml
+    - config/packages/dev/config.yaml
+    - config/packages/security.yaml
+    - config/packages/stage/flysystem.yaml
+    - config/packages/prod/flysystem.yaml
+    - config/product_workflow.yaml
+    - config/config_prod.yaml
+    - config/ptg_eu_product_enrichment_workflow.yaml
+    - config/cs_asset_workflow.yaml
+
+
