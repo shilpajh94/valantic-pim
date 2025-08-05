@@ -1,0 +1,186 @@
+pimcore:
+  workflows:
+    !php/enum App\Enum\ProductManagement\ProductApprovalWorkflow::PRODUCT_APPROVAL->value:
+      label: "Product Approval Workflow"
+      type: state_machine
+      marking_store:
+        type: single_state
+        arguments:
+          - approvalState
+      places:
+        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::IMPORTED_DISPLAYED->value:
+          label: 'Imported and Displayed'
+          color: '#ffcc00'
+          permissions:
+            - modify: true
+              unpublish: false
+              delete: true
+        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::CATEGORY_AUTO_ASSIGNED->value:
+          label: 'Category Auto Assigned'
+          color: '#ffcc00'
+          permissions:
+            - modify: true
+              unpublish: false
+              delete: true
+        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::ENRICHED->value:
+          label: 'Enriched'
+          color: '#ffd700'
+          permissions:
+            - modify: true
+              unpublish: false
+              delete: true
+        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::CATEGORY_MANUAL_ASSIGNED->value:
+          label: 'Category Manual Assigned'
+          color: '#ffd700'
+          permissions:
+            - modify: true
+              unpublish: false
+              delete: true
+        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::MEDIA_ASSIGNED->value:
+          label: 'Media Assigned'
+          color: '#ffd700'
+          permissions:
+            - modify: true
+              unpublish: false
+              delete: true
+        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::PENDING_APPROVAL->value:
+          label: 'Pending Approval'
+          color: '#ffa500'
+          permissions:
+            - modify: false
+              unpublish: false
+              delete: false
+        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::APPROVED->value:
+          label: 'Approved'
+          color: '#00cc00'
+          permissions:
+            - modify: false
+              unpublish: true
+              delete: false
+        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::REJECTED->value:
+          label: 'Rejected'
+          color: '#e74c3c'
+          permissions:
+            - modify: false
+              unpublish: false
+              delete: false
+        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::PUBLISHED->value:
+          label: 'Published'
+          color: '#006600'
+          permissions:
+            - modify: false
+              unpublish: true
+              delete: false
+        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::EXPORTED->value:
+          label: 'Exported'
+          color: '#006600'
+          permissions:
+            - modify: false
+              unpublish: true
+              delete: false
+        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::COMPLIANCE_SENT->value:
+          label: 'Compliance Sent'
+          color: '#006600'
+          permissions:
+            - modify: false
+              unpublish: true
+              delete: false
+        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::COMPLIANCE_APPROVED->value:
+          label: 'Compliance Approved'
+          color: '#006600'
+          permissions:
+            - modify: false
+              unpublish: true
+              delete: false
+      transitions:
+        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowTransition::DISPLAY_IMPORTED->value:
+          from: []
+          to: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::IMPORTED_DISPLAYED->value
+          options:
+            label: 'Display Imported Product'
+            roles: ['regional_admin', 'enrichment']
+        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowTransition::AUTO_ASSIGN_CATEGORY->value:
+          from: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::IMPORTED_DISPLAYED->value
+          to: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::CATEGORY_AUTO_ASSIGNED->value
+          options:
+            label: 'Assign External Category Automatically'
+            roles: ['enrichment']
+        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowTransition::ENRICH_PRODUCT->value:
+          from: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::CATEGORY_AUTO_ASSIGNED->value
+          to: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::ENRICHED->value
+          options:
+            label: 'Enrich Marketing Text Fields'
+            roles: ['enrichment']
+        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowTransition::MANUAL_ASSIGN_CATEGORY->value:
+          from: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::ENRICHED->value
+          to: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::CATEGORY_MANUAL_ASSIGNED->value
+          options:
+            label: 'Assign External Category (Manual)'
+            roles: ['enrichment']
+        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowTransition::ASSIGN_MEDIA->value:
+          from: [!php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::ENRICHED->value, !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::CATEGORY_MANUAL_ASSIGNED->value]
+          to: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::MEDIA_ASSIGNED->value
+          options:
+            label: 'Select Media and Define Sequence'
+            roles: ['enrichment']
+        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowTransition::SUBMIT_FOR_APPROVAL->value:
+          from: [!php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::ENRICHED->value, !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::CATEGORY_MANUAL_ASSIGNED->value, !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::MEDIA_ASSIGNED->value]
+          to: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::PENDING_APPROVAL->value
+          options:
+            label: 'Submit for Approval'
+            roles: ['enrichment']
+        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowTransition::APPROVE_PRODUCT->value:
+          from: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::PENDING_APPROVAL->value
+          to: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::APPROVED->value
+          options:
+            label: 'Approve Product'
+            roles: ['approval']
+        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowTransition::REJECT_PRODUCT->value:
+          from: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::PENDING_APPROVAL->value
+          to: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::REJECTED->value
+          options:
+            label: 'Reject Product'
+            !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowContext::NOTES->value:
+              title: 'Reason for Rejection'
+              commentEnabled: true
+              commentRequired: true
+            roles: ['approval']
+        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowTransition::RETURN_TO_ENRICHMENT->value:
+          from: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::REJECTED->value
+          to: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::ENRICHED->value
+          options:
+            label: 'Return to Enrichment'
+            roles: ['enrichment']
+        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowTransition::PUBLISH_PRODUCT->value:
+          from: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::APPROVED->value
+          to: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::PUBLISHED->value
+          options:
+            label: 'Set to Published Status'
+            roles: ['approval']
+        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowTransition::EXPORT_PRODUCT->value:
+          from: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::PUBLISHED->value
+          to: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::EXPORTED->value
+          options:
+            label: 'Export to Outbound Channels'
+            roles: ['approval']
+        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowTransition::EXPORT_TO_COMPLIANCE->value:
+          from: [!php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::ENRICHED->value, !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::CATEGORY_MANUAL_ASSIGNED->value, !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::MEDIA_ASSIGNED->value]
+          to: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::COMPLIANCE_SENT->value
+          options:
+            label: 'Export Data to ComplianceQuest'
+            roles: ['approval']
+        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowTransition::COMPLIANCE_APPROVE->value:
+          from: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::COMPLIANCE_SENT->value
+          to: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::COMPLIANCE_APPROVED->value
+          options:
+            label: 'ComplianceQuest Processing Complete'
+            roles: ['approval']
+        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowTransition::SYNC_FROM_COMPLIANCE->value:
+          from: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::COMPLIANCE_APPROVED->value
+          to: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::PUBLISHED->value
+          options:
+            label: 'Synchronize from ComplianceQuest'
+            roles: ['approval']
+      initial_places: [!php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::IMPORTED_DISPLAYED->value]
+      supports:
+        - 'Pimcore\Model\DataObject\Product'
