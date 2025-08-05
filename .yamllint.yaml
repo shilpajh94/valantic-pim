@@ -4,6 +4,7 @@ extends: relaxed
 
 rules:
     line-length: disable
+    new-lines: disable
 
 ignore:
     - config/pim_data_post_configs/dev/B2B_auth.yaml
