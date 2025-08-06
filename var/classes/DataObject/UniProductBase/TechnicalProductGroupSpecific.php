@@ -6,8 +6,33 @@ use Pimcore\Model\DataObject\Exception\InheritanceParentNotFoundException;
 
 class TechnicalProductGroupSpecific extends \Pimcore\Model\DataObject\Objectbrick {
 
-protected $brickGetters = ['UniPrGsTechDss','UniPrGsTechPts'];
+protected $brickGetters = ['UniPrFinFhs','UniPrGsTechDss','UniPrGsTechPts'];
 
+
+protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrFinFhs|null $UniPrFinFhs = null;
+
+/**
+* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrFinFhs|null
+*/
+public function getUniPrFinFhs(bool $includeDeletedBricks = false)
+{
+	if(!$includeDeletedBricks &&
+		isset($this->UniPrFinFhs) &&
+		$this->UniPrFinFhs->getDoDelete()) {
+			return null;
+	}
+	return $this->UniPrFinFhs;
+}
+
+/**
+* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrFinFhs|null $UniPrFinFhs
+* @return $this
+*/
+public function setUniPrFinFhs(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrFinFhs $UniPrFinFhs): static
+{
+	$this->UniPrFinFhs = $UniPrFinFhs;
+	return $this;
+}
 
 protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrGsTechDss|null $UniPrGsTechDss = null;
 

@@ -74,7 +74,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Product',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1753959752,
+   'modificationDate' => 1754394099,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => 'App\\Model\\DataObject\\AbstractUniProductBase',
@@ -2262,6 +2262,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         array (
                           0 => 'UniPrGsTechDss',
                           1 => 'UniPrGsTechPts',
+                          2 => 'UniPrFinFhs',
                         ),
                          'maxItems' => NULL,
                          'border' => false,
@@ -3680,37 +3681,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
-    0 => 
-    Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
-       'name' => 'customerReferernce',
-       'title' => 'customerReferernce',
-       'tooltip' => '',
-       'mandatory' => false,
-       'noteditable' => false,
-       'index' => false,
-       'locked' => false,
-       'style' => '',
-       'permissions' => NULL,
-       'fieldtype' => '',
-       'relationType' => false,
-       'invisible' => false,
-       'visibleGridView' => false,
-       'visibleSearch' => false,
-       'blockedVarsForExport' => 
-      array (
-      ),
-       'allowedTypes' => 
-      array (
-        0 => 'UniBasePrCustomerReferernce',
-      ),
-       'lazyLoading' => true,
-       'maxItems' => NULL,
-       'disallowAddRemove' => false,
-       'disallowReorder' => false,
-       'collapsed' => false,
-       'collapsible' => false,
-       'border' => false,
-    )),
   ),
    'blockedVarsForExport' => 
   array (

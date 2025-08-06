@@ -55,7 +55,7 @@
  * - regionalAvailability [manyToManyObjectRelation]
  * - regions [calculatedValue]
  * - competitorCrossReference [fieldcollections]
- * - customerReferernce [fieldcollections]
+ * - customerReference [fieldcollections]
  * - oemCrossReference [fieldcollections]
  * - industrialStandards [multiselect]
  * - agencyCompliance [multiselect]
@@ -174,7 +174,7 @@ public const FIELD_TECHNICAL_PRODUCT_GROUP_SPECIFIC = 'technicalProductGroupSpec
 public const FIELD_REGIONAL_AVAILABILITY = 'regionalAvailability';
 public const FIELD_REGIONS = 'regions';
 public const FIELD_COMPETITOR_CROSS_REFERENCE = 'competitorCrossReference';
-public const FIELD_CUSTOMER_REFERERNCE = 'customerReferernce';
+public const FIELD_CUSTOMER_REFERENCE = 'customerReference';
 public const FIELD_OEM_CROSS_REFERENCE = 'oemCrossReference';
 public const FIELD_INDUSTRIAL_STANDARDS = 'industrialStandards';
 public const FIELD_AGENCY_COMPLIANCE = 'agencyCompliance';
@@ -205,7 +205,7 @@ protected $weightImperial;
 protected $technicalProductGroupSpecific;
 protected $regionalAvailability;
 protected $competitorCrossReference;
-protected $customerReferernce;
+protected $customerReference;
 protected $oemCrossReference;
 protected $industrialStandards;
 protected $agencyCompliance;
@@ -1939,29 +1939,29 @@ public function setCompetitorCrossReference(?\Pimcore\Model\DataObject\Fieldcoll
 /**
 * @return \Pimcore\Model\DataObject\Fieldcollection|null
 */
-public function getCustomerReferernce(): ?\Pimcore\Model\DataObject\Fieldcollection
+public function getCustomerReference(): ?\Pimcore\Model\DataObject\Fieldcollection
 {
 	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("customerReferernce");
+		$preValue = $this->preGetValue("customerReference");
 		if ($preValue !== null) {
 			return $preValue;
 		}
 	}
 
-	$data = $this->getClass()->getFieldDefinition("customerReferernce")->preGetData($this);
+	$data = $this->getClass()->getFieldDefinition("customerReference")->preGetData($this);
 	return $data;
 }
 
 /**
-* Set customerReferernce - customerReferernce
-* @param \Pimcore\Model\DataObject\Fieldcollection|null $customerReferernce
+* Set customerReference - Customer Reference
+* @param \Pimcore\Model\DataObject\Fieldcollection|null $customerReference
 * @return $this
 */
-public function setCustomerReferernce(?\Pimcore\Model\DataObject\Fieldcollection $customerReferernce): static
+public function setCustomerReference(?\Pimcore\Model\DataObject\Fieldcollection $customerReference): static
 {
 	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections $fd */
-	$fd = $this->getClass()->getFieldDefinition("customerReferernce");
-	$this->customerReferernce = $fd->preSetData($this, $customerReferernce);
+	$fd = $this->getClass()->getFieldDefinition("customerReference");
+	$this->customerReference = $fd->preSetData($this, $customerReference);
 	return $this;
 }
 
