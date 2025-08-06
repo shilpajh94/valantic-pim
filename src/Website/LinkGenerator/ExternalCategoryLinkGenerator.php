@@ -6,9 +6,15 @@ namespace App\Website\LinkGenerator;
 
 use Pimcore\Model\DataObject\ClassDefinition\LinkGeneratorInterface;
 use Pimcore\Model\DataObject\UniProductCategoryExternal;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class ExternalCategoryLinkGenerator implements LinkGeneratorInterface
 {
+    public function __construct(
+        private UrlGeneratorInterface $urlGenerator,
+    ) {
+    }
+
     /**
      * Generates a link for the given UniProductCategoryExternal object.
      *
@@ -24,9 +30,9 @@ class ExternalCategoryLinkGenerator implements LinkGeneratorInterface
 
         $locale = $params['locale'] ?? 'en';
 
-        return '/admin/export/preview?' . http_build_query([
+        return $this->urlGenerator->generate('admin_export_preview', [
             'id' => $object->getId(),
             '_locale' => $locale,
-        ]);
+        ], $reset ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::RELATIVE_PATH);
     }
 }

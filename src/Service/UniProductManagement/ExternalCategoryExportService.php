@@ -60,17 +60,7 @@ class ExternalCategoryExportService
     {
         $response = new StreamedResponse(function () use ($spreadsheet): void {
             $writer = new Html($spreadsheet);
-
-            ob_start();
-
-            try {
-                $writer->save('php://output');
-                echo $this->wrapHtmlOutput(ob_get_clean());
-            } finally {
-                if (ob_get_length() > 0) {
-                    ob_end_clean();
-                }
-            }
+            $writer->save('php://output');
         });
 
         $response->headers->set('Content-Type', 'text/html');
@@ -126,57 +116,11 @@ class ExternalCategoryExportService
             $row++;
         }
 
-        return $spreadsheet;
-    }
+        foreach ($sheet->getColumnIterator() as $column) {
+            $sheet->getColumnDimension($column->getColumnIndex())->setAutoSize(true);
+        }
 
-    /**
-     * Wraps the HTML content of the exported spreadsheet with additional styling and structure.
-     */
-    private function wrapHtmlOutput(string $html): string
-    {
-        return <<<HTML
-                <!DOCTYPE html>
-                <html lang="en">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Export Preview</title>
-                    <style>
-                        body {
-                            font-family: Arial, sans-serif;
-                            margin: 20px;
-                        }
-                        table {
-                            border-collapse: collapse;
-                            width: 100%;
-                            margin-top: 20px;
-                        }
-                        table, th, td {
-                            border: 1px solid #ddd;
-                        }
-                        th {
-                            background-color: #f4f4f4;
-                            padding: 10px;
-                            text-align: left;
-                        }
-                        td {
-                            padding: 8px;
-                            text-align: left;
-                        }
-                        tr:nth-child(even) {
-                            background-color: #f9f9f9;
-                        }
-                        tr:hover {
-                            background-color: #f1f1f1;
-                        }
-                    </style>
-                </head>
-                <body>
-                    <h1>Export Preview</h1>
-                    $html
-                </body>
-                </html>
-            HTML;
+        return $spreadsheet;
     }
 
     /**
