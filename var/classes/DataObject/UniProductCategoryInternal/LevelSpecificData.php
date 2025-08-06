@@ -6,7 +6,7 @@ use Pimcore\Model\DataObject\Exception\InheritanceParentNotFoundException;
 
 class LevelSpecificData extends \Pimcore\Model\DataObject\Objectbrick {
 
-protected $brickGetters = ['UniPrBrand','UniPrBrandDss','UniPrBrandPts','UniPrSkeleton','UniPrSkeletonDss','UniPrSkeletonPts'];
+protected $brickGetters = ['UniPrBrand','UniPrBrandDss','UniPrBrandPts','UniPrParentFhs','UniPrSkeleFhs','UniPrSkeleton','UniPrSkeletonDss','UniPrSkeletonPts'];
 
 
 protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrand|null $UniPrBrand = null;
@@ -81,6 +81,56 @@ public function getUniPrBrandPts(bool $includeDeletedBricks = false)
 public function setUniPrBrandPts(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrandPts $UniPrBrandPts): static
 {
 	$this->UniPrBrandPts = $UniPrBrandPts;
+	return $this;
+}
+
+protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrParentFhs|null $UniPrParentFhs = null;
+
+/**
+* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrParentFhs|null
+*/
+public function getUniPrParentFhs(bool $includeDeletedBricks = false)
+{
+	if(!$includeDeletedBricks &&
+		isset($this->UniPrParentFhs) &&
+		$this->UniPrParentFhs->getDoDelete()) {
+			return null;
+	}
+	return $this->UniPrParentFhs;
+}
+
+/**
+* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrParentFhs|null $UniPrParentFhs
+* @return $this
+*/
+public function setUniPrParentFhs(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrParentFhs $UniPrParentFhs): static
+{
+	$this->UniPrParentFhs = $UniPrParentFhs;
+	return $this;
+}
+
+protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeleFhs|null $UniPrSkeleFhs = null;
+
+/**
+* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeleFhs|null
+*/
+public function getUniPrSkeleFhs(bool $includeDeletedBricks = false)
+{
+	if(!$includeDeletedBricks &&
+		isset($this->UniPrSkeleFhs) &&
+		$this->UniPrSkeleFhs->getDoDelete()) {
+			return null;
+	}
+	return $this->UniPrSkeleFhs;
+}
+
+/**
+* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeleFhs|null $UniPrSkeleFhs
+* @return $this
+*/
+public function setUniPrSkeleFhs(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeleFhs $UniPrSkeleFhs): static
+{
+	$this->UniPrSkeleFhs = $UniPrSkeleFhs;
 	return $this;
 }
 

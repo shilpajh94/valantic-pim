@@ -1,0 +1,22 @@
+pimcore:
+    objects:
+        select_options:
+            definitions:
+                UniFhsPrResistance:
+                    id: UniFhsPrResistance
+                    group: ''
+                    useTraits: ''
+                    implementsInterfaces: ''
+                    selectOptions:
+                        -
+                            value: high
+                            label: High
+                            name: ''
+                        -
+                            value: low
+                            label: Low
+                            name: ''
+                        -
+                            value: none
+                            label: None
+                            name: ''
