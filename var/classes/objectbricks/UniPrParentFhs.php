@@ -3,23 +3,17 @@
 /**
  * Fields Summary:
  * - reinforcement [manyToManyObjectRelation]
- * - staticWire [checkbox]
+ * - hasStaticWire [checkbox]
  * - staticWireType [manyToOneRelation]
- * - helicalWire [checkbox]
+ * - hasHelicalWire [checkbox]
  * - numberOfHelixWires [numeric]
- * - layFlat [checkbox]
+ * - isLayFlat [checkbox]
  * - tubeCharacteristic [manyToManyObjectRelation]
- * - tubeColor [manyToManyObjectRelation]
  * - tubeMaterial [manyToManyObjectRelation]
- * - standardMetTube [multiselect]
  * - coverCharacteristicHaptic [manyToManyObjectRelation]
  * - coverColor [manyToManyObjectRelation]
- * - coverMaterialOuterLayer [manyToManyObjectRelation]
- * - standardMetCover [multiselect]
- * - standardMetCompleteHose [multiselect]
+ * - coverMaterial [manyToManyObjectRelation]
  * - numberOfPlies [numeric]
- * - designFactor [input]
- * - acceptableHoseMedia [manyToManyObjectRelation]
  * - localizedfields [localizedfields]
  * -- reinforcementVersion [textarea]
  * -- tubeMaterialExportVersion [textarea]
@@ -27,6 +21,12 @@
  * -- standardMetHoseComment [input]
  * -- catalogCoupling [textarea]
  * -- catalogPackaging [textarea]
+ * - standardMetTube [multiselect]
+ * - standardMetCover [multiselect]
+ * - standardMetCompleteHose [multiselect]
+ * - acceptableHoseMedia [manyToManyObjectRelation]
+ * - tubeColor [manyToManyObjectRelation]
+ * - designFactor [input]
  */
 
 return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
@@ -51,11 +51,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
      'children' => 
     array (
       0 => 
-      Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+      Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
-         'title' => '',
+         'title' => 'Layout',
          'width' => '',
          'height' => '',
          'collapsible' => false,
@@ -65,654 +65,23 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'children' => 
         array (
           0 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-             'name' => 'reinforcement',
-             'title' => 'Reinforcement',
-             'tooltip' => '',
-             'mandatory' => true,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => true,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => true,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'classes' => 
-            array (
-              0 => 
-              array (
-                'classes' => 'UniPrReinforcement',
-              ),
-            ),
-             'displayMode' => 'grid',
-             'pathFormatterClass' => '',
-             'maxItems' => NULL,
-             'visibleFields' => 
-            array (
-            ),
-             'allowToCreateNewObject' => false,
-             'allowToClearRelation' => true,
-             'optimizedAdminLoading' => false,
-             'enableTextSelection' => false,
-             'visibleFieldDefinitions' => 
-            array (
-            ),
+          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+             'name' => 'Design Property',
+             'type' => NULL,
+             'region' => NULL,
+             'title' => 'Design Property',
              'width' => '',
              'height' => '',
-          )),
-          1 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-             'name' => 'staticWire',
-             'title' => 'Static Wire (Y/N)',
-             'tooltip' => '',
-             'mandatory' => true,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => true,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'defaultValue' => NULL,
-             'defaultValueGenerator' => '',
-          )),
-          2 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-             'name' => 'staticWireType',
-             'title' => 'Static Wire Type',
-             'tooltip' => '',
-             'mandatory' => true,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => true,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => true,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'classes' => 
-            array (
-              0 => 
-              array (
-                'classes' => 'UniPrStaticWireType',
-              ),
-            ),
-             'displayMode' => 'grid',
-             'pathFormatterClass' => '',
-             'assetInlineDownloadAllowed' => false,
-             'assetUploadPath' => '',
-             'allowToClearRelation' => true,
-             'objectsAllowed' => true,
-             'assetsAllowed' => false,
-             'assetTypes' => 
-            array (
-            ),
-             'documentsAllowed' => false,
-             'documentTypes' => 
-            array (
-            ),
-             'width' => '',
-          )),
-          3 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-             'name' => 'helicalWire',
-             'title' => 'Helical Wire Y/N',
-             'tooltip' => '',
-             'mandatory' => true,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => true,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'defaultValue' => NULL,
-             'defaultValueGenerator' => '',
-          )),
-          4 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-             'name' => 'numberOfHelixWires',
-             'title' => 'Number Of Helix Wires',
-             'tooltip' => '',
-             'mandatory' => true,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => true,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'defaultValue' => NULL,
-             'integer' => false,
-             'unsigned' => false,
-             'minValue' => NULL,
-             'maxValue' => NULL,
-             'unique' => false,
-             'decimalSize' => NULL,
-             'decimalPrecision' => NULL,
-             'width' => '',
-             'defaultValueGenerator' => '',
-          )),
-          5 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-             'name' => 'layFlat',
-             'title' => 'Lay Flat Y/N',
-             'tooltip' => '',
-             'mandatory' => true,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => true,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'defaultValue' => NULL,
-             'defaultValueGenerator' => '',
-          )),
-          6 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-             'name' => 'tubeCharacteristic',
-             'title' => 'Tube Characteristic',
-             'tooltip' => '',
-             'mandatory' => true,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => true,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => true,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'classes' => 
-            array (
-              0 => 
-              array (
-                'classes' => 'UniPrTubeCharacteristic',
-              ),
-            ),
-             'displayMode' => 'grid',
-             'pathFormatterClass' => '',
-             'maxItems' => NULL,
-             'visibleFields' => 
-            array (
-            ),
-             'allowToCreateNewObject' => false,
-             'allowToClearRelation' => true,
-             'optimizedAdminLoading' => false,
-             'enableTextSelection' => false,
-             'visibleFieldDefinitions' => 
-            array (
-            ),
-             'width' => '',
-             'height' => '',
-          )),
-          7 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-             'name' => 'tubeColor',
-             'title' => 'Tube Color  ',
-             'tooltip' => '',
-             'mandatory' => true,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => true,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => true,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'classes' => 
-            array (
-              0 => 
-              array (
-                'classes' => 'UniPrTubeColor',
-              ),
-            ),
-             'displayMode' => 'grid',
-             'pathFormatterClass' => '',
-             'maxItems' => NULL,
-             'visibleFields' => 
-            array (
-            ),
-             'allowToCreateNewObject' => false,
-             'allowToClearRelation' => true,
-             'optimizedAdminLoading' => false,
-             'enableTextSelection' => false,
-             'visibleFieldDefinitions' => 
-            array (
-            ),
-             'width' => '',
-             'height' => '',
-          )),
-          8 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-             'name' => 'tubeMaterial',
-             'title' => 'Tube Material  ',
-             'tooltip' => '',
-             'mandatory' => false,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => true,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'classes' => 
-            array (
-              0 => 
-              array (
-                'classes' => 'UniPrTubeMaterial',
-              ),
-            ),
-             'displayMode' => 'grid',
-             'pathFormatterClass' => '',
-             'maxItems' => NULL,
-             'visibleFields' => 
-            array (
-            ),
-             'allowToCreateNewObject' => false,
-             'allowToClearRelation' => true,
-             'optimizedAdminLoading' => false,
-             'enableTextSelection' => false,
-             'visibleFieldDefinitions' => 
-            array (
-            ),
-             'width' => '',
-             'height' => '',
-          )),
-          9 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-             'name' => 'standardMetTube',
-             'title' => 'Standard Met; Tube',
-             'tooltip' => '',
-             'mandatory' => true,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => true,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'maxItems' => NULL,
-             'renderType' => 'list',
-             'dynamicOptions' => false,
-             'defaultValue' => NULL,
-             'height' => '',
-             'width' => '',
-             'defaultValueGenerator' => '',
-             'optionsProviderType' => 'select_options',
-             'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
-             'optionsProviderData' => 'UniPrIndustryStandard',
-          )),
-          10 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-             'name' => 'coverCharacteristicHaptic',
-             'title' => 'Cover Characteristic Haptic',
-             'tooltip' => '',
-             'mandatory' => true,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => true,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => true,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'classes' => 
-            array (
-              0 => 
-              array (
-                'classes' => 'UniPrCoverCharacteristic',
-              ),
-            ),
-             'displayMode' => 'grid',
-             'pathFormatterClass' => '',
-             'maxItems' => NULL,
-             'visibleFields' => 
-            array (
-            ),
-             'allowToCreateNewObject' => false,
-             'allowToClearRelation' => true,
-             'optimizedAdminLoading' => false,
-             'enableTextSelection' => false,
-             'visibleFieldDefinitions' => 
-            array (
-            ),
-             'width' => '',
-             'height' => '',
-          )),
-          11 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-             'name' => 'coverColor',
-             'title' => 'Cover Color / Color- Outer   Layer',
-             'tooltip' => '',
-             'mandatory' => true,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => true,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => true,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'classes' => 
-            array (
-              0 => 
-              array (
-                'classes' => 'UniPrCoverColor',
-              ),
-            ),
-             'displayMode' => 'grid',
-             'pathFormatterClass' => '',
-             'maxItems' => NULL,
-             'visibleFields' => 
-            array (
-            ),
-             'allowToCreateNewObject' => false,
-             'allowToClearRelation' => true,
-             'optimizedAdminLoading' => false,
-             'enableTextSelection' => false,
-             'visibleFieldDefinitions' => 
-            array (
-            ),
-             'width' => '',
-             'height' => '',
-          )),
-          12 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-             'name' => 'coverMaterialOuterLayer',
-             'title' => 'Cover Material / Cover - Outer Layer',
-             'tooltip' => '',
-             'mandatory' => true,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => true,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => true,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'classes' => 
-            array (
-              0 => 
-              array (
-                'classes' => 'UniPrCoverMaterial',
-              ),
-            ),
-             'displayMode' => 'grid',
-             'pathFormatterClass' => '',
-             'maxItems' => NULL,
-             'visibleFields' => 
-            array (
-            ),
-             'allowToCreateNewObject' => false,
-             'allowToClearRelation' => true,
-             'optimizedAdminLoading' => false,
-             'enableTextSelection' => false,
-             'visibleFieldDefinitions' => 
-            array (
-            ),
-             'width' => '',
-             'height' => '',
-          )),
-          13 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-             'name' => 'standardMetCover',
-             'title' => 'Standard Met Cover',
-             'tooltip' => '',
-             'mandatory' => true,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => true,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'maxItems' => NULL,
-             'renderType' => 'list',
-             'dynamicOptions' => false,
-             'defaultValue' => NULL,
-             'height' => '',
-             'width' => '',
-             'defaultValueGenerator' => '',
-             'optionsProviderType' => 'select_options',
-             'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
-             'optionsProviderData' => 'UniPrIndustryStandard',
-          )),
-          14 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-             'name' => 'standardMetCompleteHose',
-             'title' => 'Standard Met;Complete Hose',
-             'tooltip' => '',
-             'mandatory' => true,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => true,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'maxItems' => NULL,
-             'renderType' => 'list',
-             'dynamicOptions' => false,
-             'defaultValue' => NULL,
-             'height' => '',
-             'width' => '',
-             'defaultValueGenerator' => '',
-             'optionsProviderType' => 'select_options',
-             'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
-             'optionsProviderData' => 'UniPrIndustryStandard',
-          )),
-          15 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-             'name' => 'numberOfPlies',
-             'title' => 'Number Of Plies',
-             'tooltip' => '',
-             'mandatory' => true,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => true,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'defaultValue' => NULL,
-             'integer' => false,
-             'unsigned' => false,
-             'minValue' => NULL,
-             'maxValue' => NULL,
-             'unique' => false,
-             'decimalSize' => NULL,
-             'decimalPrecision' => NULL,
-             'width' => '',
-             'defaultValueGenerator' => '',
-          )),
-          16 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-             'name' => 'designFactor',
-             'title' => 'Design Factor',
-             'tooltip' => '',
-             'mandatory' => true,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => true,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'defaultValue' => NULL,
-             'columnLength' => 190,
-             'regex' => '^\\n+:\\n+$',
-             'regexFlags' => 
-            array (
-            ),
-             'unique' => false,
-             'showCharCount' => false,
-             'width' => '',
-             'defaultValueGenerator' => '',
-          )),
-          17 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-             'name' => 'acceptableHoseMedia',
-             'title' => 'Acceptable Hose Media / Flow Medium',
-             'tooltip' => '',
-             'mandatory' => true,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => true,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => true,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'classes' => 
-            array (
-              0 => 
-              array (
-                'classes' => 'UniPrFlowMedium',
-              ),
-            ),
-             'displayMode' => 'grid',
-             'pathFormatterClass' => '',
-             'maxItems' => NULL,
-             'visibleFields' => 
-            array (
-            ),
-             'allowToCreateNewObject' => false,
-             'allowToClearRelation' => true,
-             'optimizedAdminLoading' => false,
-             'enableTextSelection' => false,
-             'visibleFieldDefinitions' => 
-            array (
-            ),
-             'width' => '',
-             'height' => '',
-          )),
-          18 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
-             'name' => 'localizedfields',
-             'title' => '',
-             'tooltip' => NULL,
-             'mandatory' => false,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => NULL,
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => true,
-             'visibleSearch' => true,
-             'blockedVarsForExport' => 
-            array (
-            ),
+             'collapsible' => false,
+             'collapsed' => false,
+             'bodyStyle' => '',
+             'datatype' => 'layout',
              'children' => 
             array (
               0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                 'name' => 'reinforcementVersion',
-                 'title' => 'Reinforcement / Export Version',
+              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                 'name' => 'reinforcement',
+                 'title' => 'Reinforcement',
                  'tooltip' => '',
                  'mandatory' => true,
                  'noteditable' => false,
@@ -721,23 +90,40 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'style' => '',
                  'permissions' => NULL,
                  'fieldtype' => '',
-                 'relationType' => false,
+                 'relationType' => true,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => true,
                  'blockedVarsForExport' => 
                 array (
                 ),
-                 'maxLength' => NULL,
-                 'showCharCount' => false,
-                 'excludeFromSearchIndex' => false,
-                 'height' => '',
+                 'classes' => 
+                array (
+                  0 => 
+                  array (
+                    'classes' => 'UniPrReinforcementFhs',
+                  ),
+                ),
+                 'displayMode' => 'grid',
+                 'pathFormatterClass' => '',
+                 'maxItems' => NULL,
+                 'visibleFields' => 
+                array (
+                ),
+                 'allowToCreateNewObject' => false,
+                 'allowToClearRelation' => true,
+                 'optimizedAdminLoading' => false,
+                 'enableTextSelection' => false,
+                 'visibleFieldDefinitions' => 
+                array (
+                ),
                  'width' => '',
+                 'height' => '',
               )),
               1 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                 'name' => 'tubeMaterialExportVersion',
-                 'title' => 'Tube Material - Export Version',
+              Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                 'name' => 'hasStaticWire',
+                 'title' => 'Static Wire (Y/N)',
                  'tooltip' => '',
                  'mandatory' => true,
                  'noteditable' => false,
@@ -753,16 +139,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'blockedVarsForExport' => 
                 array (
                 ),
-                 'maxLength' => NULL,
-                 'showCharCount' => false,
-                 'excludeFromSearchIndex' => false,
-                 'height' => '',
-                 'width' => '',
+                 'defaultValue' => NULL,
+                 'defaultValueGenerator' => '',
               )),
               2 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                 'name' => 'coverMaterialExportVersion',
-                 'title' => 'Cover Material / Export Version',
+              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                 'name' => 'staticWireType',
+                 'title' => 'Static Wire Type',
                  'tooltip' => '',
                  'mandatory' => true,
                  'noteditable' => false,
@@ -771,23 +154,935 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'style' => '',
                  'permissions' => NULL,
                  'fieldtype' => '',
-                 'relationType' => false,
+                 'relationType' => true,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => true,
                  'blockedVarsForExport' => 
                 array (
                 ),
-                 'maxLength' => NULL,
-                 'showCharCount' => false,
-                 'excludeFromSearchIndex' => false,
-                 'height' => '',
+                 'classes' => 
+                array (
+                  0 => 
+                  array (
+                    'classes' => 'UniPrStaticWireTypeFhs',
+                  ),
+                ),
+                 'displayMode' => 'grid',
+                 'pathFormatterClass' => '',
+                 'assetInlineDownloadAllowed' => false,
+                 'assetUploadPath' => '',
+                 'allowToClearRelation' => true,
+                 'objectsAllowed' => true,
+                 'assetsAllowed' => false,
+                 'assetTypes' => 
+                array (
+                ),
+                 'documentsAllowed' => false,
+                 'documentTypes' => 
+                array (
+                ),
                  'width' => '',
               )),
               3 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                 'name' => 'hasHelicalWire',
+                 'title' => 'Helical Wire Y/N',
+                 'tooltip' => '',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => true,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'defaultValue' => NULL,
+                 'defaultValueGenerator' => '',
+              )),
+              4 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                 'name' => 'numberOfHelixWires',
+                 'title' => 'Number Of Helix Wires',
+                 'tooltip' => '',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => true,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'defaultValue' => NULL,
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'unique' => false,
+                 'decimalSize' => NULL,
+                 'decimalPrecision' => NULL,
+                 'width' => '',
+                 'defaultValueGenerator' => '',
+              )),
+              5 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                 'name' => 'isLayFlat',
+                 'title' => 'Lay Flat Y/N',
+                 'tooltip' => '',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => true,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'defaultValue' => NULL,
+                 'defaultValueGenerator' => '',
+              )),
+              6 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                 'name' => 'tubeCharacteristic',
+                 'title' => 'Tube Characteristic',
+                 'tooltip' => '',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => true,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                  0 => 
+                  array (
+                    'classes' => 'UniPrTubeCharacteristicFhs',
+                  ),
+                ),
+                 'displayMode' => 'grid',
+                 'pathFormatterClass' => '',
+                 'maxItems' => NULL,
+                 'visibleFields' => 
+                array (
+                ),
+                 'allowToCreateNewObject' => false,
+                 'allowToClearRelation' => true,
+                 'optimizedAdminLoading' => false,
+                 'enableTextSelection' => false,
+                 'visibleFieldDefinitions' => 
+                array (
+                ),
+                 'width' => '',
+                 'height' => '',
+              )),
+              7 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                 'name' => 'tubeMaterial',
+                 'title' => 'Tube Material  ',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                  0 => 
+                  array (
+                    'classes' => 'UniPrMaterialFhs',
+                  ),
+                ),
+                 'displayMode' => 'grid',
+                 'pathFormatterClass' => '',
+                 'maxItems' => NULL,
+                 'visibleFields' => 
+                array (
+                ),
+                 'allowToCreateNewObject' => false,
+                 'allowToClearRelation' => true,
+                 'optimizedAdminLoading' => false,
+                 'enableTextSelection' => false,
+                 'visibleFieldDefinitions' => 
+                array (
+                ),
+                 'width' => '',
+                 'height' => '',
+              )),
+              8 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                 'name' => 'coverCharacteristicHaptic',
+                 'title' => 'Cover Characteristic / Haptic',
+                 'tooltip' => '',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => true,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                  0 => 
+                  array (
+                    'classes' => 'UniPrCoverCharacteristicFhs',
+                  ),
+                ),
+                 'displayMode' => 'grid',
+                 'pathFormatterClass' => '',
+                 'maxItems' => NULL,
+                 'visibleFields' => 
+                array (
+                ),
+                 'allowToCreateNewObject' => false,
+                 'allowToClearRelation' => true,
+                 'optimizedAdminLoading' => false,
+                 'enableTextSelection' => false,
+                 'visibleFieldDefinitions' => 
+                array (
+                ),
+                 'width' => '',
+                 'height' => '',
+              )),
+              9 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                 'name' => 'coverColor',
+                 'title' => 'Cover Color / Color- Outer   Layer',
+                 'tooltip' => '',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => true,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                  0 => 
+                  array (
+                    'classes' => 'UniPrColorFhs',
+                  ),
+                ),
+                 'displayMode' => 'grid',
+                 'pathFormatterClass' => '',
+                 'maxItems' => NULL,
+                 'visibleFields' => 
+                array (
+                ),
+                 'allowToCreateNewObject' => false,
+                 'allowToClearRelation' => true,
+                 'optimizedAdminLoading' => false,
+                 'enableTextSelection' => false,
+                 'visibleFieldDefinitions' => 
+                array (
+                ),
+                 'width' => '',
+                 'height' => '',
+              )),
+              10 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                 'name' => 'coverMaterial',
+                 'title' => 'Cover Material ',
+                 'tooltip' => '',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => true,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                  0 => 
+                  array (
+                    'classes' => 'UniPrMaterialFhs',
+                  ),
+                ),
+                 'displayMode' => 'grid',
+                 'pathFormatterClass' => '',
+                 'maxItems' => NULL,
+                 'visibleFields' => 
+                array (
+                ),
+                 'allowToCreateNewObject' => false,
+                 'allowToClearRelation' => true,
+                 'optimizedAdminLoading' => false,
+                 'enableTextSelection' => false,
+                 'visibleFieldDefinitions' => 
+                array (
+                ),
+                 'width' => '',
+                 'height' => '',
+              )),
+              11 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                 'name' => 'numberOfPlies',
+                 'title' => 'Number Of Plies',
+                 'tooltip' => '',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => true,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'defaultValue' => NULL,
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'unique' => false,
+                 'decimalSize' => NULL,
+                 'decimalPrecision' => NULL,
+                 'width' => '',
+                 'defaultValueGenerator' => '',
+              )),
+              12 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+                 'name' => 'localizedfields',
+                 'title' => '',
+                 'tooltip' => NULL,
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => NULL,
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => true,
+                 'visibleSearch' => true,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'children' => 
+                array (
+                  0 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                     'name' => 'reinforcementVersion',
+                     'title' => 'Reinforcement / Export Version',
+                     'tooltip' => '',
+                     'mandatory' => true,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => true,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'maxLength' => NULL,
+                     'showCharCount' => false,
+                     'excludeFromSearchIndex' => false,
+                     'height' => '',
+                     'width' => '',
+                  )),
+                  1 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                     'name' => 'tubeMaterialExportVersion',
+                     'title' => 'Tube Material - Export Version',
+                     'tooltip' => '',
+                     'mandatory' => true,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => true,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'maxLength' => NULL,
+                     'showCharCount' => false,
+                     'excludeFromSearchIndex' => false,
+                     'height' => '',
+                     'width' => '',
+                  )),
+                  2 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                     'name' => 'coverMaterialExportVersion',
+                     'title' => 'Cover Material / Export Version',
+                     'tooltip' => '',
+                     'mandatory' => true,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => true,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'maxLength' => NULL,
+                     'showCharCount' => false,
+                     'excludeFromSearchIndex' => false,
+                     'height' => '',
+                     'width' => '',
+                  )),
+                ),
+                 'region' => NULL,
+                 'layout' => NULL,
+                 'maxTabs' => NULL,
+                 'border' => false,
+                 'provideSplitView' => false,
+                 'tabPosition' => 'top',
+                 'hideLabelsWhenTabsReached' => NULL,
+                 'referencedFields' => 
+                array (
+                  0 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+                     'name' => 'localizedfields',
+                     'title' => '',
+                     'tooltip' => NULL,
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => NULL,
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => true,
+                     'visibleSearch' => true,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'children' => 
+                    array (
+                      0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'name' => 'standardMetHoseComment',
+                         'title' => 'Industry Standard - Complete Hose (description)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'columnLength' => 190,
+                         'regex' => '',
+                         'regexFlags' => 
+                        array (
+                        ),
+                         'unique' => false,
+                         'showCharCount' => false,
+                         'width' => '',
+                         'defaultValueGenerator' => '',
+                      )),
+                      1 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                         'name' => 'catalogCoupling',
+                         'title' => 'Catalog Coupling',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'maxLength' => NULL,
+                         'showCharCount' => false,
+                         'excludeFromSearchIndex' => false,
+                         'height' => '',
+                         'width' => '',
+                      )),
+                      2 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                         'name' => 'catalogPackaging',
+                         'title' => 'Catalog Packaging',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'maxLength' => NULL,
+                         'showCharCount' => false,
+                         'excludeFromSearchIndex' => false,
+                         'height' => '',
+                         'width' => '',
+                      )),
+                    ),
+                     'region' => NULL,
+                     'layout' => NULL,
+                     'maxTabs' => NULL,
+                     'border' => false,
+                     'provideSplitView' => false,
+                     'tabPosition' => 'top',
+                     'hideLabelsWhenTabsReached' => NULL,
+                     'referencedFields' => 
+                    array (
+                    ),
+                     'permissionView' => NULL,
+                     'permissionEdit' => NULL,
+                     'labelWidth' => 100,
+                     'labelAlign' => 'left',
+                     'width' => '',
+                     'height' => '',
+                     'fieldDefinitionsCache' => NULL,
+                  )),
+                ),
+                 'permissionView' => NULL,
+                 'permissionEdit' => NULL,
+                 'labelWidth' => 100,
+                 'labelAlign' => 'left',
+                 'width' => '',
+                 'height' => '',
+                 'fieldDefinitionsCache' => NULL,
+              )),
+            ),
+             'locked' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'fieldtype' => 'panel',
+             'layout' => NULL,
+             'border' => false,
+             'icon' => '',
+             'labelWidth' => 100,
+             'labelAlign' => 'left',
+          )),
+          1 => 
+          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+             'name' => 'Non-Functional Property',
+             'type' => NULL,
+             'region' => NULL,
+             'title' => 'Non-Functional Property',
+             'width' => '',
+             'height' => '',
+             'collapsible' => false,
+             'collapsed' => false,
+             'bodyStyle' => '',
+             'datatype' => 'layout',
+             'children' => 
+            array (
+              0 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                 'name' => 'standardMetTube',
+                 'title' => 'Standard Met; Tube',
+                 'tooltip' => '',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => true,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'maxItems' => NULL,
+                 'renderType' => 'list',
+                 'dynamicOptions' => false,
+                 'defaultValue' => NULL,
+                 'height' => '',
+                 'width' => '',
+                 'defaultValueGenerator' => '',
+                 'optionsProviderType' => 'select_options',
+                 'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
+                 'optionsProviderData' => 'UniPrIndustryStandardFhs',
+              )),
+              1 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                 'name' => 'standardMetCover',
+                 'title' => 'Industry Standard - Cover',
+                 'tooltip' => '',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => true,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'maxItems' => NULL,
+                 'renderType' => 'list',
+                 'dynamicOptions' => false,
+                 'defaultValue' => NULL,
+                 'height' => '',
+                 'width' => '',
+                 'defaultValueGenerator' => '',
+                 'optionsProviderType' => 'select_options',
+                 'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
+                 'optionsProviderData' => 'UniPrIndustryStandardFhs',
+              )),
+              2 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                 'name' => 'standardMetCompleteHose',
+                 'title' => 'Industry Standard - Complete Hose',
+                 'tooltip' => '',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => true,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'maxItems' => NULL,
+                 'renderType' => 'list',
+                 'dynamicOptions' => false,
+                 'defaultValue' => NULL,
+                 'height' => '',
+                 'width' => '',
+                 'defaultValueGenerator' => '',
+                 'optionsProviderType' => 'select_options',
+                 'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
+                 'optionsProviderData' => 'UniPrIndustryStandardFhs',
+              )),
+              3 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                 'name' => 'acceptableHoseMedia',
+                 'title' => 'Acceptable Hose Media / Flow Medium',
+                 'tooltip' => '',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => true,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                  0 => 
+                  array (
+                    'classes' => 'UniPrFlowMediumFhs',
+                  ),
+                ),
+                 'displayMode' => 'grid',
+                 'pathFormatterClass' => '',
+                 'maxItems' => NULL,
+                 'visibleFields' => 
+                array (
+                ),
+                 'allowToCreateNewObject' => false,
+                 'allowToClearRelation' => true,
+                 'optimizedAdminLoading' => false,
+                 'enableTextSelection' => false,
+                 'visibleFieldDefinitions' => 
+                array (
+                ),
+                 'width' => '',
+                 'height' => '',
+              )),
+              4 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+                 'name' => 'localizedfields',
+                 'title' => '',
+                 'tooltip' => NULL,
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => NULL,
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => true,
+                 'visibleSearch' => true,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'children' => 
+                array (
+                  0 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'name' => 'standardMetHoseComment',
+                     'title' => 'Industry Standard - Complete Hose (description)',
+                     'tooltip' => '',
+                     'mandatory' => true,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => true,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'defaultValue' => NULL,
+                     'columnLength' => 190,
+                     'regex' => '',
+                     'regexFlags' => 
+                    array (
+                    ),
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'width' => '',
+                     'defaultValueGenerator' => '',
+                  )),
+                  1 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                     'name' => 'catalogCoupling',
+                     'title' => 'Catalog Coupling',
+                     'tooltip' => '',
+                     'mandatory' => true,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => true,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'maxLength' => NULL,
+                     'showCharCount' => false,
+                     'excludeFromSearchIndex' => false,
+                     'height' => '',
+                     'width' => '',
+                  )),
+                  2 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                     'name' => 'catalogPackaging',
+                     'title' => 'Catalog Packaging',
+                     'tooltip' => '',
+                     'mandatory' => true,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => true,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'maxLength' => NULL,
+                     'showCharCount' => false,
+                     'excludeFromSearchIndex' => false,
+                     'height' => '',
+                     'width' => '',
+                  )),
+                ),
+                 'region' => NULL,
+                 'layout' => NULL,
+                 'maxTabs' => NULL,
+                 'border' => false,
+                 'provideSplitView' => false,
+                 'tabPosition' => 'top',
+                 'hideLabelsWhenTabsReached' => NULL,
+                 'referencedFields' => 
+                array (
+                ),
+                 'permissionView' => NULL,
+                 'permissionEdit' => NULL,
+                 'labelWidth' => 100,
+                 'labelAlign' => 'left',
+                 'width' => '',
+                 'height' => '',
+                 'fieldDefinitionsCache' => NULL,
+              )),
+            ),
+             'locked' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'fieldtype' => 'panel',
+             'layout' => NULL,
+             'border' => false,
+             'icon' => '',
+             'labelWidth' => 100,
+             'labelAlign' => 'left',
+          )),
+          2 => 
+          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+             'name' => 'Mechanical Property',
+             'type' => NULL,
+             'region' => NULL,
+             'title' => 'Mechanical Property',
+             'width' => '',
+             'height' => '',
+             'collapsible' => false,
+             'collapsed' => false,
+             'bodyStyle' => '',
+             'datatype' => 'layout',
+             'children' => 
+            array (
+              0 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                 'name' => 'tubeColor',
+                 'title' => 'Tube Color  ',
+                 'tooltip' => '',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => true,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                  0 => 
+                  array (
+                    'classes' => 'UniPrColorFhs',
+                  ),
+                ),
+                 'displayMode' => 'grid',
+                 'pathFormatterClass' => '',
+                 'maxItems' => NULL,
+                 'visibleFields' => 
+                array (
+                ),
+                 'allowToCreateNewObject' => false,
+                 'allowToClearRelation' => true,
+                 'optimizedAdminLoading' => false,
+                 'enableTextSelection' => false,
+                 'visibleFieldDefinitions' => 
+                array (
+                ),
+                 'width' => '',
+                 'height' => '',
+              )),
+              1 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                 'name' => 'standardMetHoseComment',
-                 'title' => 'StandardMet ; HoseComment',
+                 'name' => 'designFactor',
+                 'title' => 'Design Factor',
                  'tooltip' => '',
                  'mandatory' => true,
                  'noteditable' => false,
@@ -805,7 +1100,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                 ),
                  'defaultValue' => NULL,
                  'columnLength' => 190,
-                 'regex' => '',
+                 'regex' => '^\\n+:\\n+$',
                  'regexFlags' => 
                 array (
                 ),
@@ -814,86 +1109,26 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'width' => '',
                  'defaultValueGenerator' => '',
               )),
-              4 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                 'name' => 'catalogCoupling',
-                 'title' => 'Catalog Coupling',
-                 'tooltip' => '',
-                 'mandatory' => true,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => true,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'maxLength' => NULL,
-                 'showCharCount' => false,
-                 'excludeFromSearchIndex' => false,
-                 'height' => '',
-                 'width' => '',
-              )),
-              5 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                 'name' => 'catalogPackaging',
-                 'title' => 'Catalog Packaging',
-                 'tooltip' => '',
-                 'mandatory' => true,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => true,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'maxLength' => NULL,
-                 'showCharCount' => false,
-                 'excludeFromSearchIndex' => false,
-                 'height' => '',
-                 'width' => '',
-              )),
             ),
-             'region' => NULL,
-             'layout' => NULL,
-             'maxTabs' => NULL,
-             'border' => false,
-             'provideSplitView' => false,
-             'tabPosition' => 'top',
-             'hideLabelsWhenTabsReached' => NULL,
-             'referencedFields' => 
+             'locked' => false,
+             'blockedVarsForExport' => 
             array (
             ),
-             'permissionView' => NULL,
-             'permissionEdit' => NULL,
+             'fieldtype' => 'panel',
+             'layout' => NULL,
+             'border' => false,
+             'icon' => '',
              'labelWidth' => 100,
              'labelAlign' => 'left',
-             'width' => '',
-             'height' => '',
-             'fieldDefinitionsCache' => NULL,
           )),
         ),
          'locked' => false,
          'blockedVarsForExport' => 
         array (
         ),
-         'fieldtype' => 'panel',
-         'layout' => NULL,
+         'fieldtype' => 'tabpanel',
          'border' => false,
-         'icon' => '',
-         'labelWidth' => 100,
-         'labelAlign' => 'left',
+         'tabPosition' => 'top',
       )),
     ),
      'locked' => false,
