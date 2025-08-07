@@ -4,20 +4,20 @@
  * Fields Summary:
  * - localizedfields [localizedfields]
  * -- hoseFittingFamily [input]
- * -- fitting1Type [input]
- * -- fitting2Type [input]
  * -- completeFittingText [input]
- * -- bendRestrictorType [input]
- * -- note1 [input]
- * -- note2 [input]
- * -- fitting1Material [input]
- * -- fitting2Material [input]
+ * -- note1 [textarea]
+ * -- note2 [textarea]
  * - isAssembly [checkbox]
- * - hoseLengthFt [quantityValue]
- * - hoseLengthM [quantityValue]
- * - bendRestrictor [checkbox]
- * - fitting1SizeInch [quantityValue]
- * - fitting2SizeInch [quantityValue]
+ * - isBendRestrictor [checkbox]
+ * - fitting1SizeImperial [quantityValue]
+ * - fitting2SizeImperial [quantityValue]
+ * - fitting1Type [manyToOneRelation]
+ * - fitting2Type [manyToOneRelation]
+ * - fitting2Material [manyToOneRelation]
+ * - fitting1Material [manyToOneRelation]
+ * - bendRestrictorType [manyToOneRelation]
+ * - hoseLengthMetric [quantityValue]
+ * - hoseLengthImperial [quantityValue]
  */
 
 namespace Pimcore\Model\DataObject\Objectbrick\Data;
@@ -30,29 +30,34 @@ use Pimcore\Model\DataObject\PreGetValueHookInterface;
 class UniPrFinFhs extends DataObject\Objectbrick\Data\AbstractData
 {
 public const FIELD_HOSE_FITTING_FAMILY = 'hoseFittingFamily';
-public const FIELD_FITTING1_TYPE = 'fitting1Type';
-public const FIELD_FITTING2_TYPE = 'fitting2Type';
 public const FIELD_COMPLETE_FITTING_TEXT = 'completeFittingText';
-public const FIELD_BEND_RESTRICTOR_TYPE = 'bendRestrictorType';
 public const FIELD_NOTE1 = 'note1';
 public const FIELD_NOTE2 = 'note2';
-public const FIELD_FITTING1_MATERIAL = 'fitting1Material';
-public const FIELD_FITTING2_MATERIAL = 'fitting2Material';
 public const FIELD_IS_ASSEMBLY = 'isAssembly';
-public const FIELD_HOSE_LENGTH_FT = 'hoseLengthFt';
-public const FIELD_HOSE_LENGTH_M = 'hoseLengthM';
-public const FIELD_BEND_RESTRICTOR = 'bendRestrictor';
-public const FIELD_FITTING1_SIZE_INCH = 'fitting1SizeInch';
-public const FIELD_FITTING2_SIZE_INCH = 'fitting2SizeInch';
+public const FIELD_IS_BEND_RESTRICTOR = 'isBendRestrictor';
+public const FIELD_FITTING1_SIZE_IMPERIAL = 'fitting1SizeImperial';
+public const FIELD_FITTING2_SIZE_IMPERIAL = 'fitting2SizeImperial';
+public const FIELD_FITTING1_TYPE = 'fitting1Type';
+public const FIELD_FITTING2_TYPE = 'fitting2Type';
+public const FIELD_FITTING2_MATERIAL = 'fitting2Material';
+public const FIELD_FITTING1_MATERIAL = 'fitting1Material';
+public const FIELD_BEND_RESTRICTOR_TYPE = 'bendRestrictorType';
+public const FIELD_HOSE_LENGTH_METRIC = 'hoseLengthMetric';
+public const FIELD_HOSE_LENGTH_IMPERIAL = 'hoseLengthImperial';
 
 protected string $type = "UniPrFinFhs";
 protected $localizedfields;
 protected $isAssembly;
-protected $hoseLengthFt;
-protected $hoseLengthM;
-protected $bendRestrictor;
-protected $fitting1SizeInch;
-protected $fitting2SizeInch;
+protected $isBendRestrictor;
+protected $fitting1SizeImperial;
+protected $fitting2SizeImperial;
+protected $fitting1Type;
+protected $fitting2Type;
+protected $fitting2Material;
+protected $fitting1Material;
+protected $bendRestrictorType;
+protected $hoseLengthMetric;
+protected $hoseLengthImperial;
 
 
 /**
@@ -102,54 +107,12 @@ public function getHoseFittingFamily(?string $language = null): ?string
 }
 
 /**
-* Get fitting1Type - Fitting 1 Type
-* @return string|null
-*/
-public function getFitting1Type(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("fitting1Type", $language);
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get fitting2Type - Fitting 2 Type
-* @return string|null
-*/
-public function getFitting2Type(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("fitting2Type", $language);
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
 * Get completeFittingText - Complete Fitting Text
 * @return string|null
 */
 public function getCompleteFittingText(?string $language = null): ?string
 {
 	$data = $this->getLocalizedfields()->getLocalizedValue("completeFittingText", $language);
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get bendRestrictorType - Bend Restrictor Type
-* @return string|null
-*/
-public function getBendRestrictorType(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("bendRestrictorType", $language);
 	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
 		return $data->getPlain();
 	}
@@ -172,40 +135,12 @@ public function getNote1(?string $language = null): ?string
 }
 
 /**
-* Get note2 - Note 2(below table)
+* Get note2 - Note 2 (below table)
 * @return string|null
 */
 public function getNote2(?string $language = null): ?string
 {
 	$data = $this->getLocalizedfields()->getLocalizedValue("note2", $language);
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get fitting1Material - Fitting 1 Material
-* @return string|null
-*/
-public function getFitting1Material(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("fitting1Material", $language);
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get fitting2Material - Fitting 2 Material
-* @return string|null
-*/
-public function getFitting2Material(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("fitting2Material", $language);
 	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
 		return $data->getPlain();
 	}
@@ -252,32 +187,6 @@ public function setHoseFittingFamily (?string $hoseFittingFamily, ?string $langu
 }
 
 /**
-* Set fitting1Type - Fitting 1 Type
-* @param string|null $fitting1Type
-* @return $this
-*/
-public function setFitting1Type (?string $fitting1Type, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("fitting1Type", $fitting1Type, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set fitting2Type - Fitting 2 Type
-* @param string|null $fitting2Type
-* @return $this
-*/
-public function setFitting2Type (?string $fitting2Type, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("fitting2Type", $fitting2Type, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
 * Set completeFittingText - Complete Fitting Text
 * @param string|null $completeFittingText
 * @return $this
@@ -286,19 +195,6 @@ public function setCompleteFittingText (?string $completeFittingText, ?string $l
 {
 	$isEqual = false;
 	$this->getLocalizedfields()->setLocalizedValue("completeFittingText", $completeFittingText, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set bendRestrictorType - Bend Restrictor Type
-* @param string|null $bendRestrictorType
-* @return $this
-*/
-public function setBendRestrictorType (?string $bendRestrictorType, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("bendRestrictorType", $bendRestrictorType, $language, !$isEqual);
 
 	return $this;
 }
@@ -317,7 +213,7 @@ public function setNote1 (?string $note1, ?string $language = null): static
 }
 
 /**
-* Set note2 - Note 2(below table)
+* Set note2 - Note 2 (below table)
 * @param string|null $note2
 * @return $this
 */
@@ -325,32 +221,6 @@ public function setNote2 (?string $note2, ?string $language = null): static
 {
 	$isEqual = false;
 	$this->getLocalizedfields()->setLocalizedValue("note2", $note2, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set fitting1Material - Fitting 1 Material
-* @param string|null $fitting1Material
-* @return $this
-*/
-public function setFitting1Material (?string $fitting1Material, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("fitting1Material", $fitting1Material, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set fitting2Material - Fitting 2 Material
-* @param string|null $fitting2Material
-* @return $this
-*/
-public function setFitting2Material (?string $fitting2Material, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("fitting2Material", $fitting2Material, $language, !$isEqual);
 
 	return $this;
 }
@@ -389,81 +259,15 @@ public function setIsAssembly (?bool $isAssembly): static
 }
 
 /**
-* Get hoseLengthFt - Hose Length Ft
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
-*/
-public function getHoseLengthFt(): ?\Pimcore\Model\DataObject\Data\QuantityValue
-{
-	$data = $this->hoseLengthFt;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("hoseLengthFt")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("hoseLengthFt");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set hoseLengthFt - Hose Length Ft
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $hoseLengthFt
-* @return $this
-*/
-public function setHoseLengthFt (?\Pimcore\Model\DataObject\Data\QuantityValue $hoseLengthFt): static
-{
-	$this->hoseLengthFt = $hoseLengthFt;
-
-	return $this;
-}
-
-/**
-* Get hoseLengthM - Hose Length (M)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
-*/
-public function getHoseLengthM(): ?\Pimcore\Model\DataObject\Data\QuantityValue
-{
-	$data = $this->hoseLengthM;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("hoseLengthM")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("hoseLengthM");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set hoseLengthM - Hose Length (M)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $hoseLengthM
-* @return $this
-*/
-public function setHoseLengthM (?\Pimcore\Model\DataObject\Data\QuantityValue $hoseLengthM): static
-{
-	$this->hoseLengthM = $hoseLengthM;
-
-	return $this;
-}
-
-/**
-* Get bendRestrictor - Bend Restrictor Y/N
+* Get isBendRestrictor - Bend Restrictor Y/N
 * @return bool|null
 */
-public function getBendRestrictor(): ?bool
+public function getIsBendRestrictor(): ?bool
 {
-	$data = $this->bendRestrictor;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("bendRestrictor")->isEmpty($data)) {
+	$data = $this->isBendRestrictor;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("isBendRestrictor")->isEmpty($data)) {
 		try {
-			return $this->getValueFromParent("bendRestrictor");
+			return $this->getValueFromParent("isBendRestrictor");
 		} catch (InheritanceParentNotFoundException $e) {
 			// no data from parent available, continue ...
 		}
@@ -476,27 +280,27 @@ public function getBendRestrictor(): ?bool
 }
 
 /**
-* Set bendRestrictor - Bend Restrictor Y/N
-* @param bool|null $bendRestrictor
+* Set isBendRestrictor - Bend Restrictor Y/N
+* @param bool|null $isBendRestrictor
 * @return $this
 */
-public function setBendRestrictor (?bool $bendRestrictor): static
+public function setIsBendRestrictor (?bool $isBendRestrictor): static
 {
-	$this->bendRestrictor = $bendRestrictor;
+	$this->isBendRestrictor = $isBendRestrictor;
 
 	return $this;
 }
 
 /**
-* Get fitting1SizeInch - Fitting 1 Size (in)
+* Get fitting1SizeImperial - Fitting 1 Size (in)
 * @return \Pimcore\Model\DataObject\Data\QuantityValue|null
 */
-public function getFitting1SizeInch(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getFitting1SizeImperial(): ?\Pimcore\Model\DataObject\Data\QuantityValue
 {
-	$data = $this->fitting1SizeInch;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("fitting1SizeInch")->isEmpty($data)) {
+	$data = $this->fitting1SizeImperial;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("fitting1SizeImperial")->isEmpty($data)) {
 		try {
-			return $this->getValueFromParent("fitting1SizeInch");
+			return $this->getValueFromParent("fitting1SizeImperial");
 		} catch (InheritanceParentNotFoundException $e) {
 			// no data from parent available, continue ...
 		}
@@ -509,27 +313,27 @@ public function getFitting1SizeInch(): ?\Pimcore\Model\DataObject\Data\QuantityV
 }
 
 /**
-* Set fitting1SizeInch - Fitting 1 Size (in)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $fitting1SizeInch
+* Set fitting1SizeImperial - Fitting 1 Size (in)
+* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $fitting1SizeImperial
 * @return $this
 */
-public function setFitting1SizeInch (?\Pimcore\Model\DataObject\Data\QuantityValue $fitting1SizeInch): static
+public function setFitting1SizeImperial (?\Pimcore\Model\DataObject\Data\QuantityValue $fitting1SizeImperial): static
 {
-	$this->fitting1SizeInch = $fitting1SizeInch;
+	$this->fitting1SizeImperial = $fitting1SizeImperial;
 
 	return $this;
 }
 
 /**
-* Get fitting2SizeInch - Fitting 2 Size (in)
+* Get fitting2SizeImperial - Fitting 2 Size (in)
 * @return \Pimcore\Model\DataObject\Data\QuantityValue|null
 */
-public function getFitting2SizeInch(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getFitting2SizeImperial(): ?\Pimcore\Model\DataObject\Data\QuantityValue
 {
-	$data = $this->fitting2SizeInch;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("fitting2SizeInch")->isEmpty($data)) {
+	$data = $this->fitting2SizeImperial;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("fitting2SizeImperial")->isEmpty($data)) {
 		try {
-			return $this->getValueFromParent("fitting2SizeInch");
+			return $this->getValueFromParent("fitting2SizeImperial");
 		} catch (InheritanceParentNotFoundException $e) {
 			// no data from parent available, continue ...
 		}
@@ -542,13 +346,329 @@ public function getFitting2SizeInch(): ?\Pimcore\Model\DataObject\Data\QuantityV
 }
 
 /**
-* Set fitting2SizeInch - Fitting 2 Size (in)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $fitting2SizeInch
+* Set fitting2SizeImperial - Fitting 2 Size (in)
+* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $fitting2SizeImperial
 * @return $this
 */
-public function setFitting2SizeInch (?\Pimcore\Model\DataObject\Data\QuantityValue $fitting2SizeInch): static
+public function setFitting2SizeImperial (?\Pimcore\Model\DataObject\Data\QuantityValue $fitting2SizeImperial): static
 {
-	$this->fitting2SizeInch = $fitting2SizeInch;
+	$this->fitting2SizeImperial = $fitting2SizeImperial;
+
+	return $this;
+}
+
+/**
+* Get fitting1Type - Fitting 1 Type
+* @return \Pimcore\Model\DataObject\UniPrFittingTypeFhs|null
+*/
+public function getFitting1Type(): ?\Pimcore\Model\Element\AbstractElement
+{
+	$data = $this->getDefinition()->getFieldDefinition("fitting1Type")->preGetData($this);
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("fitting1Type")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("fitting1Type");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set fitting1Type - Fitting 1 Type
+* @param \Pimcore\Model\DataObject\UniPrFittingTypeFhs|null $fitting1Type
+* @return $this
+*/
+public function setFitting1Type (?\Pimcore\Model\Element\AbstractElement $fitting1Type): static
+{
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("fitting1Type");
+	$class = $this->getObject() ? $this->getObject()->getClass() : null;
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	if ($class && $class->getAllowInherit()) {
+		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
+			return $this->getFitting1Type();
+		});
+	}
+	else {
+		$currentData = $this->getFitting1Type();
+	}	
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $fitting1Type);
+	if (!$isEqual) {
+		$this->markFieldDirty("fitting1Type", true);
+	}
+	$this->fitting1Type = $fd->preSetData($this, $fitting1Type);
+	return $this;
+}
+
+/**
+* Get fitting2Type - Fitting 2 Type
+* @return \Pimcore\Model\DataObject\UniPrFittingTypeFhs|null
+*/
+public function getFitting2Type(): ?\Pimcore\Model\Element\AbstractElement
+{
+	$data = $this->getDefinition()->getFieldDefinition("fitting2Type")->preGetData($this);
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("fitting2Type")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("fitting2Type");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set fitting2Type - Fitting 2 Type
+* @param \Pimcore\Model\DataObject\UniPrFittingTypeFhs|null $fitting2Type
+* @return $this
+*/
+public function setFitting2Type (?\Pimcore\Model\Element\AbstractElement $fitting2Type): static
+{
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("fitting2Type");
+	$class = $this->getObject() ? $this->getObject()->getClass() : null;
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	if ($class && $class->getAllowInherit()) {
+		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
+			return $this->getFitting2Type();
+		});
+	}
+	else {
+		$currentData = $this->getFitting2Type();
+	}	
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $fitting2Type);
+	if (!$isEqual) {
+		$this->markFieldDirty("fitting2Type", true);
+	}
+	$this->fitting2Type = $fd->preSetData($this, $fitting2Type);
+	return $this;
+}
+
+/**
+* Get fitting2Material - Fitting 2 Material
+* @return \Pimcore\Model\DataObject\UniPrFittingMaterialFhs|null
+*/
+public function getFitting2Material(): ?\Pimcore\Model\Element\AbstractElement
+{
+	$data = $this->getDefinition()->getFieldDefinition("fitting2Material")->preGetData($this);
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("fitting2Material")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("fitting2Material");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set fitting2Material - Fitting 2 Material
+* @param \Pimcore\Model\DataObject\UniPrFittingMaterialFhs|null $fitting2Material
+* @return $this
+*/
+public function setFitting2Material (?\Pimcore\Model\Element\AbstractElement $fitting2Material): static
+{
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("fitting2Material");
+	$class = $this->getObject() ? $this->getObject()->getClass() : null;
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	if ($class && $class->getAllowInherit()) {
+		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
+			return $this->getFitting2Material();
+		});
+	}
+	else {
+		$currentData = $this->getFitting2Material();
+	}	
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $fitting2Material);
+	if (!$isEqual) {
+		$this->markFieldDirty("fitting2Material", true);
+	}
+	$this->fitting2Material = $fd->preSetData($this, $fitting2Material);
+	return $this;
+}
+
+/**
+* Get fitting1Material - Fitting 1 Material
+* @return \Pimcore\Model\DataObject\UniPrFittingMaterialFhs|null
+*/
+public function getFitting1Material(): ?\Pimcore\Model\Element\AbstractElement
+{
+	$data = $this->getDefinition()->getFieldDefinition("fitting1Material")->preGetData($this);
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("fitting1Material")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("fitting1Material");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set fitting1Material - Fitting 1 Material
+* @param \Pimcore\Model\DataObject\UniPrFittingMaterialFhs|null $fitting1Material
+* @return $this
+*/
+public function setFitting1Material (?\Pimcore\Model\Element\AbstractElement $fitting1Material): static
+{
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("fitting1Material");
+	$class = $this->getObject() ? $this->getObject()->getClass() : null;
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	if ($class && $class->getAllowInherit()) {
+		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
+			return $this->getFitting1Material();
+		});
+	}
+	else {
+		$currentData = $this->getFitting1Material();
+	}	
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $fitting1Material);
+	if (!$isEqual) {
+		$this->markFieldDirty("fitting1Material", true);
+	}
+	$this->fitting1Material = $fd->preSetData($this, $fitting1Material);
+	return $this;
+}
+
+/**
+* Get bendRestrictorType - Bend Restrictor Type
+* @return \Pimcore\Model\DataObject\UniPrBendRestrictorTypeFhs|null
+*/
+public function getBendRestrictorType(): ?\Pimcore\Model\Element\AbstractElement
+{
+	$data = $this->getDefinition()->getFieldDefinition("bendRestrictorType")->preGetData($this);
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("bendRestrictorType")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("bendRestrictorType");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set bendRestrictorType - Bend Restrictor Type
+* @param \Pimcore\Model\DataObject\UniPrBendRestrictorTypeFhs|null $bendRestrictorType
+* @return $this
+*/
+public function setBendRestrictorType (?\Pimcore\Model\Element\AbstractElement $bendRestrictorType): static
+{
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("bendRestrictorType");
+	$class = $this->getObject() ? $this->getObject()->getClass() : null;
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	if ($class && $class->getAllowInherit()) {
+		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
+			return $this->getBendRestrictorType();
+		});
+	}
+	else {
+		$currentData = $this->getBendRestrictorType();
+	}	
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $bendRestrictorType);
+	if (!$isEqual) {
+		$this->markFieldDirty("bendRestrictorType", true);
+	}
+	$this->bendRestrictorType = $fd->preSetData($this, $bendRestrictorType);
+	return $this;
+}
+
+/**
+* Get hoseLengthMetric - Hose Length (M)
+* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+*/
+public function getHoseLengthMetric(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+{
+	$data = $this->hoseLengthMetric;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("hoseLengthMetric")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("hoseLengthMetric");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set hoseLengthMetric - Hose Length (M)
+* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $hoseLengthMetric
+* @return $this
+*/
+public function setHoseLengthMetric (?\Pimcore\Model\DataObject\Data\QuantityValue $hoseLengthMetric): static
+{
+	$this->hoseLengthMetric = $hoseLengthMetric;
+
+	return $this;
+}
+
+/**
+* Get hoseLengthImperial - Hose Length Ft
+* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+*/
+public function getHoseLengthImperial(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+{
+	$data = $this->hoseLengthImperial;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("hoseLengthImperial")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("hoseLengthImperial");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set hoseLengthImperial - Hose Length Ft
+* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $hoseLengthImperial
+* @return $this
+*/
+public function setHoseLengthImperial (?\Pimcore\Model\DataObject\Data\QuantityValue $hoseLengthImperial): static
+{
+	$this->hoseLengthImperial = $hoseLengthImperial;
 
 	return $this;
 }

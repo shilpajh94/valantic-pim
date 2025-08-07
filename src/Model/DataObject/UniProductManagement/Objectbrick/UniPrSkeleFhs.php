@@ -4,20 +4,13 @@ declare(strict_types=1);
 
 namespace App\Model\DataObject\UniProductManagement\Objectbrick;
 
-use Pimcore\Model\DataObject\Data\QuantityValue;
 use Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeleFhs as BaseUniPrSkeleFhs;
 
 class UniPrSkeleFhs extends BaseUniPrSkeleFhs
 {
     public function getFormattedInsideDiameterFraction(): ?string
     {
-        $value = $this->getInsideDiameterFraction();
-
-        if ($value === null || !$value instanceof QuantityValue) {
-            return null;
-        }
-
-        $numericValue = $value->getValue();
+        $numericValue = $this->getInsideDiameterFractionImperial()?->getValue();
 
         if ($numericValue === null) {
             return null;
@@ -28,16 +21,25 @@ class UniPrSkeleFhs extends BaseUniPrSkeleFhs
 
     private function convertDecimalToFraction(float $decimal): string
     {
-        $whole = floor($decimal);
-        $fractionalPart = $decimal - $whole;
+        $denominator = 64;
+        $num = round($decimal * $denominator);
+        $int = (int) ($num / $denominator);
+        $num %= $denominator;
 
-        if ($fractionalPart === 0.0) {
-            return (string) $whole;
+        if ($num === 0) {
+            return (string) $int;
         }
 
-        $denominator = 2;
-        $numerator = round($fractionalPart * $denominator);
+        $gcd = $num & -$num;
+        $num /= $gcd;
+        $denominator /= $gcd;
 
-        return $whole . '-' . $numerator . '/' . $denominator;
+        if ($int !== 0) {
+            $num = abs($num);
+
+            return sprintf('%s-%s/%s', $int, $num, $denominator);
+        }
+
+        return sprintf('%s/%s', $num, $denominator);
     }
 }
