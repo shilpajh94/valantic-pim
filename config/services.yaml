@@ -40,6 +40,13 @@ services:
         resource: '../src/Command'
         tags: [ 'console.command' ]
 
+    App\EventListener\ProductWorkflowEventListener:
+        arguments:
+            $logger: '@logger'
+            $workflowRegistry: '@workflow.registry'
+        tags:
+            - { name: kernel.event_subscriber }
+
     # Example custom templating helper
     # AppBundle\Templating\Helper\Example:
     #     # templating helpers need to be public as they

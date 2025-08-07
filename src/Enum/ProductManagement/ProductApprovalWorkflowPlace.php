@@ -18,4 +18,11 @@ enum ProductApprovalWorkflowPlace: string
     case EXPORTED = 'exported';
     case COMPLIANCE_SENT = 'compliance_sent';
     case COMPLIANCE_APPROVED = 'compliance_approved';
+    case SAP_UPDATED_DISPLAYED = 'sap_updated_displayed';
+    case SAP_AUTO_UPDATED = 'sap_auto_updated';
+    case DRAFT_FOR_UPDATE = 'draft_for_update';
+    case UPDATED_ENRICHED = 'updated_enriched';
+    case UPDATED_PENDING_APPROVAL = 'updated_pending_approval';
+    case ARCHIVED = 'archived';
+    case EMERGENCY_UNPUBLISHED = 'emergency_unpublished';
 }

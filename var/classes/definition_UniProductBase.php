@@ -3137,6 +3137,62 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
+          6 => 
+          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+             'name' => 'productWorkflow',
+             'type' => NULL,
+             'region' => NULL,
+             'title' => 'Product Workflow',
+             'width' => '',
+             'height' => '',
+             'collapsible' => false,
+             'collapsed' => false,
+             'bodyStyle' => '',
+             'datatype' => 'layout',
+             'children' => 
+            array (
+              0 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                 'name' => 'approvalState',
+                 'title' => 'Approval State',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => true,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'defaultValue' => NULL,
+                 'columnLength' => 190,
+                 'regex' => '',
+                 'regexFlags' => 
+                array (
+                ),
+                 'unique' => false,
+                 'showCharCount' => false,
+                 'width' => '',
+                 'defaultValueGenerator' => '',
+              )),
+            ),
+             'locked' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'fieldtype' => 'panel',
+             'layout' => NULL,
+             'border' => false,
+             'icon' => '',
+             'labelWidth' => 250,
+             'labelAlign' => 'left',
+          )),
         ),
          'locked' => false,
          'blockedVarsForExport' => 
