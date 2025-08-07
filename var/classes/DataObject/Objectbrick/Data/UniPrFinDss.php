@@ -5,17 +5,17 @@
  * - localizedfields [localizedfields]
  * -- modelType [input]
  * -- bellowCompoundMaterial [input]
- * -- internalBumper [checkbox]
+ * -- hasInternalBumper [checkbox]
  * -- airInletLocation [select]
  * -- basePlateMaterial [input]
- * - bellowOnly [checkbox]
- * - minimumHeight [quantityValue]
+ * - IsBellowOnlypart [checkbox]
  * - maximumHeight [quantityValue]
  * - maximumBellowDiameter [quantityValue]
  * - maximumStroke [quantityValue]
  * - workingPressure [quantityValue]
  * - airInlet [input]
  * - airInletThread [input]
+ * - minimumHeight [quantityValue]
  * - rollingLobePistonMaterial [select]
  * - permissableInstallationSpace [image]
  * - numberOfConvolutions [numeric]
@@ -32,31 +32,31 @@ class UniPrFinDss extends \App\Model\DataObject\UniProductManagement\Objectbrick
 {
 public const FIELD_MODEL_TYPE = 'modelType';
 public const FIELD_BELLOW_COMPOUND_MATERIAL = 'bellowCompoundMaterial';
-public const FIELD_INTERNAL_BUMPER = 'internalBumper';
+public const FIELD_HAS_INTERNAL_BUMPER = 'hasInternalBumper';
 public const FIELD_AIR_INLET_LOCATION = 'airInletLocation';
 public const FIELD_BASE_PLATE_MATERIAL = 'basePlateMaterial';
-public const FIELD_BELLOW_ONLY = 'bellowOnly';
-public const FIELD_MINIMUM_HEIGHT = 'minimumHeight';
+public const FIELD_IS_BELLOW_ONLYPART = 'IsBellowOnlypart';
 public const FIELD_MAXIMUM_HEIGHT = 'maximumHeight';
 public const FIELD_MAXIMUM_BELLOW_DIAMETER = 'maximumBellowDiameter';
 public const FIELD_MAXIMUM_STROKE = 'maximumStroke';
 public const FIELD_WORKING_PRESSURE = 'workingPressure';
 public const FIELD_AIR_INLET = 'airInlet';
 public const FIELD_AIR_INLET_THREAD = 'airInletThread';
+public const FIELD_MINIMUM_HEIGHT = 'minimumHeight';
 public const FIELD_ROLLING_LOBE_PISTON_MATERIAL = 'rollingLobePistonMaterial';
 public const FIELD_PERMISSABLE_INSTALLATION_SPACE = 'permissableInstallationSpace';
 public const FIELD_NUMBER_OF_CONVOLUTIONS = 'numberOfConvolutions';
 
 protected string $type = "UniPrFinDss";
 protected $localizedfields;
-protected $bellowOnly;
-protected $minimumHeight;
+protected $IsBellowOnlypart;
 protected $maximumHeight;
 protected $maximumBellowDiameter;
 protected $maximumStroke;
 protected $workingPressure;
 protected $airInlet;
 protected $airInletThread;
+protected $minimumHeight;
 protected $rollingLobePistonMaterial;
 protected $permissableInstallationSpace;
 protected $numberOfConvolutions;
@@ -123,12 +123,12 @@ public function getBellowCompoundMaterial(?string $language = null): ?string
 }
 
 /**
-* Get internalBumper - Internal Bumper (Y/N)
+* Get hasInternalBumper - Internal Bumper (Y/N)
 * @return bool|null
 */
-public function getInternalBumper(?string $language = null): ?bool
+public function getHasInternalBumper(?string $language = null): ?bool
 {
-	$data = $this->getLocalizedfields()->getLocalizedValue("internalBumper", $language);
+	$data = $this->getLocalizedfields()->getLocalizedValue("hasInternalBumper", $language);
 	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
 		return $data->getPlain();
 	}
@@ -216,14 +216,14 @@ public function setBellowCompoundMaterial (?string $bellowCompoundMaterial, ?str
 }
 
 /**
-* Set internalBumper - Internal Bumper (Y/N)
-* @param bool|null $internalBumper
+* Set hasInternalBumper - Internal Bumper (Y/N)
+* @param bool|null $hasInternalBumper
 * @return $this
 */
-public function setInternalBumper (?bool $internalBumper, ?string $language = null): static
+public function setHasInternalBumper (?bool $hasInternalBumper, ?string $language = null): static
 {
 	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("internalBumper", $internalBumper, $language, !$isEqual);
+	$this->getLocalizedfields()->setLocalizedValue("hasInternalBumper", $hasInternalBumper, $language, !$isEqual);
 
 	return $this;
 }
@@ -255,15 +255,15 @@ public function setBasePlateMaterial (?string $basePlateMaterial, ?string $langu
 }
 
 /**
-* Get bellowOnly - Bellow Only
+* Get IsBellowOnlypart - Is the part a Bellow only
 * @return bool|null
 */
-public function getBellowOnly(): ?bool
+public function getIsBellowOnlypart(): ?bool
 {
-	$data = $this->bellowOnly;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("bellowOnly")->isEmpty($data)) {
+	$data = $this->IsBellowOnlypart;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("IsBellowOnlypart")->isEmpty($data)) {
 		try {
-			return $this->getValueFromParent("bellowOnly");
+			return $this->getValueFromParent("IsBellowOnlypart");
 		} catch (InheritanceParentNotFoundException $e) {
 			// no data from parent available, continue ...
 		}
@@ -276,46 +276,13 @@ public function getBellowOnly(): ?bool
 }
 
 /**
-* Set bellowOnly - Bellow Only
-* @param bool|null $bellowOnly
+* Set IsBellowOnlypart - Is the part a Bellow only
+* @param bool|null $IsBellowOnlypart
 * @return $this
 */
-public function setBellowOnly (?bool $bellowOnly): static
+public function setIsBellowOnlypart (?bool $IsBellowOnlypart): static
 {
-	$this->bellowOnly = $bellowOnly;
-
-	return $this;
-}
-
-/**
-* Get minimumHeight - Minimum Height
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
-*/
-public function getMinimumHeight(): ?\Pimcore\Model\DataObject\Data\QuantityValue
-{
-	$data = $this->minimumHeight;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("minimumHeight")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("minimumHeight");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set minimumHeight - Minimum Height
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $minimumHeight
-* @return $this
-*/
-public function setMinimumHeight (?\Pimcore\Model\DataObject\Data\QuantityValue $minimumHeight): static
-{
-	$this->minimumHeight = $minimumHeight;
+	$this->IsBellowOnlypart = $IsBellowOnlypart;
 
 	return $this;
 }
@@ -514,6 +481,39 @@ public function getAirInletThread(): ?string
 public function setAirInletThread (?string $airInletThread): static
 {
 	$this->airInletThread = $airInletThread;
+
+	return $this;
+}
+
+/**
+* Get minimumHeight - Minimum Height
+* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+*/
+public function getMinimumHeight(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+{
+	$data = $this->minimumHeight;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("minimumHeight")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("minimumHeight");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set minimumHeight - Minimum Height
+* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $minimumHeight
+* @return $this
+*/
+public function setMinimumHeight (?\Pimcore\Model\DataObject\Data\QuantityValue $minimumHeight): static
+{
+	$this->minimumHeight = $minimumHeight;
 
 	return $this;
 }
