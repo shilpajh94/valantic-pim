@@ -20,12 +20,12 @@ class ExternalCategoryExportController extends FrontendController
         $objectId = $request->get('id');
         $format = $request->get('format', 'html');
 
-        $logger->info('Export requested for object ID: $objectId, format: $format');
+        $logger->info(sprintf('Export requested for object ID: %s, format: %s', $objectId, $format));
 
         $object = UniProductCategoryExternal::getById($objectId);
 
         if (!$object instanceof UniProductCategoryExternal) {
-            $logger->error('Object with ID $objectId not found.');
+            $logger->error(sprintf('Object with ID %s not found.', $objectId));
 
             return new Response('Object not found.', Response::HTTP_NOT_FOUND);
         }
@@ -40,7 +40,7 @@ class ExternalCategoryExportController extends FrontendController
                 default => $exportService->exportAsHtml($spreadsheet),
             };
         } catch (\Exception $e) {
-            $logger->error('Export failed: ' . $e->getMessage());
+            $logger->error(sprintf('Export failed: %s', $e->getMessage()));
 
             return new Response('Export failed.', Response::HTTP_INTERNAL_SERVER_ERROR);
         }
