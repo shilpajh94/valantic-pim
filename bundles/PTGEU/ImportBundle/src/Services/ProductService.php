@@ -157,6 +157,7 @@ class ProductService
                     if($flag == 1){
                        
                         try {
+                            echo 'Importing File: ' . $this->filePath.PHP_EOL. "Time -> ".date("Y-m-d H:i:s").PHP_EOL;
                             $this->initImportTable();
                             Logger::log(self::LOGGER_MODULE)->info("SAP import started");
                             $this->productModel->truncateTempTable();

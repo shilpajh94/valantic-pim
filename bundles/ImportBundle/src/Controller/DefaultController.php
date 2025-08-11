@@ -465,11 +465,11 @@ class DefaultController extends FrontendController
 
     public function getPdfGeneration($dataArray, $productAttributesArr, $columnsDataWithImages, $subHeaderRequired, $iconRequired, $orderCode)
     {
-        define('BASE_URL', (isset($_SERVER['HTTPS']) ? "http" : "http") . "://" . $_SERVER['HTTP_HOST'] . rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\'));
+        //define('BASE_URL', (isset($_SERVER['HTTPS']) ? "http" : "http") . "://" . $_SERVER['HTTP_HOST'] . rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\'));
 
         $html  = '<!DOCTYPE html>';
         $html .= "<html>";
-        $html .= "<head><title>Spec Sheet Export</title><link rel='stylesheet' type='text/css' href='" . BASE_URL . "/static/css/print_style.css' /></head>";
+        $html .= "<head><title>Spec Sheet Export</title><link rel='stylesheet' type='text/css' href='/static/css/print_style.css' /></head>";
         $html .= "<body>";
 
         $html .= "
@@ -615,7 +615,7 @@ class DefaultController extends FrontendController
                 }
                 $html .= "<td colspan = $g1count $columnWidth>";
                 if ($firstArray['columnIcon']) {
-                    $html .= " <img src='" . BASE_URL . "$value' width='45' height='45' /> ";
+                    $html .= " <img src='$value' width='45' height='45' /> ";
                 }
                 $html .= "</td>";
             }

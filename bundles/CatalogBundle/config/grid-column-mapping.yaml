@@ -306,7 +306,7 @@ parameters:
                 fieldLevel: class
                 fieldType: Multiselection
                 fieldLabel: Features Benefits & Bullet Points
-            altImage7:
+            LeftPrintCatalogImage:
                 fieldLevel: class
                 fieldType: Media
                 fieldLabel: Product Image

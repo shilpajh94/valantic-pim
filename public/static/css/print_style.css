@@ -1123,10 +1123,20 @@ section.spacing {
     max-width: 100%;
     height: auto;
 }
-.img-placeholder2 img {
-    max-width: 43px !important;
-    max-height: 165px !important;
+
+.img-placeholder2 { 
+    overflow: hidden; 
+    max-width: 40px !important; 
 }
+
+.img-placeholder2 img {
+    display: flex;
+    align-items: center;
+    transform: rotate(-90deg) translate(-45%, -152px) !important;
+    max-width: 340px !important;
+    overflow: hidden;
+}
+
 aside p {
     padding: 1em;
 }
