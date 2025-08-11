@@ -204,7 +204,6 @@ pimcore.plugin.CatalogBundle = Class.create({
 
             var colComp = Ext.getCmp(e.detail.object.edit.dataFields.Columns.component.id);
             colComp.hide();
-            
             var store;
             var columns;
             var data;
@@ -227,6 +226,18 @@ pimcore.plugin.CatalogBundle = Class.create({
 				}
 			} else {
 				tableOptionsStore = this.loadAttributeTables(e.detail.object.data.general.parentId, objectClassName, e);
+                var tabs = Ext.getCmp(e.detail.object.edit.layout.items.items[0].id);
+                tabs.on('tabChange', function (obj, newTab, oldTab) {
+                    if (newTab.name == 'Sorting')
+                    {
+                        var sortingColumns = Ext.getCmp(e.detail.object.edit.dataFields.SortingColumns.component.id);
+                        sortingColumns.hide();
+                        if((e.detail.object.data.data.AttributeTable !== null && trim(e.detail.object.data.data.AttributeTable) !== "")){
+                            var brandsortingOrder = new pimcore.plugin.brandsortingOrder();
+                            brandsortingOrder.attachbrandSortingHeader(e);
+                        }
+                    }
+                });
 			}
 
           
