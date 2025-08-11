@@ -3,20 +3,20 @@
 /**
  * Fields Summary:
  * - localizedfields [localizedfields]
- * -- modelType [input]
- * -- bellowCompoundMaterial [input]
+ * -- modelType [manyToOneRelation]
+ * -- bellowCompoundMaterial [manyToOneRelation]
  * -- hasInternalBumper [checkbox]
- * -- airInletLocation [select]
+ * -- airInletLocation [manyToOneRelation]
  * -- basePlateMaterial [input]
  * - IsBellowOnlypart [checkbox]
+ * - minimumHeight [quantityValue]
  * - maximumHeight [quantityValue]
  * - maximumBellowDiameter [quantityValue]
  * - maximumStroke [quantityValue]
  * - workingPressure [quantityValue]
- * - airInlet [input]
+ * - airInlet [manyToOneRelation]
  * - airInletThread [input]
- * - minimumHeight [quantityValue]
- * - rollingLobePistonMaterial [select]
+ * - rollingLobePistonMaterial [manyToOneRelation]
  * - permissableInstallationSpace [image]
  * - numberOfConvolutions [numeric]
  */
@@ -36,13 +36,13 @@ public const FIELD_HAS_INTERNAL_BUMPER = 'hasInternalBumper';
 public const FIELD_AIR_INLET_LOCATION = 'airInletLocation';
 public const FIELD_BASE_PLATE_MATERIAL = 'basePlateMaterial';
 public const FIELD_IS_BELLOW_ONLYPART = 'IsBellowOnlypart';
+public const FIELD_MINIMUM_HEIGHT = 'minimumHeight';
 public const FIELD_MAXIMUM_HEIGHT = 'maximumHeight';
 public const FIELD_MAXIMUM_BELLOW_DIAMETER = 'maximumBellowDiameter';
 public const FIELD_MAXIMUM_STROKE = 'maximumStroke';
 public const FIELD_WORKING_PRESSURE = 'workingPressure';
 public const FIELD_AIR_INLET = 'airInlet';
 public const FIELD_AIR_INLET_THREAD = 'airInletThread';
-public const FIELD_MINIMUM_HEIGHT = 'minimumHeight';
 public const FIELD_ROLLING_LOBE_PISTON_MATERIAL = 'rollingLobePistonMaterial';
 public const FIELD_PERMISSABLE_INSTALLATION_SPACE = 'permissableInstallationSpace';
 public const FIELD_NUMBER_OF_CONVOLUTIONS = 'numberOfConvolutions';
@@ -50,13 +50,13 @@ public const FIELD_NUMBER_OF_CONVOLUTIONS = 'numberOfConvolutions';
 protected string $type = "UniPrFinDss";
 protected $localizedfields;
 protected $IsBellowOnlypart;
+protected $minimumHeight;
 protected $maximumHeight;
 protected $maximumBellowDiameter;
 protected $maximumStroke;
 protected $workingPressure;
 protected $airInlet;
 protected $airInletThread;
-protected $minimumHeight;
 protected $rollingLobePistonMaterial;
 protected $permissableInstallationSpace;
 protected $numberOfConvolutions;
@@ -96,9 +96,9 @@ public function getLocalizedfields(): ?\Pimcore\Model\DataObject\Localizedfield
 
 /**
 * Get modelType - Model Type
-* @return string|null
+* @return \Pimcore\Model\DataObject\UniPrModelTypeDss|null
 */
-public function getModelType(?string $language = null): ?string
+public function getModelType(?string $language = null): ?\Pimcore\Model\Element\AbstractElement
 {
 	$data = $this->getLocalizedfields()->getLocalizedValue("modelType", $language);
 	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
@@ -110,9 +110,9 @@ public function getModelType(?string $language = null): ?string
 
 /**
 * Get bellowCompoundMaterial - Bellow Compound Material
-* @return string|null
+* @return \Pimcore\Model\DataObject\UniPrBellowCompoundMaterialDss|null
 */
-public function getBellowCompoundMaterial(?string $language = null): ?string
+public function getBellowCompoundMaterial(?string $language = null): ?\Pimcore\Model\Element\AbstractElement
 {
 	$data = $this->getLocalizedfields()->getLocalizedValue("bellowCompoundMaterial", $language);
 	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
@@ -138,9 +138,9 @@ public function getHasInternalBumper(?string $language = null): ?bool
 
 /**
 * Get airInletLocation - Air Inlet Location
-* @return string|null
+* @return \Pimcore\Model\DataObject\UniPrAirInletLocationDss|null
 */
-public function getAirInletLocation(?string $language = null): ?string
+public function getAirInletLocation(?string $language = null): ?\Pimcore\Model\Element\AbstractElement
 {
 	$data = $this->getLocalizedfields()->getLocalizedValue("airInletLocation", $language);
 	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
@@ -191,12 +191,20 @@ public function setLocalizedfields (?\Pimcore\Model\DataObject\Localizedfield $l
 
 /**
 * Set modelType - Model Type
-* @param string|null $modelType
+* @param \Pimcore\Model\DataObject\UniPrModelTypeDss|null $modelType
 * @return $this
 */
-public function setModelType (?string $modelType, ?string $language = null): static
+public function setModelType (?\Pimcore\Model\Element\AbstractElement $modelType, ?string $language = null): static
 {
-	$isEqual = false;
+	$fd = $this->getDefinition()->getFieldDefinition("localizedfields")->getFieldDefinition("modelType");
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	$currentData = $this->getModelType($language);
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $modelType);
+	if (!$isEqual) {
+		$this->markFieldDirty("modelType", true);
+	}
 	$this->getLocalizedfields()->setLocalizedValue("modelType", $modelType, $language, !$isEqual);
 
 	return $this;
@@ -204,12 +212,20 @@ public function setModelType (?string $modelType, ?string $language = null): sta
 
 /**
 * Set bellowCompoundMaterial - Bellow Compound Material
-* @param string|null $bellowCompoundMaterial
+* @param \Pimcore\Model\DataObject\UniPrBellowCompoundMaterialDss|null $bellowCompoundMaterial
 * @return $this
 */
-public function setBellowCompoundMaterial (?string $bellowCompoundMaterial, ?string $language = null): static
+public function setBellowCompoundMaterial (?\Pimcore\Model\Element\AbstractElement $bellowCompoundMaterial, ?string $language = null): static
 {
-	$isEqual = false;
+	$fd = $this->getDefinition()->getFieldDefinition("localizedfields")->getFieldDefinition("bellowCompoundMaterial");
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	$currentData = $this->getBellowCompoundMaterial($language);
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $bellowCompoundMaterial);
+	if (!$isEqual) {
+		$this->markFieldDirty("bellowCompoundMaterial", true);
+	}
 	$this->getLocalizedfields()->setLocalizedValue("bellowCompoundMaterial", $bellowCompoundMaterial, $language, !$isEqual);
 
 	return $this;
@@ -230,12 +246,20 @@ public function setHasInternalBumper (?bool $hasInternalBumper, ?string $languag
 
 /**
 * Set airInletLocation - Air Inlet Location
-* @param string|null $airInletLocation
+* @param \Pimcore\Model\DataObject\UniPrAirInletLocationDss|null $airInletLocation
 * @return $this
 */
-public function setAirInletLocation (?string $airInletLocation, ?string $language = null): static
+public function setAirInletLocation (?\Pimcore\Model\Element\AbstractElement $airInletLocation, ?string $language = null): static
 {
-	$isEqual = false;
+	$fd = $this->getDefinition()->getFieldDefinition("localizedfields")->getFieldDefinition("airInletLocation");
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	$currentData = $this->getAirInletLocation($language);
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $airInletLocation);
+	if (!$isEqual) {
+		$this->markFieldDirty("airInletLocation", true);
+	}
 	$this->getLocalizedfields()->setLocalizedValue("airInletLocation", $airInletLocation, $language, !$isEqual);
 
 	return $this;
@@ -283,6 +307,39 @@ public function getIsBellowOnlypart(): ?bool
 public function setIsBellowOnlypart (?bool $IsBellowOnlypart): static
 {
 	$this->IsBellowOnlypart = $IsBellowOnlypart;
+
+	return $this;
+}
+
+/**
+* Get minimumHeight - Minimum Height
+* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+*/
+public function getMinimumHeight(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+{
+	$data = $this->minimumHeight;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("minimumHeight")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("minimumHeight");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set minimumHeight - Minimum Height
+* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $minimumHeight
+* @return $this
+*/
+public function setMinimumHeight (?\Pimcore\Model\DataObject\Data\QuantityValue $minimumHeight): static
+{
+	$this->minimumHeight = $minimumHeight;
 
 	return $this;
 }
@@ -421,11 +478,11 @@ public function setWorkingPressure (?\Pimcore\Model\DataObject\Data\QuantityValu
 
 /**
 * Get airInlet - Air Inlet - Inside Thread / Stud Bolt
-* @return string|null
+* @return \Pimcore\Model\DataObject\UniPrAirInletDss|null
 */
-public function getAirInlet(): ?string
+public function getAirInlet(): ?\Pimcore\Model\Element\AbstractElement
 {
-	$data = $this->airInlet;
+	$data = $this->getDefinition()->getFieldDefinition("airInlet")->preGetData($this);
 	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("airInlet")->isEmpty($data)) {
 		try {
 			return $this->getValueFromParent("airInlet");
@@ -442,13 +499,30 @@ public function getAirInlet(): ?string
 
 /**
 * Set airInlet - Air Inlet - Inside Thread / Stud Bolt
-* @param string|null $airInlet
+* @param \Pimcore\Model\DataObject\UniPrAirInletDss|null $airInlet
 * @return $this
 */
-public function setAirInlet (?string $airInlet): static
+public function setAirInlet (?\Pimcore\Model\Element\AbstractElement $airInlet): static
 {
-	$this->airInlet = $airInlet;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("airInlet");
+	$class = $this->getObject() ? $this->getObject()->getClass() : null;
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	if ($class && $class->getAllowInherit()) {
+		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
+			return $this->getAirInlet();
+		});
+	}
+	else {
+		$currentData = $this->getAirInlet();
+	}	
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $airInlet);
+	if (!$isEqual) {
+		$this->markFieldDirty("airInlet", true);
+	}
+	$this->airInlet = $fd->preSetData($this, $airInlet);
 	return $this;
 }
 
@@ -486,45 +560,12 @@ public function setAirInletThread (?string $airInletThread): static
 }
 
 /**
-* Get minimumHeight - Minimum Height
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
-*/
-public function getMinimumHeight(): ?\Pimcore\Model\DataObject\Data\QuantityValue
-{
-	$data = $this->minimumHeight;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("minimumHeight")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("minimumHeight");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set minimumHeight - Minimum Height
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $minimumHeight
-* @return $this
-*/
-public function setMinimumHeight (?\Pimcore\Model\DataObject\Data\QuantityValue $minimumHeight): static
-{
-	$this->minimumHeight = $minimumHeight;
-
-	return $this;
-}
-
-/**
 * Get rollingLobePistonMaterial - Rolling Lobe - Piston Material
-* @return string|null
+* @return \Pimcore\Model\DataObject\UniPrRollingLobePistonMaterialDss|null
 */
-public function getRollingLobePistonMaterial(): ?string
+public function getRollingLobePistonMaterial(): ?\Pimcore\Model\Element\AbstractElement
 {
-	$data = $this->rollingLobePistonMaterial;
+	$data = $this->getDefinition()->getFieldDefinition("rollingLobePistonMaterial")->preGetData($this);
 	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("rollingLobePistonMaterial")->isEmpty($data)) {
 		try {
 			return $this->getValueFromParent("rollingLobePistonMaterial");
@@ -541,13 +582,30 @@ public function getRollingLobePistonMaterial(): ?string
 
 /**
 * Set rollingLobePistonMaterial - Rolling Lobe - Piston Material
-* @param string|null $rollingLobePistonMaterial
+* @param \Pimcore\Model\DataObject\UniPrRollingLobePistonMaterialDss|null $rollingLobePistonMaterial
 * @return $this
 */
-public function setRollingLobePistonMaterial (?string $rollingLobePistonMaterial): static
+public function setRollingLobePistonMaterial (?\Pimcore\Model\Element\AbstractElement $rollingLobePistonMaterial): static
 {
-	$this->rollingLobePistonMaterial = $rollingLobePistonMaterial;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("rollingLobePistonMaterial");
+	$class = $this->getObject() ? $this->getObject()->getClass() : null;
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	if ($class && $class->getAllowInherit()) {
+		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
+			return $this->getRollingLobePistonMaterial();
+		});
+	}
+	else {
+		$currentData = $this->getRollingLobePistonMaterial();
+	}	
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $rollingLobePistonMaterial);
+	if (!$isEqual) {
+		$this->markFieldDirty("rollingLobePistonMaterial", true);
+	}
+	$this->rollingLobePistonMaterial = $fd->preSetData($this, $rollingLobePistonMaterial);
 	return $this;
 }
 
