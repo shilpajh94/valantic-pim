@@ -1,0 +1,14 @@
+pimcore:
+    objects:
+        select_options:
+            definitions:
+                UniPrIndustryStandardFhs:
+                    id: UniPrIndustryStandardFhs
+                    group: UniProductFhs
+                    useTraits: ''
+                    implementsInterfaces: ''
+                    selectOptions:
+                        -
+                            value: 'EN 853'
+                            label: 'EN 853'
+                            name: ''
