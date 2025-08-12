@@ -16,12 +16,12 @@
 
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
-   'id' => 'UNI_PRCE',
+   'id' => 'UNI_PR_CAT_EXT',
    'name' => 'UniProductCategoryExternal',
    'title' => 'External Category',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1744817540,
+   'modificationDate' => 1753870048,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -404,7 +404,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/external.svg',
    'group' => 'UniProductManagement',
    'showAppLoggerTab' => false,
-   'linkGeneratorReference' => '',
+   'linkGeneratorReference' => '@App\\Website\\LinkGenerator\\ExternalCategoryLinkGenerator',
    'previewGeneratorReference' => '',
    'compositeIndices' => 
   array (
