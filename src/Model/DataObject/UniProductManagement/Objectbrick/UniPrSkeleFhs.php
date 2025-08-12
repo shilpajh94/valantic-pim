@@ -19,6 +19,9 @@ class UniPrSkeleFhs extends BaseUniPrSkeleFhs
         return $this->convertDecimalToFraction($numericValue);
     }
 
+    /**
+     * @see https://stackoverflow.com/a/14170616
+     */
     private function convertDecimalToFraction(float $decimal): string
     {
         $denominator = 64;

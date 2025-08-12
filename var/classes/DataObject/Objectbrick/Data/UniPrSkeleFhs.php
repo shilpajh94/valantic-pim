@@ -31,14 +31,14 @@
  * - dampableUntil1C [quantityValue]
  * - dampableUntil2T [quantityValue]
  * - dampableUntil2C [quantityValue]
- * - justTemporarily [checkbox]
+ * - isJustTemporarily [checkbox]
  * - temporaryUntilT [quantityValue]
  * - temporaryUntilC [quantityValue]
  * - temperatureMin [quantityValue]
  * - temperatureMax [quantityValue]
  * - notesTemperature [input]
  * - temperatureRatings [input]
- * - onlyOpenSystem [checkbox]
+ * - isOnlyOpenSystem [checkbox]
  * - localizedfields [localizedfields]
  * -- headlineWeb [input]
  * -- flowMediumStabilityFlag [input]
@@ -124,14 +124,14 @@ public const FIELD_DAMPABLE_UNTIL1_T = 'dampableUntil1T';
 public const FIELD_DAMPABLE_UNTIL1_C = 'dampableUntil1C';
 public const FIELD_DAMPABLE_UNTIL2_T = 'dampableUntil2T';
 public const FIELD_DAMPABLE_UNTIL2_C = 'dampableUntil2C';
-public const FIELD_JUST_TEMPORARILY = 'justTemporarily';
+public const FIELD_IS_JUST_TEMPORARILY = 'isJustTemporarily';
 public const FIELD_TEMPORARY_UNTIL_T = 'temporaryUntilT';
 public const FIELD_TEMPORARY_UNTIL_C = 'temporaryUntilC';
 public const FIELD_TEMPERATURE_MIN = 'temperatureMin';
 public const FIELD_TEMPERATURE_MAX = 'temperatureMax';
 public const FIELD_NOTES_TEMPERATURE = 'notesTemperature';
 public const FIELD_TEMPERATURE_RATINGS = 'temperatureRatings';
-public const FIELD_ONLY_OPEN_SYSTEM = 'onlyOpenSystem';
+public const FIELD_IS_ONLY_OPEN_SYSTEM = 'isOnlyOpenSystem';
 public const FIELD_HEADLINE_WEB = 'headlineWeb';
 public const FIELD_FLOW_MEDIUM_STABILITY_FLAG = 'flowMediumStabilityFlag';
 public const FIELD_SUPPLEMENTARY_DECLARATIONS = 'supplementaryDeclarations';
@@ -207,14 +207,14 @@ protected $dampableUntil1T;
 protected $dampableUntil1C;
 protected $dampableUntil2T;
 protected $dampableUntil2C;
-protected $justTemporarily;
+protected $isJustTemporarily;
 protected $temporaryUntilT;
 protected $temporaryUntilC;
 protected $temperatureMin;
 protected $temperatureMax;
 protected $notesTemperature;
 protected $temperatureRatings;
-protected $onlyOpenSystem;
+protected $isOnlyOpenSystem;
 protected $localizedfields;
 protected $ratingsResistanceToAbrasion;
 protected $ratingsAntiUv;
@@ -1197,15 +1197,15 @@ public function setDampableUntil2C (?\Pimcore\Model\DataObject\Data\QuantityValu
 }
 
 /**
-* Get justTemporarily - just "temporarily"
+* Get isJustTemporarily - just "temporarily"
 * @return bool|null
 */
-public function getJustTemporarily(): ?bool
+public function getIsJustTemporarily(): ?bool
 {
-	$data = $this->justTemporarily;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("justTemporarily")->isEmpty($data)) {
+	$data = $this->isJustTemporarily;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("isJustTemporarily")->isEmpty($data)) {
 		try {
-			return $this->getValueFromParent("justTemporarily");
+			return $this->getValueFromParent("isJustTemporarily");
 		} catch (InheritanceParentNotFoundException $e) {
 			// no data from parent available, continue ...
 		}
@@ -1218,13 +1218,13 @@ public function getJustTemporarily(): ?bool
 }
 
 /**
-* Set justTemporarily - just "temporarily"
-* @param bool|null $justTemporarily
+* Set isJustTemporarily - just "temporarily"
+* @param bool|null $isJustTemporarily
 * @return $this
 */
-public function setJustTemporarily (?bool $justTemporarily): static
+public function setIsJustTemporarily (?bool $isJustTemporarily): static
 {
-	$this->justTemporarily = $justTemporarily;
+	$this->isJustTemporarily = $isJustTemporarily;
 
 	return $this;
 }
@@ -1428,15 +1428,15 @@ public function setTemperatureRatings (?string $temperatureRatings): static
 }
 
 /**
-* Get onlyOpenSystem - Only Open System
+* Get isOnlyOpenSystem - Only Open System
 * @return bool|null
 */
-public function getOnlyOpenSystem(): ?bool
+public function getIsOnlyOpenSystem(): ?bool
 {
-	$data = $this->onlyOpenSystem;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("onlyOpenSystem")->isEmpty($data)) {
+	$data = $this->isOnlyOpenSystem;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("isOnlyOpenSystem")->isEmpty($data)) {
 		try {
-			return $this->getValueFromParent("onlyOpenSystem");
+			return $this->getValueFromParent("isOnlyOpenSystem");
 		} catch (InheritanceParentNotFoundException $e) {
 			// no data from parent available, continue ...
 		}
@@ -1449,13 +1449,13 @@ public function getOnlyOpenSystem(): ?bool
 }
 
 /**
-* Set onlyOpenSystem - Only Open System
-* @param bool|null $onlyOpenSystem
+* Set isOnlyOpenSystem - Only Open System
+* @param bool|null $isOnlyOpenSystem
 * @return $this
 */
-public function setOnlyOpenSystem (?bool $onlyOpenSystem): static
+public function setIsOnlyOpenSystem (?bool $isOnlyOpenSystem): static
 {
-	$this->onlyOpenSystem = $onlyOpenSystem;
+	$this->isOnlyOpenSystem = $isOnlyOpenSystem;
 
 	return $this;
 }

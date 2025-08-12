@@ -31,14 +31,14 @@
  * - dampableUntil1C [quantityValue]
  * - dampableUntil2T [quantityValue]
  * - dampableUntil2C [quantityValue]
- * - justTemporarily [checkbox]
+ * - isJustTemporarily [checkbox]
  * - temporaryUntilT [quantityValue]
  * - temporaryUntilC [quantityValue]
  * - temperatureMin [quantityValue]
  * - temperatureMax [quantityValue]
  * - notesTemperature [input]
  * - temperatureRatings [input]
- * - onlyOpenSystem [checkbox]
+ * - isOnlyOpenSystem [checkbox]
  * - localizedfields [localizedfields]
  * -- headlineWeb [input]
  * -- flowMediumStabilityFlag [input]
@@ -1363,7 +1363,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   )),
                   5 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                     'name' => 'justTemporarily',
+                     'name' => 'isJustTemporarily',
                      'title' => 'just "temporarily"',
                      'tooltip' => '',
                      'mandatory' => true,
@@ -1645,7 +1645,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                 array (
                   0 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                     'name' => 'onlyOpenSystem',
+                     'name' => 'isOnlyOpenSystem',
                      'title' => 'Only Open System',
                      'tooltip' => '',
                      'mandatory' => true,
