@@ -47,6 +47,13 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
+    App\EventListener\ProductWorkflowGuard:
+        arguments:
+            $security: '@security.helper'
+            $logger: '@logger'
+        tags:
+            - { name: kernel.event_subscriber }
+
     # Example custom templating helper
     # AppBundle\Templating\Helper\Example:
     #     # templating helpers need to be public as they
