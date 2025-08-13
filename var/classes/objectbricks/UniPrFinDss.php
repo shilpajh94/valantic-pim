@@ -8,16 +8,15 @@
  * -- hasInternalBumper [checkbox]
  * -- airInletLocation [manyToOneRelation]
  * -- basePlateMaterial [input]
- * - IsBellowOnlypart [checkbox]
- * - minimumHeight [quantityValue]
- * - maximumHeight [quantityValue]
+ * - isBellowOnlyPart [checkbox]
+ * - height [quantityValueRange]
  * - maximumBellowDiameter [quantityValue]
  * - maximumStroke [quantityValue]
  * - workingPressure [quantityValue]
  * - airInlet [manyToOneRelation]
  * - airInletThread [input]
  * - rollingLobePistonMaterial [manyToOneRelation]
- * - permissableInstallationSpace [image]
+ * - permissibleInstallationSpace [image]
  * - numberOfConvolutions [numeric]
  */
 
@@ -58,7 +57,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
         array (
           0 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
-             'name' => 'Tabpanel',
+             'name' => 'TabPanel',
              'type' => NULL,
              'region' => NULL,
              'title' => '',
@@ -445,7 +444,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
           )),
           1 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
-             'name' => 'Tabpanel',
+             'name' => 'TabPanel',
              'type' => NULL,
              'region' => NULL,
              'title' => '',
@@ -473,7 +472,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                 array (
                   0 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                     'name' => 'IsBellowOnlypart',
+                     'name' => 'isBellowOnlyPart',
                      'title' => 'Is the part a Bellow only',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -516,7 +515,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
           )),
           2 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
-             'name' => 'Tabpanel',
+             'name' => 'TabPanel',
              'type' => NULL,
              'region' => NULL,
              'title' => '',
@@ -571,9 +570,9 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                             'name' => 'minimumHeight',
-                             'title' => 'Minimum Height',
+                          Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValueRange::__set_state(array(
+                             'name' => 'height',
+                             'title' => 'Height',
                              'tooltip' => '',
                              'mandatory' => false,
                              'noteditable' => false,
@@ -596,57 +595,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                               0 => 'distance_mm',
                               1 => 'distance_in',
                             ),
-                             'unique' => false,
-                             'autoConvert' => false,
-                             'defaultValueGenerator' => '',
-                             'width' => '',
-                             'defaultValue' => NULL,
-                             'integer' => false,
-                             'unsigned' => true,
-                             'minValue' => NULL,
-                             'maxValue' => NULL,
-                             'decimalSize' => NULL,
                              'decimalPrecision' => NULL,
+                             'autoConvert' => false,
+                             'width' => '',
                           )),
                           1 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                             'name' => 'maximumHeight',
-                             'title' => 'Maximum Height',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => '',
-                             'permissions' => NULL,
-                             'fieldtype' => '',
-                             'relationType' => false,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => true,
-                             'blockedVarsForExport' => 
-                            array (
-                            ),
-                             'unitWidth' => '',
-                             'defaultUnit' => NULL,
-                             'validUnits' => 
-                            array (
-                              0 => 'distance_in',
-                              1 => 'distance_mm',
-                            ),
-                             'unique' => false,
-                             'autoConvert' => false,
-                             'defaultValueGenerator' => '',
-                             'width' => '',
-                             'defaultValue' => NULL,
-                             'integer' => false,
-                             'unsigned' => true,
-                             'minValue' => NULL,
-                             'maxValue' => NULL,
-                             'decimalSize' => NULL,
-                             'decimalPrecision' => NULL,
-                          )),
-                          2 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                              'name' => 'maximumBellowDiameter',
                              'title' => 'Maximum Bellow Diameter',
@@ -1110,8 +1063,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   )),
                   6 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
-                     'name' => 'permissableInstallationSpace',
-                     'title' => 'Permissable Installation Space',
+                     'name' => 'permissibleInstallationSpace',
+                     'title' => 'Permissible Installation Space',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
