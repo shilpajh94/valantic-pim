@@ -8,16 +8,15 @@
  * -- hasInternalBumper [checkbox]
  * -- airInletLocation [manyToOneRelation]
  * -- basePlateMaterial [input]
- * - IsBellowOnlypart [checkbox]
- * - minimumHeight [quantityValue]
- * - maximumHeight [quantityValue]
+ * - isBellowOnlyPart [checkbox]
+ * - height [quantityValueRange]
  * - maximumBellowDiameter [quantityValue]
  * - maximumStroke [quantityValue]
  * - workingPressure [quantityValue]
  * - airInlet [manyToOneRelation]
  * - airInletThread [input]
  * - rollingLobePistonMaterial [manyToOneRelation]
- * - permissableInstallationSpace [image]
+ * - permissibleInstallationSpace [image]
  * - numberOfConvolutions [numeric]
  */
 
@@ -35,30 +34,28 @@ public const FIELD_BELLOW_COMPOUND_MATERIAL = 'bellowCompoundMaterial';
 public const FIELD_HAS_INTERNAL_BUMPER = 'hasInternalBumper';
 public const FIELD_AIR_INLET_LOCATION = 'airInletLocation';
 public const FIELD_BASE_PLATE_MATERIAL = 'basePlateMaterial';
-public const FIELD_IS_BELLOW_ONLYPART = 'IsBellowOnlypart';
-public const FIELD_MINIMUM_HEIGHT = 'minimumHeight';
-public const FIELD_MAXIMUM_HEIGHT = 'maximumHeight';
+public const FIELD_IS_BELLOW_ONLY_PART = 'isBellowOnlyPart';
+public const FIELD_HEIGHT = 'height';
 public const FIELD_MAXIMUM_BELLOW_DIAMETER = 'maximumBellowDiameter';
 public const FIELD_MAXIMUM_STROKE = 'maximumStroke';
 public const FIELD_WORKING_PRESSURE = 'workingPressure';
 public const FIELD_AIR_INLET = 'airInlet';
 public const FIELD_AIR_INLET_THREAD = 'airInletThread';
 public const FIELD_ROLLING_LOBE_PISTON_MATERIAL = 'rollingLobePistonMaterial';
-public const FIELD_PERMISSABLE_INSTALLATION_SPACE = 'permissableInstallationSpace';
+public const FIELD_PERMISSIBLE_INSTALLATION_SPACE = 'permissibleInstallationSpace';
 public const FIELD_NUMBER_OF_CONVOLUTIONS = 'numberOfConvolutions';
 
 protected string $type = "UniPrFinDss";
 protected $localizedfields;
-protected $IsBellowOnlypart;
-protected $minimumHeight;
-protected $maximumHeight;
+protected $isBellowOnlyPart;
+protected $height;
 protected $maximumBellowDiameter;
 protected $maximumStroke;
 protected $workingPressure;
 protected $airInlet;
 protected $airInletThread;
 protected $rollingLobePistonMaterial;
-protected $permissableInstallationSpace;
+protected $permissibleInstallationSpace;
 protected $numberOfConvolutions;
 
 
@@ -279,15 +276,15 @@ public function setBasePlateMaterial (?string $basePlateMaterial, ?string $langu
 }
 
 /**
-* Get IsBellowOnlypart - Is the part a Bellow only
+* Get isBellowOnlyPart - Is the part a Bellow only
 * @return bool|null
 */
-public function getIsBellowOnlypart(): ?bool
+public function getIsBellowOnlyPart(): ?bool
 {
-	$data = $this->IsBellowOnlypart;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("IsBellowOnlypart")->isEmpty($data)) {
+	$data = $this->isBellowOnlyPart;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("isBellowOnlyPart")->isEmpty($data)) {
 		try {
-			return $this->getValueFromParent("IsBellowOnlypart");
+			return $this->getValueFromParent("isBellowOnlyPart");
 		} catch (InheritanceParentNotFoundException $e) {
 			// no data from parent available, continue ...
 		}
@@ -300,27 +297,27 @@ public function getIsBellowOnlypart(): ?bool
 }
 
 /**
-* Set IsBellowOnlypart - Is the part a Bellow only
-* @param bool|null $IsBellowOnlypart
+* Set isBellowOnlyPart - Is the part a Bellow only
+* @param bool|null $isBellowOnlyPart
 * @return $this
 */
-public function setIsBellowOnlypart (?bool $IsBellowOnlypart): static
+public function setIsBellowOnlyPart (?bool $isBellowOnlyPart): static
 {
-	$this->IsBellowOnlypart = $IsBellowOnlypart;
+	$this->isBellowOnlyPart = $isBellowOnlyPart;
 
 	return $this;
 }
 
 /**
-* Get minimumHeight - Minimum Height
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* Get height - Height
+* @return \Pimcore\Model\DataObject\Data\QuantityValueRange|null
 */
-public function getMinimumHeight(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getHeight(): ?\Pimcore\Model\DataObject\Data\QuantityValueRange
 {
-	$data = $this->minimumHeight;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("minimumHeight")->isEmpty($data)) {
+	$data = $this->height;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("height")->isEmpty($data)) {
 		try {
-			return $this->getValueFromParent("minimumHeight");
+			return $this->getValueFromParent("height");
 		} catch (InheritanceParentNotFoundException $e) {
 			// no data from parent available, continue ...
 		}
@@ -333,46 +330,13 @@ public function getMinimumHeight(): ?\Pimcore\Model\DataObject\Data\QuantityValu
 }
 
 /**
-* Set minimumHeight - Minimum Height
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $minimumHeight
+* Set height - Height
+* @param \Pimcore\Model\DataObject\Data\QuantityValueRange|null $height
 * @return $this
 */
-public function setMinimumHeight (?\Pimcore\Model\DataObject\Data\QuantityValue $minimumHeight): static
+public function setHeight (?\Pimcore\Model\DataObject\Data\QuantityValueRange $height): static
 {
-	$this->minimumHeight = $minimumHeight;
-
-	return $this;
-}
-
-/**
-* Get maximumHeight - Maximum Height
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
-*/
-public function getMaximumHeight(): ?\Pimcore\Model\DataObject\Data\QuantityValue
-{
-	$data = $this->maximumHeight;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("maximumHeight")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("maximumHeight");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set maximumHeight - Maximum Height
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $maximumHeight
-* @return $this
-*/
-public function setMaximumHeight (?\Pimcore\Model\DataObject\Data\QuantityValue $maximumHeight): static
-{
-	$this->maximumHeight = $maximumHeight;
+	$this->height = $height;
 
 	return $this;
 }
@@ -610,15 +574,15 @@ public function setRollingLobePistonMaterial (?\Pimcore\Model\Element\AbstractEl
 }
 
 /**
-* Get permissableInstallationSpace - Permissable Installation Space
+* Get permissibleInstallationSpace - Permissible Installation Space
 * @return \Pimcore\Model\Asset\Image|null
 */
-public function getPermissableInstallationSpace(): ?\Pimcore\Model\Asset\Image
+public function getPermissibleInstallationSpace(): ?\Pimcore\Model\Asset\Image
 {
-	$data = $this->permissableInstallationSpace;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("permissableInstallationSpace")->isEmpty($data)) {
+	$data = $this->permissibleInstallationSpace;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("permissibleInstallationSpace")->isEmpty($data)) {
 		try {
-			return $this->getValueFromParent("permissableInstallationSpace");
+			return $this->getValueFromParent("permissibleInstallationSpace");
 		} catch (InheritanceParentNotFoundException $e) {
 			// no data from parent available, continue ...
 		}
@@ -631,13 +595,13 @@ public function getPermissableInstallationSpace(): ?\Pimcore\Model\Asset\Image
 }
 
 /**
-* Set permissableInstallationSpace - Permissable Installation Space
-* @param \Pimcore\Model\Asset\Image|null $permissableInstallationSpace
+* Set permissibleInstallationSpace - Permissible Installation Space
+* @param \Pimcore\Model\Asset\Image|null $permissibleInstallationSpace
 * @return $this
 */
-public function setPermissableInstallationSpace (?\Pimcore\Model\Asset\Image $permissableInstallationSpace): static
+public function setPermissibleInstallationSpace (?\Pimcore\Model\Asset\Image $permissibleInstallationSpace): static
 {
-	$this->permissableInstallationSpace = $permissableInstallationSpace;
+	$this->permissibleInstallationSpace = $permissibleInstallationSpace;
 
 	return $this;
 }
