@@ -163,30 +163,6 @@ public function filterByWeight ($data, $operator = '='): static
 }
 
 /**
-* Filter by marketingDescriptionLong (Marketing Description - Long)
-* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
-* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
-* @return $this
-*/
-public function filterByMarketingDescriptionLong ($data, $operator = '='): static
-{
-	$this->getClass()->getFieldDefinition("marketingDescriptionLong")->addListingFilter($this, $data, $operator);
-	return $this;
-}
-
-/**
-* Filter by marketingDescriptionShort (Marketing Description - Short)
-* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
-* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
-* @return $this
-*/
-public function filterByMarketingDescriptionShort ($data, $operator = '='): static
-{
-	$this->getClass()->getFieldDefinition("marketingDescriptionShort")->addListingFilter($this, $data, $operator);
-	return $this;
-}
-
-/**
 * Filter by featuresAndBenefits (Features And Benefits)
 * @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
 * @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
@@ -223,18 +199,6 @@ public function filterByProductDescriptionLong ($data, $operator = '='): static
 }
 
 /**
-* Filter by productDescriptionExtended (Product Description - Extended)
-* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
-* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
-* @return $this
-*/
-public function filterByProductDescriptionExtended ($data, $operator = '='): static
-{
-	$this->getClass()->getFieldDefinition("productDescriptionExtended")->addListingFilter($this, $data, $operator);
-	return $this;
-}
-
-/**
 * Filter by productMarking1 (Product Marking - 1)
 * @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
 * @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
@@ -267,6 +231,42 @@ public function filterByProductMarking2 ($data, $operator = '='): static
 public function filterByApplications ($data, $operator = '='): static
 {
 	$this->getClass()->getFieldDefinition("applications")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
+* Filter by productDescriptionExtended (Product Description - Extended)
+* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
+* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByProductDescriptionExtended ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("productDescriptionExtended")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
+* Filter by marketingDescriptionShort (Marketing Description - Short)
+* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
+* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByMarketingDescriptionShort ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("marketingDescriptionShort")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
+* Filter by marketingDescriptionLong (Marketing Description - Long)
+* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
+* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByMarketingDescriptionLong ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("marketingDescriptionLong")->addListingFilter($this, $data, $operator);
 	return $this;
 }
 
@@ -439,14 +439,14 @@ public function filterByOldMaterialNumber ($data, $operator = '='): static
 }
 
 /**
-* Filter by eanCode (EAN / UPC Code)
+* Filter by tariffCodes (Tariff Codes)
 * @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
 * @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
 * @return $this
 */
-public function filterByEanCode ($data, $operator = '='): static
+public function filterByTariffCodes ($data, $operator = '='): static
 {
-	$this->getClass()->getFieldDefinition("eanCode")->addListingFilter($this, $data, $operator);
+	$this->getClass()->getFieldDefinition("tariffCodes")->addListingFilter($this, $data, $operator);
 	return $this;
 }
 
@@ -463,14 +463,14 @@ public function filterByCountryOfOrigin ($data, $operator = '='): static
 }
 
 /**
-* Filter by tariffCodes (Tariff Codes)
+* Filter by eanCode (EAN / UPC Code)
 * @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
 * @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
 * @return $this
 */
-public function filterByTariffCodes ($data, $operator = '='): static
+public function filterByEanCode ($data, $operator = '='): static
 {
-	$this->getClass()->getFieldDefinition("tariffCodes")->addListingFilter($this, $data, $operator);
+	$this->getClass()->getFieldDefinition("eanCode")->addListingFilter($this, $data, $operator);
 	return $this;
 }
 

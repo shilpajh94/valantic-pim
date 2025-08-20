@@ -20,15 +20,15 @@
  * -- plantProduced [select]
  * -- unitOfMeasure [quantityValue]
  * -- weight [numeric]
- * -- marketingDescriptionLong [wysiwyg]
- * -- marketingDescriptionShort [wysiwyg]
  * -- featuresAndBenefits [select]
  * -- productDescriptionShort [textarea]
  * -- productDescriptionLong [textarea]
- * -- productDescriptionExtended [wysiwyg]
  * -- productMarking1 [textarea]
  * -- productMarking2 [textarea]
  * -- applications [textarea]
+ * -- productDescriptionExtended [wysiwyg]
+ * -- marketingDescriptionShort [wysiwyg]
+ * -- marketingDescriptionLong [wysiwyg]
  * -- hazardousSubstanceClassification [multiselect]
  * -- reach [select]
  * -- prop65 [select]
@@ -43,9 +43,9 @@
  * - sapMaterialNumber [input]
  * - partNumber [input]
  * - oldMaterialNumber [input]
- * - eanCode [input]
- * - countryOfOrigin [country]
  * - tariffCodes [numeric]
+ * - countryOfOrigin [country]
+ * - eanCode [input]
  * - ghpFullCode [input]
  * - skeletonPimInternalHierarchyCode [calculatedValue]
  * - hierarchySearchData [calculatedValue]
@@ -86,15 +86,15 @@ use Pimcore\Model\DataObject\PreGetValueHookInterface;
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByPlantProduced(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByUnitOfMeasure(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByWeight(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByMarketingDescriptionLong(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByMarketingDescriptionShort(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByFeaturesAndBenefits(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByProductDescriptionShort(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByProductDescriptionLong(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByProductDescriptionExtended(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByProductMarking1(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByProductMarking2(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByApplications(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByProductDescriptionExtended(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByMarketingDescriptionShort(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByMarketingDescriptionLong(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByHazardousSubstanceClassification(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByReach(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByProp65(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
@@ -109,9 +109,9 @@ use Pimcore\Model\DataObject\PreGetValueHookInterface;
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getBySapMaterialNumber(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByPartNumber(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByOldMaterialNumber(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByEanCode(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByCountryOfOrigin(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByTariffCodes(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByCountryOfOrigin(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByEanCode(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByGhpFullCode(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByRegionalAvailability(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByIndustrialStandards(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
@@ -139,15 +139,15 @@ public const FIELD_SAP_DESCRIPTION_LANGUAGE = 'sapDescriptionLanguage';
 public const FIELD_PLANT_PRODUCED = 'plantProduced';
 public const FIELD_UNIT_OF_MEASURE = 'unitOfMeasure';
 public const FIELD_WEIGHT = 'weight';
-public const FIELD_MARKETING_DESCRIPTION_LONG = 'marketingDescriptionLong';
-public const FIELD_MARKETING_DESCRIPTION_SHORT = 'marketingDescriptionShort';
 public const FIELD_FEATURES_AND_BENEFITS = 'featuresAndBenefits';
 public const FIELD_PRODUCT_DESCRIPTION_SHORT = 'productDescriptionShort';
 public const FIELD_PRODUCT_DESCRIPTION_LONG = 'productDescriptionLong';
-public const FIELD_PRODUCT_DESCRIPTION_EXTENDED = 'productDescriptionExtended';
 public const FIELD_PRODUCT_MARKING1 = 'productMarking1';
 public const FIELD_PRODUCT_MARKING2 = 'productMarking2';
 public const FIELD_APPLICATIONS = 'applications';
+public const FIELD_PRODUCT_DESCRIPTION_EXTENDED = 'productDescriptionExtended';
+public const FIELD_MARKETING_DESCRIPTION_SHORT = 'marketingDescriptionShort';
+public const FIELD_MARKETING_DESCRIPTION_LONG = 'marketingDescriptionLong';
 public const FIELD_HAZARDOUS_SUBSTANCE_CLASSIFICATION = 'hazardousSubstanceClassification';
 public const FIELD_REACH = 'reach';
 public const FIELD_PROP65 = 'prop65';
@@ -162,9 +162,9 @@ public const FIELD_EMPTY_FIELDS_FINISHED_GOOD = 'emptyFieldsFinishedGood';
 public const FIELD_SAP_MATERIAL_NUMBER = 'sapMaterialNumber';
 public const FIELD_PART_NUMBER = 'partNumber';
 public const FIELD_OLD_MATERIAL_NUMBER = 'oldMaterialNumber';
-public const FIELD_EAN_CODE = 'eanCode';
-public const FIELD_COUNTRY_OF_ORIGIN = 'countryOfOrigin';
 public const FIELD_TARIFF_CODES = 'tariffCodes';
+public const FIELD_COUNTRY_OF_ORIGIN = 'countryOfOrigin';
+public const FIELD_EAN_CODE = 'eanCode';
 public const FIELD_GHP_FULL_CODE = 'ghpFullCode';
 public const FIELD_SKELETON_PIM_INTERNAL_HIERARCHY_CODE = 'skeletonPimInternalHierarchyCode';
 public const FIELD_HIERARCHY_SEARCH_DATA = 'hierarchySearchData';
@@ -196,9 +196,9 @@ protected $localizedfields;
 protected $sapMaterialNumber;
 protected $partNumber;
 protected $oldMaterialNumber;
-protected $eanCode;
-protected $countryOfOrigin;
 protected $tariffCodes;
+protected $countryOfOrigin;
+protected $eanCode;
 protected $ghpFullCode;
 protected $weightMetric;
 protected $weightImperial;
@@ -636,48 +636,6 @@ public function getWeight(?string $language = null): ?float
 }
 
 /**
-* Get marketingDescriptionLong - Marketing Description - Long
-* @return string|null
-*/
-public function getMarketingDescriptionLong(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("marketingDescriptionLong", $language);
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("marketingDescriptionLong");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get marketingDescriptionShort - Marketing Description - Short
-* @return string|null
-*/
-public function getMarketingDescriptionShort(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("marketingDescriptionShort", $language);
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("marketingDescriptionShort");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
 * Get featuresAndBenefits - Features And Benefits
 * @return string|null
 */
@@ -741,27 +699,6 @@ public function getProductDescriptionLong(?string $language = null): ?string
 }
 
 /**
-* Get productDescriptionExtended - Product Description - Extended
-* @return string|null
-*/
-public function getProductDescriptionExtended(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("productDescriptionExtended", $language);
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("productDescriptionExtended");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
 * Get productMarking1 - Product Marking - 1
 * @return string|null
 */
@@ -812,6 +749,69 @@ public function getApplications(?string $language = null): ?string
 	$data = $this->getLocalizedfields()->getLocalizedValue("applications", $language);
 	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
 		$preValue = $this->preGetValue("applications");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get productDescriptionExtended - Product Description - Extended
+* @return string|null
+*/
+public function getProductDescriptionExtended(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("productDescriptionExtended", $language);
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("productDescriptionExtended");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get marketingDescriptionShort - Marketing Description - Short
+* @return string|null
+*/
+public function getMarketingDescriptionShort(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("marketingDescriptionShort", $language);
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("marketingDescriptionShort");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get marketingDescriptionLong - Marketing Description - Long
+* @return string|null
+*/
+public function getMarketingDescriptionLong(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("marketingDescriptionLong", $language);
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("marketingDescriptionLong");
 		if ($preValue !== null) {
 			return $preValue;
 		}
@@ -1203,32 +1203,6 @@ public function setWeight (?float $weight, ?string $language = null): static
 }
 
 /**
-* Set marketingDescriptionLong - Marketing Description - Long
-* @param string|null $marketingDescriptionLong
-* @return $this
-*/
-public function setMarketingDescriptionLong (?string $marketingDescriptionLong, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("marketingDescriptionLong", $marketingDescriptionLong, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set marketingDescriptionShort - Marketing Description - Short
-* @param string|null $marketingDescriptionShort
-* @return $this
-*/
-public function setMarketingDescriptionShort (?string $marketingDescriptionShort, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("marketingDescriptionShort", $marketingDescriptionShort, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
 * Set featuresAndBenefits - Features And Benefits
 * @param string|null $featuresAndBenefits
 * @return $this
@@ -1268,19 +1242,6 @@ public function setProductDescriptionLong (?string $productDescriptionLong, ?str
 }
 
 /**
-* Set productDescriptionExtended - Product Description - Extended
-* @param string|null $productDescriptionExtended
-* @return $this
-*/
-public function setProductDescriptionExtended (?string $productDescriptionExtended, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("productDescriptionExtended", $productDescriptionExtended, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
 * Set productMarking1 - Product Marking - 1
 * @param string|null $productMarking1
 * @return $this
@@ -1315,6 +1276,45 @@ public function setApplications (?string $applications, ?string $language = null
 {
 	$isEqual = false;
 	$this->getLocalizedfields()->setLocalizedValue("applications", $applications, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set productDescriptionExtended - Product Description - Extended
+* @param string|null $productDescriptionExtended
+* @return $this
+*/
+public function setProductDescriptionExtended (?string $productDescriptionExtended, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("productDescriptionExtended", $productDescriptionExtended, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set marketingDescriptionShort - Marketing Description - Short
+* @param string|null $marketingDescriptionShort
+* @return $this
+*/
+public function setMarketingDescriptionShort (?string $marketingDescriptionShort, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("marketingDescriptionShort", $marketingDescriptionShort, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set marketingDescriptionLong - Marketing Description - Long
+* @param string|null $marketingDescriptionLong
+* @return $this
+*/
+public function setMarketingDescriptionLong (?string $marketingDescriptionLong, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("marketingDescriptionLong", $marketingDescriptionLong, $language, !$isEqual);
 
 	return $this;
 }
@@ -1571,19 +1571,19 @@ public function setOldMaterialNumber(?string $oldMaterialNumber): static
 }
 
 /**
-* Get eanCode - EAN / UPC Code
-* @return string|null
+* Get tariffCodes - Tariff Codes
+* @return float|null
 */
-public function getEanCode(): ?string
+public function getTariffCodes(): ?float
 {
 	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("eanCode");
+		$preValue = $this->preGetValue("tariffCodes");
 		if ($preValue !== null) {
 			return $preValue;
 		}
 	}
 
-	$data = $this->eanCode;
+	$data = $this->tariffCodes;
 
 	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
 		return $data->getPlain();
@@ -1593,16 +1593,15 @@ public function getEanCode(): ?string
 }
 
 /**
-* Set eanCode - EAN / UPC Code
-* @param string|null $eanCode
+* Set tariffCodes - Tariff Codes
+* @param float|null $tariffCodes
 * @return $this
 */
-public function setEanCode(?string $eanCode): static
+public function setTariffCodes(?float $tariffCodes): static
 {
-	$this->markFieldDirty("eanCode", true);
-
-	$this->eanCode = $eanCode;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getClass()->getFieldDefinition("tariffCodes");
+	$this->tariffCodes = $fd->preSetData($this, $tariffCodes);
 	return $this;
 }
 
@@ -1643,19 +1642,19 @@ public function setCountryOfOrigin(?string $countryOfOrigin): static
 }
 
 /**
-* Get tariffCodes - Tariff Codes
-* @return float|null
+* Get eanCode - EAN / UPC Code
+* @return string|null
 */
-public function getTariffCodes(): ?float
+public function getEanCode(): ?string
 {
 	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("tariffCodes");
+		$preValue = $this->preGetValue("eanCode");
 		if ($preValue !== null) {
 			return $preValue;
 		}
 	}
 
-	$data = $this->tariffCodes;
+	$data = $this->eanCode;
 
 	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
 		return $data->getPlain();
@@ -1665,15 +1664,16 @@ public function getTariffCodes(): ?float
 }
 
 /**
-* Set tariffCodes - Tariff Codes
-* @param float|null $tariffCodes
+* Set eanCode - EAN / UPC Code
+* @param string|null $eanCode
 * @return $this
 */
-public function setTariffCodes(?float $tariffCodes): static
+public function setEanCode(?string $eanCode): static
 {
-	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
-	$fd = $this->getClass()->getFieldDefinition("tariffCodes");
-	$this->tariffCodes = $fd->preSetData($this, $tariffCodes);
+	$this->markFieldDirty("eanCode", true);
+
+	$this->eanCode = $eanCode;
+
 	return $this;
 }
 

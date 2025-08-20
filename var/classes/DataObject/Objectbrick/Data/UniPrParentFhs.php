@@ -2,18 +2,12 @@
 
 /**
  * Fields Summary:
- * - reinforcement [manyToManyObjectRelation]
  * - hasStaticWire [checkbox]
- * - staticWireType [manyToOneRelation]
  * - hasHelicalWire [checkbox]
- * - numberOfHelixWires [numeric]
  * - isLayFlat [checkbox]
- * - tubeCharacteristic [manyToManyObjectRelation]
- * - tubeMaterial [manyToManyObjectRelation]
- * - coverCharacteristicHaptic [manyToManyObjectRelation]
- * - coverColor [manyToManyObjectRelation]
- * - coverMaterial [manyToManyObjectRelation]
  * - numberOfPlies [numeric]
+ * - numberOfHelixWires [numeric]
+ * - staticWireType [manyToOneRelation]
  * - localizedfields [localizedfields]
  * -- reinforcementVersion [textarea]
  * -- tubeMaterialExportVersion [textarea]
@@ -21,12 +15,18 @@
  * -- standardMetHoseComment [input]
  * -- catalogCoupling [textarea]
  * -- catalogPackaging [textarea]
- * - standardMetTube [multiselect]
+ * - reinforcement [manyToManyObjectRelation]
+ * - coverColor [manyToManyObjectRelation]
+ * - coverMaterial [manyToManyObjectRelation]
+ * - coverCharacteristicHaptic [manyToManyObjectRelation]
+ * - tubeMaterial [manyToManyObjectRelation]
+ * - tubeCharacteristic [manyToManyObjectRelation]
  * - standardMetCover [multiselect]
  * - standardMetCompleteHose [multiselect]
+ * - standardMetTube [multiselect]
  * - acceptableHoseMedia [manyToManyObjectRelation]
- * - tubeColor [manyToManyObjectRelation]
  * - designFactor [input]
+ * - tubeColor [manyToManyObjectRelation]
  */
 
 namespace Pimcore\Model\DataObject\Objectbrick\Data;
@@ -38,51 +38,51 @@ use Pimcore\Model\DataObject\PreGetValueHookInterface;
 
 class UniPrParentFhs extends DataObject\Objectbrick\Data\AbstractData
 {
-public const FIELD_REINFORCEMENT = 'reinforcement';
 public const FIELD_HAS_STATIC_WIRE = 'hasStaticWire';
-public const FIELD_STATIC_WIRE_TYPE = 'staticWireType';
 public const FIELD_HAS_HELICAL_WIRE = 'hasHelicalWire';
-public const FIELD_NUMBER_OF_HELIX_WIRES = 'numberOfHelixWires';
 public const FIELD_IS_LAY_FLAT = 'isLayFlat';
-public const FIELD_TUBE_CHARACTERISTIC = 'tubeCharacteristic';
-public const FIELD_TUBE_MATERIAL = 'tubeMaterial';
-public const FIELD_COVER_CHARACTERISTIC_HAPTIC = 'coverCharacteristicHaptic';
-public const FIELD_COVER_COLOR = 'coverColor';
-public const FIELD_COVER_MATERIAL = 'coverMaterial';
 public const FIELD_NUMBER_OF_PLIES = 'numberOfPlies';
+public const FIELD_NUMBER_OF_HELIX_WIRES = 'numberOfHelixWires';
+public const FIELD_STATIC_WIRE_TYPE = 'staticWireType';
 public const FIELD_REINFORCEMENT_VERSION = 'reinforcementVersion';
 public const FIELD_TUBE_MATERIAL_EXPORT_VERSION = 'tubeMaterialExportVersion';
 public const FIELD_COVER_MATERIAL_EXPORT_VERSION = 'coverMaterialExportVersion';
 public const FIELD_STANDARD_MET_HOSE_COMMENT = 'standardMetHoseComment';
 public const FIELD_CATALOG_COUPLING = 'catalogCoupling';
 public const FIELD_CATALOG_PACKAGING = 'catalogPackaging';
-public const FIELD_STANDARD_MET_TUBE = 'standardMetTube';
+public const FIELD_REINFORCEMENT = 'reinforcement';
+public const FIELD_COVER_COLOR = 'coverColor';
+public const FIELD_COVER_MATERIAL = 'coverMaterial';
+public const FIELD_COVER_CHARACTERISTIC_HAPTIC = 'coverCharacteristicHaptic';
+public const FIELD_TUBE_MATERIAL = 'tubeMaterial';
+public const FIELD_TUBE_CHARACTERISTIC = 'tubeCharacteristic';
 public const FIELD_STANDARD_MET_COVER = 'standardMetCover';
 public const FIELD_STANDARD_MET_COMPLETE_HOSE = 'standardMetCompleteHose';
+public const FIELD_STANDARD_MET_TUBE = 'standardMetTube';
 public const FIELD_ACCEPTABLE_HOSE_MEDIA = 'acceptableHoseMedia';
-public const FIELD_TUBE_COLOR = 'tubeColor';
 public const FIELD_DESIGN_FACTOR = 'designFactor';
+public const FIELD_TUBE_COLOR = 'tubeColor';
 
 protected string $type = "UniPrParentFhs";
-protected $reinforcement;
 protected $hasStaticWire;
-protected $staticWireType;
 protected $hasHelicalWire;
-protected $numberOfHelixWires;
 protected $isLayFlat;
-protected $tubeCharacteristic;
-protected $tubeMaterial;
-protected $coverCharacteristicHaptic;
+protected $numberOfPlies;
+protected $numberOfHelixWires;
+protected $staticWireType;
+protected $localizedfields;
+protected $reinforcement;
 protected $coverColor;
 protected $coverMaterial;
-protected $numberOfPlies;
-protected $localizedfields;
-protected $standardMetTube;
+protected $coverCharacteristicHaptic;
+protected $tubeMaterial;
+protected $tubeCharacteristic;
 protected $standardMetCover;
 protected $standardMetCompleteHose;
+protected $standardMetTube;
 protected $acceptableHoseMedia;
-protected $tubeColor;
 protected $designFactor;
+protected $tubeColor;
 
 
 /**
@@ -95,56 +95,6 @@ public function __construct(DataObject\Concrete $object)
 	$this->markFieldDirty("_self");
 }
 
-
-/**
-* Get reinforcement - Reinforcement
-* @return \Pimcore\Model\DataObject\UniPrReinforcementFhs[]
-*/
-public function getReinforcement(): array
-{
-	$data = $this->getDefinition()->getFieldDefinition("reinforcement")->preGetData($this);
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("reinforcement")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("reinforcement");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set reinforcement - Reinforcement
-* @param \Pimcore\Model\DataObject\UniPrReinforcementFhs[] $reinforcement
-* @return $this
-*/
-public function setReinforcement (?array $reinforcement): static
-{
-	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation $fd */
-	$fd = $this->getDefinition()->getFieldDefinition("reinforcement");
-	$class = $this->getObject() ? $this->getObject()->getClass() : null;
-	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
-	if ($class && $class->getAllowInherit()) {
-		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
-			return $this->getReinforcement();
-		});
-	}
-	else {
-		$currentData = $this->getReinforcement();
-	}	
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
-	$isEqual = $fd->isEqual($currentData, $reinforcement);
-	if (!$isEqual) {
-		$this->markFieldDirty("reinforcement", true);
-	}
-	$this->reinforcement = $fd->preSetData($this, $reinforcement);
-	return $this;
-}
 
 /**
 * Get hasStaticWire - Static Wire (Y/N)
@@ -176,6 +126,140 @@ public function setHasStaticWire (?bool $hasStaticWire): static
 {
 	$this->hasStaticWire = $hasStaticWire;
 
+	return $this;
+}
+
+/**
+* Get hasHelicalWire - Helical Wire Y/N
+* @return bool|null
+*/
+public function getHasHelicalWire(): ?bool
+{
+	$data = $this->hasHelicalWire;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("hasHelicalWire")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("hasHelicalWire");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set hasHelicalWire - Helical Wire Y/N
+* @param bool|null $hasHelicalWire
+* @return $this
+*/
+public function setHasHelicalWire (?bool $hasHelicalWire): static
+{
+	$this->hasHelicalWire = $hasHelicalWire;
+
+	return $this;
+}
+
+/**
+* Get isLayFlat - Lay Flat Y/N
+* @return bool|null
+*/
+public function getIsLayFlat(): ?bool
+{
+	$data = $this->isLayFlat;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("isLayFlat")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("isLayFlat");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set isLayFlat - Lay Flat Y/N
+* @param bool|null $isLayFlat
+* @return $this
+*/
+public function setIsLayFlat (?bool $isLayFlat): static
+{
+	$this->isLayFlat = $isLayFlat;
+
+	return $this;
+}
+
+/**
+* Get numberOfPlies - Number Of Plies
+* @return float|null
+*/
+public function getNumberOfPlies(): ?float
+{
+	$data = $this->numberOfPlies;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("numberOfPlies")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("numberOfPlies");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set numberOfPlies - Number Of Plies
+* @param float|null $numberOfPlies
+* @return $this
+*/
+public function setNumberOfPlies (?float $numberOfPlies): static
+{
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("numberOfPlies");
+	$this->numberOfPlies = $fd->preSetData($this, $numberOfPlies);
+	return $this;
+}
+
+/**
+* Get numberOfHelixWires - Number Of Helix Wires
+* @return float|null
+*/
+public function getNumberOfHelixWires(): ?float
+{
+	$data = $this->numberOfHelixWires;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("numberOfHelixWires")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("numberOfHelixWires");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set numberOfHelixWires - Number Of Helix Wires
+* @param float|null $numberOfHelixWires
+* @return $this
+*/
+public function setNumberOfHelixWires (?float $numberOfHelixWires): static
+{
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("numberOfHelixWires");
+	$this->numberOfHelixWires = $fd->preSetData($this, $numberOfHelixWires);
 	return $this;
 }
 
@@ -226,390 +310,6 @@ public function setStaticWireType (?\Pimcore\Model\Element\AbstractElement $stat
 		$this->markFieldDirty("staticWireType", true);
 	}
 	$this->staticWireType = $fd->preSetData($this, $staticWireType);
-	return $this;
-}
-
-/**
-* Get hasHelicalWire - Helical Wire Y/N
-* @return bool|null
-*/
-public function getHasHelicalWire(): ?bool
-{
-	$data = $this->hasHelicalWire;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("hasHelicalWire")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("hasHelicalWire");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set hasHelicalWire - Helical Wire Y/N
-* @param bool|null $hasHelicalWire
-* @return $this
-*/
-public function setHasHelicalWire (?bool $hasHelicalWire): static
-{
-	$this->hasHelicalWire = $hasHelicalWire;
-
-	return $this;
-}
-
-/**
-* Get numberOfHelixWires - Number Of Helix Wires
-* @return float|null
-*/
-public function getNumberOfHelixWires(): ?float
-{
-	$data = $this->numberOfHelixWires;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("numberOfHelixWires")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("numberOfHelixWires");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set numberOfHelixWires - Number Of Helix Wires
-* @param float|null $numberOfHelixWires
-* @return $this
-*/
-public function setNumberOfHelixWires (?float $numberOfHelixWires): static
-{
-	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
-	$fd = $this->getDefinition()->getFieldDefinition("numberOfHelixWires");
-	$this->numberOfHelixWires = $fd->preSetData($this, $numberOfHelixWires);
-	return $this;
-}
-
-/**
-* Get isLayFlat - Lay Flat Y/N
-* @return bool|null
-*/
-public function getIsLayFlat(): ?bool
-{
-	$data = $this->isLayFlat;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("isLayFlat")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("isLayFlat");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set isLayFlat - Lay Flat Y/N
-* @param bool|null $isLayFlat
-* @return $this
-*/
-public function setIsLayFlat (?bool $isLayFlat): static
-{
-	$this->isLayFlat = $isLayFlat;
-
-	return $this;
-}
-
-/**
-* Get tubeCharacteristic - Tube Characteristic
-* @return \Pimcore\Model\DataObject\UniPrTubeCharacteristicFhs[]
-*/
-public function getTubeCharacteristic(): array
-{
-	$data = $this->getDefinition()->getFieldDefinition("tubeCharacteristic")->preGetData($this);
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("tubeCharacteristic")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("tubeCharacteristic");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set tubeCharacteristic - Tube Characteristic
-* @param \Pimcore\Model\DataObject\UniPrTubeCharacteristicFhs[] $tubeCharacteristic
-* @return $this
-*/
-public function setTubeCharacteristic (?array $tubeCharacteristic): static
-{
-	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation $fd */
-	$fd = $this->getDefinition()->getFieldDefinition("tubeCharacteristic");
-	$class = $this->getObject() ? $this->getObject()->getClass() : null;
-	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
-	if ($class && $class->getAllowInherit()) {
-		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
-			return $this->getTubeCharacteristic();
-		});
-	}
-	else {
-		$currentData = $this->getTubeCharacteristic();
-	}	
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
-	$isEqual = $fd->isEqual($currentData, $tubeCharacteristic);
-	if (!$isEqual) {
-		$this->markFieldDirty("tubeCharacteristic", true);
-	}
-	$this->tubeCharacteristic = $fd->preSetData($this, $tubeCharacteristic);
-	return $this;
-}
-
-/**
-* Get tubeMaterial - Tube Material  
-* @return \Pimcore\Model\DataObject\UniPrMaterialFhs[]
-*/
-public function getTubeMaterial(): array
-{
-	$data = $this->getDefinition()->getFieldDefinition("tubeMaterial")->preGetData($this);
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("tubeMaterial")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("tubeMaterial");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set tubeMaterial - Tube Material  
-* @param \Pimcore\Model\DataObject\UniPrMaterialFhs[] $tubeMaterial
-* @return $this
-*/
-public function setTubeMaterial (?array $tubeMaterial): static
-{
-	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation $fd */
-	$fd = $this->getDefinition()->getFieldDefinition("tubeMaterial");
-	$class = $this->getObject() ? $this->getObject()->getClass() : null;
-	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
-	if ($class && $class->getAllowInherit()) {
-		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
-			return $this->getTubeMaterial();
-		});
-	}
-	else {
-		$currentData = $this->getTubeMaterial();
-	}	
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
-	$isEqual = $fd->isEqual($currentData, $tubeMaterial);
-	if (!$isEqual) {
-		$this->markFieldDirty("tubeMaterial", true);
-	}
-	$this->tubeMaterial = $fd->preSetData($this, $tubeMaterial);
-	return $this;
-}
-
-/**
-* Get coverCharacteristicHaptic - Cover Characteristic / Haptic
-* @return \Pimcore\Model\DataObject\UniPrCoverCharacteristicFhs[]
-*/
-public function getCoverCharacteristicHaptic(): array
-{
-	$data = $this->getDefinition()->getFieldDefinition("coverCharacteristicHaptic")->preGetData($this);
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("coverCharacteristicHaptic")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("coverCharacteristicHaptic");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set coverCharacteristicHaptic - Cover Characteristic / Haptic
-* @param \Pimcore\Model\DataObject\UniPrCoverCharacteristicFhs[] $coverCharacteristicHaptic
-* @return $this
-*/
-public function setCoverCharacteristicHaptic (?array $coverCharacteristicHaptic): static
-{
-	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation $fd */
-	$fd = $this->getDefinition()->getFieldDefinition("coverCharacteristicHaptic");
-	$class = $this->getObject() ? $this->getObject()->getClass() : null;
-	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
-	if ($class && $class->getAllowInherit()) {
-		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
-			return $this->getCoverCharacteristicHaptic();
-		});
-	}
-	else {
-		$currentData = $this->getCoverCharacteristicHaptic();
-	}	
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
-	$isEqual = $fd->isEqual($currentData, $coverCharacteristicHaptic);
-	if (!$isEqual) {
-		$this->markFieldDirty("coverCharacteristicHaptic", true);
-	}
-	$this->coverCharacteristicHaptic = $fd->preSetData($this, $coverCharacteristicHaptic);
-	return $this;
-}
-
-/**
-* Get coverColor - Cover Color / Color- Outer   Layer
-* @return \Pimcore\Model\DataObject\UniPrColorFhs[]
-*/
-public function getCoverColor(): array
-{
-	$data = $this->getDefinition()->getFieldDefinition("coverColor")->preGetData($this);
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("coverColor")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("coverColor");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set coverColor - Cover Color / Color- Outer   Layer
-* @param \Pimcore\Model\DataObject\UniPrColorFhs[] $coverColor
-* @return $this
-*/
-public function setCoverColor (?array $coverColor): static
-{
-	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation $fd */
-	$fd = $this->getDefinition()->getFieldDefinition("coverColor");
-	$class = $this->getObject() ? $this->getObject()->getClass() : null;
-	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
-	if ($class && $class->getAllowInherit()) {
-		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
-			return $this->getCoverColor();
-		});
-	}
-	else {
-		$currentData = $this->getCoverColor();
-	}	
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
-	$isEqual = $fd->isEqual($currentData, $coverColor);
-	if (!$isEqual) {
-		$this->markFieldDirty("coverColor", true);
-	}
-	$this->coverColor = $fd->preSetData($this, $coverColor);
-	return $this;
-}
-
-/**
-* Get coverMaterial - Cover Material 
-* @return \Pimcore\Model\DataObject\UniPrMaterialFhs[]
-*/
-public function getCoverMaterial(): array
-{
-	$data = $this->getDefinition()->getFieldDefinition("coverMaterial")->preGetData($this);
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("coverMaterial")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("coverMaterial");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set coverMaterial - Cover Material 
-* @param \Pimcore\Model\DataObject\UniPrMaterialFhs[] $coverMaterial
-* @return $this
-*/
-public function setCoverMaterial (?array $coverMaterial): static
-{
-	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation $fd */
-	$fd = $this->getDefinition()->getFieldDefinition("coverMaterial");
-	$class = $this->getObject() ? $this->getObject()->getClass() : null;
-	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
-	if ($class && $class->getAllowInherit()) {
-		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
-			return $this->getCoverMaterial();
-		});
-	}
-	else {
-		$currentData = $this->getCoverMaterial();
-	}	
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
-	$isEqual = $fd->isEqual($currentData, $coverMaterial);
-	if (!$isEqual) {
-		$this->markFieldDirty("coverMaterial", true);
-	}
-	$this->coverMaterial = $fd->preSetData($this, $coverMaterial);
-	return $this;
-}
-
-/**
-* Get numberOfPlies - Number Of Plies
-* @return float|null
-*/
-public function getNumberOfPlies(): ?float
-{
-	$data = $this->numberOfPlies;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("numberOfPlies")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("numberOfPlies");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set numberOfPlies - Number Of Plies
-* @param float|null $numberOfPlies
-* @return $this
-*/
-public function setNumberOfPlies (?float $numberOfPlies): static
-{
-	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
-	$fd = $this->getDefinition()->getFieldDefinition("numberOfPlies");
-	$this->numberOfPlies = $fd->preSetData($this, $numberOfPlies);
 	return $this;
 }
 
@@ -822,15 +522,15 @@ public function setCatalogPackaging (?string $catalogPackaging, ?string $languag
 }
 
 /**
-* Get standardMetTube - Standard Met; Tube
-* @return string[]|null
+* Get reinforcement - Reinforcement
+* @return \Pimcore\Model\DataObject\UniPrReinforcementFhs[]
 */
-public function getStandardMetTube(): ?array
+public function getReinforcement(): array
 {
-	$data = $this->standardMetTube;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("standardMetTube")->isEmpty($data)) {
+	$data = $this->getDefinition()->getFieldDefinition("reinforcement")->preGetData($this);
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("reinforcement")->isEmpty($data)) {
 		try {
-			return $this->getValueFromParent("standardMetTube");
+			return $this->getValueFromParent("reinforcement");
 		} catch (InheritanceParentNotFoundException $e) {
 			// no data from parent available, continue ...
 		}
@@ -843,14 +543,281 @@ public function getStandardMetTube(): ?array
 }
 
 /**
-* Set standardMetTube - Standard Met; Tube
-* @param string[]|null $standardMetTube
+* Set reinforcement - Reinforcement
+* @param \Pimcore\Model\DataObject\UniPrReinforcementFhs[] $reinforcement
 * @return $this
 */
-public function setStandardMetTube (?array $standardMetTube): static
+public function setReinforcement (?array $reinforcement): static
 {
-	$this->standardMetTube = $standardMetTube;
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("reinforcement");
+	$class = $this->getObject() ? $this->getObject()->getClass() : null;
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	if ($class && $class->getAllowInherit()) {
+		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
+			return $this->getReinforcement();
+		});
+	}
+	else {
+		$currentData = $this->getReinforcement();
+	}	
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $reinforcement);
+	if (!$isEqual) {
+		$this->markFieldDirty("reinforcement", true);
+	}
+	$this->reinforcement = $fd->preSetData($this, $reinforcement);
+	return $this;
+}
 
+/**
+* Get coverColor - Cover Color / Color- Outer   Layer
+* @return \Pimcore\Model\DataObject\UniPrColorFhs[]
+*/
+public function getCoverColor(): array
+{
+	$data = $this->getDefinition()->getFieldDefinition("coverColor")->preGetData($this);
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("coverColor")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("coverColor");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set coverColor - Cover Color / Color- Outer   Layer
+* @param \Pimcore\Model\DataObject\UniPrColorFhs[] $coverColor
+* @return $this
+*/
+public function setCoverColor (?array $coverColor): static
+{
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("coverColor");
+	$class = $this->getObject() ? $this->getObject()->getClass() : null;
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	if ($class && $class->getAllowInherit()) {
+		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
+			return $this->getCoverColor();
+		});
+	}
+	else {
+		$currentData = $this->getCoverColor();
+	}	
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $coverColor);
+	if (!$isEqual) {
+		$this->markFieldDirty("coverColor", true);
+	}
+	$this->coverColor = $fd->preSetData($this, $coverColor);
+	return $this;
+}
+
+/**
+* Get coverMaterial - Cover Material 
+* @return \Pimcore\Model\DataObject\UniPrMaterialFhs[]
+*/
+public function getCoverMaterial(): array
+{
+	$data = $this->getDefinition()->getFieldDefinition("coverMaterial")->preGetData($this);
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("coverMaterial")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("coverMaterial");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set coverMaterial - Cover Material 
+* @param \Pimcore\Model\DataObject\UniPrMaterialFhs[] $coverMaterial
+* @return $this
+*/
+public function setCoverMaterial (?array $coverMaterial): static
+{
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("coverMaterial");
+	$class = $this->getObject() ? $this->getObject()->getClass() : null;
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	if ($class && $class->getAllowInherit()) {
+		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
+			return $this->getCoverMaterial();
+		});
+	}
+	else {
+		$currentData = $this->getCoverMaterial();
+	}	
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $coverMaterial);
+	if (!$isEqual) {
+		$this->markFieldDirty("coverMaterial", true);
+	}
+	$this->coverMaterial = $fd->preSetData($this, $coverMaterial);
+	return $this;
+}
+
+/**
+* Get coverCharacteristicHaptic - Cover Characteristic / Haptic
+* @return \Pimcore\Model\DataObject\UniPrCoverCharacteristicFhs[]
+*/
+public function getCoverCharacteristicHaptic(): array
+{
+	$data = $this->getDefinition()->getFieldDefinition("coverCharacteristicHaptic")->preGetData($this);
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("coverCharacteristicHaptic")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("coverCharacteristicHaptic");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set coverCharacteristicHaptic - Cover Characteristic / Haptic
+* @param \Pimcore\Model\DataObject\UniPrCoverCharacteristicFhs[] $coverCharacteristicHaptic
+* @return $this
+*/
+public function setCoverCharacteristicHaptic (?array $coverCharacteristicHaptic): static
+{
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("coverCharacteristicHaptic");
+	$class = $this->getObject() ? $this->getObject()->getClass() : null;
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	if ($class && $class->getAllowInherit()) {
+		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
+			return $this->getCoverCharacteristicHaptic();
+		});
+	}
+	else {
+		$currentData = $this->getCoverCharacteristicHaptic();
+	}	
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $coverCharacteristicHaptic);
+	if (!$isEqual) {
+		$this->markFieldDirty("coverCharacteristicHaptic", true);
+	}
+	$this->coverCharacteristicHaptic = $fd->preSetData($this, $coverCharacteristicHaptic);
+	return $this;
+}
+
+/**
+* Get tubeMaterial - Tube Material  
+* @return \Pimcore\Model\DataObject\UniPrMaterialFhs[]
+*/
+public function getTubeMaterial(): array
+{
+	$data = $this->getDefinition()->getFieldDefinition("tubeMaterial")->preGetData($this);
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("tubeMaterial")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("tubeMaterial");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set tubeMaterial - Tube Material  
+* @param \Pimcore\Model\DataObject\UniPrMaterialFhs[] $tubeMaterial
+* @return $this
+*/
+public function setTubeMaterial (?array $tubeMaterial): static
+{
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("tubeMaterial");
+	$class = $this->getObject() ? $this->getObject()->getClass() : null;
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	if ($class && $class->getAllowInherit()) {
+		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
+			return $this->getTubeMaterial();
+		});
+	}
+	else {
+		$currentData = $this->getTubeMaterial();
+	}	
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $tubeMaterial);
+	if (!$isEqual) {
+		$this->markFieldDirty("tubeMaterial", true);
+	}
+	$this->tubeMaterial = $fd->preSetData($this, $tubeMaterial);
+	return $this;
+}
+
+/**
+* Get tubeCharacteristic - Tube Characteristic
+* @return \Pimcore\Model\DataObject\UniPrTubeCharacteristicFhs[]
+*/
+public function getTubeCharacteristic(): array
+{
+	$data = $this->getDefinition()->getFieldDefinition("tubeCharacteristic")->preGetData($this);
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("tubeCharacteristic")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("tubeCharacteristic");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set tubeCharacteristic - Tube Characteristic
+* @param \Pimcore\Model\DataObject\UniPrTubeCharacteristicFhs[] $tubeCharacteristic
+* @return $this
+*/
+public function setTubeCharacteristic (?array $tubeCharacteristic): static
+{
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("tubeCharacteristic");
+	$class = $this->getObject() ? $this->getObject()->getClass() : null;
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	if ($class && $class->getAllowInherit()) {
+		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
+			return $this->getTubeCharacteristic();
+		});
+	}
+	else {
+		$currentData = $this->getTubeCharacteristic();
+	}	
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $tubeCharacteristic);
+	if (!$isEqual) {
+		$this->markFieldDirty("tubeCharacteristic", true);
+	}
+	$this->tubeCharacteristic = $fd->preSetData($this, $tubeCharacteristic);
 	return $this;
 }
 
@@ -921,6 +888,39 @@ public function setStandardMetCompleteHose (?array $standardMetCompleteHose): st
 }
 
 /**
+* Get standardMetTube - Standard Met; Tube
+* @return string[]|null
+*/
+public function getStandardMetTube(): ?array
+{
+	$data = $this->standardMetTube;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("standardMetTube")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("standardMetTube");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set standardMetTube - Standard Met; Tube
+* @param string[]|null $standardMetTube
+* @return $this
+*/
+public function setStandardMetTube (?array $standardMetTube): static
+{
+	$this->standardMetTube = $standardMetTube;
+
+	return $this;
+}
+
+/**
 * Get acceptableHoseMedia - Acceptable Hose Media / Flow Medium
 * @return \Pimcore\Model\DataObject\UniPrFlowMediumFhs[]
 */
@@ -971,6 +971,39 @@ public function setAcceptableHoseMedia (?array $acceptableHoseMedia): static
 }
 
 /**
+* Get designFactor - Design Factor
+* @return string|null
+*/
+public function getDesignFactor(): ?string
+{
+	$data = $this->designFactor;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("designFactor")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("designFactor");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set designFactor - Design Factor
+* @param string|null $designFactor
+* @return $this
+*/
+public function setDesignFactor (?string $designFactor): static
+{
+	$this->designFactor = $designFactor;
+
+	return $this;
+}
+
+/**
 * Get tubeColor - Tube Color  
 * @return \Pimcore\Model\DataObject\UniPrColorFhs[]
 */
@@ -1017,39 +1050,6 @@ public function setTubeColor (?array $tubeColor): static
 		$this->markFieldDirty("tubeColor", true);
 	}
 	$this->tubeColor = $fd->preSetData($this, $tubeColor);
-	return $this;
-}
-
-/**
-* Get designFactor - Design Factor
-* @return string|null
-*/
-public function getDesignFactor(): ?string
-{
-	$data = $this->designFactor;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("designFactor")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("designFactor");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set designFactor - Design Factor
-* @param string|null $designFactor
-* @return $this
-*/
-public function setDesignFactor (?string $designFactor): static
-{
-	$this->designFactor = $designFactor;
-
 	return $this;
 }
 
