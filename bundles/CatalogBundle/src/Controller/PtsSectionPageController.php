@@ -161,7 +161,9 @@ class PtsSectionPageController extends FrontendController
                 $maximumTemperatureF ="+". intval(array_unique(array_column($SQLResults, 'maximumTemperatureF'))[0]); 
                 $shortDescription = array_unique(array_column($SQLResults, 'shortDescription'))[0];
                 $brandName = array_unique(array_column($SQLResults, 'brandName'))[0];
-                $skeltons = array_slice(($template->getSkeletonProduct() !=null )?$template->getSkeletonProduct():array_values(array_unique(array_column($SQLResults, 'Pitch'))),0,4);
+                // $skeltons = array_slice(($template->getSkeletonProduct() !=null )?$template->getSkeletonProduct():array_values(array_unique(array_column($SQLResults, 'Pitch'))),0,4);
+                $skeltons = ($template->getSkeletonProduct() !=null )?$template->getSkeletonProduct():array_values(array_unique(array_column($SQLResults, 'Pitch')));
+
                 $result = [];
                 $skeltonSet = array_flip($skeltons); // This creates an associative array where keys are skelton values
                 foreach ($SQLResults as $SQLResult) {
