@@ -23,21 +23,21 @@
  * - workingPressureMpa [quantityValue]
  * - workingPressureBar [quantityValue]
  * - workingPressurePsi [quantityValue]
- * - ratingsFlexibility [select]
- * - negativePositiveTolerance [select]
  * - hoseDashSizeHyd [numeric]
- * - pressureUntil [quantityValue]
- * - dampableUntil1T [quantityValue]
- * - dampableUntil1C [quantityValue]
- * - dampableUntil2T [quantityValue]
- * - dampableUntil2C [quantityValue]
- * - isJustTemporarily [checkbox]
- * - temporaryUntilT [quantityValue]
- * - temporaryUntilC [quantityValue]
- * - temperatureMin [quantityValue]
- * - temperatureMax [quantityValue]
- * - notesTemperature [input]
+ * - negativePositiveTolerance [select]
+ * - ratingsFlexibility [select]
  * - temperatureRatings [input]
+ * - notesTemperature [input]
+ * - isJustTemporarily [checkbox]
+ * - temperatureMax [quantityValueRange]
+ * - temperatureMin [quantityValueRange]
+ * - temporaryUntilC [quantityValue]
+ * - temporaryUntilT [quantityValue]
+ * - dampableUntil2C [quantityValue]
+ * - dampableUntil2T [quantityValue]
+ * - dampableUntil1C [quantityValue]
+ * - dampableUntil1T [quantityValue]
+ * - pressureUntil [quantityValue]
  * - isOnlyOpenSystem [checkbox]
  * - localizedfields [localizedfields]
  * -- headlineWeb [input]
@@ -116,21 +116,21 @@ public const FIELD_MINIMUM_BURST_PRESSURE_MPA = 'minimumBurstPressureMpa';
 public const FIELD_WORKING_PRESSURE_MPA = 'workingPressureMpa';
 public const FIELD_WORKING_PRESSURE_BAR = 'workingPressureBar';
 public const FIELD_WORKING_PRESSURE_PSI = 'workingPressurePsi';
-public const FIELD_RATINGS_FLEXIBILITY = 'ratingsFlexibility';
-public const FIELD_NEGATIVE_POSITIVE_TOLERANCE = 'negativePositiveTolerance';
 public const FIELD_HOSE_DASH_SIZE_HYD = 'hoseDashSizeHyd';
-public const FIELD_PRESSURE_UNTIL = 'pressureUntil';
-public const FIELD_DAMPABLE_UNTIL1_T = 'dampableUntil1T';
-public const FIELD_DAMPABLE_UNTIL1_C = 'dampableUntil1C';
-public const FIELD_DAMPABLE_UNTIL2_T = 'dampableUntil2T';
-public const FIELD_DAMPABLE_UNTIL2_C = 'dampableUntil2C';
-public const FIELD_IS_JUST_TEMPORARILY = 'isJustTemporarily';
-public const FIELD_TEMPORARY_UNTIL_T = 'temporaryUntilT';
-public const FIELD_TEMPORARY_UNTIL_C = 'temporaryUntilC';
-public const FIELD_TEMPERATURE_MIN = 'temperatureMin';
-public const FIELD_TEMPERATURE_MAX = 'temperatureMax';
-public const FIELD_NOTES_TEMPERATURE = 'notesTemperature';
+public const FIELD_NEGATIVE_POSITIVE_TOLERANCE = 'negativePositiveTolerance';
+public const FIELD_RATINGS_FLEXIBILITY = 'ratingsFlexibility';
 public const FIELD_TEMPERATURE_RATINGS = 'temperatureRatings';
+public const FIELD_NOTES_TEMPERATURE = 'notesTemperature';
+public const FIELD_IS_JUST_TEMPORARILY = 'isJustTemporarily';
+public const FIELD_TEMPERATURE_MAX = 'temperatureMax';
+public const FIELD_TEMPERATURE_MIN = 'temperatureMin';
+public const FIELD_TEMPORARY_UNTIL_C = 'temporaryUntilC';
+public const FIELD_TEMPORARY_UNTIL_T = 'temporaryUntilT';
+public const FIELD_DAMPABLE_UNTIL2_C = 'dampableUntil2C';
+public const FIELD_DAMPABLE_UNTIL2_T = 'dampableUntil2T';
+public const FIELD_DAMPABLE_UNTIL1_C = 'dampableUntil1C';
+public const FIELD_DAMPABLE_UNTIL1_T = 'dampableUntil1T';
+public const FIELD_PRESSURE_UNTIL = 'pressureUntil';
 public const FIELD_IS_ONLY_OPEN_SYSTEM = 'isOnlyOpenSystem';
 public const FIELD_HEADLINE_WEB = 'headlineWeb';
 public const FIELD_FLOW_MEDIUM_STABILITY_FLAG = 'flowMediumStabilityFlag';
@@ -199,21 +199,21 @@ protected $minimumBurstPressureMpa;
 protected $workingPressureMpa;
 protected $workingPressureBar;
 protected $workingPressurePsi;
-protected $ratingsFlexibility;
-protected $negativePositiveTolerance;
 protected $hoseDashSizeHyd;
-protected $pressureUntil;
-protected $dampableUntil1T;
-protected $dampableUntil1C;
-protected $dampableUntil2T;
-protected $dampableUntil2C;
-protected $isJustTemporarily;
-protected $temporaryUntilT;
-protected $temporaryUntilC;
-protected $temperatureMin;
-protected $temperatureMax;
-protected $notesTemperature;
+protected $negativePositiveTolerance;
+protected $ratingsFlexibility;
 protected $temperatureRatings;
+protected $notesTemperature;
+protected $isJustTemporarily;
+protected $temperatureMax;
+protected $temperatureMin;
+protected $temporaryUntilC;
+protected $temporaryUntilT;
+protected $dampableUntil2C;
+protected $dampableUntil2T;
+protected $dampableUntil1C;
+protected $dampableUntil1T;
+protected $pressureUntil;
 protected $isOnlyOpenSystem;
 protected $localizedfields;
 protected $ratingsResistanceToAbrasion;
@@ -932,15 +932,15 @@ public function setWorkingPressurePsi (?\Pimcore\Model\DataObject\Data\QuantityV
 }
 
 /**
-* Get ratingsFlexibility - Flexibility
-* @return string|null
+* Get hoseDashSizeHyd - Hose Dash Size (HYD)
+* @return float|null
 */
-public function getRatingsFlexibility(): ?string
+public function getHoseDashSizeHyd(): ?float
 {
-	$data = $this->ratingsFlexibility;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("ratingsFlexibility")->isEmpty($data)) {
+	$data = $this->hoseDashSizeHyd;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("hoseDashSizeHyd")->isEmpty($data)) {
 		try {
-			return $this->getValueFromParent("ratingsFlexibility");
+			return $this->getValueFromParent("hoseDashSizeHyd");
 		} catch (InheritanceParentNotFoundException $e) {
 			// no data from parent available, continue ...
 		}
@@ -953,14 +953,15 @@ public function getRatingsFlexibility(): ?string
 }
 
 /**
-* Set ratingsFlexibility - Flexibility
-* @param string|null $ratingsFlexibility
+* Set hoseDashSizeHyd - Hose Dash Size (HYD)
+* @param float|null $hoseDashSizeHyd
 * @return $this
 */
-public function setRatingsFlexibility (?string $ratingsFlexibility): static
+public function setHoseDashSizeHyd (?float $hoseDashSizeHyd): static
 {
-	$this->ratingsFlexibility = $ratingsFlexibility;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("hoseDashSizeHyd");
+	$this->hoseDashSizeHyd = $fd->preSetData($this, $hoseDashSizeHyd);
 	return $this;
 }
 
@@ -998,15 +999,15 @@ public function setNegativePositiveTolerance (?string $negativePositiveTolerance
 }
 
 /**
-* Get hoseDashSizeHyd - Hose Dash Size (HYD)
-* @return float|null
+* Get ratingsFlexibility - Flexibility
+* @return string|null
 */
-public function getHoseDashSizeHyd(): ?float
+public function getRatingsFlexibility(): ?string
 {
-	$data = $this->hoseDashSizeHyd;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("hoseDashSizeHyd")->isEmpty($data)) {
+	$data = $this->ratingsFlexibility;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("ratingsFlexibility")->isEmpty($data)) {
 		try {
-			return $this->getValueFromParent("hoseDashSizeHyd");
+			return $this->getValueFromParent("ratingsFlexibility");
 		} catch (InheritanceParentNotFoundException $e) {
 			// no data from parent available, continue ...
 		}
@@ -1019,61 +1020,27 @@ public function getHoseDashSizeHyd(): ?float
 }
 
 /**
-* Set hoseDashSizeHyd - Hose Dash Size (HYD)
-* @param float|null $hoseDashSizeHyd
+* Set ratingsFlexibility - Flexibility
+* @param string|null $ratingsFlexibility
 * @return $this
 */
-public function setHoseDashSizeHyd (?float $hoseDashSizeHyd): static
+public function setRatingsFlexibility (?string $ratingsFlexibility): static
 {
-	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
-	$fd = $this->getDefinition()->getFieldDefinition("hoseDashSizeHyd");
-	$this->hoseDashSizeHyd = $fd->preSetData($this, $hoseDashSizeHyd);
-	return $this;
-}
-
-/**
-* Get pressureUntil - Pressure Until
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
-*/
-public function getPressureUntil(): ?\Pimcore\Model\DataObject\Data\QuantityValue
-{
-	$data = $this->pressureUntil;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("pressureUntil")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("pressureUntil");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set pressureUntil - Pressure Until
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $pressureUntil
-* @return $this
-*/
-public function setPressureUntil (?\Pimcore\Model\DataObject\Data\QuantityValue $pressureUntil): static
-{
-	$this->pressureUntil = $pressureUntil;
+	$this->ratingsFlexibility = $ratingsFlexibility;
 
 	return $this;
 }
 
 /**
-* Get dampableUntil1T - Dampable until 1 (t)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* Get temperatureRatings - Temperature Ratings / Applications
+* @return string|null
 */
-public function getDampableUntil1T(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getTemperatureRatings(): ?string
 {
-	$data = $this->dampableUntil1T;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("dampableUntil1T")->isEmpty($data)) {
+	$data = $this->temperatureRatings;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("temperatureRatings")->isEmpty($data)) {
 		try {
-			return $this->getValueFromParent("dampableUntil1T");
+			return $this->getValueFromParent("temperatureRatings");
 		} catch (InheritanceParentNotFoundException $e) {
 			// no data from parent available, continue ...
 		}
@@ -1086,277 +1053,13 @@ public function getDampableUntil1T(): ?\Pimcore\Model\DataObject\Data\QuantityVa
 }
 
 /**
-* Set dampableUntil1T - Dampable until 1 (t)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $dampableUntil1T
+* Set temperatureRatings - Temperature Ratings / Applications
+* @param string|null $temperatureRatings
 * @return $this
 */
-public function setDampableUntil1T (?\Pimcore\Model\DataObject\Data\QuantityValue $dampableUntil1T): static
+public function setTemperatureRatings (?string $temperatureRatings): static
 {
-	$this->dampableUntil1T = $dampableUntil1T;
-
-	return $this;
-}
-
-/**
-* Get dampableUntil1C - Dampable until 1 (°C)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
-*/
-public function getDampableUntil1C(): ?\Pimcore\Model\DataObject\Data\QuantityValue
-{
-	$data = $this->dampableUntil1C;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("dampableUntil1C")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("dampableUntil1C");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set dampableUntil1C - Dampable until 1 (°C)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $dampableUntil1C
-* @return $this
-*/
-public function setDampableUntil1C (?\Pimcore\Model\DataObject\Data\QuantityValue $dampableUntil1C): static
-{
-	$this->dampableUntil1C = $dampableUntil1C;
-
-	return $this;
-}
-
-/**
-* Get dampableUntil2T - Dampable until 2 (°C)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
-*/
-public function getDampableUntil2T(): ?\Pimcore\Model\DataObject\Data\QuantityValue
-{
-	$data = $this->dampableUntil2T;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("dampableUntil2T")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("dampableUntil2T");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set dampableUntil2T - Dampable until 2 (°C)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $dampableUntil2T
-* @return $this
-*/
-public function setDampableUntil2T (?\Pimcore\Model\DataObject\Data\QuantityValue $dampableUntil2T): static
-{
-	$this->dampableUntil2T = $dampableUntil2T;
-
-	return $this;
-}
-
-/**
-* Get dampableUntil2C - Dampable until 2 (°C)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
-*/
-public function getDampableUntil2C(): ?\Pimcore\Model\DataObject\Data\QuantityValue
-{
-	$data = $this->dampableUntil2C;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("dampableUntil2C")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("dampableUntil2C");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set dampableUntil2C - Dampable until 2 (°C)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $dampableUntil2C
-* @return $this
-*/
-public function setDampableUntil2C (?\Pimcore\Model\DataObject\Data\QuantityValue $dampableUntil2C): static
-{
-	$this->dampableUntil2C = $dampableUntil2C;
-
-	return $this;
-}
-
-/**
-* Get isJustTemporarily - just "temporarily"
-* @return bool|null
-*/
-public function getIsJustTemporarily(): ?bool
-{
-	$data = $this->isJustTemporarily;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("isJustTemporarily")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("isJustTemporarily");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set isJustTemporarily - just "temporarily"
-* @param bool|null $isJustTemporarily
-* @return $this
-*/
-public function setIsJustTemporarily (?bool $isJustTemporarily): static
-{
-	$this->isJustTemporarily = $isJustTemporarily;
-
-	return $this;
-}
-
-/**
-* Get temporaryUntilT - Temporary until (t)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
-*/
-public function getTemporaryUntilT(): ?\Pimcore\Model\DataObject\Data\QuantityValue
-{
-	$data = $this->temporaryUntilT;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("temporaryUntilT")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("temporaryUntilT");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set temporaryUntilT - Temporary until (t)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $temporaryUntilT
-* @return $this
-*/
-public function setTemporaryUntilT (?\Pimcore\Model\DataObject\Data\QuantityValue $temporaryUntilT): static
-{
-	$this->temporaryUntilT = $temporaryUntilT;
-
-	return $this;
-}
-
-/**
-* Get temporaryUntilC - Temporary until (°C)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
-*/
-public function getTemporaryUntilC(): ?\Pimcore\Model\DataObject\Data\QuantityValue
-{
-	$data = $this->temporaryUntilC;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("temporaryUntilC")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("temporaryUntilC");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set temporaryUntilC - Temporary until (°C)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $temporaryUntilC
-* @return $this
-*/
-public function setTemporaryUntilC (?\Pimcore\Model\DataObject\Data\QuantityValue $temporaryUntilC): static
-{
-	$this->temporaryUntilC = $temporaryUntilC;
-
-	return $this;
-}
-
-/**
-* Get temperatureMin - Temperature (min)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
-*/
-public function getTemperatureMin(): ?\Pimcore\Model\DataObject\Data\QuantityValue
-{
-	$data = $this->temperatureMin;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("temperatureMin")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("temperatureMin");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set temperatureMin - Temperature (min)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $temperatureMin
-* @return $this
-*/
-public function setTemperatureMin (?\Pimcore\Model\DataObject\Data\QuantityValue $temperatureMin): static
-{
-	$this->temperatureMin = $temperatureMin;
-
-	return $this;
-}
-
-/**
-* Get temperatureMax - Temperature (max)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
-*/
-public function getTemperatureMax(): ?\Pimcore\Model\DataObject\Data\QuantityValue
-{
-	$data = $this->temperatureMax;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("temperatureMax")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("temperatureMax");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set temperatureMax - Temperature (max)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $temperatureMax
-* @return $this
-*/
-public function setTemperatureMax (?\Pimcore\Model\DataObject\Data\QuantityValue $temperatureMax): static
-{
-	$this->temperatureMax = $temperatureMax;
+	$this->temperatureRatings = $temperatureRatings;
 
 	return $this;
 }
@@ -1395,15 +1098,15 @@ public function setNotesTemperature (?string $notesTemperature): static
 }
 
 /**
-* Get temperatureRatings - Temperature Ratings / Applications
-* @return string|null
+* Get isJustTemporarily - just "temporarily"
+* @return bool|null
 */
-public function getTemperatureRatings(): ?string
+public function getIsJustTemporarily(): ?bool
 {
-	$data = $this->temperatureRatings;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("temperatureRatings")->isEmpty($data)) {
+	$data = $this->isJustTemporarily;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("isJustTemporarily")->isEmpty($data)) {
 		try {
-			return $this->getValueFromParent("temperatureRatings");
+			return $this->getValueFromParent("isJustTemporarily");
 		} catch (InheritanceParentNotFoundException $e) {
 			// no data from parent available, continue ...
 		}
@@ -1416,13 +1119,310 @@ public function getTemperatureRatings(): ?string
 }
 
 /**
-* Set temperatureRatings - Temperature Ratings / Applications
-* @param string|null $temperatureRatings
+* Set isJustTemporarily - just "temporarily"
+* @param bool|null $isJustTemporarily
 * @return $this
 */
-public function setTemperatureRatings (?string $temperatureRatings): static
+public function setIsJustTemporarily (?bool $isJustTemporarily): static
 {
-	$this->temperatureRatings = $temperatureRatings;
+	$this->isJustTemporarily = $isJustTemporarily;
+
+	return $this;
+}
+
+/**
+* Get temperatureMax - Temperature (max)
+* @return \Pimcore\Model\DataObject\Data\QuantityValueRange|null
+*/
+public function getTemperatureMax(): ?\Pimcore\Model\DataObject\Data\QuantityValueRange
+{
+	$data = $this->temperatureMax;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("temperatureMax")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("temperatureMax");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set temperatureMax - Temperature (max)
+* @param \Pimcore\Model\DataObject\Data\QuantityValueRange|null $temperatureMax
+* @return $this
+*/
+public function setTemperatureMax (?\Pimcore\Model\DataObject\Data\QuantityValueRange $temperatureMax): static
+{
+	$this->temperatureMax = $temperatureMax;
+
+	return $this;
+}
+
+/**
+* Get temperatureMin - Temperature (min)
+* @return \Pimcore\Model\DataObject\Data\QuantityValueRange|null
+*/
+public function getTemperatureMin(): ?\Pimcore\Model\DataObject\Data\QuantityValueRange
+{
+	$data = $this->temperatureMin;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("temperatureMin")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("temperatureMin");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set temperatureMin - Temperature (min)
+* @param \Pimcore\Model\DataObject\Data\QuantityValueRange|null $temperatureMin
+* @return $this
+*/
+public function setTemperatureMin (?\Pimcore\Model\DataObject\Data\QuantityValueRange $temperatureMin): static
+{
+	$this->temperatureMin = $temperatureMin;
+
+	return $this;
+}
+
+/**
+* Get temporaryUntilC - Temporary until (°C)
+* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+*/
+public function getTemporaryUntilC(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+{
+	$data = $this->temporaryUntilC;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("temporaryUntilC")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("temporaryUntilC");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set temporaryUntilC - Temporary until (°C)
+* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $temporaryUntilC
+* @return $this
+*/
+public function setTemporaryUntilC (?\Pimcore\Model\DataObject\Data\QuantityValue $temporaryUntilC): static
+{
+	$this->temporaryUntilC = $temporaryUntilC;
+
+	return $this;
+}
+
+/**
+* Get temporaryUntilT - Temporary until (t)
+* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+*/
+public function getTemporaryUntilT(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+{
+	$data = $this->temporaryUntilT;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("temporaryUntilT")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("temporaryUntilT");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set temporaryUntilT - Temporary until (t)
+* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $temporaryUntilT
+* @return $this
+*/
+public function setTemporaryUntilT (?\Pimcore\Model\DataObject\Data\QuantityValue $temporaryUntilT): static
+{
+	$this->temporaryUntilT = $temporaryUntilT;
+
+	return $this;
+}
+
+/**
+* Get dampableUntil2C - Dampable until 2 (°C)
+* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+*/
+public function getDampableUntil2C(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+{
+	$data = $this->dampableUntil2C;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("dampableUntil2C")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("dampableUntil2C");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set dampableUntil2C - Dampable until 2 (°C)
+* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $dampableUntil2C
+* @return $this
+*/
+public function setDampableUntil2C (?\Pimcore\Model\DataObject\Data\QuantityValue $dampableUntil2C): static
+{
+	$this->dampableUntil2C = $dampableUntil2C;
+
+	return $this;
+}
+
+/**
+* Get dampableUntil2T - Dampable until 2 (°C)
+* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+*/
+public function getDampableUntil2T(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+{
+	$data = $this->dampableUntil2T;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("dampableUntil2T")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("dampableUntil2T");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set dampableUntil2T - Dampable until 2 (°C)
+* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $dampableUntil2T
+* @return $this
+*/
+public function setDampableUntil2T (?\Pimcore\Model\DataObject\Data\QuantityValue $dampableUntil2T): static
+{
+	$this->dampableUntil2T = $dampableUntil2T;
+
+	return $this;
+}
+
+/**
+* Get dampableUntil1C - Dampable until 1 (°C)
+* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+*/
+public function getDampableUntil1C(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+{
+	$data = $this->dampableUntil1C;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("dampableUntil1C")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("dampableUntil1C");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set dampableUntil1C - Dampable until 1 (°C)
+* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $dampableUntil1C
+* @return $this
+*/
+public function setDampableUntil1C (?\Pimcore\Model\DataObject\Data\QuantityValue $dampableUntil1C): static
+{
+	$this->dampableUntil1C = $dampableUntil1C;
+
+	return $this;
+}
+
+/**
+* Get dampableUntil1T - Dampable until 1 (t)
+* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+*/
+public function getDampableUntil1T(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+{
+	$data = $this->dampableUntil1T;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("dampableUntil1T")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("dampableUntil1T");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set dampableUntil1T - Dampable until 1 (t)
+* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $dampableUntil1T
+* @return $this
+*/
+public function setDampableUntil1T (?\Pimcore\Model\DataObject\Data\QuantityValue $dampableUntil1T): static
+{
+	$this->dampableUntil1T = $dampableUntil1T;
+
+	return $this;
+}
+
+/**
+* Get pressureUntil - Pressure Until
+* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+*/
+public function getPressureUntil(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+{
+	$data = $this->pressureUntil;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("pressureUntil")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("pressureUntil");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set pressureUntil - Pressure Until
+* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $pressureUntil
+* @return $this
+*/
+public function setPressureUntil (?\Pimcore\Model\DataObject\Data\QuantityValue $pressureUntil): static
+{
+	$this->pressureUntil = $pressureUntil;
 
 	return $this;
 }

@@ -2,22 +2,22 @@
 
 /**
  * Fields Summary:
+ * - fitting1Type [manyToOneRelation]
+ * - fitting2Type [manyToOneRelation]
+ * - bendRestrictorType [manyToOneRelation]
+ * - fitting1SizeImperial [quantityValue]
+ * - fitting2SizeImperial [quantityValue]
+ * - fitting1Material [manyToOneRelation]
+ * - fitting2Material [manyToOneRelation]
+ * - isBendRestrictor [checkbox]
+ * - isAssembly [checkbox]
  * - localizedfields [localizedfields]
  * -- hoseFittingFamily [input]
  * -- completeFittingText [input]
  * -- note1 [textarea]
  * -- note2 [textarea]
- * - isAssembly [checkbox]
- * - isBendRestrictor [checkbox]
- * - fitting1SizeImperial [quantityValue]
- * - fitting2SizeImperial [quantityValue]
- * - fitting1Type [manyToOneRelation]
- * - fitting2Type [manyToOneRelation]
- * - fitting2Material [manyToOneRelation]
- * - fitting1Material [manyToOneRelation]
- * - bendRestrictorType [manyToOneRelation]
- * - hoseLengthMetric [quantityValue]
  * - hoseLengthImperial [quantityValue]
+ * - hoseLengthMetric [quantityValue]
  */
 
 return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
@@ -70,95 +70,496 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'children' => 
             array (
               0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
-                 'name' => 'localizedfields',
-                 'title' => '',
-                 'tooltip' => NULL,
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => NULL,
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => true,
-                 'visibleSearch' => true,
-                 'blockedVarsForExport' => 
-                array (
-                ),
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                 'name' => 'Field Container',
+                 'type' => NULL,
+                 'region' => NULL,
+                 'title' => NULL,
+                 'width' => '',
+                 'height' => '',
+                 'collapsible' => false,
+                 'collapsed' => false,
+                 'bodyStyle' => '',
+                 'datatype' => 'layout',
                  'children' => 
                 array (
                   0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'name' => 'hoseFittingFamily',
-                     'title' => 'Hose Fitting Family (HYD)',
-                     'tooltip' => '',
-                     'mandatory' => true,
-                     'noteditable' => false,
-                     'index' => false,
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                     'name' => 'Field Container',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => NULL,
+                     'width' => '',
+                     'height' => '',
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'children' => 
+                    array (
+                      0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                         'name' => 'fitting1Type',
+                         'title' => 'Fitting 1 Type',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => true,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => 'UniPrFittingTypeFhs',
+                          ),
+                        ),
+                         'displayMode' => 'grid',
+                         'pathFormatterClass' => '',
+                         'assetInlineDownloadAllowed' => false,
+                         'assetUploadPath' => '',
+                         'allowToClearRelation' => true,
+                         'objectsAllowed' => true,
+                         'assetsAllowed' => false,
+                         'assetTypes' => 
+                        array (
+                        ),
+                         'documentsAllowed' => false,
+                         'documentTypes' => 
+                        array (
+                        ),
+                         'width' => '',
+                      )),
+                      1 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                         'name' => 'fitting2Type',
+                         'title' => 'Fitting 2 Type',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => true,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => 'UniPrFittingTypeFhs',
+                          ),
+                        ),
+                         'displayMode' => 'grid',
+                         'pathFormatterClass' => '',
+                         'assetInlineDownloadAllowed' => false,
+                         'assetUploadPath' => '',
+                         'allowToClearRelation' => true,
+                         'objectsAllowed' => true,
+                         'assetsAllowed' => false,
+                         'assetTypes' => 
+                        array (
+                        ),
+                         'documentsAllowed' => false,
+                         'documentTypes' => 
+                        array (
+                        ),
+                         'width' => '',
+                      )),
+                      2 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                         'name' => 'bendRestrictorType',
+                         'title' => 'Bend Restrictor Type',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => true,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => 'UniPrBendRestrictorTypeFhs',
+                          ),
+                        ),
+                         'displayMode' => 'grid',
+                         'pathFormatterClass' => '',
+                         'assetInlineDownloadAllowed' => false,
+                         'assetUploadPath' => '',
+                         'allowToClearRelation' => true,
+                         'objectsAllowed' => true,
+                         'assetsAllowed' => false,
+                         'assetTypes' => 
+                        array (
+                        ),
+                         'documentsAllowed' => false,
+                         'documentTypes' => 
+                        array (
+                        ),
+                         'width' => '',
+                      )),
+                    ),
                      'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => true,
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'defaultValue' => NULL,
-                     'columnLength' => 190,
-                     'regex' => '',
-                     'regexFlags' => 
-                    array (
-                    ),
-                     'unique' => false,
-                     'showCharCount' => false,
-                     'width' => '',
-                     'defaultValueGenerator' => '',
+                     'fieldtype' => 'fieldcontainer',
+                     'layout' => 'vbox',
+                     'fieldLabel' => '',
+                     'labelWidth' => 200,
+                     'labelAlign' => 'left',
                   )),
                   1 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'name' => 'completeFittingText',
-                     'title' => 'Complete Fitting Text',
-                     'tooltip' => '',
-                     'mandatory' => true,
-                     'noteditable' => false,
-                     'index' => false,
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                     'name' => 'Field Container',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => NULL,
+                     'width' => '',
+                     'height' => '',
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'children' => 
+                    array (
+                      0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                         'name' => 'fitting1SizeImperial',
+                         'title' => 'Fitting 1 Size (in)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'unitWidth' => '',
+                         'defaultUnit' => NULL,
+                         'validUnits' => 
+                        array (
+                          0 => 'length_in',
+                        ),
+                         'unique' => false,
+                         'autoConvert' => false,
+                         'defaultValueGenerator' => '',
+                         'width' => '',
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                      )),
+                      1 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                         'name' => 'fitting2SizeImperial',
+                         'title' => 'Fitting 2 Size (in)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'unitWidth' => '',
+                         'defaultUnit' => NULL,
+                         'validUnits' => 
+                        array (
+                          0 => 'length_in',
+                        ),
+                         'unique' => false,
+                         'autoConvert' => false,
+                         'defaultValueGenerator' => '',
+                         'width' => '',
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                      )),
+                    ),
                      'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => true,
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'defaultValue' => NULL,
-                     'columnLength' => 190,
-                     'regex' => '',
-                     'regexFlags' => 
-                    array (
-                    ),
-                     'unique' => false,
-                     'showCharCount' => false,
-                     'width' => '',
-                     'defaultValueGenerator' => '',
+                     'fieldtype' => 'fieldcontainer',
+                     'layout' => 'vbox',
+                     'fieldLabel' => '',
+                     'labelWidth' => 200,
+                     'labelAlign' => 'left',
                   )),
                 ),
+                 'locked' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'fieldtype' => 'fieldcontainer',
+                 'layout' => 'hbox',
+                 'fieldLabel' => '',
+                 'labelWidth' => 200,
+                 'labelAlign' => 'left',
+              )),
+              1 => 
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                 'name' => 'Field Container',
+                 'type' => NULL,
                  'region' => NULL,
-                 'layout' => NULL,
-                 'maxTabs' => NULL,
-                 'border' => false,
-                 'provideSplitView' => false,
-                 'tabPosition' => 'top',
-                 'hideLabelsWhenTabsReached' => NULL,
-                 'referencedFields' => 
+                 'title' => NULL,
+                 'width' => '',
+                 'height' => '',
+                 'collapsible' => true,
+                 'collapsed' => false,
+                 'bodyStyle' => '',
+                 'datatype' => 'layout',
+                 'children' => 
+                array (
+                  0 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                     'name' => 'Field Container',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => NULL,
+                     'width' => '',
+                     'height' => '',
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'children' => 
+                    array (
+                      0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                         'name' => 'fitting1Material',
+                         'title' => 'Fitting 1 Materials',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => true,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => 'UniPrFittingMaterialFhs',
+                          ),
+                        ),
+                         'displayMode' => 'grid',
+                         'pathFormatterClass' => '',
+                         'assetInlineDownloadAllowed' => false,
+                         'assetUploadPath' => '',
+                         'allowToClearRelation' => true,
+                         'objectsAllowed' => true,
+                         'assetsAllowed' => false,
+                         'assetTypes' => 
+                        array (
+                        ),
+                         'documentsAllowed' => false,
+                         'documentTypes' => 
+                        array (
+                        ),
+                         'width' => '',
+                      )),
+                      1 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                         'name' => 'fitting2Material',
+                         'title' => 'Fitting 2 Materials',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => true,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => 'UniPrFittingMaterialFhs',
+                          ),
+                        ),
+                         'displayMode' => 'grid',
+                         'pathFormatterClass' => '',
+                         'assetInlineDownloadAllowed' => false,
+                         'assetUploadPath' => '',
+                         'allowToClearRelation' => true,
+                         'objectsAllowed' => true,
+                         'assetsAllowed' => false,
+                         'assetTypes' => 
+                        array (
+                        ),
+                         'documentsAllowed' => false,
+                         'documentTypes' => 
+                        array (
+                        ),
+                         'width' => '',
+                      )),
+                    ),
+                     'locked' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'fieldtype' => 'fieldcontainer',
+                     'layout' => 'vbox',
+                     'fieldLabel' => '',
+                     'labelWidth' => 200,
+                     'labelAlign' => 'left',
+                  )),
+                  1 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                     'name' => 'Field Container',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => NULL,
+                     'width' => '',
+                     'height' => '',
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'children' => 
+                    array (
+                      0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                         'name' => 'isBendRestrictor',
+                         'title' => 'Bend Restrictor Y/N',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'defaultValueGenerator' => '',
+                      )),
+                      1 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                         'name' => 'isAssembly',
+                         'title' => 'Assembly / Not Assembly',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'defaultValueGenerator' => '',
+                      )),
+                    ),
+                     'locked' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'fieldtype' => 'fieldcontainer',
+                     'layout' => 'vbox',
+                     'fieldLabel' => '',
+                     'labelWidth' => 200,
+                     'labelAlign' => 'left',
+                  )),
+                ),
+                 'locked' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'fieldtype' => 'fieldcontainer',
+                 'layout' => 'hbox',
+                 'fieldLabel' => '',
+                 'labelWidth' => 200,
+                 'labelAlign' => 'left',
+              )),
+              2 => 
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
+                 'name' => 'Layout',
+                 'type' => NULL,
+                 'region' => NULL,
+                 'title' => '',
+                 'width' => '',
+                 'height' => '',
+                 'collapsible' => true,
+                 'collapsed' => false,
+                 'bodyStyle' => '',
+                 'datatype' => 'layout',
+                 'children' => 
                 array (
                   0 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
@@ -182,9 +583,9 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                         'name' => 'note1',
-                         'title' => 'Note1 (above table)',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'name' => 'hoseFittingFamily',
+                         'title' => 'Hose Fitting Family (HYD)',
                          'tooltip' => '',
                          'mandatory' => true,
                          'noteditable' => false,
@@ -200,16 +601,21 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'maxLength' => NULL,
+                         'defaultValue' => NULL,
+                         'columnLength' => 190,
+                         'regex' => '',
+                         'regexFlags' => 
+                        array (
+                        ),
+                         'unique' => false,
                          'showCharCount' => false,
-                         'excludeFromSearchIndex' => false,
-                         'height' => '',
-                         'width' => '',
+                         'width' => 250,
+                         'defaultValueGenerator' => '',
                       )),
                       1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                         'name' => 'note2',
-                         'title' => 'Note 2 (below table)',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'name' => 'completeFittingText',
+                         'title' => 'Complete Fitting Text',
                          'tooltip' => '',
                          'mandatory' => true,
                          'noteditable' => false,
@@ -225,367 +631,134 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'maxLength' => NULL,
+                         'defaultValue' => NULL,
+                         'columnLength' => 190,
+                         'regex' => '',
+                         'regexFlags' => 
+                        array (
+                        ),
+                         'unique' => false,
                          'showCharCount' => false,
-                         'excludeFromSearchIndex' => false,
-                         'height' => '',
-                         'width' => '',
+                         'width' => 250,
+                         'defaultValueGenerator' => '',
                       )),
                     ),
                      'region' => NULL,
                      'layout' => NULL,
-                     'maxTabs' => NULL,
+                     'maxTabs' => 25,
                      'border' => false,
                      'provideSplitView' => false,
                      'tabPosition' => 'top',
                      'hideLabelsWhenTabsReached' => NULL,
                      'referencedFields' => 
                     array (
+                      0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+                         'name' => 'localizedfields',
+                         'title' => '',
+                         'tooltip' => NULL,
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => NULL,
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => true,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'children' => 
+                        array (
+                          0 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                             'name' => 'note1',
+                             'title' => 'Note1 (above table)',
+                             'tooltip' => '',
+                             'mandatory' => true,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'fieldtype' => '',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => true,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'maxLength' => NULL,
+                             'showCharCount' => false,
+                             'excludeFromSearchIndex' => false,
+                             'height' => '',
+                             'width' => '',
+                          )),
+                          1 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                             'name' => 'note2',
+                             'title' => 'Note 2 (below table)',
+                             'tooltip' => '',
+                             'mandatory' => true,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'fieldtype' => '',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => true,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'maxLength' => NULL,
+                             'showCharCount' => false,
+                             'excludeFromSearchIndex' => false,
+                             'height' => '',
+                             'width' => '',
+                          )),
+                        ),
+                         'region' => NULL,
+                         'layout' => NULL,
+                         'maxTabs' => 35,
+                         'border' => false,
+                         'provideSplitView' => false,
+                         'tabPosition' => 'top',
+                         'hideLabelsWhenTabsReached' => NULL,
+                         'referencedFields' => 
+                        array (
+                        ),
+                         'permissionView' => NULL,
+                         'permissionEdit' => NULL,
+                         'labelWidth' => 200,
+                         'labelAlign' => 'left',
+                         'width' => '',
+                         'height' => '',
+                         'fieldDefinitionsCache' => NULL,
+                      )),
                     ),
                      'permissionView' => NULL,
                      'permissionEdit' => NULL,
-                     'labelWidth' => 100,
+                     'labelWidth' => 200,
                      'labelAlign' => 'left',
                      'width' => '',
                      'height' => '',
                      'fieldDefinitionsCache' => NULL,
                   )),
                 ),
-                 'permissionView' => NULL,
-                 'permissionEdit' => NULL,
+                 'locked' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'fieldtype' => 'fieldset',
                  'labelWidth' => 100,
                  'labelAlign' => 'left',
-                 'width' => '',
-                 'height' => '',
-                 'fieldDefinitionsCache' => NULL,
-              )),
-              1 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                 'name' => 'isAssembly',
-                 'title' => 'Assembly / Not Assembly',
-                 'tooltip' => '',
-                 'mandatory' => true,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => true,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'defaultValue' => NULL,
-                 'defaultValueGenerator' => '',
-              )),
-              2 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                 'name' => 'isBendRestrictor',
-                 'title' => 'Bend Restrictor Y/N',
-                 'tooltip' => '',
-                 'mandatory' => true,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => true,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'defaultValue' => NULL,
-                 'defaultValueGenerator' => '',
-              )),
-              3 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                 'name' => 'fitting1SizeImperial',
-                 'title' => 'Fitting 1 Size (in)',
-                 'tooltip' => '',
-                 'mandatory' => true,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => true,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'unitWidth' => '',
-                 'defaultUnit' => NULL,
-                 'validUnits' => 
-                array (
-                  0 => 'length_in',
-                ),
-                 'unique' => false,
-                 'autoConvert' => false,
-                 'defaultValueGenerator' => '',
-                 'width' => '',
-                 'defaultValue' => NULL,
-                 'integer' => false,
-                 'unsigned' => false,
-                 'minValue' => NULL,
-                 'maxValue' => NULL,
-                 'decimalSize' => NULL,
-                 'decimalPrecision' => NULL,
-              )),
-              4 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                 'name' => 'fitting2SizeImperial',
-                 'title' => 'Fitting 2 Size (in)',
-                 'tooltip' => '',
-                 'mandatory' => true,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => true,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'unitWidth' => '',
-                 'defaultUnit' => NULL,
-                 'validUnits' => 
-                array (
-                  0 => 'length_in',
-                ),
-                 'unique' => false,
-                 'autoConvert' => false,
-                 'defaultValueGenerator' => '',
-                 'width' => '',
-                 'defaultValue' => NULL,
-                 'integer' => false,
-                 'unsigned' => false,
-                 'minValue' => NULL,
-                 'maxValue' => NULL,
-                 'decimalSize' => NULL,
-                 'decimalPrecision' => NULL,
-              )),
-              5 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                 'name' => 'fitting1Type',
-                 'title' => 'Fitting 1 Type',
-                 'tooltip' => '',
-                 'mandatory' => true,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => true,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => true,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'classes' => 
-                array (
-                  0 => 
-                  array (
-                    'classes' => 'UniPrFittingTypeFhs',
-                  ),
-                ),
-                 'displayMode' => 'grid',
-                 'pathFormatterClass' => '',
-                 'assetInlineDownloadAllowed' => false,
-                 'assetUploadPath' => '',
-                 'allowToClearRelation' => true,
-                 'objectsAllowed' => true,
-                 'assetsAllowed' => false,
-                 'assetTypes' => 
-                array (
-                ),
-                 'documentsAllowed' => false,
-                 'documentTypes' => 
-                array (
-                ),
-                 'width' => '',
-              )),
-              6 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                 'name' => 'fitting2Type',
-                 'title' => 'Fitting 2 Type',
-                 'tooltip' => '',
-                 'mandatory' => true,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => true,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => true,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'classes' => 
-                array (
-                  0 => 
-                  array (
-                    'classes' => 'UniPrFittingTypeFhs',
-                  ),
-                ),
-                 'displayMode' => 'grid',
-                 'pathFormatterClass' => '',
-                 'assetInlineDownloadAllowed' => false,
-                 'assetUploadPath' => '',
-                 'allowToClearRelation' => true,
-                 'objectsAllowed' => true,
-                 'assetsAllowed' => false,
-                 'assetTypes' => 
-                array (
-                ),
-                 'documentsAllowed' => false,
-                 'documentTypes' => 
-                array (
-                ),
-                 'width' => '',
-              )),
-              7 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                 'name' => 'fitting2Material',
-                 'title' => 'Fitting 2 Material',
-                 'tooltip' => '',
-                 'mandatory' => true,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => true,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => true,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'classes' => 
-                array (
-                  0 => 
-                  array (
-                    'classes' => 'UniPrFittingMaterialFhs',
-                  ),
-                ),
-                 'displayMode' => 'grid',
-                 'pathFormatterClass' => '',
-                 'assetInlineDownloadAllowed' => false,
-                 'assetUploadPath' => '',
-                 'allowToClearRelation' => true,
-                 'objectsAllowed' => true,
-                 'assetsAllowed' => false,
-                 'assetTypes' => 
-                array (
-                ),
-                 'documentsAllowed' => false,
-                 'documentTypes' => 
-                array (
-                ),
-                 'width' => '',
-              )),
-              8 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                 'name' => 'fitting1Material',
-                 'title' => 'Fitting 1 Material',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => true,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => true,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'classes' => 
-                array (
-                  0 => 
-                  array (
-                    'classes' => 'UniPrFittingMaterialFhs',
-                  ),
-                ),
-                 'displayMode' => 'grid',
-                 'pathFormatterClass' => '',
-                 'assetInlineDownloadAllowed' => false,
-                 'assetUploadPath' => '',
-                 'allowToClearRelation' => true,
-                 'objectsAllowed' => true,
-                 'assetsAllowed' => false,
-                 'assetTypes' => 
-                array (
-                ),
-                 'documentsAllowed' => false,
-                 'documentTypes' => 
-                array (
-                ),
-                 'width' => '',
-              )),
-              9 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                 'name' => 'bendRestrictorType',
-                 'title' => 'Bend Restrictor Type',
-                 'tooltip' => '',
-                 'mandatory' => true,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => true,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => true,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'classes' => 
-                array (
-                  0 => 
-                  array (
-                    'classes' => 'UniPrBendRestrictorTypeFhs',
-                  ),
-                ),
-                 'displayMode' => 'grid',
-                 'pathFormatterClass' => '',
-                 'assetInlineDownloadAllowed' => false,
-                 'assetUploadPath' => '',
-                 'allowToClearRelation' => true,
-                 'objectsAllowed' => true,
-                 'assetsAllowed' => false,
-                 'assetTypes' => 
-                array (
-                ),
-                 'documentsAllowed' => false,
-                 'documentTypes' => 
-                array (
-                ),
-                 'width' => '',
               )),
             ),
              'locked' => false,
@@ -595,111 +768,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'fieldtype' => 'panel',
              'layout' => NULL,
              'border' => false,
-             'icon' => '',
-             'labelWidth' => 100,
+             'icon' => '/bundles/pimcoreadmin/img/twemoji/1f6e0.svg',
+             'labelWidth' => 250,
              'labelAlign' => 'left',
           )),
           1 => 
-          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-             'name' => 'Mechanical Property',
-             'type' => NULL,
-             'region' => NULL,
-             'title' => 'Mechanical Property',
-             'width' => '',
-             'height' => '',
-             'collapsible' => false,
-             'collapsed' => false,
-             'bodyStyle' => '',
-             'datatype' => 'layout',
-             'children' => 
-            array (
-              0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                 'name' => 'hoseLengthMetric',
-                 'title' => 'Hose Length (M)',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'unitWidth' => '',
-                 'defaultUnit' => NULL,
-                 'validUnits' => 
-                array (
-                  0 => 'length_m',
-                ),
-                 'unique' => false,
-                 'autoConvert' => false,
-                 'defaultValueGenerator' => '',
-                 'width' => '',
-                 'defaultValue' => NULL,
-                 'integer' => false,
-                 'unsigned' => false,
-                 'minValue' => NULL,
-                 'maxValue' => NULL,
-                 'decimalSize' => NULL,
-                 'decimalPrecision' => NULL,
-              )),
-              1 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                 'name' => 'hoseLengthImperial',
-                 'title' => 'Hose Length Ft',
-                 'tooltip' => '',
-                 'mandatory' => true,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => true,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'unitWidth' => '',
-                 'defaultUnit' => NULL,
-                 'validUnits' => 
-                array (
-                  0 => 'length_ft',
-                ),
-                 'unique' => false,
-                 'autoConvert' => false,
-                 'defaultValueGenerator' => '',
-                 'width' => '',
-                 'defaultValue' => NULL,
-                 'integer' => false,
-                 'unsigned' => false,
-                 'minValue' => NULL,
-                 'maxValue' => NULL,
-                 'decimalSize' => NULL,
-                 'decimalPrecision' => NULL,
-              )),
-            ),
-             'locked' => false,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'fieldtype' => 'panel',
-             'layout' => NULL,
-             'border' => false,
-             'icon' => '',
-             'labelWidth' => 100,
-             'labelAlign' => 'left',
-          )),
-          2 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'Non-Functional Property',
              'type' => NULL,
@@ -787,7 +860,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                 ),
                  'region' => NULL,
                  'layout' => NULL,
-                 'maxTabs' => NULL,
+                 'maxTabs' => 35,
                  'border' => false,
                  'provideSplitView' => false,
                  'tabPosition' => 'top',
@@ -797,7 +870,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                 ),
                  'permissionView' => NULL,
                  'permissionEdit' => NULL,
-                 'labelWidth' => 100,
+                 'labelWidth' => 200,
                  'labelAlign' => 'left',
                  'width' => '',
                  'height' => '',
@@ -811,8 +884,133 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'fieldtype' => 'panel',
              'layout' => NULL,
              'border' => false,
-             'icon' => '',
-             'labelWidth' => 100,
+             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/service_mark.svg',
+             'labelWidth' => 250,
+             'labelAlign' => 'left',
+          )),
+          2 => 
+          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+             'name' => 'Mechanical Property',
+             'type' => NULL,
+             'region' => NULL,
+             'title' => 'Mechanical Property',
+             'width' => '',
+             'height' => '',
+             'collapsible' => false,
+             'collapsed' => false,
+             'bodyStyle' => '',
+             'datatype' => 'layout',
+             'children' => 
+            array (
+              0 => 
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                 'name' => 'Field Container',
+                 'type' => NULL,
+                 'region' => NULL,
+                 'title' => NULL,
+                 'width' => '',
+                 'height' => '',
+                 'collapsible' => false,
+                 'collapsed' => false,
+                 'bodyStyle' => '',
+                 'datatype' => 'layout',
+                 'children' => 
+                array (
+                  0 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                     'name' => 'hoseLengthImperial',
+                     'title' => 'Hose Length Ft',
+                     'tooltip' => '',
+                     'mandatory' => true,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => true,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'unitWidth' => '',
+                     'defaultUnit' => NULL,
+                     'validUnits' => 
+                    array (
+                      0 => 'length_ft',
+                    ),
+                     'unique' => false,
+                     'autoConvert' => false,
+                     'defaultValueGenerator' => '',
+                     'width' => '',
+                     'defaultValue' => NULL,
+                     'integer' => false,
+                     'unsigned' => false,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => NULL,
+                  )),
+                  1 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                     'name' => 'hoseLengthMetric',
+                     'title' => 'Hose Length (M)',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'unitWidth' => '',
+                     'defaultUnit' => NULL,
+                     'validUnits' => 
+                    array (
+                      0 => 'length_m',
+                    ),
+                     'unique' => false,
+                     'autoConvert' => false,
+                     'defaultValueGenerator' => '',
+                     'width' => '',
+                     'defaultValue' => NULL,
+                     'integer' => false,
+                     'unsigned' => false,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => NULL,
+                  )),
+                ),
+                 'locked' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'fieldtype' => 'fieldcontainer',
+                 'layout' => 'vbox',
+                 'fieldLabel' => '',
+                 'labelWidth' => 200,
+                 'labelAlign' => 'left',
+              )),
+            ),
+             'locked' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'fieldtype' => 'panel',
+             'layout' => NULL,
+             'border' => false,
+             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/self_service_kiosk.svg',
+             'labelWidth' => 250,
              'labelAlign' => 'left',
           )),
         ),
