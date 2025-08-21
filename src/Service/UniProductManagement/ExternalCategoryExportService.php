@@ -8,13 +8,16 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Csv;
 use PhpOffice\PhpSpreadsheet\Writer\Html;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-use Pimcore\Model\DataObject\AbstractObject;
 use Pimcore\Model\DataObject\UniProductCategoryExternal;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ExternalCategoryExportService
 {
+    public function __construct(private readonly UniProductExternalHierarchyService $externalHierarchyService)
+    {
+    }
+
     /**
      * Exports a spreadsheet as an XLSX file and returns a streamed response.
      */
@@ -69,33 +72,24 @@ class ExternalCategoryExportService
     }
 
     /**
-     * Fetches data for the category and its children recursively.
+     * Fetches data for the category.
      *
-     * @return array<int, array{id: int, name: string, parent: string|null}>.
+     * @return array<int, array{id: int}>.
      */
     public function getCategoryData(UniProductCategoryExternal $category): array
     {
-        $data = [];
-        $data[] = [
-            'id' => $category->getId(),
-            'name' => $category->getName(),
-            'parent' => $category->getParent() instanceof AbstractObject ? $category->getParent() : null,
-        ];
-
-        foreach ($category->getChildren() as $child) {
-            if ($child instanceof UniProductCategoryExternal) {
-                $childData = $this->getCategoryData($child);
-                $data = array_merge($data, $childData);
-            }
-        }
-
-        return $data;
+        return $this->externalHierarchyService->getProductsForExternalCategory($category);
     }
 
     /**
-     * Creates a spreadsheet with category data.
+     * Creates a spreadsheet with product data.
      *
-     * @param array<int, array{id: int, name: string, parent: string|null}> $data
+     * @param array<int, array{
+     *     __id?: string,
+     *     ghp_full_code?: string,
+     *     sap_material_number?: string,
+     *     localized?: array{en?: array{sap_description?: string}}
+     * }> $data
      */
     public function createSpreadsheet(array $data): Spreadsheet
     {
@@ -103,16 +97,21 @@ class ExternalCategoryExportService
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->setTitle('Export Data');
 
-        $sheet->setCellValue('A1', 'Category ID');
-        $sheet->setCellValue('B1', 'Category Name');
-        $sheet->setCellValue('C1', 'Parent Category');
+        $sheet->setCellValue('A1', 'ID');
+        $sheet->setCellValue('B1', 'GHP Code');
+        $sheet->setCellValue('C1', 'SAP Mat Number');
+        $sheet->setCellValue('D1', 'SAP Description');
 
         $row = 2;
 
         foreach ($data as $entry) {
-            $sheet->setCellValue("A$row", $entry['id']);
-            $sheet->setCellValue("B$row", $entry['name']);
-            $sheet->setCellValue("C$row", $entry['parent']);
+            $sheet->setCellValue("A$row", $entry['__id'] ?? '');
+            $sheet->setCellValue("B$row", $entry['ghp_full_code'] ?? '');
+            $sheet->setCellValue("C$row", $entry['sap_material_number'] ?? '');
+
+            $sapDescription = $entry['localized']['en']['sap_description'] ?? '';
+            $sheet->setCellValue("D$row", $sapDescription);
+
             $row++;
         }
 
