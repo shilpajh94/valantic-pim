@@ -49,10 +49,9 @@ services:
 
     App\EventListener\ProductWorkflowGuard:
         arguments:
-            $security: '@security.helper'
-            $logger: '@logger'
+            $tokenStorage: '@security.token_storage'
         tags:
-            - { name: kernel.event_subscriber }
+            - { name: workflow.guard, workflow: product_approval }
 
     # Example custom templating helper
     # AppBundle\Templating\Helper\Example:

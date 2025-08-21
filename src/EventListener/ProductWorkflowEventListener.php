@@ -7,12 +7,14 @@ namespace App\EventListener;
 use App\Enum\ProductManagement\ProductApprovalWorkflow;
 use App\Enum\ProductManagement\ProductApprovalWorkflowPlace;
 use App\Enum\ProductManagement\ProductApprovalWorkflowTransition;
+use Pimcore\Event\DataObjectEvents;
 use Pimcore\Event\Model\DataObjectEvent;
 use Pimcore\Model\DataObject\UniProductBase;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Workflow\Exception\LogicException;
 use Symfony\Component\Workflow\Registry;
+use Symfony\Component\Workflow\WorkflowInterface;
 
 class ProductWorkflowEventListener implements EventSubscriberInterface
 {
@@ -28,12 +30,11 @@ class ProductWorkflowEventListener implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            'pimcore.dataobject.postAdd' => 'onDataObjectPostAdd',
-            'pimcore.dataobject.postUpdate' => 'onDataObjectPostUpdate',
+            DataObjectEvents::PRE_UPDATE => 'onPreUpdate',
         ];
     }
 
-    public function onDataObjectPostAdd(DataObjectEvent $event): void
+    public function onPreUpdate(DataObjectEvent $event): void
     {
         $object = $event->getObject();
 
@@ -41,82 +42,79 @@ class ProductWorkflowEventListener implements EventSubscriberInterface
             return;
         }
 
-        $this->handleNewProduct($object);
-    }
+        $oldObject = UniProductBase::getById($object->getId(), ['force' => true]);
 
-    public function onDataObjectPostUpdate(DataObjectEvent $event): void
-    {
-        $object = $event->getObject();
-
-        if (!$object instanceof UniProductBase) {
-            return;
-        }
-
-        $this->handleProductUpdate($object);
-    }
-
-    private function handleNewProduct(UniProductBase $product): void
-    {
         try {
-            $workflow = $this->workflowRegistry->get($product, ProductApprovalWorkflow::PRODUCT_APPROVAL->value);
-            $marking = $workflow->getMarking($product);
+            $workflow = $this->workflowRegistry->get($object, ProductApprovalWorkflow::PRODUCT_APPROVAL->value);
+            $currentPlace = array_keys($workflow->getMarking($object)->getPlaces());
 
-            if (empty($marking->getPlaces())) {
-                if ($this->isImportedProduct($product)) {
-                    $this->applyTransitionSafely($workflow, $product, ProductApprovalWorkflowTransition::DISPLAY_IMPORTED);
-                } elseif ($this->isSAPUpdatedProduct($product)) {
-                    $this->applyTransitionSafely($workflow, $product, ProductApprovalWorkflowTransition::DISPLAY_SAP_UPDATED);
-                }
+            // Move to draft if an approved object is edited
+            if (in_array(ProductApprovalWorkflowPlace::APPROVED->value, $currentPlace, true)) {
+                $this->applyTransitionSafely($workflow, $object, ProductApprovalWorkflowTransition::MOVE_TO_DRAFT);
+            }
+
+            // Auto-approve if internal category data is updated and no approval needed
+            if (in_array(ProductApprovalWorkflowPlace::PENDING_APPROVAL->value, $currentPlace, true) && $this->isCategoryDataUpdate($object)) {
+                $this->applyTransitionSafely($workflow, $object, ProductApprovalWorkflowTransition::APPROVE_PRODUCT);
+            }
+
+            // Auto-approve if imported SAP data doesn't need approval
+            if (in_array(ProductApprovalWorkflowPlace::CREATED_FROM_SAP->value, $currentPlace, true) && !$this->requiresApproval($object)) {
+                $this->applyTransitionSafely($workflow, $object, ProductApprovalWorkflowTransition::APPROVE_PRODUCT);
+            }
+
+            // Auto-archive or deactivate for unpublish
+            if (in_array(ProductApprovalWorkflowPlace::APPROVED->value, $currentPlace, true) && $this->isUnpublishRequested($object, $oldObject)) {
+                $this->applyTransitionSafely($workflow, $object, ProductApprovalWorkflowTransition::ARCHIVE_PRODUCT);
             }
         } catch (\Exception $e) {
-            $this->logger->error('Error handling new product workflow', [
-                'productId' => $product->getId(),
+            $this->logger->error('Error handling product workflow', [
+                'productId' => $object->getId(),
                 'error' => $e->getMessage(),
             ]);
         }
     }
 
-    private function handleProductUpdate(UniProductBase $product): void
+    private function isCategoryDataUpdate(UniProductBase $object): bool
     {
-        try {
-            $workflow = $this->workflowRegistry->get($product, ProductApprovalWorkflow::PRODUCT_APPROVAL->value);
-            $marking = $workflow->getMarking($product);
-            $currentPlaces = $marking->getPlaces();
-
-            if ($this->isSAPDataUpdate($product)) {
-                $this->handleSAPDataUpdate($workflow, $product, $currentPlaces);
-            }
-
-            if ($this->shouldAutoAssignCategory($product, $currentPlaces)) {
-                $this->applyTransitionSafely($workflow, $product, ProductApprovalWorkflowTransition::AUTO_ASSIGN_CATEGORY);
-            }
-
-            if ($this->shouldAutoUpdateSAPData($product, $currentPlaces)) {
-                $this->applyTransitionSafely($workflow, $product, ProductApprovalWorkflowTransition::UPDATE_SAP_DATA_AUTOMATICALLY);
-            }
-
-            if ($this->isProductDeactivated($product) && $this->canArchiveProduct($currentPlaces)) {
-                $this->applyTransitionSafely($workflow, $product, ProductApprovalWorkflowTransition::ARCHIVE_PRODUCT);
-            }
-        } catch (\Exception $e) {
-            $this->logger->error('Error handling product update workflow', [
-                'productId' => $product->getId(),
-                'error' => $e->getMessage(),
-            ]);
-        }
+        return $object->isFieldDirty('internalCategories');
     }
 
-    /**
-     * @param array<string, int> $currentPlaces
-     */
-    private function handleSAPDataUpdate(object $workflow, UniProductBase $product, array $currentPlaces): void
+    private function requiresApproval(UniProductBase $object): bool
     {
-        if (array_key_exists(ProductApprovalWorkflowPlace::PUBLISHED->value, $currentPlaces)) {
-            $this->applyTransitionSafely($workflow, $product, ProductApprovalWorkflowTransition::DISPLAY_SAP_UPDATED);
+        $technicalFields = [
+            'technicalProductGroupSpecific',
+            'agencyCompliance',
+            'industrialStandards',
+            'weightMetric',
+            'weightImperial',
+            'weight',
+            'unitOfMeasure',
+        ];
+
+        foreach ($technicalFields as $field) {
+            if ($object->isFieldDirty($field)) {
+                return true;
+            }
         }
+
+        return false;
     }
 
-    private function applyTransitionSafely(object $workflow, UniProductBase $product, ProductApprovalWorkflowTransition $transition): void
+    private function isUnpublishRequested(UniProductBase $object, UniProductBase $oldObject): bool
+    {
+        if ($oldObject->getPublished() && !$object->getPublished()) {
+            return true;
+        }
+
+        if ($object->getB2bFlag() !== true && $object->getB2cFlag() !== true && $object->getPrintedCatalogueFlag() !== true && $object->getVirtualCatalogueFlag() !== true) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private function applyTransitionSafely(WorkflowInterface $workflow, UniProductBase $product, ProductApprovalWorkflowTransition $transition): void
     {
         try {
             if ($workflow->can($product, $transition->value)) {
@@ -141,80 +139,5 @@ class ProductWorkflowEventListener implements EventSubscriberInterface
                 'error' => $e->getMessage(),
             ]);
         }
-    }
-
-    private function isImportedProduct(UniProductBase $product): bool
-    {
-        $sapMaterialNumber = (string) $product->getSapMaterialNumber();
-        $isNonSapSourced = $sapMaterialNumber !== '' && $sapMaterialNumber !== '0' && !str_starts_with($sapMaterialNumber, 'SAP_');
-        $hasEanCode = $product->getEanCode() !== null && $product->getEanCode() !== '' && $product->getEanCode() !== '0';
-        $isImportedState = $product->getApprovalState() === 'imported';
-
-        return $isNonSapSourced || $hasEanCode || $isImportedState;
-    }
-
-    private function isSAPUpdatedProduct(UniProductBase $product): bool
-    {
-        return str_starts_with((string) $product->getSapMaterialNumber(), 'SAP_')
-            || $product->getSapDescription() !== null && $product->getSapDescription() !== '' && $product->getSapDescription() !== '0';
-    }
-
-    private function isSAPDataUpdate(UniProductBase $product): bool
-    {
-        $sapFields = ['sapDescription', 'completenessPercentage'];
-
-        foreach ($sapFields as $field) {
-            $getter = 'get' . ucfirst($field);
-
-            if (method_exists($product, $getter) && $product->isFieldDirty($field)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * @param array<string, int> $currentPlaces
-     */
-    private function shouldAutoAssignCategory(UniProductBase $product, array $currentPlaces): bool
-    {
-        return array_key_exists(ProductApprovalWorkflowPlace::IMPORTED_DISPLAYED->value, $currentPlaces)
-            && $product->getInternalCategories() !== []
-            && $product->getB2bSubCategory() === [];
-    }
-
-    /**
-     * @param array<string, int> $currentPlaces
-     */
-    private function shouldAutoUpdateSAPData(UniProductBase $product, array $currentPlaces): bool
-    {
-        return array_key_exists(ProductApprovalWorkflowPlace::SAP_UPDATED_DISPLAYED->value, $currentPlaces)
-            && $this->hasAutomaticSAPUpdates($product);
-    }
-
-    private function hasAutomaticSAPUpdates(UniProductBase $product): bool
-    {
-        return $product->getB2bFlag() === true;
-    }
-
-    private function isProductDeactivated(UniProductBase $product): bool
-    {
-        return $product->getApprovalState() === 'inactive'
-            || $product->getB2bFlag() === false
-            || $product->getB2cFlag() === false;
-    }
-
-    /**
-     * @param array<string, int> $currentPlaces
-     */
-    private function canArchiveProduct(array $currentPlaces): bool
-    {
-        $archivableStates = [
-            ProductApprovalWorkflowPlace::PUBLISHED->value,
-            ProductApprovalWorkflowPlace::EXPORTED->value,
-        ];
-
-        return array_intersect_key(array_flip($archivableStates), $currentPlaces) !== [];
     }
 }
