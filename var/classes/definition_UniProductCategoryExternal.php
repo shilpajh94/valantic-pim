@@ -21,7 +21,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'External Category',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1753870048,
+   'modificationDate' => 1755772885,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -404,7 +404,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/external.svg',
    'group' => 'UniProductManagement',
    'showAppLoggerTab' => false,
-   'linkGeneratorReference' => '@App\\Website\\LinkGenerator\\ExternalCategoryLinkGenerator',
+   'linkGeneratorReference' => '',
    'previewGeneratorReference' => '',
    'compositeIndices' => 
   array (
