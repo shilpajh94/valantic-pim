@@ -25,7 +25,6 @@
  * -- productDescriptionLong [textarea]
  * -- productMarking1 [textarea]
  * -- productMarking2 [textarea]
- * -- applications [textarea]
  * -- productDescriptionExtended [wysiwyg]
  * -- marketingDescriptionShort [wysiwyg]
  * -- marketingDescriptionLong [wysiwyg]
@@ -91,7 +90,6 @@ use Pimcore\Model\DataObject\PreGetValueHookInterface;
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByProductDescriptionLong(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByProductMarking1(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByProductMarking2(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByApplications(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByProductDescriptionExtended(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByMarketingDescriptionShort(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByMarketingDescriptionLong(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
@@ -144,7 +142,6 @@ public const FIELD_PRODUCT_DESCRIPTION_SHORT = 'productDescriptionShort';
 public const FIELD_PRODUCT_DESCRIPTION_LONG = 'productDescriptionLong';
 public const FIELD_PRODUCT_MARKING1 = 'productMarking1';
 public const FIELD_PRODUCT_MARKING2 = 'productMarking2';
-public const FIELD_APPLICATIONS = 'applications';
 public const FIELD_PRODUCT_DESCRIPTION_EXTENDED = 'productDescriptionExtended';
 public const FIELD_MARKETING_DESCRIPTION_SHORT = 'marketingDescriptionShort';
 public const FIELD_MARKETING_DESCRIPTION_LONG = 'marketingDescriptionLong';
@@ -741,27 +738,6 @@ public function getProductMarking2(?string $language = null): ?string
 }
 
 /**
-* Get applications - Applications
-* @return string|null
-*/
-public function getApplications(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("applications", $language);
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("applications");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
 * Get productDescriptionExtended - Product Description - Extended
 * @return string|null
 */
@@ -1263,19 +1239,6 @@ public function setProductMarking2 (?string $productMarking2, ?string $language 
 {
 	$isEqual = false;
 	$this->getLocalizedfields()->setLocalizedValue("productMarking2", $productMarking2, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set applications - Applications
-* @param string|null $applications
-* @return $this
-*/
-public function setApplications (?string $applications, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("applications", $applications, $language, !$isEqual);
 
 	return $this;
 }

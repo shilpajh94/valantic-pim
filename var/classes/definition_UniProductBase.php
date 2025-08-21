@@ -26,7 +26,6 @@
  * -- productDescriptionLong [textarea]
  * -- productMarking1 [textarea]
  * -- productMarking2 [textarea]
- * -- applications [textarea]
  * -- productDescriptionExtended [wysiwyg]
  * -- marketingDescriptionShort [wysiwyg]
  * -- marketingDescriptionLong [wysiwyg]
@@ -74,7 +73,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Product',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1755691195,
+   'modificationDate' => 1755778281,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => 'App\\Model\\DataObject\\AbstractUniProductBase',
@@ -1049,31 +1048,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'width' => '',
                                   )),
                                   5 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                                     'name' => 'applications',
-                                     'title' => 'Applications',
-                                     'tooltip' => '',
-                                     'mandatory' => false,
-                                     'noteditable' => false,
-                                     'index' => false,
-                                     'locked' => false,
-                                     'style' => '',
-                                     'permissions' => NULL,
-                                     'fieldtype' => '',
-                                     'relationType' => false,
-                                     'invisible' => false,
-                                     'visibleGridView' => false,
-                                     'visibleSearch' => true,
-                                     'blockedVarsForExport' => 
-                                    array (
-                                    ),
-                                     'maxLength' => NULL,
-                                     'showCharCount' => false,
-                                     'excludeFromSearchIndex' => false,
-                                     'height' => '',
-                                     'width' => '',
-                                  )),
-                                  6 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                                      'name' => 'productDescriptionExtended',
                                      'title' => 'Product Description - Extended',
@@ -1098,7 +1072,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'height' => '',
                                      'width' => '',
                                   )),
-                                  7 => 
+                                  6 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                                      'name' => 'marketingDescriptionShort',
                                      'title' => 'Marketing Description - Short',
@@ -1123,7 +1097,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'height' => '',
                                      'width' => '',
                                   )),
-                                  8 => 
+                                  7 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                                      'name' => 'marketingDescriptionLong',
                                      'title' => 'Marketing Description - Long',
@@ -2654,31 +2628,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'width' => '',
                           )),
                           5 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                             'name' => 'applications',
-                             'title' => 'Applications',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => '',
-                             'permissions' => NULL,
-                             'fieldtype' => '',
-                             'relationType' => false,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => true,
-                             'blockedVarsForExport' => 
-                            array (
-                            ),
-                             'maxLength' => NULL,
-                             'showCharCount' => false,
-                             'excludeFromSearchIndex' => false,
-                             'height' => '',
-                             'width' => '',
-                          )),
-                          6 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                              'name' => 'productDescriptionExtended',
                              'title' => 'Product Description - Extended',
@@ -2703,7 +2652,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'height' => '',
                              'width' => '',
                           )),
-                          7 => 
+                          6 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                              'name' => 'marketingDescriptionShort',
                              'title' => 'Marketing Description - Short',
@@ -2728,7 +2677,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'height' => '',
                              'width' => '',
                           )),
-                          8 => 
+                          7 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                              'name' => 'marketingDescriptionLong',
                              'title' => 'Marketing Description - Long',
