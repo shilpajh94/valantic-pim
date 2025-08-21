@@ -16,6 +16,7 @@
  * -- completeFittingText [input]
  * -- note1 [textarea]
  * -- note2 [textarea]
+ * - applications [manyToManyObjectRelation]
  * - hoseLengthImperial [quantityValue]
  * - hoseLengthMetric [quantityValue]
  */
@@ -42,6 +43,7 @@ public const FIELD_HOSE_FITTING_FAMILY = 'hoseFittingFamily';
 public const FIELD_COMPLETE_FITTING_TEXT = 'completeFittingText';
 public const FIELD_NOTE1 = 'note1';
 public const FIELD_NOTE2 = 'note2';
+public const FIELD_APPLICATIONS = 'applications';
 public const FIELD_HOSE_LENGTH_IMPERIAL = 'hoseLengthImperial';
 public const FIELD_HOSE_LENGTH_METRIC = 'hoseLengthMetric';
 
@@ -56,6 +58,7 @@ protected $fitting2Material;
 protected $isBendRestrictor;
 protected $isAssembly;
 protected $localizedfields;
+protected $applications;
 protected $hoseLengthImperial;
 protected $hoseLengthMetric;
 
@@ -604,6 +607,56 @@ public function setNote2 (?string $note2, ?string $language = null): static
 	$isEqual = false;
 	$this->getLocalizedfields()->setLocalizedValue("note2", $note2, $language, !$isEqual);
 
+	return $this;
+}
+
+/**
+* Get applications - Applications
+* @return \Pimcore\Model\DataObject\UniPrApplications[]
+*/
+public function getApplications(): array
+{
+	$data = $this->getDefinition()->getFieldDefinition("applications")->preGetData($this);
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("applications")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("applications");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set applications - Applications
+* @param \Pimcore\Model\DataObject\UniPrApplications[] $applications
+* @return $this
+*/
+public function setApplications (?array $applications): static
+{
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("applications");
+	$class = $this->getObject() ? $this->getObject()->getClass() : null;
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	if ($class && $class->getAllowInherit()) {
+		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
+			return $this->getApplications();
+		});
+	}
+	else {
+		$currentData = $this->getApplications();
+	}	
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $applications);
+	if (!$isEqual) {
+		$this->markFieldDirty("applications", true);
+	}
+	$this->applications = $fd->preSetData($this, $applications);
 	return $this;
 }
 

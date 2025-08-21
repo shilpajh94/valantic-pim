@@ -16,6 +16,7 @@
  * -- completeFittingText [input]
  * -- note1 [textarea]
  * -- note2 [textarea]
+ * - applications [manyToManyObjectRelation]
  * - hoseLengthImperial [quantityValue]
  * - hoseLengthMetric [quantityValue]
  */
@@ -787,94 +788,159 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'children' => 
             array (
               0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
-                 'name' => 'localizedfields',
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
+                 'name' => 'Layout',
+                 'type' => NULL,
+                 'region' => NULL,
                  'title' => '',
-                 'tooltip' => NULL,
+                 'width' => '',
+                 'height' => '',
+                 'collapsible' => true,
+                 'collapsed' => false,
+                 'bodyStyle' => '',
+                 'datatype' => 'layout',
+                 'children' => 
+                array (
+                  0 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+                     'name' => 'localizedfields',
+                     'title' => '',
+                     'tooltip' => NULL,
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => NULL,
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => true,
+                     'visibleSearch' => true,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'children' => 
+                    array (
+                      0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                         'name' => 'note1',
+                         'title' => 'Note1 (above table)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'maxLength' => NULL,
+                         'showCharCount' => false,
+                         'excludeFromSearchIndex' => false,
+                         'height' => '',
+                         'width' => '',
+                      )),
+                      1 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                         'name' => 'note2',
+                         'title' => 'Note 2 (below table)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'maxLength' => NULL,
+                         'showCharCount' => false,
+                         'excludeFromSearchIndex' => false,
+                         'height' => '',
+                         'width' => '',
+                      )),
+                    ),
+                     'region' => NULL,
+                     'layout' => NULL,
+                     'maxTabs' => 35,
+                     'border' => false,
+                     'provideSplitView' => false,
+                     'tabPosition' => 'top',
+                     'hideLabelsWhenTabsReached' => NULL,
+                     'referencedFields' => 
+                    array (
+                    ),
+                     'permissionView' => NULL,
+                     'permissionEdit' => NULL,
+                     'labelWidth' => 200,
+                     'labelAlign' => 'left',
+                     'width' => '',
+                     'height' => '',
+                     'fieldDefinitionsCache' => NULL,
+                  )),
+                ),
+                 'locked' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'fieldtype' => 'fieldset',
+                 'labelWidth' => 250,
+                 'labelAlign' => 'left',
+              )),
+              1 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                 'name' => 'applications',
+                 'title' => 'Applications',
+                 'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,
-                 'style' => NULL,
+                 'style' => '',
                  'permissions' => NULL,
                  'fieldtype' => '',
-                 'relationType' => false,
+                 'relationType' => true,
                  'invisible' => false,
-                 'visibleGridView' => true,
+                 'visibleGridView' => false,
                  'visibleSearch' => true,
                  'blockedVarsForExport' => 
                 array (
                 ),
-                 'children' => 
+                 'classes' => 
                 array (
                   0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                     'name' => 'note1',
-                     'title' => 'Note1 (above table)',
-                     'tooltip' => '',
-                     'mandatory' => true,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => true,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'maxLength' => NULL,
-                     'showCharCount' => false,
-                     'excludeFromSearchIndex' => false,
-                     'height' => '',
-                     'width' => '',
-                  )),
-                  1 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                     'name' => 'note2',
-                     'title' => 'Note 2 (below table)',
-                     'tooltip' => '',
-                     'mandatory' => true,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => true,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'maxLength' => NULL,
-                     'showCharCount' => false,
-                     'excludeFromSearchIndex' => false,
-                     'height' => '',
-                     'width' => '',
-                  )),
+                  array (
+                    'classes' => 'UniPrApplications',
+                  ),
                 ),
-                 'region' => NULL,
-                 'layout' => NULL,
-                 'maxTabs' => 35,
-                 'border' => false,
-                 'provideSplitView' => false,
-                 'tabPosition' => 'top',
-                 'hideLabelsWhenTabsReached' => NULL,
-                 'referencedFields' => 
+                 'displayMode' => 'grid',
+                 'pathFormatterClass' => '',
+                 'maxItems' => NULL,
+                 'visibleFields' => 
                 array (
                 ),
-                 'permissionView' => NULL,
-                 'permissionEdit' => NULL,
-                 'labelWidth' => 200,
-                 'labelAlign' => 'left',
+                 'allowToCreateNewObject' => false,
+                 'allowToClearRelation' => true,
+                 'optimizedAdminLoading' => false,
+                 'enableTextSelection' => false,
+                 'visibleFieldDefinitions' => 
+                array (
+                ),
                  'width' => '',
                  'height' => '',
-                 'fieldDefinitionsCache' => NULL,
               )),
             ),
              'locked' => false,
