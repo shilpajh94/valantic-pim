@@ -63,6 +63,7 @@
  * - b2cFlag [checkbox]
  * - printedCatalogueFlag [checkbox]
  * - virtualCatalogueFlag [checkbox]
+ * - customerPortalFlag [checkbox]
  * - internalCategories [manyToManyObjectRelation]
  */
 
@@ -73,7 +74,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Product',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1755778281,
+   'modificationDate' => 1755848495,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => 'App\\Model\\DataObject\\AbstractUniProductBase',
@@ -533,7 +534,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'name' => 'Layout',
                          'type' => NULL,
                          'region' => NULL,
-                         'title' => '',
+                         'title' => 'Localized fields',
                          'width' => '',
                          'height' => '',
                          'collapsible' => true,
@@ -942,7 +943,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'columnLength' => 190,
                                      'dynamicOptions' => false,
                                      'defaultValueGenerator' => '',
-                                     'width' => '',
+                                     'width' => 350,
                                      'optionsProviderType' => 'select_options',
                                      'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
                                      'optionsProviderData' => 'UniBasePrFeaturesAndBenefits',
@@ -969,8 +970,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'maxLength' => NULL,
                                      'showCharCount' => false,
                                      'excludeFromSearchIndex' => false,
-                                     'height' => '',
-                                     'width' => '',
+                                     'height' => 100,
+                                     'width' => 350,
                                   )),
                                   2 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
@@ -994,8 +995,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'maxLength' => NULL,
                                      'showCharCount' => false,
                                      'excludeFromSearchIndex' => false,
-                                     'height' => '',
-                                     'width' => '',
+                                     'height' => 100,
+                                     'width' => 350,
                                   )),
                                   3 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
@@ -1019,8 +1020,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'maxLength' => NULL,
                                      'showCharCount' => false,
                                      'excludeFromSearchIndex' => false,
-                                     'height' => '',
-                                     'width' => '',
+                                     'height' => 100,
+                                     'width' => 350,
                                   )),
                                   4 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
@@ -1044,8 +1045,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'maxLength' => NULL,
                                      'showCharCount' => false,
                                      'excludeFromSearchIndex' => false,
-                                     'height' => '',
-                                     'width' => '',
+                                     'height' => 100,
+                                     'width' => 350,
                                   )),
                                   5 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
@@ -1069,7 +1070,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'toolbarConfig' => '',
                                      'excludeFromSearchIndex' => false,
                                      'maxCharacters' => '',
-                                     'height' => '',
+                                     'height' => 150,
                                      'width' => '',
                                   )),
                                   6 => 
@@ -1094,7 +1095,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'toolbarConfig' => '',
                                      'excludeFromSearchIndex' => false,
                                      'maxCharacters' => '',
-                                     'height' => '',
+                                     'height' => 150,
                                      'width' => '',
                                   )),
                                   7 => 
@@ -1119,7 +1120,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'toolbarConfig' => '',
                                      'excludeFromSearchIndex' => false,
                                      'maxCharacters' => '',
-                                     'height' => '',
+                                     'height' => 150,
                                      'width' => '',
                                   )),
                                 ),
@@ -1135,7 +1136,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                 ),
                                  'permissionView' => NULL,
                                  'permissionEdit' => NULL,
-                                 'labelWidth' => 250,
+                                 'labelWidth' => 350,
                                  'labelAlign' => 'left',
                                  'width' => '',
                                  'height' => '',
@@ -1183,13 +1184,18 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                     ),
                                      'options' => 
                                     array (
+                                      0 => 
+                                      array (
+                                        'key' => 'Class 8: Corrosive substances',
+                                        'value' => 'Class 8: Corrosive substances',
+                                      ),
                                     ),
                                      'maxItems' => NULL,
                                      'renderType' => 'list',
                                      'dynamicOptions' => false,
                                      'defaultValue' => NULL,
                                      'height' => '',
-                                     'width' => '',
+                                     'width' => 350,
                                      'defaultValueGenerator' => '',
                                      'optionsProviderType' => 'configure',
                                      'optionsProviderClass' => '',
@@ -1233,10 +1239,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                       ),
                                     ),
                                      'defaultValue' => '',
-                                     'columnLength' => 190,
+                                     'columnLength' => 350,
                                      'dynamicOptions' => false,
                                      'defaultValueGenerator' => '',
-                                     'width' => '',
+                                     'width' => 350,
                                      'optionsProviderType' => 'configure',
                                      'optionsProviderClass' => '',
                                      'optionsProviderData' => '',
@@ -1282,7 +1288,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'columnLength' => 190,
                                      'dynamicOptions' => false,
                                      'defaultValueGenerator' => '',
-                                     'width' => '',
+                                     'width' => 350,
                                      'optionsProviderType' => 'configure',
                                      'optionsProviderClass' => '',
                                      'optionsProviderData' => '',
@@ -1328,7 +1334,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'columnLength' => 190,
                                      'dynamicOptions' => false,
                                      'defaultValueGenerator' => '',
-                                     'width' => '',
+                                     'width' => 350,
                                      'optionsProviderType' => 'configure',
                                      'optionsProviderClass' => '',
                                      'optionsProviderData' => '',
@@ -1374,7 +1380,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'columnLength' => 190,
                                      'dynamicOptions' => false,
                                      'defaultValueGenerator' => '',
-                                     'width' => '',
+                                     'width' => 350,
                                      'optionsProviderType' => 'configure',
                                      'optionsProviderClass' => '',
                                      'optionsProviderData' => '',
@@ -1401,8 +1407,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'maxLength' => NULL,
                                      'showCharCount' => false,
                                      'excludeFromSearchIndex' => false,
-                                     'height' => '',
-                                     'width' => '',
+                                     'height' => 100,
+                                     'width' => 350,
                                   )),
                                   6 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
@@ -1426,12 +1432,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'maxLength' => NULL,
                                      'showCharCount' => false,
                                      'excludeFromSearchIndex' => false,
-                                     'height' => '',
-                                     'width' => '',
+                                     'height' => 100,
+                                     'width' => 350,
                                   )),
                                 ),
                                  'region' => NULL,
-                                 'layout' => NULL,
+                                 'layout' => '',
                                  'maxTabs' => NULL,
                                  'border' => false,
                                  'provideSplitView' => false,
@@ -1638,20 +1644,135 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
-                         'name' => 'Layout',
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                         'name' => 'Field Container',
                          'type' => NULL,
                          'region' => NULL,
-                         'title' => '',
+                         'title' => NULL,
                          'width' => '',
                          'height' => '',
-                         'collapsible' => true,
+                         'collapsible' => false,
                          'collapsed' => false,
                          'bodyStyle' => '',
                          'datatype' => 'layout',
                          'children' => 
                         array (
                           0 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                             'name' => 'Field Container',
+                             'type' => NULL,
+                             'region' => NULL,
+                             'title' => NULL,
+                             'width' => '',
+                             'height' => '',
+                             'collapsible' => true,
+                             'collapsed' => false,
+                             'bodyStyle' => 'margin-left:20px;',
+                             'datatype' => 'layout',
+                             'children' => 
+                            array (
+                              0 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                 'name' => 'sapMaterialNumber',
+                                 'title' => 'SAP Material Number',
+                                 'tooltip' => '',
+                                 'mandatory' => true,
+                                 'noteditable' => true,
+                                 'index' => true,
+                                 'locked' => false,
+                                 'style' => 'margin-left:20px;',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => true,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'defaultValue' => NULL,
+                                 'columnLength' => 190,
+                                 'regex' => '',
+                                 'regexFlags' => 
+                                array (
+                                ),
+                                 'unique' => true,
+                                 'showCharCount' => false,
+                                 'width' => '',
+                                 'defaultValueGenerator' => '',
+                              )),
+                              1 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                 'name' => 'partNumber',
+                                 'title' => 'Part Number',
+                                 'tooltip' => '',
+                                 'mandatory' => true,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-left:20px;',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => true,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'defaultValue' => NULL,
+                                 'columnLength' => 190,
+                                 'regex' => '',
+                                 'regexFlags' => 
+                                array (
+                                ),
+                                 'unique' => true,
+                                 'showCharCount' => false,
+                                 'width' => '',
+                                 'defaultValueGenerator' => '',
+                              )),
+                              2 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                 'name' => 'oldMaterialNumber',
+                                 'title' => 'Old Material Number',
+                                 'tooltip' => '',
+                                 'mandatory' => true,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-left:20px;',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => true,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'defaultValue' => NULL,
+                                 'columnLength' => 190,
+                                 'regex' => '',
+                                 'regexFlags' => 
+                                array (
+                                ),
+                                 'unique' => true,
+                                 'showCharCount' => false,
+                                 'width' => '',
+                                 'defaultValueGenerator' => '',
+                              )),
+                            ),
+                             'locked' => false,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'fieldtype' => 'fieldcontainer',
+                             'layout' => 'vbox',
+                             'fieldLabel' => '',
+                             'labelWidth' => 250,
+                             'labelAlign' => 'left',
+                          )),
+                          1 => 
                           Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
@@ -1666,208 +1787,93 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                                 'name' => 'Field Container',
-                                 'type' => NULL,
-                                 'region' => NULL,
-                                 'title' => NULL,
-                                 'width' => '',
-                                 'height' => '',
-                                 'collapsible' => true,
-                                 'collapsed' => false,
-                                 'bodyStyle' => '',
-                                 'datatype' => 'layout',
-                                 'children' => 
-                                array (
-                                  0 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                     'name' => 'sapMaterialNumber',
-                                     'title' => 'SAP Material Number',
-                                     'tooltip' => '',
-                                     'mandatory' => true,
-                                     'noteditable' => true,
-                                     'index' => true,
-                                     'locked' => false,
-                                     'style' => '',
-                                     'permissions' => NULL,
-                                     'fieldtype' => '',
-                                     'relationType' => false,
-                                     'invisible' => false,
-                                     'visibleGridView' => true,
-                                     'visibleSearch' => false,
-                                     'blockedVarsForExport' => 
-                                    array (
-                                    ),
-                                     'defaultValue' => NULL,
-                                     'columnLength' => 190,
-                                     'regex' => '',
-                                     'regexFlags' => 
-                                    array (
-                                    ),
-                                     'unique' => true,
-                                     'showCharCount' => false,
-                                     'width' => '',
-                                     'defaultValueGenerator' => '',
-                                  )),
-                                  1 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                     'name' => 'partNumber',
-                                     'title' => 'Part Number',
-                                     'tooltip' => '',
-                                     'mandatory' => true,
-                                     'noteditable' => false,
-                                     'index' => false,
-                                     'locked' => false,
-                                     'style' => '',
-                                     'permissions' => NULL,
-                                     'fieldtype' => '',
-                                     'relationType' => false,
-                                     'invisible' => false,
-                                     'visibleGridView' => false,
-                                     'visibleSearch' => true,
-                                     'blockedVarsForExport' => 
-                                    array (
-                                    ),
-                                     'defaultValue' => NULL,
-                                     'columnLength' => 190,
-                                     'regex' => '',
-                                     'regexFlags' => 
-                                    array (
-                                    ),
-                                     'unique' => true,
-                                     'showCharCount' => false,
-                                     'width' => '',
-                                     'defaultValueGenerator' => '',
-                                  )),
-                                  2 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                     'name' => 'oldMaterialNumber',
-                                     'title' => 'Old Material Number',
-                                     'tooltip' => '',
-                                     'mandatory' => true,
-                                     'noteditable' => false,
-                                     'index' => false,
-                                     'locked' => false,
-                                     'style' => '',
-                                     'permissions' => NULL,
-                                     'fieldtype' => '',
-                                     'relationType' => false,
-                                     'invisible' => false,
-                                     'visibleGridView' => false,
-                                     'visibleSearch' => true,
-                                     'blockedVarsForExport' => 
-                                    array (
-                                    ),
-                                     'defaultValue' => NULL,
-                                     'columnLength' => 190,
-                                     'regex' => '',
-                                     'regexFlags' => 
-                                    array (
-                                    ),
-                                     'unique' => true,
-                                     'showCharCount' => false,
-                                     'width' => '',
-                                     'defaultValueGenerator' => '',
-                                  )),
-                                  3 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                                     'name' => 'tariffCodes',
-                                     'title' => 'Tariff Codes',
-                                     'tooltip' => '',
-                                     'mandatory' => true,
-                                     'noteditable' => false,
-                                     'index' => false,
-                                     'locked' => false,
-                                     'style' => '',
-                                     'permissions' => NULL,
-                                     'fieldtype' => '',
-                                     'relationType' => false,
-                                     'invisible' => false,
-                                     'visibleGridView' => false,
-                                     'visibleSearch' => true,
-                                     'blockedVarsForExport' => 
-                                    array (
-                                    ),
-                                     'defaultValue' => NULL,
-                                     'integer' => false,
-                                     'unsigned' => false,
-                                     'minValue' => NULL,
-                                     'maxValue' => NULL,
-                                     'unique' => true,
-                                     'decimalSize' => NULL,
-                                     'decimalPrecision' => NULL,
-                                     'width' => 250,
-                                     'defaultValueGenerator' => '',
-                                  )),
-                                  4 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Country::__set_state(array(
-                                     'name' => 'countryOfOrigin',
-                                     'title' => 'Country Of Origin',
-                                     'tooltip' => '',
-                                     'mandatory' => true,
-                                     'noteditable' => false,
-                                     'index' => false,
-                                     'locked' => false,
-                                     'style' => '',
-                                     'permissions' => NULL,
-                                     'fieldtype' => '',
-                                     'relationType' => false,
-                                     'invisible' => false,
-                                     'visibleGridView' => false,
-                                     'visibleSearch' => true,
-                                     'blockedVarsForExport' => 
-                                    array (
-                                    ),
-                                     'defaultValue' => 'AF',
-                                     'columnLength' => 190,
-                                     'dynamicOptions' => false,
-                                     'defaultValueGenerator' => '',
-                                     'width' => 250,
-                                     'optionsProviderType' => NULL,
-                                     'optionsProviderClass' => NULL,
-                                     'optionsProviderData' => NULL,
-                                     'restrictTo' => '',
-                                  )),
-                                  5 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                     'name' => 'eanCode',
-                                     'title' => 'EAN / UPC Code',
-                                     'tooltip' => '',
-                                     'mandatory' => true,
-                                     'noteditable' => false,
-                                     'index' => false,
-                                     'locked' => false,
-                                     'style' => '',
-                                     'permissions' => NULL,
-                                     'fieldtype' => '',
-                                     'relationType' => false,
-                                     'invisible' => false,
-                                     'visibleGridView' => false,
-                                     'visibleSearch' => true,
-                                     'blockedVarsForExport' => 
-                                    array (
-                                    ),
-                                     'defaultValue' => NULL,
-                                     'columnLength' => 190,
-                                     'regex' => '',
-                                     'regexFlags' => 
-                                    array (
-                                    ),
-                                     'unique' => true,
-                                     'showCharCount' => false,
-                                     'width' => '',
-                                     'defaultValueGenerator' => '',
-                                  )),
-                                ),
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                                 'name' => 'tariffCodes',
+                                 'title' => 'Tariff Codes',
+                                 'tooltip' => '',
+                                 'mandatory' => true,
+                                 'noteditable' => false,
+                                 'index' => false,
                                  'locked' => false,
+                                 'style' => 'margin-left:20px;',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => true,
                                  'blockedVarsForExport' => 
                                 array (
                                 ),
-                                 'fieldtype' => 'fieldcontainer',
-                                 'layout' => 'vbox',
-                                 'fieldLabel' => '',
-                                 'labelWidth' => 250,
-                                 'labelAlign' => 'left',
+                                 'defaultValue' => NULL,
+                                 'integer' => false,
+                                 'unsigned' => false,
+                                 'minValue' => NULL,
+                                 'maxValue' => NULL,
+                                 'unique' => true,
+                                 'decimalSize' => NULL,
+                                 'decimalPrecision' => NULL,
+                                 'width' => 250,
+                                 'defaultValueGenerator' => '',
+                              )),
+                              1 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Country::__set_state(array(
+                                 'name' => 'countryOfOrigin',
+                                 'title' => 'Country Of Origin',
+                                 'tooltip' => '',
+                                 'mandatory' => true,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-left:20px;',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => true,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'defaultValue' => 'AF',
+                                 'columnLength' => 190,
+                                 'dynamicOptions' => false,
+                                 'defaultValueGenerator' => '',
+                                 'width' => 250,
+                                 'optionsProviderType' => NULL,
+                                 'optionsProviderClass' => NULL,
+                                 'optionsProviderData' => NULL,
+                                 'restrictTo' => '',
+                              )),
+                              2 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                 'name' => 'eanCode',
+                                 'title' => 'EAN / UPC Code',
+                                 'tooltip' => '',
+                                 'mandatory' => true,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-left:20px;',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => true,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'defaultValue' => NULL,
+                                 'columnLength' => 190,
+                                 'regex' => '',
+                                 'regexFlags' => 
+                                array (
+                                ),
+                                 'unique' => true,
+                                 'showCharCount' => false,
+                                 'width' => '',
+                                 'defaultValueGenerator' => '',
                               )),
                             ),
                              'locked' => false,
@@ -1885,8 +1891,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'fieldtype' => 'fieldset',
-                         'labelWidth' => 100,
+                         'fieldtype' => 'fieldcontainer',
+                         'layout' => 'hbox',
+                         'fieldLabel' => '',
+                         'labelWidth' => 250,
                          'labelAlign' => 'left',
                       )),
                       1 => 
@@ -1894,7 +1902,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'name' => 'Layout',
                          'type' => NULL,
                          'region' => NULL,
-                         'title' => '',
+                         'title' => 'Localized fields',
                          'width' => '',
                          'height' => '',
                          'collapsible' => true,
@@ -2120,7 +2128,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         array (
                         ),
                          'fieldtype' => 'fieldset',
-                         'labelWidth' => 100,
+                         'labelWidth' => 250,
                          'labelAlign' => 'left',
                       )),
                     ),
@@ -2132,7 +2140,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'layout' => NULL,
                      'border' => false,
                      'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/genealogy.svg',
-                     'labelWidth' => 250,
+                     'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
                   3 => 
@@ -2522,7 +2530,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'columnLength' => 190,
                              'dynamicOptions' => false,
                              'defaultValueGenerator' => '',
-                             'width' => '',
+                             'width' => 350,
                              'optionsProviderType' => 'select_options',
                              'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
                              'optionsProviderData' => 'UniBasePrFeaturesAndBenefits',
@@ -2549,8 +2557,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'maxLength' => NULL,
                              'showCharCount' => false,
                              'excludeFromSearchIndex' => false,
-                             'height' => '',
-                             'width' => '',
+                             'height' => 100,
+                             'width' => 350,
                           )),
                           2 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
@@ -2574,8 +2582,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'maxLength' => NULL,
                              'showCharCount' => false,
                              'excludeFromSearchIndex' => false,
-                             'height' => '',
-                             'width' => '',
+                             'height' => 100,
+                             'width' => 350,
                           )),
                           3 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
@@ -2599,8 +2607,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'maxLength' => NULL,
                              'showCharCount' => false,
                              'excludeFromSearchIndex' => false,
-                             'height' => '',
-                             'width' => '',
+                             'height' => 100,
+                             'width' => 350,
                           )),
                           4 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
@@ -2624,8 +2632,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'maxLength' => NULL,
                              'showCharCount' => false,
                              'excludeFromSearchIndex' => false,
-                             'height' => '',
-                             'width' => '',
+                             'height' => 100,
+                             'width' => 350,
                           )),
                           5 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
@@ -2649,7 +2657,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'toolbarConfig' => '',
                              'excludeFromSearchIndex' => false,
                              'maxCharacters' => '',
-                             'height' => '',
+                             'height' => 150,
                              'width' => '',
                           )),
                           6 => 
@@ -2674,7 +2682,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'toolbarConfig' => '',
                              'excludeFromSearchIndex' => false,
                              'maxCharacters' => '',
-                             'height' => '',
+                             'height' => 150,
                              'width' => '',
                           )),
                           7 => 
@@ -2699,7 +2707,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'toolbarConfig' => '',
                              'excludeFromSearchIndex' => false,
                              'maxCharacters' => '',
-                             'height' => '',
+                             'height' => 150,
                              'width' => '',
                           )),
                         ),
@@ -2715,7 +2723,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         ),
                          'permissionView' => NULL,
                          'permissionEdit' => NULL,
-                         'labelWidth' => 250,
+                         'labelWidth' => 350,
                          'labelAlign' => 'left',
                          'width' => '',
                          'height' => '',
@@ -2889,7 +2897,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'noteditable' => false,
                              'index' => false,
                              'locked' => false,
-                             'style' => '',
+                             'style' => 'margin-left:10px;',
                              'permissions' => NULL,
                              'fieldtype' => '',
                              'relationType' => false,
@@ -2917,7 +2925,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'dynamicOptions' => false,
                              'defaultValue' => NULL,
                              'height' => '',
-                             'width' => '',
+                             'width' => 350,
                              'defaultValueGenerator' => '',
                              'optionsProviderType' => 'configure',
                              'optionsProviderClass' => '',
@@ -2932,7 +2940,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'noteditable' => false,
                              'index' => false,
                              'locked' => false,
-                             'style' => '',
+                             'style' => 'margin-left:10px;',
                              'permissions' => NULL,
                              'fieldtype' => '',
                              'relationType' => false,
@@ -2960,7 +2968,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'dynamicOptions' => false,
                              'defaultValue' => NULL,
                              'height' => '',
-                             'width' => '',
+                             'width' => 350,
                              'defaultValueGenerator' => '',
                              'optionsProviderType' => 'configure',
                              'optionsProviderClass' => '',
@@ -2978,334 +2986,316 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'labelAlign' => 'left',
                       )),
                       1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
-                         'name' => 'Layout',
-                         'type' => NULL,
-                         'region' => NULL,
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+                         'name' => 'localizedfields',
                          'title' => '',
-                         'width' => '',
-                         'height' => '',
-                         'collapsible' => true,
-                         'collapsed' => false,
-                         'bodyStyle' => '',
-                         'datatype' => 'layout',
+                         'tooltip' => NULL,
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => NULL,
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => true,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
                          'children' => 
                         array (
                           0 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
-                             'name' => 'localizedfields',
-                             'title' => '',
-                             'tooltip' => NULL,
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                             'name' => 'hazardousSubstanceClassification',
+                             'title' => 'Hazardous Substance Classification  ',
+                             'tooltip' => '',
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
                              'locked' => false,
-                             'style' => NULL,
+                             'style' => '',
                              'permissions' => NULL,
                              'fieldtype' => '',
                              'relationType' => false,
                              'invisible' => false,
-                             'visibleGridView' => true,
+                             'visibleGridView' => false,
                              'visibleSearch' => true,
                              'blockedVarsForExport' => 
                             array (
                             ),
-                             'children' => 
+                             'options' => 
                             array (
                               0 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                                 'name' => 'hazardousSubstanceClassification',
-                                 'title' => 'Hazardous Substance Classification  ',
-                                 'tooltip' => '',
-                                 'mandatory' => false,
-                                 'noteditable' => false,
-                                 'index' => false,
-                                 'locked' => false,
-                                 'style' => '',
-                                 'permissions' => NULL,
-                                 'fieldtype' => '',
-                                 'relationType' => false,
-                                 'invisible' => false,
-                                 'visibleGridView' => false,
-                                 'visibleSearch' => true,
-                                 'blockedVarsForExport' => 
-                                array (
-                                ),
-                                 'options' => 
-                                array (
-                                ),
-                                 'maxItems' => NULL,
-                                 'renderType' => 'list',
-                                 'dynamicOptions' => false,
-                                 'defaultValue' => NULL,
-                                 'height' => '',
-                                 'width' => '',
-                                 'defaultValueGenerator' => '',
-                                 'optionsProviderType' => 'configure',
-                                 'optionsProviderClass' => '',
-                                 'optionsProviderData' => '',
-                              )),
-                              1 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                                 'name' => 'reach',
-                                 'title' => 'REACH  ',
-                                 'tooltip' => '',
-                                 'mandatory' => false,
-                                 'noteditable' => false,
-                                 'index' => false,
-                                 'locked' => false,
-                                 'style' => '',
-                                 'permissions' => NULL,
-                                 'fieldtype' => '',
-                                 'relationType' => false,
-                                 'invisible' => false,
-                                 'visibleGridView' => false,
-                                 'visibleSearch' => true,
-                                 'blockedVarsForExport' => 
-                                array (
-                                ),
-                                 'options' => 
-                                array (
-                                  0 => 
-                                  array (
-                                    'key' => 'compliant',
-                                    'value' => 'compliant',
-                                  ),
-                                  1 => 
-                                  array (
-                                    'key' => 'not compliant',
-                                    'value' => 'not compliant',
-                                  ),
-                                  2 => 
-                                  array (
-                                    'key' => 'not applicable',
-                                    'value' => 'not applicable',
-                                  ),
-                                ),
-                                 'defaultValue' => '',
-                                 'columnLength' => 190,
-                                 'dynamicOptions' => false,
-                                 'defaultValueGenerator' => '',
-                                 'width' => '',
-                                 'optionsProviderType' => 'configure',
-                                 'optionsProviderClass' => '',
-                                 'optionsProviderData' => '',
-                              )),
-                              2 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                                 'name' => 'prop65',
-                                 'title' => 'Prop65',
-                                 'tooltip' => '',
-                                 'mandatory' => false,
-                                 'noteditable' => false,
-                                 'index' => false,
-                                 'locked' => false,
-                                 'style' => '',
-                                 'permissions' => NULL,
-                                 'fieldtype' => '',
-                                 'relationType' => false,
-                                 'invisible' => false,
-                                 'visibleGridView' => false,
-                                 'visibleSearch' => true,
-                                 'blockedVarsForExport' => 
-                                array (
-                                ),
-                                 'options' => 
-                                array (
-                                  0 => 
-                                  array (
-                                    'key' => 'compliant',
-                                    'value' => 'compliant',
-                                  ),
-                                  1 => 
-                                  array (
-                                    'key' => 'not compliant',
-                                    'value' => 'not compliant',
-                                  ),
-                                  2 => 
-                                  array (
-                                    'key' => 'not applicable',
-                                    'value' => 'not not applicable',
-                                  ),
-                                ),
-                                 'defaultValue' => '',
-                                 'columnLength' => 190,
-                                 'dynamicOptions' => false,
-                                 'defaultValueGenerator' => '',
-                                 'width' => '',
-                                 'optionsProviderType' => 'configure',
-                                 'optionsProviderClass' => '',
-                                 'optionsProviderData' => '',
-                              )),
-                              3 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                                 'name' => 'roHS',
-                                 'title' => 'RoHS',
-                                 'tooltip' => '',
-                                 'mandatory' => false,
-                                 'noteditable' => false,
-                                 'index' => false,
-                                 'locked' => false,
-                                 'style' => '',
-                                 'permissions' => NULL,
-                                 'fieldtype' => '',
-                                 'relationType' => false,
-                                 'invisible' => false,
-                                 'visibleGridView' => false,
-                                 'visibleSearch' => true,
-                                 'blockedVarsForExport' => 
-                                array (
-                                ),
-                                 'options' => 
-                                array (
-                                  0 => 
-                                  array (
-                                    'key' => 'compliant',
-                                    'value' => 'compliant',
-                                  ),
-                                  1 => 
-                                  array (
-                                    'key' => 'not compliant',
-                                    'value' => 'not compliant',
-                                  ),
-                                  2 => 
-                                  array (
-                                    'key' => 'not applicable',
-                                    'value' => 'not applicable',
-                                  ),
-                                ),
-                                 'defaultValue' => '',
-                                 'columnLength' => 190,
-                                 'dynamicOptions' => false,
-                                 'defaultValueGenerator' => '',
-                                 'width' => '',
-                                 'optionsProviderType' => 'configure',
-                                 'optionsProviderClass' => '',
-                                 'optionsProviderData' => '',
-                              )),
-                              4 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                                 'name' => 'gprs',
-                                 'title' => 'GPRS',
-                                 'tooltip' => '',
-                                 'mandatory' => false,
-                                 'noteditable' => false,
-                                 'index' => false,
-                                 'locked' => false,
-                                 'style' => '',
-                                 'permissions' => NULL,
-                                 'fieldtype' => '',
-                                 'relationType' => false,
-                                 'invisible' => false,
-                                 'visibleGridView' => false,
-                                 'visibleSearch' => true,
-                                 'blockedVarsForExport' => 
-                                array (
-                                ),
-                                 'options' => 
-                                array (
-                                  0 => 
-                                  array (
-                                    'key' => 'compliant',
-                                    'value' => 'compliant',
-                                  ),
-                                  1 => 
-                                  array (
-                                    'key' => 'not applicable',
-                                    'value' => 'not applicable',
-                                  ),
-                                  2 => 
-                                  array (
-                                    'key' => 'not compliant',
-                                    'value' => 'not compliant',
-                                  ),
-                                ),
-                                 'defaultValue' => '',
-                                 'columnLength' => 190,
-                                 'dynamicOptions' => false,
-                                 'defaultValueGenerator' => '',
-                                 'width' => '',
-                                 'optionsProviderType' => 'configure',
-                                 'optionsProviderClass' => '',
-                                 'optionsProviderData' => '',
-                              )),
-                              5 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                                 'name' => 'legalText',
-                                 'title' => 'Legal Text',
-                                 'tooltip' => '',
-                                 'mandatory' => false,
-                                 'noteditable' => false,
-                                 'index' => false,
-                                 'locked' => false,
-                                 'style' => '',
-                                 'permissions' => NULL,
-                                 'fieldtype' => '',
-                                 'relationType' => false,
-                                 'invisible' => false,
-                                 'visibleGridView' => false,
-                                 'visibleSearch' => true,
-                                 'blockedVarsForExport' => 
-                                array (
-                                ),
-                                 'maxLength' => NULL,
-                                 'showCharCount' => false,
-                                 'excludeFromSearchIndex' => false,
-                                 'height' => '',
-                                 'width' => '',
-                              )),
-                              6 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                                 'name' => 'Disclaimer',
-                                 'title' => 'Disclaimer',
-                                 'tooltip' => '',
-                                 'mandatory' => false,
-                                 'noteditable' => false,
-                                 'index' => false,
-                                 'locked' => false,
-                                 'style' => '',
-                                 'permissions' => NULL,
-                                 'fieldtype' => '',
-                                 'relationType' => false,
-                                 'invisible' => false,
-                                 'visibleGridView' => false,
-                                 'visibleSearch' => true,
-                                 'blockedVarsForExport' => 
-                                array (
-                                ),
-                                 'maxLength' => NULL,
-                                 'showCharCount' => false,
-                                 'excludeFromSearchIndex' => false,
-                                 'height' => '',
-                                 'width' => '',
-                              )),
+                              array (
+                                'key' => 'Class 8: Corrosive substances',
+                                'value' => 'Class 8: Corrosive substances',
+                              ),
                             ),
-                             'region' => NULL,
-                             'layout' => NULL,
-                             'maxTabs' => NULL,
-                             'border' => false,
-                             'provideSplitView' => false,
-                             'tabPosition' => 'top',
-                             'hideLabelsWhenTabsReached' => NULL,
-                             'referencedFields' => 
+                             'maxItems' => NULL,
+                             'renderType' => 'list',
+                             'dynamicOptions' => false,
+                             'defaultValue' => NULL,
+                             'height' => '',
+                             'width' => 350,
+                             'defaultValueGenerator' => '',
+                             'optionsProviderType' => 'configure',
+                             'optionsProviderClass' => '',
+                             'optionsProviderData' => '',
+                          )),
+                          1 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                             'name' => 'reach',
+                             'title' => 'REACH  ',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'fieldtype' => '',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => true,
+                             'blockedVarsForExport' => 
                             array (
                             ),
-                             'permissionView' => NULL,
-                             'permissionEdit' => NULL,
-                             'labelWidth' => 250,
-                             'labelAlign' => 'left',
-                             'width' => '',
-                             'height' => '',
-                             'fieldDefinitionsCache' => NULL,
+                             'options' => 
+                            array (
+                              0 => 
+                              array (
+                                'key' => 'compliant',
+                                'value' => 'compliant',
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'not compliant',
+                                'value' => 'not compliant',
+                              ),
+                              2 => 
+                              array (
+                                'key' => 'not applicable',
+                                'value' => 'not applicable',
+                              ),
+                            ),
+                             'defaultValue' => '',
+                             'columnLength' => 350,
+                             'dynamicOptions' => false,
+                             'defaultValueGenerator' => '',
+                             'width' => 350,
+                             'optionsProviderType' => 'configure',
+                             'optionsProviderClass' => '',
+                             'optionsProviderData' => '',
+                          )),
+                          2 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                             'name' => 'prop65',
+                             'title' => 'Prop65',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'fieldtype' => '',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => true,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'options' => 
+                            array (
+                              0 => 
+                              array (
+                                'key' => 'compliant',
+                                'value' => 'compliant',
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'not compliant',
+                                'value' => 'not compliant',
+                              ),
+                              2 => 
+                              array (
+                                'key' => 'not applicable',
+                                'value' => 'not not applicable',
+                              ),
+                            ),
+                             'defaultValue' => '',
+                             'columnLength' => 190,
+                             'dynamicOptions' => false,
+                             'defaultValueGenerator' => '',
+                             'width' => 350,
+                             'optionsProviderType' => 'configure',
+                             'optionsProviderClass' => '',
+                             'optionsProviderData' => '',
+                          )),
+                          3 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                             'name' => 'roHS',
+                             'title' => 'RoHS',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'fieldtype' => '',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => true,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'options' => 
+                            array (
+                              0 => 
+                              array (
+                                'key' => 'compliant',
+                                'value' => 'compliant',
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'not compliant',
+                                'value' => 'not compliant',
+                              ),
+                              2 => 
+                              array (
+                                'key' => 'not applicable',
+                                'value' => 'not applicable',
+                              ),
+                            ),
+                             'defaultValue' => '',
+                             'columnLength' => 190,
+                             'dynamicOptions' => false,
+                             'defaultValueGenerator' => '',
+                             'width' => 350,
+                             'optionsProviderType' => 'configure',
+                             'optionsProviderClass' => '',
+                             'optionsProviderData' => '',
+                          )),
+                          4 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                             'name' => 'gprs',
+                             'title' => 'GPRS',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'fieldtype' => '',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => true,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'options' => 
+                            array (
+                              0 => 
+                              array (
+                                'key' => 'compliant',
+                                'value' => 'compliant',
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'not applicable',
+                                'value' => 'not applicable',
+                              ),
+                              2 => 
+                              array (
+                                'key' => 'not compliant',
+                                'value' => 'not compliant',
+                              ),
+                            ),
+                             'defaultValue' => '',
+                             'columnLength' => 190,
+                             'dynamicOptions' => false,
+                             'defaultValueGenerator' => '',
+                             'width' => 350,
+                             'optionsProviderType' => 'configure',
+                             'optionsProviderClass' => '',
+                             'optionsProviderData' => '',
+                          )),
+                          5 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                             'name' => 'legalText',
+                             'title' => 'Legal Text',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'fieldtype' => '',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => true,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'maxLength' => NULL,
+                             'showCharCount' => false,
+                             'excludeFromSearchIndex' => false,
+                             'height' => 100,
+                             'width' => 350,
+                          )),
+                          6 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                             'name' => 'Disclaimer',
+                             'title' => 'Disclaimer',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'fieldtype' => '',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => true,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'maxLength' => NULL,
+                             'showCharCount' => false,
+                             'excludeFromSearchIndex' => false,
+                             'height' => 100,
+                             'width' => 350,
                           )),
                         ),
-                         'locked' => false,
-                         'blockedVarsForExport' => 
+                         'region' => NULL,
+                         'layout' => '',
+                         'maxTabs' => NULL,
+                         'border' => false,
+                         'provideSplitView' => false,
+                         'tabPosition' => 'top',
+                         'hideLabelsWhenTabsReached' => NULL,
+                         'referencedFields' => 
                         array (
                         ),
-                         'fieldtype' => 'fieldset',
-                         'labelWidth' => 100,
+                         'permissionView' => NULL,
+                         'permissionEdit' => NULL,
+                         'labelWidth' => 250,
                          'labelAlign' => 'left',
+                         'width' => '',
+                         'height' => '',
+                         'fieldDefinitionsCache' => NULL,
                       )),
                     ),
                      'locked' => false,
@@ -3403,6 +3393,28 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'virtualCatalogueFlag',
                          'title' => 'Virtual Catalogue Flag',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'defaultValueGenerator' => '',
+                      )),
+                      4 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                         'name' => 'customerPortalFlag',
+                         'title' => 'Customer Portal Flag',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
