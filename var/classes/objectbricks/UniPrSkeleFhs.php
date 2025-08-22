@@ -1013,14 +1013,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'labelAlign' => 'left',
               )),
               2 => 
-              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
-                 'name' => 'Layout',
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                 'name' => 'Field Container',
                  'type' => NULL,
                  'region' => NULL,
-                 'title' => '',
+                 'title' => NULL,
                  'width' => '',
                  'height' => '',
-                 'collapsible' => true,
+                 'collapsible' => false,
                  'collapsed' => false,
                  'bodyStyle' => '',
                  'datatype' => 'layout',
@@ -1155,7 +1155,9 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'blockedVarsForExport' => 
                 array (
                 ),
-                 'fieldtype' => 'fieldset',
+                 'fieldtype' => 'fieldcontainer',
+                 'layout' => 'vbox',
+                 'fieldLabel' => '',
                  'labelWidth' => 250,
                  'labelAlign' => 'left',
               )),
@@ -1891,7 +1893,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'maxLength' => NULL,
                              'showCharCount' => false,
                              'excludeFromSearchIndex' => false,
-                             'height' => '',
+                             'height' => 100,
                              'width' => 250,
                           )),
                         ),
@@ -2106,7 +2108,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'maxLength' => NULL,
                              'showCharCount' => false,
                              'excludeFromSearchIndex' => false,
-                             'height' => '',
+                             'height' => 100,
                              'width' => '',
                           )),
                           6 => 
@@ -2191,7 +2193,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'maxLength' => NULL,
                              'showCharCount' => false,
                              'excludeFromSearchIndex' => false,
-                             'height' => '',
+                             'height' => 100,
                              'width' => '',
                           )),
                           9 => 
@@ -2216,7 +2218,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'maxLength' => NULL,
                              'showCharCount' => false,
                              'excludeFromSearchIndex' => false,
-                             'height' => '',
+                             'height' => 100,
                              'width' => '',
                           )),
                           10 => 
@@ -2271,7 +2273,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'maxLength' => NULL,
                              'showCharCount' => false,
                              'excludeFromSearchIndex' => false,
-                             'height' => '',
+                             'height' => 100,
                              'width' => '',
                           )),
                           12 => 
@@ -2296,7 +2298,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'maxLength' => NULL,
                              'showCharCount' => false,
                              'excludeFromSearchIndex' => false,
-                             'height' => '',
+                             'height' => 100,
                              'width' => '',
                           )),
                           13 => 
@@ -2321,7 +2323,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'maxLength' => NULL,
                              'showCharCount' => false,
                              'excludeFromSearchIndex' => false,
-                             'height' => '',
+                             'height' => 100,
                              'width' => '',
                           )),
                           14 => 
@@ -2346,7 +2348,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'maxLength' => NULL,
                              'showCharCount' => false,
                              'excludeFromSearchIndex' => false,
-                             'height' => '',
+                             'height' => 100,
                              'width' => '',
                           )),
                           15 => 
@@ -2371,7 +2373,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'maxLength' => NULL,
                              'showCharCount' => false,
                              'excludeFromSearchIndex' => false,
-                             'height' => '',
+                             'height' => 100,
                              'width' => '',
                           )),
                           16 => 
@@ -2426,7 +2428,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'maxLength' => NULL,
                              'showCharCount' => false,
                              'excludeFromSearchIndex' => false,
-                             'height' => '',
+                             'height' => 100,
                              'width' => '',
                           )),
                           18 => 
@@ -2916,7 +2918,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'maxLength' => NULL,
                          'showCharCount' => false,
                          'excludeFromSearchIndex' => false,
-                         'height' => '',
+                         'height' => 100,
                          'width' => 250,
                       )),
                     ),
@@ -3461,7 +3463,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'maxLength' => NULL,
                          'showCharCount' => false,
                          'excludeFromSearchIndex' => false,
-                         'height' => '',
+                         'height' => 100,
                          'width' => '',
                       )),
                       6 => 
@@ -3546,7 +3548,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'maxLength' => NULL,
                          'showCharCount' => false,
                          'excludeFromSearchIndex' => false,
-                         'height' => '',
+                         'height' => 100,
                          'width' => '',
                       )),
                       9 => 
@@ -3571,7 +3573,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'maxLength' => NULL,
                          'showCharCount' => false,
                          'excludeFromSearchIndex' => false,
-                         'height' => '',
+                         'height' => 100,
                          'width' => '',
                       )),
                       10 => 
@@ -3626,7 +3628,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'maxLength' => NULL,
                          'showCharCount' => false,
                          'excludeFromSearchIndex' => false,
-                         'height' => '',
+                         'height' => 100,
                          'width' => '',
                       )),
                       12 => 
@@ -3651,7 +3653,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'maxLength' => NULL,
                          'showCharCount' => false,
                          'excludeFromSearchIndex' => false,
-                         'height' => '',
+                         'height' => 100,
                          'width' => '',
                       )),
                       13 => 
@@ -3676,7 +3678,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'maxLength' => NULL,
                          'showCharCount' => false,
                          'excludeFromSearchIndex' => false,
-                         'height' => '',
+                         'height' => 100,
                          'width' => '',
                       )),
                       14 => 
@@ -3701,7 +3703,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'maxLength' => NULL,
                          'showCharCount' => false,
                          'excludeFromSearchIndex' => false,
-                         'height' => '',
+                         'height' => 100,
                          'width' => '',
                       )),
                       15 => 
@@ -3726,7 +3728,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'maxLength' => NULL,
                          'showCharCount' => false,
                          'excludeFromSearchIndex' => false,
-                         'height' => '',
+                         'height' => 100,
                          'width' => '',
                       )),
                       16 => 
@@ -3781,7 +3783,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'maxLength' => NULL,
                          'showCharCount' => false,
                          'excludeFromSearchIndex' => false,
-                         'height' => '',
+                         'height' => 100,
                          'width' => '',
                       )),
                       18 => 

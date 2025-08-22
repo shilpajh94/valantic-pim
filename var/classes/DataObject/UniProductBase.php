@@ -62,6 +62,7 @@
  * - b2cFlag [checkbox]
  * - printedCatalogueFlag [checkbox]
  * - virtualCatalogueFlag [checkbox]
+ * - customerPortalFlag [checkbox]
  * - internalCategories [manyToManyObjectRelation]
  */
 
@@ -118,6 +119,7 @@ use Pimcore\Model\DataObject\PreGetValueHookInterface;
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByB2cFlag(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByPrintedCatalogueFlag(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByVirtualCatalogueFlag(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByCustomerPortalFlag(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByInternalCategories(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 */
 
@@ -179,6 +181,7 @@ public const FIELD_B2B_FLAG = 'b2bFlag';
 public const FIELD_B2C_FLAG = 'b2cFlag';
 public const FIELD_PRINTED_CATALOGUE_FLAG = 'printedCatalogueFlag';
 public const FIELD_VIRTUAL_CATALOGUE_FLAG = 'virtualCatalogueFlag';
+public const FIELD_CUSTOMER_PORTAL_FLAG = 'customerPortalFlag';
 public const FIELD_INTERNAL_CATEGORIES = 'internalCategories';
 
 protected $classId = "UNI_PR";
@@ -210,6 +213,7 @@ protected $b2bFlag;
 protected $b2cFlag;
 protected $printedCatalogueFlag;
 protected $virtualCatalogueFlag;
+protected $customerPortalFlag;
 protected $internalCategories;
 
 
@@ -2169,6 +2173,42 @@ public function setVirtualCatalogueFlag(?bool $virtualCatalogueFlag): static
 	$this->markFieldDirty("virtualCatalogueFlag", true);
 
 	$this->virtualCatalogueFlag = $virtualCatalogueFlag;
+
+	return $this;
+}
+
+/**
+* Get customerPortalFlag - Customer Portal Flag
+* @return bool|null
+*/
+public function getCustomerPortalFlag(): ?bool
+{
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("customerPortalFlag");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	$data = $this->customerPortalFlag;
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set customerPortalFlag - Customer Portal Flag
+* @param bool|null $customerPortalFlag
+* @return $this
+*/
+public function setCustomerPortalFlag(?bool $customerPortalFlag): static
+{
+	$this->markFieldDirty("customerPortalFlag", true);
+
+	$this->customerPortalFlag = $customerPortalFlag;
 
 	return $this;
 }
