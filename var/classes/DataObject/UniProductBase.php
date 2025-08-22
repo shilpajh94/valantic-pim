@@ -512,7 +512,7 @@ public function getProductCategory(?string $language = null): ?\Pimcore\Model\El
 
 /**
 * Get b2bSubCategory - B2b Sub Category
-* @return \Pimcore\Model\DataObject\AbstractObject[]
+* @return \Pimcore\Model\DataObject\[]
 */
 public function getB2bSubCategory(?string $language = null): array
 {
@@ -1098,7 +1098,7 @@ public function setProductCategory (?\Pimcore\Model\Element\AbstractElement $pro
 
 /**
 * Set b2bSubCategory - B2b Sub Category
-* @param \Pimcore\Model\DataObject\AbstractObject[] $b2bSubCategory
+* @param \Pimcore\Model\DataObject\[] $b2bSubCategory
 * @return $this
 */
 public function setB2bSubCategory (?array $b2bSubCategory, ?string $language = null): static
