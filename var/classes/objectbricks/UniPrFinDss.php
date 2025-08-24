@@ -6,8 +6,8 @@
  * -- modelType [manyToOneRelation]
  * -- bellowCompoundMaterial [manyToOneRelation]
  * -- hasInternalBumper [checkbox]
- * -- airInletLocation [manyToOneRelation]
  * -- basePlateMaterial [input]
+ * -- airInletLocation [manyToOneRelation]
  * - isBellowOnlyPart [checkbox]
  * - height [quantityValueRange]
  * - maximumBellowDiameter [quantityValue]
@@ -25,7 +25,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'key' => 'UniPrFinDss',
    'parentClass' => 'App\\Model\\DataObject\\UniProductManagement\\Objectbrick\\AbstractUniPrArticle',
    'implementsInterfaces' => '',
-   'title' => 'Brand Product DSS Group Data',
+   'title' => 'Finished Good Product Group Specific Data (DSS)',
    'group' => 'UniProductManagement',
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -47,8 +47,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'type' => NULL,
          'region' => NULL,
          'title' => '',
-         'width' => '',
-         'height' => '',
+         'width' => 0,
+         'height' => 0,
          'collapsible' => false,
          'collapsed' => false,
          'bodyStyle' => '',
@@ -61,8 +61,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'type' => NULL,
              'region' => NULL,
              'title' => '',
-             'width' => '',
-             'height' => '',
+             'width' => 0,
+             'height' => 0,
              'collapsible' => false,
              'collapsed' => false,
              'bodyStyle' => '',
@@ -75,8 +75,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'type' => NULL,
                  'region' => NULL,
                  'title' => 'Non-Functional Property',
-                 'width' => '',
-                 'height' => '',
+                 'width' => 0,
+                 'height' => 0,
                  'collapsible' => false,
                  'collapsed' => false,
                  'bodyStyle' => '',
@@ -110,7 +110,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'title' => 'Model Type',
                          'tooltip' => '',
                          'mandatory' => false,
-                         'noteditable' => false,
+                         'noteditable' => true,
                          'index' => false,
                          'locked' => false,
                          'style' => '',
@@ -144,7 +144,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'documentTypes' => 
                         array (
                         ),
-                         'width' => '',
+                         'width' => 250,
                       )),
                     ),
                      'region' => NULL,
@@ -217,7 +217,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'documentTypes' => 
                             array (
                             ),
-                             'width' => '',
+                             'width' => 250,
                           )),
                           1 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
@@ -241,47 +241,37 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValue' => 0,
                              'defaultValueGenerator' => '',
                           )),
-                        ),
-                         'region' => NULL,
-                         'layout' => NULL,
-                         'maxTabs' => 35,
-                         'border' => false,
-                         'provideSplitView' => false,
-                         'tabPosition' => 'top',
-                         'hideLabelsWhenTabsReached' => NULL,
-                         'referencedFields' => 
-                        array (
-                        ),
-                         'permissionView' => NULL,
-                         'permissionEdit' => NULL,
-                         'labelWidth' => 250,
-                         'labelAlign' => 'left',
-                         'width' => '',
-                         'height' => '',
-                         'fieldDefinitionsCache' => NULL,
-                      )),
-                      1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
-                         'name' => 'localizedfields',
-                         'title' => '',
-                         'tooltip' => NULL,
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => NULL,
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => true,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'children' => 
-                        array (
-                          0 => 
+                          2 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                             'name' => 'basePlateMaterial',
+                             'title' => 'Base Plate Material',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'fieldtype' => '',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => true,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'defaultValue' => NULL,
+                             'columnLength' => 190,
+                             'regex' => '',
+                             'regexFlags' => 
+                            array (
+                            ),
+                             'unique' => false,
+                             'showCharCount' => false,
+                             'width' => 256,
+                             'defaultValueGenerator' => '',
+                          )),
+                          3 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
                              'name' => 'airInletLocation',
                              'title' => 'Air Inlet Location',
@@ -321,77 +311,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'documentTypes' => 
                             array (
                             ),
-                             'width' => '',
-                          )),
-                        ),
-                         'region' => NULL,
-                         'layout' => NULL,
-                         'maxTabs' => NULL,
-                         'border' => false,
-                         'provideSplitView' => false,
-                         'tabPosition' => 'top',
-                         'hideLabelsWhenTabsReached' => NULL,
-                         'referencedFields' => 
-                        array (
-                        ),
-                         'permissionView' => NULL,
-                         'permissionEdit' => NULL,
-                         'labelWidth' => 100,
-                         'labelAlign' => 'left',
-                         'width' => '',
-                         'height' => '',
-                         'fieldDefinitionsCache' => NULL,
-                      )),
-                      2 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
-                         'name' => 'localizedfields',
-                         'title' => '',
-                         'tooltip' => NULL,
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => NULL,
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => true,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'children' => 
-                        array (
-                          0 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                             'name' => 'basePlateMaterial',
-                             'title' => 'Base Plate Material',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => '',
-                             'permissions' => NULL,
-                             'fieldtype' => '',
-                             'relationType' => false,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => true,
-                             'blockedVarsForExport' => 
-                            array (
-                            ),
-                             'defaultValue' => NULL,
-                             'columnLength' => 190,
-                             'regex' => '',
-                             'regexFlags' => 
-                            array (
-                            ),
-                             'unique' => false,
-                             'showCharCount' => false,
-                             'width' => '',
-                             'defaultValueGenerator' => '',
+                             'width' => 250,
                           )),
                         ),
                          'region' => NULL,
@@ -406,16 +326,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                         ),
                          'permissionView' => NULL,
                          'permissionEdit' => NULL,
-                         'labelWidth' => 250,
+                         'labelWidth' => 200,
                          'labelAlign' => 'left',
-                         'width' => '',
-                         'height' => '',
+                         'width' => 0,
+                         'height' => 0,
                          'fieldDefinitionsCache' => NULL,
                       )),
                     ),
                      'permissionView' => NULL,
                      'permissionEdit' => NULL,
-                     'labelWidth' => 250,
+                     'labelWidth' => 200,
                      'labelAlign' => 'left',
                      'width' => '',
                      'height' => '',
@@ -429,41 +349,18 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'fieldtype' => 'panel',
                  'layout' => NULL,
                  'border' => false,
-                 'icon' => '',
-                 'labelWidth' => 100,
+                 'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/service_mark.svg',
+                 'labelWidth' => 200,
                  'labelAlign' => 'left',
               )),
-            ),
-             'locked' => false,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'fieldtype' => 'tabpanel',
-             'border' => false,
-             'tabPosition' => 'top',
-          )),
-          1 => 
-          Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
-             'name' => 'TabPanel',
-             'type' => NULL,
-             'region' => NULL,
-             'title' => '',
-             'width' => '',
-             'height' => '',
-             'collapsible' => false,
-             'collapsed' => false,
-             'bodyStyle' => '',
-             'datatype' => 'layout',
-             'children' => 
-            array (
-              0 => 
+              1 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                  'name' => 'Physical / Mechanical Property',
                  'type' => NULL,
                  'region' => NULL,
                  'title' => 'Physical / Mechanical Property',
-                 'width' => '',
-                 'height' => '',
+                 'width' => 0,
+                 'height' => 0,
                  'collapsible' => false,
                  'collapsed' => false,
                  'bodyStyle' => '',
@@ -500,41 +397,18 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'fieldtype' => 'panel',
                  'layout' => NULL,
                  'border' => false,
-                 'icon' => '',
-                 'labelWidth' => 100,
+                 'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/self_service_kiosk.svg',
+                 'labelWidth' => 200,
                  'labelAlign' => 'left',
               )),
-            ),
-             'locked' => false,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'fieldtype' => 'tabpanel',
-             'border' => false,
-             'tabPosition' => 'top',
-          )),
-          2 => 
-          Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
-             'name' => 'TabPanel',
-             'type' => NULL,
-             'region' => NULL,
-             'title' => '',
-             'width' => '',
-             'height' => '',
-             'collapsible' => false,
-             'collapsed' => false,
-             'bodyStyle' => '',
-             'datatype' => 'layout',
-             'children' => 
-            array (
-              0 => 
+              2 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                  'name' => 'Design Property',
                  'type' => NULL,
                  'region' => NULL,
                  'title' => 'Design Property',
-                 'width' => '',
-                 'height' => '',
+                 'width' => 0,
+                 'height' => '100%',
                  'collapsible' => false,
                  'collapsed' => false,
                  'bodyStyle' => '',
@@ -547,8 +421,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'type' => NULL,
                      'region' => NULL,
                      'title' => NULL,
-                     'width' => '',
-                     'height' => '',
+                     'width' => 0,
+                     'height' => 0,
                      'collapsible' => false,
                      'collapsed' => false,
                      'bodyStyle' => '',
@@ -561,7 +435,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'type' => NULL,
                          'region' => NULL,
                          'title' => NULL,
-                         'width' => 0,
+                         'width' => 525,
                          'height' => 0,
                          'collapsible' => false,
                          'collapsed' => false,
@@ -588,8 +462,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'blockedVarsForExport' => 
                             array (
                             ),
-                             'unitWidth' => '',
-                             'defaultUnit' => NULL,
+                             'unitWidth' => 100,
+                             'defaultUnit' => 'distance_in',
                              'validUnits' => 
                             array (
                               0 => 'distance_mm',
@@ -597,7 +471,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                             ),
                              'decimalPrecision' => NULL,
                              'autoConvert' => false,
-                             'width' => '',
+                             'width' => 152,
                           )),
                           1 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
@@ -618,7 +492,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'blockedVarsForExport' => 
                             array (
                             ),
-                             'unitWidth' => '',
+                             'unitWidth' => 100,
                              'defaultUnit' => NULL,
                              'validUnits' => 
                             array (
@@ -628,7 +502,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'unique' => false,
                              'autoConvert' => false,
                              'defaultValueGenerator' => '',
-                             'width' => '',
+                             'width' => 152,
                              'defaultValue' => NULL,
                              'integer' => false,
                              'unsigned' => true,
@@ -645,7 +519,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'fieldtype' => 'fieldcontainer',
                          'layout' => 'vbox',
                          'fieldLabel' => '',
-                         'labelWidth' => 115,
+                         'labelWidth' => 200,
                          'labelAlign' => 'left',
                       )),
                       1 => 
@@ -658,7 +532,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'height' => 0,
                          'collapsible' => false,
                          'collapsed' => false,
-                         'bodyStyle' => '',
+                         'bodyStyle' => 'padding-left: 75px;',
                          'datatype' => 'layout',
                          'children' => 
                         array (
@@ -681,7 +555,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'blockedVarsForExport' => 
                             array (
                             ),
-                             'unitWidth' => '',
+                             'unitWidth' => 100,
                              'defaultUnit' => NULL,
                              'validUnits' => 
                             array (
@@ -691,7 +565,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'unique' => false,
                              'autoConvert' => false,
                              'defaultValueGenerator' => '',
-                             'width' => '',
+                             'width' => 152,
                              'defaultValue' => NULL,
                              'integer' => false,
                              'unsigned' => true,
@@ -719,7 +593,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'blockedVarsForExport' => 
                             array (
                             ),
-                             'unitWidth' => '',
+                             'unitWidth' => 100,
                              'defaultUnit' => NULL,
                              'validUnits' => 
                             array (
@@ -730,7 +604,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'unique' => false,
                              'autoConvert' => false,
                              'defaultValueGenerator' => '',
-                             'width' => '',
+                             'width' => 152,
                              'defaultValue' => NULL,
                              'integer' => false,
                              'unsigned' => true,
@@ -747,7 +621,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'fieldtype' => 'fieldcontainer',
                          'layout' => 'vbox',
                          'fieldLabel' => '',
-                         'labelWidth' => 115,
+                         'labelWidth' => 200,
                          'labelAlign' => 'left',
                       )),
                     ),
@@ -758,7 +632,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'fieldtype' => 'fieldcontainer',
                      'layout' => 'hbox',
                      'fieldLabel' => '',
-                     'labelWidth' => 100,
+                     'labelWidth' => 200,
                      'labelAlign' => 'left',
                   )),
                   1 => 
@@ -822,7 +696,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'documentTypes' => 
                         array (
                         ),
-                         'width' => '',
+                         'width' => 250,
                       )),
                       1 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
@@ -846,6 +720,78 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'defaultValue' => 0,
                          'defaultValueGenerator' => '',
                       )),
+                      2 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'name' => 'basePlateMaterial',
+                         'title' => 'Base Plate Material',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'columnLength' => 190,
+                         'regex' => '',
+                         'regexFlags' => 
+                        array (
+                        ),
+                         'unique' => false,
+                         'showCharCount' => false,
+                         'width' => 256,
+                         'defaultValueGenerator' => '',
+                      )),
+                      3 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                         'name' => 'airInletLocation',
+                         'title' => 'Air Inlet Location',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => true,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => 'UniPrAirInletLocationDss',
+                          ),
+                        ),
+                         'displayMode' => 'grid',
+                         'pathFormatterClass' => '',
+                         'assetInlineDownloadAllowed' => false,
+                         'assetUploadPath' => '',
+                         'allowToClearRelation' => true,
+                         'objectsAllowed' => true,
+                         'assetsAllowed' => false,
+                         'assetTypes' => 
+                        array (
+                        ),
+                         'documentsAllowed' => false,
+                         'documentTypes' => 
+                        array (
+                        ),
+                         'width' => 250,
+                      )),
                     ),
                      'region' => NULL,
                      'layout' => NULL,
@@ -859,10 +805,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'permissionView' => NULL,
                      'permissionEdit' => NULL,
-                     'labelWidth' => 250,
+                     'labelWidth' => 200,
                      'labelAlign' => 'left',
-                     'width' => '',
-                     'height' => '',
+                     'width' => 0,
+                     'height' => 0,
                      'fieldDefinitionsCache' => NULL,
                   )),
                   2 => 
@@ -905,91 +851,9 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'documentTypes' => 
                     array (
                     ),
-                     'width' => '',
+                     'width' => 250,
                   )),
                   3 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
-                     'name' => 'localizedfields',
-                     'title' => '',
-                     'tooltip' => NULL,
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => NULL,
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => true,
-                     'visibleSearch' => true,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'children' => 
-                    array (
-                      0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                         'name' => 'airInletLocation',
-                         'title' => 'Air Inlet Location',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => true,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'classes' => 
-                        array (
-                          0 => 
-                          array (
-                            'classes' => 'UniPrAirInletLocationDss',
-                          ),
-                        ),
-                         'displayMode' => 'grid',
-                         'pathFormatterClass' => '',
-                         'assetInlineDownloadAllowed' => false,
-                         'assetUploadPath' => '',
-                         'allowToClearRelation' => true,
-                         'objectsAllowed' => true,
-                         'assetsAllowed' => false,
-                         'assetTypes' => 
-                        array (
-                        ),
-                         'documentsAllowed' => false,
-                         'documentTypes' => 
-                        array (
-                        ),
-                         'width' => '',
-                      )),
-                    ),
-                     'region' => NULL,
-                     'layout' => NULL,
-                     'maxTabs' => NULL,
-                     'border' => false,
-                     'provideSplitView' => false,
-                     'tabPosition' => 'top',
-                     'hideLabelsWhenTabsReached' => NULL,
-                     'referencedFields' => 
-                    array (
-                    ),
-                     'permissionView' => NULL,
-                     'permissionEdit' => NULL,
-                     'labelWidth' => 100,
-                     'labelAlign' => 'left',
-                     'width' => '',
-                     'height' => '',
-                     'fieldDefinitionsCache' => NULL,
-                  )),
-                  4 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'airInletThread',
                      'title' => 'Air Inlet Thread',
@@ -1016,10 +880,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     ),
                      'unique' => false,
                      'showCharCount' => false,
-                     'width' => '',
+                     'width' => 256,
                      'defaultValueGenerator' => '',
                   )),
-                  5 => 
+                  4 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
                      'name' => 'rollingLobePistonMaterial',
                      'title' => 'Rolling Lobe - Piston Material',
@@ -1059,9 +923,9 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'documentTypes' => 
                     array (
                     ),
-                     'width' => '',
+                     'width' => 250,
                   )),
-                  6 => 
+                  5 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                      'name' => 'permissibleInstallationSpace',
                      'title' => 'Permissible Installation Space',
@@ -1081,80 +945,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     array (
                     ),
                      'uploadPath' => '/Product Assets/DSS/Permissable Installation Space',
-                     'width' => 500,
+                     'width' => 568,
                      'height' => '',
                   )),
-                  7 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
-                     'name' => 'localizedfields',
-                     'title' => '',
-                     'tooltip' => NULL,
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => NULL,
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => true,
-                     'visibleSearch' => true,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'children' => 
-                    array (
-                      0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'name' => 'basePlateMaterial',
-                         'title' => 'Base Plate Material',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'columnLength' => 190,
-                         'regex' => '',
-                         'regexFlags' => 
-                        array (
-                        ),
-                         'unique' => false,
-                         'showCharCount' => false,
-                         'width' => '',
-                         'defaultValueGenerator' => '',
-                      )),
-                    ),
-                     'region' => NULL,
-                     'layout' => NULL,
-                     'maxTabs' => 35,
-                     'border' => false,
-                     'provideSplitView' => false,
-                     'tabPosition' => 'top',
-                     'hideLabelsWhenTabsReached' => NULL,
-                     'referencedFields' => 
-                    array (
-                    ),
-                     'permissionView' => NULL,
-                     'permissionEdit' => NULL,
-                     'labelWidth' => 250,
-                     'labelAlign' => 'left',
-                     'width' => '',
-                     'height' => '',
-                     'fieldDefinitionsCache' => NULL,
-                  )),
-                  8 => 
+                  6 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'name' => 'numberOfConvolutions',
                      'title' => 'Number of Convolutions',
@@ -1181,7 +975,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                     'width' => '',
+                     'width' => 256,
                      'defaultValueGenerator' => '',
                   )),
                 ),
@@ -1192,8 +986,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'fieldtype' => 'panel',
                  'layout' => NULL,
                  'border' => false,
-                 'icon' => '',
-                 'labelWidth' => 100,
+                 'icon' => '/bundles/pimcoreadmin/img/twemoji/1f6e0.svg',
+                 'labelWidth' => 200,
                  'labelAlign' => 'left',
               )),
             ),
