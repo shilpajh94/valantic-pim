@@ -6,8 +6,8 @@
  * -- modelType [manyToOneRelation]
  * -- bellowCompoundMaterial [manyToOneRelation]
  * -- hasInternalBumper [checkbox]
- * -- airInletLocation [manyToOneRelation]
  * -- basePlateMaterial [input]
+ * -- airInletLocation [manyToOneRelation]
  * - isBellowOnlyPart [checkbox]
  * - height [quantityValueRange]
  * - maximumBellowDiameter [quantityValue]
@@ -32,8 +32,8 @@ class UniPrFinDss extends \App\Model\DataObject\UniProductManagement\Objectbrick
 public const FIELD_MODEL_TYPE = 'modelType';
 public const FIELD_BELLOW_COMPOUND_MATERIAL = 'bellowCompoundMaterial';
 public const FIELD_HAS_INTERNAL_BUMPER = 'hasInternalBumper';
-public const FIELD_AIR_INLET_LOCATION = 'airInletLocation';
 public const FIELD_BASE_PLATE_MATERIAL = 'basePlateMaterial';
+public const FIELD_AIR_INLET_LOCATION = 'airInletLocation';
 public const FIELD_IS_BELLOW_ONLY_PART = 'isBellowOnlyPart';
 public const FIELD_HEIGHT = 'height';
 public const FIELD_MAXIMUM_BELLOW_DIAMETER = 'maximumBellowDiameter';
@@ -134,12 +134,12 @@ public function getHasInternalBumper(?string $language = null): ?bool
 }
 
 /**
-* Get airInletLocation - Air Inlet Location
-* @return \Pimcore\Model\DataObject\UniPrAirInletLocationDss|null
+* Get basePlateMaterial - Base Plate Material
+* @return string|null
 */
-public function getAirInletLocation(?string $language = null): ?\Pimcore\Model\Element\AbstractElement
+public function getBasePlateMaterial(?string $language = null): ?string
 {
-	$data = $this->getLocalizedfields()->getLocalizedValue("airInletLocation", $language);
+	$data = $this->getLocalizedfields()->getLocalizedValue("basePlateMaterial", $language);
 	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
 		return $data->getPlain();
 	}
@@ -148,12 +148,12 @@ public function getAirInletLocation(?string $language = null): ?\Pimcore\Model\E
 }
 
 /**
-* Get basePlateMaterial - Base Plate Material
-* @return string|null
+* Get airInletLocation - Air Inlet Location
+* @return \Pimcore\Model\DataObject\UniPrAirInletLocationDss|null
 */
-public function getBasePlateMaterial(?string $language = null): ?string
+public function getAirInletLocation(?string $language = null): ?\Pimcore\Model\Element\AbstractElement
 {
-	$data = $this->getLocalizedfields()->getLocalizedValue("basePlateMaterial", $language);
+	$data = $this->getLocalizedfields()->getLocalizedValue("airInletLocation", $language);
 	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
 		return $data->getPlain();
 	}
@@ -242,6 +242,19 @@ public function setHasInternalBumper (?bool $hasInternalBumper, ?string $languag
 }
 
 /**
+* Set basePlateMaterial - Base Plate Material
+* @param string|null $basePlateMaterial
+* @return $this
+*/
+public function setBasePlateMaterial (?string $basePlateMaterial, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("basePlateMaterial", $basePlateMaterial, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
 * Set airInletLocation - Air Inlet Location
 * @param \Pimcore\Model\DataObject\UniPrAirInletLocationDss|null $airInletLocation
 * @return $this
@@ -258,19 +271,6 @@ public function setAirInletLocation (?\Pimcore\Model\Element\AbstractElement $ai
 		$this->markFieldDirty("airInletLocation", true);
 	}
 	$this->getLocalizedfields()->setLocalizedValue("airInletLocation", $airInletLocation, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set basePlateMaterial - Base Plate Material
-* @param string|null $basePlateMaterial
-* @return $this
-*/
-public function setBasePlateMaterial (?string $basePlateMaterial, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("basePlateMaterial", $basePlateMaterial, $language, !$isEqual);
 
 	return $this;
 }
