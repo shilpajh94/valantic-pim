@@ -31,10 +31,10 @@
 
 return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'dao' => NULL,
-   'key' => 'UniPrParentFhs',
+   'key' => 'UniPrBrandFhs',
    'parentClass' => '',
    'implementsInterfaces' => '',
-   'title' => 'Parent Product Group Specific Data (FHS)',
+   'title' => 'Brand Product Group Specific Data (FHS)',
    'group' => 'UniProductManagement',
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
