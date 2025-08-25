@@ -217,13 +217,10 @@ class GenerateCommand extends AbstractDummyDataCommand
     private function assignProductGroupSpecificBrandData(UniProductCategoryInternal $object): void
     {
         $baseProductData = (new UniPrBrand($object))
-            ->setProductDescriptionShort('FRONTIER RED 200 PSI WORKING PRESSURE  3/4X500 FOOT REEL ')
-            ->setIndustrialStandard('CEI EN 60312')
             ->setMarketingDescriptionLong('Variflex is a good-quality, economical general purpose hose with an ARPM Class A (Limited Oil Resistance) tube and cover. This hose is for industrial air service, compressor lines, pneumatic tools, low-pressure spray and many other applications where the need for oil resistance is high. It is Non-conductive with a minimum electrical resistance greater than one (1) megohm per inch of length of hose at 1000 V DC. Available in 200, 250 and 300 PSI working pressures.')
             ->setMarketingDescriptionLong('Variflex 是一種品質優良、經濟實惠的通用軟管，配有 ARPM A 級（耐油性有限）的管子和外層。此軟管適用於工業空氣服務、壓縮機管路、氣動工具、低壓噴霧及許多對耐油性需求較高的其他應用。它不導電，在 1000 V 直流電壓下，每英吋軟管長度的最小電阻大於一 (1) 兆歐姆。提供 200、250 和 300 PSI 工作壓力。', 'zh_Hans_CN')
             ->setMarketingDescriptionLong('Variflex는 ARPM 클래스 A(제한적 내유성) 튜브와 커버가 있는 고품질의 경제적인 범용 호스입니다. 이 호스는 산업용 공기 서비스, 컴프레서 라인, 공압 공구, 저압 스프레이 및 기타 오일 저항이 필요한 다양한 용도에 사용됩니다. 비전도성이며 1000V DC에서 호스 길이 1인치당 최소 전기 저항이 1메가옴보다 큽니다. 200, 250 및 300 PSI 작동 압력으로 제공됩니다.', 'ko_KP')
             ->setMarketingDescriptionLong('Variflexは、ARPMクラスA（限定耐油性）のチューブとカバーを備えた、良質で経済的な汎用ホースです。このホースは、工業用エアサービス、コンプレッサーライン、空気圧ツール、低圧スプレーなど、耐油性の必要性が高い多くの用途に適しています。このホースは非導電性で、1000 V DCでホースの長さ1インチあたり1メガオーム以上の最小電気抵抗を示します。使用圧力は200、250、300 PSIがあります。', 'ja_JP')
-            ->setMainImage($this->mainImage)
         ;
 
         $object->getLevelSpecificData()?->setUniPrBrand($baseProductData);
