@@ -14,28 +14,19 @@
  * - localizedfields [localizedfields]
  * -- productSubCategory [manyToOneRelation]
  * -- productCategory [manyToOneRelation]
- * -- b2bSubCategory [manyToManyObjectRelation]
  * -- sapDescription [input]
  * -- sapDescriptionLanguage [select]
  * -- plantProduced [select]
  * -- unitOfMeasure [quantityValue]
  * -- weight [numeric]
- * -- marketingDescriptionLong [wysiwyg]
- * -- marketingDescriptionShort [wysiwyg]
- * -- featuresAndBenefits [select]
  * -- productDescriptionShort [textarea]
  * -- productDescriptionLong [textarea]
- * -- productDescriptionExtended [wysiwyg]
  * -- productMarking1 [textarea]
  * -- productMarking2 [textarea]
- * -- applications [textarea]
- * -- hazardousSubstanceClassification [multiselect]
- * -- reach [select]
+ * -- productDescriptionExtended [wysiwyg]
  * -- prop65 [select]
  * -- roHS [select]
  * -- gprs [select]
- * -- legalText [textarea]
- * -- Disclaimer [textarea]
  * -- completenessPercentage [input]
  * -- emptyFieldsBrand [textarea]
  * -- emptyFieldsSkeleton [textarea]
@@ -43,9 +34,9 @@
  * - sapMaterialNumber [input]
  * - partNumber [input]
  * - oldMaterialNumber [input]
- * - eanCode [input]
- * - countryOfOrigin [country]
  * - tariffCodes [numeric]
+ * - countryOfOrigin [country]
+ * - eanCode [input]
  * - ghpFullCode [input]
  * - skeletonPimInternalHierarchyCode [calculatedValue]
  * - hierarchySearchData [calculatedValue]
@@ -57,12 +48,11 @@
  * - competitorCrossReference [fieldcollections]
  * - customerReference [fieldcollections]
  * - oemCrossReference [fieldcollections]
- * - industrialStandards [multiselect]
- * - agencyCompliance [multiselect]
  * - b2bFlag [checkbox]
  * - b2cFlag [checkbox]
  * - printedCatalogueFlag [checkbox]
  * - virtualCatalogueFlag [checkbox]
+ * - customerPortalFlag [checkbox]
  * - internalCategories [manyToManyObjectRelation]
  */
 
@@ -80,28 +70,19 @@ use Pimcore\Model\DataObject\PreGetValueHookInterface;
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByLocalizedfields(string $field, mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByProductSubCategory(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByProductCategory(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByB2bSubCategory(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getBySapDescription(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getBySapDescriptionLanguage(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByPlantProduced(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByUnitOfMeasure(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByWeight(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByMarketingDescriptionLong(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByMarketingDescriptionShort(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByFeaturesAndBenefits(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByProductDescriptionShort(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByProductDescriptionLong(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByProductDescriptionExtended(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByProductMarking1(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByProductMarking2(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByApplications(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByHazardousSubstanceClassification(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByReach(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByProductDescriptionExtended(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByProp65(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByRoHS(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByGprs(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByLegalText(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByDisclaimer(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByCompletenessPercentage(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByEmptyFieldsBrand(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByEmptyFieldsSkeleton(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
@@ -109,17 +90,16 @@ use Pimcore\Model\DataObject\PreGetValueHookInterface;
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getBySapMaterialNumber(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByPartNumber(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByOldMaterialNumber(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByEanCode(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByCountryOfOrigin(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByTariffCodes(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByCountryOfOrigin(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByEanCode(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByGhpFullCode(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByRegionalAvailability(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByIndustrialStandards(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByAgencyCompliance(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByB2bFlag(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByB2cFlag(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByPrintedCatalogueFlag(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByVirtualCatalogueFlag(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByCustomerPortalFlag(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByInternalCategories(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 */
 
@@ -133,28 +113,19 @@ public const FIELD_PRODUCT_FAMILY = 'productFamily';
 public const FIELD_PRODUCT_DESIGN = 'productDesign';
 public const FIELD_PRODUCT_SUB_CATEGORY = 'productSubCategory';
 public const FIELD_PRODUCT_CATEGORY = 'productCategory';
-public const FIELD_B2B_SUB_CATEGORY = 'b2bSubCategory';
 public const FIELD_SAP_DESCRIPTION = 'sapDescription';
 public const FIELD_SAP_DESCRIPTION_LANGUAGE = 'sapDescriptionLanguage';
 public const FIELD_PLANT_PRODUCED = 'plantProduced';
 public const FIELD_UNIT_OF_MEASURE = 'unitOfMeasure';
 public const FIELD_WEIGHT = 'weight';
-public const FIELD_MARKETING_DESCRIPTION_LONG = 'marketingDescriptionLong';
-public const FIELD_MARKETING_DESCRIPTION_SHORT = 'marketingDescriptionShort';
-public const FIELD_FEATURES_AND_BENEFITS = 'featuresAndBenefits';
 public const FIELD_PRODUCT_DESCRIPTION_SHORT = 'productDescriptionShort';
 public const FIELD_PRODUCT_DESCRIPTION_LONG = 'productDescriptionLong';
-public const FIELD_PRODUCT_DESCRIPTION_EXTENDED = 'productDescriptionExtended';
 public const FIELD_PRODUCT_MARKING1 = 'productMarking1';
 public const FIELD_PRODUCT_MARKING2 = 'productMarking2';
-public const FIELD_APPLICATIONS = 'applications';
-public const FIELD_HAZARDOUS_SUBSTANCE_CLASSIFICATION = 'hazardousSubstanceClassification';
-public const FIELD_REACH = 'reach';
+public const FIELD_PRODUCT_DESCRIPTION_EXTENDED = 'productDescriptionExtended';
 public const FIELD_PROP65 = 'prop65';
 public const FIELD_RO_HS = 'roHS';
 public const FIELD_GPRS = 'gprs';
-public const FIELD_LEGAL_TEXT = 'legalText';
-public const FIELD_DISCLAIMER = 'Disclaimer';
 public const FIELD_COMPLETENESS_PERCENTAGE = 'completenessPercentage';
 public const FIELD_EMPTY_FIELDS_BRAND = 'emptyFieldsBrand';
 public const FIELD_EMPTY_FIELDS_SKELETON = 'emptyFieldsSkeleton';
@@ -162,9 +133,9 @@ public const FIELD_EMPTY_FIELDS_FINISHED_GOOD = 'emptyFieldsFinishedGood';
 public const FIELD_SAP_MATERIAL_NUMBER = 'sapMaterialNumber';
 public const FIELD_PART_NUMBER = 'partNumber';
 public const FIELD_OLD_MATERIAL_NUMBER = 'oldMaterialNumber';
-public const FIELD_EAN_CODE = 'eanCode';
-public const FIELD_COUNTRY_OF_ORIGIN = 'countryOfOrigin';
 public const FIELD_TARIFF_CODES = 'tariffCodes';
+public const FIELD_COUNTRY_OF_ORIGIN = 'countryOfOrigin';
+public const FIELD_EAN_CODE = 'eanCode';
 public const FIELD_GHP_FULL_CODE = 'ghpFullCode';
 public const FIELD_SKELETON_PIM_INTERNAL_HIERARCHY_CODE = 'skeletonPimInternalHierarchyCode';
 public const FIELD_HIERARCHY_SEARCH_DATA = 'hierarchySearchData';
@@ -176,12 +147,11 @@ public const FIELD_REGIONS = 'regions';
 public const FIELD_COMPETITOR_CROSS_REFERENCE = 'competitorCrossReference';
 public const FIELD_CUSTOMER_REFERENCE = 'customerReference';
 public const FIELD_OEM_CROSS_REFERENCE = 'oemCrossReference';
-public const FIELD_INDUSTRIAL_STANDARDS = 'industrialStandards';
-public const FIELD_AGENCY_COMPLIANCE = 'agencyCompliance';
 public const FIELD_B2B_FLAG = 'b2bFlag';
 public const FIELD_B2C_FLAG = 'b2cFlag';
 public const FIELD_PRINTED_CATALOGUE_FLAG = 'printedCatalogueFlag';
 public const FIELD_VIRTUAL_CATALOGUE_FLAG = 'virtualCatalogueFlag';
+public const FIELD_CUSTOMER_PORTAL_FLAG = 'customerPortalFlag';
 public const FIELD_INTERNAL_CATEGORIES = 'internalCategories';
 
 protected $classId = "UNI_PR";
@@ -196,9 +166,9 @@ protected $localizedfields;
 protected $sapMaterialNumber;
 protected $partNumber;
 protected $oldMaterialNumber;
-protected $eanCode;
-protected $countryOfOrigin;
 protected $tariffCodes;
+protected $countryOfOrigin;
+protected $eanCode;
 protected $ghpFullCode;
 protected $weightMetric;
 protected $weightImperial;
@@ -207,12 +177,11 @@ protected $regionalAvailability;
 protected $competitorCrossReference;
 protected $customerReference;
 protected $oemCrossReference;
-protected $industrialStandards;
-protected $agencyCompliance;
 protected $b2bFlag;
 protected $b2cFlag;
 protected $printedCatalogueFlag;
 protected $virtualCatalogueFlag;
+protected $customerPortalFlag;
 protected $internalCategories;
 
 
@@ -510,27 +479,6 @@ public function getProductCategory(?string $language = null): ?\Pimcore\Model\El
 }
 
 /**
-* Get b2bSubCategory - B2b Sub Category
-* @return \Pimcore\Model\DataObject\AbstractObject[]
-*/
-public function getB2bSubCategory(?string $language = null): array
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("b2bSubCategory", $language);
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("b2bSubCategory");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
 * Get sapDescription - SAP Description
 * @return string|null
 */
@@ -636,69 +584,6 @@ public function getWeight(?string $language = null): ?float
 }
 
 /**
-* Get marketingDescriptionLong - Marketing Description - Long
-* @return string|null
-*/
-public function getMarketingDescriptionLong(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("marketingDescriptionLong", $language);
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("marketingDescriptionLong");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get marketingDescriptionShort - Marketing Description - Short
-* @return string|null
-*/
-public function getMarketingDescriptionShort(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("marketingDescriptionShort", $language);
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("marketingDescriptionShort");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get featuresAndBenefits - Features And Benefits
-* @return string|null
-*/
-public function getFeaturesAndBenefits(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("featuresAndBenefits", $language);
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("featuresAndBenefits");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
 * Get productDescriptionShort - Product Description  - Short
 * @return string|null
 */
@@ -728,27 +613,6 @@ public function getProductDescriptionLong(?string $language = null): ?string
 	$data = $this->getLocalizedfields()->getLocalizedValue("productDescriptionLong", $language);
 	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
 		$preValue = $this->preGetValue("productDescriptionLong");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get productDescriptionExtended - Product Description - Extended
-* @return string|null
-*/
-public function getProductDescriptionExtended(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("productDescriptionExtended", $language);
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("productDescriptionExtended");
 		if ($preValue !== null) {
 			return $preValue;
 		}
@@ -804,56 +668,14 @@ public function getProductMarking2(?string $language = null): ?string
 }
 
 /**
-* Get applications - Applications
+* Get productDescriptionExtended - Product Description - Extended
 * @return string|null
 */
-public function getApplications(?string $language = null): ?string
+public function getProductDescriptionExtended(?string $language = null): ?string
 {
-	$data = $this->getLocalizedfields()->getLocalizedValue("applications", $language);
+	$data = $this->getLocalizedfields()->getLocalizedValue("productDescriptionExtended", $language);
 	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("applications");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get hazardousSubstanceClassification - Hazardous Substance Classification  
-* @return string[]|null
-*/
-public function getHazardousSubstanceClassification(?string $language = null): ?array
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("hazardousSubstanceClassification", $language);
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("hazardousSubstanceClassification");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get reach - REACH  
-* @return string|null
-*/
-public function getReach(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("reach", $language);
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("reach");
+		$preValue = $this->preGetValue("productDescriptionExtended");
 		if ($preValue !== null) {
 			return $preValue;
 		}
@@ -917,48 +739,6 @@ public function getGprs(?string $language = null): ?string
 	$data = $this->getLocalizedfields()->getLocalizedValue("gprs", $language);
 	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
 		$preValue = $this->preGetValue("gprs");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get legalText - Legal Text
-* @return string|null
-*/
-public function getLegalText(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("legalText", $language);
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("legalText");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get Disclaimer - Disclaimer
-* @return string|null
-*/
-public function getDisclaimer(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("Disclaimer", $language);
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("Disclaimer");
 		if ($preValue !== null) {
 			return $preValue;
 		}
@@ -1117,27 +897,6 @@ public function setProductCategory (?\Pimcore\Model\Element\AbstractElement $pro
 }
 
 /**
-* Set b2bSubCategory - B2b Sub Category
-* @param \Pimcore\Model\DataObject\AbstractObject[] $b2bSubCategory
-* @return $this
-*/
-public function setB2bSubCategory (?array $b2bSubCategory, ?string $language = null): static
-{
-	$fd = $this->getClass()->getFieldDefinition("localizedfields")->getFieldDefinition("b2bSubCategory");
-	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
-	$currentData = $this->getB2bSubCategory($language);
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
-	$isEqual = $fd->isEqual($currentData, $b2bSubCategory);
-	if (!$isEqual) {
-		$this->markFieldDirty("b2bSubCategory", true);
-	}
-	$this->getLocalizedfields()->setLocalizedValue("b2bSubCategory", $b2bSubCategory, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
 * Set sapDescription - SAP Description
 * @param string|null $sapDescription
 * @return $this
@@ -1203,45 +962,6 @@ public function setWeight (?float $weight, ?string $language = null): static
 }
 
 /**
-* Set marketingDescriptionLong - Marketing Description - Long
-* @param string|null $marketingDescriptionLong
-* @return $this
-*/
-public function setMarketingDescriptionLong (?string $marketingDescriptionLong, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("marketingDescriptionLong", $marketingDescriptionLong, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set marketingDescriptionShort - Marketing Description - Short
-* @param string|null $marketingDescriptionShort
-* @return $this
-*/
-public function setMarketingDescriptionShort (?string $marketingDescriptionShort, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("marketingDescriptionShort", $marketingDescriptionShort, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set featuresAndBenefits - Features And Benefits
-* @param string|null $featuresAndBenefits
-* @return $this
-*/
-public function setFeaturesAndBenefits (?string $featuresAndBenefits, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("featuresAndBenefits", $featuresAndBenefits, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
 * Set productDescriptionShort - Product Description  - Short
 * @param string|null $productDescriptionShort
 * @return $this
@@ -1263,19 +983,6 @@ public function setProductDescriptionLong (?string $productDescriptionLong, ?str
 {
 	$isEqual = false;
 	$this->getLocalizedfields()->setLocalizedValue("productDescriptionLong", $productDescriptionLong, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set productDescriptionExtended - Product Description - Extended
-* @param string|null $productDescriptionExtended
-* @return $this
-*/
-public function setProductDescriptionExtended (?string $productDescriptionExtended, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("productDescriptionExtended", $productDescriptionExtended, $language, !$isEqual);
 
 	return $this;
 }
@@ -1307,40 +1014,14 @@ public function setProductMarking2 (?string $productMarking2, ?string $language 
 }
 
 /**
-* Set applications - Applications
-* @param string|null $applications
+* Set productDescriptionExtended - Product Description - Extended
+* @param string|null $productDescriptionExtended
 * @return $this
 */
-public function setApplications (?string $applications, ?string $language = null): static
+public function setProductDescriptionExtended (?string $productDescriptionExtended, ?string $language = null): static
 {
 	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("applications", $applications, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set hazardousSubstanceClassification - Hazardous Substance Classification  
-* @param string[]|null $hazardousSubstanceClassification
-* @return $this
-*/
-public function setHazardousSubstanceClassification (?array $hazardousSubstanceClassification, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("hazardousSubstanceClassification", $hazardousSubstanceClassification, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set reach - REACH  
-* @param string|null $reach
-* @return $this
-*/
-public function setReach (?string $reach, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("reach", $reach, $language, !$isEqual);
+	$this->getLocalizedfields()->setLocalizedValue("productDescriptionExtended", $productDescriptionExtended, $language, !$isEqual);
 
 	return $this;
 }
@@ -1380,32 +1061,6 @@ public function setGprs (?string $gprs, ?string $language = null): static
 {
 	$isEqual = false;
 	$this->getLocalizedfields()->setLocalizedValue("gprs", $gprs, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set legalText - Legal Text
-* @param string|null $legalText
-* @return $this
-*/
-public function setLegalText (?string $legalText, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("legalText", $legalText, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set Disclaimer - Disclaimer
-* @param string|null $Disclaimer
-* @return $this
-*/
-public function setDisclaimer (?string $Disclaimer, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("Disclaimer", $Disclaimer, $language, !$isEqual);
 
 	return $this;
 }
@@ -1571,19 +1226,19 @@ public function setOldMaterialNumber(?string $oldMaterialNumber): static
 }
 
 /**
-* Get eanCode - EAN / UPC Code
-* @return string|null
+* Get tariffCodes - Tariff Codes
+* @return float|null
 */
-public function getEanCode(): ?string
+public function getTariffCodes(): ?float
 {
 	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("eanCode");
+		$preValue = $this->preGetValue("tariffCodes");
 		if ($preValue !== null) {
 			return $preValue;
 		}
 	}
 
-	$data = $this->eanCode;
+	$data = $this->tariffCodes;
 
 	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
 		return $data->getPlain();
@@ -1593,16 +1248,15 @@ public function getEanCode(): ?string
 }
 
 /**
-* Set eanCode - EAN / UPC Code
-* @param string|null $eanCode
+* Set tariffCodes - Tariff Codes
+* @param float|null $tariffCodes
 * @return $this
 */
-public function setEanCode(?string $eanCode): static
+public function setTariffCodes(?float $tariffCodes): static
 {
-	$this->markFieldDirty("eanCode", true);
-
-	$this->eanCode = $eanCode;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getClass()->getFieldDefinition("tariffCodes");
+	$this->tariffCodes = $fd->preSetData($this, $tariffCodes);
 	return $this;
 }
 
@@ -1643,19 +1297,19 @@ public function setCountryOfOrigin(?string $countryOfOrigin): static
 }
 
 /**
-* Get tariffCodes - Tariff Codes
-* @return float|null
+* Get eanCode - EAN / UPC Code
+* @return string|null
 */
-public function getTariffCodes(): ?float
+public function getEanCode(): ?string
 {
 	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("tariffCodes");
+		$preValue = $this->preGetValue("eanCode");
 		if ($preValue !== null) {
 			return $preValue;
 		}
 	}
 
-	$data = $this->tariffCodes;
+	$data = $this->eanCode;
 
 	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
 		return $data->getPlain();
@@ -1665,15 +1319,16 @@ public function getTariffCodes(): ?float
 }
 
 /**
-* Set tariffCodes - Tariff Codes
-* @param float|null $tariffCodes
+* Set eanCode - EAN / UPC Code
+* @param string|null $eanCode
 * @return $this
 */
-public function setTariffCodes(?float $tariffCodes): static
+public function setEanCode(?string $eanCode): static
 {
-	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
-	$fd = $this->getClass()->getFieldDefinition("tariffCodes");
-	$this->tariffCodes = $fd->preSetData($this, $tariffCodes);
+	$this->markFieldDirty("eanCode", true);
+
+	$this->eanCode = $eanCode;
+
 	return $this;
 }
 
@@ -1995,78 +1650,6 @@ public function setOemCrossReference(?\Pimcore\Model\DataObject\Fieldcollection 
 }
 
 /**
-* Get industrialStandards - Industrial Standards  
-* @return string[]|null
-*/
-public function getIndustrialStandards(): ?array
-{
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("industrialStandards");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	$data = $this->industrialStandards;
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set industrialStandards - Industrial Standards  
-* @param string[]|null $industrialStandards
-* @return $this
-*/
-public function setIndustrialStandards(?array $industrialStandards): static
-{
-	$this->markFieldDirty("industrialStandards", true);
-
-	$this->industrialStandards = $industrialStandards;
-
-	return $this;
-}
-
-/**
-* Get agencyCompliance - Agency Compliance
-* @return string[]|null
-*/
-public function getAgencyCompliance(): ?array
-{
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("agencyCompliance");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	$data = $this->agencyCompliance;
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set agencyCompliance - Agency Compliance
-* @param string[]|null $agencyCompliance
-* @return $this
-*/
-public function setAgencyCompliance(?array $agencyCompliance): static
-{
-	$this->markFieldDirty("agencyCompliance", true);
-
-	$this->agencyCompliance = $agencyCompliance;
-
-	return $this;
-}
-
-/**
 * Get b2bFlag - B2B Flag
 * @return bool|null
 */
@@ -2206,6 +1789,42 @@ public function setVirtualCatalogueFlag(?bool $virtualCatalogueFlag): static
 	$this->markFieldDirty("virtualCatalogueFlag", true);
 
 	$this->virtualCatalogueFlag = $virtualCatalogueFlag;
+
+	return $this;
+}
+
+/**
+* Get customerPortalFlag - Customer Portal Flag
+* @return bool|null
+*/
+public function getCustomerPortalFlag(): ?bool
+{
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("customerPortalFlag");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	$data = $this->customerPortalFlag;
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set customerPortalFlag - Customer Portal Flag
+* @param bool|null $customerPortalFlag
+* @return $this
+*/
+public function setCustomerPortalFlag(?bool $customerPortalFlag): static
+{
+	$this->markFieldDirty("customerPortalFlag", true);
+
+	$this->customerPortalFlag = $customerPortalFlag;
 
 	return $this;
 }

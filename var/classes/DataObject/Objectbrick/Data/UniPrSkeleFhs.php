@@ -9,6 +9,7 @@
  * - bendRadiusMetric [quantityValue]
  * - outsideDiameterInnerHoseMetric [quantityValue]
  * - insideDiameterInnerHoseMetric [quantityValue]
+ * - insideDiameterFractionInnerHoseImperial [quantityValue]
  * - outsideDiameterImperial [quantityValue]
  * - insideDiameterImperial [quantityValue]
  * - vacuumImperial [quantityValue]
@@ -16,28 +17,27 @@
  * - bendRadiusImperial [quantityValue]
  * - outsideDiameterInnerHoseImperial [quantityValue]
  * - insideDiameterInnerHoseImperial [quantityValue]
- * - insideDiameterFractionInnerHoseImperial [quantityValue]
  * - insideDiameterFractionImperial [quantityValue]
  * - minimumBurstPressurePsi [quantityValue]
  * - minimumBurstPressureMpa [quantityValue]
  * - workingPressureMpa [quantityValue]
  * - workingPressureBar [quantityValue]
  * - workingPressurePsi [quantityValue]
- * - ratingsFlexibility [select]
- * - negativePositiveTolerance [select]
  * - hoseDashSizeHyd [numeric]
- * - pressureUntil [quantityValue]
- * - dampableUntil1T [quantityValue]
- * - dampableUntil1C [quantityValue]
- * - dampableUntil2T [quantityValue]
- * - dampableUntil2C [quantityValue]
- * - isJustTemporarily [checkbox]
- * - temporaryUntilT [quantityValue]
- * - temporaryUntilC [quantityValue]
- * - temperatureMin [quantityValue]
- * - temperatureMax [quantityValue]
- * - notesTemperature [input]
+ * - negativePositiveTolerance [select]
+ * - ratingsFlexibility [select]
  * - temperatureRatings [input]
+ * - notesTemperature [input]
+ * - isJustTemporarily [checkbox]
+ * - temperatureMax [quantityValueRange]
+ * - temperatureMin [quantityValueRange]
+ * - temporaryUntilC [quantityValue]
+ * - temporaryUntilT [quantityValue]
+ * - dampableUntil2C [quantityValue]
+ * - dampableUntil2T [quantityValue]
+ * - dampableUntil1C [quantityValue]
+ * - dampableUntil1T [quantityValue]
+ * - pressureUntil [quantityValue]
  * - isOnlyOpenSystem [checkbox]
  * - localizedfields [localizedfields]
  * -- headlineWeb [input]
@@ -45,45 +45,45 @@
  * -- supplementaryDeclarations [input]
  * -- easyPack [input]
  * -- methodOfCalculation [textarea]
- * -- declarationsResistanceToAbrasion [input]
- * -- declarationsAntiUv [input]
- * -- antistatic [input]
- * -- atex [input]
- * -- calibratedDiameters [input]
- * -- caution [textarea]
- * -- resistanceToChemicals [input]
- * -- declarationsResistanceToChlorine [input]
- * -- compressionLoad [textarea]
- * -- conductive [textarea]
- * -- declarationsResistanceToCrushing [input]
  * -- flameRetardant [textarea]
- * -- flameRetardant2 [textarea]
+ * -- declarationsResistanceToChlorine [input]
+ * -- declarationsResistanceToCrushing [input]
+ * -- declarationsAntiUv [input]
+ * -- declarationsResistanceToAbrasion [input]
+ * -- declarationsResistanceToMould [input]
  * -- declarationsFlexibility [textarea]
- * -- forFood [textarea]
+ * -- conductive [textarea]
+ * -- caution [textarea]
+ * -- atex [input]
+ * -- antistatic [input]
+ * -- siliconFree [input]
+ * -- phtalateFree [input]
  * -- forFood2 [textarea]
- * -- halogenFree [input]
+ * -- flameRetardant2 [textarea]
+ * -- declarationsResistanceToTear [input]
+ * -- declarationsResistanceToPerforation [input]
+ * -- declarationsSmoothSurface [input]
+ * -- declarationsResistanceToOzone [input]
+ * -- resistanceToChemicals [input]
  * -- resistanceToHydrolysis [textarea]
  * -- resistanceToMicrorganisms [input]
- * -- declarationsResistanceToMould [input]
- * -- ophtalateFree [input]
- * -- declarationsResistanceToOzone [input]
- * -- declarationsResistanceToPerforation [input]
- * -- phtalateFree [input]
- * -- puType [input]
- * -- siliconFree [input]
- * -- declarationsSmoothSurface [input]
- * -- declarationsResistanceToTear [input]
- * -- trgsHomologation [input]
  * -- wasteWater [input]
+ * -- trgsHomologation [input]
+ * -- compressionLoad [textarea]
+ * -- calibratedDiameters [input]
+ * -- puType [input]
+ * -- ophtalateFree [input]
+ * -- halogenFree [input]
+ * -- forFood [textarea]
  * - ratingsResistanceToAbrasion [select]
+ * - ratingsResistanceToTear [select]
  * - ratingsAntiUv [select]
  * - ratingsResistanceToChlorine [select]
  * - ratingsResistanceToCrushing [select]
  * - ratingsResistanceToMould [select]
- * - ratingsResistanceToOzone [select]
  * - ratingsResistanceToPerforation [select]
  * - ratingsSmoothSurface [select]
- * - ratingsResistanceToTear [select]
+ * - ratingsResistanceToOzone [select]
  */
 
 namespace Pimcore\Model\DataObject\Objectbrick\Data;
@@ -102,6 +102,7 @@ public const FIELD_TUBE_GAUGE_METRIC = 'tubeGaugeMetric';
 public const FIELD_BEND_RADIUS_METRIC = 'bendRadiusMetric';
 public const FIELD_OUTSIDE_DIAMETER_INNER_HOSE_METRIC = 'outsideDiameterInnerHoseMetric';
 public const FIELD_INSIDE_DIAMETER_INNER_HOSE_METRIC = 'insideDiameterInnerHoseMetric';
+public const FIELD_INSIDE_DIAMETER_FRACTION_INNER_HOSE_IMPERIAL = 'insideDiameterFractionInnerHoseImperial';
 public const FIELD_OUTSIDE_DIAMETER_IMPERIAL = 'outsideDiameterImperial';
 public const FIELD_INSIDE_DIAMETER_IMPERIAL = 'insideDiameterImperial';
 public const FIELD_VACUUM_IMPERIAL = 'vacuumImperial';
@@ -109,73 +110,72 @@ public const FIELD_TUBE_GAUGE_IMPERIAL = 'tubeGaugeImperial';
 public const FIELD_BEND_RADIUS_IMPERIAL = 'bendRadiusImperial';
 public const FIELD_OUTSIDE_DIAMETER_INNER_HOSE_IMPERIAL = 'outsideDiameterInnerHoseImperial';
 public const FIELD_INSIDE_DIAMETER_INNER_HOSE_IMPERIAL = 'insideDiameterInnerHoseImperial';
-public const FIELD_INSIDE_DIAMETER_FRACTION_INNER_HOSE_IMPERIAL = 'insideDiameterFractionInnerHoseImperial';
 public const FIELD_INSIDE_DIAMETER_FRACTION_IMPERIAL = 'insideDiameterFractionImperial';
 public const FIELD_MINIMUM_BURST_PRESSURE_PSI = 'minimumBurstPressurePsi';
 public const FIELD_MINIMUM_BURST_PRESSURE_MPA = 'minimumBurstPressureMpa';
 public const FIELD_WORKING_PRESSURE_MPA = 'workingPressureMpa';
 public const FIELD_WORKING_PRESSURE_BAR = 'workingPressureBar';
 public const FIELD_WORKING_PRESSURE_PSI = 'workingPressurePsi';
-public const FIELD_RATINGS_FLEXIBILITY = 'ratingsFlexibility';
-public const FIELD_NEGATIVE_POSITIVE_TOLERANCE = 'negativePositiveTolerance';
 public const FIELD_HOSE_DASH_SIZE_HYD = 'hoseDashSizeHyd';
-public const FIELD_PRESSURE_UNTIL = 'pressureUntil';
-public const FIELD_DAMPABLE_UNTIL1_T = 'dampableUntil1T';
-public const FIELD_DAMPABLE_UNTIL1_C = 'dampableUntil1C';
-public const FIELD_DAMPABLE_UNTIL2_T = 'dampableUntil2T';
-public const FIELD_DAMPABLE_UNTIL2_C = 'dampableUntil2C';
-public const FIELD_IS_JUST_TEMPORARILY = 'isJustTemporarily';
-public const FIELD_TEMPORARY_UNTIL_T = 'temporaryUntilT';
-public const FIELD_TEMPORARY_UNTIL_C = 'temporaryUntilC';
-public const FIELD_TEMPERATURE_MIN = 'temperatureMin';
-public const FIELD_TEMPERATURE_MAX = 'temperatureMax';
-public const FIELD_NOTES_TEMPERATURE = 'notesTemperature';
+public const FIELD_NEGATIVE_POSITIVE_TOLERANCE = 'negativePositiveTolerance';
+public const FIELD_RATINGS_FLEXIBILITY = 'ratingsFlexibility';
 public const FIELD_TEMPERATURE_RATINGS = 'temperatureRatings';
+public const FIELD_NOTES_TEMPERATURE = 'notesTemperature';
+public const FIELD_IS_JUST_TEMPORARILY = 'isJustTemporarily';
+public const FIELD_TEMPERATURE_MAX = 'temperatureMax';
+public const FIELD_TEMPERATURE_MIN = 'temperatureMin';
+public const FIELD_TEMPORARY_UNTIL_C = 'temporaryUntilC';
+public const FIELD_TEMPORARY_UNTIL_T = 'temporaryUntilT';
+public const FIELD_DAMPABLE_UNTIL2_C = 'dampableUntil2C';
+public const FIELD_DAMPABLE_UNTIL2_T = 'dampableUntil2T';
+public const FIELD_DAMPABLE_UNTIL1_C = 'dampableUntil1C';
+public const FIELD_DAMPABLE_UNTIL1_T = 'dampableUntil1T';
+public const FIELD_PRESSURE_UNTIL = 'pressureUntil';
 public const FIELD_IS_ONLY_OPEN_SYSTEM = 'isOnlyOpenSystem';
 public const FIELD_HEADLINE_WEB = 'headlineWeb';
 public const FIELD_FLOW_MEDIUM_STABILITY_FLAG = 'flowMediumStabilityFlag';
 public const FIELD_SUPPLEMENTARY_DECLARATIONS = 'supplementaryDeclarations';
 public const FIELD_EASY_PACK = 'easyPack';
 public const FIELD_METHOD_OF_CALCULATION = 'methodOfCalculation';
-public const FIELD_DECLARATIONS_RESISTANCE_TO_ABRASION = 'declarationsResistanceToAbrasion';
-public const FIELD_DECLARATIONS_ANTI_UV = 'declarationsAntiUv';
-public const FIELD_ANTISTATIC = 'antistatic';
-public const FIELD_ATEX = 'atex';
-public const FIELD_CALIBRATED_DIAMETERS = 'calibratedDiameters';
-public const FIELD_CAUTION = 'caution';
-public const FIELD_RESISTANCE_TO_CHEMICALS = 'resistanceToChemicals';
-public const FIELD_DECLARATIONS_RESISTANCE_TO_CHLORINE = 'declarationsResistanceToChlorine';
-public const FIELD_COMPRESSION_LOAD = 'compressionLoad';
-public const FIELD_CONDUCTIVE = 'conductive';
-public const FIELD_DECLARATIONS_RESISTANCE_TO_CRUSHING = 'declarationsResistanceToCrushing';
 public const FIELD_FLAME_RETARDANT = 'flameRetardant';
-public const FIELD_FLAME_RETARDANT2 = 'flameRetardant2';
+public const FIELD_DECLARATIONS_RESISTANCE_TO_CHLORINE = 'declarationsResistanceToChlorine';
+public const FIELD_DECLARATIONS_RESISTANCE_TO_CRUSHING = 'declarationsResistanceToCrushing';
+public const FIELD_DECLARATIONS_ANTI_UV = 'declarationsAntiUv';
+public const FIELD_DECLARATIONS_RESISTANCE_TO_ABRASION = 'declarationsResistanceToAbrasion';
+public const FIELD_DECLARATIONS_RESISTANCE_TO_MOULD = 'declarationsResistanceToMould';
 public const FIELD_DECLARATIONS_FLEXIBILITY = 'declarationsFlexibility';
-public const FIELD_FOR_FOOD = 'forFood';
+public const FIELD_CONDUCTIVE = 'conductive';
+public const FIELD_CAUTION = 'caution';
+public const FIELD_ATEX = 'atex';
+public const FIELD_ANTISTATIC = 'antistatic';
+public const FIELD_SILICON_FREE = 'siliconFree';
+public const FIELD_PHTALATE_FREE = 'phtalateFree';
 public const FIELD_FOR_FOOD2 = 'forFood2';
-public const FIELD_HALOGEN_FREE = 'halogenFree';
+public const FIELD_FLAME_RETARDANT2 = 'flameRetardant2';
+public const FIELD_DECLARATIONS_RESISTANCE_TO_TEAR = 'declarationsResistanceToTear';
+public const FIELD_DECLARATIONS_RESISTANCE_TO_PERFORATION = 'declarationsResistanceToPerforation';
+public const FIELD_DECLARATIONS_SMOOTH_SURFACE = 'declarationsSmoothSurface';
+public const FIELD_DECLARATIONS_RESISTANCE_TO_OZONE = 'declarationsResistanceToOzone';
+public const FIELD_RESISTANCE_TO_CHEMICALS = 'resistanceToChemicals';
 public const FIELD_RESISTANCE_TO_HYDROLYSIS = 'resistanceToHydrolysis';
 public const FIELD_RESISTANCE_TO_MICRORGANISMS = 'resistanceToMicrorganisms';
-public const FIELD_DECLARATIONS_RESISTANCE_TO_MOULD = 'declarationsResistanceToMould';
-public const FIELD_OPHTALATE_FREE = 'ophtalateFree';
-public const FIELD_DECLARATIONS_RESISTANCE_TO_OZONE = 'declarationsResistanceToOzone';
-public const FIELD_DECLARATIONS_RESISTANCE_TO_PERFORATION = 'declarationsResistanceToPerforation';
-public const FIELD_PHTALATE_FREE = 'phtalateFree';
-public const FIELD_PU_TYPE = 'puType';
-public const FIELD_SILICON_FREE = 'siliconFree';
-public const FIELD_DECLARATIONS_SMOOTH_SURFACE = 'declarationsSmoothSurface';
-public const FIELD_DECLARATIONS_RESISTANCE_TO_TEAR = 'declarationsResistanceToTear';
-public const FIELD_TRGS_HOMOLOGATION = 'trgsHomologation';
 public const FIELD_WASTE_WATER = 'wasteWater';
+public const FIELD_TRGS_HOMOLOGATION = 'trgsHomologation';
+public const FIELD_COMPRESSION_LOAD = 'compressionLoad';
+public const FIELD_CALIBRATED_DIAMETERS = 'calibratedDiameters';
+public const FIELD_PU_TYPE = 'puType';
+public const FIELD_OPHTALATE_FREE = 'ophtalateFree';
+public const FIELD_HALOGEN_FREE = 'halogenFree';
+public const FIELD_FOR_FOOD = 'forFood';
 public const FIELD_RATINGS_RESISTANCE_TO_ABRASION = 'ratingsResistanceToAbrasion';
+public const FIELD_RATINGS_RESISTANCE_TO_TEAR = 'ratingsResistanceToTear';
 public const FIELD_RATINGS_ANTI_UV = 'ratingsAntiUv';
 public const FIELD_RATINGS_RESISTANCE_TO_CHLORINE = 'ratingsResistanceToChlorine';
 public const FIELD_RATINGS_RESISTANCE_TO_CRUSHING = 'ratingsResistanceToCrushing';
 public const FIELD_RATINGS_RESISTANCE_TO_MOULD = 'ratingsResistanceToMould';
-public const FIELD_RATINGS_RESISTANCE_TO_OZONE = 'ratingsResistanceToOzone';
 public const FIELD_RATINGS_RESISTANCE_TO_PERFORATION = 'ratingsResistanceToPerforation';
 public const FIELD_RATINGS_SMOOTH_SURFACE = 'ratingsSmoothSurface';
-public const FIELD_RATINGS_RESISTANCE_TO_TEAR = 'ratingsResistanceToTear';
+public const FIELD_RATINGS_RESISTANCE_TO_OZONE = 'ratingsResistanceToOzone';
 
 protected string $type = "UniPrSkeleFhs";
 protected $outsideDiameterMetric;
@@ -185,6 +185,7 @@ protected $tubeGaugeMetric;
 protected $bendRadiusMetric;
 protected $outsideDiameterInnerHoseMetric;
 protected $insideDiameterInnerHoseMetric;
+protected $insideDiameterFractionInnerHoseImperial;
 protected $outsideDiameterImperial;
 protected $insideDiameterImperial;
 protected $vacuumImperial;
@@ -192,39 +193,38 @@ protected $tubeGaugeImperial;
 protected $bendRadiusImperial;
 protected $outsideDiameterInnerHoseImperial;
 protected $insideDiameterInnerHoseImperial;
-protected $insideDiameterFractionInnerHoseImperial;
 protected $insideDiameterFractionImperial;
 protected $minimumBurstPressurePsi;
 protected $minimumBurstPressureMpa;
 protected $workingPressureMpa;
 protected $workingPressureBar;
 protected $workingPressurePsi;
-protected $ratingsFlexibility;
-protected $negativePositiveTolerance;
 protected $hoseDashSizeHyd;
-protected $pressureUntil;
-protected $dampableUntil1T;
-protected $dampableUntil1C;
-protected $dampableUntil2T;
-protected $dampableUntil2C;
-protected $isJustTemporarily;
-protected $temporaryUntilT;
-protected $temporaryUntilC;
-protected $temperatureMin;
-protected $temperatureMax;
-protected $notesTemperature;
+protected $negativePositiveTolerance;
+protected $ratingsFlexibility;
 protected $temperatureRatings;
+protected $notesTemperature;
+protected $isJustTemporarily;
+protected $temperatureMax;
+protected $temperatureMin;
+protected $temporaryUntilC;
+protected $temporaryUntilT;
+protected $dampableUntil2C;
+protected $dampableUntil2T;
+protected $dampableUntil1C;
+protected $dampableUntil1T;
+protected $pressureUntil;
 protected $isOnlyOpenSystem;
 protected $localizedfields;
 protected $ratingsResistanceToAbrasion;
+protected $ratingsResistanceToTear;
 protected $ratingsAntiUv;
 protected $ratingsResistanceToChlorine;
 protected $ratingsResistanceToCrushing;
 protected $ratingsResistanceToMould;
-protected $ratingsResistanceToOzone;
 protected $ratingsResistanceToPerforation;
 protected $ratingsSmoothSurface;
-protected $ratingsResistanceToTear;
+protected $ratingsResistanceToOzone;
 
 
 /**
@@ -272,7 +272,7 @@ public function setOutsideDiameterMetric (?\Pimcore\Model\DataObject\Data\Quanti
 }
 
 /**
-* Get insideDiameterMetric - Inside Diameter Mm
+* Get insideDiameterMetric - Inside Diameter (mm)
 * @return \Pimcore\Model\DataObject\Data\QuantityValue|null
 */
 public function getInsideDiameterMetric(): ?\Pimcore\Model\DataObject\Data\QuantityValue
@@ -293,7 +293,7 @@ public function getInsideDiameterMetric(): ?\Pimcore\Model\DataObject\Data\Quant
 }
 
 /**
-* Set insideDiameterMetric - Inside Diameter Mm
+* Set insideDiameterMetric - Inside Diameter (mm)
 * @param \Pimcore\Model\DataObject\Data\QuantityValue|null $insideDiameterMetric
 * @return $this
 */
@@ -305,7 +305,7 @@ public function setInsideDiameterMetric (?\Pimcore\Model\DataObject\Data\Quantit
 }
 
 /**
-* Get vacuumMetric - Vacuum  (mm)
+* Get vacuumMetric - Vacuum (mm)
 * @return \Pimcore\Model\DataObject\Data\QuantityValue|null
 */
 public function getVacuumMetric(): ?\Pimcore\Model\DataObject\Data\QuantityValue
@@ -326,7 +326,7 @@ public function getVacuumMetric(): ?\Pimcore\Model\DataObject\Data\QuantityValue
 }
 
 /**
-* Set vacuumMetric - Vacuum  (mm)
+* Set vacuumMetric - Vacuum (mm)
 * @param \Pimcore\Model\DataObject\Data\QuantityValue|null $vacuumMetric
 * @return $this
 */
@@ -404,7 +404,7 @@ public function setBendRadiusMetric (?\Pimcore\Model\DataObject\Data\QuantityVal
 }
 
 /**
-* Get outsideDiameterInnerHoseMetric - Outside Diameter (mm)-(Inner Hose)
+* Get outsideDiameterInnerHoseMetric - Outside Diameter (mm) - (Inner Hose)
 * @return \Pimcore\Model\DataObject\Data\QuantityValue|null
 */
 public function getOutsideDiameterInnerHoseMetric(): ?\Pimcore\Model\DataObject\Data\QuantityValue
@@ -425,7 +425,7 @@ public function getOutsideDiameterInnerHoseMetric(): ?\Pimcore\Model\DataObject\
 }
 
 /**
-* Set outsideDiameterInnerHoseMetric - Outside Diameter (mm)-(Inner Hose)
+* Set outsideDiameterInnerHoseMetric - Outside Diameter (mm) - (Inner Hose)
 * @param \Pimcore\Model\DataObject\Data\QuantityValue|null $outsideDiameterInnerHoseMetric
 * @return $this
 */
@@ -437,7 +437,7 @@ public function setOutsideDiameterInnerHoseMetric (?\Pimcore\Model\DataObject\Da
 }
 
 /**
-* Get insideDiameterInnerHoseMetric - Inside Diameter (mm ) - ( Inner Hose )
+* Get insideDiameterInnerHoseMetric - Inside Diameter (mm ) - (Inner Hose)
 * @return \Pimcore\Model\DataObject\Data\QuantityValue|null
 */
 public function getInsideDiameterInnerHoseMetric(): ?\Pimcore\Model\DataObject\Data\QuantityValue
@@ -458,13 +458,46 @@ public function getInsideDiameterInnerHoseMetric(): ?\Pimcore\Model\DataObject\D
 }
 
 /**
-* Set insideDiameterInnerHoseMetric - Inside Diameter (mm ) - ( Inner Hose )
+* Set insideDiameterInnerHoseMetric - Inside Diameter (mm ) - (Inner Hose)
 * @param \Pimcore\Model\DataObject\Data\QuantityValue|null $insideDiameterInnerHoseMetric
 * @return $this
 */
 public function setInsideDiameterInnerHoseMetric (?\Pimcore\Model\DataObject\Data\QuantityValue $insideDiameterInnerHoseMetric): static
 {
 	$this->insideDiameterInnerHoseMetric = $insideDiameterInnerHoseMetric;
+
+	return $this;
+}
+
+/**
+* Get insideDiameterFractionInnerHoseImperial - Inside Diameter (Fraction) - (Inner Hose)
+* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+*/
+public function getInsideDiameterFractionInnerHoseImperial(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+{
+	$data = $this->insideDiameterFractionInnerHoseImperial;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("insideDiameterFractionInnerHoseImperial")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("insideDiameterFractionInnerHoseImperial");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set insideDiameterFractionInnerHoseImperial - Inside Diameter (Fraction) - (Inner Hose)
+* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $insideDiameterFractionInnerHoseImperial
+* @return $this
+*/
+public function setInsideDiameterFractionInnerHoseImperial (?\Pimcore\Model\DataObject\Data\QuantityValue $insideDiameterFractionInnerHoseImperial): static
+{
+	$this->insideDiameterFractionInnerHoseImperial = $insideDiameterFractionInnerHoseImperial;
 
 	return $this;
 }
@@ -503,7 +536,7 @@ public function setOutsideDiameterImperial (?\Pimcore\Model\DataObject\Data\Quan
 }
 
 /**
-* Get insideDiameterImperial - Inside Diameter In
+* Get insideDiameterImperial - Inside Diameter (in)
 * @return \Pimcore\Model\DataObject\Data\QuantityValue|null
 */
 public function getInsideDiameterImperial(): ?\Pimcore\Model\DataObject\Data\QuantityValue
@@ -524,7 +557,7 @@ public function getInsideDiameterImperial(): ?\Pimcore\Model\DataObject\Data\Qua
 }
 
 /**
-* Set insideDiameterImperial - Inside Diameter In
+* Set insideDiameterImperial - Inside Diameter (in)
 * @param \Pimcore\Model\DataObject\Data\QuantityValue|null $insideDiameterImperial
 * @return $this
 */
@@ -536,7 +569,7 @@ public function setInsideDiameterImperial (?\Pimcore\Model\DataObject\Data\Quant
 }
 
 /**
-* Get vacuumImperial - Vacuum In
+* Get vacuumImperial - Vacuum (in)
 * @return \Pimcore\Model\DataObject\Data\QuantityValue|null
 */
 public function getVacuumImperial(): ?\Pimcore\Model\DataObject\Data\QuantityValue
@@ -557,7 +590,7 @@ public function getVacuumImperial(): ?\Pimcore\Model\DataObject\Data\QuantityVal
 }
 
 /**
-* Set vacuumImperial - Vacuum In
+* Set vacuumImperial - Vacuum (in)
 * @param \Pimcore\Model\DataObject\Data\QuantityValue|null $vacuumImperial
 * @return $this
 */
@@ -569,7 +602,7 @@ public function setVacuumImperial (?\Pimcore\Model\DataObject\Data\QuantityValue
 }
 
 /**
-* Get tubeGaugeImperial - Tube Gauge (in )  / Wall Thickness
+* Get tubeGaugeImperial - Tube Gauge (in)  / Wall Thickness
 * @return \Pimcore\Model\DataObject\Data\QuantityValue|null
 */
 public function getTubeGaugeImperial(): ?\Pimcore\Model\DataObject\Data\QuantityValue
@@ -590,7 +623,7 @@ public function getTubeGaugeImperial(): ?\Pimcore\Model\DataObject\Data\Quantity
 }
 
 /**
-* Set tubeGaugeImperial - Tube Gauge (in )  / Wall Thickness
+* Set tubeGaugeImperial - Tube Gauge (in)  / Wall Thickness
 * @param \Pimcore\Model\DataObject\Data\QuantityValue|null $tubeGaugeImperial
 * @return $this
 */
@@ -635,7 +668,7 @@ public function setBendRadiusImperial (?\Pimcore\Model\DataObject\Data\QuantityV
 }
 
 /**
-* Get outsideDiameterInnerHoseImperial - Outside Diameter(in) - (Inner Hose)
+* Get outsideDiameterInnerHoseImperial - Outside Diameter (in) - (Inner Hose)
 * @return \Pimcore\Model\DataObject\Data\QuantityValue|null
 */
 public function getOutsideDiameterInnerHoseImperial(): ?\Pimcore\Model\DataObject\Data\QuantityValue
@@ -656,7 +689,7 @@ public function getOutsideDiameterInnerHoseImperial(): ?\Pimcore\Model\DataObjec
 }
 
 /**
-* Set outsideDiameterInnerHoseImperial - Outside Diameter(in) - (Inner Hose)
+* Set outsideDiameterInnerHoseImperial - Outside Diameter (in) - (Inner Hose)
 * @param \Pimcore\Model\DataObject\Data\QuantityValue|null $outsideDiameterInnerHoseImperial
 * @return $this
 */
@@ -668,7 +701,7 @@ public function setOutsideDiameterInnerHoseImperial (?\Pimcore\Model\DataObject\
 }
 
 /**
-* Get insideDiameterInnerHoseImperial - Inside Diameter (in)-(Inner Hose)
+* Get insideDiameterInnerHoseImperial - Inside Diameter (in) - (Inner Hose)
 * @return \Pimcore\Model\DataObject\Data\QuantityValue|null
 */
 public function getInsideDiameterInnerHoseImperial(): ?\Pimcore\Model\DataObject\Data\QuantityValue
@@ -689,46 +722,13 @@ public function getInsideDiameterInnerHoseImperial(): ?\Pimcore\Model\DataObject
 }
 
 /**
-* Set insideDiameterInnerHoseImperial - Inside Diameter (in)-(Inner Hose)
+* Set insideDiameterInnerHoseImperial - Inside Diameter (in) - (Inner Hose)
 * @param \Pimcore\Model\DataObject\Data\QuantityValue|null $insideDiameterInnerHoseImperial
 * @return $this
 */
 public function setInsideDiameterInnerHoseImperial (?\Pimcore\Model\DataObject\Data\QuantityValue $insideDiameterInnerHoseImperial): static
 {
 	$this->insideDiameterInnerHoseImperial = $insideDiameterInnerHoseImperial;
-
-	return $this;
-}
-
-/**
-* Get insideDiameterFractionInnerHoseImperial - Inside Diameter Fraction Inner Hose
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
-*/
-public function getInsideDiameterFractionInnerHoseImperial(): ?\Pimcore\Model\DataObject\Data\QuantityValue
-{
-	$data = $this->insideDiameterFractionInnerHoseImperial;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("insideDiameterFractionInnerHoseImperial")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("insideDiameterFractionInnerHoseImperial");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set insideDiameterFractionInnerHoseImperial - Inside Diameter Fraction Inner Hose
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $insideDiameterFractionInnerHoseImperial
-* @return $this
-*/
-public function setInsideDiameterFractionInnerHoseImperial (?\Pimcore\Model\DataObject\Data\QuantityValue $insideDiameterFractionInnerHoseImperial): static
-{
-	$this->insideDiameterFractionInnerHoseImperial = $insideDiameterFractionInnerHoseImperial;
 
 	return $this;
 }
@@ -767,7 +767,7 @@ public function setInsideDiameterFractionImperial (?\Pimcore\Model\DataObject\Da
 }
 
 /**
-* Get minimumBurstPressurePsi - Minimum Burst Pressure Psi
+* Get minimumBurstPressurePsi - Minimum Burst Pressure (PSI)
 * @return \Pimcore\Model\DataObject\Data\QuantityValue|null
 */
 public function getMinimumBurstPressurePsi(): ?\Pimcore\Model\DataObject\Data\QuantityValue
@@ -788,7 +788,7 @@ public function getMinimumBurstPressurePsi(): ?\Pimcore\Model\DataObject\Data\Qu
 }
 
 /**
-* Set minimumBurstPressurePsi - Minimum Burst Pressure Psi
+* Set minimumBurstPressurePsi - Minimum Burst Pressure (PSI)
 * @param \Pimcore\Model\DataObject\Data\QuantityValue|null $minimumBurstPressurePsi
 * @return $this
 */
@@ -833,7 +833,7 @@ public function setMinimumBurstPressureMpa (?\Pimcore\Model\DataObject\Data\Quan
 }
 
 /**
-* Get workingPressureMpa - Working Pressure Mpa
+* Get workingPressureMpa - Working Pressure (MPa)
 * @return \Pimcore\Model\DataObject\Data\QuantityValue|null
 */
 public function getWorkingPressureMpa(): ?\Pimcore\Model\DataObject\Data\QuantityValue
@@ -854,7 +854,7 @@ public function getWorkingPressureMpa(): ?\Pimcore\Model\DataObject\Data\Quantit
 }
 
 /**
-* Set workingPressureMpa - Working Pressure Mpa
+* Set workingPressureMpa - Working Pressure (MPa)
 * @param \Pimcore\Model\DataObject\Data\QuantityValue|null $workingPressureMpa
 * @return $this
 */
@@ -866,7 +866,7 @@ public function setWorkingPressureMpa (?\Pimcore\Model\DataObject\Data\QuantityV
 }
 
 /**
-* Get workingPressureBar - Working Pressure ( BAR )
+* Get workingPressureBar - Working Pressure (bar)
 * @return \Pimcore\Model\DataObject\Data\QuantityValue|null
 */
 public function getWorkingPressureBar(): ?\Pimcore\Model\DataObject\Data\QuantityValue
@@ -887,7 +887,7 @@ public function getWorkingPressureBar(): ?\Pimcore\Model\DataObject\Data\Quantit
 }
 
 /**
-* Set workingPressureBar - Working Pressure ( BAR )
+* Set workingPressureBar - Working Pressure (bar)
 * @param \Pimcore\Model\DataObject\Data\QuantityValue|null $workingPressureBar
 * @return $this
 */
@@ -932,15 +932,15 @@ public function setWorkingPressurePsi (?\Pimcore\Model\DataObject\Data\QuantityV
 }
 
 /**
-* Get ratingsFlexibility - Flexibility
-* @return string|null
+* Get hoseDashSizeHyd - Hose Dash Size (HYD)
+* @return float|null
 */
-public function getRatingsFlexibility(): ?string
+public function getHoseDashSizeHyd(): ?float
 {
-	$data = $this->ratingsFlexibility;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("ratingsFlexibility")->isEmpty($data)) {
+	$data = $this->hoseDashSizeHyd;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("hoseDashSizeHyd")->isEmpty($data)) {
 		try {
-			return $this->getValueFromParent("ratingsFlexibility");
+			return $this->getValueFromParent("hoseDashSizeHyd");
 		} catch (InheritanceParentNotFoundException $e) {
 			// no data from parent available, continue ...
 		}
@@ -953,14 +953,15 @@ public function getRatingsFlexibility(): ?string
 }
 
 /**
-* Set ratingsFlexibility - Flexibility
-* @param string|null $ratingsFlexibility
+* Set hoseDashSizeHyd - Hose Dash Size (HYD)
+* @param float|null $hoseDashSizeHyd
 * @return $this
 */
-public function setRatingsFlexibility (?string $ratingsFlexibility): static
+public function setHoseDashSizeHyd (?float $hoseDashSizeHyd): static
 {
-	$this->ratingsFlexibility = $ratingsFlexibility;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("hoseDashSizeHyd");
+	$this->hoseDashSizeHyd = $fd->preSetData($this, $hoseDashSizeHyd);
 	return $this;
 }
 
@@ -998,15 +999,15 @@ public function setNegativePositiveTolerance (?string $negativePositiveTolerance
 }
 
 /**
-* Get hoseDashSizeHyd - Hose Dash Size (HYD)
-* @return float|null
+* Get ratingsFlexibility - Flexibility
+* @return string|null
 */
-public function getHoseDashSizeHyd(): ?float
+public function getRatingsFlexibility(): ?string
 {
-	$data = $this->hoseDashSizeHyd;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("hoseDashSizeHyd")->isEmpty($data)) {
+	$data = $this->ratingsFlexibility;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("ratingsFlexibility")->isEmpty($data)) {
 		try {
-			return $this->getValueFromParent("hoseDashSizeHyd");
+			return $this->getValueFromParent("ratingsFlexibility");
 		} catch (InheritanceParentNotFoundException $e) {
 			// no data from parent available, continue ...
 		}
@@ -1019,61 +1020,27 @@ public function getHoseDashSizeHyd(): ?float
 }
 
 /**
-* Set hoseDashSizeHyd - Hose Dash Size (HYD)
-* @param float|null $hoseDashSizeHyd
+* Set ratingsFlexibility - Flexibility
+* @param string|null $ratingsFlexibility
 * @return $this
 */
-public function setHoseDashSizeHyd (?float $hoseDashSizeHyd): static
+public function setRatingsFlexibility (?string $ratingsFlexibility): static
 {
-	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
-	$fd = $this->getDefinition()->getFieldDefinition("hoseDashSizeHyd");
-	$this->hoseDashSizeHyd = $fd->preSetData($this, $hoseDashSizeHyd);
-	return $this;
-}
-
-/**
-* Get pressureUntil - Pressure Until
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
-*/
-public function getPressureUntil(): ?\Pimcore\Model\DataObject\Data\QuantityValue
-{
-	$data = $this->pressureUntil;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("pressureUntil")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("pressureUntil");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set pressureUntil - Pressure Until
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $pressureUntil
-* @return $this
-*/
-public function setPressureUntil (?\Pimcore\Model\DataObject\Data\QuantityValue $pressureUntil): static
-{
-	$this->pressureUntil = $pressureUntil;
+	$this->ratingsFlexibility = $ratingsFlexibility;
 
 	return $this;
 }
 
 /**
-* Get dampableUntil1T - Dampable until 1 (t)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* Get temperatureRatings - Temperature Ratings / Applications
+* @return string|null
 */
-public function getDampableUntil1T(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getTemperatureRatings(): ?string
 {
-	$data = $this->dampableUntil1T;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("dampableUntil1T")->isEmpty($data)) {
+	$data = $this->temperatureRatings;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("temperatureRatings")->isEmpty($data)) {
 		try {
-			return $this->getValueFromParent("dampableUntil1T");
+			return $this->getValueFromParent("temperatureRatings");
 		} catch (InheritanceParentNotFoundException $e) {
 			// no data from parent available, continue ...
 		}
@@ -1086,277 +1053,13 @@ public function getDampableUntil1T(): ?\Pimcore\Model\DataObject\Data\QuantityVa
 }
 
 /**
-* Set dampableUntil1T - Dampable until 1 (t)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $dampableUntil1T
+* Set temperatureRatings - Temperature Ratings / Applications
+* @param string|null $temperatureRatings
 * @return $this
 */
-public function setDampableUntil1T (?\Pimcore\Model\DataObject\Data\QuantityValue $dampableUntil1T): static
+public function setTemperatureRatings (?string $temperatureRatings): static
 {
-	$this->dampableUntil1T = $dampableUntil1T;
-
-	return $this;
-}
-
-/**
-* Get dampableUntil1C - Dampable until 1 (°C)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
-*/
-public function getDampableUntil1C(): ?\Pimcore\Model\DataObject\Data\QuantityValue
-{
-	$data = $this->dampableUntil1C;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("dampableUntil1C")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("dampableUntil1C");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set dampableUntil1C - Dampable until 1 (°C)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $dampableUntil1C
-* @return $this
-*/
-public function setDampableUntil1C (?\Pimcore\Model\DataObject\Data\QuantityValue $dampableUntil1C): static
-{
-	$this->dampableUntil1C = $dampableUntil1C;
-
-	return $this;
-}
-
-/**
-* Get dampableUntil2T - Dampable until 2 (°C)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
-*/
-public function getDampableUntil2T(): ?\Pimcore\Model\DataObject\Data\QuantityValue
-{
-	$data = $this->dampableUntil2T;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("dampableUntil2T")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("dampableUntil2T");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set dampableUntil2T - Dampable until 2 (°C)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $dampableUntil2T
-* @return $this
-*/
-public function setDampableUntil2T (?\Pimcore\Model\DataObject\Data\QuantityValue $dampableUntil2T): static
-{
-	$this->dampableUntil2T = $dampableUntil2T;
-
-	return $this;
-}
-
-/**
-* Get dampableUntil2C - Dampable until 2 (°C)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
-*/
-public function getDampableUntil2C(): ?\Pimcore\Model\DataObject\Data\QuantityValue
-{
-	$data = $this->dampableUntil2C;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("dampableUntil2C")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("dampableUntil2C");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set dampableUntil2C - Dampable until 2 (°C)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $dampableUntil2C
-* @return $this
-*/
-public function setDampableUntil2C (?\Pimcore\Model\DataObject\Data\QuantityValue $dampableUntil2C): static
-{
-	$this->dampableUntil2C = $dampableUntil2C;
-
-	return $this;
-}
-
-/**
-* Get isJustTemporarily - just "temporarily"
-* @return bool|null
-*/
-public function getIsJustTemporarily(): ?bool
-{
-	$data = $this->isJustTemporarily;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("isJustTemporarily")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("isJustTemporarily");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set isJustTemporarily - just "temporarily"
-* @param bool|null $isJustTemporarily
-* @return $this
-*/
-public function setIsJustTemporarily (?bool $isJustTemporarily): static
-{
-	$this->isJustTemporarily = $isJustTemporarily;
-
-	return $this;
-}
-
-/**
-* Get temporaryUntilT - Temporary until (t)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
-*/
-public function getTemporaryUntilT(): ?\Pimcore\Model\DataObject\Data\QuantityValue
-{
-	$data = $this->temporaryUntilT;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("temporaryUntilT")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("temporaryUntilT");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set temporaryUntilT - Temporary until (t)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $temporaryUntilT
-* @return $this
-*/
-public function setTemporaryUntilT (?\Pimcore\Model\DataObject\Data\QuantityValue $temporaryUntilT): static
-{
-	$this->temporaryUntilT = $temporaryUntilT;
-
-	return $this;
-}
-
-/**
-* Get temporaryUntilC - Temporary until (°C)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
-*/
-public function getTemporaryUntilC(): ?\Pimcore\Model\DataObject\Data\QuantityValue
-{
-	$data = $this->temporaryUntilC;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("temporaryUntilC")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("temporaryUntilC");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set temporaryUntilC - Temporary until (°C)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $temporaryUntilC
-* @return $this
-*/
-public function setTemporaryUntilC (?\Pimcore\Model\DataObject\Data\QuantityValue $temporaryUntilC): static
-{
-	$this->temporaryUntilC = $temporaryUntilC;
-
-	return $this;
-}
-
-/**
-* Get temperatureMin - Temperature (min)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
-*/
-public function getTemperatureMin(): ?\Pimcore\Model\DataObject\Data\QuantityValue
-{
-	$data = $this->temperatureMin;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("temperatureMin")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("temperatureMin");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set temperatureMin - Temperature (min)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $temperatureMin
-* @return $this
-*/
-public function setTemperatureMin (?\Pimcore\Model\DataObject\Data\QuantityValue $temperatureMin): static
-{
-	$this->temperatureMin = $temperatureMin;
-
-	return $this;
-}
-
-/**
-* Get temperatureMax - Temperature (max)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
-*/
-public function getTemperatureMax(): ?\Pimcore\Model\DataObject\Data\QuantityValue
-{
-	$data = $this->temperatureMax;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("temperatureMax")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("temperatureMax");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set temperatureMax - Temperature (max)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $temperatureMax
-* @return $this
-*/
-public function setTemperatureMax (?\Pimcore\Model\DataObject\Data\QuantityValue $temperatureMax): static
-{
-	$this->temperatureMax = $temperatureMax;
+	$this->temperatureRatings = $temperatureRatings;
 
 	return $this;
 }
@@ -1395,15 +1098,15 @@ public function setNotesTemperature (?string $notesTemperature): static
 }
 
 /**
-* Get temperatureRatings - Temperature Ratings / Applications
-* @return string|null
+* Get isJustTemporarily - just "temporarily"
+* @return bool|null
 */
-public function getTemperatureRatings(): ?string
+public function getIsJustTemporarily(): ?bool
 {
-	$data = $this->temperatureRatings;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("temperatureRatings")->isEmpty($data)) {
+	$data = $this->isJustTemporarily;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("isJustTemporarily")->isEmpty($data)) {
 		try {
-			return $this->getValueFromParent("temperatureRatings");
+			return $this->getValueFromParent("isJustTemporarily");
 		} catch (InheritanceParentNotFoundException $e) {
 			// no data from parent available, continue ...
 		}
@@ -1416,13 +1119,310 @@ public function getTemperatureRatings(): ?string
 }
 
 /**
-* Set temperatureRatings - Temperature Ratings / Applications
-* @param string|null $temperatureRatings
+* Set isJustTemporarily - just "temporarily"
+* @param bool|null $isJustTemporarily
 * @return $this
 */
-public function setTemperatureRatings (?string $temperatureRatings): static
+public function setIsJustTemporarily (?bool $isJustTemporarily): static
 {
-	$this->temperatureRatings = $temperatureRatings;
+	$this->isJustTemporarily = $isJustTemporarily;
+
+	return $this;
+}
+
+/**
+* Get temperatureMax - Temperature (max)
+* @return \Pimcore\Model\DataObject\Data\QuantityValueRange|null
+*/
+public function getTemperatureMax(): ?\Pimcore\Model\DataObject\Data\QuantityValueRange
+{
+	$data = $this->temperatureMax;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("temperatureMax")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("temperatureMax");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set temperatureMax - Temperature (max)
+* @param \Pimcore\Model\DataObject\Data\QuantityValueRange|null $temperatureMax
+* @return $this
+*/
+public function setTemperatureMax (?\Pimcore\Model\DataObject\Data\QuantityValueRange $temperatureMax): static
+{
+	$this->temperatureMax = $temperatureMax;
+
+	return $this;
+}
+
+/**
+* Get temperatureMin - Temperature (min)
+* @return \Pimcore\Model\DataObject\Data\QuantityValueRange|null
+*/
+public function getTemperatureMin(): ?\Pimcore\Model\DataObject\Data\QuantityValueRange
+{
+	$data = $this->temperatureMin;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("temperatureMin")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("temperatureMin");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set temperatureMin - Temperature (min)
+* @param \Pimcore\Model\DataObject\Data\QuantityValueRange|null $temperatureMin
+* @return $this
+*/
+public function setTemperatureMin (?\Pimcore\Model\DataObject\Data\QuantityValueRange $temperatureMin): static
+{
+	$this->temperatureMin = $temperatureMin;
+
+	return $this;
+}
+
+/**
+* Get temporaryUntilC - Temporary until (°C)
+* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+*/
+public function getTemporaryUntilC(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+{
+	$data = $this->temporaryUntilC;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("temporaryUntilC")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("temporaryUntilC");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set temporaryUntilC - Temporary until (°C)
+* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $temporaryUntilC
+* @return $this
+*/
+public function setTemporaryUntilC (?\Pimcore\Model\DataObject\Data\QuantityValue $temporaryUntilC): static
+{
+	$this->temporaryUntilC = $temporaryUntilC;
+
+	return $this;
+}
+
+/**
+* Get temporaryUntilT - Temporary until (t)
+* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+*/
+public function getTemporaryUntilT(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+{
+	$data = $this->temporaryUntilT;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("temporaryUntilT")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("temporaryUntilT");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set temporaryUntilT - Temporary until (t)
+* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $temporaryUntilT
+* @return $this
+*/
+public function setTemporaryUntilT (?\Pimcore\Model\DataObject\Data\QuantityValue $temporaryUntilT): static
+{
+	$this->temporaryUntilT = $temporaryUntilT;
+
+	return $this;
+}
+
+/**
+* Get dampableUntil2C - Dampable until 2 (°C)
+* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+*/
+public function getDampableUntil2C(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+{
+	$data = $this->dampableUntil2C;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("dampableUntil2C")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("dampableUntil2C");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set dampableUntil2C - Dampable until 2 (°C)
+* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $dampableUntil2C
+* @return $this
+*/
+public function setDampableUntil2C (?\Pimcore\Model\DataObject\Data\QuantityValue $dampableUntil2C): static
+{
+	$this->dampableUntil2C = $dampableUntil2C;
+
+	return $this;
+}
+
+/**
+* Get dampableUntil2T - Dampable until 2 (°C)
+* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+*/
+public function getDampableUntil2T(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+{
+	$data = $this->dampableUntil2T;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("dampableUntil2T")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("dampableUntil2T");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set dampableUntil2T - Dampable until 2 (°C)
+* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $dampableUntil2T
+* @return $this
+*/
+public function setDampableUntil2T (?\Pimcore\Model\DataObject\Data\QuantityValue $dampableUntil2T): static
+{
+	$this->dampableUntil2T = $dampableUntil2T;
+
+	return $this;
+}
+
+/**
+* Get dampableUntil1C - Dampable until 1 (°C)
+* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+*/
+public function getDampableUntil1C(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+{
+	$data = $this->dampableUntil1C;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("dampableUntil1C")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("dampableUntil1C");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set dampableUntil1C - Dampable until 1 (°C)
+* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $dampableUntil1C
+* @return $this
+*/
+public function setDampableUntil1C (?\Pimcore\Model\DataObject\Data\QuantityValue $dampableUntil1C): static
+{
+	$this->dampableUntil1C = $dampableUntil1C;
+
+	return $this;
+}
+
+/**
+* Get dampableUntil1T - Dampable until 1 (t)
+* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+*/
+public function getDampableUntil1T(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+{
+	$data = $this->dampableUntil1T;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("dampableUntil1T")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("dampableUntil1T");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set dampableUntil1T - Dampable until 1 (t)
+* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $dampableUntil1T
+* @return $this
+*/
+public function setDampableUntil1T (?\Pimcore\Model\DataObject\Data\QuantityValue $dampableUntil1T): static
+{
+	$this->dampableUntil1T = $dampableUntil1T;
+
+	return $this;
+}
+
+/**
+* Get pressureUntil - Pressure Until
+* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+*/
+public function getPressureUntil(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+{
+	$data = $this->pressureUntil;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("pressureUntil")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("pressureUntil");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set pressureUntil - Pressure Until
+* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $pressureUntil
+* @return $this
+*/
+public function setPressureUntil (?\Pimcore\Model\DataObject\Data\QuantityValue $pressureUntil): static
+{
+	$this->pressureUntil = $pressureUntil;
 
 	return $this;
 }
@@ -1552,96 +1552,12 @@ public function getMethodOfCalculation(?string $language = null): ?string
 }
 
 /**
-* Get declarationsResistanceToAbrasion - Resistance to: Abrasion
+* Get flameRetardant - Flame Retardant
 * @return string|null
 */
-public function getDeclarationsResistanceToAbrasion(?string $language = null): ?string
+public function getFlameRetardant(?string $language = null): ?string
 {
-	$data = $this->getLocalizedfields()->getLocalizedValue("declarationsResistanceToAbrasion", $language);
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get declarationsAntiUv - Anti UV
-* @return string|null
-*/
-public function getDeclarationsAntiUv(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("declarationsAntiUv", $language);
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get antistatic - Antistatic
-* @return string|null
-*/
-public function getAntistatic(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("antistatic", $language);
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get atex - ATEX
-* @return string|null
-*/
-public function getAtex(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("atex", $language);
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get calibratedDiameters - Calibrated Diameters
-* @return string|null
-*/
-public function getCalibratedDiameters(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("calibratedDiameters", $language);
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get caution - Caution
-* @return string|null
-*/
-public function getCaution(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("caution", $language);
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get resistanceToChemicals - Resistance to: Chemicals
-* @return string|null
-*/
-public function getResistanceToChemicals(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("resistanceToChemicals", $language);
+	$data = $this->getLocalizedfields()->getLocalizedValue("flameRetardant", $language);
 	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
 		return $data->getPlain();
 	}
@@ -1664,34 +1580,6 @@ public function getDeclarationsResistanceToChlorine(?string $language = null): ?
 }
 
 /**
-* Get compressionLoad - Compression Load
-* @return string|null
-*/
-public function getCompressionLoad(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("compressionLoad", $language);
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get conductive - Conductive
-* @return string|null
-*/
-public function getConductive(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("conductive", $language);
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
 * Get declarationsResistanceToCrushing - Resistance to: Crushing
 * @return string|null
 */
@@ -1706,12 +1594,12 @@ public function getDeclarationsResistanceToCrushing(?string $language = null): ?
 }
 
 /**
-* Get flameRetardant - Flame Retardant
+* Get declarationsAntiUv - Anti UV
 * @return string|null
 */
-public function getFlameRetardant(?string $language = null): ?string
+public function getDeclarationsAntiUv(?string $language = null): ?string
 {
-	$data = $this->getLocalizedfields()->getLocalizedValue("flameRetardant", $language);
+	$data = $this->getLocalizedfields()->getLocalizedValue("declarationsAntiUv", $language);
 	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
 		return $data->getPlain();
 	}
@@ -1720,12 +1608,26 @@ public function getFlameRetardant(?string $language = null): ?string
 }
 
 /**
-* Get flameRetardant2 - Flame Retardant  2
+* Get declarationsResistanceToAbrasion - Resistance to: Abrasion
 * @return string|null
 */
-public function getFlameRetardant2(?string $language = null): ?string
+public function getDeclarationsResistanceToAbrasion(?string $language = null): ?string
 {
-	$data = $this->getLocalizedfields()->getLocalizedValue("flameRetardant2", $language);
+	$data = $this->getLocalizedfields()->getLocalizedValue("declarationsResistanceToAbrasion", $language);
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get declarationsResistanceToMould - Resistance to: Mould
+* @return string|null
+*/
+public function getDeclarationsResistanceToMould(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("declarationsResistanceToMould", $language);
 	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
 		return $data->getPlain();
 	}
@@ -1748,12 +1650,82 @@ public function getDeclarationsFlexibility(?string $language = null): ?string
 }
 
 /**
-* Get forFood - For Food
+* Get conductive - Conductive
 * @return string|null
 */
-public function getForFood(?string $language = null): ?string
+public function getConductive(?string $language = null): ?string
 {
-	$data = $this->getLocalizedfields()->getLocalizedValue("forFood", $language);
+	$data = $this->getLocalizedfields()->getLocalizedValue("conductive", $language);
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get caution - Caution
+* @return string|null
+*/
+public function getCaution(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("caution", $language);
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get atex - ATEX
+* @return string|null
+*/
+public function getAtex(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("atex", $language);
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get antistatic - Antistatic
+* @return string|null
+*/
+public function getAntistatic(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("antistatic", $language);
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get siliconFree - Silicon Free
+* @return string|null
+*/
+public function getSiliconFree(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("siliconFree", $language);
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get phtalateFree - Phtalate Free
+* @return string|null
+*/
+public function getPhtalateFree(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("phtalateFree", $language);
 	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
 		return $data->getPlain();
 	}
@@ -1776,12 +1748,82 @@ public function getForFood2(?string $language = null): ?string
 }
 
 /**
-* Get halogenFree - Halogen Free
+* Get flameRetardant2 - Flame Retardant  2
 * @return string|null
 */
-public function getHalogenFree(?string $language = null): ?string
+public function getFlameRetardant2(?string $language = null): ?string
 {
-	$data = $this->getLocalizedfields()->getLocalizedValue("halogenFree", $language);
+	$data = $this->getLocalizedfields()->getLocalizedValue("flameRetardant2", $language);
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get declarationsResistanceToTear - Resistance to: Tear / Tearing
+* @return string|null
+*/
+public function getDeclarationsResistanceToTear(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("declarationsResistanceToTear", $language);
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get declarationsResistanceToPerforation - Resistance to: Perforation
+* @return string|null
+*/
+public function getDeclarationsResistanceToPerforation(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("declarationsResistanceToPerforation", $language);
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get declarationsSmoothSurface - Smooth surface
+* @return string|null
+*/
+public function getDeclarationsSmoothSurface(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("declarationsSmoothSurface", $language);
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get declarationsResistanceToOzone - Resistance to: Ozone
+* @return string|null
+*/
+public function getDeclarationsResistanceToOzone(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("declarationsResistanceToOzone", $language);
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get resistanceToChemicals - Resistance to: Chemicals
+* @return string|null
+*/
+public function getResistanceToChemicals(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("resistanceToChemicals", $language);
 	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
 		return $data->getPlain();
 	}
@@ -1818,124 +1860,12 @@ public function getResistanceToMicrorganisms(?string $language = null): ?string
 }
 
 /**
-* Get declarationsResistanceToMould - Resistance to: Mould
+* Get wasteWater - Waste water
 * @return string|null
 */
-public function getDeclarationsResistanceToMould(?string $language = null): ?string
+public function getWasteWater(?string $language = null): ?string
 {
-	$data = $this->getLocalizedfields()->getLocalizedValue("declarationsResistanceToMould", $language);
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get ophtalateFree - O-Phtalate Free
-* @return string|null
-*/
-public function getOphtalateFree(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("ophtalateFree", $language);
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get declarationsResistanceToOzone - Resistance to: Ozone
-* @return string|null
-*/
-public function getDeclarationsResistanceToOzone(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("declarationsResistanceToOzone", $language);
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get declarationsResistanceToPerforation - Resistance to: Perforation
-* @return string|null
-*/
-public function getDeclarationsResistanceToPerforation(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("declarationsResistanceToPerforation", $language);
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get phtalateFree - Phtalate Free
-* @return string|null
-*/
-public function getPhtalateFree(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("phtalateFree", $language);
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get puType - PU Type
-* @return string|null
-*/
-public function getPuType(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("puType", $language);
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get siliconFree - Silicon Free
-* @return string|null
-*/
-public function getSiliconFree(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("siliconFree", $language);
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get declarationsSmoothSurface - Smooth surface
-* @return string|null
-*/
-public function getDeclarationsSmoothSurface(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("declarationsSmoothSurface", $language);
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get declarationsResistanceToTear - Resistance to: Tear / Tearing
-* @return string|null
-*/
-public function getDeclarationsResistanceToTear(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("declarationsResistanceToTear", $language);
+	$data = $this->getLocalizedfields()->getLocalizedValue("wasteWater", $language);
 	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
 		return $data->getPlain();
 	}
@@ -1958,12 +1888,82 @@ public function getTrgsHomologation(?string $language = null): ?string
 }
 
 /**
-* Get wasteWater - Waste water
+* Get compressionLoad - Compression Load
 * @return string|null
 */
-public function getWasteWater(?string $language = null): ?string
+public function getCompressionLoad(?string $language = null): ?string
 {
-	$data = $this->getLocalizedfields()->getLocalizedValue("wasteWater", $language);
+	$data = $this->getLocalizedfields()->getLocalizedValue("compressionLoad", $language);
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get calibratedDiameters - Calibrated Diameters
+* @return string|null
+*/
+public function getCalibratedDiameters(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("calibratedDiameters", $language);
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get puType - PU Type
+* @return string|null
+*/
+public function getPuType(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("puType", $language);
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get ophtalateFree - O-Phtalate Free
+* @return string|null
+*/
+public function getOphtalateFree(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("ophtalateFree", $language);
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get halogenFree - Halogen Free
+* @return string|null
+*/
+public function getHalogenFree(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("halogenFree", $language);
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get forFood - For Food
+* @return string|null
+*/
+public function getForFood(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("forFood", $language);
 	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
 		return $data->getPlain();
 	}
@@ -2062,92 +2062,14 @@ public function setMethodOfCalculation (?string $methodOfCalculation, ?string $l
 }
 
 /**
-* Set declarationsResistanceToAbrasion - Resistance to: Abrasion
-* @param string|null $declarationsResistanceToAbrasion
+* Set flameRetardant - Flame Retardant
+* @param string|null $flameRetardant
 * @return $this
 */
-public function setDeclarationsResistanceToAbrasion (?string $declarationsResistanceToAbrasion, ?string $language = null): static
+public function setFlameRetardant (?string $flameRetardant, ?string $language = null): static
 {
 	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("declarationsResistanceToAbrasion", $declarationsResistanceToAbrasion, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set declarationsAntiUv - Anti UV
-* @param string|null $declarationsAntiUv
-* @return $this
-*/
-public function setDeclarationsAntiUv (?string $declarationsAntiUv, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("declarationsAntiUv", $declarationsAntiUv, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set antistatic - Antistatic
-* @param string|null $antistatic
-* @return $this
-*/
-public function setAntistatic (?string $antistatic, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("antistatic", $antistatic, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set atex - ATEX
-* @param string|null $atex
-* @return $this
-*/
-public function setAtex (?string $atex, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("atex", $atex, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set calibratedDiameters - Calibrated Diameters
-* @param string|null $calibratedDiameters
-* @return $this
-*/
-public function setCalibratedDiameters (?string $calibratedDiameters, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("calibratedDiameters", $calibratedDiameters, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set caution - Caution
-* @param string|null $caution
-* @return $this
-*/
-public function setCaution (?string $caution, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("caution", $caution, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set resistanceToChemicals - Resistance to: Chemicals
-* @param string|null $resistanceToChemicals
-* @return $this
-*/
-public function setResistanceToChemicals (?string $resistanceToChemicals, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("resistanceToChemicals", $resistanceToChemicals, $language, !$isEqual);
+	$this->getLocalizedfields()->setLocalizedValue("flameRetardant", $flameRetardant, $language, !$isEqual);
 
 	return $this;
 }
@@ -2166,32 +2088,6 @@ public function setDeclarationsResistanceToChlorine (?string $declarationsResist
 }
 
 /**
-* Set compressionLoad - Compression Load
-* @param string|null $compressionLoad
-* @return $this
-*/
-public function setCompressionLoad (?string $compressionLoad, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("compressionLoad", $compressionLoad, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set conductive - Conductive
-* @param string|null $conductive
-* @return $this
-*/
-public function setConductive (?string $conductive, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("conductive", $conductive, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
 * Set declarationsResistanceToCrushing - Resistance to: Crushing
 * @param string|null $declarationsResistanceToCrushing
 * @return $this
@@ -2205,27 +2101,40 @@ public function setDeclarationsResistanceToCrushing (?string $declarationsResist
 }
 
 /**
-* Set flameRetardant - Flame Retardant
-* @param string|null $flameRetardant
+* Set declarationsAntiUv - Anti UV
+* @param string|null $declarationsAntiUv
 * @return $this
 */
-public function setFlameRetardant (?string $flameRetardant, ?string $language = null): static
+public function setDeclarationsAntiUv (?string $declarationsAntiUv, ?string $language = null): static
 {
 	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("flameRetardant", $flameRetardant, $language, !$isEqual);
+	$this->getLocalizedfields()->setLocalizedValue("declarationsAntiUv", $declarationsAntiUv, $language, !$isEqual);
 
 	return $this;
 }
 
 /**
-* Set flameRetardant2 - Flame Retardant  2
-* @param string|null $flameRetardant2
+* Set declarationsResistanceToAbrasion - Resistance to: Abrasion
+* @param string|null $declarationsResistanceToAbrasion
 * @return $this
 */
-public function setFlameRetardant2 (?string $flameRetardant2, ?string $language = null): static
+public function setDeclarationsResistanceToAbrasion (?string $declarationsResistanceToAbrasion, ?string $language = null): static
 {
 	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("flameRetardant2", $flameRetardant2, $language, !$isEqual);
+	$this->getLocalizedfields()->setLocalizedValue("declarationsResistanceToAbrasion", $declarationsResistanceToAbrasion, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set declarationsResistanceToMould - Resistance to: Mould
+* @param string|null $declarationsResistanceToMould
+* @return $this
+*/
+public function setDeclarationsResistanceToMould (?string $declarationsResistanceToMould, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("declarationsResistanceToMould", $declarationsResistanceToMould, $language, !$isEqual);
 
 	return $this;
 }
@@ -2244,14 +2153,79 @@ public function setDeclarationsFlexibility (?string $declarationsFlexibility, ?s
 }
 
 /**
-* Set forFood - For Food
-* @param string|null $forFood
+* Set conductive - Conductive
+* @param string|null $conductive
 * @return $this
 */
-public function setForFood (?string $forFood, ?string $language = null): static
+public function setConductive (?string $conductive, ?string $language = null): static
 {
 	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("forFood", $forFood, $language, !$isEqual);
+	$this->getLocalizedfields()->setLocalizedValue("conductive", $conductive, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set caution - Caution
+* @param string|null $caution
+* @return $this
+*/
+public function setCaution (?string $caution, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("caution", $caution, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set atex - ATEX
+* @param string|null $atex
+* @return $this
+*/
+public function setAtex (?string $atex, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("atex", $atex, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set antistatic - Antistatic
+* @param string|null $antistatic
+* @return $this
+*/
+public function setAntistatic (?string $antistatic, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("antistatic", $antistatic, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set siliconFree - Silicon Free
+* @param string|null $siliconFree
+* @return $this
+*/
+public function setSiliconFree (?string $siliconFree, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("siliconFree", $siliconFree, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set phtalateFree - Phtalate Free
+* @param string|null $phtalateFree
+* @return $this
+*/
+public function setPhtalateFree (?string $phtalateFree, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("phtalateFree", $phtalateFree, $language, !$isEqual);
 
 	return $this;
 }
@@ -2270,14 +2244,79 @@ public function setForFood2 (?string $forFood2, ?string $language = null): stati
 }
 
 /**
-* Set halogenFree - Halogen Free
-* @param string|null $halogenFree
+* Set flameRetardant2 - Flame Retardant  2
+* @param string|null $flameRetardant2
 * @return $this
 */
-public function setHalogenFree (?string $halogenFree, ?string $language = null): static
+public function setFlameRetardant2 (?string $flameRetardant2, ?string $language = null): static
 {
 	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("halogenFree", $halogenFree, $language, !$isEqual);
+	$this->getLocalizedfields()->setLocalizedValue("flameRetardant2", $flameRetardant2, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set declarationsResistanceToTear - Resistance to: Tear / Tearing
+* @param string|null $declarationsResistanceToTear
+* @return $this
+*/
+public function setDeclarationsResistanceToTear (?string $declarationsResistanceToTear, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("declarationsResistanceToTear", $declarationsResistanceToTear, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set declarationsResistanceToPerforation - Resistance to: Perforation
+* @param string|null $declarationsResistanceToPerforation
+* @return $this
+*/
+public function setDeclarationsResistanceToPerforation (?string $declarationsResistanceToPerforation, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("declarationsResistanceToPerforation", $declarationsResistanceToPerforation, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set declarationsSmoothSurface - Smooth surface
+* @param string|null $declarationsSmoothSurface
+* @return $this
+*/
+public function setDeclarationsSmoothSurface (?string $declarationsSmoothSurface, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("declarationsSmoothSurface", $declarationsSmoothSurface, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set declarationsResistanceToOzone - Resistance to: Ozone
+* @param string|null $declarationsResistanceToOzone
+* @return $this
+*/
+public function setDeclarationsResistanceToOzone (?string $declarationsResistanceToOzone, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("declarationsResistanceToOzone", $declarationsResistanceToOzone, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set resistanceToChemicals - Resistance to: Chemicals
+* @param string|null $resistanceToChemicals
+* @return $this
+*/
+public function setResistanceToChemicals (?string $resistanceToChemicals, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("resistanceToChemicals", $resistanceToChemicals, $language, !$isEqual);
 
 	return $this;
 }
@@ -2309,118 +2348,14 @@ public function setResistanceToMicrorganisms (?string $resistanceToMicrorganisms
 }
 
 /**
-* Set declarationsResistanceToMould - Resistance to: Mould
-* @param string|null $declarationsResistanceToMould
+* Set wasteWater - Waste water
+* @param string|null $wasteWater
 * @return $this
 */
-public function setDeclarationsResistanceToMould (?string $declarationsResistanceToMould, ?string $language = null): static
+public function setWasteWater (?string $wasteWater, ?string $language = null): static
 {
 	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("declarationsResistanceToMould", $declarationsResistanceToMould, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set ophtalateFree - O-Phtalate Free
-* @param string|null $ophtalateFree
-* @return $this
-*/
-public function setOphtalateFree (?string $ophtalateFree, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("ophtalateFree", $ophtalateFree, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set declarationsResistanceToOzone - Resistance to: Ozone
-* @param string|null $declarationsResistanceToOzone
-* @return $this
-*/
-public function setDeclarationsResistanceToOzone (?string $declarationsResistanceToOzone, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("declarationsResistanceToOzone", $declarationsResistanceToOzone, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set declarationsResistanceToPerforation - Resistance to: Perforation
-* @param string|null $declarationsResistanceToPerforation
-* @return $this
-*/
-public function setDeclarationsResistanceToPerforation (?string $declarationsResistanceToPerforation, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("declarationsResistanceToPerforation", $declarationsResistanceToPerforation, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set phtalateFree - Phtalate Free
-* @param string|null $phtalateFree
-* @return $this
-*/
-public function setPhtalateFree (?string $phtalateFree, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("phtalateFree", $phtalateFree, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set puType - PU Type
-* @param string|null $puType
-* @return $this
-*/
-public function setPuType (?string $puType, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("puType", $puType, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set siliconFree - Silicon Free
-* @param string|null $siliconFree
-* @return $this
-*/
-public function setSiliconFree (?string $siliconFree, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("siliconFree", $siliconFree, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set declarationsSmoothSurface - Smooth surface
-* @param string|null $declarationsSmoothSurface
-* @return $this
-*/
-public function setDeclarationsSmoothSurface (?string $declarationsSmoothSurface, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("declarationsSmoothSurface", $declarationsSmoothSurface, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set declarationsResistanceToTear - Resistance to: Tear / Tearing
-* @param string|null $declarationsResistanceToTear
-* @return $this
-*/
-public function setDeclarationsResistanceToTear (?string $declarationsResistanceToTear, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("declarationsResistanceToTear", $declarationsResistanceToTear, $language, !$isEqual);
+	$this->getLocalizedfields()->setLocalizedValue("wasteWater", $wasteWater, $language, !$isEqual);
 
 	return $this;
 }
@@ -2439,14 +2374,79 @@ public function setTrgsHomologation (?string $trgsHomologation, ?string $languag
 }
 
 /**
-* Set wasteWater - Waste water
-* @param string|null $wasteWater
+* Set compressionLoad - Compression Load
+* @param string|null $compressionLoad
 * @return $this
 */
-public function setWasteWater (?string $wasteWater, ?string $language = null): static
+public function setCompressionLoad (?string $compressionLoad, ?string $language = null): static
 {
 	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("wasteWater", $wasteWater, $language, !$isEqual);
+	$this->getLocalizedfields()->setLocalizedValue("compressionLoad", $compressionLoad, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set calibratedDiameters - Calibrated Diameters
+* @param string|null $calibratedDiameters
+* @return $this
+*/
+public function setCalibratedDiameters (?string $calibratedDiameters, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("calibratedDiameters", $calibratedDiameters, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set puType - PU Type
+* @param string|null $puType
+* @return $this
+*/
+public function setPuType (?string $puType, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("puType", $puType, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set ophtalateFree - O-Phtalate Free
+* @param string|null $ophtalateFree
+* @return $this
+*/
+public function setOphtalateFree (?string $ophtalateFree, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("ophtalateFree", $ophtalateFree, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set halogenFree - Halogen Free
+* @param string|null $halogenFree
+* @return $this
+*/
+public function setHalogenFree (?string $halogenFree, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("halogenFree", $halogenFree, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set forFood - For Food
+* @param string|null $forFood
+* @return $this
+*/
+public function setForFood (?string $forFood, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("forFood", $forFood, $language, !$isEqual);
 
 	return $this;
 }
@@ -2480,6 +2480,39 @@ public function getRatingsResistanceToAbrasion(): ?string
 public function setRatingsResistanceToAbrasion (?string $ratingsResistanceToAbrasion): static
 {
 	$this->ratingsResistanceToAbrasion = $ratingsResistanceToAbrasion;
+
+	return $this;
+}
+
+/**
+* Get ratingsResistanceToTear - Resistance to: Tear / Tearing
+* @return string|null
+*/
+public function getRatingsResistanceToTear(): ?string
+{
+	$data = $this->ratingsResistanceToTear;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("ratingsResistanceToTear")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("ratingsResistanceToTear");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set ratingsResistanceToTear - Resistance to: Tear / Tearing
+* @param string|null $ratingsResistanceToTear
+* @return $this
+*/
+public function setRatingsResistanceToTear (?string $ratingsResistanceToTear): static
+{
+	$this->ratingsResistanceToTear = $ratingsResistanceToTear;
 
 	return $this;
 }
@@ -2617,39 +2650,6 @@ public function setRatingsResistanceToMould (?string $ratingsResistanceToMould):
 }
 
 /**
-* Get ratingsResistanceToOzone - Resistance to: Ozone
-* @return string|null
-*/
-public function getRatingsResistanceToOzone(): ?string
-{
-	$data = $this->ratingsResistanceToOzone;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("ratingsResistanceToOzone")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("ratingsResistanceToOzone");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set ratingsResistanceToOzone - Resistance to: Ozone
-* @param string|null $ratingsResistanceToOzone
-* @return $this
-*/
-public function setRatingsResistanceToOzone (?string $ratingsResistanceToOzone): static
-{
-	$this->ratingsResistanceToOzone = $ratingsResistanceToOzone;
-
-	return $this;
-}
-
-/**
 * Get ratingsResistanceToPerforation - Resistance to: Perforation
 * @return string|null
 */
@@ -2716,15 +2716,15 @@ public function setRatingsSmoothSurface (?string $ratingsSmoothSurface): static
 }
 
 /**
-* Get ratingsResistanceToTear - Resistance to: Tear / Tearing
+* Get ratingsResistanceToOzone - Resistance to: Ozone
 * @return string|null
 */
-public function getRatingsResistanceToTear(): ?string
+public function getRatingsResistanceToOzone(): ?string
 {
-	$data = $this->ratingsResistanceToTear;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("ratingsResistanceToTear")->isEmpty($data)) {
+	$data = $this->ratingsResistanceToOzone;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("ratingsResistanceToOzone")->isEmpty($data)) {
 		try {
-			return $this->getValueFromParent("ratingsResistanceToTear");
+			return $this->getValueFromParent("ratingsResistanceToOzone");
 		} catch (InheritanceParentNotFoundException $e) {
 			// no data from parent available, continue ...
 		}
@@ -2737,13 +2737,13 @@ public function getRatingsResistanceToTear(): ?string
 }
 
 /**
-* Set ratingsResistanceToTear - Resistance to: Tear / Tearing
-* @param string|null $ratingsResistanceToTear
+* Set ratingsResistanceToOzone - Resistance to: Ozone
+* @param string|null $ratingsResistanceToOzone
 * @return $this
 */
-public function setRatingsResistanceToTear (?string $ratingsResistanceToTear): static
+public function setRatingsResistanceToOzone (?string $ratingsResistanceToOzone): static
 {
-	$this->ratingsResistanceToTear = $ratingsResistanceToTear;
+	$this->ratingsResistanceToOzone = $ratingsResistanceToOzone;
 
 	return $this;
 }

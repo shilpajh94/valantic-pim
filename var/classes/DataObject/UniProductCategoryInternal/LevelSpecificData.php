@@ -6,7 +6,7 @@ use Pimcore\Model\DataObject\Exception\InheritanceParentNotFoundException;
 
 class LevelSpecificData extends \Pimcore\Model\DataObject\Objectbrick {
 
-protected $brickGetters = ['UniPrBrand','UniPrBrandDss','UniPrBrandPts','UniPrParentFhs','UniPrSkeleFhs','UniPrSkeleton','UniPrSkeletonDss','UniPrSkeletonPts'];
+protected $brickGetters = ['UniPrBrand','UniPrBrandDss','UniPrBrandFhs','UniPrBrandPts','UniPrSkeleFhs','UniPrSkeleton','UniPrSkeletonDss','UniPrSkeletonPts'];
 
 
 protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrand|null $UniPrBrand = null;
@@ -59,6 +59,31 @@ public function setUniPrBrandDss(?\Pimcore\Model\DataObject\Objectbrick\Data\Uni
 	return $this;
 }
 
+protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrandFhs|null $UniPrBrandFhs = null;
+
+/**
+* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrandFhs|null
+*/
+public function getUniPrBrandFhs(bool $includeDeletedBricks = false)
+{
+	if(!$includeDeletedBricks &&
+		isset($this->UniPrBrandFhs) &&
+		$this->UniPrBrandFhs->getDoDelete()) {
+			return null;
+	}
+	return $this->UniPrBrandFhs;
+}
+
+/**
+* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrandFhs|null $UniPrBrandFhs
+* @return $this
+*/
+public function setUniPrBrandFhs(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrandFhs $UniPrBrandFhs): static
+{
+	$this->UniPrBrandFhs = $UniPrBrandFhs;
+	return $this;
+}
+
 protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrandPts|null $UniPrBrandPts = null;
 
 /**
@@ -81,31 +106,6 @@ public function getUniPrBrandPts(bool $includeDeletedBricks = false)
 public function setUniPrBrandPts(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrandPts $UniPrBrandPts): static
 {
 	$this->UniPrBrandPts = $UniPrBrandPts;
-	return $this;
-}
-
-protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrParentFhs|null $UniPrParentFhs = null;
-
-/**
-* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrParentFhs|null
-*/
-public function getUniPrParentFhs(bool $includeDeletedBricks = false)
-{
-	if(!$includeDeletedBricks &&
-		isset($this->UniPrParentFhs) &&
-		$this->UniPrParentFhs->getDoDelete()) {
-			return null;
-	}
-	return $this->UniPrParentFhs;
-}
-
-/**
-* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrParentFhs|null $UniPrParentFhs
-* @return $this
-*/
-public function setUniPrParentFhs(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrParentFhs $UniPrParentFhs): static
-{
-	$this->UniPrParentFhs = $UniPrParentFhs;
 	return $this;
 }
 
