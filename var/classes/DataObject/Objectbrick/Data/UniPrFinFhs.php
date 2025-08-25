@@ -661,7 +661,7 @@ public function setApplications (?array $applications): static
 }
 
 /**
-* Get hoseLengthImperial - Hose Length Ft
+* Get hoseLengthImperial - Hose Length (Ft)
 * @return \Pimcore\Model\DataObject\Data\QuantityValue|null
 */
 public function getHoseLengthImperial(): ?\Pimcore\Model\DataObject\Data\QuantityValue
@@ -682,7 +682,7 @@ public function getHoseLengthImperial(): ?\Pimcore\Model\DataObject\Data\Quantit
 }
 
 /**
-* Set hoseLengthImperial - Hose Length Ft
+* Set hoseLengthImperial - Hose Length (Ft)
 * @param \Pimcore\Model\DataObject\Data\QuantityValue|null $hoseLengthImperial
 * @return $this
 */

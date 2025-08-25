@@ -11,7 +11,7 @@ return Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
    'key' => 'UniBasePrCustomerReference',
    'parentClass' => '',
    'implementsInterfaces' => '',
-   'title' => '',
+   'title' => 'Customer Reference',
    'group' => '',
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(

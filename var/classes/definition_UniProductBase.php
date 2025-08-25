@@ -21,7 +21,7 @@
  * -- plantProduced [select]
  * -- unitOfMeasure [quantityValue]
  * -- weight [numeric]
- * -- featuresAndBenefits [select]
+ * -- featuresAndBenefits [multiselect]
  * -- productDescriptionShort [textarea]
  * -- productDescriptionLong [textarea]
  * -- productMarking1 [textarea]
@@ -74,7 +74,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Product',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1755857331,
+   'modificationDate' => 1756105588,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => 'App\\Model\\DataObject\\AbstractUniProductBase',
@@ -661,10 +661,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                 ),
                                  'classes' => 
                                 array (
-                                  0 => 
-                                  array (
-                                    'classes' => '',
-                                  ),
                                 ),
                                  'displayMode' => 'grid',
                                  'pathFormatterClass' => '',
@@ -925,7 +921,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'children' => 
                                 array (
                                   0 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                                      'name' => 'featuresAndBenefits',
                                      'title' => 'Features And Benefits',
                                      'tooltip' => '',
@@ -943,11 +939,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'blockedVarsForExport' => 
                                     array (
                                     ),
-                                     'defaultValue' => '',
-                                     'columnLength' => 190,
+                                     'maxItems' => NULL,
+                                     'renderType' => 'tags',
                                      'dynamicOptions' => false,
-                                     'defaultValueGenerator' => '',
+                                     'defaultValue' => NULL,
+                                     'height' => '',
                                      'width' => 350,
+                                     'defaultValueGenerator' => '',
                                      'optionsProviderType' => 'select_options',
                                      'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
                                      'optionsProviderData' => 'UniBasePrFeaturesAndBenefits',
@@ -1195,7 +1193,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                       ),
                                     ),
                                      'maxItems' => NULL,
-                                     'renderType' => 'list',
+                                     'renderType' => 'tags',
                                      'dynamicOptions' => false,
                                      'defaultValue' => NULL,
                                      'height' => '',
@@ -2512,7 +2510,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                              'name' => 'featuresAndBenefits',
                              'title' => 'Features And Benefits',
                              'tooltip' => '',
@@ -2530,11 +2528,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'blockedVarsForExport' => 
                             array (
                             ),
-                             'defaultValue' => '',
-                             'columnLength' => 190,
+                             'maxItems' => NULL,
+                             'renderType' => 'tags',
                              'dynamicOptions' => false,
-                             'defaultValueGenerator' => '',
+                             'defaultValue' => NULL,
+                             'height' => '',
                              'width' => 350,
+                             'defaultValueGenerator' => '',
                              'optionsProviderType' => 'select_options',
                              'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
                              'optionsProviderData' => 'UniBasePrFeaturesAndBenefits',
@@ -3038,7 +3038,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                               ),
                             ),
                              'maxItems' => NULL,
-                             'renderType' => 'list',
+                             'renderType' => 'tags',
                              'dynamicOptions' => false,
                              'defaultValue' => NULL,
                              'height' => '',
