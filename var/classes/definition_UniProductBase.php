@@ -3170,7 +3170,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'blockedVarsForExport' => 
                 array (
                 ),
-                 'defaultValue' => 'created_from_sap',
+                 'defaultValue' => 'created',
                  'columnLength' => 190,
                  'regex' => '',
                  'regexFlags' => 

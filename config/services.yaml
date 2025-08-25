@@ -47,12 +47,6 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
-    App\EventListener\ProductWorkflowGuard:
-        arguments:
-            $tokenStorage: '@security.token_storage'
-        tags:
-            - { name: workflow.guard, workflow: product_approval }
-
     # Example custom templating helper
     # AppBundle\Templating\Helper\Example:
     #     # templating helpers need to be public as they

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\EventListener;
 
-use App\Enum\ProductManagement\ProductApprovalWorkflow;
 use App\Enum\ProductManagement\ProductApprovalWorkflowPlace;
 use App\Enum\ProductManagement\ProductApprovalWorkflowTransition;
 use Pimcore\Event\DataObjectEvents;
@@ -45,12 +44,12 @@ class ProductWorkflowEventListener implements EventSubscriberInterface
         $oldObject = UniProductBase::getById($object->getId(), ['force' => true]);
 
         try {
-            $workflow = $this->workflowRegistry->get($object, ProductApprovalWorkflow::PRODUCT_APPROVAL->value);
+            $workflow = $this->workflowRegistry->get($object, 'product_approval');
             $currentPlace = array_keys($workflow->getMarking($object)->getPlaces());
 
             // Move to draft if an approved object is edited
             if (in_array(ProductApprovalWorkflowPlace::APPROVED->value, $currentPlace, true)) {
-                $this->applyTransitionSafely($workflow, $object, ProductApprovalWorkflowTransition::MOVE_TO_DRAFT);
+                $this->applyTransitionSafely($workflow, $object, ProductApprovalWorkflowTransition::EDIT_DRAFT);
             }
 
             // Auto-approve if internal category data is updated and no approval needed
@@ -59,7 +58,7 @@ class ProductWorkflowEventListener implements EventSubscriberInterface
             }
 
             // Auto-approve if imported SAP data doesn't need approval
-            if (in_array(ProductApprovalWorkflowPlace::CREATED_FROM_SAP->value, $currentPlace, true) && !$this->requiresApproval($object)) {
+            if (in_array(ProductApprovalWorkflowPlace::CREATED->value, $currentPlace, true) && !$this->requiresApproval($object)) {
                 $this->applyTransitionSafely($workflow, $object, ProductApprovalWorkflowTransition::APPROVE_PRODUCT);
             }
 
