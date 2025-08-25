@@ -16,7 +16,7 @@
 
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
-   'id' => 'UNI_PR_CAT_INT',
+   'id' => 'UNI_PRCI',
    'name' => 'UniProductCategoryInternal',
    'title' => 'Internal Category',
    'description' => '',
