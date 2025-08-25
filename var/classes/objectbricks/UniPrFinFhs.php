@@ -985,7 +985,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   0 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                      'name' => 'hoseLengthImperial',
-                     'title' => 'Hose Length Ft',
+                     'title' => 'Hose Length (Ft)',
                      'tooltip' => '',
                      'mandatory' => true,
                      'noteditable' => false,

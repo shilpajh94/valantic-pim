@@ -2,27 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Model\DataObject\UniProductManagement\Objectbrick;
+namespace App\Service\UniProductManagement;
 
-use Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeleFhs as BaseUniPrSkeleFhs;
-
-class UniPrSkeleFhs extends BaseUniPrSkeleFhs
+class UnitService
 {
-    public function getFormattedInsideDiameterFraction(): ?string
-    {
-        $numericValue = $this->getInsideDiameterFractionImperial()?->getValue();
-
-        if ($numericValue === null) {
-            return null;
-        }
-
-        return $this->convertDecimalToFraction($numericValue);
-    }
-
     /**
      * @see https://stackoverflow.com/a/14170616
      */
-    private function convertDecimalToFraction(float $decimal): string
+    public function convertInchesDecimalToFraction(float $decimal): string
     {
         $denominator = 64;
         $num = round($decimal * $denominator);

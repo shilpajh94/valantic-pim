@@ -20,7 +20,7 @@
  * -- plantProduced [select]
  * -- unitOfMeasure [quantityValue]
  * -- weight [numeric]
- * -- featuresAndBenefits [select]
+ * -- featuresAndBenefits [multiselect]
  * -- productDescriptionShort [textarea]
  * -- productDescriptionLong [textarea]
  * -- productMarking1 [textarea]
@@ -512,7 +512,7 @@ public function getProductCategory(?string $language = null): ?\Pimcore\Model\El
 
 /**
 * Get b2bSubCategory - B2b Sub Category
-* @return \Pimcore\Model\DataObject\[]
+* @return \Pimcore\Model\DataObject\AbstractObject[]
 */
 public function getB2bSubCategory(?string $language = null): array
 {
@@ -638,9 +638,9 @@ public function getWeight(?string $language = null): ?float
 
 /**
 * Get featuresAndBenefits - Features And Benefits
-* @return string|null
+* @return string[]|null
 */
-public function getFeaturesAndBenefits(?string $language = null): ?string
+public function getFeaturesAndBenefits(?string $language = null): ?array
 {
 	$data = $this->getLocalizedfields()->getLocalizedValue("featuresAndBenefits", $language);
 	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
@@ -1098,7 +1098,7 @@ public function setProductCategory (?\Pimcore\Model\Element\AbstractElement $pro
 
 /**
 * Set b2bSubCategory - B2b Sub Category
-* @param \Pimcore\Model\DataObject\[] $b2bSubCategory
+* @param \Pimcore\Model\DataObject\AbstractObject[] $b2bSubCategory
 * @return $this
 */
 public function setB2bSubCategory (?array $b2bSubCategory, ?string $language = null): static
@@ -1184,10 +1184,10 @@ public function setWeight (?float $weight, ?string $language = null): static
 
 /**
 * Set featuresAndBenefits - Features And Benefits
-* @param string|null $featuresAndBenefits
+* @param string[]|null $featuresAndBenefits
 * @return $this
 */
-public function setFeaturesAndBenefits (?string $featuresAndBenefits, ?string $language = null): static
+public function setFeaturesAndBenefits (?array $featuresAndBenefits, ?string $language = null): static
 {
 	$isEqual = false;
 	$this->getLocalizedfields()->setLocalizedValue("featuresAndBenefits", $featuresAndBenefits, $language, !$isEqual);
