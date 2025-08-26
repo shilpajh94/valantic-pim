@@ -6,8 +6,33 @@ use Pimcore\Model\DataObject\Exception\InheritanceParentNotFoundException;
 
 class TechnicalProductGroupSpecific extends \Pimcore\Model\DataObject\Objectbrick {
 
-protected $brickGetters = ['UniPrFgFhs','UniPrGsTechDss','UniPrGsTechPts'];
+protected $brickGetters = ['UniPrFgDss','UniPrFgFhs','UniPrGsTechPts'];
 
+
+protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrFgDss|null $UniPrFgDss = null;
+
+/**
+* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrFgDss|null
+*/
+public function getUniPrFgDss(bool $includeDeletedBricks = false)
+{
+	if(!$includeDeletedBricks &&
+		isset($this->UniPrFgDss) &&
+		$this->UniPrFgDss->getDoDelete()) {
+			return null;
+	}
+	return $this->UniPrFgDss;
+}
+
+/**
+* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrFgDss|null $UniPrFgDss
+* @return $this
+*/
+public function setUniPrFgDss(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrFgDss $UniPrFgDss): static
+{
+	$this->UniPrFgDss = $UniPrFgDss;
+	return $this;
+}
 
 protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrFgFhs|null $UniPrFgFhs = null;
 
@@ -31,31 +56,6 @@ public function getUniPrFgFhs(bool $includeDeletedBricks = false)
 public function setUniPrFgFhs(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrFgFhs $UniPrFgFhs): static
 {
 	$this->UniPrFgFhs = $UniPrFgFhs;
-	return $this;
-}
-
-protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrGsTechDss|null $UniPrGsTechDss = null;
-
-/**
-* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrGsTechDss|null
-*/
-public function getUniPrGsTechDss(bool $includeDeletedBricks = false)
-{
-	if(!$includeDeletedBricks &&
-		isset($this->UniPrGsTechDss) &&
-		$this->UniPrGsTechDss->getDoDelete()) {
-			return null;
-	}
-	return $this->UniPrGsTechDss;
-}
-
-/**
-* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrGsTechDss|null $UniPrGsTechDss
-* @return $this
-*/
-public function setUniPrGsTechDss(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrGsTechDss $UniPrGsTechDss): static
-{
-	$this->UniPrGsTechDss = $UniPrGsTechDss;
 	return $this;
 }
 
