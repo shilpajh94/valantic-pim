@@ -27,7 +27,7 @@ use Pimcore\Model\DataObject\Exception\InheritanceParentNotFoundException;
 use Pimcore\Model\DataObject\PreGetValueHookInterface;
 
 
-class UniPrFinDss extends \App\Model\DataObject\UniProductManagement\Objectbrick\AbstractUniPrArticle
+class UniPrFinDss extends DataObject\Objectbrick\Data\AbstractData
 {
 public const FIELD_MODEL_TYPE = 'modelType';
 public const FIELD_BELLOW_COMPOUND_MATERIAL = 'bellowCompoundMaterial';

@@ -13,8 +13,6 @@ use Pimcore\Model\DataObject\AbstractObject;
 use Pimcore\Model\DataObject\Objectbrick\Data\UniPrBr;
 use Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrandDss;
 use Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrandPts;
-use Pimcore\Model\DataObject\Objectbrick\Data\UniPrGsTechDss;
-use Pimcore\Model\DataObject\Objectbrick\Data\UniPrGsTechPts;
 use Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeletonDss;
 use Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeletonPts;
 use Pimcore\Model\DataObject\UniProductBase;
@@ -197,7 +195,7 @@ class GenerateCommand extends AbstractDummyDataCommand
         } elseif ($level === $this->maxLevel) {
             $this->addHierarchyRelations($result);
             $this->setRegionalAvailability($result);
-            $this->assignProductGroupSpecificFinishedGoodData($result);
+            $this->assignProductGroupSpecificFinishedGoodData();
         }
 
         $this->committableObjects++;
@@ -275,30 +273,8 @@ class GenerateCommand extends AbstractDummyDataCommand
         }
     }
 
-    private function assignProductGroupSpecificFinishedGoodData(UniProductBase $object): void
+    private function assignProductGroupSpecificFinishedGoodData(): void
     {
-        switch (random_int(0, 1)) {
-            case 0:
-                $inside = 500 * random_int(1, 4);
-                $object->getTechnicalProductGroupSpecific()?->setUniPrGsTechPts(
-                    (new UniPrGsTechPts($object))
-                        ->setInsideLengthMetric($inside)
-                        ->setOutsideLengthMetric($inside + random_int(20, 50))
-                        ->setRibPitchMetric(random_int(2, 5)),
-                );
-
-                break;
-
-            case 1:
-                $object->getTechnicalProductGroupSpecific()?->setUniPrGsTechDss(
-                    (new UniPrGsTechDss($object))
-                        ->setBellowOnly((bool) random_int(0, 1))
-                        ->setMinimumHeightMetric(10 * random_int(7, 10))
-                        ->setMaximumBellowDiameterMetric(10 * random_int(10, 40)),
-                );
-
-                break;
-        }
     }
 
     private function addHierarchyRelations(UniProductBase $object): void

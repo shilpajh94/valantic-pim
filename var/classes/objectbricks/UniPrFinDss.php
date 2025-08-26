@@ -23,7 +23,7 @@
 return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'dao' => NULL,
    'key' => 'UniPrFinDss',
-   'parentClass' => 'App\\Model\\DataObject\\UniProductManagement\\Objectbrick\\AbstractUniPrArticle',
+   'parentClass' => '',
    'implementsInterfaces' => '',
    'title' => 'Finished Good Product Group Specific Data (DSS)',
    'group' => 'UniProductManagement',
