@@ -5,18 +5,17 @@
  * Variants: no
  *
  * Fields Summary:
- * - localizedfields [localizedfields]
- * -- name [input]
+ * - name [input]
  */
 
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
-   'id' => '51',
-   'name' => 'UniPrBellowCompoundMaterialDss',
+   'id' => 'UNI_PR_DSS_ML_AI',
+   'name' => 'UniPrDssAirInletInsideThread',
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1755000833,
+   'modificationDate' => 1756219422,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -60,74 +59,34 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'children' => 
         array (
           0 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
-             'name' => 'localizedfields',
-             'title' => '',
-             'tooltip' => NULL,
-             'mandatory' => false,
+          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+             'name' => 'name',
+             'title' => 'Air Inlet Inside Thread type',
+             'tooltip' => '',
+             'mandatory' => true,
              'noteditable' => false,
              'index' => false,
              'locked' => false,
-             'style' => NULL,
+             'style' => '',
              'permissions' => NULL,
              'fieldtype' => '',
              'relationType' => false,
              'invisible' => false,
-             'visibleGridView' => true,
+             'visibleGridView' => false,
              'visibleSearch' => true,
              'blockedVarsForExport' => 
             array (
             ),
-             'children' => 
-            array (
-              0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                 'name' => 'name',
-                 'title' => 'Bellow compound material name',
-                 'tooltip' => '',
-                 'mandatory' => true,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => true,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'defaultValue' => NULL,
-                 'columnLength' => 190,
-                 'regex' => '',
-                 'regexFlags' => 
-                array (
-                ),
-                 'unique' => true,
-                 'showCharCount' => false,
-                 'width' => '',
-                 'defaultValueGenerator' => '',
-              )),
-            ),
-             'region' => NULL,
-             'layout' => NULL,
-             'maxTabs' => NULL,
-             'border' => false,
-             'provideSplitView' => false,
-             'tabPosition' => 'top',
-             'hideLabelsWhenTabsReached' => NULL,
-             'referencedFields' => 
+             'defaultValue' => NULL,
+             'columnLength' => 190,
+             'regex' => '',
+             'regexFlags' => 
             array (
             ),
-             'permissionView' => NULL,
-             'permissionEdit' => NULL,
-             'labelWidth' => 100,
-             'labelAlign' => 'left',
+             'unique' => true,
+             'showCharCount' => false,
              'width' => '',
-             'height' => '',
-             'fieldDefinitionsCache' => NULL,
+             'defaultValueGenerator' => '',
           )),
         ),
          'locked' => false,
@@ -154,7 +113,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'labelAlign' => 'left',
   )),
    'icon' => '',
-   'group' => 'UniProductFieldsDss',
+   'group' => 'UniProductMasterlistDss',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
    'previewGeneratorReference' => '',

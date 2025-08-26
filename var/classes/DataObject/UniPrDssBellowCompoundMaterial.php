@@ -15,17 +15,17 @@ use Pimcore\Model\DataObject\Exception\InheritanceParentNotFoundException;
 use Pimcore\Model\DataObject\PreGetValueHookInterface;
 
 /**
-* @method static \Pimcore\Model\DataObject\UniPrAirInletLocationDss\Listing getList(array $config = [])
-* @method static \Pimcore\Model\DataObject\UniPrAirInletLocationDss\Listing|\Pimcore\Model\DataObject\UniPrAirInletLocationDss|null getByLocalizedfields(string $field, mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniPrAirInletLocationDss\Listing|\Pimcore\Model\DataObject\UniPrAirInletLocationDss|null getByName(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniPrDssBellowCompoundMaterial\Listing getList(array $config = [])
+* @method static \Pimcore\Model\DataObject\UniPrDssBellowCompoundMaterial\Listing|\Pimcore\Model\DataObject\UniPrDssBellowCompoundMaterial|null getByLocalizedfields(string $field, mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniPrDssBellowCompoundMaterial\Listing|\Pimcore\Model\DataObject\UniPrDssBellowCompoundMaterial|null getByName(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 */
 
-class UniPrAirInletLocationDss extends Concrete
+class UniPrDssBellowCompoundMaterial extends Concrete
 {
 public const FIELD_NAME = 'name';
 
-protected $classId = "53";
-protected $className = "UniPrAirInletLocationDss";
+protected $classId = "UNI_PR_DSS_ML_BCM";
+protected $className = "UniPrDssBellowCompoundMaterial";
 protected $localizedfields;
 
 
@@ -63,7 +63,7 @@ public function getLocalizedfields(): ?\Pimcore\Model\DataObject\Localizedfield
 }
 
 /**
-* Get name - Air Inlet Location name
+* Get name - Bellow compound material name
 * @return string|null
 */
 public function getName(?string $language = null): ?string
@@ -103,7 +103,7 @@ public function setLocalizedfields(?\Pimcore\Model\DataObject\Localizedfield $lo
 }
 
 /**
-* Set name - Air Inlet Location name
+* Set name - Bellow compound material name
 * @param string|null $name
 * @return $this
 */

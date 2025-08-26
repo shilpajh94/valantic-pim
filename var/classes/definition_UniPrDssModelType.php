@@ -5,17 +5,18 @@
  * Variants: no
  *
  * Fields Summary:
- * - name [input]
+ * - localizedfields [localizedfields]
+ * -- name [input]
  */
 
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
-   'id' => '54',
-   'name' => 'UniPrRollingLobePistonMaterialDss',
+   'id' => 'UNI_PR_DSS_ML_MT',
+   'name' => 'UniPrDssModelType',
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1754998765,
+   'modificationDate' => 1756219913,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -59,34 +60,74 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'children' => 
         array (
           0 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-             'name' => 'name',
-             'title' => 'Rolling Lobe - Piston Material name',
-             'tooltip' => '',
-             'mandatory' => true,
+          Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+             'name' => 'localizedfields',
+             'title' => '',
+             'tooltip' => NULL,
+             'mandatory' => false,
              'noteditable' => false,
              'index' => false,
              'locked' => false,
-             'style' => '',
+             'style' => NULL,
              'permissions' => NULL,
              'fieldtype' => '',
              'relationType' => false,
              'invisible' => false,
-             'visibleGridView' => false,
+             'visibleGridView' => true,
              'visibleSearch' => true,
              'blockedVarsForExport' => 
             array (
             ),
-             'defaultValue' => NULL,
-             'columnLength' => 190,
-             'regex' => '',
-             'regexFlags' => 
+             'children' => 
+            array (
+              0 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                 'name' => 'name',
+                 'title' => 'Model Type name',
+                 'tooltip' => '',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => true,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'defaultValue' => NULL,
+                 'columnLength' => 190,
+                 'regex' => '',
+                 'regexFlags' => 
+                array (
+                ),
+                 'unique' => true,
+                 'showCharCount' => false,
+                 'width' => '',
+                 'defaultValueGenerator' => '',
+              )),
+            ),
+             'region' => NULL,
+             'layout' => NULL,
+             'maxTabs' => NULL,
+             'border' => false,
+             'provideSplitView' => false,
+             'tabPosition' => 'top',
+             'hideLabelsWhenTabsReached' => NULL,
+             'referencedFields' => 
             array (
             ),
-             'unique' => true,
-             'showCharCount' => false,
+             'permissionView' => NULL,
+             'permissionEdit' => NULL,
+             'labelWidth' => 100,
+             'labelAlign' => 'left',
              'width' => '',
-             'defaultValueGenerator' => '',
+             'height' => '',
+             'fieldDefinitionsCache' => NULL,
           )),
         ),
          'locked' => false,
@@ -113,7 +154,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'labelAlign' => 'left',
   )),
    'icon' => '',
-   'group' => 'UniProductFieldsDss',
+   'group' => 'UniProductMasterlistDss',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
    'previewGeneratorReference' => '',

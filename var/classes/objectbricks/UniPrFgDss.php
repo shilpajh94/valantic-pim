@@ -13,7 +13,7 @@
  * - maximumBellowDiameter [quantityValue]
  * - maximumStroke [quantityValue]
  * - workingPressure [quantityValue]
- * - airInlet [manyToOneRelation]
+ * - airInletInsideThread [manyToOneRelation]
  * - airInletThread [input]
  * - rollingLobePistonMaterial [manyToOneRelation]
  * - permissibleInstallationSpace [image]
@@ -22,7 +22,7 @@
 
 return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'dao' => NULL,
-   'key' => 'UniPrFinDss',
+   'key' => 'UniPrFgDss',
    'parentClass' => '',
    'implementsInterfaces' => '',
    'title' => 'Finished Good Product Group Specific Data (DSS)',
@@ -127,7 +127,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                         array (
                           0 => 
                           array (
-                            'classes' => 'UniPrModelTypeDss',
+                            'classes' => 'UniPrDssModelType',
                           ),
                         ),
                          'displayMode' => 'grid',
@@ -200,7 +200,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                             array (
                               0 => 
                               array (
-                                'classes' => 'UniPrBellowCompoundMaterialDss',
+                                'classes' => 'UniPrDssBellowCompoundMaterial',
                               ),
                             ),
                              'displayMode' => 'grid',
@@ -294,7 +294,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                             array (
                               0 => 
                               array (
-                                'classes' => 'UniPrAirInletLocationDss',
+                                'classes' => 'UniPrDssAirInletLocation',
                               ),
                             ),
                              'displayMode' => 'grid',
@@ -679,7 +679,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                         array (
                           0 => 
                           array (
-                            'classes' => 'UniPrBellowCompoundMaterialDss',
+                            'classes' => 'UniPrDssBellowCompoundMaterial',
                           ),
                         ),
                          'displayMode' => 'grid',
@@ -773,7 +773,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                         array (
                           0 => 
                           array (
-                            'classes' => 'UniPrAirInletLocationDss',
+                            'classes' => 'UniPrDssAirInletLocation',
                           ),
                         ),
                          'displayMode' => 'grid',
@@ -813,7 +813,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   )),
                   2 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                     'name' => 'airInlet',
+                     'name' => 'airInletInsideThread',
                      'title' => 'Air Inlet - Inside Thread / Stud Bolt',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -834,7 +834,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     array (
                       0 => 
                       array (
-                        'classes' => 'UniPrAirInletDss',
+                        'classes' => 'UniPrDssAirInletInsideThread',
                       ),
                     ),
                      'displayMode' => 'grid',
@@ -906,7 +906,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     array (
                       0 => 
                       array (
-                        'classes' => 'UniPrRollingLobePistonMaterialDss',
+                        'classes' => 'UniPrDssRollingLobePistonMaterial',
                       ),
                     ),
                      'displayMode' => 'grid',

@@ -64,7 +64,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Product',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1756207612,
+   'modificationDate' => 1756217749,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => 'App\\Model\\DataObject\\AbstractUniProductBase',
@@ -192,9 +192,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'allowedTypes' => 
                 array (
-                  0 => 'UniPrBrandDss',
-                  1 => 'UniPrBrandPts',
-                  2 => 'UniPrBr',
+                  0 => 'UniPrBrandPts',
+                  1 => 'UniPrBr',
                 ),
                  'maxItems' => NULL,
                  'border' => false,
@@ -296,9 +295,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'allowedTypes' => 
                 array (
-                  0 => 'UniPrSkeletonDss',
-                  1 => 'UniPrSkeletonPts',
-                  2 => 'UniPrSk',
+                  0 => 'UniPrSkeletonPts',
+                  1 => 'UniPrSk',
                 ),
                  'maxItems' => NULL,
                  'border' => false,
@@ -2101,9 +2099,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         ),
                          'allowedTypes' => 
                         array (
-                          0 => 'UniPrGsTechDss',
-                          1 => 'UniPrGsTechPts',
-                          2 => 'UniPrFgFhs',
+                          0 => 'UniPrGsTechPts',
+                          1 => 'UniPrFgFhs',
+                          2 => 'UniPrFgDss',
                         ),
                          'maxItems' => NULL,
                          'border' => false,
