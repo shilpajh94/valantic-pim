@@ -34,7 +34,7 @@ public const FIELD_LEVEL = 'level';
 public const FIELD_PIM_INTERNAL_HIERARCHY_CODE = 'pimInternalHierarchyCode';
 public const FIELD_LEVEL_SPECIFIC_DATA = 'levelSpecificData';
 
-protected $classId = "UNI_PR_CAT_INT";
+protected $classId = "UNI_PRCI";
 protected $className = "UniProductCategoryInternal";
 protected $name;
 protected $ghpCode;
