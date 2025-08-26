@@ -11,10 +11,6 @@ use Pimcore\Model\Asset\Image;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\AbstractObject;
 use Pimcore\Model\DataObject\Objectbrick\Data\UniPrBr;
-use Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrandDss;
-use Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrandPts;
-use Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeletonDss;
-use Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeletonPts;
 use Pimcore\Model\DataObject\UniProductBase;
 use Pimcore\Model\DataObject\UniProductCategoryInternal;
 use Pimcore\Model\DataObject\UniRegion;
@@ -191,7 +187,7 @@ class GenerateCommand extends AbstractDummyDataCommand
         if ($level === $this->maxLevel - 2) {
             $this->assignProductGroupSpecificBrandData($result);
         } elseif ($level === $this->maxLevel - 1) {
-            $this->assignProductGroupSpecificSkeletonData($result);
+            $this->assignProductGroupSpecificSkeletonData();
         } elseif ($level === $this->maxLevel) {
             $this->addHierarchyRelations($result);
             $this->setRegionalAvailability($result);
@@ -222,55 +218,11 @@ class GenerateCommand extends AbstractDummyDataCommand
         ;
 
         $object->getLevelSpecificData()?->setUniPrBr($baseProductData);
-
-        switch (random_int(0, 1)) {
-            case 0:
-                $object->getLevelSpecificData()?->setUniPrBrandPts(
-                    new UniPrBrandPts($object),
-                    // Hint: No product group specific fields on Brand level
-                );
-
-                break;
-
-            case 1:
-                $object->getLevelSpecificData()?->setUniPrBrandDss(
-                    new UniPrBrandDss($object),
-                    // Hint: No product group specific fields on Brand level
-                );
-
-                break;
-        }
     }
 
-    private function assignProductGroupSpecificSkeletonData(UniProductCategoryInternal $object): void
+    private function assignProductGroupSpecificSkeletonData(): void
     {
         // Hint: No base product fields on skeleton level
-
-        switch (random_int(0, 1)) {
-            case 0:
-                $object->getLevelSpecificData()?->setUniPrSkeletonPts(
-                    (new UniPrSkeletonPts($object))
-                        ->setBeltThicknessMetric(random_int(5, 10))
-                        ->setProfileHeightMetric(random_int(2, 5))
-                        ->setToothHeightMetric(random_int(2, 5))
-                        ->setPitchHeightMetric(random_int(2, 5))
-                        ->setBeltAngle(10 * random_int(5, 8))
-                        ->setMaxSpeed(10 * random_int(1, 5) . ' m/s'),
-                );
-
-                break;
-
-            case 1:
-                $locations = ['OS', 'CA'];
-                $object->getLevelSpecificData()?->setUniPrSkeletonDss(
-                    (new UniPrSkeletonDss($object))
-                        ->setWorkingPressureMetric(random_int(80, 160))
-                        ->setAirInletLocation($locations[random_int(0, 1)])
-                        ->setApplication('Bus'),
-                );
-
-                break;
-        }
     }
 
     private function assignProductGroupSpecificFinishedGoodData(): void
