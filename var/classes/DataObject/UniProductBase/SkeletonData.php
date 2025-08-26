@@ -6,7 +6,7 @@ use Pimcore\Model\DataObject\Exception\InheritanceParentNotFoundException;
 
 class SkeletonData extends \Pimcore\Model\DataObject\Objectbrick {
 
-protected $brickGetters = ['UniPrSk','UniPrSkeletonDss','UniPrSkeletonPts'];
+protected $brickGetters = ['UniPrSk','UniPrSkeletonPts'];
 
 
 protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSk|null $UniPrSk = null;
@@ -31,31 +31,6 @@ public function getUniPrSk(bool $includeDeletedBricks = false)
 public function setUniPrSk(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrSk $UniPrSk): static
 {
 	$this->UniPrSk = $UniPrSk;
-	return $this;
-}
-
-protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeletonDss|null $UniPrSkeletonDss = null;
-
-/**
-* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeletonDss|null
-*/
-public function getUniPrSkeletonDss(bool $includeDeletedBricks = false)
-{
-	if(!$includeDeletedBricks &&
-		isset($this->UniPrSkeletonDss) &&
-		$this->UniPrSkeletonDss->getDoDelete()) {
-			return null;
-	}
-	return $this->UniPrSkeletonDss;
-}
-
-/**
-* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeletonDss|null $UniPrSkeletonDss
-* @return $this
-*/
-public function setUniPrSkeletonDss(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeletonDss $UniPrSkeletonDss): static
-{
-	$this->UniPrSkeletonDss = $UniPrSkeletonDss;
 	return $this;
 }
 

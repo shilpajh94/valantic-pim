@@ -14,16 +14,16 @@ use Pimcore\Model\DataObject\Exception\InheritanceParentNotFoundException;
 use Pimcore\Model\DataObject\PreGetValueHookInterface;
 
 /**
-* @method static \Pimcore\Model\DataObject\UniPrRollingLobePistonMaterialDss\Listing getList(array $config = [])
-* @method static \Pimcore\Model\DataObject\UniPrRollingLobePistonMaterialDss\Listing|\Pimcore\Model\DataObject\UniPrRollingLobePistonMaterialDss|null getByName(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniPrDssRollingLobePistonMaterial\Listing getList(array $config = [])
+* @method static \Pimcore\Model\DataObject\UniPrDssRollingLobePistonMaterial\Listing|\Pimcore\Model\DataObject\UniPrDssRollingLobePistonMaterial|null getByName(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 */
 
-class UniPrRollingLobePistonMaterialDss extends Concrete
+class UniPrDssRollingLobePistonMaterial extends Concrete
 {
 public const FIELD_NAME = 'name';
 
-protected $classId = "54";
-protected $className = "UniPrRollingLobePistonMaterialDss";
+protected $classId = "UNI_PR_DSS_ML_RLP";
+protected $className = "UniPrDssRollingLobePistonMaterial";
 protected $name;
 
 

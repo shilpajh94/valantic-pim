@@ -13,7 +13,7 @@
  * - maximumBellowDiameter [quantityValue]
  * - maximumStroke [quantityValue]
  * - workingPressure [quantityValue]
- * - airInlet [manyToOneRelation]
+ * - airInletInsideThread [manyToOneRelation]
  * - airInletThread [input]
  * - rollingLobePistonMaterial [manyToOneRelation]
  * - permissibleInstallationSpace [image]
@@ -27,7 +27,7 @@ use Pimcore\Model\DataObject\Exception\InheritanceParentNotFoundException;
 use Pimcore\Model\DataObject\PreGetValueHookInterface;
 
 
-class UniPrFinDss extends DataObject\Objectbrick\Data\AbstractData
+class UniPrFgDss extends DataObject\Objectbrick\Data\AbstractData
 {
 public const FIELD_MODEL_TYPE = 'modelType';
 public const FIELD_BELLOW_COMPOUND_MATERIAL = 'bellowCompoundMaterial';
@@ -39,20 +39,20 @@ public const FIELD_HEIGHT = 'height';
 public const FIELD_MAXIMUM_BELLOW_DIAMETER = 'maximumBellowDiameter';
 public const FIELD_MAXIMUM_STROKE = 'maximumStroke';
 public const FIELD_WORKING_PRESSURE = 'workingPressure';
-public const FIELD_AIR_INLET = 'airInlet';
+public const FIELD_AIR_INLET_INSIDE_THREAD = 'airInletInsideThread';
 public const FIELD_AIR_INLET_THREAD = 'airInletThread';
 public const FIELD_ROLLING_LOBE_PISTON_MATERIAL = 'rollingLobePistonMaterial';
 public const FIELD_PERMISSIBLE_INSTALLATION_SPACE = 'permissibleInstallationSpace';
 public const FIELD_NUMBER_OF_CONVOLUTIONS = 'numberOfConvolutions';
 
-protected string $type = "UniPrFinDss";
+protected string $type = "UniPrFgDss";
 protected $localizedfields;
 protected $isBellowOnlyPart;
 protected $height;
 protected $maximumBellowDiameter;
 protected $maximumStroke;
 protected $workingPressure;
-protected $airInlet;
+protected $airInletInsideThread;
 protected $airInletThread;
 protected $rollingLobePistonMaterial;
 protected $permissibleInstallationSpace;
@@ -60,7 +60,7 @@ protected $numberOfConvolutions;
 
 
 /**
-* UniPrFinDss constructor.
+* UniPrFgDss constructor.
 * @param DataObject\Concrete $object
 */
 public function __construct(DataObject\Concrete $object)
@@ -93,7 +93,7 @@ public function getLocalizedfields(): ?\Pimcore\Model\DataObject\Localizedfield
 
 /**
 * Get modelType - Model Type
-* @return \Pimcore\Model\DataObject\UniPrModelTypeDss|null
+* @return \Pimcore\Model\DataObject\UniPrDssModelType|null
 */
 public function getModelType(?string $language = null): ?\Pimcore\Model\Element\AbstractElement
 {
@@ -107,7 +107,7 @@ public function getModelType(?string $language = null): ?\Pimcore\Model\Element\
 
 /**
 * Get bellowCompoundMaterial - Bellow Compound Material
-* @return \Pimcore\Model\DataObject\UniPrBellowCompoundMaterialDss|null
+* @return \Pimcore\Model\DataObject\UniPrDssBellowCompoundMaterial|null
 */
 public function getBellowCompoundMaterial(?string $language = null): ?\Pimcore\Model\Element\AbstractElement
 {
@@ -149,7 +149,7 @@ public function getBasePlateMaterial(?string $language = null): ?string
 
 /**
 * Get airInletLocation - Air Inlet Location
-* @return \Pimcore\Model\DataObject\UniPrAirInletLocationDss|null
+* @return \Pimcore\Model\DataObject\UniPrDssAirInletLocation|null
 */
 public function getAirInletLocation(?string $language = null): ?\Pimcore\Model\Element\AbstractElement
 {
@@ -188,7 +188,7 @@ public function setLocalizedfields (?\Pimcore\Model\DataObject\Localizedfield $l
 
 /**
 * Set modelType - Model Type
-* @param \Pimcore\Model\DataObject\UniPrModelTypeDss|null $modelType
+* @param \Pimcore\Model\DataObject\UniPrDssModelType|null $modelType
 * @return $this
 */
 public function setModelType (?\Pimcore\Model\Element\AbstractElement $modelType, ?string $language = null): static
@@ -209,7 +209,7 @@ public function setModelType (?\Pimcore\Model\Element\AbstractElement $modelType
 
 /**
 * Set bellowCompoundMaterial - Bellow Compound Material
-* @param \Pimcore\Model\DataObject\UniPrBellowCompoundMaterialDss|null $bellowCompoundMaterial
+* @param \Pimcore\Model\DataObject\UniPrDssBellowCompoundMaterial|null $bellowCompoundMaterial
 * @return $this
 */
 public function setBellowCompoundMaterial (?\Pimcore\Model\Element\AbstractElement $bellowCompoundMaterial, ?string $language = null): static
@@ -256,7 +256,7 @@ public function setBasePlateMaterial (?string $basePlateMaterial, ?string $langu
 
 /**
 * Set airInletLocation - Air Inlet Location
-* @param \Pimcore\Model\DataObject\UniPrAirInletLocationDss|null $airInletLocation
+* @param \Pimcore\Model\DataObject\UniPrDssAirInletLocation|null $airInletLocation
 * @return $this
 */
 public function setAirInletLocation (?\Pimcore\Model\Element\AbstractElement $airInletLocation, ?string $language = null): static
@@ -441,15 +441,15 @@ public function setWorkingPressure (?\Pimcore\Model\DataObject\Data\QuantityValu
 }
 
 /**
-* Get airInlet - Air Inlet - Inside Thread / Stud Bolt
-* @return \Pimcore\Model\DataObject\UniPrAirInletDss|null
+* Get airInletInsideThread - Air Inlet - Inside Thread / Stud Bolt
+* @return \Pimcore\Model\DataObject\UniPrDssAirInletInsideThread|null
 */
-public function getAirInlet(): ?\Pimcore\Model\Element\AbstractElement
+public function getAirInletInsideThread(): ?\Pimcore\Model\Element\AbstractElement
 {
-	$data = $this->getDefinition()->getFieldDefinition("airInlet")->preGetData($this);
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("airInlet")->isEmpty($data)) {
+	$data = $this->getDefinition()->getFieldDefinition("airInletInsideThread")->preGetData($this);
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("airInletInsideThread")->isEmpty($data)) {
 		try {
-			return $this->getValueFromParent("airInlet");
+			return $this->getValueFromParent("airInletInsideThread");
 		} catch (InheritanceParentNotFoundException $e) {
 			// no data from parent available, continue ...
 		}
@@ -462,31 +462,31 @@ public function getAirInlet(): ?\Pimcore\Model\Element\AbstractElement
 }
 
 /**
-* Set airInlet - Air Inlet - Inside Thread / Stud Bolt
-* @param \Pimcore\Model\DataObject\UniPrAirInletDss|null $airInlet
+* Set airInletInsideThread - Air Inlet - Inside Thread / Stud Bolt
+* @param \Pimcore\Model\DataObject\UniPrDssAirInletInsideThread|null $airInletInsideThread
 * @return $this
 */
-public function setAirInlet (?\Pimcore\Model\Element\AbstractElement $airInlet): static
+public function setAirInletInsideThread (?\Pimcore\Model\Element\AbstractElement $airInletInsideThread): static
 {
 	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation $fd */
-	$fd = $this->getDefinition()->getFieldDefinition("airInlet");
+	$fd = $this->getDefinition()->getFieldDefinition("airInletInsideThread");
 	$class = $this->getObject() ? $this->getObject()->getClass() : null;
 	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
 	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
 	if ($class && $class->getAllowInherit()) {
 		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
-			return $this->getAirInlet();
+			return $this->getAirInletInsideThread();
 		});
 	}
 	else {
-		$currentData = $this->getAirInlet();
+		$currentData = $this->getAirInletInsideThread();
 	}	
 	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
-	$isEqual = $fd->isEqual($currentData, $airInlet);
+	$isEqual = $fd->isEqual($currentData, $airInletInsideThread);
 	if (!$isEqual) {
-		$this->markFieldDirty("airInlet", true);
+		$this->markFieldDirty("airInletInsideThread", true);
 	}
-	$this->airInlet = $fd->preSetData($this, $airInlet);
+	$this->airInletInsideThread = $fd->preSetData($this, $airInletInsideThread);
 	return $this;
 }
 
@@ -525,7 +525,7 @@ public function setAirInletThread (?string $airInletThread): static
 
 /**
 * Get rollingLobePistonMaterial - Rolling Lobe - Piston Material
-* @return \Pimcore\Model\DataObject\UniPrRollingLobePistonMaterialDss|null
+* @return \Pimcore\Model\DataObject\UniPrDssRollingLobePistonMaterial|null
 */
 public function getRollingLobePistonMaterial(): ?\Pimcore\Model\Element\AbstractElement
 {
@@ -546,7 +546,7 @@ public function getRollingLobePistonMaterial(): ?\Pimcore\Model\Element\Abstract
 
 /**
 * Set rollingLobePistonMaterial - Rolling Lobe - Piston Material
-* @param \Pimcore\Model\DataObject\UniPrRollingLobePistonMaterialDss|null $rollingLobePistonMaterial
+* @param \Pimcore\Model\DataObject\UniPrDssRollingLobePistonMaterial|null $rollingLobePistonMaterial
 * @return $this
 */
 public function setRollingLobePistonMaterial (?\Pimcore\Model\Element\AbstractElement $rollingLobePistonMaterial): static

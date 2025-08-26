@@ -15,17 +15,17 @@ use Pimcore\Model\DataObject\Exception\InheritanceParentNotFoundException;
 use Pimcore\Model\DataObject\PreGetValueHookInterface;
 
 /**
-* @method static \Pimcore\Model\DataObject\UniPrModelTypeDss\Listing getList(array $config = [])
-* @method static \Pimcore\Model\DataObject\UniPrModelTypeDss\Listing|\Pimcore\Model\DataObject\UniPrModelTypeDss|null getByLocalizedfields(string $field, mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniPrModelTypeDss\Listing|\Pimcore\Model\DataObject\UniPrModelTypeDss|null getByName(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniPrDssAirInletLocation\Listing getList(array $config = [])
+* @method static \Pimcore\Model\DataObject\UniPrDssAirInletLocation\Listing|\Pimcore\Model\DataObject\UniPrDssAirInletLocation|null getByLocalizedfields(string $field, mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniPrDssAirInletLocation\Listing|\Pimcore\Model\DataObject\UniPrDssAirInletLocation|null getByName(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 */
 
-class UniPrModelTypeDss extends Concrete
+class UniPrDssAirInletLocation extends Concrete
 {
 public const FIELD_NAME = 'name';
 
-protected $classId = "50";
-protected $className = "UniPrModelTypeDss";
+protected $classId = "UNI_PR_DSS_ML_AIL";
+protected $className = "UniPrDssAirInletLocation";
 protected $localizedfields;
 
 
@@ -63,7 +63,7 @@ public function getLocalizedfields(): ?\Pimcore\Model\DataObject\Localizedfield
 }
 
 /**
-* Get name - Model Type name
+* Get name - Air Inlet Location name
 * @return string|null
 */
 public function getName(?string $language = null): ?string
@@ -103,7 +103,7 @@ public function setLocalizedfields(?\Pimcore\Model\DataObject\Localizedfield $lo
 }
 
 /**
-* Set name - Model Type name
+* Set name - Air Inlet Location name
 * @param string|null $name
 * @return $this
 */

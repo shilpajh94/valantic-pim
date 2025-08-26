@@ -14,16 +14,16 @@ use Pimcore\Model\DataObject\Exception\InheritanceParentNotFoundException;
 use Pimcore\Model\DataObject\PreGetValueHookInterface;
 
 /**
-* @method static \Pimcore\Model\DataObject\UniPrAirInletDss\Listing getList(array $config = [])
-* @method static \Pimcore\Model\DataObject\UniPrAirInletDss\Listing|\Pimcore\Model\DataObject\UniPrAirInletDss|null getByName(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniPrDssAirInletInsideThread\Listing getList(array $config = [])
+* @method static \Pimcore\Model\DataObject\UniPrDssAirInletInsideThread\Listing|\Pimcore\Model\DataObject\UniPrDssAirInletInsideThread|null getByName(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 */
 
-class UniPrAirInletDss extends Concrete
+class UniPrDssAirInletInsideThread extends Concrete
 {
 public const FIELD_NAME = 'name';
 
-protected $classId = "55";
-protected $className = "UniPrAirInletDss";
+protected $classId = "UNI_PR_DSS_ML_AI";
+protected $className = "UniPrDssAirInletInsideThread";
 protected $name;
 
 
@@ -39,7 +39,7 @@ public static function create(array $values = []): static
 }
 
 /**
-* Get name - Air Inlet type
+* Get name - Air Inlet Inside Thread type
 * @return string|null
 */
 public function getName(): ?string
@@ -61,7 +61,7 @@ public function getName(): ?string
 }
 
 /**
-* Set name - Air Inlet type
+* Set name - Air Inlet Inside Thread type
 * @param string|null $name
 * @return $this
 */

@@ -15,17 +15,17 @@ use Pimcore\Model\DataObject\Exception\InheritanceParentNotFoundException;
 use Pimcore\Model\DataObject\PreGetValueHookInterface;
 
 /**
-* @method static \Pimcore\Model\DataObject\UniPrBellowCompoundMaterialDss\Listing getList(array $config = [])
-* @method static \Pimcore\Model\DataObject\UniPrBellowCompoundMaterialDss\Listing|\Pimcore\Model\DataObject\UniPrBellowCompoundMaterialDss|null getByLocalizedfields(string $field, mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniPrBellowCompoundMaterialDss\Listing|\Pimcore\Model\DataObject\UniPrBellowCompoundMaterialDss|null getByName(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniPrDssModelType\Listing getList(array $config = [])
+* @method static \Pimcore\Model\DataObject\UniPrDssModelType\Listing|\Pimcore\Model\DataObject\UniPrDssModelType|null getByLocalizedfields(string $field, mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniPrDssModelType\Listing|\Pimcore\Model\DataObject\UniPrDssModelType|null getByName(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 */
 
-class UniPrBellowCompoundMaterialDss extends Concrete
+class UniPrDssModelType extends Concrete
 {
 public const FIELD_NAME = 'name';
 
-protected $classId = "51";
-protected $className = "UniPrBellowCompoundMaterialDss";
+protected $classId = "UNI_PR_DSS_ML_MT";
+protected $className = "UniPrDssModelType";
 protected $localizedfields;
 
 
@@ -63,7 +63,7 @@ public function getLocalizedfields(): ?\Pimcore\Model\DataObject\Localizedfield
 }
 
 /**
-* Get name - Bellow compound material name
+* Get name - Model Type name
 * @return string|null
 */
 public function getName(?string $language = null): ?string
@@ -103,7 +103,7 @@ public function setLocalizedfields(?\Pimcore\Model\DataObject\Localizedfield $lo
 }
 
 /**
-* Set name - Bellow compound material name
+* Set name - Model Type name
 * @param string|null $name
 * @return $this
 */
