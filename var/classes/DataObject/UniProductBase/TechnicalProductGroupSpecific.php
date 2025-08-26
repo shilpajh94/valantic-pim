@@ -6,31 +6,31 @@ use Pimcore\Model\DataObject\Exception\InheritanceParentNotFoundException;
 
 class TechnicalProductGroupSpecific extends \Pimcore\Model\DataObject\Objectbrick {
 
-protected $brickGetters = ['UniPrFinFhs','UniPrGsTechDss','UniPrGsTechPts'];
+protected $brickGetters = ['UniPrFgFhs','UniPrGsTechDss','UniPrGsTechPts'];
 
 
-protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrFinFhs|null $UniPrFinFhs = null;
+protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrFgFhs|null $UniPrFgFhs = null;
 
 /**
-* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrFinFhs|null
+* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrFgFhs|null
 */
-public function getUniPrFinFhs(bool $includeDeletedBricks = false)
+public function getUniPrFgFhs(bool $includeDeletedBricks = false)
 {
 	if(!$includeDeletedBricks &&
-		isset($this->UniPrFinFhs) &&
-		$this->UniPrFinFhs->getDoDelete()) {
+		isset($this->UniPrFgFhs) &&
+		$this->UniPrFgFhs->getDoDelete()) {
 			return null;
 	}
-	return $this->UniPrFinFhs;
+	return $this->UniPrFgFhs;
 }
 
 /**
-* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrFinFhs|null $UniPrFinFhs
+* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrFgFhs|null $UniPrFgFhs
 * @return $this
 */
-public function setUniPrFinFhs(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrFinFhs $UniPrFinFhs): static
+public function setUniPrFgFhs(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrFgFhs $UniPrFgFhs): static
 {
-	$this->UniPrFinFhs = $UniPrFinFhs;
+	$this->UniPrFgFhs = $UniPrFgFhs;
 	return $this;
 }
 

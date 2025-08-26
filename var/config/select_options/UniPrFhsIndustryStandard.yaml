@@ -1,0 +1,22 @@
+pimcore:
+    objects:
+        select_options:
+            definitions:
+                UniPrFhsIndustryStandard:
+                    id: UniPrFhsIndustryStandard
+                    group: UniProductFhs
+                    useTraits: ''
+                    implementsInterfaces: ''
+                    selectOptions:
+                        -
+                            value: 'EN 853'
+                            label: 'EN 853'
+                            name: ''
+                        -
+                            value: ISO9001
+                            label: ISO9001
+                            name: ''
+                        -
+                            value: 'DIN 2215'
+                            label: 'DIN 2215'
+                            name: ''
