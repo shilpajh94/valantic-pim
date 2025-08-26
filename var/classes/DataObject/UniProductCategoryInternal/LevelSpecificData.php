@@ -6,31 +6,31 @@ use Pimcore\Model\DataObject\Exception\InheritanceParentNotFoundException;
 
 class LevelSpecificData extends \Pimcore\Model\DataObject\Objectbrick {
 
-protected $brickGetters = ['UniPrBrand','UniPrBrandDss','UniPrBrandFhs','UniPrBrandPts','UniPrSkeleFhs','UniPrSkeleton','UniPrSkeletonDss','UniPrSkeletonPts'];
+protected $brickGetters = ['UniPrBr','UniPrBrandDss','UniPrBrandPts','UniPrBrFhs','UniPrSk','UniPrSkeletonDss','UniPrSkeletonPts','UniPrSkFhs'];
 
 
-protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrand|null $UniPrBrand = null;
+protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBr|null $UniPrBr = null;
 
 /**
-* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrand|null
+* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBr|null
 */
-public function getUniPrBrand(bool $includeDeletedBricks = false)
+public function getUniPrBr(bool $includeDeletedBricks = false)
 {
 	if(!$includeDeletedBricks &&
-		isset($this->UniPrBrand) &&
-		$this->UniPrBrand->getDoDelete()) {
+		isset($this->UniPrBr) &&
+		$this->UniPrBr->getDoDelete()) {
 			return null;
 	}
-	return $this->UniPrBrand;
+	return $this->UniPrBr;
 }
 
 /**
-* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrand|null $UniPrBrand
+* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBr|null $UniPrBr
 * @return $this
 */
-public function setUniPrBrand(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrand $UniPrBrand): static
+public function setUniPrBr(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrBr $UniPrBr): static
 {
-	$this->UniPrBrand = $UniPrBrand;
+	$this->UniPrBr = $UniPrBr;
 	return $this;
 }
 
@@ -59,31 +59,6 @@ public function setUniPrBrandDss(?\Pimcore\Model\DataObject\Objectbrick\Data\Uni
 	return $this;
 }
 
-protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrandFhs|null $UniPrBrandFhs = null;
-
-/**
-* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrandFhs|null
-*/
-public function getUniPrBrandFhs(bool $includeDeletedBricks = false)
-{
-	if(!$includeDeletedBricks &&
-		isset($this->UniPrBrandFhs) &&
-		$this->UniPrBrandFhs->getDoDelete()) {
-			return null;
-	}
-	return $this->UniPrBrandFhs;
-}
-
-/**
-* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrandFhs|null $UniPrBrandFhs
-* @return $this
-*/
-public function setUniPrBrandFhs(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrandFhs $UniPrBrandFhs): static
-{
-	$this->UniPrBrandFhs = $UniPrBrandFhs;
-	return $this;
-}
-
 protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrandPts|null $UniPrBrandPts = null;
 
 /**
@@ -109,53 +84,53 @@ public function setUniPrBrandPts(?\Pimcore\Model\DataObject\Objectbrick\Data\Uni
 	return $this;
 }
 
-protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeleFhs|null $UniPrSkeleFhs = null;
+protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrFhs|null $UniPrBrFhs = null;
 
 /**
-* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeleFhs|null
+* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrFhs|null
 */
-public function getUniPrSkeleFhs(bool $includeDeletedBricks = false)
+public function getUniPrBrFhs(bool $includeDeletedBricks = false)
 {
 	if(!$includeDeletedBricks &&
-		isset($this->UniPrSkeleFhs) &&
-		$this->UniPrSkeleFhs->getDoDelete()) {
+		isset($this->UniPrBrFhs) &&
+		$this->UniPrBrFhs->getDoDelete()) {
 			return null;
 	}
-	return $this->UniPrSkeleFhs;
+	return $this->UniPrBrFhs;
 }
 
 /**
-* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeleFhs|null $UniPrSkeleFhs
+* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrFhs|null $UniPrBrFhs
 * @return $this
 */
-public function setUniPrSkeleFhs(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeleFhs $UniPrSkeleFhs): static
+public function setUniPrBrFhs(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrFhs $UniPrBrFhs): static
 {
-	$this->UniPrSkeleFhs = $UniPrSkeleFhs;
+	$this->UniPrBrFhs = $UniPrBrFhs;
 	return $this;
 }
 
-protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeleton|null $UniPrSkeleton = null;
+protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSk|null $UniPrSk = null;
 
 /**
-* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeleton|null
+* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSk|null
 */
-public function getUniPrSkeleton(bool $includeDeletedBricks = false)
+public function getUniPrSk(bool $includeDeletedBricks = false)
 {
 	if(!$includeDeletedBricks &&
-		isset($this->UniPrSkeleton) &&
-		$this->UniPrSkeleton->getDoDelete()) {
+		isset($this->UniPrSk) &&
+		$this->UniPrSk->getDoDelete()) {
 			return null;
 	}
-	return $this->UniPrSkeleton;
+	return $this->UniPrSk;
 }
 
 /**
-* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeleton|null $UniPrSkeleton
+* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSk|null $UniPrSk
 * @return $this
 */
-public function setUniPrSkeleton(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeleton $UniPrSkeleton): static
+public function setUniPrSk(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrSk $UniPrSk): static
 {
-	$this->UniPrSkeleton = $UniPrSkeleton;
+	$this->UniPrSk = $UniPrSk;
 	return $this;
 }
 
@@ -206,6 +181,31 @@ public function getUniPrSkeletonPts(bool $includeDeletedBricks = false)
 public function setUniPrSkeletonPts(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeletonPts $UniPrSkeletonPts): static
 {
 	$this->UniPrSkeletonPts = $UniPrSkeletonPts;
+	return $this;
+}
+
+protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkFhs|null $UniPrSkFhs = null;
+
+/**
+* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkFhs|null
+*/
+public function getUniPrSkFhs(bool $includeDeletedBricks = false)
+{
+	if(!$includeDeletedBricks &&
+		isset($this->UniPrSkFhs) &&
+		$this->UniPrSkFhs->getDoDelete()) {
+			return null;
+	}
+	return $this->UniPrSkFhs;
+}
+
+/**
+* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkFhs|null $UniPrSkFhs
+* @return $this
+*/
+public function setUniPrSkFhs(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkFhs $UniPrSkFhs): static
+{
+	$this->UniPrSkFhs = $UniPrSkFhs;
 	return $this;
 }
 

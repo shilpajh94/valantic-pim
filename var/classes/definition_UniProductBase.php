@@ -64,7 +64,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Product',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1756128195,
+   'modificationDate' => 1756207612,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => 'App\\Model\\DataObject\\AbstractUniProductBase',
@@ -192,9 +192,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'allowedTypes' => 
                 array (
-                  0 => 'UniPrBrand',
-                  1 => 'UniPrBrandDss',
-                  2 => 'UniPrBrandPts',
+                  0 => 'UniPrBrandDss',
+                  1 => 'UniPrBrandPts',
+                  2 => 'UniPrBr',
                 ),
                  'maxItems' => NULL,
                  'border' => false,
@@ -297,8 +297,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'allowedTypes' => 
                 array (
                   0 => 'UniPrSkeletonDss',
-                  1 => 'UniPrSkeleton',
-                  2 => 'UniPrSkeletonPts',
+                  1 => 'UniPrSkeletonPts',
+                  2 => 'UniPrSk',
                 ),
                  'maxItems' => NULL,
                  'border' => false,
@@ -2103,7 +2103,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         array (
                           0 => 'UniPrGsTechDss',
                           1 => 'UniPrGsTechPts',
-                          2 => 'UniPrFinFhs',
+                          2 => 'UniPrFgFhs',
                         ),
                          'maxItems' => NULL,
                          'border' => false,
@@ -2461,7 +2461,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         ),
                          'allowedTypes' => 
                         array (
-                          0 => 'UniBasePrCompetitorCrossReference',
+                          0 => 'UniPrCompetitorCrossReference',
                         ),
                          'lazyLoading' => true,
                          'maxItems' => NULL,
@@ -2492,7 +2492,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         ),
                          'allowedTypes' => 
                         array (
-                          0 => 'UniBasePrCustomerReference',
+                          0 => 'UniPrCustomerReference',
                         ),
                          'lazyLoading' => true,
                          'maxItems' => NULL,
@@ -2523,7 +2523,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         ),
                          'allowedTypes' => 
                         array (
-                          0 => 'UniBasePrOemCrossReference',
+                          0 => 'UniPrOemCrossReference',
                         ),
                          'lazyLoading' => true,
                          'maxItems' => NULL,
