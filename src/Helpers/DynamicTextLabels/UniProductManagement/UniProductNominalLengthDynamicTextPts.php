@@ -11,15 +11,15 @@ use Pimcore\Model\DataObject\Data\QuantityValue;
 use Pimcore\Model\DataObject\Objectbrick\Data\UniPrFgPts;
 use Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkPts;
 use Pimcore\Model\DataObject\UniProductBase;
-use Pimcore\Model\DataObject\UniProductBase\TechnicalProductGroupSpecific;
+use Pimcore\Model\DataObject\UniProductBase\ProductGroupSpecific;
 use Pimcore\Model\DataObject\UniProductCategoryInternal;
 use Pimcore\Model\DataObject\UniProductCategoryInternal\LevelSpecificData;
 
-class UniProductNominalLengthDynamicTextPts implements DynamicTextLabelInterface
+class UniProductNominalLengthDynamicTextPts extends UniProductDynamicText implements DynamicTextLabelInterface
 {
     public function renderLayoutText(string $data, ?Concrete $object, array $params): string
     {
-        $output = '';
+        $output = $this->renderText($data);
 
         if ($object === null) {
             return $output;
@@ -44,7 +44,7 @@ class UniProductNominalLengthDynamicTextPts implements DynamicTextLabelInterface
             return $output;
         }
 
-        if (!$object->getTechnicalProductGroupSpecific() instanceof TechnicalProductGroupSpecific) {
+        if (!$object->getProductGroupSpecific() instanceof ProductGroupSpecific) {
             return $output;
         }
 
@@ -54,7 +54,7 @@ class UniProductNominalLengthDynamicTextPts implements DynamicTextLabelInterface
             return $output;
         }
 
-        $childBrickData = $object->getTechnicalProductGroupSpecific()->getUniPrFgPts();
+        $childBrickData = $object->getProductGroupSpecific()->getUniPrFgPts();
 
         if (!$childBrickData instanceof UniPrFgPts) {
             return $output;
@@ -78,11 +78,8 @@ class UniProductNominalLengthDynamicTextPts implements DynamicTextLabelInterface
         if (isset($lengthMapping[$nominalLength])) {
             $method = $childBrickData->get($lengthMapping[$nominalLength][$fieldType]);
 
-            // var_dump($method);
             if ($method instanceof QuantityValue && $method->getValue() !== '' && $method->getValue() !== null) {
-                $output = '<h4 style="padding-left:20px;">' . $method->getValue() . ' ' . $method->getUnit()->getAbbreviation() . '</h4>';
-            } else {
-                $output = '<h4 style="padding-left:20px;"> -- </h4>';
+                return $this->renderText($data, sprintf('%s %s', $method->getValue(), $method->getUnit()->getAbbreviation()));
             }
         }
 

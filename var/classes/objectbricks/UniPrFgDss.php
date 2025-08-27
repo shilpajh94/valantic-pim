@@ -11,13 +11,13 @@
  * - isBellowOnlyPart [checkbox]
  * - height [quantityValueRange]
  * - maximumBellowDiameter [quantityValue]
+ * - airInletInsideThread [manyToOneRelation]
+ * - rollingLobePistonMaterial [manyToOneRelation]
  * - maximumStroke [quantityValue]
  * - workingPressure [quantityValue]
- * - airInletInsideThread [manyToOneRelation]
  * - airInletThread [input]
- * - rollingLobePistonMaterial [manyToOneRelation]
- * - permissibleInstallationSpace [image]
  * - numberOfConvolutions [numeric]
+ * - permissibleInstallationSpace [image]
  */
 
 return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
@@ -25,7 +25,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'key' => 'UniPrFgDss',
    'parentClass' => '',
    'implementsInterfaces' => '',
-   'title' => 'Finished Good Product Group Specific Data (DSS)',
+   'title' => 'Finished Good DSS Data',
    'group' => 'UniProductManagement',
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -435,7 +435,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'type' => NULL,
                          'region' => NULL,
                          'title' => NULL,
-                         'width' => 525,
+                         'width' => 600,
                          'height' => 0,
                          'collapsible' => false,
                          'collapsed' => false,
@@ -510,6 +510,90 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'maxValue' => NULL,
                              'decimalSize' => NULL,
                              'decimalPrecision' => NULL,
+                          )),
+                          2 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                             'name' => 'airInletInsideThread',
+                             'title' => 'Air Inlet - Inside Thread / Stud Bolt',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'fieldtype' => '',
+                             'relationType' => true,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => true,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'classes' => 
+                            array (
+                              0 => 
+                              array (
+                                'classes' => 'UniPrDssAirInletInsideThread',
+                              ),
+                            ),
+                             'displayMode' => 'grid',
+                             'pathFormatterClass' => '',
+                             'assetInlineDownloadAllowed' => false,
+                             'assetUploadPath' => '',
+                             'allowToClearRelation' => true,
+                             'objectsAllowed' => true,
+                             'assetsAllowed' => false,
+                             'assetTypes' => 
+                            array (
+                            ),
+                             'documentsAllowed' => false,
+                             'documentTypes' => 
+                            array (
+                            ),
+                             'width' => 250,
+                          )),
+                          3 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                             'name' => 'rollingLobePistonMaterial',
+                             'title' => 'Rolling Lobe - Piston Material',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'fieldtype' => '',
+                             'relationType' => true,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => true,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'classes' => 
+                            array (
+                              0 => 
+                              array (
+                                'classes' => 'UniPrDssRollingLobePistonMaterial',
+                              ),
+                            ),
+                             'displayMode' => 'grid',
+                             'pathFormatterClass' => '',
+                             'assetInlineDownloadAllowed' => false,
+                             'assetUploadPath' => '',
+                             'allowToClearRelation' => true,
+                             'objectsAllowed' => true,
+                             'assetsAllowed' => false,
+                             'assetTypes' => 
+                            array (
+                            ),
+                             'documentsAllowed' => false,
+                             'documentTypes' => 
+                            array (
+                            ),
+                             'width' => 250,
                           )),
                         ),
                          'locked' => false,
@@ -612,6 +696,66 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'maxValue' => NULL,
                              'decimalSize' => NULL,
                              'decimalPrecision' => NULL,
+                          )),
+                          2 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                             'name' => 'airInletThread',
+                             'title' => 'Air Inlet Thread',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'fieldtype' => '',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => true,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'defaultValue' => NULL,
+                             'columnLength' => 190,
+                             'regex' => '',
+                             'regexFlags' => 
+                            array (
+                            ),
+                             'unique' => false,
+                             'showCharCount' => false,
+                             'width' => 256,
+                             'defaultValueGenerator' => '',
+                          )),
+                          3 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                             'name' => 'numberOfConvolutions',
+                             'title' => 'Number of Convolutions',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'fieldtype' => '',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => true,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'defaultValue' => NULL,
+                             'integer' => true,
+                             'unsigned' => true,
+                             'minValue' => NULL,
+                             'maxValue' => NULL,
+                             'unique' => false,
+                             'decimalSize' => NULL,
+                             'decimalPrecision' => NULL,
+                             'width' => 256,
+                             'defaultValueGenerator' => '',
                           )),
                         ),
                          'locked' => false,
@@ -812,120 +956,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'fieldDefinitionsCache' => NULL,
                   )),
                   2 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                     'name' => 'airInletInsideThread',
-                     'title' => 'Air Inlet - Inside Thread / Stud Bolt',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => true,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => true,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'classes' => 
-                    array (
-                      0 => 
-                      array (
-                        'classes' => 'UniPrDssAirInletInsideThread',
-                      ),
-                    ),
-                     'displayMode' => 'grid',
-                     'pathFormatterClass' => '',
-                     'assetInlineDownloadAllowed' => false,
-                     'assetUploadPath' => '',
-                     'allowToClearRelation' => true,
-                     'objectsAllowed' => true,
-                     'assetsAllowed' => false,
-                     'assetTypes' => 
-                    array (
-                    ),
-                     'documentsAllowed' => false,
-                     'documentTypes' => 
-                    array (
-                    ),
-                     'width' => 250,
-                  )),
-                  3 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'name' => 'airInletThread',
-                     'title' => 'Air Inlet Thread',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => true,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'defaultValue' => NULL,
-                     'columnLength' => 190,
-                     'regex' => '',
-                     'regexFlags' => 
-                    array (
-                    ),
-                     'unique' => false,
-                     'showCharCount' => false,
-                     'width' => 256,
-                     'defaultValueGenerator' => '',
-                  )),
-                  4 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                     'name' => 'rollingLobePistonMaterial',
-                     'title' => 'Rolling Lobe - Piston Material',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => true,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => true,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'classes' => 
-                    array (
-                      0 => 
-                      array (
-                        'classes' => 'UniPrDssRollingLobePistonMaterial',
-                      ),
-                    ),
-                     'displayMode' => 'grid',
-                     'pathFormatterClass' => '',
-                     'assetInlineDownloadAllowed' => false,
-                     'assetUploadPath' => '',
-                     'allowToClearRelation' => true,
-                     'objectsAllowed' => true,
-                     'assetsAllowed' => false,
-                     'assetTypes' => 
-                    array (
-                    ),
-                     'documentsAllowed' => false,
-                     'documentTypes' => 
-                    array (
-                    ),
-                     'width' => 250,
-                  )),
-                  5 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                      'name' => 'permissibleInstallationSpace',
                      'title' => 'Permissible Installation Space',
@@ -947,36 +977,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'uploadPath' => '/Product Assets/DSS/Permissable Installation Space',
                      'width' => 568,
                      'height' => '',
-                  )),
-                  6 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                     'name' => 'numberOfConvolutions',
-                     'title' => 'Number of Convolutions',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => true,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'defaultValue' => NULL,
-                     'integer' => true,
-                     'unsigned' => true,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'unique' => false,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
-                     'width' => 256,
-                     'defaultValueGenerator' => '',
                   )),
                 ),
                  'locked' => false,
@@ -1032,7 +1032,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
     0 => 
     array (
       'classname' => 'UniProductBase',
-      'fieldname' => 'technicalProductGroupSpecific',
+      'fieldname' => 'productGroupSpecific',
     ),
   ),
    'activeDispatchingEvents' => 

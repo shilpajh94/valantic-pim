@@ -22,7 +22,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'key' => 'UniPrSkPts',
    'parentClass' => 'App\\Model\\DataObject\\UniProductManagement\\Objectbrick\\AbstractUniPrSkeleton',
    'implementsInterfaces' => '',
-   'title' => 'Skeleton Product Group Specific Data (PTS)',
+   'title' => 'Skeleton PTS Data',
    'group' => 'UniProductManagement',
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -43,7 +43,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
-         'title' => 'Design Property',
+         'title' => '',
          'width' => '',
          'height' => '',
          'collapsible' => false,

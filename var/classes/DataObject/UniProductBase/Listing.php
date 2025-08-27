@@ -367,30 +367,6 @@ public function filterByEanCode ($data, $operator = '='): static
 }
 
 /**
-* Filter by ghpFullCode (Product Hierarchy Full Code (GHP))
-* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
-* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
-* @return $this
-*/
-public function filterByGhpFullCode ($data, $operator = '='): static
-{
-	$this->getClass()->getFieldDefinition("ghpFullCode")->addListingFilter($this, $data, $operator);
-	return $this;
-}
-
-/**
-* Filter by regionalAvailability (Available in)
-* @param mixed $data
-* @param string $operator SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
-* @return $this
-*/
-public function filterByRegionalAvailability ($data, $operator = '='): static
-{
-	$this->getClass()->getFieldDefinition("regionalAvailability")->addListingFilter($this, $data, $operator);
-	return $this;
-}
-
-/**
 * Filter by b2bFlag (B2B Flag)
 * @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
 * @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
@@ -451,6 +427,18 @@ public function filterByCustomerPortalFlag ($data, $operator = '='): static
 }
 
 /**
+* Filter by regionalAvailability (Available in)
+* @param mixed $data
+* @param string $operator SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByRegionalAvailability ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("regionalAvailability")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
 * Filter by internalCategories (Internal Categories)
 * @param mixed $data
 * @param string $operator SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
@@ -459,6 +447,18 @@ public function filterByCustomerPortalFlag ($data, $operator = '='): static
 public function filterByInternalCategories ($data, $operator = '='): static
 {
 	$this->getClass()->getFieldDefinition("internalCategories")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
+* Filter by ghpFullCode (Product Hierarchy Full Code (GHP))
+* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
+* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByGhpFullCode ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("ghpFullCode")->addListingFilter($this, $data, $operator);
 	return $this;
 }
 

@@ -26,7 +26,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'key' => 'UniPrFgFhs',
    'parentClass' => '',
    'implementsInterfaces' => '',
-   'title' => 'Finished Good Product Group Specific Data (FHS)',
+   'title' => 'Finished Good FHS Data',
    'group' => 'UniProductManagement',
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -1109,7 +1109,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
     0 => 
     array (
       'classname' => 'UniProductBase',
-      'fieldname' => 'technicalProductGroupSpecific',
+      'fieldname' => 'productGroupSpecific',
     ),
   ),
    'activeDispatchingEvents' => 

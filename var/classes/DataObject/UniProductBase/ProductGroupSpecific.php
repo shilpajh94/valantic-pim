@@ -4,7 +4,7 @@ namespace Pimcore\Model\DataObject\UniProductBase;
 
 use Pimcore\Model\DataObject\Exception\InheritanceParentNotFoundException;
 
-class TechnicalProductGroupSpecific extends \Pimcore\Model\DataObject\Objectbrick {
+class ProductGroupSpecific extends \Pimcore\Model\DataObject\Objectbrick {
 
 protected $brickGetters = ['UniPrFgDss','UniPrFgFhs','UniPrFgPts'];
 
