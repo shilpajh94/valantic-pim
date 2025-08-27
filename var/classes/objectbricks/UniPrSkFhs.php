@@ -91,7 +91,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'key' => 'UniPrSkFhs',
    'parentClass' => 'App\\Model\\DataObject\\UniProductManagement\\Objectbrick\\AbstractUniPrSkeleton',
    'implementsInterfaces' => '',
-   'title' => 'Skeleton Product Group Specific Data (FHS)',
+   'title' => 'Skeleton FHS Data',
    'group' => 'UniProductManagement',
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -4445,6 +4445,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
     array (
       'classname' => 'UniProductCategoryInternal',
       'fieldname' => 'levelSpecificData',
+    ),
+    1 => 
+    array (
+      'classname' => 'UniProductBase',
+      'fieldname' => 'skeletonData',
     ),
   ),
    'activeDispatchingEvents' => 

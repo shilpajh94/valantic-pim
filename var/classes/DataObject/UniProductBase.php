@@ -17,7 +17,7 @@
  * -- sapDescription [input]
  * -- sapDescriptionLanguage [select]
  * -- plantProduced [select]
- * -- unitOfMeasure [quantityValue]
+ * -- unitOfMeasure [select]
  * -- weight [numeric]
  * -- productDescriptionShort [textarea]
  * -- productDescriptionLong [textarea]
@@ -34,17 +34,12 @@
  * - sapMaterialNumber [input]
  * - partNumber [input]
  * - oldMaterialNumber [input]
+ * - weightMetric [quantityValue]
+ * - weightImperial [quantityValue]
  * - tariffCodes [numeric]
  * - countryOfOrigin [country]
  * - eanCode [input]
- * - ghpFullCode [input]
- * - skeletonPimInternalHierarchyCode [calculatedValue]
- * - hierarchySearchData [calculatedValue]
- * - weightMetric [quantityValue]
- * - weightImperial [quantityValue]
- * - technicalProductGroupSpecific [objectbricks]
- * - regionalAvailability [manyToManyObjectRelation]
- * - regions [calculatedValue]
+ * - productGroupSpecific [objectbricks]
  * - competitorCrossReference [fieldcollections]
  * - customerReference [fieldcollections]
  * - oemCrossReference [fieldcollections]
@@ -53,7 +48,12 @@
  * - printedCatalogueFlag [checkbox]
  * - virtualCatalogueFlag [checkbox]
  * - customerPortalFlag [checkbox]
+ * - regionalAvailability [manyToManyObjectRelation]
+ * - regions [calculatedValue]
  * - internalCategories [manyToManyObjectRelation]
+ * - ghpFullCode [input]
+ * - skeletonPimInternalHierarchyCode [calculatedValue]
+ * - hierarchySearchData [calculatedValue]
  */
 
 namespace Pimcore\Model\DataObject;
@@ -93,14 +93,14 @@ use Pimcore\Model\DataObject\PreGetValueHookInterface;
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByTariffCodes(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByCountryOfOrigin(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByEanCode(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByGhpFullCode(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByRegionalAvailability(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByB2bFlag(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByB2cFlag(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByPrintedCatalogueFlag(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByVirtualCatalogueFlag(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByCustomerPortalFlag(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByRegionalAvailability(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByInternalCategories(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByGhpFullCode(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 */
 
 class UniProductBase extends \App\Model\DataObject\AbstractUniProductBase
@@ -133,17 +133,12 @@ public const FIELD_EMPTY_FIELDS_FINISHED_GOOD = 'emptyFieldsFinishedGood';
 public const FIELD_SAP_MATERIAL_NUMBER = 'sapMaterialNumber';
 public const FIELD_PART_NUMBER = 'partNumber';
 public const FIELD_OLD_MATERIAL_NUMBER = 'oldMaterialNumber';
+public const FIELD_WEIGHT_METRIC = 'weightMetric';
+public const FIELD_WEIGHT_IMPERIAL = 'weightImperial';
 public const FIELD_TARIFF_CODES = 'tariffCodes';
 public const FIELD_COUNTRY_OF_ORIGIN = 'countryOfOrigin';
 public const FIELD_EAN_CODE = 'eanCode';
-public const FIELD_GHP_FULL_CODE = 'ghpFullCode';
-public const FIELD_SKELETON_PIM_INTERNAL_HIERARCHY_CODE = 'skeletonPimInternalHierarchyCode';
-public const FIELD_HIERARCHY_SEARCH_DATA = 'hierarchySearchData';
-public const FIELD_WEIGHT_METRIC = 'weightMetric';
-public const FIELD_WEIGHT_IMPERIAL = 'weightImperial';
-public const FIELD_TECHNICAL_PRODUCT_GROUP_SPECIFIC = 'technicalProductGroupSpecific';
-public const FIELD_REGIONAL_AVAILABILITY = 'regionalAvailability';
-public const FIELD_REGIONS = 'regions';
+public const FIELD_PRODUCT_GROUP_SPECIFIC = 'productGroupSpecific';
 public const FIELD_COMPETITOR_CROSS_REFERENCE = 'competitorCrossReference';
 public const FIELD_CUSTOMER_REFERENCE = 'customerReference';
 public const FIELD_OEM_CROSS_REFERENCE = 'oemCrossReference';
@@ -152,7 +147,12 @@ public const FIELD_B2C_FLAG = 'b2cFlag';
 public const FIELD_PRINTED_CATALOGUE_FLAG = 'printedCatalogueFlag';
 public const FIELD_VIRTUAL_CATALOGUE_FLAG = 'virtualCatalogueFlag';
 public const FIELD_CUSTOMER_PORTAL_FLAG = 'customerPortalFlag';
+public const FIELD_REGIONAL_AVAILABILITY = 'regionalAvailability';
+public const FIELD_REGIONS = 'regions';
 public const FIELD_INTERNAL_CATEGORIES = 'internalCategories';
+public const FIELD_GHP_FULL_CODE = 'ghpFullCode';
+public const FIELD_SKELETON_PIM_INTERNAL_HIERARCHY_CODE = 'skeletonPimInternalHierarchyCode';
+public const FIELD_HIERARCHY_SEARCH_DATA = 'hierarchySearchData';
 
 protected $classId = "UNI_PR";
 protected $className = "UniProductBase";
@@ -166,14 +166,12 @@ protected $localizedfields;
 protected $sapMaterialNumber;
 protected $partNumber;
 protected $oldMaterialNumber;
+protected $weightMetric;
+protected $weightImperial;
 protected $tariffCodes;
 protected $countryOfOrigin;
 protected $eanCode;
-protected $ghpFullCode;
-protected $weightMetric;
-protected $weightImperial;
-protected $technicalProductGroupSpecific;
-protected $regionalAvailability;
+protected $productGroupSpecific;
 protected $competitorCrossReference;
 protected $customerReference;
 protected $oemCrossReference;
@@ -182,7 +180,9 @@ protected $b2cFlag;
 protected $printedCatalogueFlag;
 protected $virtualCatalogueFlag;
 protected $customerPortalFlag;
+protected $regionalAvailability;
 protected $internalCategories;
+protected $ghpFullCode;
 
 
 /**
@@ -543,9 +543,9 @@ public function getPlantProduced(?string $language = null): ?string
 
 /**
 * Get unitOfMeasure - Unit of Measure (UOM)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* @return string|null
 */
-public function getUnitOfMeasure(?string $language = null): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getUnitOfMeasure(?string $language = null): ?string
 {
 	$data = $this->getLocalizedfields()->getLocalizedValue("unitOfMeasure", $language);
 	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
@@ -937,10 +937,10 @@ public function setPlantProduced (?string $plantProduced, ?string $language = nu
 
 /**
 * Set unitOfMeasure - Unit of Measure (UOM)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $unitOfMeasure
+* @param string|null $unitOfMeasure
 * @return $this
 */
-public function setUnitOfMeasure (?\Pimcore\Model\DataObject\Data\QuantityValue $unitOfMeasure, ?string $language = null): static
+public function setUnitOfMeasure (?string $unitOfMeasure, ?string $language = null): static
 {
 	$isEqual = false;
 	$this->getLocalizedfields()->setLocalizedValue("unitOfMeasure", $unitOfMeasure, $language, !$isEqual);
@@ -1226,6 +1226,78 @@ public function setOldMaterialNumber(?string $oldMaterialNumber): static
 }
 
 /**
+* Get weightMetric - Weight (Metric)
+* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+*/
+public function getWeightMetric(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+{
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("weightMetric");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	$data = $this->weightMetric;
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set weightMetric - Weight (Metric)
+* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $weightMetric
+* @return $this
+*/
+public function setWeightMetric(?\Pimcore\Model\DataObject\Data\QuantityValue $weightMetric): static
+{
+	$this->markFieldDirty("weightMetric", true);
+
+	$this->weightMetric = $weightMetric;
+
+	return $this;
+}
+
+/**
+* Get weightImperial - Weight (Imperial)
+* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+*/
+public function getWeightImperial(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+{
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("weightImperial");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	$data = $this->weightImperial;
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set weightImperial - Weight (Imperial)
+* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $weightImperial
+* @return $this
+*/
+public function setWeightImperial(?\Pimcore\Model\DataObject\Data\QuantityValue $weightImperial): static
+{
+	$this->markFieldDirty("weightImperial", true);
+
+	$this->weightImperial = $weightImperial;
+
+	return $this;
+}
+
+/**
 * Get tariffCodes - Tariff Codes
 * @return float|null
 */
@@ -1333,157 +1405,21 @@ public function setEanCode(?string $eanCode): static
 }
 
 /**
-* Get ghpFullCode - Product Hierarchy Full Code (GHP)
-* @return string|null
+* @return \Pimcore\Model\DataObject\UniProductBase\ProductGroupSpecific
 */
-public function getGhpFullCode(): ?string
+public function getProductGroupSpecific(): ?\Pimcore\Model\DataObject\Objectbrick
 {
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("ghpFullCode");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	$data = $this->ghpFullCode;
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set ghpFullCode - Product Hierarchy Full Code (GHP)
-* @param string|null $ghpFullCode
-* @return $this
-*/
-public function setGhpFullCode(?string $ghpFullCode): static
-{
-	$this->markFieldDirty("ghpFullCode", true);
-
-	$this->ghpFullCode = $ghpFullCode;
-
-	return $this;
-}
-
-/**
-* Get skeletonPimInternalHierarchyCode - Skeleton PIM Internal Hierarchy Code
-* @return mixed
-*/
-public function getSkeletonPimInternalHierarchyCode(): mixed
-{
-	$data = new \Pimcore\Model\DataObject\Data\CalculatedValue('skeletonPimInternalHierarchyCode');
-	$data->setContextualData("object", null, null, null);
-	$object = $this;
-	$data = \Pimcore\Model\DataObject\Service::getCalculatedFieldValue($object, $data);
-
-	return $data;
-}
-
-/**
-* Get hierarchySearchData - Hierarchy Search Data
-* @return mixed
-*/
-public function getHierarchySearchData(): mixed
-{
-	$data = new \Pimcore\Model\DataObject\Data\CalculatedValue('hierarchySearchData');
-	$data->setContextualData("object", null, null, null);
-	$object = $this;
-	$data = \Pimcore\Model\DataObject\Service::getCalculatedFieldValue($object, $data);
-
-	return $data;
-}
-
-/**
-* Get weightMetric - Weight (Metric)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
-*/
-public function getWeightMetric(): ?\Pimcore\Model\DataObject\Data\QuantityValue
-{
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("weightMetric");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	$data = $this->weightMetric;
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set weightMetric - Weight (Metric)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $weightMetric
-* @return $this
-*/
-public function setWeightMetric(?\Pimcore\Model\DataObject\Data\QuantityValue $weightMetric): static
-{
-	$this->markFieldDirty("weightMetric", true);
-
-	$this->weightMetric = $weightMetric;
-
-	return $this;
-}
-
-/**
-* Get weightImperial - Weight (Imperial)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
-*/
-public function getWeightImperial(): ?\Pimcore\Model\DataObject\Data\QuantityValue
-{
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("weightImperial");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	$data = $this->weightImperial;
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set weightImperial - Weight (Imperial)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $weightImperial
-* @return $this
-*/
-public function setWeightImperial(?\Pimcore\Model\DataObject\Data\QuantityValue $weightImperial): static
-{
-	$this->markFieldDirty("weightImperial", true);
-
-	$this->weightImperial = $weightImperial;
-
-	return $this;
-}
-
-/**
-* @return \Pimcore\Model\DataObject\UniProductBase\TechnicalProductGroupSpecific
-*/
-public function getTechnicalProductGroupSpecific(): ?\Pimcore\Model\DataObject\Objectbrick
-{
-	$data = $this->technicalProductGroupSpecific;
+	$data = $this->productGroupSpecific;
 	if (!$data) {
-		if (\Pimcore\Tool::classExists("\\Pimcore\\Model\\DataObject\\UniProductBase\\TechnicalProductGroupSpecific")) {
-			$data = new \Pimcore\Model\DataObject\UniProductBase\TechnicalProductGroupSpecific($this, "technicalProductGroupSpecific");
-			$this->technicalProductGroupSpecific = $data;
+		if (\Pimcore\Tool::classExists("\\Pimcore\\Model\\DataObject\\UniProductBase\\ProductGroupSpecific")) {
+			$data = new \Pimcore\Model\DataObject\UniProductBase\ProductGroupSpecific($this, "productGroupSpecific");
+			$this->productGroupSpecific = $data;
 		} else {
 			return null;
 		}
 	}
 	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("technicalProductGroupSpecific");
+		$preValue = $this->preGetValue("productGroupSpecific");
 		if ($preValue !== null) {
 			return $preValue;
 		}
@@ -1493,73 +1429,16 @@ public function getTechnicalProductGroupSpecific(): ?\Pimcore\Model\DataObject\O
 }
 
 /**
-* Set technicalProductGroupSpecific - 
-* @param \Pimcore\Model\DataObject\Objectbrick|null $technicalProductGroupSpecific
+* Set productGroupSpecific - Product Group Specific Data
+* @param \Pimcore\Model\DataObject\Objectbrick|null $productGroupSpecific
 * @return $this
 */
-public function setTechnicalProductGroupSpecific(?\Pimcore\Model\DataObject\Objectbrick $technicalProductGroupSpecific): static
+public function setProductGroupSpecific(?\Pimcore\Model\DataObject\Objectbrick $productGroupSpecific): static
 {
 	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Objectbricks $fd */
-	$fd = $this->getClass()->getFieldDefinition("technicalProductGroupSpecific");
-	$this->technicalProductGroupSpecific = $fd->preSetData($this, $technicalProductGroupSpecific);
+	$fd = $this->getClass()->getFieldDefinition("productGroupSpecific");
+	$this->productGroupSpecific = $fd->preSetData($this, $productGroupSpecific);
 	return $this;
-}
-
-/**
-* Get regionalAvailability - Available in
-* @return \Pimcore\Model\DataObject\UniRegion[]
-*/
-public function getRegionalAvailability(): array
-{
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("regionalAvailability");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	$data = $this->getClass()->getFieldDefinition("regionalAvailability")->preGetData($this);
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set regionalAvailability - Available in
-* @param \Pimcore\Model\DataObject\UniRegion[] $regionalAvailability
-* @return $this
-*/
-public function setRegionalAvailability(?array $regionalAvailability): static
-{
-	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation $fd */
-	$fd = $this->getClass()->getFieldDefinition("regionalAvailability");
-	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
-	$currentData = $this->getRegionalAvailability();
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
-	$isEqual = $fd->isEqual($currentData, $regionalAvailability);
-	if (!$isEqual) {
-		$this->markFieldDirty("regionalAvailability", true);
-	}
-	$this->regionalAvailability = $fd->preSetData($this, $regionalAvailability);
-	return $this;
-}
-
-/**
-* Get regions - Regions
-* @return mixed
-*/
-public function getRegions(): mixed
-{
-	$data = new \Pimcore\Model\DataObject\Data\CalculatedValue('regions');
-	$data->setContextualData("object", null, null, null);
-	$object = $this;
-	$data = \Pimcore\Model\DataObject\Service::getCalculatedFieldValue($object, $data);
-
-	return $data;
 }
 
 /**
@@ -1830,6 +1709,63 @@ public function setCustomerPortalFlag(?bool $customerPortalFlag): static
 }
 
 /**
+* Get regionalAvailability - Available in
+* @return \Pimcore\Model\DataObject\UniRegion[]
+*/
+public function getRegionalAvailability(): array
+{
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("regionalAvailability");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	$data = $this->getClass()->getFieldDefinition("regionalAvailability")->preGetData($this);
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set regionalAvailability - Available in
+* @param \Pimcore\Model\DataObject\UniRegion[] $regionalAvailability
+* @return $this
+*/
+public function setRegionalAvailability(?array $regionalAvailability): static
+{
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation $fd */
+	$fd = $this->getClass()->getFieldDefinition("regionalAvailability");
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	$currentData = $this->getRegionalAvailability();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $regionalAvailability);
+	if (!$isEqual) {
+		$this->markFieldDirty("regionalAvailability", true);
+	}
+	$this->regionalAvailability = $fd->preSetData($this, $regionalAvailability);
+	return $this;
+}
+
+/**
+* Get regions - Regions
+* @return mixed
+*/
+public function getRegions(): mixed
+{
+	$data = new \Pimcore\Model\DataObject\Data\CalculatedValue('regions');
+	$data->setContextualData("object", null, null, null);
+	$object = $this;
+	$data = \Pimcore\Model\DataObject\Service::getCalculatedFieldValue($object, $data);
+
+	return $data;
+}
+
+/**
 * Get internalCategories - Internal Categories
 * @return \Pimcore\Model\DataObject\UniProductCategoryInternal[]
 */
@@ -1870,6 +1806,70 @@ public function setInternalCategories(?array $internalCategories): static
 	}
 	$this->internalCategories = $fd->preSetData($this, $internalCategories);
 	return $this;
+}
+
+/**
+* Get ghpFullCode - Product Hierarchy Full Code (GHP)
+* @return string|null
+*/
+public function getGhpFullCode(): ?string
+{
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("ghpFullCode");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	$data = $this->ghpFullCode;
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set ghpFullCode - Product Hierarchy Full Code (GHP)
+* @param string|null $ghpFullCode
+* @return $this
+*/
+public function setGhpFullCode(?string $ghpFullCode): static
+{
+	$this->markFieldDirty("ghpFullCode", true);
+
+	$this->ghpFullCode = $ghpFullCode;
+
+	return $this;
+}
+
+/**
+* Get skeletonPimInternalHierarchyCode - Skeleton PIM Internal Hierarchy Code
+* @return mixed
+*/
+public function getSkeletonPimInternalHierarchyCode(): mixed
+{
+	$data = new \Pimcore\Model\DataObject\Data\CalculatedValue('skeletonPimInternalHierarchyCode');
+	$data->setContextualData("object", null, null, null);
+	$object = $this;
+	$data = \Pimcore\Model\DataObject\Service::getCalculatedFieldValue($object, $data);
+
+	return $data;
+}
+
+/**
+* Get hierarchySearchData - Hierarchy Search Data
+* @return mixed
+*/
+public function getHierarchySearchData(): mixed
+{
+	$data = new \Pimcore\Model\DataObject\Data\CalculatedValue('hierarchySearchData');
+	$data->setContextualData("object", null, null, null);
+	$object = $this;
+	$data = \Pimcore\Model\DataObject\Service::getCalculatedFieldValue($object, $data);
+
+	return $data;
 }
 
 }
