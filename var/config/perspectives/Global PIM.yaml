@@ -32,6 +32,13 @@ pimcore:
                         hidden: false
                         id: 4320b68e-f209-8e17-758f-451f2e53ef45
                     -
+                        type: customview
+                        position: left
+                        sort: 2
+                        expanded: false
+                        hidden: false
+                        id: 544ec849-31fc-1a27-a602-33da4b6369eb
+                    -
                         type: assets
                         position: left
                         sort: 4
