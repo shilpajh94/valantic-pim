@@ -16,12 +16,12 @@
 
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
-   'id' => 'UNI_PRCI',
+   'id' => 'UNI_PR_CI',
    'name' => 'UniProductCategoryInternal',
    'title' => 'Internal Category',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1756217499,
+   'modificationDate' => 1756253460,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => 'App\\Model\\DataObject\\AbstractUniProductCategoryInternal',
@@ -300,12 +300,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             ),
              'allowedTypes' => 
             array (
-              0 => 'UniPrBrandPts',
-              1 => 'UniPrSkeletonPts',
-              2 => 'UniPrBr',
-              3 => 'UniPrBrFhs',
-              4 => 'UniPrSkFhs',
-              5 => 'UniPrSk',
+              0 => 'UniPrBr',
+              1 => 'UniPrBrFhs',
+              2 => 'UniPrSkFhs',
+              3 => 'UniPrSk',
+              4 => 'UniPrBrPts',
+              5 => 'UniPrSkPts',
             ),
              'maxItems' => NULL,
              'border' => false,

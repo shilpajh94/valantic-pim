@@ -64,7 +64,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Product',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1756217749,
+   'modificationDate' => 1756278504,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => 'App\\Model\\DataObject\\AbstractUniProductBase',
@@ -192,8 +192,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'allowedTypes' => 
                 array (
-                  0 => 'UniPrBrandPts',
-                  1 => 'UniPrBr',
+                  0 => 'UniPrBr',
                 ),
                  'maxItems' => NULL,
                  'border' => false,
@@ -295,8 +294,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'allowedTypes' => 
                 array (
-                  0 => 'UniPrSkeletonPts',
-                  1 => 'UniPrSk',
+                  0 => 'UniPrSk',
+                  1 => 'UniPrSkPts',
                 ),
                  'maxItems' => NULL,
                  'border' => false,
@@ -2099,9 +2098,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         ),
                          'allowedTypes' => 
                         array (
-                          0 => 'UniPrGsTechPts',
-                          1 => 'UniPrFgFhs',
-                          2 => 'UniPrFgDss',
+                          0 => 'UniPrFgFhs',
+                          1 => 'UniPrFgDss',
+                          2 => 'UniPrFgPts',
                         ),
                          'maxItems' => NULL,
                          'border' => false,
@@ -3270,6 +3269,31 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
+    0 => 
+    Pimcore\Model\DataObject\ClassDefinition\Data\Objectbricks::__set_state(array(
+       'name' => 'parentData',
+       'title' => '',
+       'tooltip' => '',
+       'mandatory' => false,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => false,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => false,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'allowedTypes' => 
+      array (
+      ),
+       'maxItems' => NULL,
+       'border' => false,
+    )),
   ),
    'blockedVarsForExport' => 
   array (

@@ -1,0 +1,30 @@
+pimcore:
+    objects:
+        select_options:
+            definitions:
+                UniPrNominalLengthPts:
+                    id: UniPrNominalLengthPts
+                    group: UniProductPts
+                    useTraits: ''
+                    implementsInterfaces: ''
+                    selectOptions:
+                        -
+                            value: Ld
+                            label: Ld
+                            name: LD
+                        -
+                            value: Li
+                            label: Li
+                            name: LI
+                        -
+                            value: Le
+                            label: Le
+                            name: LE
+                        -
+                            value: 'LP / LW'
+                            label: 'LP / LW'
+                            name: LPLW
+                        -
+                            value: Lr
+                            label: Lr
+                            name: LR

@@ -32,7 +32,7 @@
 return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'dao' => NULL,
    'key' => 'UniPrBrFhs',
-   'parentClass' => '',
+   'parentClass' => 'App\\Model\\DataObject\\UniProductManagement\\Objectbrick\\AbstractUniPrBrand',
    'implementsInterfaces' => '',
    'title' => 'Brand Product Group Specific Data (FHS)',
    'group' => 'UniProductManagement',

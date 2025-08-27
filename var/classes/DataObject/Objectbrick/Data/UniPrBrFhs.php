@@ -36,7 +36,7 @@ use Pimcore\Model\DataObject\Exception\InheritanceParentNotFoundException;
 use Pimcore\Model\DataObject\PreGetValueHookInterface;
 
 
-class UniPrBrFhs extends DataObject\Objectbrick\Data\AbstractData
+class UniPrBrFhs extends \App\Model\DataObject\UniProductManagement\Objectbrick\AbstractUniPrBrand
 {
 public const FIELD_HAS_STATIC_WIRE = 'hasStaticWire';
 public const FIELD_HAS_HELICAL_WIRE = 'hasHelicalWire';
