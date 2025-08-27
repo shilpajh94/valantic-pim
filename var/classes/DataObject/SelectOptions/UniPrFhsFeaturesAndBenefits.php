@@ -7,16 +7,16 @@ enum UniPrFhsFeaturesAndBenefits: string implements \Pimcore\Model\DataObject\Se
     use \Pimcore\Model\DataObject\SelectOptions\Traits\EnumGetValuesTrait;
     use \Pimcore\Model\DataObject\SelectOptions\Traits\EnumTryFromNullableTrait;
 
-    case HighlyFlexible = 'highlyFlexible';
-    case ExtremeResistance = 'extremeResistance';
-    case DustProof = 'dustProof';
+    case HIGHLY_FLEXIBLE = 'highlyFlexible';
+    case EXTREME_RESISTANCE = 'extremeResistance';
+    case DUST_PROOF = 'dustProof';
 
     public function getLabel(): string
     {
         return match ($this) {
-            self::HighlyFlexible => 'Highly Flexible',
-            self::ExtremeResistance => 'Extreme Resistance',
-            self::DustProof => 'Dust Proof',
+            self::HIGHLY_FLEXIBLE => 'Highly Flexible',
+            self::EXTREME_RESISTANCE => 'Extreme Resistance',
+            self::DUST_PROOF => 'Dust Proof',
         };
     }
 }
