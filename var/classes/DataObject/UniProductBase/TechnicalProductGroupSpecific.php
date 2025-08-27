@@ -6,7 +6,7 @@ use Pimcore\Model\DataObject\Exception\InheritanceParentNotFoundException;
 
 class TechnicalProductGroupSpecific extends \Pimcore\Model\DataObject\Objectbrick {
 
-protected $brickGetters = ['UniPrFgDss','UniPrFgFhs','UniPrGsTechPts'];
+protected $brickGetters = ['UniPrFgDss','UniPrFgFhs','UniPrFgPts'];
 
 
 protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrFgDss|null $UniPrFgDss = null;
@@ -59,28 +59,28 @@ public function setUniPrFgFhs(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrF
 	return $this;
 }
 
-protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrGsTechPts|null $UniPrGsTechPts = null;
+protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrFgPts|null $UniPrFgPts = null;
 
 /**
-* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrGsTechPts|null
+* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrFgPts|null
 */
-public function getUniPrGsTechPts(bool $includeDeletedBricks = false)
+public function getUniPrFgPts(bool $includeDeletedBricks = false)
 {
 	if(!$includeDeletedBricks &&
-		isset($this->UniPrGsTechPts) &&
-		$this->UniPrGsTechPts->getDoDelete()) {
+		isset($this->UniPrFgPts) &&
+		$this->UniPrFgPts->getDoDelete()) {
 			return null;
 	}
-	return $this->UniPrGsTechPts;
+	return $this->UniPrFgPts;
 }
 
 /**
-* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrGsTechPts|null $UniPrGsTechPts
+* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrFgPts|null $UniPrFgPts
 * @return $this
 */
-public function setUniPrGsTechPts(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrGsTechPts $UniPrGsTechPts): static
+public function setUniPrFgPts(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrFgPts $UniPrFgPts): static
 {
-	$this->UniPrGsTechPts = $UniPrGsTechPts;
+	$this->UniPrFgPts = $UniPrFgPts;
 	return $this;
 }
 

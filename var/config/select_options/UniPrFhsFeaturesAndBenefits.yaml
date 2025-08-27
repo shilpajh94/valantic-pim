@@ -11,12 +11,12 @@ pimcore:
                         -
                             value: highlyFlexible
                             label: 'Highly Flexible'
-                            name: ''
+                            name: HIGHLY_FLEXIBLE
                         -
                             value: extremeResistance
                             label: 'Extreme Resistance'
-                            name: ''
+                            name: EXTREME_RESISTANCE
                         -
                             value: dustProof
                             label: 'Dust Proof'
-                            name: ''
+                            name: DUST_PROOF

@@ -11,24 +11,24 @@ pimcore:
                         -
                             value: '0'
                             label: '0'
-                            name: zero
+                            name: ZERO
                         -
                             value: '1'
                             label: '1'
-                            name: one
+                            name: ONE
                         -
                             value: '2'
                             label: '2'
-                            name: two
+                            name: TWO
                         -
                             value: '3'
                             label: '3'
-                            name: three
+                            name: THREE
                         -
                             value: '4'
                             label: '4'
-                            name: four
+                            name: FOUR
                         -
                             value: '5'
                             label: '5'
-                            name: five
+                            name: FIVE

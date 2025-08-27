@@ -6,7 +6,7 @@ use Pimcore\Model\DataObject\Exception\InheritanceParentNotFoundException;
 
 class LevelSpecificData extends \Pimcore\Model\DataObject\Objectbrick {
 
-protected $brickGetters = ['UniPrBr','UniPrBrandPts','UniPrBrFhs','UniPrSk','UniPrSkeletonPts','UniPrSkFhs'];
+protected $brickGetters = ['UniPrBr','UniPrBrFhs','UniPrBrPts','UniPrSk','UniPrSkFhs','UniPrSkPts'];
 
 
 protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBr|null $UniPrBr = null;
@@ -31,31 +31,6 @@ public function getUniPrBr(bool $includeDeletedBricks = false)
 public function setUniPrBr(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrBr $UniPrBr): static
 {
 	$this->UniPrBr = $UniPrBr;
-	return $this;
-}
-
-protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrandPts|null $UniPrBrandPts = null;
-
-/**
-* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrandPts|null
-*/
-public function getUniPrBrandPts(bool $includeDeletedBricks = false)
-{
-	if(!$includeDeletedBricks &&
-		isset($this->UniPrBrandPts) &&
-		$this->UniPrBrandPts->getDoDelete()) {
-			return null;
-	}
-	return $this->UniPrBrandPts;
-}
-
-/**
-* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrandPts|null $UniPrBrandPts
-* @return $this
-*/
-public function setUniPrBrandPts(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrandPts $UniPrBrandPts): static
-{
-	$this->UniPrBrandPts = $UniPrBrandPts;
 	return $this;
 }
 
@@ -84,6 +59,31 @@ public function setUniPrBrFhs(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrB
 	return $this;
 }
 
+protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrPts|null $UniPrBrPts = null;
+
+/**
+* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrPts|null
+*/
+public function getUniPrBrPts(bool $includeDeletedBricks = false)
+{
+	if(!$includeDeletedBricks &&
+		isset($this->UniPrBrPts) &&
+		$this->UniPrBrPts->getDoDelete()) {
+			return null;
+	}
+	return $this->UniPrBrPts;
+}
+
+/**
+* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrPts|null $UniPrBrPts
+* @return $this
+*/
+public function setUniPrBrPts(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrPts $UniPrBrPts): static
+{
+	$this->UniPrBrPts = $UniPrBrPts;
+	return $this;
+}
+
 protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSk|null $UniPrSk = null;
 
 /**
@@ -109,31 +109,6 @@ public function setUniPrSk(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrSk $
 	return $this;
 }
 
-protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeletonPts|null $UniPrSkeletonPts = null;
-
-/**
-* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeletonPts|null
-*/
-public function getUniPrSkeletonPts(bool $includeDeletedBricks = false)
-{
-	if(!$includeDeletedBricks &&
-		isset($this->UniPrSkeletonPts) &&
-		$this->UniPrSkeletonPts->getDoDelete()) {
-			return null;
-	}
-	return $this->UniPrSkeletonPts;
-}
-
-/**
-* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeletonPts|null $UniPrSkeletonPts
-* @return $this
-*/
-public function setUniPrSkeletonPts(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeletonPts $UniPrSkeletonPts): static
-{
-	$this->UniPrSkeletonPts = $UniPrSkeletonPts;
-	return $this;
-}
-
 protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkFhs|null $UniPrSkFhs = null;
 
 /**
@@ -156,6 +131,31 @@ public function getUniPrSkFhs(bool $includeDeletedBricks = false)
 public function setUniPrSkFhs(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkFhs $UniPrSkFhs): static
 {
 	$this->UniPrSkFhs = $UniPrSkFhs;
+	return $this;
+}
+
+protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkPts|null $UniPrSkPts = null;
+
+/**
+* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkPts|null
+*/
+public function getUniPrSkPts(bool $includeDeletedBricks = false)
+{
+	if(!$includeDeletedBricks &&
+		isset($this->UniPrSkPts) &&
+		$this->UniPrSkPts->getDoDelete()) {
+			return null;
+	}
+	return $this->UniPrSkPts;
+}
+
+/**
+* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkPts|null $UniPrSkPts
+* @return $this
+*/
+public function setUniPrSkPts(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkPts $UniPrSkPts): static
+{
+	$this->UniPrSkPts = $UniPrSkPts;
 	return $this;
 }
 
