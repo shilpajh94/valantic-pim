@@ -6,33 +6,8 @@ use Pimcore\Model\DataObject\Exception\InheritanceParentNotFoundException;
 
 class SkeletonData extends \Pimcore\Model\DataObject\Objectbrick {
 
-protected $brickGetters = ['UniPrSk','UniPrSkFhs','UniPrSkPts'];
+protected $brickGetters = ['UniPrSkFhs','UniPrSkPts'];
 
-
-protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSk|null $UniPrSk = null;
-
-/**
-* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSk|null
-*/
-public function getUniPrSk(bool $includeDeletedBricks = false)
-{
-	if(!$includeDeletedBricks &&
-		isset($this->UniPrSk) &&
-		$this->UniPrSk->getDoDelete()) {
-			return null;
-	}
-	return $this->UniPrSk;
-}
-
-/**
-* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSk|null $UniPrSk
-* @return $this
-*/
-public function setUniPrSk(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrSk $UniPrSk): static
-{
-	$this->UniPrSk = $UniPrSk;
-	return $this;
-}
 
 protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkFhs|null $UniPrSkFhs = null;
 
