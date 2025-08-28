@@ -34,7 +34,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'key' => 'UniPrBrFhs',
    'parentClass' => 'App\\Model\\DataObject\\UniProductManagement\\Objectbrick\\AbstractUniPrBrand',
    'implementsInterfaces' => '',
-   'title' => 'Brand Product Group Specific Data (FHS)',
+   'title' => 'Brand FHS Data',
    'group' => 'UniProductManagement',
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -1347,6 +1347,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
     array (
       'classname' => 'UniProductCategoryInternal',
       'fieldname' => 'levelSpecificData',
+    ),
+    1 => 
+    array (
+      'classname' => 'UniProductBase',
+      'fieldname' => 'brandData',
     ),
   ),
    'activeDispatchingEvents' => 

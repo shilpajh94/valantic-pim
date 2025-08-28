@@ -485,7 +485,7 @@ public function setBeltTeethType (?\Pimcore\Model\Element\AbstractElement $beltT
 }
 
 /**
-* Get temperatureC - Temperature C
+* Get temperatureC - Temperature (°C)
 * @return \Pimcore\Model\DataObject\Data\QuantityValueRange|null
 */
 public function getTemperatureC(): ?\Pimcore\Model\DataObject\Data\QuantityValueRange
@@ -506,7 +506,7 @@ public function getTemperatureC(): ?\Pimcore\Model\DataObject\Data\QuantityValue
 }
 
 /**
-* Set temperatureC - Temperature C
+* Set temperatureC - Temperature (°C)
 * @param \Pimcore\Model\DataObject\Data\QuantityValueRange|null $temperatureC
 * @return $this
 */
@@ -518,7 +518,7 @@ public function setTemperatureC (?\Pimcore\Model\DataObject\Data\QuantityValueRa
 }
 
 /**
-* Get temperatureF - Temperature F
+* Get temperatureF - Temperature (°F)
 * @return \Pimcore\Model\DataObject\Data\QuantityValueRange|null
 */
 public function getTemperatureF(): ?\Pimcore\Model\DataObject\Data\QuantityValueRange
@@ -539,7 +539,7 @@ public function getTemperatureF(): ?\Pimcore\Model\DataObject\Data\QuantityValue
 }
 
 /**
-* Set temperatureF - Temperature F
+* Set temperatureF - Temperature (°F)
 * @param \Pimcore\Model\DataObject\Data\QuantityValueRange|null $temperatureF
 * @return $this
 */

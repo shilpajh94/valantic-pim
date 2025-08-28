@@ -11,13 +11,13 @@
  * - isBellowOnlyPart [checkbox]
  * - height [quantityValueRange]
  * - maximumBellowDiameter [quantityValue]
+ * - airInletInsideThread [manyToOneRelation]
+ * - rollingLobePistonMaterial [manyToOneRelation]
  * - maximumStroke [quantityValue]
  * - workingPressure [quantityValue]
- * - airInletInsideThread [manyToOneRelation]
  * - airInletThread [input]
- * - rollingLobePistonMaterial [manyToOneRelation]
- * - permissibleInstallationSpace [image]
  * - numberOfConvolutions [numeric]
+ * - permissibleInstallationSpace [image]
  */
 
 namespace Pimcore\Model\DataObject\Objectbrick\Data;
@@ -37,26 +37,26 @@ public const FIELD_AIR_INLET_LOCATION = 'airInletLocation';
 public const FIELD_IS_BELLOW_ONLY_PART = 'isBellowOnlyPart';
 public const FIELD_HEIGHT = 'height';
 public const FIELD_MAXIMUM_BELLOW_DIAMETER = 'maximumBellowDiameter';
+public const FIELD_AIR_INLET_INSIDE_THREAD = 'airInletInsideThread';
+public const FIELD_ROLLING_LOBE_PISTON_MATERIAL = 'rollingLobePistonMaterial';
 public const FIELD_MAXIMUM_STROKE = 'maximumStroke';
 public const FIELD_WORKING_PRESSURE = 'workingPressure';
-public const FIELD_AIR_INLET_INSIDE_THREAD = 'airInletInsideThread';
 public const FIELD_AIR_INLET_THREAD = 'airInletThread';
-public const FIELD_ROLLING_LOBE_PISTON_MATERIAL = 'rollingLobePistonMaterial';
-public const FIELD_PERMISSIBLE_INSTALLATION_SPACE = 'permissibleInstallationSpace';
 public const FIELD_NUMBER_OF_CONVOLUTIONS = 'numberOfConvolutions';
+public const FIELD_PERMISSIBLE_INSTALLATION_SPACE = 'permissibleInstallationSpace';
 
 protected string $type = "UniPrFgDss";
 protected $localizedfields;
 protected $isBellowOnlyPart;
 protected $height;
 protected $maximumBellowDiameter;
+protected $airInletInsideThread;
+protected $rollingLobePistonMaterial;
 protected $maximumStroke;
 protected $workingPressure;
-protected $airInletInsideThread;
 protected $airInletThread;
-protected $rollingLobePistonMaterial;
-protected $permissibleInstallationSpace;
 protected $numberOfConvolutions;
+protected $permissibleInstallationSpace;
 
 
 /**
@@ -375,6 +375,106 @@ public function setMaximumBellowDiameter (?\Pimcore\Model\DataObject\Data\Quanti
 }
 
 /**
+* Get airInletInsideThread - Air Inlet - Inside Thread / Stud Bolt
+* @return \Pimcore\Model\DataObject\UniPrDssAirInletInsideThread|null
+*/
+public function getAirInletInsideThread(): ?\Pimcore\Model\Element\AbstractElement
+{
+	$data = $this->getDefinition()->getFieldDefinition("airInletInsideThread")->preGetData($this);
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("airInletInsideThread")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("airInletInsideThread");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set airInletInsideThread - Air Inlet - Inside Thread / Stud Bolt
+* @param \Pimcore\Model\DataObject\UniPrDssAirInletInsideThread|null $airInletInsideThread
+* @return $this
+*/
+public function setAirInletInsideThread (?\Pimcore\Model\Element\AbstractElement $airInletInsideThread): static
+{
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("airInletInsideThread");
+	$class = $this->getObject() ? $this->getObject()->getClass() : null;
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	if ($class && $class->getAllowInherit()) {
+		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
+			return $this->getAirInletInsideThread();
+		});
+	}
+	else {
+		$currentData = $this->getAirInletInsideThread();
+	}	
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $airInletInsideThread);
+	if (!$isEqual) {
+		$this->markFieldDirty("airInletInsideThread", true);
+	}
+	$this->airInletInsideThread = $fd->preSetData($this, $airInletInsideThread);
+	return $this;
+}
+
+/**
+* Get rollingLobePistonMaterial - Rolling Lobe - Piston Material
+* @return \Pimcore\Model\DataObject\UniPrDssRollingLobePistonMaterial|null
+*/
+public function getRollingLobePistonMaterial(): ?\Pimcore\Model\Element\AbstractElement
+{
+	$data = $this->getDefinition()->getFieldDefinition("rollingLobePistonMaterial")->preGetData($this);
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("rollingLobePistonMaterial")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("rollingLobePistonMaterial");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set rollingLobePistonMaterial - Rolling Lobe - Piston Material
+* @param \Pimcore\Model\DataObject\UniPrDssRollingLobePistonMaterial|null $rollingLobePistonMaterial
+* @return $this
+*/
+public function setRollingLobePistonMaterial (?\Pimcore\Model\Element\AbstractElement $rollingLobePistonMaterial): static
+{
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("rollingLobePistonMaterial");
+	$class = $this->getObject() ? $this->getObject()->getClass() : null;
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	if ($class && $class->getAllowInherit()) {
+		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
+			return $this->getRollingLobePistonMaterial();
+		});
+	}
+	else {
+		$currentData = $this->getRollingLobePistonMaterial();
+	}	
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $rollingLobePistonMaterial);
+	if (!$isEqual) {
+		$this->markFieldDirty("rollingLobePistonMaterial", true);
+	}
+	$this->rollingLobePistonMaterial = $fd->preSetData($this, $rollingLobePistonMaterial);
+	return $this;
+}
+
+/**
 * Get maximumStroke - Maximum Stroke
 * @return \Pimcore\Model\DataObject\Data\QuantityValue|null
 */
@@ -441,56 +541,6 @@ public function setWorkingPressure (?\Pimcore\Model\DataObject\Data\QuantityValu
 }
 
 /**
-* Get airInletInsideThread - Air Inlet - Inside Thread / Stud Bolt
-* @return \Pimcore\Model\DataObject\UniPrDssAirInletInsideThread|null
-*/
-public function getAirInletInsideThread(): ?\Pimcore\Model\Element\AbstractElement
-{
-	$data = $this->getDefinition()->getFieldDefinition("airInletInsideThread")->preGetData($this);
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("airInletInsideThread")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("airInletInsideThread");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set airInletInsideThread - Air Inlet - Inside Thread / Stud Bolt
-* @param \Pimcore\Model\DataObject\UniPrDssAirInletInsideThread|null $airInletInsideThread
-* @return $this
-*/
-public function setAirInletInsideThread (?\Pimcore\Model\Element\AbstractElement $airInletInsideThread): static
-{
-	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation $fd */
-	$fd = $this->getDefinition()->getFieldDefinition("airInletInsideThread");
-	$class = $this->getObject() ? $this->getObject()->getClass() : null;
-	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
-	if ($class && $class->getAllowInherit()) {
-		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
-			return $this->getAirInletInsideThread();
-		});
-	}
-	else {
-		$currentData = $this->getAirInletInsideThread();
-	}	
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
-	$isEqual = $fd->isEqual($currentData, $airInletInsideThread);
-	if (!$isEqual) {
-		$this->markFieldDirty("airInletInsideThread", true);
-	}
-	$this->airInletInsideThread = $fd->preSetData($this, $airInletInsideThread);
-	return $this;
-}
-
-/**
 * Get airInletThread - Air Inlet Thread
 * @return string|null
 */
@@ -519,89 +569,6 @@ public function getAirInletThread(): ?string
 public function setAirInletThread (?string $airInletThread): static
 {
 	$this->airInletThread = $airInletThread;
-
-	return $this;
-}
-
-/**
-* Get rollingLobePistonMaterial - Rolling Lobe - Piston Material
-* @return \Pimcore\Model\DataObject\UniPrDssRollingLobePistonMaterial|null
-*/
-public function getRollingLobePistonMaterial(): ?\Pimcore\Model\Element\AbstractElement
-{
-	$data = $this->getDefinition()->getFieldDefinition("rollingLobePistonMaterial")->preGetData($this);
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("rollingLobePistonMaterial")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("rollingLobePistonMaterial");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set rollingLobePistonMaterial - Rolling Lobe - Piston Material
-* @param \Pimcore\Model\DataObject\UniPrDssRollingLobePistonMaterial|null $rollingLobePistonMaterial
-* @return $this
-*/
-public function setRollingLobePistonMaterial (?\Pimcore\Model\Element\AbstractElement $rollingLobePistonMaterial): static
-{
-	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation $fd */
-	$fd = $this->getDefinition()->getFieldDefinition("rollingLobePistonMaterial");
-	$class = $this->getObject() ? $this->getObject()->getClass() : null;
-	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
-	if ($class && $class->getAllowInherit()) {
-		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
-			return $this->getRollingLobePistonMaterial();
-		});
-	}
-	else {
-		$currentData = $this->getRollingLobePistonMaterial();
-	}	
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
-	$isEqual = $fd->isEqual($currentData, $rollingLobePistonMaterial);
-	if (!$isEqual) {
-		$this->markFieldDirty("rollingLobePistonMaterial", true);
-	}
-	$this->rollingLobePistonMaterial = $fd->preSetData($this, $rollingLobePistonMaterial);
-	return $this;
-}
-
-/**
-* Get permissibleInstallationSpace - Permissible Installation Space
-* @return \Pimcore\Model\Asset\Image|null
-*/
-public function getPermissibleInstallationSpace(): ?\Pimcore\Model\Asset\Image
-{
-	$data = $this->permissibleInstallationSpace;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("permissibleInstallationSpace")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("permissibleInstallationSpace");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set permissibleInstallationSpace - Permissible Installation Space
-* @param \Pimcore\Model\Asset\Image|null $permissibleInstallationSpace
-* @return $this
-*/
-public function setPermissibleInstallationSpace (?\Pimcore\Model\Asset\Image $permissibleInstallationSpace): static
-{
-	$this->permissibleInstallationSpace = $permissibleInstallationSpace;
 
 	return $this;
 }
@@ -637,6 +604,39 @@ public function setNumberOfConvolutions (?int $numberOfConvolutions): static
 	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
 	$fd = $this->getDefinition()->getFieldDefinition("numberOfConvolutions");
 	$this->numberOfConvolutions = $fd->preSetData($this, $numberOfConvolutions);
+	return $this;
+}
+
+/**
+* Get permissibleInstallationSpace - Permissible Installation Space
+* @return \Pimcore\Model\Asset\Image|null
+*/
+public function getPermissibleInstallationSpace(): ?\Pimcore\Model\Asset\Image
+{
+	$data = $this->permissibleInstallationSpace;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("permissibleInstallationSpace")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("permissibleInstallationSpace");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set permissibleInstallationSpace - Permissible Installation Space
+* @param \Pimcore\Model\Asset\Image|null $permissibleInstallationSpace
+* @return $this
+*/
+public function setPermissibleInstallationSpace (?\Pimcore\Model\Asset\Image $permissibleInstallationSpace): static
+{
+	$this->permissibleInstallationSpace = $permissibleInstallationSpace;
+
 	return $this;
 }
 

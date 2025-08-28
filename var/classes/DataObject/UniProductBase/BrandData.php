@@ -6,7 +6,7 @@ use Pimcore\Model\DataObject\Exception\InheritanceParentNotFoundException;
 
 class BrandData extends \Pimcore\Model\DataObject\Objectbrick {
 
-protected $brickGetters = ['UniPrBr'];
+protected $brickGetters = ['UniPrBr','UniPrBrFhs','UniPrBrPts'];
 
 
 protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBr|null $UniPrBr = null;
@@ -31,6 +31,56 @@ public function getUniPrBr(bool $includeDeletedBricks = false)
 public function setUniPrBr(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrBr $UniPrBr): static
 {
 	$this->UniPrBr = $UniPrBr;
+	return $this;
+}
+
+protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrFhs|null $UniPrBrFhs = null;
+
+/**
+* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrFhs|null
+*/
+public function getUniPrBrFhs(bool $includeDeletedBricks = false)
+{
+	if(!$includeDeletedBricks &&
+		isset($this->UniPrBrFhs) &&
+		$this->UniPrBrFhs->getDoDelete()) {
+			return null;
+	}
+	return $this->UniPrBrFhs;
+}
+
+/**
+* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrFhs|null $UniPrBrFhs
+* @return $this
+*/
+public function setUniPrBrFhs(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrFhs $UniPrBrFhs): static
+{
+	$this->UniPrBrFhs = $UniPrBrFhs;
+	return $this;
+}
+
+protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrPts|null $UniPrBrPts = null;
+
+/**
+* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrPts|null
+*/
+public function getUniPrBrPts(bool $includeDeletedBricks = false)
+{
+	if(!$includeDeletedBricks &&
+		isset($this->UniPrBrPts) &&
+		$this->UniPrBrPts->getDoDelete()) {
+			return null;
+	}
+	return $this->UniPrBrPts;
+}
+
+/**
+* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrPts|null $UniPrBrPts
+* @return $this
+*/
+public function setUniPrBrPts(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrPts $UniPrBrPts): static
+{
+	$this->UniPrBrPts = $UniPrBrPts;
 	return $this;
 }
 

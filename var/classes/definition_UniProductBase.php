@@ -18,7 +18,7 @@
  * -- sapDescription [input]
  * -- sapDescriptionLanguage [select]
  * -- plantProduced [select]
- * -- unitOfMeasure [quantityValue]
+ * -- unitOfMeasure [select]
  * -- weight [numeric]
  * -- productDescriptionShort [textarea]
  * -- productDescriptionLong [textarea]
@@ -35,17 +35,12 @@
  * - sapMaterialNumber [input]
  * - partNumber [input]
  * - oldMaterialNumber [input]
+ * - weightMetric [quantityValue]
+ * - weightImperial [quantityValue]
  * - tariffCodes [numeric]
  * - countryOfOrigin [country]
  * - eanCode [input]
- * - ghpFullCode [input]
- * - skeletonPimInternalHierarchyCode [calculatedValue]
- * - hierarchySearchData [calculatedValue]
- * - weightMetric [quantityValue]
- * - weightImperial [quantityValue]
- * - technicalProductGroupSpecific [objectbricks]
- * - regionalAvailability [manyToManyObjectRelation]
- * - regions [calculatedValue]
+ * - productGroupSpecific [objectbricks]
  * - competitorCrossReference [fieldcollections]
  * - customerReference [fieldcollections]
  * - oemCrossReference [fieldcollections]
@@ -54,7 +49,12 @@
  * - printedCatalogueFlag [checkbox]
  * - virtualCatalogueFlag [checkbox]
  * - customerPortalFlag [checkbox]
+ * - regionalAvailability [manyToManyObjectRelation]
+ * - regions [calculatedValue]
  * - internalCategories [manyToManyObjectRelation]
+ * - ghpFullCode [input]
+ * - skeletonPimInternalHierarchyCode [calculatedValue]
+ * - hierarchySearchData [calculatedValue]
  */
 
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -64,7 +64,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Product',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1756278504,
+   'modificationDate' => 1756297767,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => 'App\\Model\\DataObject\\AbstractUniProductBase',
@@ -141,9 +141,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 array (
                 ),
                  'fieldtype' => 'text',
-                 'html' => '<div class="alert alert-info" style="margin:0"><strong>Hint:</strong> Data on this panel is not editable, because it is inherited from the product line brand level.</div>',
-                 'renderingClass' => '',
-                 'renderingData' => '',
+                 'html' => '',
+                 'renderingClass' => '\\App\\Model\\CalculatedValue\\UniProductManagement\\UniProductCustomAlert',
+                 'renderingData' => 'info;overlay-edit; Data on this panel is not editable, because it is inherited from the Product Line Brand level.',
                  'border' => false,
               )),
               1 => 
@@ -193,6 +193,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'allowedTypes' => 
                 array (
                   0 => 'UniPrBr',
+                  1 => 'UniPrBrPts',
+                  2 => 'UniPrBrFhs',
                 ),
                  'maxItems' => NULL,
                  'border' => false,
@@ -243,9 +245,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 array (
                 ),
                  'fieldtype' => 'text',
-                 'html' => '<div class="alert alert-info" style="margin:0"><strong>Hint:</strong> Data on this panel is not editable, because it is inherited from the skeleton level.</div>',
-                 'renderingClass' => '',
-                 'renderingData' => '',
+                 'html' => '',
+                 'renderingClass' => '\\App\\Model\\CalculatedValue\\UniProductManagement\\UniProductCustomAlert',
+                 'renderingData' => 'info;overlay-edit; Data on this panel is not editable, because it is inherited from the Skeleton level.',
                  'border' => false,
               )),
               1 => 
@@ -294,8 +296,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'allowedTypes' => 
                 array (
-                  0 => 'UniPrSk',
-                  1 => 'UniPrSkPts',
+                  0 => 'UniPrSkPts',
+                  1 => 'UniPrSkFhs',
                 ),
                  'maxItems' => NULL,
                  'border' => false,
@@ -342,10 +344,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 array (
                   0 => 
                   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-                     'name' => 'productBrandingAttributes',
+                     'name' => 'productBranding',
                      'type' => NULL,
                      'region' => NULL,
-                     'title' => 'Product Branding Attributes',
+                     'title' => 'Product Branding',
                      'width' => '',
                      'height' => '',
                      'collapsible' => true,
@@ -761,7 +763,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'optionsProviderData' => '',
                                   )),
                                   3 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                                      'name' => 'unitOfMeasure',
                                      'title' => 'Unit of Measure (UOM)',
                                      'tooltip' => '',
@@ -779,25 +781,37 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'blockedVarsForExport' => 
                                     array (
                                     ),
-                                     'unitWidth' => '',
-                                     'defaultUnit' => NULL,
-                                     'validUnits' => 
+                                     'options' => 
                                     array (
-                                      0 => 'weight_kg',
-                                      1 => 'weight_lbs',
-                                      2 => 'weight_g',
+                                      0 => 
+                                      array (
+                                        'key' => 'mm',
+                                        'value' => 'mm',
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => 'in',
+                                        'value' => 'in',
+                                      ),
+                                      2 => 
+                                      array (
+                                        'key' => 'ft',
+                                        'value' => 'ft',
+                                      ),
+                                      3 => 
+                                      array (
+                                        'key' => 'm',
+                                        'value' => 'm',
+                                      ),
                                     ),
-                                     'unique' => false,
-                                     'autoConvert' => false,
+                                     'defaultValue' => '',
+                                     'columnLength' => 190,
+                                     'dynamicOptions' => false,
                                      'defaultValueGenerator' => '',
                                      'width' => 250,
-                                     'defaultValue' => NULL,
-                                     'integer' => false,
-                                     'unsigned' => false,
-                                     'minValue' => NULL,
-                                     'maxValue' => NULL,
-                                     'decimalSize' => NULL,
-                                     'decimalPrecision' => NULL,
+                                     'optionsProviderType' => 'configure',
+                                     'optionsProviderClass' => '',
+                                     'optionsProviderData' => '',
                                   )),
                                   4 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -1368,10 +1382,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   )),
                   2 => 
                   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-                     'name' => 'itemAttributes',
+                     'name' => 'item',
                      'type' => NULL,
                      'region' => NULL,
-                     'title' => 'Item Attributes',
+                     'title' => 'Item',
                      'width' => '',
                      'height' => '',
                      'collapsible' => false,
@@ -1417,7 +1431,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'noteditable' => true,
                                  'index' => true,
                                  'locked' => false,
-                                 'style' => 'margin-left:20px;',
+                                 'style' => '',
                                  'permissions' => NULL,
                                  'fieldtype' => '',
                                  'relationType' => false,
@@ -1447,7 +1461,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'noteditable' => true,
                                  'index' => false,
                                  'locked' => false,
-                                 'style' => 'margin-left:20px;',
+                                 'style' => '',
                                  'permissions' => NULL,
                                  'fieldtype' => '',
                                  'relationType' => false,
@@ -1477,7 +1491,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'noteditable' => true,
                                  'index' => false,
                                  'locked' => false,
-                                 'style' => 'margin-left:20px;',
+                                 'style' => '',
                                  'permissions' => NULL,
                                  'fieldtype' => '',
                                  'relationType' => false,
@@ -1497,6 +1511,81 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'showCharCount' => false,
                                  'width' => '',
                                  'defaultValueGenerator' => '',
+                              )),
+                              3 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                                 'name' => 'weightMetric',
+                                 'title' => 'Weight (Metric)',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-left:20px;',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'unitWidth' => '',
+                                 'defaultUnit' => NULL,
+                                 'validUnits' => 
+                                array (
+                                  0 => 'weight_kg',
+                                  1 => 'weight_g',
+                                ),
+                                 'unique' => false,
+                                 'autoConvert' => true,
+                                 'defaultValueGenerator' => '',
+                                 'width' => '',
+                                 'defaultValue' => NULL,
+                                 'integer' => false,
+                                 'unsigned' => false,
+                                 'minValue' => NULL,
+                                 'maxValue' => NULL,
+                                 'decimalSize' => NULL,
+                                 'decimalPrecision' => NULL,
+                              )),
+                              4 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                                 'name' => 'weightImperial',
+                                 'title' => 'Weight (Imperial)',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-left:20px;',
+                                 'permissions' => NULL,
+                                 'fieldtype' => '',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'unitWidth' => '',
+                                 'defaultUnit' => NULL,
+                                 'validUnits' => 
+                                array (
+                                  0 => 'weight_lbs',
+                                ),
+                                 'unique' => false,
+                                 'autoConvert' => true,
+                                 'defaultValueGenerator' => '',
+                                 'width' => '',
+                                 'defaultValue' => NULL,
+                                 'integer' => false,
+                                 'unsigned' => false,
+                                 'minValue' => NULL,
+                                 'maxValue' => NULL,
+                                 'decimalSize' => NULL,
+                                 'decimalPrecision' => NULL,
                               )),
                             ),
                              'locked' => false,
@@ -1772,7 +1861,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'optionsProviderData' => '',
                               )),
                               3 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                                  'name' => 'unitOfMeasure',
                                  'title' => 'Unit of Measure (UOM)',
                                  'tooltip' => '',
@@ -1790,25 +1879,37 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'blockedVarsForExport' => 
                                 array (
                                 ),
-                                 'unitWidth' => '',
-                                 'defaultUnit' => NULL,
-                                 'validUnits' => 
+                                 'options' => 
                                 array (
-                                  0 => 'weight_kg',
-                                  1 => 'weight_lbs',
-                                  2 => 'weight_g',
+                                  0 => 
+                                  array (
+                                    'key' => 'mm',
+                                    'value' => 'mm',
+                                  ),
+                                  1 => 
+                                  array (
+                                    'key' => 'in',
+                                    'value' => 'in',
+                                  ),
+                                  2 => 
+                                  array (
+                                    'key' => 'ft',
+                                    'value' => 'ft',
+                                  ),
+                                  3 => 
+                                  array (
+                                    'key' => 'm',
+                                    'value' => 'm',
+                                  ),
                                 ),
-                                 'unique' => false,
-                                 'autoConvert' => false,
+                                 'defaultValue' => '',
+                                 'columnLength' => 190,
+                                 'dynamicOptions' => false,
                                  'defaultValueGenerator' => '',
                                  'width' => 250,
-                                 'defaultValue' => NULL,
-                                 'integer' => false,
-                                 'unsigned' => false,
-                                 'minValue' => NULL,
-                                 'maxValue' => NULL,
-                                 'decimalSize' => NULL,
-                                 'decimalPrecision' => NULL,
+                                 'optionsProviderType' => 'configure',
+                                 'optionsProviderClass' => '',
+                                 'optionsProviderData' => '',
                               )),
                               4 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -1868,219 +1969,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'labelWidth' => 250,
                          'labelAlign' => 'left',
                       )),
-                    ),
-                     'locked' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'fieldtype' => 'panel',
-                     'layout' => NULL,
-                     'border' => false,
-                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/genealogy.svg',
-                     'labelWidth' => 100,
-                     'labelAlign' => 'left',
-                  )),
-                  3 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-                     'name' => 'hierarchyAttributes',
-                     'type' => NULL,
-                     'region' => NULL,
-                     'title' => 'Hierarchy Attributes',
-                     'width' => '',
-                     'height' => '',
-                     'collapsible' => false,
-                     'collapsed' => false,
-                     'bodyStyle' => '',
-                     'datatype' => 'layout',
-                     'children' => 
-                    array (
-                      0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'name' => 'ghpFullCode',
-                         'title' => 'Product Hierarchy Full Code (GHP)',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => true,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => true,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'columnLength' => 190,
-                         'regex' => '',
-                         'regexFlags' => 
-                        array (
-                        ),
-                         'unique' => false,
-                         'showCharCount' => false,
-                         'width' => '',
-                         'defaultValueGenerator' => '',
-                      )),
-                      1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
-                         'name' => 'skeletonPimInternalHierarchyCode',
-                         'title' => 'Skeleton PIM Internal Hierarchy Code',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'elementType' => 'input',
-                         'calculatorType' => 'class',
-                         'calculatorExpression' => '',
-                         'calculatorClass' => 'App\\Model\\CalculatedValue\\UniProductManagement\\UniProductCategoryFullCode',
-                         'columnLength' => 190,
-                         'width' => '250px',
-                      )),
-                      2 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
-                         'name' => 'hierarchySearchData',
-                         'title' => 'Hierarchy Search Data',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => true,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => true,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'elementType' => 'textarea',
-                         'calculatorType' => 'class',
-                         'calculatorExpression' => '',
-                         'calculatorClass' => '@App\\Model\\CalculatedValue\\UniProductManagement\\UniProductStructureInternalSearchData',
-                         'columnLength' => 20000,
-                         'width' => '250px',
-                      )),
-                    ),
-                     'locked' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'fieldtype' => 'panel',
-                     'layout' => NULL,
-                     'border' => false,
-                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/tree_structure.svg',
-                     'labelWidth' => 250,
-                     'labelAlign' => 'left',
-                  )),
-                  4 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-                     'name' => 'technicalAttributes',
-                     'type' => NULL,
-                     'region' => NULL,
-                     'title' => 'Technical Attributes',
-                     'width' => '',
-                     'height' => '',
-                     'collapsible' => false,
-                     'collapsed' => false,
-                     'bodyStyle' => '',
-                     'datatype' => 'layout',
-                     'children' => 
-                    array (
-                      0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'name' => 'weightMetric',
-                         'title' => 'Weight (Metric)',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'unitWidth' => '',
-                         'defaultUnit' => NULL,
-                         'validUnits' => 
-                        array (
-                          0 => 'weight_kg',
-                          1 => 'weight_g',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => true,
-                         'defaultValueGenerator' => '',
-                         'width' => '',
-                         'defaultValue' => NULL,
-                         'integer' => false,
-                         'unsigned' => false,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
-                         'decimalSize' => NULL,
-                         'decimalPrecision' => NULL,
-                      )),
-                      1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'name' => 'weightImperial',
-                         'title' => 'Weight (Imperial)',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'unitWidth' => '',
-                         'defaultUnit' => NULL,
-                         'validUnits' => 
-                        array (
-                          0 => 'weight_lbs',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => true,
-                         'defaultValueGenerator' => '',
-                         'width' => '',
-                         'defaultValue' => NULL,
-                         'integer' => false,
-                         'unsigned' => false,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
-                         'decimalSize' => NULL,
-                         'decimalPrecision' => NULL,
-                      )),
                       2 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Objectbricks::__set_state(array(
-                         'name' => 'technicalProductGroupSpecific',
-                         'title' => '',
+                         'name' => 'productGroupSpecific',
+                         'title' => 'Product Group Specific Data',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
@@ -2113,108 +2005,16 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'fieldtype' => 'panel',
                      'layout' => NULL,
                      'border' => false,
-                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/view_details.svg',
-                     'labelWidth' => 250,
-                     'labelAlign' => 'left',
-                  )),
-                  5 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-                     'name' => 'region',
-                     'type' => NULL,
-                     'region' => NULL,
-                     'title' => 'Regions',
-                     'width' => '',
-                     'height' => '',
-                     'collapsible' => false,
-                     'collapsed' => false,
-                     'bodyStyle' => '',
-                     'datatype' => 'layout',
-                     'children' => 
-                    array (
-                      0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-                         'name' => 'regionalAvailability',
-                         'title' => 'Available in',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => true,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => true,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'classes' => 
-                        array (
-                          0 => 
-                          array (
-                            'classes' => 'UniRegion',
-                          ),
-                        ),
-                         'displayMode' => 'grid',
-                         'pathFormatterClass' => '',
-                         'maxItems' => NULL,
-                         'visibleFields' => 'name',
-                         'allowToCreateNewObject' => false,
-                         'allowToClearRelation' => true,
-                         'optimizedAdminLoading' => false,
-                         'enableTextSelection' => false,
-                         'visibleFieldDefinitions' => 
-                        array (
-                        ),
-                         'width' => '',
-                         'height' => '',
-                      )),
-                      1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
-                         'name' => 'regions',
-                         'title' => 'Regions',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => true,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => true,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'elementType' => 'input',
-                         'calculatorType' => 'class',
-                         'calculatorExpression' => '',
-                         'calculatorClass' => 'App\\Model\\CalculatedValue\\UniProductManagement\\UniProductRegion',
-                         'columnLength' => 190,
-                         'width' => '',
-                      )),
-                    ),
-                     'locked' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'fieldtype' => 'panel',
-                     'layout' => NULL,
-                     'border' => false,
-                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/marker.svg',
+                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/genealogy.svg',
                      'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
-                  6 => 
+                  3 => 
                   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-                     'name' => 'marketingAttributes',
+                     'name' => 'marketing',
                      'type' => NULL,
                      'region' => NULL,
-                     'title' => 'Marketing Attributes',
+                     'title' => 'Marketing',
                      'width' => '',
                      'height' => '',
                      'collapsible' => false,
@@ -2419,13 +2219,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'fieldtype' => 'panel',
                      'layout' => NULL,
                      'border' => false,
-                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/tree_select.svg',
+                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/advertising.svg',
                      'labelWidth' => 250,
                      'labelAlign' => 'left',
                   )),
-                  7 => 
+                  4 => 
                   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-                     'name' => 'Cross References',
+                     'name' => 'crossReferences',
                      'type' => NULL,
                      'region' => NULL,
                      'title' => 'Cross References',
@@ -2538,16 +2338,16 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'fieldtype' => 'panel',
                      'layout' => NULL,
                      'border' => true,
-                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/reuse.svg',
+                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/objects-meta.svg',
                      'labelWidth' => 250,
                      'labelAlign' => 'left',
                   )),
-                  8 => 
+                  5 => 
                   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-                     'name' => 'Compliance / Regulatory / Quality Attributes',
+                     'name' => 'compliance',
                      'type' => NULL,
                      'region' => NULL,
-                     'title' => 'Compliance / Regulatory / Quality Attributes',
+                     'title' => 'Compliance / Regulatory / Quality',
                      'width' => '',
                      'height' => '',
                      'collapsible' => false,
@@ -2765,16 +2565,16 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'fieldtype' => 'panel',
                      'layout' => NULL,
                      'border' => false,
-                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/survey.svg',
+                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/todo_list.svg',
                      'labelWidth' => 250,
                      'labelAlign' => 'left',
                   )),
-                  9 => 
+                  6 => 
                   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-                     'name' => 'Distribution Attributes',
+                     'name' => 'distribution',
                      'type' => NULL,
                      'region' => NULL,
-                     'title' => 'Distribution Attributes',
+                     'title' => 'Distribution',
                      'width' => '',
                      'height' => '',
                      'collapsible' => false,
@@ -2901,8 +2701,100 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'fieldtype' => 'panel',
                      'layout' => NULL,
                      'border' => true,
-                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/services.svg',
+                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/in_transit.svg',
                      'labelWidth' => 250,
+                     'labelAlign' => 'left',
+                  )),
+                  7 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                     'name' => 'region',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => 'Regions',
+                     'width' => '',
+                     'height' => '',
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'children' => 
+                    array (
+                      0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                         'name' => 'regionalAvailability',
+                         'title' => 'Available in',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => true,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => true,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => 'UniRegion',
+                          ),
+                        ),
+                         'displayMode' => 'grid',
+                         'pathFormatterClass' => '',
+                         'maxItems' => NULL,
+                         'visibleFields' => 'name',
+                         'allowToCreateNewObject' => false,
+                         'allowToClearRelation' => true,
+                         'optimizedAdminLoading' => false,
+                         'enableTextSelection' => false,
+                         'visibleFieldDefinitions' => 
+                        array (
+                        ),
+                         'width' => '',
+                         'height' => '',
+                      )),
+                      1 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
+                         'name' => 'regions',
+                         'title' => 'Regions',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => true,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => true,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'elementType' => 'input',
+                         'calculatorType' => 'class',
+                         'calculatorExpression' => '',
+                         'calculatorClass' => 'App\\Model\\CalculatedValue\\UniProductManagement\\UniProductRegion',
+                         'columnLength' => 190,
+                         'width' => '',
+                      )),
+                    ),
+                     'locked' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'fieldtype' => 'panel',
+                     'layout' => NULL,
+                     'border' => false,
+                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/marker.svg',
+                     'labelWidth' => 100,
                      'labelAlign' => 'left',
                   )),
                 ),
@@ -2928,10 +2820,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           )),
           3 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-             'name' => 'internalCategory',
+             'name' => 'internalHierarchy',
              'type' => NULL,
              'region' => NULL,
-             'title' => 'Internal Category',
+             'title' => 'Internal Hierarchy',
              'width' => '',
              'height' => '',
              'collapsible' => false,
@@ -2980,6 +2872,88 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'width' => '',
                  'height' => '',
               )),
+              1 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                 'name' => 'ghpFullCode',
+                 'title' => 'Product Hierarchy Full Code (GHP)',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => true,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => true,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'defaultValue' => NULL,
+                 'columnLength' => 190,
+                 'regex' => '',
+                 'regexFlags' => 
+                array (
+                ),
+                 'unique' => false,
+                 'showCharCount' => false,
+                 'width' => '',
+                 'defaultValueGenerator' => '',
+              )),
+              2 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
+                 'name' => 'skeletonPimInternalHierarchyCode',
+                 'title' => 'Skeleton PIM Internal Hierarchy Code',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'elementType' => 'input',
+                 'calculatorType' => 'class',
+                 'calculatorExpression' => '',
+                 'calculatorClass' => 'App\\Model\\CalculatedValue\\UniProductManagement\\UniProductCategoryFullCode',
+                 'columnLength' => 190,
+                 'width' => '250px',
+              )),
+              3 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
+                 'name' => 'hierarchySearchData',
+                 'title' => 'Hierarchy Search Data',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => true,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => true,
+                 'visibleGridView' => true,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'elementType' => 'textarea',
+                 'calculatorType' => 'class',
+                 'calculatorExpression' => '',
+                 'calculatorClass' => '@App\\Model\\CalculatedValue\\UniProductManagement\\UniProductStructureInternalSearchData',
+                 'columnLength' => 20000,
+                 'width' => '250px',
+              )),
             ),
              'locked' => false,
              'blockedVarsForExport' => 
@@ -2993,58 +2967,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelAlign' => 'left',
           )),
           4 => 
-          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-             'name' => 'externalCategories',
-             'type' => NULL,
-             'region' => NULL,
-             'title' => 'External Categories',
-             'width' => '',
-             'height' => '',
-             'collapsible' => false,
-             'collapsed' => false,
-             'bodyStyle' => '',
-             'datatype' => 'layout',
-             'children' => 
-            array (
-              0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
-                 'name' => 'Layout',
-                 'type' => NULL,
-                 'region' => NULL,
-                 'title' => '',
-                 'width' => '',
-                 'height' => '',
-                 'collapsible' => false,
-                 'collapsed' => false,
-                 'bodyStyle' => '',
-                 'datatype' => 'layout',
-                 'children' => 
-                array (
-                ),
-                 'locked' => false,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'fieldtype' => 'text',
-                 'html' => '<div class="alert alert-info"><strong>Preview:</strong> In the MVP this tab might show a preview of all external categories this product is related to.</div>
-',
-                 'renderingClass' => '',
-                 'renderingData' => '',
-                 'border' => false,
-              )),
-            ),
-             'locked' => false,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'fieldtype' => 'panel',
-             'layout' => NULL,
-             'border' => false,
-             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/external.svg',
-             'labelWidth' => 100,
-             'labelAlign' => 'left',
-          )),
-          5 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'completeness',
              'type' => NULL,
@@ -3269,31 +3191,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
-    0 => 
-    Pimcore\Model\DataObject\ClassDefinition\Data\Objectbricks::__set_state(array(
-       'name' => 'parentData',
-       'title' => '',
-       'tooltip' => '',
-       'mandatory' => false,
-       'noteditable' => false,
-       'index' => false,
-       'locked' => false,
-       'style' => '',
-       'permissions' => NULL,
-       'fieldtype' => '',
-       'relationType' => false,
-       'invisible' => false,
-       'visibleGridView' => false,
-       'visibleSearch' => false,
-       'blockedVarsForExport' => 
-      array (
-      ),
-       'allowedTypes' => 
-      array (
-      ),
-       'maxItems' => NULL,
-       'border' => false,
-    )),
   ),
    'blockedVarsForExport' => 
   array (

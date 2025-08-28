@@ -49,7 +49,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'key' => 'UniPrFgPts',
    'parentClass' => '',
    'implementsInterfaces' => '',
-   'title' => 'Finished Good Product Group Specific Data (PTS)',
+   'title' => 'Finished Good PTS Data',
    'group' => 'UniProductManagement',
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -141,7 +141,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       ),
                     ),
                      'displayMode' => 'combo',
-                     'pathFormatterClass' => '',
+                     'pathFormatterClass' => 'App\\Service\\UniProductManagement\\PathFormatter\\UniProductMasterlistPathFormatter',
                      'assetInlineDownloadAllowed' => false,
                      'assetUploadPath' => '',
                      'allowToClearRelation' => true,
@@ -278,8 +278,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'name' => 'nominalLengthMetric',
                          'type' => NULL,
                          'region' => NULL,
-                         'title' => 'Nominal Length (mm)',
-                         'width' => 250,
+                         'title' => '',
+                         'width' => 500,
                          'height' => '',
                          'collapsible' => false,
                          'collapsed' => false,
@@ -295,7 +295,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'fieldtype' => 'text',
                          'html' => '<br>',
                          'renderingClass' => 'App\\Helpers\\DynamicTextLabels\\UniProductManagement\\UniProductNominalLengthDynamicTextPts',
-                         'renderingData' => '',
+                         'renderingData' => 'Nominal Length (mm)',
                          'border' => false,
                       )),
                       1 => 
@@ -972,8 +972,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'name' => 'nominalLengthImperial',
                          'type' => NULL,
                          'region' => NULL,
-                         'title' => 'Nominal Length (in)',
-                         'width' => 250,
+                         'title' => '',
+                         'width' => 500,
                          'height' => '',
                          'collapsible' => false,
                          'collapsed' => false,
@@ -989,7 +989,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'fieldtype' => 'text',
                          'html' => '',
                          'renderingClass' => 'App\\Helpers\\DynamicTextLabels\\UniProductManagement\\UniProductNominalLengthDynamicTextPts',
-                         'renderingData' => '',
+                         'renderingData' => 'Nominal Length (in)',
                          'border' => false,
                       )),
                       1 => 
@@ -1602,6 +1602,36 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'decimalSize' => 5,
                          'decimalPrecision' => NULL,
                       )),
+                      17 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'ribs',
+                         'title' => 'Ribs',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'integer' => true,
+                         'unsigned' => true,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                         'width' => '250px',
+                         'defaultValueGenerator' => '',
+                      )),
                     ),
                      'locked' => false,
                      'blockedVarsForExport' => 
@@ -1625,36 +1655,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'labelAlign' => 'left',
               )),
               2 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'name' => 'ribs',
-                 'title' => 'Ribs',
-                 'tooltip' => '',
-                 'mandatory' => true,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => true,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'defaultValue' => NULL,
-                 'integer' => true,
-                 'unsigned' => true,
-                 'minValue' => NULL,
-                 'maxValue' => NULL,
-                 'unique' => false,
-                 'decimalSize' => NULL,
-                 'decimalPrecision' => NULL,
-                 'width' => '250px',
-                 'defaultValueGenerator' => '',
-              )),
-              3 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                  'name' => 'localizedfields',
                  'title' => '',
@@ -1724,7 +1724,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'height' => '',
                  'fieldDefinitionsCache' => NULL,
               )),
-              4 => 
+              3 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'maxPulleyGroove',
                  'title' => 'Max Pulley Groove',
@@ -1754,7 +1754,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'width' => '250px',
                  'defaultValueGenerator' => '',
               )),
-              5 => 
+              4 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'finishing',
                  'title' => 'Finishing',
@@ -1874,7 +1874,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
     0 => 
     array (
       'classname' => 'UniProductBase',
-      'fieldname' => 'technicalProductGroupSpecific',
+      'fieldname' => 'productGroupSpecific',
     ),
   ),
    'activeDispatchingEvents' => 
