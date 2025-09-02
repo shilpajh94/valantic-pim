@@ -21,7 +21,10 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-#[AsCommand(name: 'app:uni:product:dummy-data:generate', description: 'Generates dummy products including hierarchy.')]
+#[AsCommand(
+    name: 'app:uni:product:dummy-data:generate',
+    description: 'Unified PIM: Generate approx. 2M dummy products including internal category hierarchy for testing purposes.',
+)]
 class GenerateCommand extends AbstractDummyDataCommand
 {
     protected const BATCH_SIZE = 2000;

@@ -10,7 +10,6 @@ use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Pimcore\Model\DataObject\UniProductCategoryExternal;
 use Symfony\Bridge\Twig\Attribute\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
@@ -22,19 +21,9 @@ class OutputChannelController extends AbstractController
     {
     }
 
-    #[Route('/{id}/products', name: 'uni_product_management_output_channel_get_products', methods: ['GET'])]
-    public function getProducts(int $id): JsonResponse
-    {
-        $category = UniProductCategoryExternal::getById($id);
-
-        if (!$category instanceof UniProductCategoryExternal) {
-            throw new NotFoundHttpException();
-        }
-
-        return $this->json($this->externalHierarchyService->getProductsForExternalCategory($category));
-    }
-
     /**
+     * Display the product list preview of an external category in table form.
+     *
      * @return array<string, mixed>
      *
      * @throws ClientResponseException
