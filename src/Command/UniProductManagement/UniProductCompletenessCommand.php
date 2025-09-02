@@ -13,7 +13,10 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-#[AsCommand(name: 'app:uni:product:completeness:update')]
+#[AsCommand(
+    name: 'app:uni:product:completeness:update',
+    description: 'Calculate product completeness percentage and empty fields for Unified PIM product data.',
+)]
 class UniProductCompletenessCommand extends Command
 {
     protected const BASE_PATH = '/Unified PIM/Product Management/Products';
@@ -30,6 +33,13 @@ class UniProductCompletenessCommand extends Command
 
         $listing = new Listing();
         $listing->setCondition('path LIKE ?', [self::BASE_PATH . '%']);
+        $listing->setUnpublished(true);
+
+        if ($listing->count() === 0) {
+            $output->writeln('<info>No products found to calculate.</info>');
+
+            return self::SUCCESS;
+        }
 
         $progress = new ProgressBar($output, $listing->count());
         $progress->setFormat(ProgressBar::getFormatDefinition(ProgressBar::FORMAT_DEBUG));

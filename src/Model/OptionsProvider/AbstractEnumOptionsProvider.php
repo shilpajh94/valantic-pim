@@ -8,7 +8,11 @@ use App\Enum\OptionsProviderSupport;
 use Pimcore\Model\DataObject\ClassDefinition\Data;
 use Pimcore\Model\DataObject\ClassDefinition\DynamicOptionsProvider\SelectOptionsProviderInterface;
 
-/** @template TEnum of OptionsProviderSupport */
+/**
+ * Abstract options provider implementation to use PHP enums as options in Pimcore select fields.
+ *
+ * @template TEnum of OptionsProviderSupport
+ */
 abstract class AbstractEnumOptionsProvider implements SelectOptionsProviderInterface
 {
     /** @return class-string<TEnum> */

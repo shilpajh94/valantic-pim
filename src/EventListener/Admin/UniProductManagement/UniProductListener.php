@@ -17,6 +17,10 @@ use Pimcore\Model\Element\ValidationException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
 
+/**
+ * Special product listener for injecting skeleton and brand level data
+ * to finished good product objects in the Pimcore admin context to support.
+ */
 class UniProductListener implements EventSubscriberInterface
 {
     private const BRICK_NAMESPACE = 'Pimcore\\Model\\DataObject\\Objectbrick\\Data\\';
@@ -67,6 +71,12 @@ class UniProductListener implements EventSubscriberInterface
         $event->setArgument('list', []); // Remove add button
     }
 
+    /**
+     * The product group specific fields brandData and skeletonData are used for attaching
+     * read-only copies of brand and skeleton data Objectbricks on-the-fly. This method
+     * ensures that no user interaction or code tries to attach any data to those fields
+     * to be stored.
+     */
     public function validateObjectSave(DataObjectEvent $event): void
     {
         $obj = $event->getObject();
@@ -89,10 +99,10 @@ class UniProductListener implements EventSubscriberInterface
         );
     }
 
-    /** @return array<mixed> */
+    /** @return array<mixed>|null */
     private function getCategoryBrickData(?UniProductCategoryInternal $category): ?array
     {
-        $fields = $category?->getClass()?->getFieldDefinitions()[UniProductCategoryInternal::FIELD_LEVEL_SPECIFIC_DATA] ?? null; // 🤮
+        $fields = $category?->getClass()?->getFieldDefinitions()[UniProductCategoryInternal::FIELD_LEVEL_SPECIFIC_DATA] ?? null;
 
         if ($category === null || $fields === null) {
             return null;
@@ -105,7 +115,12 @@ class UniProductListener implements EventSubscriberInterface
         );
     }
 
-    /** @param array<Layout|Data> $layoutDefinitions */
+    /**
+     * Ensure all attributes of brand and skeleton Objectbricks are read-only, as changing data from
+     * the finished good level is not supported.
+     *
+     * @param array<Layout|Data> $layoutDefinitions
+     */
     private function makeChildrenReadonly(array $layoutDefinitions, int $level = 0): void
     {
         foreach ($layoutDefinitions as $name => $layoutDefinition) {
