@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace App\Model\DataObject;
 
+/**
+ * This trait attempts offer a faster way of saving the object for mass dummy data generation
+ * and will be removed before MVP go-live.
+ */
 trait SuperfastSaveTrait
 {
     /** @param array<mixed> $parameters */

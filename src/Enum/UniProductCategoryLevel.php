@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Enum;
 
+/**
+ * This enum specifies all possible internal product hierarchy levels.
+ */
 enum UniProductCategoryLevel: string implements OptionsProviderSupport
 {
     case PRODUCT_GROUP = 'PRODUCT_GROUP';

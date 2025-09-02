@@ -14,6 +14,12 @@ use Pimcore\Model\DataObject\UniProductCategoryExternal;
 use Pimcore\Model\DataObject\UniProductCategoryInternal;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
+/**
+ * Customize object tree rendering for internal categories.
+ *
+ * Refer to the Pimcore documentation for more information:
+ * https://docs.pimcore.com/platform/Pimcore/Tools_and_Features/Custom_Icons/
+ */
 class AdminStyleListener implements EventSubscriberInterface
 {
     public static function getSubscribedEvents(): array
