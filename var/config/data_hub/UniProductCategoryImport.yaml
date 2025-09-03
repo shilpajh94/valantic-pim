@@ -21,7 +21,7 @@ pimcore_data_hub:
                     sheetName: Sheet1
             resolverConfig:
                 elementType: dataObject
-                dataObjectClassId: UNI_PR_CAT_INT
+                dataObjectClassId: UNI_PRCI
                 loadingStrategy:
                     type: attribute
                     settings:
