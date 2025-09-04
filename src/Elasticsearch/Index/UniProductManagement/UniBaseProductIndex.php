@@ -7,6 +7,12 @@ namespace App\Elasticsearch\Index\UniProductManagement;
 use App\Elasticsearch\SiteAwareTenantTrait;
 use Valantic\ElasticaBridgeBundle\Index\AbstractIndex;
 
+/**
+ * Elasticsearch index definition for UniProductBase.
+ *
+ * Please refer to https://github.com/valantic/pimcore-elastica-bridge
+ * for a detailed documentation of the Elastica Bridge bundle.
+ */
 class UniBaseProductIndex extends AbstractIndex
 {
     use SiteAwareTenantTrait;
@@ -35,7 +41,6 @@ class UniBaseProductIndex extends AbstractIndex
     {
         $result = parent::getMapping();
 
-        // TODO: Add more?
         foreach ([
             UniBaseProductIndex::ATTRIBUTE_GHP_FULL_CODE,
             UniBaseProductIndex::ATTRIBUTE_SAP_MATERIAL_NUMBER,
