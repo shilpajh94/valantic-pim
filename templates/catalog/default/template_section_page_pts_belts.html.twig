@@ -92,13 +92,10 @@
 
 		.imageHolder.section-page-pts-belts-images,
 		.belts-Identification-and-profile-dimension-container {
-
-			/*
-		
-			justify-content: flex-start;*/
+			display: flex !important;
+			height: 100%;
 			height: 150px;
 			margin-bottom: 6px;
-			display: flex !important;
 		}
 		.belts-Identification-and-profile-dimension-container {
 			width: 70%;
@@ -109,26 +106,20 @@
 			margin-left: 15px;
 		}
 		.belts-Identification-and-profile-dimension-container img {
-			/*height: 100px;
+			height: 100px;
 			width: 300px;
 			display: inline-block;
-			align-self: flex-end;*/
+			align-self: flex-end;
 		}
 		.section_page_pts_belts_Profile_Dimension_image {
 			margin-left: 10px;
 		}
 		.belts-Identification-and-profile-dimension-container img , .section_page_pts_belts_Profile_Dimension_image {
-			/*width:214px !important;
-			max-width:214px !important;
-			height:84px !important;
-    		*/
-	display:inline-block !important;
-			height: 84px !important;
-			width: 214px !important;
-			max-width: 214px !important;
-			min-width: 214px !important;
-			object-fit: contain !important;
-			flex: 1 0 214px;
+			width:214px;
+			height:84px;
+			min-width: 214px;
+    		min-height: 84px;
+    		object-fit: contain;
 		}
 		/*.section_page_pts_belts_Catalog_Asset_Right_Image {
 			position: absolute;
@@ -355,9 +346,8 @@
 
 		@media print {
 			.belts-Identification-and-profile-dimension-container img {
-				/*height: 50px;
-				width: 100px !important;*/
-
+				height: 50px;
+				width: 100px !important;
 				display: inline-block;
 				align-self: flex-end;
 			}
@@ -369,12 +359,8 @@
 			.section-page-pts-belts-page .segregate .content-section {
 				margin-top: -50px;
 			}
-			
 			.section-page-pts-belts-features  .features{
-			    width: 60%;
-		    }
-		    .section-page-pts-belts-features  .features + div{
-			    width: 35%;
+			    width: 400px;
 		    }
 
 			.fullcontainer{
@@ -438,9 +424,7 @@
             }
 
             .section_page_pts_belts_Catalog_Asset_Right_Image img{
-                width: 275px;
-				height: 400px !important;
-                padding-right: 15px;
+                width: 330px;
             }
 	</style>
 		<div class="template section-page-pts-belts-page">
@@ -563,7 +547,15 @@
 										{% endif %}
 									</h1>
 									<div class="section-page-pts-belts-LongDescription">
-										<p>{{data.shortDescription | striptags}}</p>
+										{% set section_page_pts_belts_ShortDescription = pimcore_wysiwyg("section_page_pts_belts_ShortDescription") %}
+										{% if  section_page_pts_belts_ShortDescription.isEmpty() %}
+											{% set section_page_pts_belts_ShortDescription = section_page_pts_belts_ShortDescription.setDataFromResource(data.shortDescription) %}
+										{% endif %}
+										{% if editmode %}
+											{{section_page_pts_belts_ShortDescription|raw}}
+										{% else %}
+											{{section_page_pts_belts_ShortDescription|raw}}
+										{% endif %}
 									</div>
 								</header>
 								
@@ -621,7 +613,7 @@
 									<div class="left-image-and-table">
 
 										<div class="belts-Identification-and-profile-dimension-container">
-											{% set section_page_pts_belts_Identification_Image = pimcore_image("section_page_pts_belts_Identification_Image", {"width": 580, "height": 100, "border-style": "2px solid #333"}) %}
+											{% set section_page_pts_belts_Identification_Image = pimcore_image("section_page_pts_belts_Identification_Image", {"width": 400, "height": 100, "border-style": "2px solid #333"}) %}
 											{% set section_page_pts_belts_Profile_Dimension_image  = pimcore_image("section_page_pts_belts_Profile_Dimension_image", {"width": 300, "height": 100}) %}
 
 											{% if data.beltIdentificationImage %}

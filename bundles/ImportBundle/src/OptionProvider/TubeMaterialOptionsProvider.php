@@ -55,7 +55,7 @@ class TubeMaterialOptionsProvider implements SelectOptionsProviderInterface
      */
     public function getDefaultValue(array $context, Data $fieldDefinition): ?string
     {
-        return false;
+        return $fieldDefinition->getDefaultValue();
     }
 
     /**

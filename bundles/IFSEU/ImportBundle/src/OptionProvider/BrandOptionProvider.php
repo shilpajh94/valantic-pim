@@ -21,8 +21,6 @@ use Pimcore\Model\DataObject\ClassDefinition\DynamicOptionsProvider\SelectOption
 
 class BrandOptionProvider implements SelectOptionsProviderInterface {
 
-    private $optionProvider;
-
     /**
      * @param array $context
      * @param Data $fieldDefinition
@@ -70,7 +68,7 @@ class BrandOptionProvider implements SelectOptionsProviderInterface {
      */
     public function getDefaultValue(array $context, Data $fieldDefinition): ?string
     {
-        return false;
+        return $fieldDefinition->getDefaultValue();
     }
 
     /**

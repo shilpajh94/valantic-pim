@@ -13,7 +13,6 @@ use Pimcore\Model\DataObject\ClassDefinition\DynamicOptionsProvider\MultiSelectO
 
 class ProductAttributesProvider implements MultiSelectOptionsProviderInterface
 {
-    private $optionProvider;
     /**
      * @param array $context
      * @param Data $fieldDefinition
@@ -100,7 +99,7 @@ class ProductAttributesProvider implements MultiSelectOptionsProviderInterface
      */
     public function getDefaultValue(array $context, Data $fieldDefinition): ?string
     {
-        return false;
+        return true;
     }
     
     /**

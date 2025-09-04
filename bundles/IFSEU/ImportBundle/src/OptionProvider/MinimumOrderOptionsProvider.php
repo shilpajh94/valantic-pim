@@ -21,8 +21,6 @@ use Pimcore\Model\DataObject\ClassDefinition\DynamicOptionsProvider\SelectOption
 
 class MinimumOrderOptionsProvider implements SelectOptionsProviderInterface {
 
-    private $optionProvider;
-
     /**
      * @param array $context
      * @param Data $fieldDefinition
@@ -70,7 +68,7 @@ class MinimumOrderOptionsProvider implements SelectOptionsProviderInterface {
      */
     public function getDefaultValue(array $context, Data $fieldDefinition): ?string
     {
-        return false;
+        return true; //return $fieldDefinition->getDefaultValue();
     }
 
     /**

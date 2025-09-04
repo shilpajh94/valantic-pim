@@ -1,5 +1,0 @@
-ad_integration:
-    resource: "@SSOIntegrationBundle/Controller/"
-    type:     annotation
-    prefix:   /
-

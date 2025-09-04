@@ -1,3 +1,0 @@
-ptgeu_import_homepage:
-    path:     /ptgeu_import
-    defaults: { _controller: PTGEUImportBundle:Default:index }

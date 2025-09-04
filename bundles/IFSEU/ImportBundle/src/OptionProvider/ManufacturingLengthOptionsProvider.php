@@ -21,8 +21,6 @@ use Pimcore\Model\DataObject\ClassDefinition\DynamicOptionsProvider\SelectOption
 
 class ManufacturingLengthOptionsProvider implements SelectOptionsProviderInterface {
 
-    private $optionProvider;
-
     /**
      * @param array $context
      * @param Data $fieldDefinition
@@ -71,7 +69,7 @@ class ManufacturingLengthOptionsProvider implements SelectOptionsProviderInterfa
      */
     public function getDefaultValue(array $context, Data $fieldDefinition): ?string
     {
-        return false;
+        return true; //return $fieldDefinition->getDefaultValue();
     }
 
     /**

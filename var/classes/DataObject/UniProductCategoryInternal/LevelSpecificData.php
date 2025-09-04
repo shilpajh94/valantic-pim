@@ -6,156 +6,156 @@ use Pimcore\Model\DataObject\Exception\InheritanceParentNotFoundException;
 
 class LevelSpecificData extends \Pimcore\Model\DataObject\Objectbrick {
 
-protected $brickGetters = ['UniPrBrand','UniPrBrandDss','UniPrBrandPts','UniPrSkeleton','UniPrSkeletonDss','UniPrSkeletonPts'];
+protected $brickGetters = ['UniPrBr','UniPrBrFhs','UniPrBrPts','UniPrSk','UniPrSkFhs','UniPrSkPts'];
 
 
-protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrand|null $UniPrBrand = null;
+protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBr|null $UniPrBr = null;
 
 /**
-* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrand|null
+* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBr|null
 */
-public function getUniPrBrand(bool $includeDeletedBricks = false)
+public function getUniPrBr(bool $includeDeletedBricks = false)
 {
 	if(!$includeDeletedBricks &&
-		isset($this->UniPrBrand) &&
-		$this->UniPrBrand->getDoDelete()) {
+		isset($this->UniPrBr) &&
+		$this->UniPrBr->getDoDelete()) {
 			return null;
 	}
-	return $this->UniPrBrand;
+	return $this->UniPrBr;
 }
 
 /**
-* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrand|null $UniPrBrand
+* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBr|null $UniPrBr
 * @return $this
 */
-public function setUniPrBrand(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrand $UniPrBrand): static
+public function setUniPrBr(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrBr $UniPrBr): static
 {
-	$this->UniPrBrand = $UniPrBrand;
+	$this->UniPrBr = $UniPrBr;
 	return $this;
 }
 
-protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrandDss|null $UniPrBrandDss = null;
+protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrFhs|null $UniPrBrFhs = null;
 
 /**
-* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrandDss|null
+* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrFhs|null
 */
-public function getUniPrBrandDss(bool $includeDeletedBricks = false)
+public function getUniPrBrFhs(bool $includeDeletedBricks = false)
 {
 	if(!$includeDeletedBricks &&
-		isset($this->UniPrBrandDss) &&
-		$this->UniPrBrandDss->getDoDelete()) {
+		isset($this->UniPrBrFhs) &&
+		$this->UniPrBrFhs->getDoDelete()) {
 			return null;
 	}
-	return $this->UniPrBrandDss;
+	return $this->UniPrBrFhs;
 }
 
 /**
-* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrandDss|null $UniPrBrandDss
+* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrFhs|null $UniPrBrFhs
 * @return $this
 */
-public function setUniPrBrandDss(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrandDss $UniPrBrandDss): static
+public function setUniPrBrFhs(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrFhs $UniPrBrFhs): static
 {
-	$this->UniPrBrandDss = $UniPrBrandDss;
+	$this->UniPrBrFhs = $UniPrBrFhs;
 	return $this;
 }
 
-protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrandPts|null $UniPrBrandPts = null;
+protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrPts|null $UniPrBrPts = null;
 
 /**
-* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrandPts|null
+* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrPts|null
 */
-public function getUniPrBrandPts(bool $includeDeletedBricks = false)
+public function getUniPrBrPts(bool $includeDeletedBricks = false)
 {
 	if(!$includeDeletedBricks &&
-		isset($this->UniPrBrandPts) &&
-		$this->UniPrBrandPts->getDoDelete()) {
+		isset($this->UniPrBrPts) &&
+		$this->UniPrBrPts->getDoDelete()) {
 			return null;
 	}
-	return $this->UniPrBrandPts;
+	return $this->UniPrBrPts;
 }
 
 /**
-* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrandPts|null $UniPrBrandPts
+* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrPts|null $UniPrBrPts
 * @return $this
 */
-public function setUniPrBrandPts(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrandPts $UniPrBrandPts): static
+public function setUniPrBrPts(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrPts $UniPrBrPts): static
 {
-	$this->UniPrBrandPts = $UniPrBrandPts;
+	$this->UniPrBrPts = $UniPrBrPts;
 	return $this;
 }
 
-protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeleton|null $UniPrSkeleton = null;
+protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSk|null $UniPrSk = null;
 
 /**
-* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeleton|null
+* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSk|null
 */
-public function getUniPrSkeleton(bool $includeDeletedBricks = false)
+public function getUniPrSk(bool $includeDeletedBricks = false)
 {
 	if(!$includeDeletedBricks &&
-		isset($this->UniPrSkeleton) &&
-		$this->UniPrSkeleton->getDoDelete()) {
+		isset($this->UniPrSk) &&
+		$this->UniPrSk->getDoDelete()) {
 			return null;
 	}
-	return $this->UniPrSkeleton;
+	return $this->UniPrSk;
 }
 
 /**
-* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeleton|null $UniPrSkeleton
+* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSk|null $UniPrSk
 * @return $this
 */
-public function setUniPrSkeleton(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeleton $UniPrSkeleton): static
+public function setUniPrSk(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrSk $UniPrSk): static
 {
-	$this->UniPrSkeleton = $UniPrSkeleton;
+	$this->UniPrSk = $UniPrSk;
 	return $this;
 }
 
-protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeletonDss|null $UniPrSkeletonDss = null;
+protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkFhs|null $UniPrSkFhs = null;
 
 /**
-* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeletonDss|null
+* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkFhs|null
 */
-public function getUniPrSkeletonDss(bool $includeDeletedBricks = false)
+public function getUniPrSkFhs(bool $includeDeletedBricks = false)
 {
 	if(!$includeDeletedBricks &&
-		isset($this->UniPrSkeletonDss) &&
-		$this->UniPrSkeletonDss->getDoDelete()) {
+		isset($this->UniPrSkFhs) &&
+		$this->UniPrSkFhs->getDoDelete()) {
 			return null;
 	}
-	return $this->UniPrSkeletonDss;
+	return $this->UniPrSkFhs;
 }
 
 /**
-* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeletonDss|null $UniPrSkeletonDss
+* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkFhs|null $UniPrSkFhs
 * @return $this
 */
-public function setUniPrSkeletonDss(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeletonDss $UniPrSkeletonDss): static
+public function setUniPrSkFhs(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkFhs $UniPrSkFhs): static
 {
-	$this->UniPrSkeletonDss = $UniPrSkeletonDss;
+	$this->UniPrSkFhs = $UniPrSkFhs;
 	return $this;
 }
 
-protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeletonPts|null $UniPrSkeletonPts = null;
+protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkPts|null $UniPrSkPts = null;
 
 /**
-* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeletonPts|null
+* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkPts|null
 */
-public function getUniPrSkeletonPts(bool $includeDeletedBricks = false)
+public function getUniPrSkPts(bool $includeDeletedBricks = false)
 {
 	if(!$includeDeletedBricks &&
-		isset($this->UniPrSkeletonPts) &&
-		$this->UniPrSkeletonPts->getDoDelete()) {
+		isset($this->UniPrSkPts) &&
+		$this->UniPrSkPts->getDoDelete()) {
 			return null;
 	}
-	return $this->UniPrSkeletonPts;
+	return $this->UniPrSkPts;
 }
 
 /**
-* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeletonPts|null $UniPrSkeletonPts
+* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkPts|null $UniPrSkPts
 * @return $this
 */
-public function setUniPrSkeletonPts(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeletonPts $UniPrSkeletonPts): static
+public function setUniPrSkPts(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkPts $UniPrSkPts): static
 {
-	$this->UniPrSkeletonPts = $UniPrSkeletonPts;
+	$this->UniPrSkPts = $UniPrSkPts;
 	return $this;
 }
 

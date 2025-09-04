@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Service\UniProductManagement;
 
 use App\Model\DataObject\UniProductManagement\Objectbrick\AbstractUniPrBrand;
@@ -89,7 +91,7 @@ class UniProductCompletenessService
                         $brick,
                         $brick->getDefinition()->getFieldDefinitions(),
                         self::NON_LOCALIZED_ATTR_HEADING,
-                        sprintf('%s%s → ', $prefix, $brick->getDefinition()->getTitle() ?? $brick->getType())
+                        sprintf('%s%s → ', $prefix, $brick->getDefinition()->getTitle() ?? $brick->getType()),
                     );
                 }
 

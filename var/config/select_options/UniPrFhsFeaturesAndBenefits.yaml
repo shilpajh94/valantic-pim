@@ -1,0 +1,22 @@
+pimcore:
+    objects:
+        select_options:
+            definitions:
+                UniPrFhsFeaturesAndBenefits:
+                    id: UniPrFhsFeaturesAndBenefits
+                    group: UniProductFhs
+                    useTraits: ''
+                    implementsInterfaces: ''
+                    selectOptions:
+                        -
+                            value: highlyFlexible
+                            label: 'Highly Flexible'
+                            name: HIGHLY_FLEXIBLE
+                        -
+                            value: extremeResistance
+                            label: 'Extreme Resistance'
+                            name: EXTREME_RESISTANCE
+                        -
+                            value: dustProof
+                            label: 'Dust Proof'
+                            name: DUST_PROOF

@@ -81,7 +81,7 @@ class OptionProviderForBrickMultiselects implements MultiSelectOptionsProviderIn
      */
     public function getDefaultValue(array $context, Data $fieldDefinition): ?string
     {
-        return false;
+        return true;
     }
     
     /**

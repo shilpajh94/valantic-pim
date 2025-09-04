@@ -85,25 +85,6 @@ pimcore.plugin.CatalogBundle = Class.create({
         //let helper = new pimcore.plugin.lpeHelper();
 
         if (objectClassName == 'CatalogPTS') {
-
-            var colComp = Ext.getCmp(e.detail.object.edit.dataFields.Columns.component.id);
-            colComp.hide();
-
-            if((e.detail.object.data.data.AttributeTable !== null && trim(e.detail.object.data.data.AttributeTable) !== "")){
-                var ptsCatalogHeaderSelection = new pimcore.plugin.ptsCatalogHeaderSelection();
-                ptsCatalogHeaderSelection.attachPtsCatlogHeader(e);
-            }
-
-            // e.detail.object.edit.dataFields.AttributeTable.component.on('select', function(event){
-            //         //console.log(e.detail.object.data.data.AttributeTable);
-            //       if(e.detail.object.data.data.AttributeTable != event.value)
-            //     {
-            //         var ptsCatalogHeaderSelection = new pimcore.plugin.ptsCatalogHeaderSelection();
-            //         ptsCatalogHeaderSelection.attachPtsCatlogHeader(e);
-            //     }
-            // });
-
-
             var baseOptionsStore = Ext.create('Ext.data.Store', {
                 fields: ['key', 'value'],
                 proxy: {
@@ -195,8 +176,37 @@ pimcore.plugin.CatalogBundle = Class.create({
                 );
 
                 SkeletonProductStore.load();
-    
             };
+            // e.detail.object.edit.dataFields.BaseProduct.component.on('blur', function (e) {
+
+            //     var skeletonOptionsStore = Ext.create('Ext.data.Store', {
+            //         fields: ['id', 'text'],
+            //         proxy: {
+            //             type: 'ajax',
+            //             url: '/catalog/get-skeleton-products',
+            //             //  method:'POST',
+            //             extraParams: {
+            //                 products: Ext.JSON.encode(e.value),
+
+            //             },
+            //             reader: {
+            //                 type: 'json',
+            //                 rootProperty: 'data'
+            //             }
+            //         },
+
+            //     });
+
+            //     skeletonOptionsStore.load();
+            //     e.detail.object.edit.dataFields.SkeletonProduct.component.setStore(skeletonOptionsStore);
+                
+            //      if (e.detail.object.data.data.SkeletonProduct !== null)
+            // {
+            //     console.log(e.detail.object.data.data.SkeletonProduct);
+            //     e.detail.object.edit.dataFields.SkeletonProduct.component.setValue(e.detail.object.data.data.SkeletonProduct);
+            // }
+            // skeletonOptionsStore.load();
+            // });
         } // end CatalogPTS
 
         if (objectClassName == 'CatalogTables') {
@@ -258,9 +268,6 @@ pimcore.plugin.CatalogBundle = Class.create({
                     headerSelection.attachHeader(e.detail.object, event,template);
                 }
              });
-
-            
-                    
              
 
             var baseOptionsStore = Ext.create('Ext.data.Store', {
@@ -410,8 +417,6 @@ pimcore.plugin.CatalogBundle = Class.create({
 
 
         }
-
-        
     },
     postOpenDocument: function(e){
 

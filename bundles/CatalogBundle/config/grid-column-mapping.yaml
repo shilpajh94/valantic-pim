@@ -257,19 +257,10 @@ parameters:
                     class:
                         name: Brand
                         fieldName: Name
-            # industryStandard:
-            #     fieldLevel: class
-            #     fieldType: Input
-            #     fieldLabel: Industry Standard(s)
-            standardMetHose:
-                fieldLevel: objectBrick
-                fieldType: Relation
-                fieldLabel: Standard Met- Hose
-                parent: 
-                    name: HoseBase
-                    class:
-                        name: MultiselectMaster
-                        fieldName: Name
+            industryStandard:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Industry Standard(s)
             BrandShortText1:
                 fieldLevel: class
                 fieldType: Input
@@ -306,7 +297,7 @@ parameters:
                 fieldLevel: class
                 fieldType: Multiselection
                 fieldLabel: Features Benefits & Bullet Points
-            altImage7:
+            mainImage:
                 fieldLevel: class
                 fieldType: Media
                 fieldLabel: Product Image
@@ -514,10 +505,10 @@ parameters:
                 parent:
                     name: Product
         Industrial Hose Product Page:
-            LeftPrintCatalogImage:
+            mainImage:
                 fieldLevel: class
                 fieldType: Media
-                fieldLabel: Left Image
+                fieldLabel: Main Image
                 parent: 
                     name: Product
             safetyFactor:

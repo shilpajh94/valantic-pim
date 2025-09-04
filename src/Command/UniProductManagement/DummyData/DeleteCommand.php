@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Command\UniProductManagement\DummyData;
 
 use Pimcore\Db;
@@ -26,10 +28,12 @@ class DeleteCommand extends AbstractDummyDataCommand
 
         $products = (new UniProductBase\Listing())
             ->setCondition($condition, [self::OBJECT_KEY_PREFIX . '%'])
-            ->setUnpublished(true);
+            ->setUnpublished(true)
+        ;
         $categories = (new UniProductCategoryInternal\Listing())
             ->setCondition($condition, [self::OBJECT_KEY_PREFIX . '%'])
-            ->setUnpublished(true);
+            ->setUnpublished(true)
+        ;
 
         $total = $products->count() + $categories->count();
 
@@ -42,7 +46,7 @@ class DeleteCommand extends AbstractDummyDataCommand
         $output->writeln(sprintf(
             '<info>Deleting %s dummy products and %s dummy categories...</info>',
             $products->count(),
-            $categories->count()
+            $categories->count(),
         ));
 
         $progress = new ProgressBar($output, $total);

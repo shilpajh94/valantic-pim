@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Model\CalculatedValue\UniProductManagement;
 
 use Pimcore\Model\DataObject\ClassDefinition\CalculatorClassInterface;
 use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\Data\CalculatedValue;
-use Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrand;
+use Pimcore\Model\DataObject\Objectbrick\Data\UniPrBr;
 use Pimcore\Model\DataObject\UniProductBase;
 use Pimcore\Model\DataObject\UniProductCategoryInternal;
 
@@ -27,9 +29,9 @@ class UniProductStructureInternalSearchData implements CalculatorClassInterface
 
             $data[] = $parent->getName();
 
-            $brickData = $parent->getLevelSpecificData()?->getUniPrBrand();
+            $brickData = $parent->getLevelSpecificData()?->getUniPrBr();
 
-            if ($brickData instanceof UniPrBrand) {
+            if ($brickData instanceof UniPrBr) {
                 $data[] = $brickData->getMarketingDescriptionLong();
             }
         }

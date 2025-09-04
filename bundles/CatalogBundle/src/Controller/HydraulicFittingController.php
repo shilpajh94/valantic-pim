@@ -119,6 +119,7 @@ class HydraulicFittingController extends FrontendController
                         $brandsDataList[$brandName][$shortDescription][$fittingTableName][] = $item;
                     }
                 }
+
                 # Sort talbes using short table description
                 if ($brandsDataList) {
                     foreach ($brandsDataList as $brandNameKey => $brandInfo) {
@@ -143,10 +144,10 @@ class HydraulicFittingController extends FrontendController
 
                 unset($brandsDataList);
             }
+
             $newBrandArray = array();
             $hydFittingFamilyArr = array();
             if ($sortedBrandsData) {
-                $count = 0;
                 foreach ($sortedBrandsData as $brandKey => $sortDescriptionTables) {
                     foreach ($sortDescriptionTables as $sortDescriptionTableslist => $fittingTables) {
                         foreach ($fittingTables as $fittingTableName => $articlesGroups) {
@@ -265,22 +266,18 @@ class HydraulicFittingController extends FrontendController
                         }
                     }
 
-                    
-                    if(array_key_exists($brandKey, $brandsList)){
+                    if(isset($brandsList[$brandKey])){
                         $newBrandArray[$brandKey]['SortOrder'] = $brandsList[$brandKey];
-                    } else {
+                    }else{
                         $newBrandArray[$brandKey]['SortOrder'] = null;
                     }
 
                     unset($sortedBrandsData[$brandKey]);
-                    $count++;
                 }
-                
                 if ($newBrandArray) {
                     array_multisort(array_column($newBrandArray, 'SortOrder'), SORT_ASC, $newBrandArray);
                 }
             }
-            
             unset($objColumnsData);
 
             $footer_logo_src = (strtolower($footerBgColor) == 'orange') ? $catalogImagesHYDFooter['Black'] : $catalogImagesHYDFooter['Orange'];
@@ -325,14 +322,7 @@ class HydraulicFittingController extends FrontendController
     public function getBrandsList(): mixed
     {
         $query = "select name, SortOrder from object_query_3";
-        $brandData = $this->db->fetchAllAssociative($query);
-        foreach($brandData as $data){
-            
-            $brandNameArray[] = $data['name'];
-            $brandSortOrderArray[] = $data['SortOrder'];
-            $brandNameSortOrderArray = array_combine($brandNameArray, $brandSortOrderArray);
-        }
-        return $brandNameSortOrderArray;
+        return $this->db->fetchAllAssociative($query);
     }
 
     public function getColumnHeadersForCatalog($fittingTableColWidths, $isTableNameColumnRequired = false, $tableNameColumns = []): array

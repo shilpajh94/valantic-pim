@@ -157,7 +157,7 @@
  * - PackagingQuantityPerBox [input]
  */
 
-return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
+return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'dao' => NULL,
    'key' => 'HydFittingsFert',
    'parentClass' => '',
@@ -165,7 +165,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'title' => '',
    'group' => 'HYD_FITTINGS',
    'layoutDefinitions' => 
-  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'name' => NULL,
      'type' => NULL,
      'region' => NULL,
@@ -179,7 +179,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
      'children' => 
     array (
       0 => 
-      \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+      Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
@@ -193,7 +193,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'children' => 
         array (
           0 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
              'name' => 'Flange',
              'type' => NULL,
              'region' => NULL,
@@ -207,7 +207,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'children' => 
             array (
               0 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                  'name' => 'Field Container',
                  'type' => NULL,
                  'region' => NULL,
@@ -221,7 +221,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'DescriptivePartNumber',
                      'title' => 'Descriptive Part Number',
                      'tooltip' => '',
@@ -251,7 +251,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   1 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                      'name' => 'HydFittingFamily',
                      'title' => 'Fitting Family (Hyd)',
                      'tooltip' => '',
@@ -272,11 +272,14 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'maxItems' => NULL,
                      'renderType' => 'tags',
                      'dynamicOptions' => false,
-                     'defaultValue' => NULL,
+                     'defaultValue' => 
+                    array (
+                      0 => '1',
+                    ),
                      'height' => '',
                      'width' => 200,
                      'defaultValueGenerator' => '',
-                     'optionsProviderType' => 'class',
+                     'optionsProviderType' => NULL,
                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
                      'optionsProviderData' => 'FittingFamily|Name',
                   )),
@@ -292,7 +295,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'labelAlign' => 'left',
               )),
               1 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                  'name' => 'Field Container',
                  'type' => NULL,
                  'region' => NULL,
@@ -306,7 +309,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'HydThreadDescription',
                      'title' => 'Thread Description (Hyd)',
                      'tooltip' => '',
@@ -358,7 +361,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'labelAlign' => 'left',
           )),
           1 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
+          Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
              'name' => 'nomenclatureDetails',
              'title' => 'Nomenclature Details',
              'tooltip' => '',
@@ -403,7 +406,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'allowMultipleAssignments' => false,
           )),
           2 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
+          Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
              'name' => 'Layout',
              'type' => NULL,
              'region' => NULL,
@@ -417,7 +420,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'children' => 
             array (
               0 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                  'name' => 'Finished',
                  'type' => NULL,
                  'region' => NULL,
@@ -431,7 +434,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
                      'name' => 'Layout',
                      'type' => NULL,
                      'region' => NULL,
@@ -445,7 +448,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                          'name' => 'Field Container',
                          'type' => NULL,
                          'region' => NULL,
@@ -459,7 +462,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -473,7 +476,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'AssemblyRevisionNumber',
                                  'title' => 'Assembly Revision Number',
                                  'tooltip' => '',
@@ -503,7 +506,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                                  'name' => 'AssemblyVendor',
                                  'title' => 'Assembly Vendor',
                                  'tooltip' => '',
@@ -581,12 +584,12 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'height' => '',
                                  'width' => 200,
                                  'defaultValueGenerator' => '',
-                                 'optionsProviderType' => 'configure',
+                                 'optionsProviderType' => NULL,
                                  'optionsProviderClass' => '',
                                  'optionsProviderData' => '',
                               )),
                               2 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                                  'name' => 'ReleasedToProduction',
                                  'title' => 'Released To Production',
                                  'tooltip' => '',
@@ -628,7 +631,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'width' => 200,
                               )),
                               3 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'SocketWrenchSizeInFract',
                                  'title' => 'Socket Wrench Size (in) Fract',
                                  'tooltip' => '',
@@ -658,7 +661,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               4 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'SocketWrenchSizeInDec',
                                  'title' => 'Socket Wrench Size (in) Dec',
                                  'tooltip' => '',
@@ -688,7 +691,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               5 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'FittingWeight',
                                  'title' => 'Fitting Weight',
                                  'tooltip' => '',
@@ -718,7 +721,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               6 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                                  'name' => 'DualGripStyle',
                                  'title' => 'Dual-Grip Style (Y/N)',
                                  'tooltip' => '',
@@ -760,7 +763,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'width' => 200,
                               )),
                               7 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'SAEStandard',
                                  'title' => 'SAE Standard',
                                  'tooltip' => '',
@@ -790,7 +793,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               8 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'SkiveType',
                                  'title' => 'Skive Type',
                                  'tooltip' => '',
@@ -820,7 +823,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               9 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                                  'name' => 'NutType',
                                  'title' => 'Nut Type',
                                  'tooltip' => '',
@@ -861,7 +864,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'dynamicOptions' => false,
                                  'defaultValueGenerator' => '',
                                  'width' => 200,
-                                 'optionsProviderType' => 'configure',
+                                 'optionsProviderType' => NULL,
                                  'optionsProviderClass' => '',
                                  'optionsProviderData' => '',
                               )),
@@ -877,7 +880,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'labelAlign' => 'left',
                           )),
                           1 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -891,7 +894,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
                                  'name' => 'ReleasedToProductionDate',
                                  'title' => 'Released To Production Date',
                                  'tooltip' => '',
@@ -915,7 +918,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                                  'name' => 'Comments',
                                  'title' => 'Comments',
                                  'tooltip' => '',
@@ -940,7 +943,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'width' => 200,
                               )),
                               2 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                                  'name' => 'FittingEndFamilyType',
                                  'title' => 'Fitting End Family Type',
                                  'tooltip' => '',
@@ -958,17 +961,17 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'blockedVarsForExport' => 
                                 array (
                                 ),
-                                 'defaultValue' => '',
+                                 'defaultValue' => '1',
                                  'columnLength' => 150,
                                  'dynamicOptions' => false,
                                  'defaultValueGenerator' => '',
                                  'width' => 200,
-                                 'optionsProviderType' => 'class',
+                                 'optionsProviderType' => NULL,
                                  'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
                                  'optionsProviderData' => 'FittingEndFamilyType|Name',
                               )),
                               3 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'SocketWrenchSizeMM',
                                  'title' => 'Socket Wrench Size (mm)',
                                  'tooltip' => '',
@@ -998,7 +1001,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               4 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'FittingSizeInFract',
                                  'title' => 'Fitting Size (in) Fract.',
                                  'tooltip' => '',
@@ -1028,7 +1031,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               5 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                                  'name' => 'UniCrimpStyle',
                                  'title' => 'Uni-Crimp Style (Y/N)',
                                  'tooltip' => '',
@@ -1070,7 +1073,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'width' => 200,
                               )),
                               6 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                                  'name' => 'DualSeatYN',
                                  'title' => 'Dual Seat Y/N',
                                  'tooltip' => '',
@@ -1112,7 +1115,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'width' => 200,
                               )),
                               7 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                                  'name' => 'AssemblyMaterial',
                                  'title' => 'Assembly Material',
                                  'tooltip' => '',
@@ -1153,12 +1156,12 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'dynamicOptions' => false,
                                  'defaultValueGenerator' => '',
                                  'width' => 200,
-                                 'optionsProviderType' => 'configure',
+                                 'optionsProviderType' => NULL,
                                  'optionsProviderClass' => '',
                                  'optionsProviderData' => '',
                               )),
                               8 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                                  'name' => 'CatalogDescription',
                                  'title' => 'Catalog Description',
                                  'tooltip' => '',
@@ -1214,7 +1217,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'labelAlign' => 'left',
                   )),
                   1 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
                      'name' => 'Layout',
                      'type' => NULL,
                      'region' => NULL,
@@ -1228,7 +1231,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                          'name' => 'Flange',
                          'type' => NULL,
                          'region' => NULL,
@@ -1242,7 +1245,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -1256,7 +1259,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'FlangeIDInFract',
                                  'title' => 'Flange ID (in) Fract.',
                                  'tooltip' => '',
@@ -1286,7 +1289,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'FlangeIDMM',
                                  'title' => 'Flange ID (mm)',
                                  'tooltip' => '',
@@ -1316,7 +1319,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               2 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'FlangeODInDec',
                                  'title' => 'Flange OD (in) Dec.',
                                  'tooltip' => '',
@@ -1357,7 +1360,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'labelAlign' => 'left',
                           )),
                           1 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -1371,7 +1374,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'FlangeIDInDec',
                                  'title' => 'Flange ID (in) Dec.',
                                  'tooltip' => '',
@@ -1401,7 +1404,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'FlangeODInFract',
                                  'title' => 'Flange OD (in) Fract.',
                                  'tooltip' => '',
@@ -1431,7 +1434,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               2 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'FlangeODMM',
                                  'title' => 'Flange OD (mm)',
                                  'tooltip' => '',
@@ -1492,7 +1495,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'labelAlign' => 'left',
                   )),
                   2 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
                      'name' => 'Layout',
                      'type' => NULL,
                      'region' => NULL,
@@ -1506,7 +1509,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                          'name' => 'Tube',
                          'type' => NULL,
                          'region' => NULL,
@@ -1520,7 +1523,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -1534,7 +1537,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'TubeIDInFract',
                                  'title' => 'Tube ID (in) Fract.',
                                  'tooltip' => '',
@@ -1564,7 +1567,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'TubeLengthMM',
                                  'title' => 'Tube Length (mm)',
                                  'tooltip' => '',
@@ -1594,7 +1597,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               2 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'TubeLengthInDec',
                                  'title' => 'Tube Length (in) Dec.',
                                  'tooltip' => '',
@@ -1624,7 +1627,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               3 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'TubeODInDec',
                                  'title' => 'Tube OD (in) Dec.',
                                  'tooltip' => '',
@@ -1654,7 +1657,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               4 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'OrificeTubeODInDecimal',
                                  'title' => 'Orifice Tube OD (in) Decimal',
                                  'tooltip' => '',
@@ -1684,7 +1687,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               5 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'OrificeTubeLengthInDecimal',
                                  'title' => 'Orifice Tube Length (in) Decimal',
                                  'tooltip' => '',
@@ -1725,7 +1728,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'labelAlign' => 'left',
                           )),
                           1 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -1739,7 +1742,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'TubeIDInDec',
                                  'title' => 'Tube ID (in) Dec.',
                                  'tooltip' => '',
@@ -1769,7 +1772,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'TubeIDMM',
                                  'title' => 'Tube ID (mm)',
                                  'tooltip' => '',
@@ -1799,7 +1802,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               2 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'TubeODInFract',
                                  'title' => 'Tube OD (in) Fract.',
                                  'tooltip' => '',
@@ -1829,7 +1832,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               3 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'TubeODMM',
                                  'title' => 'Tube OD (mm)',
                                  'tooltip' => '',
@@ -1859,7 +1862,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               4 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'OrificeTubeODMMDecimal',
                                  'title' => 'Orifice Tube OD (mm) Decimal',
                                  'tooltip' => '',
@@ -1889,7 +1892,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               5 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'OrificeTubeLengthMMDecimal',
                                  'title' => 'Orifice Tube Length (mm) Decimal',
                                  'tooltip' => '',
@@ -1950,7 +1953,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'labelAlign' => 'left',
                   )),
                   3 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
                      'name' => 'Layout',
                      'type' => NULL,
                      'region' => NULL,
@@ -1964,7 +1967,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                          'name' => 'Layout',
                          'type' => NULL,
                          'region' => NULL,
@@ -1978,7 +1981,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -1992,7 +1995,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'ValveSize1inFraction',
                                  'title' => 'Valve Size 1 (in, Fraction)',
                                  'tooltip' => '',
@@ -2022,7 +2025,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'ValveSizeInDec',
                                  'title' => 'Valve Size (in) Dec.',
                                  'tooltip' => '',
@@ -2052,7 +2055,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               2 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'ValveSizeMM',
                                  'title' => 'Valve Size (mm)',
                                  'tooltip' => '',
@@ -2082,7 +2085,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               3 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'ValveStyle',
                                  'title' => 'Valve Style',
                                  'tooltip' => '',
@@ -2123,7 +2126,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'labelAlign' => 'left',
                           )),
                           1 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -2137,7 +2140,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'ValveSize2inFraction',
                                  'title' => 'Valve Size 2 (in, Fraction)',
                                  'tooltip' => '',
@@ -2167,7 +2170,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'ValveSize2InDec',
                                  'title' => 'Valve Size 2 (in) Dec.',
                                  'tooltip' => '',
@@ -2197,7 +2200,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               2 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'ValveSize2MM',
                                  'title' => 'Valve Size 2 (mm)',
                                  'tooltip' => '',
@@ -2227,7 +2230,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               3 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'ValveStyle2',
                                  'title' => 'Valve Style 2',
                                  'tooltip' => '',
@@ -2288,7 +2291,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'labelAlign' => 'left',
                   )),
                   4 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
                      'name' => 'Layout',
                      'type' => NULL,
                      'region' => NULL,
@@ -2302,7 +2305,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                          'name' => 'Layout',
                          'type' => NULL,
                          'region' => NULL,
@@ -2316,7 +2319,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -2330,7 +2333,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'OverallLengthIN',
                                  'title' => 'Overall Length (In)',
                                  'tooltip' => '',
@@ -2360,7 +2363,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'RunLengthIN',
                                  'title' => 'Run Length (in)',
                                  'tooltip' => '',
@@ -2390,7 +2393,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               2 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'CutOffLengthIN',
                                  'title' => 'Cut Off Length (in)',
                                  'tooltip' => '',
@@ -2420,7 +2423,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               3 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'InsertionDepthIN',
                                  'title' => 'Insertion Depth (in)',
                                  'tooltip' => '',
@@ -2450,7 +2453,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               4 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'DropLengthIN',
                                  'title' => 'Drop Length (in)',
                                  'tooltip' => '',
@@ -2491,7 +2494,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'labelAlign' => 'left',
                           )),
                           1 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -2505,7 +2508,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'OverallLengthMm',
                                  'title' => 'Overall Length (mm)',
                                  'tooltip' => '',
@@ -2535,7 +2538,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'RunLengthMM',
                                  'title' => 'Run Length (mm)',
                                  'tooltip' => '',
@@ -2565,7 +2568,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               2 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'CutOffLengthMM',
                                  'title' => 'Cut Off Length (mm)',
                                  'tooltip' => '',
@@ -2595,7 +2598,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               3 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'InsertionDepthMM',
                                  'title' => 'Insertion Depth (mm)',
                                  'tooltip' => '',
@@ -2625,7 +2628,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               4 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'DropLengthMM',
                                  'title' => 'Drop Length (mm)',
                                  'tooltip' => '',
@@ -2685,7 +2688,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'labelAlign' => 'left',
                   )),
                   5 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
                      'name' => 'Layout',
                      'type' => NULL,
                      'region' => NULL,
@@ -2699,7 +2702,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                          'name' => 'Flange',
                          'type' => NULL,
                          'region' => NULL,
@@ -2713,7 +2716,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -2727,7 +2730,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'HoseID1InFract',
                                  'title' => 'Hose ID 1 (in) Fract.',
                                  'tooltip' => '',
@@ -2757,7 +2760,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'HoseID1InDec',
                                  'title' => 'Hose ID 1 (in) Dec.',
                                  'tooltip' => '',
@@ -2787,7 +2790,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               2 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'HoseID1MM',
                                  'title' => 'Hose ID 1 (mm)',
                                  'tooltip' => '',
@@ -2817,7 +2820,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               3 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'HoseID3InFract',
                                  'title' => 'Hose ID 3 (in) Fract.',
                                  'tooltip' => '',
@@ -2847,7 +2850,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               4 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'HoseID3InDec',
                                  'title' => 'Hose ID 3 (in) Dec.',
                                  'tooltip' => '',
@@ -2888,7 +2891,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'labelAlign' => 'left',
                           )),
                           1 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -2902,7 +2905,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'HoseID2InFract',
                                  'title' => 'Hose ID 2 (in) Fract.',
                                  'tooltip' => '',
@@ -2932,7 +2935,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'HoseID2InDec',
                                  'title' => 'Hose ID 2 (in) Dec.',
                                  'tooltip' => '',
@@ -2962,7 +2965,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               2 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'HoseID2MM',
                                  'title' => 'Hose ID 2 (mm)',
                                  'tooltip' => '',
@@ -2992,7 +2995,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               3 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'HoseDashSize',
                                  'title' => 'Hose Dash Size',
                                  'tooltip' => '',
@@ -3022,7 +3025,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               4 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'HoseID3MM',
                                  'title' => 'Hose ID 3 (mm)',
                                  'tooltip' => '',
@@ -3083,7 +3086,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'labelAlign' => 'left',
                   )),
                   6 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
                      'name' => 'Layout',
                      'type' => NULL,
                      'region' => NULL,
@@ -3097,7 +3100,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                          'name' => 'Flange',
                          'type' => NULL,
                          'region' => NULL,
@@ -3111,7 +3114,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -3125,7 +3128,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'Hex1WrenchSizeIN',
                                  'title' => 'Hex 1 Wrench Size (in)',
                                  'tooltip' => '',
@@ -3155,7 +3158,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'Hex2WrenchSizeIN',
                                  'title' => 'Hex 2 Wrench Size (in)',
                                  'tooltip' => '',
@@ -3185,7 +3188,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               2 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'Hex1WrenchSizeFraction',
                                  'title' => 'Hex 1 Wrench Size (Fraction)',
                                  'tooltip' => '',
@@ -3215,7 +3218,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               3 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'Hex2WrenchSizeFraction',
                                  'title' => 'Hex 2 Wrench Size (Fraction)',
                                  'tooltip' => '',
@@ -3256,7 +3259,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'labelAlign' => 'left',
                           )),
                           1 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -3270,7 +3273,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'Hex1WrenchSizeMM',
                                  'title' => 'Hex 1 Wrench Size (mm)',
                                  'tooltip' => '',
@@ -3300,7 +3303,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'Hex2WrenchSizeMM',
                                  'title' => 'Hex 2 Wrench Size (mm)',
                                  'tooltip' => '',
@@ -3330,7 +3333,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               2 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                                  'name' => 'SingleHexYN',
                                  'title' => 'Single Hex Y/N',
                                  'tooltip' => '',
@@ -3415,7 +3418,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'labelAlign' => 'left',
               )),
               1 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                  'name' => 'Thread',
                  'type' => NULL,
                  'region' => NULL,
@@ -3429,7 +3432,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                      'name' => 'Field Container',
                      'type' => NULL,
                      'region' => NULL,
@@ -3443,7 +3446,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                          'name' => 'Field Container',
                          'type' => NULL,
                          'region' => NULL,
@@ -3457,7 +3460,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'name' => 'Thread1',
                              'title' => 'Thread 1',
                              'tooltip' => '',
@@ -3487,7 +3490,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           1 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'name' => 'Thread3',
                              'title' => 'Thread 3',
                              'tooltip' => '',
@@ -3517,7 +3520,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           2 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'name' => 'ThreadSize1InMMDecimal',
                              'title' => 'Thread Size 1 (in & mm) Decimal',
                              'tooltip' => '',
@@ -3547,7 +3550,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           3 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'name' => 'ThreadSize2InMMDecimal',
                              'title' => 'Thread Size 2 (in & mm) Decimal',
                              'tooltip' => '',
@@ -3577,7 +3580,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           4 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'name' => 'ThreadDashSize1',
                              'title' => 'Thread Dash Size 1',
                              'tooltip' => '',
@@ -3607,7 +3610,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           5 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                              'name' => 'ThreadDashSize3',
                              'title' => 'Thread Dash Size 3',
                              'tooltip' => '',
@@ -3648,7 +3651,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'labelAlign' => 'left',
                       )),
                       1 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                          'name' => 'Field Container',
                          'type' => NULL,
                          'region' => NULL,
@@ -3662,7 +3665,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'name' => 'Thread2',
                              'title' => 'Thread 2',
                              'tooltip' => '',
@@ -3692,7 +3695,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           1 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'name' => 'Thread4',
                              'title' => 'Thread 4',
                              'tooltip' => '',
@@ -3722,7 +3725,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           2 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'name' => 'ThreadSize3InMMDecimal',
                              'title' => 'Thread Size 3 (in & mm) Decimal',
                              'tooltip' => '',
@@ -3752,7 +3755,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           3 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'name' => 'ThreadSize4InMMDecimal',
                              'title' => 'Thread Size 4 (in & mm) Decimal',
                              'tooltip' => '',
@@ -3782,7 +3785,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           4 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                              'name' => 'ThreadDashSize2',
                              'title' => 'Thread Dash Size 2',
                              'tooltip' => '',
@@ -3812,7 +3815,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           5 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                              'name' => 'ThreadDashSize4',
                              'title' => 'Thread Dash Size 4',
                              'tooltip' => '',
@@ -3876,7 +3879,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'labelAlign' => 'left',
               )),
               2 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                  'name' => 'STEM',
                  'type' => NULL,
                  'region' => NULL,
@@ -3890,7 +3893,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                      'name' => 'Field Container',
                      'type' => NULL,
                      'region' => NULL,
@@ -3904,7 +3907,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                          'name' => 'Field Container',
                          'type' => NULL,
                          'region' => NULL,
@@ -3918,7 +3921,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'name' => 'StemComponentNumber',
                              'title' => 'Stem Component Number',
                              'tooltip' => '',
@@ -3948,7 +3951,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           1 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                              'name' => 'StemComponentThreadType',
                              'title' => 'Stem Component Thread Type',
                              'tooltip' => '',
@@ -4389,12 +4392,12 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'dynamicOptions' => false,
                              'defaultValueGenerator' => '',
                              'width' => 200,
-                             'optionsProviderType' => 'configure',
+                             'optionsProviderType' => NULL,
                              'optionsProviderClass' => '',
                              'optionsProviderData' => '',
                           )),
                           2 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                              'name' => 'StemHexinchDecimal',
                              'title' => 'Stem Hex inch Decimal',
                              'tooltip' => '',
@@ -4424,7 +4427,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           3 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'name' => 'StemHexMM',
                              'title' => 'Stem Hex mm',
                              'tooltip' => '',
@@ -4454,7 +4457,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           4 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
                              'name' => 'StemRevDate',
                              'title' => 'Stem Rev Date',
                              'tooltip' => '',
@@ -4489,7 +4492,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'labelAlign' => 'left',
                       )),
                       1 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                          'name' => 'Field Container',
                          'type' => NULL,
                          'region' => NULL,
@@ -4503,7 +4506,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'name' => 'StemComponentSAPNumber',
                              'title' => 'Stem Component SAP Number',
                              'tooltip' => '',
@@ -4533,7 +4536,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           1 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                              'name' => 'StemComponentVendor',
                              'title' => 'Stem Component Vendor',
                              'tooltip' => '',
@@ -4611,12 +4614,12 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'height' => '',
                              'width' => 200,
                              'defaultValueGenerator' => '',
-                             'optionsProviderType' => 'configure',
+                             'optionsProviderType' => NULL,
                              'optionsProviderClass' => '',
                              'optionsProviderData' => '',
                           )),
                           2 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'name' => 'StemHexinchFraction',
                              'title' => 'Stem Hex inch Fraction',
                              'tooltip' => '',
@@ -4646,7 +4649,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           3 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                              'name' => 'StemMaterial',
                              'title' => 'Stem Material',
                              'tooltip' => '',
@@ -4712,12 +4715,12 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'dynamicOptions' => false,
                              'defaultValueGenerator' => '',
                              'width' => 200,
-                             'optionsProviderType' => 'configure',
+                             'optionsProviderType' => NULL,
                              'optionsProviderClass' => '',
                              'optionsProviderData' => '',
                           )),
                           4 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'name' => 'StemRevisionNumber',
                              'title' => 'Stem Revision Number',
                              'tooltip' => '',
@@ -4781,7 +4784,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'labelAlign' => 'left',
               )),
               3 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                  'name' => 'FERRULE',
                  'type' => NULL,
                  'region' => NULL,
@@ -4795,7 +4798,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                      'name' => 'Field Container',
                      'type' => NULL,
                      'region' => NULL,
@@ -4809,7 +4812,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                          'name' => 'Field Container',
                          'type' => NULL,
                          'region' => NULL,
@@ -4823,7 +4826,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'name' => 'FerruleComponentNumber',
                              'title' => 'Ferrule Component Number',
                              'tooltip' => '',
@@ -4853,7 +4856,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           1 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                              'name' => 'FerruleComponentVendor',
                              'title' => 'Ferrule Component Vendor',
                              'tooltip' => '',
@@ -4931,12 +4934,12 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'height' => '',
                              'width' => 200,
                              'defaultValueGenerator' => '',
-                             'optionsProviderType' => 'configure',
+                             'optionsProviderType' => NULL,
                              'optionsProviderClass' => '',
                              'optionsProviderData' => '',
                           )),
                           2 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                              'name' => 'FerruleMaterial',
                              'title' => 'Ferrule Material',
                              'tooltip' => '',
@@ -5012,12 +5015,12 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'dynamicOptions' => false,
                              'defaultValueGenerator' => '',
                              'width' => 200,
-                             'optionsProviderType' => 'configure',
+                             'optionsProviderType' => NULL,
                              'optionsProviderClass' => '',
                              'optionsProviderData' => '',
                           )),
                           3 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                              'name' => 'FerruleIDInDec',
                              'title' => 'Ferrule ID (in) Dec.',
                              'tooltip' => '',
@@ -5047,7 +5050,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           4 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                              'name' => 'FerruleODInDec',
                              'title' => 'Ferrule OD (in) Dec.',
                              'tooltip' => '',
@@ -5077,7 +5080,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           5 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                              'name' => 'FerruleLengthInDec',
                              'title' => 'Ferrule Length (in) Dec.',
                              'tooltip' => '',
@@ -5107,7 +5110,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           6 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
                              'name' => 'FerruleRevDate',
                              'title' => 'Ferrule Rev Date',
                              'tooltip' => '',
@@ -5142,7 +5145,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'labelAlign' => 'left',
                       )),
                       1 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                          'name' => 'Field Container',
                          'type' => NULL,
                          'region' => NULL,
@@ -5156,7 +5159,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'name' => 'FerruleComponentSAPNumber',
                              'title' => 'Ferrule Component SAP Number',
                              'tooltip' => '',
@@ -5186,7 +5189,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           1 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'name' => 'FerruleRevisionNumber',
                              'title' => 'Ferrule Revision Number',
                              'tooltip' => '',
@@ -5216,7 +5219,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           2 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                              'name' => 'FerruleIDMM',
                              'title' => 'Ferrule ID (mm)',
                              'tooltip' => '',
@@ -5246,7 +5249,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           3 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                              'name' => 'FerruleODMM',
                              'title' => 'Ferrule OD (mm)',
                              'tooltip' => '',
@@ -5276,7 +5279,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           4 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                              'name' => 'FerruleLengthMM',
                              'title' => 'Ferrule Length (mm)',
                              'tooltip' => '',
@@ -5340,7 +5343,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'labelAlign' => 'left',
               )),
               4 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                  'name' => 'SWIVEL NUT',
                  'type' => NULL,
                  'region' => NULL,
@@ -5354,7 +5357,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                      'name' => 'Field Container',
                      'type' => NULL,
                      'region' => NULL,
@@ -5368,7 +5371,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                          'name' => 'Field Container',
                          'type' => NULL,
                          'region' => NULL,
@@ -5382,7 +5385,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'name' => 'SwivelNutComponentNumber',
                              'title' => 'Swivel Nut Component Number',
                              'tooltip' => '',
@@ -5412,7 +5415,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           1 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                              'name' => 'SwivelNutComponentThreadType',
                              'title' => 'Swivel Nut Component Thread Type',
                              'tooltip' => '',
@@ -5853,12 +5856,12 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'dynamicOptions' => false,
                              'defaultValueGenerator' => '',
                              'width' => 200,
-                             'optionsProviderType' => 'configure',
+                             'optionsProviderType' => NULL,
                              'optionsProviderClass' => '',
                              'optionsProviderData' => '',
                           )),
                           2 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'name' => 'SwivelNutHexinchFraction',
                              'title' => 'Swivel Nut Hex inch Fraction',
                              'tooltip' => '',
@@ -5888,7 +5891,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           3 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                              'name' => 'SwivelNutMaterial',
                              'title' => 'Swivel Nut Material',
                              'tooltip' => '',
@@ -6194,12 +6197,12 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'dynamicOptions' => false,
                              'defaultValueGenerator' => '',
                              'width' => 200,
-                             'optionsProviderType' => 'configure',
+                             'optionsProviderType' => NULL,
                              'optionsProviderClass' => '',
                              'optionsProviderData' => '',
                           )),
                           4 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'name' => 'SwivelNutRevisionNumber',
                              'title' => 'Swivel Nut Revision Number',
                              'tooltip' => '',
@@ -6240,7 +6243,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'labelAlign' => 'left',
                       )),
                       1 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                          'name' => 'Field Container',
                          'type' => NULL,
                          'region' => NULL,
@@ -6254,7 +6257,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'name' => 'SwivelNutComponentSAPNumber',
                              'title' => 'Swivel Nut Component SAP Number',
                              'tooltip' => '',
@@ -6284,7 +6287,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           1 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                              'name' => 'SwivelNutComponentVendor',
                              'title' => 'Swivel Nut Component Vendor',
                              'tooltip' => '',
@@ -6362,12 +6365,12 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'height' => '',
                              'width' => 200,
                              'defaultValueGenerator' => '',
-                             'optionsProviderType' => 'configure',
+                             'optionsProviderType' => NULL,
                              'optionsProviderClass' => '',
                              'optionsProviderData' => '',
                           )),
                           2 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                              'name' => 'SwivelNutinchDecimal',
                              'title' => 'Swivel Nut inch Decimal',
                              'tooltip' => '',
@@ -6397,7 +6400,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           3 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
                              'name' => 'SwivelNutRevDate',
                              'title' => 'Swivel Nut Rev Date',
                              'tooltip' => '',
@@ -6455,7 +6458,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'labelAlign' => 'left',
               )),
               5 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                  'name' => 'THRUST WIRE',
                  'type' => NULL,
                  'region' => NULL,
@@ -6469,7 +6472,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'ThrustWireComponentNumber',
                      'title' => 'Thrust Wire Component Number',
                      'tooltip' => '',
@@ -6499,7 +6502,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   1 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                      'name' => 'ThrustWireMaterial',
                      'title' => 'Thrust Wire Material',
                      'tooltip' => '',
@@ -6530,12 +6533,12 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'dynamicOptions' => false,
                      'defaultValueGenerator' => '',
                      'width' => 200,
-                     'optionsProviderType' => 'configure',
+                     'optionsProviderType' => NULL,
                      'optionsProviderClass' => '',
                      'optionsProviderData' => '',
                   )),
                   2 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'ThrustWireRevisionNumber',
                      'title' => 'Thrust Wire Revision Number',
                      'tooltip' => '',
@@ -6577,7 +6580,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'labelAlign' => 'left',
               )),
               6 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                  'name' => 'O-RING',
                  'type' => NULL,
                  'region' => NULL,
@@ -6591,7 +6594,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
                      'name' => 'Layout',
                      'type' => NULL,
                      'region' => NULL,
@@ -6605,7 +6608,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                          'name' => 'Field Container',
                          'type' => NULL,
                          'region' => NULL,
@@ -6619,7 +6622,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -6633,7 +6636,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'ORingBOMSAPNumber',
                                  'title' => 'O-Ring BOM SAP Number',
                                  'tooltip' => '',
@@ -6663,7 +6666,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'ORingComponentSAPNumber',
                                  'title' => 'O-Ring Component SAP Number',
                                  'tooltip' => '',
@@ -6693,7 +6696,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               2 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                                  'name' => 'ORingMaterial',
                                  'title' => 'O-Ring Material',
                                  'tooltip' => '',
@@ -6724,12 +6727,12 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'dynamicOptions' => false,
                                  'defaultValueGenerator' => '',
                                  'width' => 200,
-                                 'optionsProviderType' => 'configure',
+                                 'optionsProviderType' => NULL,
                                  'optionsProviderClass' => '',
                                  'optionsProviderData' => '',
                               )),
                               3 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'ORingIDInDec',
                                  'title' => 'O-Ring ID (in) Dec.',
                                  'tooltip' => '',
@@ -6759,7 +6762,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               4 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'ORingThicknessInDec',
                                  'title' => 'O-Ring Thickness (in) Dec.',
                                  'tooltip' => '',
@@ -6800,7 +6803,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'labelAlign' => 'left',
                           )),
                           1 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -6814,7 +6817,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'ORingComponentNumber',
                                  'title' => 'O-Ring Component Number',
                                  'tooltip' => '',
@@ -6844,7 +6847,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                                  'name' => 'ORingComponentVendor',
                                  'title' => 'O-Ring Component Vendor',
                                  'tooltip' => '',
@@ -6892,12 +6895,12 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'height' => '',
                                  'width' => 200,
                                  'defaultValueGenerator' => '',
-                                 'optionsProviderType' => 'configure',
+                                 'optionsProviderType' => NULL,
                                  'optionsProviderClass' => '',
                                  'optionsProviderData' => '',
                               )),
                               2 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'ORingRevisionNumber',
                                  'title' => 'O-Ring Revision Number',
                                  'tooltip' => '',
@@ -6927,7 +6930,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               3 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'ORingIDMM',
                                  'title' => 'O-Ring ID (mm)',
                                  'tooltip' => '',
@@ -6957,7 +6960,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               4 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'ORingThicknessMM',
                                  'title' => 'O-Ring Thickness (mm)',
                                  'tooltip' => '',
@@ -7018,7 +7021,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'labelAlign' => 'left',
                   )),
                   1 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
                      'name' => 'Layout',
                      'type' => NULL,
                      'region' => NULL,
@@ -7032,7 +7035,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                          'name' => 'Field Container',
                          'type' => NULL,
                          'region' => NULL,
@@ -7046,7 +7049,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -7060,7 +7063,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'InternalORingComponentNumber',
                                  'title' => 'Internal O-Ring Component Number',
                                  'tooltip' => '',
@@ -7090,7 +7093,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'InternalORingSAPNumber',
                                  'title' => 'Internal O-Ring SAP Number',
                                  'tooltip' => '',
@@ -7131,7 +7134,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'labelAlign' => 'left',
                           )),
                           1 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -7145,7 +7148,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'InternalORingRev',
                                  'title' => 'Internal O-Ring Rev',
                                  'tooltip' => '',
@@ -7175,7 +7178,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                                  'name' => 'InternalORingVendor',
                                  'title' => 'Internal O-Ring Vendor',
                                  'tooltip' => '',
@@ -7223,7 +7226,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'height' => '',
                                  'width' => 200,
                                  'defaultValueGenerator' => '',
-                                 'optionsProviderType' => 'configure',
+                                 'optionsProviderType' => NULL,
                                  'optionsProviderClass' => '',
                                  'optionsProviderData' => '',
                               )),
@@ -7259,7 +7262,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'labelAlign' => 'left',
                   )),
                   2 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
                      'name' => 'Layout',
                      'type' => NULL,
                      'region' => NULL,
@@ -7273,7 +7276,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                          'name' => 'Field Container',
                          'type' => NULL,
                          'region' => NULL,
@@ -7287,7 +7290,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -7301,7 +7304,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                                  'name' => 'BackUpORingComponentVendor',
                                  'title' => 'Back Up O-Ring Component Vendor',
                                  'tooltip' => '',
@@ -7349,12 +7352,12 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'height' => '',
                                  'width' => 200,
                                  'defaultValueGenerator' => '',
-                                 'optionsProviderType' => 'configure',
+                                 'optionsProviderType' => NULL,
                                  'optionsProviderClass' => '',
                                  'optionsProviderData' => '',
                               )),
                               1 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                                  'name' => 'BackUpORingMaterial',
                                  'title' => 'Back Up O-Ring Material',
                                  'tooltip' => '',
@@ -7385,12 +7388,12 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'dynamicOptions' => false,
                                  'defaultValueGenerator' => '',
                                  'width' => 200,
-                                 'optionsProviderType' => 'configure',
+                                 'optionsProviderType' => NULL,
                                  'optionsProviderClass' => '',
                                  'optionsProviderData' => '',
                               )),
                               2 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'BackUpORingSAPNumber',
                                  'title' => 'Back Up O-Ring SAP Number',
                                  'tooltip' => '',
@@ -7431,7 +7434,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'labelAlign' => 'left',
                           )),
                           1 => 
-                          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                              'name' => 'Field Container',
                              'type' => NULL,
                              'region' => NULL,
@@ -7445,7 +7448,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'children' => 
                             array (
                               0 => 
-                              \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                  'name' => 'BackUpORingComponentNumber',
                                  'title' => 'Back Up O-Ring Component Number',
                                  'tooltip' => '',
@@ -7518,7 +7521,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'labelAlign' => 'left',
               )),
               7 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                  'name' => 'SLIP NUT RETAINING RING',
                  'type' => NULL,
                  'region' => NULL,
@@ -7532,7 +7535,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'SlipNutRetainingRingComponentNumber',
                      'title' => 'Slip Nut Retaining Ring Component Number',
                      'tooltip' => '',
@@ -7562,7 +7565,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   1 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                      'name' => 'SlipNutRetainingRingComponentVendor',
                      'title' => 'Slip Nut Retaining Ring Component Vendor',
                      'tooltip' => '',
@@ -7605,7 +7608,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'optionsProviderData' => '',
                   )),
                   2 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                      'name' => 'SlipNutRetainingRingMaterial',
                      'title' => 'SlipNutRetainingRing Material',
                      'tooltip' => '',
@@ -7636,12 +7639,12 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'dynamicOptions' => false,
                      'defaultValueGenerator' => '',
                      'width' => 200,
-                     'optionsProviderType' => 'configure',
+                     'optionsProviderType' => NULL,
                      'optionsProviderClass' => '',
                      'optionsProviderData' => '',
                   )),
                   3 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'BackUpORingRevisionNumber',
                      'title' => 'Back Up O-Ring Revision Number',
                      'tooltip' => '',
@@ -7671,7 +7674,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   4 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'SlipNutRetainingRingSAPComponentNumber',
                      'title' => 'Slip Nut Retaining Ring SAP Component Number',
                      'tooltip' => '',
@@ -7701,7 +7704,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   5 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'SlipNutRevisionNumber',
                      'title' => 'Slip Nut Revision Number',
                      'tooltip' => '',
@@ -7743,7 +7746,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'labelAlign' => 'left',
               )),
               8 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                  'name' => 'THREAD PROTECTOR',
                  'type' => NULL,
                  'region' => NULL,
@@ -7757,7 +7760,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'ThreadProtectorComponentNumber',
                      'title' => 'Thread Protector Component Number',
                      'tooltip' => '',
@@ -7787,7 +7790,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   1 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                      'name' => 'ThreadProtectorComponentVendor',
                      'title' => 'Thread Protector Component Vendor',
                      'tooltip' => '',
@@ -7820,12 +7823,12 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'height' => '',
                      'width' => 200,
                      'defaultValueGenerator' => '',
-                     'optionsProviderType' => 'configure',
+                     'optionsProviderType' => NULL,
                      'optionsProviderClass' => '',
                      'optionsProviderData' => '',
                   )),
                   2 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                      'name' => 'ThreadProtectorMaterial',
                      'title' => 'Thread Protector Material',
                      'tooltip' => '',
@@ -7866,12 +7869,12 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'dynamicOptions' => false,
                      'defaultValueGenerator' => '',
                      'width' => 200,
-                     'optionsProviderType' => 'configure',
+                     'optionsProviderType' => NULL,
                      'optionsProviderClass' => '',
                      'optionsProviderData' => '',
                   )),
                   3 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'ThreadProtectorRevisionNumber',
                      'title' => 'Thread Protector Revision Number',
                      'tooltip' => '',
@@ -7901,7 +7904,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   4 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'ThreadProtectorSAPComponentNumber',
                      'title' => 'Thread Protector SAP Component Number',
                      'tooltip' => '',
@@ -7943,7 +7946,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'labelAlign' => 'left',
               )),
               9 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                  'name' => 'PACKAGING',
                  'type' => NULL,
                  'region' => NULL,
@@ -7957,7 +7960,7 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                      'name' => 'PackagingBoxSize',
                      'title' => 'Packaging Box Size',
                      'tooltip' => '',
@@ -8003,12 +8006,12 @@ return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'dynamicOptions' => false,
                      'defaultValueGenerator' => '',
                      'width' => 200,
-                     'optionsProviderType' => 'configure',
+                     'optionsProviderType' => NULL,
                      'optionsProviderClass' => '',
                      'optionsProviderData' => '',
                   )),
                   1 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'PackagingQuantityPerBox',
                      'title' => 'Packaging Quantity Per Box',
                      'tooltip' => '',

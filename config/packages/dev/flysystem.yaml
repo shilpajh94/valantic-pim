@@ -14,9 +14,8 @@ services:
 flysystem:
     storages:
         pimcore.asset.storage:
-            adapter: 'S3CustomizationBundle\Lib\AwsCustomAdapter'
+            adapter: local
             visibility: private
+            directory_visibility: public
             options:
-                client: 'assets_s3'
-                bucket: 'megha-pim'
-                prefix: assets
+                directory: '%kernel.project_dir%/public/var/assets'

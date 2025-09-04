@@ -1,24 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Model\CalculatedValue\UniProductManagement;
 
 use App\Model\DataObject\AbstractUniProductBase;
-use Pimcore\Model\DataObject\ClassDefinition\Layout\DynamicTextLabelInterface;
 use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\UniProductCategoryInternal;
 
-class UniProductCategoryLink implements DynamicTextLabelInterface
+class UniProductCategoryLink extends UniProductCustomAlert
 {
     public function renderLayoutText(string $data, ?Concrete $object, array $params): string
     {
         if (!$object instanceof AbstractUniProductBase) {
-            return 'Unsupported data object... 🤷🏼‍♂️';
+            return $this->renderAlert('danger', 'warning', 'Dynamic text label applied to unsupported data class!');
         }
 
         $category = $object->resolveAncestorCategoryByObjectBrick($data);
 
         if (!$category instanceof UniProductCategoryInternal) {
-            return sprintf('No category found for %s...', $data);
+            return '';
         }
 
         // TODO: Localization!
@@ -38,7 +39,7 @@ class UniProductCategoryLink implements DynamicTextLabelInterface
             '</a>',
             $objectId,
             $icon,
-            $text
+            $text,
         );
     }
 }

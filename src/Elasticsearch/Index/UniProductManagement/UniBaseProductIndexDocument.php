@@ -79,7 +79,7 @@ class UniBaseProductIndexDocument extends AbstractDocument
             ]),
         ]];
 
-        foreach ($element->getTechnicalProductGroupSpecific()?->getItems() ?? [] as $objectBrick) {
+        foreach ($element->getProductGroupSpecific()?->getItems() ?? [] as $objectBrick) {
             $result[] = $this->getNormalizedObjectbrick($objectBrick, self::PRODUCT_GROUP_SPECIFIC_TECHNICAL_PREFIX);
         }
 

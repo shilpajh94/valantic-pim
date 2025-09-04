@@ -10,18 +10,19 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class AdminAssetsListener implements EventSubscriberInterface
 {
-    public function onJsPaths(PathsEvent $event): void
-    {
-        $event->addPaths([
-            '/admin/js/open.js',
-            '/admin/js/perspective.js',
-        ]);
-    }
-
     public static function getSubscribedEvents(): array
     {
         return [
             BundleManagerEvents::JS_PATHS => 'onJsPaths',
         ];
+    }
+
+    public function onJsPaths(PathsEvent $event): void
+    {
+        $event->addPaths([
+            '/admin/js/open.js',
+            '/admin/js/perspective.js',
+            '/admin/js/CategoryExportPanel.js',
+        ]);
     }
 }

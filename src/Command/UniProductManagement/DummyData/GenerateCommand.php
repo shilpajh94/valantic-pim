@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Command\UniProductManagement\DummyData;
 
 use App\Enum\UniProductCategoryLevel;
@@ -8,13 +10,7 @@ use Pimcore\Db;
 use Pimcore\Model\Asset\Image;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\AbstractObject;
-use Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrand;
-use Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrandDss;
-use Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrandPts;
-use Pimcore\Model\DataObject\Objectbrick\Data\UniPrGsTechDss;
-use Pimcore\Model\DataObject\Objectbrick\Data\UniPrGsTechPts;
-use Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeletonDss;
-use Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkeletonPts;
+use Pimcore\Model\DataObject\Objectbrick\Data\UniPrBr;
 use Pimcore\Model\DataObject\UniProductBase;
 use Pimcore\Model\DataObject\UniProductCategoryInternal;
 use Pimcore\Model\DataObject\UniRegion;
@@ -91,7 +87,7 @@ class GenerateCommand extends AbstractDummyDataCommand
         $this->now = Carbon::now()->timestamp;
         $this->maxLevel = count(self::OBJECT_COUNTS) + 1;
 
-        $totalObjects = 5 * array_reduce(self::OBJECT_COUNTS, static fn(?int $carry, int $count): int => $count * ($carry ?? 1));
+        $totalObjects = 5 * array_reduce(self::OBJECT_COUNTS, static fn (?int $carry, int $count): int => $count * ($carry ?? 1));
         $this->output->writeln(sprintf('<info>Creating %s dummy objects over %s levels...</info>', self::nf($totalObjects), count(self::OBJECT_COUNTS)));
 
         $this->progress = new ProgressBar($this->output, $totalObjects);
@@ -130,7 +126,7 @@ class GenerateCommand extends AbstractDummyDataCommand
     }
 
     /**
-     * @param int[]    $objectCounts
+     * @param int[] $objectCounts
      * @param string[] $objectPrefixes
      */
     private function createObjects(array $objectCounts, array $objectPrefixes, AbstractObject $parent): void
@@ -191,11 +187,11 @@ class GenerateCommand extends AbstractDummyDataCommand
         if ($level === $this->maxLevel - 2) {
             $this->assignProductGroupSpecificBrandData($result);
         } elseif ($level === $this->maxLevel - 1) {
-            $this->assignProductGroupSpecificSkeletonData($result);
+            $this->assignProductGroupSpecificSkeletonData();
         } elseif ($level === $this->maxLevel) {
             $this->addHierarchyRelations($result);
             $this->setRegionalAvailability($result);
-            $this->assignProductGroupSpecificFinishedGoodData($result);
+            $this->assignProductGroupSpecificFinishedGoodData();
         }
 
         $this->committableObjects++;
@@ -214,91 +210,23 @@ class GenerateCommand extends AbstractDummyDataCommand
 
     private function assignProductGroupSpecificBrandData(UniProductCategoryInternal $object): void
     {
-        $baseProductData = (new UniPrBrand($object))
-            ->setProductDescriptionShort('FRONTIER RED 200 PSI WORKING PRESSURE  3/4X500 FOOT REEL ')
-            ->setIndustrialStandard('CEI EN 60312')
+        $baseProductData = (new UniPrBr($object))
             ->setMarketingDescriptionLong('Variflex is a good-quality, economical general purpose hose with an ARPM Class A (Limited Oil Resistance) tube and cover. This hose is for industrial air service, compressor lines, pneumatic tools, low-pressure spray and many other applications where the need for oil resistance is high. It is Non-conductive with a minimum electrical resistance greater than one (1) megohm per inch of length of hose at 1000 V DC. Available in 200, 250 and 300 PSI working pressures.')
             ->setMarketingDescriptionLong('Variflex 是一種品質優良、經濟實惠的通用軟管，配有 ARPM A 級（耐油性有限）的管子和外層。此軟管適用於工業空氣服務、壓縮機管路、氣動工具、低壓噴霧及許多對耐油性需求較高的其他應用。它不導電，在 1000 V 直流電壓下，每英吋軟管長度的最小電阻大於一 (1) 兆歐姆。提供 200、250 和 300 PSI 工作壓力。', 'zh_Hans_CN')
             ->setMarketingDescriptionLong('Variflex는 ARPM 클래스 A(제한적 내유성) 튜브와 커버가 있는 고품질의 경제적인 범용 호스입니다. 이 호스는 산업용 공기 서비스, 컴프레서 라인, 공압 공구, 저압 스프레이 및 기타 오일 저항이 필요한 다양한 용도에 사용됩니다. 비전도성이며 1000V DC에서 호스 길이 1인치당 최소 전기 저항이 1메가옴보다 큽니다. 200, 250 및 300 PSI 작동 압력으로 제공됩니다.', 'ko_KP')
             ->setMarketingDescriptionLong('Variflexは、ARPMクラスA（限定耐油性）のチューブとカバーを備えた、良質で経済的な汎用ホースです。このホースは、工業用エアサービス、コンプレッサーライン、空気圧ツール、低圧スプレーなど、耐油性の必要性が高い多くの用途に適しています。このホースは非導電性で、1000 V DCでホースの長さ1インチあたり1メガオーム以上の最小電気抵抗を示します。使用圧力は200、250、300 PSIがあります。', 'ja_JP')
-            ->setMainImage($this->mainImage);
+        ;
 
-        $object->getLevelSpecificData()?->setUniPrBrand($baseProductData);
-
-        switch (random_int(0, 1)) {
-            case 0:
-                $object->getLevelSpecificData()?->setUniPrBrandPts(
-                    new UniPrBrandPts($object)
-                    // Hint: No product group specific fields on Brand level
-                );
-
-                break;
-
-            case 1:
-                $object->getLevelSpecificData()?->setUniPrBrandDss(
-                    new UniPrBrandDss($object)
-                    // Hint: No product group specific fields on Brand level
-                );
-
-                break;
-        }
+        $object->getLevelSpecificData()?->setUniPrBr($baseProductData);
     }
 
-    private function assignProductGroupSpecificSkeletonData(UniProductCategoryInternal $object): void
+    private function assignProductGroupSpecificSkeletonData(): void
     {
         // Hint: No base product fields on skeleton level
-
-        switch (random_int(0, 1)) {
-            case 0:
-                $object->getLevelSpecificData()?->setUniPrSkeletonPts(
-                    (new UniPrSkeletonPts($object))
-                        ->setBeltThicknessMetric(random_int(5, 10))
-                        ->setProfileHeightMetric(random_int(2, 5))
-                        ->setToothHeightMetric(random_int(2, 5))
-                        ->setPitchHeightMetric(random_int(2, 5))
-                        ->setBeltAngle(10 * random_int(5, 8))
-                        ->setMaxSpeed(10 * random_int(1, 5) . ' m/s')
-                );
-
-                break;
-
-            case 1:
-                $locations = ['OS', 'CA'];
-                $object->getLevelSpecificData()?->setUniPrSkeletonDss(
-                    (new UniPrSkeletonDss($object))
-                        ->setWorkingPressureMetric(random_int(80, 160))
-                        ->setAirInletLocation($locations[random_int(0, 1)])
-                        ->setApplication('Bus')
-                );
-
-                break;
-        }
     }
 
-    private function assignProductGroupSpecificFinishedGoodData(UniProductBase $object): void
+    private function assignProductGroupSpecificFinishedGoodData(): void
     {
-        switch (random_int(0, 1)) {
-            case 0:
-                $inside = 500 * random_int(1, 4);
-                $object->getTechnicalProductGroupSpecific()?->setUniPrGsTechPts(
-                    (new UniPrGsTechPts($object))
-                        ->setInsideLengthMetric($inside)
-                        ->setOutsideLengthMetric($inside + random_int(20, 50))
-                        ->setRibPitchMetric(random_int(2, 5))
-                );
-
-                break;
-
-            case 1:
-                $object->getTechnicalProductGroupSpecific()?->setUniPrGsTechDss(
-                    (new UniPrGsTechDss($object))
-                        ->setBellowOnly((bool) random_int(0, 1))
-                        ->setMinimumHeightMetric(10 * random_int(7, 10))
-                        ->setMaximumBellowDiameterMetric(10 * random_int(10, 40))
-                );
-
-                break;
-        }
     }
 
     private function addHierarchyRelations(UniProductBase $object): void

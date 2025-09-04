@@ -21,8 +21,6 @@ use Pimcore\Model\DataObject\ClassDefinition\Data;
 
 class ProductionLengthOptionsProvider implements SelectOptionsProviderInterface {
 
-    private $optionProvider;
-
     /**
      * @param array $context
      * @param Data $fieldDefinition
@@ -71,7 +69,7 @@ class ProductionLengthOptionsProvider implements SelectOptionsProviderInterface 
      */
     public function getDefaultValue(array $context, Data $fieldDefinition): ?string
     {
-        return false;
+        return true; //return $fieldDefinition->getDefaultValue();
     }
 
     /**

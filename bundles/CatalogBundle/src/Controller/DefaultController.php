@@ -767,8 +767,6 @@ class DefaultController extends FrontendController
 
             $brandsList = $this->getBrandsList();
 
-            $this->featuresList = $this->getFeaturesList('en');
-
             if (is_array($template->getProductsData()) && !empty($template->getProductsData())) {
                 foreach ($template->getProductsData() as $k => $row) {
                     $productsData[] = array_combine($headerKeys, $row);
@@ -783,21 +781,18 @@ class DefaultController extends FrontendController
                     if (!isset($data[$baseId])) {
                         $data[$baseId] = array();
                         $fertId[$baseId] = $row['id'];
-                        $images[$baseId] = $row['altImage7'];
+                        $images[$baseId] = $row['mainImage'];
                     }
 
                     if (isset($data[$baseId]) && empty($data[$baseId])) {
                         $data[$baseId]['brandName'] = isset($data[$baseId]['brandName']) && !empty($data[$baseId]['brandName']) ? $data[$baseId]['brandName'] : $row['brandName'];
-                       // Picking the first Standard Met Hose (Multiple data is coming pipe separated { || })
-                        $data[$baseId]['standardMetHose'] = isset($data[$baseId]['standardMetHose']) && !empty($data[$baseId]['standardMetHose']) 
-                        ? explode('||', $data[$baseId]['standardMetHose'])
-                        : explode('||', $row['standardMetHose']);
+                        $data[$baseId]['industryStandard'] = isset($data[$baseId]['industryStandard']) && !empty($data[$baseId]['industryStandard']) ? $data[$baseId]['industryStandard'] : $row['industryStandard'];
                         $data[$baseId]['BrandShortText'][0] = isset($data[$baseId]['BrandShortText1'][0]) && !empty($data[$baseId]['BrandShortText1'][0]) ? $data[$baseId]['BrandShortText1'][0] : $row['BrandShortText1'];
                         $data[$baseId]['BrandShortText'][1] = isset($data[$baseId]['BrandShortText2'][1]) && !empty($data[$baseId]['BrandShortText2'][1]) ? $data[$baseId]['BrandShortText2'][1] : $row['BrandShortText2'];
                         $data[$baseId]['BrandShortText'][2] = isset($data[$baseId]['BrandShortText3'][2]) && !empty($data[$baseId]['BrandShortText3'][2]) ? $data[$baseId]['BrandShortText3'][2] : $row['BrandShortText3'];
                         $data[$baseId]['BrandShortText'][3] = isset($data[$baseId]['BrandShortText4'][3]) && !empty($data[$baseId]['BrandShortText4'][3]) ? $data[$baseId]['BrandShortText4'][3] : $row['BrandShortText4'];
                         $data[$baseId]['BrandShortText'][4] = isset($data[$baseId]['BrandShortText5'][4]) && !empty($data[$baseId]['BrandShortText5'][4]) ? $data[$baseId]['BrandShortText5'][4] : $row['BrandShortText5'];
-                        $data[$baseId]['altImage7'] = isset($row['altImage7']) && !empty($row['altImage7']) ? Asset::getByPath($row['altImage7']) : null;
+                        $data[$baseId]['mainImage'] = isset($row['mainImage']) && !empty($row['mainImage']) ? Asset::getByPath($row['mainImage']) : null;
                         if(is_array($data[$baseId]['brandName'])){
                             if(array_key_exists($data[$baseId]['brandName'][0],$brandsList) && !empty($brandsList[$data[$baseId]['brandName'][0]])){
                                 $data[$baseId]['SortOrder'] = $brandsList[$data[$baseId]['brandName'][0]];
@@ -817,13 +812,12 @@ class DefaultController extends FrontendController
                             $featureObj = null;
 
                             if (is_array($features) && !empty($features)) {
-                                $featuresObj = $this->getFiveSortedFeaturesWithIconList($features);
-                                foreach($featuresObj as $f){
-                                    if($f['iconSrc']){
-                                        $data[$baseId]['featureIcon'] = array(
-                                            $featuresObj
-                                        );
-                                    }
+                                foreach ($features as $featureId) {
+                                    $featureObj = \Pimcore\Model\DataObject\Features::getById($featureId);
+                                    $data[$baseId]['featureIcon'][$featureId] = array(
+                                        'icon' => $featureObj->getIcon(),
+                                        'name' => $featureObj->getName()
+                                    );
                                 }
                             }
                             unset(
@@ -833,27 +827,13 @@ class DefaultController extends FrontendController
                             );
                         }
                     }
+
                     if (isset($data[$baseId])) {
                         $data[$baseId]['HoseIDNominalIDFrac'][] = isset($data[$baseId]['HoseIDNominalIDFrac'][$k]) && !empty($data[$baseId]['HoseIDNominalIDFrac'][$k]) ? $data[$baseId]['HoseIDNominalIDFrac'][$k] : $row['HoseIDNominalIDFrac'];
                         $data[$baseId]['hoseIdDec'][] = isset($data[$baseId]['hoseIdDec'][$k]) && !empty($data[$baseId]['hoseIdDec'][$k]) ? $data[$baseId]['hoseIdDec'][$k] : $row['hoseIdDec'];
                     }
                 }
 
-                // data set wrt non-repeating brands
-                $uniqueBrandData = [];
-                $seenBrands = [];
-
-                foreach ($data as $baseId => $details) {
-                    $brand = is_array($details['brandName']) ? $details['brandName'][0] : $details['brandName'];
-                    
-                    if (!in_array($brand, $seenBrands)) {
-                        $uniqueBrandData[$baseId] = $details;
-                        $seenBrands[] = $brand;
-                    }
-                }
-
-                // Replace original data with filtered one
-                $data = $uniqueBrandData;
 
                 /**
                  * $baseId is Base Level Object (Brand information)
@@ -875,12 +855,13 @@ class DefaultController extends FrontendController
                         $data[$baseId]['range'] = $range;
                     }
                 }
+
                 if ($data) {
                     array_multisort(array_column($data, 'SortOrder'), SORT_ASC, $data);
                 }
+
                 $footer_logo_src = (strtolower($footerBgColor) == 'orange') ? $catalogImagesHYDFooter['Black'] : $catalogImagesHYDFooter['Orange'];
                 $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
-                
 
                 $parameterBag['info'] = array(
                     'brandsInfo' => $data,
@@ -889,8 +870,7 @@ class DefaultController extends FrontendController
                     'footer_logo_src' => (strtolower($footerBgColor) == 'orange') ? $catalogImagesHYDFooter['Black'] : $catalogImagesHYDFooter['Orange']
                 );
             }
-        }        
-        //p_r($parameterBag);
+        }
         return $this->render("catalog/default/template_hose_line_tile_template.html.twig", $parameterBag);
     }
 
@@ -1122,7 +1102,9 @@ class DefaultController extends FrontendController
                         $reinforcement = array_unique($reinforcement);
                         $coverMaterial = array_unique($coverMaterial);
                         $coverAttribute = array_unique($coverAttribute);
+
                         $safetyFeaturesList = $this->getFiveSortedFeaturesWithIconList($safetyFeatures);
+
                         $standardMetHoseListData = array();
                         $standardMetHoseMeetFlameResistence = array();
                         if ($standardsMetHose) {
@@ -2570,16 +2552,211 @@ class DefaultController extends FrontendController
         $parameterBag['footer_logo_src'] = $footer_logo_src;
         $tableClass = \AppBundle\Helper\Common::cleanString( $this->document->getKey());
 
-        $parameterBag['table_class']= $tableClass;
+$parameterBag['table_class']= $tableClass;
         return $this->render("catalog/default/template_ptg_product_page.html.twig", $parameterBag);
     }
 
+    public function templatePtgSectionPagePTSBeltsAction(Request $request): Response
+    {
+        $parameterBag = array();
+        $footerBgColor='';
+        $templateEditable = $this->document->getEditable('section_page_pts_belts');
+        $commonHelper = $this->containerInterface->get('app.common_helper');
+        $language = (isset($this->document->getProperties()['language'])) ? ($this->document->getProperties()['language'])->getData() : 'en';
+        $attributeImagesConfig = $this->containerInterface->get('app.config_provider_service')->getAttributeImagesConfig();
+        $catalogImagesPTGFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesPTGFooter');
+        $this->featuresList = $this->getFeaturesList($language);
+        
+        if (!$request->get('contentDocument')->getPublished()) {
+            $parameterBag = $this->getRequestedParameter($request, 0);
+        } else{ 
+            $documentPath = $this->document->getFullPath(); 
+            $doc = \Pimcore\Model\Document::getByPath($documentPath); 
+            if($doc) { 
+                $documentId = $doc->getId(); 
+                $parameterBag = $this->getRequestedParameter($request, $documentId); 
+            } 
+        }
+        if ($templateEditable && $templateEditable->getElement() != null) {
+            $template = $templateEditable->getElement();
+            $footerBgColor = $template->getColor();
+            $defaultColumns = [
+                'fertPTGBricks.widthmm as standardWidthmm',
+                'fertSynchronousBricks.pitchLengthMM' ,
+                'fertSynchronousBricks.pitchMM ',
+                'baseProducts.brandName',
+                'baseProducts.SIOPLevel2',
+                'baseProducts.SIOPLevel3', 
+                'baseProducts.SIOPLevel4', 
+                'baseProducts.SIOPLevel5',
+                'baseProducts.reinforcement', 
+                'baseBricks.material', 
+                'baseProducts.temperatureRangeFAndC',
+                'baseProducts.minimumTemperatureF',
+                'baseProducts.maximumTemperatureF', 
+                'baseProducts.mainImage',
+                'baseProducts.beltIdentificationImage',    
+                'baseProducts.profileDimensionPtsBelts',    
+                'baseLocalized.shortDescription', 
+                'baseLocalized.FeaturesBenefitsBulletPoint',
+                'object_localized_2_en.PrintedCatalogDescription AS Pitch',  // Added this line to select printedCatalogDescription
+                'skeltonProducts.SIOPLevel6',
+                'skeltonBricks.totalBeltThickness', 
+                'skeltonBricks.totalToothThickness' 
+                
+            ];
+            $baseProductID = $template->getBaseproduct();
+            $sql = "SELECT DISTINCT ".implode(',',$defaultColumns)."
+                FROM object_1 AS baseProducts 
+                LEFT JOIN object_brick_query_PTGBase_1 AS baseBricks ON  baseProducts.oo_id = baseBricks.id
+                LEFT JOIN object_localized_1_$language AS baseLocalized 
+                ON baseProducts.oo_id= baseLocalized.oo_id
+                LEFT JOIN object_1 AS skeltonProducts ON baseProducts.oo_id = skeltonProducts.parentId
+                LEFT JOIN object_brick_query_PTGSkeleton_1 AS skeltonBricks ON skeltonProducts.oo_id = skeltonBricks.id
+                LEFT JOIN object_1 AS fertProducts ON skeltonProducts.oo_id = fertProducts.parentId
+                LEFT JOIN object_brick_query_PTGFert_1 AS fertPTGBricks ON fertProducts.oo_id = fertPTGBricks.id
+                LEFT JOIN object_brick_query_SynchronousFert_1 AS fertSynchronousBricks ON fertProducts.oo_id = fertSynchronousBricks.id
+                LEFT JOIN object_localized_2_en ON REPLACE(skeltonProducts.SIOPLevel6, ',', '') = object_localized_2_en.oo_id  -- Added join on skeltonProducts.SIOPLevel6
+                WHERE baseProducts.oo_id = $baseProductID AND fertProducts.printedCatalogFlag =1 ORDER BY fertPTGBricks.widthmm ASC ";
+            // $SIOPQuery = "select SIOPLevel2,SIOPLevel3, SIOPLevel4, SIOPLevel5, SIOPLevel6 from object_query_1 where oo_id = '" . $baseProductID[0] . "'";
+
+            $SQLResults = $this->db->fetchAllAssociative($sql);
+            $siopLevel2 = trim(array_column($SQLResults, 'SIOPLevel2')[0], ',');
+            $siopLevel3 = trim(array_column($SQLResults, 'SIOPLevel3')[0], ',');
+            $siopLevel4 = trim(array_column($SQLResults, 'SIOPLevel4')[0], ',');
+            $siopLevel5 = trim(array_column($SQLResults, 'SIOPLevel5')[0], ',');
+            $mainImage = trim(array_column($SQLResults, 'mainImage')[0], ',');
+            $beltIdentificationImage = array_column($SQLResults, 'beltIdentificationImage')[0];
+            $profileDimensionPtsBelts = array_column($SQLResults, 'profileDimensionPtsBelts')[0];
+            $FeaturesBenefitsBulletPoint = trim(array_unique(array_column($SQLResults, 'FeaturesBenefitsBulletPoint'))[0],',');
+            $reinforcement = trim(array_unique(array_column($SQLResults, 'reinforcement'))[0], ',');
+            $material = trim(array_unique(array_column($SQLResults, 'material'))[0],',');
+            $temperatureRangeFAndC = array_unique(array_column($SQLResults, 'temperatureRangeFAndC'))[0];
+            $minimumTemperatureF = intval(array_unique(array_column($SQLResults, 'minimumTemperatureF'))[0]);
+            $maximumTemperatureF ="+". intval(array_unique(array_column($SQLResults, 'maximumTemperatureF'))[0]); 
+            $longDescription = array_unique(array_column($SQLResults, 'shortDescription'))[0];
+            $brandName = array_unique(array_column($SQLResults, 'brandName'))[0];
+            $skeltons = array_slice(($template->getSkeletonProduct() !=null )?$template->getSkeletonProduct():array_values(array_unique(array_column($SQLResults, 'Pitch'))),0,4);
+
+            $result = [];
+            $skeltonSet = array_flip($skeltons); // This creates an associative array where keys are skelton values
+
+            foreach ($SQLResults as $SQLResult) {
+                unset($SQLResult['SIOPLevel2']);
+                unset($SQLResult['SIOPLevel3']);
+                unset($SQLResult['SIOPLevel4']);
+                unset($SQLResult['SIOPLevel5']);
+                unset($SQLResult['mainImage']);
+                unset($SQLResult['beltIdentificationImage']);
+                unset($SQLResult['profileDimensionPtsBelts']);
+                unset($SQLResult['FeaturesBenefitsBulletPoint']);
+                unset($SQLResult['minimumTemperatureF']);
+                unset($SQLResult['maximumTemperatureF']);
+                unset($SQLResult['temperatureRangeFAndC']);
+                unset($SQLResult['brandName']);
+
+                // Storing results on basis of unique pitch value (pitch value contains keys of skeleton objects)
+                if (isset($SQLResult['Pitch']) && isset($skeltonSet[$SQLResult['Pitch']])) {
+                    $result[$SQLResult['Pitch']][] = $SQLResult;
+                }
+            }
+
+            for ($i = 0; $i < count($skeltons); $i++) {
+                $data['groupData'][$skeltons[$i]]['standardWidthmm'] = implode(', ', array_map('intval',array_unique(array_column($result[$skeltons[$i]], 'standardWidthmm'))));
+                $data['groupData'][$skeltons[$i]]['pitchLengthMM'] =(int) min(array_column($result[$skeltons[$i]], 'pitchLengthMM')) . ' - ' .(int) max(array_column($result[$skeltons[$i]], 'pitchLengthMM'));
+                $data['groupData'][$skeltons[$i]]['A'] = array_values(array_unique(array_column($result[$skeltons[$i]], 'pitchMM')))[0];
+                $data['groupData'][$skeltons[$i]]['B'] = array_values(array_unique(array_column($result[$skeltons[$i]], 'totalBeltThickness')))[0];
+                $data['groupData'][$skeltons[$i]]['C'] = array_values(array_unique(array_column($result[$skeltons[$i]], 'totalToothThickness')))[0];
+
+
+            }
+
+            $SIOPCategories = array();
+
+            $SIOPCategoryClassId = \Pimcore\Model\DataObject\ProductCategory::classId();
+            if (!empty($siopLevel2)) {
+                $sql = "SELECT `key`,IF(oo_id=$siopLevel3, 'selected', '') as `selected` FROM object_$SIOPCategoryClassId WHERE `ParentObjectId` = $siopLevel2 AND `CatalogFlag` = 1 ORDER BY `SortOrder` ASC";
+            
+                $SIOPCategories = $this->db->fetchAllKeyValue($sql);
+            }
+            if (!empty($siopLevel3)) {
+                $sql = "SELECT `key` FROM object_$SIOPCategoryClassId WHERE `oo_id` = $siopLevel3 ";
+                $siopLevel3 = $this->db->fetchOne($sql);
+            }
+            if (!empty($siopLevel4)) {
+                $sql = "SELECT `key` FROM object_$SIOPCategoryClassId WHERE `oo_id` = $siopLevel4 ";
+                $siopLevel4 = $this->db->fetchOne($sql);
+            }
+            if (!empty($siopLevel5)) {
+                $sql = "SELECT `key` FROM object_$SIOPCategoryClassId WHERE `oo_id` = $siopLevel5 ";
+                $siopLevel5 = $this->db->fetchOne($sql);
+            }
+            if (!empty($brandName)) {
+                $brandClassId = \Pimcore\Model\DataObject\Brand::classId();
+                $sql = "SELECT `name` FROM object_$brandClassId WHERE `oo_id` = $brandName ";
+                $brandName = $this->db->fetchOne($sql);
+            }
+            if (!empty($reinforcement)) {
+                $reinforcementClassId = \Pimcore\Model\DataObject\MultiselectMaster::classId();
+                $reinforcementLocalizedClassId = $reinforcementClassId."_".$language;
+                $sql = "SELECT `Description` FROM object_localized_$reinforcementLocalizedClassId WHERE `oo_id` = $reinforcement ";
+                $reinforcement = $this->db->fetchOne($sql);
+            }
+            if (!empty($material)) {
+                $brandClassId = \Pimcore\Model\DataObject\MultiselectMaster::classId();
+                $brandLocalizedClassId = $brandClassId."_".$language;
+                $sql = "SELECT `Description` FROM object_localized_$brandLocalizedClassId WHERE `oo_id` = $material ";
+                $material = $this->db->fetchOne($sql);
+            }
+
+            if(isset($mainImage)){
+                $mainImage = Asset::getById($mainImage);
+            }
+            if(isset($beltIdentificationImage)){
+                $beltIdentificationImage = Asset::getById($beltIdentificationImage);
+            }
+            if(isset($profileDimensionPtsBelts)){
+                $profileDimensionPtsBelts = Asset::getById($profileDimensionPtsBelts);
+            }
+            if(isset($FeaturesBenefitsBulletPoint)){
+                $FeaturesBenefitsBulletPoint = explode(',',$FeaturesBenefitsBulletPoint);
+                $FeaturesBenefitsBulletPoint = $this->getFiveSortedFeaturesWithIconList($FeaturesBenefitsBulletPoint);
+            }
+
+            $data['SIOPCategories'] = isset($SIOPCategories)?$SIOPCategories:[];
+            $data['temperatureRangeFAndC'] = isset($temperatureRangeFAndC)?$temperatureRangeFAndC:'';
+            $data['minimumTemperatureF'] = isset($minimumTemperatureF)?$minimumTemperatureF:'';
+            $data['maximumTemperatureF'] = isset($maximumTemperatureF)?$maximumTemperatureF:'';
+            $data['material'] = isset($material)?$material:'';
+            $data['reinforcement'] = isset($reinforcement)?$reinforcement:''; 
+            $data['mainImage'] = isset($mainImage)?$mainImage:'';
+            $data['beltIdentificationImage'] = isset($beltIdentificationImage)?$beltIdentificationImage:''; 
+            $data['profileDimensionPtsBelts'] = isset($profileDimensionPtsBelts)?$profileDimensionPtsBelts:'';  
+            $data['SIOPLEVEL2'] = isset($siopLevel2)?$siopLevel2:'';
+            $data['SIOPLEVEL3'] = isset($siopLevel3)?$siopLevel3:'';
+            $data['SIOPLEVEL4'] = isset($siopLevel4)?$siopLevel4:'';
+            $data['SIOPLEVEL5'] = isset($siopLevel5)?$siopLevel5:'';
+            $data['brandName'] = isset($brandName)?$brandName:'';
+            $data['shortDescription'] = isset($longDescription)?$longDescription:'';    
+            
+            $data['FeaturesBenefitsBulletPoint'] = isset($FeaturesBenefitsBulletPoint)?$FeaturesBenefitsBulletPoint:[] ; 
+            $data['footer_class'] = '';
+            $footer_logo_src = (strtolower($footerBgColor) == 'orange') ? $catalogImagesPTGFooter['Black'] : $catalogImagesPTGFooter['Orange'];
+            $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
+            $data['footer_logo_src'] = $footer_logo_src;
+
+        }//end check element
+        $parameterBag['data']=isset($data)?$data:[];
+        return $this->render("catalog/default/template_section_page_pts_belts.html.twig", $parameterBag);
+
+    }
     public function getFiveSortedFeaturesWithIconList($safetyFeatures): ?array
     {
         $safetyFeatures = array_unique($safetyFeatures);
         $safetyFeaturesList  = array();
         $safetyFeaturesListWithImage = array();
         $safetyFeaturesListWithOutImage = array();
+
         if ($safetyFeatures) {
             foreach ($safetyFeatures as $fvalue) {
                 $fIcon = isset($this->featuresList[$fvalue]['icon']) ? $this->featuresList[$fvalue]['icon'] : null;
@@ -2618,6 +2795,7 @@ class DefaultController extends FrontendController
 
         unset($safetyFeaturesListWithImage);
         unset($safetyFeaturesListWithOutImage);
+
         return $safetyFeaturesList;
     }
 

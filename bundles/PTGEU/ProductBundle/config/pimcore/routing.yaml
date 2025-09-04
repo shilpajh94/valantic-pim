@@ -1,3 +1,0 @@
-ptgeu_product_homepage:
-    path:     /ptgeu_product
-    defaults: { _controller: PTGEUProductBundle:Default:index }

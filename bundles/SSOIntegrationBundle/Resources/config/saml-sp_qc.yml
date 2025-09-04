@@ -1,7 +1,0 @@
-sso_integration:
-    default_sp:
-        entityID: https://qa.pim11.conti.de/saml/sso
-        NameIDFormat: urn:oasis:names:tc:SAML:2.0:nameid-format:transient
-        replyURL: https://qa.pim11.conti.de/saml/sso
-        baseURLPath: /
-        defaultRole: ReadOnly_All
