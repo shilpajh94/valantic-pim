@@ -1,0 +1,42 @@
+pimcore:
+    custom_views:
+        definitions:
+            7c168adb-9b73-fc73-d93c-945956d6f4c1:
+                name: 'Products IAPAC'
+                treetype: object
+                position: left
+                rootfolder: '/Unified PIM/Product Management/Products'
+                showroot: true
+                sort: 0
+                treeContextMenu:
+                    object:
+                        items:
+                            add: true
+                            addFolder: true
+                            importCsv: true
+                            cut: true
+                            copy: true
+                            paste: true
+                            delete: true
+                            rename: true
+                            reload: true
+                            publish: true
+                            unpublish: true
+                            searchAndMove: true
+                            lock: true
+                            unlock: true
+                            lockAndPropagate: true
+                            unlockAndPropagate: true
+                            changeChildrenSortBy: true
+                classes: 'UNI_PRCI,UNI_PR'
+                joins:
+                    -
+                        type: left
+                        name:
+                            pr: object_query_UNI_PR
+                        condition: 'objects.id = pr.oo_id'
+                        columns:
+                            pr: regions
+                id: 7c168adb-9b73-fc73-d93c-945956d6f4c1
+                icon: /bundles/pimcoreadmin/img/flat-color-icons/genealogy.svg
+                having: "(pr.regions LIKE '%%,IAPAC,%%' OR pr.regions IS NULL)"

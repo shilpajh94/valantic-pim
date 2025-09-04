@@ -13,7 +13,28 @@ services:
         public: false
 
     Symfony\Component\DependencyInjection\ContainerInterface: '@service_container'
-    
+
+    App\Model\CalculatedValue\:
+        resource: '../src/Model/CalculatedValue'
+        public: true
+
+    App\Elasticsearch\:
+        resource: '../src/Elasticsearch'
+
+    App\EventListener\:
+        resource: '../src/EventListener'
+
+    App\Service\:
+        resource: '../src/Service'
+
+    App\Controller\:
+        resource: '../src/Controller'
+        tags: [ 'controller.service_arguments' ]
+
+    App\Command\:
+        resource: '../src/Command'
+        tags: [ 'console.command' ]
+
     # Example custom templating helper
     # AppBundle\Templating\Helper\Example:
     #     # templating helpers need to be public as they

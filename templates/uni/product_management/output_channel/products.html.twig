@@ -1,0 +1,38 @@
+<style>
+    body {
+        font-family: "Open Sans", "Helvetica Neue", helvetica, arial, verdana, sans-serif;
+        font-size: 13px;
+    }
+
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+
+    table th {
+        text-align: left;
+    }
+
+    table th,
+    table td {
+        padding: 0.25em 0.5em;
+        border: 1px solid black;
+    }
+</style>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>GHP Code</th>
+        <th>SAP Mat Number</th>
+        <th>SAP Description</th>
+    </tr>
+    {% for product in products %}
+        <tr>
+            <td>{{ product.__id }}</td>
+            <td>{{ product.ghp_full_code }}</td>
+            <td>{{ product.sap_material_number }}</td>
+            <td>{{ product.localized[language].sap_description }}</td>
+        </tr>
+    {% endfor %}
+</table>
