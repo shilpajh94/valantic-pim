@@ -25,8 +25,9 @@ use Pimcore\Event\Model\DocumentEvent;
 use Pimcore\Bundle\WebToPrintBundle\Event\Model\PrintConfigEvent;
 use Pimcore\Bundle\WebToPrintBundle\Processor\PdfReactor;
 use Pimcore\Model;
-
-class ObjectListener
+use Pimcore\Controller\AdminController;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+class ObjectListener 
 {
     private $requestStack;
     private $appService;
@@ -172,6 +173,16 @@ class ObjectListener
                 $this->appService->updateVirtualCatalogReinforcementForUpdateInReinforcement($object, $currRequest);
             }
         }
+
+        if ($object->getClassName() == 'CatalogPTS') {
+            $selectedColumns = json_decode($object->getColumns(), true);
+
+            if (!array_key_exists("Pitch", $selectedColumns)) {
+                throw new \Exception('Pitch is required in Selected Section.');
+                return;
+            }
+        }
+
     }
 
 

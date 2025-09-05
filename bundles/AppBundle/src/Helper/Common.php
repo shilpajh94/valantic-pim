@@ -21,7 +21,8 @@ class Common
      * @author sandeep bhardwaj <sandeep@happiestminds.com>
      * @return string
      */
-    public static function cleanString($string):String{
+    public static function cleanString($string): String
+    {
         $string = str_replace(' ', '_', $string); // Replaces all spaces with hyphens.
 
         return strtolower(preg_replace('/[^A-Za-z0-9\_]/', '', $string)); // Removes special chars.
@@ -47,26 +48,28 @@ class Common
         }
     }
 
-/**
- * Clear and disable pimcore cache
- * @author sandeep bhardwaj <sandeep@happiestminds.com>
- * @return void
- */
-    public static function clearAndDisablePimCache():void{
-                // clear the whole cache
-                \Pimcore\Cache::clearAll();
-                // disable the cache globally
-                \Pimcore\Cache::disable();
+    /**
+     * Clear and disable pimcore cache
+     * @author sandeep bhardwaj <sandeep@happiestminds.com>
+     * @return void
+     */
+    public static function clearAndDisablePimCache(): void
+    {
+        // clear the whole cache
+        \Pimcore\Cache::clearAll();
+        // disable the cache globally
+        \Pimcore\Cache::disable();
     }
-    
+
     /**
      * Enable pimcore cache
      * @author sandeep bhardwaj <sandeep@happiestminds.com>
      * @return void
      */
-    public static function endablePimCache():void{
-               // enable the cache globally
-               \Pimcore\Cache::enable();
+    public static function endablePimCache(): void
+    {
+        // enable the cache globally
+        \Pimcore\Cache::enable();
     }
 
     public function moveFile($param)
@@ -193,15 +196,16 @@ class Common
 
         return $decimal;
     }
-    
+
     /**
- * Check Decimal Precision Exist or not
- *
- * @param Request   $request  Current request
- * @author Sandeep Bhardwaj <sandeep@happiestminds.com>
- * @return string
- */
-    public static function updateDataIfDecimalPrecisionExist(Request $request){
+     * Check Decimal Precision Exist or not
+     *
+     * @param Request   $request  Current request
+     * @author Sandeep Bhardwaj <sandeep@happiestminds.com>
+     * @return string
+     */
+    public static function updateDataIfDecimalPrecisionExist(Request $request)
+    {
         $newData = '';
         try {
             $objectClassName = $request->request->get('class');
@@ -233,8 +237,7 @@ class Common
                 }
             }
             return json_encode($newData);
-
-        }catch(Exception $e){
+        } catch (Exception $e) {
             return $newData;
         }
     }
@@ -248,7 +251,7 @@ class Common
      * @author Sandeep Bhardwaj <sandeep@happiestminds.com>
      * @return array
      */
-    public static function getFailedRecordFromLogTable(string $logTable,string $masterTable, string $statusColumn , int|null $logCreatedAt=null): array
+    public static function getFailedRecordFromLogTable(string $logTable, string $masterTable, string $statusColumn, int|null $logCreatedAt = null): array
     {
 
         $failedIds = [];
@@ -256,14 +259,14 @@ class Common
             $db = Db::get();
             $failedLogRecordQuery = "SELECT DISTINCT log.id FROM {$logTable} AS log INNER JOIN {$masterTable} AS m ON  log.id = m.id
                                         WHERE log.{$statusColumn} = ?";
-                                       
-            $prms =['failed'];
-            if(!empty($logCreatedAt)){
-                $failedLogRecordQuery.= " AND  log.createdAt = ? ";
-                $prms= [...$prms,$logCreatedAt];
+
+            $prms = ['failed'];
+            if (!empty($logCreatedAt)) {
+                $failedLogRecordQuery .= " AND  log.createdAt = ? ";
+                $prms = [...$prms, $logCreatedAt];
             }
             $failedLogRecordResult = $db->fetchAllAssociative($failedLogRecordQuery, $prms);
-          
+
             if (count($failedLogRecordResult) > 0) {
                 $failedIds = array_column($failedLogRecordResult, 'id');
             }

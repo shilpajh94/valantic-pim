@@ -20,6 +20,7 @@ namespace App;
 use Pimcore\Bundle\AdminBundle\PimcoreAdminBundle;
 use Pimcore\HttpKernel\BundleCollection\BundleCollection;
 use Pimcore\Kernel as PimcoreKernel;
+use App\Services\SecretManager;
 
 class Kernel extends PimcoreKernel
 {
@@ -42,5 +43,8 @@ class Kernel extends PimcoreKernel
         // if (class_exists('\\IFSEU\\ImportBundle\\IFSEUImportBundle')) {
         //     $collection->addBundle(new IFSEU\ImportBundle\IFSEUImportBundle());
         // }
+        $secretManager = new SecretManager();
+        $secretManager->retrieveSecret();
+
     }
 }

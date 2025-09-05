@@ -1,0 +1,54 @@
+<?php
+
+namespace PimDataPostBundle\Lib\TempTablePopulator\B2B\Dao;
+
+use PimDataPostBundle\Lib\TempTablePopulator\TempTablePopulatorDao;
+use PimDataPostBundle\Model\UpdateWindow;
+use PimDataPostBundle\Lib\Constants;
+
+class B2BProductTempTablePopulatorDao extends TempTablePopulatorDao
+{
+    private $db;
+    private $updateWindow;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->db = $this->getDBInstance();
+        $this->updateWindow = UpdateWindow::getInstance();
+
+    }
+
+    public function getTodaysSaleMasterModifiedRecords()
+    {
+        $startTime = $this->updateWindow->getStartTimestamp();
+        $endTime = $this->updateWindow->getEndTimestamp();
+
+        $query = "SELECT TRIM(BOTH ',' FROM  object_10.Material) AS id FROM object_10 WHERE (`modificationDate` >= {$startTime} AND `modificationDate` <= {$endTime})";
+        return $this->db->fetchFirstColumn($query);
+    }
+
+    public function getEpixFlagValueForProductIds($pimIds)
+    {
+        $resultSet = [];
+        if($pimIds)
+        {
+            $productIds = implode(",",$pimIds);
+            $query = "SELECT TRIM(BOTH ',' FROM  object_10.Material) AS pim_id, count(object_10.oo_id) AS b2b_epixFlag FROM  object_10 WHERE  (TRIM(BOTH ',' FROM  object_10.Material)) IN ($productIds) AND (object_10.epixFlag = '001' AND object_10.published = 1)  GROUP BY pim_id;";
+            // $resultSet = \Pimcore\Db\Helper::fetchPairs($this->db, $query);
+            $resultSet = $this->db->fetchAllKeyValue($query);
+        }
+        return $resultSet;
+    }
+
+    public function getExistingTempTableData($object_id)
+    {
+        if($object_id)
+        {
+            $query = "SELECT * FROM ".Constants::B2B_PRODUCT_TEMP_TABLE_NAME. " WHERE o_id = {$object_id}";
+            return $this->db->fetchAssociative($query);
+        }
+        return [];
+    }
+
+}

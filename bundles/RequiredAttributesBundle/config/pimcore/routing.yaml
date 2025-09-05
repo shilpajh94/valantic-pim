@@ -1,0 +1,25 @@
+required_attribute:
+    resource: "@RequiredAttributesBundle/src/Controller/"
+    type:     annotation
+    prefix:   /
+required_attributes_homepage:
+    path:     /required_attributes
+    defaults: { _controller: RequiredAttributesBundle:Default:index }
+label_value_data_for_nomeclature:
+    path: /admin/required_attribute/customization/get_label_value_data
+    defaults: { _controller: RequiredAttributesBundle:Customization:getLabelValueData }
+get_data_for_xliff_filters:
+    path: /admin/xliff-filters/get-data
+    defaults: { _controller: RequiredAttributesBundle:CustomTranslation:getXliffFiltersConfig }
+get_xliff_export:
+    path: /admin/translation/xliff-export
+    defaults: { _controller: RequiredAttributesBundle:CustomXliffTranslation:getxliffExport }
+get_xliff_export_download:
+    path: /admin/translation/xliff-export-download
+    defaults: { _controller: RequiredAttributesBundle:CustomXliffTranslation:getxliffExportDownload }
+_pimcore_admin:
+    resource: "../../src/Controller/Admin/"
+    type:     annotation
+    prefix:   /admin
+    options:
+        expose: true

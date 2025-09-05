@@ -1447,17 +1447,17 @@ pitchUOM:
   fieldName: pitchUOM
   fieldType: select
   brickLevel: Fert
-  brickName: SynchronousFert
+  brickName: PTGSkeleton
 pitchIN:
   fieldName: pitchIN
   fieldType: number
   brickLevel: Fert
-  brickName: SynchronousFert
+  brickName: PTGSkeleton
 pitchMM:
   fieldName: pitchMM
   fieldType: number
   brickLevel: Fert
-  brickName: SynchronousFert
+  brickName: PTGSkeleton
 numberOfTeeth:
   fieldName: numberOfTeeth
   fieldType: number

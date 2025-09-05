@@ -261,6 +261,10 @@ services:
         tags:
             - {name: 'console.command', command: 'Unpublish-Date-And-User-Command'}
 
+    AppBundle\Command\UnpublishRecordsCommand:
+        tags:
+            - {name: 'console.command', command: 'Unpublish-Records-Command'}
+
     AppBundle\Command\WorkflowReminderCommand:
         tags:
             - {name: 'console.command', command: 'contitech:workflow:reminder'}
@@ -268,6 +272,10 @@ services:
     AppBundle\Command\RemoveIFSNAMasterTableEntryOfNonExistentProductsCommand:
         tags:
             - {name: 'console.command', command: 'contitech:remove_ifs_na_master_table_entry_of_non_existent_products'}
+    
+    AppBundle\Command\MoveWrongPathProductsCommand:
+        tags:
+            - {name: 'console.command', command: 'contitech:wrong_paths'}
 
            
     AppBundle\Services\UnitConverterService:

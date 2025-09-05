@@ -52,7 +52,7 @@ class GasketOptionsProvider implements SelectOptionsProviderInterface
      */
     public function getDefaultValue(array $context, Data $fieldDefinition): ?string
     {
-        return $fieldDefinition->getDefaultValue();
+        return false;
     }
 
     /**

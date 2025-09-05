@@ -1,0 +1,12 @@
+.small_font_for_nome_panel{
+    font-size: 10px;
+}
+.nome_panel_label{
+    padding: 5px;
+    display : flex;
+    margin-bottom : 0px
+}
+
+.nome_panel_label_highlight{
+    background-color: #e6e6fa;
+}
