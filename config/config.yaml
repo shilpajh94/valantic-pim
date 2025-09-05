@@ -20,13 +20,13 @@ pimcore:
     objects:
         auto_save_interval: 0 # saving interval in seconds, default 60s, set to 0 to disable it
 
-    email:
-        sender:
-            name: '%env(EMAIL_SENDER_NAME)%'
-            email: '%env(EMAIL_SENDER_ID)%'
-        return:
-            name: ''
-            email: ''
+   # email:
+   #     sender:
+    #        name: '%env(EMAIL_SENDER_NAME)%'
+    #        email: '%env(EMAIL_SENDER_ID)%'
+    #    return:
+    #        name: ''
+    #        email: ''
     # IMPORTANT Notice!
     # Following there are only some examples listed, for a full list of possible options, please run the following command:
     # ./bin/console debug:config pimcore
@@ -95,21 +95,21 @@ pimcore:
 framework:
     profiler:
         enabled: false
-    mailer:
-        transports:
-            main: '%env(SMTP_MAIL_CONFIG)%'
-            pimcore_newsletter: '%env(SMTP_PIMCORE_NEWSLETTER)%'
+   # mailer:
+       # transports:
+          #  main: '%env(SMTP_MAIL_CONFIG)%'
+          #  pimcore_newsletter: '%env(SMTP_PIMCORE_NEWSLETTER)%'
 
 
 #### USE SESSION HANDLER CONFIGURED IN php.ini
 #    session:
 #        handler_id: null
-    cache:
-        pools:
-            pimcore.cache.pool:
-                public: true
-                default_lifetime: 31536000  # 1 year
-                adapter: cache.adapter.redis_tag_aware
-                provider: '%env(REDIS_PROVIDER)%' # Redis DNS, see: https://symfony.com/doc/current/components/cache/adapters/redis_adapter.html#configure-the-connection
+  #  cache:
+    #    pools:
+     #       pimcore.cache.pool:
+       #         public: true
+        #        default_lifetime: 31536000  # 1 year
+        #        adapter: cache.adapter.redis_tag_aware
+         #       provider: '%env(REDIS_PROVIDER)%' # Redis DNS, see: https://symfony.com/doc/current/components/cache/adapters/redis_adapter.html#configure-the-connection
 #### ASSET CUSTOM SETTINGS
 

@@ -43,8 +43,8 @@ class Kernel extends PimcoreKernel
         // if (class_exists('\\IFSEU\\ImportBundle\\IFSEUImportBundle')) {
         //     $collection->addBundle(new IFSEU\ImportBundle\IFSEUImportBundle());
         // }
-        $secretManager = new SecretManager();
-        $secretManager->retrieveSecret();
+       // $secretManager = new SecretManager();
+       // $secretManager->retrieveSecret();
 
     }
 }

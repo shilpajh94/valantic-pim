@@ -1,7 +1,7 @@
 <?php
 
-$secretManager = new App\Services\SecretManager();
-$secretManager->retrieveSecret();
+//$secretManager = new App\Services\SecretManager();
+//$secretManager->retrieveSecret();
 
 require_once('env_name.php');
 
